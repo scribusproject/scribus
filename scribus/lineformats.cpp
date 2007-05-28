@@ -1,20 +1,30 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "lineformats.h"
-#include "lineformats.moc"
-#include "multiline.h"
-#include <qmessagebox.h>
+//#include "lineformats.moc"
+
+#include <qpainter.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
+
 #include "customfdialog.h"
-#include "scribusXml.h"
+#include "fileloader.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
+#include "multiline.h"
+#include "commonstrings.h"
+#include "scribusdoc.h"
+#include "scmessagebox.h"
+#include "page.h"
+#include "sccolorengine.h"
+
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 		: QDialog( parent, "Formate", true, 0)
@@ -24,19 +34,19 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	setIcon(loadIcon("AppIcon.png"));
 	Docu = doc;
 	TempStyles = doc->MLineStyles;
-	StilFormateLayout = new QHBoxLayout( this );
+	StilFormateLayout = new Q3HBoxLayout( this );
 	StilFormateLayout->setSpacing( 5 );
 	StilFormateLayout->setMargin( 10 );
 
-	ListBox1 = new QListBox( this, "ListBox1" );
+	ListBox1 = new Q3ListBox( this, "ListBox1" );
 	ListBox1->setMinimumSize( QSize( 200, 240 ) );
 	StilFormateLayout->addWidget( ListBox1 );
 
-	Layout15 = new QVBoxLayout;
+	Layout15 = new Q3VBoxLayout;
 	Layout15->setSpacing( 6 );
 	Layout15->setMargin( 0 );
 
-	LoadLS = new QPushButton( tr( "&Append" ), this, "LoadF" );
+	LoadLS = new QPushButton( tr( "&Import" ), this, "LoadF" );
 	Layout15->addWidget( LoadLS );
 
 	NewB = new QPushButton( tr( "&New" ), this, "NewB" );
@@ -58,10 +68,10 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	SaveB = new QPushButton( tr( "&Save" ), this, "SaveB" );
 	Layout15->addWidget( SaveB );
 
-	ExitB = new QPushButton( tr( "&OK" ), this, "ExitB" );
+	ExitB = new QPushButton( CommonStrings::tr_OK, this, "ExitB" );
 	Layout15->addWidget( ExitB );
 
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
+	CancelB = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
 	Layout15->addWidget( CancelB );
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout15->addItem( spacer );
@@ -76,8 +86,8 @@ LineFormate::LineFormate( QWidget* parent, ScribusDoc *doc)
 	connect(NewB, SIGNAL(clicked()), this, SLOT(neuesFormat()));
 	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
-	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
+	connect(ListBox1, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selFormat(Q3ListBoxItem*)));
+	connect( ListBox1, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selEditFormat(Q3ListBoxItem*) ) );
 	if (ListBox1->count() > 0)
     	sFnumber = TempStyles.begin().key();
 	else
@@ -91,7 +101,7 @@ void LineFormate::saveIt()
 	emit saveStyle(this);
 }
 
-void LineFormate::selFormat(QListBoxItem *c)
+void LineFormate::selFormat(Q3ListBoxItem *c)
 {
 	sFnumber = c->text();
 	EditB->setEnabled(true);
@@ -99,7 +109,7 @@ void LineFormate::selFormat(QListBoxItem *c)
 	DeleteB->setEnabled(true);
 }
 
-void LineFormate::selEditFormat(QListBoxItem *c)
+void LineFormate::selEditFormat(Q3ListBoxItem *c)
 {
 	sFnumber = c->text();
 	EditB->setEnabled(true);
@@ -118,18 +128,27 @@ void LineFormate::dupFormat()
 		TempStyles.insert(dia->SName->text(), dia->TempVorl);
 		sFnumber = dia->SName->text();
 	}
+	delete dia;
 	UpdateFList();
 }
 
 void LineFormate::neuesFormat()
 {
-	struct singleLine sl;
-	sl.Color = "Black";
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
+	struct SingleLine sl;
+/*	sl.Color = "Black";
 	sl.Shade = 100;
 	sl.Dash = SolidLine;
 	sl.LineEnd = FlatCap;
 	sl.LineJoin = MiterJoin;
-	sl.Width = 1.0;
+	sl.Width = 1.0; */
+	sl.Color = Docu->toolSettings.dPenLine;
+	sl.Shade = Docu->toolSettings.dShadeLine;
+	sl.Dash = Qt::SolidLine;//Docu->toolSettings.;
+	sl.LineEnd = Qt::FlatCap;//Docu->toolSettings.;
+	sl.LineJoin = Docu->toolSettings.dLstyleLine;
+	sl.Width = Docu->toolSettings.dWidthLine;
 	multiLine ml;
 	ml.push_back(sl);
 	MultiLine* dia = new MultiLine(this, Docu, ml, tr("New Style"), &TempStyles);
@@ -139,10 +158,14 @@ void LineFormate::neuesFormat()
 		sFnumber = dia->SName->text();
 	}
 	UpdateFList();
+	ListBox1->setSelected(selectedIndex, true);
+	ListBox1->setTopItem(topIndex);
 }
 
 void LineFormate::editFormat()
 {
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
 	MultiLine* dia = new MultiLine(this, Docu, TempStyles[sFnumber], sFnumber, &TempStyles);
 	if (dia->exec())
 	{
@@ -158,36 +181,39 @@ void LineFormate::editFormat()
 	}
 	delete dia;
 	UpdateFList();
+	ListBox1->setSelected(selectedIndex, true);
+	ListBox1->setTopItem(topIndex);
 }
 
 void LineFormate::deleteFormat()
 {
-	int exit=QMessageBox::warning(this,
-	                              tr("Warning"),
-	                              tr("Do you really want to delete this Style?"),
-	                              tr("&No"),
-	                              tr("&Yes"),
-	                              0, 0, 0);
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
+	int exit = QMessageBox::warning(this,
+	                              CommonStrings::trWarning,
+	                              tr("Do you really want to delete this style?"),
+	                              QMessageBox::Yes | QMessageBox::No);
 	/* PFJ - 29.02.04 - Changed from 1 to QMessageBox::Yes */
 	/* FS - 12.05.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2 */
-	if (exit == 1)
+	if (exit == QMessageBox::Yes)
 	{
 		Replacement.insert(sFnumber, "");
 		TempStyles.remove(sFnumber);
 		UpdateFList();
+		int listBoxCount=ListBox1->count();
+		if (listBoxCount>selectedIndex)
+			ListBox1->setSelected(selectedIndex, true);
+		if (listBoxCount>topIndex)
+			ListBox1->setTopItem(topIndex);
 	}
 }
 
 void LineFormate::loadLStyles()
 {
 	QString fileName;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("lineformats", ".");
-#ifdef HAVE_LIBZ
 	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
-#else
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
-#endif
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else
@@ -195,53 +221,23 @@ void LineFormate::loadLStyles()
 	if (!fileName.isEmpty())
 	{
 		dirs->set("lineformats", fileName.left(fileName.findRev("/")));
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		if (ss->ReadLStyles(fileName, &TempStyles))
+		FileLoader fl(fileName);
+		if (fl.TestFile() == -1)
+		//TODO put in nice user warning
+			return;
+		if (fl.ReadLineStyles(fileName, &TempStyles))
 			UpdateFList();
-		delete ss;
 	}
 }
 
 void LineFormate::UpdateFList()
 {
-	disconnect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	disconnect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
+	disconnect(ListBox1, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selFormat(Q3ListBoxItem*)));
+	disconnect( ListBox1, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selEditFormat(Q3ListBoxItem*) ) );
 	ListBox1->clear();
 	QMap<QString,multiLine>::Iterator it;
 	for (it = TempStyles.begin(); it != TempStyles.end(); ++it)
-	{
-		QPixmap pm = QPixmap(37, 37);
-		pm.fill(white);
-		QPainter p;
-		p.begin(&pm);
-		QColor tmpf;
-		int h, s, v, sneu;
-		multiLine ml = it.data();
-		for (int its = ml.size()-1; its > -1; its--)
-		{
-			Docu->PageColors[ml[its].Color].getRGBColor().rgb(&h, &s, &v);
-			if ((h == s) && (s == v))
-			{
-				Docu->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
-				sneu = 255 - ((255 - v) * ml[its].Shade / 100);
-				tmpf.setHsv(h, s, sneu);
-			}
-			else
-			{
-				Docu->PageColors[ml[its].Color].getRGBColor().hsv(&h, &s, &v);
-				sneu = s * ml[its].Shade / 100;
-				tmpf.setHsv(h, sneu, v);
-			}
-			p.setPen(QPen(tmpf,
-							QMAX(static_cast<int>(ml[its].Width), 1),
-							static_cast<PenStyle>(ml[its].Dash),
-							static_cast<PenCapStyle>(ml[its].LineEnd),
-							static_cast<PenJoinStyle>(ml[its].LineJoin)));
-			p.drawLine(0, 18, 37, 18);
-			}
-		p.end();
-		ListBox1->insertItem(pm, it.key());
-	}
+		ListBox1->insertItem( new LineFormateItem(Docu, it.data(), it.key()) );
 	if (ListBox1->count() > 0)
 		ListBox1->setSelected(ListBox1->findItem(sFnumber), true);
 	bool setter = ListBox1->count() == 0 ? true : false;
@@ -250,7 +246,34 @@ void LineFormate::UpdateFList()
 	DublicateB->setEnabled(!setter);
 	EditB->setEnabled(!setter);
 	DeleteB->setEnabled(!setter);
-	ListBox1->sort( TRUE );
-	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
+	ListBox1->sort( true );
+	connect(ListBox1, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selFormat(Q3ListBoxItem*)));
+	connect( ListBox1, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selEditFormat(Q3ListBoxItem*) ) );
+}
+
+LineFormateItem::LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text) : ScListBoxPixmap<37, 37>()
+{
+	setText(Text);
+	mLine = MultiLine;
+	doc = Doc;
+}
+
+void LineFormateItem::redraw(void)
+{
+	QColor tmpf;
+	pmap->fill(Qt::white);
+	QPainter p;
+	p.begin(pmap.get());
+	for (int its = mLine.size()-1; its > -1; its--)
+	{
+		const ScColor& col = doc->PageColors[mLine[its].Color];
+		tmpf = ScColorEngine::getDisplayColor(col, doc, mLine[its].Shade);
+		p.setPen(QPen(tmpf,
+						qMax(static_cast<int>(mLine[its].Width), 1),
+						static_cast<Qt::PenStyle>(mLine[its].Dash),
+						static_cast<Qt::PenCapStyle>(mLine[its].LineEnd),
+						static_cast<Qt::PenJoinStyle>(mLine[its].LineJoin)));
+		p.drawLine(0, 18, 37, 18);
+	}
+	p.end();
 }

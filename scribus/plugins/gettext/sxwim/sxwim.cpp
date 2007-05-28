@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                  *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -23,6 +29,7 @@
 
 #ifdef HAVE_XML
 
+#include "prefsmanager.h"
 #include <prefsfile.h>
 #include <prefscontext.h>
 #include <prefstable.h>
@@ -30,8 +37,6 @@
 #include "stylereader.h"
 #include "contentreader.h"
 #include "sxwdia.h"
-
-extern PrefsFile* prefsFile;
 
 QString FileFormatName()
 {
@@ -43,21 +48,22 @@ QStringList FileExtensions()
 	return QStringList("sxw");
 }
 
-void GetText(QString filename, QString, bool textOnly, gtWriter *writer)
+void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
 {
-	SxwIm* sim = new SxwIm(filename, writer, textOnly);
+	SxwIm* sim = new SxwIm(filename, encoding, writer, textOnly);
 	delete sim;
 }
 
 /********** Class SxwIm ************************************************************/
 
-SxwIm::SxwIm(QString fileName, gtWriter* w, bool textOnly)
+SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 {
-	PrefsContext* prefs = prefsFile->getPluginContext("SxwIm");
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SxwIm");
 	bool update = prefs->getBool("update", true);
 	bool prefix = prefs->getBool("prefix", true);
 	bool ask = prefs->getBool("askAgain", true);
 	bool pack = prefs->getBool("pack", true);
+	encoding = enc;
 	if (!textOnly)
 	{
 		if (ask)
@@ -66,7 +72,7 @@ SxwIm::SxwIm(QString fileName, gtWriter* w, bool textOnly)
 			if (sxwdia->exec()) {
 				update = sxwdia->shouldUpdate();
 				prefix = sxwdia->usePrefix();
-				pack   = sxwdia->packStyles();
+				pack = sxwdia->packStyles();
 				prefs->set("update", update);
 				prefs->set("prefix", sxwdia->usePrefix());
 				prefs->set("askAgain", sxwdia->askAgain());
@@ -85,7 +91,8 @@ SxwIm::SxwIm(QString fileName, gtWriter* w, bool textOnly)
 	stylePath   = fun->getFile(STYLE);
 	contentPath = fun->getFile(CONTENT);
 	delete fun;
-	if ((stylePath != NULL) && (contentPath != NULL))
+	// Qt4 NULL -> isNull()
+	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QString docname = filename.right(filename.length() - filename.findRev("/") - 1);
 		docname = docname.left(docname.findRev("."));
@@ -100,12 +107,12 @@ SxwIm::SxwIm(QString fileName, gtWriter* w, bool textOnly)
 		QFile f2(contentPath);
 		f2.remove();
 	}
-	else if ((stylePath == NULL) && (contentPath != NULL))
+	else if ((stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QFile f2(contentPath);
 		f2.remove();
 	}
-	else if ((stylePath != NULL) && (contentPath == NULL))
+	else if ((!stylePath.isNull()) && (contentPath.isNull()))
 	{
 		QFile f1(stylePath);
 		f1.remove();

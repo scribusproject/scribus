@@ -1,29 +1,51 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef DOCINFOS_H
 #define DOCINFOS_H
 
-#include <qtabdialog.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qlineedit.h>
-#include <qmultilineedit.h>
-#include "scribusdoc.h"
+#include <qtabwidget.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <QLabel>
 
-class DocInfos : public QTabDialog
+#include "scribusapi.h"
+#include "documentinformation.h"
+
+class QLineEdit;
+class Q3MultiLineEdit;
+class QLabel;
+class QWidget;
+class Q3GridLayout;
+
+
+/*! \brief The DocInfos class is now part of the ReformDoc multi widgets storage.
+See reformdoc.h as reference. The return values are handled via. getDocInfo()
+method. It can be used as standalone widget. */
+class SCRIBUS_API DocInfos : public QTabWidget
 {
     Q_OBJECT
 
 public:
-	DocInfos( QWidget* parent, ScribusDoc* doc );
+	DocInfos( QWidget* parent, DocumentInformation& docInfo );
 	~DocInfos() {};
 
+	/*! \brief Class wide DocumentInformation& docInfo reference. */
+	DocumentInformation infos;
+
+	/*! \brief Returns the changed values.
+	Used e.g. in ScribusMainWindow::SetupDoc().
+	\retval DocumentInformation structure */
+	DocumentInformation getDocInfo();
+
+	/*! \brief (Re)loads the document informations.
+	See e.g. ReformDoc::restoreDefaults() */
+	void restoreDefaults();
+
+protected:
 	QLineEdit* publisherEdit;
 	QLineEdit* dateEdit;
 	QLineEdit* typeEdit;
@@ -34,14 +56,13 @@ public:
 	QLineEdit* relationEdit;
 	QLineEdit* coverageEdit;
 	QLineEdit* rightsEdit;
-	QMultiLineEdit* contributorsEdit;
-
 	QLineEdit* titleEdit;
 	QLineEdit* authorEdit;
-	QMultiLineEdit* descriptionEdit;
-	QMultiLineEdit* keywordsEdit;
 
-protected:
+	Q3MultiLineEdit* descriptionEdit;
+	Q3MultiLineEdit* keywordsEdit;
+	Q3MultiLineEdit* contributorsEdit;
+
 	QLabel* authorLabel;
 	QLabel* titleLabel;
 	QLabel* publisherLabel;
@@ -58,8 +79,8 @@ protected:
 	QLabel* keywordsLabel;
 	QLabel* contributorsLabel;
 
-	QGridLayout* layout1;
-	QGridLayout* layout2;
+	Q3GridLayout* layout1;
+	Q3GridLayout* layout2;
 
 	QWidget* page1;
 	QWidget* page2;

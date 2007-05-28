@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /* This file is part of the KDE project
    Copyright (c) 2003 Lukas Tinkl <lukas@kde.org>
    Copyright (c) 2003 David Faure <faure@kde.org>
@@ -21,9 +27,10 @@
 #ifndef STYLESTACK_H
 #define STYLESTACK_H
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <qdom.h>
-#include <qvaluestack.h>
+#include <q3valuestack.h>
+#include <qstringlist.h>
 
 /**
  *  This class implements a stack for the different styles of an object.
@@ -52,6 +59,17 @@ class StyleStack
 public:
     StyleStack();
     virtual ~StyleStack();
+
+	enum Mode
+	{
+		OODraw1x = 1,
+		OODraw2x = 2
+	};
+
+	/**
+     * Set attribute analysis mode.
+     */
+	void setMode( const StyleStack::Mode mode );
 
     /**
      * Clears the complete stack.
@@ -82,7 +100,7 @@ public:
     /**
      * Check if any of the styles on the stack has an attribute called 'name'.
      */
-    bool hasAttribute( const QString& name ) const;
+	bool hasAttribute( const QString& name ) const;
 
     /**
      * Search for the attribute called 'name', starting on top of the stack,
@@ -101,7 +119,7 @@ public:
      * Search for the attribute called 'name', starting on top of the stack,
      * and return it.
      */
-    QString attribute( const QString& name, const QString& detail ) const;
+	QString attribute( const QString& name, const QString& detail ) const;
 
     /**
      * Check if any of the styles on the stack has a child node called 'name'.
@@ -126,12 +144,25 @@ public:
     QString userStyleName() const;
 
 private:
+
+	// Node names to look for style properties
+	QStringList m_nodeNames;
+
     // For save/restore: stack of "marks". Each mark is an index in m_stack.
-    QValueStack<int> m_marks;
+    Q3ValueStack<int> m_marks;
 
     // We use QValueList instead of QValueStack because we need access to all styles
     // not only the top one.
-    QValueList<QDomElement> m_stack;
+    Q3ValueList<QDomElement> m_stack;
+
+	// Get node name to look for according to property type
+	void fillNodeNameList( QStringList& names, const StyleStack::Mode mode );
+
+	// Search a specific attribute amongst childs of an element
+	QDomElement searchAttribute( const QDomElement& element, const QStringList& names,const QString& name ) const;
+
+	// Search a specific attribute amongst childs of an element
+	QDomElement searchAttribute( const QDomElement& element, const QStringList& names, const QString& name, const QString& fullName ) const;
 };
 
 

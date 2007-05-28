@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           fpointarray.h  -  description
                              -------------------
@@ -18,41 +24,67 @@
 #ifndef FPOINTARRAY_H
 #define FPOINTARRAY_H
 
-#include <qmemarray.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 #include <qpoint.h>
+#include <QVector>
+#include "scribusapi.h"
 #include "fpoint.h"
 
 /**
   *@author Franz Schmid
   */
 
-class FPointArray : public QMemArray<FPoint>
+class SVGState;
+
+class SCRIBUS_API FPointArray : private QVector<FPoint>
 {
 public: 
-	FPointArray() {};
-	FPointArray(int size) : QMemArray<FPoint>(size) {};
-	void setPoint(uint i, double x, double y);
-	void setPoint(uint i, FPoint p);
+	FPointArray() : count(0), capacity(0), svgState(NULL) {};
+	FPointArray(int size) : QVector<FPoint>(size), count(size), capacity(size), svgState(NULL) {};
+	FPointArray(const FPointArray &a) : QVector<FPoint>(a), count(a.count), capacity(a.capacity), svgState(NULL) {};
+	uint size() const { return count; };
+	bool resize(uint newCount);
+	void setPoint(uint i, double x, double y) { Iterator p = begin(); p+=i; p->xp = x; p->yp = y; };
+	void setPoint(uint i, FPoint p) {	setPoint(i, p.xp, p.yp); };
 	bool setPoints( int nPoints, double firstx, double firsty, ... );
 	bool putPoints( int index, int nPoints, double firstx, double firsty,  ... );
 	bool putPoints( int index, int nPoints, const FPointArray & from, int fromIndex = 0 );
-	void point(uint i, double *x, double *y);
-	FPoint point(uint i);
-	QPoint pointQ(uint i);
+	void point(uint i, double *x, double *y) const;
+	const FPoint & point(uint i)  const{ ConstIterator p = begin(); p+=i; return *p; };
+	QPoint pointQ(uint i) const;
 	void translate( double dx, double dy );
-	FPoint WidthHeight();
-	void map(QWMatrix m);
-	FPointArray &operator=( const FPointArray &a ) { return (FPointArray&)assign( a ); }
-	FPointArray copy() const { FPointArray tmp; return *((FPointArray*)&tmp.duplicate(*this)); }
+	void scale( double sx, double sy );
+	FPoint WidthHeight() const;
+	void map(QMatrix m);
+	FPointArray &operator=( const FPointArray &a );
+	FPointArray copy() const;
 	void setMarker();
 	void addPoint(double x, double y);
 	void addPoint(FPoint p);
-	double lenPathSeg(int seg);
-	double lenPathDist(int seg, double t1, double t2);
-	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n );
-	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 );
-	~FPointArray() {};
+	bool hasLastQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4) const;
+	void addQuadPoint(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
+	void addQuadPoint(FPoint p1, FPoint p2, FPoint p3, FPoint p4);
+	double lenPathSeg(int seg) const;
+	double lenPathDist(int seg, double t1, double t2) const;
+	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n ) const;
+	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 ) const;
+	bool operator==(const FPointArray &rhs) const;
+	bool operator!=(const FPointArray &rhs) const;
+	~FPointArray();
+	void svgInit();
+	void svgMoveTo(double x, double y);
+	void svgLineTo(double x, double y);
+	//void svgCurveTo(double x1, double y1, double x2, double y2);
+	void svgCurveToCubic(double x1, double y1, double x2, double y2, double x3, double y3);
+	void svgArcTo(double r1, double r2, double angle, bool largeArcFlag, bool sweepFlag, double x1, double y1);
+	void svgClosePath();
+	void calculateArc(bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
+	bool parseSVG(const QString& svgPath);
+	QString svgPath() const;
+private:
+	uint count;
+	uint capacity;
+	SVGState * svgState;
 };
 
 #endif

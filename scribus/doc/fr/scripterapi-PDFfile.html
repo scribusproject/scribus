@@ -1,0 +1,204 @@
+<qt>
+<title>Python : classe PDFfile</title>
+<h2>Python : classe PDFfile</h2>
+<p><a name="PDFfile">class <strong>PDFfile</strong></a>(<a href="__builtin__.html#object">objet</a>)
+</p>   
+<hr />
+<p>M&eacute;thodes d&eacute;finies ici :</p>
+<dl>
+	<dt><a name="PDFfile-Save"><strong>Save</strong></a>(...)</dt>
+	<dd><code>Cette m&eacute;thode est obsol&egrave;te - utilisez <a href="#PDFfile-save">save</a>() &agrave; la place.</code></dd>
+
+	<dt><a name="PDFfile-__init__"><strong>__init__</strong></a>(...)</dt><dd><code>x.<a href="#PDFfile-__init__">__init__</a>(...) initialise x; voir x.__class__.__doc__ pour la signature</code></dd>
+
+	<dt><a name="PDFfile-save"><strong>save</strong></a>(...)</dt><dd><code>Enregistre les pages s&eacute;lectionn&eacute;es dans un fichier pdf</code></dd>
+</dl>
+
+<hr>
+<p>Donn&eacute;es et autres attributs d&eacute;finis ici:</p>
+<dd>
+	<dt><strong>__new__</strong> = &lt;m&eacute;thode int&eacute;gr&eacute;e __new__ de type objet&gt;</dt>
+	<dd><code>T.<a href="#PDFfile-__new__">__new__</a>(S, ...) -&gt; un nouvel objet de type S, un sous-type de T</code></dd>
+
+	<dt><strong>aanot</strong> = &lt;membre 'aanot' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Autorise l'ajout d'annotations et de champs. Valeur bool&eacute;enne</code></dd>
+
+	<dt><strong>achange</strong> = &lt;membre 'achange' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Autorise la modification du document. Valeur bool&eacute;enne</code></dd>
+
+	<dt><strong>acopy</strong> = &lt;membre 'acopy' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Autorise la copie de texte et de graphiques. Valeur bool&eacute;enne</code></dd>
+
+	<dt><strong>aprint</strong> = &lt;membre 'aprint' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Autorise l'impression du document. Valeur bool&eacute;enne</code></dd>
+
+	<dt><strong>article</strong> = &lt;membre 'article' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Enregistre les cadres de texte li&eacute;s en tant qu'articles PDF<br> Valeur bool&eacute;enne</code></dd>
+
+	<dt><strong>binding</strong> = &lt;membre 'binding' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Indique la liaison.<br>
+ 0 - Liaison &agrave; gauche<br>
+ 1 - Liaison &agrave; droite</code></dd>
+
+	<dt><strong>bleedb</strong> = &lt;membre 'bleedb' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Marge de coupe du bas<br>Distance pour la coupe &agrave; partir du bas de la page physique</code></dd>
+
+	<dt><strong>bleedl</strong> = &lt;membre 'bleedl' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Marge de coupe de gauche<br>Distance pour la coupe &agrave; partir de la gauche de la page physique</code></dd>
+
+	<dt><strong>bleedr</strong> = &lt;membre 'bleedr' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Marge de coupe de droite<br>Distance pour la coupe &agrave; partir de la droite de la page physique</code></dd>
+
+	<dt><strong>bleedt</strong> = &lt;membre 'bleedt' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Marge de coupe du haut<br>Distance pour la coupe &agrave; partir du haut de la page physique</code></dl>
+
+	<dt><strong>bookmarks</strong> = &lt;membre 'bookmarks' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Inclus les signets que vous avez cr&eacute;&eacute;s dans votre document.<br>Ils sont utiles pour la navigation dans de longs documents PDF.<br>Valeur bool&eacute;enne</code></dd>
+
+	<dt><strong>compress</strong> = &lt;membre 'compress' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Indicateur de compression. Valeur bool&eacute;enne.</code></dd>
+
+	<dt><strong>compressmtd</strong> = &lt;membre 'compressmtd' des objets 'PDFfile'&gt;</dt>
+	<dd><code>M&eacute;thode de compression.<br>
+ 0 - Automatique<br>
+ 1 - JPEG<br>
+ 2 - zip<br>
+ 3 - Aucune.</code></dd>
+
+	<dt><strong>downsample</strong> = &lt;attribut 'downsample' des objets 'PDFfile'&gt;</dt>
+	<dd><code>R&eacute;duit la r&eacute;solution de l'image &agrave; cette valeur. Les
+valeurs sont comprises entre 35 et 4000<br>Mettre &agrave; 0 pour ne pas modifier la r&eacute;solution</code></dd>
+
+	<dt><strong>effval</strong> = &lt;attribut 'effval' des objets 'PDFfile'&gt;</dt>
+	<dd><code>Liste des valeurs des effets pour chaque page enregistr&eacute;e.<br>
+	<pre>
+Il s'agit d'une liste de six nombres entiers. Ils ont la signification suivante:
+        - Dur&eacute;e d'affichage de la page avant que la pr&eacute;sentation
+          d&eacute;marre &agrave; la page s&eacute;lectionn&eacute;e. (1-3600)
+        - Dur&eacute;e de l'effet. (1 - 3600)
+                Un temps plus court acc&eacute;l&eacute;rera l'effet, un temps plus long le ralentira
+        - Type d'effet visuel
+                0 - Pas d'effet
+                1 - Stores
+                2 - Bo&icirc;te
+                3 - Dissolution
+                4 - Scintillement
+                5 - S&eacute;paration
+                6 - Effacement
+        - Direction de l'effet de d&eacute;placement de lignes pour les effets de s&eacute;paration et de store.
+                0 - Horizontal
+                1 - Vertical
+        - Position de d&eacute;part pour les effets de bo&icirc;te et de s&eacute;paration.
+                0 - Int&eacute;rieur
+                1 - Ext&eacute;rieur
+        - Direction des effets de scintillement et d'effacement.
+                0 - De gauche &agrave; droite
+                1 - De haut en bas
+                2 - De bas en haut
+                3 - De droite &agrave; gauche
+                4 - Du coin sup&eacute;rieur gauche au coin inf&eacute;rieur droit
+</pre></code>
+</dt>
+
+<dt><strong>encrypt</strong> = &lt;membre 'encrypt' des objets 'PDFfile'&gt;</dt>
+<dd><code>Utilisation de l'encryption. Valeur bool&eacute;enne</code></dd>
+
+<dt><strong>file</strong> = &lt;attribut 'file' des objets 'PDFfile'&gt;</dt>
+<dd><code>Nom du fichier dans lequel enregistrer</code></dd>
+
+<dt><strong>fonts</strong> = &lt;membre 'fonts' des objets 'PDFfile'&gt;</dt>
+<dd><code>Liste de polices &agrave; inclure.</code></dd>
+
+<dt><strong>imagepr</strong> = &lt;attribut 'imagepr' des objets 'PDFfile'&gt;</dt>
+<dd><code>Profil couleur pour les images</code></dd>
+
+<dt><strong>info</strong> = &lt;attribut 'info' des objets 'PDFfile'&gt;</dt>
+<dd><code>Cha&icirc;ne requise pour PDF/X-3, sinon le PDF ne sera pas conforme &agrave; PDF/X-3. Nous vous recommandons d'utiliser le titre du document.</code></dd>
+
+<dt><strong>intenti</strong> = &lt;membre 'intenti' des objets 'PDFfile'&gt;</dt>
+<dd><code>Rendu pour les images<br>
+0 - Perceptuel<br>
+1 - Colorim&eacute;trie relative<br>
+2 - Saturation<br>
+3 - Colorim&eacute;trie absolue</code></dd>
+
+<dt><strong>intents</strong> = &lt;membre 'intents' des objets 'PDFfile'&gt;</dt>
+<dd><code>Rendu pour les couleurs d'accompagnement<br>
+0 - Perceptuel<br>
+1 - Colorim&eacute;trie relative<br>
+2 - Saturation<br>
+3 - Colorim&eacute;trie absolue</code></dd>
+
+<dt><strong>lpival</strong> = &lt;attribut 'lpival' des objets 'PDFfile'&gt;</dt>
+<dd><code>Param&egrave;tres du rendu pour des couleurs individuelles.<br>
+<pre>
+Il s'agit d'une liste de valeurs pour chaque couleur
+ Les valeurs des couleurs respectent la structure [siii] qui
+correspond &agrave;:
+        s - Nom de la couleur ('Noir', 'Cyan', 'Magenta', 'Jaune')
+        i - Fr&eacute;quence (10 &agrave; 1000)
+        i - Angle (-180 &agrave; 180)
+        i - Fonction de point
+                0 - Simple point
+                1 - Ligne
+                2 - Rond
+                3 - Ellipse
+</pre>
+Soyez prudent en assignant ces valeurs, car leur validit&eacute; n'est pas v&eacute;rifi&eacute;e.</code></dd>
+
+<dt><strong>noembicc</strong> = &lt;membre 'noembicc' des objets 'PDFfile'&gt;</dt>
+<dd><code>Ne pas utiliser de profils ICC. Valeur bool&eacute;enne</code></dd>
+
+<dt><strong>outdst</strong> = &lt;membre 'outdst' des objets 'PDFfile'&gt;</dt>
+<dd><code>Destination de sortie.<br>
+0 - &eacute;cran<br>
+1 - imprimante</code></dd>
+
+<dt><strong>owner</strong> = &lt;attribut 'owner' des objets 'PDFfile'&gt;</dt>
+<dd><code>Mot de passe du propri&eacute;taire</code></dd>
+
+<dt><strong>pages</strong> = &lt;attribut 'pages' des objets 'PDFfile'&gt;</dt>
+<dd><code>Liste des pages &agrave; imprimer</code></dd>
+
+<dt><strong>presentation</strong> = &lt;membre 'presentation' des objets 'PDFfile'&gt;</dt>
+<dd><code>Active la valeur de pr&eacute;sentation Effects.Bool</code></dd>
+
+<dt><strong>printprofc</strong> = &lt;attribut 'printprofc' des objets 'PDFfile'&gt;</dt>
+<dd><code>Profil de sortie pour l'impression. Si possible, r&eacute;f&eacute;rez-vous &agrave; votre imprimeur pour le choix du profil.</code></dd>
+
+<dt><strong>profilei</strong> = &lt;membre 'profilei' des objets 'PDFfile'&gt;</dt>
+<dd><code>Inclus un profil couleur pour les images. Valeur bool&eacute;enne.</code></dd>
+
+<dt><strong>profiles</strong> = &lt;membre 'profiles' des objets 'PDFfile'&gt;</dt>
+<dd><code>Inclus un profil couleur pour les couleurs d'accompagnement. Valeur bool&eacute;enne.</code></dd>
+
+<dt><strong>quality</strong> = &lt;membre 'quality' des objets 'PDFfile'&gt;</dt>
+<dd><code>Qualit&eacute; de l'image<br>
+0 - Maximum<br>
+1 - Haute<br>
+2 - Moyenne<br>
+3 - Basse<br>
+4 - Minimum</code></dd>
+
+<dt><strong>resolution</strong> = &lt;attribut 'resolution' des objets 'PDFfile'&gt;</dt>
+<dd><code>R&eacute;solution du fichier de sortie. Les valeurs sont comprises entre 35 et 4000.</code></dd>
+
+<dt><strong>solidpr</strong> = &lt;attribut 'solidpr' des objets 'PDFfile'&gt;</dt>
+<dd><code>Profil couleur pour les couleurs d'accompagnement</code></dd>
+
+<dt><strong>thumbnails</strong> = &lt;membre 'thumbnails' des objets 'PDFfile'&gt;<dd><code>G&eacute;n&egrave;re
+les vignettes. Valeur bool&eacute;enne.</code></dl>
+
+<dt><strong>uselpi</strong> = &lt;membre 'uselpi' des objets 'PDFfile'&gt;</dt>
+<dd><code>Utilisation des param&egrave;tres personnalis&eacute;s de rendu. Valeur bool&eacute;enne</code></dd>
+
+<dt><strong>user</strong> = &lt;attribut 'user' des objets 'PDFfile'&gt;</dt>
+<dd><code>Mot de passe de l'utilisateur</code></dd>
+
+<dt><strong>version</strong> = &lt;membre 'version' des objets 'PDFfile'&gt;</dt>
+<dd><code>Indique la version de PDF &agrave; utiliser:<br>
+12 = PDF/X-3<br>
+13 = PDF 1.3 (Acrobat 4)<br>
+14 = PDF 1.4 (Acrobat 5)</code></dd>
+
+</qt> 

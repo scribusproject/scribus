@@ -1,76 +1,131 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
- *   Riku Leino, riku.leino@gmail.com                                          *
- ***************************************************************************/
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
+ *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "satemplate.h"
-#include "satemplate.moc"
-#include <prefsfile.h>
+#include "satdialog.h"
 
-extern PrefsFile* prefsFile;
-ScribusApp* Carrier;
-QWidget* par;
+#include "scpaths.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 
-QString Name()
+int saveastemplateplugin_getPluginAPIVersion()
 {
-    return QObject::tr("Save as &Template...");
+	return PLUGIN_API_VERSION;
 }
 
-int Type()
+ScPlugin* saveastemplateplugin_getPlugin()
 {
-    return 5;
+	SaveAsTemplatePlugin* plug = new SaveAsTemplatePlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void saveastemplateplugin_freePlugin(ScPlugin* plugin)
 {
-	return 7;
+	SaveAsTemplatePlugin* plug = dynamic_cast<SaveAsTemplatePlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-void InitPlug(QWidget *d, ScribusApp *plug)
+SaveAsTemplatePlugin::SaveAsTemplatePlugin() : ScActionPlugin()
 {
-	Carrier = plug;
-	par = d;
-	satm = new MenuSAT(d);
-	int id = plug->fileMenu->insertItem(QObject::tr("Save as &Template..."), -1, plug->fileMenu->indexOf(plug->M_SaveAs)+1);
-	plug->fileMenu->connectItem(id, satm, SLOT(RunSATPlug()));
-	plug->fileMenu->setItemEnabled(id, 0);
-	plug->MenuItemsFile.append(id);
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-void CleanUpPlug()
-{}
+SaveAsTemplatePlugin::~SaveAsTemplatePlugin() {};
 
-void Run(QWidget *d, ScribusApp *plug)
+void SaveAsTemplatePlugin::languageChange()
 {
-	QWidget *p;
-	p = d;
-	ScribusApp *a;
-	a = plug;
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "SaveAsDocumentTemplate";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("Save as &Template...");
+	// Shortcut
+	m_actionInfo.keySequence = "Ctrl+Alt+S";
+	// Menu
+	m_actionInfo.menu = "File";
+	m_actionInfo.menuAfterName = "SaveAs";
+	m_actionInfo.enabledOnStartup = true;
 }
 
-void MenuSAT::RunSATPlug()
+const QString SaveAsTemplatePlugin::fullTrName() const
 {
-	QDir templates(QDir::homeDirPath() + "/.scribus");
+	return QObject::tr("Save As Template");
+}
+
+const ScActionPlugin::AboutData* SaveAsTemplatePlugin::getAboutData() const
+{
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8("Riku Leino <riku@scribus.info>");
+	about->shortDescription = tr("Save a document as a template");
+	about->description = tr("Save a document as a template. Good way to ease the "
+	                        "initial work for documents with a constant look");
+    // about->version
+    // about->releaseDate
+    // about->copyright
+	about->license = "GPL";
+	return about;
+}
+
+void SaveAsTemplatePlugin::deleteAboutData(const AboutData* about) const
+{
+	Q_ASSERT(about);
+	delete about;
+}
+
+bool SaveAsTemplatePlugin::run(ScribusDoc* doc, QString target)
+/*{
+	Q_ASSERT(target.isEmpty());
+	Sat = new MenuSAT();
+	Sat->RunSATPlug();
+	delete Sat;
+	Sat = 0;
+	return true;
+}
+*/
+/* jghali's fix when the new file dialog is cancelled SaT is still active in the menu - PL */
+{
+	m_Doc=doc;
+ 	if ( m_Doc )
+	{
+		Q_ASSERT(target.isEmpty());
+		Sat = new MenuSAT();
+		Sat->RunSATPlug(m_Doc);
+		delete Sat;
+		Sat = 0;
+	}
+	return true;
+}
+void MenuSAT::RunSATPlug(ScribusDoc* doc)
+{
+	QDir templates(ScPaths::getApplicationDataDir());
 	if (!templates.exists("templates"))
 	{
 		templates.mkdir("templates");
 	}
 	QString currentDirPath = QDir::currentDirPath();
-	QString currentFile = Carrier->doc->DocName;
-	bool hasName = Carrier->doc->hasName;
-	bool isModified = Carrier->doc->isModified();
-	QString userTemplatesDir = Carrier->Prefs.TemplateDir;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	QString currentFile = doc->DocName;
+	bool hasName = doc->hasName;
+	bool isModified = doc->isModified();
+	QString userTemplatesDir = PrefsManager::instance()->appPrefs.documentTemplatesDir;
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString oldCollect = dirs->get("collect", ".");
 	QString templatesDir = ".";
-	if (userTemplatesDir == "")
-		templatesDir = QDir::homeDirPath() + "/.scribus/templates";
+	if (userTemplatesDir.isEmpty())
+		templatesDir = ScPaths::getApplicationDataDir() + "templates";
 	else
 	{
 		if (userTemplatesDir.right(1) == "/")
@@ -78,41 +133,36 @@ void MenuSAT::RunSATPlug()
 		templatesDir = userTemplatesDir;
 	}
 	dirs->set("collect", templatesDir);
-	if (Carrier->Collect() == "")
+	if (doc->scMW()->Collect().isEmpty())
 		return;
 	if (oldCollect != ".")
 		dirs->set("collect", oldCollect);
-	QString docPath = Carrier->doc->DocName;
+	QString docPath = doc->DocName;
 	QString docDir = docPath.left(docPath.findRev('/'));
 	QString docName = docPath.right(docPath.length() - docPath.findRev('/') - 1);
 	docName = docName.left(docName.findRev(".s"));
 
-	if (currentFile !=  Carrier->doc->DocName)
+	if (currentFile !=  doc->DocName)
 	{
-		satdialog* satdia = new satdialog(par,docName, 
-                                          static_cast<int>(Carrier->doc->PageB + 0.5), 
-                                          static_cast<int>(Carrier->doc->PageH + 0.5));
+		satdialog* satdia = new satdialog(doc->scMW(),docName,
+                                          static_cast<int>(doc->pageWidth + 0.5),
+                                          static_cast<int>(doc->pageHeight + 0.5));
 		if (satdia->exec())
 		{
-			sat* s = new sat(Carrier, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
+			sat* s = new sat(doc, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
 			s->createImages();
 			s->createTmplXml();
 			delete s;
 		}
-		// Restore the state that was before Carrier->Collect()
-		Carrier->doc->DocName = currentFile;
-		Carrier->doc->hasName = hasName;
+		// Restore the state that was before ScMW->Collect()
+		doc->DocName = currentFile;
+		doc->hasName = hasName;
+		doc->setModified(isModified);
+		QString newCaption=currentFile;
 		if (isModified)
-		{
-			Carrier->doc->setModified();
-			Carrier->ActWin->setCaption(currentFile+"*");
-		}
-		else
-		{
-			Carrier->doc->setUnModified();
-			Carrier->ActWin->setCaption(currentFile);
-		}
-		Carrier->RemoveRecent(docPath);
+			newCaption.append('*');
+		doc->scMW()->updateActiveWindowCaption(newCaption);
+		doc->scMW()->removeRecent(docPath);
 		QDir::setCurrent(currentDirPath);
 		delete satdia;
 	}
@@ -120,10 +170,10 @@ void MenuSAT::RunSATPlug()
 
 // --------------------- CLASS sat ------------------------------------------------//
 
-sat::sat(ScribusApp* scribusApp, satdialog* satdia, QString fileName, QString tmplDir)
+sat::sat(ScribusDoc* doc, satdialog* satdia, QString fileName, QString tmplDir)
 {
-	lang = scribusApp->GuiLanguage;
-	sapp = scribusApp;
+	lang = ScCore->getGuiLanguage();
+	m_Doc = doc;
 	dia = satdia;
 	dir = tmplDir;
 	if (dir.right(1) == "/")
@@ -144,10 +194,11 @@ void sat::createTmplXml()
 	xml += "<templates>\n";
 	xml += getTemplateTag();
 	xml += "</templates>\n";
-	if ( tmplXml.open( IO_WriteOnly ) )
+	if ( tmplXml.open( QIODevice::WriteOnly ) )
 	{
 		QTextStream stream(&tmplXml);
-		stream.setEncoding(QTextStream::UnicodeUTF8);
+// 		stream.setEncoding(Q3TextStream::UnicodeUTF8);
+		stream.setCodec(QTextCodec::codecForName("UTF-8"));
 		stream << xml;
 		tmplXml.close();
 	}
@@ -157,8 +208,8 @@ void sat::createImages()
 {
 	QString tnsmallName = dia->nameEdit->text() + "tn.png";
 	QString tnlargeName = dia->nameEdit->text() + ".png";
-	double pageh = sapp->doc->PageH;
-	double pagew = sapp->doc->PageB;
+	double pageh = m_Doc->pageHeight;
+	double pagew = m_Doc->pageWidth;
 	int pageSizeSmall = 0;
 	int pageSizeLarge = 0;
 	if (pageh > pagew)
@@ -171,8 +222,8 @@ void sat::createImages()
 		pageSizeSmall = static_cast<int>(pagew / 10);
 		pageSizeLarge = static_cast<int>(pagew / 3);
 	}
-	QPixmap tnsmall = sapp->view->PageToPixmap(0,pageSizeSmall);
-	QPixmap tnlarge = sapp->view->PageToPixmap(0,pageSizeLarge);
+	QImage tnsmall = m_Doc->view()->PageToPixmap(0,pageSizeSmall);
+	QImage tnlarge = m_Doc->view()->PageToPixmap(0,pageSizeLarge);
 	tnsmall.save(dir+"/"+tnsmallName,"PNG",70);
 	tnlarge.save(dir+"/"+tnlargeName, "PNG", 70);
 }
@@ -180,12 +231,12 @@ void sat::createImages()
 void sat::appendTmplXml()
 {
 	QFile tmplXml(tmplXmlFile);
-	if (tmplXml.open(IO_ReadOnly))
+	if (tmplXml.open(QIODevice::ReadOnly))
 	{
 		QTextStream stream(&tmplXml);
 		QString tmp = stream.readLine();
 		QString file = "";
-		while (tmp != NULL)
+		while (!tmp.isNull())
 		{
 			file += tmp + "\n";
 			tmp = stream.readLine();
@@ -193,10 +244,11 @@ void sat::appendTmplXml()
 				file += getTemplateTag();
 		}
 		tmplXml.close();
-		if ( tmplXml.open( IO_WriteOnly ) )
+		if ( tmplXml.open( QIODevice::WriteOnly ) )
 		{
 			QTextStream stream2(&tmplXml);
-			stream2.setEncoding(QTextStream::UnicodeUTF8);
+// 			stream2.setEncoding(Q3TextStream::UnicodeUTF8);
+			stream2.setCodec(QTextCodec::codecForName("UTF-8"));
 			stream2 << file;
 			tmplXml.close();
 		}
@@ -206,7 +258,7 @@ void sat::appendTmplXml()
 QString sat::getTemplateTag()
 {
 	QString category = dia->catsCombo->currentText();
-	if (category == "")
+	if (category.isEmpty())
 		category = QObject::tr("Own Templates");
 	else
 	{
@@ -255,7 +307,7 @@ QString sat::getTemplateTag()
 	replaceIllegalChars(email);
 	tag += "\t\t<email>"+email+"</email>\n";
 	tag += "\t</template>\n";
-	
+
 	return tag;
 }
 

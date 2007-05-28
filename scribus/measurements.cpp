@@ -1,153 +1,132 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "measurements.h"
-#include "measurements.moc"
+//#include "measurements.moc"
 
 #include <qvariant.h>
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
 #include <cmath>
+#include "units.h"
 
 using namespace std;
 
-extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 
-Measurements::Measurements( QWidget* parent ) : QDialog( parent, "M", false, 0 )
+Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
-	setName("distancesPalette");
-	setCaption( tr( "Distances" ) );
-	setIcon( loadIcon("AppIcon.png") );
-	MeasurementsLayout = new QGridLayout( this, 1, 1, 10, 6, "MeasurementsLayout");
-	Label1 = new QLabel( this, "Label1" );
-	Label1->setText( tr( "X1:" ) );
-	MeasurementsLayout->addWidget( Label1, 0, 0 );
-	Label2 = new QLabel( this, "Label2" );
-	Label2->setText( tr( "Y1:" ) );
-	MeasurementsLayout->addWidget( Label2, 1, 0 );
-	Label3 = new QLabel( this, "Label3" );
-	Label3->setText( tr( "X2:" ) );
-	MeasurementsLayout->addWidget( Label3, 2, 0 );
-	Label4 = new QLabel( this, "Label4" );
-	Label4->setText( tr( "Y2:" ) );
-	MeasurementsLayout->addWidget( Label4, 3, 0 );
-	Label5 = new QLabel( this, "Label5" );
-	Label5->setText( tr( "DX:" ) );
-	MeasurementsLayout->addWidget( Label5, 4, 0 );
-	Label6 = new QLabel( this, "Label6" );
-	Label6->setText( tr( "DY:" ) );
-	MeasurementsLayout->addWidget( Label6, 5, 0 );
-	Label7 = new QLabel( this, "Label5" );
-	Label7->setText( tr( "Angle:" ) );
-	MeasurementsLayout->addWidget( Label7, 6, 0 );
-	Label8 = new QLabel( this, "Label6" );
-	Label8->setText( tr( "Length:" ) );
-	MeasurementsLayout->addWidget( Label8, 7, 0 );
-	X1 = new QLabel( this, "X1" );
-	X1->setText("");
-	X1->setMinimumSize(fontMetrics().width("10000.00 pt"), 12);
-	X1->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	MeasurementsLayout->addWidget( X1, 0, 1 );
-	Y1 = new QLabel( this, "Y1" );
-	Y1->setText("");
-	Y1->setMinimumSize(fontMetrics().width("10000.00 pt"), 12);
-	Y1->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	MeasurementsLayout->addWidget( Y1, 1, 1 );
-	X2 = new QLabel( this, "X2" );
-	X2->setText("");
-	X2->setMinimumSize(fontMetrics().width("10000.00 pt"), 12);
-	X2->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	MeasurementsLayout->addWidget( X2, 2, 1 );
-	Y2 = new QLabel( this, "Y2" );
-	Y2->setText("");
-	Y2->setMinimumSize(fontMetrics().width("10000.00 pt"), 12);
-	Y2->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	MeasurementsLayout->addWidget( Y2, 3, 1 );
-	DX = new QLabel( this, "X2" );
-	DX->setText("");
-	DX->setMinimumSize(fontMetrics().width("10000.00 pt"), 12);
-	DX->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	MeasurementsLayout->addWidget( DX, 4, 1 );
-	DY = new QLabel( this, "Y2" );
-	DY->setText("");
-	DY->setMinimumSize(fontMetrics().width("10000.00 pt"), 12);
-	DY->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	MeasurementsLayout->addWidget( DY, 5, 1 );
-	Angle = new QLabel( this, "Angle" );
-	Angle->setText("");
-	Angle->setMinimumSize(fontMetrics().width("10000.00 pt"), 12);
-	Angle->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	MeasurementsLayout->addWidget( Angle, 6, 1 );
-	Length = new QLabel( this, "Length" );
-	Length->setText("");
-	Length->setMinimumSize(fontMetrics().width("10000.00 pt"), 12);
-	Length->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignRight ) );
-	MeasurementsLayout->addWidget( Length, 7, 1 );
-	resize(minimumSizeHint());
-}
+	measurementsLayout = new Q3GridLayout( this, 1, 1, 10, 6, "measurementsLayout");
+	x1Label = new QLabel( this, "x1Label" );
+	y1Label = new QLabel( this, "y1Label" );
+	x2Label = new QLabel( this, "x2Label" );
+	y2Label = new QLabel( this, "y2Label" );
+	dxLabel = new QLabel( this, "dxLabel" );
+	dyLabel = new QLabel( this, "dyLabel" );
+	angleLabel = new QLabel( this, "dxLabel" );
+	lengthLabel = new QLabel( this, "dyLabel" );
+	measurementsLayout->addWidget( x1Label, 0, 0 );
+	measurementsLayout->addWidget( y1Label, 1, 0 );
+	measurementsLayout->addWidget( x2Label, 2, 0 );
+	measurementsLayout->addWidget( y2Label, 3, 0 );
+	measurementsLayout->addWidget( dxLabel, 4, 0 );
+	measurementsLayout->addWidget( dyLabel, 5, 0 );
+	measurementsLayout->addWidget( angleLabel, 6, 0 );
+	measurementsLayout->addWidget( lengthLabel, 7, 0 );
 
+	x1Data = new QLabel( "", this, "x1Data" );
+	y1Data = new QLabel( "", this, "y1Data" );
+	x2Data = new QLabel( "", this, "x2Data" );
+	y2Data = new QLabel( "", this, "y2Data" );
+	dXData = new QLabel( "", this, "dxData" );
+	dYData = new QLabel( "", this, "dyData" );
+	angleData = new QLabel( "", this, "angleData" );
+	lengthData = new QLabel( "", this, "lengthData" );
+	
+	const QString widthString="10000.00 " + tr( "pt" );
+	int textWidth=fontMetrics().width(widthString);
+	x1Data->setMinimumSize(textWidth, 12);
+	y1Data->setMinimumSize(textWidth, 12);
+	x2Data->setMinimumSize(textWidth, 12);
+	y2Data->setMinimumSize(textWidth, 12);
+	dXData->setMinimumSize(textWidth, 12);
+	dYData->setMinimumSize(textWidth, 12);
+	angleData->setMinimumSize(textWidth, 12);
+	lengthData->setMinimumSize(textWidth, 12);
+
+	Qt::Alignment labelAlignment=Qt::AlignVCenter | Qt::AlignRight;
+	x1Data->setAlignment( labelAlignment );
+	y1Data->setAlignment( labelAlignment );
+	x2Data->setAlignment( labelAlignment );
+	y2Data->setAlignment( labelAlignment );
+	dXData->setAlignment( labelAlignment );
+	dYData->setAlignment( labelAlignment );
+	angleData->setAlignment( labelAlignment );
+	lengthData->setAlignment( labelAlignment );
+
+	measurementsLayout->addWidget( x1Data, 0, 1 );
+	measurementsLayout->addWidget( y1Data, 1, 1 );
+	measurementsLayout->addWidget( x2Data, 2, 1 );
+	measurementsLayout->addWidget( y2Data, 3, 1 );
+	measurementsLayout->addWidget( dXData, 4, 1 );
+	measurementsLayout->addWidget( dYData, 5, 1 );
+	measurementsLayout->addWidget( angleData, 6, 1 );
+	measurementsLayout->addWidget( lengthData, 7, 1 );
+
+	languageChange();
+
+}
+/*
 void Measurements::closeEvent(QCloseEvent *ce)
 {
 	emit Schliessen(false);
 	ce->accept();
 }
-
-void Measurements::setValues(double x1, double y1, double x2, double y2, double angle, double len, int unit)
+*/
+void Measurements::setValues(double x1, double y1, double x2, double y2, double angle, double len, int unitIndex)
 {
-	QString tmp, tmp2;
-	int multiplier, precision;
-	double divisor;
-	switch (unit)
-	{
-	case 0:
-		tmp2 = tr(" pt");
-		multiplier = 100;
-		divisor = 100.0;
-		precision = 2;
-		break;
-	case 1:
-		tmp2 = tr(" mm");
-		multiplier = 1000;
-		divisor = 1000.0;
-		precision = 3;
-		break;
-	case 2:
-		tmp2 = tr(" in");
-		multiplier = 10000;
-		divisor = 10000.0;
-		precision = 4;
-		break;
-	case 3:
-		tmp2 = tr(" p");
-		multiplier = 100;
-		divisor = 100.0;
-		precision = 2;
-		break;
-	default:  // jjsa 21-03-2004 added default (complains for lint)
-		tmp2 = tr(" pt");
-		multiplier = 100;
-		divisor = 100.0;
-		precision = 2;
-		break;
-	}
+	QString tmp;
+	QString unitSuffix = unitGetSuffixFromIndex(unitIndex);
+	int multiplier = unitGetDecimalsFromIndex(unitIndex);
+	double divisor = static_cast<double>(multiplier);
+	int precision = unitGetPrecisionFromIndex(unitIndex);
+
 	double rr = angle;
 	if (angle < 0)
 		rr = rr + 360;
-	X1->setText(tmp.setNum(qRound(x1*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
-	Y1->setText(tmp.setNum(qRound(y1*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
-	X2->setText(tmp.setNum(qRound(x2*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
-	Y2->setText(tmp.setNum(qRound(y2*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
-	DX->setText(tmp.setNum(qRound((x2-x1)*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
-	DY->setText(tmp.setNum(qRound((y2-y1)*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
-	Angle->setText(tmp.setNum(fabs(rr), 'f', precision)+tr(QString::fromUtf8(" °")));
-	Length->setText(tmp.setNum(qRound(len*UmReFaktor * multiplier) / divisor, 'f', precision)+tmp2);
+
+	double uXm =  unitGetRatioFromIndex(unitIndex) * multiplier;
+
+	x1Data->setText(tmp.setNum(qRound(x1*uXm) / divisor, 'f', precision)+unitSuffix);
+	y1Data->setText(tmp.setNum(qRound(y1*uXm) / divisor, 'f', precision)+unitSuffix);
+	x2Data->setText(tmp.setNum(qRound(x2*uXm) / divisor, 'f', precision)+unitSuffix);
+	y2Data->setText(tmp.setNum(qRound(y2*uXm) / divisor, 'f', precision)+unitSuffix);
+	dXData->setText(tmp.setNum(qRound((x2-x1)*uXm) / divisor, 'f', precision)+unitSuffix);
+	dYData->setText(tmp.setNum(qRound((y2-y1)*uXm) / divisor, 'f', precision)+unitSuffix);
+	angleData->setText(tmp.setNum(fabs(rr), 'f', precision)+ tr(QString::fromUtf8(" °")));
+	lengthData->setText(tmp.setNum(qRound(len*uXm) / divisor, 'f', precision)+unitSuffix);
 }
+
+void Measurements::languageChange()
+{
+	setCaption( tr( "Distances" ) );
+	
+	x1Label->setText( tr( "X1:" ) );
+	y1Label->setText( tr( "Y1:" ) );
+	x2Label->setText( tr( "X2:" ) );
+	y2Label->setText( tr( "Y2:" ) );
+	dxLabel->setText( tr( "DX:" ) );
+	dyLabel->setText( tr( "DY:" ) );
+	angleLabel->setText( tr( "Angle:" ) );
+	lengthLabel->setText( tr( "Length:" ) );
+
+	resize(minimumSizeHint());
+}
+

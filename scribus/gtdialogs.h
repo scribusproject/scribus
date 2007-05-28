@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -25,8 +31,8 @@
 #include <qcombobox.h>
 #include <qdialog.h>
 #include <qdir.h>
-#include <qfiledialog.h>
-#include <qframe.h>
+#include <q3filedialog.h>
+#include <q3frame.h>
 #include <qinputdialog.h>
 #include <qlabel.h>
 #include <qlayout.h>
@@ -37,17 +43,22 @@
 #include <qtextcodec.h>
 #include <qtoolbutton.h>
 #include <qtooltip.h>
-#include "prefscontext.h"
+//Added by qt3to4:
+#include <Q3HBoxLayout>
 
-class gtFileDialog : public QFileDialog
+#include "scribusapi.h"
+
+class PrefsContext;
+
+class SCRIBUS_API gtFileDialog : public Q3FileDialog
 {
 	Q_OBJECT
 private:
 	QDir dir;
-	QFrame* importerFrame;
-	QFrame* encodingFrame;
-	QHBoxLayout* importerLayout;
-	QHBoxLayout* encodingLayout;
+	Q3Frame* importerFrame;
+	Q3Frame* encodingFrame;
+	Q3HBoxLayout* importerLayout;
+	Q3HBoxLayout* encodingLayout;
 	QToolButton* HomeB;
 	void createWidgets(const QStringList& importers);
 public:
@@ -60,7 +71,7 @@ private slots:
 	void slotHome();
 };
 
-class gtImporterDialog : public QDialog
+class SCRIBUS_API gtImporterDialog : public QDialog
 {
 	Q_OBJECT
 private:
@@ -74,7 +85,7 @@ public:
 	QString getImporter();
 };
 
-class gtDialogs
+class SCRIBUS_API gtDialogs
 {
 private:
 	gtFileDialog* fdia;

@@ -1,25 +1,30 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "csvdia.h"
-#include "csvdia.moc"
+//#include "csvdia.moc"
 
-extern QPixmap loadIcon(QString nam);
+#include "scribusapi.h"
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <QLabel>
+
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 {
-	setCaption(tr("CSV Importer Options"));
+	setCaption( tr("CSV Importer Options"));
 	setIcon(loadIcon("AppIcon.png"));
 
-	QBoxLayout* layout = new QVBoxLayout(this);
+	Q3BoxLayout* layout = new Q3VBoxLayout(this);
 
-	QBoxLayout* flayout = new QHBoxLayout(0, 5, 5, "flayout");
-	QLabel* fdlabel = new QLabel(tr("Field delimiter:"), this, "fdlabel", 0);
+	Q3BoxLayout* flayout = new Q3HBoxLayout(0, 5, 5, "flayout");
+	QLabel* fdlabel = new QLabel( tr("Field delimiter:"), this, "fdlabel", 0);
 	fdlabel->setMinimumWidth(120);
 	flayout->addWidget(fdlabel,1);
 	fdelimCombo = new QComboBox(true, this, "fdelimCombo");
@@ -31,29 +36,29 @@ CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
 	flayout->addWidget(fdelimCombo,5);
 	layout->addLayout(flayout);
 
-	QBoxLayout* vlayout = new QHBoxLayout(0, 5, 5, "vlayout");
-	QLabel* vdlabel = new QLabel(tr("Value delimiter:"), this, "fdlabel", 0);
+	Q3BoxLayout* vlayout = new Q3HBoxLayout(0, 5, 5, "vlayout");
+	QLabel* vdlabel = new QLabel( tr("Value delimiter:"), this, "fdlabel", 0);
 	vdlabel->setMinimumWidth(120);
 	vlayout->addWidget(vdlabel,1);
 	vdelimCombo = new QComboBox(true, this, "vdelimCombo");
 	QStringList vdList("\"");
-	vdList << "'" << tr("None");
+	vdList << "'" << tr("None", "delimiter");
 	vdelimCombo->insertStringList(vdList);
 	vdelimCombo->setMinimumWidth(120);
 	vlayout->addWidget(vdelimCombo,5);
 	layout->addLayout(vlayout);
 
-	QBoxLayout* hlayout = new QHBoxLayout(0, 5, 5, "hlayout");
-	headerCheck = new QCheckBox(tr("First row is a header"), this, "headerCheck");
+	Q3BoxLayout* hlayout = new Q3HBoxLayout(0, 5, 5, "hlayout");
+	headerCheck = new QCheckBox( tr("First row is a header"), this, "headerCheck");
 	hlayout->addWidget(headerCheck);
 	layout->addLayout(hlayout);
 
-	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout");
+	Q3BoxLayout* blayout = new Q3HBoxLayout(0, 5, 5, "blayout");
 	blayout->addStretch(10);
-	okButton = new QPushButton(tr("OK"), this, "okButton");
+	okButton = new QPushButton( tr("OK"), this, "okButton");
 	blayout->addWidget(okButton);
 
-	cancelButton = new QPushButton(tr("Cancel"), this, "cancelButton");
+	cancelButton = new QPushButton( tr("Cancel"), this, "cancelButton");
 	blayout->addWidget(cancelButton);
 	layout->addLayout(blayout);
 

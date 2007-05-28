@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           navigator.cpp  -  description
                              -------------------
@@ -16,14 +22,22 @@
  ***************************************************************************/
 
 #include "navigator.h"
-#include "navigator.moc"
-extern QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
+//#include "navigator.moc"
+
+#include <qpainter.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <QMouseEvent>
+#include <QLabel>
+#include <QPaintEvent>
+#include "scribusview.h"
+#include "gsutil.h"
 
 Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QString fn) : QLabel(parent)
 {
 	setScaledContents(false);
-	setAlignment(static_cast<int>( QLabel::AlignLeft | QLabel::AlignTop) );
-	if (fn != "")
+	setAlignment(Qt::AlignLeft | Qt::AlignTop);
+	if (!fn.isEmpty())
 	{
 		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
 		if (!img.isNull())
@@ -32,7 +46,7 @@ Navigator::Navigator(QWidget *parent, int Size, int Seite, ScribusView* vie, QSt
 			pmx = LoadPDF(fn, 1, Size, &Breite, &Hoehe);
 	}
 	else
-		pmx = vie->PageToPixmap(Seite, Size);
+		pmx.convertFromImage(vie->PageToPixmap(Seite, Size));
 	resize(pmx.width(), pmx.height());
 	Xp = 0;
 	Yp = 0;
@@ -73,20 +87,24 @@ void Navigator::drawMark(int x, int y)
 {
 	QPainter p;
 	p.begin(this);
+	p.setBackgroundColor(QColor(255, 255, 255));
+	p.eraseRect(pmx.rect());
 	p.setClipRect(pmx.rect());
 	p.drawPixmap(0, 0, pmx);
-	p.setPen(QPen(QColor(black), 1, SolidLine, FlatCap, MiterJoin));
+	p.setPen(QPen(QColor(Qt::black), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.drawLine(x-5, y-5, x-1, y-1);
 	p.drawLine(x-5, y+5, x-1, y+1);
 	p.drawLine(x+2, y+2, x+6, y+6);
 	p.drawLine(x+2, y-2, x+6, y-6);
 	p.end();
+	Xp = x;
+	Yp = y;
 }
 
 bool Navigator::SetSeite(int Seite, int Size, QString fn)
 {
 	bool ret = false;
-	if (fn != "")
+	if (!fn.isEmpty())
 	{
 		QPixmap img = LoadPDF(fn, Seite, Size, &Breite, &Hoehe);
 		if (!img.isNull())
@@ -99,7 +117,7 @@ bool Navigator::SetSeite(int Seite, int Size, QString fn)
 	}
 	else
 	{
-		pmx = view->PageToPixmap(Seite, Size);
+		pmx.convertFromImage(view->PageToPixmap(Seite, Size));
 		ret = true;
 	}
 	resize(pmx.width(), pmx.height());

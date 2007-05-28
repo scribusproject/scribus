@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                               guidemanager.cpp
                              -------------------
@@ -16,427 +22,654 @@
  *                                                                         *
  ***************************************************************************/
 
-/***************************************************************************
- * guides manager for scribus
- * .inspired by tabmanager.cpp and guidemanager.cpp by franz shmid
- * .porting structure and functionality of the tabmanager to the guides
- * .the dialog layout hasn't been modified
- * .first steps in unifying the variable naming schema...
- * .a couple of bugs have been corrected (delete was enabled even when
- *  there were no more guides/tabs)
- * .a couple of enhancements: guides can be "moved"; to delete all the guides,
- *  just keep on clicking on delete; guides can be entered
- *  without using the mouse (click on add, write the measure, press
- *  tab, press space, enter the next guide)
- * .open questions: should i use GetUnit or directly access the array?
- *  why do the VerXXX variables refer to the horizontal guides? Should
- *  i change this? Should the precision depend on the unit used? Why are
- *  all the methods and properties public? Only LocHor and LocVer should
- *  be public! 
- * - bug 356:
- *   a: ok
- *   d: ok
- *   e: ok
- *   f: press tab to make it update! (no focus in/out signal for qspinbox)
- * - added the esc key
- ***************************************************************************/
+#include <qradiobutton.h>
+#include <qlayout.h>
+#include <qcursor.h>
+#include <q3listview.h>
+#include <qdialog.h>
+#include <q3valuelist.h>
+#include <q3groupbox.h>
+#include <qlabel.h>
+#include <q3listview.h>
+#include <qpushbutton.h>
+#include <qcheckbox.h>
+#include <qtooltip.h>
+#include <qbuttongroup.h>
+#include <qtabwidget.h>
 
 #include "guidemanager.h"
-#include "guidemanager.moc"
+//#include "guidemanager.moc"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "page.h"
+#include "units.h"
+#include "util.h"
+#include "commonstrings.h"
+#include "scinputdialog.h"
+#include "selection.h"
+#include "undomanager.h"
 
-extern QPixmap loadIcon(QString nam);
-extern double UmReFaktor;
 
-GuideManager::GuideManager(
-        QWidget* parent,
-        QValueList<double> XGuides,
-        QValueList<double> YGuides,
-        double PageW,
-        double PageH,
-        bool GuideLock,
-        int Einh
-    ) : QDialog(parent, "GuideManager", true, 0)
-
+int GuideListItem::compare(Q3ListViewItem *i, int col, bool asc) const
 {
-	QString tmp;
-	int decimals;
-	setCaption(tr("Manage Guides"));
-	setIcon(loadIcon("AppIcon.png"));
-	
-	/* Initialise the global variables */
-	tp[0] = tr(" pt"); 
-	tp[1] = tr(" mm"); 
-	tp[2] = tr(" in"); 
-	tp[3] = tr(" p");
-	int   dp[] = {100, 1000, 10000, 100};
-	
-	Einheit = Einh;
-	decimals = dp[Einheit];
-	
-	LocHor = YGuides; // in page XGuides and YGuides are inverted
-	LocVer = XGuides;
-	LocPageWidth = PageW;
-	LocPageHeight = PageH;
-	LocLocked = GuideLock;
-	selHor = selVer = -1;
-	
-	/* Create the dialog elements */
-	GuideManagerLayout = new QVBoxLayout(this, 11, 6, "GuideManagerLayout"); 
-	
-	Layout6 = new QHBoxLayout(0, 0, 6, "Layout6"); 
-	
-	HorGroup = new QGroupBox(this, "HorGroup");
-	HorGroup->setTitle( tr("Horizontal Guides"));
-	HorGroup->setColumnLayout(0, Qt::Vertical);
-	HorGroup->layout()->setSpacing(6);
-	HorGroup->layout()->setMargin(11);
-	HorGroupLayout = new QVBoxLayout(HorGroup->layout());
-	HorGroupLayout->setAlignment(Qt::AlignTop);
-	
-	HorList = new QListBox(HorGroup, "HorList");
-	HorList->setMinimumSize(QSize(0, 200));
-	HorGroupLayout->addWidget(HorList);
-	
-	Layout4 = new QHBoxLayout(0, 0, 6, "Layout4"); 
-	
-	TextLabel2 = new QLabel(tr("&Y-Pos:"), HorGroup, "TextLabel2");
-	Layout4->addWidget(TextLabel2);
-	
-	HorSpin = new MSpinBox(0, LocPageHeight, HorGroup, 4);
-	HorSpin->setDecimals(decimals);
-	TextLabel2->setBuddy(HorSpin);
-	Layout4->addWidget(HorSpin);
-	
-	HorGroupLayout->addLayout(Layout4);
-	
-	Layout3 = new QHBoxLayout(0, 0, 6, "Layout3"); 
-	
-	HorSet = new QPushButton( tr( "&Add" ), HorGroup, "HorSet");
-	HorSet->setAutoDefault(false);
-	Layout3->addWidget(HorSet);
-	
-	HorDel = new QPushButton( tr( "D&elete" ), HorGroup, "HorDel");
-	HorDel->setAutoDefault(false);
-	Layout3->addWidget(HorDel);
-	
-	HorGroupLayout->addLayout(Layout3);
-	
-	Layout6->addWidget(HorGroup);
-	
-	VerGroup = new QGroupBox(this, "VerGroup");
-	VerGroup->setTitle( tr("Vertical Guides"));
-	VerGroup->setColumnLayout(0, Qt::Vertical);
-	VerGroup->layout()->setSpacing(6);
-	VerGroup->layout()->setMargin(11);
-	VerGroupLayout = new QVBoxLayout(VerGroup->layout());
-	VerGroupLayout->setAlignment(Qt::AlignTop);
-	
-	VerList = new QListBox(VerGroup, "VerList");
-	VerList->setMinimumSize(QSize(0, 200));
-	VerGroupLayout->addWidget(VerList);
-	
-	Layout2 = new QHBoxLayout(0, 0, 6, "Layout2"); 
-	
-	TextLabel1 = new QLabel(tr("&X-Pos:"), VerGroup, "TextLabel1");
-	Layout2->addWidget(TextLabel1);
-	
-	VerSpin = new MSpinBox(0, LocPageWidth, VerGroup, 4);
-	VerSpin->setDecimals(decimals);
-	TextLabel1->setBuddy(VerSpin);
-	Layout2->addWidget(VerSpin);
-	
-	VerGroupLayout->addLayout(Layout2);
-	
-	Layout1 = new QHBoxLayout(0, 0, 6, "Layout1"); 
-	
-	VerSet = new QPushButton( tr( "A&dd" ), VerGroup, "VerSet");
-	VerSet->setAutoDefault(false);
-	Layout1->addWidget(VerSet);
-	
-	VerDel = new QPushButton( tr( "De&lete" ), VerGroup, "VerDel");
-	VerDel->setAutoDefault(false);
-	Layout1->addWidget(VerDel);
-	
-	VerGroupLayout->addLayout(Layout1);
-	
-	Layout6->addWidget(VerGroup);
-	
-	GuideManagerLayout->addLayout(Layout6);
-	
-	Layout5 = new QHBoxLayout(0, 0, 6, "Layout5"); 
-	Lock = new QCheckBox( tr( "&Lock Guides" ), this, "Lock");
-	Lock->setChecked(LocLocked);
-	Layout5->addWidget(Lock);
-	
-	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	Layout5->addItem(spacer);
-	
-	OK = new QPushButton( tr( "&OK" ), this, "OK");
-	OK->setAutoDefault(false);
-	Layout5->addWidget(OK );
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel");
-	Cancel->setAccel(QKeySequence("Esc"));
-	Layout5->addWidget(Cancel);
-	Cancel->setAutoDefault(false);
-	
-	GuideManagerLayout->addLayout(Layout5);
-	
-	/* Initialise the units */
-	UnitChange();
-	
-	// Create signals and slots connections
-	connect( OK, SIGNAL(clicked()), this, SLOT(accept() ));
-	connect( Cancel, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
-	connect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
-	connect(HorSet, SIGNAL(clicked()), this, SLOT(AddHorVal()));
-	connect(HorDel, SIGNAL(clicked()), this, SLOT(DelHorVal()));
-	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
-	connect(VerSet, SIGNAL(clicked()), this, SLOT(AddVerVal()));
-	connect(VerDel, SIGNAL(clicked()), this, SLOT(DelVerVal()));
-	connect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
-	connect(Lock, SIGNAL(clicked()), this, SLOT(HandleLock()));
-	
-	UpdateHorList();
-	UpdateVerList();
-	
-	/* Intialise selection in ListBoxes */
-	if (HorList->numRows() > 0)
+	if (col == 0)
 	{
-		HorList->setCurrentItem(0);
-		HorDel->setEnabled(true);
+		double d;
+		d = text(col).toDouble() - i->text(col).toDouble();
+		if (d > 0.0)
+			return 1;
+		return -1;
+	}
+	else
+		return Q3ListViewItem::compare(i, col, asc);
+}
+
+
+GuideManager::GuideManager(QWidget* parent) :
+		ScrPaletteBase(parent, "GuideManager"),
+		m_Doc(0),
+		currentPage(0),
+		m_drawGuides(true)
+{
+	setupUi(this);
+	tabWidget->setEnabled(false);
+	horizontalAutoGapSpin->setMinimum(0.0);
+	horizontalAutoGapSpin->setMaximum(100.0);
+	verticalAutoGapSpin->setMinimum(0.0);
+	verticalAutoGapSpin->setMaximum(100.0);
+
+	// signals that cannot be defined in designer (mspinbox related)
+	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(double)), this, SLOT(horizontalAutoGapSpin_valueChanged(double)));
+	connect(verticalAutoGapSpin, SIGNAL(valueChanged(double)), this, SLOT(verticalAutoGapSpin_valueChanged(double)));
+}
+
+void GuideManager::setDoc(ScribusDoc* doc)
+{
+	m_Doc=doc;
+	if (!m_Doc)
+		currentPage = 0;
+	tabWidget->setEnabled(doc ? true : false);
+}
+
+void GuideManager::setupPage()
+{
+	if (!m_Doc)
+		return;
+	m_drawGuides = false;
+	setEnabled(true);
+	// store old values for current page (=page to leave)
+	storePageValues(currentPage);
+	currentPage = m_Doc->currentPage();
+	unitChange();
+	setupGui();
+}
+
+void GuideManager::setupGui()
+{
+	// restore values from new page
+	clearRestoreHorizontalList();
+	clearRestoreVerticalList();
+	// restore: brand "auto guides into GUI restore algorithm"
+	bool enable = currentPage->guides.horizontalAutoGap() > 0.0 ? true : false;
+	horizontalAutoGapCheck->setChecked(enable);
+	horizontalAutoGapSpin->setEnabled(enable);
+	horizontalAutoGapSpin->setValue(pts2value(currentPage->guides.horizontalAutoGap(), docUnitIndex));
+	horizontalAutoCountSpin->setValue(currentPage->guides.horizontalAutoCount());
+	if (horizontalAutoCountSpin->value()==0)
+	{
+		horizontalAutoGapSpin->setEnabled(false);
+		horizontalAutoGapCheck->setEnabled(false);
+	}
+	horizontalReferGroup->setButton(currentPage->guides.horizontalAutoRefer());
+	// allow the selection radio button?
+	horizontalSelectionAutoButton->setEnabled(!m_Doc->m_Selection->isEmpty());
+
+	// verticals
+	enable = currentPage->guides.verticalAutoGap() > 0.0 ? true : false;
+	verticalAutoGapCheck->setChecked(enable);
+	verticalAutoGapSpin->setEnabled(enable);
+	verticalAutoGapSpin->setValue(pts2value(currentPage->guides.verticalAutoGap(), docUnitIndex));
+	verticalAutoCountSpin->setValue(currentPage->guides.verticalAutoCount());
+	if (verticalAutoCountSpin->value()==0)
+	{
+		verticalAutoGapSpin->setEnabled(false);
+		verticalAutoGapCheck->setEnabled(false);
+	}
+	verticalReferGroup->setButton(currentPage->guides.verticalAutoRefer());
+	// allow the selection radio button?
+	verticalSelectionAutoButton->setEnabled(!m_Doc->m_Selection->isEmpty());
+
+	m_drawGuides = true;
+	drawGuides();
+}
+
+void GuideManager::storePageValues(Page *page)
+{
+	if (!page || !m_Doc)
+		return;
+
+	double gapValue = 0.0;
+	if (horizontalAutoGapCheck->isChecked())
+		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
+	page->guides.setHorizontalAutoGap(gapValue);
+	page->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
+	page->guides.setHorizontalAutoRefer(horizontalReferGroup->selectedId());
+	page->guides.addHorizontals(getAutoHorizontals(), GuideManagerCore::Auto);
+
+	gapValue = 0.0;
+	if (verticalAutoGapCheck->isChecked())
+		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
+	page->guides.setVerticalAutoGap(gapValue);
+	page->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
+	page->guides.setVerticalAutoRefer(verticalReferGroup->selectedId());
+	page->guides.addVerticals(getAutoVerticals(), GuideManagerCore::Auto);
+}
+
+void GuideManager::unitChange()
+{
+	if (!m_Doc)
+		return;
+	// a little bit magic to get Verticals (unit) into group boxes
+	horizontalGroupBox->setTitle(horizontalGroupBox->title().remove(" ("+suffix.stripWhiteSpace()+")"));
+	verticalGroupBox->setTitle(verticalGroupBox->title().remove(" ("+suffix.stripWhiteSpace()+")"));
+	docUnitIndex = m_Doc->unitIndex();
+	docUnitPrecision = unitGetPrecisionFromIndex(docUnitIndex);
+	docUnitRatio = unitGetRatioFromIndex(docUnitIndex);
+	docUnitDecimals = unitGetPrecisionFromIndex(docUnitIndex);
+	
+	suffix = unitGetSuffixFromIndex(docUnitIndex);
+	horizontalAutoGapSpin->setSuffix(suffix);
+	verticalAutoGapSpin->setSuffix(suffix);
+	horizontalAutoGapSpin->setDecimals(docUnitDecimals);
+	verticalAutoGapSpin->setDecimals(docUnitDecimals);
+	horizontalGroupBox->setTitle(horizontalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
+	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
+}
+
+bool GuideManager::deleteValueFormList(Q3ListView *list)
+{
+	/* previous item pointer to ensure that ++it
+	runs before item goes deleted */
+	Q3ListViewItem *itemToDelete;
+	Q3ListViewItemIterator it(list, Q3ListViewItemIterator::Selected);
+	QString value;
+	while (it.current())
+	{
+		itemToDelete = it.current();
+		value = itemToDelete->text(0);
+		if (list == horizontalList)
+			currentPage->guides.deleteHorizontal(m_horMap[value], GuideManagerCore::Standard);
+		else
+			currentPage->guides.deleteVertical(m_verMap[value], GuideManagerCore::Standard);
+		++it;
+		if (itemToDelete)
+		{
+			list->takeItem(itemToDelete);
+			delete itemToDelete;
+		}
+	}
+	drawGuides();
+	return true;
+}
+
+void GuideManager::delHorButton_clicked()
+{
+	deleteValueFormList(horizontalList);
+}
+
+void GuideManager::delVerButton_clicked()
+{
+	deleteValueFormList(verticalList);
+}
+
+bool GuideManager::editValueToList(Q3ListView *list)
+{
+	bool ok;
+	QString original = list->currentItem()->text(0);
+	double newGuide = ScInputDialog::getDouble( tr("Edit Guide"),
+											  tr("Enter a position:"),
+											  original.toDouble(),
+											  0, 1000, docUnitDecimals, suffix,
+											  &ok, this);
+	if (!ok)
+		return false;
+
+	if (list == horizontalList)
+	{
+		currentPage->guides.moveHorizontal(m_horMap[original], value2pts(newGuide, docUnitIndex),
+										   GuideManagerCore::Standard);
+		clearRestoreHorizontalList();
 	}
 	else
 	{
-		HorDel->setEnabled(false);
-		HorSpin->setValue(0);
-		if (VerList->numRows() > 0)
+		currentPage->guides.moveVertical(m_verMap[original], value2pts(newGuide, docUnitIndex),
+										 GuideManagerCore::Standard);
+		clearRestoreVerticalList();
+	}
+	drawGuides();
+	return true;
+}
+
+bool GuideManager::addValueToList(Q3ListView *list)
+{
+	bool ok;
+	double newGuide = ScInputDialog::getDouble( tr("New Guide"),
+										 tr("Enter a position:"),
+										 0.0, 0, 1000, docUnitDecimals, suffix,
+										 &ok, this );
+	if (!ok)
+		return false;
+
+	QString tmp;
+	tmp = tmp.setNum(newGuide, 'f', docUnitPrecision);
+	double ng = value2pts(newGuide, docUnitIndex);
+	if (list == horizontalList)
+	{
+		Guides tmpGuides = currentPage->guides.horizontals(GuideManagerCore::Standard);
+		if (tmpGuides.contains(ng))
+			return false;
+		currentPage->guides.addHorizontal(ng, GuideManagerCore::Standard);
+		m_horMap[tmp] = ng;
+	}
+	else
+	{
+		Guides tmpGuides = currentPage->guides.verticals(GuideManagerCore::Standard);
+		if (tmpGuides.contains(ng))
+			return false;
+		currentPage->guides.addVertical(ng, GuideManagerCore::Standard);
+		m_verMap[tmp] = ng;
+	}
+
+	GuideListItem *item = new GuideListItem(list, tmp);
+	item->setRenameEnabled(0, true);
+	list->insertItem(item);
+	list->setCurrentItem(item);
+	list->clearSelection();
+	list->setSelected(item, true);
+	drawGuides();
+	return true;
+}
+
+void GuideManager::addHorButton_clicked()
+{
+	addValueToList(horizontalList);
+}
+
+void GuideManager::addVerButton_clicked()
+{
+	addValueToList(verticalList);
+}
+
+void GuideManager::setGuidesFromList(Q3ListView *w, GuideGUIMap *map, Guides guides)
+{
+	QString tmp;
+	//w->clear(); // clearing is moved into the setupPage()
+	for (Guides::iterator it = guides.begin(); it != guides.end(); ++it)
+	{
+		tmp = tmp.setNum((*it) * docUnitRatio , 'f', docUnitPrecision);
+		// no insert for duplicates
+		if (w->findItem(tmp, 0) != 0)
+			continue;
+		GuideListItem *item = new GuideListItem(w, tmp);
+		w->insertItem(item);
+		map->insert(tmp, (*it));
+	}
+}
+
+void GuideManager::lockCheck_stateChanged( int )
+{
+	m_Doc->lockGuides(lockCheck->isChecked());
+}
+
+void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
+{
+	Q3PtrListIterator<Page> it(*m_Doc->Pages);
+	Page *tmpPage;
+	while ((tmpPage = it.current()) != 0 )
+	{
+		++it;
+		if (tmpPage->pageNr() == currentPage->pageNr())
+			continue;
+		tmpPage->guides.clearHorizontals(t);
+		tmpPage->guides.clearVerticals(t);
+		currentPage->guides.copy(&tmpPage->guides, t);
+		if (t == GuideManagerCore::Auto)
+			storePageValues(tmpPage);
+	}
+	drawGuides();
+}
+
+void GuideManager::applyToAllStdButton_clicked()
+{
+	copyGuidesToAllPages(GuideManagerCore::Standard);
+}
+
+void GuideManager::applyToAllAutoButton_clicked()
+{
+	copyGuidesToAllPages(GuideManagerCore::Auto);
+}
+
+void GuideManager::horizontalAutoCountSpin_valueChanged(int val)
+{
+	bool enable = (val == 0) ? false : true;
+	horizontalAutoGapCheck->setEnabled(enable);
+	if (enable && horizontalAutoGapCheck->isChecked())
+		horizontalAutoGapSpin->setEnabled(true);
+	else
+		horizontalAutoGapSpin->setEnabled(false);
+	currentPage->guides.setHorizontalAutoCount(val);
+	drawGuides();
+}
+
+void GuideManager::horizontalAutoGapSpin_valueChanged(double)
+{
+	currentPage->guides.setHorizontalAutoGap(value2pts(horizontalAutoGapSpin->value(), docUnitIndex));
+	drawGuides();
+}
+
+void GuideManager::horizontalAutoGapCheck_stateChanged( int )
+{
+	horizontalAutoGapSpin->setEnabled(horizontalAutoGapCheck->isChecked());
+	if (horizontalAutoGapCheck->isChecked())
+		currentPage->guides.setHorizontalAutoGap(value2pts(horizontalAutoGapSpin->value(), docUnitIndex));
+	else
+		currentPage->guides.setHorizontalAutoGap(value2pts(0.0, docUnitIndex));
+	drawGuides();
+}
+
+void GuideManager::verticalAutoCountSpin_valueChanged(int val)
+{
+	bool enable = (val == 0) ? false : true;
+	verticalAutoGapCheck->setEnabled(enable);
+	if (enable && verticalAutoGapCheck->isChecked())
+		verticalAutoGapSpin->setEnabled(true);
+	else
+		verticalAutoGapSpin->setEnabled(false);
+	currentPage->guides.setVerticalAutoCount(val);
+	drawGuides();
+}
+
+void GuideManager::verticalAutoGapSpin_valueChanged(double)
+{
+	currentPage->guides.setVerticalAutoGap(value2pts(verticalAutoGapSpin->value(), docUnitIndex));
+	drawGuides();
+}
+
+void GuideManager::verticalAutoGapCheck_stateChanged( int )
+{
+	verticalAutoGapSpin->setEnabled(verticalAutoGapCheck->isChecked());
+	if (verticalAutoGapCheck->isChecked())
+		currentPage->guides.setVerticalAutoGap(value2pts(verticalAutoGapSpin->value(), docUnitIndex));
+	else
+		currentPage->guides.setVerticalAutoGap(value2pts(0.0, docUnitIndex));
+	drawGuides();
+}
+
+void GuideManager::horizontalReferGroup_clicked(int val)
+{
+	currentPage->guides.setHorizontalAutoRefer(val);
+	if (val == 2 && horizontalSelectionAutoButton->isEnabled())
+		resetSelectionForPage();
+	drawGuides();
+}
+
+void GuideManager::verticalReferGroup_clicked(int val)
+{
+	currentPage->guides.setVerticalAutoRefer(val);
+	if (val == 2 && verticalSelectionAutoButton->isEnabled())
+		resetSelectionForPage();
+	drawGuides();
+}
+
+void GuideManager::tabWidget_currentChanged(QWidget *)
+{
+	drawGuides();
+	if (tabWidget->currentPageIndex() == 1)
+	{
+		horizontalAutoGapSpin->setEnabled(horizontalAutoGapCheck->isChecked());
+		verticalAutoGapSpin->setEnabled(verticalAutoGapCheck->isChecked());
+	}
+}
+
+void GuideManager::horizontalList_doubleClicked( Q3ListViewItem * )
+{
+	editValueToList(horizontalList);
+}
+
+void GuideManager::horizontalList_returnPressed( Q3ListViewItem * )
+{
+	editValueToList(horizontalList);
+}
+
+void GuideManager::verticalList_returnPressed( Q3ListViewItem * )
+{
+	editValueToList(verticalList);
+}
+
+void GuideManager::verticalList_doubleClicked( Q3ListViewItem * )
+{
+	editValueToList(verticalList);
+}
+
+Guides GuideManager::selectedHorizontals()
+{
+	Guides retval;
+	Q3ListViewItemIterator it(horizontalList);
+	while (it.current())
+	{
+		if (it.current()->isSelected())
+			retval.append(it.current()->text(0).toDouble() / docUnitRatio);
+		++it;
+	}
+	return retval;
+}
+
+Guides GuideManager::selectedVerticals()
+{
+	Guides retval;
+	Q3ListViewItemIterator it(verticalList);
+	while (it.current())
+	{
+		if (it.current()->isSelected())
+			retval.append(it.current()->text(0).toDouble() / docUnitRatio);
+		++it;
+	}
+	return retval;
+}
+
+void GuideManager::horizontalList_selectionChanged()
+{
+	drawGuides();
+}
+
+void GuideManager::verticalList_selectionChanged()
+{
+	drawGuides();
+}
+
+void GuideManager::drawGuides()
+{
+	if (!m_Doc || !m_drawGuides)
+		return;
+
+	currentPage->guides.addHorizontals(getAutoHorizontals(), GuideManagerCore::Auto);
+	currentPage->guides.addVerticals(getAutoVerticals(), GuideManagerCore::Auto);
+	ScCore->primaryMainWindow()->view->DrawNew();
+}
+
+void GuideManager::clearRestoreHorizontalList()
+{
+	m_horMap.clear();
+	horizontalList->clear();
+	setGuidesFromList(horizontalList, &m_horMap,
+					  currentPage->guides.horizontals(GuideManagerCore::Standard));
+}
+
+void GuideManager::clearRestoreVerticalList()
+{
+	m_verMap.clear();
+	verticalList->clear();
+	setGuidesFromList(verticalList, &m_verMap,
+					  currentPage->guides.verticals(GuideManagerCore::Standard));
+}
+
+void GuideManager::deletePageButton_clicked()
+{
+	UndoManager::instance()->beginTransaction(currentPage->getUName(),
+	                              currentPage->getUPixmap(),
+	                              Um::RemoveAllPageGuides, "",
+	                              Um::IGuides);
+	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
+	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
+	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
+	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
+	clearRestoreHorizontalList();
+	clearRestoreVerticalList();
+
+	currentPage->guides.setHorizontalAutoCount(0);
+	currentPage->guides.setVerticalAutoCount(0);
+	currentPage->guides.setHorizontalAutoGap(0.0);
+	currentPage->guides.setVerticalAutoGap(0.0);
+	currentPage->guides.setHorizontalAutoRefer(0);
+	currentPage->guides.setVerticalAutoRefer(0);
+	horizontalAutoCountSpin->setValue(0);
+	verticalAutoCountSpin->setValue(0);
+	UndoManager::instance()->commit();
+
+	drawGuides();
+}
+
+void GuideManager::deleteAllGuides_clicked()
+{
+	UndoManager::instance()->beginTransaction(m_Doc->getUName(),
+	                              m_Doc->getUPixmap(),
+	                              Um::RemoveAllGuides, "",
+	                              Um::IGuides);
+	m_drawGuides = false;
+	deletePageButton_clicked();
+	copyGuidesToAllPages(GuideManagerCore::Standard);
+	copyGuidesToAllPages(GuideManagerCore::Auto);
+	m_drawGuides = true;
+	UndoManager::instance()->commit();
+	drawGuides();
+}
+
+void GuideManager::windowActivationChange(bool oldActive)
+{
+	if (m_Doc)
+	{
+		bool enable = !m_Doc->m_Selection->isEmpty();
+		horizontalSelectionAutoButton->setEnabled(enable);
+		verticalSelectionAutoButton->setEnabled(enable);
+	}
+	QDialog::windowActivationChange( oldActive );
+}
+
+Guides GuideManager::getAutoVerticals()
+{
+	Guides retval;
+	double columnSize;
+	int value = verticalAutoCountSpin->value();
+	double offset = 0.0;
+	double newPageWidth = currentPage->width();
+
+	if (value == 0)
+		return retval;
+	++value;
+
+	if (verticalReferGroup->selectedId() == 1)
+	{
+		newPageWidth = newPageWidth - currentPage->Margins.Left - currentPage->Margins.Right;
+		offset = currentPage->Margins.Left;
+	}
+	else if (qRound(currentPage->guides.gx) != 0)
+	{
+		offset = currentPage->guides.gx;
+		newPageWidth = currentPage->guides.gw;
+	}
+
+	if (verticalAutoGapSpin->value() > 0.0)
+		columnSize = (newPageWidth - (value - 1) * verticalAutoGapSpin->value()) / value;
+	else
+		columnSize = newPageWidth / value;
+
+	for (int i = 1, gapCount = 0; i < value; ++i)
+	{
+		if (verticalAutoGapSpin->value() > 0.0)
 		{
-			VerList->setCurrentItem(0);
-			VerDel->setEnabled(true);
+			retval.append(offset + i * columnSize + gapCount * verticalAutoGapSpin->value());
+			++gapCount;
+			retval.append(offset + i * columnSize + gapCount * verticalAutoGapSpin->value());
 		}
 		else
+			retval.append(offset + columnSize * i);
+	}
+	return retval;
+}
+
+Guides GuideManager::getAutoHorizontals()
+{
+	Guides retval;
+	double rowSize;
+	int value = horizontalAutoCountSpin->value();
+	double offset = 0.0;
+	double newPageHeight = currentPage->height();
+
+	if (value == 0)
+		return retval;
+	++value;
+
+	if (horizontalReferGroup->selectedId() == 1)
+	{
+		newPageHeight = newPageHeight - currentPage->Margins.Top - currentPage->Margins.Bottom;
+		offset = currentPage->Margins.Top;
+	}
+	else if (qRound(currentPage->guides.gy) != 0.0)
+	{
+		offset = currentPage->guides.gy;
+		newPageHeight = currentPage->guides.gh;
+	}
+
+	if (horizontalAutoGapSpin->value() > 0.0)
+		rowSize = (newPageHeight - (value - 1) * horizontalAutoGapSpin->value()) / value;
+	else
+		rowSize = newPageHeight / value;
+
+	for (int i = 1, gapCount = 0; i < value; ++i)
+	{
+		if (horizontalAutoGapSpin->value() > 0.0)
 		{
-			VerSpin->setValue(0);
-			VerDel->setEnabled(false);
+			retval.append(offset + i * rowSize + gapCount * horizontalAutoGapSpin->value());
+			++gapCount;
+			retval.append(offset + i * rowSize + gapCount * horizontalAutoGapSpin->value());
 		}
-	} 
-}	
-void GuideManager::DelHorVal()
-{
-	QValueList<double>::Iterator it;
-	it = LocHor.at(selHor);
-	it = LocHor.remove(it);
-	if (LocHor.isEmpty())
-		selHor = -1;
-	else if (selHor > static_cast<int>(LocHor.count()-1))
-		selHor--;
-	if (selHor == -1)
-		HorDel->setEnabled(false);
-	UpdateHorList();
-}
-	
-void GuideManager::DelVerVal()
-{
-	QValueList<double>::Iterator it;
-	it = LocVer.at(selVer);
-	it = LocVer.remove(it);
-	if (LocVer.isEmpty())
-		selVer = -1;
-	else if (selVer > static_cast<int>(LocVer.count()-1))
-		selVer--;
-	if (selVer == -1)
-		VerDel->setEnabled(false);
-	UpdateVerList();
-}
-	
-void GuideManager::AddHorVal()
-{
-	if (HorSpin->hasFocus())
-	HorSpin->clearFocus();
-	if (VerSpin->hasFocus())
-	VerSpin->clearFocus();
-	LocHor.prepend(0);
-	selHor = 0;
-	
-	VerList->clearSelection();
-	VerSpin->setEnabled(false);
-	VerDel->setEnabled(false);
-	
-	HorDel->setEnabled(true);
-	UpdateHorList();
-	HorList->setCurrentItem(0);
-	HorList->setSelected(0,true);
-	HorSpin->setFocus();
-	HorSpin->selectAll();
-}
-	
-void GuideManager::AddVerVal()
-{
-	if (HorSpin->hasFocus())
-		HorSpin->clearFocus();
-	if (VerSpin->hasFocus())
-		VerSpin->clearFocus();
-	LocVer.prepend(0);
-	selVer = 0;
-	
-	HorList->clearSelection();
-	HorSpin->setEnabled(false);
-	HorDel->setEnabled(false);
-	
-	VerDel->setEnabled(true);
-	UpdateVerList();
-	VerList->setCurrentItem(0);
-	VerList->setSelected(0,true);
-	VerSpin->setFocus();
-	VerSpin->selectAll();
-}
-	
-void GuideManager::HandleLock()
-{
-	LocLocked = Lock->isChecked();
-}
-	
-void GuideManager::selHorIte(QListBoxItem *c)
-{
-	disconnect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
-	selHor = c->listBox()->currentItem();
-	HorDel->setEnabled(true);
-	VerDel->setEnabled(false);
-	VerList->clearSelection();
-	VerSpin->setEnabled(false);
-	HorSpin->setEnabled(true);
-	HorSpin->setValue(LocHor[selHor] * UmReFaktor);
-	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
-}
-	
-void GuideManager::selVerIte(QListBoxItem *c)
-{
-	disconnect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
-	selVer = c->listBox()->currentItem();
-	VerDel->setEnabled(true);
-	HorDel->setEnabled(false);
-	HorList->clearSelection();
-	HorSpin->setEnabled(false);
-	VerSpin->setEnabled(true);
-	VerSpin->setValue(LocVer[selVer] * UmReFaktor);
-	connect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
-}
-	
-void GuideManager::ChangeHorVal()
-{
-	int n = static_cast<int>(LocHor.count());
-	int m = n;
-	double curHor = HorSpin->value() / UmReFaktor;
-	
-	QValueList<double>::Iterator it = LocHor.at(selHor);
-	LocHor.remove(it);
-	
-	for (int i = n - 1; i > 0; i--)
-		if (curHor < LocHor[i - 1])
-			m = i;
-	
-	selHor = m - 1;
-	
-	if (m == n)
-	{
-		LocHor.append(curHor);
-		selHor = m - 1;
+		else
+			retval.append(offset + rowSize * i);
 	}
-	else
-	{
-		it = LocHor.at(selHor);
-		LocHor.insert(it,curHor);
-	}
-	UpdateHorList();
+	return retval;
 }
-	
-void GuideManager::ChangeVerVal()
-{
-	int n = static_cast<int>(LocVer.count());
-	int m = n;
-	double curVer = VerSpin->value() / UmReFaktor;
-	
-	QValueList<double>::Iterator it = LocVer.at(selVer);
-	LocVer.remove(it);
-	
-	for (int i = n - 1; i > 0; i--)
-		if (curVer < LocVer[i - 1])
-			m = i;
-	
-	selVer = m - 1;
-	
-	if (m == n)
-	{
-		LocVer.append(curVer);
-		selVer = m - 1;
-	}
-	else
-	{
-		it = LocVer.at(selVer);
-		LocVer.insert(it,curVer);
-	}
-	UpdateVerList();
-}
-	
-void GuideManager::UnitChange()
-{
-	QString tmp = GetUnit();
-	HorSpin->setSuffix(tmp);
-	VerSpin->setSuffix(tmp);
-}
-	
-QString GuideManager::GetUnit()
-{
-	QString tmp = tp[Einheit];
-	return tmp;
-}
-	
-void GuideManager::UpdateHorList()
-{
-	disconnect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
-	disconnect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
-	
-	HorList->clear();
-	
-	QString tmp;
-	
-	for (uint i = 0; i < LocHor.count(); ++ i)
-		HorList->insertItem(tmp.setNum(qRound(LocHor[i] * UmReFaktor * 10000.0) / 10000.0, 'f', 4) +
-					 GetUnit());
-	if (LocHor.isEmpty())
-		selHor = -1;
 
-	if (selHor != -1)
-		HorList->setCurrentItem(selHor);
-	HorSpin->setEnabled(selHor != -1 ? true : false);
-	HorSpin->setValue(selHor != -1 ? (LocHor[selHor] * UmReFaktor * 10000.0) / 10000.0 : 0);
-
-	connect(HorList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selHorIte(QListBoxItem*)));
-	connect(HorSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeHorVal()));
-}
-	
-void GuideManager::UpdateVerList()
+void GuideManager::resetSelectionForPage()
 {
-	disconnect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
-	disconnect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
-	
-	QString tmp;
-	
-	VerList->clear();
-	
-	for (uint i = 0; i < LocVer.count(); ++ i)
-		VerList->insertItem(tmp.setNum(qRound(LocVer[i] * UmReFaktor * 10000.0) / 10000.0, 'f', 4) +
-					 GetUnit());
-	if (LocVer.isEmpty())
-		selVer = -1;
-		
-	if (selVer != -1)
-		VerList->setCurrentItem(selVer);
-		
-	VerSpin->setEnabled(selVer != -1 ? true : false);
-	VerSpin->setValue(selVer != -1 ? (LocVer[selVer] * UmReFaktor * 10000.0) / 10000.0 : 0);
+	int docSelectionCount = currentPage->doc()->m_Selection->count();
 
-	connect(VerList, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selVerIte(QListBoxItem*)));
-	connect(VerSpin, SIGNAL(valueChanged(int)), this, SLOT(ChangeVerVal()));
+	currentPage->guides.gx = currentPage->guides.gy = currentPage->guides.gw = currentPage->guides.gh = 0.0;
+
+	// multiselection
+	if (docSelectionCount > 1)
+	{
+		double x, y;
+		m_Doc->m_Selection->getGroupRect(&x, &y, &currentPage->guides.gw, &currentPage->guides.gh);
+		currentPage->guides.gx = x - currentPage->xOffset();
+		currentPage->guides.gy = y - currentPage->yOffset();
+	}
+	// only one item selected
+	else if (docSelectionCount == 1)
+	{
+		PageItem *currItem = m_Doc->m_Selection->itemAt(0);
+		currentPage->guides.gx = currItem->xPos() - currentPage->xOffset();
+		currentPage->guides.gy = currItem->yPos() - currentPage->yOffset();
+		currentPage->guides.gw = currItem->width();
+		currentPage->guides.gh = currItem->height();
+	}
 }

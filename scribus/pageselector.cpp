@@ -1,78 +1,128 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "pageselector.h"
-#include "pageselector.moc"
+//#include "pageselector.moc"
 
 #include <qvariant.h>
 #include <qcombobox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
+#include <qlineedit.h>
+#include <q3popupmenu.h>
+#if OPTION_USE_QTOOLBUTTON
+    #include <qtoolbutton.h>
+#else
+    #include <qpushbutton.h>
+#endif
 #include <qlayout.h>
+#include <qtoolbutton.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qimage.h>
 #include <qpixmap.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include "sccombobox.h"
 
 extern QPixmap loadIcon(QString nam);
+
+class PageValidator : public QValidator {
+public:
+	PageValidator(int min, int max, QObject * parent);
+	void fixup(QString & input) const;
+	State validate(QString & input, int & pos) const;
+private:
+	QRegExp rx;
+	QRegExp rx2;
+	PageSelector * pageSelector;
+};
+
+PageValidator::PageValidator(int /* min */, int /* max */, QObject * parent) : QValidator
+(parent), rx("^([0-9]+).*"), rx2("^[0-9]+$") 
+{
+	pageSelector = static_cast<PageSelector*>(parent);
+}
+
+QValidator::State PageValidator::validate(QString & input, int & /* pos */) const
+{
+	if (rx2.search(input) == 0 && pageSelector->PageCombo->text(input.toInt()-1) == input)
+		return Acceptable;
+	else
+		return Intermediate;
+}
+
+void PageValidator::fixup(QString & input) const
+{
+	if (rx.search(input) == 0)
+		input = const_cast<QRegExp &>(rx).cap(1);
+}
+	
 
 PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgsel", 0 )
 {
 	LastPG = maxPg;
 	APage = 1;
-	PageSelectorLayout = new QHBoxLayout( this, 0, 1, "PageSelectorLayout");
+	PageSelectorLayout = new Q3HBoxLayout( this, 0, 1, "PageSelectorLayout");
 
+#if OPTION_USE_QTOOLBUTTON
+	Start = new QToolButton( this, "Start" );
+	Start->setAutoRaise(OPTION_FLAT_BUTTON);
+	Back = new QToolButton( this, "Back" );
+	Back->setAutoRaise(OPTION_FLAT_BUTTON);
+	Forward = new QToolButton( this, "Forward" );
+	Forward->setAutoRaise(OPTION_FLAT_BUTTON);
+	Last = new QToolButton( this, "Last" );
+	Last->setAutoRaise(OPTION_FLAT_BUTTON);
+#else
 	Start = new QPushButton( this, "Start" );
 	Start->setDefault( false );
 	Start->setAutoDefault( false );
-	Start->setPixmap( loadIcon("start.png") );
-	Start->setFocusPolicy(QWidget::NoFocus);
-	PageSelectorLayout->addWidget( Start );
-
+	Start->setFlat(OPTION_FLAT_BUTTON);
 	Back = new QPushButton( this, "Back" );
-	Back->setPixmap( loadIcon("back.png") );
 	Back->setDefault( false );
 	Back->setAutoDefault( false );
-	Back->setFocusPolicy(QWidget::NoFocus);
+	Back->setFlat(OPTION_FLAT_BUTTON);
+	Forward = new QPushButton( this, "Forward" );
+	Forward->setDefault( false );
+	Forward->setAutoDefault( false );
+	Forward->setFlat(OPTION_FLAT_BUTTON);
+	Last = new QPushButton( this, "Last" );
+	Last->setDefault( false );
+	Last->setAutoDefault( false );
+	Last->setFlat(OPTION_FLAT_BUTTON);
+#endif
+	Start->setPixmap( loadIcon("16/go-first.png") );
+	Start->setFocusPolicy(Qt::NoFocus);
+	PageSelectorLayout->addWidget( Start );
+
+	Back->setPixmap( loadIcon("16/go-previous.png") );
+	Back->setFocusPolicy(Qt::NoFocus);
+	Back->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Back );
 
-	Label1 = new QLabel( this, "Label1" );
-	Label1->setText( tr( "Page " ) );
-	PageSelectorLayout->addWidget( Label1 );
-	v = new QIntValidator(1, LastPG, this);
-	PageCombo = new QComboBox( true, this, "PageCombo" );
-	PageCombo->setEditable( true );
+	v = new PageValidator(1, LastPG, this);
+	PageCombo = new ScComboBox( true, this, "PageCombo" );
 	PageCombo->setDuplicatesEnabled( false );
+	PageCombo->lineEdit()->setAlignment(Qt::AlignHCenter);
 	QString tmp;
 	for (int a = 0; a < LastPG; ++a)
 	{
 		PageCombo->insertItem(tmp.setNum(a+1));
 	}
 	PageCombo->setValidator(v);
-	PageCombo->setFocusPolicy(QWidget::ClickFocus);
+	PageCombo->setMinimumSize(fontMetrics().width( "999 of 999" )+20, 20);
+	PageCombo->setFocusPolicy(Qt::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
-
-	Label2 = new QLabel( this, "Label2" );
-	Label2->setText( tr( " of %1" ).arg(LastPG) );
-	PageSelectorLayout->addWidget( Label2 );
-
-	Forward = new QPushButton( this, "Forward" );
-	Forward->setPixmap( loadIcon("forward.png") );
-	Forward->setDefault( false );
-	Forward->setAutoDefault( false );
-	Forward->setFocusPolicy(QWidget::NoFocus);
+	
+	Forward->setPixmap( loadIcon("16/go-next.png") );
+	Forward->setFocusPolicy(Qt::NoFocus);
+	Forward->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Forward );
 
-	Last = new QPushButton( this, "Last" );
-	Last->setPixmap( loadIcon("finish.png") );
-	Last->setDefault( false );
-	Last->setAutoDefault( false );
-	Last->setFocusPolicy(QWidget::NoFocus);
+	Last->setPixmap( loadIcon("16/go-last.png") );
+	Last->setFocusPolicy(Qt::NoFocus);
 	PageSelectorLayout->addWidget( Last );
 	Forward->setEnabled(true);
 	Last->setEnabled(true);
@@ -84,6 +134,7 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 		Last->setEnabled(false);
 	}
 
+	languageChange();
 	// signals and slots connections
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	connect( Back, SIGNAL( clicked() ), this, SLOT( goBk() ) );
@@ -92,16 +143,43 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	connect( Last, SIGNAL( clicked() ), this, SLOT( ToEnd() ) );
 }
 
+bool PageSelector::hasFocus()
+{
+	return PageCombo->hasFocus();
+}
+
+
+void PageSelector::focusPolicy(Qt::FocusPolicy policy)
+{
+	PageCombo->setFocusPolicy(policy);
+}
+
+
 void PageSelector::GotoPgE(int a)
 {
 	GotoPg(a);
 	emit GotoPage(a+1);
 }
 
+
+void PageSelector::GotoPage()
+{
+	static QRegExp rx("^([0-9])+.*");
+	int p = rx.cap(1).toInt();
+	if (p < 1)
+		p=1;
+	if (p > LastPG)
+		p = LastPG;
+	GotoPg(p-1);
+	emit GotoPage(p);
+}
+
+
 void PageSelector::GotoPg(int a)
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	PageCombo->setCurrentItem(a);
+	PageCombo->setEditText( tr( "%1 of %2" ).arg(a+1).arg(LastPG) );
 	APage = a+1;
 	Back->setEnabled(true);
 	Start->setEnabled(true);
@@ -123,15 +201,15 @@ void PageSelector::GotoPg(int a)
 void PageSelector::setMaxValue(int a)
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	PageCombo->clear();
 	LastPG = a;
 	QString tmp;
-	PageCombo->clear();
-	v->setTop(LastPG);
+//	v->setTop(LastPG);
 	for (int b = 0; b < LastPG; ++b)
 	{
 		PageCombo->insertItem(tmp.setNum(b+1));
 	}
-	Label2->setText( tr( " of %1" ).arg(LastPG) );
+	PageCombo->setEditText( tr( "%1 of %2" ).arg(APage).arg(LastPG) );
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 
@@ -144,7 +222,7 @@ void PageSelector::ToStart()
 
 void PageSelector::ToEnd()
 {
-	if (APage == LastPG-1)
+	if (APage == LastPG)
 		return;
 	GotoPgE(LastPG-1);
 }
@@ -163,4 +241,16 @@ void PageSelector::goFw()
 	if (APage > LastPG)
 		APage = LastPG;
 	GotoPgE(APage-1);
+}
+
+void PageSelector::languageChange()
+{
+	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+	PageCombo->setEditText( tr( "%1 of %2").arg(APage).arg(LastPG) );
+	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
+}
+
+void PageSelector::clearFocus()
+{
+	PageCombo->clearFocus();	
 }

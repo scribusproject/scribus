@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,43 +25,51 @@
  ***************************************************************************/
 
 #include "gtdialogs.h"
-#include "gtdialogs.moc"
+//#include "gtdialogs.moc"
+#include "prefsmanager.h"
+#include "prefscontext.h"
 #include "prefsfile.h"
+#include "sccombobox.h"
 #include <qlabel.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3Frame>
+#include <QPixmap>
+#include <Q3VBoxLayout>
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 extern QString DocDir;
-extern PrefsFile* prefsFile;
 
 /********* Class gtFileDialog ************************************************************************/
 
 gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir) : 
-               QFileDialog(QString::null, filters, 0, 0, true)
+               Q3FileDialog(QString::null, filters, 0, 0, true)
 {
 // 	setIcon(loadIcon("AppIcon.png"));
-	setCaption("Open");
+	setCaption( tr("Open"));
 	dir = QDir(wdir);
 	setDir(dir);
-	setMode(QFileDialog::ExistingFile);
+	setMode(Q3FileDialog::ExistingFile);
 	createWidgets(importers);
 }
 
 void gtFileDialog::createWidgets(const QStringList& importers)
 {
-	importerFrame = new QFrame(this);
-	importerLayout = new QHBoxLayout(importerFrame);
+	importerFrame = new Q3Frame(this);
+	importerLayout = new Q3HBoxLayout(importerFrame);
 	importerLayout->setSpacing(10);
 	importerLayout->setMargin(0);
 
-	importerCombo = new QComboBox(0, importerFrame, "importerCombo");
+	importerCombo = new ScComboBox(0, importerFrame, "importerCombo");
 	importerCombo->setMinimumSize(QSize(150, 0));
 	QToolTip::add(importerCombo, tr("Choose the importer to use"));
-	importerCombo->insertItem(tr("Automatic"));
+	importerCombo->insertItem( tr("Automatic"));
 	importerCombo->insertStringList(importers);
 	importerLayout->addWidget(importerCombo);
 
 	textOnlyCheckBox = new QCheckBox(importerFrame, "textOnlyCB");
-	textOnlyCheckBox->setText(tr("Import Text Only"));
+	textOnlyCheckBox->setText( tr("Import Text Only"));
 	QToolTip::add(textOnlyCheckBox, tr("Import text without any formatting"));
 // 	                                   "\nNotice that not all importers provide this feature."));
 	importerLayout->addWidget(textOnlyCheckBox);
@@ -63,23 +77,25 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	importerLayout->addItem(spacer);
 
-	addWidgets(new QLabel(tr("Importer:"), this), importerFrame, 0);
+	addWidgets(new QLabel( tr("Importer:"), this), importerFrame, 0);
 
-	encodingFrame = new QFrame(this);
-	encodingLayout = new QHBoxLayout(encodingFrame);
+	encodingFrame = new Q3Frame(this);
+	encodingLayout = new Q3HBoxLayout(encodingFrame);
 	encodingLayout->setSpacing(10);
 	encodingLayout->setMargin(0);
 
-	encodingCombo = new QComboBox(true, encodingFrame, "encodingCombo");
+	encodingCombo = new ScComboBox(true, encodingFrame, "encodingCombo");
 	encodingCombo->setEditable(false);
 	QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
 					   "ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
-					   "ISO 8859-15", "utf8", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
+					   "ISO 8859-15", "UTF-8", "UTF-16", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
 					   "CP1254", "CP1255", "CP1256", "CP1257", "Apple Roman"};
 	size_t array = sizeof(tmp_txc) / sizeof(*tmp_txc);
 	for (uint a = 0; a < array; ++a)
 		encodingCombo->insertItem(tmp_txc[a]);
 	QString localEn = QTextCodec::codecForLocale()->name();
+	if (localEn == "ISO-10646-UCS-2")
+		localEn = "UTF-16";
 	bool hasIt = false;
 	for (int cc = 0; cc < encodingCombo->count(); ++cc)
 	{
@@ -99,10 +115,13 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	encodingLayout->addWidget(encodingCombo);
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	encodingLayout->addItem( spacer2 );
-	addWidgets(new QLabel(tr("Encoding:"), this), encodingFrame, 0);
+	addWidgets(new QLabel( tr("Encoding:"), this), encodingFrame, 0);
 
 	HomeB = new QToolButton(this);
-	HomeB->setIconSet(loadIcon("gohome.png"));
+	HomeB->setIconSet(loadIcon("16/go-home.png"));
+	#ifdef _WIN32
+	HomeB->setAutoRaise(true);
+	#endif
 // 	HomeB->setTextLabel( tr("Moves to your Document Directory.\nThis can be set in the Preferences."));
 	connect(HomeB, SIGNAL(clicked()), this, SLOT(slotHome()));
 	addToolButton(HomeB);
@@ -122,18 +141,18 @@ gtFileDialog::~gtFileDialog()
 
 gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSelection)
 {
-	setCaption(tr("Choose the importer to use"));
+	setCaption( tr("Choose the importer to use"));
 	setIcon(loadIcon("AppIcon.png"));
 
-	QBoxLayout* layout = new QVBoxLayout(this);
+	Q3BoxLayout* layout = new Q3VBoxLayout(this);
 
-	QBoxLayout* llayout = new QHBoxLayout(0, 5, 5, "llayout");
+	Q3BoxLayout* llayout = new Q3HBoxLayout(0, 5, 5, "llayout");
 	QLabel* label = new QLabel( tr("Choose the importer to use"), this, "label");
 	llayout->addWidget(label);
 	layout->addLayout(llayout);
 
-	QBoxLayout* ilayout = new QHBoxLayout(0, 5, 5, "dlayout2");
-	importerCombo = new QComboBox(0, this, "importerCombo2");
+	Q3BoxLayout* ilayout = new Q3HBoxLayout(0, 5, 5, "dlayout2");
+	importerCombo = new ScComboBox(0, this, "importerCombo2");
 	importerCombo->setMinimumSize(QSize(150, 0));
 	QToolTip::add(importerCombo, tr("Choose the importer to use"));
 	importerCombo->insertStringList(importers);
@@ -144,19 +163,17 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	ilayout->addWidget(importerCombo);
 	layout->addLayout(ilayout);
 
-	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout2");
-	rememberCheck = new QCheckBox(tr("Remember association"), this, "rememberCheck");
+	Q3BoxLayout* dlayout = new Q3HBoxLayout(0, 5, 5, "dlayout2");
+	rememberCheck = new QCheckBox( tr("Remember association"), this, "rememberCheck");
 	rememberCheck->setChecked(false);
-	QToolTip::add(rememberCheck, tr("Remember the file extension - importer association\n"
-                                    "and do not ask again to select an importer for\n"
-                                    "files of this type."));
+	QToolTip::add(rememberCheck, "<qt>" + tr("Remember the file extension - importer association and do not ask again to select an importer for files of this type.") + "</qt>" );
 	dlayout->addStretch(10);
 	dlayout->addWidget(rememberCheck);
 	layout->addLayout(dlayout);
 
-	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout2");
+	Q3BoxLayout* blayout = new Q3HBoxLayout(0, 5, 5, "blayout2");
 	blayout->addStretch(10);
-	okButton = new QPushButton(tr("OK"), this, "okButton2");
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton2");
 	blayout->addWidget(okButton);
 	layout->addLayout(blayout);
 
@@ -186,23 +203,25 @@ gtDialogs::gtDialogs()
 	fileName = "";
 	encoding = "";
 	importer = -1;
-	prefs = prefsFile->getContext("gtDialogs");
+	prefs = PrefsManager::instance()->prefsFile->getContext("gtDialogs");
 	pwd = QDir::currentDirPath();
 }
 
 bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importers)
 {
 	bool accepted = false;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString dir = dirs->get("get_text", ".");
 	fdia = new gtFileDialog(filters, importers, dir);
 	
 	if (fdia->exec() == QDialog::Accepted)
 	{
 		fileName = fdia->selectedFile();
-		if (fileName != "")
+		if (!fileName.isEmpty())
 			accepted = true;
 		encoding = fdia->encodingCombo->currentText();
+		if (encoding == "UTF-16")
+			encoding = "ISO-10646-UCS-2";
 		importer = fdia->importerCombo->currentItem() - 1;
 		dirs->set("get_text", fileName.left(fileName.findRev("/")));
 	}
@@ -242,15 +261,16 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 		{
 			res = idia->getImporter();
 			shouldRemember = idia->shouldRemember();
-			delete idia;
+			
 			ok = true;
 		}
+		delete idia;
 	}
 
 	if (ok)
 	{
 		QString fileExtension = "";
-		for (uint i = 0; i < importers.count(); ++i)
+		for (int i = 0; i < importers.count(); ++i)
 		{
 			if (importers[i] == res)
 			{
@@ -262,7 +282,7 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 						fileExtension = ".no_extension";
 					else
 						fileExtension = fileName.right(fileName.length() - fileName.findRev("."));
-					if (fileExtension != "")
+					if (!fileExtension.isEmpty())
 					{
 						prefs->set(fileExtension, static_cast<int>(i));
 						if (shouldRemember)

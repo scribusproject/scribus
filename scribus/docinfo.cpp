@@ -1,33 +1,41 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+#include <qlabel.h>
+#include <qlayout.h>
+#include <qlineedit.h>
+#include <q3multilineedit.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+
 #include "docinfo.h"
-#include "docinfo.moc"
+//#include "docinfo.moc"
+
 extern QPixmap loadIcon(QString nam);
 
 #include <qtooltip.h>
-
+#include "documentinformation.h"
 /*
- *  Constructs a DocInfos which is a child of 'parent', with the 
- *  name 'name' and widget flags set to 'f' 
+ *  Constructs a DocInfos which is a child of 'parent', with the
+ *  name 'name' and widget flags set to 'f'
  *
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  TRUE to construct a modal dialog.
  */
-DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
-		: QTabDialog( parent, "i", true, 0 )
+DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
+		: QTabWidget( parent, 0, 0 )
 {
+	infos = docInfo;
 	setMaximumSize( QSize( 32767, 32767 ) );
 	setCaption( tr( "Document Information" ) );
 	setIcon(loadIcon("AppIcon.png"));
 
 	page1 = new QWidget( this );
-	layout1 = new QGridLayout(page1);
+	layout1 = new Q3GridLayout(page1);
 	layout1->setSpacing( 6 );
 	layout1->setMargin( 5 );
 
@@ -43,23 +51,22 @@ DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
 	layout1->addWidget( authorLabel, 1, 0 );
 	layout1->addWidget( authorEdit, 1, 1 );
 
-	keywordsEdit = new QMultiLineEdit( page1, "keywordsEdit" );
+	keywordsEdit = new Q3MultiLineEdit( page1, "keywordsEdit" );
 	keywordsLabel = new QLabel( keywordsEdit, tr("&Keywords:"), page1, "keywordsLabel" );
-	keywordsLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	keywordsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	keywordsEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( keywordsLabel, 2, 0 );
 	layout1->addWidget( keywordsEdit, 2, 1 );
 
-	descriptionEdit = new QMultiLineEdit( page1, "descriptionEdit" );
+	descriptionEdit = new Q3MultiLineEdit( page1, "descriptionEdit" );
 	descriptionLabel = new QLabel( descriptionEdit, tr("Descri&ption:"), page1, "descriptionLabel" );
-	descriptionLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	descriptionLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	descriptionEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( descriptionLabel, 3, 0 );
 	layout1->addWidget( descriptionEdit, 3, 1 );
 
-
 	page2 = new QWidget( this );
-	layout2 = new QGridLayout(page2);
+	layout2 = new Q3GridLayout(page2);
 	layout2->setSpacing( 6 );
 	layout2->setMargin( 5 );
 
@@ -69,9 +76,9 @@ DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
 	layout2->addWidget( publisherLabel, 0, 0 );
 	layout2->addWidget( publisherEdit, 0, 1 );
 
-	contributorsEdit = new QMultiLineEdit( page2, "contributorsEdit" );
+	contributorsEdit = new Q3MultiLineEdit( page2, "contributorsEdit" );
 	contributorsLabel = new QLabel( contributorsEdit, tr("&Contributors:"), page2, "contributorsLabel" );
-	contributorsLabel->setAlignment( static_cast<int>( QLabel::AlignTop | QLabel::AlignLeft ) );
+	contributorsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	contributorsEdit->setMinimumSize(QSize(200, 105));
 	layout2->addWidget( contributorsLabel, 1, 0 );
 	layout2->addWidget( contributorsEdit, 1, 1 );
@@ -131,47 +138,67 @@ DocInfos::DocInfos( QWidget* parent, ScribusDoc* doc )
 	layout2->addWidget( rightsEdit, 10, 1 );
 
 
-	addTab( page1, tr("&Document") );
+	addTab( page1, tr("Documen&t") );
 	addTab( page2, tr("Further &Information") );
 
-	//set values
-	titleEdit->setText(doc->DocTitel);
-	authorEdit->setText(doc->DocAutor);
-	descriptionEdit->setText(doc->DocComments);
-	keywordsEdit->setText(doc->DocKeyWords);
-	publisherEdit->setText(doc->DocPublisher);
-	dateEdit->setText(doc->DocDate);
-	typeEdit->setText(doc->DocType);
-	formatEdit->setText(doc->DocFormat);
-	identifierEdit->setText(doc->DocIdent);
-	sourceEdit->setText(doc->DocSource);
-	languageEdit->setText(doc->DocLangInfo);
-	relationEdit->setText(doc->DocRelation);
-	coverageEdit->setText(doc->DocCover);
-	rightsEdit->setText(doc->DocRights);
-	contributorsEdit->setText(doc->DocContrib);
+	// switched off as it's called in main prefs classes - PV
+	//restoreDefaults();
 
 	//tooltips
-	QToolTip::add( authorEdit, tr( "The person or organisation primarily responsible for making the content of the document.\nThis field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) );
-	QToolTip::add( titleEdit, tr( "A name given to the document.\nThis field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) );
-	QToolTip::add( descriptionEdit, tr( "An account of the content of the document.\nThis field is for a brief description or abstract of the document. It is embedded in the PDF on export" ) );
-	QToolTip::add( keywordsEdit, tr( "The topic of the content of the document.\nThis field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files" ) );
-	QToolTip::add( publisherEdit, tr( "A person or organisation responsible for making the document available" ) );
-	QToolTip::add( contributorsEdit, tr( "A person or organisation responsible for making contributions to the content of the document" ) );
-	QToolTip::add( dateEdit, tr( "A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601" ) );
-	QToolTip::add( typeEdit, tr( "The nature or genre of the content of the document, eg. categories, functions, genres, etc" ) );
-	QToolTip::add( formatEdit, tr( "The physical or digital manifestation of the document. Media type and dimensions would be worth noting.\nRFC2045,RFC2046 for MIME types are also useful here" ) );
-	QToolTip::add( identifierEdit, tr( "An unambiguous reference to the document within a given context such as ISBN or URI" ) );
-	QToolTip::add( sourceEdit, tr( "A reference to a document from which the present document is derived, eg. ISBN or URI" ) );
-	QToolTip::add( languageEdit, tr( "The language in which the content of the document is written, usually a ISO-639 language code\noptionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH" ) );
-	QToolTip::add( relationEdit, tr( "A reference to a related document, possibly using a formal identifier such as a ISBN or URI" ) );
-	QToolTip::add( coverageEdit, tr( "The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges" ) );
-	QToolTip::add( rightsEdit, tr( "Information about rights held in and over the document, eg. copyright, patent or trademark" ) );
+	QToolTip::add( authorEdit, "<qt>" + tr( "The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) );
+	QToolTip::add( titleEdit, "<qt>" + tr( "A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) + "</qt>");
+	QToolTip::add( descriptionEdit, "<qt>" + tr( "An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export" ) + "</qt>" );
+	QToolTip::add( keywordsEdit, "<qt>" + tr( "The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files" ) + "</qt>" );
+	QToolTip::add( publisherEdit, "<qt>" + tr( "A person or organisation responsible for making the document available" ) + "</qt>" );
+	QToolTip::add( contributorsEdit, "<qt>" + tr( "A person or organisation responsible for making contributions to the content of the document" ) + "</qt>" );
+	QToolTip::add( dateEdit, "<qt>" + tr( "A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601" ) + "</qt>" );
+	QToolTip::add( typeEdit, "<qt>" + tr( "The nature or genre of the content of the document, eg. categories, functions, genres, etc" )  + "</qt>");
+	QToolTip::add( formatEdit, "<qt>" + tr( "The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here" ) + "</qt>" );
+	QToolTip::add( identifierEdit, "<qt>" + tr( "An unambiguous reference to the document within a given context such as ISBN or URI" ) + "</qt>" );
+	QToolTip::add( sourceEdit, "<qt>" + tr( "A reference to a document from which the present document is derived, eg. ISBN or URI" ) + "</qt>" );
+	QToolTip::add( languageEdit, "<qt>" + tr( "The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH" ) + "</qt>" );
+	QToolTip::add( relationEdit, "<qt>" + tr( "A reference to a related document, possibly using a formal identifier such as a ISBN or URI" ) + "</qt>" );
+	QToolTip::add( coverageEdit, "<qt>" + tr( "The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges" ) + "</qt>" );
+	QToolTip::add( rightsEdit, "<qt>" + tr( "Information about rights held in and over the document, eg. copyright, patent or trademark" ) + "</qt>" );
+}
 
-	setOKButton( tr("&OK") );
-	setCancelButton( tr("&Cancel") );
 
-	// signals and slots connections
-	connect( this, SIGNAL( applyButtonPressed() ), this, SLOT( accept() ) );
-	connect( this, SIGNAL( cancelButtonPressed() ), this, SLOT( reject() ) );
+DocumentInformation DocInfos::getDocInfo()
+{
+	DocumentInformation docInfo;
+	docInfo.setAuthor(authorEdit->text());
+	docInfo.setComments(descriptionEdit->text());
+	docInfo.setContrib(contributorsEdit->text());
+	docInfo.setCover(coverageEdit->text());
+	docInfo.setDate(dateEdit->text());
+	docInfo.setFormat(formatEdit->text());
+	docInfo.setIdent(identifierEdit->text());
+	docInfo.setKeywords(keywordsEdit->text());
+	docInfo.setLangInfo(languageEdit->text());
+	docInfo.setPublisher(publisherEdit->text());
+	docInfo.setRelation(relationEdit->text());
+	docInfo.setRights(rightsEdit->text());
+	docInfo.setSource(sourceEdit->text());
+	docInfo.setTitle(titleEdit->text());
+	docInfo.setType(typeEdit->text());
+	return docInfo;
+}
+
+void DocInfos::restoreDefaults()
+{
+	titleEdit->setText(infos.getTitle());
+	authorEdit->setText(infos.getAuthor());
+	descriptionEdit->setText(infos.getComments());
+	keywordsEdit->setText(infos.getKeywords());
+	publisherEdit->setText(infos.getPublisher());
+	dateEdit->setText(infos.getDate());
+	typeEdit->setText(infos.getType());
+	formatEdit->setText(infos.getFormat());
+	identifierEdit->setText(infos.getIdent());
+	sourceEdit->setText(infos.getSource());
+	languageEdit->setText(infos.getLangInfo());
+	relationEdit->setText(infos.getRelation());
+	coverageEdit->setText(infos.getCover());
+	rightsEdit->setText(infos.getRights());
+	contributorsEdit->setText(infos.getContrib());
 }

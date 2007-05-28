@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           colorchart.cpp  -  description
                              -------------------
@@ -16,32 +22,29 @@
  ***************************************************************************/
 
 #include "colorchart.h"
-#include "colorchart.moc"
-#include <qpixmap.h>
-#include <qimage.h>
-#include <qpainter.h>
-extern QImage ProofImage(QImage *Im);
+#include <QPainter>
+#include "colorutil.h"
+#include "scribusdoc.h"
 
-ColorChart::ColorChart(QWidget *parent) : QLabel(parent)
+ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QWidget(parent), m_doc(doc)
 {
-	setScaledContents( true );
-	setAlignment( static_cast<int>( QLabel::AlignCenter ) );
 	Xp = 0;
 	Yp = 0;
-	setBackgroundMode(NoBackground);
+	doDrawMark = false;
+	setBackgroundMode(Qt::NoBackground);
 	drawPalette(255);
 }
 
 void ColorChart::mouseMoveEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
-	emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), false);
+	emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
 }
 
 void ColorChart::mousePressEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
-	emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), false);
+	emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
 }
 
 void ColorChart::mouseReleaseEvent(QMouseEvent *m)
@@ -53,33 +56,32 @@ void ColorChart::mouseReleaseEvent(QMouseEvent *m)
 void ColorChart::paintEvent(QPaintEvent *e)
 {
 	QPainter p;
+	QPainter p2;
 	p.begin(this);
 	p.setClipRect(e->rect());
-	p.drawPixmap(0, 0, pmx);
-	drawMark(Xp, Yp);
+	QImage tmp = QImage(width(), height(), QImage::Format_ARGB32);
+	p2.begin(&tmp);
+	p2.drawPixmap(0, 0, pmx);
+	if (doDrawMark)
+	{
+		p2.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		p2.drawLine(Xp-5, Yp-5, Xp-1, Yp-1);
+		p2.drawLine(Xp-5, Yp+5, Xp-1, Yp+1);
+		p2.drawLine(Xp+2, Yp+2, Xp+6, Yp+6);
+		p2.drawLine(Xp+2, Yp-2, Xp+6, Yp-6);
+	}
+	p2.end();
+	p.drawImage(0, 0, tmp);
 	p.end();
+	doDrawMark = false;
 }
 
 void ColorChart::drawMark(int x, int y)
 {
-	QPainter p;
-	p.begin(this);
-	p.setRasterOp(XorROP);
-	p.setPen(QPen(QColor(white), 1, SolidLine, FlatCap, MiterJoin));
-	p.drawLine(Xp-5, Yp-5, Xp-1, Yp-1);
-	p.drawLine(Xp-5, Yp+5, Xp-1, Yp+1);
-	p.drawLine(Xp+2, Yp+2, Xp+6, Yp+6);
-	p.drawLine(Xp+2, Yp-2, Xp+6, Yp-6);
-	if (!((Xp == x) && (Yp == y)))
-	{
-		Xp = x;
-		Yp = y;
-		p.drawLine(Xp-5, Yp-5, Xp-1, Yp-1);
-		p.drawLine(Xp-5, Yp+5, Xp-1, Yp+1);
-		p.drawLine(Xp+2, Yp+2, Xp+6, Yp+6);
-		p.drawLine(Xp+2, Yp-2, Xp+6, Yp-6);
-	}
-	p.end();
+	Xp = x;
+	Yp = y;
+	doDrawMark = true;
+	repaint();
 }
 
 void ColorChart::setMark(int h, int s)
@@ -91,7 +93,7 @@ void ColorChart::drawPalette(int val)
 {
 	int xSize = width();
 	int ySize = height();
-	QImage image(xSize, ySize, 32);
+	QImage image(xSize, ySize, QImage::Format_ARGB32);
 	QColor color;
 	int x;
 	int y;
@@ -105,6 +107,6 @@ void ColorChart::drawPalette(int val)
 			++p;
 		}
 	}
-	pmx.convertFromImage(ProofImage(&image));
-	setPixmap(pmx);
+	pmx.convertFromImage(ProofImage(&image, m_doc));
+	repaint();
 }

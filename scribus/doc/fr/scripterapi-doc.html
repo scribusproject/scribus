@@ -1,0 +1,100 @@
+<qt>
+<title>Commandes relatives au document</title>
+<h2>Commandes relatives au document</h2>
+
+<dl>
+
+<dt><a name="-closeDoc"><strong>closeDoc</strong></a>(...)</dt>
+<dd><code><a href="#-closeDoc">closeDoc</a>()</code>
+<p>Ferme le document courant sans invite de sauvegarde.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="#NoDocOpenError">NoDocOpenError</a>
+s'il n'y a pas de document &agrave; fermer</p></dd>
+
+<dt><a name="-docChanged"><strong>docChanged</strong></a>(...)</dt>
+<dd><code><a href="#-docChanged">docChanged</a>(bool&eacute;en)</code>
+<p>Active/d&eacute;sactive l'ic&ocirc;ne Enregistrer dans la barre d'ic&ocirc;nes de
+Scribus et dans l'&eacute;l&eacute;ment de menu Enregistrer. Il est utile
+d'appeler cette proc&eacute;dure lorsque vous changez de document, parce
+que Scribus ne remarquera pas automatiquement un changement de
+document en utilisant un script.</p></dd>
+
+<dt><a name="-getUnit"><strong>getUnit</strong></a>(...)</dt>
+<dd><code><a href="#-getUnit">getUnit</a>() -&gt; nombre entier
+(constante d'unit&eacute; de Scribus)</code>
+<p>Retourne les unit&eacute;s de mesure du document. La valeur retourn&eacute;e
+sera une des constantes UNIT_*: UNIT_INCHES,
+UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</p></dd>
+	
+<dt><a name="-haveDoc"><strong>haveDoc</strong></a>(...)</dt>
+<dd><code><a href="#-haveDoc">haveDoc</a>() -&gt; bool&eacute;en</code>
+<p>Retourne la valeur true s'il y a un document ouvert.</p></dd>
+
+<dt><a name="-loadStylesFromFile"><strong>loadStylesFromFile</strong></a>(...)</dt>
+<dd><code><a href="#-loadStylesFromFile">loadStylesFromFile</a>("nomFichier")</code>
+<p>Charge des styles de paragraphe &agrave; partir du document Scribus
+"nomFichier" dans le document courant.</p></dd>
+	
+<dt><a name="-newDoc"><strong>newDoc</strong></a>(...)</dt>
+<dd><code><a href="#-newDoc">newDoc</a>(taille, marges, orientation, numeroPremierePage, unite, pagesRegard, premierePageGauche)
+-&gt; bool&eacute;en</code>
+<p>Cr&eacute;e un nouveau document et retourne la valeur True si l'op&eacute;ration
+r&eacute;ussit. Les param&egrave;tres ont la signification suivante :</p>
+<ul>
+	<li>taille = un vecteur (largeur, hauteur) d&eacute;crivant la taille du document. Vous pouvez utiliser des constantes pr&eacute;d&eacute;finies nomm&eacute;es PAPER_&lt;paper_type&gt; c'est-&agrave;-dire PAPER_A4 etc.</li>
+	<li>marges = un vecteur (gauche, droite, haut, bas) d&eacute;crivant les
+marges du document</li>
+	<li>orientation = l'orientation de la page - constantes PORTRAIT, LANDSCAPE</li>
+	<li>numeroPremierePage = est le num&eacute;ro de la premi&egrave;re page dans le
+document utilis&eacute; pour la num&eacute;rotation. M&ecirc;me si habituellement vous
+choisirez la valeur 1, il est utile d'avoir de plus grands
+chiffres si vous cr&eacute;ez un document en plusieurs parties.</li>
+	<li>unit&eacute; = cette valeurs d&eacute;finit les unit&eacute;s de mesure utilis&eacute;es par le document. Utilisez
+une constante pr&eacute;d&eacute;finie pour cela, parmi les suivantes: UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</li>
+	<li>pagesRegard = FACINGPAGES, NOFACINGPAGES</li>
+	<li>premierPageGauche = FIRSTPAGELEFT, FIRSTPAGERIGHT</li>
+	</ul>
+<p>Les valeurs &eacute;tablies pour la largeur, la hauteur et les marges
+sont exprim&eacute;es dans les unit&eacute;s choisies pour le document. Les constantes PAPER_* sont exprim&eacute;es en points. Si
+votre document n'est pas d&eacute;fini en points, assurez-vous d'en tenir
+compte.</p>
+<p>exemple: <a href="#-newDoc">newDoc</a>(PAPER_A4, (10, 10, 20, 20),
+LANDSCAPE, 1, UNIT_POINTS, FACINGPAGES, FIRSTPAGERIGHT)</p></dd>
+
+<dt><a name="-openDoc"><strong>openDoc</strong></a>(...)</dt>
+<dd><code><a href="#-openDoc">openDoc</a>("nom")</code>
+<p>Ouvre le document "nom".</p>
+<p>Peut g&eacute;n&eacute;rer ScribusError si le document ne peut pas &ecirc;tre ouvert.</p></dd>
+	
+<dt><a name="-saveDoc"><strong>saveDoc</strong></a>(...)</dt>
+<dd><code><a href="#-saveDoc">saveDoc</a>()</code>
+<p>Enregistre le document ouvert sous son nom courant, et retourne la valeur True si l'op&eacute;ration r&eacute;ussit. Si le document n'a pas d&eacute;j&agrave; &eacute;t&eacute; enregistr&eacute;, le syst&egrave;me peut afficher le dialogue interactif Enregistrer sous.Si l'enregistrement &eacute;choue, il n'y a actuellement aucun moyen de le savoir.</p></dd>
+
+<dt><a name="-saveDocAs"><strong>saveDocAs</strong></a>(...)</dt>
+<dd><code><a href="#-saveDocAs">saveDocAs</a>("nom")</code>
+<p>Enregistre le document courant sous le nouveau "nom" (qui peut &ecirc;tre un chemin complet ou relatif).</p>
+<p>Peut g&eacute;n&eacute;rer ScribusError si l'enregistrement &eacute;choue.</p></dd>
+
+<dt><a name="-setInfo"><strong>setInfo</strong></a>(...)</dt>
+<dd><code><a href="#-saveDocAs">saveDocAs</a>("auteur", "info",
+"description") -&gt; bool&eacute;en</code>
+<p>&Eacute;tablit l'information relative au document. "Auteur", "Info",
+"Description" sont des cha&icirc;nes.</p></dd>
+	
+<dt><a name="-setMargins"><strong>setMargins</strong></a>(...)</dt>
+<dd><code><a href="#-setMargins">setMargins</a>(lr, rr, tr, br)</code>
+<p>&Eacute;tablit les marges du document, les marges Gauche(lr), Droite(rr),
+Haut(tr) et Bas(br) sont indiqu&eacute;es dans les unit&eacute;s de mesure du
+document - voir les constantes UNIT_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt>
+<dd><code><a href="#-setDocType">setDocType</a>(pagesRegard, premierePageGauche)</code>
+<p>Assigne le type de document. Pour obtenir des pages en regard, mettez le premier param&egrave;tre &agrave; FACINGPAGES; pour d&eacute;sactiver facingPages, utilisez NOFACINGPAGES &agrave; la place. Si vous voulez que la premi&egrave;re page soit &agrave; gauche, mettez le deuxi&egrave;me param&egrave;tre &agrave; FIRSTPAGELEFT; pour une premi&egrave;re page &agrave; droite, utilisez FIRSTPAGERIGHT.</p></dd>
+	
+<dt><a name="-setUnit"><strong>setUnit</strong></a>(...)</dt>
+<dd><code><a href="#-setUnit">setUnit</a>(type)</code>
+<p>Change l'unit&eacute; de mesure du document. Les valeurs possibles de l'"unit&eacute;" sont d&eacute;finies par les constantes UNIT_&lt;type&gt;.</p>
+<p>Peut g&eacute;n&eacute;rer ValueError si l'unit&eacute; pass&eacute;e n'est pas valide.</p></dd>
+
+</dl>
+</qt>
+ 

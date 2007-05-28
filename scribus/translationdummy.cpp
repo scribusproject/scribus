@@ -1,17 +1,15 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 QMessageBox::QMessageBox()
 {
 tr("<h3>About Qt</h3><p>This program uses Qt version %1.</p><p>Qt is a C++ toolkit for multiplatform GUI &amp; application development.</p><p>Qt provides single-source portability across MS&nbsp;Windows, Mac&nbsp;OS&nbsp;X, Linux, and all major commercial Unix variants.<br>Qt is also available for embedded devices.</p><p>Qt is a Trolltech product. See <tt>http://www.trolltech.com/qt/</tt> for more information.</p>");
 }
 
-QFileDialog::QFileDialog()
+QFileDialog::Q3FileDialog()
 {
 tr("Copy or Move a File");
 tr("Read: %1");
@@ -62,8 +60,8 @@ tr("the directory");
 tr("the symlink");
 tr("Delete %1");
 tr("<qt>Are you sure you wish to delete %1 \"%2\"?</qt>");
-tr("&Yes");
-tr("&No");
+CommonStrings::trYesKey;
+CommonStrings::trNoKey;
 tr("New Folder 1");
 tr("New Folder");
 tr("New Folder %1");
@@ -86,7 +84,7 @@ tr("Cu&t");
 tr("&Copy");
 tr("&Paste");
 }
-QTextEdit::QTextEdit()
+QTextEdit::Q3TextEdit()
 {
 tr("Clear");
 tr("Select All");
@@ -96,7 +94,7 @@ tr("Cu&t");
 tr("&Copy");
 tr("&Paste");
 }
-QMainWindow::QMainWindow()
+QMainWindow::Q3MainWindow()
 {
 tr("Line up");
 tr("Customize...");

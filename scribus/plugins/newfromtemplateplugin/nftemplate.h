@@ -1,51 +1,51 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef MYPLUGIN_H
 #define MYPLUGIN_H
 
-#include <scribus.h>
-#include "nftdialog.h"
+#include "pluginapi.h"
+#include "scplugin.h"
 
-/** Calls the Plugin with the main Application window as parent
-  * and the main Application Class as parameter */
-extern "C" void Run(QWidget *d, ScribusApp *plug);
+class ScrAction;
+class ScribusDoc;
 
+class PLUGIN_API NewFromTemplatePlugin : public ScActionPlugin
+{
+	Q_OBJECT
 
-/** Returns the Name of the Plugin.
-  * This name appears in the relevant Menue-Entrys */
-extern "C" QString Name();
+	public:
+		// Standard plugin implementation
+		NewFromTemplatePlugin();
+		virtual ~NewFromTemplatePlugin();
+		//! \brief main method
+		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual const QString fullTrName() const;
+		virtual const AboutData* getAboutData() const;
+		virtual void deleteAboutData(const AboutData* about) const;
+		virtual void languageChange();
+		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
 
+		// Special features (none)
+};
 
-/** Returns the Type of the Plugin.
-  * 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
-  * 2 = the Plugin is a Import Plugin, which appears in the Import Menue
-  * 3 = the Plugin is a Export Plugin, which appears in the Export Menue
-  * 4 = the Plugin is a resident Plugin   */
-extern "C" int Type();
-extern "C" int ID();
-
-/** Initializes the Plugin if it's a Plugin of Type 4 or 5 */
-extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
-
-/** Possible CleanUpOperations when closing the Plugin */
-extern "C" void CleanUpPlug();
+extern "C" PLUGIN_API int newfromtemplateplugin_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* newfromtemplateplugin_getPlugin();
+extern "C" PLUGIN_API void newfromtemplateplugin_freePlugin(ScPlugin* plugin);
 
 class MenuNFT : public QObject
 {
 	Q_OBJECT
 
 public:
-    MenuNFT(QWidget* parent) {};
+	MenuNFT() {};
     ~MenuNFT() {};
 
 public slots:
-	void RunNFTPlug();
+	void RunNFTPlug(ScribusDoc*);
 };
 
 static MenuNFT* Nft;

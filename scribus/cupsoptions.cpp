@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           cupsoptions.cpp  -  description
                              -------------------
@@ -16,39 +22,39 @@
  ***************************************************************************/
 
 #include "cupsoptions.h"
-#include "cupsoptions.moc"
+//#include "cupsoptions.moc"
+#include "prefsmanager.h"
+#include "prefscontext.h"
 #include "prefsfile.h"
+#include "commonstrings.h"
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
+#include "scconfig.h"
 
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
 #endif
 #include <qtooltip.h>
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
 CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "prin", true, 0 )
 {
 	FlagsOpt.clear();
 	setCaption( tr( "Printer Options" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	prefs = prefsFile->getContext("cups_options");
+	prefs = PrefsManager::instance()->prefsFile->getContext("cups_options");
 	setSizeGripEnabled(true);
-	CupsOptionsLayout = new QVBoxLayout( this );
+	CupsOptionsLayout = new Q3VBoxLayout( this );
 	CupsOptionsLayout->setSpacing( 5 );
 	CupsOptionsLayout->setMargin( 10 );
-	Table = new QTable( this, "Table1" );
+	Table = new Q3Table( this, "Table1" );
 	Table->setNumCols( 2 );
 	Table->setSorting(false);
-	Table->setSelectionMode(QTable::NoSelection);
+	Table->setSelectionMode(Q3Table::NoSelection);
 	Table->setLeftMargin(0);
 	Table->verticalHeader()->hide();
 	Table->setMinimumSize(300, 100);
@@ -62,7 +68,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	ppd_group_t	*group;			/* Current group */
 	num_dests = cupsGetDests(&dests);
 	dest = cupsGetDest(Geraet, NULL, num_dests, dests);
-	if (dest == NULL || (filename = cupsGetPPD(dest->name)) == NULL || 
+	if (dest == NULL || (filename = cupsGetPPD(dest->name)) == NULL ||
 		  (ppd = ppdOpenFile(filename)) == NULL)
 		return;
 	ppdMarkDefaults(ppd);
@@ -82,14 +88,14 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 			Marked = "";
 			struct OpData Daten;
 			opts.clear();
-			for (j = option->num_choices, choice = option->choices; 
+			for (j = option->num_choices, choice = option->choices;
 					j > 0; j --, ++choice)
 			{
 				opts.append(QString(choice->choice));
 				if (choice->marked)
 					Marked = QString(choice->choice);
   			}
-			if (Marked != "")
+			if (!Marked.isEmpty())
 			{
 				Table->setNumRows(Table->numRows()+1);
 				Table->setText(Table->numRows()-1, 0, QString(option->text));
@@ -124,7 +130,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item4->insertItem( tr("All Pages"));
 	item4->insertItem( tr("Even Pages only"));
 	item4->insertItem( tr("Odd Pages only"));
-	int lastSelected = prefs->getInt(tr("Page Set"), 0);
+	int lastSelected = prefs->getInt( tr("Page Set"), 0);
 	if (lastSelected >= 3)
 		lastSelected = 0;
 	item4->setCurrentItem(lastSelected);
@@ -138,14 +144,14 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Daten.Cnum = static_cast<int>(FlagsOpt.count()-1);
 	Daten.KeyW = "mirror";
 	KeyToText["Mirror"] = Daten;
-	item2->insertItem( tr("No"));
-	item2->insertItem( tr("Yes"));
+	item2->insertItem(CommonStrings::trNo);
+	item2->insertItem(CommonStrings::trYes);
 	item2->setCurrentItem(0);
-	lastSelected = prefs->getInt(tr("Mirror"), 0);
+	lastSelected = prefs->getInt( tr("Mirror"), 0);
 	if (lastSelected >= 2)
 		lastSelected = 0;
 	item2->setCurrentItem(lastSelected);
-	KeyToDefault["Mirror"] = tr("No");
+	KeyToDefault["Mirror"] = CommonStrings::trNo;
 	Table->setCellWidget(Table->numRows()-1, 1, item2);
 	Table->setNumRows(Table->numRows()+1);
 	Table->setText(Table->numRows()-1, 0, QString( tr("Orientation")));
@@ -158,7 +164,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item5->insertItem( tr("Portrait"));
 	item5->insertItem( tr("Landscape"));
 	item5->setCurrentItem(0);
-	lastSelected = prefs->getInt(tr("Orientation"), 0);
+	lastSelected = prefs->getInt( tr("Orientation"), 0);
 	if (lastSelected >= 2)
 		lastSelected = 0;
 	item5->setCurrentItem(lastSelected);
@@ -178,7 +184,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	item3->insertItem("6 "+ tr("Pages per Sheet"));
 	item3->insertItem("9 "+ tr("Pages per Sheet"));
 	item3->insertItem("16 "+ tr("Pages per Sheet"));
-	lastSelected = prefs->getInt(tr("N-Up Printing"), 0);
+	lastSelected = prefs->getInt( tr("N-Up Printing"), 0);
 	if (lastSelected >= 6)
 		lastSelected = 0;
 	item3->setCurrentItem(lastSelected);
@@ -193,24 +199,24 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Header->setLabel(1, tr("Value"));
 	CupsOptionsLayout->addWidget( Table );
 
-	Layout2 = new QHBoxLayout;
+	Layout2 = new Q3HBoxLayout;
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( tr("&OK"), this, "PushButton1" );
+	PushButton1 = new QPushButton( CommonStrings::tr_OK, this, "PushButton1" );
 	PushButton1->setDefault( true );
 	Layout2->addWidget( PushButton1 );
-	PushButton2 = new QPushButton( tr("&Cancel"), this, "PushButton1_2" );
+	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton1_2" );
 	PushButton2->setDefault( false );
 	PushButton1->setFocus();
 	Layout2->addWidget( PushButton2 );
 	CupsOptionsLayout->addLayout( Layout2 );
 	setMinimumSize( sizeHint() );
-	resize(minimumSizeHint());
+	resize(minimumSizeHint().expandedTo(QSize(300, 100)));
 
 //tooltips
-	QToolTip::add( Table, tr( "This panel displays various CUPS options when printing. \nThe exact parameters available will depend on your printer driver.\nYou can confirm CUPS support by selecting Help > About.\nLook for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.\nMissing library support is indicated by a *" ) );
+	QToolTip::add( Table, "<qt>" + tr( "This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help > About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *" ) + "</qt>" );
 
     // signals and slots connections
 	connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );

@@ -1,54 +1,118 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef IMPORTPS_H
 #define IMPORTPS_H
 
-#include "scribus.h"
+#include "qglobal.h"
+#include "qobject.h"
+#include "qstring.h"
+#include "q3valuelist.h"
+#include "q3ptrlist.h"
 
-/** Calls the Plugin with the main Application window as parent
-  * and the main Application Class as parameter */
-extern "C" void Run(QWidget *d, ScribusApp *plug);
-/** Returns the Name of the Plugin.
-  * This name appears in the relevant Menue-Entrys */
-extern "C" QString Name();
-/** Returns the Type of the Plugin.
-  * 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
-  * 2 = the Plugins is a import Plugin, which appears in the Import Menue
-  * 3 = the Plugins is a export Plugin, which appears in the Export Menue */
-extern "C" int Type();
-extern "C" int ID();
+#include "pluginapi.h"
+#include "pageitem.h"
+#include "sccolor.h"
+#include "fpointarray.h"
 
+class MultiProgressDialog;
+class ScribusDoc;
+class Selection;
+
+//! \brief POSTSCRIPT importer plugin
 class EPSPlug : public QObject
-{ 
+{
 	Q_OBJECT
 
 public:
-	EPSPlug( QWidget* parent, ScribusApp *plug, QString fName );
-	~EPSPlug() {};
-	bool convert(QString fn, double x, double y, double b, double h);
-	void parseOutput(QString fn);
-	void LineTo(FPointArray *i, QString vals);
-	void Curve(FPointArray *i, QString vals);
-	QString parseColor(QString vals);
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Create the EPS importer window.
+	\param fName QString
+	\param flags combination of loadFlags
+	\param showProgress if progress must be displayed
+	\retval EPSPlug plugin
+	*/
+	EPSPlug( ScribusDoc* doc, int flags );
+	~EPSPlug();
 
-	ScribusDoc* Doku;
-	ScribusApp* Prog;
-	QPtrList<PageItem> Elements;
-	CListe CustColors;
-	double LineW, Opacity, DashOffset;
-	QValueList<double> DashPattern;
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Perform import.
+	\param fn QString
+	\param flags combination of loadFlags
+	\param showProgress if progress must be displayed
+	\retval bool true if import was ok
+	 */
+	bool import(QString fn, int flags, bool showProgress = true);
+
+private:
+	
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Does the conversion.
+	\param fn QString
+	\param x X position
+	\param y Y position
+	\param b double
+	\param h double
+	\retval bool true if conversion was ok
+	 */
+	bool convert(QString fn, double x, double y, double b, double h);
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Parses the Output Ghostscript has created.
+	*/
+	void parseOutput(QString fn, bool eps);
+	/*!
+	\author Franz Schmid
+	\param i FPointArray *
+	\param vals QString
+	*/
+	void LineTo(FPointArray *i, QString vals);
+	/*!
+	\author Franz Schmid
+	\param i FPointArray *
+	\param vals QString
+	 */
+	void Curve(FPointArray *i, QString vals);
+	/*!
+	\author Franz Schmid
+	\date
+	\brief Returns a Color Name, if the Color doesn't exist it's created
+	\param vals QString
+	\param model a color model
+	\retval QString Color Name
+	*/
+	QString parseColor(QString vals, bool eps, colorModel model = colorModelCMYK);
+	bool Image(QString vals);
+	
+	Q3PtrList<PageItem> Elements;
+	ColorList CustColors;
+	double LineW, Opacity, DashOffset, baseX, baseY;
+	Q3ValueList<double> DashPattern;
 	QString CurrColor;
 	FPointArray Coords;
+	FPointArray clipCoords;
 	bool FirstM, WasM, ClosedPath;
-	PenCapStyle CapStyle;
-	PenJoinStyle JoinStyle;
+	Qt::PenCapStyle CapStyle;
+	Qt::PenJoinStyle JoinStyle;
+	bool interactive;
+	MultiProgressDialog * progressDialog;
+	bool cancel;
+	ScribusDoc* m_Doc;
+	Selection* tmpSel;
+	QStringList importedColors;
+
+public slots:
+	void cancelRequested() { cancel = true; }
 };
 
 #endif
-

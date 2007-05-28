@@ -1,142 +1,106 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "importps.h"
-#include "importps.moc"
+//#include "importps.moc"
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
-
+#include "scconfig.h"
+#include "scribus.h"
+#include "scribuscore.h"
+#include "commonstrings.h"
 #include "customfdialog.h"
 #include "mpalette.h"
 #include "prefsfile.h"
+#include "prefscontext.h"
+#include "prefsmanager.h"
+#include "prefstable.h"
 #include "scribusXml.h"
 #include <qfile.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
 #include <qcursor.h>
+#include <q3dragobject.h>
 #include <qregexp.h>
+#include <q3ptrstack.h>
+#include <q3valuestack.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <QByteArray>
 #include <cmath>
 #include <cstdlib>
 
-extern QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-extern QPixmap loadIcon(QString nam);
-extern FPoint GetMaxClipF(FPointArray Clip);
-extern PrefsFile* prefsFile;
+#include "multiprogressdialog.h"
+#include "scpaths.h"
+#include "selection.h"
+#include "prefsmanager.h"
+#include "undomanager.h"
+#include "loadsaveplugin.h"
+#include "util.h"
 
-/*!
- \fn QString Name()
- \author Franz Schmid
- \date
- \brief Returns name of plugin
- \param None
- \retval QString containing name of plugin: Import EPS/PDF/PS...
- */
-QString Name()
+extern SCRIBUS_API ScribusQApp * ScQApp;
+
+EPSPlug::EPSPlug(ScribusDoc* doc, int flags)
 {
-	return QObject::tr("Import &EPS/PS...");
+	tmpSel=new Selection(this, false);
+	m_Doc=doc;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
-/*!
- \fn int Type()
- \author Franz Schmid
- \date
- \brief Returns type of plugin
- \param None
- \retval int containing type of plugin (1: Extra, 2: Import, 3: Export, 4: Resident Plugin)
- */
-int Type()
+bool EPSPlug::import(QString fName, int flags, bool showProgress)
 {
-	return 2;
-}
-
-int ID()
-{
-	return 6;
-}
-
-/*!
- \fn void Run(QWidget *d, ScribusApp *plug)
- \author Franz Schmid
- \date
- \brief Run the EPS import
- \param d QWidget *
- \param plug ScribusApp *
- \retval None
- */
-void Run(QWidget *d, ScribusApp *plug)
-{
-	QString fileName;
-	PrefsContext* prefs = prefsFile->getPluginContext("importps");
-	QString wdir = prefs->get("wdir", ".");
-	QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
-	formats += "EPS (*.eps *.EPS);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
-	CustomFDialog diaf(d, wdir, QObject::tr("Open"), formats);
-	if (diaf.exec())
-	{
-		fileName = diaf.selectedFile();
-		prefs->set("wdir", fileName.left(fileName.findRev("/")));
-	}
-	else
-		return;
-	EPSPlug *dia = new EPSPlug(d, plug, fileName);
-	delete dia;
-}
-
-/*!
- \fn EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
- \author Franz Schmid
- \date
- \brief Create the EPS importer window.
- \param parent QWidget *
- \param plug ScribusApp *
- \param fName QString
- \retval EPSPlug plugin
- */
-EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
-{
-	QWidget *d;
-	d = parent;
+	bool success = false;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
+	cancel = false;
 	double x, y, b, h, c, m, k;
 	bool ret = false;
 	bool found = false;
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.extension(false).lower();
+	if ( !ScCore->usingGUI() ) {
+		interactive = false;
+		showProgress = false;
+	}
+	if ( showProgress ) 
+	{
+		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw, "psexportprogress");
+		QStringList barNames, barTexts;
+		barNames << "GI";
+		barTexts << tr("Analyzing PostScript:");
+		Q3ValueList<bool> barsNumeric;
+		barsNumeric << false;
+		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
+		progressDialog->setOverallTotalSteps(3);
+		progressDialog->setOverallProgress(0);
+		progressDialog->setProgress("GI", 0);
+		progressDialog->show();
+//qt4 FIXME 		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
+		qApp->processEvents();
+	}
+	else {
+		progressDialog = NULL;
+	}
+	
 /* Set default Page to size defined in Preferences */
 	x = 0.0;
 	y = 0.0;
-	b = plug->Prefs.PageBreite;
-	h = plug->Prefs.PageHoehe;
-	if ((ext == "eps") || (ext == "ps"))
+	b = PrefsManager::instance()->appPrefs.PageWidth;
+	h = PrefsManager::instance()->appPrefs.PageHeight;
+	if ((ext == "eps") || (ext == "epsi") || (ext == "ps"))
 	{
-		QString tmp, BBox, tmp2, dummy, FarNam;
-		QChar tc;
-		CMYKColor cc;
+		QString tmp, BBox, tmp2, FarNam;
+		ScColor cc;
 		QFile f(fName);
-		if (f.open(IO_ReadOnly))
+		if (f.open(QIODevice::ReadOnly))
 		{
 /* Try to find Bounding Box */
-			QTextStream ts(&f);
+			Q3TextStream ts(&f);
 			while (!ts.atEnd())
 			{
-				tc = ' ';
-				tmp = "";
-				while ((tc != '\n') && (tc != '\r'))
-				{
-					ts >> tc;
-					if ((tc != '\n') && (tc != '\r'))
-						tmp += tc;
-				}
+				tmp = ts.readLine();
 				if (tmp.startsWith("%%BoundingBox:"))
 				{
 					found = true;
@@ -153,36 +117,41 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 /* Read CustomColors if available */
 				if (tmp.startsWith("%%CMYKCustomColor"))
 				{
-					QTextStream ts2(&tmp, IO_ReadOnly);
-					ts2 >> dummy >> c >> m >> y >> k;
+					tmp = tmp.remove(0,18);
+					Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
+					ts2 >> c >> m >> y >> k;
 					FarNam = ts2.read();
 					FarNam = FarNam.stripWhiteSpace();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
-					QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
-					FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
-					cc = CMYKColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+//					QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+//					FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
+					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
+					cc.setSpotColor(true);
 					CustColors.insert(FarNam, cc);
+					importedColors.append(FarNam);
 					while (!ts.atEnd())
 					{
-						tc = ' ';
-						tmp = "";
-						while ((tc != '\n') && (tc != '\r'))
-						{
-							ts >> tc;
-							if ((tc != '\n') && (tc != '\r'))
-								tmp += tc;
-						}
+						uint oldPos = ts.device()->at();
+						tmp = ts.readLine();
 						if (!tmp.startsWith("%%+"))
+						{
+							ts.device()->at(oldPos);
 							break;
-						QTextStream ts2(&tmp, IO_ReadOnly);
-						ts2 >> dummy >> c >> m >> y >> k;
+						}
+						tmp = tmp.remove(0,3);
+						Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
+						ts2 >> c >> m >> y >> k;
 						FarNam = ts2.read();
 						FarNam = FarNam.stripWhiteSpace();
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
-						cc = CMYKColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+//						QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+//						FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
+						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
+						cc.setSpotColor(true);
 						CustColors.insert(FarNam, cc);
+						importedColors.append(FarNam);
 					}
 				}
 				if (tmp.startsWith("%%EndComments"))
@@ -194,171 +163,395 @@ EPSPlug::EPSPlug( QWidget* parent, ScribusApp *plug, QString fName )
 				QStringList bb = QStringList::split(" ", BBox);
 				if (bb.count() == 4)
 				{
-					QTextStream ts2(&BBox, IO_ReadOnly);
+					Q3TextStream ts2(&BBox, QIODevice::ReadOnly);
 					ts2 >> x >> y >> b >> h;
 				}
 			}
 		}
 	}
-	Prog = plug;
-	if (!Prog->HaveDoc)
+	baseX = 0;
+	baseY = 0;
+	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
-		Prog->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
-		ret = true;
+		m_Doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
+		m_Doc->addPage(0);
+		m_Doc->view()->addPage(0, true);
+		baseX = 0;
+		baseY = 0;
 	}
-	Doku = plug->doc;
-	CListe::Iterator it;
+	else
+	{
+		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
+		{
+			m_Doc=ScCore->primaryMainWindow()->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+			ScCore->primaryMainWindow()->HaveNewDoc();
+			ret = true;
+			baseX = 0;
+			baseY = 0;
+		}
+	}
+	if ((!ret) && (interactive))
+	{
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
+	}
+	if ((ret) || (!interactive))
+	{
+		if (b-x > h-y)
+			m_Doc->PageOri = 1;
+		else
+			m_Doc->PageOri = 0;
+		m_Doc->m_pageSize = "Custom";
+	}
+	ColorList::Iterator it;
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
-		if (!Doku->PageColors.contains(it.key()))
-			Doku->PageColors.insert(it.key(), it.data());
+		if (!m_Doc->PageColors.contains(it.key()))
+			m_Doc->PageColors.insert(it.key(), it.data());
 	}
 	Elements.clear();
-	Doku->loading = true;
-	Doku->DoDrawing = false;
-	Doku->ActPage->setUpdatesEnabled(false);
-	Prog->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	FPoint minSize = m_Doc->minCanvasCoordinate;
+	FPoint maxSize = m_Doc->maxCanvasCoordinate;
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->view()->updatesOn(false);
+	m_Doc->scMW()->ScriptRunning = true;
+	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentDirPath();
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
 	{
+// 		m_Doc->m_Selection->clear();
+		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
-		if (Elements.count() > 0)
+//		if ((Elements.count() > 1) && (interactive))
+		if (Elements.count() > 1)
 		{
-			Doku->ActPage->SelItem.clear();
-			for (uint a = 0; a < Elements.count(); ++a)
+			bool isGroup = true;
+			int firstElem = -1;
+			if (Elements.at(0)->Groups.count() != 0)
+				firstElem = Elements.at(0)->Groups.top();
+			for (uint bx = 0; bx < Elements.count(); ++bx)
 			{
-				Elements.at(a)->Groups.push(Doku->GroupCounter);
-				if (!ret)
-					Doku->ActPage->SelItem.append(Elements.at(a));
+				PageItem* bxi = Elements.at(bx);
+				if (bxi->Groups.count() != 0)
+				{
+					if (bxi->Groups.top() != firstElem)
+						isGroup = false;
+				}
+				else
+					isGroup = false;
 			}
-			Doku->GroupCounter++;
+			if (!isGroup)
+			{
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				uint lowestItem = 999999;
+				uint highestItem = 0;
+				for (uint a = 0; a < Elements.count(); ++a)
+				{
+					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+					PageItem* currItem = Elements.at(a);
+					lowestItem = qMin(lowestItem, currItem->ItemNr);
+					highestItem = qMax(highestItem, currItem->ItemNr);
+					double lw = currItem->lineWidth() / 2.0;
+					if (currItem->rotation() != 0)
+					{
+						FPointArray pb;
+						pb.resize(0);
+						pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+						pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+						pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+						pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+						for (uint pc = 0; pc < 4; ++pc)
+						{
+							minx = qMin(minx, pb.point(pc).x());
+							miny = qMin(miny, pb.point(pc).y());
+							maxx = qMax(maxx, pb.point(pc).x());
+							maxy = qMax(maxy, pb.point(pc).y());
+						}
+					}
+					else
+					{
+						minx = qMin(minx, currItem->xPos()-lw);
+						miny = qMin(miny, currItem->yPos()-lw);
+						maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+						maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+					}
+				}
+				double gx = minx;
+				double gy = miny;
+				double gw = maxx - minx;
+				double gh = maxy - miny;
+				PageItem *high = m_Doc->Items->at(highestItem);
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
+				PageItem *neu = m_Doc->Items->take(z);
+				m_Doc->Items->insert(lowestItem, neu);
+				neu->Groups.push(m_Doc->GroupCounter);
+				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+				neu->isGroupControl = true;
+				neu->groupsLastItem = high;
+				neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+				for (uint a = 0; a < m_Doc->Items->count(); ++a)
+				{
+					m_Doc->Items->at(a)->ItemNr = a;
+				}
+				Elements.prepend(neu);
+				m_Doc->GroupCounter++;
+			}
 		}
-		Doku->DoDrawing = true;
-		Doku->ActPage->setUpdatesEnabled(true);
-		Prog->ScriptRunning = false;
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
-		if ((Elements.count() > 0) && (!ret))
+		m_Doc->DoDrawing = true;
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->setLoading(false);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if ((Elements.count() > 0) && (!ret) && (interactive))
 		{
-			Doku->DragP = true;
-			Doku->DraggedElem = 0;
-			Doku->DragElements.clear();
-			for (uint dre=0; dre<Elements.count(); ++dre)
+			if (flags & LoadSavePlugin::lfScripted)
 			{
-				Doku->DragElements.append(Elements.at(dre)->ItemNr);
+				bool loadF = m_Doc->isLoading();
+				m_Doc->setLoading(false);
+				m_Doc->changed();
+				m_Doc->setLoading(loadF);
+				for (uint dre=0; dre<Elements.count(); ++dre)
+				{
+					m_Doc->m_Selection->addItem(Elements.at(dre), true);
+				}
+				m_Doc->m_Selection->setGroupRect();
+				m_Doc->view()->updatesOn(true);
 			}
-			ScriXmlDoc *ss = new ScriXmlDoc();
-			Doku->ActPage->setGroupRect();
-			QDragObject *dr = new QTextDrag(ss->WriteElem(&Doku->ActPage->SelItem, Doku), Doku->ActPage);
-			Doku->ActPage->DeleteItem();
-			dr->setPixmap(loadIcon("DragPix.xpm"));
-			dr->drag();
-			delete ss;
-			Doku->DragP = false;
-			Doku->DraggedElem = 0;
-			Doku->DragElements.clear();
+			else
+			{
+				m_Doc->DragP = true;
+				m_Doc->DraggedElem = 0;
+				m_Doc->DragElements.clear();
+				for (uint dre=0; dre<Elements.count(); ++dre)
+				{
+					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
+					tmpSel->addItem(Elements.at(dre), true);
+				}
+				tmpSel->setGroupRect();
+				ScriXmlDoc *ss = new ScriXmlDoc();
+				Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel),m_Doc->view()->viewport());
+#ifndef QT_WS_MAC
+// see #2196
+				m_Doc->itemSelection_DeleteItem(tmpSel);
+#else
+				qDebug("psimport: leaving items on page");
+#endif
+				m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
+				m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
+				m_Doc->minCanvasCoordinate = minSize;
+				m_Doc->maxCanvasCoordinate = maxSize;
+				m_Doc->view()->updatesOn(true);
+				m_Doc->view()->updateContents();
+				dr->setPixmap(loadIcon("DragPix.xpm"));
+#if 0
+			qDebug("psimport: data");
+			QString data(dr->encodedData("text/plain"));
+			for (uint i=0; i <= data.length() / 4000; i++) {
+				qDebug(data.mid(i*4000, 4000));
+			}
+			qDebug("psimport: enddata");
+			qDebug(QString("psimport: drag type %1").arg(dr->format()));
+#endif
+				if (!dr->drag())
+				{
+					if (importedColors.count() != 0)
+					{
+						for (int cd = 0; cd < importedColors.count(); cd++)
+						{
+							m_Doc->PageColors.remove(importedColors[cd]);
+						}
+					}
+				}
+				delete ss;
+				m_Doc->DragP = false;
+				m_Doc->DraggedElem = 0;
+				m_Doc->DragElements.clear();
+			}
 		}
 		else
 		{
-			Doku->setUnModified();
-			Prog->slotDocCh();
+			m_Doc->changed();
+			m_Doc->reformPages();
+			m_Doc->view()->updatesOn(true);
 		}
+		success = true;
 	}
 	else
 	{
 		QDir::setCurrent(CurDirP);
-		Doku->DoDrawing = true;
-		Doku->ActPage->setUpdatesEnabled(true);
-		Prog->ScriptRunning = false;
-		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		m_Doc->DoDrawing = true;
+		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->view()->updatesOn(true);
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
-	Doku->loading = false;
+	if (interactive)
+		m_Doc->setLoading(false);
+	//CB If we have a gui we must refresh it if we have used the progressbar
+	if ((showProgress) && (!interactive))
+		m_Doc->view()->DrawNew();
+	return success;
 }
 
-/*!
- \fn void EPSPlug::convert(QString fn, double b, double h)
- \author Franz Schmid
- \date
- \brief Does the conversion.
- \param fn QString
- \param b double
- \param h double
- \retval bool true if conversion was ok
- */
+EPSPlug::~EPSPlug()
+{
+	delete tmpSel;
+}
+	
+
 bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 {
-	QString cmd1, cmd2, tmp, tmp2, tmp3, tmp4;
-	QString tmpFile = Prog->PrefsPfad+"/ps.out";
-	QString pfad = LIBDIR;
-	QString pfad2;
-	cmd1 = Prog->Prefs.gs_exe;
-	pfad2 = QDir::convertSeparators(pfad + "import.prolog");
-	cmd1 += " -q -dNOPAUSE -dNODISPLAY";
-	cmd1 += " -dBATCH -g"+tmp2.setNum(qRound(b-x))+"x"+tmp3.setNum(qRound(h-y))+" -c "+tmp4.setNum(-x)+" "+tmp.setNum(-y)+" translate";
-	// Add -sFONTPATH to tell gs where any additional font paths are
-	QStringList extraFonts;
-	QFile fx(Prog->PrefsPfad+"/scribusfont.rc");
-	if (fx.open(IO_ReadOnly))
-	{
-		QTextStream tsx(&fx);
-		QString extraPath = tsx.read();
-		fx.close();
-		extraFonts = QStringList::split("\n", extraPath);
+	QStringList args;
+	QString cmd, cmd1, cmd2, cmd3, tmp, tmp2, tmp3, tmp4;
+	// import.prolog do not cope with filenames containing blank spaces
+	// so take care that output filename does not (win32 compatibility)
+	QString tmpFile = getShortPathName(ScPaths::getTempFileDir())+ "/ps.out";
+	QString errFile = getShortPathName(ScPaths::getTempFileDir())+ "/ps.err";
+	QString pfad = ScPaths::instance().libDir();
+	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
+	QFileInfo fi = QFileInfo(fn);
+	QString ext = fi.extension(false).lower();
+	
+	if (progressDialog) {
+		progressDialog->setOverallProgress(1);
+		qApp->processEvents();
 	}
-	if (extraFonts.count() >= 1)
-		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts[0]);
-	for (int i = 1; i < static_cast<int>(extraFonts.count()); ++i)
-		cmd1 += QString(":'%1'").arg(extraFonts[i]);
-	// then set up the last gs args and call gs
-	cmd1 += " -sOutputFile="+tmpFile+" "+pfad2+" ";
-	cmd2 = " -c flush cfile closefile quit";
-	bool ret = system(cmd1 + "\""+fn+"\"" + cmd2);
+	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
+	args.append( "-q" );
+	args.append( "-dNOPAUSE" );
+	args.append( "-sDEVICE=nullpage" );
+	args.append( "-dBATCH" );
+	args.append( "-dDELAYBIND" );
+	// Add any extra font paths being used by Scribus to gs's font search
+	// path We have to use Scribus's prefs context, not a plugin context, to
+	// get to the required information.
+	PrefsContext *pc = PrefsManager::instance()->prefsFile->getContext("Fonts");
+	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
+	const char sep = ScPaths::envPathSeparator;
+	if (extraFonts->getRowCount() >= 1)
+		cmd = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
+	for (int i = 1; i < extraFonts->getRowCount(); ++i)
+		cmd += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+	if( !cmd.isEmpty() )
+		args.append( cmd );
+	// then finish building the command and call gs
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound((b-x)))).arg(tmp3.setNum(qRound((h-y)))) );
+	args.append( "-r72");
+	args.append( "-dTextAlphaBits=4" );
+	args.append( "-dGraphicsAlphaBits=4" );
+	args.append( "-c" );
+	args.append( tmp.setNum(-x) );
+	args.append( tmp.setNum(-y) );
+	args.append( "translate" );
+	args.append( QString("-sTraceFile=%1").arg(QDir::convertSeparators(tmpFile)) );
+	QString exportPath = m_Doc->DocName + "-" + fi.baseName();
+	QFileInfo exportFi(exportPath);
+	if ( !exportFi.isWritable() ) {
+		PrefsContext* docContext = PrefsManager::instance()->prefsFile->getContext("docdirs", false);
+		QString docDir = ".";
+		QString prefsDocDir=PrefsManager::instance()->documentDir();
+		if (!prefsDocDir.isEmpty())
+			docDir = docContext->get("docsopen", prefsDocDir);
+		else
+			docDir = docContext->get("docsopen", ".");		
+		exportFi.setFile(docDir + "/" + exportFi.baseName());
+	}
+	//qDebug(QString("using export path %1").arg(exportFi.absFilePath()));
+	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(exportFi.absFilePath())) );
+	args.append( pfad2 );
+	args.append( QDir::convertSeparators(fn) );
+	args.append( "-c" );
+	args.append( "flush" );
+	args.append( "cfile" );
+	args.append( "closefile" );
+	args.append( "quit" );
+	QByteArray finalCmd = args.join(" ").local8Bit();
+	int ret = System(args, errFile, errFile);
 	if (ret != 0)
 	{
+		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
+		qDebug("Ghostscript diagnostics:\n");
+		QFile diag(errFile);
+		if (diag.open(QIODevice::ReadOnly) && !diag.atEnd() ) {
+			char buf[121];
+			while (diag.readLine(buf, 120) > 0) {
+				qDebug("\t%s", buf);
+			}
+			diag.close();
+		}
+		else {
+			qDebug("-- no output --");
+		}
+		if (progressDialog)
+			progressDialog->close();
 		QString mess = tr("Importing File:\n%1\nfailed!").arg(fn);
 		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
 		return false;
 	}
-	parseOutput(tmpFile);
-	system("rm -f "+tmpFile);
+	if(progressDialog) {
+		progressDialog->setOverallProgress(2);
+		progressDialog->setLabel("GI", tr("Generating Items"));
+		qApp->processEvents();
+	}
+	if (!cancel) {
+		parseOutput(tmpFile, ((ext == "eps") || (ext == "epsi")));
+	}
+	QFile::remove(tmpFile);
+	if (progressDialog)
+		progressDialog->close();
 	return true;
 }
 
-/*!
- \fn void EPSPlug::parseOutput(QString fn)
- \author Franz Schmid
- \date
- \brief Parses the Output Ghostscript has created.
- \param None
- \retval None
- */
-void EPSPlug::parseOutput(QString fn)
+void EPSPlug::parseOutput(QString fn, bool eps)
 {
 	QString tmp, token, params, lasttoken, lastPath, currPath;
-	int z, lcap, ljoin, dc;
+	int z, lcap, ljoin, dc, pagecount;
+	int failedImages = 0;
 	double dcp;
+	bool fillRuleEvenOdd = true;
 	PageItem* ite;
+	Q3PtrStack<PageItem> groupStack;
+	Q3ValueStack<int> gsStack;
+	Q3ValueStack<uint> elemCount;
+	Q3ValueStack<uint> gsStackMarks;
 	QFile f(fn);
 	lasttoken = "";
-	if (f.open(IO_ReadOnly))
+	pagecount = 1;
+	if (f.open(QIODevice::ReadOnly))
 	{
+		if (progressDialog) {
+			progressDialog->setTotalSteps("GI", (int) f.size());
+			qApp->processEvents();
+		}
 		lastPath = "";
 		currPath = "";
 		LineW = 0;
 		Opacity = 1;
-		CurrColor = "None";
-		JoinStyle = MiterJoin;
-		CapStyle = FlatCap;
+		CurrColor = CommonStrings::None;
+		JoinStyle = Qt::MiterJoin;
+		CapStyle = Qt::FlatCap;
 		DashPattern.clear();
-		QTextStream ts(&f);
-		while (!ts.atEnd())
+		Q3TextStream ts(&f);
+		int line_cnt = 0;
+		while (!ts.atEnd() && !cancel)
 		{
 			tmp = "";
 			tmp = ts.readLine();
-			QTextStream Code(&tmp, IO_ReadOnly);
-			Code >> token;
-			params = Code.read();
+			if (progressDialog && (++line_cnt % 100 == 0)) {
+				progressDialog->setProgress("GI", (int) f.at());
+				qApp->processEvents();
+			}
+			token = tmp.section(' ', 0, 0);
+			params = tmp.section(' ', 1, -1, QString::SectionIncludeTrailingSep);
+			if (lasttoken == "sp"  && !eps && token != "sp" ) //av: messes up anyway: && (!interactive))
+			{
+				m_Doc->addPage(pagecount);
+				m_Doc->view()->addPage(pagecount, true);
+				pagecount++;
+			}
 			if (token == "n")
 			{
 				Coords.resize(0);
@@ -378,35 +571,55 @@ void EPSPlug::parseOutput(QString fn)
 				LineTo(&Coords, params);
 				currPath += params;
 			}
+			else if (token == "fill-winding")
+			{
+				fillRuleEvenOdd = false;
+			}
+			else if (token == "fill-evenodd")
+			{
+				fillRuleEvenOdd = true;
+			}
 			else if (token == "f")
 			{
+				//TODO: pattern -> Imageframe + Clip
 				if (Coords.size() != 0)
 				{
 					if ((Elements.count() != 0) && (lastPath == currPath))
 					{
 						ite = Elements.at(Elements.count()-1);
-						ite->Pcolor = CurrColor;
-						ite->Transparency = 1.0 - Opacity;
+						ite->setFillColor(CurrColor);
+						ite->setFillTransparency(1.0 - Opacity);
+						lastPath = "";
 					}
 					else
 					{
 						if (ClosedPath)
-							z = Doku->ActPage->PaintPoly(0, 0, 10, 10, LineW, CurrColor, "None");
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColor, CommonStrings::None, true);
 						else
-							z = Doku->ActPage->PaintPolyLine(0, 0, 10, 10, LineW, CurrColor, "None");
-						ite = Doku->ActPage->Items.at(z);
-						ite->PoLine = Coords.copy();
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColor, CommonStrings::None, true);
+						ite = m_Doc->Items->at(z);
+						ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
-						FPoint wh = GetMaxClipF(ite->PoLine);
-						ite->Width = wh.x();
-						ite->Height = wh.y();
+						ite->fillRule = (fillRuleEvenOdd);
+						FPoint wh = getMaxClipF(&ite->PoLine);
+						ite->setWidthHeight(wh.x(),wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-						ite->Transparency = 1.0 - Opacity;
-						Doku->ActPage->AdjustItemSize(ite);
+						ite->setFillTransparency(1.0 - Opacity);
+						ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+						m_Doc->AdjustItemSize(ite);
+						if (groupStack.count() != 0)
+						{
+							Q3ValueStack<int> groupOld = groupStack.top()->Groups;
+							for (int gg = 0; gg < groupOld.count(); gg++)
+							{
+								ite->Groups.push(groupOld[gg]);
+							}
+						}
 						Elements.append(ite);
+						lastPath = currPath;
 					}
-					lastPath = currPath;
 					currPath = "";
 				}
 			}
@@ -414,61 +627,130 @@ void EPSPlug::parseOutput(QString fn)
 			{
 				if (Coords.size() != 0)
 				{
-					LineW = QMAX(LineW, 0.1); // Set Linewidth to be a least 0.1 pts, a Stroke without a Linewidth makes no sense
+					LineW = qMax(LineW, 0.1); // Set Linewidth to be a least 0.1 pts, a Stroke without a Linewidth makes no sense
 					if ((Elements.count() != 0) && (lastPath == currPath))
 					{
 						ite = Elements.at(Elements.count()-1);
-						ite->Pcolor2 = CurrColor;
-						ite->Pwidth = LineW;
+						ite->setLineColor(CurrColor);
+						ite->setLineWidth(LineW);
 						ite->PLineEnd = CapStyle;
 						ite->PLineJoin = JoinStyle;
-						ite->TranspStroke = 1.0 - Opacity;
+						ite->setLineTransparency(1.0 - Opacity);
 						ite->DashOffset = DashOffset;
 						ite->DashValues = DashPattern;
 					}
 					else
 					{
 						if (ClosedPath)
-							z = Doku->ActPage->PaintPoly(0, 0, 10, 10, LineW, "None", CurrColor);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColor, true);
 						else
-							z = Doku->ActPage->PaintPolyLine(0, 0, 10, 10, LineW, "None", CurrColor);
-						ite = Doku->ActPage->Items.at(z);
-						ite->PoLine = Coords.copy();
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColor, true);
+						ite = m_Doc->Items->at(z);
+						ite->PoLine = Coords.copy(); //FIXME: try to avoid copy when FPointArray is properly shared
+						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 						ite->ClipEdited = true;
 						ite->FrameType = 3;
 						ite->PLineEnd = CapStyle;
 						ite->PLineJoin = JoinStyle;
 						ite->DashOffset = DashOffset;
 						ite->DashValues = DashPattern;
-						FPoint wh = GetMaxClipF(ite->PoLine);
-						ite->Width = wh.x();
-						ite->Height = wh.y();
+						FPoint wh = getMaxClipF(&ite->PoLine);
+						ite->setWidthHeight(wh.x(), wh.y());
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-						ite->TranspStroke = 1.0 - Opacity;
-						Doku->ActPage->AdjustItemSize(ite);
+						ite->setLineTransparency(1.0 - Opacity);
+						m_Doc->AdjustItemSize(ite);
+						ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+						if (groupStack.count() != 0)
+						{
+							Q3ValueStack<int> groupOld = groupStack.top()->Groups;
+							for (int gg = 0; gg < groupOld.count(); gg++)
+							{
+								ite->Groups.push(groupOld[gg]);
+							}
+						}
 						Elements.append(ite);
 					}
-					lastPath = currPath;
+					lastPath = "";
 					currPath = "";
 				}
 			}
 			else if (token == "co")
-				CurrColor = parseColor(params);
+				CurrColor = parseColor(params, eps);
+			else if (token == "corgb")
+				CurrColor = parseColor(params, eps, colorModelRGB);
 			else if (token == "ci")
 			{
-				Coords.resize(0);
+				clipCoords = Coords;
+				if (Coords.size() != 0)
+				{
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					ite = m_Doc->Items->at(z);
+					ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+					ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+					ite->ClipEdited = true;
+					ite->FrameType = 3;
+//					ite->fillRule = (fillRuleEvenOdd);
+					FPoint wh = getMaxClipF(&ite->PoLine);
+					ite->setWidthHeight(wh.x(),wh.y());
+					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+//					ite->setFillTransparency(1.0 - Opacity);
+					m_Doc->AdjustItemSize(ite);
+					ite->Groups.push(m_Doc->GroupCounter);
+					if (groupStack.count() != 0)
+					{
+						Q3ValueStack<int> groupOld = groupStack.top()->Groups;
+						for (int gg = 0; gg < groupOld.count(); gg++)
+						{
+							ite->Groups.push(groupOld[gg]);
+						}
+					}
+					ite->isGroupControl = true;
+					ite->setItemName( tr("Group%1").arg(m_Doc->GroupCounter));
+					ite->AutoName = false;
+					ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
+					Elements.append(ite);
+					groupStack.push(ite);
+					elemCount.push(Elements.count());
+					gsStackMarks.push(gsStack.count());
+					m_Doc->GroupCounter++;
+				}
+				Coords   = FPointArray(0);
 				lastPath = "";
 				currPath = "";
 			}
+			else if (token == "gs")
+			{
+				gsStack.push(1);
+			}
+			else if (token == "gr")
+			{
+				gsStack.pop();
+				if (groupStack.count() != 0)
+				{
+					if (gsStack.count() < static_cast<int>(gsStackMarks.top()))
+					{
+						PageItem *ite = groupStack.pop();
+						uint count = elemCount.pop();
+						if (count == Elements.count())
+						{
+							m_Doc->Items->removeLast();
+							Elements.removeLast();
+						}
+						else
+							ite->groupsLastItem = Elements.at(Elements.count()-1);
+						gsStackMarks.pop();
+					}
+				}
+			}
 			else if (token == "w")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				Q3TextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> LineW;
-				currPath += params;
+//				currPath += params;
 			}
 			else if (token == "ld")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				Q3TextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> dc;
 				Lw >> DashOffset;
 				DashPattern.clear();
@@ -480,11 +762,11 @@ void EPSPlug::parseOutput(QString fn)
 						DashPattern.append(dcp);
 					}
 				}
-				currPath += params;
+//				currPath += params;
 			}
 			else if (token == "lc")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				Q3TextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> lcap;
 				switch (lcap)
 				{
@@ -501,11 +783,11 @@ void EPSPlug::parseOutput(QString fn)
 						CapStyle = Qt::FlatCap;
 						break;
 				}
-				currPath += params;
+//				currPath += params;
 			}
 			else if (token == "lj")
 			{
-				QTextStream Lw(&params, IO_ReadOnly);
+				Q3TextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> ljoin;
 				switch (ljoin)
 				{
@@ -522,38 +804,150 @@ void EPSPlug::parseOutput(QString fn)
 						JoinStyle = Qt::MiterJoin;
 						break;
 				}
-				currPath += params;
+//				currPath += params;
 			}
-			else if (token == "cp")
+			else if (token == "cp") {
 				ClosedPath = true;
-			else if (token == "sp")
-				break;
+			}
+			else if (token == "im") {
+				if ( !Image(params) )
+					++failedImages;
+			}
 			lasttoken = token;
 		}
 		f.close();
+		if (groupStack.count() != 0)
+		{
+			while (!groupStack.isEmpty())
+			{
+				PageItem *ite = groupStack.pop();
+				uint count = elemCount.pop();
+				if (count == Elements.count())
+				{
+					m_Doc->Items->removeLast();
+					Elements.removeLast();
+				}
+				else
+					ite->groupsLastItem = Elements.at(Elements.count()-1);
+			}
+		}
+	}
+	if (failedImages > 0)
+	{
+		QString mess = tr("Converting of %1 images failed!").arg(failedImages);
+		QMessageBox::critical(0, tr("Error"), mess, 1, 0, 0);
 	}
 }
 
-/*!
- \fn void EPSPlug::LineTo(FPointArray *i, QString vals)
- \author Franz Schmid
- \date
- \brief
- \param i FPointArray *
- \param vals QString
- \retval none
+bool EPSPlug::Image(QString vals)
+{
+	double x, y, w, h, angle;
+	int horpix, verpix;
+	QString filename, device;
+	Q3TextStream Code(&vals, QIODevice::ReadOnly);
+	Code >> x;
+	Code >> y;
+	Code >> w;
+	Code >> h;
+	Code >> angle;
+	Code >> horpix;
+	Code >> verpix;
+	Code >> device;
+	filename = Code.read().stripWhiteSpace();
+	if (device.startsWith("psd")) {
+		filename = filename.mid(0, filename.length()-3) + "psd";
+	}
+		
+	qDebug(QString("import %6 image %1: %2x%3 @ (%4,%5) °%5").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device));
+	QString rawfile = filename.mid(0, filename.length()-3) + "dat";
+	QStringList args;
+	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
+	args.append( "-q" );
+	args.append( "-dNOPAUSE" );
+	args.append( QString("-sDEVICE=%1").arg(device) );    
+	args.append( "-dBATCH" );
+	args.append( QString("-g%1x%2").arg(horpix).arg(verpix) );
+	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(filename)) );
+	args.append( QDir::convertSeparators(rawfile) );
+	args.append( "-c" );
+	args.append( "showpage" );
+	args.append( "quit" );
+	QByteArray finalCmd = args.join(" ").local8Bit();
+	int ret = System(args);
+	if (ret != 0)
+	{
+		qDebug("PostScript image conversion failed when calling gs as: \n%s\n", finalCmd.data());
+		qDebug("Ghostscript diagnostics: %d\n", ret);
+		QFile diag(filename);
+		if (diag.open(QIODevice::ReadOnly)) {
+			char buf[121];
+			long int len;
+			bool gs_error = false;
+			do {
+				len = diag.readLine(buf, 120);
+				gs_error |= (strstr(buf,"Error")==NULL);
+				if (gs_error)
+					qDebug("\t%s", buf);
+			}
+			while (len > 0);
+			diag.close();
+			}
+		else {
+			qDebug("-- no output --");
+		}
+		qDebug("Failed file was:\n");
+		QFile dat(rawfile);
+		if (dat.open(QIODevice::ReadOnly)) {
+			char buf[121];
+			long int len;
+			do {
+				len = dat.readLine(buf, 120);
+				qDebug("\t%s", buf);
+			}
+			while ( len > 0 && !(strstr(buf, "image")==NULL) );
+			dat.close();
+		}
+		else {
+			qDebug("-- empty --");
+		}
+	}
+	QFile::remove(rawfile);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset(), w, h, LineW, CommonStrings::None, CurrColor, true);
+	PageItem * ite = m_Doc->Items->at(z);
+	ite->setXYPos(m_Doc->currentPage()->xOffset() + x, m_Doc->currentPage()->yOffset() + y);
+	ite->setWidthHeight(w, h);
+	ite->clearContents();
+/*	FPoint a(x, y);
+	FPoint b(x+w, y);
+	FPoint c(x+w, y-h);
+	FPoint d(x, y-h);
+	ite->PoLine.resize(0);
+	ite->PoLine.addQuadPoint(a, a, b, b);
+	ite->PoLine.addQuadPoint(b, b, c, c);
+	ite->PoLine.addQuadPoint(c, c, d, d);
+	ite->PoLine.addQuadPoint(d, d, a, a);
+	ite->PoLine.translate(m_Doc->currentPage->xOffset() - x, m_Doc->currentPage->yOffset() - y);
+	ite->ClipEdited = true;
+	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 */
+	m_Doc->loadPict(filename, ite, -1);
+	ite->setRotation(angle);
+	ite->setImageScalingMode(false, true); // fit to frame, keep ratio
+//	m_Doc->view()->AdjustItemSize(ite);
+	Elements.append(ite);
+	return ret == 0;
+}
+
 
 void EPSPlug::LineTo(FPointArray *i, QString vals)
 {
-	if (vals == "")
+	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2;
-	QTextStream Code(&vals, IO_ReadOnly);
-	Code >> x1;
-	Code >> y1;
-	Code >> x2;
-	Code >> y2;
+	x1 = vals.section(' ', 0, 0, QString::SectionSkipEmpty).toDouble();
+	y1 = vals.section(' ', 1, 1, QString::SectionSkipEmpty).toDouble();
+	x2 = vals.section(' ', 2, 2, QString::SectionSkipEmpty).toDouble();
+	y2 = vals.section(' ', 3, 3, QString::SectionSkipEmpty).toDouble();
 	if ((!FirstM) && (WasM))
 		i->setMarker();
 	FirstM = false;
@@ -564,29 +958,19 @@ void EPSPlug::LineTo(FPointArray *i, QString vals)
 	i->addPoint(FPoint(x2, y2));
 }
 
-/*!
- \fn void EPSPlug::Curve(FPointArray *i, QString vals)
- \author Franz Schmid
- \date
- \brief
- \param i FPointArray *
- \param vals QString
- \retval None
- */
 void EPSPlug::Curve(FPointArray *i, QString vals)
 {
-	if (vals == "")
+	if (vals.isEmpty())
 		return;
 	double x1, x2, y1, y2, x3, y3, x4, y4;
-	QTextStream Code(&vals, IO_ReadOnly);
-	Code >> x1;
-	Code >> y1;
-	Code >> x2;
-	Code >> y2;
-	Code >> x3;
-	Code >> y3;
-	Code >> x4;
-	Code >> y4;
+	x1 = vals.section(' ', 0, 0, QString::SectionSkipEmpty).toDouble();
+	y1 = vals.section(' ', 1, 1, QString::SectionSkipEmpty).toDouble();
+	x2 = vals.section(' ', 2, 2, QString::SectionSkipEmpty).toDouble();
+	y2 = vals.section(' ', 3, 3, QString::SectionSkipEmpty).toDouble();
+	x3 = vals.section(' ', 4, 4, QString::SectionSkipEmpty).toDouble();
+	y3 = vals.section(' ', 5, 5, QString::SectionSkipEmpty).toDouble();
+	x4 = vals.section(' ', 6, 6, QString::SectionSkipEmpty).toDouble();
+	y4 = vals.section(' ', 7, 7, QString::SectionSkipEmpty).toDouble();
 	if ((!FirstM) && (WasM))
 		i->setMarker();
 	FirstM = false;
@@ -597,49 +981,84 @@ void EPSPlug::Curve(FPointArray *i, QString vals)
 	i->addPoint(FPoint(x3, y3));
 }
 
-/*!
- \fn QString EPSPlug::parseColor(QString vals)
- \author Franz Schmid
- \date
- \brief Returns a Color Name, if the Color doesn't exist it's created
- \param vals QString
- \retval QString Color Name
- */
-QString EPSPlug::parseColor(QString vals)
+QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 {
-	QString ret = "None";
-	if (vals == "")
+	QString ret = CommonStrings::None;
+	if (vals.isEmpty())
 		return ret;
-	double c, m, y, k;
-	QTextStream Code(&vals, IO_ReadOnly);
-	Code >> c;
-	Code >> m;
-	Code >> y;
-	Code >> k;
-	Code >> Opacity;
-	int Cc = static_cast<int>(c*255);
-	int Mc = static_cast<int>(m*255);
-	int Yc = static_cast<int>(y*255);
-	int Kc = static_cast<int>(k*255);
-	int hC, hM, hY, hK;
-	CMYKColor tmp = CMYKColor(Cc, Mc, Yc, Kc);
-	CListe::Iterator it;
+	double c, m, y, k, r, g, b;
+	ScColor tmp;
+	ColorList::Iterator it;
+	Q3TextStream Code(&vals, QIODevice::ReadOnly);
 	bool found = false;
-	for (it = Doku->PageColors.begin(); it != Doku->PageColors.end(); ++it)
+	if (model == colorModelRGB)
 	{
-		Doku->PageColors[it.key()].getCMYK(&hC, &hM, &hY, &hK);
-		if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
+		Code >> r;
+		Code >> g;
+		Code >> b;
+		Code >> Opacity;
+// Why adding 0.5 here color values range from 0 to 255 not 1 to 256 ??
+/*		int Rc = static_cast<int>(r * 255 + 0.5);
+		int Gc = static_cast<int>(g * 255 + 0.5);
+		int Bc = static_cast<int>(b * 255 + 0.5); */
+		int Rc = qRound(r * 255);
+		int Gc = qRound(g * 255);
+		int Bc = qRound(b * 255);
+		int hR, hG, hB;
+		tmp.setColorRGB(Rc, Gc, Bc);
+		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
-			ret = it.key();
-			found = true;
+			if (it.data().getColorModel() == colorModelRGB)
+			{
+				it.data().getRGB(&hR, &hG, &hB);
+				if ((Rc == hR) && (Gc == hG) && (Bc == hB))
+				{
+					ret = it.key();
+					found = true;
+				}
+			}
+		}
+	}
+	else
+	{
+		Code >> c;
+		Code >> m;
+		Code >> y;
+		Code >> k;
+		Code >> Opacity;
+/*		int Cc = static_cast<int>(c * 255 + 0.5);
+		int Mc = static_cast<int>(m * 255 + 0.5);
+		int Yc = static_cast<int>(y * 255 + 0.5);
+		int Kc = static_cast<int>(k * 255 + 0.5); */
+		int Cc = qRound(c * 255);
+		int Mc = qRound(m * 255);
+		int Yc = qRound(y * 255);
+		int Kc = qRound(k * 255);
+		int hC, hM, hY, hK;
+		tmp.setColor(Cc, Mc, Yc, Kc);
+		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+		{
+			if (it.data().getColorModel() == colorModelCMYK)
+			{
+				it.data().getCMYK(&hC, &hM, &hY, &hK);
+				if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
+				{
+					ret = it.key();
+					found = true;
+				}
+			}
 		}
 	}
 	if (!found)
 	{
-		Doku->PageColors.insert("FromEPS"+tmp.name(), tmp);
-		Prog->Mpal->Cpal->SetColors(Doku->PageColors);
-		ret = "FromEPS"+tmp.name();
+		tmp.setSpotColor(false);
+		tmp.setRegistrationColor(false);
+		QString namPrefix = "FromEPS";
+		if (!eps)
+			namPrefix = "FromPS";
+		m_Doc->PageColors.insert(namPrefix+tmp.name(), tmp);
+		importedColors.append(namPrefix+tmp.name());
+		ret = namPrefix+tmp.name();
 	}
 	return ret;
 }
-

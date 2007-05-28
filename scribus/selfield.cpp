@@ -1,99 +1,103 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+
+#include "scfonts.h"
 #include "selfield.h"
-#include "selfield.moc"
+//#include "selfield.moc"
 #include <qstringlist.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
+
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
-SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, QPtrList<Page> *Seiten, int Art )
-    : QDialog( parent, "sef", true, 0 )
+SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art )
+		: QDialog( parent, "sef", true, 0 )
 {
-    setCaption( tr( "Select Fields" ) );
-  	setIcon(loadIcon("AppIcon.png"));
+	setCaption( tr( "Select Fields" ) );
+	setIcon(loadIcon("AppIcon.png"));
 	FTyp = Art;
-    SelectFieldsLayout = new QVBoxLayout( this, 11, 6, "SelectFieldsLayout"); 
-    Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5");
-    Layout1 = new QVBoxLayout( 0, 0, 6, "Layout1");
+	SelectFieldsLayout = new Q3VBoxLayout( this, 11, 6, "SelectFieldsLayout");
+	Layout5 = new Q3HBoxLayout( 0, 0, 6, "Layout5");
+	Layout1 = new Q3VBoxLayout( 0, 0, 6, "Layout1");
 
-    Text1 = new QLabel( tr( "Available Fields" ), this, "Text1" );
-    Layout1->addWidget( Text1 );
-    AvailFields = new QListBox( this, "AvailFields" );
-    AvailFields->setMinimumSize( QSize( 130, 180 ) );
-	for (uint se = 0; se < Seiten->count(); ++se)
+	Text1 = new QLabel( tr( "Available Fields" ), this, "Text1" );
+	Layout1->addWidget( Text1 );
+	AvailFields = new Q3ListBox( this, "AvailFields" );
+	AvailFields->setMinimumSize( QSize( 130, 180 ) );
+	for (uint se = 0; se < Doc->Items->count(); ++se)
 	{
-		for (uint ite = 0; ite < Seiten->at(se)->Items.count(); ++ite)
+		PageItem* item = Doc->Items->at(se);
+		if (Art < 2)
 		{
-			PageItem* item = Seiten->at(se)->Items.at(ite);
-			if (Art < 2)
-			{
-				if ((item->isAnnotation) && (item->AnType > 1))
-					AvailFields->insertItem(item->AnName);
-			}
-			else
-			{
-				if ((item->isAnnotation) && (item->AnType == Art) && (item->AnName != Own))
-					AvailFields->insertItem(item->AnName);
-			}
+			if ((item->isAnnotation()) && (item->annotation().Type() > 1))
+				AvailFields->insertItem(item->itemName());
+		}
+		else
+		{
+			if ((item->isAnnotation()) && (item->annotation().Type() == Art) && (item->itemName() != Own))
+				AvailFields->insertItem(item->itemName());
 		}
 	}
-    Layout1->addWidget( AvailFields );
-    Layout5->addLayout( Layout1 );
+	Layout1->addWidget( AvailFields );
+	Layout5->addLayout( Layout1 );
 
 	if (Art > 1)
 	{
-    	Layout2 = new QVBoxLayout( 0, 0, 6, "Layout2");
-    	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    	Layout2->addItem( spacer );
-    	ToSel = new QPushButton( tr( "&>>" ), this, "ToSel" );
-    	Layout2->addWidget( ToSel );
-    	FromSel = new QPushButton( tr( "&<<" ), this, "FromSel" );
-    	Layout2->addWidget( FromSel );
-    	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    	Layout2->addItem( spacer_2 );
-    	Layout5->addLayout( Layout2 );
-    	Layout3 = new QVBoxLayout( 0, 0, 6, "Layout3");
-    	Text2 = new QLabel( tr( "Selected Fields" ), this, "Text2" );
-    	Layout3->addWidget( Text2 );
-    	SelFields = new QListBox( this, "SelFields" );
-    	SelFields->setMinimumSize( QSize( 130, 180 ) );
-  		QStringList pfol;
-  		pfol = pfol.split(",", Felder);
+		Layout2 = new Q3VBoxLayout( 0, 0, 6, "Layout2");
+		QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+		Layout2->addItem( spacer );
+		ToSel = new QPushButton( tr( "&>>" ), this, "ToSel" );
+		Layout2->addWidget( ToSel );
+		FromSel = new QPushButton( tr( "&<<" ), this, "FromSel" );
+		Layout2->addWidget( FromSel );
+		QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+		Layout2->addItem( spacer_2 );
+		Layout5->addLayout( Layout2 );
+		Layout3 = new Q3VBoxLayout( 0, 0, 6, "Layout3");
+		Text2 = new QLabel( tr( "Selected Fields" ), this, "Text2" );
+		Layout3->addWidget( Text2 );
+		SelFields = new Q3ListBox( this, "SelFields" );
+		SelFields->setMinimumSize( QSize( 130, 180 ) );
+		QStringList pfol;
+		pfol = pfol.split(",", Felder);
 		if (pfol.count() > 0)
 		{
-			for (uint cfx = 0; cfx < pfol.count(); ++cfx)
+			for (int cfx = 0; cfx < pfol.count(); ++cfx)
 				SelFields->insertItem(pfol[cfx].stripWhiteSpace());
 		}
 		FromSel->setEnabled(false);
 		ToSel->setEnabled(false);
-    	Layout3->addWidget( SelFields );
-    	Layout5->addLayout( Layout3 );
-    	connect(SelFields, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelEField(QListBoxItem*)));
-    	connect(ToSel, SIGNAL(clicked()), this, SLOT(PutToSel()));
-    	connect(FromSel, SIGNAL(clicked()), this, SLOT(RemoveSel()));
+		Layout3->addWidget( SelFields );
+		Layout5->addLayout( Layout3 );
+		connect(SelFields, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelEField(Q3ListBoxItem*)));
+		connect(ToSel, SIGNAL(clicked()), this, SLOT(PutToSel()));
+		connect(FromSel, SIGNAL(clicked()), this, SLOT(RemoveSel()));
 	}
-    SelectFieldsLayout->addLayout( Layout5 );
-    S_Fields = "";
-    Layout4 = new QHBoxLayout( 0, 0, 6, "Layout4");
-    QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout4->addItem( spacer_3 );
-    OK = new QPushButton( tr("&OK"), this, "OK" );
-    OK->setDefault( true );
-    Layout4->addWidget( OK );
-    Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
-    Layout4->addWidget( Cancel );
-    QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout4->addItem( spacer_4 );
-    SelectFieldsLayout->addLayout( Layout4 );
-    connect(OK, SIGNAL(clicked()), this, SLOT(SetRetVal()));
-    connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
-    connect(AvailFields, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelAField(QListBoxItem*)));
+	SelectFieldsLayout->addLayout( Layout5 );
+	S_Fields = "";
+	Layout4 = new Q3HBoxLayout( 0, 0, 6, "Layout4");
+	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout4->addItem( spacer_3 );
+	OK = new QPushButton( CommonStrings::tr_OK, this, "OK" );
+	OK->setDefault( true );
+	Layout4->addWidget( OK );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
+	Layout4->addWidget( Cancel );
+	QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout4->addItem( spacer_4 );
+	SelectFieldsLayout->addLayout( Layout4 );
+	connect(OK, SIGNAL(clicked()), this, SLOT(SetRetVal()));
+	connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(AvailFields, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelAField(Q3ListBoxItem*)));
 }
 
 void SelectFields::SetRetVal()
@@ -130,22 +134,22 @@ void SelectFields::PutToSel()
 		SelFields->insertItem(AvailFields->currentText());
 }
 
-void SelectFields::SelAField(QListBoxItem *c)
+void SelectFields::SelAField(Q3ListBoxItem *c)
 {
 	if ((c != NULL) && (FTyp > 1))
 	{
 		FromSel->setEnabled(false);
-  		ToSel->setEnabled(true);
-  		SelFields->clearSelection();
-  	}
+		ToSel->setEnabled(true);
+		SelFields->clearSelection();
+	}
 }
 
-void SelectFields::SelEField(QListBoxItem *c)
+void SelectFields::SelEField(Q3ListBoxItem *c)
 {
 	if (c != NULL)
 	{
 		FromSel->setEnabled(true);
-  		ToSel->setEnabled(false);
-  		AvailFields->clearSelection();
-  	}
+		ToSel->setEnabled(false);
+		AvailFields->clearSelection();
+	}
 }

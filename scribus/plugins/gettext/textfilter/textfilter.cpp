@@ -1,13 +1,11 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "textfilter.h"
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qstring.h>
@@ -15,13 +13,12 @@
 #include <qtextcodec.h>
 #include <qregexp.h> 
 #include <qmap.h>
-#include <prefsfile.h>
+#include "prefsmanager.h"
+#include "prefsfile.h"
 #include <vector>
-#include <gtframestyle.h>
-#include <gtparagraphstyle.h>
+#include "gtframestyle.h"
+#include "gtparagraphstyle.h"
 #include "tfdia.h"
-
-extern PrefsFile* prefsFile;
 
 QString FileFormatName()
 {
@@ -33,7 +30,7 @@ QStringList FileExtensions()
 	return QStringList();
 }
 
-void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+void GetText(QString filename, QString encoding, bool, gtWriter *writer)
 {
 	TextFilter* tf = new TextFilter(filename, encoding, writer);
 	delete tf;
@@ -47,7 +44,7 @@ TextFilter::TextFilter(const QString& fname, const QString& enc, gtWriter* w)
 	encoding = enc;
 	writer = w;
 	writer->setOverridePStyleFont(false);
-	prefs = prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
 	tfDia* tfdia = new tfDia();
 	if (tfdia->exec())
 	{
@@ -67,22 +64,21 @@ void TextFilter::loadText()
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return;
-	uint posi;
 //	bool ret;
 	QByteArray bb(f.size());
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
-		for (posi = 0; posi < bb.size(); ++posi)
-			text += bb[posi];
+		for (int posi = 0; posi < bb.size(); ++posi)
+			text += QChar(bb[posi]);
 	}
 }
 
 void TextFilter::toUnicode()
 {
 	QTextCodec *codec;
-	if (encoding == "")
+	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding);
@@ -106,6 +102,7 @@ void TextFilter::write()
 				replace(&replaceWith);
 			QString pstyle = (*filters)[i]->getPStyleName();
 			QRegExp rx = QRegExp(regExp);
+			rx.setMinimal(true);
 			switch (action)
 			{
 				case REMOVE: 
@@ -135,10 +132,10 @@ void TextFilter::write()
 		gtParagraphStyle *useStyle = NULL;
 		for (int i = 0; i < static_cast<int>(list.size()); ++i)
 		{
-			QString tmpText = list[i];
-			QString tmpText2 = tmpText;
+			QString tmpText(list[i]);
+			QString tmpText2(tmpText);
 			tmpText2.simplifyWhiteSpace();
-			int numberOfWords = tmpText2.contains(" ");
+			int numberOfWords = tmpText2.count(" ");
 			++numberOfWords;
 			useStyle = NULL;
 			for (int j = 0; j < static_cast<int>(filters->size()); ++j)
@@ -157,7 +154,7 @@ void TextFilter::write()
 					int style = (*filters)[j]->getStyle();
 					bool removeMatch = (*filters)[j]->removeMatch();
 					QRegExp rx = QRegExp(regExp);
-					if (pstyle != "")
+					if (!pstyle.isEmpty())
 					{
 						switch (action)
 						{

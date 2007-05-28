@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           linkbutton.cpp  -  description
                              -------------------
@@ -17,50 +23,27 @@
 
 #include "linkbutton.h"
 #include "icons6.h"
-#include <qiconset.h>
+#include <qicon.h>
+//Added by qt3to4:
+#include <QPixmap>
 
-/*!
- \fn LinkButton::LinkButton(QWidget *pa)
- \author Franz Schmid
- \date
- \brief Constructor for Link buttons
- \param pa Parent Window
- \retval None
- */
 
 LinkButton::LinkButton(QWidget *pa) : QToolButton(pa)
 {
-	setBackgroundMode(PaletteBackground);
-	QIconSet a = QIconSet();
-	a.setPixmap(QPixmap(ChainC), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a.setPixmap(QPixmap(ChainO), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
-	setIconSet(a);
+	setBackgroundMode(Qt::PaletteBackground);
+	QIcon a = QIcon();
+	a.addPixmap(QPixmap(ChainC), QIcon::Normal, QIcon::On);
+	a.addPixmap(QPixmap(ChainO), QIcon::Normal, QIcon::Off);
+	setIcon(a);
+	setIconSize(QPixmap(ChainC).size());
 }
 
-/*!
- \fn QSize LinkButton::sizeHint()
- \author Franz Schmid
- \date
- \brief Returns size of QPixmap, see the Qt-Documentation for further explaining of that.
- \param None
- \retval QSize size
- */
-
-QSize LinkButton::sizeHint()
+QSize LinkButton::sizeHint() const
 {
-	return QSize(QPixmap(ChainC).width(),QPixmap(ChainC).height());
+	return iconSize();
 }
 
-/*!
- \fn QSize LinkButton::minimumSizeHint()
- \author Franz Schmid
- \date
- \brief Returns minimum size of QPixmap, see the Qt-Documentation for further explaining of that.
- \param None
- \retval QSize size
- */
-
-QSize LinkButton::minimumSizeHint()
+QSize LinkButton::minimumSizeHint() const
 {
-	return QSize(QPixmap(ChainC).width(),QPixmap(ChainC).height());
+	return iconSize();
 }

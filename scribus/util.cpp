@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           util.cpp  -  description
                              -------------------
@@ -15,37 +21,59 @@
  *                                                                         *
  ***************************************************************************/
 
-#include <qstring.h>
-#include <qpixmap.h>
+#include "util.h"
 #include <qbitmap.h>
-#include <qpainter.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <qtextstream.h>
-#include <qstringlist.h>
-#include <qmap.h>
-#include <qdom.h>
-#include <qimage.h>
+#include <q3textstream.h>
+// #include <qdatastream.h>
+// #include <qregexp.h>
 #include <qdir.h>
-#include <qpointarray.h>
-#include <qmessagebox.h>
-#include <algorithm>
-#include <cstdlib>
-#include <cmath>
-#include <unistd.h>
-#include "md5.h"
-#include <setjmp.h>
-#include "qprocess.h"
+#include <qdom.h>
+#include <qcheckbox.h>
+#include <qwidget.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3ValueList>
+#include <QByteArray>
+#include <Q3PointArray>
+#include <QImageReader>
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
+// #include <algorithm>
+// #include <cstdlib>
+#include <cmath>
+#include <algorithm>
+#include "scconfig.h"
+
+//#ifdef HAVE_UNISTD_H
+//#include <unistd.h>
+//#endif
+
+#if defined(_WIN32)
+#if defined(_MSC_VER)
+#define __STDC__ 1 // hack to get md5_buffer correctly identified
+#endif
+#include <valarray>
+#include <windows.h>
 #endif
 
-extern "C" {
+#include "md5.h"
+
+// #include <setjmp.h>
+#include "commonstrings.h"
+// #include "pagestructs.h"
+// #include "prefsfile.h"
+// #include "prefscontext.h"
+// #include "prefstable.h"
+// #include "prefsmanager.h"
+// #include "qprocess.h"
+#include "scmessagebox.h"
+#include "scpixmapcache.h"
+#include "scpaths.h"
+// #include "text/nlsconfig.h"
+
+extern "C"
+{
 #define XMD_H           // shut JPEGlib up
 #if defined(Q_OS_UNIXWARE)
 #  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
@@ -58,253 +86,127 @@ extern "C" {
 #endif
 }
 
+#include "pageitem.h"
 #include "scribus.h"
-#include "libpdf/pdflib.h"
-#include <ft2build.h>
+#include "scribusdoc.h"
+#include "scribusview.h"
+/*#include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
-#ifdef HAVE_LIBZ
-	#include <zlib.h>
-#endif
-#ifdef HAVE_TIFF
-	#include <tiffio.h>
-#endif
-#ifdef HAVE_CMS
-	#include CMS_INC
-extern cmsHPROFILE CMSoutputProf;
-extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTrans;
-extern cmsHTRANSFORM stdProof;
-extern cmsHTRANSFORM stdTransImg;
-extern cmsHTRANSFORM stdProofImg;
-extern bool SoftProofing;
-extern bool Gamut;
-extern bool CMSuse;
-extern int IntentMonitor;
-extern int IntentPrinter;
-#endif
-extern ProfilesL InputProfiles;
-extern ScribusApp* ScApp;
+*/
+#include <zlib.h>
+
 
 using namespace std;
-QStringList getSystemProfilesDirs(void);
-void ReOrderText(ScribusDoc *doc, ScribusView *view);
-void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN);
-void CopyPageItem(struct CLBuf *Buffer, PageItem *b);
-bool overwrite(QWidget *parent, QString filename);
-int setBestEncoding(FT_Face face);
-FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool &err);
-FPoint GetMaxClipF(FPointArray Clip);
-QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force = false);
-QPixmap fontSamples(QString da, int s, QString ts, QColor back);
-QString Path2Relative(QString Path);
-QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h);
-bool GlyNames(QMap<uint, QString> *GList, QString Dat);
-bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat);
-QByteArray ComputeMD5Sum(QByteArray *in);
-char *toHex( uchar u );
-QString String2Hex(QString *in, bool lang = true);
-QString CompressStr(QString *in);
-QImage scaleImage(const QImage& src, int width, int height);
-QString ImageToTxt(QImage *im);
-QString ImageToCMYK(QImage *im);
-QString ImageToCMYK_PS(QImage *im, int pl, bool pre);
-bool isProgressive(QString fn);
-void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK);
-QString MaskToTxt(QImage *im, bool PDF = true);
-QString MaskToTxt14(QImage *im);
-void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level);
-int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
-void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
-double xy2Deg(double x, double y);
-QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs);
-QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
-FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
-QPixmap loadIcon(QString nam);
-uint getDouble(QString in, bool raw);
-bool loadText(QString nam, QString *Buffer);
-double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2 = " ");
-double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz);
-double RealCHeight(ScribusDoc *currentDoc, QString name, QString ch, int Size);
-double RealCAscent(ScribusDoc *currentDoc, QString name, QString ch, int Size);
-double QStodouble(QString in);
-int QStoInt(QString in);
-QString GetAttr(QDomElement *el, QString at, QString def="0");
-QImage LoadPict(QString fn, bool *gray = 0);
-#ifdef HAVE_CMS
-QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr=0);
-QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK);
-#else
-QImage ProofPict(QImage *Im, QString Prof, int Rend);
-#endif
-QImage ProofImage(QImage *Im);
-int callGS(const QStringList & args_in);
-int copyFile(QString source, QString target);
-int moveFile(QString source, QString target);
 
-#ifdef HAVE_CMS
-QImage ProofPict(QImage *Im, QString Prof, int Rend, cmsHPROFILE emPr)
-#else
-QImage ProofPict(QImage *Im, QString Prof, int Rend)
-#endif
+void sDebug(QString message)
 {
-	bool emp = false;
-	if (Prof == "")
-		return Im->copy();
-#ifdef HAVE_CMS
-	QImage out = Im->copy();
-	if ((CMSuse) && (SoftProofing))
-	{
-		cmsHTRANSFORM xform;
-		cmsHPROFILE inputProf;
-	  	if (emPr != 0)
-  			inputProf = emPr;
-  		else
-		{
-  			inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
-			emp = true;
-		}
-		int dcmsFlags = 0;
-		dcmsFlags |= Gamut ? cmsFLAGS_GAMUTCHECK : cmsFLAGS_SOFTPROOFING;
-		xform = cmsCreateProofingTransform(inputProf, TYPE_RGBA_8,
-												 CMSoutputProf, TYPE_RGBA_8,
-												 CMSprinterProf,
-												 IntentPrinter,
-												 Rend, dcmsFlags);
-		for (int i=0; i < out.height(); ++i)
-		{
-			LPBYTE ptr = out.scanLine(i);
-			cmsDoTransform(xform, ptr, ptr, out.width());
-		}
-		cmsDeleteTransform(xform);
-		if (emp)
-			cmsCloseProfile(inputProf);
-	}
-	else
-	{
-		if (CMSuse)
-		{
-			cmsHTRANSFORM xform;
-			cmsHPROFILE inputProf;
-  			if (emPr != 0)
-  				inputProf = emPr;
-  			else
-			{
-  				inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
-				emp = true;
-			}
-			xform = cmsCreateTransform(inputProf, TYPE_RGBA_8,
-										 	 CMSoutputProf, TYPE_RGBA_8,
-										 	 Rend,
-										 	 0);
-			for (int i=0; i < out.height(); ++i)
-			{
-				LPBYTE ptr = out.scanLine(i);
-				cmsDoTransform(xform, ptr, ptr, out.width());
-			}
-			cmsDeleteTransform(xform);
-			if (emp)
-				cmsCloseProfile(inputProf);
-		}
-	}
-	return out;
-#else
-	return Im->copy();
-#endif
+	qDebug("%s", message.ascii());
 }
 
-QImage ProofImage(QImage *Im)
+int System(const QStringList & args, const QString fileStdErr, const QString fileStdOut)
 {
-#ifdef HAVE_CMS
-	QImage out = Im->copy();
-	if ((CMSuse) && (SoftProofing))
+	QStringList stdErrData;
+	QStringList stdOutData;
+	Q3Process proc(args);
+	if ( !proc.start() )
+		return 1;
+	/* start was OK */
+	/* wait a little bit */
+	while( proc.isRunning() || proc.canReadLineStdout() || proc.canReadLineStderr() )
 	{
-		for (int i=0; i < out.height(); ++i)
-		{
-			LPBYTE ptr = out.scanLine(i);
-			cmsDoTransform(stdProofImg, ptr, ptr, out.width());
-		}
-	}
-	else
-	{
-		if (CMSuse)
-		{
-			for (int i=0; i < out.height(); ++i)
-			{
-				LPBYTE ptr = out.scanLine(i);
-				cmsDoTransform(stdTransImg, ptr, ptr, out.width());
-			}
-		}
-	}
-	return out;
+		// Otherwise Scribus will sleep a *lot* when proc has huge std output
+		if ( !proc.canReadLineStdout() && !proc.canReadLineStderr()) {
+#ifndef _WIN32
+			usleep(5000);
 #else
-	return Im->copy();
+			Sleep(5);
 #endif
+		}
+		// Some configurations needs stdout and stderr to be read
+		// if needed before the created process can exit
+		if ( proc.canReadLineStdout() )
+			stdOutData.append( proc.readLineStdout() );
+		if ( proc.canReadLineStderr() )
+			stdErrData.append( proc.readLineStderr() );
+	}
+	// TODO: What about proc.normalExit() ?
+	int ex = proc.exitStatus();
+	QStringList::iterator pIterator;
+	QStringList::iterator pEnd;
+	if ( !fileStdErr.isEmpty() )
+	{
+		QFile ferr(fileStdErr);
+		if ( ferr.open(QIODevice::WriteOnly) )
+		{
+			pEnd = stdErrData.end();
+			Q3TextStream errStream(&ferr);
+			for ( pIterator = stdErrData.begin(); pIterator != pEnd; pIterator++ )
+				errStream << *pIterator << endl;
+			ferr.close();
+		}
+	}
+
+	if ( !fileStdOut.isEmpty() )
+	{
+		QFile fout(fileStdOut);
+		if ( fout.open(QIODevice::WriteOnly) )
+		{
+			pEnd = stdOutData.end();
+			Q3TextStream outStream(&fout);
+			for ( pIterator = stdOutData.begin(); pIterator != pEnd; pIterator++ )
+				outStream << *pIterator << endl;
+			fout.close();
+		}
+	}
+	return ex;
 }
 
-/******************************************************************
- * Function callGS()
- *   build the complete list of arguments for the call of our
- *   System() function.
- *
- *   The gs commands are all similar and consist of a few constant
- *   arguments, the variablke arguments and the end arguments which
- *   are also invariant.
- ******************************************************************/
- 
-int callGS(const QStringList & args_in)
+// On Windows, return short path name, else return longPath;
+QString getShortPathName(QString longPath)
 {
-	QString cmd1 = ScApp->Prefs.gs_exe;
-	cmd1 += " -q -dNOPAUSE";
-	if (ScApp->HavePngAlpha != 0)
-		cmd1 += " -sDEVICE=png16m";
-	else
-		cmd1 += " -sDEVICE=pngalpha";
-	if (ScApp->Prefs.gs_antiText)
-		cmd1 += " -dTextAlphaBits=4";
-	if (ScApp->Prefs.gs_antiGraph)
-		cmd1 += " -dGraphicsAlphaBits=4";
-	// Add -sFONTPATH to tell gs where any additional font paths are
-	QStringList extraFonts;
-	QFile fx(ScApp->PrefsPfad+"/scribusfont.rc");
-	if (fx.open(IO_ReadOnly))
+	QString shortPath(longPath);
+#if defined _WIN32
+	QFileInfo fInfo(longPath);
+	if(fInfo.exists())
 	{
-		QTextStream tsx(&fx);
-		QString extraPath = tsx.read();
-		fx.close();
-		extraFonts = QStringList::split("\n", extraPath);
+		char shortName[MAX_PATH + 1];
+		// An error should not be blocking as ERROR_INVALID_PARAMETER can simply mean
+		// that volume does not support 8.3 filenames, so return longPath in this case
+		int ret = GetShortPathName(QDir::convertSeparators(longPath).local8Bit(), shortName, sizeof(shortName));
+		if( ret != ERROR_INVALID_PARAMETER && ret < sizeof(shortName))
+			shortPath = shortName;
 	}
-	if (extraFonts.count() >= 1)
-		cmd1 += QString(" -sFONTPATH='%1'").arg(extraFonts[0]);
-	for (int i = 1; i < static_cast<int>(extraFonts.count()); ++i)
-		cmd1 += QString(":'%1'").arg(extraFonts[i]);
-	// then combine the cmdline and run gs
-	QString extArgs = args_in.join(" ");
-	cmd1 += " " + extArgs + " -c showpage -c quit";
-	return system(cmd1.local8Bit());
+#endif
+	return shortPath;
 }
 
 int copyFile(QString source, QString target)
 {
+	int bytesread;
 	if ((source.isNull()) || (target.isNull()))
 		return -1;
 	if (source == target)
 		return -1;
 	QFile s(source);
-	QFile t(target);
 	if (!s.exists())
 		return -1;
-	QByteArray bb(s.size());
-	if (s.open(IO_ReadOnly))
+	QFile t(target);
+	QByteArray bb( 65536 );
+	if (s.open(QIODevice::ReadOnly))
 	{
-		s.readBlock(bb.data(), s.size());
-		s.close();
-		if (t.open(IO_WriteOnly))
+		if (t.open(QIODevice::WriteOnly))
 		{
-			t.writeBlock(bb.data(), bb.size());
+			bytesread = s.readBlock( bb.data(), bb.size() );
+			while( bytesread > 0 )
+			{
+				t.writeBlock( bb.data(), bytesread );
+				bytesread = s.readBlock( bb.data(), bb.size() );
+			}
 			t.close();
 		}
+		s.close();
 	}
 	return 0;
 }
@@ -316,664 +218,34 @@ int moveFile(QString source, QString target)
 	if (source == target)
 		return -1;
 	copyFile(source, target);
-	unlink(source);
+	QFile::remove(source);
 	return 0;
 }
-
-QImage scaleImage(const QImage& src, int width, int height)
-{
-	QImage dst;
-	dst.create(width, height,32);
-	QRgb* xelrow = 0;
-	QRgb* tempxelrow = 0;
-	register QRgb* xP;
-	register QRgb* nxP;
-	int rows, cols, rowsread, newrows, newcols;
-	register int row, col, needtoreadrow;
-	const uchar maxval = 255;
-	double xscale, yscale;
-	long sxscale, syscale;
-	register long fracrowtofill, fracrowleft;
-	long* as;
-	long* rs;
-	long* gs;
-	long* bs;
-	int rowswritten = 0;
-	cols = src.width();
-	rows = src.height();
-	newcols = dst.width();
-	newrows = dst.height();
-	long SCALE;
-	long HALFSCALE;
-	if (cols > 4096)
-	{
-		SCALE = 4096;
-		HALFSCALE = 2048;
-	}
-	else
-	{
-		int fac = 4096;
-		while (cols * fac > 4096)
-		{
-			fac /= 2;
-		}
-		SCALE = fac * cols;
-		HALFSCALE = fac * cols / 2;
-	}
-	xscale = (double) newcols / (double) cols;
-	yscale = (double) newrows / (double) rows;
-	sxscale = (long)(xscale * SCALE);
-	syscale = (long)(yscale * SCALE);
-	if ( newrows != rows )	/* shortcut Y scaling if possible */
-		tempxelrow = new QRgb[cols];
-	as = new long[cols];
-	rs = new long[cols];
-	gs = new long[cols];
-	bs = new long[cols];
-	rowsread = 0;
-	fracrowleft = syscale;
-	needtoreadrow = 1;
-	for ( col = 0; col < cols; ++col )
-		rs[col] = gs[col] =  as[col] = bs[col] = HALFSCALE;
-	fracrowtofill = SCALE;
-	for ( row = 0; row < newrows; ++row )
-	{
-		if ( newrows == rows )
-			tempxelrow = xelrow = (QRgb*)src.scanLine(rowsread++);
-		else
-		{
-			while ( fracrowleft < fracrowtofill )
-			{
-				if ( needtoreadrow && rowsread < rows )
-					xelrow = (QRgb*)src.scanLine(rowsread++);
-				for ( col = 0, xP = xelrow; col < cols; ++col, ++xP )
-				{
-					as[col] += fracrowleft * qAlpha( *xP );
-					rs[col] += fracrowleft * qRed( *xP );
-					gs[col] += fracrowleft * qGreen( *xP );
-					bs[col] += fracrowleft * qBlue( *xP );
-				}
-				fracrowtofill -= fracrowleft;
-				fracrowleft = syscale;
-				needtoreadrow = 1;
-			}
-			if ( needtoreadrow && rowsread < rows )
-			{
-				xelrow = (QRgb*)src.scanLine(rowsread++);
-				needtoreadrow = 0;
-			}
-			register long a=0;
-			for ( col = 0, xP = xelrow, nxP = tempxelrow; col < cols; ++col, ++xP, ++nxP )
-			{
-				register long r, g, b;
-				a = as[col] + fracrowtofill * qAlpha( *xP );
-				r = rs[col] + fracrowtofill * qRed( *xP );
-				g = gs[col] + fracrowtofill * qGreen( *xP );
-				b = bs[col] + fracrowtofill * qBlue( *xP );
-				r /= SCALE;
-				if ( r > maxval ) r = maxval;
-				g /= SCALE;
-				if ( g > maxval ) g = maxval;
-				b /= SCALE;
-				if ( b > maxval ) b = maxval;
-				a /= SCALE;
-				if ( a > maxval ) a = maxval;
-				*nxP = qRgba( (int)r, (int)g, (int)b , (int)a);
-				rs[col] = as[col] = gs[col] = bs[col] = HALFSCALE;
-			}
-			fracrowleft -= fracrowtofill;
-			if ( fracrowleft == 0 )
-			{
-				fracrowleft = syscale;
-				needtoreadrow = 1;
-			}
-			fracrowtofill = SCALE;
-		}
-		if ( newcols == cols )
-			memcpy(dst.scanLine(rowswritten++), tempxelrow, newcols*4);
-		else
-		{
-			register long a, r, g, b;
-			register long fraccoltofill, fraccolleft = 0;
-			register int needcol;
-			nxP = (QRgb*)dst.scanLine(rowswritten++);
-			fraccoltofill = SCALE;
-			a = r = g = b = HALFSCALE;
-			needcol = 0;
-			for ( col = 0, xP = tempxelrow; col < cols; ++col, ++xP )
-			{
-				fraccolleft = sxscale;
-				while ( fraccolleft >= fraccoltofill )
-				{
-					if ( needcol )
-					{
-						++nxP;
-						a = r = g = b = HALFSCALE;
-					}
-					a += fraccoltofill * qAlpha( *xP );
-					r += fraccoltofill * qRed( *xP );
-					g += fraccoltofill * qGreen( *xP );
-					b += fraccoltofill * qBlue( *xP );
-					r /= SCALE;
-					if ( r > maxval ) r = maxval;
-					g /= SCALE;
-					if ( g > maxval ) g = maxval;
-					b /= SCALE;
-					if ( b > maxval ) b = maxval;
-					a /= SCALE;
-					if ( a > maxval ) a = maxval;
-					*nxP = qRgba( (int)r, (int)g, (int)b, (int)a );
-					fraccolleft -= fraccoltofill;
-					fraccoltofill = SCALE;
-					needcol = 1;
-				}
-				if ( fraccolleft > 0 )
-				{
-					if ( needcol )
-					{
-						++nxP;
-						a = r = g = b = HALFSCALE;
-						needcol = 0;
-					}
-					a += fraccolleft * qAlpha( *xP );
-					r += fraccolleft * qRed( *xP );
-					g += fraccolleft * qGreen( *xP );
-					b += fraccolleft * qBlue( *xP );
-					fraccoltofill -= fraccolleft;
-				}
-			}
-			if ( fraccoltofill > 0 )
-			{
-				--xP;
-				a += fraccolleft * qAlpha( *xP );
-				r += fraccoltofill * qRed( *xP );
-				g += fraccoltofill * qGreen( *xP );
-				b += fraccoltofill * qBlue( *xP );
-			}
-			if ( ! needcol )
-			{
-				r /= SCALE;
-				if ( r > maxval ) r = maxval;
-				g /= SCALE;
-				if ( g > maxval ) g = maxval;
-				b /= SCALE;
-				if ( b > maxval ) b = maxval;
-				a /= SCALE;
-				if ( a > maxval ) a = maxval;
-				*nxP = qRgba( (int)r, (int)g, (int)b, (int)a );
-			}
-		}
-	}
-	if ( newrows != rows && tempxelrow )// Robust, tempxelrow might be 0 1 day
-		delete [] tempxelrow;
-	if ( as )				// Avoid purify complaint
-		delete [] as;
-	if ( rs )				// Robust, rs might be 0 one day
-		delete [] rs;
-	if ( gs )				// Robust, gs might be 0 one day
-		delete [] gs;
-	if ( bs )				// Robust, bs might be 0 one day
-		delete [] bs;
-	return dst;
-}
-
-QPixmap LoadPDF(QString fn, int Seite, int Size, int *w, int *h)
-{
-	QString tmp, cmd1, cmd2;
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
-	QPixmap pm;
-	int ret = -1;
-	tmp.setNum(Seite);
-	QStringList args;
-	args.append("-r72");
-	args.append("-sOutputFile="+tmpFile);
-	args.append("-dFirstPage="+tmp);
-	args.append("-dLastPage="+tmp);
-	args.append("\""+fn+"\"");
-	ret = callGS(args);
-	if (ret == 0)
-	{
-		QImage image;
-		image.load(tmpFile);
-		unlink(tmpFile);
-  		QImage im2;
-		*h = image.height();
-		*w = image.width();
-		double sx = image.width() / static_cast<double>(Size);
-		double sy = image.height() / static_cast<double>(Size);
-		double t = (sy < sx ? sx : sy);
-		im2 = image.smoothScale(static_cast<int>(image.width() / t), static_cast<int>(image.height() / t));
-		pm.convertFromImage(im2);
-		QPainter p;
-		p.begin(&pm);
-		p.setBrush(Qt::NoBrush);
-		p.setPen(Qt::black);
-		p.drawRect(0, 0, pm.width(), pm.height());
-		p.end();
-		im2.detach();
-	}
-	return pm;
-}
-
-QImage LoadPict(QString fn, bool *gray)
-{
-	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
-	QChar tc;
-	QImage Bild;
-	double x, y, b, h;
-	bool found = false;
-	int ret = -1;
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
-	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
-	if (ext == "pdf")
-	{
-		QStringList args;
-		args.append("-r72");
-		args.append("-sOutputFile="+tmpFile);
-		args.append("-dFirstPage=1");
-		args.append("-dLastPage=1");
-		args.append("\""+fn+"\"");
-		ret = callGS(args);
-		if (ret == 0)
-		{
-			QImage image;
-			image.load(tmpFile);
-  			Bild = image.convertDepth(32);
-			unlink(tmpFile);
-		}
-	}
-	if ((ext == "eps") || (ext == "ps"))
-	{
-		QFile f(fn);
-		if (f.open(IO_ReadOnly))
-		{
-			QTextStream ts(&f);
-			while (!ts.atEnd())
-			{
-				tc = ' ';
-				tmp = "";
-				while ((tc != '\n') && (tc != '\r'))
-				{
-					ts >> tc;
-					if ((tc != '\n') && (tc != '\r'))
-						tmp += tc;
-				}
-				if (tmp.startsWith("%%BoundingBox:"))
-				{
-					found = true;
-					BBox = tmp.remove("%%BoundingBox:");
-				}
-				if (!found)
-				{
-					if (tmp.startsWith("%%BoundingBox"))
-					{
-						found = true;
-						BBox = tmp.remove("%%BoundingBox");
-					}
-				}
-				if (tmp.startsWith("%%EndComments"))
-					break;
-			}
-			f.close();
-			if (found)
-			{
-				QTextStream ts2(&BBox, IO_ReadOnly);
-				ts2 >> x >> y >> b >> h;
-				QStringList args;
-				args.append("-r72");
-				args.append("-sOutputFile="+tmpFile);
-				args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-				args.append("\""+fn+"\"");
-				ret = callGS(args);
-				if (ret == 0)
-				{
-					QImage image;
-					image.load(tmpFile);
-				  	image = image.convertDepth(32);
-					image.setAlphaBuffer(true);
-					if (ScApp->HavePngAlpha != 0)
-					{
-						int wi = image.width();
-						int hi = image.height();
-					    for( int yi=0; yi < hi; ++yi )
-						{
-							QRgb *s = (QRgb*)(image.scanLine( yi ));
-							for(int xi=0; xi < wi; ++xi )
-							{
-								if((*s) == 0xffffffff)
-									(*s) &= 0x00ffffff;
-								s++;
-							}
-				    	}
-					}
-					Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-					unlink(tmpFile);
-				}
-			}
-		}
-	}
-#ifdef HAVE_TIFF
-	if (ext == "tif")
-	{
-		QImage img;
-		QImage inI2;
-		TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
-		if(tif)
-		{
-			unsigned width, height,size;
-			TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
-			TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
-			size=width*height;
-			uint32 *bits=(uint32*) _TIFFmalloc(size * sizeof (uint32));
-			if(bits)
-			{
-				if (TIFFReadRGBAImage(tif, width, height, bits, 0))
-				{
-    		    		img.create(width,height,32);
-				img.setAlphaBuffer(true);
-					if(TIFFGetR(0x1234567)==qRed  (0x1234567) &&
-						 TIFFGetG(0x1234567)==qGreen(0x1234567) &&
-						 TIFFGetB(0x1234567)==qBlue (0x1234567))
-					{
-						for(unsigned y=0; y<height; ++y)
-							memcpy(img.scanLine(height-1-y),bits+y*width,width*4);
-					}
-					else
-					{
-						uint32 *inp=bits;
-						for(unsigned y=0; y<height; ++y)
-						{
-							QRgb *row=(QRgb*) (img.scanLine(height-1-y));
-							for(unsigned x=0; x<width; ++x)
-							{
-								const uint32 col=*(inp++);
-								row[x]=qRgba(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col), TIFFGetA(col));
-							}
-						}
-					}
-					Bild = img.copy();
-				}
-				_TIFFfree(bits);
-			}
-			TIFFClose(tif);
-		}
-	}
-#endif
-	else
-	{
-		if (Bild.load(fn))
-		{
-			if (gray != 0)
-			{
-				if ((Bild.depth() == 8) && (Bild.isGrayscale()))
-					*gray = true;
-				else
-					*gray = false;
-			}
-			Bild = Bild.convertDepth(32);
-		}
-	}
-	return Bild;
-}
-
-#ifdef HAVE_CMS
-QImage LoadPictCol(QString fn, QString Prof, bool UseEmbedded, bool *realCMYK)
-{
-	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
-	QChar tc;
-	QImage Bild;
-	double x, y, b, h;
-	bool found = false;
-	int ret = -1;
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
-	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
-	if (ext == "pdf")
-	{
-		QStringList args;
-		args.append("-r72");
-		args.append("-sOutputFile="+tmpFile);
-		args.append("-dFirstPage=1");
-		args.append("-dLastPage=1");
-		args.append("\""+fn+"\"");
-		ret = callGS(args);
-		if (ret == 0)
-		{
-			QImage image;
-			image.load(tmpFile);
-  			Bild = image.convertDepth(32);
-			unlink(tmpFile);
-			*realCMYK = false;
-		}
-		}
-		if ((ext == "eps") || (ext == "ps"))
-		{
-			QFile f(fn);
-			if (f.open(IO_ReadOnly))
-			{
-				QTextStream ts(&f);
-				while (!ts.atEnd())
-				{
-					tc = ' ';
-					tmp = "";
-					while ((tc != '\n') && (tc != '\r'))
-					{
-						ts >> tc;
-						if ((tc != '\n') && (tc != '\r'))
-							tmp += tc;
-					}
-					if (tmp.startsWith("%%BoundingBox:"))
-					{
-						found = true;
-						BBox = tmp.remove("%%BoundingBox:");
-					}
-					if (!found)
-					{
-						if (tmp.startsWith("%%BoundingBox"))
-						{
-							found = true;
-							BBox = tmp.remove("%%BoundingBox");
-						}
-					}
-					if (tmp.startsWith("%%EndComments"))
-						break;
-				}
-				f.close();
-				if (found)
-				{
-					QTextStream ts2(&BBox, IO_ReadOnly);
-					ts2 >> x >> y >> b >> h;
-					QStringList args;
-					args.append("-r72");
-					args.append("-sOutputFile="+tmpFile);
-					args.append("-g"+tmp.setNum(qRound(b))+"x"+tmp2.setNum(qRound(h)));
-					args.append("\""+fn+"\"");
-					ret = callGS(args);
-					if (ret == 0)
-					{
-						QImage image;
-						image.load(tmpFile);
-					  	image = image.convertDepth(32);
-						image.setAlphaBuffer(true);
-						if (ScApp->HavePngAlpha != 0)
-						{
-							int wi = image.width();
-							int hi = image.height();
-						    for( int yi=0; yi < hi; ++yi )
-							{
-								QRgb *s = (QRgb*)(image.scanLine( yi ));
-								for(int xi=0; xi < wi; ++xi )
-								{
-									if((*s) == 0xffffffff)
-										(*s) &= 0x00ffffff;
-									s++;
-								}
-							}
-					    }
-						Bild = image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y));
-						unlink(tmpFile);
-						*realCMYK = false;
-					}
-				}
-			}
-		}
-#ifdef HAVE_TIFF
-		if (ext == "tif")
-		{
-			QImage img;
-			QImage inI2;
-			TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
-			if(tif)
-			{
-    			DWORD EmbedLen = 0;
-    			LPBYTE EmbedBuffer;
-				unsigned width, height,size;
-				TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
-				TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
-				size=width*height;
-				uint32 *bits=(uint32*) _TIFFmalloc(size * sizeof (uint32));
-				if(bits)
-				{
-					if (TIFFReadRGBAImage(tif, width, height, bits, 0))
-					{
-    			    	img.create(width,height,32);
-				img.setAlphaBuffer(true);
-						if(TIFFGetR(0x1234567)==qRed  (0x1234567) &&
-							 TIFFGetG(0x1234567)==qGreen(0x1234567) &&
-							 TIFFGetB(0x1234567)==qBlue (0x1234567))
-						{
-							for(unsigned y=0; y<height; ++y)
-								memcpy(img.scanLine(height-1-y),bits+y*width,width*4);
-						}
-						else
-						{
-							uint32 *inp=bits;
-							for(unsigned y=0; y<height; ++y)
-							{
-								QRgb *row=(QRgb*) (img.scanLine(height-1-y));
-								for(unsigned x=0; x<width; ++x)
-								{
-									const uint32 col=*(inp++);
-									row[x]=qRgba(TIFFGetR(col), TIFFGetG(col), TIFFGetB(col), TIFFGetA(col));
-								}
-							}
-						}
-						Bild = img.copy();
-					}
-					_TIFFfree(bits);
-					cmsHTRANSFORM xform;
-					cmsHPROFILE inputProf;
-					if((TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer)) && (UseEmbedded))
-					{
-						inputProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
-						if (static_cast<int>(cmsGetColorSpace(inputProf)) == icSigRgbData)
-						{
-							switch (static_cast<int>(cmsGetColorSpace(CMSprinterProf)))
-							{
-								case icSigRgbData:
-										*realCMYK = false;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf,
-																	 TYPE_RGBA_8, IntentPrinter, 0);
-										break;
-								case icSigCmykData:
-										*realCMYK = true;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf,
-																	 TYPE_CMYK_8, IntentPrinter, 0);
-									break;
-							}
-							for (int i=0; i < Bild.height(); ++i)
-							{
-								LPBYTE ptr = Bild.scanLine(i);
-								cmsDoTransform(xform, ptr, ptr, Bild.width());
-							}
-						}
-					}
-					else
-					{
-						inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
-						switch (static_cast<int>(cmsGetColorSpace(CMSprinterProf)))
-						{
-							case icSigRgbData:
-										*realCMYK = false;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf,
-																	 TYPE_RGBA_8, IntentPrinter, 0);
-										break;
-							case icSigCmykData:
-										*realCMYK = true;
-										xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf,
-																	 TYPE_CMYK_8, IntentPrinter, 0);
-										break;
-						}
-						for (int i=0; i < Bild.height(); ++i)
-						{
-							LPBYTE ptr = Bild.scanLine(i);
-							cmsDoTransform(xform, ptr, ptr, Bild.width());
-						}
-					}
-					cmsDeleteTransform(xform);
-					cmsCloseProfile(inputProf);
-				}
-				TIFFClose(tif);
-			}
-		}
-#endif
-	else
-	{
-		cmsHTRANSFORM xform;
-		cmsHPROFILE inputProf;
-		Bild.load(fn);
-  		Bild = Bild.convertDepth(32);
-		inputProf = cmsOpenProfileFromFile(InputProfiles[Prof], "r");
-		switch (static_cast<int>(cmsGetColorSpace(CMSprinterProf)))
-		{
-			case icSigRgbData:
-				*realCMYK = false;
-				xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_RGBA_8, IntentPrinter, 0);
-				break;
-			case icSigCmykData:
-				*realCMYK = true;
-				xform = cmsCreateTransform(inputProf, TYPE_RGBA_8, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
-				break;
-		}
-		for (int i=0; i < Bild.height(); ++i)
-		{
-			LPBYTE ptr = Bild.scanLine(i);
-			cmsDoTransform(xform, ptr, ptr, Bild.width());
-		}
-		cmsDeleteTransform(xform);
-		cmsCloseProfile(inputProf);
-	}
-	return Bild;
-}
-#endif
 
 QString GetAttr(QDomElement *el, QString at, QString def)
 {
 	return el->attribute(at, def);
 }
 
-int QStoInt(QString in)
-{
-	bool ok = false;
-	int c = in.toInt(&ok);
-	return ok ? c : 0;
-}
-
-double QStodouble(QString in)
-{
-	bool ok = false;
-	double c = in.toDouble(&ok);
-	return ok ? c : 0.0;
-}
-
 QPixmap loadIcon(QString nam)
 {
-	QString pfad = ICONDIR;
-	pfad += nam;
-	QPixmap pm;
-	pm.load(pfad);
-	return pm;
+	static ScPixmapCache<QString> pxCache;
+	if (pxCache.contains(nam))
+		return *pxCache[nam];
+
+	QString iconFilePath(QString("%1%2").arg(ScPaths::instance().iconDir()).arg(nam));
+	QPixmap *pm = new QPixmap();
+	
+	if (!QFile::exists(iconFilePath))
+		qWarning("Unable to load icon %s: File not found", iconFilePath.ascii());
+	else
+	{
+		pm->load(iconFilePath);
+		if (pm->isNull())
+			qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.ascii());
+	}
+	pxCache.insert(nam, pm);
+	return *pm;
 }
 
 uint getDouble(QString in, bool raw)
@@ -981,17 +253,27 @@ uint getDouble(QString in, bool raw)
 	QByteArray bb(4);
 	if (raw)
 	{
-		bb[3] = static_cast<uchar>(QChar(in.at(0)));
+		// Qt4
+/*		bb[3] = static_cast<uchar>(QChar(in.at(0)));
 		bb[2] = static_cast<uchar>(QChar(in.at(1)));
 		bb[1] = static_cast<uchar>(QChar(in.at(2)));
-		bb[0] = static_cast<uchar>(QChar(in.at(3)));
+		bb[0] = static_cast<uchar>(QChar(in.at(3)));*/
+		bb = bb.insert(3, in.at(0));
+		bb = bb.insert(2, in.at(1));
+		bb = bb.insert(1, in.at(2));
+		bb = bb.insert(0, in.at(3));
 	}
 	else
 	{
-		bb[0] = static_cast<uchar>(QChar(in.at(0)));
-		bb[1] = static_cast<uchar>(QChar(in.at(1)));
-		bb[2] = static_cast<uchar>(QChar(in.at(2)));
-		bb[3] = static_cast<uchar>(QChar(in.at(3)));
+		// Qt4
+// 		bb[0] = static_cast<uchar>(QChar(in.at(0)));
+// 		bb[1] = static_cast<uchar>(QChar(in.at(1)));
+// 		bb[2] = static_cast<uchar>(QChar(in.at(2)));
+// 		bb[3] = static_cast<uchar>(QChar(in.at(3)));
+		bb = bb.insert(0, in.at(0));
+		bb = bb.insert(1, in.at(1));
+		bb = bb.insert(2, in.at(2));
+		bb = bb.insert(3, in.at(3));
 	}
 	uint ret;
 	ret = bb[0] & 0xff;
@@ -1001,21 +283,36 @@ uint getDouble(QString in, bool raw)
 	return ret;
 }
 
-bool loadText(QString nam, QString *Buffer)
+// Legacy implementation of LoadText with incorrect
+// handling of unicode data. This should be retired.
+// Use loadRawText instead.
+// FIXME XXX
+//
+bool loadText(QString filename, QString *Buffer)
 {
-	QFile f(nam);
+	QFile f(filename);
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return false;
-	uint posi;
 	bool ret;
 	QByteArray bb(f.size());
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
-		for (posi = 0; posi < bb.size(); ++posi)
-			*Buffer += bb[posi];
+		for (int posi = 0; posi < bb.size(); ++posi)
+			*Buffer += QChar(bb[posi]);
+		/*
+		int len = bb.size();
+		int oldLen = Buffer->length();
+		Buffer->setLength( oldLen + len + 1);
+		// digged into Qt 3.3 sources to find that. Might break in Qt 4 -- AV
+		unsigned short * ucsString = const_cast<unsigned short *>(Buffer->ucs2()) + oldLen;
+		char * data = bb.data();
+		for (uint posi = 0; posi < len; ++posi)
+			*ucsString++ = *data++;
+		*ucsString = 0;
+		 */
 		ret = true;
 	}
 	else
@@ -1023,84 +320,50 @@ bool loadText(QString nam, QString *Buffer)
 	return ret;
 }
 
-double Cwidth(ScribusDoc *doc, QString name, QString ch, int Siz, QString ch2)
+bool loadRawText(const QString & filename, QByteArray & buf)
 {
-	double w;
-	FT_Vector  delta;
-	uint c1 = ch.at(0).unicode();
-	uint c2 = ch2.at(0).unicode();
-	Foi* fo = (*doc->AllFonts)[name];
-	if (fo->CharWidth.contains(c1))
+	bool ret = false;
+	QFile f(filename);
+	QFileInfo fi(f);
+	if (fi.exists())
 	{
-		w = fo->CharWidth[c1]*(Siz / 10.0);
-		// fix #3661
-		if (true || fo->HasKern)
+		QByteArray tempBuf(f.size() + 1);
+		if (f.open(QIODevice::ReadOnly))
 		{
-			uint cl = FT_Get_Char_Index(doc->FFonts[name], c1);
-			uint cr = FT_Get_Char_Index(doc->FFonts[name], c2);
-			FT_Get_Kerning(doc->FFonts[name], cl, cr, ft_kerning_unscaled, &delta);
-			w += delta.x / fo->uniEM * (Siz / 10.0);
+			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
+			tempBuf[bytesRead] = '\0';
+			ret = bytesRead == f.size();
+			if (ret)
+				buf = tempBuf; // sharing makes this efficient
 		}
-		return w;
 	}
-	else
-		return static_cast<double>(Siz / 10.0);
+	if (f.isOpen())
+		f.close();
+	return ret;
 }
 
-double RealCWidth(ScribusDoc *doc, QString name, QString ch, int Siz)
+bool loadRawBytes(const QString & filename, QByteArray & buf)
 {
-	double w, ww;
-	uint c1 = ch.at(0).unicode();
-	Foi* fo = (*doc->AllFonts)[name];
-	if (fo->CharWidth.contains(c1))
+	bool ret = false;
+	QFile f(filename);
+	QFileInfo fi(f);
+	if (fi.exists())
 	{
-		uint cl = FT_Get_Char_Index(doc->FFonts[name], c1);
-		FT_Load_Glyph( doc->FFonts[name], cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = (doc->FFonts[name]->glyph->metrics.width + fabs((double)doc->FFonts[name]->glyph->metrics.horiBearingX)) / fo->uniEM * (Siz / 10.0);
-		ww = doc->FFonts[name]->glyph->metrics.horiAdvance / fo->uniEM * (Siz / 10.0);
-		return QMAX(ww, w);
+		QByteArray tempBuf(f.size());
+		if (f.open(QIODevice::ReadOnly))
+		{
+			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
+			ret = bytesRead == f.size();
+			if (ret)
+				buf = tempBuf; // sharing makes this efficient
+		}
 	}
-	else
-		return static_cast<double>(Siz / 10.0);
+	if (f.isOpen())
+		f.close();
+	return ret;
 }
 
-double RealCHeight(ScribusDoc *currentDoc, QString name, QString ch, int Size)
-{
-	double w;
-	uint c1 = ch.at(0).unicode();
-	FT_Face      face;
-	Foi* fo = (*currentDoc->AllFonts)[name];
-	if (fo->CharWidth.contains(c1))
-	{
-		face = currentDoc->FFonts[name];
-		uint cl = FT_Get_Char_Index(face, c1);
-		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = face->glyph->metrics.height / fo->uniEM * (Size / 10.0);
-		return w;
-	}
-	else
-		return static_cast<double>(Size / 10.0);
-}
-
-double RealCAscent(ScribusDoc *currentDoc, QString name, QString ch, int Size)
-{
-	double w;
-	uint c1 = ch.at(0).unicode();
-	FT_Face      face;
-	Foi* fo = (*currentDoc->AllFonts)[name];
-	if (fo->CharWidth.contains(c1))
-	{
-		face = currentDoc->FFonts[name];
-		uint cl = FT_Get_Char_Index(face, c1);
-		FT_Load_Glyph(face, cl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-		w = face->glyph->metrics.horiBearingY / fo->uniEM * (Size / 10.0);
-		return w;
-	}
-	else
-		return static_cast<double>(Size / 10.0);
-}
-
-QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
+Q3PointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
@@ -1108,7 +371,8 @@ QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor,
 	double di = factor;
 	int mx = 0;
 	int my = 0;
-	QPointArray pts = QPointArray();
+	//QPointArray pts = QPointArray();
+	Q3PointArray pts(cx);
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -1124,7 +388,7 @@ QPointArray RegularPolygon(double w, double h, uint c, bool star, double factor,
 			mx = qRound(sin(sc / 180 * M_PI) * (w/2) + (w/2));
 			my = qRound(cos(sc / 180 * M_PI) * (h/2) + (h/2));
 		}
-		pts.resize(x+1);
+		//pts.resize(x+1);
 		pts.setPoint(x, mx, my);
 	}
 	return pts;
@@ -1138,7 +402,8 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 	double di = factor;
 	double mx = 0;
 	double my = 0;
-	FPointArray pts = FPointArray();
+	//FPointArray pts;
+	FPointArray pts(cx);
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -1154,22 +419,22 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 			mx = sin(sc / 180 * M_PI) * (w/2) + (w/2);
 			my = cos(sc / 180 * M_PI) * (h/2) + (h/2);
 		}
-		pts.resize(x+1);
+		//pts.resize(x+1);
 		pts.setPoint(x, mx, my);
 	}
 	return pts;
 }
 
-QPointArray FlattenPath(FPointArray ina, QValueList<uint> &Segs)
+Q3PointArray FlattenPath(FPointArray ina, Q3ValueList<uint> &Segs)
 {
-	QPointArray Bez(4);
-	QPointArray outa, cli;
+	Q3PointArray Bez(4);
+	Q3PointArray outa, cli;
 	Segs.clear();
 	if (ina.size() > 3)
 	{
 		for (uint poi=0; poi<ina.size()-3; poi += 4)
 		{
-			if (ina.point(poi).x() > 900000)
+			if (ina.point(poi).x() > 900000 && cli.size() > 0)
 			{
 				outa.resize(outa.size()+1);
 				outa.setPoint(outa.size()-1, cli.point(cli.size()-1));
@@ -1191,7 +456,7 @@ double xy2Deg(double x, double y)
 	return (atan2(y,x)*(180.0/M_PI));
 }
 
-void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
+void BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
 {
 	ar->setPoint(0, n1);
 	ar->setPoint(1, n2);
@@ -1200,355 +465,104 @@ void BezierPoints(QPointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
 	return;
 }
 
-void Level2Layer(ScribusDoc *doc, struct Layer *ll, int Level)
+void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
 {
-	for (uint la2 = 0; la2 < doc->Layers.count(); ++la2)
+	uint layerCount=currentDoc->layerCount();
+	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
-		if (doc->Layers[la2].Level == Level)
+		if (currentDoc->Layers[la2].Level == Level)
 		{
-			ll->Sichtbar = doc->Layers[la2].Sichtbar;
-			ll->Drucken = doc->Layers[la2].Drucken;
-			ll->LNr = doc->Layers[la2].LNr;
+			ll->isViewable = currentDoc->Layers[la2].isViewable;
+			ll->isPrintable = currentDoc->Layers[la2].isPrintable;
+			ll->LNr = currentDoc->Layers[la2].LNr;
+			ll->Name = currentDoc->Layers[la2].Name;
+			ll->flowControl = currentDoc->Layers[la2].flowControl;
+			ll->transparency = currentDoc->Layers[la2].transparency;
+			ll->blendMode = currentDoc->Layers[la2].blendMode;
 			break;
 		}
 	}
 }
 
+/* CB Replaced by ScribusDoc::layerLevelFromNumber
 int Layer2Level(ScribusDoc *currentDoc, int LayerNr)
 {
-	for (uint la2 = 0; la2 < currentDoc->Layers.count(); ++la2)
+	int retVal=currentDoc->layerLevelFromNumber(LayerNr);
+	int layerCount=currentDoc->layerCount();
+	for (uint la2 = 0; la2 < layerCount; ++la2)
 	{
 		if (currentDoc->Layers[la2].LNr == LayerNr)
 			return currentDoc->Layers[la2].Level;
 	}
 	return 0;
 }
-
-QString ImageToTxt(QImage *im)
-{
-	int h = im->height();
-	int w = im->width();
-	QString ImgStr = "";
-	for( int yi=0; yi < h; ++yi )
-	{
-		QRgb * s = (QRgb*)(im->scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
-		{
-			QRgb r=*s++;
-			unsigned char u=qRed(r);
-			ImgStr += u;
-			u=qGreen(r);
-			ImgStr += u;
-			u=qBlue(r);
-			ImgStr += u;
-		}
-	}
-	return ImgStr;
-}
-
-QString ImageToCMYK(QImage *im)
-{
-	int h = im->height();
-	int w = im->width();
-	QString ImgStr = "";
-	for( int yi=0; yi < h; ++yi )
-	{
-		QRgb * s = (QRgb*)(im->scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
-		{
-			QRgb r=*s;
-			int c = 255 - qRed(r);
-			int m = 255 - qGreen(r);
-			int y = 255 - qBlue(r);
-			int k = QMIN(QMIN(c, m), y);
-			*s = qRgba(m - k, y - k, k, c - k);
-			ImgStr += c - k;
-			ImgStr += m - k;
-			ImgStr += y - k;
-			ImgStr += k;
-			s++;
-		}
-	}
-	return ImgStr;
-}
-
-QString ImageToCMYK_PS(QImage *im, int pl, bool pre)
-{
-	int h = im->height();
-	int w = im->width();
-	QString ImgStr = "";
-	if (pre)
-	{
-		for( int yi=0; yi < h; ++yi )
-		{
-			QRgb * s = (QRgb*)(im->scanLine( yi ));
-			for( int xi=0; xi < w; ++xi )
-			{
-				QRgb r=*s++;
-				int c = qRed(r);
-				int m = qGreen(r);
-				int y = qBlue(r);
-				int k = qAlpha(r);
-				if (pl == -1)
-				{
-					ImgStr += c;
-					ImgStr += m;
-					ImgStr += y;
-					ImgStr += k;
-				}
-				else
-				{
-					if (pl == -2)
-						ImgStr += QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k));
-					if (pl == 1)
-						ImgStr += c;
-					if (pl == 2)
-						ImgStr += m;
-					if (pl == 3)
-						ImgStr += y;
-					if (pl == 0)
-						ImgStr += k;
-				}
-			}
-		}
-	}
-	else
-	{
-		for( int yi=0; yi < h; ++yi )
-		{
-			QRgb * s = (QRgb*)(im->scanLine( yi ));
-			for( int xi=0; xi < w; ++xi )
-			{
-				QRgb r=*s++;
-				int c = 255 - qRed(r);
-				int m = 255 - qGreen(r);
-				int y = 255 - qBlue(r);
-				int k = QMIN(QMIN(c, m), y);
-				if (pl == -1)
-				{
-					ImgStr += c - k;
-					ImgStr += m - k;
-					ImgStr += y - k;
-					ImgStr += k;
-				}
-				else
-				{
-					if (pl == -2)
-						ImgStr += QMIN(255, qRound(0.3 * c + 0.59 * m + 0.11 * y + k));
-					if (pl == 1)
-						ImgStr += c - k;
-					if (pl == 2)
-						ImgStr += m - k;
-					if (pl == 3)
-						ImgStr += y - k;
-					if (pl == 0)
-						ImgStr += k;
-				}
-			}
-		}
-	}
-	return ImgStr;
-}
-
-QString MaskToTxt(QImage *im, bool PDF)
-{
-	int h = im->height();
-	int w = im->width();
-	int w2;
-	w2 = w / 8;
-	if ((w % 8) != 0)
-  		w2++;
-	QString ImgStr = "";
-	for( int yi=0; yi < h; ++yi )
-	{
-		uchar * s = im->scanLine( yi );
-		for( int xi=0; xi < w2; ++xi )
-		{
-			unsigned char u = *(s+xi);
-			ImgStr += PDF ? ~u : u;
-		}
-	}
-	return ImgStr;
-}
-
-QString MaskToTxt14(QImage *im)
-{
-	int h = im->height();
-	int w = im->width();
-	QString ImgStr = "";
-	for( int yi=0; yi < h; ++yi )
-	{
-		QRgb * s = (QRgb*)(im->scanLine( yi ));
-		for( int xi=0; xi < w; ++xi )
-		{
-			QRgb r=*s++;
-			unsigned char u=qAlpha(r);
-			ImgStr += u;
-		}
-	}
-	return ImgStr;
-}
-
-typedef struct my_error_mgr
-{
-  struct jpeg_error_mgr pub;            /* "public" fields */
-  jmp_buf setjmp_buffer;  /* for return to caller */
-} *my_error_ptr;
-
-/*
- * Here's the routine that will replace the standard error_exit method:
- */
-
-static void my_error_exit (j_common_ptr cinfo)
-{
-  my_error_ptr myerr = (my_error_ptr) cinfo->err;
-  (*cinfo->err->output_message) (cinfo);
-  longjmp (myerr->setjmp_buffer, 1);
-}
-
-bool isProgressive(QString fn)
-{
-	struct jpeg_decompress_struct cinfo;
-	struct my_error_mgr         jerr;
-	FILE     *infile;
-	bool ret = false;
-	cinfo.err = jpeg_std_error (&jerr.pub);
-	jerr.pub.error_exit = my_error_exit;
-	infile = NULL;
-	if (setjmp (jerr.setjmp_buffer))
-	{
-		jpeg_destroy_decompress (&cinfo);
-		if (infile)
-			fclose (infile);
-		return ret;
-	}
-	jpeg_create_decompress (&cinfo);
-	if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
-		return ret;
-	jpeg_stdio_src(&cinfo, infile);
-	jpeg_read_header(&cinfo, TRUE);
-	ret = jpeg_has_multiple_scans(&cinfo);
-	fclose (infile);
-	jpeg_destroy_decompress (&cinfo);
-	return ret;
-}
-
-void Convert2JPG(QString fn, QImage *image, int Quality, bool isCMYK)
-{
-	struct jpeg_compress_struct cinfo;
-	struct my_error_mgr         jerr;
-	FILE     *outfile;
-	JSAMPROW row_pointer[1];
-	row_pointer[0] = 0;
-	cinfo.err = jpeg_std_error (&jerr.pub);
-	jerr.pub.error_exit = my_error_exit;
-	outfile = NULL;
-	if (setjmp (jerr.setjmp_buffer))
-	{
-		jpeg_destroy_compress (&cinfo);
-		if (outfile)
-			fclose (outfile);
-		return;
-	}
-	jpeg_create_compress (&cinfo);
-	if ((outfile = fopen (fn.local8Bit(), "wb")) == NULL)
-		return;
-	jpeg_stdio_dest (&cinfo, outfile);
-	cinfo.image_width  = image->width();
-	cinfo.image_height = image->height();
-	if (isCMYK)
-	{
-		cinfo.in_color_space = JCS_CMYK;
-		cinfo.input_components = 4;
-	}
-	else
-	{
-		cinfo.in_color_space = JCS_RGB;
-		cinfo.input_components = 3;
-	}
-	jpeg_set_defaults (&cinfo);
-	int qual[] = { 95, 85, 75, 50, 25 };  // These are the JPEG Quality settings 100 means best, 0 .. don't discuss
-	jpeg_set_quality (&cinfo, qual[Quality], true);
-	jpeg_start_compress (&cinfo, TRUE);
-	row_pointer[0] = new uchar[cinfo.image_width*cinfo.input_components];
-	int w = cinfo.image_width;
-	while (cinfo.next_scanline < cinfo.image_height)
-	{
-		uchar *row = row_pointer[0];
-		if (isCMYK)
-		{
-			QRgb* rgba = (QRgb*)image->scanLine(cinfo.next_scanline);
-			for (int i=0; i<w; ++i)
-			{
-	 			*row++ = qAlpha(*rgba);
-	 			*row++ = qRed(*rgba);
-	 			*row++ = qGreen(*rgba);
-	 			*row++ = qBlue(*rgba);
-	 			++rgba;
-			}
-		}
-		else
-		{
-			QRgb* rgb = (QRgb*)image->scanLine(cinfo.next_scanline);
-			for (int i=0; i<w; i++)
-			{
-	 			*row++ = qRed(*rgb);
-	 			*row++ = qGreen(*rgb);
-	 			*row++ = qBlue(*rgb);
-	 			++rgb;
-			}
-		}
-		jpeg_write_scanlines (&cinfo, row_pointer, 1);
-	}
-	jpeg_finish_compress (&cinfo);
-	fclose (outfile);
-	jpeg_destroy_compress (&cinfo);
-	delete [] row_pointer[0];
-}
-
+*/
 QString CompressStr(QString *in)
 {
 	QString out = "";
-#ifdef HAVE_LIBZ
 	QByteArray bb(in->length());
-	for (uint ax = 0; ax < in->length(); ++ax)
-		bb[ax] = uchar(QChar(in->at(ax)));
+	for (int ax = 0; ax < in->length(); ++ax)
+		// Qt4 bb[ax] = uchar(QChar(in->at(ax)));
+		bb.insert(ax, in->at(ax));
 	uLong exlen = uint(bb.size() * 0.001 + 16) + bb.size();
 	QByteArray bc(exlen);
-	compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
-	for (uint cl = 0; cl < exlen; ++cl)
-		out += bc[cl];
-#else
-	out = *in;
-#endif
+	int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
+	if (errcode != Z_OK)
+	{
+		qDebug("compress2 failed with code %i", errcode);
+		out = *in;
+	}
+	else {
+		for (uint cl = 0; cl < exlen; ++cl)
+			out += QChar(bc[cl]);
+	}
+	return out;
+}
+
+QByteArray CompressArray(QByteArray *in)
+{
+	QByteArray out;
+	uLong exlen = uint(in->size() * 0.001 + 16) + in->size();
+	QByteArray temp(exlen);
+	int errcode = compress2((Byte *)temp.data(), &exlen, (Byte *)in->data(), uLong(in->size()), 9);
+	if (errcode != Z_OK)
+	{
+		qDebug("compress2 failed with code %i", errcode);
+		out = *in;
+	}
+	else {
+		temp.resize(exlen);
+		out = temp;
+	}
 	return out;
 }
 
 char *toHex( uchar u )
 {
-    static char hexVal[3];
-    int i = 1;
-    while ( i >= 0 )
+	static char hexVal[3];
+	int i = 1;
+	while ( i >= 0 )
 	{
 		ushort hex = (u & 0x000f);
 		if ( hex < 0x0a )
-	    	hexVal[i] = '0'+hex;
+			hexVal[i] = '0'+hex;
 		else
-	    	hexVal[i] = 'A'+(hex-0x0a);
+			hexVal[i] = 'A'+(hex-0x0a);
 		u = u >> 4;
-			i--;
-    }
-    hexVal[2] = '\0';
-    return hexVal;
+		i--;
+	}
+	hexVal[2] = '\0';
+	return hexVal;
 }
 
 QString String2Hex(QString *in, bool lang)
 {
 	int i = 0;
-	QString out = "";
-	for( uint xi = 0; xi < in->length(); ++xi )
+	QString out("");
+	for( int xi = 0; xi < in->length(); ++xi )
 	{
-		out += toHex(uchar(QChar(in->at(xi))));
+		// Qt4 .cell() added ???
+		out += toHex(QChar(in->at(xi)).cell());
 		++i;
 		if ((i>40) && (lang))
 		{
@@ -1568,14 +582,32 @@ QByteArray ComputeMD5Sum(QByteArray *in)
 
 QString Path2Relative(QString Path)
 {
-	QString	Ndir = "";
-	QStringList Pdir = QStringList::split("/", QDir::currentDirPath());
+	QString	Ndir("");
+	QStringList Pdir;
 	QFileInfo Bfi = QFileInfo(Path);
-	QStringList Bdir = QStringList::split("/", Bfi.dirPath(true));
-	bool ende = true;
-	uint dcoun = 0;
-	uint dcoun2 = 0;
-	while (ende)
+	QStringList Bdir;
+	bool end = true;
+	int dcoun = 0;
+	int dcoun2 = 0;
+
+#ifndef _WIN32
+	Pdir = QStringList::split("/", QDir::currentDirPath());
+	Bdir = QStringList::split("/", Bfi.dirPath(true));
+#else
+	// On win32, file systems are case insensitive
+	Pdir = QStringList::split("/", QDir::currentDirPath().lower());
+	Bdir = QStringList::split("/", Bfi.dirPath(true).lower());
+	// We must check that both path are located on same drive
+	if( Pdir.size() > 0 && Bdir.size() > 0 )
+	{
+		QString drive = Bdir.front();
+		QString currentDrive = Pdir.front();
+		if( drive != currentDrive )
+			return Path;
+	}
+#endif
+
+	while (end)
 	{
 		if (Pdir[dcoun] == Bdir[dcoun])
 			dcoun++;
@@ -1585,446 +617,17 @@ QString Path2Relative(QString Path)
 			break;
 	}
 	dcoun2 = dcoun;
-	for (uint ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
+
+#ifdef _WIN32
+	Bdir = QStringList::split("/", Bfi.dirPath(true));
+#endif
+
+	for (int ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
 		Ndir += "../";
-	for (uint ddx = dcoun2; ddx < Bdir.count(); ddx++)
+	for (int ddx = dcoun2; ddx < Bdir.count(); ddx++)
 		Ndir += Bdir[ddx]+"/";
 	Ndir += Bfi.fileName();
 	return Ndir;
-}
-
-int setBestEncoding(FT_Face face)
-{
-	FT_ULong  charcode;
-	FT_UInt   gindex;
-	bool foundEncoding = false;
-	int countUniCode = 0;
-	int chmapUniCode = -1;
-	int chmapCustom = -1;
-	int retVal = 0;
-	//FT_CharMap defaultEncoding = face->charmap;
-//	int defaultchmap=face->charmap ? FT_Get_Charmap_Index(face->charmap) : 0;
-// Since the above function is only available in FreeType 2.1.9 its replaced by
-// the following line, assuming that the default charmap has the index 0
-	int defaultchmap = 0;
-	for(int u = 0; u < face->num_charmaps; u++)
-	{
-		if (face->charmaps[u]->encoding == FT_ENCODING_UNICODE )
-		{
-			FT_Set_Charmap(face, face->charmaps[u]);
-			chmapUniCode = u;
-			gindex = 0;
-			charcode = FT_Get_First_Char( face, &gindex );
-			while ( gindex != 0 )
-			{
-				countUniCode++;
-				charcode = FT_Get_Next_Char( face, charcode, &gindex );
-			}
-		}
-		if (face->charmaps[u]->encoding == FT_ENCODING_ADOBE_CUSTOM)
-		{
-			chmapCustom = u;
-			foundEncoding = true;
-			retVal = 1;
-			break;
-		}
-		else if (face->charmaps[u]->encoding == FT_ENCODING_MS_SYMBOL)
-		{
-			chmapCustom = u;
-			foundEncoding = true;
-			retVal = 2;
-			break;
-		}
-	}
-	int mapToSet=defaultchmap;
-	if (chmapUniCode>0 && countUniCode >= face->num_glyphs-1)
-	{
-		mapToSet=chmapUniCode;
-		//FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
-		retVal = 0;
-	}
-	else 
-	if (foundEncoding)
-	{
-		mapToSet=chmapCustom;
-		//FT_Set_Charmap(face, face->charmaps[chmapCustom]);
-	}
-	else
-	{
-		mapToSet=defaultchmap;
-		//FT_Set_Charmap(face, defaultEncoding);
-		retVal = 0;
-	}
-
-	//Fixes #2199, missing glyphs from 1.2.1->1.2.2
-	//If the currently wanted character map is not already Unicode...
-	//if (FT_Get_Charmap_Index(face->charmap)!=chmapUniCode)
-	if (mapToSet!=chmapUniCode)
-	{
-		//Change map so we can count the chars in it
-		FT_Set_Charmap(face, face->charmaps[mapToSet]);
-		//Count the characters in the current map
-		gindex = 0;
-		int countCurrMap=0;
-		charcode = FT_Get_First_Char( face, &gindex );
-		while ( gindex != 0 )
-		{
-			countCurrMap++;
-			charcode = FT_Get_Next_Char( face, charcode, &gindex );
-		}
-		//If the last Unicode map we found before has more characters,
-		//then set it to be the current map.
-		if (countUniCode>countCurrMap)
-		{
-			mapToSet=chmapUniCode;
-			//FT_Set_Charmap(face, face->charmaps[chmapUniCode]);
-			retVal = 0;
-		}
-	}
-//	if (face->charmap == NULL || mapToSet!=FT_Get_Charmap_Index(face->charmap))
-		FT_Set_Charmap(face, face->charmaps[mapToSet]);
-	return retVal;
-}
-
-bool GlyNames(QMap<uint, QString> *GList, QString Dat)
-{
-	bool error;
-	char *buf[50];
-	FT_Library library;
-	FT_Face face;
-	FT_ULong  charcode;
-	FT_UInt gindex;
-	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, Dat, 0, &face);
-	setBestEncoding(face);
-	gindex = 0;
-	charcode = FT_Get_First_Char(face, &gindex );
-	while (gindex != 0)
-	{
-		FT_Get_Glyph_Name(face, gindex, buf, 50);
-		GList->insert(charcode, QString(reinterpret_cast<char*>(buf)));
-    	charcode = FT_Get_Next_Char(face, charcode, &gindex );
-	}
-	FT_Done_FreeType( library );
-	return true;
-}
-
-bool GlyIndex(QMap<uint, PDFlib::GlNamInd> *GListInd, QString Dat)
-{
-	struct PDFlib::GlNamInd gln;
-	bool error;
-	char *buf[50];
-	FT_Library library;
-	FT_Face face;
-	FT_ULong  charcode;
-	FT_UInt   gindex;
-	uint counter1 = 32;
-	uint counter2 = 0;
-	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, Dat, 0, &face);
-	setBestEncoding(face);
-	gindex = 0;
-	charcode = FT_Get_First_Char(face, &gindex );
-	while (gindex != 0)
-	{
-		FT_Get_Glyph_Name(face, gindex, buf, 50);
-		gln.Code = counter1 + counter2;
-		gln.Name = "/"+QString(reinterpret_cast<char*>(buf));
-		GListInd->insert(charcode, gln);
-    	charcode = FT_Get_Next_Char(face, charcode, &gindex );
-    	counter1++;
-    	if (counter1 > 255)
-		{
-			counter1 = 32;
-			counter2 += 0x100;
-		}
-	}
-	FT_Done_FreeType( library );
-	return true;
-}
-
-FPoint firstP;
-bool FirstM;
-
-int traceMoveto( FT_Vector *to, FPointArray *composite )
-{
-	double tox = ( to->x / 64.0 );
-	double toy = ( to->y / 64.0 );
-	if (!FirstM)
-	{
-		composite->addPoint(firstP);
-		composite->addPoint(firstP);
-		composite->setMarker();
-	}
-	else
-		FirstM = false;
-	composite->addPoint(FPoint(tox, toy));
-	composite->addPoint(FPoint(tox, toy));
-	firstP = FPoint(tox, toy);
-	return 0;
-}
-
-int traceLineto( FT_Vector *to, FPointArray *composite )
-{
-	double tox = ( to->x / 64.0 );
-	double toy = ( to->y / 64.0 );
-	if (composite->size() > 4)
-	{
-		FPoint b1 = composite->point(composite->size()-4);
-		FPoint b2 = composite->point(composite->size()-3);
-		FPoint b3 = composite->point(composite->size()-2);
-		FPoint b4 = composite->point(composite->size()-1);
-		FPoint n1 = FPoint(tox, toy);
-		FPoint n2 = FPoint(tox, toy);
-		FPoint n3 = FPoint(tox, toy);
-		FPoint n4 = FPoint(tox, toy);
-		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
-			return 0;
-	}
-	composite->addPoint(FPoint(tox, toy));
-	composite->addPoint(FPoint(tox, toy));
-	composite->addPoint(FPoint(tox, toy));
-	composite->addPoint(FPoint(tox, toy));
-	return 0;
-}
-
-int traceQuadraticBezier( FT_Vector *control, FT_Vector *to, FPointArray *composite )
-{
-	double x1 = ( control->x / 64.0 );
-	double y1 = ( control->y / 64.0 );
-	double x2 = ( to->x / 64.0 );
-	double y2 = ( to->y / 64.0 );
-	if (composite->size() > 4)
-	{
-		FPoint b1 = composite->point(composite->size()-4);
-		FPoint b2 = composite->point(composite->size()-3);
-		FPoint b3 = composite->point(composite->size()-2);
-		FPoint b4 = composite->point(composite->size()-1);
-		FPoint n1 = FPoint(x2, y2);
-		FPoint n2 = FPoint(x1, y1);
-		FPoint n3 = FPoint(x2, y2);
-		FPoint n4 = FPoint(x2, y2);
-		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
-			return 0;
-	}
-	composite->addPoint(FPoint(x2, y2));
-	composite->addPoint(FPoint(x1, y1));
-	composite->addPoint(FPoint(x2, y2));
-	composite->addPoint(FPoint(x2, y2));
-	return 0;
-}
-
-int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointArray *composite )
-{
-	double x1 = ( p->x / 64.0 );
-	double y1 = ( p->y / 64.0 );
-	double x2 = ( q->x / 64.0 );
-	double y2 = ( q->y / 64.0 );
-	double x3 = ( to->x / 64.0 );
-	double y3 = ( to->y / 64.0 );
-	if (composite->size() > 4)
-	{
-		FPoint b1 = composite->point(composite->size()-4);
-		FPoint b2 = composite->point(composite->size()-3);
-		FPoint b3 = composite->point(composite->size()-2);
-		FPoint b4 = composite->point(composite->size()-1);
-		FPoint n1 = FPoint(x3, y3);
-		FPoint n2 = FPoint(x2, y2);
-		FPoint n3 = FPoint(x3, y3);
-		FPoint n4 = FPoint(x3, y3);
-		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
-			return 0;
-	}
-	composite->setPoint(composite->size()-1, FPoint(x1, y1));
-	composite->addPoint(FPoint(x3, y3));
-	composite->addPoint(FPoint(x2, y2));
-	composite->addPoint(FPoint(x3, y3));
-	composite->addPoint(FPoint(x3, y3));
-	return 0;
-}
-
-FT_Outline_Funcs OutlineMethods =
-{
-	(FT_Outline_MoveTo_Func) traceMoveto,
-	(FT_Outline_LineTo_Func) traceLineto,
-	(FT_Outline_ConicTo_Func) traceQuadraticBezier,
-	(FT_Outline_CubicTo_Func) traceCubicBezier,
-	0,
-	0
-};
-
-FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, bool *err)
-{
-	bool error = false;
-	FT_UInt glyphIndex;
-	FPointArray pts, pts2;
-	pts.resize(0);
-	pts2.resize(0);
-	firstP = FPoint(0,0);
-	FirstM = true;
-	error = FT_Set_Char_Size( face, 0, chs*64, 72, 72 );
-	if (error)
-	{
-		*err = error;
-		return pts2;
-	}
-	glyphIndex = FT_Get_Char_Index(face, chr);
-	if (glyphIndex == 0)
-	{
-		*err = true;
-		return pts2;
-	}
-	error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP );
-	if (error)
-	{
-		*err = error;
-		return pts2;
-	}
-	error = FT_Outline_Decompose(&face->glyph->outline, &OutlineMethods, reinterpret_cast<void*>(&pts));
-	if (error)
-	{
-		*err = error;
-		return pts2;
-	}
-	*x = face->glyph->metrics.horiBearingX / 64.0;
-	*y = face->glyph->metrics.horiBearingY / 64.0;
-	QWMatrix ma;
-	ma.scale(1, -1);
-	pts.map(ma);
-	pts.translate(0, chs);
-	pts2.putPoints(0, pts.size()-2, pts, 0);
-	return pts2;
-}
-
-FPoint GetMaxClipF(FPointArray Clip)
-{
-	FPoint np, rp;
-	double mx = 0;
-	double my = 0;
-	for (uint c = 0; c < Clip.size(); ++c)
-	{
-		np = Clip.point(c);
-		if (np.x() > 900000)
-			continue;
-		if (np.x() > mx)
-			mx = np.x();
-		if (np.y() > my)
-			my = np.y();
-	}
-	rp = FPoint(mx, my);
-	return rp;
-}
-
-QPixmap FontSample(QString da, int s, QString ts, QColor back, bool force)
-{
-	FT_Face face;
-	FT_Library library;
-	double x, y, ymax;
-	bool error;
-	int  pen_x;
-	FPoint gp;
-	error = FT_Init_FreeType( &library );
-	error = FT_New_Face( library, da, 0, &face );
-	int encode = setBestEncoding(face);
-	double uniEM = static_cast<double>(face->units_per_EM);
-	int h = qRound(face->height / uniEM) * s + 1;
-	double a = static_cast<double>(face->descender) / uniEM * s + 1;
-	int w = qRound((face->bbox.xMax - face->bbox.xMin) / uniEM) * s * (ts.length()+1);
-	QPixmap pm(w, h);
-	pm.fill();
-	pen_x = 0;
-	ymax = 0.0;
-	ScPainter *p = new ScPainter(&pm, pm.width(), pm.height());
-	p->setFillMode(1);
-	p->setLineWidth(0.0);
-	p->setBrush(back);
-	p->drawRect(0.0, 0.0, static_cast<double>(w), static_cast<double>(h));
-	p->setBrush(Qt::black);
-	FPointArray gly;
-	uint dv;
-	dv = ts[0].unicode();
-	error = false;
-	gly = traceChar(face, dv, s, &x, &y, &error);
-	if (((encode != 0) || (error)) && (!force))
-	{
-		error = false;
-		FT_ULong  charcode;
-		FT_UInt gindex;
-		gindex = 0;
-		charcode = FT_Get_First_Char(face, &gindex );
-		for (uint n = 0; n < ts.length(); ++n)
-		{
-			gly = traceChar(face, charcode, s, &x, &y, &error);
-			if (error)
-				break;
-			if (gly.size() > 3)
-			{
-				gly.translate(static_cast<double>(pen_x) / 64.0, a);
-				gp = GetMaxClipF(gly);
-				ymax = QMAX(ymax, gp.y());
-				p->setupPolygon(&gly);
-				p->fillPath();
-			}
-			pen_x += face->glyph->advance.x;
-			charcode = FT_Get_Next_Char(face, charcode, &gindex );
-			if (gindex == 0)
-				break;
-		}
-	}
-	else
-	{
-		for (uint n = 0; n < ts.length(); ++n)
-		{
-			dv = ts[n].unicode();
-			error = false;
-			gly = traceChar(face, dv, s, &x, &y, &error);
-			if (gly.size() > 3)
-			{
-				gly.translate(static_cast<double>(pen_x) / 64.0, a);
-				gp = GetMaxClipF(gly);
-				ymax = QMAX(ymax, gp.y());
-				p->setupPolygon(&gly);
-				p->fillPath();
-			}
-			pen_x += face->glyph->advance.x;
-		}
-	}
-	p->end();
-	pm.resize(QMIN(qRound(gp.x()), w), QMIN(qRound(ymax), h));
-	delete p;
-	FT_Done_FreeType( library );
-	return pm;
-}
-
-/** Same as FontSample() with \n strings support added.
-09/26/2004 petr vanek
-*/
-QPixmap fontSamples(QString da, int s, QString ts, QColor back)
-{
-	QStringList lines = QStringList::split("\n", ts);
-	QPixmap ret(640, 480);
-	QPixmap sample;
-	QPainter *painter = new QPainter(&ret);
-	int y = 0;
-	int x = 0;
-	ret.fill(back);
-	for ( QStringList::Iterator it = lines.begin(); it != lines.end(); ++it ) {
-		sample = FontSample(da, s, *it, back);
-		if (!sample.isNull())
-			painter->drawPixmap(0, y, sample, 0, 0);
-		y = y + sample.height();
-		if (x < sample.width())
-			x = sample.width();
-	} // for
-	delete(painter);
-	QPixmap final(x, y);
-	if ((x != 0) && (y != 0))
-	{
-		QPainter *fpainter = new QPainter(&final);
-		fpainter->drawPixmap(0, 0, ret, 0, 0, x, y);
-		delete(fpainter);
-	}
-	return final;
 }
 
 /***************************************************************************
@@ -2040,191 +643,18 @@ bool overwrite(QWidget *parent, QString filename)
 	bool retval = true;
 	QFileInfo fi(filename);
 	if (fi.exists())
-  	{
-    	int t = QMessageBox::warning(parent, QObject::tr("Warning"),
-  						QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(filename),
-                        QMessageBox::No, QMessageBox::Yes, QMessageBox::NoButton);
-	    if (t == QMessageBox::No)
+	{
+		QString fn = QDir::convertSeparators(filename);
+		int t = ScMessageBox::warning(parent, QObject::tr("File exists"),
+									"<qt>"+ QObject::tr("A file named '%1' already exists.<br/>Do you want to replace it with the file you are saving?").arg(fn) +"</qt>",
+									QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
+		if (t == QMessageBox::Cancel)
 			retval = false;
-  	}
-  return retval;
+	}
+	return retval;
 }
 
-void CopyPageItem(struct CLBuf *Buffer, PageItem *b)
-{
-	uint a;
-	Buffer->PType = b->PType;
-	Buffer->Xpos = b->Xpos;
-	Buffer->Ypos = b->Ypos;
-	Buffer->Width = b->Width;
-	Buffer->Height = b->Height;
-	Buffer->RadRect = b->RadRect;
-	Buffer->FrameType = b->FrameType;
-	Buffer->ClipEdited = b->ClipEdited;
-	Buffer->Pwidth = b->Pwidth;
-	Buffer->Pcolor = b->Pcolor;
-	Buffer->Pcolor2 = b->Pcolor2;
-	Buffer->Shade = b->Shade;
-	Buffer->Shade2 = b->Shade2;
-	Buffer->GrColor = "";
-	Buffer->GrColor2 = "";
-	Buffer->GrShade = 100;
-	Buffer->GrShade2 = 100;
-	Buffer->fill_gradient = b->fill_gradient;
-	Buffer->GrType = b->GrType;
-	Buffer->GrStartX = b->GrStartX;
-	Buffer->GrStartY = b->GrStartY;
-	Buffer->GrEndX = b->GrEndX;
-	Buffer->GrEndY = b->GrEndY;
-	Buffer->TxtStroke = b->TxtStroke;
-	Buffer->TxtFill = b->TxtFill;
-	Buffer->ShTxtStroke = b->ShTxtStroke;
-	Buffer->ShTxtFill = b->ShTxtFill;
-	Buffer->TxtScale = b->TxtScale;
-	Buffer->TxTStyle = b->TxTStyle;
-	Buffer->Rot = b->Rot;
-	Buffer->PLineArt = b->PLineArt;
-	Buffer->PLineEnd = b->PLineEnd;
-	Buffer->PLineJoin = b->PLineJoin;
-	Buffer->LineSp = b->LineSp;
-	Buffer->LocalScX = b->LocalScX;
-	Buffer->LocalScY = b->LocalScY;
-	Buffer->LocalX = b->LocalX;
-	Buffer->LocalY = b->LocalY;
-	Buffer->PicArt = b->PicArt;
-	Buffer->flippedH = b->flippedH;
-	Buffer->flippedV = b->flippedV;
-	Buffer->BBoxX = b->BBoxX;
-	Buffer->BBoxH = b->BBoxH;
-	Buffer->isPrintable = b->isPrintable;
-	Buffer->isBookmark = b->isBookmark;
-	Buffer->BMnr = b->BMnr;
-	Buffer->isAnnotation = b->isAnnotation;
-	Buffer->AnType = b->AnType;
-	Buffer->AnAction = b->AnAction;
-	Buffer->An_E_act = b->An_E_act;
-	Buffer->An_X_act = b->An_X_act;
-	Buffer->An_D_act = b->An_D_act;
-	Buffer->An_Fo_act = b->An_Fo_act;
-	Buffer->An_Bl_act = b->An_Bl_act;
-	Buffer->An_K_act = b->An_K_act;
-	Buffer->An_F_act = b->An_F_act;
-	Buffer->An_V_act = b->An_V_act;
-	Buffer->An_C_act = b->An_C_act;
-	Buffer->An_Extern = b->An_Extern;
-	Buffer->AnZiel = b->AnZiel;
-	Buffer->AnName = b->AnName;
-	Buffer->AnActType = b->AnActType;
-	Buffer->AnToolTip = b->AnToolTip;
-	Buffer->AnBwid = b->AnBwid;
-	Buffer->AnBsty = b->AnBsty;
-	Buffer->AnFeed = b->AnFeed;
-	Buffer->AnFlag = b->AnFlag;
-	Buffer->AnFont = b->AnFont;
-	Buffer->AnRollOver = b->AnRollOver;
-	Buffer->AnDown = b->AnDown;
-	Buffer->AnFormat = b->AnFormat;
-	Buffer->AnVis = b->AnVis;
-	Buffer->AnMaxChar = b->AnMaxChar;
-	Buffer->AnChkStil = b->AnChkStil;
-	Buffer->AnIsChk = b->AnIsChk;
-	Buffer->AnAAact = b->AnAAact;
-	Buffer->AnBColor = b->AnBColor;
-	Buffer->AnHTML = b->AnHTML;
-	Buffer->AnUseIcons = b->AnUseIcons;
-	Buffer->AnIPlace = b->AnIPlace;
-	Buffer->AnScaleW = b->AnScaleW;
-	Buffer->Extra = b->Extra;
-	Buffer->TExtra = b->TExtra;
-	Buffer->BExtra = b->BExtra;
-	Buffer->RExtra = b->RExtra;
-	Buffer->Pfile = b->Pfile;
-	Buffer->Pfile2 = b->Pfile2;
-	Buffer->Pfile3 = b->Pfile3;
-	QString Text = "";
-	if (b->Ptext.count() != 0)
-	{
-		for (a=0; a<b->Ptext.count(); ++a)
-		{
-			if( (b->Ptext.at(a)->ch == "\n") || (b->Ptext.at(a)->ch == "\r"))
-				Text += QString(QChar(5))+"\t";
-			else if(b->Ptext.at(a)->ch == "\t")
-				Text += QString(QChar(4))+"\t";
-			else
-				Text += b->Ptext.at(a)->ch+"\t";
-			Text += b->Ptext.at(a)->cfont+"\t";
-			Text += QString::number(b->Ptext.at(a)->csize / 10.0)+"\t";
-			Text += b->Ptext.at(a)->ccolor+"\t";
-			Text += QString::number(b->Ptext.at(a)->cextra)+"\t";
-			Text += QString::number(b->Ptext.at(a)->cshade)+'\t';
-			Text += QString::number(b->Ptext.at(a)->cstyle)+'\t';
-			Text += QString::number(b->Ptext.at(a)->cab)+'\t';
-			Text += b->Ptext.at(a)->cstroke+"\t";
-			Text += QString::number(b->Ptext.at(a)->cshade2)+'\t';
-			Text += QString::number(b->Ptext.at(a)->cscale)+'\n';
-		}
-	}
-	Buffer->Ptext = Text;
-	Buffer->Clip = b->Clip.copy();
-	Buffer->PoLine = b->PoLine.copy();
-	Buffer->ContourLine = b->ContourLine.copy();
-	Buffer->UseContour = b->UseContour;
-	Buffer->TabValues = b->TabValues;
-	Buffer->DashValues = b->DashValues;
-	Buffer->DashOffset = b->DashOffset;
-	Buffer->PoShow = b->PoShow;
-	Buffer->BaseOffs = b->BaseOffs;
-	Buffer->Textflow = b->Textflow;
-	Buffer->Textflow2 = b->Textflow2;
-	Buffer->Ausrich = b->Ausrich;
-	Buffer->IFont = b->IFont;
-	Buffer->ISize = b->ISize;
-	Buffer->ExtraV = b->ExtraV;
-	Buffer->Groups = b->Groups;
-	Buffer->IProfile = b->IProfile;
-	Buffer->IRender = b->IRender;
-	Buffer->UseEmbedded = b->UseEmbedded;
-	Buffer->EmProfile = b->EmProfile;
-	Buffer->LayerNr = b->LayerNr;
-	Buffer->ScaleType = b->ScaleType;
-	Buffer->AspectRatio = b->AspectRatio;
-	Buffer->Locked = b->Locked;
-	Buffer->LockRes = b->LockRes;
-	Buffer->Transparency = b->Transparency;
-	Buffer->TranspStroke = b->TranspStroke;
-	Buffer->Reverse = b->Reverse;
-	Buffer->InvPict = b->InvPict;
-	Buffer->NamedLStyle = b->NamedLStyle;
-	Buffer->Language = b->Language;
-	Buffer->Cols = b->Cols;
-	Buffer->ColGap = b->ColGap;
-	Buffer->isTableItem = b->isTableItem;
-	Buffer->TopLine = b->TopLine;
-	Buffer->LeftLine = b->LeftLine;
-	Buffer->RightLine = b->RightLine;
-	Buffer->BottomLine = b->BottomLine;
-	if (b->isTableItem)
-	{
-		if (b->TopLink != 0)
-			Buffer->TopLinkID = b->TopLink->ItemNr;
-		else
-			Buffer->TopLinkID = -1;
-		if (b->LeftLink != 0)
-			Buffer->LeftLinkID = b->LeftLink->ItemNr;
-		else
-			Buffer->LeftLinkID = -1;
-		if (b->RightLink != 0)
-			Buffer->RightLinkID = b->RightLink->ItemNr;
-		else
-			Buffer->RightLinkID = -1;
-		if (b->BottomLink != 0)
-			Buffer->BottomLinkID = b->BottomLink->ItemNr;
-		else
-			Buffer->BottomLinkID = -1;
-	}
-}
-
-void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
+void WordAndPara(PageItem* currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 {
 	QChar Dat = QChar(32);
 	int para = 0;
@@ -2234,51 +664,59 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 	int wwN = 0;
 	int ccN = 0;
 	bool first = true;
-	PageItem *nb = b;
-	PageItem *nbl = b;
-	while (nb != 0)
+	PageItem *nextItem = currItem;
+	PageItem *nbl = currItem;
+	while (nextItem != 0)
 	{
-		if (nb->BackBox != 0)
-			nb = nb->BackBox;
+		if (nextItem->prevInChain() != 0)
+			nextItem = nextItem->prevInChain();
 		else
 			break;
 	}
-	while (nb != 0)
+	while (nextItem != 0)
 	{
-  		for (uint a = 0; a < nb->Ptext.count(); ++a)
-  		{
-			QChar b = nb->Ptext.at(a)->ch[0];
-			if (b == QChar(13))
+		for (int a = qMax(nextItem->firstInFrame(),0); a <= nextItem->lastInFrame() && a < nextItem->itemText.length(); ++a)
+		{
+			QChar b = nextItem->itemText.text(a);
+			if (b == SpecialChars::PARSEP)
 			{
-				if (a >= nb->MaxChars)
-					paraN++;
-				else
-					para++;
+				para++;
 			}
 			if ((!b.isLetterOrNumber()) && (Dat.isLetterOrNumber()) && (!first))
 			{
-				if (a >= nb->MaxChars)
-					wwN++;
-				else
-					ww++;
+				ww++;
 			}
-			if (a >= nb->MaxChars)
-				ccN++;
-			else
-				cc++;
-    		Dat = b;
+			cc++;
+			Dat = b;
 			first = false;
-    	}
-		nbl = nb;
-		nb = nb->NextBox;
+		}
+		nbl = nextItem;
+		nextItem = nextItem->nextInChain();
 	}
-	if (nbl->MaxChars < nbl->Ptext.count())
+	if (nbl->frameOverflows()) {
 		paraN++;
-	else
+		for (int a = nbl->lastInFrame()+1; a < nbl->itemText.length(); ++a)
+		{
+			QChar b = nbl->itemText.text(a);
+			if (b == SpecialChars::PARSEP)
+			{
+				paraN++;
+			}
+			if ((!b.isLetterOrNumber()) && (Dat.isLetterOrNumber()) && (!first))
+			{
+				wwN++;
+			}
+			ccN++;
+			Dat = b;
+			first = false;
+		}
+	}		
+	else {
 		para++;
+	}
 	if (Dat.isLetterOrNumber())
 	{
-		if (nbl->MaxChars < nbl->Ptext.count())
+		if (nbl->frameOverflows())
 			wwN++;
 		else
 			ww++;
@@ -2291,63 +729,51 @@ void WordAndPara(PageItem* b, int *w, int *p, int *c, int *wN, int *pN, int *cN)
 	*cN = ccN;
 }
 
-void ReOrderText(ScribusDoc *doc, ScribusView *view)
+void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 {
-	double savScale = doc->Scale;
-	doc->Scale = 1.0;
-	doc->RePos = true;
-	QPixmap pgPix(10, 10);
+	double savScale = view->scale();
+	view->setScale(1.0);
+	currentDoc->RePos = true;
+	QImage pgPix(10, 10, QImage::Format_ARGB32);
 	QRect rd = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-	for (uint az=0; az<view->MasterPages.count(); az++)
+	for (uint azz=0; azz<currentDoc->MasterItems.count(); ++azz)
 	{
-		for (uint azz=0; azz<view->MasterPages.at(az)->Items.count(); ++azz)
-		{
-			PageItem *ite = view->MasterPages.at(az)->Items.at(azz);
-			if (ite->PType == 8)
-				ite->DrawObj(painter, rd);
-		}
+		PageItem *currItem = currentDoc->MasterItems.at(azz);
+		if (currItem->itemType() == PageItem::PathText)
+			currItem->DrawObj(painter, rd);
 	}
-	for (uint az=0; az<view->Pages.count(); az++)
+	for (uint azz=0; azz<currentDoc->Items->count(); ++azz)
 	{
-		for (uint azz=0; azz<view->Pages.at(az)->Items.count(); ++azz)
-		{
-			PageItem *ite = view->Pages.at(az)->Items.at(azz);
-			if ((ite->PType == 4) || (ite->PType == 8))
-				ite->DrawObj(painter, rd);
-		}
+		PageItem *currItem = currentDoc->Items->at(azz);
+		if (currItem->itemType() == PageItem::TextFrame)
+			currItem->asTextFrame()->layout();
+		else if (currItem->itemType() == PageItem::PathText)
+			currItem->DrawObj(painter, rd);
 	}
-	doc->RePos = false;
-	doc->Scale = savScale;
+	currentDoc->RePos = false;
+	view->setScale(savScale);
 	delete painter;
 }
 
-
-/*! 10/06/2004 - pv
-\param QString s1 first string
-\param QString s2 second string
+/*! \brief Helper function for sorting in sortQStringList.
+\author 10/06/2004 - pv
+\param s1 first string
+\param s2 second string
 \retval bool t/f related s1>s2
  */
 bool compareQStrings(QString s1, QString s2)
 {
 	if (QString::localeAwareCompare(s1, s2) >= 0)
-		return FALSE;
-	return TRUE;
+		return false;
+	return true;
 }
 
-/*! 10/06/2004 - pv
-Returns a sorted list of QStrings - sorted by locale specific
-rules! Uses compareQStrings() as rule. There is STL used!
-TODO: Maybe we can implement one cass for various sorting...
-\param QStringList aList unsorted string list
-\retval QStringList sorted string list
-*/
 QStringList sortQStringList(QStringList aList)
 {
 	std::vector<QString> sortList;
 	QStringList retList;
 	QStringList::Iterator it;
-
 	for (it = aList.begin(); it != aList.end(); ++it)
 		sortList.push_back(*it);
 	std::sort(sortList.begin(), sortList.end(), compareQStrings);
@@ -2356,18 +782,333 @@ QStringList sortQStringList(QStringList aList)
 	return retList;
 }
 
-/*! Creates a common name for page exports (SVG, bitmap, EPS).
-Output format is: documentname-page01.extension
-\param pageNo number of the exported page (begins from 1)
-\param extension "svg" or e.g. "png" etc.
-\retval QString standardized filename
-\author Petr Vanek
-*/
-QString getFileNameByPage(uint pageNo, QString extension)
+void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
+{
+	QString tmp;
+	int x, y;
+	double xf, yf, xf2;
+	OB->PType = static_cast<PageItem::ItemType>(obj->attribute("PTYPE").toInt());
+	OB->Width=obj->attribute("WIDTH").toDouble();
+	OB->Height=obj->attribute("HEIGHT").toDouble();
+	OB->RadRect = obj->attribute("RADRECT", "0").toDouble();
+	OB->ClipEdited = obj->attribute("CLIPEDIT", "0").toInt();
+	OB->FrameType = obj->attribute("FRTYPE", "0").toInt();
+	OB->Pwidth=obj->attribute("PWIDTH").toDouble();
+	OB->Pcolor = obj->attribute("PCOLOR");
+	if ((!newVersion) && (OB->PType == 4))
+	{
+		OB->TxtFill = obj->attribute("PCOLOR2");
+		OB->Pcolor2 = CommonStrings::None;
+	}
+	else
+	{
+		OB->Pcolor2 = obj->attribute("PCOLOR2");
+		OB->TxtFill = obj->attribute("TXTFILL", "Black");
+	}
+	OB->Shade = obj->attribute("SHADE").toInt();
+	OB->Shade2 = obj->attribute("SHADE2").toInt();
+	OB->FillRule = obj->attribute("fillRule", "1").toInt();
+	OB->TxtStroke=obj->attribute("TXTSTROKE", CommonStrings::None);
+	OB->ShTxtFill=obj->attribute("TXTFILLSH", "100").toInt();
+	OB->ShTxtStroke=obj->attribute("TXTSTRSH", "100").toInt();
+	OB->TxtScale=qRound(obj->attribute("TXTSCALE", "100").toDouble() * 10);
+	OB->TxtScaleV=qRound(obj->attribute("TXTSCALEV", "100").toDouble() * 10);
+	OB->TxTBase=qRound(obj->attribute("TXTBASE", "0").toDouble() * 10);
+	OB->TxTStyle=obj->attribute("TXTSTYLE", "0").toInt();
+	OB->TxtShadowX=qRound(obj->attribute("TXTSHX", "5").toDouble() * 10);
+	OB->TxtShadowY=qRound(obj->attribute("TXTSHY", "-5").toDouble() * 10);
+	OB->TxtOutline=qRound(obj->attribute("TXTOUT", "1").toDouble() * 10);
+	OB->TxtUnderPos=qRound(obj->attribute("TXTULP", "-0.1").toDouble() * 10);
+	OB->TxtUnderWidth=qRound(obj->attribute("TXTULW", "-0.1").toDouble() * 10);
+	OB->TxtStrikePos=qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10);
+	OB->TxtStrikeWidth=qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10);
+	OB->Cols = obj->attribute("COLUMNS", "1").toInt();
+	OB->ColGap = obj->attribute("COLGAP", "0.0").toDouble();
+	OB->GrType = obj->attribute("GRTYP", "0").toInt();
+	OB->fill_gradient.clearStops();
+	if (OB->GrType != 0)
+	{
+		if (OB->GrType == 8)
+		{
+			OB->pattern = obj->attribute("pattern", "");
+			OB->patternScaleX = obj->attribute("pScaleX", "100.0").toDouble();
+			OB->patternScaleY = obj->attribute("pScaleY", "100.0").toDouble();
+			OB->patternOffsetX = obj->attribute("pOffsetX", "0.0").toDouble();
+			OB->patternOffsetY = obj->attribute("pOffsetY", "0.0").toDouble();
+			OB->patternRotation = obj->attribute("pRotation", "0.0").toDouble();
+		}
+		else
+		{
+			OB->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();
+			OB->GrStartY = obj->attribute("GRSTARTY", "0.0").toDouble();
+			OB->GrEndX = obj->attribute("GRENDX", "0.0").toDouble();
+			OB->GrEndY = obj->attribute("GRENDY", "0.0").toDouble();
+			OB->GrColor = obj->attribute("GRCOLOR","");
+			if (OB->GrColor.isEmpty())
+				OB->GrColor = "Black";
+			OB->GrColor2 = obj->attribute("GRCOLOR2","Black");
+			if (OB->GrColor2.isEmpty())
+				OB->GrColor2 = "Black";
+			OB->GrShade = obj->attribute("GRSHADE", "100").toInt();
+			OB->GrShade2 = obj->attribute("GRSHADE2", "100").toInt();
+		}
+	}
+	OB->Rot=obj->attribute("ROT").toDouble();
+	OB->PLineArt=Qt::PenStyle(obj->attribute("PLINEART").toInt());
+	OB->PLineEnd=Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
+	OB->PLineJoin=Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
+	OB->LineSp=obj->attribute("LINESP").toDouble();
+	OB->LineSpMode = obj->attribute("LINESPMode", "0").toInt();
+	OB->LocalScX=obj->attribute("LOCALSCX").toDouble();
+	OB->LocalScY=obj->attribute("LOCALSCY").toDouble();
+	OB->LocalX=obj->attribute("LOCALX").toDouble();
+	OB->LocalY=obj->attribute("LOCALY").toDouble();
+	OB->PicArt=obj->attribute("PICART").toInt();
+	OB->flippedH = obj->attribute("FLIPPEDH").toInt() % 2;
+	OB->flippedV = obj->attribute("FLIPPEDV").toInt() % 2;
+/*	OB->BBoxX=obj->attribute("BBOXX").toDouble();
+	OB->BBoxH=obj->attribute("BBOXH").toDouble(); */
+	OB->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
+	OB->AspectRatio = obj->attribute("RATIO", "0").toInt();
+	OB->isPrintable=obj->attribute("PRINTABLE").toInt();
+	OB->m_isAnnotation=obj->attribute("ANNOTATION", "0").toInt();
+	OB->m_annotation.setType(obj->attribute("ANTYPE", "0").toInt());
+	OB->m_annotation.setAction(obj->attribute("ANACTION",""));
+	OB->m_annotation.setE_act(obj->attribute("ANEACT",""));
+	OB->m_annotation.setX_act(obj->attribute("ANXACT",""));
+	OB->m_annotation.setD_act(obj->attribute("ANDACT",""));
+	OB->m_annotation.setFo_act(obj->attribute("ANFOACT",""));
+	OB->m_annotation.setBl_act(obj->attribute("ANBLACT",""));
+	OB->m_annotation.setK_act(obj->attribute("ANKACT",""));
+	OB->m_annotation.setF_act(obj->attribute("ANFACT",""));
+	OB->m_annotation.setV_act(obj->attribute("ANVACT",""));
+	OB->m_annotation.setC_act(obj->attribute("ANCACT",""));
+	OB->m_annotation.setActionType(obj->attribute("ANACTYP", "0").toInt());
+	OB->m_annotation.setExtern(obj->attribute("ANEXTERN",""));
+	if ((!OB->m_annotation.Extern().isEmpty()) && (OB->m_annotation.ActionType() != 8))
+	{
+		QFileInfo efp(OB->m_annotation.Extern());
+		OB->m_annotation.setExtern(efp.absFilePath());
+	}
+	OB->m_annotation.setZiel(obj->attribute("ANZIEL", "0").toInt());
+	OB->AnName=obj->attribute("ANNAME","");
+	OB->m_annotation.setToolTip(obj->attribute("ANTOOLTIP",""));
+	OB->m_annotation.setRollOver(obj->attribute("ANROLL",""));
+	OB->m_annotation.setDown(obj->attribute("ANDOWN",""));
+	OB->m_annotation.setBwid(obj->attribute("ANBWID", "1").toInt());
+	OB->m_annotation.setBsty(obj->attribute("ANBSTY", "0").toInt());
+	OB->m_annotation.setFeed(obj->attribute("ANFEED", "1").toInt());
+	OB->m_annotation.setFlag(obj->attribute("ANFLAG", "0").toInt());
+	OB->m_annotation.setFont(obj->attribute("ANFONT", "4").toInt());
+	OB->m_annotation.setFormat(obj->attribute("ANFORMAT", "0").toInt());
+	OB->m_annotation.setVis(obj->attribute("ANVIS", "0").toInt());
+	OB->m_annotation.setIsChk(static_cast<bool>(obj->attribute("ANCHK", "0").toInt()));
+	OB->m_annotation.setAAact(static_cast<bool>(obj->attribute("ANAA", "0").toInt()));
+	OB->m_annotation.setHTML(static_cast<bool>(obj->attribute("ANHTML", "0").toInt()));
+	OB->m_annotation.setUseIcons(static_cast<bool>(obj->attribute("ANICON", "0").toInt()));
+	OB->m_annotation.setChkStil(obj->attribute("ANCHKS", "0").toInt());
+	OB->m_annotation.setMaxChar(obj->attribute("ANMC", "-1").toInt());
+	OB->m_annotation.setBorderColor(obj->attribute("ANBCOL",CommonStrings::None));
+	OB->m_annotation.setIPlace(obj->attribute("ANPLACE", "1").toInt());
+	OB->m_annotation.setScaleW(obj->attribute("ANSCALE", "0").toInt());
+	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
+		OB->Pcolor = CommonStrings::None;
+	OB->textAlignment=obj->attribute("ALIGN", "0").toInt();
+	if ( obj->hasAttribute("TEXTFLOWMODE") )
+		OB->TextflowMode = (PageItem::TextFlowMode) obj->attribute("TEXTFLOWMODE", "0").toInt();
+	else if ( obj->attribute("TEXTFLOW").toInt() )
+	{
+		if (obj->attribute("TEXTFLOW2", "0").toInt())
+			OB->TextflowMode = PageItem::TextFlowUsesBoundingBox;
+		else if (obj->attribute("TEXTFLOW3", "0").toInt())
+			OB->TextflowMode = PageItem::TextFlowUsesContourLine;
+		else
+			OB->TextflowMode = PageItem::TextFlowUsesFrameShape;	
+	}
+	else
+		OB->TextflowMode = PageItem::TextFlowDisabled;
+	OB->Extra=obj->attribute("EXTRA").toDouble();
+	OB->TExtra=obj->attribute("TEXTRA", "1").toDouble();
+	OB->BExtra=obj->attribute("BEXTRA", "1").toDouble();
+	OB->RExtra=obj->attribute("REXTRA", "1").toDouble();
+	OB->PoShow = obj->attribute("PLTSHOW", "0").toInt();
+	OB->BaseOffs = obj->attribute("BASEOF", "0").toDouble();
+	OB->textPathType =  obj->attribute("textPathType", "0").toInt();
+	OB->textPathFlipped = static_cast<bool>(obj->attribute("textPathFlipped", "0").toInt());
+	OB->ISize = qRound(obj->attribute("ISIZE", "12").toDouble() * 10);
+	if (obj->hasAttribute("EXTRAV"))
+		OB->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
+	else
+		OB->ExtraV = obj->attribute("TXTKERN").toInt();
+	OB->Pfile=obj->attribute("PFILE");
+	OB->Pfile2=obj->attribute("PFILE2","");
+	OB->Pfile3=obj->attribute("PFILE3","");
+	OB->IProfile=obj->attribute("PRFILE","");
+	OB->EmProfile=obj->attribute("EPROF","");
+	OB->IRender = obj->attribute("IRENDER", "1").toInt();
+	OB->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
+	OB->Locked = static_cast<bool>(obj->attribute("LOCK", "0").toInt());
+	OB->LockRes = static_cast<bool>(obj->attribute("LOCKR", "0").toInt());
+	OB->Reverse = static_cast<bool>(obj->attribute("REVERS", "0").toInt());
+	OB->isTableItem = static_cast<bool>(obj->attribute("isTableItem", "0").toInt());
+	OB->TopLine = static_cast<bool>(obj->attribute("TopLine", "0").toInt());
+	OB->LeftLine = static_cast<bool>(obj->attribute("LeftLine", "0").toInt());
+	OB->RightLine = static_cast<bool>(obj->attribute("RightLine", "0").toInt());
+	OB->BottomLine = static_cast<bool>(obj->attribute("BottomLine", "0").toInt());
+	OB->TopLinkID =  obj->attribute("TopLINK", "-1").toInt();
+	OB->LeftLinkID =  obj->attribute("LeftLINK", "-1").toInt();
+	OB->RightLinkID =  obj->attribute("RightLINK", "-1").toInt();
+	OB->BottomLinkID =  obj->attribute("BottomLINK", "-1").toInt();
+	OB->Transparency = obj->attribute("TransValue", "0.0").toDouble();
+	if (obj->hasAttribute("TransValueS"))
+		OB->TranspStroke = obj->attribute("TransValueS", "0.0").toDouble();
+	else
+		OB->TranspStroke = OB->Transparency;
+	OB->TransBlend = obj->attribute("TransBlend", "0").toInt();
+	OB->TransBlendS = obj->attribute("TransBlendS", "0").toInt();
+	tmp = "";
+	if (obj->hasAttribute("NUMCLIP"))
+	{
+		OB->Clip.resize(obj->attribute("NUMCLIP").toUInt());
+		tmp = obj->attribute("CLIPCOOR");
+		Q3TextStream fc(&tmp, QIODevice::ReadOnly);
+		for (uint c=0; c<obj->attribute("NUMCLIP").toUInt(); ++c)
+		{
+			fc >> x;
+			fc >> y;
+			OB->Clip.setPoint(c, x, y);
+		}
+	}
+	else
+		OB->Clip.resize(0);
+	tmp = "";
+	if (obj->hasAttribute("NUMPO"))
+	{
+		OB->PoLine.resize(obj->attribute("NUMPO").toUInt());
+		tmp = obj->attribute("POCOOR");
+		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
+		{
+			fp >> xf;
+			fp >> yf;
+			OB->PoLine.setPoint(cx, xf, yf);
+		}
+	}
+	else
+		OB->PoLine.resize(0);
+	tmp = "";
+	if (obj->hasAttribute("NUMCO"))
+	{
+		OB->ContourLine.resize(obj->attribute("NUMCO").toUInt());
+		tmp = obj->attribute("COCOOR");
+		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
+		{
+			fp >> xf;
+			fp >> yf;
+			OB->ContourLine.setPoint(cx, xf, yf);
+		}
+	}
+	else
+		OB->ContourLine.resize(0);
+	tmp = "";
+	if ((obj->hasAttribute("NUMTAB")) && (obj->attribute("NUMTAB", "0").toInt() != 0))
+	{
+		ParagraphStyle::TabRecord tb;
+		tmp = obj->attribute("TABS");
+		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
+		OB->TabValues.clear();
+		for (int cxv = 0; cxv < obj->attribute("NUMTAB", "0").toInt(); cxv += 2)
+		{
+			tgv >> xf;
+			tgv >> xf2;
+			tb.tabPosition = xf2;
+			tb.tabType = static_cast<int>(xf);
+			tb.tabFillChar = QChar();
+			OB->TabValues.append(tb);
+		}
+		tmp = "";
+	}
+	else
+		OB->TabValues.clear();
+	if ((obj->hasAttribute("NUMDASH")) && (obj->attribute("NUMDASH", "0").toInt() != 0))
+	{
+		tmp = obj->attribute("DASHS");
+		Q3TextStream dgv(&tmp, QIODevice::ReadOnly);
+		OB->DashValues.clear();
+		for (int cxv = 0; cxv < obj->attribute("NUMDASH", "0").toInt(); ++cxv)
+		{
+			dgv >> xf;
+			OB->DashValues.append(xf);
+		}
+		tmp = "";
+	}
+	else
+		OB->DashValues.clear();
+	OB->DashOffset = obj->attribute("DASHOFF", "0.0").toDouble();
+}
+
+FPoint getMaxClipF(FPointArray* Clip)
+{
+	FPoint np, rp;
+	double mx = 0;
+	double my = 0;
+	uint clipSize=Clip->size();
+	for (uint c = 0; c < clipSize; ++c)
+	{
+		np = Clip->point(c);
+		if (np.x() > 900000)
+			continue;
+		if (np.x() > mx)
+			mx = np.x();
+		if (np.y() > my)
+			my = np.y();
+	}
+	rp.setXY(mx, my);
+	return rp;
+}
+
+FPoint getMinClipF(FPointArray* Clip)
+{
+	FPoint np, rp;
+	double mx = 99999;
+	double my = 99999;
+	uint clipSize=Clip->size();
+	for (uint c = 0; c < clipSize; ++c)
+	{
+		np = Clip->point(c);
+		if (np.x() > 900000)
+			continue;
+		if (np.x() < mx)
+			mx = np.x();
+		if (np.y() < my)
+			my = np.y();
+	}
+	rp.setXY(mx, my);
+	return rp;
+}
+
+QString checkFileExtension(const QString &currName, const QString &extension)
+{
+	QString newName(currName);
+	//If filename ends with a period, just add the extension
+	if (newName.right(1)==".")
+	{
+		newName+=extension.lower();
+		return newName;
+	}
+	//If filename doesnt end with the period+extension, add it on
+	QString dotExt("." + extension.lower());
+	if (!newName.endsWith(dotExt,false))
+		newName+=dotExt;
+	return newName;
+}
+
+QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension)
 {
 	QString number;
-	number = number.setNum(pageNo + ScApp->doc->FirstPnum);
-	QString defaultName = ScApp->doc->DocName;
+	number = number.setNum(pageNo + currDoc->FirstPnum);
+	QString defaultName = currDoc->DocName;
 	if (defaultName.isNull())
 		defaultName = "export";
 	else
@@ -2378,38 +1119,401 @@ QString getFileNameByPage(uint pageNo, QString extension)
 	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number).arg(extension);
 }
 
-QStringList getSystemProfilesDirs(void)
+bool compareDouble(double a, double b)
 {
-	QStringList iccProfDirs;
-#ifdef Q_OS_MAC
-	iccProfDirs.append(QDir::homeDirPath()+"/Library/ColorSync/Profiles/");
-	iccProfDirs.append("/System/Library/ColorSync/Profiles/");
-	iccProfDirs.append("/Library/ColorSync/Profiles/");
-#elif defined(Q_WS_X11)
-	iccProfDirs.append(QDir::homeDirPath()+"/color/icc/");
-	iccProfDirs.append(QDir::homeDirPath()+"/.color/icc/");
-	iccProfDirs.append("/usr/local/share/color/icc/");
-	iccProfDirs.append("/usr/share/color/icc/");
-#elif defined(_WIN32)
-	// On Windows it's more complicated, profiles location depends on OS version
-	char sysDir[MAX_PATH + 1];
-	OSVERSIONINFO osVersion;
-	ZeroMemory( &osVersion, sizeof(OSVERSIONINFO));
-	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
-	GetVersionEx(&osVersion);  // Get Windows version infos
-	GetSystemDirectory( sysDir, MAX_PATH ); // getSpecialDir(CSIDL_SYSTEM) fails on Win9x
-	QString winSysDir = QString(sysDir).replace('\\','/');
-	if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT	) // Windows NT/2k/XP
+	if(a > -21473 && b > -21473 && a < 21474 && b < 21474)
 	{
-		if( osVersion.dwMajorVersion >= 5 ) // for 2k and XP dwMajorVersion == 5 
-			iccProfDirs.append( winSysDir + "/Spool/Drivers/Color/");
+		long al = static_cast<long>(10000 * a);
+		long bl = static_cast<long>(10000 * b);
+		return al == bl;
 	}
-	else if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_WINDOWS ) // Windows 9x/Me 
-	{
-		if( osVersion.dwMajorVersion >= 4 && osVersion.dwMinorVersion >= 10) // Win98 or WinMe
-			iccProfDirs.append( winSysDir + "/Color/");
-	}
-#endif
-	return iccProfDirs;
+	return a == b;
 }
 
+inline double square(double x)
+{
+	return x*x;
+}
+
+inline double distance(double x, double y)
+{
+	return sqrt(x*x+y*y);
+}
+
+double constrainAngle(double angle, double constrain)
+{
+	double newAngle=angle;
+	double constrainTo=constrain;
+	if (newAngle<0.0)
+		newAngle+=360.0;
+	newAngle=qRound(angle/constrainTo)*constrainTo;
+	if (newAngle==360.0)
+		newAngle=0.0;
+	return newAngle;
+}
+
+double getRotationFromMatrix(QMatrix& matrix, double def)
+{
+	double value = def;
+	double norm = sqrt(fabs(matrix.det()));
+	if (norm > 0.0000001)
+	{
+		double m11 = matrix.m11() / norm;
+		double m12 = matrix.m12() / norm;
+		double m21 = matrix.m21() / norm;
+		double m22 = matrix.m22() / norm;
+		if (fabs(m11) <= 1.0 && fabs(m12) <= 1.0 && fabs(m21) <= 1.0 && fabs(m22) <= 1.0)
+		{
+			QMatrix mat(m11, m12, m21, m22, 0, 0);
+			if (abs(mat.det()-1.0) < 0.00001 && (mat.m12() == -mat.m21()))
+			{
+				double ac = acos(mat.m11());
+				value = (mat.m21() >= 0.0) ? ac : (-ac);
+			}
+		}
+	}
+	return value;
+}
+
+const QString getStringFromSequence(DocumentSectionType type, uint position)
+{
+	QString retVal("");
+	switch( type )
+	{
+		case Type_1_2_3:
+			retVal=QString::number(position);
+			break;
+		case Type_A_B_C:
+			retVal=numberToLetterSequence(position).upper();
+			break;
+		case Type_a_b_c:
+			retVal=numberToLetterSequence(position);
+			break;
+		case Type_I_II_III:
+			retVal=arabicToRoman(position);
+			break;
+		case Type_i_ii_iii:
+			//well, for lower case people will want that, even if its "wrong"
+			//ie, X=10, x=10000
+			retVal=arabicToRoman(position).lower();
+			break;
+		case Type_None:
+			break;
+		default:
+			break;
+	}
+	return retVal;
+}
+
+const QString numberToLetterSequence(uint i)
+{
+	QString retVal("");
+	unsigned digits = 1;
+	unsigned offset = 0;
+	uint column=i;
+	--column;
+
+	if( column > 4058115285U ) return  QString("@");
+
+	for( unsigned limit = 26; column >= limit+offset; limit *= 26, digits++ )
+		offset += limit;
+
+	for( unsigned c = column - offset; digits; --digits, c/=26 )
+		retVal.prepend( QChar( 'a' + (c%26) ) );
+	return retVal;
+}
+
+const QString arabicToRoman(uint i)
+{
+	QString roman("");
+	int arabic = i;
+	while (arabic - 1000000 >= 0){
+	roman += "m";
+	arabic -= 1000000;
+	}
+	while (arabic - 900000 >= 0){
+	roman += "cm";
+	arabic -= 900000;
+	}
+	while (arabic - 500000 >= 0){
+	roman += "d";
+	arabic -= 500000;
+	}
+	while (arabic - 400000 >= 0){
+	roman += "cd";
+	arabic -= 400000;
+	}
+	while (arabic - 100000 >= 0){
+	roman += "c";
+	arabic -= 100000;
+	}
+	while (arabic - 90000 >= 0){
+	roman += "xc";
+	arabic -= 90000;
+	}
+	while (arabic - 50000 >= 0){
+	roman += "l";
+	arabic -= 50000;
+	}
+	while (arabic - 40000 >= 0){
+	roman += "xl";
+	arabic -= 40000;
+	}
+	while (arabic - 10000 >= 0){
+	roman += "x";
+	arabic -= 10000;
+	}
+	while (arabic - 9000 >= 0){
+	roman += "Mx";
+	arabic -= 9000;
+	}
+	while (arabic - 5000 >= 0){
+	roman += "v";
+	arabic -= 5000;
+	}
+	while (arabic - 4000 >= 0){
+	roman += "Mv";
+	arabic -= 4000;
+	}
+	while (arabic - 1000 >= 0){
+	roman += "M";
+	arabic -= 1000;
+	}
+	while (arabic - 900 >= 0){
+	roman += "CM";
+	arabic -= 900;
+	}
+	while (arabic - 500 >= 0){
+	roman += "D";
+	arabic -= 500;
+	}
+	while (arabic - 400 >= 0){
+	roman += "CD";
+	arabic -= 400;
+	}
+	while (arabic - 100 >= 0){
+	roman += "C";
+	arabic -= 100;
+	}
+	while (arabic - 90 >= 0){
+	roman += "XC";
+	arabic -= 90;
+	}
+	while (arabic - 50 >= 0){
+	roman += "L";
+	arabic -= 50;
+	}
+	while (arabic - 40 >= 0){
+	roman += "XL";
+	arabic -= 40;
+	}
+	while (arabic - 10 >= 0){
+	roman += "X";
+	arabic -= 10;
+	}
+	while (arabic - 9 >= 0){
+	roman += "IX";
+	arabic -= 9;
+	}
+	while (arabic - 5 >= 0){
+	roman += "V";
+	arabic -= 5;
+	}
+	while (arabic - 4 >= 0){
+	roman += "IV";
+	arabic -= 4;
+	}
+	while (arabic - 1 >= 0){
+	roman += "I";
+	arabic -= 1;
+	}
+	return roman;
+}
+
+//CB Moved from scribus.cpp
+void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount)
+{
+	QString tmp(pages);
+	QString token;
+	int from, to, pageNr;
+	do
+	{
+		if (tmp.find(",") == -1)
+		{
+			token = tmp;
+			tmp = "";
+		}
+		else
+		{
+			token = tmp.left(tmp.find(","));
+			tmp = tmp.right(tmp.length() - tmp.find(",") - 1);
+		}
+
+		token = token.stripWhiteSpace();
+		if (token == "*") // Import all source doc pages
+		{
+			for (int i = 1; i <= sourcePageCount; ++i)
+				pageNs->push_back(i);
+		}
+		else if (token.find("-") != -1) // import a range of source doc pages
+		{
+			from = QString(token.left(token.find("-"))).toInt();
+			to = QString(token.right(token.length() - token.find("-") - 1)).toInt();
+			if ((from != 0) && (to != 0))
+			{
+				if (from > sourcePageCount)
+					from = sourcePageCount;
+				if (to > sourcePageCount)
+					to = sourcePageCount;
+				if (from == to)
+					pageNs->push_back(to);
+				else if (from < to)
+				{
+					for (int i = from; i <= to; ++i)
+						pageNs->push_back(i);
+				}
+				else
+				{
+					for (int i = from; i >= to; --i)
+						pageNs->push_back(i);
+				}
+			}
+		}
+		else // import single source doc page
+		{
+			pageNr = token.toInt();
+			if ((pageNr > 0) && (pageNr <= sourcePageCount))
+				pageNs->push_back(pageNr);
+		}
+	} while (!tmp.isEmpty());
+}
+
+
+int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
+{
+	bool named = !parStyle.name().isEmpty();
+//qDebug(QString("looking up %1/ %2").arg(parStyle.name()).arg(parStyle.alignment())); 
+	if (named) {
+		for (uint i=0; i < doc->paragraphStyles().count(); ++i)
+		{
+//qDebug(QString("%1 %2").arg(i).arg(doc->paragraphStyles()[i].name()));
+			if (parStyle.name() == doc->paragraphStyles()[i].name()) {
+				return i;
+			}
+		}
+		assert(false);
+		return -1;
+	}
+	else {
+		return -1;
+	}
+}
+
+int findParagraphStyle(ScribusDoc* doc, const QString &name)
+{
+	for (uint i=0; i < doc->paragraphStyles().count(); ++i)
+	{
+		if (name == doc->paragraphStyles()[i].name()) {
+			return i;
+		}
+	}
+	assert(false);
+	return -1;
+}
+
+
+QPixmap getQCheckBoxPixmap(const bool checked, const QColor background)
+{
+	QCheckBox *tmpItem = new QCheckBox("", 0, "tmpItem");
+	tmpItem->setMaximumSize(QSize(30, 30));
+	tmpItem->setMinimumSize(QSize(30, 30));
+	tmpItem->setPaletteBackgroundColor(background);
+	tmpItem->setChecked(checked);
+	QPixmap pm = QPixmap::grabWidget(tmpItem);
+	pm.setMask(pm.createHeuristicMask());
+	delete tmpItem;
+	return pm;
+}
+
+
+void tDebug(QString message)
+{
+	QDateTime debugTime;
+	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message).ascii());
+}
+
+QString setupImageFormats()
+{
+	QString formats = "";
+	QString formatD = QObject::tr("All Supported Formats")+" (";
+	QString form1 = "";
+	QString form2 = "";
+	QList<QByteArray> imgs = QImageReader::supportedImageFormats();
+	for (int i = 0; i < imgs.count(); ++i )
+	{
+		form1 = QString(imgs.at(i)).lower();
+		form2 = QString(imgs.at(i)).upper();
+		if (form1 == "jpeg")
+		{
+			form1 = "jpg";
+			form2 = "JPG";
+		}
+		if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
+		{
+			formats += form2 + " (*."+form1+" *."+form2+");;";
+			formatD += "*."+form1+" *."+form2+" ";
+		}
+		else if (form1 == "jpg")
+		{
+			// JPEG is a special case because both .jpg and .jpeg
+			// are acceptable extensions.
+			formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
+			formatD += "*.jpg *.jpeg *.JPG *.JPEG ";
+		}
+	}
+	formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
+	formatD += "*.tif *.tiff *.TIF *.TIFF";
+	formats += "PSD (*.psd *.PSD);;";
+	formatD += " *.psd *.PSD";
+	formats += "EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;" + QObject::tr("All Files (*)");
+	formatD += " *.epsi *.EPSI *.eps *.EPS *.pdf *.PDF";
+	formatD += ");;"+formats;
+	return formatD;
+}
+
+QString getImageType(QString filename)
+{
+	QString ret = "";
+	QFile f(filename);
+	QFileInfo fi(f);
+	if (fi.exists())
+	{
+		QByteArray buf(20);
+		if (f.open(QIODevice::ReadOnly))
+		{
+			f.readBlock(buf.data(), 20);
+			if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
+				ret = "eps";
+			else if ((buf[0] == '\xC5') && (buf[1] == '\xD0') && (buf[2] == '\xD3') && (buf[3] == '\xC6'))
+				ret = "eps";
+			else if ((buf[0] == 'G') && (buf[1] == 'I') && (buf[2] == 'F') && (buf[3] == '8'))
+				ret = "gif";
+			else if ((buf[0] == '\xFF') && (buf[1] == '\xD8') && (buf[2] == '\xFF'))
+				ret = "jpg";
+			else if ((buf[0] == '%') && (buf[1] == 'P') && (buf[2] == 'D') && (buf[3] == 'F'))
+				ret = "pdf";
+			else if ((buf[0] == '\x89') && (buf[1] == 'P') && (buf[2] == 'N') && (buf[3] == 'G'))
+				ret = "png";
+			else if ((buf[0] == '8') && (buf[1] == 'B') && (buf[2] == 'P') && (buf[3] == 'S'))
+				ret = "psd";
+			else if (((buf[0] == 'I') && (buf[1] == 'I') && (buf[2] == '\x2A')) || ((buf[0] == 'M') && (buf[1] == 'M') && (buf[3] == '\x2A')))
+				ret = "tif";
+			else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
+				ret = "xpm";
+		}
+	}
+	if (f.isOpen())
+		f.close();
+	return ret;
+	
+}

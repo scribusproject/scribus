@@ -1,81 +1,89 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-#include "dcolor.h"
-#include "dcolor.moc"
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+#include <qdialog.h>
+#include <qlayout.h>
+#include <qlabel.h>
+#include <qpushbutton.h>
+#include <qcombobox.h>
 #include <qpixmap.h>
-#include <qiconset.h>
+#include <qicon.h>
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+
+#include "commonstrings.h"
+#include "scribusdoc.h"
+#include "page.h"
+#include "colorcombo.h"
+#include "prefsmanager.h"
+
+#include "dcolor.h"
+//#include "dcolor.moc"
+
+
 extern QPixmap loadIcon(QString nam);
 
-DelColor::DelColor( QWidget* parent, CListe farben, QString Fnam, bool HDoc)
+DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, bool haveDoc)
     : QDialog( parent, "dd", true, 0 )
 {
 	setName( "DelColor" );
     setCaption( tr( "Delete Color" ) );
   	setIcon(loadIcon("AppIcon.png"));
-    DLayout = new QVBoxLayout( this );
-    DLayout->setSpacing( 5 );
-    DLayout->setMargin( 10 );
-    Layout4 = new QGridLayout;
-    Layout4->setSpacing( 6 );
-    Layout4->setMargin( 5 );
-    TextLabel1 = new QLabel( this, "TextLabel1" );
-    TextLabel1->setText( tr( "Delete color:" ) );
-    Layout4->addWidget( TextLabel1, 0, 0 );
-    DColor = new QLabel( this, "DColor" );
-    DColor->setText( Fnam );
-    Layout4->addWidget( DColor, 0, 1 );
-    TextLabel3 = new QLabel( this, "TextLabel3" );
-    TextLabel3->setText( tr( "?" ) );
-    Layout4->addWidget( TextLabel3, 0, 2 );
-	if (HDoc)
+    dialogLayout = new Q3VBoxLayout( this, 10, 5 );
+    delColorLayout = new Q3GridLayout(this);
+    delColorLayout->setSpacing( 6 );
+    delColorLayout->setMargin( 5 );
+    deleteLabel = new QLabel( tr( "Delete Color:" ), this, "deleteLabel" );
+    delColorLayout->addWidget( deleteLabel, 0, 0 );
+    colorToDelLabel = new QLabel( colorName, this, "colorToDelLabel" );
+    delColorLayout->addWidget( colorToDelLabel, 0, 1 );
+
+	PrefsManager* prefsManager = PrefsManager::instance();
+	bool isToolColor = prefsManager->isToolColor(colorName);
+	if (haveDoc || isToolColor)
 	{
-    	TextLabel4 = new QLabel( this, "TextLabel4" );
-    	TextLabel4->setText( tr( "Replace it with:" ) );
-    	Layout4->addWidget( TextLabel4, 1, 0 );
-    	Ersatz = new QComboBox(false, this);
-		Ersatz->setEditable(false);
-		CListe::Iterator it;
-		QPixmap pm = QPixmap(15, 15);
-		farben.remove(Fnam);
-		Ersatz->insertItem(tr("None")); // 10/26/2004 pv - user can replace deleted color with "None"
-		for (it = farben.begin(); it != farben.end(); ++it)
-		{
-			pm.fill(farben[it.key()].getRGBColor());
-			Ersatz->insertItem(pm, it.key());
-		}
-    	Layout4->addWidget( Ersatz, 1, 1 );
-    	EFarbe = Ersatz->text(0);
+    	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
+    	delColorLayout->addWidget( replaceLabel, 1, 0 );
+    	replacementColData = new ColorCombo(false, this);
+		colorList.remove(colorName);
+		// 10/26/2004 pv - user can replace deleted color with "None"
+		replacementColData->insertItem(CommonStrings::tr_NoneColor);
+		replacementColData->insertItems(colorList, ColorCombo::smallPixmaps);
+    	delColorLayout->addWidget( replacementColData, 1, 1 );
+    	replacementColor = replacementColData->text(0);
 	}
-    DLayout->addLayout( Layout4 );
-    Layout3 = new QHBoxLayout;
-    Layout3->setSpacing( 6 );
-    Layout3->setMargin( 0 );
+    dialogLayout->addLayout( delColorLayout );
+
+    okCancelLayout = new Q3HBoxLayout(this);
+    okCancelLayout->setSpacing( 6 );
+    okCancelLayout->setMargin( 0 );
     QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout3->addItem( spacer );
-    PushButton2 = new QPushButton( this, "PushButton12" );
-    PushButton2->setText( tr( "&OK" ) );
-    Layout3->addWidget( PushButton2 );
-    PushButton3 = new QPushButton( this, "PushButton13" );
-    PushButton3->setText( tr( "&Cancel" ) );
-    PushButton3->setDefault( TRUE );
-    Layout3->addWidget( PushButton3 );
-    DLayout->addLayout( Layout3 );
+    okCancelLayout->addItem( spacer );
+    okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+    okCancelLayout->addWidget( okButton );
+    cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton13" );
+    cancelButton->setDefault( true );
+    okCancelLayout->addWidget( cancelButton );
+    dialogLayout->addLayout( okCancelLayout );
     setMaximumSize(sizeHint());
-    connect( PushButton2, SIGNAL( clicked() ), this, SLOT( accept() ) );
-    connect( PushButton3, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	if (HDoc)
-    	connect( Ersatz, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
+
+    connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+    connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	if (haveDoc || isToolColor)
+    	connect( replacementColData, SIGNAL(activated(int)), this, SLOT( ReplaceColor(int) ) );
 }
 
 void DelColor::ReplaceColor(int id)
 {
-    EFarbe = Ersatz->text(id);
+    replacementColor = replacementColData->text(id);
 }
 
-
+const QString DelColor::getReplacementColor()
+{
+	return replacementColor;
+}

@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
  *   tsoots@gmail.com                                                      *
@@ -23,6 +29,8 @@
 
 #ifdef HAVE_XML
 
+#include <scribusstructs.h>
+#include "prefsmanager.h"
 #include <prefsfile.h>
 #include <prefscontext.h>
 #include <prefstable.h>
@@ -30,8 +38,6 @@
 #include "stylereader.h"
 #include "contentreader.h"
 #include "odtdia.h"
-
-extern PrefsFile* prefsFile;
 
 QString FileFormatName()
 {
@@ -53,7 +59,7 @@ void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer
 
 OdtIm::OdtIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 {
-	PrefsContext* prefs = prefsFile->getPluginContext("OdtIm");
+	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("OdtIm");
 	bool update = prefs->getBool("update", true);
 	bool prefix = prefs->getBool("prefix", true);
 	bool ask = prefs->getBool("askAgain", true);
@@ -86,7 +92,8 @@ OdtIm::OdtIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	stylePath   = fun->getFile(STYLE);
 	contentPath = fun->getFile(CONTENT);
 	delete fun;
-	if ((stylePath != NULL) && (contentPath != NULL))
+	// Qt4 NULL -> isNull()
+	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QString docname = filename.right(filename.length() - filename.findRev("/") - 1);
 		docname = docname.left(docname.findRev("."));
@@ -101,12 +108,12 @@ OdtIm::OdtIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 		QFile f2(contentPath);
 		f2.remove();
 	}
-	else if ((stylePath == NULL) && (contentPath != NULL))
+	else if ((stylePath.isNull()) && (!contentPath.isNull()))
 	{
 		QFile f2(contentPath);
 		f2.remove();
 	}
-	else if ((stylePath != NULL) && (contentPath == NULL))
+	else if ((!stylePath.isNull()) && (contentPath.isNull()))
 	{
 		QFile f1(stylePath);
 		f1.remove();

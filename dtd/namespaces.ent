@@ -1,0 +1,20 @@
+<!-- Dublin core metadata -->
+<!ENTITY nsMeta "http://purl.org/dc/elements/1.1/">
+<!-- Links -->
+<!ENTITY nsXlink "http://www.w3.org/1999/xlink">
+<!-- SVG vector graphics -->
+<!ENTITY nsSvg "http://www.w3.org/2000/svg">
+<!-- Mathematical expressions -->
+<!ENTITY nsMath "http://www.w3.org/1998/Math/MathML">
+<!-- Settings -->
+<!ENTITY nsSettings "&nsScribus;/settings">
+<!-- Style -->
+<!ENTITY nsStyle "&nsScribus;/style">
+<!-- JavaScript Scripts -->
+<!ENTITY nsJscript "&nsScribus;/javascript">
+<!-- Python Scripts -->
+<!ENTITY nsPython "&nsScribus;/python">
+<!-- Tables -->
+<!ENTITY nsTable "&nsScribus;/table">
+<!-- PDF Forms -->
+<!ENTITY nsForm "&nsScribus;/form">

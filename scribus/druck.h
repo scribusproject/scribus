@@ -1,19 +1,18 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef DRUCK_H
 #define DRUCK_H
 
-#include "prefscontext.h"
+#include "scribusapi.h"
+
 #include <qdialog.h>
-#include <qbuttongroup.h>
+#include <q3buttongroup.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
@@ -23,39 +22,25 @@
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qcheckbox.h>
+#include <qtabwidget.h>
+#include <qwidget.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <Q3VBoxLayout>
+#include "scrspinbox.h"
 
-class AdvOptions : public QDialog
+class PrefsContext;
+class ScribusDoc;
+class CupsOptions;
+
+class SCRIBUS_API Druck : public QDialog
 {
 	Q_OBJECT
 
 public:
-	AdvOptions(QWidget* parent, bool Hm, bool Vm, bool Ic, int ps, bool DoGcr, bool doDev);
-	~AdvOptions() {};
-	QCheckBox* MirrorH;
-	QCheckBox* MirrorV;
-	QCheckBox* UseICC;
-	QCheckBox* GcR;
-	QCheckBox* devPar;
-	QButtonGroup* ButtonGroupP;
-	QRadioButton* PS3;
-	QRadioButton* PS2;
-	QRadioButton* PS1;
-	QPushButton* PushButton1;
-	QPushButton* PushButton2;
-
-protected:
-	QVBoxLayout* AdvOptionsLayout;
-	QVBoxLayout* ButtonGroupPLayout;
-	QHBoxLayout* Layout2;
-};
-
-class Druck : public QDialog
-{
-	Q_OBJECT
-
-public:
-	Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, bool gcr );
-	~Druck() {};
+	Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots);
+	~Druck();
 	QString printerName();
 	QString outputFileName();
 	QCheckBox* OtherCom;
@@ -63,76 +48,126 @@ public:
 	QLineEdit* Command;
 	QRadioButton* RadioButton1;
 	QRadioButton* CurrentPage;
-	QLineEdit* PageNr;
+	QLineEdit* pageNr;
+	QCheckBox* cropMarks;
+	QCheckBox* bleedMarks;
+	QCheckBox* registrationMarks;
+	QCheckBox* colorMarks;
+	ScrSpinBox* markOffset;
+	ScrSpinBox* BleedBottom;
+	ScrSpinBox* BleedLeft;
+	ScrSpinBox* BleedRight;
+	ScrSpinBox* BleedTop;
 	bool outputToFile();
 	int numCopies();
 	bool outputSeparations();
 	QString separationName();
+	QStringList allSeparations();
 	QString PrinterOpts;
 	bool color();
-	bool MirrorH;
-	bool MirrorV;
-	bool ICCinUse;
-	bool DoGCR;
-	int PSLevel;
-	bool doDev;
+	bool mirrorHorizontal();
+	bool mirrorVertical();
+	bool doGCR();
+	bool doClip();
+	int PSLevel();
+	bool doDev();
+	bool doSpot();
+	bool doOverprint();
+	bool ICCinUse();
+	QByteArray DevMode;
 
 public slots:
 	void setMinMax(int min, int max, int cur);
 
-protected:
-	QVBoxLayout* DruckLayout;
-	QGridLayout* DruckerLayout;
-	QHBoxLayout* Layout1x;
-	QHBoxLayout* Layout1;
-	QHBoxLayout* UmfangLayout;
-	QGridLayout* ButtonGroup5Layout;
-	QGridLayout* ButtonGroup4Layout;
-	QVBoxLayout* ButtonGroup3Layout;
-	QVBoxLayout* ButtonGroup3_2Layout;
-	QGridLayout* OptionenLayout;
-	QHBoxLayout* Layout2;
-	QHBoxLayout* LayoutCC;
+signals:
+	void doPreview();
 
-private slots:
-	void SetAdvOptions();
+protected slots:
+	void doDocBleeds();
+	void createPageNumberRange();
 	void SetOptions();
 	void SelPrinter(const QString& prn);
 	void SelRange(bool e);
-	void SelMode(bool e);
+	void SelMode(int e);
 	void SelFile();
 	void SelComm();
 	void okButtonClicked();
+	void previewButtonClicked();
 
-private:
-	QGroupBox* Drucker;
+protected:
+	Q3VBoxLayout* DruckLayout;
+	Q3GridLayout* DruckerLayout;
+	Q3HBoxLayout* Layout1x;
+	Q3HBoxLayout* Layout1;
+	Q3GridLayout* rangeGroupLayout;
+	Q3HBoxLayout* Layout2;
+	Q3HBoxLayout* LayoutCC;
+	Q3GridLayout* tabLayout;
+	Q3HBoxLayout* tabLayout_2;
+	Q3VBoxLayout* pageOptsLayout;
+	Q3VBoxLayout* colorOptsLayout;
+	Q3HBoxLayout *pageNumberSelectorLayout;
+	Q3GroupBox* Drucker;
 	QComboBox* PrintDest;
 	QLabel* DateiT;
 	QLineEdit* LineEdit1;
 	QToolButton* ToolButton1;
-	QButtonGroup* Umfang;
-	QButtonGroup* ButtonGroup5;
+	Q3ButtonGroup* rangeGroup;
 	QRadioButton* RadioButton2;
-	QButtonGroup* ButtonGroup4;
 	QLabel* TextLabel3;
 	QSpinBox* Copies;
-	QButtonGroup* Optionen;
-	QButtonGroup* ButtonGroup3;
-	QButtonGroup* ButtonGroup3_2;
-	QRadioButton* NormalP;
-	QRadioButton* PrintSep;
-	QRadioButton* PrintGray;
-	QRadioButton* PrintGray2;
+	QTabWidget* printOptions;
+	QWidget* tab;
+	QComboBox* PrintSep;
+	QComboBox* colorType;
 	QComboBox* SepArt;
+	QComboBox* psLevel;
+	QWidget* tab_2;
+	Q3GroupBox* pageOpts;
+	QCheckBox* MirrorHor;
+	QCheckBox* MirrorVert;
+	QCheckBox* devPar;
+	Q3ButtonGroup* colorOpts;
+	QCheckBox* ClipMarg;
+	QCheckBox* GcR;
+	QCheckBox* spotColors;
+	QCheckBox* overprintMode;
+	QCheckBox* UseICC;
+	QWidget* tab_3;
+	Q3GridLayout* tabLayout_3;
+	Q3GroupBox* MarkGroup;
+	Q3GridLayout* MarkGroupLayout;
+	QLabel* MarkTxt1;
+	QWidget* tab_4;
+	Q3GridLayout* tabLayout_4;
+	Q3GroupBox* BleedGroup;
+	Q3GridLayout* BleedGroupLayout;
+	QLabel* BleedTxt1;
+	QLabel* BleedTxt2;
+	QLabel* BleedTxt3;
+	QLabel* BleedTxt4;
+	QCheckBox *docBleeds;
 	QPushButton* OKButton_2;
 	QPushButton* OKButton;
+	QPushButton* previewButton;
 	QPushButton* OptButton;
-	QPushButton* AdvOptButton;
+	QPushButton* pageNrButton;
+	ScribusDoc* m_doc;
 	QString Geraet;
 	bool ToFile;
 	bool ToSeparation;
 	PrefsContext* prefs;
-	void setStoredValues();
+	void setStoredValues(bool gcr);
+	/* CB Moved to printerutil.cpp
+	QStringList getPrinterNames(void);
+	bool getDefaultSettings( QString printerName );
+	bool initDeviceSettings( QString printerName );
+	*/
+	CupsOptions *cdia;
+	int unit;
+	double unitRatio;
+	void getOptions();
+	void storeValues();
 };
 
 #endif // DRUCK_H

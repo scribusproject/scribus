@@ -1,13 +1,22 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+
+#include "scfonts.h"
 #include "buttonicon.h"
-#include "buttonicon.moc"
+//#include "buttonicon.moc"
+#include "scribusstructs.h"
+#include "pageitem.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
+
 extern QPixmap loadIcon(QString nam);
 
 ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
@@ -16,8 +25,8 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	Item = ite;
 	setCaption( tr( "Icon Placement" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	ButtonIconLayout = new QVBoxLayout( this, 11, 6, "ButtonIconLayout");
-	Layout1 = new QGridLayout( 0, 0, 6, "Layout6");
+	ButtonIconLayout = new Q3VBoxLayout( this, 11, 6, "ButtonIconLayout");
+	Layout1 = new Q3GridLayout( 0, 0, 6, "Layout6");
 	TextLabel1_2 = new QLabel( this, "TextLabel1_2" );
 	TextLabel1_2->setText( tr( "Layout:" ) );
 	Layout1->addWidget( TextLabel1_2, 0, 0 );
@@ -54,11 +63,11 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	ButtonIconLayout->addLayout( Layout1 );
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ButtonIconLayout->addItem( spacer );
-	Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5");
+	Layout5 = new Q3HBoxLayout( 0, 0, 6, "Layout5");
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout5->addItem( spacer_2 );
-	Layout3 = new QGridLayout( 0, 1, 1, 0, 6, "Layout3");
-	GroupButton = new QGroupBox( this, "GroupButton" );
+	Layout3 = new Q3GridLayout( 0, 1, 1, 0, 6, "Layout3");
+	GroupButton = new Q3GroupBox( this, "GroupButton" );
 	GroupButton->setMinimumSize( QSize( 150, 150 ) );
 	GroupButton->setMaximumSize( QSize( 150, 150 ) );
 	GroupButton->setTitle( "" );
@@ -72,14 +81,14 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	SliderX = new QSlider( this, "SliderX" );
 	SliderX->setMaxValue( 1000 );
 	SliderX->setValue( 500 );
-	SliderX->setOrientation( QSlider::Horizontal );
+	SliderX->setOrientation( Qt::Horizontal );
 	SliderX->setTickmarks( QSlider::Left );
 	SliderX->setTickInterval( 100 );
 	Layout3->addWidget( SliderX, 1, 0 );
 	SliderY = new QSlider( this, "SliderY" );
 	SliderY->setMaxValue( 1000 );
 	SliderY->setValue( 500 );
-	SliderY->setOrientation( QSlider::Vertical );
+	SliderY->setOrientation( Qt::Vertical );
 	SliderY->setTickmarks( QSlider::Left );
 	SliderY->setTickInterval( 100 );
 	Layout3->addWidget( SliderY, 0, 1 );
@@ -89,10 +98,10 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 	ButtonIconLayout->addLayout( Layout5 );
 	QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	ButtonIconLayout->addItem( spacer_4 );
-	Layout4 = new QHBoxLayout( 0, 0, 6, "Layout4");
+	Layout4 = new Q3HBoxLayout( 0, 0, 6, "Layout4");
 	OK = new QPushButton( this, "OK" );
 	OK->setText( tr( "OK" ) );
-	OK->setDefault( TRUE );
+	OK->setDefault( true );
 	Layout4->addWidget( OK );
 	Cancel = new QPushButton( this, "Cancel" );
 	Cancel->setText( tr( "Cancel" ) );
@@ -128,12 +137,12 @@ void ButtonIcon::MoveIconX(int x)
 
 void ButtonIcon::SetAllVals()
 {
-	Place->setCurrentItem(Item->AnIPlace);
-	ScaleW->setCurrentItem(Item->AnScaleW);
-	ScaleH->setCurrentItem(Item->LocalScX != Item->LocalScY ? 1 : 0);
+	Place->setCurrentItem(Item->annotation().IPlace());
+	ScaleW->setCurrentItem(Item->annotation().ScaleW());
+	ScaleH->setCurrentItem(Item->imageXScale() != Item->imageYScale() ? 1 : 0);
 	SetScaleHow(ScaleW->currentItem());
-	SliderX->setValue(static_cast<int>(Item->LocalX / (Item->Width - Item->pixm.width()) * 1000));
-	SliderY->setValue(static_cast<int>(Item->LocalY / (Item->Height - Item->pixm.height()) * 1000));
+	SliderX->setValue(static_cast<int>(Item->imageXOffset() / (Item->width() - Item->pixm.width()) * 1000));
+	SliderY->setValue(static_cast<int>(Item->imageYOffset() / (Item->height() - Item->pixm.height()) * 1000));
 	TextLabel3->setGeometry(QRect(static_cast<int>(SliderX->value() / 1000.0 * 100),
 	                              static_cast<int>(SliderY->value() / 1000.0 * 100), 48, 48));
 }

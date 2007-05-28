@@ -8,31 +8,31 @@ INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 
 libimportps_la_LDFLAGS = -version-info 0:0:0
 libimportps_la_METASOURCES = AUTO
-libimportps_la_SOURCES = importps.cpp
+libimportps_la_SOURCES = importps.cpp importpsplugin.cpp
 
-EXTRA_DIST = import.prolog importps.cpp importps.h
+EXTRA_DIST = import.prolog import_la.prolog importps.h importpsplugin.h CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
 	$(INSTALL_DATA) $(srcdir)/import.prolog $(libdir)/scribus/import.prolog
+	$(INSTALL_DATA) $(srcdir)/import_la.prolog $(libdir)/scribus/import_la.prolog
 
 uninstall-local:
 	-rm -f $(libdir)/scribus/import.prolog
+	-rm -f $(libdir)/scribus/import_la.prolog
 
 KDE_OPTIONS = qtonly
-
-if COMPILE_DEBUG
- linkflag =
-else
- linkflag = -s
-endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS)
+AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \
     -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
+    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
+    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
 
+AM_CXXFLAGS = \
+    $(GCC_CXX_VISIBILITY_FLAGS)

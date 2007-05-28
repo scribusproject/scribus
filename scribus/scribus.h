@@ -1,34 +1,41 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
-						scribus.h  -  description
-							-------------------
-	begin                : Fre Apr  6 21:09:31 CEST 2001
-	copyright            : (C) 2001 by Franz Schmid
-	email                : Franz.Schmid@altmuehlnet.de
-***************************************************************************/
+                          scribus.h  -  description
+                             -------------------
+    begin                : Fre Apr  6 21:09:31 CEST 2001
+    copyright            : (C) 2001 by Franz Schmid
+    email                : Franz.Schmid@altmuehlnet.de
+ ***************************************************************************/
 
 /***************************************************************************
-*                                                                         *
-*   This program is free software; you can redistribute it and/or modify  *
-*   it under the terms of the GNU General Public License as published by  *
-*   the Free Software Foundation; either version 2 of the License, or     *
-*   (at your option) any later version.                                   *
-*                                                                         *
-***************************************************************************/
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
 
 #ifndef SCRIBUS_H
 #define SCRIBUS_H
 
-#define VERS09x
+#define VERS13x
 
 // include from stl
 #include <vector>
 
 // include files for QT
 #include <qapplication.h>
-#include <qmainwindow.h>
+#include <q3mainwindow.h>
 #include <qaction.h>
 #include <qmenubar.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+#include <q3toolbar.h>
 #include <qtoolbutton.h>
 #include <qstatusbar.h>
 #include <qtooltip.h>
@@ -37,422 +44,470 @@
 #include <qmessagebox.h>
 #include <qpainter.h>
 #include <qmap.h>
+#include <q3dict.h>
+#include <qpointer.h>
 #include <qfont.h>
 #include <qtimer.h>
-#include <qintdict.h>
-#include <qprogressdialog.h>
-#include <qprogressbar.h>
+#include <q3intdict.h>
+#include <q3progressdialog.h>
+#include <q3progressbar.h>
 #include <qworkspace.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qclipboard.h>
+#include <q3process.h>
+//Added by qt3to4:
+#include <QLabel>
+#include <QWheelEvent>
+#include <QMouseEvent>
+#include <QCloseEvent>
+#include <QDragEnterEvent>
+#include <QKeyEvent>
+#include <QEvent>
+#include <QDropEvent>
+#include <Q3ActionGroup>
 
 // application specific includes
+#include "scribusapi.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
-#include "scribuswin.h"
-#include "tree.h"
-#include "frameedit.h"
-#include "scrap.h"
-#include "layers.h"
-#include "libpostscript/pslib.h"
-#include "werktoolb.h"
-#include "seiten.h"
-#include "bookpalette.h"
-#include "splash.h"
-#include "prefscontext.h"
+#include "scribusstructs.h"
+#include "customfdialog.h"
+
+class ActionManager;
+class AlignDistributePalette;
 class Autoforms;
+class Biblio;
+class BookPalette;
+class CheckDocument;
+
 class FontCombo;
-class StilFormate;
+class GuideManager;
+class CharSelect;
+class ColorCombo;
+class LayerPalette;
 class LineFormate;
 class Mpalette;
 class Measurements;
-class StoryEditor;
+class MenuManager;
+class NodePalette;
+class PageItem;
+class PagePalette;
+class Preferences;
+class PrefsManager;
+class PrefsContext;
+class PSLib;
+class ReformDoc;
+class ScrAction;
+class ScribusCore;
+class ScribusMainWindow;
+class ScribusQApp;
+class ScribusWin;
 class ScToolBar;
+class SimpleState;
+class StilFormate;
+class StoryEditor;
+class StyleManager;
+class TOCGenerator;
+class Tree;
+class UndoManager;
+class UndoPalette;
+class UndoState;
+class ModeToolBar;
+class PDFToolBar;
 
-struct PrintOptions {
-	QString printer;
-	QString filename;
-	bool toFile;
-	bool useAltPrintCommand;
-	QString printerCommand;
-	int PSLevel;
-	bool outputSeparations;
-	QString separationName;
-	bool useColor;
-	bool mirrorH;
-	bool mirrorV;
-	bool useICC;
-	bool doGCR;
-	bool setDevParam;
-	int copies;
-	std::vector<int> pageNumbers;
-	QString printerOptions;
-};
+extern SCRIBUS_API ScribusQApp* ScQApp;
 
 /**
-* This Class is the base class for your application. It sets up the main
-* window and providing a menubar, toolbar
-* and statusbar. For the main view, an instance of class ScribusView is
-* created which creates your view.
-*/
-class ScribusApp : public QMainWindow
+  * \brief This Class is the base class for your application. It sets up the main
+  * window and providing a menubar, toolbar
+  * and statusbar. For the main view, an instance of class ScribusView is
+  * created which creates your view.
+  */
+class SCRIBUS_API ScribusMainWindow : public Q3MainWindow, public UndoObject
 {
 	Q_OBJECT
 
 public:
-	/** constructor */
-	ScribusApp();
-	/** destructor */
-	~ScribusApp() {};
-	/** init methods */
-	void initGui();
-	/** initMenuBar creates the menu_bar and inserts the menuitems */
-	void initMenuBar();
-	/** setup the statusbar */
-	void initStatusBar();
+	/** \brief constructor */
+	ScribusMainWindow();
+	/** \brief destructor */
+	~ScribusMainWindow();
+	/*!
+	* \retval 0 - ok, 1 - no fonts, ...
+	*/
+	int initScMW(bool primaryMainwWindow);
+	bool warningVersion(QWidget *parent);
 	void SetShortCut();
-	void SetKeyEntry(int Nr, QString text, int Men, int KeyC);
-	bool doFileNew(double b, double h, double tpr, double lr, double rr, double br, double ab, double sp,
-									bool atf, bool fp, int einh, bool firstleft, int Ori, int SNr, QString pagesize);
+	void startUpDialog();
+	void setDefaultPrinter(const QString&, const QString&, const QString&);
+	void getDefaultPrinter(QString*, QString*, QString*);
+
+	ScribusDoc *doFileNew(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true);
+	ScribusDoc *newDoc(double width, double height, double topMargin, double leftMargin, double rightMargin, double bottomMargin, double columnDistance, double columnCount, bool autoTextFrames, int pageArrangement, int unitIndex, int firstPageLocation, int orientation, int firstPageNumber, const QString& defaultPageSize, bool requiresGUI, int pageCount=1, bool showView=true);
 	bool DoFileSave(QString fn);
 	void closeEvent(QCloseEvent *ce);
 	void keyPressEvent(QKeyEvent *k);
+	void keyReleaseEvent(QKeyEvent *k);
+	void mouseReleaseEvent(QMouseEvent *m);
 	void wheelEvent(QWheelEvent *w);
-	void DeleteSel(PageItem *b);
-	void setTBvals(PageItem *b);
-	void SavePrefs();
-	void SavePrefsXML();
+	void setTBvals(PageItem *currItem);
 	void ShowSubs();
 	void applyNewMaster(QString name);
-	void UpdateRecent(QString fn);
-	void InitPlugs(SplashScreen *spl);
-	void InitHyphenator();
+	void updateRecent(QString fn);
 	QString GetLang(QString inLang);
-	void FinalizePlugs();
-	bool DLLName(QString name, QString *PName, int *typ, void **Zeig, int *idNr);
-	void CallDLLbyMenu(int id);
-	void CallDLL(int ident);
-	bool DLLexists(int ident);
-	PSLib* getPSDriver(bool psart, SCFonts &AllFonts, QMap<QString,QFont> DocFonts, CListe DocColors, bool pdf);
-	void closePSDriver();
-	bool getPDFDriver(QString fn, QString nam, int Components, std::vector<int> &pageNs, QMap<int,QPixmap> thumbs);
+	bool getPDFDriver(const QString & fn, const QString & nam,
+					  int Components, const std::vector<int> & pageNs,
+					  const QMap<int,QPixmap> & thumbs);
 	bool DoSaveAsEps(QString fn);
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
-						bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
-						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
-	void GetCMSProfiles();
-	void GetCMSProfilesDir(QString pfad);
-	void RecalcColors(QProgressBar *dia = 0);
+						int optionFlags = fdExistingFiles, bool *docom = 0, bool *doFont = 0, bool *doProfiles = 0);
+	/*! \brief Recalculate the colors after changing CMS settings.
+	Call the appropriate document function and then update the GUI elements.
+	\param dia optional progress widget */
+	void recalcColors(Q3ProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
-	void AdjustBM();
-	void ReorgFonts();
-	void GetUsedFonts(QMap<QString,QFont> *Really);
-	void ToggleAllGuides();
-	static void defaultCrashHandler (int sig);
+// 	void ReorgFonts();
+
 	void emergencySave();
-	void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCount);
-	struct CLBuf Buffer;
+
+	/**
+	 * @brief Returns true if an arrow key is pressed down.
+	 * @return true if an arrow key is pressed down otherwise returns false
+	 */
+	bool arrowKeyDown();
+	/**
+	 * @brief Returns true if application is in object specific undo mode, other wise returns false.
+	 * @return true if application is in object specific undo mode, other wise returns false
+	 */
+	bool isObjectSpecificUndo();
+	void restore(UndoState* state, bool isUndo);
+	void restoreGrouping(SimpleState *state, bool isUndo);
+	void restoreUngrouping(SimpleState *state, bool isUndo);
+	void restoreAddPage(SimpleState *state, bool isUndo);
+	void restoreDeletePage(SimpleState *state, bool isUndo);
+	struct CopyPasteBuffer Buffer;
+	struct CopyContentsBuffer contentsBuffer;
 	QString Buffer2;
 	QString Buffer3;
-	QString GuiLanguage;
 	bool BuFromApp;
-	ProfilesL MonitorProfiles;
-	ProfilesL PrinterProfiles;
-	ProfilesL PDFXProfiles;
-	double DispX;
-	double DispY;
-	bool NoFonts;
 	int HaveDoc;
 	PrefsContext* dirs;
-	struct preV Prefs;
-	/** view is the main widget which represents your working area. The View
-	* class should handle all events of the view widget.  It is kept empty so
-	* you can create your view according to your application's needs by
-	* changing the view class.
-	*/
+	/** \brief view is the main widget which represents your working area. The View
+	 * class should handle all events of the view widget.  It is kept empty so
+	 * you can create your view according to your application's needs by
+	 * changing the view class.
+	 */
 	ScribusView *view;
-	/** doc represents your actual document and is created only once. It keeps
-	* information such as filename and does the serialization of your files.
-	*/
+	/** \brief doc represents your actual document and is created only once. It keeps
+	 * information such as filename and does the serialization of your files.
+	 */
 	ScribusDoc *doc;
-	/** the splash screen */
-	SplashScreen * splash;
-	QLabel* FMess;
-	QProgressBar* FProg;
-	QLabel* XMess;
-	QLabel* XDat;
-	QLabel* YMess;
-	QLabel* YDat;
-	Mpalette *Mpal;
-	NodePalette *Npal;
-	Tree *Tpal;
-	Biblio *ScBook;
-	LayerPalette* Lpal;
-	SeitenPal *Sepal;
-	BookPalette *BookPal;
-	Measurements* MaPal;
+
+
+	Q3ProgressBar* mainWindowProgressBar;
+	QLabel* mainWindowXPosLabel;
+	QLabel* mainWindowXPosDataLabel;
+	QLabel* mainWindowYPosLabel;
+	QLabel* mainWindowYPosDataLabel;
+	GuideManager *guidePalette;
+	CharSelect *charPalette;
+	Mpalette *propertiesPalette;
+	NodePalette *nodePalette;
+	Tree *outlinePalette;
+	Biblio *scrapbookPalette;
+	LayerPalette* layerPalette;
+	PagePalette *pagePalette;
+	BookPalette *bookmarkPalette;
+	Measurements* measurementPalette;
+	CheckDocument * docCheckerPalette;
+	UndoPalette* undoPalette;
+	AlignDistributePalette *alignDistributePalette;
+	StoryEditor* storyEditor;
 	StoryEditor* CurrStED;
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
-	QPopupMenu* windowsMenu;
-	int WinMen;
 	ScribusWin* ActWin;
-	QString PrefsPfad;
 	QClipboard *ClipB;
 	QString LoadEnc;
-	bool singleClose;
 	bool ScriptRunning;
-	Autoforms* SCustom;
-	WerkToolB* WerkTools;
-	int HavePngAlpha;
-	QString DLLReturn;
-	QString DLLinput;
-	bool UniCinp;
-	int UniCinC;
-	QString UniCinS;
-	/** file_menu contains all items of the menubar entry "File" */
-	QPopupMenu *fileMenu;
-	int M_NewFile;
-	int M_Print;
-	int M_SaveAs;
-	QValueList<int> MenuItemsFile;
+	//Qt4 Autoforms* SCustom;
+	ModeToolBar* mainToolBar;
+
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 
+	Q3Process *ExternalApp;
+
+	QMap<QString, QPointer<ScrAction> > scrActions;
+	QMap<QString, QPointer<ScrAction> > scrRecentFileActions;
+	QMap<QString, QPointer<ScrAction> > scrWindowsActions;
+	QMap<QString, QPointer<ScrAction> > scrLayersActions;
+	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
+	Q3Dict<Q3ActionGroup> scrActionGroups;
+	MenuManager* scrMenuMgr;
+	ActionManager* actionManager;
+	QStringList RecentDocs;
+
 public slots:
+	void languageChange();
+	void specialActionKeyEvent(const QString& actionName, int unicodevalue);
+	void newView();
+	void ToggleStickyTools();
+	void ToggleAllGuides();
 	void ToggleAllPalettes();
 	void slotStoryEditor();
-	void InvertPict();
-	QString Collect(bool compress = false, bool withFonts = false);
-	void ChBookmarks(int s, int e, int n);
+	void slotCharSelect();
+	void ImageEffects();
+	QString Collect(const bool compress = false, const bool withFonts = false, const bool withProfiles = false, const QString& newDirectory=QString::null);
 	void AddBookMark(PageItem *ite);
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
-	void ReadPrefs();
-	void ReadPrefsXML();
-	void ManageGuides();
-	void SetTranspar(double t);
-	void SetTransparS(double t);
-	void ReportMP(double xp, double yp);
+	//void setItemFillTransparency(double t);
+	//void setItemLineTransparency(double t);
+	void setStatusBarMousePosition(double xp, double yp);
+	void setStatusBarInfoText(QString newText);
 	bool DoFileClose();
-	bool DoSaveClose();
+	//bool DoSaveClose();
+	void fontMenuAboutToShow();
 	void windowsMenuAboutToShow();
 	void newActWin(QWidget *w);
+	void closeActiveWindowMasterPageEditor();
+	void updateActiveWindowCaption(const QString &newCaption);
 	void windowsMenuActivated(int id);
-	void ToggleObjLock();
 	void UnDoAction();
-	void CanUndo();
-	void configHyphenator();
-	void doHyphenate();
+	void RedoAction();
+	//void doHyphenate();
+	//void doDeHyphenate();
 	void slotTest();
 	void slotTest2();
-	void PutScrap(QString t);
-	void Pfadtext();
-	void noPfadtext();
-	void UniteOb();
-	void SplitUniteOb();
-	void TraceText();
-	void changeLayer(int l);
+	void PutScrap();
+	void PutToPatterns();
+	void changeLayer(int);
 	void showLayer();
-	void LayerRemove(int l, bool dl = false);
-	void SetCMSPrefs();
+	//void LayerRemove(int l, bool dl = false);
 	void ManageJava();
-	void ManageTemp(QString temp = "");
-	void ManTempEnd();
-	/** generate a new document in the actual view */
+	void manageMasterPages(QString temp = "");
+	void manageMasterPagesEnd();
+	/** \brief generate a new document in the current view */
 	bool slotFileNew();
-	bool slotDocMerge();
-	bool LadeSeite(QString fileName, int Nr, bool Mpa);
-	/** open a document */
-	void slotFileOpen();
+	bool slotPageImport();
+	bool loadPage(QString fileName, int Nr, bool Mpa, const QString& renamedPageName=QString::null);
+
+	void slotGetContent();
+	void slotGetContent2(); // kk2006
+	/*!
+	\author Franz Schmid
+	\brief Appends a Textfile to the Text in the selected Textframe at the Cursorposition
+	*/
 	void slotFileAppend();
-	/** open a document */
-	void RemoveRecent(QString fn);
-	void LoadRecent(int id);
+
+	void removeRecent(QString fn);
+	void loadRecent(QString fn);
+	void rebuildRecentFileMenu();
+	void rebuildRecentPasteMenu();
+	void pasteRecent(QString fn);
+	void rebuildLayersList();
 	bool slotDocOpen();
-	bool LadeDoc(QString fileName);
+	bool loadDoc(QString);
+	/**
+	 * @brief Do post loading functions
+	 */
+	bool postLoadDoc();
 	void slotAutoSaved();
-	/** save a document */
+	/** \brief save a document */
 	bool slotFileSave();
-	/** save a document under a different filename*/
+	/** \brief save a document under a different filename*/
 	bool slotFileSaveAs();
 	void slotFileRevert();
-	/** Sichert den Text eines Elements */
+	/** \brief Sichert den Text eines Elements */
 	void SaveText();
-	/** close the actual file */
+	/** \brief close the actual file */
 	bool slotFileClose();
-	/** print the actual file */
+	/** \brief print the actual file */
 	void slotFilePrint();
-	bool doPrint(PrintOptions *options);
-	/** exits the application */
+	void slotReallyPrint();
+	/*!
+	\author Franz Schmid
+	\brief Generate and print PostScript from a doc
+	\param options PrintOptions struct to control all settings
+	\sa ScribusMainWindow::slotFilePrint()
+	\retval bool True for success */
+	bool doPrint(PrintOptions &options);
+	/** \brief exits the application */
 	void slotFileQuit();
-	/** put the marked text/object into the clipboard and remove
-	* it from the document */
+	/** \brief put the marked text/object into the clipboard and remove
+	 * it from the document */
 	void slotEditCut();
-	/** put the marked text/object into the clipboard*/
+	/** \brief put the marked text/object into the clipboard*/
 	void slotEditCopy();
-	/** paste the clipboard into the document*/
+	/** \brief paste the clipboard into the document*/
 	void slotEditPaste();
+	void slotEditCopyContents();
+	void slotEditPasteContents(int absolute=0);
 	void EnableTxEdit();
 	void DisableTxEdit();
 	void SelectAll();
+	void deselectAll();
 	void ClipChange();
-	void DeleteText();
-	/** shows an about dlg*/
+	//void clearContents();
+	/** \brief shows an about dialog*/
 	void slotHelpAbout();
-	void slotHelpAboutQt();
+	void slotHelpAboutPlugins();
+    void slotHelpAboutQt();
 	void slotOnlineHelp();
 	void ToggleTips();
-	/** Erzeugt eine neue Seite */
+	/** \brief Erzeugt eine neue Seite */
 	void slotNewPageP(int wo, QString templ);
 	void slotNewPageM();
-	void slotNewPageT(int w);
-	void slotNewPage(int w);
-	/** Loescht die aktuelle Seite */
+	void slotNewMasterPage(int w, const QString &);
+	void slotNewPage(int w, const QString& masterPageName=QString::null, bool mov = true);
+	void duplicateToMasterPage();
+	/** \brief Loescht die aktuelle Seite */
 	void DeletePage();
+	/**
+	 * \brief Delete pages
+	 * @param from First page to delete
+	 * @param to Last page to delete
+	 */
+	void DeletePage(int from, int to);
 	void DeletePage2(int pg);
-	/** Verschiebt Seiten */
+	/** \brief Verschiebt Seiten */
 	void MovePage();
 	void CopyPage();
-	/** Ansicht absolut zoomen */
-	void slotZoomAbs(double z);
-	/** Ansicht ganzes Blatt) */
-	void slotZoomFit();
-	/** Ansicht 20 % */
-	void slotZoom20();
-	/** Ansicht 50 % */
-	void slotZoom50();
-	/** Ansicht 75 % */
-	void slotZoom75();
-	/** Ansicht 100 % */
-	void slotZoom100();
-	/** Ansicht 200 % */
-	void slotZoom200();
-	/** Schaltet Raender ein/aus */
+	void changePageMargins();
+	/*!
+	\author Craig Bradney
+	\date Sun 30 Jan 2005
+	\brief Zoom the view.
+	Take the ScMW zoom actions and pass the view a %. Actions have whole number values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+	\param zoomFactor Value stored in the ScrAction.
+	 */
+	void slotZoom(double zoomFactor); // 20, 50, 100, or -100 for Fit
+	/** \brief Schaltet Raender ein/aus */
 	void ToggleMarks();
+	void ToggleBleeds();
 	void ToggleFrames();
-	/** Schaltet Werkzeuge ein/aus */
-	void setTools(bool visible);
-	void ToggleTools();
-	void setPDFTools(bool visible);
-	void TogglePDFTools();
-	/** Schaltet Masspalette ein/aus */
-	void setMpal(bool visible);
-	void setMapal(bool visible);
-	void ToggleMpal();
-	/** Schaltet Uebersichtspalette ein/aus*/
-	void ToggleTpal();
-	void setTpal(bool visible);
-	void ToggleBpal();
-	void setBpal(bool visible);
-	void ToggleLpal();
-	void setLpal(bool visible);
-	void ToggleSepal();
-	void setSepal(bool visible);
-	void ToggleBookpal();
-	void setBookpal(bool visible);
-	/** Schaltet Bilder ein/aus */
+	void ToggleLayerMarkers();
+	void ToggleTextLinks();
+	void ToggleTextControls();
+	void ToggleColumnBorders();
+	void ToggleRulers();
+	void ToggleRulerMode();
+	/* Schaltet Masspalette ein/aus */
+	//void togglePropertiesPalette();
+	/* Schaltet Uebersichtspalette ein/aus*/
+	//void toggleOutlinePalette();
+	//void toggleScrapbookPalette();
+	//void toggleLayerPalette();
+	void togglePagePalette();
+	void setPagePalette(bool visible);
+	//void toggleBookmarkPalette();
+	void toggleUndoPalette();
+	void setUndoPalette(bool visible);
+	void toggleCheckPal();
+	/** \brief Schaltet M_ViewShowImages ein/aus */
 	void TogglePics();
-	/** Schaltet Raster ein/aus */
+	/** \brief Schaltet Raster ein/aus */
 	void ToggleRaster();
-	/** Schaltet Rasterbenutzung ein/aus */
+	/** \brief Schaltet Rasterbenutzung ein/aus */
 	void ToggleURaster();
-	/** Schaltet Rahmenbearbeitung ein/aus */
+	/** \brief Schaltet Rahmenbearbeitung ein/aus */
 	void ToggleFrameEdit();
 	void slotSelect();
-	void ModeFromTB(int);
-	/** Switch AppMode */
+	/** \brief Switch appMode
+	\param mode TODO learn modes*/
 	void setAppMode(int mode);
-	/** Neues Dokument erzeugt */
+	void setAppModeByToggle(bool isOn, int newMode);
+	/** \brief Neues Dokument erzeugt */
 	void HaveNewDoc();
-	/** Element ausgewaehlt */
 	void HaveNewSel(int Nr);
+	void rebuildStyleMenu(int itemType);
 	/** Dokument ist geaendert worden */
 	void slotDocCh(bool reb = true);
 	/** Setzt die Farbe */
-	void setItemFarbe(int id);
+	//qt4 void setItemFarbe(int id);
 	/** Setzt die Abstufung */
 	void setItemShade(int id);
 	/** Setzt den Font */
-	void setItemFont(int id);
-	void setItemFont2(int id);
+//Qt4	void setItemFont(int id);
+//Qt4	void setItemFont2(int id);
 	/** Korrigiert das FontMenu */
-	void AdjustFontMenu(QString nf);
-	void SetNewFont(QString nf);
+//Qt4	void AdjustFontMenu(const QString& nf);
+	void SetNewFont(const QString& nf);
 	/** Setz die Zeichensatzgroesse */
 	void setItemFSize(int id);
 	void setFSizeMenu(int size);
 	/** Farbeditor */
 	void slotEditColors();
-	/** Setzt den Pen-Tonwert */
+	/** Style Manager */
+// 	void slotStyleManager();
+	/*
+	// Setzt den Pen-Tonwert
 	void setPenShade(int sh);
-	/** Setzt den Brush-Tonwert */
+	// Setzt den Brush-Tonwert
 	void setBrushShade(int sh);
 	void setGradFill(int typ);
+	*/
 	void updtGradFill();
-	/** Setzt die Pen-Farbe */
+	/*
+	// Setzt die Pen-Farbe
 	void setPenFarbe(QString farbe);
-	/** Setzt die Brush-Farbe */
+	// Setzt die Brush-Farbe
 	void setBrushFarbe(QString farbe);
-	void setCSMenu(QString f, QString l, int fs, int ls);
+	*/
+	void setCSMenu();
 	/** Fragt nach den Farben */
-	void GetBrushPen();
+//	void GetBrushPen();
 	/** Erzeugt einen Rahmen */
 	void MakeFrame(int f, int c, double *vals);
-	/** Loescht ein Element */
-	void DeleteObjekt();
-	/** Setzt das Element in den Hintergrund */
-	void Objekt2Back();
-	/** Setzt das Element in den Vordergrund */
-	void Objekt2Front();
-	/** Bewegt das Element eine Ebene nach oben */
-	void ObjektRaise();
-	/** Bewegt das Element nach unten */
-	void ObjektLower();
+	//** Loescht ein Element */
+	//void DeleteObjekt();
 	/** Dupliziert das Element */
 	void ObjektDup();
 	/** Dupliziert das Element mehrfach*/
 	void ObjektDupM();
-	/** Setzt die Infos fuer das Dokument */
-	void InfoDoc();
-	/** Reformatiert das Dokument */
-	bool SetupDoc();
-	/** Richtet Objekte aus */
-	void ObjektAlign();
-	void DoAlign(bool xa, bool ya, bool Vth, bool Vtv, double xdp, double ydp, int xart, int yart);
-	void GetAllFonts();
-	void BuildFontMenu();
-	void slotFontOrg();
+	/** \brief Refromat the document when user click "OK" in ReformDoc dialog.
+	See docSetup() for more info. */
+	bool slotDocSetup();
+	void objectAttributes();
+	void getImageInfo();
+	void generateTableOfContents();
+//Qt4	void buildFontMenu();
+	/*! \brief Change Preferences dialog.
+	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
 	void slotPrefsOrg();
-	void slotEditStyles();
-	void saveStyles(StilFormate *dia);
-	void slotEditLineStyles();
-	void saveLStyles(LineFormate *dia);
-	void setNewAbStyle(int a);
+	void saveStyles(StilFormate *dia); //still required for style save from SE
+	void setNewAlignment(int a);
+	void setNewParStyle(const QString& name);
+	void setNewCharStyle(const QString& name);
 	void setAbsValue(int a);
-	void SelectFromOutl(int Page, int Item);
-	void SelectFromOutlS(int Page);
+	void selectItemsFromOutlines(PageItem *ite);
+	void selectItemsFromOutlines(int Page, int Item, bool single = false);
+	void selectPagesFromOutlines(int Page);
+	void doPrintPreview();
+	void printPreview();
 	void SaveAsEps();
+	void reallySaveAsEps();
 	void SaveAsPDF();
-	void Aktiv();
+	void doSaveAsPDF();
+	void setMainWindowActive();
 	void setItemHoch(int h);
 	void setStilvalue(int s);
 	void setItemTypeStyle(int id);
-	void slotElemRead(QString Name, int x, int y, bool art, bool loca, ScribusDoc* docc);
+	void slotElemRead(QString Name, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
 	void slotChangeUnit(int art, bool draw = true);
 	void NoFrameEdit();
-	void setItemTextAli(int id);
-	void ApplyTemp();
-	void Apply_Temp(QString in, int Snr, bool reb = true);
-	void GroupObj();
+	/*!
+	 * @brief Apply master pages from the Apply Master Page dialog
+	 * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
+	*/
+	void ApplyMasterPage();
+	void Apply_MasterPage(QString pageName, int pageNumber, bool reb = true);
+	void GroupObj(bool showLockDia = true);
 	void UnGroupObj();
 	void StatusPic();
-	void RunPlug(int id);
-	void RunImportPlug(int id);
-	void RunExportPlug(int id);
-	void RunHelpPlug(int id);
 	void ModifyAnnot();
 	void ToggleGuides();
 	void ToggleBase();
@@ -460,160 +515,136 @@ public slots:
 	void HaveRaster(bool art);
 	void EditTabs();
 	void SearchText();
-	void DefKB();
+	void imageEditorExited();
+	/*! \brief call gimp and wait upon completion */
+	void callImageEditor();
+	void docCheckToggle(bool visible);
+	//! \brief Scan a document for errors, return true on errors found
+	bool scanDocument();
+	void setUndoMode(bool isObjectSpecific);
+	//! \brief Apply a Lorem Ipsum to the each item in a selection
+	void insertSampleText();
+	//void sendToLayer(int layerNumber);
+	void updateItemLayerList();
+	/*! \brief Apply changes from ReformDoc dialog.
+	It's called from this->slotDocSetup() or from ReformDoc directly.
+	\param dia a reference to the ReformDoc dialog */
+	void docSetup(ReformDoc* dia);
+	/*! \brief Apply changes from Preferences dialog.
+	It's called from this->slotPrefsOrg() or from Preferences directly.
+	\param dia a reference to the Preferences dialog */
+	void prefsOrg(Preferences* dia);
+	//! \brief Insert a frame friendly dialog
+	void slotInsertFrame();
+	//! \brief manages the documents patterns
+	void managePatterns();
+	//! \brief enable or disable the unicode actions and their menus
+	void enableTextActions(QMap<QString, QPointer<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
+	//! \brief allow SE to get the SM for edit stlyes
+	StyleManager *styleMgr() const {return styleManager;};
 
 signals:
+	void TextStyle(const ParagraphStyle&);
+//deprecated: (av)
 	void TextISize(int);
-	void TextIFont(QString);
-	void TextUSval(double);
+	void TextIFont(const QString&);
+	void TextUSval(int);
 	void TextStil(int);
 	void TextFarben(QString, QString, int, int);
 	void TextScale(int);
+	void TextScaleV(int);
+	void TextBase(int);
+	void TextShadow(int, int);
+	void TextOutline(int);
+	void TextUnderline(int, int);
+	void TextStrike(int, int);
+
+protected:
+	/*!
+	\brief Receive key events from palettes such as palette hiding events. Possibly easier way but this is cleaner than before. No need to modify all those palettes and each new one in future.
+	 */
+	bool eventFilter( QObject *o, QEvent *e );
+	virtual void dragEnterEvent( QDragEnterEvent* e);
+	virtual void dropEvent( QDropEvent* e);
 
 private:
-	/** init methods */
-	void initScribus();
+    /** init methods */
+	void initSplash(bool showSplash);
+	void initMenuBar(); // initMenuBar creates the menu_bar and inserts the menuitems
+	void addDefaultWindowMenuItems(); // addDefaultWindowMenuItems adds the basic Windows menu items, excluding the actual list of windows
+	void initStatusBar(); // setup the statusbar
+	void initToolBars(); // setup the toolbars
+	//Returns false when there are no fonts
+	void initHyphenator();
+	void initDefaultValues();
+	void initKeyboardShortcuts();
+	void initPalettes();
+	void initScrapbook();
 
-	/** edit_menu contains all items of the menubar entry "Edit" */
-	QPopupMenu *editMenu;
-	/** StilMenu enthaelt das Stilemenue */
-	QPopupMenu *StilMenu;
-	/** ObjMenu enthaelt das Objektemenue */
-	QPopupMenu *ObjMenu;
-	/** pageMenu enthaelt das Seitenmenue */
-	QPopupMenu *pageMenu;
-	/** viewMenu contains all items of the menubar entry "View" */
-	QPopupMenu *viewMenu;
-	/** settingsMenu contains all items of the menubar entry "Settings" */
-	int SetMen;
-	QPopupMenu *settingsMenu;
-	/** ColorMenu enthaelt die Farben des Dokuments */
-	int ViMen;
-	QPopupMenu *ColorMenu;
-	QComboBox *ColorMenC;
-	/** SizeTMenu enthaelt die Schriftgroessen */
-	QPopupMenu *SizeTMenu;
-	/** ShadeMenu enthaelt die Tonwerte */
-	QPopupMenu *ShadeMenu;
+	void updateColorMenu(Q3ProgressBar* progressBar=NULL);
+
+	QLabel* mainWindowStatusLabel;
+	QString recentFileMenuName;
+	QString recentPasteMenuName;
+	QString layerMenuName;
+	QPixmap noIcon;
+	//qt4 ColorCombo *ColorMenC;
 	/** ShapeMenu enthaelt die Rahmenformen */
-	QPopupMenu *ShapeMenu;
+	Q3PopupMenu *ShapeMenu;
 	/** FontMenu enthaelt die Fonts */
-	QPopupMenu *FontMenu;
+	Q3PopupMenu *FontMenu;
 	FontCombo* FontSub;
-	QPopupMenu *TypeStyleMenu;
-	QPopupMenu *AliMenu;
-	QPopupMenu *recentMenu;
-	ScToolBar *WerkTools2;
-	WerkToolBP* WerkToolsP;
+	ScToolBar *fileToolBar;
+	ScToolBar *editToolBar;
+	PDFToolBar* pdfToolBar;
 	QToolButton* DatOpe;
 	QToolButton* DatSav;
 	QToolButton* DatClo;
 	QToolButton* DatPri;
 	QToolButton* DatPDF;
 	QToolButton* DatNeu;
-	int KeyMod;
-	int ShapeEdit;
-	int ShapeM;
-	int DistM;
-	int PfadT;
-	int PfadDT;
-	int PfadS;
-	int PfadV;
-	int PfadTP;
-	int pgmd;
-	int pgmm;
-	int pgmv;
-	int Stm;
-	int Obm;
-	int Markers;
-	int FrameDr;
-	int Bilder;
-	int Ras;
-	int uRas;
-	int Guide;
-	int uGuide;
-	int Base;
 	int toolbarMenuTools;
 	int toolbarMenuPDFTools;
 	int viewToolbars;
-	int viewMpal;
-	int viewTpal;
-	int viewNpal;
+	int viewPropertiesPalette;
+	int viewOutlinePalette;
+	int viewNodePalette;
 	int viewBpal;
-	int viewLpal;
-	int viewSepal;
+	int viewLayerPalette;
+	int viewPagePalette;
 	int viewBopal;
-	int fid1;
-	int fid2;
-	int fid2a;
-	int fid2aa;
-	int fid3;
-	int fid4;
-	int fid51;
-	int fid52;
-	int fid6;
-	int fid7;
-	int fid8;
-	int fid10;
-	int fid11;
-	int fid13;
-	int fid14;
-	int edUndo;
-	int edid1;
-	int edid2;
-	int edid3;
-	int edid4;
-	int edid5;
-	int edid6;
-	int edid6a;
-	int Sear;
-	int Loesch;
-	int tman;
-	int jman;
-	int tip;
-	int Gr;
-	int UnGr;
-	int LockOb;
-	int exmn;
-	int hyph;
-	int ORaise;
-	int OLower;
-	int OBack;
-	int OFront;
-	int ODup;
-	int OMDup;
-	bool PalettesStat[8];
-	bool GuidesStat[6];
-	bool tipsOn;
+	int viewUndoPalette;
+
+	bool palettesStatus[10];
+	bool guidesStatus[13];
+
 	bool keyrep;
-	QPopupMenu *helpMenu;
-	QPopupMenu *toolMenu;
-	QPopupMenu *extraMenu;
-	QPopupMenu *importMenu;
-	QPopupMenu *exportMenu;
-	QPopupMenu *toolbarMenu;
-	double mm2pts(int mm);
-	double pts2mm(double pts);
-	void addNewPages(int wo, int where, int numPages, QString based1 = QObject::tr("Normal"), QString based2 = QObject::tr("Normal"));
-	QMap<int,QString> FontID;
-	int HaveGS;
+	/** @brief Tells if an arrow key is pressed down */
+	bool _arrowKeyDown;
+	/** @brief tells the undo mode */
+	bool objectSpecificUndo;
+
+	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0);
+//Qt4	QMap<int,QString> FontID;
+
 	void *PSDriver;
 	int DocNr;
-	QStringList RecentDocs;
-	struct PlugData { 
-						QString Datei;
-						QString Name;
-					  	void *Zeiger;
-					  	int Typ;
-						int MenuID;
-					} ;
-	QMap<int, PlugData> PluginMap;
 	bool PrinterUsed;
-	struct PDe { 
+	struct PDe {
 					QString Pname;
 					QString Dname;
 					QString Command;
+					QByteArray DevMode;
 				} PDef ;
+	TOCGenerator *tocGenerator;
+	int storedPageNum;
+	int storedViewXCoor;
+	int storedViewYCoor;
+	double storedViewScale;
+	StyleManager *styleManager;
+	UndoManager *undoManager;
+	PrefsManager *prefsManager;
+	QString currentFontForFontMenu;
 };
 
-#endif 
+#endif

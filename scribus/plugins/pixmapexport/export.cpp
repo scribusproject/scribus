@@ -1,167 +1,211 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "export.h"
 #include "dialog.h"
-#include "export.moc"
+//#include "export.moc"
 #include <qpixmap.h>
 #include <qstring.h>
 #include <qdir.h>
 #include <qcursor.h>
 
-extern QString getFileNameByPage(uint pageNo, QString extension);
+#include "scmessagebox.h"
+#include "scribus.h"
+#include "scraction.h"
+#include "menumanager.h"
+#include "util.h"
+#include "commonstrings.h"
+#include "scpaths.h"
 
-
-QString Name()
+int scribusexportpixmap_getPluginAPIVersion()
 {
-	return QObject::tr("Save as &Image...");
+	return PLUGIN_API_VERSION;
 }
 
-
-int Type()
+ScPlugin* scribusexportpixmap_getPlugin()
 {
-	return 3;
+	PixmapExportPlugin* plug = new PixmapExportPlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void scribusexportpixmap_freePlugin(ScPlugin* plugin)
 {
-	return 4;
+	PixmapExportPlugin* plug = dynamic_cast<PixmapExportPlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-
-void Run(QWidget *d, ScribusApp *plug)
+PixmapExportPlugin::PixmapExportPlugin() : ScActionPlugin()
 {
-	bool res;
-	ExportBitmap *ex = new ExportBitmap(plug);
-	ExportForm *dia = new ExportForm(d, ex->pageDPI, ex->quality, ex->bitmapType);
+	// Set action info in languageChange, so we only have to do
+	// it in one place. This includes registering file formats.
+	languageChange();
+}
+
+PixmapExportPlugin::~PixmapExportPlugin()
+{
+};
+
+void PixmapExportPlugin::languageChange()
+{
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "ExportAsImage";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("Save as &Image...");
+	// Keyboard shortcut
+	m_actionInfo.keySequence = "CTRL+SHIFT+E";
+	// Menu
+	m_actionInfo.menu = "FileExport";
+	m_actionInfo.enabledOnStartup = true;
+}
+
+const QString PixmapExportPlugin::fullTrName() const
+{
+	return tr("Export As Image");
+}
+
+const ScActionPlugin::AboutData* PixmapExportPlugin::getAboutData() const
+{
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8("Petr Van\xc4\x9bk <petr@scribus.info>");
+	about->shortDescription = tr("Export As Image");
+	about->description = tr("Exports selected pages as bitmap images.");
+	// about->version
+	// about->releaseDate
+	// about->copyright
+	about->license = "GPL";
+	return about;
+}
+
+void PixmapExportPlugin::deleteAboutData(const AboutData* about) const
+{
+	Q_ASSERT(about);
+	delete about;
+}
+
+bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
+{
+	Q_ASSERT(target.isEmpty());
+	Q_ASSERT(!doc->masterPageMode());
+	ExportBitmap *ex = new ExportBitmap();
+	ExportForm *dia = new ExportForm(doc->scMW(), doc, ex->pageDPI, ex->quality, ex->bitmapType);
 
 	// interval widgets handling
 	QString tmp;
-	dia->RangeVal->setText(tmp.setNum(plug->doc->ActPage->PageNr+1));
+	dia->rangeVal->setText(tmp.setNum(doc->currentPageNumber()+1));
 	// main "loop"
 	if (dia->exec()==QDialog::Accepted)
 	{
-		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		std::vector<int> pageNs;
 		ex->pageDPI = dia->DPIBox->value();
-		ex->enlargement = dia->EnlargementBox->value();
-		ex->quality = dia->QualityBox->value();
-		ex->exportDir = dia->OutputDirectory->text();
-		ex->bitmapType = dia->bitmapType;
-		plug->FProg->reset();
-		if (dia->OnePageRadio->isChecked())
-			res = ex->exportActual();
+		ex->enlargement = dia->enlargementBox->value();
+		ex->quality = dia->qualityBox->value();
+		ex->exportDir = ScPaths::separatorsToSlashes(dia->outputDirectory->text());
+		ex->bitmapType = dia->bitmapType->currentText();
+		doc->scMW()->mainWindowProgressBar->reset();
+		bool res;
+		if (dia->onePageRadio->isChecked())
+			res = ex->exportCurrent(doc);
 		else
 		{
-			if (dia->AllPagesRadio->isChecked())
-				plug->parsePagesString("*", &pageNs, plug->doc->PageC);
+			if (dia->allPagesRadio->isChecked())
+				parsePagesString("*", &pageNs, doc->DocPages.count());
 			else
-				plug->parsePagesString(dia->RangeVal->text(), &pageNs, plug->doc->PageC);
-			res = ex->exportInterval(pageNs);
+				parsePagesString(dia->rangeVal->text(), &pageNs, doc->DocPages.count());
+			res = ex->exportInterval(doc, pageNs);
 		}
-		plug->FProg->reset();
+		doc->scMW()->mainWindowProgressBar->reset();
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(plug, QObject::tr("Save as Image"), QObject::tr("Error writting the output file(s)."));
-			plug->FMess->setText(QObject::tr("Error writing the output file(s)."));
+			QMessageBox::warning(doc->scMW(), tr("Save as Image"), tr("Error writing the output file(s)."));
+			doc->scMW()->setStatusBarInfoText( tr("Error writing the output file(s)."));
 		}
 		else
-		{
-			plug->FMess->setText(QObject::tr("Export successful."));
-		}
-	} // if accepted
+			doc->scMW()->setStatusBarInfoText( tr("Export successful"));
+	}
 	// clean the trash
 	delete ex;
 	delete dia;
+	return true;
 }
 
 
-ExportBitmap::ExportBitmap(ScribusApp *plug)
+ExportBitmap::ExportBitmap()
 {
-	carrier = plug;
 	pageDPI = 72;
 	quality = 100;
-	enlargement = 100;
+	enlargement = 100.0;
 	exportDir = QDir::currentDirPath();
 	bitmapType = QString("PNG");
-	overwrite = FALSE;
+	overwrite = false;
 }
 
-QString ExportBitmap::getFileName(uint pageNr)
+QString ExportBitmap::getFileName(ScribusDoc* doc, uint pageNr)
 {
-	return QDir::cleanDirPath(QDir::convertSeparators(exportDir + "/" + getFileNameByPage(pageNr, bitmapType.lower())));
+	return QDir::cleanDirPath(QDir::convertSeparators(exportDir + "/" + getFileNameByPage(doc, pageNr, bitmapType.lower())));
 }
 
 ExportBitmap::~ExportBitmap()
 {
 }
 
-bool ExportBitmap::exportPage(uint pageNr, bool single = TRUE)
+bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 {
 	uint over = 0;
-	QString fileName = getFileName(pageNr);
+	QString fileName(getFileName(doc, pageNr));
 
-	if (!carrier->view->Pages.at(pageNr))
-		return FALSE;
+	if (!doc->Pages->at(pageNr))
+		return false;
+	Page* page = doc->Pages->at(pageNr);
 
 	/* a little magic here - I need to compute the "maxGr" value...
-	 * We need to know the right size of the page for landscape,
-	 * portrait and user defined sizes.
-	 */
-	double pixmapSize;
-	(carrier->doc->PageH > carrier->doc->PageB)
-			? pixmapSize = carrier->doc->PageH
-			: pixmapSize = carrier->doc->PageB;
-	QPixmap pixmap = carrier->view->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0));
-	QImage im = pixmap.convertToImage();
-	int dpm = qRound((100.0 / 2.54) * pageDPI);
+	* We need to know the right size of the page for landscape,
+	* portrait and user defined sizes.
+	*/
+	double pixmapSize = (page->height() > page->width()) ? page->height() : page->width();
+	QImage im(doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false));
+	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);
 	if (QFile::exists(fileName) && !overwrite)
 	{
+		QString fn = QDir::convertSeparators(fileName);
 		QApplication::restoreOverrideCursor();
-		/* Changed the following Code from the original QMessageBox::question to
-		 * QMessageBox::warning to keep the Code compatible to Qt-3.1.x
-	     * f.s 12.05.2004 */
-		over = QMessageBox::warning(carrier,
-				QObject::tr("File exists. Overwrite?"),
-				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
-				QObject::tr("No"),
-				QObject::tr("Yes"),
-				// hack for multiple overwritting (petr)
-				(single==TRUE) ? QString::null : QObject::tr("Yes all"),
-				0, 0);
-		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-		if (over == 1)
+		over = QMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
+				fn +"\n"+ tr("exists already. Overwrite?"),
+				// hack for multiple overwritting (petr) 
+				(single == true) ? QMessageBox::Yes | QMessageBox::No : QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll);
+		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+		if (over == QMessageBox::Yes)
 			return im.save(fileName, bitmapType, quality);
-		if (over == 2)
-			overwrite = TRUE;
+		if (over == QMessageBox::YesToAll)
+			overwrite = true;
 	}
 	return im.save(fileName, bitmapType, quality);
 }
 
-bool ExportBitmap::exportActual()
+bool ExportBitmap::exportCurrent(ScribusDoc* doc)
 {
-	return exportPage(carrier->doc->ActPage->PageNr, TRUE);
+	return exportPage(doc, doc->currentPageNumber(), true);
 }
 
-bool ExportBitmap::exportInterval(std::vector<int> &pageNs)
+bool ExportBitmap::exportInterval(ScribusDoc* doc, std::vector<int> &pageNs)
 {
-	bool res;
-	carrier->FProg->setTotalSteps(pageNs.size());
+	doc->scMW()->mainWindowProgressBar->setTotalSteps(pageNs.size());
 	for (uint a = 0; a < pageNs.size(); ++a)
 	{
-		carrier->FProg->setProgress(a);
-		res = exportPage(pageNs[a]-1, FALSE);
-		if (!res)
-			return FALSE;
+		doc->scMW()->mainWindowProgressBar->setProgress(a);
+		if (!exportPage(doc, pageNs[a]-1, false))
+			return false;
 	}
-	return TRUE;
+	return true;
 }
-

@@ -1,59 +1,69 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "search.h"
-#include "search.moc"
+//#include "search.moc"
 
 #include <qvariant.h>
+#include <qregexp.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <qgroupbox.h>
+#include <q3groupbox.h>
 #include <qlineedit.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <qwhatsthis.h>
+#include <q3whatsthis.h>
 #include <qmessagebox.h>
-#include "mspinbox.h"
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
+#include <QListView>
+
+#include "colorlistbox.h"
+#include "commonstrings.h"
+#include "colorcombo.h"
 #include "fontcombo.h"
+#include "scrspinbox.h"
 #include "page.h"
-#include "prefsfile.h"
 #include "prefscontext.h"
-#include "styleselect.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "scribus.h"
 #include "shadebutton.h"
 #include "story.h"
-#include "scribus.h"
-extern ScribusApp* ScApp;
+#include "styleselect.h"
+#include "util.h"
+#include "text/nlsconfig.h"
+
+
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
-
-SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, PageItem* ite, bool mode )
-							: QDialog( parent, "SearchReplace", true, 0 )
+SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode )
+	: QDialog( parent, "SearchReplace", true, 0 ),
+	matchesFound(0)
 {
 	setCaption( tr( "Search/Replace" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	QPixmap pm;
-	pm = QPixmap(30, 15);
-	CListe::Iterator it;
+	ColorList::Iterator it;
 	Item = ite;
 	Doc = doc;
 	NotFound = false;
 	SMode = mode;
-	SearchReplaceLayout = new QVBoxLayout( this, 10, 5, "SearchReplaceLayout"); 
-	SelLayout = new QHBoxLayout( 0, 0, 6, "SelLayout"); 
-	Search = new QGroupBox( this, "Search" );
+	SearchReplaceLayout = new Q3VBoxLayout( this, 10, 5, "SearchReplaceLayout");
+	SelLayout = new Q3HBoxLayout( 0, 0, 6, "SelLayout");
+	Search = new Q3GroupBox( this, "Search" );
 	Search->setTitle( tr( "Search for:" ) );
 	Search->setColumnLayout(0, Qt::Vertical );
 	Search->layout()->setSpacing( 2 );
 	Search->layout()->setMargin( 5 );
-	SearchLayout = new QGridLayout( Search->layout() );
+	SearchLayout = new Q3GridLayout( Search->layout() );
 	SearchLayout->setAlignment( Qt::AlignTop );
 	SText = new QCheckBox( Search, "SText" );
 	SText->setText( tr( "Text" ) );
@@ -91,56 +101,46 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	size_t ar_sty = sizeof(tmp_sty) / sizeof(*tmp_sty);
 	for (uint a = 0; a < ar_sty; ++a)
 		SStyleVal->insertItem(tmp_sty[a]);
-	if (doc->Vorlagen.count() > 5)
+//	if (doc->docParagraphStyles.count() >5)
 	{
-		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
-			SStyleVal->insertItem(doc->Vorlagen[x].Vname);
+		for (uint x = 0; x < doc->paragraphStyles().count(); ++x)
+			SStyleVal->insertItem(doc->paragraphStyles()[x].name());
 	}
-	SStyleVal->listBox()->setMinimumWidth(SStyleVal->listBox()->maxItemWidth()+24);
-	SStyleVal->setCurrentItem(doc->CurrentABStil);
+	QListView *tmpView = dynamic_cast<QListView*>(SStyleVal->view()); Q_ASSERT(tmpView);
+	int tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
+	SStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
 	SStyleVal->setEnabled(false);
 	SearchLayout->addWidget( SStyleVal, 1, 1 );
-	SFontVal = new FontCombo(Search, Prefs);
+	SFontVal = new FontCombo(Search);
 	SFontVal->setMaximumSize(190, 30);
-	SFontVal->setCurrentText(doc->CurrFont);
+	SFontVal->setCurrentText(doc->currentStyle.charStyle().font().scName());
 	SFontVal->setEnabled(false);
 	SearchLayout->addWidget( SFontVal, 2, 1 );
-	SSizeVal = new MSpinBox( Search, 1 );
-	SSizeVal->setSuffix( tr( " pt" ) );
-	SSizeVal->setMinValue( 1 );
-	SSizeVal->setMaxValue( 1024 );
-	SSizeVal->setValue( doc->CurrFontSize / 10.0 );
+	SSizeVal = new ScrSpinBox( 0.5, 2048, Search, 1 );
+	SSizeVal->setValue( doc->currentStyle.charStyle().fontSize() / 10.0 );
 	SSizeVal->setEnabled(false);
 	SearchLayout->addWidget( SSizeVal, 3, 1 );
 	SEffVal = new StyleSelect( Search );
 	SEffVal->setStyle(0);
 	SEffVal->setEnabled(false);
 	SearchLayout->addWidget( SEffVal, 4, 1, Qt::AlignLeft );
-	SFillVal = new QComboBox( true, Search, "SFillVal" );
+	SFillVal = new ColorCombo( true, Search, "SFillVal" );
 	SFillVal->setEditable(false);
-	SFillVal->insertItem( tr("None"));
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		SFillVal->insertItem(pm, it.key());
-	}
-	SFillVal->listBox()->setMinimumWidth(SFillVal->listBox()->maxItemWidth()+24);
-	SFillVal->setCurrentText(doc->CurrTextFill);
+	SFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
+	SFillVal->setMinimumWidth(SFillVal->listBox()->maxItemWidth() + 24);
+	SFillVal->setCurrentText(doc->currentStyle.charStyle().fillColor());
 	SFillVal->setEnabled(false);
 	SearchLayout->addWidget( SFillVal, 5, 1 );
 	SFillSVal = new ShadeButton(Search);
 	SFillSVal->setEnabled(false);
 	SearchLayout->addWidget( SFillSVal, 6, 1, Qt::AlignLeft );
-	SStrokeVal = new QComboBox( true, Search, "SStrokeVal" );
+	SStrokeVal = new ColorCombo( true, Search, "SStrokeVal" );
 	SStrokeVal->setEditable(false);
-	SStrokeVal->insertItem( tr("None"));
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		SStrokeVal->insertItem(pm, it.key());
-	}
-	SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth()+24);
-	SStrokeVal->setCurrentText(doc->CurrTextStroke);
+	SStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
+	SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth() + 24);
+	SStrokeVal->setCurrentText(doc->currentStyle.charStyle().strokeColor());
 	SStrokeVal->setEnabled(false);
 	SearchLayout->addWidget( SStrokeVal, 7, 1 );
 	SStrokeSVal =  new ShadeButton(Search);
@@ -148,12 +148,12 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	SearchLayout->addWidget( SStrokeSVal, 8, 1, Qt::AlignLeft );
 	SelLayout->addWidget( Search );
 
-	Replace = new QGroupBox( this, "Replace" );
+	Replace = new Q3GroupBox( this, "Replace" );
 	Replace->setTitle( tr( "Replace with:" ) );
 	Replace->setColumnLayout(0, Qt::Vertical );
 	Replace->layout()->setSpacing( 2 );
 	Replace->layout()->setMargin( 5 );
-	ReplaceLayout = new QGridLayout( Replace->layout() );
+	ReplaceLayout = new Q3GridLayout( Replace->layout() );
 	ReplaceLayout->setAlignment( Qt::AlignTop );
 	RText = new QCheckBox( Replace, "RText" );
 	RText->setText( tr( "Text" ) );
@@ -189,56 +189,46 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	RStyleVal->setEditable(false);
 	for (uint a = 0; a < ar_sty; ++a)
 		RStyleVal->insertItem(tmp_sty[a]);
-	if (doc->Vorlagen.count() > 5)
+//	if (doc->docParagraphStyles.count() > 5)
 	{
-		for (uint x = 5; x < doc->Vorlagen.count(); ++x)
-			RStyleVal->insertItem(doc->Vorlagen[x].Vname);
+		for (uint x = 5; x < doc->paragraphStyles().count(); ++x)
+			RStyleVal->insertItem(doc->paragraphStyles()[x].name());
 	}
-	RStyleVal->listBox()->setMinimumWidth(RStyleVal->listBox()->maxItemWidth()+24);
-	RStyleVal->setCurrentItem(doc->CurrentABStil);
+	tmpView = dynamic_cast<QListView*>(RStyleVal->view()); Q_ASSERT(tmpView);
+	tmpWidth = tmpView->sizeHintForColumn(0);
+	if (tmpWidth > 0)
+		tmpView->setMinimumWidth(tmpWidth + 24);
+	RStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
 	RStyleVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStyleVal, 1, 1 );
-	RFontVal = new FontCombo(Replace, Prefs);
+	RFontVal = new FontCombo(Replace);
 	RFontVal->setMaximumSize(190, 30);
-	RFontVal->setCurrentText(doc->CurrFont);
+	RFontVal->setCurrentText(doc->currentStyle.charStyle().font().scName());
 	RFontVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFontVal, 2, 1 );
-	RSizeVal = new MSpinBox( Replace, 1 );
-	RSizeVal->setSuffix( tr( " pt" ) );
-	RSizeVal->setMinValue( 1 );
-	RSizeVal->setMaxValue( 1024 );
-	RSizeVal->setValue( doc->CurrFontSize / 10.0 );
+	RSizeVal = new ScrSpinBox( 0.5, 2048, Replace, 1 );
+	RSizeVal->setValue( doc->currentStyle.charStyle().fontSize() / 10.0 );
 	RSizeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RSizeVal, 3, 1 );
 	REffVal = new StyleSelect( Replace );
 	REffVal->setStyle(0);
 	REffVal->setEnabled(false);
 	ReplaceLayout->addWidget( REffVal, 4, 1, Qt::AlignLeft );
-	RFillVal = new QComboBox( true, Replace, "RFillVal" );
+	RFillVal = new ColorCombo( true, Replace, "RFillVal" );
 	RFillVal->setEditable(false);
-	RFillVal->insertItem( tr("None"));
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		RFillVal->insertItem(pm, it.key());
-	}
-	RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth()+24);
-	RFillVal->setCurrentText(doc->CurrTextFill);
+	RFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
+	RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth() + 24);
+	RFillVal->setCurrentText(doc->currentStyle.charStyle().fillColor());
 	RFillVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFillVal, 5, 1 );
 	RFillSVal = new ShadeButton(Replace);
 	RFillSVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFillSVal, 6, 1, Qt::AlignLeft );
-	RStrokeVal = new QComboBox( true, Replace, "RStrokeVal" );
+	RStrokeVal = new ColorCombo( true, Replace, "RStrokeVal" );
 	RStrokeVal->setEditable(false);
-	RStrokeVal->insertItem( tr("None"));
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		RStrokeVal->insertItem(pm, it.key());
-	}
-	RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth()+24);
-	RStrokeVal->setCurrentText(doc->CurrTextStroke);
+	RStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
+	RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth() + 24);
+	RStrokeVal->setCurrentText(doc->currentStyle.charStyle().strokeColor());
 	RStrokeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStrokeVal, 7, 1 );
 	RStrokeSVal = new ShadeButton(Replace);;
@@ -247,7 +237,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	SelLayout->addWidget( Replace );
 	SearchReplaceLayout->addLayout( SelLayout );
 
-	OptsLayout = new QHBoxLayout( 0, 0, 6, "OptsLayout"); 
+	OptsLayout = new Q3HBoxLayout( 0, 0, 6, "OptsLayout");
 	Word = new QCheckBox( tr( "&Whole Word" ), this, "Word" );
 	if (mode)
 		Word->setEnabled(false);
@@ -258,7 +248,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	OptsLayout->addWidget( CaseIgnore );
 	SearchReplaceLayout->addLayout( OptsLayout );
 
-	ButtonsLayout = new QHBoxLayout( 0, 0, 4, "ButtonsLayout"); 
+	ButtonsLayout = new Q3HBoxLayout( 0, 0, 4, "ButtonsLayout");
 	DoSearch = new QPushButton( tr( "&Search" ), this, "DoSearch" );
 	DoSearch->setDefault( true );
 	ButtonsLayout->addWidget( DoSearch );
@@ -268,7 +258,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	AllReplace = new QPushButton( tr( "Replace &All" ), this, "DoReplace" );
 	AllReplace->setEnabled(false);
 	ButtonsLayout->addWidget( AllReplace );
-	clearButton = new QPushButton(tr("C&lear"), this, "clearButton");
+	clearButton = new QPushButton( tr("C&lear"), this, "clearButton");
 	ButtonsLayout->addWidget(clearButton);
 	Leave = new QPushButton( tr( "&Close" ), this, "Leave" );
 	ButtonsLayout->addWidget( Leave );
@@ -335,31 +325,31 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, Pag
 	setTabOrder( DoSearch, DoReplace );
 	setTabOrder( DoReplace, AllReplace );
 	setTabOrder( AllReplace, Leave );
-	
-	prefs = prefsFile->getContext("SearchReplace");
+
+	prefs = PrefsManager::instance()->prefsFile->getContext("SearchReplace");
 	readPrefs();
 }
 
 void SearchReplace::slotSearch()
 {
 	if (SMode)
-		Doc->ActPage->slotDoCurs(false);
+		Doc->view()->slotDoCurs(false);
 	slotDoSearch();
 	if (SMode)
 	{
-		Doc->ActPage->slotDoCurs(true);
-		Doc->ActPage->RefreshItem(Item, true);
+		Doc->view()->slotDoCurs(true);
+		Doc->view()->RefreshItem(Item);
 	}
 }
 
 void SearchReplace::slotDoSearch()
 {
+	int maxChar = Item->itemText.length() - 1;
 	DoReplace->setEnabled(false);
 	AllReplace->setEnabled(false);
 	if (SMode)
 	{
-		for (uint a = 0; a < Item->Ptext.count(); ++a)
-			Item->Ptext.at(a)->cselect = false;
+		Item->itemText.deselectAll();
 		Item->HasSel = false;
 	}
 	QString fCol = "";
@@ -400,68 +390,70 @@ void SearchReplace::slotDoSearch()
 		sSize = qRound(SSizeVal->value() * 10);
 	if (sText.length() > 0)
 		found = false;
-	uint inde = 0;
+	int inde = 0;
 	uint as = Item->CPos;
 	ReplStart = as;
-	uint a;
+	int a;
 	if (SMode)
 	{
-		for (a = as; a < Item->Ptext.count(); ++a)
+		for (a = as; a < Item->itemText.length(); ++a)
 		{
 			if (SText->isChecked())
 			{
-				QString chx = Item->Ptext.at(a)->ch;
+				QString chstr = Item->itemText.text(a,1);
 				if (CaseIgnore->isChecked())
-					chx = chx.lower();
-				found = chx == sText.mid(inde, 1) ? true : false;
-				if ((Word->isChecked()) && (inde == 0) && (chx[0].isSpace()))
+					chstr = chstr.lower();
+				found = chstr == sText.mid(inde, 1) ? true : false;
+				if ((Word->isChecked()) && (inde == 0) && (chstr[0].isSpace()))
 					found = true;
 			}
 			else
 				found = true;
 			if (SSize->isChecked())
 			{
-				if (Item->Ptext.at(a)->csize != sSize)
+				if (Item->itemText.charStyle(a).fontSize() != sSize)
 					found = false;
 			}
 			if (SFont->isChecked())
 			{
-				if (Item->Ptext.at(a)->cfont != sFont)
+				if (Item->itemText.charStyle(a).font().scName() != sFont)
 					found = false;
 			}
+#ifndef NLS_PROTO
 			if (SStyle->isChecked())
 			{
-				if (Item->Ptext.at(a)->cab != sStyle)
-					found = false;
+//				if (Item->itemText.item(a)->cab != sStyle)
+//					found = false;
 			}
+#endif
 			if (SStroke->isChecked())
 			{
-				if (Item->Ptext.at(a)->cstroke != sCol)
+				if (Item->itemText.charStyle(a).strokeColor() != sCol)
 					found = false;
 			}
 			if (SStrokeS->isChecked())
 			{
-				if (Item->Ptext.at(a)->cshade2 != sStrokeSh)
+				if (Item->itemText.charStyle(a).strokeShade() != sStrokeSh)
 					found = false;
 			}
 			if (SFillS->isChecked())
 			{
-				if (Item->Ptext.at(a)->cshade != sFillSh)
+				if (Item->itemText.charStyle(a).fillShade() != sFillSh)
 					found = false;
 			}
 			if (SEffect->isChecked())
 				{
-				if ((Item->Ptext.at(a)->cstyle & 127) != sEff)
+				if ((Item->itemText.charStyle(a).effects() & 1919) != sEff)
 					found = false;
 				}
 			if (SFill->isChecked())
-			{			
-				if (Item->Ptext.at(a)->ccolor != fCol)
+			{
+				if (Item->itemText.charStyle(a).fillColor() != fCol)
 					found = false;
 			}
 			if (found)
 			{
-				Item->Ptext.at(a)->cselect = true;
+				Item->itemText.select(a,1);
 				Item->HasSel = true;
 				if (rep)
 				{
@@ -474,16 +466,16 @@ void SearchReplace::slotDoSearch()
 					if (inde == 0)
 						ReplStart = a;
 					inde++;
-					if ((Word->isChecked()) && (inde == 1) && (Item->Ptext.at(a)->ch[0].isSpace()))
+					if ((Word->isChecked()) && (inde == 1) && (Item->itemText.text(a).isSpace()))
 					{
 						inde--;
-						Item->Ptext.at(a)->cselect = false;
+						Item->itemText.select(a, 1, false);
 					}
-					if ((Word->isChecked()) && (inde == sText.length()) &&
-						(!Item->Ptext.at(QMIN(Item->MaxChars-1,a+1))->ch[0].isSpace()))
+					if ( Word->isChecked()  &&  inde == sText.length()  &&
+						! Item->itemText.text(qMin(a+1, maxChar)).isSpace() )
 					{
-						for (uint xx = ReplStart; xx < a+1; ++xx)
-							Item->Ptext.at(QMIN(xx,Item->MaxChars-1))->cselect = false;
+						for (int xx = ReplStart; xx < a+1; ++xx)
+							Item->itemText.select(qMin(xx, maxChar), 1, false);
 						Item->HasSel = false;
 						inde = 0;
 						found = false;
@@ -501,57 +493,60 @@ void SearchReplace::slotDoSearch()
 			{
 				if (SText->isChecked())
 				{
-					for (uint xx = ReplStart; xx < a+1; ++xx)
-						Item->Ptext.at(QMIN(xx,Item->MaxChars-1))->cselect = false;
+					for (int xx = ReplStart; xx < a+1; ++xx)
+						Item->itemText.select(qMin(xx, maxChar), 1, false);
 					Item->HasSel = false;
 				}
 				inde = 0;
 			}
 		}
-		if ((!found) || (a == Item->Ptext.count()))
+		if ((!found) || (a == Item->itemText.length()))
 		{
 			Doc->DoDrawing = true;
-			Doc->ActPage->RefreshItem(Item, true);
+			Doc->view()->RefreshItem(Item);
 			DoReplace->setEnabled(false);
 			AllReplace->setEnabled(false);
-			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("OK"));
+			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), CommonStrings::tr_OK);
 			Item->CPos = 0;
 			NotFound = false;
 		}
 	}
 	else
 	{
-		if (ScApp->CurrStED != NULL)
+		if (Doc->scMW()->CurrStED != NULL)
 		{
 			int p, i;
-			ScApp->CurrStED->Editor->getCursorPosition(&p, &i);
+			Doc->scMW()->CurrStED->Editor->getCursorPosition(&p, &i);
+/* Related to the FIXME below
 			uint inde = 0;
 			int as = i;
 			uint fpa = p;
-			int fch = i;
+			int fch = i;*/
 			found = false;
-			if (ScApp->CurrStED->Editor->StyledText.count() != 0)
+			if (Doc->scMW()->CurrStED->Editor->StyledText.length() != 0)
 			{
-				for (uint pa = p; pa < ScApp->CurrStED->Editor->StyledText.count(); ++pa)
+#if 0
+				// FIXME
+				for (uint pa = p; pa < Doc->scMW()->CurrStED->Editor->StyledText.nrOfParagraphs(); ++pa)
 				{
 					SEditor::ChList *chars;
-					chars = ScApp->CurrStED->Editor->StyledText.at(pa);
+					chars = Doc->scMW()->CurrStED->Editor->StyledText.at(pa);
 					if (SText->isChecked())
 					{
 						if (Word->isChecked())
 						{
 							QRegExp rx( "(\\b"+sText+"\\b)" );
 							if (CaseIgnore->isChecked())
-								as = rx.search( ScApp->CurrStED->Editor->text(pa).lower(), i );
+								as = rx.search( Doc->scMW()->CurrStED->Editor->text(pa).lower(), i );
 							else
-								as = rx.search( ScApp->CurrStED->Editor->text(pa), i );
+								as = rx.search( Doc->scMW()->CurrStED->Editor->text(pa), i );
 						}
 						else
 						{
 							if (CaseIgnore->isChecked())
-								as = ScApp->CurrStED->Editor->text(pa).lower().find(sText, i);
+								as = Doc->scMW()->CurrStED->Editor->text(pa).lower().find(sText, i);
 							else
-								as = ScApp->CurrStED->Editor->text(pa).find(sText, i);
+								as = Doc->scMW()->CurrStED->Editor->text(pa).find(sText, i);
 						}
 						if (as != -1)
 						{
@@ -563,21 +558,21 @@ void SearchReplace::slotDoSearch()
 							{
 								struct PtiSmall *hg;
 								hg = chars->at(as+ap);
-								if ((SSize->isChecked()) && (hg->csize != sSize))
+								if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
 									found = false;
-								if ((SFont->isChecked()) && (hg->cfont != sFont))
+								if ((SFont->isChecked()) && (hg->charStyle.font().scName() != sFont))
 									found = false;
-								if ((SStyle->isChecked()) && (hg->cab != sStyle))
+//								if ((SStyle->isChecked()) && (hg->cab != sStyle))
+//									found = false;
+								if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
 									found = false;
-								if ((SStroke->isChecked()) && (hg->cstroke != sCol))
+								if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
 									found = false;
-								if ((SStrokeS->isChecked()) && (hg->cshade2 != sStrokeSh))
+								if ((SFillS->isChecked()) && (hg->charStyle.fillShade() != sFillSh))
 									found = false;
-								if ((SFillS->isChecked()) && (hg->cshade != sFillSh))
+								if ((SEffect->isChecked()) && ((hg->charStyle.effects() & 1919) != sEff))
 									found = false;
-								if ((SEffect->isChecked()) && ((hg->cstyle & 127) != sEff))
-									found = false;
-								if ((SFill->isChecked()) && (hg->ccolor != fCol))
+								if ((SFill->isChecked()) && (hg->charStyle.fillColor() != fCol))
 									found = false;
 								inde++;
 							}
@@ -599,21 +594,21 @@ void SearchReplace::slotDoSearch()
 							inde = 1;
 							struct PtiSmall *hg;
 							hg = chars->at(e);
-							if ((SSize->isChecked()) && (hg->csize != sSize))
+							if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
 								found = false;
-							if ((SFont->isChecked()) && (hg->cfont != sFont))
+							if ((SFont->isChecked()) && (hg->charStyle.font().scName() != sFont))
 								found = false;
-							if ((SStyle->isChecked()) && (hg->cab != sStyle))
+//							if ((SStyle->isChecked()) && (hg->cab != sStyle))
+//								found = false;
+							if ((SStroke->isChecked()) && (hg->charStyle.strokeColor() != sCol))
 								found = false;
-							if ((SStroke->isChecked()) && (hg->cstroke != sCol))
+							if ((SStrokeS->isChecked()) && (hg->charStyle.strokeShade() != sStrokeSh))
 								found = false;
-							if ((SStrokeS->isChecked()) && (hg->cshade2 != sStrokeSh))
+							if ((SFillS->isChecked()) && (hg->charStyle.fillShade() != sFillSh))
 								found = false;
-							if ((SFillS->isChecked()) && (hg->cshade != sFillSh))
+							if ((SEffect->isChecked()) && ((hg->charStyle.effects() & 1919) != sEff))
 								found = false;
-							if ((SEffect->isChecked()) && ((hg->cstyle & 127) != sEff))
-								found = false;
-							if ((SFill->isChecked()) && (hg->ccolor != fCol))
+							if ((SFill->isChecked()) && (hg->charStyle.fillColor() != fCol))
 								found = false;
 							if (found)
 							{
@@ -630,22 +625,27 @@ void SearchReplace::slotDoSearch()
 				}
 				if (found)
 				{
-					ScApp->CurrStED->Editor->setSelection(fpa, fch, fpa, fch+inde);
-					ScApp->CurrStED->updateProps(fpa, fch);
-					ScApp->CurrStED->Editor->setCursorPosition(fpa, fch+inde);
+					Doc->scMW()->CurrStED->Editor->setSelection(fpa, fch, fpa, fch+inde);
+					Doc->scMW()->CurrStED->updateProps(fpa, fch);
+					Doc->scMW()->CurrStED->Editor->setCursorPosition(fpa, fch+inde);
 					if (rep)
 					{
 						DoReplace->setEnabled(true);
 						AllReplace->setEnabled(true);
 					}
+					matchesFound++;
 				}
 				else
 				{
-					QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), tr("OK"));
+					QMessageBox::information(this, tr("Search/Replace"),
+							tr("Search finished, found %1 matches").arg(matchesFound),
+							CommonStrings::tr_OK);
+					matchesFound = 0;
 					NotFound = false;
-					ScApp->CurrStED->Editor->removeSelection();
-					ScApp->CurrStED->Editor->setCursorPosition(0, 0);
+					Doc->scMW()->CurrStED->Editor->removeSelection();
+					Doc->scMW()->CurrStED->Editor->setCursorPosition(0, 0);
 				}
+#endif
 			}
 		}
 	}
@@ -654,12 +654,12 @@ void SearchReplace::slotDoSearch()
 void SearchReplace::slotReplace()
 {
 	if (SMode)
-		Doc->ActPage->slotDoCurs(false);
+		Doc->view()->slotDoCurs(false);
 	slotDoReplace();
 	if (SMode)
 	{
-		Doc->ActPage->slotDoCurs(true);
-		Doc->ActPage->RefreshItem(Item, true);
+		Doc->view()->slotDoCurs(true);
+		Doc->view()->RefreshItem(Item);
 	}
 }
 
@@ -668,8 +668,8 @@ void SearchReplace::slotDoReplace()
 	if (SMode)
 	{
 		QString repl, sear;
-		uint cs, cx;
-		struct Pti *hg;
+		int cs, cx;
+// 		ScText *hg;
 		if (RText->isChecked())
 		{
 			repl = RTextVal->text();
@@ -677,135 +677,144 @@ void SearchReplace::slotDoReplace()
 			if (sear.length() == repl.length())
 			{
 				for (cs = 0; cs < sear.length(); ++cs)
-					Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
+					Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
 			}
 			else
 			{
 				if (sear.length() < repl.length())
 				{
 					for (cs = 0; cs < sear.length(); ++cs)
-						Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
+						Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
 					for (cx = cs; cx < repl.length(); ++cx)
 					{
-						hg = new Pti;
+#if 0
+						hg = new ScText;
 						hg->ch = repl[cx];
 						if (RSize->isChecked())
-							hg->csize = qRound(RSizeVal->value() * 10.0);
+							hg->setFontSize(qRound(RSizeVal->value() * 10.0));
 						else
-							hg->csize = Doc->CurrFontSize;
+							hg->setFontSize(Doc->currentStyle.charStyle().fontSize());
 						if (RFill->isChecked())
-							hg->ccolor = RFillVal->currentText();
+							hg->setFillColor(RFillVal->currentText());
 						else
-							hg->ccolor = Doc->CurrTextFill;
-						hg->cshade = Doc->CurrTextFillSh;
+							hg->setFillColor(Doc->currentStyle.charStyle().fillColor());
+						hg->setFillShade(Doc->currentStyle.charStyle().fillShade());
 						if (RStroke->isChecked())
-							hg->cstroke = RStrokeVal->currentText();
+							hg->setStrokeColor(RStrokeVal->currentText());
 						else
-							hg->cstroke = Doc->CurrTextStroke;
-						hg->cshade2 = Doc->CurrTextStrokeSh;
-						hg->cscale = Doc->CurrTextScale;
-						hg->cselect = true;
-						hg->cstyle = Doc->CurrentStyle;
-						if (RStyle->isChecked())
+							hg->setStrokeColor(Doc->currentStyle.charStyle().strokeColor());
+						hg->setStrokeShade(Doc->currentStyle.charStyle().strokeShade());
+						hg->setScaleH(Doc->currentStyle.charStyle().scaleH());
+						hg->setScaleV(Doc->currentStyle.charStyle().scaleV());
+						hg->setBaselineOffset(Doc->currentStyle.charStyle().baselineOffset());
+						hg->setShadowXOffset(Doc->currentStyle.charStyle().shadowXOffset());
+						hg->setShadowYOffset(Doc->currentStyle.charStyle().shadowYOffset());
+						hg->setOutlineWidth(Doc->currentStyle.charStyle().outlineWidth());
+						hg->setUnderlineOffset(Doc->currentStyle.charStyle().underlineOffset());
+						hg->setUnderlineWidth(Doc->currentStyle.charStyle().underlineWidth());
+						hg->setStrikethruOffset(Doc->currentStyle.charStyle().strikethruOffset());
+						hg->setStrikethruWidth(Doc->currentStyle.charStyle().strikethruWidth());
+						hg->setFeatures(Doc->currentStyle.charStyle().features());
+/* FIXME NLS
+							if (RStyle->isChecked())
 							hg->cab = RStyleVal->currentItem();
 						else
-							hg->cab = Doc->CurrentABStil;
-						if (Doc->Vorlagen[hg->cab].Font != "")
+							hg->cab = findParagraphStyle(Doc, Doc->currentStyle);
+						if (!Doc->docParagraphStyles[hg->cab].charStyle().font()->isNone())
 						{
-							hg->cfont = Doc->Vorlagen[hg->cab].Font;
-							hg->csize = Doc->Vorlagen[hg->cab].FontSize;
-							hg->cstyle = Doc->Vorlagen[hg->cab].FontEffect;
+							hg->setFont((*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].charStyle().font()->scName()]);
+							hg->setFontSize(Doc->docParagraphStyles[hg->cab].charStyle().fontSize());
+							hg->setFeatures(Doc->docParagraphStyles[hg->cab].charStyle().features());
 						}
+*/
 						if (RFont->isChecked())
-							hg->cfont = RFontVal->currentText();
+							hg->setFont((*Doc->AllFonts)[RFontVal->currentText()]);
 						else
-							hg->cfont = Doc->CurrFont;
-						hg->cextra = 0;
-						hg->xp = 0;
-						hg->yp = 0;
-						hg->PRot = 0;
-						hg->PtransX = 0;
-						hg->PtransY = 0;
-						Item->Ptext.insert(ReplStart+cx, hg);     
+							hg->setFont((*Doc->AllFonts)[Doc->currentStyle.charStyle().font()->scName()]);
+						hg->setTracking(0);
+						Item->itemText.insert(ReplStart+cx, hg);
+#else
+						Item->itemText.insertChars(ReplStart+cx, repl.mid(cx,1), true); 
+#endif
 					}
+					// FIXME:NLS also replace styles!!
 					Item->CPos = ReplStart+cx;
 				}
 				else
 				{
 					for (cs = 0; cs < repl.length(); ++cs)
-						Item->Ptext.at(ReplStart+cs)->ch = repl[cs];
-					for (uint cxx = cs; cxx < sear.length(); ++cxx)
-						Item->Ptext.remove(ReplStart+cs);
+						Item->itemText.replaceChar(ReplStart+cs, repl[cs]);
+					Item->itemText.removeChars(ReplStart+cs, sear.length() - cs);
 					Item->CPos = ReplStart+cs;
 				}
 			}
 		}
 		if (RStyle->isChecked())
-			emit NewAbs(RStyleVal->currentItem());
+			Doc->itemSelection_SetNamedParagraphStyle(Doc->paragraphStyles()[RStyleVal->currentItem()].name());
 		if (RFill->isChecked())
-			Doc->ActPage->ItemTextBrush(RFillVal->currentText());
+			Doc->itemSelection_SetFillColor(RFillVal->currentText());
 		if (RFillS->isChecked())
-			Doc->ActPage->ItemTextBrushS(RFillSVal->getValue());
+			Doc->itemSelection_SetFillShade(RFillSVal->getValue());
 		if (RStroke->isChecked())
-			Doc->ActPage->ItemTextPen(RStrokeVal->currentText());
+			Doc->itemSelection_SetStrokeColor(RStrokeVal->currentText());
 		if (RStrokeS->isChecked())
-			Doc->ActPage->ItemTextPenS(RStrokeSVal->getValue());
+			Doc->itemSelection_SetStrokeShade(RStrokeSVal->getValue());
 		if (RFont->isChecked())
-			emit NewFont(RFontVal->currentText());
+			Doc->itemSelection_SetFont(RFontVal->currentText());
 		if (RSize->isChecked())
-			Doc->ActPage->chFSize(qRound(RSizeVal->value() * 10.0));
+			Doc->itemSelection_SetFontSize(qRound(RSizeVal->value() * 10.0));
 		if (REffect->isChecked())
-			{
+		{
+#ifndef NLS_PROTO
 			int s = REffVal->getStyle();
-			Doc->CurrentStyle = s;
-			if (Item->Ptext.count() != 0)
+			Doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(s).featureList()); // ???
+			for (int a = 0; a < Item->itemText.length(); ++a)
+			{
+				if (Item->itemText.selected(a))
 				{
-				for (uint a = 0; a < Item->Ptext.count(); ++a)
-					{
-					if (Item->Ptext.at(a)->cselect)
-						{
-						Item->Ptext.at(a)->cstyle &= ~127;
-						Item->Ptext.at(a)->cstyle |= s;
-						}
-					}
+					StyleFlag fl = Item->itemText.item(a)->effects();
+					fl &= static_cast<StyleFlag>(~1919);
+					fl |= static_cast<StyleFlag>(s);
+					Item->itemText.item(a)->setFeatures(fl.featureList());
 				}
 			}
-		for (uint a = 0; a < Item->Ptext.count(); ++a)
-			Item->Ptext.at(a)->cselect = false;
+#endif
+		}
+		Item->itemText.deselectAll();
 	}
 	else
 	{
-		if (ScApp->CurrStED != NULL)
+		if (Doc->scMW()->CurrStED != NULL)
 		{
+			StoryEditor* se=Doc->scMW()->CurrStED;
 			if (RStyle->isChecked())
-				ScApp->CurrStED->newAlign(RStyleVal->currentItem());
+				se->newAlign(RStyleVal->currentItem());
 			if (RFill->isChecked())
-				ScApp->CurrStED->newTxFill(RFillVal->currentItem(), -1);
+				se->newTxFill(RFillVal->currentItem(), -1);
 			if (RFillS->isChecked())
-				ScApp->CurrStED->newTxFill(-1, RFillSVal->getValue());
+				se->newTxFill(-1, RFillSVal->getValue());
 			if (RStroke->isChecked())
-				ScApp->CurrStED->newTxStroke(RStrokeVal->currentItem(), -1);
+				se->newTxStroke(RStrokeVal->currentItem(), -1);
 			if (RStrokeS->isChecked())
-				ScApp->CurrStED->newTxStroke(-1, RStrokeSVal->getValue());
+				se->newTxStroke(-1, RStrokeSVal->getValue());
 			if (RFont->isChecked())
-				ScApp->CurrStED->newTxFont(RFontVal->currentText());
+				se->newTxFont(RFontVal->currentText());
 			if (RSize->isChecked())
-				ScApp->CurrStED->newTxSize(RSizeVal->value());
+				se->newTxSize(RSizeVal->value());
 			if (REffect->isChecked())
-				ScApp->CurrStED->newTxStyle(REffVal->getStyle());
+				se->newTxStyle(REffVal->getStyle());
 			if (RText->isChecked())
 			{
-				disconnect(ScApp->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScApp->CurrStED, SLOT(updateProps(int, int)));
+				disconnect(se->Editor, SIGNAL(cursorPositionChanged(int, int)), se, SLOT(updateProps(int, int)));
 				int PStart, PEnd, SelStart, SelEnd;
-				ScApp->CurrStED->Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-				ScApp->CurrStED->Editor->insChars(RTextVal->text());
-				ScApp->CurrStED->Editor->setSelection(PStart, SelStart, PEnd, SelEnd);
-				ScApp->CurrStED->Editor->removeSelectedText();
-				ScApp->CurrStED->Editor->setStyle(ScApp->CurrStED->Editor->CurrentStyle);
-				ScApp->CurrStED->Editor->setFarbe(ScApp->CurrStED->Editor->CurrTextFill, ScApp->CurrStED->Editor->CurrTextFillSh);
-				ScApp->CurrStED->Editor->insert(RTextVal->text());
-				connect(ScApp->CurrStED->Editor, SIGNAL(cursorPositionChanged(int, int)), ScApp->CurrStED, SLOT(updateProps(int, int)));
-				ScApp->CurrStED->newAlign(ScApp->CurrStED->Editor->CurrentABStil);
+				se->Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+				se->Editor->insChars(RTextVal->text());
+				se->Editor->setSelection(PStart, SelStart, PEnd, SelEnd);
+				se->Editor->removeSelectedText();
+//FIXME				se->Editor->setStyle(se->Editor->CurrentStyle);
+				se->Editor->insert(RTextVal->text());
+				connect(se->Editor, SIGNAL(cursorPositionChanged(int, int)), se, SLOT(updateProps(int, int)));
+//				se->newAlign(se->Editor->currentParaStyle);
 			}
 		}
 	}
@@ -818,7 +827,7 @@ void SearchReplace::slotReplaceAll()
 {
 	if (SMode)
 	{
-		Doc->ActPage->slotDoCurs(false);
+		Doc->view()->slotDoCurs(false);
 		Doc->DoDrawing = false;
 	}
 	do
@@ -830,8 +839,8 @@ void SearchReplace::slotReplaceAll()
 	if (SMode)
 	{
 		Doc->DoDrawing = true;
-		Doc->ActPage->slotDoCurs(true);
-		Doc->ActPage->RefreshItem(Item, true);
+		Doc->view()->slotDoCurs(true);
+		Doc->view()->RefreshItem(Item);
 	}
 }
 
@@ -946,11 +955,12 @@ void SearchReplace::clear()
 	SEffect->setChecked(false);
 	REffect->setChecked(false);
 	STextVal->setText("");
-	SStyleVal->setCurrentItem(Doc->CurrentABStil);
-	SFontVal->setCurrentText(Doc->CurrFont);
-	SSizeVal->setValue(Doc->CurrFontSize / 10.0);
-	SFillVal->setCurrentText(Doc->CurrTextFill);
-	SStrokeVal->setCurrentText(Doc->CurrTextStroke);
+	int currentParaStyle = findParagraphStyle(Doc, Doc->currentStyle);
+	SStyleVal->setCurrentItem(currentParaStyle);
+	SFontVal->setCurrentText(Doc->currentStyle.charStyle().font().scName());
+	SSizeVal->setValue(Doc->currentStyle.charStyle().fontSize() / 10.0);
+	SFillVal->setCurrentText(Doc->currentStyle.charStyle().fillColor());
+	SStrokeVal->setCurrentText(Doc->currentStyle.charStyle().strokeColor());
 	RStroke->setChecked(false);
 	RStrokeS->setChecked(false);
 	RFill->setChecked(false);
@@ -960,11 +970,11 @@ void SearchReplace::clear()
 	RStyle->setChecked(false);
 	RText->setChecked(false);
 	RTextVal->setText("");
-	RStyleVal->setCurrentItem(Doc->CurrentABStil);
-	RFontVal->setCurrentText(Doc->CurrFont);
-	RSizeVal->setValue(Doc->CurrFontSize / 10.0);
-	RFillVal->setCurrentText(Doc->CurrTextFill);
-	RStrokeVal->setCurrentText(Doc->CurrTextStroke);
+	RStyleVal->setCurrentItem(currentParaStyle);
+	RFontVal->setCurrentText(Doc->currentStyle.charStyle().font().scName());
+	RSizeVal->setValue(Doc->currentStyle.charStyle().fontSize() / 10.0);
+	RFillVal->setCurrentText(Doc->currentStyle.charStyle().fillColor());
+	RStrokeVal->setCurrentText(Doc->currentStyle.charStyle().strokeColor());
 	Word->setChecked(false);
 	CaseIgnore->setChecked(false);
 	enableTxSearch();
@@ -1000,16 +1010,16 @@ void SearchReplace::readPrefs()
 	SEffect->setChecked(prefs->getBool("SEffect", false));
 	REffect->setChecked(prefs->getBool("REffect", false));
 	STextVal->setText(prefs->get("STextVal", ""));
-	int tmp = prefs->getInt("SStyleVal", Doc->CurrentABStil);
+	int tmp = prefs->getInt("SStyleVal", findParagraphStyle(Doc, Doc->currentStyle));
 	if (tmp < 0 || tmp >= SStyleVal->count())
 		SStyleVal->setCurrentItem(0);
 	else
 		SStyleVal->setCurrentItem(tmp);
 
-	SFontVal->setCurrentText(prefs->get("SFontVal", Doc->CurrFont));
-	SSizeVal->setValue(prefs->getDouble("SSizeVal", Doc->CurrFontSize / 10.0));
-	SFillVal->setCurrentText(prefs->get("SFillVal", Doc->CurrTextFill));
-	SStrokeVal->setCurrentText(prefs->get("SStrokeVal", Doc->CurrTextStroke));
+	SFontVal->setCurrentText(prefs->get("SFontVal", Doc->currentStyle.charStyle().font().scName()));
+	SSizeVal->setValue(prefs->getDouble("SSizeVal", Doc->currentStyle.charStyle().fontSize() / 10.0));
+	SFillVal->setCurrentText(prefs->get("SFillVal", Doc->currentStyle.charStyle().fillColor()));
+	SStrokeVal->setCurrentText(prefs->get("SStrokeVal", Doc->currentStyle.charStyle().strokeColor()));
 	RStroke->setChecked(prefs->getBool("RStroke", false));
 	RStrokeS->setChecked(prefs->getBool("RStrokeS", false));
 	RFill->setChecked(prefs->getBool("RFill", false));
@@ -1019,15 +1029,15 @@ void SearchReplace::readPrefs()
 	RStyle->setChecked(prefs->getBool("RStyle", false));
 	RText->setChecked(prefs->getBool("RText", false));
 	RTextVal->setText(prefs->get("RTextVal", ""));
-	tmp = prefs->getInt("RStyleVal", Doc->CurrentABStil);
+	tmp = prefs->getInt("RStyleVal", findParagraphStyle(Doc, Doc->currentStyle));
 	if (tmp < 0 || tmp >= RStyleVal->count())
 		RStyleVal->setCurrentItem(0);
 	else
 		RStyleVal->setCurrentItem(tmp);
-	RFontVal->setCurrentText(prefs->get("RFontVal", Doc->CurrFont));
-	RSizeVal->setValue(prefs->getDouble("RSizeVal", Doc->CurrFontSize / 10.0));
-	RFillVal->setCurrentText(prefs->get("RFillVal", Doc->CurrTextFill));
-	RStrokeVal->setCurrentText(prefs->get("RStrokeVal", Doc->CurrTextFill));
+	RFontVal->setCurrentText(prefs->get("RFontVal", Doc->currentStyle.charStyle().font().scName()));
+	RSizeVal->setValue(prefs->getDouble("RSizeVal", Doc->currentStyle.charStyle().fontSize() / 10.0));
+	RFillVal->setCurrentText(prefs->get("RFillVal", Doc->currentStyle.charStyle().fillColor()));
+	RStrokeVal->setCurrentText(prefs->get("RStrokeVal", Doc->currentStyle.charStyle().strokeColor()));
 	Word->setChecked(prefs->getBool("Word", false));
 	CaseIgnore->setChecked(prefs->getBool("CaseIgnore", false));
 	enableTxSearch();

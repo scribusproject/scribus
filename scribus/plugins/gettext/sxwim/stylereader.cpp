@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
  /***************************************************************************
   *   Copyright (C) 2004 by Riku Leino                                      *
-  *   riku.leino@gmail.com                                                      *
+  *   tsoots@gmail.com                                                      *
   *                                                                         *
   *   This program is free software; you can redistribute it and/or modify  *
   *   it under the terms of the GNU General Public License as published by  *
@@ -22,10 +28,13 @@
  
  #ifdef HAVE_XML
  
+ #include <scribusstructs.h>
  #include <gtmeasure.h>
  #include <gtparagraphstyle.h>
  #include <gtframestyle.h>
  #include <gtfont.h>
+//Added by qt3to4:
+#include <QByteArray>
  
  StyleReader* StyleReader::sreader = NULL;
  
@@ -40,7 +49,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	writer       = w;
  	importTextOnly = textOnly;
  	usePrefix    = prefix;
- 	packStyles   = combineStyles;
+	packStyles   = combineStyles;
  	currentStyle = NULL;
  	parentStyle  = NULL;
  	inList       = false;
@@ -240,7 +249,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			currentStyle->getFont()->setColor("White");
  		}
  		else if (attrs.localName(i) == "fo:letter-spacing")
- 			currentStyle->getFont()->setKerning(getSize(attrs.value(i)));
+ 			currentStyle->getFont()->setKerning(static_cast<int>(getSize(attrs.value(i), -1.0)));
  		else if (attrs.localName(i) == "style:text-scale")
  			currentStyle->getFont()->setHscale(static_cast<int>(getSize(attrs.value(i), -1.0)));
  		else if ((attrs.localName(i) == "style:text-position") && 
@@ -276,7 +285,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		else if ((attrs.localName(i) == "style:justify-single-word") && (pstyle != NULL))
  			force = attrs.value(i);
  	}
- 	if (align != NULL)
+	// Qt4 NULL->isNull()
+ 	if (!align.isNull())
  	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
@@ -357,7 +367,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  // 				tmp->setAutoLineSpacing(true);
  				currentStyle = tmp;
  			}
- 			if (listName != NULL)
+ 			if (!listName.isNull())
  			{
  				listParents[listName] = currentStyle;
  			}
@@ -386,9 +396,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  				type = attrs.value(i);
  				
  		}
- 		if (pos != NULL)
+ 		if (!pos.isNull())
  		{
- 			if (type == NULL)
+ 			if (!type.isNull())
  				type = "left";
  			double posd = getSize(pos);
  			if (type == "left")
@@ -432,7 +442,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  void StyleReader::parse(QString fileName)
  {
- 	xmlSAXParseFile(sSAXHandler, fileName.ascii(), 1);
+#if defined(_WIN32)
+	QString fname = QDir::convertSeparators(fileName);
+	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+#else
+	QByteArray fn(fileName.local8Bit());
+#endif
+ 	xmlSAXParseFile(sSAXHandler, fn.data(), 1);
  }
  
  gtStyle* StyleReader::getStyle(const QString& name)
@@ -467,12 +483,13 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		nameByAttrs += QString("%1-").arg(s->hasDropCap());
  		nameByAttrs += QString("%1-").arg(s->getFont()->getColor());
  		nameByAttrs += QString("%1-").arg(s->getFont()->getStrokeColor());
- 		QValueList<double>* tmp = s->getTabValues();
+// TODO is this important ??
+/* 		QValueList<double>* tmp = s->getTabValues();
  		for (uint i = 0; i < tmp->count(); ++i)
  		{
  			double td = (*tmp)[i];
  			nameByAttrs += QString("%1-").arg(td);
- 		}
+ 		} */
  		if (attrsStyles.contains(nameByAttrs))
  		{
  			tname = attrsStyles[nameByAttrs]->getName();
@@ -587,7 +604,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		style->getFont()->setColor("White");
  	}
  	else if (key == "fo:letter-spacing")
- 		style->getFont()->setKerning(getSize(value));
+ 		style->getFont()->setKerning(static_cast<int>(getSize(value, -1.0)));
  	else if (key == "style:text-scale")
  		style->getFont()->setHscale(static_cast<int>(getSize(value, -1.0)));
  	else if ((key == "style:text-position") && 
@@ -623,7 +640,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	else if ((key == "style:justify-single-word") && (pstyle != NULL))
  		force = value;
  
- 	if (align != NULL)
+ 	if (!align.isNull())
  	{
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
@@ -672,6 +689,12 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		dbl = lowerValue.remove("pica");
  		dbl = lowerValue.remove("pi");
  		ret = gtMeasure::d2d(dbl.toDouble(), SC_P);
+ 	}
+ 	else if (lowerValue.find("c") != -1)
+ 	{
+ 		dbl = lowerValue.remove("cicero");
+ 		dbl = lowerValue.remove("c");
+ 		ret = gtMeasure::d2d(dbl.toDouble(), SC_C);
  	}
  	else if (lowerValue.find("%") != -1)
  	{

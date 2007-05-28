@@ -6,12 +6,14 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "docim.h"
-#include "docim.moc"
+//#include "docim.moc"
 #include "gtwriter.h"
+#include "scpaths.h"
+#include "scribusstructs.h"
 #include <qobject.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qmessagebox.h>
-#include <qprocess.h>
+#include <q3process.h>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qtextcodec.h>
@@ -26,7 +28,7 @@ bool hasAntiword()
 	if (searched) // searched already in this run
 		return found;
 
-	QProcess *test = new QProcess();
+	Q3Process *test = new Q3Process();
 #if defined(_WIN32)
 	test->addArgument( ScPaths::instance().libDir() + "tools/antiword/antiword.exe" );
 #else
@@ -53,7 +55,7 @@ QString FileFormatName()
 	if (hasAntiword())
     	return QObject::tr("Word Documents");
 	else
-		return QString();
+		return QString::null;
 }
 
 QStringList FileExtensions()
@@ -96,7 +98,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	QTextCodec::setCodecForCStrings(codec);
 	text = "";
 	error = "";
-	proc = new QProcess();
+	proc = new Q3Process();
 #if defined(_WIN32)
 	proc->addArgument( ScPaths::instance().libDir() + "tools/antiword/antiword.exe" );
 	proc->setWorkingDirectory( ScPaths::instance().libDir() + "tools/antiword/" ); 

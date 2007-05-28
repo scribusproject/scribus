@@ -1,61 +1,78 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef TABRULER_H
 #define TABRULER_H
 
 #include <qvariant.h>
 #include <qwidget.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPaintEvent>
+#include <Q3GridLayout>
+#include <Q3ValueList>
+#include <QLabel>
+#include <QMouseEvent>
+#include <QEvent>
+#include <Q3VBoxLayout>
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+#include "scribusapi.h"
+#include "sctextstruct.h"
+
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QComboBox;
 class QLabel;
 class QPushButton;
-class MSpinBox;
+class ScrSpinBox;
 class QToolButton;
 
-class RulerT : public QWidget
+class SCRIBUS_API RulerT : public QWidget
 {
 	Q_OBJECT
 
 public:
-	RulerT(QWidget* parent, int ein, QValueList<double> Tabs, bool ind, double wid);
+	RulerT(QWidget* parent, int ein, Q3ValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid);
 	~RulerT() {};
-	void UpdateTabList();
-	bool Mpressed;
-	QValueList<double> TabValues;
+	void setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
+	void updateTabList();
+	bool mousePressed;
+	Q3ValueList<ParagraphStyle::TabRecord> tabValues;
 	bool haveInd;
-	int Einheit;
-	int Offset;
-	int ActTab;
-	double Indent;
-	double First;
+	int unitIndex;
+	int offset;
+	int actTab;
+	double leftIndent;
+	double firstLine;
 	double Width;
-	int RulerCode;
-	int MouseX;
+	int rulerCode;
+	int mouseX;
+	int offsetIncrement;
 
 public slots:
+	void resetOffsetInc();
 	void decreaseOffset();
 	void increaseOffset();
 	void changeTab(int t);
+	void changeTabChar(QChar t);
 	void moveTab(double t);
-	void moveFirst(double t);
-	void moveIndent(double t);
+	void moveFirstLine(double t);
+	void moveLeftIndent(double t);
 
 signals:
-	void TabMoved(double);
-	void TypeChanged(int);
-	void IndentMoved(double);
-	void FirstMoved(double);
-	void NoTabs();
-	void NewTab();
+	void tabMoved(double);
+	void typeChanged(int);
+	void fillCharChanged(QChar);
+	void leftIndentMoved(double);
+	void firstLineMoved(double);
+	void noTabs();
+	void newTab();
+	void mouseReleased();
+	void tabSelected();
 
 protected:
 	virtual void paintEvent(QPaintEvent *);
@@ -63,50 +80,92 @@ protected:
 	virtual void mouseReleaseEvent(QMouseEvent *);
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void leaveEvent(QEvent*);
+	
+private:
+	double iter, iter2;
 };
 
-class Tabruler : public QWidget
+class SCRIBUS_API Tabruler : public QWidget
 {
 	Q_OBJECT
 
 public:
-	Tabruler( QWidget* parent, bool haveFirst, int ein, QValueList<double> Tabs, double wid );
+	Tabruler( QWidget* parent,
+	          bool haveFirst = true,
+	          int dEin = 1,
+	          Q3ValueList<ParagraphStyle::TabRecord> Tabs = Q3ValueList<ParagraphStyle::TabRecord>(),
+	          double wid = -1);
 	~Tabruler() {};
-	QValueList<double> getTabVals();
-	bool haveF;
-	double getFirst();
-	double getIndent();
 
-	QComboBox* TypeCombo;
-	QToolButton* RulerScrollL;
-	RulerT* Ruler;
-	QToolButton* RulerScrollR;
-	QLabel* Label1;
-	MSpinBox* TabSpin;
-	QLabel* Label2;
-	MSpinBox* FirstSpin;
-	QLabel* Label3;
-	MSpinBox* IndentSpin;
-	QPushButton* ClearButton;
+	virtual void setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
+
+	Q3ValueList<ParagraphStyle::TabRecord> getTabVals();
+	bool haveF;
+	double getFirstLine();
+	double getLeftIndent();
+	double getRightIndent();
 
 public slots:
+	void resetOFfL();
+	void resetOFfR();
 	void clearAll();
 	void tabAdded();
 	void lastTabRemoved();
 	void setTabType(int t);
 	void setType();
-	void setTabSpin(double t);
+	void setTabData(double t);
 	void setTab();
-	void setFirstSpin(double t);
-	void setFirst();
-	void setIndentSpin(double t);
-	void setIndent();
+	void setFirstLineData(double t);
+	void setFirstLine();
+	void setLeftIndentData(double t);
+	void setLeftIndent();
+	void setRightIndentData(double t);
+	void setRightIndent();
+	void setTabFillChar(QChar t);
+	void setFillChar();
+	void setCustomFillChar(const QString &txt);
+
+signals:
+	/*! This signal is emited when is something changed in the tab ruler dialog/widget.
+	4/11/2005 pv */
+	void tabrulerChanged();
+
+	/** emitted when tabs are changed */
+	void tabsChanged();
+	/** emitted when left indent is changed */
+	void leftIndentChanged(double);
+	/** emitted when right indent is changed */
+	void rightIndentChanged(double);
+	/** emitted when first line is changed */
+	void firstLineChanged(double);
+	void mouseReleased();
 
 protected:
-	QVBoxLayout* tabrulerLayout;
-	QHBoxLayout* layout2;
-	QHBoxLayout* layout1;
+	Q3VBoxLayout* tabrulerLayout;
+	Q3HBoxLayout* layout2;
+	Q3HBoxLayout* layout1;
+	Q3HBoxLayout* indentLayout;
+	Q3VBoxLayout* layout3;
+	Q3HBoxLayout *layout4;
+	QComboBox* TypeCombo;
+	QComboBox* tabFillCombo;
+	QLabel* tabFillComboT;
+	RulerT* ruler;
+	QToolButton* rulerScrollL;
+	QToolButton* rulerScrollR;
+	QLabel* positionLabel;
+	QLabel* firstLineLabel;
+	QLabel* leftIndentLabel;
+	QLabel* rightIndentLabel;
+	ScrSpinBox* tabData;
+	ScrSpinBox* firstLineData;
+	ScrSpinBox* leftIndentData;
+	ScrSpinBox* rightIndentData;
+	QPushButton* clearButton;
 
+	double docUnitRatio;
+protected slots:
+	void slotMouseReleased();
 };
 
 #endif // TABRULER_H

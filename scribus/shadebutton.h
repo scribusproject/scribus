@@ -1,18 +1,17 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef SHADEBUTTON_H
 #define SHADEBUTTON_H
 
 #include <qtoolbutton.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+#include "scribusapi.h"
 
-class ShadeButton : public QToolButton
+class SCRIBUS_API ShadeButton : public QToolButton
 {
 
 Q_OBJECT
@@ -20,7 +19,7 @@ Q_OBJECT
 public:
 	ShadeButton(QWidget* parent);
 	~ShadeButton() {};
-	QPopupMenu *FillSh;
+	Q3PopupMenu *FillSh;
 	int getValue();
 	void setValue(int val);
 

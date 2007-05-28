@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,19 +25,32 @@
  ***************************************************************************/
 
 #include "gtwriter.h"
+//#include "scfonts.h"
+#include "pageitem.h"
+#include "scribusstructs.h"
 
-gtWriter::gtWriter(bool append)
+// gtWriter::gtWriter(bool append)
+// {
+// 	action = new gtAction(append, ScMW->doc->m_Selection->itemAt(0));
+// 	errorSet = false;
+// 	action->setProgressInfo();
+// 	setDefaultStyle();
+// 	unsetCharacterStyle();
+// 	unsetParagraphStyle();
+// // 	if (!append)
+// // 		action->clearFrame();
+// // 	else
+// // 		this->append("\n");
+// }
+
+gtWriter::gtWriter(bool append, PageItem *pageitem)
 {
-	action = new gtAction(append);
+	action = new gtAction(append, pageitem);
 	errorSet = false;
 	action->setProgressInfo();
 	setDefaultStyle();
 	unsetCharacterStyle();
 	unsetParagraphStyle();
-// 	if (!append)
-// 		action->clearFrame();
-// 	else
-// 		this->append("\n");
 }
 
 gtFrameStyle* gtWriter::getDefaultStyle()
@@ -83,7 +102,7 @@ double gtWriter::getPreferredLineSpacing(double fontSize)
 
 void gtWriter::append(const QString& text)
 {
-	if (text == NULL)
+	if (text.isNull())
 		return;
 	if (text.length() == 0)
 		return;

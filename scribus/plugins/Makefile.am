@@ -3,6 +3,7 @@ if COMPILE_PYTHON
  pyt = scriptplugin
 endif
 
-SUBDIRS = libchar svgexplugin svgimplugin psimport printpreview fontpreview pixmapexport newfromtemplateplugin saveastemplateplugin gettext fileloader $(pyt) short-words
+SUBDIRS = short-words svgexplugin svgimplugin psimport fontpreview pixmapexport newfromtemplateplugin saveastemplateplugin gettext fileloader $(pyt) colorwheel myplugin barcodegenerator
+EXTRA_DIST = CMakeLists.txt
 
 ####### kdevelop will overwrite this part!!! (end)############

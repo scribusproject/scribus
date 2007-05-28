@@ -1,55 +1,105 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef PICSTATUS_H
 #define PICSTATUS_H
 
-#include <qdialog.h>
-#include <qpushbutton.h>
-#include <qtable.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qcheckbox.h>
-#include <qheader.h>
-#include <qptrlist.h>
-#include <qvaluelist.h>
-#include "scribusdoc.h"
-#include "scribusview.h"
+#include "scribusapi.h"
+#include "ui_picstatus.h"
+#include <q3iconview.h>
+//Added by qt3to4:
+#include <QPixmap>
 
-class PicStatus : public QDialog
-{ 
-    Q_OBJECT
+class ScribusDoc;
+class PageItem;
+class QCheckBox;
+class Q3Table;
+class QPushButton;
+class Q3Header;
 
+class SCRIBUS_API PicItem : public Q3IconViewItem
+{
 public:
-    PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi);
-    ~PicStatus() {};
-
-    QTable* PicTable;
-    QHeader *Header;
-    QPushButton* CancelB;
-    QPushButton* OkB;
-    ScribusDoc *doc;
-    ScribusView *view;
-    int Zeilen;
-    QPtrList<QCheckBox> FlagsPic;
-    QValueList<uint> ItemNrs;
-
-private slots:
-    void GotoPic();
-    void SearchPic();
-    void PrintPic();
-
-protected:
-    QVBoxLayout* PicStatusLayout;
-    QHBoxLayout* Layout2;
-
-signals:
-	void GotoSeite(int);
+	PicItem(Q3IconView* parent, QString text, QPixmap pix, PageItem* pgItem);
+	~PicItem() {};
+	PageItem *PageItemObject;
 };
 
-#endif // PICSTATUS_H
+
+/*! \brief Constructs a Dialog, which list all Images in the current Document.
+In this Dialog it is possible to search for missing Images. */
+class SCRIBUS_API PicStatus : public QDialog, Ui::PicStatus
+{ 
+	Q_OBJECT
+
+public:
+	/*!
+	\author Franz Schmid
+	\brief Constructs a Dialog, which list all Images in the current Document. In this Dialog it is possible
+		to search for missing Images.
+	\param parent Pointer to parent window
+	\param docu Pointer to the current Document
+	\param viewi Pointer to the current View
+	 */
+	PicStatus(QWidget* parent, ScribusDoc *docu);
+	~PicStatus() {};
+
+	QPixmap createImgIcon(PageItem* item);
+
+	/*! \brief A slot called when there is a request to re-fill the table
+	of images. It clears the table at first. Then it iterates through
+	all items in MasterItems and Items too. */
+	void fillTable();
+
+private slots:
+	void imageSelected(Q3IconViewItem *ite);
+	/*!
+	\author Franz Schmid
+	\brief Enables or disables printing of the selected Image.
+	*/
+	void PrintPic();
+	/*!
+	\author Franz Schmid
+	\brief Enables or disables viewing of the selected Image.
+	*/
+	void visiblePic();
+	/*!
+	\author Franz Schmid
+	\brief Moves to the Page containing the selected Image.
+	 */
+	void GotoPic();
+
+	/*!
+	\author Franz Schmid
+	\brief Selects the object containing the selected Image.
+	 */
+	void SelectPic();
+	/*!
+	\author Franz Schmid
+	\brief Searches for the given Picture. Displays a Dialog when more than one Picture is found.
+	*/
+	void SearchPic();
+	void doImageEffects();
+	void doImageExtProp();
+	void doEditImage();
+
+signals:
+	void selectPage(int);
+	void selectMasterPage(QString);
+	void selectElement(int, int, bool);
+	void refreshItem(PageItem*);
+
+protected:
+	/*! \brief Load the image specified into the PageItem
+	\param newFilePath a file path */
+	bool loadPict(const QString & newFilePath);
+
+private:
+	ScribusDoc *m_Doc;
+	PageItem *currItem;
+
+};
+#endif

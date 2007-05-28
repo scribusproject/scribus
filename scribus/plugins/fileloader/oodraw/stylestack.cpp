@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /* This file is part of the KDE project
    Copyright (c) 2003 Lukas Tinkl <lukas@kde.org>
    Copyright (c) 2003 David Faure <faure@kde.org>
@@ -20,14 +26,23 @@
 
 #include "stylestack.h"
 #include "oodrawimp.h"
+//Added by qt3to4:
+#include <Q3ValueList>
 
 StyleStack::StyleStack()
 {
     clear();
+	fillNodeNameList(m_nodeNames, StyleStack::OODraw1x);
 }
 
 StyleStack::~StyleStack()
 {
+}
+
+void StyleStack::setMode( const StyleStack::Mode mode )
+{
+	m_nodeNames.clear();
+	fillNodeNameList(m_nodeNames, mode);
 }
 
 void StyleStack::clear()
@@ -63,11 +78,11 @@ void StyleStack::push( const QDomElement& style )
 bool StyleStack::hasAttribute( const QString& name ) const
 {
     // TODO: has to be fixed for complex styles like list-styles
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+		QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( properties.hasAttribute( name ) )
             return true;
     }
@@ -78,11 +93,11 @@ bool StyleStack::hasAttribute( const QString& name ) const
 QString StyleStack::attribute( const QString& name ) const
 {
     // TODO: has to be fixed for complex styles like list-styles
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( properties.hasAttribute( name ) )
             return properties.attribute( name );
     }
@@ -95,11 +110,11 @@ bool StyleStack::hasAttribute( const QString& name, const QString& detail ) cons
     QString fullName( name );
     fullName += '-';
     fullName += detail;
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+		QDomElement properties = searchAttribute( *it, m_nodeNames, name, fullName );
         if ( properties.hasAttribute( name ) || properties.hasAttribute( fullName ) )
             return true;
     }
@@ -112,11 +127,11 @@ QString StyleStack::attribute( const QString& name, const QString& detail ) cons
     QString fullName( name );
     fullName += '-';
     fullName += detail;
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name, fullName );
         if ( properties.hasAttribute( fullName ) )
             return properties.attribute( fullName );
         if ( properties.hasAttribute( name ) )
@@ -133,11 +148,11 @@ double StyleStack::fontSize() const
 {
     QString name = "fo:font-size";
     double percent = 1;
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( properties.hasAttribute( name ) ) {
             QString value = properties.attribute( name );
             if ( value.endsWith( "%" ) )
@@ -151,11 +166,11 @@ double StyleStack::fontSize() const
 
 bool StyleStack::hasChildNode(const QString & name) const
 {
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( !properties.namedItem( name ).isNull() )
             return true;
     }
@@ -165,11 +180,11 @@ bool StyleStack::hasChildNode(const QString & name) const
 
 QDomNode StyleStack::childNode(const QString & name) const
 {
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
-        QDomElement properties = (*it).namedItem( "style:properties" ).toElement();
+        QDomElement properties = searchAttribute( *it, m_nodeNames, name );
         if ( !properties.namedItem( name ).isNull() )
             return properties.namedItem( name );
     }
@@ -185,7 +200,7 @@ static bool isUserStyle( const QDomElement& e )
 
 QString StyleStack::userStyleName() const
 {
-    QValueList<QDomElement>::ConstIterator it = m_stack.end();
+    Q3ValueList<QDomElement>::ConstIterator it = m_stack.end();
     while ( it != m_stack.begin() )
     {
         --it;
@@ -194,4 +209,60 @@ QString StyleStack::userStyleName() const
     }
     // Can this ever happen?
     return "Standard";
+}
+
+void StyleStack::fillNodeNameList( QStringList& names, const StyleStack::Mode mode )
+{
+	if ( mode == StyleStack::OODraw2x )
+	{
+		names.append("style:graphic-properties");
+		names.append("style:paragraph-properties");
+		names.append("style:page-layout-properties");
+		names.append("style:drawing-page-properties");
+		names.append("style:text-properties");
+	}
+	else
+		names.append("style:properties");		
+}
+
+QDomElement StyleStack::searchAttribute( const QDomElement& element, const QStringList& names,const QString& name ) const
+{
+	QDomElement node;
+	QDomNodeList childNodes;
+	childNodes = element.childNodes();
+	for ( int i = 0; i < childNodes.count(); i++ )
+	{
+		QDomNode n = childNodes.item(i);
+		if ( n.isElement() )
+		{
+			QDomElement* e = (QDomElement*) (&n);
+			if ( (names.findIndex(e->nodeName()) >= 0) && e->hasAttribute(name) )
+			{
+				node = *e;
+				break;
+			}
+		}
+	}
+	return node;
+}
+
+QDomElement StyleStack::searchAttribute( const QDomElement& element, const QStringList& names, const QString& name, const QString& fullName ) const
+{
+	QDomElement node;
+	QDomNodeList childNodes;
+	childNodes = element.childNodes();
+	for ( int i = 0; i < childNodes.count(); i++ )
+	{
+		QDomNode n = childNodes.item(i);
+		if ( n.isElement() )
+		{
+			QDomElement* e = (QDomElement*) (&n);
+			if ( (names.findIndex(e->nodeName()) >= 0) && (e->hasAttribute(name) || e->hasAttribute(fullName)) )
+			{
+				node = *e;
+				break;
+			}
+		}
+	}
+	return node;
 }

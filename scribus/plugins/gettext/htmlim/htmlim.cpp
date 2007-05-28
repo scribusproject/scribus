@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,13 +25,16 @@
  ***************************************************************************/
 
 #include "htmlim.h"
+//#include "htmlim.moc"
+#include <qobject.h>
 #include <qstring.h>
 #include <qstringlist.h>
 
 #ifdef HAVE_XML
 
-#include <gtparagraphstyle.h> // Style for paragraph based formatting.
-#include <gtframestyle.h>
+#include "scribusstructs.h"
+#include "gtparagraphstyle.h" // Style for paragraph based formatting.
+#include "gtframestyle.h"
 
 QString FileFormatName()
 {
@@ -41,15 +50,16 @@ QStringList FileExtensions()
 
 void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
 {
-	HTMLIm* him = new HTMLIm(filename, writer, textOnly);
+	HTMLIm* him = new HTMLIm(filename, encoding, writer, textOnly);
 	delete him;
 }
 
 /******** Class HTMLIm ************************************/
 
-HTMLIm::HTMLIm(QString fname, gtWriter *w, bool textOnly)
+HTMLIm::HTMLIm(QString fname, QString coding, gtWriter *w, bool textOnly)
 {
 	filename = fname;
+	encoding = coding;
 	writer = w;
 	gtFrameStyle *fstyle = writer->getDefaultStyle();
 	pstyle = new gtParagraphStyle(*fstyle);

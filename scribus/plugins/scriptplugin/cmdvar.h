@@ -1,11 +1,9 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef CMDVAR_H
 #define CMDVAR_H
 
@@ -13,29 +11,40 @@
 #undef _XOPEN_SOURCE
 #endif
 
-#include <Python.h>
-#include "scribus.h"
+#include "scconfig.h"
 
-/* Python.h may or may not define CO_FUTURE_DIVISION, so if it doesn't
- * we need to include compile.h directly. */
-#ifndef CO_FUTURE_DIVISION
-#include "compile.h"
+#if defined(HAVE_BOOST_PYTHON)
+#include <boost/python.hpp>
+#else
+#include <Python.h>
 #endif
 
-/* These will go away in 1.3, but help readability in 1.2.1 code a LOT */
-#define FRAME_IMAGE 2
-#define FRAME_TEXT 4
-#define FRAME_LINE 5
-#define FRAME_VECTOR 6
-#define FRAME_POLYLINE 7
-#define FRAME_PATHTEXT 8
+#include <qstring.h>
 
-// Foward declarations
+#include "scribus.h"
+
+#ifndef Py_RETURN_NONE
+	#define Py_RETURN_NONE return Py_INCREF(Py_None), Py_None
+#endif
+
+#ifndef Py_RETURN_TRUE
+	#define Py_RETURN_TRUE return Py_INCREF(Py_True), Py_True
+#endif
+
 class ScripterCore;
 
-/* Static global Variables */
-// the QApplication instance passed to the plugin setup
-extern ScribusApp* Carrier;
+// Globals for testing Qt properties and probably other more intresting future
+// uses.
+/** @brief A PyCObject containing a pointer to qApp */
+extern PyObject* wrappedQApp;
+/** @brief A PyCObject containing a pointer to the main window ('Carrier') */
+extern PyObject* wrappedMainWindow;
+
+/** @brief A pointer to the ScripterCore instance */
+extern ScripterCore* scripterCore;
+
+/** @brief Initialize the 'scribus' Python module in the currently active interpreter */
+extern "C" void initscribus(ScribusMainWindow *pl);
 
 /* Exceptions */
 /*! Common scribus Exception */
@@ -50,22 +59,6 @@ extern PyObject* NoValidObjectError;
 extern PyObject* NotFoundError;
 /*! Exception raised when the user tries to create an object with the same name as one that already exists */
 extern PyObject* NameExistsError;
-/*! Raised when a normal script tries to run code reserved for extension scripts, or when extension scripts are disabled */
-extern PyObject* AccessDeniedError;
-
-// The following globals are used by the script console
-// to handle input and output.
-extern QString RetString;
-extern QString InValue;
-extern int RetVal;
-
-/// A global pointer to the class containing most of the scripter's core workings
-extern ScripterCore* scripterCore;
-
-/// initscribus, the module init function, must be defined here because the
-/// scriptercore needs to call it.
-
-extern "C" void initscribus(ScribusApp *pl);
 
 #endif
 

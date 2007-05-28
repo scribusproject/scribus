@@ -1,0 +1,17 @@
+Warning:
+Code stored here is highly experimental. It may be changed/removed
+and/or moved elsewhere anytime. We can face some build problems
+later if we will introduce more widgets.
+
+Description:
+Here can be built some plugins for Qt4 Designer.
+
+It's disabled by default. You can enable it by -DWANT_DESIGNER=1
+in the cmake run. Copy the *so files into Qt4 designer plugin
+directory. Manually, of course.
+
+Designer plugin dir on Suse: /usr/lib/qt4/plugins/designer/
+
+The Scribus widgets are (suprisingly) in the "Scribus" group ;)
+
+Petr

@@ -1,0 +1,330 @@
+<qt>
+<title>FAQ - Scripteur</title>
+<h2>FAQ - Scripteur</h2>
+<p>Auteur : Craig Ringer</p>
+
+<dl>
+<h3>Comment puis-je utiliser du texte non-ASCII dans le scripteur?</h3>
+<p>Premi&egrave;rement, assurez-vous que votre script poss&egrave;de une ligne
+"coding" appropri&eacute;e. Votre
+script doit d&eacute;marrer de la fa&ccedil;on suivante :
+<pre>
+    #!/usr/bin/env python
+    # -*- coding: latin-1 -*-
+</pre>
+ou
+<pre>
+    #!/usr/bin/env python
+    # -*- coding: utf-8 -*-
+</pre>
+ou
+<pre>
+    #!/usr/bin/env python
+    # -*- coding: ascii -*-
+</pre>
+</p>
+<p>Ces lignes <b>doivent</b> &ecirc;tre les deux premi&egrave;res de votre
+script. Le "coding" <b>doit</b> correspondre &agrave; l'encodage actuel du
+fichier.</p>
+
+<p>Pour d&eacute;terminer l'encodage du texte dans vim, tapez
+<code>    :set fileencoding?<enter></code>
+La mani&egrave;re de d&eacute;terminer l'encodage du texte variera pour d'autres
+&eacute;diteurs, cela peut correspondre &agrave; votre langage. La commande
+<code>file</code> n'est <i>pas</i> une m&eacute;thode fiable pour d&eacute;terminer
+l'encodage d'un fichier.</p>
+
+<p>Vous pouvez convertir l'encodage de fichiers avec l'utilitaire
+'iconv', mais vous en aurez rarement besoin, &eacute;tant donn&eacute; que Python
+peut manipuler presque tous les encodages de texte s'ils sont
+indiqu&eacute;s dans la ligne "coding".</p>
+
+<p>Quelques fonctions du scripteur demande du texte ASCII pur, et
+n'acceptent pas de texte unicode ou latin-1. Si vous appelez une de
+ces fonctions avec du texte non-ASCII, vous obtiendrez une erreur
+du type suivant :
+<code>    UnicodeDecodeError: 'ASCII' codec can't decode byte 0xc3
+    in position 1: ordinal not in range(128)</code>
+ce qui est &eacute;videmment loin d'&ecirc;tre utile.</p>
+
+<p>Il semble par ailleurs y avoir un bug avec le modificateur de cha&icirc;nes
+de caract&egrave;res u'' dans la console de script. Ce probl&egrave;me a aussi &eacute;t&eacute;
+rep&eacute;r&eacute; dans l'interpr&eacute;teur interactif de Python dans la ligne de
+commande. Il n'affecte pas les fichiers script. Jusqu'&agrave; ce que
+ce soit r&eacute;solu, utilisez le constructeur Unicode ("mystring") ou
+utilisez des cha&icirc;nes brutes (qui peuvent contenir du texte Unicode) &agrave;
+partir de la console de script.</p>
+
+
+<h3>Quelle est la bonne structure &agrave; utiliser pour mes scripts?</h3>
+<p>Commencez avec 'boilerplate.py' dans le r&eacute;pertoire samples. Ce
+script d&eacute;sactive les rafra&icirc;chissements (pour la vitesse) et contient un
+code qui assure leur r&eacute;activation, effectue des
+v&eacute;rifications et retourne une erreur explicite en cas de d&eacute;marrage hors
+de Scribus, etc.</p>
+
+<h3>Pourquoi Python?</h3>
+<p>Ce langage convient bien &agrave; l'int&eacute;gration d'applications tout en restant complet et puissant. Il est aussi accessible aux nouveaux utilisateurs et bien document&eacute;. De
+plus, il offre un support robuste pour le texte Unicode.</p>
+
+<p>Python est un bon langage de liaison entre diff&eacute;rents
+programmes et composants. Par exemple, pour permettre
+l'utilisation de votre base de donn&eacute;es d'articles maison avec
+Scribus, l'interface Python constitue le moyen d'implantation le
+plus rapide et le plus simple. </p>
+
+<p>Par ailleurs, il est facile d'&eacute;crire du code Python
+ordonn&eacute;, que les autres personnes peuvent lire et comprendre. Si le
+script d'une autre personne ne fait pas exactement ce dont vous avez
+besoin, vous avez plus de chances de pouvoir l'adapter.</p>
+
+<p>Comme l'inclusion de
+Python dans des applications pose certains probl&egrave;mes particuliers, pour une pure
+automatisation script&eacute;e, il vaut mieux utiliser un langage comme Qt Script for Applications ou lua.
+Mais pour aller au-del&agrave; de la
+simple automatisation, Python semble offrir la meilleure approche.
+</p>
+
+<h3>Je veux fournir une IU plus complexe que celle fournie par les
+dialogues inclus dans l'interface d'&eacute;criture des scripts. Comment puis-je le
+faire ?</h3>
+
+<p>Pour la plupart des t&acirc;ches d'&eacute;criture de scripts, jusqu'&agrave; pr&eacute;sent, la construction d'une
+IU simple dans Tkinter est un de vos meilleurs choix. Si
+vous d&eacute;sirez enrichir l'IU ou fournir des palettes avec lesquelles
+l'utilisateur peut travailler, tout en restant &agrave; l'int&eacute;rieur de
+Scribus, vous devrez envisager d'&eacute;crire une 'extension de script'
+avec PyQt.
+<p>Dans la plupart des cas, il est recommand&eacute; de choisir Tkinter. C'est
+la seule trousse &agrave; outils pour IU qui fonctionne de mani&egrave;re fiable
+dans les scripts Scribus ordinaires, en raison de la fa&ccedil;on dont ils sont
+ex&eacute;cut&eacute;s dans les sous-interpr&eacute;teurs. Il s'agit d'un progiciel presque universel des distributions Linux, bien qu'il ne
+soit pas install&eacute; par d&eacute;faut, et il est hautement portable. Les
+utilisateurs peuvent &ecirc;tre rebut&eacute;s par l'aspect visuel
+de Tkinter, mais il fonctionne bien.</p>
+
+<p>Si vous voulez &eacute;crire des IU plus avanc&eacute;es, le meilleur choix est
+PyQt. Vous pouvez &eacute;crire vos propres bo&icirc;tes de
+dialogue et palettes &agrave; l'aide de PyQt, en conservant la possibilit&eacute;
+d'enrichir l'interface de Scribus juqu'&agrave; un certain point. PyQt
+ne fonctionnera pas de mani&egrave;re fiable &agrave; partir d'un script ordinaire,
+mais il fonctionne bien &agrave; partir de scripts qui d&eacute;marrent &agrave; l'aide de
+l'&eacute;l&eacute;ment de menu &quot;Load Extension Script...&quot;. Consultez
+la section avanc&eacute;e du manuel du scripteur pour obtenir plus de
+d&eacute;tails &agrave; ce sujet.</p>
+
+<p>Les probl&egrave;mes d'int&eacute;gration de boucle et d'initialisation
+dans les sous-interpr&eacute;teurs signifient que PyGtk et wxPython ne sont
+pas recommand&eacute;s pour l'instant, et qu'ils ne fonctionneront
+probablement pas correctement. &Eacute;tant donn&eacute; que Tkinter fonctionne
+bien pour des scripts normaux, et PyQt pour des t&acirc;ches plus
+avanc&eacute;es, il ne s'agit pas d'un probl&egrave;me majeur.</p>
+
+<h3>Devrais-je utiliser 'from scribus import *' ou 'import
+scribus'?</h3>
+<p>De mani&egrave;re g&eacute;n&eacute;rale, 'import scribus' est pr&eacute;f&eacute;rable. 'from ...
+import' peut amener de la confusion dans des boucles d'importation,
+en rechargeant des modules et dans certaines autres circonstances. Plus
+d'information
+<a href="http://effbot.org/zone/import-confusion.htm" title="Lien
+externe">http://effbot.org/zone/import-confusion.htm</a>.</p>
+
+<p>M&ecirc;me si 'import scribus' donne un code plus bavard, cela en
+vaut g&eacute;n&eacute;ralement la peine puisque le code devient alors lisible et
+explicite.</p>
+
+<h3>Que dire d'un style de programmation g&eacute;n&eacute;ral ? </h3>
+<p>De mani&egrave;re g&eacute;n&eacute;rale, nous nous en remettons aux gourous Python. Jetez un
+coup d'oeil sur
+<a href="http://www.python.org/peps/pep-0008.html" title="Lien
+externe">http://www.python.org/peps/pep-0008.html</a> pour obtenir une analyse
+plus compl&egrave;te du sujet.</p>
+
+<p>On fait une exception pour l'encodage du code source, o&ugrave; sont
+recommand&eacute;s les eoncodages ASCII avec caract&egrave;res d'&eacute;chappement, latin-1 ou utf-8. N'importe
+lequel de ces encodages devrait bien fonctionner.</p>
+
+<p>Veuillez noter qu'aucune r&egrave;gle n'est absolue : vous
+pouvez coder comme vous le d&eacute;sirez. Ces recommandations sont n&eacute;anmoins justifi&eacute;es, et vous avez int&eacute;r&ecirc;t &agrave; les suivre.
+</p>
+
+<h3>Y a-t-il des particularit&eacute;s que je devrais conna&icirc;tre dans l'interface Python de
+Scribus ?</h3>
+<p>Oui, il y a quelques diff&eacute;rences dont vous devriez &ecirc;tre conscient :</p>
+
+<ul>
+	<li>Les scripts Python d&eacute;marr&eacute;s dans Scribus ne peuvent pas
+cr&eacute;er de threads. Qt, la trousse &agrave; outils livr&eacute;e avec Scribus,
+fournit son propre environnement de gestion des threads qui ne
+fonctionne pas bien avec celui de Python. Une interface vers QThread
+pourrait &ecirc;tre fournie si le besoin &eacute;tait justifi&eacute; et si la fonctionnalit&eacute; pouvait &ecirc;tre r&eacute;alis&eacute;e.
+</li>
+
+	<li>Pour le moment, PyQt n'est pas compatible avec les
+scripts Python lanc&eacute;s &agrave; partir de scripts Scribus normaux, m&ecirc;me
+s'il peut maintenant &ecirc;tre exploit&eacute; &agrave; partir du mode 'extension de script'. Veuillez
+vous manifester sur la liste de diffusion si vous croyez &ecirc;tre en mesure
+de contribuer &agrave; une solution. Pour ce faire, il vous faudra de l'exp&eacute;rience avec l'API Python/C, avec les
+sous-interpr&eacute;teurs et avec PyQt.</li>
+
+	<li>L'extension Python de Scribus change l'encodage par d&eacute;faut
+des cha&icirc;nes de Python (sysdefaultencoding) pour utf-8. Par d&eacute;faut,
+Python utilise l'ASCII. Parce que utf-8 est une (vaste)
+g&eacute;n&eacute;ralisation de l'ASCII, ceci ne devrait pas affecter les scripts
+qui utilisent seulement des cha&icirc;nes encod&eacute;es en ASCII. Les
+fonctions Scribus ont &eacute;t&eacute; test&eacute;es et fonctionnent correctement pour
+du texte Unicode, donc il ne devrait pas y avoir de probl&egrave;me &agrave; cet &eacute;gard.
+<br>
+Quoi qu'il en soit, il est possible que des modules d'extension en C
+d'un tiers posent des probl&egrave;mes, si l'auteur n'a pas
+tenu compte de l'encodage du texte entrant. Ces probl&egrave;mes sont
+presque toujours des bogues qui doivent &ecirc;tre signal&eacute;s &agrave; l'auteur du
+module, et ils devraient &ecirc;tre rares. Si vous
+rencontrez un de ces probl&egrave;mes, signalez-le sur la liste de diffusion ou
+sur IRC.</li>
+
+	<li>Python d&eacute;marre &agrave; l'int&eacute;rieur de Scribus. Il est possible de
+charger certains modules d'extension en C qui effectuent des t&acirc;ches
+complexes d'initialisation qui peuvent perturber Scribus ou
+l'interpr&eacute;teur Python. Si vous rencontrez un de ces modules,
+reportez-le sur la liste de diffusion ou sur IRC. Tout &eacute;l&eacute;ment qui
+tente de d&eacute;marrer sa propre boucle d'&eacute;v&eacute;nements risque de faillir,
+et les interfaces vers les trousses
+&agrave; outils IU semblent aussi poser des probl&egrave;mes. Tout ce
+qui g&eacute;n&egrave;re des peut threads peut aussi causer des probl&egrave;mes.</li>
+</ul>
+
+<h3>Puis-je utiliser le reste de la librairie standard de Python ou
+des modules d'extension ?</h3>
+<p>Oui, absolument. Scribus n'impose aucune restriction sur l'acc&egrave;s au
+reste de Python (sauf les limitations techniques d&eacute;crites plus haut), et c'est un des &eacute;l&eacute;ments qui rend le scripteur si puissant. Il
+est possible que certaines fonctions Python comme la gestion des
+threads puissent &ecirc;tre affect&eacute;es par la mani&egrave;re dont l'interpr&eacute;teur est
+incorpor&eacute;, mais la plupart devraient &ecirc;tre utilisable comme d'habitude.</p>
+
+<h3>J'aimerais &eacute;tendre Scribus en utilisant Python, et pas
+seulement l'utiliser pour automatiser les op&eacute;rations...</h3>
+<p>Pr&eacute;sentement, c'est impossible. Des travaux sont en cours pour permettre d'enrichir Scribus &agrave; l'aide de Python,
+jusqu'&agrave; un certain point, sp&eacute;cialement en ce qui conerne l'IU. Il est maintenant
+possible d'utiliser PyQt pour &eacute;crire vos propres palettes, mais vous
+ne pourrez pas utiliser des objets Scribus personnalis&eacute;s ni p&eacute;n&eacute;trer dans les rouages de l'application. Le coeur de Scribus n'est
+malheureusement pas bien adapt&eacute; &agrave; l'extension &agrave; partir de Python. Il vaut mieux recourir &agrave; C++ pour cr&eacute;er des
+extensions plus &eacute;volu&eacute;es ou plus &eacute;troitement int&eacute;gr&eacute;es.
+</p>
+
+<h3>Qu'en est-il de la s&eacute;curit&eacute; ? Suis-je assur&eacute; que les scripts ne d&eacute;truiront pas mes donn&eacute;es ou ne corrompront pas mon syst&egrave;me d'exploitation.
+</h3>
+<p><b>Non. Ne lancez pas un script qui ne provient pas d'une
+source s&ucirc;re et, de pr&eacute;f&eacute;rence, lisez-le au pr&eacute;alable.</b> Le mauvais
+c&ocirc;t&eacute; de la puissance de l'interface de script de Python est qu'il
+n'impose presque aucune restriction de s&eacute;curit&eacute;. Tout ce que vous
+pouvez faire &agrave; partir d'un shell sans mot de passe, un script
+peut le faire aussi.</p>
+
+<p>Si Python obtenait un support pour une ex&eacute;cution en
+environnement restreint comme c'&eacute;tait le cas dans les versions &lt; 2.2, ce
+support pourrait &ecirc;tre ajout&eacute;, mais pr&eacute;sentement il n'y a
+aucune restriction. Il serait int&eacute;ressant de
+rep&eacute;rer un langage de macro simple pour l'automatisation qui pourrait &ecirc;tre inclus
+dans Scribus, mais pr&eacute;sentement nous manquons de ressources pour
+ce faire.</p>
+
+<h3>Donc... puis-je inclure des scripts dans des documents ou des mod&egrave;les ?</h3>
+<p>Non, voir ci-dessus. Nous ne pouvons pas fournir un environnement
+d'ex&eacute;cution restreint, donc il n'est pas s&eacute;curitaire de laisser des
+scripts voyager avec des documents. Sinon un script malicieux
+pourrait utiliser un document comme vecteur d'infection
+d'autres syst&egrave;me. Vous souvenez-vous des virus macro de Word ? Oui. Nous
+aussi.</p>
+
+<h3>Qu'en est-il des scripts de d&eacute;marrage ou d&eacute;clench&eacute;s
+par des &eacute;v&eacute;nements ?</h3>
+
+<p>Les scripts de d&eacute;marrage sont support&eacute;s. Quant aux scripts qui
+d&eacute;marrent moyennant la survenance d'un &eacute;v&eacute;nement donn&eacute;, ils pourraient &ecirc;tre
+support&eacute;s dans l'avenir. Si un script est en position
+d'"infecter" un script de d&eacute;marrage ou votre application, il est
+&eacute;galement capable de modifier votre .bashrc ou votre script de
+d&eacute;marrage X. En d'autres mots, si vous d&eacute;cidez d'ex&eacute;cuter du code
+douteux sur votre machine, il est trop tard ! L'insertion &eacute;ventuelle
+dans un script de d&eacute;marrage de Scribus serait alors le moindre de vos
+soucis. Cette constatation n'est pas propre &agrave; Scribus et vaut pour
+les scripts bash, les programmes normaux et la plupart des
+extensions &eacute;galement. <b>Souvenez-vous : n'ex&eacute;cutez pas de
+scripts qui ne proviennent pas de sources de confiance, car les
+scripts sont des programmes comme tous ceux que vous
+pourriez vouloir ex&eacute;cuter sur votre ordinateur.</b>.
+<p>Le niveau de s&eacute;curit&eacute; de Scribus sur un script au
+d&eacute;marrage est identique &agrave; celui du shell (par exemple <code>bash</code>),
+ou de votre syst&egrave;me graphique d'authentification. Scribus ne peut
+pas vous prot&eacute;ger si vous d&eacute;cidez d'ex&eacute;cuter des programmes non
+fiables sur votre syst&egrave;me. Il <i>peut</i> cependant &eacute;viter de fournir un support pour la propagation du code malicieux. C'est
+pourquoi Scribus supporte les scripts de d&eacute;marrage (mais ils ne
+sont pas ex&eacute;cut&eacute;s par d&eacute;faut), tandis que les scripts ne peuvent pas
+&ecirc;tre inclus dans les documents ou ex&eacute;cut&eacute;s &agrave; partir de ceux-ci.</p>
+
+<p><b>N'ex&eacute;cutez pas un programme, un script ou une extension,
+quels qu'en soient le type ou la provenance, &agrave; moins d'avoir v&eacute;rifi&eacute; que
+le programme est valide. </b>C'est une r&egrave;gle d'or
+en s&eacute;curit&eacute; informatique qui s'applique &agrave; tout programme et &agrave; tout
+syst&egrave;me d'exploitation.</p>
+
+<h3>Et les extensions C++ pour Scribus ? Sont-elles s&eacute;curitaires ?</h3>
+<p>Pas du tout. Une extension C++ de Scribus peut faire presque tout
+ce qu'un autre programme sur votre ordinateur pourrait faire, donc ne
+la t&eacute;l&eacute;chargez que si vous avez absolument confiance en son auteur. Ceci
+est vrai pour les extensions de la plupart des programmes, puisqu'il
+est tr&egrave;s difficile de restreindre l'effet d'une extension &eacute;crite en
+C/C++ peut faire.</p>
+
+<h3>Je ne sais pas comment obtenir <i>quelque chose</i>
+&agrave; partir de Python, mais l'application principale Scribus le
+supporte. Que dois-je faire ?</h3>
+<p>L'interface d'&eacute;criture des scripts requiert actuellement que
+chaque fonction soit &eacute;crite &agrave; la main - aucun m&eacute;canisme de g&eacute;n&eacute;ration
+ou d'encapsulage automatique de code n'est pr&eacute;vu. Cela s'explique en partie
+par l'absence d'API publique stable
+sous-jacente. </p>
+
+<p>En g&eacute;n&eacute;ral, si une fonction n'existe pas, c'est parce que personne
+n'a encore trouv&eacute; le temps ni &eacute;prouv&eacute; le besoin de l'&eacute;crire. Parfois, la
+fonction est plus compliqu&eacute;e qu'elle n'appara&icirc;t et peut
+n&eacute;cessiter beaucoup de travail. Parfois, il
+s'agit d'un effort de cinq minutes. Posez la question poliment sur IRC ou sur
+la liste de diffusion; si quelqu'un a le temps et l'envie de faire le boulot, vous pourriez obtenir votre fonction. </p>
+
+<h3>J'ai pos&eacute; la question sur la liste de diffusion ou sur IRC, mais personne
+n'a offert d'&eacute;crire cette fonction dont j'ai besoin pour le scripteur. Que
+puis-je faire ?</h3>
+<p>Vous avez plusieurs options :</p>
+<ul>
+	<li>Patientez un peu, puis reposez votre question. </li>
+	<li>Vous pouvez peut-&ecirc;tre ajouter vous-m&ecirc;me votre fonction - il y a des
+chances pour que quelqu'un qui travaille sur le scripteur puisse vous
+donner une id&eacute;e de la quantit&eacute; de travail n&eacute;cessaire.
+En g&eacute;n&eacute;ral, le scripteur n'est pas tr&egrave;s
+compliqu&eacute; et plusieurs fonctions sont triviales, donc m&ecirc;me
+si vous ne connaissez pas beaucoup C++ vous ne devriez pas renoncer &agrave; entreprendre le travail.
+Quand j'ai commenc&eacute; &agrave; travailler
+sur le scripteur, je ne connaissais absolument rien en C ou C++
+... Je d&eacute;sirais juste _vraiment_ quelques nouvelles possibilit&eacute;s.</li>
+      
+	<li>Si vous d&eacute;cidez d'ajouter une fonction vous-m&ecirc;me, rappelez-vous
+que tous les textes ne sont pas de l'ASCII. Utilisez
+le format 'es' dans PyArg_ParseTuple, plut&ocirc;t que le format 's', et
+sp&eacute;cifiez un encodage "utf-8". Utilisez les m&eacute;thodes
+QString::fromUtf8 et
+QString::utf8() pour les entr&eacute;es et les sorties, respectivement, des
+objets QString. Jetez un coup d'oeil sur quelques uns des code du
+scripteur pour voir comment ils sont b&acirc;tis ou n'h&eacute;sitez pas &agrave;
+vous adresser &agrave; IRC ou &agrave; la liste de diffusion si vous avez des
+probl&egrave;mes.</li>
+
+	<li>Offrez de payer quelqu'un pour le faire. Cette approche
+vaut seulement dans le cas d'un grand projet
+qui requiert beaucoup de temps et d'efforts (et
+d'argent), mais c'est une option int&eacute;ressant si vous avez vraiment besoin d'une fonction pr&eacute;cise.
+</li>
+</ul>
+</qt>
+

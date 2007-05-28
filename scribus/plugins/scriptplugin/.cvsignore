@@ -8,6 +8,6 @@ Makefile.in
 .deps
 .libs
 CVS
-scripterprefs.cpp
-scripterprefs.h
-
+scribus
+CMakeFiles
+cmake_install.cmake

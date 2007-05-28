@@ -17,7 +17,7 @@ if scribus.scribus_version_info[:3] &lt; (1,2,2):
     sys.exit()
 </pre>
 
-<h4>Unit Definitions: </h4>
+<h4>Unit Enumeration Constants: </h4>
 <dl>
 	<dt>UNIT_POINTS</dt>
 	<dd>Measurement Unit Point = 0</dd>
@@ -27,6 +27,28 @@ if scribus.scribus_version_info[:3] &lt; (1,2,2):
 	<dd>Measurement Unit Inch = 2</dd>
 	<dt>UNIT_PICAS</dt>
 	<dd>Measurement Unit Pica = 3</dd>
+</dl>
+
+<h4>Unit Conversion Constants</h4>
+
+<p>These conversion factors can be used to convert units to and from points.
+Thus, to convert inches to points, you can simply write 'value/inch', to
+convert points to inches you write 'value*inch', and to convert inches to mm
+you write 'value*mm/inch' .</p>
+
+<dl>
+	<dt>pt</dt>
+	<dd>points in 1 pt</dd>
+	<dt>inch</dt>
+	<dd>inches in 1 pt</dt>
+	<dt>p</dt>
+	<dt>pica in 1 pt</dt>
+	<dt>cm<dt>
+	<dt>centimetres in 1 pt</dt>
+	<dt>mm</dt>
+	<dt>millimetres in 1 pt</dt>
+	<dt>...</dt>
+	<dt>Other constants will be provided if the Scribus core knows about them.</dt>
 </dl>
 
 <h4>Page Orientation Definitions: </h4>

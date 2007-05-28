@@ -1,47 +1,54 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef SEARCHREPLACE_H
 #define SEARCHREPLACE_H
 
 #include <qvariant.h>
 #include <qdialog.h>
-#include "scribusdoc.h"
-#include "pageitem.h"
+//Added by qt3to4:
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QLabel>
 
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
+#include "scribusapi.h"
+#include "scribusstructs.h"
+class Q3VBoxLayout;
+class Q3HBoxLayout;
+class Q3GridLayout;
 class QCheckBox;
 class QComboBox;
-class QGroupBox;
+class Q3GroupBox;
 class QLineEdit;
 class QPushButton;
-class MSpinBox;
+class ScrSpinBox;
 class FontCombo;
 class StyleSelect;
 class ShadeButton;
-class QLabel;
 class PrefsContext;
+class QLabel;
 
-class SearchReplace : public QDialog
+class ColorCombo;
+class ScribusDoc;
+class PageItem;
+
+class SCRIBUS_API SearchReplace : public QDialog
 {
 	Q_OBJECT
 
 public:
-	SearchReplace( QWidget* parent, ScribusDoc *doc, preV *Prefs, PageItem* ite, bool mode = true );
+	SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode = true );
 	~SearchReplace() {};
 	virtual void slotDoSearch();
 	virtual void slotDoReplace();
 
 	QLabel* SText1;
 	QLabel* RText1;
-	QGroupBox* Search;
+	Q3GroupBox* Search;
 	QCheckBox* SStroke;
 	QCheckBox* SFill;
 	QCheckBox* SStrokeS;
@@ -55,12 +62,12 @@ public:
 	QLineEdit* STextVal;
 	QComboBox* SStyleVal;
 	FontCombo* SFontVal;
-	MSpinBox* SSizeVal;
-	QComboBox* SFillVal;
+	ScrSpinBox* SSizeVal;
+	ColorCombo* SFillVal;
 	ShadeButton *SFillSVal;
-	QComboBox* SStrokeVal;
+	ColorCombo* SStrokeVal;
 	ShadeButton *SStrokeSVal;
-	QGroupBox* Replace;
+	Q3GroupBox* Replace;
 	QCheckBox* RStroke;
 	QCheckBox* RStrokeS;
 	QCheckBox* RFill;
@@ -72,10 +79,10 @@ public:
 	QLineEdit* RTextVal;
 	QComboBox* RStyleVal;
 	FontCombo* RFontVal;
-	MSpinBox* RSizeVal;
-	QComboBox* RFillVal;
+	ScrSpinBox* RSizeVal;
+	ColorCombo* RFillVal;
 	ShadeButton *RFillSVal;
-	QComboBox* RStrokeVal;
+	ColorCombo* RStrokeVal;
 	ShadeButton *RStrokeSVal;
 	StyleSelect* SEffVal;
 	StyleSelect* REffVal;
@@ -119,17 +126,20 @@ public slots:
 	virtual void clear();
 
 signals:
-	void NewFont(QString);
+	void NewFont(const QString&);
 	void NewAbs(int);
 
 protected:
-	QVBoxLayout* SearchReplaceLayout;
-	QHBoxLayout* SelLayout;
-	QGridLayout* SearchLayout;
-	QGridLayout* ReplaceLayout;
-	QHBoxLayout* OptsLayout;
-	QHBoxLayout* ButtonsLayout;
+	Q3VBoxLayout* SearchReplaceLayout;
+	Q3HBoxLayout* SelLayout;
+	Q3GridLayout* SearchLayout;
+	Q3GridLayout* ReplaceLayout;
+	Q3HBoxLayout* OptsLayout;
+	Q3HBoxLayout* ButtonsLayout;
 	virtual void readPrefs();
+
+	/// Number of matches found thus far in a search
+	int matchesFound;
 
 };
 

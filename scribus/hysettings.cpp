@@ -1,71 +1,79 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "hysettings.h"
-#include "hysettings.moc"
-#include <qpixmap.h>
+#include "QToolTip"
+#include "sccombobox.h"
+#include "scribusdoc.h"
 
-extern QPixmap loadIcon(QString nam);
-
-HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs )
-		: QDialog( parent, "Settings", true, 0 )
+HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent, "Settings" )
 {
-	QStringList lada;
-	resize( 218, 103 );
-	setCaption( tr( "Hyphenator Settings" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	HySettingsLayout = new QVBoxLayout( this, 11, 6, "HySettingsLayout");
-	Layout3 = new QGridLayout( 0, 1, 1, 0, 6, "Layout3");
-	Verbose = new QCheckBox(tr("&Hyphenation Suggestions"), this, "Verbose");
-	Layout3->addMultiCellWidget(Verbose, 0, 0, 0, 1);
+	langsMap = *langs;
+
+	layout3 = new QGridLayout( this );
+	layout3->setMargin(0);
+	layout3->setSpacing(5);
+	layout3->setAlignment( Qt::AlignTop );
+	verbose = new QCheckBox( tr("&Hyphenation Suggestions"), this, "Verbose");
+	layout3->addWidget(verbose, 0, 0, 1, 2);
 	
-	Input = new QCheckBox(tr("Hyphenate Text Automatically &During Typing"), this, "inp");
-	Layout3->addMultiCellWidget(Input, 1, 1, 0, 1);
+	input = new QCheckBox( tr("Hyphenate Text Automatically &During Typing"), this, "inp");
+	layout3->addWidget(input, 1, 0, 1, 2);
 	
-	Language = new QComboBox( true, this, "Language" );
+		// languages
+// 	langMgr.init();
+// 	QStringList languageList;
+// 	langMgr.fillInstalledStringList(&languageList, true);
+// 	languageList.sort();
+// 	guiLangCombo->insertStringList( languageList );
+	
+	language = new ScComboBox( false, this, "Language" );
 	QMap<QString,QString>::Iterator it;
+	QStringList lada;
 	for (it = langs->begin(); it != langs->end(); ++it)
 		lada.append(it.data());
 	lada.sort();
-	Language->insertStringList(lada);
-	Language->setEditable(false);
-	Text1 = new QLabel( Language, tr( "&Language:" ), this, "Text1" );
-	Layout3->addWidget( Text1, 2, 0 );
-	Layout3->addWidget( Language, 2, 1 );
+	language->insertStringList(lada);
+	text1 = new QLabel( language, tr( "&Language:" ), this, "Text1" );
+	layout3->addWidget( text1, 2, 0 );
+	layout3->addWidget( language, 2, 1, Qt::AlignLeft );
 	
-	WordLen = new QSpinBox( this, "WordLen" );
-	WordLen->setMinValue( 3 );
-	Text2 = new QLabel( WordLen, tr( "&Smallest Word:" ), this, "Text2" );
-	Layout3->addWidget( Text2, 3, 0 );
-	Layout3->addWidget( WordLen, 3, 1 );
+	wordLen = new QSpinBox( this, "WordLen" );
+	wordLen->setMinValue( 3 );
+	text2 = new QLabel( wordLen, tr( "&Smallest Word:" ), this, "Text2" );
+	layout3->addWidget( text2, 3, 0 );
+	layout3->addWidget( wordLen, 3, 1, Qt::AlignLeft );
 	
-	MaxCount = new QSpinBox( this, "MaxCount" );
-	MaxCount->setMinValue( 0 );
-	Text3 = new QLabel(MaxCount, tr("Consecutive Hyphenations &Allowed:"), this, "Text3");
-	Layout3->addWidget( Text3, 4, 0 );
-	Layout3->addWidget( MaxCount, 4, 1);
+	maxCount = new QSpinBox( this, "MaxCount" );
+	maxCount->setMinValue( 0 );
+	text3 = new QLabel(maxCount, tr("Consecutive Hyphenations &Allowed:"), this, "Text3");
+	layout3->addWidget( text3, 4, 0 );
+	layout3->addWidget( maxCount, 4, 1, Qt::AlignLeft);
 	
-	HySettingsLayout->addLayout( Layout3 );
-	Layout1 = new QHBoxLayout( 0, 0, 6, "Layout1");
-	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( spacer );
-	OK = new QPushButton( tr( "&OK" ), this, "OK" );
-	OK->setDefault( true );
-	Layout1->addWidget( OK );
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
-	Layout1->addWidget( Cancel );
-	HySettingsLayout->addLayout( Layout1 );
-	
-	QToolTip::add( Verbose, tr( "A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option." ) );
-	QToolTip::add( Input, tr("Enables automatic hyphenation of your text while typing."));
-	QToolTip::add( WordLen, tr( "Length of the smallest word to be hyphenated." ) );
-	QToolTip::add( MaxCount, tr( "Maximum number of Hyphenations following each other.\nA value of 0 means unlimited hyphenations." ) );
-	connect(OK, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
+	QToolTip::add( verbose, tr( "A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option." ) );
+	QToolTip::add( input, tr("Enables automatic hyphenation of your text while typing."));
+	QToolTip::add( wordLen, tr( "Length of the smallest word to be hyphenated." ) );
+	QToolTip::add( maxCount, tr( "Maximum number of Hyphenations following each other.\nA value of 0 means unlimited hyphenations." ) );
 }
 
+void HySettings::restoreDefaults(struct ApplicationPrefs *prefsData)
+{
+	verbose->setChecked(!prefsData->Automatic);
+	input->setChecked(prefsData->AutoCheck);
+	language->setCurrentText(langsMap[prefsData->Language]);
+	wordLen->setValue(prefsData->MinWordLen);
+	maxCount->setValue(prefsData->HyCount);
+	
+}
+
+void HySettings::restoreDefaults(ScribusDoc *prefsData)
+{
+	verbose->setChecked(!prefsData->Automatic);
+	input->setChecked(prefsData->AutoCheck);
+	language->setCurrentText(langsMap[prefsData->Language]);
+	wordLen->setValue(prefsData->MinWordLen);
+	maxCount->setValue(prefsData->HyCount);
+}

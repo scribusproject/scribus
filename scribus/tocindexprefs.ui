@@ -1,0 +1,212 @@
+<ui version="4.0" >
+ <class>TOCIndexPrefs</class>
+ <widget class="QWidget" name="TOCIndexPrefs" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>444</width>
+    <height>234</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Table of Contents and Indexes</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>0</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item>
+    <widget class="QTabWidget" name="tabTOCIndexWidget" >
+     <widget class="QWidget" name="tab" >
+      <attribute name="title" >
+       <string>Table Of Contents</string>
+      </attribute>
+      <layout class="QHBoxLayout" >
+       <property name="margin" >
+        <number>0</number>
+       </property>
+       <property name="spacing" >
+        <number>6</number>
+       </property>
+       <item>
+        <layout class="QVBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <widget class="Q3ListBox" name="tocListBox" />
+         </item>
+         <item>
+          <widget class="QLineEdit" name="tocNameLineEdit" />
+         </item>
+         <item>
+          <layout class="QHBoxLayout" >
+           <property name="margin" >
+            <number>0</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QPushButton" name="tocAddButton" >
+             <property name="text" >
+              <string>&amp;Add</string>
+             </property>
+             <property name="shortcut" >
+              <string>Alt+A</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="tocDeleteButton" >
+             <property name="text" >
+              <string>&amp;Delete</string>
+             </property>
+             <property name="shortcut" >
+              <string>Alt+D</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" >
+         <property name="margin" >
+          <number>0</number>
+         </property>
+         <property name="spacing" >
+          <number>6</number>
+         </property>
+         <item>
+          <layout class="QGridLayout" >
+           <property name="margin" >
+            <number>0</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+           <item row="1" column="1" >
+            <widget class="QComboBox" name="itemDestFrameComboBox" >
+             <property name="toolTip" >
+              <string>The frame the table of contents will be placed into</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" >
+            <widget class="QLabel" name="tocNumberPlacementLabel" >
+             <property name="text" >
+              <string>Page Numbers Placed:</string>
+             </property>
+             <property name="wordWrap" >
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" >
+            <widget class="QLabel" name="tocItemAttrLabel" >
+             <property name="text" >
+              <string>Item Attribute Name:</string>
+             </property>
+             <property name="wordWrap" >
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" >
+            <widget class="QComboBox" name="itemAttrComboBox" >
+             <property name="toolTip" >
+              <string>The Item Attribute that will be set on frames used as a basis for creation of the entries</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" >
+            <widget class="QComboBox" name="itemNumberPlacementComboBox" >
+             <property name="toolTip" >
+              <string>Place page numbers of the entries at the beginning or the end of the line, or not at all</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0" colspan="2" >
+            <widget class="QCheckBox" name="itemListNonPrintingCheckBox" >
+             <property name="toolTip" >
+              <string>Include frames that are set to not print as well</string>
+             </property>
+             <property name="text" >
+              <string>List Non-Printing Entries</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1" >
+            <widget class="QComboBox" name="itemParagraphStyleComboBox" >
+             <property name="toolTip" >
+              <string>The paragraph style used for the entry lines</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" >
+            <widget class="QLabel" name="tocParagraphStyleLabel" >
+             <property name="text" >
+              <string>Paragraph Style:</string>
+             </property>
+             <property name="wordWrap" >
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" >
+            <widget class="QLabel" name="tocDestFrameLabel" >
+             <property name="text" >
+              <string>Destination Frame:</string>
+             </property>
+             <property name="wordWrap" >
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer>
+           <property name="orientation" >
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeType" >
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+           <property name="sizeHint" >
+            <size>
+             <width>16</width>
+             <height>36</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="0" />
+ <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>Q3ListBox</class>
+   <extends>Q3Frame</extends>
+   <header>q3listbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,43 +1,48 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include <Q3GridLayout>
+#include <Q3HBoxLayout>
+#include <QDialog>
+#include <QLabel>
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef DELCOLOR_H
 #define DELCOLOR_H
 
-#include <qdialog.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qcombobox.h>
-#include "scribusdoc.h"
+class QLayout;
+class QLabel;
+class QPushbutton;
+class ColorCombo;
 
-class DelColor : public QDialog
+#include <QDialog>
+#include "scribusapi.h"
+#include "sccolor.h"
+
+class SCRIBUS_API DelColor : public QDialog
 { 
     Q_OBJECT
 
 public:
-    DelColor(QWidget* parent, CListe farben, QString Fnam, bool HDoc );
+    DelColor(QWidget* parent, ColorList colorList, QString colorName, bool haveDoc );
     ~DelColor() {};
-    QString EFarbe;
+	const QString getReplacementColor();
 
 private:
-    QLabel* TextLabel1;
-    QPushButton* PushButton2;
-    QLabel* TextLabel3;
-    QPushButton* PushButton3;
-    QLabel* TextLabel4;
-    QLabel* DColor;
-    QComboBox* Ersatz;
+    QLabel* deleteLabel;
+    QLabel* colorToDelLabel;
+    QLabel* replaceLabel;
+    QPushButton* okButton;
+    QPushButton* cancelButton;
+    ColorCombo* replacementColData;
+    Q3VBoxLayout* dialogLayout;
+    Q3GridLayout* delColorLayout;
+    Q3HBoxLayout* okCancelLayout;
 
-protected:
-    QVBoxLayout* DLayout;
-    QGridLayout* Layout4;
-    QHBoxLayout* Layout3;
+    QString replacementColor;
 
 private slots:
     virtual void ReplaceColor(int);

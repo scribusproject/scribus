@@ -1,110 +1,160 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "editformats.h"
-#include "editformats.moc"
+//#include "editformats.moc"
 #include "edit1format.h"
-#include <qheader.h>
 #include <qmessagebox.h>
+#include <q3header.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
+
+#include "commonstrings.h"
+#include "scribusdoc.h"
 #include "customfdialog.h"
+#include "prefsmanager.h"
 #include "prefsfile.h"
+#include "fileloader.h"
+#include "page.h"
+#include "sccombobox.h"
+#include "util.h"
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
-ChooseStyles::ChooseStyles( QWidget* parent, QValueList<StVorL> *styleList, QValueList<StVorL> *styleOld)
- : QDialog( parent, "ChooseStyles", true, 0 )
+
+DelStyle::DelStyle(QWidget* parent, StyleSet<ParagraphStyle>& sty, QString styleName)
+		: QDialog( parent, "DelStyle", true, 0 )
+{
+	setName( "DelStyle" );
+	setCaption( tr( "Delete Style" ) );
+	setIcon(loadIcon("AppIcon.png"));
+	dialogLayout = new Q3VBoxLayout( this, 10, 5 );
+	delStyleLayout = new Q3GridLayout(this);
+	delStyleLayout->setSpacing( 5 );
+	delStyleLayout->setMargin( 5 );
+	deleteLabel = new QLabel( tr( "Delete Style:" ), this, "deleteLabel" );
+	delStyleLayout->addWidget( deleteLabel, 0, 0 );
+	styleToDelLabel = new QLabel( styleName, this, "colorToDelLabel" );
+	delStyleLayout->addWidget( styleToDelLabel, 0, 1 );
+	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
+	delStyleLayout->addWidget( replaceLabel, 1, 0 );
+	replacementStyleData = new ScComboBox(false, this);
+	replacementStyleData->insertItem( tr("No Style"));
+
+	// sort the names in language specific order (PV)
+	QStringList existingStyles;
+	for (uint x = 0; x < sty.count(); ++x)
+	{
+		if (sty[x].name() != styleName)
+			existingStyles.append(sty[x].name());
+	}
+	existingStyles = sortQStringList(existingStyles);
+	replacementStyleData->insertStringList(existingStyles);
+
+	delStyleLayout->addWidget( replacementStyleData, 1, 1 );
+	replacementStyle = replacementStyleData->text(0);
+	dialogLayout->addLayout( delStyleLayout );
+	okCancelLayout = new Q3HBoxLayout;
+	okCancelLayout->setSpacing( 6 );
+	okCancelLayout->setMargin( 0 );
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	okCancelLayout->addItem( spacer );
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	okCancelLayout->addWidget( okButton );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton13" );
+	cancelButton->setDefault( true );
+	okCancelLayout->addWidget( cancelButton );
+	dialogLayout->addLayout( okCancelLayout );
+	setMaximumSize(sizeHint());
+
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( replacementStyleData, SIGNAL(activated(int)), this, SLOT( ReplaceStyle(int) ) );
+}
+
+void DelStyle::ReplaceStyle(int id)
+{
+	replacementStyle = replacementStyleData->text(id);
+}
+
+const QString DelStyle::getReplacementStyle()
+{
+	return replacementStyle;
+}
+
+ChooseStyles::ChooseStyles( QWidget* parent, StyleSet<ParagraphStyle> *styleList, StyleSet<ParagraphStyle> *styleOld)
+		: QDialog( parent, "ChooseStyles", true, 0 )
 {
 	setCaption( tr( "Choose Styles" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	ChooseStylesLayout = new QVBoxLayout( this, 10, 5, "ChooseStylesLayout");
-	StyleView = new QListView( this, "StyleView" );
+	ChooseStylesLayout = new Q3VBoxLayout( this, 10, 5, "ChooseStylesLayout");
+	StyleView = new Q3ListView( this, "StyleView" );
 	StyleView->clear();
 	StyleView->addColumn( tr( "Available Styles" ) );
-	StyleView->header()->setClickEnabled( FALSE, StyleView->header()->count() - 1 );
-	StyleView->header()->setResizeEnabled( FALSE, StyleView->header()->count() - 1 );
+	StyleView->header()->setClickEnabled( false, StyleView->header()->count() - 1 );
+	StyleView->header()->setResizeEnabled( false, StyleView->header()->count() - 1 );
 	StyleView->setSorting(-1);
-	int counter = 5;
-	for (uint x = 5; x < styleList->count(); ++x)
+	int counter = 0;
+// 	bool tabEQ = false;
+	for (uint x = 0; x < styleList->count(); ++x)
 	{
-		struct StVorL vg;
-		struct StVorL vg2;
-		vg = (*styleList)[x];
-		bool found = false;
-		for (uint xx=0; xx<styleOld->count(); ++xx)
-		{
-			vg2 = (*styleOld)[xx];
-			if (vg.Vname == vg2.Vname)
-			{
-				if ((vg.LineSpa == vg2.LineSpa) && (vg.Indent == vg2.Indent) && (vg.First == vg2.First) &&
-					(vg.Ausri == vg2.Ausri) && (vg.Avor == vg2.Avor) &&
-					(vg.Anach == vg2.Anach) && (vg.Font == vg2.Font) && (vg.TabValues == vg2.TabValues) &&
-					(vg.Drop == vg2.Drop) && (vg.DropLin == vg2.DropLin) && (vg.FontEffect == vg2.FontEffect) &&
-					(vg.FColor == vg2.FColor) && (vg.FShade == vg2.FShade) && (vg.SColor == vg2.SColor) &&
-					(vg.SShade == vg2.SShade) && (vg.BaseAdj == vg2.BaseAdj) && (vg.FontSize == vg2.FontSize))
-				{
-					found = true;
-				}
-				else
-				{
-					vg.Vname = "Copy of "+vg2.Vname;
-					found = false;
-				}
-				break;
-			}
-		}
+		ParagraphStyle& vg ((*styleList)[x]);
+		const ParagraphStyle* vg2 = static_cast<const ParagraphStyle*>(styleOld->resolve(vg.name()));
+		bool found = vg2 && vg.equiv(*vg2);
 		if (!found)
 		{
-			QCheckListItem *item = new QCheckListItem (StyleView, vg.Vname, QCheckListItem::CheckBox);
+			if (vg2)
+				vg.setName("Copy of "+vg2->name());
+			Q3CheckListItem *item = new Q3CheckListItem (StyleView, vg.name(), Q3CheckListItem::CheckBox);
 			item->setOn(true);
 			storedStyles.insert(item, counter);
 		}
+		qDebug(QString("load styles: found %1 dup %2 equiv %3").arg(vg.name()).arg((ulong)vg2).arg(found));
 		counter++;
 	}
 	StyleView->setSorting(0);
 	ChooseStylesLayout->addWidget( StyleView );
-	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
+	layout2 = new Q3HBoxLayout( 0, 0, 5, "layout2");
 	QSpacerItem* spacer1 = new QSpacerItem( 71, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( spacer1 );
-	OkButton = new QPushButton( this, "OkButton" );
-	OkButton->setText( tr( "OK" ) );
+	OkButton = new QPushButton( CommonStrings::tr_OK, this, "OkButton" );
 	layout2->addWidget( OkButton );
-	CancelButton = new QPushButton( this, "CancelButton" );
-	CancelButton->setText( tr( "Cancel" ) );
+	CancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "CancelButton" );
 	layout2->addWidget( CancelButton );
 	ChooseStylesLayout->addLayout( layout2 );
 	resize(230, 280);
-	clearWState( WState_Polished );
+
 	connect(CancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(OkButton, SIGNAL(clicked()), this, SLOT(accept()));
 }
 
-StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
-		: QDialog( parent, "Formate", true, 0)
+StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "Formate", true, 0)
 {
 	resize( 327, 260 );
 	setCaption( tr( "Edit Styles" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	fon = avail;
 	Docu = doc;
-	StilFormateLayout = new QHBoxLayout( this );
+	ReplaceList.clear();
+	StilFormateLayout = new Q3HBoxLayout( this );
 	StilFormateLayout->setSpacing( 5 );
 	StilFormateLayout->setMargin( 10 );
 
-	ListBox1 = new QListBox( this, "ListBox1" );
+	ListBox1 = new Q3ListBox( this, "ListBox1" );
 	ListBox1->setMinimumSize( QSize( 200, 240 ) );
 	StilFormateLayout->addWidget( ListBox1 );
 
-	Layout15 = new QVBoxLayout;
+	Layout15 = new Q3VBoxLayout;
 	Layout15->setSpacing( 6 );
 	Layout15->setMargin( 0 );
 
-	LoadS = new QPushButton( tr( "&Append" ), this, "LoadF" );
+	LoadS = new QPushButton( tr( "&Import" ), this, "LoadF" );
 	Layout15->addWidget( LoadS );
 
 	NewB = new QPushButton( tr( "&New" ), this, "NewB" );
@@ -123,13 +173,13 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 	DeleteB->setEnabled(false);
 	Layout15->addWidget( DeleteB );
 
-	SaveB = new QPushButton( tr( "&Save" ), this, "SaveB" );
+	SaveB = new QPushButton( CommonStrings::tr_Save, this, "SaveB" );
 	Layout15->addWidget( SaveB );
 
-	ExitB = new QPushButton( tr( "&OK" ), this, "ExitB" );
+	ExitB = new QPushButton( CommonStrings::tr_OK, this, "ExitB" );
 	Layout15->addWidget( ExitB );
 
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
+	CancelB = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
 	Layout15->addWidget( CancelB );
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout15->addItem( spacer );
@@ -144,9 +194,10 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc, preV *avail)
 	connect(LoadS, SIGNAL(clicked()), this, SLOT(loadStyles()));
 	connect(DublicateB, SIGNAL(clicked()), this, SLOT(dupFormat()));
 	connect(DeleteB, SIGNAL(clicked()), this, SLOT(deleteFormat()));
-	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
-	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
-	TempVorl = doc->Vorlagen;
+	connect(ListBox1, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selFormat(Q3ListBoxItem*)));
+	connect(ListBox1, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selEditFormat(Q3ListBoxItem*)));
+	TempVorl.clear();
+	TempVorl.redefine(doc->paragraphStyles());
 	UpdateFList();
 }
 
@@ -155,11 +206,11 @@ void StilFormate::saveIt()
 	emit saveStyle(this);
 }
 
-void StilFormate::selFormat(QListBoxItem *c)
+void StilFormate::selFormat(Q3ListBoxItem *c)
 {
-	for (uint x = 5; x < TempVorl.count(); ++x)
+	for (uint x = 0; x < TempVorl.count(); ++x)
 	{
-		if (TempVorl[x].Vname == c->text())
+		if (TempVorl[x].name() == c->text())
 		{
 			sFnumber = x;
 			break;
@@ -170,11 +221,11 @@ void StilFormate::selFormat(QListBoxItem *c)
 	DeleteB->setEnabled(true);
 }
 
-void StilFormate::selEditFormat(QListBoxItem *c)
+void StilFormate::selEditFormat(Q3ListBoxItem *c)
 {
-	for (uint x = 5; x < TempVorl.count(); ++x)
+	for (uint x = 0; x < TempVorl.count(); ++x)
 	{
-		if (TempVorl[x].Vname == c->text())
+		if (TempVorl[x].name() == c->text())
 		{
 			sFnumber = x;
 			break;
@@ -188,122 +239,172 @@ void StilFormate::selEditFormat(QListBoxItem *c)
 
 void StilFormate::dupFormat()
 {
-	struct StVorL sty;
-	sty.Vname = tr("Copy of %1").arg(TempVorl[sFnumber].Vname);
-	sty.LineSpa = TempVorl[sFnumber].LineSpa;
-	sty.Ausri = TempVorl[sFnumber].Ausri;
-	sty.Indent = TempVorl[sFnumber].Indent;
-	sty.First = TempVorl[sFnumber].First;
-	sty.Avor = TempVorl[sFnumber].Avor;
-	sty.Anach = TempVorl[sFnumber].Anach;
-	sty.Font = TempVorl[sFnumber].Font;
-	sty.FontSize = TempVorl[sFnumber].FontSize;
-	sty.TabValues = TempVorl[sFnumber].TabValues;
-	sty.Drop = TempVorl[sFnumber].Drop;
-	sty.DropLin = TempVorl[sFnumber].DropLin;
-	sty.FontEffect = TempVorl[sFnumber].FontEffect;
-	sty.FColor = TempVorl[sFnumber].FColor;
-	sty.FShade = TempVorl[sFnumber].FShade;
-	sty.SColor = TempVorl[sFnumber].SColor;
-	sty.SShade = TempVorl[sFnumber].SShade;
-	sty.BaseAdj = TempVorl[sFnumber].BaseAdj;
+	ParagraphStyle * sty = new ParagraphStyle(TempVorl[sFnumber]);
+	sty->setName( tr("Copy of %1").arg(TempVorl[sFnumber].name()));
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
-	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon,
-	                                static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,
+	                                static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	if (!dia2->exec())
-		TempVorl.remove(TempVorl.fromLast());
+		TempVorl.remove(sFnumber);
 	delete dia2;
 	UpdateFList();
 }
 
 void StilFormate::neuesFormat()
 {
-	struct StVorL sty;
-	sty.Vname = tr("New Style");
-	sty.LineSpa = ((Docu->Dsize / 10.0) * static_cast<double>(Docu->AutoLine) / 100) + (Docu->Dsize / 10.0);
-	sty.Ausri = 0;
-	sty.Indent = 0;
-	sty.First = 0;
-	sty.Avor = 0;
-	sty.Anach = 0;
-	sty.Font = Docu->Dfont;
-	sty.FontSize = Docu->Dsize;
-	sty.TabValues.clear();
-	sty.Drop = false;
-	sty.DropLin = 2;
-	sty.FontEffect = 0;
-	sty.FColor = Docu->Dbrush;
-	sty.FShade = Docu->Dshade;
-	sty.SColor = Docu->Dpen;
-	sty.SShade = Docu->Dshade2;
-	sty.BaseAdj = false;
-	TempVorl.append(sty);
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
+	ParagraphStyle sty;
+	sty.setName( tr("New Style"));
+	/*
+	sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(0));
+	sty.setLineSpacing(((Docu->toolSettings.defSize / 10.0) * 
+			static_cast<double>(Docu->typographicSettings.autoLineSpacing) / 100) 
+			  + (Docu->toolSettings.defSize / 10.0));
+	sty.setAlignment(ParagraphStyle::Leftaligned);
+	sty.setLeftMargin(0);
+	sty.setRightMargin(0);
+	sty.setFirstIndent(0);
+	sty.setGapBefore(0);
+	sty.setGapAfter(0);
+	sty.charStyle() = CharStyle(PrefsManager::instance()->appPrefs.AvailFonts[Docu->toolSettings.defFont],
+								Docu->toolSettings.defSize);
+//	sty.tabValues().clear();
+	sty.setHasDropCap(false);
+	sty.setDropCapLines(2);
+	sty.setDropCapOffset(0);
+	sty.charStyle().setFillColor(Docu->toolSettings.dPenText);
+	sty.charStyle().setFillShade(Docu->toolSettings.dTextPenShade);
+	sty.charStyle().setStrokeColor(Docu->toolSettings.dStrokeText);
+	sty.charStyle().setStrokeShade(Docu->toolSettings.dTextStrokeShade);
+	sty.setUseBaselineGrid(false);
+	sty.charStyle().setShadowXOffset(50);
+	sty.charStyle().setShadowYOffset(-50);
+	sty.charStyle().setOutlineWidth(10);
+	sty.charStyle().setUnderlineOffset(Docu->typographicSettings.valueUnderlinePos);
+	sty.charStyle().setUnderlineWidth(Docu->typographicSettings.valueUnderlineWidth);
+	sty.charStyle().setStrikethruOffset(Docu->typographicSettings.valueStrikeThruPos);
+	sty.charStyle().setStrikethruWidth(Docu->typographicSettings.valueStrikeThruPos);
+	sty.charStyle().setScaleH(1000);
+	sty.charStyle().setScaleV(1000);
+	sty.charStyle().setBaselineOffset(0);
+	sty.charStyle().setTracking(0);
+	 */
+	TempVorl.create(sty);
 	sFnumber = TempVorl.count()-1;
-	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true, fon, static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
+	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,  static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	if (!dia2->exec())
-		TempVorl.remove(TempVorl.fromLast());
+		TempVorl.remove(sFnumber);
 	delete dia2;
 	UpdateFList();
+	ListBox1->setSelected(selectedIndex, true);
+	ListBox1->setTopItem(topIndex);
 }
 
 void StilFormate::editFormat()
 {
-	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false, fon,
-	                               static_cast<double>(Docu->AutoLine), Docu->Einheit, Docu);
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
+	EditStyle* dia = new EditStyle(this, &TempVorl[sFnumber], TempVorl, false,
+	                               static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	dia->exec();
 	delete dia;
 	UpdateFList();
+	ListBox1->setSelected(selectedIndex, true);
+	ListBox1->setTopItem(topIndex);
 }
 
 void StilFormate::deleteFormat()
 {
-	int exit=QMessageBox::warning(this,
-	                              tr("Warning"),
-	                              tr("Do you really want to delete this Style?"),
+/*	int exit=QMessageBox::warning(this,
+	                              CommonStrings::trWarning,
+	                              tr("Do you really want to delete this style?"),
 	                              tr("No"),
 	                              tr("Yes"),
-	                              0, 0, 0);
+	                              0, 0, 0); */
 	/* PFJ - 29.02.04 - Altered to use the correct QMessageBox value. It was 1 */
 	/* FS - 13.03.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2 */
-	if (exit == 1)
+//	if (exit == 1)
+	int selectedIndex=ListBox1->currentItem();
+	int topIndex=ListBox1->topItem();
+	DelStyle *dia = new DelStyle(this, TempVorl, TempVorl[sFnumber].name());
+	if (dia->exec())
 	{
+		if (ReplaceList.values().contains(TempVorl[sFnumber].name()))
+		{
+			QMap<QString,QString>::Iterator it;
+			for (it = ReplaceList.begin(); it != ReplaceList.end(); ++it)
+			{
+				if (it.data() == TempVorl[sFnumber].name())
+					it.data() = dia->getReplacementStyle();
+			}
+		}
+		ReplaceList.insert(TempVorl[sFnumber].name(), dia->getReplacementStyle());
 		ListBox1->removeItem(sFnumber);
-		TempVorl.remove(TempVorl.at(sFnumber));
+		// this might be unsafe...
+		TempVorl.remove(sFnumber);
 		UpdateFList();
 	}
+	delete dia;
+	int listBoxCount=ListBox1->count();
+	if (listBoxCount>selectedIndex)
+		ListBox1->setSelected(selectedIndex, true);
+	if (listBoxCount>topIndex)
+		ListBox1->setTopItem(topIndex);
 }
 
 void StilFormate::loadStyles()
 {
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("editformats", ".");
-#ifdef HAVE_LIBZ
 	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
-#else
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
-#endif
 	if (dia.exec() == QDialog::Accepted)
 	{
 		QString selectedFile = dia.selectedFile();
 		dirs->set("editformats", selectedFile.left(selectedFile.findRev("/")));
-		QValueList<StVorL> TempVorl2;
-		for (uint x = 0; x < 5; ++x)
-		{
-			TempVorl2.append(TempVorl[x]);
-		}
+		StyleSet<ParagraphStyle> TempVorl2;
 		Docu->loadStylesFromFile(selectedFile, &TempVorl2);
 		ChooseStyles* dia2 = new ChooseStyles(this, &TempVorl2, &TempVorl);
 		if (dia2->exec())
 		{
-			QMap<QCheckListItem*, int>::Iterator it;
+			QStringList neededColors;
+			neededColors.clear();
+			QMap<Q3CheckListItem*, int>::Iterator it;
 			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
 			{
+				const ParagraphStyle& sty(TempVorl2[it.data()]);
 				if (it.key()->isOn())
-					TempVorl.append(TempVorl2[it.data()]);
+				{
+//					sty = TempVorl2[it.data()];
+					qDebug(QString("load style %1").arg(sty.name()));
+					TempVorl.create(sty);
+					if ((!Docu->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
+						neededColors.append(sty.charStyle().strokeColor());
+					if ((!Docu->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
+						neededColors.append(sty.charStyle().fillColor());
+				}
+			}
+			if (!neededColors.isEmpty())
+			{
+				FileLoader fl(selectedFile);
+				if (fl.TestFile() == -1)
+				//TODO put in nice user warning
+					return;
+				ColorList LColors;
+				if (fl.ReadColors(selectedFile, LColors))
+				{
+					ColorList::Iterator itc;
+					for (itc = LColors.begin(); itc != LColors.end(); ++itc)
+					{
+						if (neededColors.contains(itc.key()))
+							Docu->PageColors.insert(itc.key(), itc.data());
+					}
+				}
 			}
 		}
-//		Docu->loadStylesFromFile(selectedFile, &TempVorl);
+		delete dia2;
+//		TempVorl.redefine(TempVorl2, false);
 		UpdateFList();
 	}
 	else
@@ -313,17 +414,16 @@ void StilFormate::loadStyles()
 void StilFormate::UpdateFList()
 {
 	ListBox1->clear();
-	if (TempVorl.count() < 6)
+	if (TempVorl.count() == 0)
 		return;
-	for (uint x = 5; x < TempVorl.count(); ++x)
-		ListBox1->insertItem(TempVorl[x].Vname);
+	for (uint x = 0; x < TempVorl.count(); ++x)
+		ListBox1->insertItem(TempVorl[x].name());
 	if (ListBox1->currentItem() == -1)
 	{
 		DublicateB->setEnabled(false);
 		EditB->setEnabled(false);
 		DeleteB->setEnabled(false);
 	}
-	/* PFJ - 29.02.04 - Altered from TRUE to true */
 	ListBox1->sort( true );
 	ListBox1->setSelected(ListBox1->currentItem(), false);
 }

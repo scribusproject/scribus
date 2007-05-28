@@ -1,29 +1,22 @@
 pluginsdir = $(libdir)/scribus/plugins
-
 plugins_LTLIBRARIES = libsvgexplugin.la
-
-INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
-
-if COMPILE_DEBUG
- linkflag =
-else
- linkflag = -s
-endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS)
-
+INCLUDES = $(LIBCAIRO_CFLAGS) $(LIBFREETYPE_CFLAGS) $(all_includes)
+AM_LDFLAGS = $(LIBCAIRO_LIBS) $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 
 libsvgexplugin_la_LDFLAGS = -version-info 0:0:0
 libsvgexplugin_la_METASOURCES = AUTO
 libsvgexplugin_la_SOURCES = svgexplugin.cpp 
-
 KDE_OPTIONS = qtonly
-
-EXTRA_DIST = svgexplugin.cpp svgexplugin.h 
+EXTRA_DIST = svgexplugin.cpp svgexplugin.h  CMakeLists.txt
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \
     -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
+    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
+    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
 
+AM_CXXFLAGS = \
+    $(GCC_CXX_VISIBILITY_FLAGS)

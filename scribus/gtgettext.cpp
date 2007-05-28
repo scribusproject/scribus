@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -19,17 +25,25 @@
  ***************************************************************************/
 
 #include "gtgettext.h"
+#include "pluginmanager.h"
+#include "scpaths.h"
+#include "pageitem.h"
+#include "scribusdoc.h"
+#include "selection.h"
+//Added by qt3to4:
+#include <QPixmap>
 
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
 
-gtGetText::gtGetText()
+
+gtGetText::gtGetText(ScribusDoc* doc)
 {
+	m_Doc=doc;
 	loadImporterPlugins();
 }
 
-void gtGetText::launchImporter(int importer, const QString& filename,
-                               bool textOnly, const QString& encoding, bool append)
+void gtGetText::launchImporter(int importer, const QString& filename, bool textOnly, 
+								const QString& encoding, bool append, PageItem* target)
 {
 	struct ImporterData ida;
 	bool callImporter = true;
@@ -40,29 +54,31 @@ void gtGetText::launchImporter(int importer, const QString& filename,
 			ida = *importerMap[fend];
 		else
 		{
+			dias = new gtDialogs();
 			callImporter = dias->runImporterDialog(ilist);
 			if (callImporter)
 				ida = importers[dias->getImporter()];
+			delete dias;
 		}
 	}
 	else
 	{
 		ida = importers[importer];
 	}
+	PageItem* targetFrame=target;
+	if (targetFrame==0)
+		targetFrame=m_Doc->m_Selection->itemAt(0);
 
-	if (callImporter)
-		CallDLL(ida, filename, encoding, textOnly, append);
+	if (targetFrame!=0 && callImporter)
+		CallDLL(ida, filename, encoding, textOnly, append, targetFrame);
 }
 
 void gtGetText::loadImporterPlugins()
 {
-	QString gtdir = PLUGINDIR;
+	QString gtdir = ScPaths::instance().pluginDir();
 	gtdir += "gettext";
-#if defined(__hpux)
-	QDir d(gtdir, "*.sl*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
-#else
-	QDir d(gtdir, "*.so*", QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
-#endif
+	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension());
+	QDir d(gtdir, libPattern, QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
 
 	struct ImporterData ida;
 	ida.fileFormatName = "";
@@ -71,8 +87,11 @@ void gtGetText::loadImporterPlugins()
 	{
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
-			if (DLLName(d[dc], &ida.fileFormatName, &ida.fileEndings, &ida.pointer))
+			if (DLLName(d[dc], &ida.fileFormatName, &ida.fileEndings))
 			{
+				// no plugin's "format name" marks "don't load plug"
+				if (ida.fileFormatName.isNull())
+					continue;
 				ida.soFilePath = d[dc];
 				if (ida.soFilePath.left(1) != "/")
 					ida.soFilePath = "/" + ida.soFilePath;
@@ -83,7 +102,7 @@ void gtGetText::loadImporterPlugins()
 	createMap();
 }
 
-void gtGetText::run(bool append)
+ImportSetup gtGetText::run()
 {
 	QString filters = "";
 	QString allSupported = QObject::tr("All Supported Formats") + " (";
@@ -92,7 +111,7 @@ void gtGetText::run(bool append)
 		if (importers[i].fileEndings.count() != 0)
 		{
 			filters += importers[i].fileFormatName + " (";
-			for (uint j = 0; j < importers[i].fileEndings.count(); ++j)
+			for (int j = 0; j < importers[i].fileEndings.count(); ++j)
 			{
 				filters += "*." + importers[i].fileEndings[j] + " ";
 				allSupported += "*." + importers[i].fileEndings[j] + " ";
@@ -108,79 +127,79 @@ void gtGetText::run(bool append)
 	for (uint i = 0;  i < importers.size(); ++i)
 		ilist.append(importers[i].fileFormatName);
 	dias = new gtDialogs();
+	ImportSetup impsetup;
+	impsetup.runDialog=false;
 	if (dias->runFileDialog(filters, ilist))
 	{
-		launchImporter(dias->getImporter(), dias->getFileName(),
-		               dias->importTextOnly(), dias->getEncoding(), append);
+		impsetup.runDialog=true;
+		impsetup.encoding=dias->getEncoding();
+		impsetup.filename=dias->getFileName();
+		impsetup.importer=dias->getImporter();
+		impsetup.textOnly=dias->importTextOnly();
+// 		launchImporter(dias->getImporter(), dias->getFileName(),
+// 		               dias->importTextOnly(), dias->getEncoding(), append);
 	}
 	delete dias;
+	return impsetup;
 }
 
 void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
-                        const QString& encoding, bool textOnly, bool append)
+                        const QString& encoding, bool textOnly, bool append, PageItem* importItem)
 {
-	void *mo;
-	const char *error;
+	void* gtplugin;
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
-	sdem demo;
-	QString pfad = PLUGINDIR;
-	pfad += "gettext" + idata.soFilePath;
-	mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
-	if (!mo)
-		return;
-
-	dlerror();
-	demo = (sdem)dlsym(mo, "GetText");
-	if ((error = dlerror()) != NULL)
+	sdem fp_GetText;
+	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(idata.soFilePath);
+	gtplugin = PluginManager::loadDLL(pluginFilePath);
+	if (!gtplugin)
 	{
-		std::cout << "Can't find Symbol" << "\n";
-		dlclose(mo);
+		qWarning("Failed to load plugin %s", pluginFilePath.ascii());
 		return;
 	}
-	gtWriter *w = new gtWriter(append);
-	(*demo)(filePath, encoding, textOnly, w);
+	fp_GetText = (sdem) PluginManager::resolveSym(gtplugin, "GetText");
+	if (!fp_GetText)
+	{
+		qWarning("Failed to get GetText() from %s", pluginFilePath.ascii());
+		PluginManager::unloadDLL(gtplugin);
+		return;
+	}
+	gtWriter *w = new gtWriter(append, importItem);
+	(*fp_GetText)(filePath, encoding, textOnly, w);
 	delete w;
-	dlclose(mo);
+	PluginManager::unloadDLL(gtplugin);
 }
 
-bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings, void **Zeig)
+bool gtGetText::DLLName(QString name, QString *ffName, QStringList *fEndings)
 {
-	void *mo;
-	const char *error;
+	void* gtplugin;
 	typedef QString (*sdem0)();
 	typedef QStringList (*sdem1)();
-	sdem0 demo;
-	sdem1 demo1;
-	QString pfad = PLUGINDIR;
-	pfad += "gettext";
-	if (name.left(1) != "/")
-		pfad += "/";
-	pfad += name;
-	mo = dlopen(pfad, RTLD_LAZY | RTLD_GLOBAL);
-	if (!mo)
+	sdem0 fp_FileFormatName;
+	sdem1 fp_FileExtensions;
+	QString pluginFilePath = QString("%1/gettext/%2").arg(ScPaths::instance().pluginDir()).arg(name);
+	gtplugin = PluginManager::loadDLL(pluginFilePath);
+	if (!gtplugin)
 	{
-		std::cout << dlerror() << "\n";
+		qWarning("Failed to load plugin %s", pluginFilePath.ascii());
 		return false;
 	}
-	dlerror();
-	demo = (sdem0)dlsym(mo, "FileFormatName");
-	if ((error = dlerror()) != NULL)
+	fp_FileFormatName = (sdem0) PluginManager::resolveSym( gtplugin, "FileFormatName");
+	if (!fp_FileFormatName)
 	{
-		dlclose(mo);
+		qWarning("Failed to get FileFormatName() from %s", pluginFilePath.ascii());
+		PluginManager::unloadDLL(gtplugin);
 		return false;
 	}
-	*ffName = (*demo)();
-	dlerror();
-	demo1 = (sdem1)dlsym(mo, "FileExtensions");
-	if ((error = dlerror()) != NULL)
+	fp_FileExtensions = (sdem1) PluginManager::resolveSym( gtplugin, "FileExtensions");
+	if (!fp_FileExtensions)
 	{
-		dlclose(mo);
+		qWarning("Failed to get FileExtensions() from %s", pluginFilePath.ascii());
+		PluginManager::unloadDLL(gtplugin);
 		return false;
 	}
-	*fEndings = (*demo1)();
-	*Zeig = mo;
-	dlclose(mo);
-
+	*ffName = (*fp_FileFormatName)();
+	*fEndings = (*fp_FileExtensions)();
+	PluginManager::unloadDLL(gtplugin);
 	return true;
 }
 
@@ -188,7 +207,7 @@ void gtGetText::createMap()
 {
 	for (uint i = 0; i < importers.size(); ++i)
 	{
-		for (uint j = 0; j < importers[i].fileEndings.count(); ++j)
+		for (int j = 0; j < importers[i].fileEndings.count(); ++j)
 				importerMap.insert(importers[i].fileEndings[j], &importers[i]);
 	}
 }

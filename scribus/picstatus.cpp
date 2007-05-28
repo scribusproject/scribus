@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           picstatus.cpp  -  description
                              -------------------
@@ -14,307 +20,350 @@
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-#include "picstatus.h"
-#include "picstatus.moc"
+#include <q3table.h>
 #include <qfileinfo.h>
-#include <qfiledialog.h>
+#include <qmessagebox.h>
 #include <qtoolbutton.h>
 #include <qstringlist.h>
-#include <qtextstream.h>
+#include <q3textstream.h>
+#include <qtooltip.h>
 #include <qcursor.h>
+#include <qpainter.h>
+//Added by qt3to4:
+#include <QPixmap>
 #include <cstdio>
+
+#include "picstatus.h"
+//#include "picstatus.moc"
 #include "picsearch.h"
+#include "picsearchoptions.h"
+#include "scribusdoc.h"
+#include "pageitem.h"
+#include "filesearch.h"
+#include "scribuscore.h"
+#include "commonstrings.h"
+#include "effectsdialog.h"
+#include "extimageprops.h"
+
 extern QPixmap loadIcon(QString nam);
 
-/*!
- \fn void PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
- \author Franz Schmid
- \date
- \brief Constructs a Dialog, which list all Images in the current Document. In this Dialog it is possible
-to search for missing Images.
- \param parent Pointer to parent window
- \param docu Pointer to the current Document
- \param viewi Pointer to the current View
- \retval None
- */
-
-PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu, ScribusView *viewi)
-		: QDialog( parent, "pic", true, 0 )
+PicItem::PicItem(Q3IconView* parent, QString text, QPixmap pix, PageItem* pgItem)
+	: Q3IconViewItem(parent, text, pix)
 {
-	uint p, i;
-	QString tmp;
-	setCaption( tr( "Pictures" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	doc = docu;
-	view = viewi;
-	ItemNrs.clear();
-	FlagsPic.clear();
-	PicStatusLayout = new QVBoxLayout( this );
-	PicStatusLayout->setSpacing( 6 );
-	PicStatusLayout->setMargin( 11 );
-
-	PicTable = new QTable( this, "PicTable" );
-	PicTable->setLeftMargin(0);
-	PicTable->verticalHeader()->hide();
-	PicTable->setNumCols( 7 );
-	Header = PicTable->horizontalHeader();
-	QString tmpc[] = { tr("Name"),  tr("Path"),  tr("Page"), " ",  tr("Print"),  tr("Status"), " "};
-	size_t ar = sizeof(tmpc) / sizeof(*tmpc);
-	for (uint a = 0; a < ar; ++a)
-		Header->setLabel(a, tmpc[a]);
-	Zeilen = 0;
-	for (p=0; p<view->MasterPages.count(); ++p)
-	{
-		for (i=0; i<view->MasterPages.at(p)->Items.count(); ++i)
-		{
-			if (view->MasterPages.at(p)->Items.at(i)->PType == 2)
-			{
-				Zeilen++;
-				ItemNrs.append(i);
-			}
-		}
-	}
-	for (p=0; p<view->Pages.count(); ++p)
-	{
-		for (i=0; i<view->Pages.at(p)->Items.count(); ++i)
-		{
-			if (view->Pages.at(p)->Items.at(i)->PType == 2)
-			{
-				Zeilen++;
-				ItemNrs.append(i);
-			}
-		}
-	}
-	PicTable->setNumRows(Zeilen);
-	int Zeilen2 = 0;
-	for (p=0; p<view->MasterPages.count(); ++p)
-	{
-		for (i=0; i<view->MasterPages.at(p)->Items.count(); ++i)
-		{
-			if (view->MasterPages.at(p)->Items.at(i)->PType == 2)
-			{
-				QFileInfo fi = QFileInfo(view->MasterPages.at(p)->Items.at(i)->Pfile);
-				PicTable->setText(Zeilen2, 0, fi.fileName());
-				PicTable->setText(Zeilen2, 1, fi.dirPath());
-				PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
-				QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-				tb2->setText( tr("Goto"));
-				tb2->setEraseColor(white);
-				tb2->setEnabled(false);
-				PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
-				PicTable->setCellWidget(Zeilen2, 3, tb2);
-				connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
-				QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-				cp2->setText( tr("Yes"));
-				cp2->setChecked(view->MasterPages.at(p)->Items.at(i)->isPrintable);
-				cp2->setEraseColor(white);
-				FlagsPic.append(cp2);
-				PicTable->setCellWidget(Zeilen2, 4, cp2);
-				connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
-				if (view->MasterPages.at(p)->Items.at(i)->PicAvail)
-					PicTable->setText(Zeilen2, 5, tr("OK"));
-				else
-					PicTable->setText(Zeilen2, 5, tr("Missing"));
-				QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-				tb->setText( tr("Search"));
-				PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
-				tb->setEraseColor(white);
-				PicTable->setCellWidget(Zeilen2, 6, tb);
-				connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
-				Zeilen2++;
-			}
-		}
-	}
-	for (p=0; p<view->Pages.count(); ++p)
-	{
-		for (i=0; i<view->Pages.at(p)->Items.count(); ++i)
-		{
-			if (view->Pages.at(p)->Items.at(i)->PType == 2)
-			{
-				QFileInfo fi = QFileInfo(view->Pages.at(p)->Items.at(i)->Pfile);
-				PicTable->setText(Zeilen2, 0, fi.fileName());
-				PicTable->setText(Zeilen2, 1, fi.dirPath());
-				PicTable->setText(Zeilen2, 2, tmp.setNum(p+1));
-				QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-				tb2->setText( tr("Goto"));
-				tb2->setEraseColor(white);
-				PicTable->setColumnWidth(3, tb2->fontMetrics().width( tr("Goto"))+10);
-				PicTable->setCellWidget(Zeilen2, 3, tb2);
-				connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
-				QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-				cp2->setText( tr("Yes"));
-				cp2->setChecked(view->Pages.at(p)->Items.at(i)->isPrintable);
-				cp2->setEraseColor(white);
-				FlagsPic.append(cp2);
-				PicTable->setCellWidget(Zeilen2, 4, cp2);
-				connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
-				if (view->Pages.at(p)->Items.at(i)->PicAvail)
-					PicTable->setText(Zeilen2, 5, tr("OK"));
-				else
-					PicTable->setText(Zeilen2, 5, tr("Missing"));
-				QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-				tb->setText( tr("Search"));
-				PicTable->setColumnWidth(6, tb2->fontMetrics().width( tr("Search"))+10);
-				tb->setEraseColor(white);
-				PicTable->setCellWidget(Zeilen2, 6, tb);
-				connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
-				Zeilen2++;
-			}
-		}
-	}
-
-	PicTable->adjustColumn(0);
-	PicTable->adjustColumn(1);
-	PicTable->adjustColumn(2);
-	PicTable->adjustColumn(4);
-	PicTable->adjustColumn(5);
-	PicTable->setColumnReadOnly(0, true);
-	PicTable->setColumnReadOnly(1, true);
-	PicTable->setColumnReadOnly(2, true);
-	PicTable->setColumnReadOnly(5, true);
-	PicTable->setSorting(false);
-	PicTable->setSelectionMode(QTable::NoSelection);
-	PicTable->setColumnMovingEnabled(false);
-	PicTable->setRowMovingEnabled(false);
-	Header->setMovingEnabled(false);
-	PicStatusLayout->addWidget( PicTable );
-
-	Layout2 = new QHBoxLayout;
-	Layout2->setSpacing( 6 );
-	Layout2->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer );
-
-	OkB = new QPushButton( tr( "&OK" ), this, "OkB" );
-	Layout2->addWidget( OkB );
-	PicStatusLayout->addLayout( Layout2 );
-
-	// signals and slots connections
-	connect( OkB, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	PageItemObject = pgItem;
 }
 
-/*!
- \fn void PicStatus::GotoPic()
- \author Franz Schmid
- \date
- \brief Moves to the Page containing the selected Image.
- \param None
- \retval None
- */
+PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu)
+	: QDialog( parent, "PicStatus", true, 0 )
+{
+	setupUi(this);
+	m_Doc = docu;
+	currItem = NULL;
+	setIcon(loadIcon("AppIcon.png"));
+	fillTable();
+	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(imageViewArea, SIGNAL(currentChanged(Q3IconViewItem *)), this, SLOT(imageSelected(Q3IconViewItem *)));
+	connect(imageViewArea, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(imageSelected(Q3IconViewItem*)));
+	connect(isPrinting, SIGNAL(clicked()), this, SLOT(PrintPic()));
+	connect(isVisibleCheck, SIGNAL(clicked()), this, SLOT(visiblePic()));
+	connect(goPageButton, SIGNAL(clicked()), this, SLOT(GotoPic()));
+	connect(selectButton, SIGNAL(clicked()), this, SLOT(SelectPic()));
+	connect(searchButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
+	connect(effectsButton, SIGNAL(clicked()), this, SLOT(doImageEffects()));
+	connect(buttonLayers, SIGNAL(clicked()), this, SLOT(doImageExtProp()));
+	connect(buttonEdit, SIGNAL(clicked()), this, SLOT(doEditImage()));
+}
+
+QPixmap PicStatus::createImgIcon(PageItem* item)
+{
+	QPainter p;
+	QPixmap pm(128, 128);
+	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	p.begin(&pm);
+	p.fillRect(0, 0, 128, 128, imageViewArea->paletteBackgroundColor());
+	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	p.setBrush(paletteBackgroundColor());
+	p.drawRoundRect(0, 0, 127, 127, 10, 10);
+	p.setPen(Qt::NoPen);
+	p.setBrush(b);
+	p.drawRect(12, 12, 104, 104);
+	if (item->PicAvail)
+	{
+		QImage im2 = item->pixm.smoothScale(104, 104, Qt::ScaleMin);
+		p.drawImage((104 - im2.width()) / 2 + 12, (104 - im2.height()) / 2 + 12, im2);
+	}
+	else
+	{
+		p.setBrush(Qt::NoBrush);
+		p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		p.drawLine(12, 12, 116, 116);
+		p.drawLine(12, 116, 116, 12);
+	}
+	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	p.setBrush(Qt::NoBrush);
+	p.drawRect(12, 12, 104, 104);
+	p.end();
+	return pm;
+}
+
+void PicStatus::fillTable()
+{
+	PageItem *item;
+	QPixmap pm(128, 128);
+	QPainter p;
+	imageViewArea->clear();
+	for (item = m_Doc->MasterItems.first(); item; item = m_Doc->MasterItems.next())
+	{
+		QFileInfo fi = QFileInfo(item->Pfile);
+		if (item->itemType() == PageItem::ImageFrame)
+		{
+			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
+			ite->setDragEnabled(false);
+		}
+	}
+	for (item = m_Doc->Items->first(); item; item = m_Doc->Items->next())
+	{
+		QFileInfo fi = QFileInfo(item->Pfile);
+		if (item->itemType() == PageItem::ImageFrame)
+		{
+			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
+			ite->setDragEnabled(false);
+		}
+	}
+}
+
+void PicStatus::imageSelected(Q3IconViewItem *ite)
+{
+	if (ite != NULL)
+	{
+		PicItem *item = (PicItem*)ite;
+		currItem = item->PageItemObject;
+		if (!currItem->OnMasterPage.isEmpty())
+			displayPage->setText(currItem->OnMasterPage);
+		else
+		{
+			if (currItem->OwnPage == -1)
+				displayPage->setText(  tr("Not on a Page"));
+			else
+				displayPage->setText(QString::number(currItem->OwnPage + 1));
+		}
+		displayObjekt->setText(currItem->itemName());
+		if (currItem->PicAvail)
+		{
+			QFileInfo fi = QFileInfo(currItem->Pfile);
+			QString ext = fi.extension(false).lower();
+			displayName->setText(fi.fileName());
+			displayPath->setText(QDir::convertSeparators(fi.dirPath()));
+			QString format = "";
+			switch (currItem->pixm.imgInfo.type)
+			{
+				case 0:
+					format = tr("JPG");
+					break;
+				case 1:
+					format = tr("TIFF");
+					break;
+				case 2:
+					format = tr("PSD");
+					break;
+				case 3:
+					format = tr("EPS/PS");
+					break;
+				case 4:
+					format = tr("PDF");
+					break;
+				case 5:
+					format = tr("JPG2000");
+					break;
+				case 6:
+					format = ext.upper();
+					break;
+				case 7:
+					format = tr("emb. PSD");
+					break;
+			}
+			displayFormat->setText(format);
+			QString cSpace;
+			if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
+				cSpace = tr("Unknown");
+			else
+			{
+				switch (currItem->pixm.imgInfo.colorspace)
+				{
+					case 0:
+						cSpace = tr("RGB");
+						break;
+					case 1:
+						cSpace = tr("CMYK");
+						break;
+					case 2:
+						cSpace = tr("Grayscale");
+						break;
+					case 3:
+						cSpace = tr("Duotone");
+						break;
+				}
+			}
+			displayColorspace->setText(cSpace);
+			displayDPI->setText(QString("%1 x %2").arg(qRound(currItem->pixm.imgInfo.xres)).arg(qRound(currItem->pixm.imgInfo.yres)));
+			displayEffDPI->setText(QString("%1 x %2").arg(qRound(72.0 / currItem->imageXScale())).arg(qRound(72.0 / currItem->imageYScale())));
+			displaySizePixel->setText(QString("%1 x %2").arg(currItem->OrigW).arg(currItem->OrigH));
+			displayScale->setText(QString("%1 x %2 %").arg(currItem->imageXScale() * 100 / 72.0 * currItem->pixm.imgInfo.xres, 5, 'f', 1).arg(currItem->imageYScale() * 100 / 72.0 * currItem->pixm.imgInfo.yres, 5, 'f', 1));
+			displayPrintSize->setText(QString("%1 x %2%3").arg(currItem->OrigW * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(currItem->OrigH * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(unitGetSuffixFromIndex(m_Doc->unitIndex())));
+			isPrinting->setChecked(currItem->printEnabled());
+			isVisibleCheck->setChecked(currItem->imageShown());
+			buttonEdit->setEnabled(true);
+			effectsButton->setEnabled(true);
+			buttonLayers->setEnabled(true);
+		}
+		else
+		{
+			if (!currItem->Pfile.isEmpty())
+			{
+				QFileInfo fi = QFileInfo(currItem->Pfile);
+				displayName->setText(fi.fileName());
+				displayPath->setText(QDir::convertSeparators(fi.dirPath()));
+			}
+			else
+			{
+				displayName->setText( tr("n/a"));
+				displayPath->setText( tr("n/a"));
+			}
+			displayFormat->setText( tr("n/a"));
+			displayColorspace->setText( tr("n/a"));
+			displayDPI->setText( tr("n/a"));
+			displayEffDPI->setText( tr("n/a"));
+			displaySizePixel->setText( tr("n/a"));
+			displayScale->setText( tr("n/a"));
+			displayPrintSize->setText( tr("n/a"));
+			buttonEdit->setEnabled(false);
+			effectsButton->setEnabled(false);
+			buttonLayers->setEnabled(false);
+		}
+	}
+	else
+	{
+		currItem = NULL;
+		imageViewArea->clearSelection();
+	}
+}
+
+void PicStatus::PrintPic()
+{
+	if (currItem != NULL)
+		currItem->setPrintEnabled(isPrinting->isChecked());
+}
+
+void PicStatus::visiblePic()
+{
+	if (currItem != NULL)
+	{
+		currItem->setImageShown(isVisibleCheck->isChecked());
+		emit refreshItem(currItem);
+	}
+}
+
 void PicStatus::GotoPic()
 {
-	emit GotoSeite(PicTable->text(QString(sender()->name()).toInt(), 2).toInt()-1);
+	if (currItem != NULL)
+	{
+		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
+		if (!currItem->OnMasterPage.isEmpty())
+			emit selectMasterPage(currItem->OnMasterPage);
+		else
+			emit selectPage(currItem->OwnPage);
+	}
 }
 
-/*!
- \fn void PicStatus::SearchPic()
- \author Franz Schmid
- \date
- \brief Searches for the given Picture. Displays a Dialog when more than one Picture is found.
- \param None
- \retval None
- */
+void PicStatus::SelectPic()
+{
+	if (currItem != NULL)
+	{
+		ScCore->primaryMainWindow()->closeActiveWindowMasterPageEditor();
+		if (currItem->Groups.count() == 0)
+			emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
+		else
+		{
+			if (currItem->isGroupControl)
+				emit selectElement(currItem->OwnPage, currItem->ItemNr, false);
+			else
+				emit selectElement(currItem->OwnPage, currItem->ItemNr, true);
+		}
+	}
+}
+
+bool PicStatus::loadPict(const QString & newFilePath)
+{
+	// Hack to fool the LoadPict function
+	currItem->Pfile = newFilePath;
+	m_Doc->LoadPict(newFilePath, currItem->ItemNr, true);
+	return currItem->PicAvail;
+}
+
 void PicStatus::SearchPic()
 {
-	uint ZNr = QString(sender()->name()).toUInt();
-	uint ItNr = ItemNrs[ZNr];
-	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
-	QString BildNam =	PicTable->text(ZNr, 0);
-	QString OldPfad =	PicTable->text(ZNr, 1);
-	QStringList Pfade;
-	qApp->setOverrideCursor(QCursor(waitCursor), true);
-	qApp->processEvents();
-	QString home = QDir::homeDirPath();
-	FILE *fp = popen("find "+home+" -name " + BildNam, "r");
-	qApp->setOverrideCursor(QCursor(arrowCursor), true);
-	if (fp == NULL)
-		return;
-	QTextStream ts(fp, IO_ReadOnly);
-	QString tmp = ts.read();
-	Pfade = QStringList::split("\n", tmp);
-	if (Pfade.count() > 1)
+	PicSearchOptions *dia = new PicSearchOptions(this, displayName->text(), displayPath->text());
+	if (dia->exec())
 	{
-		PicSearch *dia = new PicSearch(this, BildNam, Pfade);
+		if (dia->m_matches.count() == 0)
+		{
+			QMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(dia->m_fileName),
+					QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
+					QMessageBox::NoButton);
+		}
+		else
+		{
+			PicSearch *dia2 = new PicSearch(this, dia->m_fileName, dia->m_matches);
+			if (dia2->exec())
+			{
+				Q_ASSERT(!dia2->currentImage.isEmpty());
+				loadPict(dia2->currentImage);
+				refreshItem(currItem);
+				QFileInfo fi = QFileInfo(currItem->Pfile);
+				imageViewArea->currentItem()->setText(fi.fileName());
+				imageViewArea->currentItem()->setPixmap(createImgIcon(currItem));
+				imageSelected(imageViewArea->currentItem());
+			}
+			delete dia2;
+		}
+	}
+	delete dia;
+}
+
+void PicStatus::doImageEffects()
+{
+	if (currItem != NULL)
+	{
+		EffectsDialog* dia = new EffectsDialog(this, currItem, m_Doc);
 		if (dia->exec())
 		{
-			QString fileName = dia->Bild;
-			if (!fileName.isEmpty())
-			{
-				for (uint zz = 0; zz < static_cast<uint>(Zeilen); ++zz)
-				{
-					if (PicTable->text(zz, 1) == OldPfad)
-					{
-						PgNr = PicTable->text(zz, 2).toInt()-1;
-						ItNr = ItemNrs[zz];
-						if (PicTable->cellWidget(zz, 3)->isEnabled())
-						{
-							view->Pages.at(PgNr)->LoadPict(fileName, ItNr);
-							PicTable->setText(zz, 1, view->Pages.at(PgNr)->Items.at(ItNr)->Pfile);
-							PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
-							                  tr("OK") : tr("Missing"));
-						}
-						else
-						{
-							view->MasterPages.at(PgNr)->LoadPict(fileName, ItNr);
-							PicTable->setText(zz, 1, view->MasterPages.at(PgNr)->Items.at(ItNr)->Pfile);
-							PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
-							                  tr("OK") : tr("Missing"));
-						}
-					}
-				}
-				view->DrawNew();
-			}
+			currItem->effectsInUse = dia->effectsList;
+			loadPict(currItem->Pfile);
+			refreshItem(currItem);
+			imageViewArea->currentItem()->setPixmap(createImgIcon(currItem));
 		}
 		delete dia;
 	}
-	else
-	{
-		if (Pfade.count() == 1)
-		{
-			for (uint zz = 0; zz < static_cast<uint>(Zeilen); ++zz)
-			{
-				if (PicTable->text(zz, 1) == OldPfad)
-				{
-					PgNr = PicTable->text(zz, 2).toInt()-1;
-					ItNr = ItemNrs[zz];
-					if (PicTable->cellWidget(zz, 3)->isEnabled())
-					{
-						view->Pages.at(PgNr)->LoadPict(Pfade[0], ItNr);
-						PicTable->setText(zz, 1, view->Pages.at(PgNr)->Items.at(ItNr)->Pfile);
-						PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
-						                  tr("OK") : tr("Missing"));
-					}
-					else
-					{
-						view->MasterPages.at(PgNr)->LoadPict(Pfade[0], ItNr);
-						PicTable->setText(zz, 1, view->MasterPages.at(PgNr)->Items.at(ItNr)->Pfile);
-						PicTable->setText(zz, 5, view->Pages.at(PgNr)->Items.at(ItNr)->PicAvail ?
-						                  tr("OK") : tr("Missing"));
-					}
-				}
-			}
-			view->DrawNew();
-		}
-	}
-	pclose(fp);
 }
 
-/*!
- \fn void PicStatus::PrintPic()
- \author Franz Schmid
- \date
- \brief Enables or disables printing of the selected Image.
- \param None
- \retval None
- */
-void PicStatus::PrintPic()
+void PicStatus::doImageExtProp()
 {
-	uint ZNr = QString(sender()->name()).toUInt();
-	uint ItNr = ItemNrs[ZNr];
-	uint PgNr = PicTable->text(ZNr, 2).toInt()-1;
-	if (PicTable->cellWidget(ZNr, 3)->isEnabled())
-		view->Pages.at(PgNr)->Items.at(ItNr)->isPrintable = FlagsPic.at(ZNr)->isChecked();
-	else
-		view->MasterPages.at(PgNr)->Items.at(ItNr)->isPrintable = FlagsPic.at(ZNr)->isChecked();
+	if (currItem != NULL)
+	{
+		ExtImageProps* dia = new ExtImageProps(this, &currItem->pixm.imgInfo, currItem, m_Doc->view());
+		dia->exec();
+		loadPict(currItem->Pfile);
+		refreshItem(currItem);
+		imageViewArea->currentItem()->setPixmap(createImgIcon(currItem));
+		delete dia;
+	}
+}
+
+void PicStatus::doEditImage()
+{
+	if (currItem != NULL)
+	{
+		SelectPic();
+		ScCore->primaryMainWindow()->callImageEditor();
+	}
 }

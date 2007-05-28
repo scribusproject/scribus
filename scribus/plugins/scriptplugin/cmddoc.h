@@ -1,11 +1,9 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef CMDDOC_H
 #define CMDDOC_H
 
@@ -16,11 +14,7 @@
 
 PyDoc_STRVAR(scribus_newdocument__doc__,
 QT_TR_NOOP("newDocument(size, margins, orientation, firstPageNumber,\n\
-unit, pagesType, firstPageOrder) -> bool\n\
-\n\
-WARNING: This is backported function from 1.3.x series. You are using constants\n\
-larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger\n\
-than 1.\n\
+                        unit, pagesType, firstPageOrder, numPages) -> bool\n\
 \n\
 Creates a new document and returns true if successful. The parameters have the\n\
 following meaning:\n\
@@ -48,12 +42,14 @@ PAGE_4 is 4-fold.\n\
 firstPageOrder = What is position of first page in the document.\n\
 Indexed from 0 (0 = first).\n\
 \n\
+numPage = Number of pages to be created.\n\
+\n\
 The values for width, height and the margins are expressed in the given unit\n\
 for the document. PAPER_* constants are expressed in points. If your document\n\
 is not in points, make sure to account for this.\n\
 \n\
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,\n\
-PAGE_4, 3)\n\
+PAGE_4, 3, 1)\n\
 \n\
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.\n\
 "));
@@ -66,6 +62,8 @@ PyDoc_STRVAR(scribus_newdoc__doc__,
 QT_TR_NOOP("newDoc(size, margins, orientation, firstPageNumber,\n\
                    unit, facingPages, firstSideLeft) -> bool\n\
 \n\
+WARNING: Obsolete procedure! Use newDocument instead.\n\
+\n\
 Creates a new document and returns true if successful. The parameters have the\n\
 following meaning:\n\
 \n\
@@ -77,7 +75,7 @@ following meaning:\n\
 \n\
     orientation = the page orientation - constants PORTRAIT, LANDSCAPE\n\
 \n\
-    firstPageNumber = is the number of the first page in the document used for\n\
+    firstPageNumer = is the number of the first page in the document used for\n\
     pagenumbering. While you'll usually want 1, it's useful to have higher\n\
     numbers if you're creating a document in several parts.\n\
 \n\
@@ -157,7 +155,7 @@ PyObject *scribus_savedocas(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setinfo__doc__,
-QT_TR_NOOP("saveDocAs(\"author\", \"info\", \"description\") -> bool\n\
+QT_TR_NOOP("setInfo(\"author\", \"info\", \"description\") -> bool\n\
 \n\
 Sets the document information. \"Author\", \"Info\", \"Description\" are\n\
 strings.\n\
@@ -169,7 +167,7 @@ PyObject *scribus_setinfo(PyObject */*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_setmargins__doc__,
 QT_TR_NOOP("setMargins(lr, rr, tr, br)\n\
 \n\
-Sets the margins of the document, Left(lr), Right(rr), Top(tr) and Bottom(br)\n\
+Sets the margins of the document, Qt::DockLeft(lr), Qt::DockRight(rr), Qt::DockTop(tr) and Qt::DockBottom(br)\n\
 margins are given in the measurement units of the document - see UNIT_<type>\n\
 constants.\n\
 "));
@@ -218,8 +216,45 @@ FACINGPAGES, to switch facingPages off use NOFACINGPAGES instead.  If you want\n
 to be the first page a left side set the second parameter to FIRSTPAGELEFT, for\n\
 a right page use FIRSTPAGERIGHT.\n\
 "));
-/*! TODO: comment */
 PyObject *scribus_setdoctype(PyObject */*self*/, PyObject* args);
+
+PyDoc_STRVAR(scribus_closemasterpage__doc__,
+QT_TR_NOOP("closeMasterPage()\n\
+\n\
+Closes the currently active master page, if any, and returns editing\n\
+to normal. Begin editing with editMasterPage().\n\
+"));
+PyObject* scribus_closemasterpage(PyObject* self);
+
+PyDoc_STRVAR(scribus_masterpagenames__doc__,
+QT_TR_NOOP("masterPageNames()\n\
+\n\
+Returns a list of the names of all master pages in the document.\n\
+"));
+PyObject* scribus_masterpagenames(PyObject* self);
+
+PyDoc_STRVAR(scribus_editmasterpage__doc__,
+QT_TR_NOOP("editMasterPage(pageName)\n\
+\n\
+Enables master page editing and opens the named master page\n\
+for editing. Finish editing with closeMasterPage().\n\
+"));
+PyObject* scribus_editmasterpage(PyObject* self, PyObject* args);
+
+PyDoc_STRVAR(scribus_createmasterpage__doc__,
+QT_TR_NOOP("createMasterPage(pageName)\n\
+\n\
+Creates a new master page named pageName and opens it for\n\
+editing.\n\
+"));
+PyObject* scribus_createmasterpage(PyObject* self, PyObject* args);
+
+PyDoc_STRVAR(scribus_deletemasterpage__doc__,
+QT_TR_NOOP("deleteMasterPage(pageName)\n\
+\n\
+Delete the named master page.\n\
+"));
+PyObject* scribus_deletemasterpage(PyObject* self, PyObject* args);
 
 #endif
 

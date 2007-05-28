@@ -1,65 +1,87 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "cmykfw.h"
-#include "cmykfw.moc"
+//#include "cmykfw.moc"
 #include <qpainter.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
 #include <qcursor.h>
 #include <qmessagebox.h>
 #include <qfileinfo.h>
 #include <qdir.h>
+#include <qdom.h>
+#include <QTextStream>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QLabel>
+#include <Q3GridLayout>
+#include <QByteArray>
+#include <QPixmap>
+#include <Q3Frame>
+#include <QMouseEvent>
+#include <Q3VBoxLayout>
 #include <cstdlib>
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
-#ifdef HAVE_CMS
-extern bool SoftProofing;
-extern bool Gamut;
-extern bool CMSuse;
-#endif
-extern QPixmap loadIcon(QString nam);
 
-CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *Colors, QStringList Cust  )
-		: QDialog( parent, "fw", true, 0 )
+#include "commonstrings.h"
+#include "sccombobox.h"
+#include "scconfig.h"
+#include "scpaths.h"
+#include "scribusdoc.h"
+#include "colorutil.h"
+#include "colorlistbox.h"
+#include "util.h"
+#include "sccolorengine.h"
+
+CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol  )
+		: QDialog( parent, "fw", true, 0 ), CurrSwatch(doc)
 {
-	CMYKmode = true;
+	m_doc = doc;
+	isNew = newCol;
+	if (orig.getColorModel () == colorModelCMYK)
+		CMYKmode = true;
+	else
+		CMYKmode = false;
 	dynamic = true;
 	Wsave = false;
 	EColors = Colors;
 	CurrSwatch.clear();
+	alertIcon = loadIcon("alert.png");
 	imageA = QPixmap(50,50);
-	imageA.fill(orig.getRGBColor());
+	imageA.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
+	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
+		paintAlert(alertIcon,imageA, 2, 2, false);
 	imageN = QPixmap(50,50);
-	imageN.fill(orig.getRGBColor());
+	imageN.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
+	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
+		paintAlert(alertIcon, imageN, 2, 2, false);
 	Farbe = orig;
 	QPixmap image0 = SliderPix(180);
 	QPixmap image1 = SliderPix(300);
 	QPixmap image2 = SliderPix(60);
 	QPixmap image3 = SliderBlack();
-	int cc, cm, cy, ck;
+	CMYKColor cmyk;
 	double ccd, cmd, cyd, ckd;
-	orig.getCMYK(&cc, &cm, &cy, &ck);
-	ccd = cc / 2.55;
-	cmd = cm / 2.55;
-	cyd = cy / 2.55;
-	ckd = ck / 2.55;
+	ScColorEngine::getCMYKValues(orig, m_doc, cmyk);
+	ccd = cmyk.c / 2.55;
+	cmd = cmyk.m / 2.55;
+	cyd = cmyk.y / 2.55;
+	ckd = cmyk.k / 2.55;
+	RGBColor rgb;
+	double crd, cgd, cbd;
+	ScColorEngine::getRGBValues(orig, m_doc, rgb);
+	crd = rgb.r / 2.55;
+	cgd = rgb.g / 2.55;
+	cbd = rgb.b / 2.55;
 	resize( 498, 306 );
 	setCaption( tr( "Edit Color" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	CMYKFarbenLayout = new QHBoxLayout( this );
+	CMYKFarbenLayout = new Q3HBoxLayout( this );
 	CMYKFarbenLayout->setSpacing( 6 );
 	CMYKFarbenLayout->setMargin( 11 );
-	Layout23 = new QVBoxLayout;
+	Layout23 = new Q3VBoxLayout;
 	Layout23->setSpacing( 7 );
 	Layout23->setMargin( 0 );
 
@@ -77,22 +99,29 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	TextLabel3->setMinimumSize( QSize( 100, 22 ) );
 	Layout23->addWidget( TextLabel3 );
 
-	ComboBox1 = new QComboBox( true, this, "ComboBox1" );
-	ComboBox1->setEditable(false);
+	ComboBox1 = new ScComboBox( false, this, "ComboBox1" );
 	ComboBox1->insertItem( tr( "CMYK" ) );
 	ComboBox1->insertItem( tr( "RGB" ) );
 	ComboBox1->insertItem( tr( "Web Safe RGB" ) );
-	ComboBox1->setMinimumSize( QSize( 200, 22 ) );
+	if (!CMYKmode)
+		ComboBox1->setCurrentItem( 1 );
 	TextLabel3->setBuddy( ComboBox1 );
 	Layout23->addWidget( ComboBox1 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
+
+	Separations = new QCheckBox( this, "Separations" );
+	Separations->setText( tr( "Is Spot Color" ) );
+	Separations->setChecked(orig.isSpotColor());
+	Layout23->addWidget( Separations );
+
+	Regist = new QCheckBox( this, "Regist" );
+	Regist->setText( tr( "Is Registration Color" ) );
+	Regist->setChecked(orig.isRegistrationColor());
+	Layout23->addWidget( Regist );
+
+	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout23->addItem( spacer );
 
-	/*    Separations = new QCheckBox( this, "Separations" );
-	    Separations->setText( tr( "Is Spot-Color" ) );
-	    Layout23->addWidget( Separations );    */
-
-	Layout2 = new QGridLayout;
+	Layout2 = new QGridLayout();
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 
@@ -108,7 +137,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	OldC->setFrameShape( QLabel::WinPanel );
 	OldC->setFrameShadow( QLabel::Sunken );
 	OldC->setScaledContents( true );
-	OldC->setAlignment( int( QLabel::AlignCenter ) );
+	OldC->setAlignment(Qt::AlignCenter);
 	OldC->setPixmap( imageA );
 
 	Layout2->addWidget( OldC, 1, 0 );
@@ -125,45 +154,56 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	NewC->setFrameShape( QLabel::WinPanel );
 	NewC->setFrameShadow( QLabel::Sunken );
 	NewC->setScaledContents( true );
-	NewC->setAlignment( int( QLabel::AlignCenter ) );
+	NewC->setAlignment(Qt::AlignCenter);
 	NewC->setPixmap( imageN );
 
 	Layout2->addWidget( NewC, 1, 1 );
 	Layout23->addLayout( Layout2 );
 
-	Layout21 = new QHBoxLayout;
+	Layout21 = new Q3HBoxLayout;
 	Layout21->setSpacing( 20 );
 	Layout21->setMargin( 10 );
 
-	Cancel_2 = new QPushButton( tr( "&OK" ), this, "Cancel_2" );
+	Cancel_2 = new QPushButton( CommonStrings::tr_OK, this, "Cancel_2" );
 	Cancel_2->setDefault( true );
 	Layout21->addWidget( Cancel_2 );
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	Layout21->addWidget( Cancel );
 	Layout23->addLayout( Layout21 );
 	CMYKFarbenLayout->addLayout( Layout23 );
 
-	Frame4 = new QFrame( this, "Frame4" );
-	Frame4->setFrameShape( QFrame::NoFrame );
-	Frame4->setFrameShadow( QFrame::Raised );
-	Frame4Layout = new QVBoxLayout( Frame4 );
+	Frame4 = new Q3Frame( this, "Frame4" );
+	Frame4->setFrameShape( Q3Frame::NoFrame );
+	Frame4->setFrameShadow( Q3Frame::Raised );
+	Frame4Layout = new Q3VBoxLayout( Frame4 );
 	Frame4Layout->setSpacing( 6 );
 	Frame4Layout->setMargin( 0 );
 
-	Swatches = new QComboBox( true, Frame4, "ComboBox1" );
-	Swatches->setEditable(false);
+	Swatches = new ScComboBox( false, Frame4, "ComboBox1" );
 	Swatches->insertItem( tr( "HSV-Colormap" ) );
+/*
 	Swatches->insertItem("X11 RGB-Set");
 	Swatches->insertItem("X11 Grey-Set");
 	Swatches->insertItem("Gnome-Set");
 	Swatches->insertItem("SVG-Set");
+	Swatches->insertItem("OpenOffice.org-Set");
+*/
+	csm.findPaletteLocations();
+	csm.findPalettes();
+	QStringList allSets(csm.paletteNames());
+	for ( QStringList::Iterator it = allSets.begin(); it != allSets.end(); ++it )
+	{
+		Swatches->insertItem((*it));
+	}
+	customSetStartIndex=Swatches->count();
+
 	if (Cust.count() != 0)
 	{
 		QStringList realEx;
 		realEx.clear();
-		for (uint m = 0; m < Cust.count(); ++m)
+		for (int m = 0; m < Cust.count(); ++m)
 		{
-			QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Cust[m]);
+			QString Cpfad = QDir::convertSeparators( ScPaths::getApplicationDataDir() +Cust[m]);
 			QFileInfo cfi(Cpfad);
 			if (cfi.exists())
 			{
@@ -175,43 +215,43 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	}
 	Frame4Layout->addWidget( Swatches );
 
-	TabStack = new QWidgetStack( Frame4, "TabStack" );
-	TabStack->setFrameShape( QWidgetStack::NoFrame );
+	TabStack = new Q3WidgetStack( Frame4, "TabStack" );
+	TabStack->setFrameShape( Q3WidgetStack::NoFrame );
 
-	Frame5a = new QFrame( TabStack, "Frame4" );
-	Frame5a->setFrameShape( QFrame::NoFrame );
-	Frame5a->setFrameShadow( QFrame::Raised );
-	Frame5aLayout = new QHBoxLayout( Frame5a );
+	Frame5a = new Q3Frame( TabStack, "Frame4" );
+	Frame5a->setFrameShape( Q3Frame::NoFrame );
+	Frame5a->setFrameShadow( Q3Frame::Raised );
+	Frame5aLayout = new Q3HBoxLayout( Frame5a );
 	Frame5aLayout->setSpacing( 0 );
 	Frame5aLayout->setMargin( 0 );
-	Frame5 = new QFrame(Frame5a);
+	Frame5 = new Q3Frame(Frame5a);
 	Frame5->setFrameShape( QLabel::WinPanel );
 	Frame5->setFrameShadow( QLabel::Sunken );
 	Frame5->setMinimumSize( QSize( 182, 130 ) );
 	Frame5->setMaximumSize( QSize( 182, 130 ) );
-	Frame5Layout = new QHBoxLayout( Frame5 );
+	Frame5Layout = new Q3HBoxLayout( Frame5 );
 	Frame5Layout->setSpacing( 0 );
 	Frame5Layout->setMargin( 0 );
-	ColorMap = new ColorChart( Frame5);
+	ColorMap = new ColorChart( Frame5, doc);
 	ColorMap->setMinimumSize( QSize( 180, 128 ) );
 	ColorMap->setMaximumSize( QSize( 180, 128 ) );
 	Frame5Layout->addWidget( ColorMap );
-	Frame5aLayout->addWidget( Frame5, 0, AlignCenter);
+	Frame5aLayout->addWidget( Frame5, 0, Qt::AlignCenter);
 	TabStack->addWidget( Frame5a, 0 );
 
-	ColorSwatch = new QListBox(TabStack, "StyledL");
+	ColorSwatch = new ColorListBox(TabStack, "StyledL");
 	TabStack->addWidget( ColorSwatch, 1 );
 
 	Frame4Layout->addWidget( TabStack );
 
-	Layout2x = new QGridLayout;
+	Layout2x = new QGridLayout();
 	Layout2x->setSpacing( 6 );
 	Layout2x->setMargin( 0 );
 
 	CyanT = new QLabel( tr( "C:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(CyanT, 0, 0);
 
-	Layout1_2 = new QVBoxLayout;
+	Layout1_2 = new Q3VBoxLayout;
 	Layout1_2->setSpacing( 0 );
 	Layout1_2->setMargin( 0 );
 
@@ -226,13 +266,12 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	CyanSL = new QSlider( Frame4, "CyanSL" );
 	CyanSL->setMinimumSize( QSize( 200, 16 ) );
 	CyanSL->setMaxValue( 100 );
-	CyanSL->setOrientation( QSlider::Horizontal );
+	CyanSL->setOrientation( Qt::Horizontal );
 	CyanSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2->addWidget( CyanSL );
 	Layout2x->addLayout(Layout1_2, 0, 1);
 
-	CyanSp = new MSpinBox( Frame4, 0 );
-	CyanSp->setMaxValue( 100 );
+	CyanSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	CyanSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(CyanSp, 0, 2);
 	CyanSp->setValue(ccd);
@@ -241,7 +280,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	MagentaT = new QLabel( tr( "M:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(MagentaT, 1, 0);
 
-	Layout1_2_2 = new QVBoxLayout;
+	Layout1_2_2 = new Q3VBoxLayout;
 	Layout1_2_2->setSpacing( 0 );
 	Layout1_2_2->setMargin( 0 );
 
@@ -256,13 +295,12 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	MagentaSL = new QSlider( Frame4, "MagentaSL" );
 	MagentaSL->setMinimumSize( QSize( 200, 16 ) );
 	MagentaSL->setMaxValue( 100 );
-	MagentaSL->setOrientation( QSlider::Horizontal );
+	MagentaSL->setOrientation( Qt::Horizontal );
 	MagentaSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_2->addWidget( MagentaSL );
 	Layout2x->addLayout(Layout1_2_2, 1, 1);
 
-	MagentaSp = new MSpinBox( Frame4, 0 );
-	MagentaSp->setMaxValue( 100 );
+	MagentaSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	MagentaSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(MagentaSp, 1, 2);
 	MagentaSp->setValue(cmd);
@@ -271,7 +309,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	YellowT = new QLabel( tr( "Y:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(YellowT, 2, 0);
 
-	Layout1_2_3 = new QVBoxLayout;
+	Layout1_2_3 = new Q3VBoxLayout;
 	Layout1_2_3->setSpacing( 0 );
 	Layout1_2_3->setMargin( 0 );
 
@@ -286,13 +324,12 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	YellowSL = new QSlider( Frame4, "YellowSL" );
 	YellowSL->setMinimumSize( QSize( 200, 16 ) );
 	YellowSL->setMaxValue( 100 );
-	YellowSL->setOrientation( QSlider::Horizontal );
+	YellowSL->setOrientation( Qt::Horizontal );
 	YellowSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_3->addWidget( YellowSL );
 	Layout2x->addLayout(Layout1_2_3, 2, 1);
 
-	YellowSp = new MSpinBox( Frame4, 0 );
-	YellowSp->setMaxValue( 100 );
+	YellowSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	YellowSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(YellowSp, 2, 2);
 	YellowSp->setValue(cyd);
@@ -301,7 +338,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	BlackT = new QLabel( tr( "K:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(BlackT, 3, 0);
 
-	Layout1_2_4 = new QVBoxLayout;
+	Layout1_2_4 = new Q3VBoxLayout;
 	Layout1_2_4->setSpacing( 0 );
 	Layout1_2_4->setMargin( 0 );
 
@@ -316,38 +353,42 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	BlackSL = new QSlider( Frame4, "BlackSL" );
 	BlackSL->setMinimumSize( QSize( 200, 16 ) );
 	BlackSL->setMaxValue( 100 );
-	BlackSL->setOrientation( QSlider::Horizontal );
+	BlackSL->setOrientation( Qt::Horizontal );
 	BlackSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_4->addWidget( BlackSL );
 	Layout2x->addLayout(Layout1_2_4, 3, 1);
 
-	BlackSp = new MSpinBox( Frame4, 0 );
-	BlackSp->setMaxValue( 100 );
+	BlackSp = new ScrSpinBox( 0, 100, Frame4, 0 );
 	BlackSp->setSuffix( tr(" %"));
 	Layout2x->addWidget(BlackSp, 3, 2);
 	BlackSp->setValue(ckd);
 	BlackSL->setValue(qRound(ckd));
-	BlackComp = ck;
+	BlackComp = cmyk.k;
 	Frame4Layout->addLayout( Layout2x );
+	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Frame4Layout->addItem( spacer2 );
 	CMYKFarbenLayout->addWidget( Frame4 );
 	int h, s, v;
-	orig.getRGBColor().hsv(&h, &s, &v);
+	ScColorEngine::getRGBColor(orig, m_doc).hsv(&h, &s, &v);
 	ColorMap->drawPalette(v);
 	ColorMap->setMark(h, s);
 	Fnam = name;
 	Farbname->selectAll();
 	Farbname->setFocus();
 	TabStack->raiseWidget(0);
+	setFixedSize(minimumSizeHint());
 	// signals and slots connections
+	QToolTip::add( Regist, "<qt>" + tr( "Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself." ) + "</qt>");
+	QToolTip::add( Separations, "<qt>" + tr( "Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks." ) + "</qt>");
 	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( Cancel_2, SIGNAL( clicked() ), this, SLOT( Verlassen() ) );
-	connect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
+	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	connect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
 	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	connect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
 	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
-	connect( BlackSp, SIGNAL( valueChanged(int) ), BlackSL, SLOT( setValue(int) ) );
 	connect( BlackSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
 	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
 	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( setColor() ) );
@@ -357,14 +398,32 @@ CMYKChoose::CMYKChoose( QWidget* parent, CMYKColor orig, QString name, CListe *C
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 	connect( Swatches, SIGNAL(activated(int)), this, SLOT(SelSwatch(int)));
 	connect(ColorSwatch, SIGNAL(highlighted(int)), this, SLOT(SelFromSwatch(int)));
+	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
+	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
+	layout()->activate();
+	if (!CMYKmode)
+		SelModel ( tr( "RGB" ));
+}
+
+void CMYKChoose::setValSLiders(double value)
+{
+	int val = qRound(value);
+	if (CyanSp == sender())
+		CyanSL->setValue(val);
+	if (MagentaSp == sender())
+		MagentaSL->setValue(val);
+	if (YellowSp == sender())
+		YellowSL->setValue(val);
+	if (BlackSp == sender())
+		BlackSL->setValue(val);
 }
 
 void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
 {
-	if (m->button() == RightButton)
+	if (m->button() == Qt::RightButton)
 	{
-		QPopupMenu *pmen = new QPopupMenu();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		Q3PopupMenu *pmen = new Q3PopupMenu();
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		int px = pmen->insertItem( tr("Dynamic Color Bars"), this, SLOT(ToggleSL()));
 		int py = pmen->insertItem( tr("Static Color Bars"), this, SLOT(ToggleSL()));
 		pmen->setItemChecked((dynamic ? px : py) , true);
@@ -375,10 +434,10 @@ void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
 
 void CMYKChoose::SetValueS(int val)
 {
-	disconnect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
-	disconnect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
-	disconnect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
-	disconnect( BlackSp, SIGNAL( valueChanged(int) ), BlackSL, SLOT( setValue(int) ) );
+	disconnect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	disconnect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	disconnect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	disconnect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	if (CyanSL == sender())
 		CyanSp->setValue(val);
 	if (MagentaSL == sender())
@@ -388,10 +447,10 @@ void CMYKChoose::SetValueS(int val)
 	if (BlackSL == sender())
 		BlackSp->setValue(val);
 	setColor();
-	connect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
-	connect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
-	connect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
-	connect( BlackSp, SIGNAL( valueChanged(int) ), BlackSL, SLOT( setValue(int) ) );
+	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 }
 
 void CMYKChoose::ToggleSL()
@@ -406,66 +465,89 @@ void CMYKChoose::ToggleSL()
 
 QPixmap CMYKChoose::SliderPix(int farbe)
 {
+	RGBColor rgb;
+	CMYKColor cmyk;
 	QPixmap image0 = QPixmap(255,10);
 	QPainter p;
 	p.begin(&image0);
-	p.setPen(NoPen);
+	p.setPen(Qt::NoPen);
 	int r, g, b, c, m, y, k;
-	Farbe.getCMYK(&c, &m, &y, &k);
-#ifdef HAVE_CMS
-	if ((Gamut) && (CMSuse))
-	{
-		QColor tmp3 = CMYK2RGB(c, m, y, k);
-		tmp3.rgb(&r, &g, &b);
-	}
-	else
-		Farbe.getRGBColor().rgb(&r, &g, &b);
-#else
-	Farbe.getRGBColor().rgb(&r, &g, &b);
-#endif
 	QColor tmp;
 	for (int x = 0; x < 255; x += 5)
 	{
 		if (CMYKmode)
 		{
+			ScColorEngine::getCMYKValues(Farbe, m_doc, cmyk);
+			cmyk.getValues(c, m, y, k);
 			if (dynamic)
 			{
 				switch (farbe)
 				{
 				case 180:
-					tmp = CMYK2RGB(x, m, y, k);
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(x, m, y, k), m_doc);
 					break;
 				case 300:
-					tmp = CMYK2RGB(c, x, y, k);
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(c, x, y, k), m_doc);
 					break;
 				case 60:
-					tmp = CMYK2RGB(c, m, x, k);
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(c, m, x, k), m_doc);
 					break;
 				}
 				p.setBrush(tmp);
 			}
 			else
-				p.setBrush(QColor(farbe, x, 255, QColor::Hsv));
+			{
+				switch (farbe)
+				{
+				case 180:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(x, 0, 0, 0), m_doc);
+					break;
+				case 300:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(0, x, 0, 0), m_doc);
+					break;
+				case 60:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(0, 0, x, 0), m_doc);
+					break;
+				}
+				p.setBrush(tmp);
+			}
 		}
 		else
 		{
+			ScColorEngine::getRGBValues(Farbe, m_doc, rgb);
+			rgb.getValues(r, g, b);
 			if (dynamic)
 			{
 				switch (farbe)
 				{
 				case 0:
-					p.setBrush(QColor(x, g, b, QColor::Rgb));
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(x, g, b), m_doc);
 					break;
 				case 120:
-					p.setBrush(QColor(r, x, b, QColor::Rgb));
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(r, x, b), m_doc);
 					break;
 				case 240:
-					p.setBrush(QColor(r, g, x, QColor::Rgb));
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(r, g, x), m_doc);
 					break;
 				}
+				p.setBrush(tmp);
 			}
 			else
-				p.setBrush(QColor(farbe, 255, x, QColor::Hsv));
+			{
+				switch (farbe)
+				{
+				case 0:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(x, 0, 0), m_doc);
+					break;
+				case 120:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(0, x, 0), m_doc);
+					break;
+				case 240:
+					tmp = ScColorEngine::getDisplayColorGC(ScColor(0, 0, x), m_doc);
+					break;
+				}
+				p.setBrush(tmp);
+			}
 		}
 		p.drawRect(x, 0, 5, 10);
 	}
@@ -479,15 +561,17 @@ QPixmap CMYKChoose::SliderBlack()
 	QPainter p;
 	int val = 255;
 	p.begin(&image0);
-	p.setPen(NoPen);
+	p.setPen(Qt::NoPen);
 	int c, m, y, k;
-	Farbe.getCMYK(&c, &m, &y, &k);
+	CMYKColor cmyk;
+	ScColorEngine::getCMYKValues(Farbe, m_doc, cmyk);
+	cmyk.getValues(c, m, y, k);
 	for (int x = 0; x < 255; x += 5)
 	{
 		if (dynamic)
-			p.setBrush(CMYK2RGB(c, m, y, x));
+			p.setBrush( ScColorEngine::getDisplayColorGC(ScColor(c, m, y, x), m_doc) );
 		else
-			p.setBrush(QColor(val, val, val, QColor::Rgb));
+			p.setBrush( ScColorEngine::getDisplayColorGC(ScColor(0, 0, 0, x), m_doc) );
 		p.drawRect(x, 0, 5, 10);
 		val -= 5;
 	}
@@ -503,91 +587,186 @@ void CMYKChoose::SelSwatch(int n)
 	{
 		bool cus = false;
 		CurrSwatch.clear();
-		QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Swatches->currentText());
-		QString pfadC = LIBDIR;
-		QString pfadC2 = pfadC + "rgbscribus.txt";
+		QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + Swatches->currentText());
+		QString pfadC = ScPaths::instance().libDir()+"swatches/";
+		QString pfadC2 = pfadC + "Scribus_X11.txt";
 		switch (n)
 		{
+			/*
 		case 1:
-			pfadC2 = pfadC + "rgbscribus.txt";
+			pfadC2 = pfadC + "Scribus_X11.txt";
 			break;
 		case 2:
-			pfadC2 = pfadC + "rgbscribusgreys.txt";
+			pfadC2 = pfadC + "Scribus_X11Grey.txt";
 			break;
 		case 3:
-			pfadC2 = pfadC + "rgbscribusgnome.txt";
+			pfadC2 = pfadC + "Scribus_Gnome.txt";
 			break;
 		case 4:
-			pfadC2 = pfadC + "rgbsvg.txt";
+			pfadC2 = pfadC + "Scribus_SVG.txt";
 			break;
-		default:
-			pfadC2 = Cpfad;
+		case 5:
+			pfadC2 = pfadC + "Scribus_OpenOffice.txt";
 			cus = true;
+			break;
+			*/
+		default:
+			if (n<customSetStartIndex)
+			{
+				QString listText=Swatches->text(n);
+				if (listText=="Scribus OpenOffice")
+					cus=true;
+				pfadC2 = csm.paletteFileFromName(listText);
+			}
+			else
+			{
+				pfadC2 = Cpfad;
+				cus = true;
+			}
 			break;
 		}
 		if (n != 0)
 		{
 			QFile fiC(pfadC2);
-			if (fiC.open(IO_ReadOnly))
+			if (fiC.open(QIODevice::ReadOnly))
 			{
 				QString ColorEn, Cname;
 				int Rval, Gval, Bval, Kval;
 				QTextStream tsC(&fiC);
 				ColorEn = tsC.readLine();
-				while (!tsC.atEnd())
+				if (ColorEn.startsWith("<?xml version="))
 				{
-					CMYKColor tmp;
-					ColorEn = tsC.readLine();
-					QTextStream CoE(&ColorEn, IO_ReadOnly);
-					CoE >> Rval;
-					CoE >> Gval;
-					CoE >> Bval;
-					if (cus)
+					QByteArray docBytes("");
+					loadRawText(pfadC2, docBytes);
+					QString docText("");
+					docText = QString::fromUtf8(docBytes);
+					QDomDocument docu("scridoc");
+					docu.setContent(docText);
+					ScColor lf = ScColor();
+					QDomElement elem = docu.documentElement();
+					QDomNode PAGE = elem.firstChild();
+					while(!PAGE.isNull())
 					{
-						CoE >> Kval;
-						Cname = CoE.read().stripWhiteSpace();
-						tmp.setColor(Rval, Gval, Bval, Kval);
+						QDomElement pg = PAGE.toElement();
+						if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
+						{
+							if (pg.hasAttribute("CMYK"))
+								lf.setNamedColor(pg.attribute("CMYK"));
+							else
+								lf.fromQColor(QColor(pg.attribute("RGB")));
+							if (pg.hasAttribute("Spot"))
+								lf.setSpotColor(static_cast<bool>(pg.attribute("Spot").toInt()));
+							else
+								lf.setSpotColor(false);
+							if (pg.hasAttribute("Register"))
+								lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
+							else
+								lf.setRegistrationColor(false);
+							CurrSwatch.insert(pg.attribute("NAME"), lf);
+						}
+						PAGE=PAGE.nextSibling();
 					}
-					else
+				}
+				else
+				{
+					while (!tsC.atEnd())
 					{
-						Cname = CoE.read().stripWhiteSpace();
-						tmp.setColorRGB(Rval, Gval, Bval);
+						ScColor tmp;
+						ColorEn = tsC.readLine();
+						if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
+							continue;
+						QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
+						CoE >> Rval;
+						CoE >> Gval;
+						CoE >> Bval;
+						if (cus)
+						{
+							CoE >> Kval;
+							Cname = CoE.read().stripWhiteSpace();
+							tmp.setColor(Rval, Gval, Bval, Kval);
+						}
+						else
+						{
+							Cname = CoE.read().stripWhiteSpace();
+							tmp.setColorRGB(Rval, Gval, Bval);
+						}
+	
+						if ((n<customSetStartIndex) && (Cname.length()==0))
+						{
+							if (!cus)
+								Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+							else
+								Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).upper();
+							Cname.replace(" ","0");
+						}
+						if (CurrSwatch.contains(Cname))
+						{
+							if (tmp==CurrSwatch[Cname])
+								continue;
+							Cname=QString("%1%2").arg(Cname).arg(CurrSwatch.count());
+						}
+	
+						CurrSwatch.insert(Cname, tmp);
 					}
-					CurrSwatch.insert(Cname, tmp);
 				}
 				fiC.close();
 			}
 			else
 			{
-				CurrSwatch.insert("White", CMYKColor(0, 0, 0, 0));
-				CurrSwatch.insert("Black", CMYKColor(0, 0, 0, 255));
-				CurrSwatch.insert("Blue", CMYKColor(255, 255, 0, 0));
-				CurrSwatch.insert("Cyan", CMYKColor(255, 0, 0, 0));
-				CurrSwatch.insert("Green", CMYKColor(255, 0, 255, 0));
-				CurrSwatch.insert("Red", CMYKColor(0, 255, 255, 0));
-				CurrSwatch.insert("Yellow", CMYKColor(0, 0, 255, 0));
-				CurrSwatch.insert("Magenta", CMYKColor(0, 255, 0, 0));
+				CurrSwatch.insert("White", ScColor(0, 0, 0, 0));
+				CurrSwatch.insert("Black", ScColor(0, 0, 0, 255));
+				CurrSwatch.insert("Blue", ScColor(255, 255, 0, 0));
+				CurrSwatch.insert("Cyan", ScColor(255, 0, 0, 0));
+				CurrSwatch.insert("Green", ScColor(255, 0, 255, 0));
+				CurrSwatch.insert("Red", ScColor(0, 255, 255, 0));
+				CurrSwatch.insert("Yellow", ScColor(0, 0, 255, 0));
+				CurrSwatch.insert("Magenta", ScColor(0, 255, 0, 0));
 			}
 		}
 		ColorSwatch->clear();
-		CListe::Iterator it;
+		ColorList::Iterator it;
 		QPixmap pm = QPixmap(30, 15);
 		for (it = CurrSwatch.begin(); it != CurrSwatch.end(); ++it)
 		{
-			pm.fill(CurrSwatch[it.key()].getRGBColor());
-			ColorSwatch->insertItem(pm, it.key());
+			ColorSwatch->insertItem( new ColorFancyPixmapItem(it.data(), m_doc, it.key()) );
+//			pm.fill( ScColorEngine::getDisplayColor(CurrSwatch[it.key()], m_doc) );
+//			ColorSwatch->insertItem(pm, it.key());
 		}
 		ColorSwatch->setSelected(ColorSwatch->currentItem(), false);
 		TabStack->raiseWidget(1);
 	}
 }
 
+void CMYKChoose::setRegist()
+{
+	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+	if (Regist->isChecked())
+	{
+		ComboBox1->setCurrentItem( 0 );
+		Separations->setChecked(false);
+		SelModel( tr("CMYK"));
+	}
+	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+}
+
+void CMYKChoose::setSpot()
+{
+	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+	if (Separations->isChecked())
+	{
+		ComboBox1->setCurrentItem( 0 );
+		Regist->setChecked(false);
+		SelModel( tr("CMYK"));
+	}
+	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
+}
+
 void CMYKChoose::SelModel(const QString& mod)
 {
-	disconnect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
-	disconnect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
-	disconnect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
-	disconnect( BlackSp, SIGNAL( valueChanged(int) ), BlackSL, SLOT( setValue(int) ) );
+	disconnect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	disconnect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	disconnect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	disconnect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	disconnect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
 	disconnect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
 	disconnect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
@@ -603,9 +782,9 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanSL->setMaxValue( 100 );
 		MagentaSL->setMaxValue( 100 );
 		YellowSL->setMaxValue( 100 );
-		CyanSp->setMaxValue( 100 );
-		MagentaSp->setMaxValue( 100);
-		YellowSp->setMaxValue( 100 );
+		CyanSp->setMaximum( 100 );
+		MagentaSp->setMaximum( 100);
+		YellowSp->setMaximum( 100 );
 		CyanSL->setLineStep(1);
 		MagentaSL->setLineStep(1);
 		YellowSL->setLineStep(1);
@@ -615,9 +794,9 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanSp->setDecimals(1);
 		MagentaSp->setDecimals(1);
 		YellowSp->setDecimals(1);
-		CyanSp->setLineStep(1);
-		MagentaSp->setLineStep(1);
-		YellowSp->setLineStep(1);
+		CyanSp->setSingleStep(1);
+		MagentaSp->setSingleStep(1);
+		YellowSp->setSingleStep(1);
 		CyanSp->setSuffix( tr(" %"));
 		MagentaSp->setSuffix( tr(" %"));
 		YellowSp->setSuffix( tr(" %"));
@@ -628,10 +807,15 @@ void CMYKChoose::SelModel(const QString& mod)
 		MagentaP->setPixmap(SliderPix(300));
 		YellowP->setPixmap(SliderPix(60));
 		BlackP->setPixmap(SliderBlack());
+/*		BlackP->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+		BlackSL->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+		BlackSp->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
+		BlackT->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum)); */
 		BlackP->show();
 		BlackSL->show();
 		BlackSp->show();
 		BlackT->show();
+		Farbe = ScColorEngine::convertToModel(Farbe, m_doc, colorModelCMYK);
 		setValues();
 	}
 	else
@@ -639,24 +823,24 @@ void CMYKChoose::SelModel(const QString& mod)
 	{
 		CMYKmode = false;
 		Wsave = false;
-		CyanSL->setMaxValue( 255 );
-		MagentaSL->setMaxValue( 255 );
-		YellowSL->setMaxValue( 255 );
+		CyanSL->setMaximum( 255 );
+		MagentaSL->setMaximum( 255 );
+		YellowSL->setMaximum( 255 );
 		CyanSL->setLineStep(1);
 		MagentaSL->setLineStep(1);
 		YellowSL->setLineStep(1);
 		CyanSL->setPageStep(1);
 		MagentaSL->setPageStep(1);
 		YellowSL->setPageStep(1);
-		CyanSp->setDecimals(1);
-		MagentaSp->setDecimals(1);
-		YellowSp->setDecimals(1);
-		CyanSp->setLineStep(1);
-		MagentaSp->setLineStep(1);
-		YellowSp->setLineStep(1);
-		CyanSp->setMaxValue( 255 );
-		MagentaSp->setMaxValue( 255 );
-		YellowSp->setMaxValue( 255 );
+		CyanSp->setSingleStep(1);
+		MagentaSp->setSingleStep(1);
+		YellowSp->setSingleStep(1);
+		CyanSp->setMaximum( 255 );
+		MagentaSp->setMaximum( 255 );
+		YellowSp->setMaximum( 255 );
+		CyanSp->setDecimals(0);
+		MagentaSp->setDecimals(0);
+		YellowSp->setDecimals(0);
 		CyanSp->setSuffix("");
 		MagentaSp->setSuffix("");
 		YellowSp->setSuffix("");
@@ -666,6 +850,11 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanP->setPixmap(SliderPix(0));
 		MagentaP->setPixmap(SliderPix(120));
 		YellowP->setPixmap(SliderPix(240));
+		Layout2x->setResizeMode(QLayout::Fixed);
+/*		BlackP->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		BlackSL->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		BlackSp->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		BlackT->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored)); */
 		BlackP->hide();
 		BlackSL->hide();
 		BlackSp->hide();
@@ -679,16 +868,24 @@ void CMYKChoose::SelModel(const QString& mod)
 			CyanSL->setPageStep(51);
 			MagentaSL->setPageStep(51);
 			YellowSL->setPageStep(51);
-			CyanSp->setLineStep(51);
-			MagentaSp->setLineStep(51);
-			YellowSp->setLineStep(51);
+			CyanSp->setSingleStep(51);
+			MagentaSp->setSingleStep(51);
+			YellowSp->setSingleStep(51);
 		}
+		Farbe = ScColorEngine::convertToModel(Farbe, m_doc, colorModelRGB);
 		setValues();
 	}
-	connect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
-	connect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
-	connect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
-	connect( BlackSp, SIGNAL( valueChanged(int) ), BlackSL, SLOT( setValue(int) ) );
+	imageN.fill( ScColorEngine::getDisplayColor(Farbe, m_doc) );
+	if (ScColorEngine::isOutOfGamut(Farbe, m_doc))
+		paintAlert(alertIcon, imageN, 2, 2, false);
+	NewC->setPixmap( imageN );
+        QToolTip::add( NewC, "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
+        QToolTip::add( OldC, "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning that the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
+
+	connect( CyanSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( MagentaSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( YellowSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
+	connect( BlackSp, SIGNAL( valueChanged(double) ), this, SLOT( setValSLiders(double) ) );
 	connect( CyanSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
 	connect( MagentaSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
 	connect( YellowSL, SIGNAL( valueChanged(int) ), this, SLOT( SetValueS(int) ) );
@@ -704,10 +901,10 @@ void CMYKChoose::setColor()
 	int c, m, y, k;
 	if (CMYKmode)
 	{
-		c = qRound(CyanSp->value() * 255 / 100);
-		m = qRound(MagentaSp->value() * 255 / 100);
-		y = qRound(YellowSp->value() * 255 / 100);
-		k = qRound(BlackSp->value() * 255 / 100);
+		c = qRound(CyanSp->value() * 2.55);
+		m = qRound(MagentaSp->value() * 2.55);
+		y = qRound(YellowSp->value() * 2.55);
+		k = qRound(BlackSp->value() * 2.55);
 	}
 	else
 	{
@@ -732,9 +929,10 @@ void CMYKChoose::setColor()
 		YellowSL->setValue(y);
 		blockSignals(false);
 	}
-	CMYKColor tmp = CMYKColor(c, m, y, k);
+	ScColor tmp;
 	if (CMYKmode)
 	{
+		tmp.setColor(c, m, y, k);
 		if (dynamic)
 		{
 			CyanP->setPixmap(SliderPix(180));
@@ -745,10 +943,9 @@ void CMYKChoose::setColor()
 	}
 	else
 	{
+		tmp.setColorRGB(c, m, y);
 		QColor tmp2 = QColor(c, m, y, QColor::Rgb);
 		tmp2.hsv(&h, &s, &v);
-		tmp.fromQColor(tmp2);
-		tmp.RecalcRGB();
 		BlackComp = 255 - v;
 		if (dynamic)
 		{
@@ -757,24 +954,10 @@ void CMYKChoose::setColor()
 			YellowP->setPixmap(SliderPix(240));
 		}
 	}
-#ifdef HAVE_CMS
-	if ((Gamut) && (CMSuse))
-	{
-		int cc, cm, cy, ck;
-		tmp.getCMYK(&cc, &cm, &cy, &ck);
-		QColor tmp3 = CMYK2RGB(cc, cm, cy, ck);
-		imageN.fill(tmp3);
-		tmp3.hsv(&h, &s, &v);
-	}
-	else
-	{
-		imageN.fill(tmp.getRGBColor());
-		tmp.getRGBColor().hsv(&h, &s, &v);
-	}
-#else
-	imageN.fill(tmp.getRGBColor());
-	tmp.getRGBColor().hsv(&h, &s, &v);
-#endif
+	imageN.fill(ScColorEngine::getDisplayColor(tmp, m_doc) );
+	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
+		paintAlert(alertIcon, imageN, 2, 2, false);
+	ScColorEngine::getRGBColor(tmp, m_doc).hsv(&h, &s, &v);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	ColorMap->drawPalette(v);
@@ -783,33 +966,20 @@ void CMYKChoose::setColor()
 
 void CMYKChoose::setColor2(int h, int s, bool ende)
 {
-	QColor tm = QColor(QMAX(QMIN(359,h),0), QMAX(QMIN(255,255-s),0), 255-BlackComp, QColor::Hsv);
+	QColor tm = QColor(qMax(qMin(359,h),0), qMax(qMin(255,255-s),0), 255-BlackComp, QColor::Hsv);
 	int r, g, b;
 	tm.rgb(&r, &g, &b);
-	CMYKColor tmp = CMYKColor();
+	ScColor tmp;
+	tmp.fromQColor(tm);
 	if (CMYKmode)
 	{
-		int k = qRound(BlackSp->value() * 255 / 100);
-		int c = QMAX(255 - r - k, 0);
-		int m = QMAX(255 - g - k, 0);
-		int y = QMAX(255 - b - k, 0);
-		tmp.setColor(c, m, y, k);
+		CMYKColor cmyk;
+		ScColorEngine::getCMYKValues(tmp, m_doc, cmyk);
+		tmp.setColor(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
 	}
-	else
-		tmp.fromQColor(tm);
-#ifdef HAVE_CMS
-	if ((Gamut) && (CMSuse))
-	{
-		int cc, cm, cy, ck;
-		tmp.getCMYK(&cc, &cm, &cy, &ck);
-		QColor tmp3 = CMYK2RGB(cc, cm, cy, ck);
-		imageN.fill(tmp3);
-	}
-	else
-		imageN.fill(tmp.getRGBColor());
-#else
-	imageN.fill(tmp.getRGBColor());
-#endif
+	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
+	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
+		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	if (ende)
@@ -818,31 +988,35 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 
 void CMYKChoose::SelFromSwatch(int c)
 {
-	CMYKColor tmp = CurrSwatch[ColorSwatch->text(c)];
-#ifdef HAVE_CMS
-	if ((Gamut) && (CMSuse))
-	{
-		int cc, cm, cy, ck;
-		tmp.getCMYK(&cc, &cm, &cy, &ck);
-		QColor tmp3 = CMYK2RGB(cc, cm, cy, ck);
-		imageN.fill(tmp3);
-	}
+	ScColor tmp = CurrSwatch[ColorSwatch->text(c)];
+	if (tmp.getColorModel() == colorModelCMYK)
+		SelModel( tr("CMYK"));
 	else
-		imageN.fill(tmp.getRGBColor());
-#else
-	imageN.fill(tmp.getRGBColor());
-#endif
+		SelModel( tr("RGB"));
+/*	if (CMYKmode)
+	{
+		CMYKColor cmyk;
+		ScColorEngine::getCMYKValues(tmp, m_doc, cmyk);
+		tmp.setColor(cmyk.c, cmyk.m, cmyk.y, cmyk.k);
+	} */
+	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
+	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
+		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	setValues();
+	Separations->setChecked(tmp.isSpotColor());
+	Regist->setChecked(tmp.isRegistrationColor());
 }
 
 void CMYKChoose::setValues()
 {
 	if (CMYKmode)
 	{
+		CMYKColor cmyk;
 		int cc, cm, cy, ck;
-		Farbe.getCMYK(&cc, &cm, &cy, &ck);
+		ScColorEngine::getCMYKValues(Farbe, m_doc, cmyk);
+		cmyk.getValues(cc, cm, cy, ck);
 		CyanSp->setValue(cc / 2.55);
 		CyanSL->setValue(qRound(cc / 2.55));
 		MagentaSp->setValue(cm / 2.55);
@@ -861,11 +1035,10 @@ void CMYKChoose::setValues()
 	}
 	else
 	{
-		int cc, cm, cy, ck;
-		Farbe.getCMYK(&cc, &cm, &cy, &ck);
-		QColor tmp = CMYK2RGB(cc, cm, cy, ck);
+		RGBColor rgb;
 		int r, g, b;
-		tmp.rgb(&r, &g, &b);
+		ScColorEngine::getRGBValues(Farbe, m_doc, rgb);
+		rgb.getValues(r, g, b);
 		CyanSp->setValue(static_cast<double>(r));
 		CyanSL->setValue(r);
 		MagentaSp->setValue(static_cast<double>(g));
@@ -873,7 +1046,7 @@ void CMYKChoose::setValues()
 		YellowSp->setValue(static_cast<double>(b));
 		YellowSL->setValue(b);
 		int h, s, v;
-		tmp.hsv(&h, &s, &v);
+		ScColorEngine::getRGBColor(Farbe, m_doc).hsv(&h, &s, &v);
 		BlackComp = 255 - v;
 		if (dynamic)
 		{
@@ -884,26 +1057,21 @@ void CMYKChoose::setValues()
 	}
 }
 
-QColor CMYKChoose::CMYK2RGB(int c, int m, int y, int k)
-{
-	return QColor(255-QMIN(255, c+k), 255-QMIN(255,m+k), 255-QMIN(255,y+k));
-}
-
 void CMYKChoose::Verlassen()
 {
 	// if condition 10/21/2004 pv #1191 - just be sure that user cannot create "None" color
-	if (Farbname->text() == "None" || Farbname->text() == tr("None"))
+	if (Farbname->text() == CommonStrings::None || Farbname->text() == CommonStrings::tr_NoneColor)
 	{
-		QMessageBox::information(this, tr("Warning"), tr("You cannot create a color named \"%1\".\nIt's a reserved name for transparent color").arg(Farbname->text()), 0);
+		QMessageBox::information(this, CommonStrings::trWarning, tr("You cannot create a color named \"%1\".\nIt is a reserved name for transparent color").arg(Farbname->text()), 0);
 		Farbname->setFocus();
 		Farbname->selectAll();
 		return;
 	}
-	if (Fnam != Farbname->text())
+	if ((Fnam != Farbname->text()) || (isNew))
 	{
 		if (EColors->contains(Farbname->text()))
 		{
-			QMessageBox::information(this, tr("Warning"), tr("Name of the Color is not unique"), tr("OK"), 0, 0, 0, QMessageBox::Ok);
+			QMessageBox::information(this, CommonStrings::trWarning, tr("The name of the color already exists,\nplease choose another one."), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
 			Farbname->selectAll();
 			Farbname->setFocus();
 			return;

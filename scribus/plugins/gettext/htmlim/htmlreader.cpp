@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,13 +24,19 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <qobject.h>
+//Added by qt3to4:
+#include <QByteArray>
 #include "htmlreader.h"
 
 #ifdef HAVE_XML
 
-#include <gtmeasure.h>
+#include "scribusstructs.h"
+#include "gtmeasure.h"
 
 HTMLReader* HTMLReader::hreader = NULL;
+bool HTMLReader::elemJustStarted = false;
+bool HTMLReader::elemJustFinished = false;
 
 extern htmlSAXHandlerPtr mySAXHandler;
 
@@ -104,8 +116,10 @@ void HTMLReader::initPStyles()
 	pstylepre->setName("HTML_pre");
 }
 
-void HTMLReader::startElement(void *user_data, const xmlChar * fullname, const xmlChar ** atts)
+void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** atts)
 {
+	elemJustStarted = true;
+	elemJustFinished = false;
 	QString* name = new QString((const char*) fullname);
 	name = new QString(name->lower());
 	QXmlAttributes* attrs = new QXmlAttributes();
@@ -193,7 +207,7 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 			}
 			if (attrs.localName(i) == "alt")
 			{
-				if (attrs.value(i) != "")
+				if (!attrs.value(i).isEmpty())
 					imgline += ", alt: " + attrs.value(i);
 			}
 		}
@@ -210,7 +224,7 @@ bool HTMLReader::startElement(const QString&, const QString&, const QString &nam
 		toggleEffect(UNDERLINE);
 	return true;
 }
-void HTMLReader::characters(void *user_data, const xmlChar * ch, int len)
+void HTMLReader::characters(void*, const xmlChar * ch, int len)
 {
 	QString chars = QString::fromUtf8((const char*) ch, len);
 	hreader->characters(chars);
@@ -220,18 +234,27 @@ bool HTMLReader::characters(const QString &ch)
 {
 	if (inBody)
 	{
-		QString tmp = "";
-/*		bool add = true; */
-		bool fcis = ch.left(1) == " ";
-		bool lcis = ch.right(1) == " ";
+		QString tmp = ch;
+		// FIXME : According to html spec, new lines placed just after or just before an element
+		// must be ignored, not exactly that, but better than nothing
+		if (elemJustStarted  || elemJustFinished)
+		{
+			while( !tmp.isEmpty() && (tmp[0] == '\r' || tmp[0] == '\n') )
+				tmp = tmp.right(tmp.length() - 1);
+			elemJustStarted = elemJustFinished = false;
+			if (tmp.isEmpty())
+				return true;
+		}
+		QString chl = tmp.left(1), chr = tmp.right(1);
+		bool fcis = (chl.length() > 0 && chl[0].isSpace());
+		bool lcis = (chr.length() > 0 && chr[0].isSpace());
 		if (inPre)
 		{
-			tmp = ch;
 			if (tmp.left(1) == "\n")
 				tmp = tmp.right(tmp.length() - 2);
 		}
 		else
-			tmp = ch.simplifyWhiteSpace();
+			tmp = tmp.simplifyWhiteSpace();
 
 		if (!lastCharWasSpace)
 			if (fcis)
@@ -280,8 +303,10 @@ bool HTMLReader::characters(const QString &ch)
 	return true;
 }
 
-void HTMLReader::endElement(void *user_data, const xmlChar * name)
+void HTMLReader::endElement(void*, const xmlChar * name)
 {
+	elemJustStarted = false;
+	elemJustFinished = true;
 	QString *nname = new QString((const char*) name);
 	nname = new QString(nname->lower());
 	hreader->endElement(NULL, NULL, *nname);
@@ -302,7 +327,7 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 	else if (name == "a")
 	{
 		toggleEffect(UNDERLINE);
-		if ((href != "") && ((href.find("//") != -1) ||
+		if ((!href.isEmpty()) && ((href.find("//") != -1) ||
 		    (href.find("mailto:") != -1) || (href.find("www") != -1)))
 		{
 			href = href.remove("mailto:");
@@ -424,7 +449,7 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 		toggleEffect(SUPERSCRIPT);
 	else if (name == "del")
 		toggleEffect(STRIKETHROUGH);
-	else if ((name == "ins" || name == "ins") && (!inA))
+	else if ((name == "ins" || name == "u") && (!inA))
 		toggleEffect(UNDERLINE);
 	return true;
 }
@@ -528,7 +553,14 @@ void HTMLReader::unSetBoldFont()
 
 void HTMLReader::parse(QString filename)
 {
-	htmlSAXParseFile(filename.latin1(), NULL, mySAXHandler, NULL);
+#if defined(_WIN32)
+	QString fname = QDir::convertSeparators(filename);
+	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+#else
+	QByteArray fn(filename.local8Bit());
+#endif
+	elemJustStarted = elemJustFinished = false;
+	htmlSAXParseFile(fn.data(), NULL, mySAXHandler, NULL);
 }
 
 void HTMLReader::createListStyle()
@@ -584,7 +616,7 @@ htmlSAXHandlerPtr mySAXHandler = &mySAXHandlerStruct;
 
 HTMLReader::~HTMLReader()
 {
-	if (extLinks != "")
+	if (!extLinks.isEmpty())
 	{
 		writer->append(QObject::tr("\nExternal Links\n"), pstyleh4);
 		writer->append(extLinks, pstyle);

@@ -1,77 +1,71 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "cmdutil.h"
+#include "units.h"
+#include "page.h"
+#include "scribuscore.h"
+#include "selection.h"
 
-ScribusApp* Carrier;
+ScribusMainWindow* Carrier;
 ScribusDoc* doc;
 
+/// Convert a value in points to a value in the current document units
 double PointToValue(double Val)
 {
-	double ret = 0.0;
-	switch (Carrier->doc->Einheit)
-	{
-	case 0:
-		ret = Val;
-		break;
-	case 1:
-		ret = Val * 0.3527777;
-		break;
-	case 2:
-		ret = Val * (1.0 / 72.0);
-		break;
-	case 3:
-		ret = Val * (1.0 / 12.0);
-		break;
-	}
-	return ret;
+	return pts2value(Val, ScCore->primaryMainWindow()->doc->unitIndex());
 }
 
-double ValToPts(double Val, int ein)
-{
-	double ret = 0.0;
-	switch (ein)
-	{
-	case 0:
-		ret = Val;
-		break;
-	case 1:
-		ret = Val / 0.3527777;
-		break;
-	case 2:
-		ret = Val / (1.0 / 72.0);
-		break;
-	case 3:
-		ret = Val / (1.0 / 12.0);
-		break;
-	}
-	return ret;
-}
-
+/// Convert a value in the current document units to a value in points
 double ValueToPoint(double Val)
 {
-	return ValToPts(Val, Carrier->doc->Einheit);
+	return value2pts(Val, ScCore->primaryMainWindow()->doc->unitIndex());
+}
+
+/// Convert an X co-ordinate part in page units to a document co-ordinate
+/// in system units.
+double pageUnitXToDocX(double pageUnitX)
+{
+	return ValueToPoint(pageUnitX) + ScCore->primaryMainWindow()->doc->currentPage()->xOffset();
+}
+
+// Convert doc units to page units
+double docUnitXToPageX(double pageUnitX)
+{
+	return PointToValue(pageUnitX - ScCore->primaryMainWindow()->doc->currentPage()->xOffset());
+}
+
+/// Convert a Y co-ordinate part in page units to a document co-ordinate
+/// in system units. The document co-ordinates have their origin somewere
+/// up and left of the first page, where page co-ordinates have their
+/// origin on the top left of the current page.
+double pageUnitYToDocY(double pageUnitY)
+{
+	return ValueToPoint(pageUnitY) + ScCore->primaryMainWindow()->doc->currentPage()->yOffset();
+}
+
+double docUnitYToPageY(double pageUnitY)
+{
+	return PointToValue(pageUnitY - ScCore->primaryMainWindow()->doc->currentPage()->yOffset());
 }
 
 int GetItem(QString Name)
 {
-	if (Name != "")
+	if (!Name.isEmpty())
 	{
-		for (uint a = 0; a < Carrier->doc->ActPage->Items.count(); a++)
+		for (uint a = 0; a < ScCore->primaryMainWindow()->doc->Items->count(); a++)
 		{
-			if (Carrier->doc->ActPage->Items.at(a)->AnName == Name)
+			if (ScCore->primaryMainWindow()->doc->Items->at(a)->itemName() == Name)
 				return static_cast<int>(a);
 		}
 	}
 	else
 	{
-		if (Carrier->doc->ActPage->SelItem.count() != 0)
-			return Carrier->doc->ActPage->SelItem.at(0)->ItemNr;
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
+			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0)->ItemNr;
 	}
 	return -1;
 }
@@ -79,65 +73,61 @@ int GetItem(QString Name)
 void ReplaceColor(QString col, QString rep)
 {
 	QColor tmpc;
-	for (uint b = 0; b < Carrier->view->Pages.count(); b++)
+	for (uint c = 0; c < ScCore->primaryMainWindow()->doc->Items->count(); c++)
 	{
-		for (uint c = 0; c < Carrier->view->Pages.at(b)->Items.count(); c++)
+		PageItem *ite = ScCore->primaryMainWindow()->doc->Items->at(c);
+		if (ite->itemType() == PageItem::TextFrame)
 		{
-			PageItem *ite = Carrier->view->Pages.at(b)->Items.at(c);
-			if (ite->PType == 4)
+			for (int d = 0; d < ite->itemText.length(); d++)
 			{
-				for (uint d = 0; d < ite->Ptext.count(); d++)
-				{
-					if (col == ite->Ptext.at(d)->ccolor)
-						ite->Ptext.at(d)->ccolor = rep;
-					if (col == ite->Ptext.at(d)->cstroke)
-						ite->Ptext.at(d)->cstroke = rep;
-				}
+				//FIXME:NLS  that should work on runs
+				if (col == ite->itemText.charStyle(d).fillColor())
+					ite->itemText.item(d)->setFillColor(rep);
+				if (col == ite->itemText.charStyle(d).strokeColor())
+					ite->itemText.item(d)->setStrokeColor(rep);
 			}
-			if (col == ite->Pcolor)
-				ite->Pcolor = rep;
-			if (col == ite->Pcolor2)
-				ite->Pcolor2 = rep;
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		}
+		if (col == ite->fillColor())
+			ite->setFillColor(rep);
+		if (col == ite->lineColor())
+			ite->setLineColor(rep);
+		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		{
+			if (col == cstops.at(cst)->name)
 			{
-				if (col == cstops.at(cst)->name)
-				{
-					ite->SetFarbe(&tmpc, rep, cstops.at(cst)->shade);
-					cstops.at(cst)->color = tmpc;
-					cstops.at(cst)->name = rep;
-				}
+				ite->SetFarbe(&tmpc, rep, cstops.at(cst)->shade);
+				cstops.at(cst)->color = tmpc;
+				cstops.at(cst)->name = rep;
 			}
 		}
 	}
-	for (uint b = 0; b < Carrier->view->MasterPages.count(); b++)
+	for (uint c = 0; c < ScCore->primaryMainWindow()->doc->MasterItems.count(); c++)
 	{
-		for (uint c = 0; c < Carrier->view->MasterPages.at(b)->Items.count(); c++)
+		PageItem *ite = ScCore->primaryMainWindow()->doc->MasterItems.at(c);
+		if (ite->itemType() == PageItem::TextFrame)
 		{
-			PageItem *ite = Carrier->view->MasterPages.at(b)->Items.at(c);
-			if (ite->PType == 4)
+			for (int d = 0; d < ite->itemText.length(); d++)
 			{
-				for (uint d = 0; d < ite->Ptext.count(); d++)
-				{
-					if (col == ite->Ptext.at(d)->ccolor)
-						ite->Ptext.at(d)->ccolor = rep;
-					if (col == ite->Ptext.at(d)->cstroke)
-						ite->Ptext.at(d)->cstroke = rep;
-				}
+				//FIXME: NLS this should work on runs
+				if (col == ite->itemText.charStyle(d).fillColor())
+					ite->itemText.item(d)->setFillColor(rep);
+				if (col == ite->itemText.charStyle(d).strokeColor())
+					ite->itemText.item(d)->setStrokeColor(rep);
 			}
-			if (col == ite->Pcolor)
-				ite->Pcolor = rep;
-			if (col == ite->Pcolor2)
-				ite->Pcolor2 = rep;
-			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
-			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		}
+		if (col == ite->fillColor())
+			ite->setFillColor(rep);
+		if (col == ite->lineColor())
+			ite->setLineColor(rep);
+		Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+		{
+			if (col == cstops.at(cst)->name)
 			{
-				if (col == cstops.at(cst)->name)
-				{
-					ite->SetFarbe(&tmpc, rep, cstops.at(cst)->shade);
-					cstops.at(cst)->color = tmpc;
-					cstops.at(cst)->name = rep;
-				}
+				ite->SetFarbe(&tmpc, rep, cstops.at(cst)->shade);
+				cstops.at(cst)->color = tmpc;
+				cstops.at(cst)->name = rep;
 			}
 		}
 	}
@@ -147,24 +137,33 @@ void ReplaceColor(QString col, QString rep)
 PageItem* GetUniqueItem(QString name)
 {
 	if (name.length()==0)
-		if (Carrier->doc->ActPage->SelItem.count() != 0)
-			return Carrier->doc->ActPage->SelItem.at(0);
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
+			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
 		else
 		{
 			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection"));
 			return NULL;
 		}
-	for (uint i = 0; i<Carrier->view->Pages.count(); i++)
+	else
+		return getPageItemByName(name);
+}
+
+PageItem* getPageItemByName(QString name)
+{
+	if (name.length() == 0)
 	{
-		for (uint j = 0; j<Carrier->view->Pages.at(i)->Items.count(); j++)
-		{
-			if (name==Carrier->view->Pages.at(i)->Items.at(j)->AnName)
-				return Carrier->view->Pages.at(i)->Items.at(j);
-		} // for items
-	} // for pages
+		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem"));
+		return NULL;
+	}
+	for (uint j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
+	{
+		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
+			return ScCore->primaryMainWindow()->doc->Items->at(j);
+	} // for items
 	PyErr_SetString(NoValidObjectError, QString("Object not found"));
 	return NULL;
 }
+
 
 /*!
  * Checks to see if a pageItem named 'name' exists and return true
@@ -175,14 +174,11 @@ bool ItemExists(QString name)
 {
 	if (name.length() == 0)
 		return false;
-	for (uint i = 0; i<Carrier->view->Pages.count(); i++)
+	for (uint j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
 	{
-		for (uint j = 0; j<Carrier->view->Pages.at(i)->Items.count(); j++)
-		{
-			if (name==Carrier->view->Pages.at(i)->Items.at(j)->AnName)
-				return true;
-		} // for items
-	} // for pages
+		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
+			return true;
+	} // for items
 	return false;
 }
 
@@ -195,27 +191,41 @@ bool ItemExists(QString name)
  */
 bool checkHaveDocument()
 {
-    if (Carrier->HaveDoc)
+    if (ScCore->primaryMainWindow()->HaveDoc)
         return true;
+    // Caller is required to check for false return from this function
+    // and return NULL.
     PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document"));
     return false;
 }
 
-/*!
- * Checks to see whether it is ok for the currently running code to
- * call "extended" python functions like macro registration, etc.
- * If the loading of Python extensions is disabled, or the currently
- * running script is being run as a "normal" script in a sub-interpreter,
- * raises AccessDeniedError and returns false. Otherwise returns true.
- */
-/* DISABLED until menutest can be refactored out of scriptplugin.{cpp,h}
-bool extFunctionOk()
+QStringList getSelectedItemsByName()
 {
-    if ((!Tes->enableExtPython)||(Tes->ScriptRunning))
-    {
-        PyErr_SetString(AccessDeniedError, QObject::tr("The called function may only be used by extension scripts.","scripter error"));
-        return false;
-    }
-    return true;
+	/*
+	QStringList names;
+	QPtrListIterator<PageItem> it(ScCore->primaryMainWindow()->view->SelItem);
+	for ( ; it.current() != 0 ; ++it)
+		names.append(it.current()->itemName());
+	return names;
+	*/
+	return ScCore->primaryMainWindow()->doc->m_Selection->getSelectedItemsByName();
 }
-*/
+
+bool setSelectedItemsByName(QStringList& itemNames)
+{
+	ScCore->primaryMainWindow()->view->Deselect();
+	// For each named item
+	for (QStringList::Iterator it = itemNames.begin() ; it != itemNames.end() ; it++)
+	{
+		// Search for the named item
+		PageItem* item = 0;
+		for (uint j = 0; j < ScCore->primaryMainWindow()->doc->Items->count(); j++)
+			if (*it == ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
+				item = ScCore->primaryMainWindow()->doc->Items->at(j);
+		if (!item)
+			return false;
+		// and select it
+		ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
+	}
+	return true;
+}

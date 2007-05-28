@@ -1,0 +1,23 @@
+Scribus developer's documentation generator
+
+You can create your own up-to-date source code documentation here.
+Online documentation is generated here too. You can browse it at:
+http://scribus.sourceforge.net/devel-docs
+
+REQUIREMENTS:
+* doxygen (http://www.doxygen.org)
+* make
+
+COMMANDS:
+make
+* It will create all HTML and PNG files in this directory
+
+make clean
+* Delete all documentation files
+
+make tgz
+* Pack files into tar.gz file
+
+make tbz
+* Pack files into tar.bz2 file
+

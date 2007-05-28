@@ -1,96 +1,99 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "guiapp.h"
 #include "cmdutil.h"
-
+#include "scribuscore.h"
 #include <qstring.h>
 #include <qcursor.h>
 
-PyObject *scribus_messagebartext(PyObject */*self*/, PyObject* args)
+PyObject *scribus_messagebartext(PyObject* /* self */, PyObject* args)
 {
 	char *aText;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &aText))
 		return NULL;
-	Carrier->FMess->setText(QString::fromUtf8(aText));
-	Py_INCREF(Py_None);
-	return Py_None;
+	ScCore->primaryMainWindow()->setStatusBarInfoText(QString::fromUtf8(aText));
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_progressreset(PyObject */*self*/)
+PyObject *scribus_progressreset(PyObject* /* self */)
 {
-	Carrier->FProg->reset();
+	ScCore->primaryMainWindow()->mainWindowProgressBar->reset();
 	qApp->processEvents();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_progresssettotalsteps(PyObject */*self*/, PyObject* args)
+PyObject *scribus_progresssettotalsteps(PyObject* /* self */, PyObject* args)
 {
 	int steps;
 	if (!PyArg_ParseTuple(args, "i", &steps))
 		return NULL;
-	Carrier->FProg->setTotalSteps(steps);
-	Carrier->FProg->setProgress(0);
+	ScCore->primaryMainWindow()->mainWindowProgressBar->setTotalSteps(steps);
+	ScCore->primaryMainWindow()->mainWindowProgressBar->setProgress(0);
 	qApp->processEvents();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_progresssetprogress(PyObject */*self*/, PyObject* args)
+PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
 {
 	int position;
 	if (!PyArg_ParseTuple(args, "i", &position))
 		return NULL;
-	if (position > Carrier->FProg->totalSteps())
+	if (position > ScCore->primaryMainWindow()->mainWindowProgressBar->totalSteps())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Tried to set progress > maximum progress"));
+		PyErr_SetString(PyExc_ValueError, QString("Tried to set progress > maximum progress"));
 		return NULL;
 	}
-	Carrier->FProg->setProgress(position);
+	ScCore->primaryMainWindow()->mainWindowProgressBar->setProgress(position);
 	qApp->processEvents();
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
 
-PyObject *scribus_setcursor(PyObject */*self*/, PyObject* args)
+PyObject *scribus_setcursor(PyObject* /* self */, PyObject* args)
 {
 	char *aCursor;
 	qDebug("WARNING! SetCursor() is not stable!");
 	if (!PyArg_ParseTuple(args, "es", "ascii", &aCursor))
 		return NULL;
 	if (strcmp(aCursor, "wait") == 0)
-		qApp->setOverrideCursor(Qt::WaitCursor);
-	else
-		qApp->restoreOverrideCursor();
-	Py_INCREF(Py_None);
-	return Py_None;
+		qApp->changeOverrideCursor(Qt::WaitCursor);
+//	else
+//		qApp->restoreOverrideCursor();
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_docchanged(PyObject */*self*/, PyObject* args)
+PyObject *scribus_docchanged(PyObject* /* self */, PyObject* args)
 {
 	int aValue;
 	if (!PyArg_ParseTuple(args, "i", &aValue))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	Carrier->slotDocCh(static_cast<bool>(aValue));
+	ScCore->primaryMainWindow()->slotDocCh(static_cast<bool>(aValue));
 	/*
 	if (aValue>0)
-		Carrier->slotDocCh(true);
+		ScCore->primaryMainWindow()->slotDocCh(true);
 	else
-		Carrier->slotDocCh(false);*/
-	Py_INCREF(Py_None);
-	return Py_None;
+		ScCore->primaryMainWindow()->slotDocCh(false);*/
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-/* Quick backport from 1.3. It's ugly... */
 PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
 {
 	double zoomFactor;
@@ -98,21 +101,23 @@ PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (zoomFactor == -100.0)
-		Carrier->slotZoomFit();
-	if (zoomFactor > 0.0)
-	{
-		zoomFactor = zoomFactor / 100;
-		Carrier->slotZoomAbs(zoomFactor);
-	}
+	if (zoomFactor > 0.0 || zoomFactor == -100.0)
+		ScCore->primaryMainWindow()->slotZoom(zoomFactor);
 	else
 	{
-		if (zoomFactor != -100.0)
-		{
-			PyErr_SetString(PyExc_ValueError, QString("The zoom factor should be greater than 0.0 or equal to -100.0. See help(zoomFactor)."));
-			return NULL;
-		}
+		PyErr_SetString(PyExc_ValueError, QString("The zoom factor should be greater than 0.0 or equal to -100.0. See help(zoomFactor)."));
+		return NULL;
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void guiappdocwarnings()
+{
+    QStringList s;
+    s << scribus_messagebartext__doc__ << scribus_progressreset__doc__ << scribus_progresssettotalsteps__doc__ << scribus_progresssetprogress__doc__ << scribus_setcursor__doc__ << scribus_docchanged__doc__ << scribus_zoomdocument__doc__;
 }

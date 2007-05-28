@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           vruler.h  -  description
                              -------------------
@@ -20,34 +26,51 @@
 
 #include <qwidget.h>
 #include <qpainter.h>
-#include <qscrollview.h>
-#include "scribusdoc.h"
-/**Vertikales Lineal
-  *@author Franz Schmid
-  */
+//Added by qt3to4:
+#include <QPaintEvent>
+#include <QMouseEvent>
+#include "scribusapi.h"
+class ScribusDoc;
+class ScribusView;
+class PrefsManager;
+class ScribusView;
 
-class Vruler : public QWidget  
+/** \brief Vertical ruler
+\author Franz Schmid
+*/
+class SCRIBUS_API Vruler : public QWidget
 {
 	Q_OBJECT
 
-public: 
-	Vruler(QScrollView *pa, ScribusDoc *doc);
+public:
+	Vruler(ScribusView *pa, ScribusDoc *doc);
 	~Vruler() {};
-	void paintEvent(QPaintEvent *);
-	void mousePressEvent(QMouseEvent *);
-	void mouseReleaseEvent(QMouseEvent *);
+	void paintEvent(QPaintEvent *e);
+	void mousePressEvent(QMouseEvent *m);
+	void mouseReleaseEvent(QMouseEvent *m);
 	void mouseMoveEvent(QMouseEvent *m);
-	int offs;
-	int Markp;
+	void drawNumber(QString num, int starty, QPainter *p);
+	double offs;
+	bool repainted;
 	int oldMark;
 	bool Mpressed;
 private: // Private attributes
-  /** Zeichensatz des Lineals */
-	ScribusDoc *doku;
+	/** Zeichensatz des Lineals */
+	ScribusDoc *currDoc;
+	ScribusView *currView;
 
 public slots: // Public slots
-  /** Zeichnet den Pfeil */
-	void Draw(int wo);
+	/** \brief draw mark
+	\param where where to draw */
+	void Draw(int where);
+	void unitChange();
+
+private:
+	double iter, iter2;
+	int cor;
+	bool drawMark;
+	int whereToDraw;
+	PrefsManager *prefsManager;
 };
 
 #endif

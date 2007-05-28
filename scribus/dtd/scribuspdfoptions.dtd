@@ -1,0 +1,113 @@
+<!-- DTD for Scribus 1.3cvs PDF options -->
+<!-- Craig Ringer - ringerc@scribus.info -->
+<!-- Any modifcations of this file may require changes in
+     scribus/pdfoptions.h and scribus/pdfoptionsio.{cpp,h} -->
+<!ELEMENT ScribusPDFOptions (thumbnails, articles, useLayers, compress, compressMethod, quality, recalcPic, bookmarks, picRes, pdfVersion, resolution, binding, embedFonts, subsetFonts, mirrorH, mirrorV, rotateDegrees, presentMode, presentationSettings, filename, isGrayscale, useRGB, useProfiles, useProfiles2, useLPI, lpiSettings, solidProf, sComp, imageProf, embeddedI, intent2, printProf, info, intent, bleedTop, bleedLeft, bleedRight, bleedBottom, encrypt, passOwner, passUser, permissions)>
+<!ATTLIST ScribusPDFOptions version CDATA #REQUIRED>
+<!ELEMENT item EMPTY>
+<!ATTLIST item value CDATA #REQUIRED>
+<!ELEMENT thumbnails EMPTY>
+<!ATTLIST thumbnails value (true|false) #REQUIRED>
+<!ELEMENT articles EMPTY>
+<!ATTLIST articles value (true|false) #REQUIRED>
+<!ELEMENT useLayers EMPTY>
+<!ATTLIST useLayers value (true|false) #REQUIRED>
+<!ELEMENT compress EMPTY>
+<!ATTLIST compress value (true|false) #REQUIRED>
+<!ELEMENT compressMethod EMPTY>
+<!ATTLIST compressMethod value CDATA #REQUIRED>
+<!ELEMENT quality EMPTY>
+<!ATTLIST quality value CDATA #REQUIRED>
+<!ELEMENT recalcPic EMPTY>
+<!ATTLIST recalcPic value (true|false) #REQUIRED>
+<!ELEMENT bookmarks EMPTY>
+<!ATTLIST bookmarks value (true|false) #REQUIRED>
+<!ELEMENT picRes EMPTY>
+<!ATTLIST picRes value CDATA #REQUIRED>
+<!ELEMENT pdfVersion EMPTY>
+<!ATTLIST pdfVersion value CDATA #REQUIRED>
+<!ELEMENT resolution EMPTY>
+<!ATTLIST resolution value CDATA #REQUIRED>
+<!ELEMENT binding EMPTY>
+<!ATTLIST binding value CDATA #REQUIRED>
+<!ELEMENT embedFonts (item*)>
+<!ELEMENT subsetFonts (item*)>
+<!ELEMENT mirrorH EMPTY>
+<!ATTLIST mirrorH value (true|false) #REQUIRED>
+<!ELEMENT mirrorV EMPTY>
+<!ATTLIST mirrorV value (true|false) #REQUIRED>
+<!ELEMENT rotateDegrees EMPTY>
+<!ATTLIST rotateDegrees value CDATA #REQUIRED>
+<!ELEMENT presentMode EMPTY>
+<!ATTLIST presentMode value (true|false) #REQUIRED>
+
+<!ELEMENT presentationSettings (presentationSettingsEntry*)>
+<!ELEMENT presentationSettingsEntry (pageEffectDuration, pageViewDuration, effectType, dm, m, di)>
+<!ELEMENT pageEffectDuration EMPTY>
+<!ATTLIST pageEffectDuration value CDATA #REQUIRED>
+<!ELEMENT pageViewDuration EMPTY>
+<!ATTLIST pageViewDuration value CDATA #REQUIRED>
+<!ELEMENT effectType EMPTY>
+<!ATTLIST effectType value CDATA #REQUIRED>
+<!ELEMENT dm EMPTY>
+<!ATTLIST dm value CDATA #REQUIRED>
+<!ELEMENT m EMPTY>
+<!ATTLIST m value CDATA #REQUIRED>
+<!ELEMENT di EMPTY>
+<!ATTLIST di value CDATA #REQUIRED>
+
+<!ELEMENT filename EMPTY>
+<!ATTLIST filename value CDATA #REQUIRED>
+<!ELEMENT isGrayscale EMPTY>
+<!ATTLIST isGrayscale value (true|false) #REQUIRED>
+<!ELEMENT useRGB EMPTY>
+<!ATTLIST useRGB value (true|false) #REQUIRED>
+<!ELEMENT useProfiles EMPTY>
+<!ATTLIST useProfiles value (true|false) #REQUIRED>
+<!ELEMENT useProfiles2 EMPTY>
+<!ATTLIST useProfiles2 value (true|false) #REQUIRED>
+<!ELEMENT useLPI EMPTY>
+<!ATTLIST useLPI value (true|false) #REQUIRED>
+
+<!ELEMENT lpiSettings (lpiSettingsEntry*)>
+<!ELEMENT lpiSettingsEntry (frequency, angle, spotFunc)>
+<!ATTLIST lpiSettingsEntry name CDATA #REQUIRED>
+<!ELEMENT frequency EMPTY>
+<!ATTLIST frequency value CDATA #REQUIRED>
+<!ELEMENT angle EMPTY>
+<!ATTLIST angle value CDATA #REQUIRED>
+<!ELEMENT spotFunc EMPTY>
+<!ATTLIST spotFunc value CDATA #REQUIRED>
+
+<!ELEMENT solidProf EMPTY>
+<!ATTLIST solidProf value CDATA #REQUIRED>
+<!ELEMENT sComp EMPTY>
+<!ATTLIST sComp value CDATA #REQUIRED>
+<!ELEMENT imageProf EMPTY>
+<!ATTLIST imageProf value CDATA #REQUIRED>
+<!ELEMENT embeddedI EMPTY>
+<!ATTLIST embeddedI value (true|false) #REQUIRED>
+<!ELEMENT intent2 EMPTY>
+<!ATTLIST intent2 value CDATA #REQUIRED>
+<!ELEMENT printProf EMPTY>
+<!ATTLIST printProf value CDATA #REQUIRED>
+<!ELEMENT info EMPTY>
+<!ATTLIST info value CDATA #REQUIRED>
+<!ELEMENT intent EMPTY>
+<!ATTLIST intent value CDATA #REQUIRED>
+<!ELEMENT bleedTop EMPTY>
+<!ATTLIST bleedTop value CDATA #REQUIRED>
+<!ELEMENT bleedLeft EMPTY>
+<!ATTLIST bleedLeft value CDATA #REQUIRED>
+<!ELEMENT bleedRight EMPTY>
+<!ATTLIST bleedRight value CDATA #REQUIRED>
+<!ELEMENT bleedBottom EMPTY>
+<!ATTLIST bleedBottom value CDATA #REQUIRED>
+<!ELEMENT encrypt EMPTY>
+<!ATTLIST encrypt value (true|false) #REQUIRED>
+<!ELEMENT passOwner EMPTY>
+<!ATTLIST passOwner value CDATA #REQUIRED>
+<!ELEMENT passUser EMPTY>
+<!ATTLIST passUser value CDATA #REQUIRED>
+<!ELEMENT permissions EMPTY>
+<!ATTLIST permissions value CDATA #REQUIRED>

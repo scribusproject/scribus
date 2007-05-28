@@ -1,11 +1,9 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef HYASK_H
 #define HYASK_H
 
@@ -14,28 +12,34 @@
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
+//Added by qt3to4:
+#include <QKeyEvent>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
-class WortEdit : public QLineEdit
+#include "scribusapi.h"
+
+class SCRIBUS_API WortEdit : public QLineEdit
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
 	WortEdit(QWidget* parent);
 	~WortEdit() {};
 	void keyPressEvent(QKeyEvent *k);
 };
 
-class HyAsk : public QDialog
-{
-	Q_OBJECT
+class SCRIBUS_API HyAsk : public QDialog
+{ 
+    Q_OBJECT
 
 public:
-	HyAsk( QWidget* parent, QString HWort );
-	~HyAsk() {};
+    HyAsk( QWidget* parent, QString HWort );
+    ~HyAsk() {};
 
-	WortEdit* Wort;
-	QPushButton* OK;
-	QPushButton* Skip;
-	QPushButton* Cancel;
+    WortEdit* Wort;
+    QPushButton* OK;
+    QPushButton* Skip;
+    QPushButton* Cancel;
 	int xpos;
 	int ypos;
 
@@ -46,8 +50,8 @@ public slots:
 	void reject();
 
 protected:
-	QVBoxLayout* HyAskLayout;
-	QHBoxLayout* Layout1;
+    Q3VBoxLayout* HyAskLayout;
+    Q3HBoxLayout* Layout1;
 };
 
 #endif // HYASK_H

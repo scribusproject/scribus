@@ -34,14 +34,64 @@ KDE_OPTIONS = noautodist
 # DO NOT INCLUDE THE "admin" DIR, ONLY FILES WITHIN IT. Otherwise you'll get
 # *everything* in admin, including the CVS dirs etc.
 #
+# Remember to add install rules for files you add here if you want them
+# installed.
 
-EXTRA_DIST = AUTHORS COPYING INSTALL README TODO NEWS PACKAGING ChangeLog ChangeLogCVS scribus.xml \
+EXTRA_DIST = AUTHORS \
+			 BUILDING \
+			 ChangeLog \
+			 ChangeLogCVS \
+			 COPYING \
+			 INSTALL \
+			 NEWS \
+			 PACKAGING \
+			 README \
+			 README.MacOSX \
+			 TODO \
+			 scribus.xml \
 			 scribus.lsm scribus.desktop Scribus.pot \
-			 configure config.h.in configure.in configure.in.in configure.in.bot Makefile.cvs \
+			 configure config.h.in configure.in \
+			 configure.in.in configure.in.bot Makefile.cvs \
 			 stamp-h1 subdirs configure.files \
-			 admin/acinclude.m4.in admin/libtool.m4.in admin/Makefile.common \
-			 admin/cvs.sh admin/am_edit admin/detect-autoconf.sh 
+			 admin/acinclude.m4.in \
+			 admin/libtool.m4.in admin/Makefile.common \
+			 admin/cvs.sh admin/am_edit admin/detect-autoconf.sh \
+                         CMakeLists.txt ConfigureChecks.cmake config.h.cmake cmake_uninstall.cmake.in
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin
 	cd $(top_distdir) && $(MAKE) -f admin/Makefile.common subdirs
+
+AM_CPPFLAGS = \
+    -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
+    -DICONDIR=\"$(datadir)/scribus/icons/\" \
+    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
+    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
+    -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
+    -DLIBDIR=\"$(libdir)/scribus/\" \
+    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
+
+#
+# Files here MUST appear in EXTRA_DIST above. Kindly keep this
+# list sorted the same as the matching part of EXTRA_DIST to
+# ease future maintainance.
+#
+install-data-local:
+	$(mkinstalldirs) $(prefix)/share
+	$(mkinstalldirs) $(prefix)/share/mime
+	$(mkinstalldirs) $(prefix)/share/mime/packages
+	$(mkinstalldirs) $(prefix)/share/scribus
+	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)
+	$(mkinstalldirs) $(prefix)/share/mime/packages/
+	$(INSTALL_DATA) $(top_srcdir)/AUTHORS $(prefix)/share/doc/scribus-$(VERSION)/AUTHORS
+	$(INSTALL_DATA) $(top_srcdir)/BUILDING $(prefix)/share/doc/scribus-$(VERSION)/BUILDING
+	$(INSTALL_DATA) $(top_srcdir)/ChangeLogCVS $(prefix)/share/doc/scribus-$(VERSION)/ChangeLogCVS
+	$(INSTALL_DATA) $(top_srcdir)/ChangeLog $(prefix)/share/doc/scribus-$(VERSION)/ChangeLog
+	$(INSTALL_DATA) $(top_srcdir)/COPYING $(prefix)/share/doc/scribus-$(VERSION)/COPYING
+	$(INSTALL_DATA) $(top_srcdir)/INSTALL $(prefix)/share/doc/scribus-$(VERSION)/INSTALL
+	$(INSTALL_DATA) $(top_srcdir)/NEWS $(prefix)/share/doc/scribus-$(VERSION)/NEWS
+	$(INSTALL_DATA) $(top_srcdir)/PACKAGING $(prefix)/share/doc/scribus-$(VERSION)/PACKAGING
+	$(INSTALL_DATA) $(top_srcdir)/README.MacOSX $(prefix)/share/doc/scribus-$(VERSION)/README.MacOSX
+	$(INSTALL_DATA) $(top_srcdir)/README $(prefix)/share/doc/scribus-$(VERSION)/README
+	$(INSTALL_DATA) $(top_srcdir)/TODO $(prefix)/share/doc/scribus-$(VERSION)/TODO
+	$(INSTALL_DATA) $(top_srcdir)/scribus.xml $(prefix)/share/mime/packages/scribus.xml

@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -35,6 +41,7 @@ const QString gtFont::fontWeights[FontWeightMAX] =
 	"Demi",
 	"Heavy",
 	"Light",
+	"Lite",
 	"Medium",
 	"Regular",
 	"Roman"
@@ -74,8 +81,8 @@ gtFont::gtFont()
 	shade       = 100;
 	strokeColor = "Black";
 	strokeShade = 100;
-	hscale      = 100;
-	kerning     = 0.0;
+	hscale      = 1000;
+	kerning     = 0;
 	useFullName = true;
 	weightIndex = 0;
 	slantIndex  = 1;
@@ -107,6 +114,12 @@ gtFont::gtFont(const gtFont& f)
 	weightIndex = f.weightIndex;
 	slantIndex  = f.slantIndex;
 	widthIndex  = f.widthIndex;
+	smallestIndex  = f.smallestIndex;
+	biggestIndex   = f.biggestIndex;
+	index          = f.index;
+	tmpWeightIndex = f.tmpWeightIndex;
+	tmpSlantIndex  = f.tmpSlantIndex;
+	tmpWidthIndex  = f.tmpWidthIndex;
 	fontEffects[NORMAL]        = f.fontEffects[NORMAL];
 	fontEffects[UNDERLINE]     = f.fontEffects[UNDERLINE];
 	fontEffects[STRIKETHROUGH] = f.fontEffects[STRIKETHROUGH];
@@ -215,8 +228,8 @@ void gtFont::setWeight(QString newWeight)
 {
 	weight = newWeight;
 	useFullName = false;
-		if ((newWeight == fontWeights[ROMAN]) || 
-		    (newWeight == fontWeights[REGULAR]))
+	if ((newWeight == fontWeights[ROMAN]) || 
+		(newWeight == fontWeights[REGULAR]))
 	{
 		setSlant(NO_SLANT);
 		setWidth(NO_WIDTH);
@@ -257,7 +270,7 @@ void gtFont::setSlant(QString newSlant)
 {
 	slant = newSlant;
 	useFullName = false;
-	if (newSlant != "")
+	if (!newSlant.isEmpty())
 	{
 		if (weight == fontWeights[REGULAR])
 			setWeight(NO_WEIGHT);
@@ -300,7 +313,7 @@ void gtFont::setWidth(QString newWidth)
 {
 	width = newWidth;
 	useFullName = false;
-	if (newWidth != "")
+	if (!newWidth.isEmpty())
 	{
 		if (weight == fontWeights[REGULAR])
 			setWeight(NO_WEIGHT);
@@ -357,24 +370,28 @@ QString gtFont::getName()
 		return name;
 
 	QString name2 = family + " ";
+
 	if (weightIndex == 0)
 		name2 += weight + " ";
 	else if (slantIndex == 0) 
 		name2 += slant + " ";
 	else if (widthIndex == 0)
 		name2 += width + " ";
+
 	if (weightIndex == 1)
 		name2 += weight + " ";
 	else if (slantIndex == 1) 
 		name2 += slant + " ";
 	else if (widthIndex == 1)
 		name2 += width + " ";
+
 	if (weightIndex == 2)
 		name2 += weight + " ";
 	else if (slantIndex == 2) 
 		name2 += slant + " ";
 	else if (widthIndex == 2)
 		name2 += width + " ";
+
 	name2 += append;
 	name2 = name2.simplifyWhiteSpace();
 	return name2;
@@ -422,11 +439,11 @@ QString gtFont::getName(uint i)
 			fname = fname + " " + append + " " + width + " " + slant + " " + weight;
 			break;
 		case 12:
-			if ((append == "") && (weight == "") && (slant == "") && (width == ""))
+			if ((append.isEmpty()) && (weight.isEmpty()) && (slant.isEmpty()) && (width.isEmpty()))
 				fname = fname + " " + fontWeights[REGULAR];
 			break;
 		case 13:
-			if ((append == "") && (weight == "") && (slant == "") && (width == ""))
+			if ((append.isEmpty()) && (weight.isEmpty()) && (slant.isEmpty()) && (width.isEmpty()))
 				fname = fname + " " + fontWeights[ROMAN];
 			break;
 	}
@@ -480,12 +497,12 @@ void    gtFont::setHscale(int newHscale)
 	hscale = newHscale;
 }
 
-double gtFont::getKerning()
+int gtFont::getKerning()
 {
 	return kerning;
 }
 
-void gtFont::setKerning(double newKerning)
+void gtFont::setKerning(int newKerning)
 {
 	kerning = newKerning;
 }
@@ -511,18 +528,18 @@ void gtFont::parseWeight()
 	bool found = false;
 	for (int i = 1; i < FontWeightMAX; ++i)
 	{
-		index = find(name, fontWeights[i]); // f.e. Demi Bold
+		index = name.find(fontWeights[i]); // f.e. Demi Bold
 		QString tmpWeight = "";
 		if ((index == -1) && (fontWeights[i].find(" ") != -1) && (fontWeights[i].find(" ") != 1))
 		{
 			QString fw2 = fontWeights[i];
 			fw2.replace(" ", "-"); // f.e. Demi-Bold
-			index = find(name, fw2);
+			index = name.find(fw2);
 			if (index == -1)
 			{
 				fw2 = fontWeights[i];
 				fw2.replace(" ", ""); // f.e. DemiBold
-				index = find(name, fw2);
+				index = name.find(fw2);
 				if (index == -1)
 				{
 					fw2 = fontWeights[i];
@@ -531,7 +548,7 @@ void gtFont::parseWeight()
 					fw2.replace(" H", " h");
 					fw2.replace(" L", " l");
 					fw2.replace(" ", "");
-					index = find(name, fw2);
+					index = name.find(fw2);
 					if (index != -1)
 						tmpWeight = fw2;
 				}
@@ -566,7 +583,7 @@ void gtFont::parseSlant()
 	bool found = false;
 	for (int i = 1; i < FontSlantMAX; ++i)
 	{
-		index = find(name, fontSlants[i]);
+		index = name.find(fontSlants[i]);
 		if (index != -1)
 		{
 			slant = fontSlants[i];
@@ -588,18 +605,18 @@ void gtFont::parseWidth()
 	bool found = false;
 	for (int i = 1; i < FontWidthMAX; ++i)
 	{
-		index = find(name, fontWidths[i]);
+		index = name.find(fontWidths[i]);
 		QString tmpWidth = "";
 		if ((index == -1) && (fontWidths[i].find(" ") != -1) && (fontWidths[i].find(" ") != 1))
 		{
 			QString fw2 = fontWidths[i];
 			fw2.replace(" ", "-");
-			index = find(name, fw2);
+			index = name.find(fw2);
 			if (index == -1)
 			{
 				fw2 = fontWidths[i];
 				fw2.replace(" ", "");
-				index = find(name, fw2);
+				index = name.find(fw2);
 				if (index == -1)
 				{
 					fw2 = fontWidths[i];
@@ -608,7 +625,7 @@ void gtFont::parseWidth()
 					fw2.replace(" H", " h");
 					fw2.replace(" L", " l");
 					fw2.replace(" ", "");
-					index = find(name, fw2);
+					index = name.find(fw2);
 					if (index != -1)
 						tmpWidth = fw2;
 				}
@@ -687,7 +704,7 @@ void gtFont::parseFamily()
 		family = name;
 	else
 		family = name.left(smallestIndex);
-	if (biggestIndex == -1)
+	if (biggestIndex == -1 || biggestIndex >= name.length())
 		append = "";
 	else
 		append = name.right(name.length() - biggestIndex - 1);
@@ -701,7 +718,7 @@ int gtFont::find(const QString& where, const QString& what)
 	if (index != -1)
 	{
 		if (index + realWhat.length() != where.length())
-			if (where[index + realWhat.length() + 1] != " ")
+			if (where[index + realWhat.length() + 1] != ' ')
 				index = -1;
 	}
 	return index;

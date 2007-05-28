@@ -1,11 +1,9 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef CMDSETPROP_H
 #define CMDSETPROP_H
 
@@ -37,6 +35,26 @@ currently selected item is used.\n\
 PyObject *scribus_setfillcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setfilltrans__doc__,
+QT_TR_NOOP("setFillTransparency(transparency, [\"name\"])\n\
+\n\
+Sets the fill transparency of the object \"name\" to transparency\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Set fill transparency */
+PyObject *scribus_setfilltrans(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setfillblend__doc__,
+QT_TR_NOOP("setFillBlendmode(blendmode, [\"name\"])\n\
+\n\
+Sets the fill blendmode of the object \"name\" to blendmode\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Set fill blendmode */
+PyObject *scribus_setfillblend(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setlinecolor__doc__,
 QT_TR_NOOP("setLineColor(\"color\", [\"name\"])\n\
 \n\
@@ -45,6 +63,26 @@ is not given the currently selected item is used.\n\
 "));
 /*! Set line color */
 PyObject *scribus_setlinecolor(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setlinetrans__doc__,
+QT_TR_NOOP("setLineTransparency(transparency, [\"name\"])\n\
+\n\
+Sets the line transparency of the object \"name\" to transparency\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Set line transparency */
+PyObject *scribus_setlinetrans(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setlineblend__doc__,
+QT_TR_NOOP("setLineBlendmode(blendmode, [\"name\"])\n\
+\n\
+Sets the line blendmode of the object \"name\" to blendmode\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Set line blendmode */
+PyObject *scribus_setlineblend(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlinewidth__doc__,

@@ -1,11 +1,9 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef CMDTEXT_H
 #define CMDTEXT_H
 
@@ -47,6 +45,16 @@ If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Get text size */
 PyObject *scribus_gettextsize(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_gettextlines__doc__,
+QT_TR_NOOP("getTextLines([\"name\"]) -> integer\n\
+\n\
+Returns the number of lines of the text in the text frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Get text lines */
+PyObject *scribus_gettextlines(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getframetext__doc__,
@@ -119,9 +127,9 @@ PyDoc_STRVAR(scribus_inserttext__doc__,
 QT_TR_NOOP("insertText(\"text\", pos, [\"name\"])\n\
 \n\
 Inserts the text \"text\" at the position \"pos\" into the text frame \"name\".\n\
-Text must be UTF encoded (see setText() as reference). The first character has\n\
-an index of 0. Inserting at position -1 appends text to the frame. If \"name\"\n\
-is not given the currently selected Item is used.\n\
+Text must be UTF encoded (see setText() as reference) The first character has an\n\
+index of 0. Inserting text at position -1 appends it to the frame. If \"name\" is\n\
+not given the currently selected Item is used.\n\
 \n\
 May throw IndexError for an insertion out of bounds.\n\
 "));
@@ -138,7 +146,6 @@ currently selected item is used.\n\
 \n\
 May throw ValueError if the font cannot be found.\n\
 "));
-
 /*! Set font */
 PyObject *scribus_setfont(PyObject */*self*/, PyObject* args);
 
@@ -212,8 +219,8 @@ QT_TR_NOOP("selectText(start, count, [\"name\"])\n\
 \n\
 Selects \"count\" characters of text in the text frame \"name\" starting from the\n\
 character \"start\". Character counting starts at 0. If \"count\" is zero, any\n\
-text selection will be cleared. If \"count\" is -1, all text in the frame will\n\
-be selected. If \"name\" is not given the currently selected item is used.\n\
+text selection will be cleared.  If \"name\" is not given the currently\n\
+selected item is used.\n\
 \n\
 May throw IndexError if the selection is outside the bounds of the text.\n\
 "));
@@ -311,7 +318,6 @@ currently selected item is used."));
 */
 PyObject *scribus_tracetext(PyObject * self, PyObject* args);
 
-
 PyDoc_STRVAR(scribus_istextoverflowing__doc__,
 QT_TR_NOOP("textOverflows([\"name\", nolinks]) -> integer\n\
 \n\
@@ -339,7 +345,7 @@ PyObject *scribus_setpdfbookmark(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_ispdfbookmark__doc__,
-QT_TR_NOOP("isPDFBookmark([\"name\"]) -> bool\n\
+ QT_TR_NOOP("isPDFBookmark([\"name\"]) -> bool\n\
 \n\
 Returns true if the text frame \"name\" is a PDF bookmark.\n\
 If \"name\" is not given the currently selected item is used.\n\

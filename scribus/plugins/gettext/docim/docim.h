@@ -7,17 +7,23 @@ for which a new license (GPL+exception) is in place.
 #ifndef DOCIM_H
 #define DOCIM_H
 
+#include "scconfig.h"
+
+#include "pluginapi.h"
 #include <qobject.h>
 #include <qstringlist.h>
 
 class gtWriter;
-class QProcess;
+class Q3Process;
 
-extern "C" void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
+extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 
-extern "C" QString FileFormatName();
+/*! \brief Returns the string with importer description.
+\retval QString a string or QString::null when the plugin should not be loaded.
+*/
+extern "C" PLUGIN_API QString FileFormatName();
 
-extern "C" QStringList FileExtensions();
+extern "C" PLUGIN_API QStringList FileExtensions();
 
 class DocIm : public QObject
 {
@@ -33,7 +39,7 @@ private:
 	QString text;
 	QString error;
 	gtWriter *writer;
-	QProcess *proc;
+	Q3Process *proc;
 	bool failed;
 	bool textOnly;
 	void toUnicode();

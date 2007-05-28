@@ -1,47 +1,61 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef MOVEPAGES_H
 #define MOVEPAGES_H
 
-#include <qdialog.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
-#include <qlayout.h>
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QDialog>
 
-class MovePages : public QDialog
+class QComboBox;
+class QLabel;
+class QPushButton;
+class QSpinBox;
+
+#include "scribusapi.h"
+
+class SCRIBUS_API MovePages : public QDialog
 { 
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    MovePages( QWidget* parent, int act, int max, bool art );
-    ~MovePages() {};
+	MovePages( QWidget* parent, int currentPage, int maxPages, bool moving );
+	~MovePages() {};
 
-    QLabel* TextLabel2;
-    QSpinBox* FromPage;
-    QSpinBox* ToPage;
-    QSpinBox* ActualPage;
-    QLabel* TextLabel1;
-    QComboBox* Where;
-    QPushButton* OK;
-    QPushButton* Cancel;
-    bool Wie;
+	const int getFromPage();
+	const int getToPage();
+	const int getWhere();
+	const int getWherePage();
+	const int getCopyCount();
 
-protected:
-    QVBoxLayout* DLayout;
-    QGridLayout* Layout4;
-    QHBoxLayout* Layout3;
 
-public slots:
-    virtual void FromChanged(int);
-    virtual void ToChanged(int);
+private:
+	QLabel* moveLabel;
+	QLabel* toLabel;
+	QLabel* numberOfCopiesLabel;
+	QSpinBox* fromPageData;
+	QSpinBox* toPageData;
+	QSpinBox* numberOfCopiesData;
+	QSpinBox* mvWherePageData;
+	QComboBox* mvWhereData;
+	QPushButton* okButton;
+	QPushButton* cancelButton;
+	QVBoxLayout* dialogLayout;
+	QGridLayout* fromToLayout;
+	QHBoxLayout* okCancelLayout;
+
+	bool move;
+
+private slots:
+	virtual void fromChanged(int);
+	virtual void toChanged(int);
+	void mvWherePageDataDisable(int index);
 };
 
 #endif // MOVEPAGES_H
+

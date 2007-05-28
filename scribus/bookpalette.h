@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           bookpalette.h  -  description
                              -------------------
@@ -18,33 +24,48 @@
 #ifndef BOOKPALETTE_H
 #define BOOKPALETTE_H
 
-#include <qdialog.h>
 #include <qlayout.h>
-#include <bookmwin.h>
+//Added by qt3to4:
+#include <Q3VBoxLayout>
+#include "scribusapi.h"
+#include "scrpalettebase.h"
+#include "bookmwin.h"
 /**
   *@author Franz Schmid
   */
 
-class BookPalette : public QDialog
+/*! \brief A Bookmark Palette */
+class SCRIBUS_API BookPalette : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
+	/*!
+	\fn BookPalette::BookPalette(QWidget* parent)
+	\author Franz Schmid
+	\date
+	\brief Constructor for Bookmark Palette
+	\param parent Parent Window
+	\retval None
+	*/
 	BookPalette(QWidget* parent);
 	~BookPalette() {};
-	void keyPressEvent(QKeyEvent *k);
-	void closeEvent(QCloseEvent *ce);
+	//void keyPressEvent(QKeyEvent *k);
+	//void closeEvent(QCloseEvent *ce);
 	BookMView	*BView;
+	
+public slots:
+	void languageChange();
 
 signals:
-	void ToggleAllPalettes();
-	void Schliessen();
+	//void ToggleAllPalettes();
+	//void Schliessen();
 
 protected:
-	QVBoxLayout* PaletteLayout;
+	Q3VBoxLayout* PaletteLayout;
 
 protected slots:
-	virtual void reject();
+	//virtual void reject();
 };
 
 #endif

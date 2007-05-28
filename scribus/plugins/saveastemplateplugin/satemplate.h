@@ -1,63 +1,61 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef MYPLUGIN_H
 #define MYPLUGIN_H
 
-#include <qobject.h>
-#include <qdatetime.h>
-#include <qdir.h>
-#include <scribus.h>
-#include "satdialog.h"
-
-/** Calls the Plugin with the main Application window as parent
-  * and the main Application Class as parameter */
-extern "C" void Run(QWidget *d, ScribusApp *plug);
+#include "pluginapi.h"
+#include "scplugin.h"
 
 
-/** Returns the Name of the Plugin.
-  * This name appears in the relevant Menue-Entrys */
-extern "C" QString Name();
+class PLUGIN_API SaveAsTemplatePlugin : public ScActionPlugin
+{
+	Q_OBJECT
+
+	public:
+		// Standard plugin implementation
+		SaveAsTemplatePlugin();
+		virtual ~SaveAsTemplatePlugin();
+		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual const QString fullTrName() const;
+		virtual const AboutData* getAboutData() const;
+		virtual void deleteAboutData(const AboutData* about) const;
+		virtual void languageChange();
+		virtual void addToMainWindowMenu(ScribusMainWindow *) {};
+
+		// Special features (none)
+};
+
+extern "C" PLUGIN_API int saveastemplateplugin_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* saveastemplateplugin_getPlugin();
+extern "C" PLUGIN_API void saveastemplateplugin_freePlugin(ScPlugin* plugin);
 
 
-/** Returns the Type of the Plugin.
-  * 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
-  * 2 = the Plugin is a Import Plugin, which appears in the Import Menue
-  * 3 = the Plugin is a Export Plugin, which appears in the Export Menue
-  * 4 = the Plugin is a resident Plugin   */
-extern "C" int Type();
-extern "C" int ID();
+class satdialog;
 
-/** Initializes the Plugin if it's a Plugin of Type 4 or 5 */
-extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
-
-/** Possible CleanUpOperations when closing the Plugin */
-extern "C" void CleanUpPlug();
 
 class MenuSAT : public QObject
 {
 	Q_OBJECT
 
 public:
-    MenuSAT(QWidget* parent) {};
+	MenuSAT() {};
     ~MenuSAT() {};
 
 public slots:
-	void RunSATPlug();
+	void RunSATPlug(ScribusDoc*);
 };
 
-static MenuSAT* satm;
+// static MenuSAT* satm;
 
-class sat 
+class sat
 {
 private:
-	ScribusApp* sapp;
-	satdialog* dia; 
+	ScribusDoc* m_Doc;
+	satdialog* dia;
 	QString file;
 	QString dir;
 	QString tmplXmlFile;
@@ -69,8 +67,10 @@ private:
 public:
 	void createTmplXml();
 	void createImages();
-	sat(ScribusApp* scribusApp, satdialog* satdia, QString fileName, QString tmplDir);
+	sat(ScribusDoc* doc, satdialog* satdia, QString fileName, QString tmplDir);
 	~sat();
 };
+
+static MenuSAT* Sat;
 
 #endif

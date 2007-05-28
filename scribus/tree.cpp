@@ -1,423 +1,1175 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "tree.h"
-#include "tree.moc"
-#include <qheader.h>
-#include <qlistview.h>
+//#include "tree.moc"
+#include <QHeaderView>
 #include <qlayout.h>
 #include <qvariant.h>
 #include <qtooltip.h>
 #include <qimage.h>
-#include <qpixmap.h>
 #include <qmessagebox.h>
-#include "scribus.h"
-extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+//Added by qt3to4:
+#include <QLabel>
+#include <QList>
+#include <QResizeEvent>
+#include <QMenu>
+#include <QWidgetAction>
+#include <QToolTip>
+#include <QHelpEvent>
 
-Tree::Tree( QWidget* parent, WFlags fl )
-		: QDialog( parent, "Tree", false, fl )
+#include "commonstrings.h"
+#include "page.h"
+#include "scribus.h"
+#include "mpalette.h"
+#include "actionmanager.h"
+#include "util.h"
+#include "selection.h"
+#include "undomanager.h"
+#include "dynamictip.h"
+
+extern QPixmap loadIcon(QString nam);
+
+TreeItem::TreeItem(TreeItem* parent, TreeItem* after) : QTreeWidgetItem(parent, after)
 {
-	setName("outlinePalette");
+	PageObject = NULL;
+	PageItemObject = NULL;
+	type = -1;
+}
+
+TreeItem::TreeItem(QTreeWidget* parent, TreeItem* after) : QTreeWidgetItem(parent, after)
+{
+	PageObject = NULL;
+	PageItemObject = NULL;
+	type = -1;
+}
+
+TreeWidget::TreeWidget(QWidget* parent) : QTreeWidget(parent)
+{
+}
+
+bool TreeWidget::viewportEvent(QEvent *event)
+{
+	if (event->type() == QEvent::ToolTip)
+	{
+		QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+		QTreeWidgetItem* it = itemAt(helpEvent->pos());
+ 		if (it != 0)
+ 		{
+ 			TreeItem *item = (TreeItem*)it;
+ 			if (item != NULL)
+ 			{
+ 				QString tipText = "";
+ 				if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+ 				{
+ 					PageItem *pgItem = item->PageItemObject;
+ 					switch (pgItem->itemType())
+ 					{
+ 						case PageItem::ImageFrame:
+ 							tipText = QObject::tr("Image");
+ 							break;
+ 						case PageItem::TextFrame:
+ 							switch (pgItem->annotation().Type())
+ 							{
+ 								case 2:
+ 									tipText = QObject::tr("PDF Push Button");
+ 									break;
+ 								case 3:
+ 									tipText = QObject::tr("PDF Text Field");
+ 									break;
+ 								case 4:
+ 									tipText = QObject::tr("PDF Check Box");
+ 									break;
+ 								case 5:
+ 									tipText = QObject::tr("PDF Combo Box");
+ 									break;
+ 								case 6:
+ 									tipText = QObject::tr("PDF List Box");
+ 									break;
+ 								case 10:
+ 									tipText = QObject::tr("PDF Text Annotation");
+ 									break;
+ 								case 11:
+ 									tipText = QObject::tr("PDF Link Annotation");
+ 									break;
+ 								default:
+ 									tipText = QObject::tr("Text");
+ 									break;
+ 							}
+ 							break;
+ 						case PageItem::Line:
+ 							tipText = QObject::tr("Line");
+ 							break;
+ 						case PageItem::Polygon:
+ 							tipText = QObject::tr("Polygon");
+ 							break;
+ 						case PageItem::PolyLine:
+ 							tipText = QObject::tr("Polyline");
+ 							break;
+ 						case PageItem::PathText:
+ 							tipText = QObject::tr("PathText");
+ 							break;
+ 						default:
+ 							break;
+ 					}
+					QToolTip::showText(helpEvent->globalPos(), tipText);
+					return true;
+				}
+			}
+		}
+	}
+	return QTreeWidget::viewportEvent(event);
+}
+
+Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
+{
 	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
-	setCaption( tr( "Outline" ) );
-	setIcon(loadIcon("AppIcon.png"));
 
-	ListView1 = new QListView( this, "ListView1" );
+	reportDisplay = new TreeWidget( this );
 
-	ListView1->setGeometry( QRect( 0, 0, 220, 240 ) );
-	ListView1->setMinimumSize( QSize( 220, 240 ) );
-	ListView1->setRootIsDecorated( TRUE );
-	ListView1->addColumn( tr("Element"));
-	ListView1->addColumn( tr("Type"));
-	ListView1->addColumn( tr("Information"));
-	ListView1->setSelectionMode(QListView::Single);
-	ListView1->setDefaultRenameAction(QListView::Accept);
-//	ListView1->setSorting(-1,1);
-
+	reportDisplay->setGeometry( QRect( 0, 0, 220, 240 ) );
+	reportDisplay->setMinimumSize( QSize( 220, 240 ) );
+	reportDisplay->setRootIsDecorated( true );
+	reportDisplay->setColumnCount(1);
+	reportDisplay->setHeaderLabel( tr("Element"));
+	reportDisplay->header()->setClickable( false );
+	reportDisplay->header()->setResizeMode( QHeaderView::ResizeToContents );
+	reportDisplay->setSortingEnabled(false);
+	reportDisplay->setSelectionMode(QAbstractItemView::SingleSelection);
+	reportDisplay->setContextMenuPolicy(Qt::CustomContextMenu);
+//	reportDisplay->setDefaultRenameAction(QTreeWidget::Accept);
+	unsetDoc();
+	imageIcon = loadIcon("22/insert-image.png");
+	lineIcon = loadIcon("Stift.xpm");
+	textIcon = loadIcon("22/insert-text-frame.png");
+	polylineIcon = loadIcon("22/draw-path.png");
+	polygonIcon = loadIcon("22/draw-polygon.png");
+	groupIcon = loadIcon("u_group.png");
+	buttonIcon = loadIcon("22/insert-button.png");
+	textFieldIcon = loadIcon("22/text-field.png");
+	checkBoxIcon = loadIcon("22/checkbox.png");
+	comboBoxIcon = loadIcon("22/combobox.png");
+	listBoxIcon = loadIcon("22/list-box.png");
+	annotTextIcon = loadIcon("22/pdf-annotations.png");
+	annotLinkIcon = loadIcon("goto.png");
+	selectionTriggered = false;
+	freeObjects = 0;
+	languageChange();
 	// signals and slots connections
-	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-	connect(ListView1, SIGNAL(rightButtonClicked(QListViewItem *, const QPoint &, int)), this, SLOT(slotRightClick(QListViewItem*, const QPoint &, int)));
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+	connect(reportDisplay, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick(QPoint)));
+//	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QTreeWidgetItem*, int)));
+//	connect(reportDisplay, SIGNAL(rightButtonClicked(QTreeWidgetItem *, const QPoint &, int)), this, SLOT(slotRightClick(QTreeWidgetItem*, const QPoint &, int)));
 }
 
-void Tree::keyPressEvent(QKeyEvent *k)
+void Tree::setMainWindow(ScribusMainWindow *mw)
 {
-	int KeyMod;
-	int kk = k->key();
-	switch (k->state())
-	{
-	case ShiftButton:
-		KeyMod = 0x00200000;
-		break;
-	case AltButton:
-		KeyMod = 0x00800000;
-		break;
-	case ControlButton:
-		KeyMod = 0x00400000;
-		break;
-	default:
-		KeyMod = 0;
-		break;
-	}
-	if (kk == Key_F10)
-		emit ToggleAllPalettes();
-	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[46].KeyID)
-		emit CloseMpal();
-	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[47].KeyID)
-		emit Schliessen();
-	if ((kk + KeyMod) == ScApp->Prefs.KeyActions[48].KeyID)
-		emit CloseSpal();
-	QDialog::keyPressEvent(k);
+	m_MainWindow=mw;
+	if (m_MainWindow==NULL)
+		clearPalette();
 }
 
-void Tree::slotRightClick(QListViewItem* ite, const QPoint &, int)
+void Tree::setDoc(ScribusDoc *newDoc)
 {
+	if (m_MainWindow==NULL)
+		currDoc=NULL;
+	else
+		currDoc=newDoc;
+	if (currDoc==NULL)
+		clearPalette();
+}
+
+void Tree::unsetDoc()
+{
+	currDoc=NULL;
+	clearPalette();
+}
+
+void Tree::setPaletteShown(bool visible)
+{
+	ScrPaletteBase::setPaletteShown(visible);
+	if ((visible) && (currDoc != NULL))
+		BuildTree();
+}
+
+void Tree::slotRightClick(QPoint point)
+{
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+		return;
+	QTreeWidgetItem *ite = reportDisplay->itemAt(point);
 	if (ite == NULL)
 		return;
-	if (ScApp->ScriptRunning)
-		return;
-	if (vie->Doc->TemplateMode)
-		return;
-	if (Seiten.containsRef(ite))
-		return;
-	for (uint e = 0; e < PageObj.count(); ++e)
+	slotSelect(ite, 0);
+	TreeItem *item = (TreeItem*)ite;
+	if (item != NULL)
 	{
-		if (PageObj.at(e)->Elemente.containsRef(ite))
+		if ((item->type == 0) || (item->type == 2))
 		{
-			ite->startRename(0);
-			break;
+			QMenu *pmen = new QMenu();
+			m_MainWindow->scrActions["viewShowMargins"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowFrames"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowLayerMarkers"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowImages"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowGrid"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowGuides"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowBaseline"]->addTo(pmen);
+			m_MainWindow->scrActions["viewShowTextChain"]->addTo(pmen);
+			m_MainWindow->scrActions["viewRulerMode"]->addTo(pmen);
+			pmen->insertSeparator();
+			m_MainWindow->scrActions["viewSnapToGrid"]->addTo(pmen);
+			m_MainWindow->scrActions["viewSnapToGuides"]->addTo(pmen);
+			m_MainWindow->scrActions["pageManageGuides"]->addTo(pmen);
+			m_MainWindow->scrActions["pageManageMargins"]->addTo(pmen);
+			if (item->type == 2)
+			{
+				m_MainWindow->scrActions["pageApplyMasterPage"]->addTo(pmen);
+				pmen->insertSeparator();
+				m_MainWindow->scrActions["pageDelete"]->addTo(pmen);
+			}
+			pmen->exec(QCursor::pos());
+			delete pmen;
+			pmen=NULL;
+		}
+		else if ((item->type == 1) || (item->type == 3) || (item->type == 4))
+		{
+			currentObject = ite;
+//			currentColumn = col;
+			PageItem *currItem = item->PageItemObject;
+			QMenu *pmen = new QMenu();
+			QMenu *pmen2 = new QMenu();
+			QMenu *pmen3 = new QMenu();
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			QMenu *pmen4 = new QMenu();
+			QMenu *pmenEditContents = new QMenu();
+			QMenu *pmenLevel = new QMenu();
+			QMenu *pmenPDF = new QMenu();
+			QMenu *pmenResolution = new QMenu();
+			bool _isGlobalMode = currDoc->view()->undoManager->isGlobalMode();
+			m_MainWindow->scrActions["editActionMode"]->setOn(true);
+			uint docSelectionCount = currDoc->m_Selection->count();
+			if (docSelectionCount == 1)
+				currDoc->view()->undoManager->showObject(currDoc->m_Selection->itemAt(0)->getUId());
+			else if (docSelectionCount > 1)
+				currDoc->view()->undoManager->showObject(Um::NO_UNDO_STACK);
+			else if (docSelectionCount == 0)
+				currDoc->view()->undoManager->showObject(currDoc->currentPage()->getUId());
+			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
+			{
+				Q3ButtonGroup *InfoGroup = new Q3ButtonGroup( this, "InfoGroup" );
+				InfoGroup->setFrameShape( Q3ButtonGroup::NoFrame );
+				InfoGroup->setFrameShadow( Q3ButtonGroup::Plain );
+				InfoGroup->setTitle("");
+				InfoGroup->setExclusive( true );
+				InfoGroup->setColumnLayout(0, Qt::Vertical );
+				InfoGroup->layout()->setSpacing( 0 );
+				InfoGroup->layout()->setMargin( 0 );
+				Q3GridLayout *InfoGroupLayout = new Q3GridLayout( InfoGroup->layout() );
+				InfoGroupLayout->setAlignment( Qt::AlignTop );
+				InfoGroupLayout->setSpacing( 2 );
+				InfoGroupLayout->setMargin( 0 );
+				QString txtC, txtC2;
+				QLabel *InfoT = new QLabel(InfoGroup, "ct");
+				QLabel *LinCT = new QLabel(InfoGroup, "lt");
+				QLabel *LinC = new QLabel(InfoGroup, "lc");
+				QLabel *ParCT = new QLabel(InfoGroup, "pt");
+				QLabel *ParC = new QLabel(InfoGroup, "pc");
+				QLabel *WordCT = new QLabel(InfoGroup, "wt");
+				QLabel *WordC = new QLabel(InfoGroup, "wc");
+				QLabel *CharCT = new QLabel(InfoGroup, "ct");
+				QLabel *CharC = new QLabel(InfoGroup, "cc");
+				QLabel *ColCT = new QLabel(InfoGroup, "ct");
+				QLabel *ColC = new QLabel(InfoGroup, "cc");
+				QLabel *PrintCT = new QLabel(InfoGroup, "nt"); // <a.l.e>
+				QLabel *PrintC = new QLabel(InfoGroup, "nc"); // </a.l.e>
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					LinC->hide();
+					LinCT->hide();
+					if (currItem->PicAvail)
+					{
+						QFileInfo fi = QFileInfo(currItem->Pfile);
+						InfoT->setText( tr("Picture"));
+						InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
+						ParCT->setText( tr("File: "));
+						InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
+						ParC->setText(fi.fileName());
+						InfoGroupLayout->addWidget( ParC, 1, 1 );
+						WordCT->setText( tr("Original PPI: "));
+						InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
+						WordC->setText(txtC.setNum(qRound(currItem->pixm.imgInfo.xres))+" x "+txtC2.setNum(qRound(currItem->pixm.imgInfo.yres)));
+						InfoGroupLayout->addWidget( WordC, 2, 1 );
+						CharCT->setText( tr("Actual PPI: "));
+						InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
+						CharC->setText(txtC.setNum(qRound(72.0 / currItem->imageXScale()))+" x "+ txtC2.setNum(qRound(72.0 / currItem->imageYScale())));
+						InfoGroupLayout->addWidget( CharC, 3, 1 );
+						ColCT->setText( tr("Colorspace: "));
+						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
+						QString cSpace;
+						QString ext = fi.extension(false).lower();
+						if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
+							cSpace = tr("Unknown");
+						else
+						{
+							switch (currItem->pixm.imgInfo.colorspace)
+							{
+								case 0:
+									cSpace = tr("RGB");
+									break;
+								case 1:
+									cSpace = tr("CMYK");
+									break;
+								case 2:
+									cSpace = tr("Grayscale");
+									break;
+								case 3:
+									cSpace = tr("Duotone");
+									break;
+							}
+						}
+						ColC->setText(cSpace);
+						InfoGroupLayout->addWidget( ColC, 4, 1 );
+					}
+					else
+					{
+						InfoT->setText( tr("Picture"));
+						InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
+						ParCT->setText( tr("No Image Loaded"));
+						InfoGroupLayout->addMultiCellWidget( ParCT, 1, 1, 0, 1, Qt::AlignHCenter );
+						ParC->hide();
+						WordCT->hide();
+						WordC->hide();
+						CharCT->hide();
+						CharC->hide();
+						ColCT->hide();
+						ColC->hide();
+					}
+				}
+				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+				{
+					int Parag = 0;
+					int Words = 0;
+					int Chara = 0;
+					int ParagN = 0;
+					int WordsN = 0;
+					int CharaN = 0;
+					ColC->hide();
+					ColCT->hide();
+					if (currItem->itemType() == PageItem::TextFrame)
+					{
+						if ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0))
+							InfoT->setText( tr("Linked Text"));
+						else
+							InfoT->setText( tr("Text Frame"));
+					}
+					else
+						InfoT->setText( tr("Text on a Path"));
+					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignCenter );
+					WordAndPara(currItem, &Words, &Parag, &Chara, &WordsN, &ParagN, &CharaN);
+					ParCT->setText( tr("Paragraphs: "));
+					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
+					if (ParagN != 0)
+						ParC->setText(txtC.setNum(Parag+ParagN)+" ("+txtC2.setNum(ParagN)+")");
+					else
+						ParC->setText(txtC.setNum(Parag));
+					InfoGroupLayout->addWidget( ParC, 1, 1 );
+					LinCT->setText( tr("Lines: "));
+					InfoGroupLayout->addWidget( LinCT, 2, 0, Qt::AlignRight );
+					LinC->setText(txtC.setNum(currItem->itemText.lines()));
+					InfoGroupLayout->addWidget( LinC, 2, 1 );
+					WordCT->setText( tr("Words: "));
+					InfoGroupLayout->addWidget( WordCT, 3, 0, Qt::AlignRight );
+					if (WordsN != 0)
+						WordC->setText(txtC.setNum(Words+WordsN)+" ("+txtC2.setNum(WordsN)+")");
+					else
+						WordC->setText(txtC.setNum(Words));
+					InfoGroupLayout->addWidget( WordC, 3, 1 );
+					CharCT->setText( tr("Chars: "));
+					InfoGroupLayout->addWidget( CharCT, 4, 0, Qt::AlignRight );
+					if (CharaN != 0)
+						CharC->setText(txtC.setNum(Chara+CharaN)+" ("+txtC2.setNum(CharaN)+")");
+					else
+						CharC->setText(txtC.setNum(Chara));
+					InfoGroupLayout->addWidget( CharC, 4, 1 );
+				}
+				int row = InfoGroupLayout->numRows();
+				PrintCT->setText( tr("Print: "));
+				InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
+				if (currItem->printEnabled())
+					PrintC->setText( tr("Enabled"));
+				else
+					PrintC->setText( tr("Disabled"));
+				InfoGroupLayout->addWidget( PrintC, row, 1 );
+				QWidgetAction* MenAct = new QWidgetAction(this);
+				MenAct->setDefaultWidget(InfoGroup);
+				pmen4->addAction(MenAct);
+				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
+					m_MainWindow->scrActions["itemImageInfo"]->addTo(pmen4);
+				pmen->insertItem( tr("In&fo"), pmen4);
+			}
+			pmen->insertSeparator();
+			m_MainWindow->scrActions["editUndoAction"]->addTo(pmen);
+			m_MainWindow->scrActions["editRedoAction"]->addTo(pmen);
+			if (currItem->itemType() == PageItem::ImageFrame ||
+				currItem->itemType() == PageItem::TextFrame ||
+				currItem->itemType() == PageItem::PathText)
+			{
+				pmen->insertSeparator();
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					m_MainWindow->scrActions["fileImportImage"]->addTo(pmen);
+					if (currItem->PicAvail)
+					{
+						if (!currItem->isTableItem)
+							m_MainWindow->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
+						if (currItem->pixm.imgInfo.valid)
+							m_MainWindow->scrActions["itemExtendedImageProperties"]->addTo(pmen);
+						m_MainWindow->scrActions["itemUpdateImage"]->addTo(pmen);
+					}
+					pmen->insertItem( tr("Preview Settings"), pmenResolution);
+					m_MainWindow->scrActions["itemImageIsVisible"]->addTo(pmenResolution);
+					pmenResolution->insertSeparator();
+					m_MainWindow->scrActions["itemPreviewLow"]->addTo(pmenResolution);
+					m_MainWindow->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
+					m_MainWindow->scrActions["itemPreviewFull"]->addTo(pmenResolution);
+					if (currItem->PicAvail && currItem->isRaster)
+					{
+						m_MainWindow->scrActions["styleImageEffects"]->addTo(pmen);
+						m_MainWindow->scrActions["editEditWithImageEditor"]->addTo(pmen);
+					}
+				}
+				if (currItem->itemType() == PageItem::TextFrame)
+				{
+					m_MainWindow->scrActions["fileImportText"]->addTo(pmen);
+					m_MainWindow->scrActions["fileImportAppendText"]->addTo(pmen);
+					m_MainWindow->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+					m_MainWindow->scrActions["insertSampleText"]->addTo(pmen);
+				}
+				if (currItem->itemType() == PageItem::PathText)
+					m_MainWindow->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+			}
+			if (currDoc->m_Selection->count() == 1)
+			{
+				pmen->insertSeparator();
+				m_MainWindow->scrActions["itemAttributes"]->addTo(pmen);
+			}	
+			if (currItem->itemType() == PageItem::TextFrame)
+			{
+				if (currDoc->currentPage()->pageName().isEmpty())
+				{
+					m_MainWindow->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
+					m_MainWindow->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
+					if (currItem->isAnnotation())
+					{
+						if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || (currItem->annotation().Type() > 9))
+							m_MainWindow->scrActions["itemPDFAnnotationProps"]->addTo(pmenPDF);
+						else
+							m_MainWindow->scrActions["itemPDFFieldProps"]->addTo(pmenPDF);
+					}
+				}
+				pmen->insertItem( tr("&PDF Options"), pmenPDF);
+			}
+			pmen->insertSeparator();
+			m_MainWindow->scrActions["itemLock"]->addTo(pmen);
+			m_MainWindow->scrActions["itemLockSize"]->addTo(pmen);
+			if (!currItem->isSingleSel)
+			{
+				m_MainWindow->scrActions["itemSendToScrapbook"]->addTo(pmen);
+				m_MainWindow->scrActions["itemSendToPattern"]->addTo(pmen);
+				if (currDoc->layerCount() > 1)
+				{
+					QMap<int,int> layerMap;
+					for (Q3ValueList<Layer>::iterator it = currDoc->Layers.begin(); it != currDoc->Layers.end(); ++it)
+						layerMap.insert((*it).Level, (*it).LNr);
+					int i=layerMap.count()-1;
+					while (i>=0)
+					{
+						if (currDoc->layerLocked(layerMap[i]))
+							m_MainWindow->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
+						else
+							m_MainWindow->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
+						m_MainWindow->scrLayersActions[QString::number(layerMap[i--])]->addTo(pmen3);
+					}
+
+					pmen->insertItem( tr("Send to La&yer"), pmen3);
+				}
+			}
+			if ((currItem->Groups.count() != 0) && (currItem->isGroupControl))
+				m_MainWindow->scrActions["itemUngroup"]->addTo(pmen);
+			if (!currItem->locked())
+			{
+				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
+				{
+					pmen->insertItem( tr("Le&vel"), pmenLevel);
+					m_MainWindow->scrActions["itemRaiseToTop"]->addTo(pmenLevel);
+					m_MainWindow->scrActions["itemRaise"]->addTo(pmenLevel);
+					m_MainWindow->scrActions["itemLower"]->addTo(pmenLevel);
+					m_MainWindow->scrActions["itemLowerToBottom"]->addTo(pmenLevel);
+				}
+			}
+			if (currDoc->appMode != modeEdit && currDoc->m_Selection->itemsAreSameType()) //Create convertTo Menu
+			{
+				bool insertConvertToMenu=false;
+				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+				{
+					insertConvertToMenu=true;
+					if (currItem->itemType() == PageItem::PathText)
+						m_MainWindow->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+					else
+					{
+						if (currItem->isTableItem)
+							m_MainWindow->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+						if (!currItem->isTableItem)
+						{
+							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
+								m_MainWindow->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+							m_MainWindow->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
+								m_MainWindow->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+						}
+					}
+				}
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					insertConvertToMenu=true;
+					m_MainWindow->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					if (!currItem->isTableItem)
+						m_MainWindow->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+				}
+				if (currItem->itemType() == PageItem::Polygon)
+				{
+					insertConvertToMenu=true;
+					m_MainWindow->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
+					m_MainWindow->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+					m_MainWindow->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+				}
+				bool insertedMenusEnabled = false;
+				for (uint pc = 0; pc < pmen2->count(); pc++)
+				{
+					if (pmen2->isItemEnabled(pmen2->idAt(pc)))
+						insertedMenusEnabled = true;
+				}
+				if ((insertConvertToMenu) && (insertedMenusEnabled))
+					pmen->insertItem( tr("Conve&rt to"), pmen2);
+			}
+			pmen->insertSeparator();
+			pmen->insertItem( tr("Rename") , this, SLOT(slotRenameItem()));
+			if (!currItem->locked() && !(currItem->isSingleSel))
+				m_MainWindow->scrActions["editCut"]->addTo(pmen);
+			if (!(currItem->isSingleSel))
+				m_MainWindow->scrActions["editCopy"]->addTo(pmen);
+			if ((currDoc->appMode == modeEdit) && (m_MainWindow->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
+				m_MainWindow->scrActions["editPaste"]->addTo(pmen);
+			if (!currItem->locked() && (currDoc->appMode != modeEdit) && (!(currItem->isSingleSel)))
+				pmen->insertItem( tr("&Delete"), currDoc, SLOT(itemSelection_DeleteItem()));
+			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+			{
+				if (currItem->itemType() == PageItem::ImageFrame)
+				{
+					if (currItem->PicAvail)
+						m_MainWindow->scrActions["editCopyContents"]->addTo(pmenEditContents);
+					if (m_MainWindow->contentsBuffer.sourceType==PageItem::ImageFrame)
+					{
+						m_MainWindow->scrActions["editPasteContents"]->addTo(pmenEditContents);
+						m_MainWindow->scrActions["editPasteContentsAbs"]->addTo(pmenEditContents);
+					}
+					if (currItem->PicAvail)
+						m_MainWindow->scrActions["editClearContents"]->addTo(pmenEditContents);
+					if ((currItem->PicAvail) || (m_MainWindow->contentsBuffer.sourceType==PageItem::ImageFrame))
+						pmen->insertItem( tr("Contents"), pmenEditContents);
+				}
+				else
+				{
+					if (currItem->itemText.lines() != 0)
+					{
+						m_MainWindow->scrActions["editClearContents"]->addTo(pmenEditContents);
+						pmen->insertItem( tr("Contents"), pmenEditContents);
+					}
+				}
+			}
+			pmen->exec(QCursor::pos());
+			m_MainWindow->scrActions["editActionMode"]->setOn(!_isGlobalMode);
+			if (_isGlobalMode)
+				currDoc->view()->undoManager->showObject(Um::GLOBAL_UNDO_MODE);
+			else
+			{
+				docSelectionCount = currDoc->m_Selection->count();
+				if (docSelectionCount == 1)
+					currDoc->view()->undoManager->showObject(currDoc->m_Selection->itemAt(0)->getUId());
+				else if (docSelectionCount > 1)
+					currDoc->view()->undoManager->showObject(Um::NO_UNDO_STACK);
+				else if (docSelectionCount == 0)
+					currDoc->view()->undoManager->showObject(currDoc->currentPage()->getUId());
+			}
+			delete pmen;
+			delete pmen2;
+			delete pmen3;
+			delete pmen4;
+			delete pmenEditContents;
+			delete pmenLevel;
+			delete pmenPDF;
+			delete pmenResolution;
+			pmen=NULL;
+			pmen2=NULL;
+			pmen3=NULL;
+			pmen4=NULL;
+			pmenEditContents=NULL;
+			pmenLevel=NULL;
+			pmenPDF=NULL;
+			pmenResolution=NULL;
 		}
 	}
 }
 
-void Tree::slotDoRename(QListViewItem* ite, int col)
+void Tree::slotRenameItem()
 {
-	if (ScApp->ScriptRunning)
+//	currentObject->startRename(currentColumn);
+}
+
+void Tree::slotDoRename(QTreeWidgetItem *ite , int col)
+{
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	if (vie->Doc->TemplateMode)
-		return;
-	disconnect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-	int sref, oref;
-	for (uint e = 0; e < PageObj.count(); ++e)
+/*	disconnect(reportDisplay, SIGNAL(itemRenamed(Q3ListViewItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int)));
+	TreeItem *item = (TreeItem*)ite;
+	if (item != NULL)
 	{
-		if (PageObj.at(e)->Elemente.containsRef(ite))
+		if ((item->type == 1) || (item->type == 3) || (item->type == 4))
 		{
-			oref = PageObj.at(e)->Elemente.findRef(ite);
-			if (oref != -1)
+			QString NameOld = item->PageItemObject->itemName();
+			QString NameNew = ite->text(col);
+			if (NameOld != NameNew)
 			{
-				sref = Seiten.findRef(ite->parent());
-				if (sref != -1)
+				if (NameNew == "")
+					ite->setText(col, NameOld);
+				else
 				{
-					QString NameOld = vie->Pages.at(sref)->Items.at(oref)->AnName;
-					QString NameNew = ite->text(col);
-					if (NameOld == NameNew)
-						break;
-					if (NameNew == "")
-					{
-						ite->setText(col, NameOld);
-						break;
-					}
 					bool found = false;
-					for (uint a = 0; a < vie->Pages.count(); ++a)
+					for (uint b = 0; b < currDoc->Items->count(); ++b)
 					{
-						for (uint b = 0; b < vie->Pages.at(a)->Items.count(); ++b)
+						if ((NameNew == currDoc->Items->at(b)->itemName()) && (currDoc->Items->at(b) != item->PageItemObject))
 						{
-							if (NameNew == vie->Pages.at(a)->Items.at(b)->AnName)
-							{
-								found = true;
-								break;
-							}
-						}
-						if (found)
+							found = true;
 							break;
+						}
 					}
 					if (found)
 					{
-						QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(NameNew), tr("OK"));
+						QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+ tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", CommonStrings::tr_OK);
 						ite->setText(col, NameOld);
 					}
 					else
 					{
-						vie->Pages.at(sref)->Items.at(oref)->AnName = NameNew;
-						vie->Pages.at(sref)->Items.at(oref)->AutoName = false;
-						ScApp->slotDocCh(false);
-						ScApp->HaveNewSel(vie->Pages.at(sref)->Items.at(oref)->PType);
-						break;
+						item->PageItemObject->setItemName(NameNew);
+						item->PageItemObject->AutoName = false;
+						m_MainWindow->propertiesPalette->SetCurItem(item->PageItemObject);
+						currDoc->setModified(true);
+						reportDisplay->setSelected(ite, true);
 					}
 				}
 			}
 		}
 	}
-	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
+	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int))); */
+}
+
+QTreeWidgetItem* Tree::getListItem(uint SNr, int Nr)
+{
+	TreeItem *item = 0;
+	QTreeWidgetItem *retVal = 0;
+	if (currDoc->masterPageMode())
+	{
+		if (Nr == -1)
+		{
+			QTreeWidgetItemIterator it( reportDisplay );
+			while ( (*it) )
+			{
+				item = (TreeItem*)(*it);
+				if ((item->type == 0) && (item->PageObject->pageNr() == SNr))
+				{
+					retVal = (*it);
+					break;
+				}
+				++it;
+			}
+		}
+		else
+		{
+			QTreeWidgetItemIterator it( reportDisplay );
+			while ( (*it) )
+			{
+				item = (TreeItem*)(*it);
+				if ((item->type == 1) && (static_cast<int>(item->PageItemObject->ItemNr) == Nr))
+				{
+					retVal = (*it);
+					break;
+				}
+				++it;
+			}
+		}
+	}
+	else
+	{
+		if (Nr == -1)
+		{
+			QTreeWidgetItemIterator it( reportDisplay );
+			while ( (*it) )
+			{
+				item = (TreeItem*)(*it);
+				if ((item->type == 2) && (item->PageObject->pageNr() == SNr))
+				{
+					retVal = (*it);
+					break;
+				}
+				++it;
+			}
+		}
+		else
+		{
+			QTreeWidgetItemIterator it( reportDisplay );
+			while ( (*it) )
+			{
+				item = (TreeItem*)(*it);
+				if (((item->type == 3) || (item->type == 4)) && (static_cast<int>(item->PageItemObject->ItemNr) == Nr))
+				{
+					retVal = (*it);
+					break;
+				}
+				++it;
+			}
+		}
+	}
+	return retVal;
 }
 
 void Tree::slotShowSelect(uint SNr, int Nr)
 {
-	if (ScApp->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
+	if (currDoc==NULL)
 		return;
-	disconnect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	ListView1->clearSelection();
-	if (Nr != -1)
-		ListView1->setSelected(PageObj.at(SNr)->Elemente.at(Nr), true);
-	else
-		ListView1->setSelected(Seiten.at(SNr), true);
-	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
+	if (currDoc->isLoading())
+		return;
+	if (selectionTriggered)
+		return;
+	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+	reportDisplay->clearSelection();
+	QTreeWidgetItem *retVal = getListItem(SNr, Nr);
+	if (retVal != 0)
+		retVal->setSelected(true);
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
-void Tree::slotRemoveElement(uint SNr, uint Nr)
+void Tree::setItemIcon(QTreeWidgetItem *item, PageItem *pgItem)
 {
-	if (ScApp->ScriptRunning)
-		return;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
-		return;
-	if (PageObj.count() != 0)
+	switch (pgItem->itemType())
 	{
-		if (PageObj.at(SNr)->Elemente.count() != 0)
+	case PageItem::ImageFrame:
+		item->setIcon( 0, imageIcon );
+		break;
+	case PageItem::TextFrame:
+		switch (pgItem->annotation().Type())
 		{
-			delete PageObj.at(SNr)->Elemente.at(Nr);
-			PageObj.at(SNr)->Elemente.take(Nr);
+			case 2:
+				item->setIcon( 0, buttonIcon );
+				break;
+			case 3:
+				item->setIcon( 0, textFieldIcon );
+				break;
+			case 4:
+				item->setIcon( 0, checkBoxIcon );
+				break;
+			case 5:
+				item->setIcon( 0, comboBoxIcon );
+				break;
+			case 6:
+				item->setIcon( 0, listBoxIcon );
+				break;
+			case 10:
+				item->setIcon( 0, annotTextIcon );
+				break;
+			case 11:
+				item->setIcon( 0, annotLinkIcon );
+				break;
+			default:
+				item->setIcon( 0, textIcon );
+				break;
 		}
-	}
-}
-
-void Tree::slotUpdateElement(uint SNr, uint Nr)
-{
-	if (ScApp->ScriptRunning)
-		return;
-	QString cc, xp, yp, fon, GroupTxt;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
-		return;
-	if (SNr > Seiten.count()-1)
-		return;
-	if ( Nr > PageObj.at(SNr)->Elemente.count()-1)
-		return;
-	disconnect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-	disconnect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
-	PageObj.at(SNr)->Elemente.at(Nr)->setText(0, vie->Pages.at(SNr)->Items.at(Nr)->AnName);
-	xp = tr("X:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Xpos);
-	yp = tr("Y:")+" "+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Ypos);
-	fon = tr("Font:")+" "+vie->Pages.at(SNr)->Items.at(Nr)->IFont;
-	if (vie->Pages.at(SNr)->Items.at(Nr)->Groups.count() != 0)
-	{
-		GroupTxt = tr("Group ")+cc.setNum(vie->Pages.at(SNr)->Items.at(Nr)->Groups.top())+" ";
-		xp.prepend(GroupTxt);
-	}
-	switch (vie->Pages.at(SNr)->Items.at(Nr)->PType)
-	{
-	case 2:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Image"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+vie->Pages.at(SNr)->Items.at(Nr)->Pfile);
 		break;
-	case 4:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Text"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+fon);
+	case PageItem::Line:
+		item->setIcon( 0, lineIcon );
 		break;
-	case 5:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Line"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp);
+	case PageItem::Polygon:
+		item->setIcon( 0, polygonIcon );
 		break;
-	case 6:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Polygon"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp);
+	case PageItem::PolyLine:
+		item->setIcon( 0, polylineIcon );
 		break;
-	case 7:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("Polyline"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp);
+	case PageItem::PathText:
+		item->setIcon( 0, textIcon );
 		break;
-	case 8:
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(1, tr("PathText"));
-		PageObj.at(SNr)->Elemente.at(Nr)->setText(2, xp+" "+yp+" "+fon);
+	default:
 		break;
 	}
-	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-	connect(ListView1, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
-void Tree::slotAddElement(uint SNr, uint Nr)
+void Tree::reopenTree()
 {
-	if (ScApp->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
+	if (currDoc->OpenNodes.count() == 0)
 		return;
-	PageObj.at(SNr)->Elemente.insert(Nr, new QListViewItem(Seiten.at(SNr), "Items"));
-	slotUpdateElement(SNr, Nr);
-	PageObj.at(SNr)->Elemente.at(Nr)->setRenameEnabled(0, true);
-}
-
-void Tree::slotMoveElement(uint SNr, uint NrOld, uint NrNew)
-{
-	if (ScApp->ScriptRunning)
-		return;
-	if ((vie->Doc->TemplateMode) || (vie->Doc->loading))
-		return;
-	QListViewItem* tmp = PageObj.at(SNr)->Elemente.take(NrOld);
-	PageObj.at(SNr)->Elemente.insert(NrNew, tmp);
-}
-
-void Tree::slotAddPage(uint Nr)
-{
-	if (ScApp->ScriptRunning)
-		return;
-	QString cc;
-	if (ListView1->childCount() == 0)
-		return;
-	Seiten.insert(Nr, new QListViewItem(ListView1->firstChild(), "Seiten"));
-	Seiten.current()->setText(0, tr("Page")+" "+cc.setNum(Nr+1));
-	PageObj.insert(Nr, new Elem);
-	rebuildPageD();
-}
-
-void Tree::slotDelPage(uint Nr)
-{
-	if (ScApp->ScriptRunning)
-		return;
-	if (vie->Doc->TemplateMode)
-		return;
-	if (Seiten.count() != 0)
+	TreeItem *item = 0;
+	QTreeWidgetItemIterator it( reportDisplay );
+	while ( (*it) )
 	{
-		delete Seiten.at(Nr);
-		Seiten.take(Nr);
-		PageObj.take(Nr);
-		rebuildPageD();
-	}
-}
-
-void Tree::rebuildPageD()
-{
-	if (ScApp->ScriptRunning)
-		return;
-	QString cc,tmpstr;
-	uint pagenumwidth;
-
-	tmpstr.setNum( Seiten.count() );
-	pagenumwidth=tmpstr.length();
-	for (uint e = 0; e < Seiten.count(); ++e)
-	{
-		tmpstr.setNum(e+1);
-		cc = tmpstr.rightJustify (pagenumwidth, '0');
-		Seiten.at(e)->setText(0, tr("Page")+" "+cc);
-	}
-}
-
-void Tree::reopenTree(QValueList<int> op)
-{
-	if (ScApp->ScriptRunning)
-		return;
-	if (op.count() == 0)
-		return;
-	if (op[0] == 1)
-		ListView1->setOpen(ListView1->firstChild(), true);
-	for (uint e = 1; e < op.count(); ++e)
-	{
-		ListView1->setOpen(Seiten.at(op[e]), true);
-	}
-}
-
-QValueList<int> Tree::buildReopenVals()
-{
-	QValueList<int> op;
-	op.clear();
-	if (ListView1->childCount() == 0)
-		return op;
-	if (ListView1->firstChild()->isOpen())
-		op.append(1);
-	else
-		op.append(0);
-	for (uint e = 0; e < Seiten.count(); ++e)
-	{
-		if (ListView1->isOpen(Seiten.at(e)))
-			op.append(e);
-	}
-	return op;
-}
-
-void Tree::slotSelect(QListViewItem* ite)
-{
-	if (ScApp->ScriptRunning)
-		return;
-	int sref, oref;
-	if (vie->Doc->TemplateMode)
-		return;
-	if (Seiten.containsRef(ite))
-	{
-		sref = Seiten.findRef(ite);
-		if (sref != -1)
-			emit SelectSeite(sref);
-		return;
-	}
-	for (uint e = 0; e < PageObj.count(); ++e)
-	{
-		if (PageObj.at(e)->Elemente.containsRef(ite))
+		item = (TreeItem*)(*it);
+		for (int olc = 0; olc < currDoc->OpenNodes.count(); olc++)
 		{
-			oref = PageObj.at(e)->Elemente.findRef(ite);
-			if (oref != -1)
+			if (item->type == currDoc->OpenNodes[olc].type)
 			{
-				sref = Seiten.findRef(ite->parent());
-				if (sref != -1)
-					emit SelectElement(sref, oref);
+				if ((item->type == -3) || (item->type == -2))
+					reportDisplay->expandItem((*it));
+				else if ((item->type == 0) || (item->type == 2))
+				{
+					if (item->PageObject == currDoc->OpenNodes[olc].page)
+						reportDisplay->expandItem((*it));
+				}
+				else if ((item->type == 2) || (item->type == 3) || (item->type == 4))
+				{
+					if (item->PageItemObject == currDoc->OpenNodes[olc].item)
+						reportDisplay->expandItem((*it));
+				}
 			}
 		}
+		++it;
 	}
 }
 
-void Tree::closeEvent(QCloseEvent *ce)
+void Tree::buildReopenVals()
 {
-	emit Schliessen();
-	ce->accept();
+	ScribusDoc::OpenNodesList ol;
+	if (reportDisplay->model()->rowCount() == 0)
+		return;
+	currDoc->OpenNodes.clear();
+	TreeItem *item = 0;
+	QTreeWidgetItemIterator it( reportDisplay );
+	while ( (*it) )
+	{
+		item = (TreeItem*)(*it);
+		if (item->isExpanded())
+		{
+			ol.type = item->type;
+			ol.page = item->PageObject;
+			ol.item = item->PageItemObject;
+			currDoc->OpenNodes.append(ol);
+		}
+		++it;
+	}
 }
 
-void Tree::reject()
+void Tree::slotSelect(QTreeWidgetItem* ite, int col)
 {
-	emit Schliessen();
-	QDialog::reject();
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
+		return;
+	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+	selectionTriggered = true;
+	TreeItem *item = (TreeItem*)ite;
+	uint pg = 0;
+	PageItem *pgItem = NULL;
+	switch (item->type)
+	{
+		case 0:
+			emit selectMasterPage(item->PageObject->pageName());
+			break;
+		case 1:
+			if (!currDoc->masterPageMode())
+				emit selectMasterPage(item->PageItemObject->OnMasterPage);
+			if (item->PageItemObject->Groups.count() == 0)
+				emit selectElement(-1, item->PageItemObject->ItemNr, false);
+			else
+			{
+				if (item->PageItemObject->isGroupControl)
+					emit selectElement(-1, item->PageItemObject->ItemNr, false);
+				else
+					emit selectElement(-1, item->PageItemObject->ItemNr, true);
+			}
+			break;
+		case 2:
+			pg = item->PageObject->pageNr();
+			m_MainWindow->closeActiveWindowMasterPageEditor();
+			emit selectPage(pg);
+			break;
+		case 3:
+		case 4:
+			pgItem = item->PageItemObject;
+			m_MainWindow->closeActiveWindowMasterPageEditor();
+			if (pgItem->Groups.count() == 0)
+				emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
+			else
+			{
+				if (pgItem->isGroupControl)
+					emit selectElement(pgItem->OwnPage, pgItem->ItemNr, false);
+				else
+					emit selectElement(pgItem->OwnPage, pgItem->ItemNr, true);
+			}
+			break;
+		default:
+			break;
+	}
+	selectionTriggered = false;
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
 void Tree::resizeEvent(QResizeEvent *r)
 {
-	ListView1->resize(r->size());
+	reportDisplay->resize(r->size());
 }
 
-void Tree::BuildTree(ScribusView *view)
+void Tree::BuildTree(bool storeVals)
 {
-	if (ScApp->ScriptRunning)
+	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-	disconnect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
-	uint a, b, pagenumwidth;
-	QString cc, tmpstr;
-	PageObj.clear();
-	Seiten.clear();
-	ListView1->clear();
-	vie = view;
-	QListViewItem * item = new QListViewItem( ListView1, 0 );
-	item->setText( 0, view->Doc->DocName);
-	tmpstr.setNum (view->Pages.count() );
-	pagenumwidth = tmpstr.length();
-	for (a = 0; a < view->Pages.count(); ++a)
+	if (currDoc==NULL)
+		return;
+	if (selectionTriggered)
+		return;
+	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+	setUpdatesEnabled(false);
+	if (storeVals)
+		buildReopenVals();
+	clearPalette();
+	QList<PageItem*> subGroupList;
+	TreeItem * item = new TreeItem( reportDisplay, 0 );
+	rootObject = item;
+	item->setText( 0, currDoc->DocName.section( '/', -1 ) );
+	item->type = -2;
+	TreeItem * pagep = 0;
+	freeObjects = 0;
+	PageItem* pgItem;
+	QString tmp;
+	for (uint b = 0; b < currDoc->MasterItems.count(); ++b)
 	{
-		tmpstr.setNum(a+1);
-		cc = tmpstr.rightJustify (pagenumwidth, '0');
-		Seiten.append(new QListViewItem(item, "Seiten"));
-		Seiten.current()->setText(0, tr("Page")+" "+cc);
-		PageObj.append(new Elem);
-		if (view->Pages.at(a)->Items.count() != 0)
+		currDoc->MasterItems.at(b)->Dirty = false;
+	}
+	for (int a = 0; a < static_cast<int>(currDoc->MasterPages.count()); ++a)
+	{
+		TreeItem *page = new TreeItem( item, pagep );
+		page->PageObject = currDoc->MasterPages.at(a);
+		page->type = 0;
+		QString pageNam = currDoc->MasterPages.at(a)->pageName();
+		pagep = page;
+		for (uint b = 0; b < currDoc->MasterItems.count(); ++b)
 		{
-			for (b = 0; b < view->Pages.at(a)->Items.count(); b++)
+			pgItem = currDoc->MasterItems.at(b);
+			if ((pgItem->OwnPage == a) || (pgItem->OnMasterPage == pageNam))
 			{
-				PageObj.current()->Elemente.append(new QListViewItem(Seiten.current(), "Items"));
-				slotUpdateElement(a, b);
-				PageObj.at(a)->Elemente.at(b)->setRenameEnabled(0, true);
+				if (pgItem->Groups.count() == 0)
+				{
+					TreeItem *object = new TreeItem( page, 0 );
+					object->PageItemObject = pgItem;
+					object->type = 1;
+					object->setText(0, pgItem->itemName());
+					setItemIcon(object, pgItem);
+//					object->setRenameEnabled(0, true);
+					pgItem->Dirty = true;
+				}
+				else
+				{
+					TreeItem * object = new TreeItem( page, 0 );
+					object->PageItemObject = pgItem;
+					object->type = 1;
+					if (pgItem->isGroupControl)
+						object->setText(0, pgItem->itemName());
+					else
+						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					object->setIcon( 0, groupIcon );
+//					object->setRenameEnabled(0, true);
+					pgItem->Dirty = true;
+					subGroupList.clear();
+					for (uint ga = 0; ga < currDoc->MasterItems.count(); ++ga)
+					{
+						PageItem* pgItem2 = currDoc->MasterItems.at(ga);
+						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (pgItem2 != pgItem))
+							subGroupList.append(pgItem2);
+					}
+					parseSubGroup(1, object, &subGroupList, 1);
+				}
+			}
+		}
+		page->setText(0, currDoc->MasterPages.at(a)->pageName());
+	}
+	for (uint b = 0; b < currDoc->DocItems.count(); ++b)
+	{
+		currDoc->DocItems.at(b)->Dirty = false;
+	}
+	for (int a = 0; a < static_cast<int>(currDoc->DocPages.count()); ++a)
+	{
+		TreeItem *page = new TreeItem( item, pagep );
+		page->PageObject = currDoc->DocPages.at(a);
+		page->type = 2;
+		pagep = page;
+		for (uint b = 0; b < currDoc->DocItems.count(); ++b)
+		{
+			pgItem = currDoc->DocItems.at(b);
+			if ((pgItem->OwnPage == a) && (!pgItem->Dirty))
+			{
+				if (pgItem->Groups.count() == 0)
+				{
+					TreeItem *object = new TreeItem( page, 0 );
+					object->PageItemObject = pgItem;
+					object->type = 3;
+					object->setText(0, pgItem->itemName());
+					setItemIcon(object, pgItem);
+//					object->setRenameEnabled(0, true);
+					pgItem->Dirty = true;
+				}
+				else
+				{
+					TreeItem *object = new TreeItem( page, 0 );
+					object->PageItemObject = pgItem;
+					object->type = 3;
+					if (pgItem->isGroupControl)
+						object->setText(0, pgItem->itemName());
+					else
+						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					object->setIcon( 0, groupIcon );
+//					object->setRenameEnabled(0, true);
+					pgItem->Dirty = true;
+					subGroupList.clear();
+					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
+					{
+						PageItem* pgItem2 = currDoc->DocItems.at(ga);
+						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (pgItem2 != pgItem))
+							subGroupList.append(pgItem2);
+					}
+					parseSubGroup(1, object, &subGroupList, 3);
+				}
+			}
+		}
+		page->setText(0, tr("Page ")+tmp.setNum(a+1));
+	}
+	bool hasfreeItems = false;
+	for (uint b = 0; b < currDoc->DocItems.count(); ++b)
+	{
+		if (currDoc->DocItems.at(b)->OwnPage == -1)
+		{
+			hasfreeItems = true;
+			break;
+		}
+	}
+	if (hasfreeItems)
+	{
+		TreeItem *page = new TreeItem( item, pagep );
+		pagep = page;
+		freeObjects = page;
+		page->type = -3;
+		for (uint b = 0; b < currDoc->DocItems.count(); ++b)
+		{
+			pgItem = currDoc->DocItems.at(b);
+			if ((pgItem->OwnPage == -1) && (!pgItem->Dirty))
+			{
+				if (pgItem->Groups.count() == 0)
+				{
+					TreeItem *object = new TreeItem( page, 0 );
+					object->PageItemObject = pgItem;
+					object->type = 4;
+					object->setText(0, pgItem->itemName());
+					setItemIcon(object, pgItem);
+//					object->setRenameEnabled(0, true);
+					pgItem->Dirty = true;
+				}
+				else
+				{
+					TreeItem *object = new TreeItem( page, 0 );
+					object->PageItemObject = pgItem;
+					object->type = 4;
+					if (pgItem->isGroupControl)
+						object->setText(0, pgItem->itemName());
+					else
+						object->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.top()));
+					object->setIcon( 0, groupIcon );
+//					object->setRenameEnabled(0, true);
+					pgItem->Dirty = true;
+					subGroupList.clear();
+					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
+					{
+						PageItem* pgItem2 = currDoc->DocItems.at(ga);
+						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (pgItem2 != pgItem))
+							subGroupList.append(pgItem2);
+					}
+					parseSubGroup(1, object, &subGroupList, 4);
+				}
+			}
+		}
+		page->setText(0, tr("Free Objects"));
+	}
+	if (storeVals)
+		reopenTree();
+	setUpdatesEnabled(true);
+	repaint();
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
+}
+
+void Tree::parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroupList, int itemType)
+{
+	QList<PageItem*> *subGroup;
+	PageItem *pgItem;
+	QString tmp;
+	for (int b = 0; b < subGroupList->count(); ++b)
+	{
+		pgItem = subGroupList->at(b);
+		if (!pgItem->Dirty)
+		{
+			if (static_cast<int>(pgItem->Groups.count()) <= level)
+			{
+				TreeItem *grp = new TreeItem( object, 0 );
+				grp->PageItemObject = pgItem;
+				grp->type = itemType;
+				grp->setText(0, pgItem->itemName());
+				setItemIcon(grp, pgItem);
+//				grp->setRenameEnabled(0, true);
+				pgItem->Dirty = true;
+			}
+			else
+			{
+				TreeItem *grp = new TreeItem( object, 0 );
+				grp->PageItemObject = pgItem;
+				grp->type = itemType;
+				if (pgItem->isGroupControl)
+					grp->setText(0, pgItem->itemName());
+				else
+				grp->setText(0, tr("Group ")+tmp.setNum(*pgItem->Groups.at(pgItem->Groups.count()-level-1)));
+				grp->setIcon( 0, groupIcon );
+//				grp->setRenameEnabled(0, true);
+				pgItem->Dirty = true;
+				subGroup = new QList<PageItem*>;
+				subGroup->clear();
+				for (int ga = 0; ga < subGroupList->count(); ++ga)
+				{
+					PageItem* pgItem2 = subGroupList->at(ga);
+					if ((static_cast<int>(pgItem2->Groups.count()) > level) && 
+						(*(pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (*pgItem->Groups.at(pgItem->Groups.count()-level-1))) && (pgItem2 != pgItem))
+						subGroup->append(pgItem2);
+				}
+				parseSubGroup(level+1, grp, subGroup, itemType);
+				delete subGroup;
 			}
 		}
 	}
-	connect(ListView1, SIGNAL(itemRenamed(QListViewItem*, int)), this, SLOT(slotDoRename(QListViewItem*, int)));
+}
+
+void Tree::languageChange()
+{
+	setCaption( tr("Outline"));
+	reportDisplay->setHeaderLabel( tr("Element"));
+}
+
+void Tree::clearPalette()
+{
+	reportDisplay->clear();
 }

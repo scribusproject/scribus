@@ -1,117 +1,117 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-#include "mergedoc.h"
-#include "mergedoc.moc"
-#include "customfdialog.h"
-#include "scribusXml.h"
-#include "prefsfile.h"
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+#include <qdialog.h>
+#include <qpushbutton.h>
+#include <qlabel.h>
+#include <qlineedit.h>
+#include <qspinbox.h>
+#include <qstring.h>
+#include <qlayout.h>
+#include <qtooltip.h>
+#include <qcombobox.h>
+#include <qcheckbox.h>
+#include <qtooltip.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3VBoxLayout>
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
+#include <QApplication>
+#include "scconfig.h"
+#include "mergedoc.h"
+//#include "mergedoc.moc"
+#include "commonstrings.h"
+#include "customfdialog.h"
+#include "fileloader.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "sccombobox.h"
+#include "scpaths.h"
 
 #include <qcursor.h>
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
-MergeDoc::MergeDoc( QWidget* parent, bool Mpages, int targetDocPageCount, int activePage ) : 
+MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCount, int currentPage ) : 
     QDialog( parent, "merge", true, 0 )
 {
-	if (Mpages)
-		setCaption( tr("Import Template") );
-	else
-		setCaption( tr( "Import Page(s)" ) );
+	masterPages = importMasterPages;
+	setCaption( (masterPages) ? tr("Import Master Page") : tr( "Import Page(s)" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	Count = 0;
-	Mpa = Mpages;
-	targetCount = targetDocPageCount;
-	MergeDocLayout = new QVBoxLayout( this, 10, 10, "MergeDocLayout"); 
-	layout1 = new QGridLayout(1, 1, 5, "layout");
-	textLabel1 = new QLabel( this, "textLabel1" );
-	textLabel1->setText( tr( "From Document:" ) );
-	layout1->addWidget( textLabel1, 0, 0 );
-	Filename = new QLineEdit( this, "Filename" );
-	layout1->addWidget( Filename, 0, 1 );
-	Change = new QPushButton( this, "Change" );
-	Change->setAutoDefault( FALSE );
-	Change->setText( tr( "Change..." ) );
-	layout1->addWidget( Change, 0, 2 );
-	textLabel3 = new QLabel( this, "textLabel3" );
-	textLabel3->setText( tr( "Import Page(s):" ) );
-	layout1->addWidget( textLabel3, 1, 0 );
-	if (Mpa)
+
+	count = 0;
+	dialogLayout = new Q3VBoxLayout( this, 10, 10, "dialogLayout"); 
+	fromInfoLayout = new Q3GridLayout(1, 1, 5, "layout");
+	fromDocData = new QLineEdit( this, "fromDocData" );
+	fromDocLabel = new QLabel( fromDocData, tr( "&From Document:"), this, "fromDocLabel" );
+	fromInfoLayout->addWidget( fromDocLabel, 0, 0 );
+	fromInfoLayout->addWidget( fromDocData, 0, 1 );
+	changeButton = new QPushButton( tr( "Chan&ge..." ), this, "changeButton" );
+	changeButton->setAutoDefault( false );
+	fromInfoLayout->addWidget( changeButton, 0, 2 );
+	importPageLabel = new QLabel( tr( "&Import Page(s):" ), this, "importPageLabel" );
+	fromInfoLayout->addWidget( importPageLabel, 1, 0 );
+	if (masterPages)
 	{
-		textLabel3->setText( tr("Import Template") );
-		PageNa = new QComboBox( true, this, "Templ" );
-		PageNa->setEditable(false);
-		PageNa->setEnabled(false);
-		layout1->addWidget( PageNa, 1, 1 );
+		importPageLabel->setText( tr("&Import Master Page") );
+		masterPageNameData = new ScComboBox( false, this, "masterPageNameData" );
+		masterPageNameData->setEnabled(false);
+		importPageLabel->setBuddy( masterPageNameData );
+		fromInfoLayout->addWidget( masterPageNameData, 1, 1 );
 	}
 	else
 	{
-		PageNr = new QLineEdit( this, "PageNr" );
-		PageNr->setEnabled(false);
-		QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
-		                           "a token can be * for all the pages, 1-5 for\n"
-		                           "a range of pages or a single page number.") );
-		layout1->addWidget( PageNr, 1, 1 );
+		pageNumberData = new QLineEdit( this, "pageNumberData" );
+		pageNumberData->setEnabled(false);
+		importPageLabel->setBuddy( pageNumberData );
+		QToolTip::add( pageNumberData, "<qt>" + tr( "Insert a comma separated list of tokens import where "
+		                           "a token can be * for all the pages, 1-5 for "
+		                           "a range of pages or a single page number.") + "</qt>");
+		fromInfoLayout->addWidget( pageNumberData, 1, 1 );
 		fromLabel = new QLabel(this, "fromLabel");
-		fromLabel->setText(tr(" from 0"));
-		layout1->addWidget( fromLabel, 1, 2 );
-		Create = new QCheckBox( this, "Create" );
-		Create->setText(tr("Create Page(s)"));
-		layout1->addWidget( Create, 2, 0 );
-		Where = new QComboBox( FALSE, this, "positionCombo" );
-		Where->insertItem(tr("before Page"));
-		Where->insertItem(tr("after Page"));
-		Where->insertItem(tr("at End"));
-		Where->setCurrentItem( 2 );
-		Where->setEnabled( false );
-		layout1->addWidget( Where, 2, 1 );
-		ActualPage = new QSpinBox( this, "pageSpin" );
-		ActualPage->setMinValue( 1 );
-		ActualPage->setMaxValue( targetCount );
-		ActualPage->setValue( activePage );
-		ActualPage->setEnabled(false);
-		layout1->addWidget( ActualPage, 2, 2 );
+		fromLabel->setText( tr(" from 0"));
+		fromInfoLayout->addWidget( fromLabel, 1, 2 );
+		createPageData = new QCheckBox( this, "createPageData" );
+		createPageData->setText( tr("Create Page(s)"));
+		fromInfoLayout->addWidget( createPageData, 2, 0 );
+		importWhereData = new ScComboBox( false, this, "positionCombo" );
+		importWhereData->setEnabled(false);
+		importWhereData->insertItem( tr("Before Page"));
+		importWhereData->insertItem( tr("After Page"));
+		importWhereData->insertItem( tr("At End"));
+		importWhereData->setCurrentItem( 2 );
+		fromInfoLayout->addWidget( importWhereData, 2, 1 );
+		importWherePageData = new QSpinBox( 1, targetDocPageCount, 1, this, "pageSpin" );
+		importWherePageData->setValue( currentPage );
+		importWherePageData->setEnabled(false);
+		fromInfoLayout->addWidget( importWherePageData, 2, 2 );
 	}
-	MergeDocLayout->addLayout( layout1 );
-	layout3 = new QHBoxLayout( 0, 0, 2, "layout3"); 
+
+	dialogLayout->addLayout( fromInfoLayout );
+	importCancelLayout = new Q3HBoxLayout( 0, 0, 2, "importCancelLayout"); 
 	QSpacerItem* spacer = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout3->addItem( spacer );
-	Import = new QPushButton( this, "Import" );
-	Import->setText( tr( "Import" ) );
-	Import->setEnabled(false);
-	layout3->addWidget( Import );
-	//QSpacerItem* spacer_2 = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	//layout3->addItem( spacer_2 );
-	Cancel = new QPushButton( this, "Cancel" );
-	Cancel->setDefault( TRUE );
-	Cancel->setText( tr( "Cancel" ) );
-	layout3->addWidget( Cancel );
-	//QSpacerItem* spacer_3 = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	//layout3->addItem( spacer_3 );
-	MergeDocLayout->addLayout( layout3 );
+	importCancelLayout->addItem( spacer );
+	importButton = new QPushButton( tr( "&Import" ), this, "importButton" );
+	importButton->setEnabled(false);
+	importCancelLayout->addWidget( importButton );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	cancelButton->setDefault( true );
+	importCancelLayout->addWidget( cancelButton );
+	dialogLayout->addLayout( importCancelLayout );
 	resize( QSize(350, 134).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
-	connect( Import, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( Change, SIGNAL( clicked() ), this, SLOT( ChangeFile() ) );
-	if (!Mpa)
+
+	connect( importButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( changeButton, SIGNAL( clicked() ), this, SLOT( changeFile() ) );
+	if (!masterPages)
 	{
-		connect( Where, SIGNAL( activated(int) ), this, SLOT( CheckDestPageStatus(int) ) );
-		connect( Create, SIGNAL( clicked() ), this, SLOT( enableCreateWidgets() ) );
+		connect( importWhereData, SIGNAL( activated(int) ), this, SLOT( checkDestPageStatus(int) ) );
+		connect( createPageData, SIGNAL( clicked() ), this, SLOT( enableCreateWidgets() ) );
 	}
 }
 
@@ -123,92 +123,129 @@ MergeDoc::~MergeDoc()
     // no need to delete child widgets, Qt does it all for us
 }
 
-void MergeDoc::ChangeFile()
+void MergeDoc::changeFile()
 {
 	QString fn;
 	int dummy;
-	bool ret = false;
-	Count = 0;
-	PrefsContext* dirs = prefsFile->getContext("dirs");
+	count = 0;
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("merge", ".");
-#ifdef HAVE_LIBZ
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
-#else
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
-#endif
-	if (Filename->text() != "")
-		dia.setSelection(Filename->text());
-	if (dia.exec() == QDialog::Accepted)
+	CustomFDialog *dia = new CustomFDialog(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	if (!fromDocData->text().isEmpty())
+		dia->setSelection(fromDocData->text());
+	if (dia->exec() == QDialog::Accepted)
 	{
-		fn = dia.selectedFile();
+		fn = dia->selectedFile();
 		if (!fn.isEmpty())
 		{
 			dirs->set("merge", fn.left(fn.findRev("/")));
-			qApp->setOverrideCursor(QCursor(waitCursor), true);
-			ScriXmlDoc *ss = new ScriXmlDoc();
-			if (Mpa)
-				ret = ss->ReadPageCount(fn, &dummy, &Count);
+			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			FileLoader fl(fn);
+			if (fl.TestFile() == -1)
+			//TODO put in nice user warning
+				return;
+			QStringList masterPageNames;
+			bool ret = false;
+			if (masterPages)
+				ret = fl.ReadPageCount(fn, &dummy, &count, masterPageNames);
 			else
-				ret = ss->ReadPageCount(fn, &Count, &dummy);
-			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			if ((ret) && (Count != 0))
+				ret = fl.ReadPageCount(fn, &count, &dummy, masterPageNames);
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			if ((ret) && (count != 0))
 			{
-				Filename->setText(fn);
-				Import->setEnabled(true);
-				if (Mpa)
+				fromDocData->setText( QDir::convertSeparators(fn) );
+				importButton->setEnabled(true);
+				if (masterPages)
 				{
-					PageNa->clear();
-					PageNa->setEnabled(true);
-					PageNa->insertStringList(ss->MNames);
+					masterPageNameData->clear();
+					masterPageNameData->setEnabled(true);
+					masterPageNameData->insertStringList(masterPageNames);
 				}
 				else
 				{
-					PageNr->setEnabled(true);
+					pageNumberData->setEnabled(true);
 				}
-				if (!Mpa)
-					fromLabel->setText( tr(" from %1").arg(Count));
+				if (!masterPages)
+					fromLabel->setText( tr(" from %1").arg(count));
 			}
-			delete ss;
 		}
 	}
 	else
 	{
-		Filename->setText("");
-		Count = 0;
-		Import->setEnabled(false);
-		if (Mpa)
+		fromDocData->setText("");
+		count = 0;
+		importButton->setEnabled(false);
+		if (masterPages)
 		{
-			PageNa->clear();
-			PageNa->setEnabled(false);
+			masterPageNameData->clear();
+			masterPageNameData->setEnabled(false);
 		}
 		else
 		{
-			PageNr->setEnabled(false);
+			pageNumberData->setEnabled(false);
 		}
-		if (!Mpa)
-			fromLabel->setText( tr(" from %1").arg(Count));
+		if (!masterPages)
+			fromLabel->setText( tr(" from %1").arg(count));
 	}
+	delete dia;
 }
 
-void MergeDoc::CheckDestPageStatus(int positionComboSelection)
+void MergeDoc::checkDestPageStatus(int positionComboSelection)
 {
-	if (positionComboSelection == 2)
-		ActualPage->setEnabled( false );
-	else
-		ActualPage->setEnabled( true );
+	importWherePageData->setDisabled( positionComboSelection == 2 );
 }
 
 void MergeDoc::enableCreateWidgets()
 {
-	if (Create->isChecked())
+	if (createPageData->isChecked())
 	{
-		Where->setEnabled(true);
-		if (Where->currentItem() != 2)
-			ActualPage->setEnabled(true);
+		importWhereData->setEnabled(true);
+		if (importWhereData->currentItem() != 2)
+			importWherePageData->setEnabled(true);
 	}
 	else
 	{
-		Where->setEnabled(false);
-		ActualPage->setEnabled(false);
+		importWhereData->setEnabled(false);
+		importWherePageData->setEnabled(false);
 	}
+}
+
+const QString MergeDoc::getFromDoc()
+{
+	return ScPaths::separatorsToSlashes(fromDocData->text());
+}
+
+const int MergeDoc::getMasterPageNameItem()
+{
+	return masterPageNameData->currentItem();
+}
+
+const QString MergeDoc::getMasterPageNameText()
+{
+	return masterPageNameData->currentText();
+}
+
+const int MergeDoc::getImportWhere()
+{
+	return importWhereData->currentItem();
+}
+
+const int MergeDoc::getImportWherePage()
+{
+	return importWherePageData->value();
+}
+
+const bool MergeDoc::getCreatePageChecked()
+{
+	return createPageData->isChecked();
+}
+
+const QString MergeDoc::getPageNumbers()
+{
+	return pageNumberData->text();
+}
+
+const int MergeDoc::getPageCounter()
+{
+	return count;
 }

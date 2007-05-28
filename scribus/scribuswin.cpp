@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           scribuswin.cpp  -  description
                              -------------------
@@ -16,150 +22,136 @@
  ***************************************************************************/
 #include <qfileinfo.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3Frame>
+#include <QCloseEvent>
+#include <QMessageBox>
 #include "scribuswin.h"
-#include "scribuswin.moc"
-#include "scribusXml.h"
+#include "pageselector.h"
+#include "scmessagebox.h"
+//#include "scribuswin.moc"
+#include "fileloader.h"
 #include "scribus.h"
+#include "story.h"
+#include "util.h"
+#include "commonstrings.h"
 
-extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
-extern int moveFile(QString source, QString target);
 
-ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* ddoc)
-		: QMainWindow(parent, "", WDestructiveClose)
+
+ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : Q3MainWindow(parent, "", Qt::WDestructiveClose)
 {
-	setName("documentWindow");
 	setIcon(loadIcon("AppIcon2.png"));
-	doc = ddoc;
-	muster = NULL;
-	NrItems = 0;
-	First = 1;
-	Last = 0;
+	m_Doc = doc;
+	m_masterPagesPalette = NULL;
+	currentDir = QDir::currentDirPath();
 }
 
-void ScribusWin::setView(ScribusView* dview)
+void ScribusWin::setMainWindow(ScribusMainWindow *mw)
 {
-	view = dview;
+	m_MainWindow=mw;
+}
+
+void ScribusWin::setView(ScribusView* newView)
+{
+	m_View = newView;
+	++m_Doc->viewCount;
+	winIndex = ++m_Doc->viewID;
+	QPoint point(0,0);
+	statusFrame = new Q3Frame(this, "newDocFrame");
+	statusFrameLayout = new Q3HBoxLayout( statusFrame, 0, 0, "statusFrame");
+	m_View->unitSwitcher->reparent(statusFrame, point);
+	m_View->layerMenu->reparent(statusFrame, point);
+	m_View->zoomOutToolbarButton->reparent(statusFrame, point);
+	m_View->zoomDefaultToolbarButton->reparent(statusFrame, point);
+	m_View->zoomInToolbarButton->reparent(statusFrame, point);
+	m_View->pageSelector->reparent(statusFrame, point);
+	m_View->zoomSpinBox->reparent(statusFrame, point);
+	m_View->cmsToolbarButton->reparent(statusFrame, point);
+	m_View->previewToolbarButton->reparent(statusFrame, point);
+	m_View->visualMenu->reparent(statusFrame, point);
+	statusFrameLayout->addWidget(m_View->unitSwitcher);
+	statusFrameLayout->addWidget(m_View->zoomSpinBox);
+	statusFrameLayout->addWidget(m_View->zoomOutToolbarButton);
+	statusFrameLayout->addWidget(m_View->zoomDefaultToolbarButton);
+	statusFrameLayout->addWidget(m_View->zoomInToolbarButton);
+	statusFrameLayout->addWidget(m_View->pageSelector);
+	statusFrameLayout->addWidget(m_View->layerMenu);
+	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	statusFrameLayout->addItem( spacer );
+	statusFrameLayout->addWidget(m_View->cmsToolbarButton);
+	statusFrameLayout->addWidget(m_View->previewToolbarButton);
+	statusFrameLayout->addWidget(m_View->visualMenu);
+	statusBar()->addWidget(statusFrame, 4, true);
+	currentDir = QDir::currentDirPath();
 }
 
 void ScribusWin::slotAutoSave()
 {
-	if ((doc->hasName) && (doc->isModified()))
+	if ((m_Doc->hasName) && (m_Doc->isModified()))
 	{
-		moveFile(doc->DocName, doc->DocName+".bak");
-		QString fn = doc->DocName;
-		QFileInfo fi(fn);
+		moveFile(m_Doc->DocName, m_Doc->DocName+".bak");
+		QFileInfo fi(m_Doc->DocName);
 		QDir::setCurrent(fi.dirPath(true));
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		if (ss->WriteDoc(fn, doc, view, 0))
+		FileLoader fl(m_Doc->DocName);
+		if (fl.SaveFile(m_Doc->DocName, m_Doc, 0))
 		{
-			doc->setUnModified();
-			setCaption(doc->DocName);
+			m_Doc->setModified(false);
+			setCaption(QDir::convertSeparators(m_Doc->DocName));
 			qApp->processEvents();
 			emit AutoSaved();
 		}
-		delete ss;
 	}
 }
 
 void ScribusWin::closeEvent(QCloseEvent *ce)
 {
-	if (doc->isModified())
+	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
-		QString CloseTxt;
-		if (ScApp->singleClose)
-			CloseTxt = tr("&Leave Anyway");
-		else
-			CloseTxt = tr("C&lose Anyway");
-		int exit=QMessageBox::information(ScApp,
-		                                  tr("Warning"),
-		                                  tr("Document:")+" "+doc->DocName+"\n"+ tr("has been changed since the last save."),
-		                                  tr("&Save Now"),
-		                                  tr("&Cancel"),
-		                                  CloseTxt,
-		                                  0, 1);
-		switch (exit)
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		int exit = QMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+
+											QDir::convertSeparators(m_Doc->DocName)+"\n"+
+											tr("has been changed since the last save."),
+											QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel,
+											QMessageBox::Cancel);
+		if (exit == QMessageBox::Cancel)
 		{
-		case 0:
-			if (ScApp->DoSaveClose())
+			ce->ignore();
+			return;
+		}
+		if (exit == QMessageBox::Save)
+		{
+			if (m_MainWindow->slotFileSave())
 			{
-				ScApp->DoFileClose();
-				ce->accept();
+				if (m_Doc==m_MainWindow->storyEditor->currentDocument())
+					m_MainWindow->storyEditor->close();
 			}
 			else
+			{
+				ce->ignore();
 				return;
-			break;
-		case 1:
-			break;
-		case 2:
-			//emit Schliessen();
-			ScApp->DoFileClose();
-			ce->accept();
-			break;
+			}
 		}
 	}
-	else
-	{
-		//emit Schliessen();
-		ScApp->DoFileClose();
-		ce->accept();
-	}
+	m_MainWindow->DoFileClose();
+	ce->accept();
 }
 
-void ScribusWin::CloseCMSProfiles()
+void ScribusWin::setMasterPagesPaletteShown(bool isShown) const
 {
-#ifdef HAVE_CMS
-	cmsCloseProfile(doc->DocInputProf);
-	cmsCloseProfile(doc->DocOutputProf);
-	cmsCloseProfile(doc->DocPrinterProf);
-	cmsDeleteTransform(stdTrans);
-	cmsDeleteTransform(stdProof);
-	cmsDeleteTransform(stdTransImg);
-	cmsDeleteTransform(stdProofImg);
-#endif
-}
-
-void ScribusWin::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
-{
-#ifdef HAVE_CMS
-	doc->DocInputProf = cmsOpenProfileFromFile(InPo[doc->CMSSettings.DefaultInputProfile2], "r");
-	doc->DocOutputProf = cmsOpenProfileFromFile(MoPo[doc->CMSSettings.DefaultMonitorProfile], "r");
-	doc->DocPrinterProf = cmsOpenProfileFromFile(PrPo[doc->CMSSettings.DefaultPrinterProfile], "r");
-	if ((doc->DocInputProf == NULL) || (doc->DocOutputProf == NULL) || (doc->DocPrinterProf == NULL))
-	{
-		doc->CMSSettings.CMSinUse = false;
+	if (m_masterPagesPalette==NULL)
 		return;
-	}
-	int dcmsFlags = 0;
-	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
-	if (Gamut)
-		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
+	if (isShown)
+		m_masterPagesPalette->show();
 	else
-		dcmsFlags |= cmsFLAGS_SOFTPROOFING;
-#ifdef cmsFLAGS_BLACKPOINTCOMPENSATION
-	if (doc->CMSSettings.BlackPoint)
-	{
-		dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
-		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
-	}
-#endif
-	stdProof = cmsCreateProofingTransform(doc->DocInputProf, TYPE_RGB_16,
-	                                      doc->DocOutputProf, TYPE_RGB_16,
-	                                      doc->DocPrinterProf,
-	                                      IntentPrinter,
-	                                      IntentMonitor, dcmsFlags);
-	stdTrans = cmsCreateTransform(doc->DocInputProf, TYPE_RGB_16,
-	                              doc->DocOutputProf, TYPE_RGB_16,
-	                              IntentMonitor,
-	                              dcmsFlags2);
-	stdProofImg = cmsCreateProofingTransform(doc->DocInputProf, TYPE_RGBA_8,
-	              doc->DocOutputProf, TYPE_RGBA_8,
-	              doc->DocPrinterProf,
-	              IntentPrinter,
-	              IntentMonitor, dcmsFlags);
-	stdTransImg = cmsCreateTransform(doc->DocInputProf, TYPE_RGBA_8,
-	                                 doc->DocOutputProf, TYPE_RGBA_8,
-	                                 IntentMonitor,
-	                                 dcmsFlags2);
-#endif
+		m_masterPagesPalette->hide();
+}
+
+void ScribusWin::windowActivationChange ( bool oldActive )
+{
+	if( isActiveWindow() )
+		QDir::setCurrent( currentDir );
+	else
+		currentDir = QDir::currentDirPath();
+	Q3MainWindow::windowActivationChange( oldActive );
 }

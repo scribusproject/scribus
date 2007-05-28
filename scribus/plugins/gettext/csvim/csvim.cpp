@@ -1,12 +1,11 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "csvim.h"
+#include "scribusstructs.h"
 
 QString FileFormatName()
 {
@@ -18,7 +17,7 @@ QStringList FileExtensions()
     return QStringList("csv");
 }
 
-void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
+void GetText(QString filename, QString encoding, bool /* textOnly */, gtWriter *writer)
 {
 	CsvDialog* csvdia = new CsvDialog();
 	if (csvdia->exec())
@@ -94,14 +93,13 @@ void CsvIm::loadFile()
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return;
-	uint posi;
 	QByteArray bb(f.size());
-	if (f.open(IO_ReadOnly))
+	if (f.open(QIODevice::ReadOnly))
 	{
 		f.readBlock(bb.data(), f.size());
 		f.close();
-		for (posi = 0; posi < bb.size(); ++posi)
-			text += bb[posi];
+		for (int posi = 0; posi < bb.size(); ++posi)
+			text += QChar(bb[posi]);
 	}
 	text = toUnicode(text);
 	QStringList lines = QStringList::split("\n", text);
@@ -117,7 +115,7 @@ void CsvIm::loadFile()
 	}
 	else
 		i = 0;
-	for (uint i2 = i; i2 < lines.size(); ++i2)
+	for (int i2 = i; i2 < lines.size(); ++i2)
 	{
 		colIndex = 0;
 		parseLine(lines[i2], false);
@@ -133,7 +131,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 	if ((line.find(valueDelimiter) < 0) || (!useVDelim))
 	{
 		QStringList l = QStringList::split(fieldDelimiter, line);
-		for (uint i = 0; i < l.size(); ++i)
+		for (int i = 0; i < l.size(); ++i)
 		{
 			++colIndex;
 			QString tmp = l[i].stripWhiteSpace();
@@ -202,6 +200,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 	}
 }
 
+
 void CsvIm::setupTabulators()
 {
 	double frameWidth = writer->getFrameWidth();
@@ -219,7 +218,7 @@ void CsvIm::setupTabulators()
 QString CsvIm::toUnicode(const QString& text)
 {
 	QTextCodec *codec;
-	if (encoding == "")
+	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(encoding);

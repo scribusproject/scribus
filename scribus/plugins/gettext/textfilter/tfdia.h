@@ -1,11 +1,9 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef TFDIA_H
 #define TFDIA_H
 
@@ -15,9 +13,12 @@
 #include <qpushbutton.h>
 #include <qlineedit.h>
 #include <qlayout.h>
-#include <qscrollview.h>
-#include <qvbox.h>
+#include <q3scrollview.h>
+#include <q3vbox.h>
 #include <qevent.h>
+//Added by qt3to4:
+#include <QResizeEvent>
+#include <Q3Frame>
 #include <prefscontext.h>
 #include "tffilter.h"
 
@@ -26,8 +27,8 @@ class tfDia : public QDialog
 	Q_OBJECT
 private:
 	PrefsContext* prefs;
-	QBoxLayout* layout;
-	QBoxLayout* alayout;
+	Q3BoxLayout* layout;
+	Q3BoxLayout* alayout;
 	QComboBox* filtersCombo;
 	QLineEdit* saveEdit;
 	QPushButton* clearButton;
@@ -35,8 +36,8 @@ private:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QString currentFilter;
-	QScrollView* qsv;
-	QFrame* vbox;
+	Q3ScrollView* qsv;
+	Q3Frame* vbox;
 	int currentIndex;
 	void clear();
 	void createLayout();

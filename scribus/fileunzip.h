@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
  *   tsoots@gmail.com                                                      *
@@ -21,7 +27,8 @@
 #ifndef FILEUNZIP_H
 #define FILEUNZIP_H
 
-#include "config.h"
+#include "scconfig.h"
+#include "scribusapi.h"
 
 #include <zlib.h>
 #include <qstring.h>
@@ -33,7 +40,7 @@
  * constructor FileUnzip(QString) takes a zip file as a parameter and method
  * getFile(QString) extracts the path to the extracted file.
  */
-class FileUnzip
+class SCRIBUS_API FileUnzip
 {
 private:
 	QString zipFile;

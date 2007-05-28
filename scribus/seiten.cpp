@@ -1,24 +1,42 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "seiten.h"
-#include "seiten.moc"
+//#include "seiten.moc"
 #include <qcursor.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QDragLeaveEvent>
+#include <Q3ValueList>
+#include <QLabel>
+#include <QPixmap>
+//QPixmap doesnt seem to include this for its mask() code
+#include <QBitmap>
+#include <QDragEnterEvent>
+#include <QDragMoveEvent>
+#include <QDropEvent>
+#include <Q3PopupMenu>
+#include <QMouseEvent>
+#include <Q3VBoxLayout>
+#include "commonstrings.h"
 #include "scribus.h"
+#include "scribusview.h"
+#include "dynamictip.h"
+#include "page.h"
+#include "pagelayout.h"
+#include "sccombobox.h"
 extern QPixmap loadIcon(QString nam);
-extern ScribusApp* ScApp;
+
 
 /* Code fuer DragObjekt */
-SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): QStoredDrag("page/magic", parent, name)
+SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): Q3StoredDrag("page/magic", parent, name)
 {
 	QByteArray data(secret.length());
-	for (uint a = 0; a < secret.length(); ++a)
-		data[a]= QChar(secret[a]);
+	for (int a = 0; a < secret.length(); ++a)
+		data[a] = secret.at(a).toAscii();// Qt4 QChar(secret[a]); maybe there is no loop required
 	setEncodedData( data );
 }
 
@@ -34,7 +52,7 @@ bool SeDrag::decode( QDropEvent* e, QString& str )
 	{
 		e->accept();
 		str = "";
-		for (uint a = 0; a < payload.size(); ++a)
+		for (int a = 0; a < payload.size(); ++a)
 			str += payload[a];
 		return true;
 	}
@@ -42,38 +60,21 @@ bool SeDrag::decode( QDropEvent* e, QString& str )
 }
 
 /* IconItems Code */
-SeItem::SeItem(QTable* parent, QString text, QPixmap Pix, bool ss)
-		: QTableItem(parent, QTableItem::Never, text, Pix)
+SeItem::SeItem(Q3Table* parent, QString text, uint nr, const QPixmap& Pix)
+		: Q3TableItem(parent, Q3TableItem::Never, "", Pix)
 {
-	Side = ss;
+	pageNumber = nr;
+	pageName = text;
 	setWordWrap(true);
 }
 
-void SeItem::paint(QPainter *p, const QColorGroup &, const QRect &cr, bool )
+const QString& SeItem::getPageName()
 {
-	int px = pixmap().width();
-	int py = pixmap().height();
-	SeView *sv;
-	QTable *tt = table();
-	sv = (SeView*)tt;
-	if (Side)
-	{
-		p->drawPixmap(0, (cr.height()-py)/2, pixmap());
-		if (sv->Namen)
-			p->drawText(px, 0, cr.width()-px, cr.height(), Qt::AlignLeft | Qt::AlignVCenter | Qt::WordBreak,
-			            text());
-	}
-	else
-	{
-		p->drawPixmap(cr.width()-px-2, (cr.height()-py)/2, pixmap());
-		if (sv->Namen)
-			p->drawText(0, 0, cr.width()-px-2, cr.height(), Qt::AlignLeft | Qt::AlignVCenter | Qt::WordBreak,
-			            text());
-	}
+	return pageName;
 }
 
 /* ListBox Subclass */
-SeList::SeList(QWidget* parent) : QListBox(parent)
+SeList::SeList(QWidget* parent) : Q3ListBox(parent)
 {
 	Mpressed = false;
 	setAcceptDrops(true);
@@ -82,16 +83,17 @@ SeList::SeList(QWidget* parent) : QListBox(parent)
 void SeList::mouseReleaseEvent(QMouseEvent *m)
 {
 	Mpressed = false;
-	if (m->button() == RightButton)
+	if (m->button() == Qt::RightButton)
 	{
-		QPopupMenu *pmen = new QPopupMenu();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		Q3PopupMenu *pmen = new Q3PopupMenu();
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		int px = pmen->insertItem( tr("Show Page Previews"), this, SLOT(ToggleTh()));
 		if (Thumb)
 			pmen->setItemChecked(px, true);
 		pmen->exec(QCursor::pos());
 		delete pmen;
 	}
+	Q3ListBox::mouseReleaseEvent(m);
 }
 
 void SeList::ToggleTh()
@@ -104,13 +106,14 @@ void SeList::mousePressEvent(QMouseEvent* e)
 {
 	e->accept();
 	CurItem = 0;
-	QListBoxItem *i = itemAt(e->pos());
+	Q3ListBoxItem *i = itemAt(e->pos());
 	if (i)
 	{
 		CurItem = i;
 		Mpos = e->pos();
 		Mpressed = true;
 	}
+	Q3ListBox::mousePressEvent(e);
 }
 
 void SeList::mouseMoveEvent(QMouseEvent* e)
@@ -118,29 +121,27 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 	if ((Mpressed) && ((Mpos - e->pos()).manhattanLength() > 4))
 	{
 		Mpressed = false;
-		QListBoxItem *i = itemAt(Mpos);
+		Q3ListBoxItem *i = itemAt(Mpos);
 		if (i)
 		{
-			QDragObject *dr = new SeDrag("1"+i->text(), this, "te");
+			Q3DragObject *dr = new SeDrag("1"+i->text(), this, "te");
 			dr->setPixmap(loadIcon("doc.png"));
-			dr->drag();
+			if (!dr->drag())
+				qDebug("SeList::mouseMoveEvent: couldn't start drag operation!");;
 		}
 	}
 }
 
 /* QTable Subclass */
-SeView::SeView(QWidget* parent) : QTable(parent)
+SeView::SeView(QWidget* parent) : Q3Table(parent)
 {
 	setDragEnabled(true);
 	setAcceptDrops(true);
 	viewport()->setAcceptDrops(true);
 	setShowGrid(false);
 	Mpressed = false;
-	Doppel = false;
 	Namen = true;
-	pix = QPixmap(2, 34);
-	pix.fill(black);
-	setFocusPolicy(NoFocus);
+	setFocusPolicy(Qt::NoFocus);
 }
 
 void SeView::contentsMousePressEvent(QMouseEvent* e)
@@ -154,56 +155,63 @@ void SeView::contentsMouseReleaseEvent(QMouseEvent* e)
 {
 	e->accept();
 	Mpressed = false;
-	if (e->button() == RightButton)
+/*	if (e->button() == RightButton)
 	{
 		QPopupMenu *pmen = new QPopupMenu();
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		int px = pmen->insertItem( tr("Show Template Names"), this, SLOT(ToggleNam()));
+		qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
+		int px = pmen->insertItem( tr("Show Master Page Names"), this, SLOT(ToggleNam()));
 		if (Namen)
 			pmen->setItemChecked(px, true);
 		pmen->exec(QCursor::pos());
 		delete pmen;
-	}
+	} */
 	emit Click(rowAt(e->pos().y()), columnAt(e->pos().x()), e->button());
 }
 
 void SeView::ToggleNam()
 {
-	Namen = !Namen;
+/*	Namen = !Namen;
 	int val = 35;
 	if (Namen)
 		val = 100;
 	setColumnWidth(1, val);
 	setColumnWidth(3, val);
 	hide();
-	show();
+	show(); */
 }
 
 void SeView::contentsMouseMoveEvent(QMouseEvent* e)
 {
-	QString str, tmp;
-	int p;
-	int a = rowAt(e->pos().y());
-	int b = columnAt(e->pos().x());
 	if ((Mpressed) && ((Mpos - e->pos()).manhattanLength() > 4))
 	{
 		Mpressed = false;
+		int a = rowAt(e->pos().y());
+		int b = columnAt(e->pos().x());
 		if ((a != -1) && (b != -1))
 		{
-			str = text(a, b);
-			p = GetPage(a, b);
-			QDragObject *dr = new SeDrag("2 "+tmp.setNum(p)+" "+str, this, "te");
+			Q3TableItem* ite = item(a, b);
+			if (ite == 0)
+				return;
+			SeItem* it = (SeItem*)ite;
+			QString str(it->pageName);
+			bool dummy;
+			int p = GetPage(a, b, &dummy);
+			QString tmp;
+			Q3DragObject *dr = new SeDrag("2 "+tmp.setNum(p)+" "+str, this, "te");
 			dr->setPixmap(loadIcon("doc.png"));
 			dr->drag();
 		}
 	}
+	Q3Table::contentsMouseMoveEvent(e);
 }
 
 void SeView::contentsDropEvent(QDropEvent * e)
 {
 	QString str, tmp;
+	bool lastPage = false;
 	if (SeDrag::decode(e, str))
 	{
+		ClearPix();
 		if (str.startsWith("1"))
 		{
 			int a = rowAt(e->pos().y());
@@ -212,58 +220,47 @@ void SeView::contentsDropEvent(QDropEvent * e)
 			tmp = str.remove(0,1);
 			if ((a == -1) || (b == -1))
 				return;
-			if (Doppel)
+			if (a == numRows()-1)
 			{
-				if (((a % 2) == 1) && ((b == 0) || (b == 2)))
+				emit NewPage(MaxC+1, tmp);
+				return;
+			}
+			p = GetPage(a, b, &lastPage);
+			if (numCols() == 1)
+			{
+				if ((a % 2) == 0)
+					emit NewPage(p, tmp);
+				else
 				{
-					if (Links)
-					{
-						if (b == 0)
-							emit NewPage(a-1, tmp);
-						if (b == 2)
-							emit NewPage(a, tmp);
-					}
-					else
-					{
-						if (b == 0)
-							emit NewPage((a == 1 ? a - 1 : a - 2), tmp);
-						if (b == 2)
-							emit NewPage(a-1, tmp);
-					}
-					ClearPix();
+					emit UseTemp(tmp, p);
+					Q3TableItem* ite = item(a, b);
+					if (ite == 0)
+						return;
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
 				}
-				if (a == numRows()-1)
-					emit NewPage(MaxC+1, tmp);
-				if (((a % 2) == 1) && ((b == 1) || (b == 3)))
-				{
-					if (item(a,b) != 0)
-					{
-						p = GetPage(a, b);
-						emit UseTemp(tmp, p);
-						setText(a, b, tmp);
-					}
-				}
+				return;
 			}
 			else
 			{
-				if ((a == -1) || ((a % 2) == 0))
+				if ((b % 2) == 0)
 				{
-					setNumRows(numRows()+2);
-					if (a == -1)
-						emit NewPage(numRows()/2-1, tmp);
+					if (lastPage)
+						emit NewPage(p+1, tmp);
 					else
-					{
-						emit NewPage(a/2, tmp);
-						clearCell(a, 0);
-					}
+						emit NewPage(p, tmp);
 				}
 				else
 				{
-					emit UseTemp(tmp, a/2);
-					setText(a, 0, tmp);
+					emit UseTemp(tmp, p);
+					Q3TableItem* ite = item(a, b);
+					if (ite == 0)
+						return;
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
 				}
+				return;
 			}
-			return;
 		}
 		if (str.startsWith("2"))
 		{
@@ -273,65 +270,49 @@ void SeView::contentsDropEvent(QDropEvent * e)
 			int dr = str.mid(st, en-st).toInt();
 			int a = rowAt(e->pos().y());
 			int b = columnAt(e->pos().x());
-			int p, z;
+			int p;
 			if ((a == -1) || (b == -1))
 				return;
-			if (Doppel)
+			Q3TableItem* ite = item(a, b);
+			p = GetPage(a, b, &lastPage);
+			if (a == numRows()-1)
 			{
-				if (((a % 2) == 1) && ((b == 0) || (b == 2)))
+				emit MovePage(dr, p+1);
+				return;
+			}
+			if (numCols() == 1)
+			{
+				if ((a % 2) == 0)
+					emit MovePage(dr, p);
+				else
 				{
-					if (Links)
-					{
-						if (b == 0)
-							z = a-1;
-						if (b == 2)
-							z = a;
-					}
-					else
-					{
-						if (b == 0)
-							z = a == 1 ? a - 1 : a - 2;
-						if (b == 2)
-							z = a-1;
-					}
-					if (dr != z)
-						emit MovePage(dr, z);
-					ClearPix();
+					emit UseTemp(tmp, p);
+					if (ite == 0)
+						return;
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
 				}
-				if (a == numRows()-1)
-				{
-					z = MaxC;
-					emit MovePage(dr, z);
-				}
-				if (((a % 2) == 1) && ((b == 1) || (b == 3)))
-				{
-					if (item(a,b) != 0)
-					{
-						p = GetPage(a, b);
-						emit UseTemp(tmp, p);
-						setText(a, b, tmp);
-					}
-				}
+				return;
 			}
 			else
 			{
-				if ((a == -1) || ((a % 2) == 0))
+				if ((b % 2) == 0)
 				{
-					if (a != -1)
-					{
-						if (dr != a/2)
-							emit MovePage(dr, a/2);
-						clearCell(a, 0);
-					}
+					if (lastPage)
+						emit MovePage(dr, p+1);
+					else
+						emit MovePage(dr, p);
 				}
 				else
 				{
-					emit UseTemp(tmp, a/2);
-					setText(a, 0, tmp);
+					emit UseTemp(tmp, p);
+					if (ite == 0)
+						return;
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
 				}
+				return;
 			}
-			ClearPix();
-			return;
 		}
 	}
 }
@@ -354,89 +335,114 @@ void SeView::contentsDragMoveEvent(QDragMoveEvent *e)
 	{
 		int a = rowAt(e->pos().y());
 		int b = columnAt(e->pos().x());
+		ClearPix();
 		if ((a == -1) || (b == -1))
-		{
-			ClearPix();
 			return;
-		}
-		if (Doppel)
-		{
-			if ((((a % 2) == 1) && ((b == 0) || (b == 2))) || (a == numRows()-1))
-			{
-				QPixmap pm;
-				pm = QPixmap(columnWidth(b), rowHeight(a));
-				pm.fill(darkBlue);
-				setPixmap(a, b, pm);
-			}
-			else
-				ClearPix();
-		}
-		else
+		if (numCols() == 1)
 		{
 			if ((a % 2) == 0)
 			{
 				QPixmap pm;
-				pm = QPixmap(columnWidth(0), 9);
-				pm.fill(darkBlue);
+				pm = QPixmap(columnWidth(b), rowHeight(a));
+				pm.fill(Qt::darkBlue);
 				setPixmap(a, 0, pm);
 			}
-			else
-				ClearPix();
+		}
+		else
+		{
+			if (((b % 2) == 0) || (a == numRows()-1))
+			{
+				QPixmap pm;
+				pm = QPixmap(columnWidth(b), rowHeight(a));
+				pm.fill(Qt::darkBlue);
+				setPixmap(a, b, pm);
+			}
 		}
 	}
 }
 
 void SeView::ClearPix()
 {
+	int counter = 0;
+	int rowcounter = 0;
 	for (int a = 0; a < numRows(); ++a)
 	{
-		if (Doppel)
+		counter = 0;
+		if (numCols() == 1)
 		{
-			clearCell(a, 0);
-			setPixmap(a, 2, pix);
-			if ((a % 2) != 1)
+			if ((a % 2) == 0)
 			{
-				clearCell(a,1);
-				clearCell(a,3);
+				clearCell(rowcounter, 0);
+				rowcounter += 2;
 			}
 		}
 		else
 		{
-			if ((a % 2) == 0)
-				clearCell(a, 0);
+			for (int b = 0; b < numCols(); ++b)
+			{
+				if ((b % 2) == 0)
+				{
+					clearCell(rowcounter, counter);
+					counter += 2;
+				}
+			}
+			rowcounter++;
 		}
+	}
+	for (int c = 0; c < numCols(); ++c)
+	{
+		clearCell(numRows()-1, c);
 	}
 }
 
-int SeView::GetPage(int r, int c)
+int SeView::GetPage(int r, int c, bool *last)
 {
-	int p;
-	if (Doppel)
+	int counter = firstP;
+	int rowcounter = 0;
+	int ret = MaxC;
+	*last = false;
+	if (r == numRows()-1)
 	{
-		if (Links)
+		*last = true;
+		return ret;
+	}
+	if ((r == 0) && (c < firstP*colmult+coladd))
+		return 0;
+	for (int a = 0; a < MaxC+1; ++a)
+	{
+		if ((rowcounter*rowmult+rowadd == r) && (counter*colmult+coladd == c))
 		{
-			if (c == 1)
-				p = r;
-			if (c == 3)
-				p = r+1;
+			ret = a;
+			return ret;
 		}
 		else
 		{
-			if ((c == 1) && ( r == 1))
-				return 0;
-			p = c == 1 ? r - 1 : r;
+			if (numCols() == 1)
+			{
+				if ((rowcounter*rowmult) == r)
+				{
+					ret = a;
+					return ret;
+				}
+			}
+			else
+			{
+				if ((counter*colmult == c) && (rowcounter*rowmult+rowadd == r))
+				{
+					ret = a;
+					return ret;
+				}
+			}
 		}
-		p--;
-		if (p > MaxC)
-			p = MaxC;
+		counter++;
+		if (counter > cols-1)
+		{
+			counter = 0;
+			rowcounter++;
+		}
 	}
-	else
-	{
-		p = r / 2;
-		if (p > MaxC)
-			p = MaxC;
-	}
-	return p;
+	*last = true;
+	return ret;
 }
 
 /* Der Muelleimer */
@@ -484,355 +490,385 @@ void TrashBin::dropEvent(QDropEvent * e)
 }
 
 
-SeitenPal::SeitenPal(QWidget* parent)
-		: QDialog( parent, "SP", false, 0)
-		//    : QDialog( parent, "SP", false, Qt::WStyle_Customize | Qt::WStyle_Title | Qt::WStyle_Tool)
+PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 {
-	setCaption( tr( "Arrange Pages" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	SeitenPalLayout = new QVBoxLayout( this );
-	SeitenPalLayout->setSpacing( 5 );
-	SeitenPalLayout->setMargin( 5 );
+	m_scMW=(ScribusMainWindow*)parent;
+	PagePaletteLayout = new Q3VBoxLayout( this );
+	PagePaletteLayout->setSpacing( 5 );
+	PagePaletteLayout->setMargin( 5 );
 	Splitter1 = new QSplitter( this, "Splitter1" );
-	Splitter1->setOrientation( QSplitter::Vertical );
+	Splitter1->setOrientation( Qt::Vertical );
 	QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
-	Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
+	Layout2 = new Q3VBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
 	TextLabel1 = new QLabel( privateLayoutWidget, "TextLabel1" );
-	TextLabel1->setText( tr( "Available Templates:" ) );
 	Layout2->addWidget( TextLabel1 );
-	TemplList = new SeList(privateLayoutWidget);
-	TemplList->setMinimumSize(QSize(130,70));
-	TemplList->Thumb = false;
-	Layout2->addWidget( TemplList );
+	masterPageList = new SeList(privateLayoutWidget);
+	masterPageList->setMinimumSize(QSize(130,70));
+	masterPageList->Thumb = false;
+	Layout2->addWidget( masterPageList );
 	QWidget* privateLayoutWidget_2 = new QWidget( Splitter1, "Layout3" );
-	Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
+	Layout3 = new Q3VBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
 	TextLabel2 = new QLabel( privateLayoutWidget_2, "TextLabel2" );
-	TextLabel2->setText( tr( "Document Pages:" ) );
 	Layout3->addWidget( TextLabel2 );
-	PageView = new SeView(privateLayoutWidget_2);
-	PageView->setLeftMargin(0);
-	PageView->verticalHeader()->hide();
-	PageView->setTopMargin(0);
-	PageView->horizontalHeader()->hide();
-	PageView->setSorting(false);
-	PageView->setSelectionMode(QTable::NoSelection);
-	PageView->setColumnMovingEnabled(false);
-	PageView->setRowMovingEnabled(false);
-	PageView->setNumRows(1);
-	PageView->setNumCols(1);
-	PageView->setMinimumSize(QSize(130,120));
-	Layout3->addWidget( PageView );
-	SeitenPalLayout->addWidget( Splitter1 );
+	pageView = new SeView(privateLayoutWidget_2);
+	pageView->setLeftMargin(0);
+	pageView->verticalHeader()->hide();
+	pageView->setTopMargin(0);
+	pageView->horizontalHeader()->hide();
+	pageView->setSorting(false);
+	pageView->setSelectionMode(Q3Table::NoSelection);
+	pageView->setColumnMovingEnabled(false);
+	pageView->setRowMovingEnabled(false);
+	pageView->setNumRows(1);
+	pageView->setNumCols(1);
+	pageView->setMinimumSize(QSize(130,120));
+	Layout3->addWidget( pageView );
+	PagePaletteLayout->addWidget( Splitter1 );
 
-	Layout1 = new QHBoxLayout;
-	Layout1->setSpacing( 6 );
+	Layout1 = new Q3HBoxLayout;
+	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
+	Q3ValueList<PageSet> dummy;
+	dummy.clear();
+	struct PageSet pageS;
+	pageS.Name = tr( "Double sided" );
+	pageS.FirstPage = 0;
+	pageS.Rows = 1;
+	pageS.Columns = 1;
+	pageS.GapHorizontal = 0.0;
+	pageS.GapVertical = 0.0;
+	pageS.GapBelow = 40.0;
+	pageS.pageNames.clear();
+	pageS.pageNames.append( tr("Middle Right"));
+	dummy.append(pageS);
+	pageLayout = new PageLayouts(this, dummy, false);
+	Layout1->addWidget( pageLayout );
 
-	Layout4 = new QVBoxLayout;
-	Layout4->setSpacing( 6 );
-	Layout4->setMargin( 0 );
-	DS = new QCheckBox(this, "DS");
-	DS->setText( tr( "Facing Pages" ) );
-	Layout4->addWidget( DS );
-	LP = new QCheckBox(this, "LP");
-	LP->setText( tr( "Left Page first" ) );
-	Layout4->addWidget( LP );
-	Layout1->addLayout( Layout4 );
-
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 15, 15, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 
 	Trash = new TrashBin( this );
 	Trash->setMinimumSize(QSize(22,22));
 	Layout1->addWidget( Trash );
-	SeitenPalLayout->addLayout( Layout1 );
-	pix = loadIcon("document2.png");
-	Vie = 0;
+	PagePaletteLayout->addLayout( Layout1 );
+	pix = loadIcon("32/page-simple.png");
+	currView = 0;
 	Rebuild();
-	connect(TemplList, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(selTemplate()));
-	connect(TemplList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
-	connect(PageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
-	connect(PageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
-	connect(DS, SIGNAL(clicked()), this, SLOT(HandleDS()));
-	connect(LP, SIGNAL(clicked()), this, SLOT(HandleLP()));
+	languageChange();
+// 	dynTip = new DynamicTip(pageView);
+	connect(masterPageList, SIGNAL(doubleClicked(Q3ListBoxItem*)), this, SLOT(selMasterPage()));
+	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
+	connect(pageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
+	connect(pageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
 	connect(Trash, SIGNAL(DelMaster(QString)), this, SLOT(DelMPage(QString)));
-	QToolTip::add( Trash, tr( "Drag Pages or Template Pages onto the Trashbin to delete them." ) );
-	QToolTip::add( PageView, tr( "Previews all the pages of your document." ));
-	QToolTip::add( TemplList,
-		               tr( "Here are all your Templates, to create a new Page\ndrag a Template to the Pageview below." ) );
+	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
+	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
+	connect(this, SIGNAL(EditTemp(QString)), m_scMW, SLOT(manageMasterPages(QString)));
+	connect(pageView, SIGNAL(UseTemp(QString, int)), m_scMW, SLOT(Apply_MasterPage(QString, int)));
+	connect(pageView, SIGNAL(NewPage(int, QString)), m_scMW, SLOT(slotNewPageP(int, QString)));
+	connect(Trash, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
+	connect(this, SIGNAL(GotoSeite(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
+	
+	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
+	QToolTip::add(masterPageList, "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
 }
 
-void SeitenPal::keyPressEvent(QKeyEvent *k)
+void PagePalette::DelMPage(QString tmp)
 {
-	if (k->key() == Key_F10)
-		emit ToggleAllPalettes();
-	QDialog::keyPressEvent(k);
-}
-
-void SeitenPal::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void SeitenPal::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
-}
-
-void SeitenPal::DelMPage(QString tmp)
-{
-	if (tmp == tr("Normal"))
+	if (tmp == CommonStrings::trMasterPageNormal)
 		return;
-	int Nr = Vie->MasterNames[tmp];
-	Page* Seite = Vie->MasterPages.at(Nr);
-	Vie->MasterPages.remove(Nr);
-	delete Seite->parentWidget();
-	Vie->MasterNames.clear();
-	for (uint aa=0; aa < Vie->MasterPages.count(); ++aa)
+	int Nr = currView->Doc->MasterNames[tmp];
+	Page* Seite = currView->Doc->MasterPages.at(Nr);
+	currView->Doc->MasterPages.remove(Nr);
+	delete Seite;
+	currView->Doc->MasterNames.clear();
+	for (uint aa=0; aa < currView->Doc->MasterPages.count(); ++aa)
 	{
-		Seite = Vie->MasterPages.at(aa);
-		Seite->PageNr = aa;
-		if (Vie->Doc->PageFP)
+		Seite = currView->Doc->MasterPages.at(aa);
+		Seite->setPageNr(aa);
+		if (currView->Doc->currentPageLayout == doublePage)
 		{
-			Seite->Margins.Left = Seite->LeftPg ? Vie->Doc->PageM.Right : Vie->Doc->PageM.Left;
-			Seite->Margins.Right= Seite->LeftPg? Vie->Doc->PageM.Left : Vie->Doc->PageM.Right;
+			Seite->Margins.Left = Seite->LeftPg ? currView->Doc->pageMargins.Right : currView->Doc->pageMargins.Left;
+			Seite->Margins.Right= Seite->LeftPg? currView->Doc->pageMargins.Left : currView->Doc->pageMargins.Right;
 		}
 		else
 		{
-			Seite->Margins.Right = Vie->Doc->PageM.Right;
-			Seite->Margins.Left = Vie->Doc->PageM.Left;
+			Seite->Margins.Right = currView->Doc->pageMargins.Right;
+			Seite->Margins.Left = currView->Doc->pageMargins.Left;
 		}
-		Seite->Margins.Top = Vie->Doc->PageM.Top;
-		Seite->Margins.Bottom = Vie->Doc->PageM.Bottom;
-		Vie->MasterNames[Seite->PageNam] = aa;
+		Seite->Margins.Top = currView->Doc->pageMargins.Top;
+		Seite->Margins.Bottom = currView->Doc->pageMargins.Bottom;
+		currView->Doc->MasterNames[Seite->pageName()] = aa;
 	}
-	for (uint b=0; b<Vie->DocPages.count(); ++b)
+	for (uint b=0; b<currView->Doc->DocPages.count(); ++b)
 	{
-		if (Vie->DocPages.at(b)->MPageNam == tmp)
-			Vie->DocPages.at(b)->MPageNam = "Normal";
+		if (currView->Doc->DocPages.at(b)->MPageNam == tmp)
+			currView->Doc->DocPages.at(b)->MPageNam = CommonStrings::masterPageNormal;
 	}
-	Vie->DrawNew();
+	currView->DrawNew();
 	RebuildTemp();
 	RebuildPage();
-	Vie->Doc->setModified();
+	currView->Doc->setModified(true);
 }
 
-void SeitenPal::MPage(int r, int c)
+void PagePalette::MPage(int r, int c)
 {
-	Vie->movePage(r, r + 1, c, r > c ? 0 : (c > PageView->MaxC ? 2 : 1));
+	if (r == c)
+		return;
+	if (c > pageView->MaxC)
+		currView->Doc->movePage(r, r + 1, c, 2);
+	else
+		currView->Doc->movePage(r, r + 1, c, 0);
+	currView->reformPages();
 	RebuildPage();
-	Vie->Doc->setModified();
+	currView->DrawNew();
+//CB done by doc::reformpages
+// 	currView->Doc->setModified(true);
 }
 
-void SeitenPal::GotoPage(int r, int c, int b)
+void PagePalette::GotoPage(int r, int c, int b)
 {
 	int p;
-	if ((b == LeftButton) && (r != -1) && (c != -1))
+	bool dummy;
+	if ((b == Qt::LeftButton) && (r != -1) && (c != -1))
 	{
-		p = PageView->GetPage(r, c);
+		p = pageView->GetPage(r, c, &dummy);
 		emit GotoSeite(p);
 	}
 }
 
-void SeitenPal::DisablePal()
+void PagePalette::enablePalette(const bool enabled)
 {
-	PageView->setEnabled(false);
-	TemplList->setEnabled(false);
-	DS->setEnabled(false);
-	LP->setEnabled(false);
+	pageView->setEnabled(enabled);
+	masterPageList->setEnabled(enabled);
+	pageLayout->setEnabled(enabled);
 }
 
-void SeitenPal::EnablePal()
+void PagePalette::handlePageLayout(int layout)
 {
-	PageView->setEnabled(true);
-	TemplList->setEnabled(true);
-	DS->setEnabled(true);
-	LP->setEnabled(PageView->Doppel ? true : false);
-}
-
-void SeitenPal::HandleDS()
-{
-	double tpr = Vie->Doc->PageM.Top;
-	double lr = Vie->Doc->PageM.Left;
-	double rr = Vie->Doc->PageM.Right;
-	double br = Vie->Doc->PageM.Bottom;
-	bool fp = DS->isChecked();
-	Vie->Doc->resetPage(tpr, lr, rr, br, fp);
-	Vie->reformPages();
-	Vie->DrawNew();
-	Vie->GotoPage(Vie->Doc->ActPage->PageNr);
+	double tpr = currView->Doc->pageMargins.Top;
+	double lr = currView->Doc->pageMargins.Left;
+	double rr = currView->Doc->pageMargins.Right;
+	double br = currView->Doc->pageMargins.Bottom;
+	pageLayout->selectFirstP(currView->Doc->pageSets[layout].FirstPage);
+	currView->Doc->resetPage(tpr, lr, rr, br, layout);
+	currView->reformPages();
+	currView->DrawNew();
+	currView->GotoPage(currView->Doc->currentPageNumber());
 	RebuildPage();
-	Vie->Doc->setModified();
-	LP->setEnabled(fp ? true : false);
+//CB done by doc::reformpages
+//	currView->Doc->setModified(true);
 }
 
-void SeitenPal::HandleLP()
+void PagePalette::handleFirstPage(int fp)
 {
-	double tpr = Vie->Doc->PageM.Top;
-	double lr = Vie->Doc->PageM.Left;
-	double rr = Vie->Doc->PageM.Right;
-	double br = Vie->Doc->PageM.Bottom;
-	bool fp2 = Vie->Doc->PageFP;
-	if (fp2)
-		Vie->Doc->FirstPageLeft = LP->isChecked();
-	Vie->Doc->resetPage(tpr, lr, rr, br, fp2);
-	Vie->reformPages();
-	Vie->DrawNew();
-	Vie->GotoPage(Vie->Doc->ActPage->PageNr);
+	currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage = fp;
+	currView->reformPages();
+	currView->DrawNew();
+	currView->GotoPage(currView->Doc->currentPageNumber());
 	RebuildPage();
-	Vie->Doc->setModified();
+//CB done by doc::reformpages
+// 	currView->Doc->setModified(true);
 }
 
-void SeitenPal::RebuildTemp()
+void PagePalette::RebuildTemp()
 {
-	if (ScApp->ScriptRunning)
+	if (m_scMW->ScriptRunning)
 		return;
-	TemplList->clear();
-	if (Vie == 0)
+	masterPageList->clear();
+	if (currView == 0)
 		return;
+	QPixmap pm;
 	QMap<QString,int>::Iterator it;
-	for (it = Vie->MasterNames.begin(); it != Vie->MasterNames.end(); ++it)
+	for (it = currView->Doc->MasterNames.begin(); it != currView->Doc->MasterNames.end(); ++it)
 	{
-		if (TemplList->Thumb)
-			TemplList->insertItem(Vie->MPageToPixmap(it.key(),60), it.key() == "Normal" ? tr("Normal") : it.key());
+		if (masterPageList->Thumb)
+		{
+			pm.convertFromImage(currView->MPageToPixmap(it.key(),60));
+			masterPageList->insertItem(pm, it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
+		}
 		else
-			TemplList->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+			masterPageList->insertItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 	}
 }
 
-void SeitenPal::RebuildPage()
+void PagePalette::RebuildPage()
 {
-	if (ScApp->ScriptRunning)
+	if (m_scMW->ScriptRunning)
 		return;
 	QString str;
-	disconnect(DS, SIGNAL(clicked()), this, SLOT(HandleDS()));
-	disconnect(LP, SIGNAL(clicked()), this, SLOT(HandleLP()));
-	PageView->setNumRows(1);
-	PageView->setNumCols(1);
-	if (Vie == 0)
+	disconnect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
+	disconnect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
+	pageView->setNumRows(1);
+	pageView->setNumCols(1);
+	if (currView == 0)
 	{
-		connect(DS, SIGNAL(clicked()), this, SLOT(HandleDS()));
-		connect(LP, SIGNAL(clicked()), this, SLOT(HandleLP()));
+		connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
+		connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 		return;
 	}
-	PageView->Doppel = Vie->Doc->PageFP;
-	PageView->Links = Vie->Doc->FirstPageLeft;
-	DS->setChecked(PageView->Doppel);
-	LP->setChecked(PageView->Links);
-	if (PageView->Doppel)
-		LP->setEnabled(true);
-	PageView->MaxC = Vie->Pages.count()-1;
-	if (Vie->Doc->PageFP)
+	pageLayout->updateLayoutSelector(currView->Doc->pageSets);
+	pageLayout->selectItem(currView->Doc->currentPageLayout);
+	pageLayout->firstPage->setCurrentItem(currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage);
+	pageView->MaxC = currView->Doc->Pages->count()-1;
+	int counter, rowcounter, colmult, rowmult, coladd,rowadd;
+	counter = currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage;
+	int cols = currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
+	int rows = (currView->Doc->Pages->count()+counter) / currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
+	if (((currView->Doc->Pages->count()+counter) % currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns) != 0)
+		rows++;
+	rowcounter = 0;
+	if (cols == 1)
 	{
-		int cc, cb;
-		bool Side;
-		resize(PageView->Namen ? 240 : 180, height());
-		PageView->setNumCols(4);
-		PageView->setColumnWidth(0, 5);
-		PageView->setColumnWidth(2, 5);
-		int val = 35;
-		if (PageView->Namen)
-			val = 100;
-		PageView->setColumnWidth(1, val);
-		PageView->setColumnWidth(3, val);
-		cc = 1;
-		if (Vie->Doc->FirstPageLeft)
-		{
-			PageView->setNumRows(((Vie->Doc->PageC-1)/2 + 1) * 2 + 1);
-			cb = 1;
-		}
-		else
-		{
-			PageView->setNumRows((Vie->Doc->PageC/2 + 1) * 2 +1);
-			cb = 3;
-		}
-		for (uint a = 0; a < Vie->Pages.count(); ++a)
-		{
-			str = Vie->Pages.at(a)->MPageNam;
-			Side = cb == 1 ? false : true;
-			QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), Side);
-			PageView->setItem(cc, cb, it);
-			PageView->setRowHeight(cc, pix.height());
-			PageView->setPixmap(cc, 2, PageView->pix);
-			PageView->setPixmap(cc-1, 2, PageView->pix);
-			PageView->setRowHeight(cc-1, 10);
-			PageView->setRowReadOnly(cc-1, true);
-			PageView->adjustRow(cc);
-			cb += 2;
-			if (cb > 3)
-			{
-				cb = 1;
-				cc += 2;
-			}
-		}
+		pageView->setNumCols(cols);
+		pageView->setNumRows(rows*2+1);
+		colmult = 1;
+		coladd = 0;
+		rowmult = 2;
+		rowadd = 1;
 	}
 	else
 	{
-		PageView->setNumRows(Vie->Pages.count()*2+1);
-		PageView->setNumCols(1);
-		resize(180, height());
-		int cc = 1;
-		for (uint a = 0; a < Vie->Pages.count(); ++a)
-		{
-			str = Vie->Pages.at(a)->MPageNam;
-			QTableItem *it = new SeItem( PageView, str, CreateIcon(a, pix), true);
-			PageView->setItem(cc, 0, it);
-			PageView->setRowHeight(cc, pix.height());
-			PageView->adjustRow(cc);
-			PageView->setRowHeight(cc-1, 10);
-			PageView->setRowReadOnly(cc-1, true);
-			cc += 2;
-		}
-		PageView->adjustColumn(0);
+		pageView->setNumCols(cols*2);
+		pageView->setNumRows(rows+1);
+		colmult = 2;
+		coladd = 1;
+		rowmult = 1;
+		rowadd = 0;
 	}
-	PageView->setRowHeight(PageView->numRows()-1, 10);
-	if (Vie->Doc->PageFP)
-		PageView->setPixmap(PageView->numRows()-1, 2, PageView->pix);
-	PageView->setRowReadOnly(PageView->numRows()-1, true);
-	PageView->repaint();
-	connect(DS, SIGNAL(clicked()), this, SLOT(HandleDS()));
-	connect(LP, SIGNAL(clicked()), this, SLOT(HandleLP()));
+	pageView->coladd = coladd;
+	pageView->colmult = colmult;
+	pageView->rowadd = rowadd;
+	pageView->rowmult = rowmult;
+	pageView->firstP = counter;
+	pageView->cols = currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
+	pageList.clear();
+	for (uint a = 0; a < currView->Doc->Pages->count(); ++a)
+	{
+		str = currView->Doc->Pages->at(a)->MPageNam;
+		SeItem *it = new SeItem(pageView, str, a, CreateIcon(a, pix));
+		pageList.append(it);
+		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, (Q3TableItem *)it);
+		pageView->setColumnWidth(counter*colmult+coladd, pix.width());
+		if (cols == 1)
+		{
+			pageView->setRowHeight(rowcounter*rowmult, 10);
+			pageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height());
+		}
+		else
+			pageView->setRowHeight(rowcounter*rowmult+rowadd, pix.height()+5);
+		counter++;
+		if (counter > currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns-1)
+		{
+			counter = 0;
+			rowcounter++;
+		}
+	}
+	pageView->setRowHeight(pageView->numRows()-1, 10);
+	counter = 0;
+	if (cols != 1)
+	{
+		for (int c = 0; c < pageView->numCols(); ++c)
+		{
+			if ((counter % 2) == 0)
+				pageView->setColumnWidth(counter, 10);
+			else
+				pageView->setColumnWidth(counter, pix.width());
+			counter++;
+		}
+	}
+	pageView->repaint();
+	if (currView != 0)
+		markPage(currView->Doc->currentPageNumber());
+	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
+	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 }
 
-void SeitenPal::Rebuild()
+void PagePalette::Rebuild()
 {
 	RebuildTemp();
 	RebuildPage();
-	if (Vie == 0)
-		DisablePal();
-	else
-		EnablePal();
+	enablePalette(currView != 0);
 }
 
-void SeitenPal::SetView(ScribusView *view)
+void PagePalette::markPage(uint nr)
 {
-	Vie = view;
+	if (currView != 0)
+	{
+		SeItem *it;
+		for (uint a = 0; a < pageList.count(); a++)
+		{
+			it = pageList.at(a);
+			if (it->pageNumber == nr)
+			{
+				pageView->clearSelection();
+				pageView->selectCells(it->row(), it->col(), it->row(), it->col());
+				break;
+			}
+		}
+	}
 }
 
-void SeitenPal::selTemplate()
+void PagePalette::setView(ScribusView *view)
 {
-	if (TemplList->CurItem != 0)
-		emit EditTemp(TemplList->CurItem->text());
+	currView = view;
 }
 
-QPixmap SeitenPal::CreateIcon(int nr, QPixmap ret)
+void PagePalette::selMasterPage()
 {
-	QString tmp;
+	if (masterPageList->CurItem != 0)
+		emit EditTemp(masterPageList->CurItem->text());
+}
+
+QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
+{
 	QPainter p;
+	// Necessary on windows to ensure the pixmap is drawable
+	QPixmap ret(pixin.width(), pixin.height()); // Qt4, pixin.depth());
 	if (p.begin(&ret))
 	{
-		p.setBrush(white);
-		p.setBackgroundColor(white);
-		p.setBackgroundMode(QPainter::OpaqueMode);
-		p.setPen(QPen(black, 1, SolidLine, FlatCap, MiterJoin));
+		p.drawPixmap( 0, 0, pixin );
+//		if( !pixin.mask().isNull() )
+//			ret.setMask( pixin.mask() );
+		p.setBrush(Qt::white);
+		p.setBackgroundColor(Qt::white);
+		p.setBackgroundMode(Qt::OpaqueMode);
+		p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.setFont(QFont("Helvetica", 12, QFont::Bold));
-		tmp = tmp.setNum(nr+1);
-		QRect b = p.boundingRect(3,0, ret.width(), ret.height(), Qt::AlignCenter, tmp);
-		p.drawRect(QRect(b.x()-2, b.y()-2, b.width()+4, b.height()+4));
-		p.drawText(b, Qt::AlignCenter, tmp);
+		//QString tmp = tmp.setNum(nr+1);
+		QString tmp(currView->Doc->getSectionPageNumberForPageIndex(nr));
+		if (tmp.isEmpty())
+			tmp = tmp.setNum(nr+1);
+		QRect b = p.fontMetrics().boundingRect(tmp);
+		QRect c = QRect((ret.width() / 2 - b.width() / 2)-2, (ret.height() / 2 - b.height() / 2)-2, b.width()+4, b.height()+4);
+		p.drawRect(c);
+		QRect d = QRect((ret.width() / 2 - b.width() / 2), (ret.height() / 2 - b.height() / 2), b.width(), b.height());
+		p.setFont(QFont("Helvetica", 10, QFont::Normal));
+		p.drawText(d, Qt::AlignCenter, tmp);
 		p.end();
+		if( !pixin.mask().isNull() )
+			ret.setMask( pixin.mask() );
 	}
 	return ret;
+}
+
+void PagePalette::languageChange()
+{
+	setCaption( tr( "Arrange Pages" ) );
+	TextLabel1->setText( tr( "Available Master Pages:" ) );
+	TextLabel2->setText( tr( "Document Pages:" ) );
+}
+
+//CB Whats this variable returned for.. its always true... ? 
+//CB Clean up the interface and stick it behind this member for now
+const bool PagePalette::getNamen()
+{
+	return pageView->Namen;
+}
+
+//CB Whats this variable returned for.. its always true... ? 
+//CB Clean up the interface and stick it behind this member for now
+const bool PagePalette::getThumb()
+{
+	return masterPageList->Thumb;
 }

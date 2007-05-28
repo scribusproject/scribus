@@ -1,0 +1,73 @@
+<!ENTITY % unit  "(pt | px | pica | in | mm | cm | c) 'mm'">
+<!ENTITY % style_attr "id ID #IMPLIED name CDATA #IMPLIED shortcut CDATA #IMPLIED parent IDREF #IMPLIED">
+<!ELEMENT txt-style EMPTY>
+<!ATTLIST txt-style %style_attr;
+                    font-face CDATA #IMLIED
+                    font-family-hint CDATA #IMPLIED
+                    font-weight-hint CDATA #IMPLIED
+                    font-slant-hint CDATA #IMPLIED
+                    font-size CDATA #IMPLIED
+                    word-tracking CDATA #IMPLIED
+                    font-size-units (pt|pc) "pt"
+                    font-width CDATA #IMPLIED
+                    char-tracking CDATA #IMPLIED
+                    font-leading-type (relative|auto|fixed|grid) #IMPLIED
+                    font-leading-type-amount CDATA #IMPLIED
+                    font-leading-mode (proportional|baseline|top-of-caps|custom) #IMPLIED
+                    font-leading-mode-amount CDATA #IMPLIED
+                    font-baseline-offset CDATA #IMPLIED
+                    font-features #NMTOKENS #IMPLIED
+                    text-stroke-color CDATA #IMPLIED
+                    text-stroke-shadow CDATA #IMPLIED
+                    text-stroke-opacity CDATA #IMPLIED
+                    text-fill-color CDATA #IMPLIED
+                    text-fill-shadow CDATA #IMPLIED
+                    text-fill-opacity CDATA #IMPLIED
+                    justification (left|right|center|justify|force-justify) #IMPLIED
+                    language CDATA #IMPLIED
+                    text-direction CDATA #IMPLIED
+                    solid-block (yes|no) #IMPLIED
+>
+
+<!-- 
+* "font-width" is in fractions 1=100% (normal), 0.25=25% (smallest).
+* "font-leading-mode": baseline is mostly used in typography, top-of-cap is
+the word processor style, proportional is the default where text baseline is
+80% from the top of the slug.
+* Use standard ISO codes for "language".
+* "text-direction" is ltr=Left to right; rtl=Right to left -->
+
+<!ELEMENT par-style txt-style tab*>
+<!ATTLIST par-style % style_attr;
+                    par-indent-first CDATA #IMPLIED
+                    par-indent-left CDATA #IMPLIED
+                    par-indent-right CDATA #IMPLIED
+                    par-indent-unit %unit;
+                    par-indent-hanging (yes|no) #IMPLIED
+                    par-spacing-before CDATA #IMPLIED
+                    par-spacing-after CDATA #IMPLIED
+                    par-spacing-unit %unit;
+                    par-type (normal|bullet|drop-cap|incr-number) #IMPLIED
+                    bullet-char ENTITY #IMPLIED
+                    word-tracking CDATA #IMPLIED
+>
+<!--
+Paragraph attributes
+    * Set Hyphenation: Select to customize Auto Hyphenation options.
+    * Auto Hyphenation: Select to hyphenate the paragraph. 
+-->
+
+<!ELEMENT table-style EMPTY>
+<!ATTLIST table-style   id ID #REQUIRED
+                        border-width CDATA "1"
+                        border-style CDATA "solid"
+                        border-color CDATA "black"
+                        background-color CDATA "none"
+>
+<!ELEMENT table-cellstyle EMPTY>
+<!ATTLIST table-cellstyle   id ID #REQUIRED
+                        border-width CDATA "1"
+                        border-style CDATA "solid"
+                        border-color CDATA "black"
+                        background-color CDATA "none"
+>

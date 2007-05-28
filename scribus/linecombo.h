@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           linecombo.h  -  description
                              -------------------
@@ -21,11 +27,13 @@
 #include <qcombobox.h>
 #include <qpixmap.h>
 
+#include "scribusapi.h"
+
 /**
   *@author Franz Schmid
   */
 
-class LineCombo : public QComboBox  
+class SCRIBUS_API LineCombo : public QComboBox  
 {
 public: 
 	LineCombo(QWidget* pa);

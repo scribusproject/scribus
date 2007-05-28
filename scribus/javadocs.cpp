@@ -1,51 +1,57 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "javadocs.h"
-#include "javadocs.moc"
+//#include "javadocs.moc"
 #include "query.h"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 #include "editor.h"
-#include <qmessagebox.h>
+#include "scmessagebox.h"
+#include "scribusdoc.h"
+#include "page.h"
+#include "commonstrings.h"
+#include <qregexp.h>
 
 extern QPixmap loadIcon(QString nam);
 
 JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
-    : QDialog( parent, "Javadocs", true, 0 )
+		: QDialog( parent, "Javadocs", true, 0 )
 {
-    setCaption( tr( "Edit JavaScripts" ) );
+	setCaption( tr( "Edit JavaScripts" ) );
 	setIcon(loadIcon("AppIcon.png"));
-    Doc = doc;
+	Doc = doc;
 	View = vie;
-    JavaDocsLayout = new QHBoxLayout( this, 11, 6, "JavaDocsLayout"); 
+	JavaDocsLayout = new Q3HBoxLayout( this, 11, 6, "JavaDocsLayout");
 
-    Scripts = new QListBox( this, "Scripts" );
-    Scripts->setMinimumSize( QSize( 150, 200 ) );
+	Scripts = new Q3ListBox( this, "Scripts" );
+	Scripts->setMinimumSize( QSize( 150, 200 ) );
 	QMap<QString,QString>::Iterator it;
 	for (it = Doc->JavaScripts.begin(); it != Doc->JavaScripts.end(); ++it)
 		Scripts->insertItem(it.key());
-    JavaDocsLayout->addWidget( Scripts );
+	JavaDocsLayout->addWidget( Scripts );
 
-    Layout1 = new QVBoxLayout( 0, 0, 6, "Layout1"); 
+	Layout1 = new Q3VBoxLayout( 0, 0, 6, "Layout1");
 
-    EditScript = new QPushButton( tr( "&Edit..." ), this, "EditScript" );
-    Layout1->addWidget( EditScript );
+	EditScript = new QPushButton( tr( "&Edit..." ), this, "EditScript" );
+	Layout1->addWidget( EditScript );
 
-    AddScript = new QPushButton( tr( "&Add..." ), this, "AddScript" );
-    Layout1->addWidget( AddScript );
+	AddScript = new QPushButton( tr( "&Add..." ), this, "AddScript" );
+	Layout1->addWidget( AddScript );
 
-    DeleteScript = new QPushButton( tr( "&Delete" ), this, "DeleteScript" );
-    Layout1->addWidget( DeleteScript );
-    QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    Layout1->addItem( spacer );
+	DeleteScript = new QPushButton( tr( "&Delete" ), this, "DeleteScript" );
+	Layout1->addWidget( DeleteScript );
+	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Layout1->addItem( spacer );
 
-    ExitDia = new QPushButton( tr( "&Close" ), this, "ExitDia" );
-    ExitDia->setDefault( true );
-    Layout1->addWidget( ExitDia );
+	ExitDia = new QPushButton( tr( "&Close" ), this, "ExitDia" );
+	ExitDia->setDefault( true );
+	Layout1->addWidget( ExitDia );
 	if (Doc->JavaScripts.count() == 0)
 	{
 		EditScript->setEnabled(false);
@@ -53,32 +59,35 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 	}
 	else
 		Scripts->setCurrentItem(0);
-  	JavaDocsLayout->addLayout( Layout1 );
+	JavaDocsLayout->addLayout( Layout1 );
 	connect(AddScript, SIGNAL(clicked()), this, SLOT(slotAdd()));
 	connect(EditScript, SIGNAL(clicked()), this, SLOT(slotEdit()));
 	connect(DeleteScript, SIGNAL(clicked()), this, SLOT(slotDelete()));
 	connect(ExitDia, SIGNAL(clicked()), this, SLOT(accept()));
-	connect( Scripts, SIGNAL( selected(QListBoxItem*) ), this, SLOT( slotEdit() ) );
+	connect( Scripts, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( slotEdit() ) );
+	QToolTip::add( AddScript, "<qt>" + tr( "Adds a new Script, predefines a function with the same name. If you want to use this script as an \"Open Action\" script be sure not to change the name of the function." ) + "</qt>" );
 }
 
 void JavaDocs::slotAdd()
 {
 	QString nam;
 	Query *dia = new Query(this, "tt", 1, 0, tr("&New Script:"), tr("New Script"));
-	dia->Answer->setText( tr("New Script"));
+	dia->setEditText( tr("New Script"), false );
 	if (dia->exec())
 	{
-		nam = dia->Answer->text();
-		while (Doc->JavaScripts.contains(nam) || (nam == ""))
+		nam = dia->getEditText();
+		nam.replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" );
+		while (Doc->JavaScripts.contains(nam) || (nam.isEmpty()))
 		{
 			if (!dia->exec())
 			{
 				delete dia;
 				return;
 			}
-			nam = dia->Answer->text();
+			nam = dia->getEditText();
 		}
 		Editor* dia2 = new Editor(this, "", View);
+		dia2->EditTex->setText("function "+nam+"()\n{\n}");
 		if (dia2->exec())
 		{
 			EditScript->setEnabled(true);
@@ -88,8 +97,8 @@ void JavaDocs::slotAdd()
 			emit docChanged(false);
 		}
 		delete dia2;
-		delete dia;
 	}
+	delete dia;
 }
 
 void JavaDocs::slotEdit()
@@ -106,13 +115,11 @@ void JavaDocs::slotEdit()
 
 void JavaDocs::slotDelete()
 {
-	int exit=QMessageBox::warning(this,
-	                              tr("Warning"),
-	                              tr("Do you really want to delete this Script?"),
-	                              tr("&No"),
-	                              tr("&Yes"),
-	                              0, 0, 0);
-	if (exit == 1)
+	int exit = QMessageBox::warning(this,
+	                               CommonStrings::trWarning,
+	                               tr("Do you really want to delete this script?"),
+	                               QMessageBox::Yes | QMessageBox::No);
+	if (exit == QMessageBox::Yes)
 	{
 		QString nam = Scripts->currentText();
 		Doc->JavaScripts.remove(nam);

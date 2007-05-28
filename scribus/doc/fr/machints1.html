@@ -1,0 +1,46 @@
+<qt>
+<title>Conseils pour Mac OSX</title>
+<h2>Conseils pour Mac OSX</h2>
+
+<p><strong>Note du r&eacute;dacteur :</strong> ces conseils ont &eacute;t&eacute; gracieusement fournis par Martin Costabel. Il a effectu&eacute; un excellent travail de maintenance du progiciel Scribus fink, sans oublier l'aide fournie aux utilisateurs fink sur la liste de diffusion. Certaines indications ciblent des utilisateurs de la PAO qui connaissent peu les arcanes de X11 ou la fa&ccedil;on de manipuler les polices.</p>
+
+<h3>Installer les binaires de Scribus</h3>
+
+<p>Il y a deux m&eacute;thodes, aussi simples l'une que l'autre :</p>
+<ul>
+	<li>Si vous avez Fink Commander, s&eacute;lectionnez-le dans la liste, <strong>cliquez avec le bouton droit</strong> ><strong> puis choisissez "install binaries"</strong>.</li>
+	<li>&Agrave; partir d'une fen&ecirc;tre terminal :
+ 	<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+		<pre>Tapez sudo fink install scribus</pre>
+		</td></tr></table></blockquote>
+	</li>
+</ul>
+<p>Selon ce que vous avez d&eacute;j&agrave; install&eacute; et la vitesse de votre connexion Internet, il faudra quelques minutes ou un long t&eacute;l&eacute;chargement
+pour installer les librairies requises. Les d&eacute;pendances seront automatiquement &eacute;tablies par Fink si vous installez les binaires de Scribus. Les &eacute;l&eacute;ments recommand&eacute;s ne seront pas install&eacute;s automatiquement, et vous devez donc demander &agrave; Fink de le faire pour vous.</p>
+
+<p>Scribus d&eacute;pend des &eacute;l&eacute;ments suivants :</p>
+<ul>
+	<li>x11</li>
+	<li>Ghostscript</li>
+	<li>qt3-shlibs</li>
+	<li>libjpeg-shlibs</li>
+	<li>libjpeg-bin</li>
+	<li>lcms-shlibs</li>
+	<li>libart2-shlibs</li>
+	<li>libpng3-shlibs</li>
+	<li>libtiff-shlibs</li>
+	<li>freetype2-shlibs ou freetype2-hinting-shlibs</li>
+</ul>
+<p>&Eacute;l&eacute;ments recommand&eacute;s, mais non obligatoires : </p>
+<ul>
+	<li>applesystemfonts</li>
+	<li>msttcorefonts</li>
+	<li>ghostscript-fonts - notez que les polices "instables" 8.11 sont actuellement de meilleure qualit&eacute;.</li>
+	<li>x-ghostscript-fonts</li>
+</ul>
+<p>J'&eacute;vite d'utiliser le logiciel gimp-freefonts dans Scribus, m&ecirc;me s'il peut fonctionner tr&egrave;s bien dans d'autres applications.</p>
+<p>De plus, Scribus supporte les polices OpenType, mais refuse le format DFONT privil&eacute;gi&eacute; par Mac OSX. Vous pouvez utiliser <a href="http://fondu.sourceforge.net/">fondu</a>, un outil de conversion de polices avec portions ressource dans un format admis par X11. Il est recommand&eacute; de convertir les polices OpenType en polices TrueType/OpenType, afin de conserver tous les glyphes (les polices de Type 1 sont limit&eacute;es &agrave; 256 glyphes par police). </p>
+<p>Les syst&egrave;mes X Windows plus r&eacute;cents dot&eacute;s du syst&egrave;me appel&eacute; <strong>fontconfig</strong> appliquent le concept de r&eacute;pertoire de polices personnel, habituellement dans un r&eacute;pertoire cach&eacute; nomm&eacute; <code>.fonts</code>. Scribus peut ajouter ce r&eacute;pertoire ainsi que d'autres r&eacute;pertoires h&eacute;bergeant des polices de type 1 (PC) ou TrueType/OpenType. Scribus n'a pas besoin des fichieres <code>.afm</code> pour une police de type 1; les fichiers <code>.pfm</code> suffisent. Scribus obtient les m&eacute;triques de la police via freetype2.</p>
+<p>Pour construire la derni&egrave;re version CVS (la meilleure), ouvrez le lien suivant : <a href="machints2.html">Mac OSX/Fink &#038; CVS</a></p>
+</qt>
+ 

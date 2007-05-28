@@ -1,0 +1,20 @@
+INCLUDE_DIRECTORIES(
+"${CMAKE_SOURCE_DIR}/scribus"
+)
+
+INSTALL(FILES
+scribus.1
+  DESTINATION ${MANDIR}man1
+)
+
+INSTALL(FILES
+scribus.1.de
+  DESTINATION ${MANDIR}de/man1
+  RENAME scribus.1
+)
+
+INSTALL(FILES
+scribus.1.pl
+  DESTINATION ${MANDIR}pl/man1
+  RENAME scribus.1
+)

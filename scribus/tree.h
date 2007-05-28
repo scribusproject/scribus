@@ -1,67 +1,103 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef TREE_H
 #define TREE_H
 
-#include <qdialog.h>
-#include <qptrlist.h>
-#include <qvaluelist.h>
-#include "scribusview.h"
-class QVBoxLayout;
-class QHBoxLayout;
-class QGridLayout;
-class QListView;
-class QListViewItem;
+#include <QPixmap>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QResizeEvent>
+#include <QEvent>
+#include <QList>
 
-class Tree : public QDialog
+#include "scribusapi.h"
+#include "scrpalettebase.h"
+
+class ScribusMainWindow;
+class ScribusDoc;
+class PageItem;
+class Page;
+
+class SCRIBUS_API TreeItem : public QTreeWidgetItem
+{
+public:
+	TreeItem(TreeItem* parent, TreeItem* after);
+	TreeItem(QTreeWidget* parent, TreeItem* after);
+	~TreeItem() {};
+	PageItem *PageItemObject;
+	Page *PageObject;
+	int type;
+};
+
+class SCRIBUS_API TreeWidget : public QTreeWidget
+{
+public:
+	TreeWidget(QWidget* parent);
+	~TreeWidget() {};
+protected:
+	bool viewportEvent(QEvent *event);
+};
+
+class SCRIBUS_API Tree : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
-	Tree( QWidget* parent, WFlags fl );
-	~Tree() {};
-
-	QListView* ListView1;
-	QPtrList<QListViewItem> Seiten;
-	struct Elem { QPtrList<QListViewItem> Elemente; };
-	QPtrList<Elem> PageObj;
-	ScribusView *vie;
-	void keyPressEvent(QKeyEvent *k);
-	void closeEvent(QCloseEvent *ce);
+	Tree( QWidget* parent );
 	void resizeEvent(QResizeEvent *r);
-	void rebuildPageD();
-	void reopenTree(QValueList<int> op);
-	QValueList<int> buildReopenVals();
+	void setMainWindow(ScribusMainWindow *mw);
+	void setDoc(ScribusDoc *);
+	void unsetDoc();
+	void reopenTree();
+	QTreeWidgetItem* getListItem(uint SNr, int Nr);
+	void setItemIcon(QTreeWidgetItem *item, PageItem *pgItem);
+	void parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroupList, int itemType);
+	void buildReopenVals();
 
 public slots:
-	void slotRightClick(QListViewItem* ite, const QPoint &, int);
-	void slotDoRename(QListViewItem* ite, int col);
+	void BuildTree(bool storeVals = true);
+	void languageChange();
 	void slotShowSelect(uint SNr, int Nr);
-	void slotRemoveElement(uint SNr, uint Nr);
-	void slotUpdateElement(uint SNr, uint Nr);
-	void slotAddElement(uint SNr, uint Nr);
-	void slotMoveElement(uint SNr, uint NrOld, uint NrNew);
-	void slotDelPage(uint Nr);
-	void slotAddPage(uint Nr);
-	void slotSelect(QListViewItem* ite);
-	void BuildTree(ScribusView *view);
+	void setPaletteShown(bool);
+	void slotRightClick(QPoint point);
 
 signals:
 	void ToggleAllPalettes();
-	void Schliessen();
-	void CloseMpal();
-	void CloseSpal();
-	void SelectElement(int, int);
-	void SelectSeite(int);
+	void selectElement(int, int, bool);
+	void selectPage(int);
+	void selectMasterPage(QString);
 
 protected slots:
-	virtual void reject();
+	void slotRenameItem();
+	void slotDoRename(QTreeWidgetItem* ite, int col);
+	void slotSelect(QTreeWidgetItem* ite, int col);
+protected:
+	void clearPalette();
+	TreeWidget* reportDisplay;
+	QTreeWidgetItem* freeObjects;
+	QTreeWidgetItem* rootObject;
+	QTreeWidgetItem* currentObject;
+	int currentColumn;
+	ScribusMainWindow* m_MainWindow;
+	QPixmap imageIcon;
+	QPixmap textIcon;
+	QPixmap lineIcon;
+	QPixmap polygonIcon;
+	QPixmap polylineIcon;
+	QPixmap groupIcon;
+	QPixmap buttonIcon;
+	QPixmap textFieldIcon;
+	QPixmap checkBoxIcon;
+	QPixmap comboBoxIcon;
+	QPixmap listBoxIcon;
+	QPixmap annotTextIcon;
+	QPixmap annotLinkIcon;
+	bool selectionTriggered;
+	ScribusDoc *currDoc;
 };
 
 #endif // TREE_H

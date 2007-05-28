@@ -13,6 +13,7 @@
 # 2005/15/10 Russian by Alexandre Prokoudin
 # 2005/08/28 german by Christoph Schäfer <christoph-schaefer@gmx.de>
 # 2006/05/15 Estonian by Marek Laane
+# 2007/05/02 Italian by Alessandro Rimoldi <http://ideale.ch/contact/>
 #
 #
 # Use UTF8 as coding of this file!
@@ -114,6 +115,8 @@ ru= § , & , $, *, €,
 ru=проф. , Проф. ,
 ## география
 ru=ул. , корп. ,
+## предлоги, союзы и пр.
+ru=с ,на ,а ,в ,у ,и ,о ,я ,к ,А ,О ,И ,У ,В ,С ,К ,
 #  Russian short words - THE END
 
 
@@ -128,5 +131,30 @@ et= EEK, USD,§ , & , $ , €,
 et= a., AS , eKr, e.m.a., jj, jm, jms, jmt, jne, jpt, jt, kd, kk, kr, lk , m.a.j., mnt,MTÜ ,nn ,nr ,nt ,n-ö , OÜ , pKr,p.o ,sh , sl,s.o , spl,st ,s.t ,tel. ,tel , tk, tl, tn,v.a , vkj, vms,vrd ,vt. ,vt , õa,õp. ,õpil. ,
 #  Estonian short words - THE END
 
+#  Italian short words START here
+## Titles 
+it=Sig. ,Sigg. ,Sig.ra , Sig.na, Dott. ,Dott.ssa. ,Prof. ,Comm. ,Mons. ,Rev. ,On. ,Rag. ,Egr. ,Spett. ,Ing. ,
+it=sig. ,sigg. ,sig.ra , sig.na, dott. ,dott.ssa. ,prof. ,comm. ,mons. ,rev. ,on. ,rag. ,egr. ,spett. ,ing. ,
+## Post
+it=c/o ,C.P. ,v. ,V. ,v.le ,V.le ,
+#  Holies
+it=S. ,S.ta ,
+## Measure units
+it= g, gr, kg, q, t,
+it= mm, cm, m, km, Km
+it= ha, cmq, cmc, mc, mq, kmq, Kmq
+it= s, min., h,
+it= km/h, Km/h, m/s,
+it= KWh, kW, V,
+it= Hz, MHz, KHz, kHz, mA,
+it= %,
+## Finance
+it= EUR, €, $, £, CHF, Fr.s.,
+it= S.A., SA, S.p.A., Spa, S.r.l, Srl, S.n.c, Snc,
+## Bibliographic entries
+it=p. ,pp. ,pag. ,pagg. ,par. ,v. ,vol. ,voll. , ed.,tab. , Tab. ,
+## Misc
+it=N° ,
+#  Italian short words - THE END
 
 # end of the config file

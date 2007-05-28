@@ -1,4 +1,12 @@
-EXTRA_DIST = hyph_af.dic hyph_sl.dic hyph_sv.dic hyph_lt.dic hyph_ga.dic hyph_fi.dic hyph_el.dic hyph_cs.dic hyph_de.dic hyph_en.dic hyph_es.dic hyph_fr.dic hyph_is.dic hyph_it.dic  hyph_ru.dic hyph_da.dic hyph_sk.dic hyph_hu.dic hyph_pt.dic hyph_pt_BR.dic hyph_nl.dic hyph_uk.dic hyph_ca.dic README_ca_ES.txt  README_en_EN.txt  README_is_IS.txt README_lt_LT.txt  README_ru_RU_0.txt README_cs_CZ.txt  README_en_GB.txt  README_no_NO.txt  README_sk_SK.txt README_cy_GB.txt  README_es_ES.txt  README_pl_PL.txt  README_sl_SI.txt README_da_DK.txt  README_fi_FI.txt  README_pt_BR.txt  README_sv_SE.txt README_de_DE.txt  README_hu_HU.txt  README_pt_PT.txt  README_uk_UA.txt 
+EXTRA_DIST = hyph_af.dic hyph_sl.dic hyph_sv.dic hyph_lt.dic hyph_ga.dic hyph_fi.dic hyph_el.dic hyph_cs.dic \
+             hyph_de.dic hyph_en.dic hyph_es.dic hyph_fr.dic hyph_ia.dic hyph_id.dic hyph_is.dic hyph_it.dic \
+             hyph_nn_NO.dic hyph_nb_NO.dic hyph_ru.dic hyph_da.dic hyph_sk.dic hyph_hu.dic hyph_pt.dic \
+             hyph_pt_BR.dic hyph_nl.dic hyph_uk.dic hyph_ca.dic \
+             README_ca_ES.txt README_en_EN.txt README_lt_LT.txt README_hyph_ro_RO.txt README_ru_RU_0.txt \
+             README_cs_CZ.txt README_en_GB.txt README_hyph_ia.txt README_hyph_nb_NO.txt README_hyph_nn_NO.txt \
+             README_sk_SK.txt README_cy_GB.txt README_es_ES.txt README_hyph_pl_PL.txt README_sl_SI.txt README_hyph_da_DK.txt \
+             README_fi_FI.txt README_pt_BR.txt README_sv_SE.txt README_de_DE.txt README_hu_HU.txt README_pt_PT.txt \
+             README_uk_UA.txt CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/dicts/
@@ -15,14 +23,18 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/hyph_ga.dic $(libdir)/scribus/dicts/hyph_ga.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_hr.dic $(libdir)/scribus/dicts/hyph_hr.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_hu.dic $(libdir)/scribus/dicts/hyph_hu.dic
+	$(INSTALL_DATA) $(srcdir)/hyph_ia.dic $(libdir)/scribus/dicts/hyph_ia.dic
+	$(INSTALL_DATA) $(srcdir)/hyph_id.dic $(libdir)/scribus/dicts/hyph_id.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_is.dic $(libdir)/scribus/dicts/hyph_is.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_it.dic $(libdir)/scribus/dicts/hyph_it.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_lt.dic $(libdir)/scribus/dicts/hyph_lt.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_nl.dic $(libdir)/scribus/dicts/hyph_nl.dic
-	$(INSTALL_DATA) $(srcdir)/hyph_nn.dic $(libdir)/scribus/dicts/hyph_nn.dic
+	$(INSTALL_DATA) $(srcdir)/hyph_nb_NO.dic $(libdir)/scribus/dicts/hyph_nb_NO.dic
+	$(INSTALL_DATA) $(srcdir)/hyph_nn_NO.dic $(libdir)/scribus/dicts/hyph_nn_NO.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_pl.dic $(libdir)/scribus/dicts/hyph_pl.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_pt.dic $(libdir)/scribus/dicts/hyph_pt.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_pt_BR.dic $(libdir)/scribus/dicts/hyph_pt_BR.dic
+	$(INSTALL_DATA) $(srcdir)/hyph_ro.dic $(libdir)/scribus/dicts/hyph_ro.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_ru.dic $(libdir)/scribus/dicts/hyph_ru.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_sk.dic $(libdir)/scribus/dicts/hyph_sk.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_sl.dic $(libdir)/scribus/dicts/hyph_sl.dic
@@ -32,19 +44,23 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/README_en_EN.txt $(libdir)/scribus/dicts/README_en_EN.txt
 	$(INSTALL_DATA) $(srcdir)/README_cs_CZ.txt $(libdir)/scribus/dicts/README_cs_CZ.txt
 	$(INSTALL_DATA) $(srcdir)/README_cy_GB.txt $(libdir)/scribus/dicts/README_cy_GB.txt
-	$(INSTALL_DATA) $(srcdir)/README_da_DK.txt $(libdir)/scribus/dicts/README_da_DK.txt
+	$(INSTALL_DATA) $(srcdir)/README_hyph_da_DK.txt $(libdir)/scribus/dicts/README_hyph_da_DK.txt
 	$(INSTALL_DATA) $(srcdir)/README_de_DE.txt $(libdir)/scribus/dicts/README_de_DE.txt
 	$(INSTALL_DATA) $(srcdir)/README_en_EN.txt $(libdir)/scribus/dicts/README_en_EN.txt
 	$(INSTALL_DATA) $(srcdir)/README_en_GB.txt $(libdir)/scribus/dicts/README_en_GB.txt
 	$(INSTALL_DATA) $(srcdir)/README_es_ES.txt $(libdir)/scribus/dicts/README_es_ES.txt
 	$(INSTALL_DATA) $(srcdir)/README_fi_FI.txt $(libdir)/scribus/dicts/README_fi_FI.txt
 	$(INSTALL_DATA) $(srcdir)/README_hu_HU.txt $(libdir)/scribus/dicts/README_hu_HU.txt
-	$(INSTALL_DATA) $(srcdir)/README_is_IS.txt $(libdir)/scribus/dicts/README_hyph_is_IS.txt
+	$(INSTALL_DATA) $(srcdir)/README_hyph_ia.txt $(libdir)/scribus/dicts/README_hyph_ia.txt
+	$(INSTALL_DATA) $(srcdir)/README_id_ID.txt $(libdir)/scribus/dicts/README_iD_ID.txt
+	$(INSTALL_DATA) $(srcdir)/README_is_IS.txt $(libdir)/scribus/dicts/README_is_IS.txt
 	$(INSTALL_DATA) $(srcdir)/README_lt_LT.txt $(libdir)/scribus/dicts/README_lt_LT.txt
-	$(INSTALL_DATA) $(srcdir)/README_no_NO.txt $(libdir)/scribus/dicts/README_no_NO.txt
-	$(INSTALL_DATA) $(srcdir)/README_pl_PL.txt $(libdir)/scribus/dicts/README_pl_PL.txt
+	$(INSTALL_DATA) $(srcdir)/README_hyph_nb_NO.txt $(libdir)/scribus/dicts/README_hyph_nb_NO.txt
+	$(INSTALL_DATA) $(srcdir)/README_hyph_nn_NO.txt $(libdir)/scribus/dicts/README_hyph_nn_NO.txt
+	$(INSTALL_DATA) $(srcdir)/README_hyph_pl_PL.txt $(libdir)/scribus/dicts/README_hyph_pl_PL.txt
 	$(INSTALL_DATA) $(srcdir)/README_pt_BR.txt $(libdir)/scribus/dicts/README_pt_BR.txt
 	$(INSTALL_DATA) $(srcdir)/README_pt_PT.txt $(libdir)/scribus/dicts/README_pt_PT.txt
+	$(INSTALL_DATA) $(srcdir)/README_hyph_ro_RO.txt $(libdir)/scribus/dicts/README_hyph_ro_RO.txt
 	$(INSTALL_DATA) $(srcdir)/README_ru_RU_0.txt $(libdir)/scribus/dicts/README_ru_RU_0.txt
 	$(INSTALL_DATA) $(srcdir)/README_sk_SK.txt $(libdir)/scribus/dicts/README_sk_SK.txt
 	$(INSTALL_DATA) $(srcdir)/README_sl_SI.txt $(libdir)/scribus/dicts/README_sl_SI.txt
@@ -66,14 +82,18 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/dicts/hyph_ga.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_hr.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_hu.dic
-	-rm -f $(libdir)/scribus/dicts/hyph_is_IS.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_ia.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_id.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_is.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_it.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_lt.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_nl.dic
-	-rm -f $(libdir)/scribus/dicts/hyph_nn.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_nn_NO.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_nb_NO.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_pl.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_pt.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_pt_BR.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_ro.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_ru.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_sk.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_sl.dic
@@ -82,23 +102,26 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/dicts/README_ca_ES.txt
 	-rm -f $(libdir)/scribus/dicts/README_cs_CZ.txt
 	-rm -f $(libdir)/scribus/dicts/README_cy_GB.txt
-	-rm -f $(libdir)/scribus/dicts/README_da_DK.txt
+	-rm -f $(libdir)/scribus/dicts/README_hyph_da_DK.txt
 	-rm -f $(libdir)/scribus/dicts/README_de_DE.txt
 	-rm -f $(libdir)/scribus/dicts/README_en_EN.txt
 	-rm -f $(libdir)/scribus/dicts/README_en_GB.txt
 	-rm -f $(libdir)/scribus/dicts/README_es_ES.txt
 	-rm -f $(libdir)/scribus/dicts/README_fi_FI.txt
 	-rm -f $(libdir)/scribus/dicts/README_hu_HU.txt
+	-rm -f $(libdir)/scribus/dicts/README_hyph_ia.txt
+	-rm -f $(libdir)/scribus/dicts/README_id_ID.txt
 	-rm -f $(libdir)/scribus/dicts/README_is_IS.txt
 	-rm -f $(libdir)/scribus/dicts/README_lt_LT.txt
-	-rm -f $(libdir)/scribus/dicts/README_no_NO.txt
-	-rm -f $(libdir)/scribus/dicts/README_pl_PL.txt
+	-rm -f $(libdir)/scribus/dicts/README_nb_NO.txt
+	-rm -f $(libdir)/scribus/dicts/README_nn_NO.txt
+	-rm -f $(libdir)/scribus/dicts/README_hyph_pl_PL.txt
 	-rm -f $(libdir)/scribus/dicts/README_pt_BR.txt
 	-rm -f $(libdir)/scribus/dicts/README_pt_PT.txt
+	-rm -f $(libdir)/scribus/dicts/README_ro_RO.txt
 	-rm -f $(libdir)/scribus/dicts/README_ru_RU_0.txt
 	-rm -f $(libdir)/scribus/dicts/README_sk_SK.txt
 	-rm -f $(libdir)/scribus/dicts/README_sl_SI.txt
 	-rm -f $(libdir)/scribus/dicts/README_sv_SE.txt
 	-rm -f $(libdir)/scribus/dicts/README_uk_UA.txt
-
-	-rmdir $(libdir)/scribus/dicts/ 2>/dev/null
+	

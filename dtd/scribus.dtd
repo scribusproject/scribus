@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Main Scribus DTD, Version 0.99.1
+
+Copyright 2005, 2006 Oleksandr Moskalenko <malex@tagancha.org> and the Scribus
+Development Team.
+
+This DTD and its accompanying documentation are free software; you can
+redistribute and/or modify them under the terms of the GNU General Public
+License as published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.
+
+This software is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+You should have received a copy of the GNU General Public License along with
+this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
+St, Fifth Floor, Boston, MA  02110-1301 USA
+
+This is the DTD for Scribus, the Open Document Layout Software. Its primary
+use is to describe the file format of Scribus.
+
+All elements declared by this DTD are in the http://scribus.tagancha.org/xml
+namespace.
+
+Documents adhering to this DTD should have the root element "scribus".
+
+This DTD is identified by the following PUBLIC and SYSTEM identifiers:
+
+    PUBLIC "-//Scribus//DTD File Format//EN"
+    SYSTEM "http://scribus.tagancha.org/xml/scribus.dtd"
+A local copy identifier for the SYSTEM ID is, for example:
+    <!DOCTYPE scribus PUBLIC "-//Scribus//DTD File Format//EN" "scribus.dtd">
+
+For more information see http://scribus.tagancha.org/xml/
+-->
+
+<!-- Parsed entities that are used in many declarations -->
+<!-- Object origin, e.g. ltop="Left Top corner" and so on. -->
+<!ENTITY % origin "(ltop | rtop | lbottom | rbottom | center) 'ltop'">
+<!-- Object origin co-ordinates on the horizontal axis. Default value reflects
+the default units "pt". It is a real number of a form that depends on the
+unit. -->
+<!ENTITY % xorigin "xorigin CDATA '40'">
+<!-- Object origin co-ordinates on the vertical axis. Default value reflects
+the default units "pt". It is a real number of a form that depends on the
+unit. -->
+<!ENTITY % yorigin "yorigin CDATA '40'">
+<!-- Measurement units currently include pt (Points), px (Pixels), pica
+(Picas), in (Inches, mm (Millimeters), cm (Centimeters), c (Ciceros).
+Wikipedia:
+    Point, in typography, may also refer to a dot grapheme (e.g.: full stop;
+middle dot) as in the expression, 'decimal point'. A point is a unit of
+measure in typography (Abbreviated as "pt"). There are various sorts of
+points, used in particular locations and times:
+  * Fournier point: the first definition of the printer's point, by Pierre
+Fournier. It was 0.34882 millimetres, which was 1/12 of a cicero.
+  * Didot point: the French typesetting point defined by Francois-Ambroise
+Didot in the 18th century. It equals 0.37597 mm, which are 1/72 of a French
+royal inch (pouce).
+  * Berthold point: an attempt to create a point with a metric definition.
+0.37593 mm or 1/2660 of a metre.
+  * German Didot point: defined in 1954 as 0.376065 mm. This is the standard
+Didot point now used in Europe (unless replaced by metric typographic units).
+  * American printer's point: defined as 0.013837in or 0.35145 mm by Nelson
+Hawks in 1879.
+  * PostScript point or computer point (now the universal point in
+computers): defined as 1/72 of an English inch or 0.35277 mm by Warnock and
+Geschke, the inventors of Adobe PostScript.
+  The point is the standard unit for measuring font size and leading and other
+minute items on a printed page. Twelve points make up a pica, there are 72
+points in an inch (The actual visible size of 1 Inch high text is around
+96pt), or 6 picas in an inch, a point is 1/12 of a pica. A measurement in
+picas is usually represented by placing a small p after the number of picas.
+"10 picas" is thus abbreviated 10p. Likewise, points are represented by
+placing the number of points after a small p, such as 0p5 for "5 points," 6p2
+for "6 picas and 2 points," or 1p1 for "13 points" which is converted to a
+mixed fraction of 1 pica and 1 point.
+    Pixel (pix, 1932 abbreviation of pictures, coined by Variety headline
+writers + element) is one of the many tiny dots that make up the
+representation of a picture in a computer's memory. Each such information
+element is not really a dot, nor a square, but an abstract sample. With care,
+pixels in an image can be reproduced at any size without the appearance of
+visible dots or squares; but in many contexts, they are reproduced as dots or
+squares and can be visibly distinct when not fine enough. The intensity of
+each pixel is variable; in color systems, each pixel has typically three or
+four dimensions of variability such and Red, Green and Blue, or Cyan, Magenta,
+Yellow and Black.
+    Pica is a unit of measure traditionally used in document layout. A pica
+measures 1/6 of an inch, or about 4.2333 millimeters, and is used to measure
+the size of blocks of type, margins, and other macroscopic elements of page
+layout. 1/12 of a pica is a point, which is the standard unit for measuring
+font size and leading. There are 72 points in an inch, or 6 picas in an inch.
+A measurement in picas is usually represented by placing a small letter p
+after the number of picas. "10 picas" is thus abbreviated to "10p". Likewise,
+points are represented by placing the number of points after a small p, such
+as 0p5 for "5 points," 6p2 for "6 picas and 2 points," or 1p1 for "13 points"
+which is converted to a mixed fraction of 1 pica and 1 point.
+    Inch is an Imperial and U.S. customary unit of length. Sweden also briefly
+had a "decimal inch" based on the metric system: see below for more. According
+to some sources, the inch was originally defined informally as the distance
+between the tip of the thumb and the first joint of the thumb. Another source
+says that the inch was at one time defined in terms of the yard, supposedly
+defined as the distance between Henry I of England's nose and his thumb. In
+another version, the inch was defined as the length of three barleycorns.
+There are twelve inches in a foot, and three feet in a yard. The word for
+"inch" is similar to or the same as the word for "thumb" in some languages.
+French: pouce inch, pouce thumb; Italian: pollice inch, pollice thumb;
+Spanish: pulgada inch, pulgar thumb; Portuguese: polegada inch, polegar thumb;
+Swedish: tum inch, tumme thumb; Dutch: duim inch, duim thumb; Sanskrit:
+Angulam inch, Anguli Finger.
+    Millimeter is 1/1000 of a meter in the Metric system.
+    Centimeter is 1/100 of a meter in the Metric system.
+    Cicero is a unit of measure traditionally used in document layout. The
+cicero was originally part of a point-based system developed by Francois
+Ambroise Didot around 1780, measuring 1 / 6 of a French inch, and was composed
+of 12 points. The French inch was larger than the one used to calibrate the
+pica; there are about 1.061 cicero in a pica. In 1973, the cicero was
+metrically standardized at 4.5 mm.
+-->
+<!ENTITY % unit  "(pt | px | pica | in | mm | cm | c) 'pt'">
+<!-- unit is a general concept, so we use separate elements for sizeunit and
+originunit, which can be set differently by the user. -->
+<!ENTITY % sizeunit "sizeunit %unit;">
+<!-- unit is a general concept, so we use separate elements for sizeunit and
+originunit, which can be set differently by the user. -->
+<!ENTITY % originunit "originunit %unit;">
+<!-- Text styles DTD. See the file "style.ent" for more information. Here we
+include that file through a parameter entity "style". -->
+<!ENTITY % style SYSTEM "style.ent">
+%style;
+<!-- Graphics notations - defines various image types we support. See the file
+"notations.ent" for more information. Here we include that file through a
+parameter entity "notations".-->
+<!ENTITY % notations SYSTEM 'notations.ent'>
+%notations;
+<!-- Namespaces defines various public namespaces we use. See the file
+"namespaces.ent" for more information. Here we include that file through a
+parameter entity "namespaces".-->
+<!ENTITY % namespaces SYSTEM 'namespaces.ent'>
+%namespaces;
+<!-- Consolidate the canvas and page objects -->
+<!ENTITY % pageobjectlist "imgframeobj*,textframeobj*,tableobj*,svgobject*,epsobject*">
+<!ENTITY % canvasobjectlist "imgframe*,textframe*,table*,svgobject*,epsobject*">
+
+<!-- Root element of a Scribus document. Contains all other elments, but only
+"canvas" on which we put EVERYTHING else can be its child. -->
+<!ELEMENT scribus (metadata,settings,colors,styles,canvas+,content*)>
+
+<!-- This is a soup of various metadata RDFs like Dublin Core, etc. I don't
+know how to make xmllint cope with the namespaces yet, so its contents are
+going to be commented out during the work on this DTD -->
+<!ELEMENT metadata ANY>
+
+<!-- Options presented in the new document dialog -->
+<!ELEMENT settings EMPTY>
+<!ATTLIST settings  default-page-size CDATA "A4"
+                    default-page-orientation CDATA "Portrait"
+                    default-page-width CDATA #IMPLIED
+                    default-page-height CDATA #IMPLIED
+                    default-unit %unit;
+                    facing-pages (yes | no) "no"
+                    left-page-first (yes | no) "no"
+                    first-page-number CDATA "1"
+                    automatic-text-frames (yes | no) "no"
+                    margin-guide-left CDATA "40"
+                    margin-guide-right CDATA "40"
+                    margin-guide-top CDATA "40"
+                    margin-guide-bottom CDATA "40"
+                    columns CDATA "1"
+                    column-gap CDATA "11"
+>
+
+<!-- Colors used in the document. This is a subset of the system-wide color sets -->
+<!ELEMENT colors (color)*>
+
+<!-- Individual color data. Example:
+<color register="0" spot="0" rgb="#f0f8ff" cmyk="#0f070000" name="AliceBlue" />
+ -->
+<!ELEMENT color EMPTY>
+<!ATTLIST color color-register CDATA "0"
+                color-spot CDATA "0"
+                color-rgb CDATA #IMPLIED
+                color-cmyk CDATA #IMPLIED
+                color-name CDATA #IMPLIED
+>
+
+<!-- Paragraph and Text styles -->
+<!ELEMENT styles (par-style*,txt-style*,table-style*,table-cellstyle*)>
+
+<!-- This is the main canvas of a Scribus document. All pages will be placed
+onto it. We can also have crop marks and guides there. It might later include
+scratch space and other objects. At first let's leave it as a container for
+pages with some markings for positioning.-->
+<!ELEMENT canvas (canvasobjects*,scratchspace*,page*,cropmark*,guide*,%canvasobjectlist;)>
+<!ATTLIST canvas    id ID #REQUIRED
+                    width CDATA "8.5"
+                    height CDATA "11.0"
+                    %sizeunit;
+>
+
+<!-- This is the main content container. It encompasses content objects for
+text and graphics and serves as a binding link between layout and content. -->
+<!ELEMENT content (textcontent*,svgcontent*,epscontent*)>
+
+<!-- Scratch space on the canvas is represented as a pseudo-page with a single
+layer. So, this part of the canvas becomes equal to a page as a container. -->
+<!ELEMENT scratchspace (%pageobjectlist;)>
+<!ATTLIST scratchspace id ID #REQUIRED
+                    canvasid IDREF #REQUIRED
+                    visible (yes | no) "yes"
+                    printable (yes | no) "no"
+>
+
+<!-- <!ATTLIST canvasobjects> -->
+<!ELEMENT canvasobjects (%canvasobjectlist;)>
+
+<!-- Main container into which visible objects are placed on layer canvasses.
+Contains global non-layered elements such as guides, baseline grid, crop
+marks. -->
+<!ELEMENT page (guide*,cropmark*,layer+)>
+<!ATTLIST page      id ID #REQUIRED
+                    number CDATA #IMPLIED
+                    width CDATA "8.5"
+                    height CDATA "11.0"
+                    %sizeunit;
+                    canvasorigin %origin;
+                    %xorigin;
+                    %yorigin;
+                    %originunit;
+                    orientation (portrait | landscape) "portrait"
+>
+
+<!-- Main canvas on which visible objects are placed. Use can0 type id values.-->
+<!ELEMENT layer (%pageobjectlist;)>
+<!ATTLIST layer     id ID #REQUIRED
+                    name CDATA #REQUIRED
+                    level CDATA #REQUIRED
+                    visible (yes | no) "yes"
+                    printable (yes | no) "yes"
+>
+
+<!-- Main container for raster images. Use fimg0 type id values.-->
+<!ELEMENT imgframe (img*)>
+<!-- Scale is in fractions: 1=100% -->
+<!ATTLIST imgframe id ID #REQUIRED
+                    text-frame-id IDREF #IMPLIED
+                    width CDATA "200"
+                    height CDATA "200"
+                    canvasorigin %origin;
+                    %sizeunit;
+                    %xorigin;
+                    %yorigin;
+                    %originunit;
+                    rotation CDATA "0"
+                    basepoint %origin;
+                    printable (yes | no) "yes"
+                    locked (yes | no) "no"
+                    size-locked (yes | no) "no"
+                    round-corners CDATA "0"
+                    level CDATA "0"
+                    text-flows-around (yes | no) "no"
+                    use-bounding-box (yes | no) "no"
+                    use-contour-line (yes | no) "no"
+                    line-color CDATA "none"
+                    fill-color CDATA "none"
+                    image-scale-frame-size (yes | no) "yes"
+                    image-scale-proportional (yes | no) "yes"
+                    image-x-position CDATA "0"
+                    image-y-position CDATA "0"
+                    image-x-scale CDATA "1"
+                    image-y-scale CDATA "1"
+                    image-x-dpi CDATA "72"
+                    image-y-dpi CDATA "72"
+>
+
+<!ELEMENT imgframeobj EMPTY>
+<!ATTLIST imgframeobj idref IDREF #REQUIRED>
+
+<!ELEMENT img ANY>
+<!ATTLIST img       id ID #REQUIRED
+                    src ENTITY #REQUIRED
+                    type NOTATION (png | jpg | jpeg | tiff) "tiff"
+                    width CDATA #REQUIRED
+                    height CDATA #REQUIRED
+                    %sizeunit;
+                    vresolution CDATA #REQUIRED
+                    hresolution CDATA #REQUIRED
+                    colorspace (rgb | cmyk | lab | greyscale ) "rgb"
+                    color-depth (1 | 8 | 16 | 24 | 32 | 48) "8"
+                    icc-profile CDATA #IMPLIED
+                    rendering-intent-printer (Perceptual | Relative-Colorimetric | Saturation | Absolute-Colorimetric) #IMPLIED
+>
+
+<!-- Main container for text. Use ftxt0 type id values. -->
+<!ELEMENT textframe ((textcontentobj)* | (%pageobjectlist;)*)* >
+<!ATTLIST textframe id ID #REQUIRED
+                    nextframeid IDREF #IMPLIED
+                    width CDATA "200"
+                    height CDATA "200"
+                    %sizeunit;
+                    canvasorigin %origin;
+                    %xorigin;
+                    %yorigin;
+                    %originunit;
+                    rotation CDATA "0"
+                    basepoint %origin;
+                    printable (yes | no) "yes"
+                    locked (yes | no) "no"
+                    size-locked (yes | no) "no"
+                    round-corners CDATA "0"
+                    columnnumber CDATA "1"
+                    columngap CDATA "0"
+                    topdistance CDATA "0"
+                    bottomdistance CDATA "0"
+                    leftdistance CDATA "0"
+                    righttdistance CDATA "0"
+                    level CDATA "0"
+                    text-flows-around (yes | no) "no"
+                    use-bounding-box (yes | no) "no"
+                    use-contour-line (yes | no) "no"
+                    line-color CDATA "none"
+                    fill-color CDATA "none"
+>
+
+<!-- svgobject is the object that contains an SVG graphic. It has properties
+similar to text and image frames on a page and on the canvas. -->
+<!ELEMENT svgobject (svgcontentobj)+>
+<!ATTLIST svgobject id ID #REQUIRED
+                    width CDATA "200"
+                    height CDATA "200"
+                    %sizeunit;
+                    canvasorigin %origin;
+                    %xorigin;
+                    %yorigin;
+                    %originunit;
+                    rotation CDATA "0"
+                    basepoint %origin;
+                    printable (yes | no) "yes"
+                    level CDATA "0"
+>
+
+<!-- epsobject is the object that contains encapsulated postscript. It has properties
+similar to text and image frames on a page and on the canvas. -->
+<!ELEMENT epsobject (epscontentobj)+>
+<!ATTLIST epsobject id ID #REQUIRED
+                    width CDATA "200"
+                    height CDATA "200"
+                    %sizeunit;
+                    canvasorigin %origin;
+                    %xorigin;
+                    %yorigin;
+                    %originunit;
+                    rotation CDATA "0"
+                    basepoint %origin;
+                    printable (yes | no) "yes"
+                    level CDATA "0"
+>
+
+<!ELEMENT textframeobj EMPTY>
+<!ATTLIST textframeobj idref IDREF #REQUIRED>
+
+<!-- Abstraction layer for text blocks inside a text frame. -->
+<!ELEMENT textcontent parstyle (p)+>
+<!ATTLIST textcontent id ID #REQUIRED>
+
+<!-- References "textcontent". -->
+<!ELEMENT textcontentobj EMPTY>
+<!ATTLIST textcontentobj idref IDREF #REQUIRED>
+
+<!ELEMENT p parstyle (span)+
+<!-- Lowest level block unit of text. Add a mathexpression later when MathML dtd is
+referenced properly. Use "id" values like par0. We need an id for the
+paragraph to make it the atomic unit for change tracking and undo for example. -->
+<!ELEMENT span txtstyle (text|inlineframe|breakline|breakcolumn|breakframe|tab|pagenr)*>
+>
+
+
+<!-- Use any printable character for tab alignment -->
+<!ELEMENT tab EMPTY>
+<!ATTLIST tab parid IDREF #REQUIRED
+              location CDATA #REQUIRED
+              spacing CDATA "10"
+              spacing-unit %unit;
+              type (left|right|center|decimal|comma|char) "left"
+              tabchar CDATA #IMPLIED
+>
+
+<!ELEMENT table (table-caption?,table-row+)>
+<!ATTLIST table id ID #REQUIRED
+                table-style IDREF #REQUIRED
+                canvasorigin %origin;
+                %xorigin;
+                %yorigin;
+                %originunit;
+                width CDATA "100"
+                height CDATA "150"
+                %sizeunit;
+                basepoint %origin;
+                rotation CDATA "0"
+                printable (yes | no) "yes"
+                locked (yes | no) "no"
+                size-locked (yes | no) "no"
+                round-corners CDATA "0"
+                columnnumber CDATA #IMPLIED
+                rownumber CDATA #IMPLIED
+                level CDATA "0"
+                text-flows-around (yes | no) "no"
+                use-bounding-box (yes | no) "no"
+                use-contour-line (yes | no) "no"
+                line-color CDATA "none"
+                fill-color CDATA "none"
+>
+
+<!ELEMENT tableobj EMPTY>
+<!ATTLIST tableobj idref IDREF #REQUIRED>
+
+<!ELEMENT table-caption (textcontentobj*)>
+
+<!ELEMENT table-row (table-cell+)>
+
+<!ELEMENT table-cell (textcontentobj*)>
+<!ATTLIST table-cell table-cellstyle IDREF #REQUIRED
+                     rowspan CDATA "1"
+                     colspan CDATA "1"
+>
+
+<!-- Glue between the layout element svgobject and the content object
+svgcontent -->
+<!ELEMENT svgcontentobj EMPTY>
+<!ATTLIST svgcontentobj idref IDREF #REQUIRED>
+
+<!-- Glue between the layout element epsobject and the content object
+epscontent -->
+<!ELEMENT epscontentobj EMPTY>
+<!ATTLIST epscontentobj idref IDREF #REQUIRED>
+
+<!-- Content element svgcontent, which contains at least one standard <svg>
+-->
+<!ELEMENT svgcontent (svg)+>
+<!ATTLIST svgcontent id ID #REQUIRED>
+
+<!-- Due to the namespace validation problem svg should currently be allowed
+to contain anything. -->
+<!ELEMENT svg ANY>
+
+<!-- Content element epscontent, which contains at least one standard <eps>
+-->
+<!ELEMENT epscontent (eps)+>
+<!ATTLIST epscontent id ID #REQUIRED>
+
+<!-- Due to the namespace validation problem eps should currently be allowed
+to contain anything. -->
+<!ELEMENT eps ANY>

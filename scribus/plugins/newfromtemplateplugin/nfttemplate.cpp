@@ -1,13 +1,11 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
- *   Riku Leino, riku.leino@gmail.com                                          *
- ***************************************************************************/
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
+ *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "nfttemplate.h"
 #include <qfileinfo.h>
@@ -16,7 +14,7 @@ nfttemplate::nfttemplate(QFile* tmplXmlFile, const QString &tmplCategory)
 {
 	tmplXml = tmplXmlFile;
 	templateCategory = tmplCategory;
-	isWritable = tmplXml->open(IO_WriteOnly | IO_ReadOnly);
+	isWritable = tmplXml->open(QIODevice::WriteOnly | QIODevice::ReadOnly);
 	tmplXml->close();
 	isDeleted = false;
 }
@@ -28,10 +26,10 @@ void nfttemplate::remove()
 		QString newTmplXml = "";
 		QString tmp;
 		bool collect = false;
-		tmplXml->open(IO_ReadOnly);
-		QTextStream stream(tmplXml);
+		tmplXml->open(QIODevice::ReadOnly);
+		Q3TextStream stream(tmplXml);
 		QString line = stream.readLine();
-		while (line != NULL)
+		while (!line.isNull())
 		{
 			if ((line.find(enCategory) != -1) || collect)
 			{
@@ -71,9 +69,9 @@ void nfttemplate::remove()
 			line = stream.readLine();
 		}
 		tmplXml->close();
-		tmplXml->open(IO_WriteOnly);
-		QTextStream instream(tmplXml);
-		instream.setEncoding(QTextStream::UnicodeUTF8);
+		tmplXml->open(QIODevice::WriteOnly);
+		Q3TextStream instream(tmplXml);
+		instream.setEncoding(Q3TextStream::UnicodeUTF8);
 		instream << newTmplXml;
 		tmplXml->close();
 	}

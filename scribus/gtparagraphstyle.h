@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -21,8 +27,10 @@
 #ifndef GTPARAGRAPHSTYLE_H
 #define GTPARAGRAPHSTYLE_H
 
-#include <qvaluelist.h>
+#include <q3valuelist.h>
+#include "scribusapi.h"
 #include "gtstyle.h"
+#include "sctextstruct.h"
 
 enum Alignment {
 	LEFT,
@@ -41,7 +49,7 @@ enum TabType {
 	CENTER_T
 };
 
-class gtParagraphStyle : public gtStyle
+class SCRIBUS_API gtParagraphStyle : public gtStyle
 {
 private:
 	void init();
@@ -52,7 +60,7 @@ protected:
 	double firstLineIndent;
 	double spaceAbove;
 	double spaceBelow;
-	QValueList<double> tabValues;
+	Q3ValueList<ParagraphStyle::TabRecord> tabValues;
 	bool dropCap;
 	int  dropCapHeight;
 	bool adjToBaseline;
@@ -74,7 +82,7 @@ public:
 	void   setSpaceAbove(double newSpaceAbove);
 	double getSpaceBelow();
 	void   setSpaceBelow(double newSpaceBelow);
-	QValueList<double>* getTabValues();
+	Q3ValueList<ParagraphStyle::TabRecord>* getTabValues();
 	void   setTabValue(double newTabValue, TabType ttype = LEFT_T);
 	bool   hasDropCap();
 	void   setDropCap(bool newDropCap);

@@ -1,15 +1,16 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "cmdmani.h"
 #include "cmdutil.h"
+#include "mpalette.h" //CB argh.. noooooooooooooooooooooooooooooooooooo FIXME see other FIXME
+#include "selection.h"
+#include "scribuscore.h"
 
-PyObject *scribus_loadimage(PyObject */*self*/, PyObject* args)
+PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	char *Image;
@@ -20,17 +21,18 @@ PyObject *scribus_loadimage(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType != FRAME_IMAGE)
+	if (!item->asImageFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error"));
 		return NULL;
 	}
-	item->OwnPage->LoadPict(QString::fromUtf8(Image), item->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+	ScCore->primaryMainWindow()->doc->LoadPict(QString::fromUtf8(Image), item->ItemNr);
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args)
+PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x, y;
@@ -41,20 +43,20 @@ PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	if (!item->PType == FRAME_IMAGE)
+	if (! item->asImageFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error"));
 		return NULL;
 	}
-	item->LocalScX = x;
-	item->LocalScY = y;
-	item->OwnPage->ChLocalSc(x, y);
-	item->OwnPage->UpdatePic();
-	Py_INCREF(Py_None);
-	return Py_None;
+	item->setImageXYScale(x, y);
+	ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(x, y); //CB why when this is done above?
+	ScCore->primaryMainWindow()->doc->updatePic();
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_moveobjrel(PyObject */*self*/, PyObject* args)
+PyObject *scribus_moveobjrel(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x, y;
@@ -63,30 +65,36 @@ PyObject *scribus_moveobjrel(PyObject */*self*/, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
-	if (item == NULL)
+	if (item==NULL)
 		return NULL;
 	// Grab the old selection
-	QPtrList<PageItem> oldSelection = item->OwnPage->SelItem;
+	//QPtrList<PageItem> oldSelection = ScCore->primaryMainWindow()->view->SelItem;
+	//int tempList=ScCore->primaryMainWindow()->doc->selection->backupToTempList(0);
+	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
+	ScCore->primaryMainWindow()->doc->m_Selection->clear();
 	// Clear the selection
-	item->OwnPage->Deselect();
+	ScCore->primaryMainWindow()->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	item->OwnPage->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
 	// Move the item, or items
-	if (item->OwnPage->SelItem.count() > 1)
-		item->OwnPage->moveGroup(ValueToPoint(x), ValueToPoint(y));
+	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
+		ScCore->primaryMainWindow()->view->moveGroup(ValueToPoint(x), ValueToPoint(y));
 	else
-		item->OwnPage->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
+		ScCore->primaryMainWindow()->doc->MoveItem(ValueToPoint(x), ValueToPoint(y), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
-	item->OwnPage->Deselect();
-	for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
-		item->OwnPage->SelectItemNr(oldSelection.current()->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+	//ScCore->primaryMainWindow()->doc->selection->restoreFromTempList(0, tempList);
+	*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+	//ScCore->primaryMainWindow()->view->Deselect();
+	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
+	//	ScCore->primaryMainWindow()->view->SelectItemNr(oldSelection.current()->ItemNr);
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_moveobjabs(PyObject */*self*/, PyObject* args)
+PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x, y;
@@ -98,31 +106,36 @@ PyObject *scribus_moveobjabs(PyObject */*self*/, PyObject* args)
 	if (item == NULL)
 		return NULL;
 	// Grab the old selection
-	QPtrList<PageItem> oldSelection = item->OwnPage->SelItem;
+	//QPtrList<PageItem> oldSelection = ScCore->primaryMainWindow()->view->SelItem;
+	//int tempList=ScCore->primaryMainWindow()->doc->selection->backupToTempList(0);
+	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
 	// Clear the selection
-	item->OwnPage->Deselect();
+	ScCore->primaryMainWindow()->view->Deselect();
 	// Select the item, which will also select its group if
 	// there is one.
-	item->OwnPage->SelectItemNr(item->ItemNr);
+	ScCore->primaryMainWindow()->view->SelectItemNr(item->ItemNr);
 	// Move the item, or items
-	if (item->OwnPage->SelItem.count() > 1)
+	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
 	{
 		double x2, y2, w, h;
-		item->OwnPage->getGroupRect(&x2, &y2, &w, &h);
-		item->OwnPage->moveGroup(ValueToPoint(x) - x2, ValueToPoint(y) - y2);
+		ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
+		ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 	}
 	else
-		item->OwnPage->MoveItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item);
+		ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - item->xPos(), pageUnitYToDocY(y) - item->yPos(), item);
 	// Now restore the selection. We just have to go through and select
 	// each and every item, unfortunately.
-	item->OwnPage->Deselect();
-	for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
-		item->OwnPage->SelectItemNr(oldSelection.current()->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+	//ScCore->primaryMainWindow()->doc->selection->restoreFromTempList(0, tempList);
+	*ScCore->primaryMainWindow()->doc->m_Selection=tempSelection;
+	//ScCore->primaryMainWindow()->view->Deselect();
+	//for ( oldSelection.first(); oldSelection.current(); oldSelection.next() )
+//		ScCore->primaryMainWindow()->view->SelectItemNr(oldSelection.current()->ItemNr);
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_rotobjrel(PyObject */*self*/, PyObject* args)
+PyObject *scribus_rotobjrel(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x;
@@ -133,12 +146,13 @@ PyObject *scribus_rotobjrel(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	item->OwnPage->RotateItem(item->Rot - x, item->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+	ScCore->primaryMainWindow()->doc->RotateItem(item->rotation() - x, item->ItemNr);
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_rotobjabs(PyObject */*self*/, PyObject* args)
+PyObject *scribus_rotobjabs(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x;
@@ -149,12 +163,13 @@ PyObject *scribus_rotobjabs(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	item->OwnPage->RotateItem(x * -1.0, item->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+	ScCore->primaryMainWindow()->doc->RotateItem(x * -1.0, item->ItemNr);
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_sizeobjabs(PyObject */*self*/, PyObject* args)
+PyObject *scribus_sizeobjabs(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double x, y;
@@ -165,12 +180,13 @@ PyObject *scribus_sizeobjabs(PyObject */*self*/, PyObject* args)
 	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
 	if (item == NULL)
 		return NULL;
-	item->OwnPage->SizeItem(ValueToPoint(x) - item->Xpos, ValueToPoint(y) - item->Ypos, item->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+	ScCore->primaryMainWindow()->doc->SizeItem(ValueToPoint(x), ValueToPoint(y), item->ItemNr);
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
+PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	PyObject *il = 0;
@@ -178,16 +194,19 @@ PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	Page *p = Carrier->doc->ActPage;
-	uint ap = Carrier->doc->ActPage->PageNr;
+	uint ap = ScCore->primaryMainWindow()->doc->currentPage()->pageNr();
+	// If we were passed a list of items to group...
 	if (il != 0)
 	{
 		int len = PyList_Size(il);
-		if (len == 0)
+		if (len < 2)
 		{
-			Py_INCREF(Py_None);
-			return Py_None;
+			// We can't very well group only one item
+			PyErr_SetString(NoValidObjectError, QObject::tr("Cannot group less than two items", "python error"));
+			return NULL;
 		}
+		QStringList oldSelection = getSelectedItemsByName();
+		ScCore->primaryMainWindow()->view->Deselect();
 		for (int i = 0; i < len; i++)
 		{
 			// FIXME: We might need to explicitly get this string as utf8
@@ -197,22 +216,34 @@ PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args)
 			PageItem *ic = GetUniqueItem(QString::fromUtf8(Name));
 			if (ic == NULL)
 				return NULL;
-			ic->OwnPage->SelectItemNr(ic->ItemNr);
-			p = ic->OwnPage;
+			ScCore->primaryMainWindow()->view->SelectItemNr(ic->ItemNr);
 		}
+		ScCore->primaryMainWindow()->GroupObj();
+		setSelectedItemsByName(oldSelection);
 	}
-	if (p->SelItem.count() != 0)
+	// or if no argument list was given but there is a selection...
+	else if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
 	{
-		Carrier->view->GotoPage(p->PageNr);
-		Carrier->GroupObj();
-		p->Deselect();
-		Carrier->view->GotoPage(ap);
+		if (ScCore->primaryMainWindow()->doc->m_Selection->count() < 2)
+		{
+			// We can't very well group only one item
+			PyErr_SetString(NoValidObjectError, QObject::tr("Can't group less than two items", "python error"));
+			return NULL;
+		}
+		ScCore->primaryMainWindow()->GroupObj();
+		ScCore->primaryMainWindow()->view->GotoPage(ap);
 	}
-	Py_INCREF(Py_None);
-	return Py_None;
+	else
+	{
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Need selection or argument list of items to group", "python error"));
+		return NULL;
+	}
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_ungroupobj(PyObject */*self*/, PyObject* args)
+PyObject *scribus_ungroupobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
@@ -222,15 +253,13 @@ PyObject *scribus_ungroupobj(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	uint p = Carrier->doc->ActPage->PageNr;
-	Carrier->view->GotoPage(i->OwnPage->PageNr);
-	Carrier->UnGroupObj();
-	Carrier->view->GotoPage(p);
-	Py_INCREF(Py_None);
-	return Py_None;
+	ScCore->primaryMainWindow()->UnGroupObj();
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_scalegroup(PyObject */*self*/, PyObject* args)
+PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	double sc;
@@ -246,38 +275,39 @@ PyObject *scribus_scalegroup(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	i->OwnPage->Deselect();
-	i->OwnPage->SelectItemNr(i->ItemNr);
-	int h = i->OwnPage->HowTo;
-	i->OwnPage->HowTo = 1;
-	i->OwnPage->scaleGroup(sc, sc);
-	i->OwnPage->HowTo = h;
-	Py_INCREF(Py_None);
-	return Py_None;
+	ScCore->primaryMainWindow()->view->Deselect();
+	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
+	int h = ScCore->primaryMainWindow()->view->frameResizeHandle;
+	ScCore->primaryMainWindow()->view->frameResizeHandle = 1;
+	ScCore->primaryMainWindow()->view->scaleGroup(sc, sc);
+	ScCore->primaryMainWindow()->view->frameResizeHandle = h;
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_getselobjnam(PyObject */*self*/, PyObject* args)
+PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 {
 	int i = 0;
 	if (!PyArg_ParseTuple(args, "|i", &i))
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if ((i < static_cast<int>(Carrier->doc->ActPage->SelItem.count())) && (i > -1))
-		return PyString_FromString(Carrier->doc->ActPage->SelItem.at(i)->AnName);
+	if ((i < static_cast<int>(ScCore->primaryMainWindow()->doc->m_Selection->count())) && (i > -1))
+		return PyString_FromString(ScCore->primaryMainWindow()->doc->m_Selection->itemAt(i)->itemName().utf8());
 	else
 		// FIXME: Should probably return None if no selection?
 		return PyString_FromString("");
 }
 
-PyObject *scribus_selcount(PyObject */*self*/)
+PyObject *scribus_selcount(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyInt_FromLong(static_cast<long>(Carrier->doc->ActPage->SelItem.count()));
+	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->m_Selection->count()));
 }
 
-PyObject *scribus_selectobj(PyObject */*self*/, PyObject* args)
+PyObject *scribus_selectobj(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
@@ -287,22 +317,23 @@ PyObject *scribus_selectobj(PyObject */*self*/, PyObject* args)
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
 	if (i == NULL)
 		return NULL;
-	i->OwnPage->SelectItemNr(i->ItemNr);
-	Py_INCREF(Py_None);
-	return Py_None;
+	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_deselect(PyObject */*self*/)
+PyObject *scribus_deselect(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	for (uint i = 0; i < Carrier->view->Pages.count(); i++)
-		Carrier->view->Pages.at(i)->Deselect();
-	Py_INCREF(Py_None);
-	return Py_None;
+	ScCore->primaryMainWindow()->view->Deselect();
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
 }
 
-PyObject *scribus_lockobject(PyObject */*self*/, PyObject* args)
+PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
 {
 	char *name = const_cast<char*>("");
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
@@ -311,31 +342,31 @@ PyObject *scribus_lockobject(PyObject */*self*/, PyObject* args)
 		return NULL;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
+		return NULL;
+	item->toggleLock();
+	if (item->locked())
+		return PyInt_FromLong(1);
+	return PyInt_FromLong(0);
+}
+
+PyObject *scribus_islocked(PyObject* /* self */, PyObject* args)
+{
+	char *name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
 		return NULL;
 	// FIXME: Rather than toggling the lock, we should probably let the user set the lock state
 	// and instead provide a different function like toggleLock()
-	item->Locked = !item->Locked;
-	if (item->Locked)
-		return PyBool_FromLong(1);
-	return PyBool_FromLong(0);
-}
-
-PyObject *scribus_islocked(PyObject */*self*/, PyObject* args)
-{
-	char *name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name))
-		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if (item->Locked)
+	if (item->locked())
 		return PyBool_FromLong(1);
 	return PyBool_FromLong(0);
 }
 
-PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObject* kw)
+PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyObject* kw)
 {
 	char *name = const_cast<char*>("");
 	long int scaleToFrame = 0;
@@ -348,7 +379,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObj
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
 	if (item == NULL)
 		return NULL;
-	if (item->PType != FRAME_IMAGE)
+	if (! item->asImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error"));
 		return NULL;
@@ -361,9 +392,23 @@ PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObj
 	if (proportional != -1)
 		item->AspectRatio = proportional > 0;
 	// Force the braindead app to notice the changes
-	item->OwnPage->AdjustPictScale(item);
-	item->OwnPage->AdjustPreview(item, false);
-	item->OwnPage->RefreshItem(item);
-	Py_INCREF(Py_None);
-	return Py_None;
+	
+	//FIXME emit or something so we dont need this
+	ScCore->primaryMainWindow()->propertiesPalette->setLvalue(item->imageXScale(), item->imageYScale(), item->imageXOffset(), item->imageYOffset());
+	item->AdjustPictScale();
+	//ScCore->primaryMainWindow()->view->AdjustPictScale(item);
+	
+	ScCore->primaryMainWindow()->view->RefreshItem(item);
+//	Py_INCREF(Py_None);
+//	return Py_None;
+	Py_RETURN_NONE;
+}
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmdmanidocwarnings()
+{
+    QStringList s;
+    s << scribus_moveobjrel__doc__ << scribus_moveobjabs__doc__ << scribus_rotobjrel__doc__ << scribus_rotobjabs__doc__ << scribus_sizeobjabs__doc__ << scribus_getselobjnam__doc__ << scribus_selcount__doc__ << scribus_selectobj__doc__ <<scribus_deselect__doc__ <<scribus_groupobj__doc__ <<scribus_ungroupobj__doc__ <<scribus_scalegroup__doc__ <<scribus_loadimage__doc__ <<scribus_scaleimage__doc__ <<scribus_lockobject__doc__ <<scribus_islocked__doc__ <<scribus_setscaleimagetoframe__doc__;
 }

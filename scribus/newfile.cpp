@@ -1,494 +1,563 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "newfile.h"
-#include "newfile.moc"
-#include <qtooltip.h>
+//#include "newfile.moc"
 
-// definitions for clear reading the code - pv
-#define PORTRAIT    0
-#define LANDSCAPE   1
-#define USERFORMAT 30
+#include <qdir.h>
+#include <qtooltip.h>
+#include <qobject.h>
+#include <qpoint.h>
+#include <q3iconview.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QLabel>
+#include <Q3GridLayout>
+#include <QPixmap>
+#include <Q3Frame>
+#include <Q3VBoxLayout>
+
+#include "fileloader.h"
+#include "prefsfile.h"
+#include "units.h"
+#include "pagesize.h"
+#include "marginWidget.h"
+#include "scconfig.h"
+#include "scribuscore.h"
+#include "prefsmanager.h"
+#include "pagelayout.h"
+#include "pagestructs.h"
+#include "commonstrings.h"
+#include "scrspinbox.h"
+#include "customfdialog.h"
+#include "sccombobox.h"
+
 
 extern QPixmap loadIcon(QString nam);
 
-NewDoc::NewDoc( QWidget* parent, preV *Vor )
-		: QDialog( parent, "newDoc", true, 0 )
-{
-	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
-	int decimals;
-	// pv - removed switch hell
-	double umr[] = {1.0, 0.3527777, (1.0 / 72.0), (1.0 / 12.0)};
-	int dec[] = {2, 3, 4, 2};
 
-	einheit = Vor->Einheit;
-	ein = units[einheit];
-	Umrech = umr[einheit];
-	decimals = dec[einheit];
+NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
+{
+	prefsManager=PrefsManager::instance();
+	tabSelected = 0;
+	onStartup = startUp;
+	unitIndex = prefsManager->appPrefs.docUnitIndex;
+	unitRatio = unitGetRatioFromIndex(unitIndex);
+	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	Orient = 0;
 	setCaption( tr( "New Document" ) );
 	setIcon(loadIcon("AppIcon.png"));
-	NewDocLayout = new QHBoxLayout( this, 10, 5, "NewDocLayout");
-	Layout9 = new QVBoxLayout(0, 0, 5, "Layout9");
+	TabbedNewDocLayout = new Q3VBoxLayout( this, 10, 5, "Form1Layout");
+	if (startUp)
+		tabWidget = new QTabWidget( this, "tabWidget2" );
+	createNewDocPage();
+	if (startUp)
+	{
+		tabWidget->addTab(newDocFrame, tr("&New Document"));
+		createOpenDocPage();
+		tabWidget->addTab(openDocFrame, tr("Open &Existing Document"));
+		recentDocList=recentDocs;
+ 		createRecentDocPage();
+ 		tabWidget->addTab(recentDocFrame, tr("Open Recent &Document"));
+ 		TabbedNewDocLayout->addWidget(tabWidget);
+	}
+	else
+		TabbedNewDocLayout->addWidget(newDocFrame);
 
-	ButtonGroup1_2 = new QButtonGroup(this, "ButtonGroup1_2" );
-	ButtonGroup1_2->setTitle( tr( "Page Size" ));
-	ButtonGroup1_2->setColumnLayout(0, Qt::Vertical);
-	ButtonGroup1_2->layout()->setSpacing(6);
-	ButtonGroup1_2->layout()->setMargin(10);
-	ButtonGroup1_2Layout = new QVBoxLayout(ButtonGroup1_2->layout());
-	ButtonGroup1_2Layout->setAlignment(Qt::AlignTop);
-	Layout6 = new QGridLayout(0, 1, 1, 0, 6, "Layout6");
-	TextLabel1 = new QLabel( tr( "&Size:" ), ButtonGroup1_2, "TextLabel1" );
-	Layout6->addWidget( TextLabel1, 0, 0 );
-	ComboBox1 = new QComboBox( true, ButtonGroup1_2, "ComboBox1" );
-	QString sizelist[] = {"A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "B0", "B1", "B2", "B3", "B4",
-	                      "B5", "B6", "B7", "B8", "B9", "B10", "C5E", "Comm10E", "DLE", tr("Executive"), tr("Folio"),
-	                      tr("Ledger"), tr("Legal"), tr("Letter"), tr("Tabloid"), tr("Custom")};
-	size_t const num_mappings = (sizeof sizelist)/(sizeof *sizelist);
-	for (uint m = 0; m < num_mappings; ++m)
-		ComboBox1->insertItem(sizelist[m]);
-	ComboBox1->setEditable(false);
-	TextLabel1->setBuddy(ComboBox1);
-	Layout6->addWidget(ComboBox1, 0, 1 );
-	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), ButtonGroup1_2, "TextLabel2" );
-	Layout6->addWidget( TextLabel2, 1, 0 );
-	ComboBox2 = new QComboBox( true, ButtonGroup1_2, "ComboBox2" );
-	ComboBox2->insertItem( tr( "Portrait" ) );
-	ComboBox2->insertItem( tr( "Landscape" ) );
-	ComboBox2->setEditable(false);
-	ComboBox2->setCurrentItem(Vor->Ausrichtung);
-	TextLabel2->setBuddy(ComboBox2);
-	Layout6->addWidget( ComboBox2, 1, 1 );
-	ButtonGroup1_2Layout->addLayout( Layout6 );
-
-	Layout5 = new QHBoxLayout( 0, 0, 6, "Layout5");
-	TextLabel1_2 = new QLabel( tr( "&Width:" ), ButtonGroup1_2, "TextLabel1_2" );
-	Layout5->addWidget( TextLabel1_2 );
-	Breite = new MSpinBox( 1, 10000, ButtonGroup1_2, decimals );
-	Breite->setEnabled( false );
-	Breite->setMinimumSize( QSize( 70, 20 ) );
-	Breite->setSuffix(ein);
-	TextLabel1_2->setBuddy(Breite);
-	Layout5->addWidget( Breite );
-	TextLabel2_2 = new QLabel( tr( "&Height:" ), ButtonGroup1_2, "TextLabel2_2" );
-	Layout5->addWidget( TextLabel2_2 );
-	Hoehe = new MSpinBox( 1, 10000, ButtonGroup1_2, decimals );
-	Hoehe->setEnabled( false );
-	Hoehe->setMinimumSize( QSize( 70, 20 ) );
-	Hoehe->setSuffix(ein);
-	TextLabel2_2->setBuddy(Hoehe);
-	Layout5->addWidget( Hoehe );
-	ButtonGroup1_2Layout->addLayout( Layout5 );
-	Layout8 = new QHBoxLayout( 0, 0, 6, "Layout8");
-	Doppelseiten = new QCheckBox( tr( "&Facing Pages" ), ButtonGroup1_2, "Doppelseiten" );
-	Doppelseiten->setChecked(Vor->DoppelSeiten);
-	Layout8->addWidget( Doppelseiten );
-	ErsteSeite = new QCheckBox( tr( "Left &Page First" ), ButtonGroup1_2, "CheckBox3" );
-	ErsteSeite->setChecked(Vor->ErsteLinks);
-	Layout8->addWidget( ErsteSeite );
-	ButtonGroup1_2Layout->addLayout( Layout8 );
-	Layout9->addWidget( ButtonGroup1_2 );
-
-	GroupBox7 = new QGroupBox( this, "GroupBox7" );
-	GroupBox7->setTitle( tr( "Margin Guides" ) );
-	GroupBox7->setColumnLayout(0, Qt::Vertical );
-	GroupBox7->layout()->setSpacing( 0 );
-	GroupBox7->layout()->setMargin( 0 );
-	GroupBox7Layout = new QHBoxLayout( GroupBox7->layout() );
-	GroupBox7Layout->setAlignment( Qt::AlignTop );
-	GroupBox7Layout->setSpacing( 5 );
-	GroupBox7Layout->setMargin( 10 );
-	Layout3 = new QGridLayout;
-	Layout3->setSpacing( 6 );
-	Layout3->setMargin( 5 );
-	TextLabel6 = new QLabel( tr( "&Left:" ), GroupBox7, "TextLabel6" );
-	Layout3->addWidget( TextLabel6, 0, 2 );
-	TextLabel8 = new QLabel( tr( "&Right:" ), GroupBox7, "TextLabel8" );
-	Layout3->addWidget( TextLabel8, 1, 2 );
-	TextLabel5 = new QLabel( tr( "&Top:" ), GroupBox7, "TextLabel5" );
-	Layout3->addWidget( TextLabel5, 0, 0 );
-	TextLabel7 = new QLabel( tr( "&Bottom:" ), GroupBox7, "TextLabel7" );
-	Layout3->addWidget( TextLabel7, 1, 0 );
-	TopR = new MSpinBox( 0, 1000, GroupBox7, decimals );
-	TopR->setMinimumSize( QSize( 70, 20 ) );
-	TopR->setSuffix( ein );
-	TopR->setValue(Vor->RandOben * Umrech);
-	Top = Vor->RandOben;
-	TextLabel5->setBuddy(TopR);
-	Layout3->addWidget( TopR, 0, 1 );
-	BottomR = new MSpinBox( 0, 1000, GroupBox7, decimals );
-	BottomR->setMinimumSize( QSize( 70, 20 ) );
-	BottomR->setSuffix( ein );
-	BottomR->setValue(Vor->RandUnten * Umrech);
-	Bottom = Vor->RandUnten;
-	TextLabel7->setBuddy(BottomR);
-	Layout3->addWidget( BottomR, 1, 1 );
-	LeftR = new MSpinBox( 0, 1000, GroupBox7, decimals );
-	LeftR->setMinimumSize( QSize( 70, 20 ) );
-	LeftR->setSuffix( ein );
-	LeftR->setValue(Vor->RandLinks * Umrech);
-	Left = Vor->RandLinks;
-	TextLabel6->setBuddy(LeftR);
-	Layout3->addWidget( LeftR, 0, 3 );
-	RightR = new MSpinBox( 0, 1000, GroupBox7, decimals );
-	RightR->setMinimumSize( QSize( 70, 20 ) );
-	RightR->setSuffix( ein );
-	RightR->setValue(Vor->RandRechts * Umrech);
-	Right = Vor->RandRechts;
-	TextLabel8->setBuddy(RightR);
-	Layout3->addWidget( RightR, 1, 3 );
-	GroupBox7Layout->addLayout( Layout3 );
-	Layout9->addWidget( GroupBox7 );
-	NewDocLayout->addLayout( Layout9 );
-	Breite->setValue(Vor->PageBreite * Umrech);
-	Hoehe->setValue(Vor->PageHoehe * Umrech);
-	ComboBox1->setCurrentItem(Vor->PageFormat);
-	setDS();
-	setSize(Vor->PageFormat);
-	setOrien(Vor->Ausrichtung);
-	Breite->setValue(Vor->PageBreite * Umrech);
-	Hoehe->setValue(Vor->PageHoehe * Umrech);
-
-	Layout10 = new QVBoxLayout( 0, 0, 6, "Layout10");
-
-	GroupBox3 = new QGroupBox( this, "GroupBox3" );
-	GroupBox3->setTitle( tr( "Options" ) );
-	GroupBox3->setColumnLayout(0, Qt::Vertical );
-	GroupBox3->layout()->setSpacing( 5 );
-	GroupBox3->layout()->setMargin( 10 );
-	GroupBox3Layout = new QGridLayout( GroupBox3->layout() );
-	GroupBox3Layout->setAlignment( Qt::AlignTop );
-	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), GroupBox3, "TextLabel1_3" );
-	GroupBox3Layout->addMultiCellWidget( TextLabel1_3, 0, 0, 0, 1 );
-	PgNr = new QSpinBox( GroupBox3, "PgNr" );
-	PgNr->setMaxValue( 100000 );
-	PgNr->setMinValue( 1 );
-	TextLabel1_3->setBuddy(PgNr);
-	GroupBox3Layout->addWidget( PgNr, 0, 2, Qt::AlignRight );
-	TextLabel2_3 = new QLabel( tr( "&Default Unit:" ), GroupBox3, "TextLabel2_3" );
-	GroupBox3Layout->addWidget( TextLabel2_3, 1, 0 );
-	ComboBox3 = new QComboBox( true, GroupBox3, "ComboBox3" );
-	ComboBox3->insertItem( tr( "Points (pts)" ) );
-	ComboBox3->insertItem( tr( "Millimetres (mm)" ) );
-	ComboBox3->insertItem( tr( "Inches (in)" ) );
-	ComboBox3->insertItem( tr( "Picas (p)" ) );
-	ComboBox3->setCurrentItem(einheit);
-	ComboBox3->setEditable(false);
-	TextLabel2_3->setBuddy(ComboBox3);
-	GroupBox3Layout->addMultiCellWidget( ComboBox3, 1, 1, 1, 2 );
-	Layout10->addWidget( GroupBox3 );
-
-	AutoFrame = new QCheckBox( tr( "&Automatic Text Frames" ), this, "AutoFrame" );
-	Layout10->addWidget( AutoFrame );
-
-	GroupBox4 = new QGroupBox( this, "GroupBox4" );
-	GroupBox4->setTitle( tr( "Column Guides" ) );
-	GroupBox4->setColumnLayout(0, Qt::Vertical );
-	GroupBox4->layout()->setSpacing( 0 );
-	GroupBox4->layout()->setMargin( 0 );
-	GroupBox4Layout = new QHBoxLayout( GroupBox4->layout() );
-	GroupBox4Layout->setAlignment( Qt::AlignTop );
-	GroupBox4Layout->setSpacing( 5 );
-	GroupBox4Layout->setMargin( 10 );
-	Layout2 = new QGridLayout;
-	Layout2->setSpacing( 6 );
-	Layout2->setMargin( 5 );
-	TextLabel4 = new QLabel( tr( "&Gap:" ), GroupBox4, "TextLabel4" );
-	Layout2->addWidget( TextLabel4, 1, 0 );
-	TextLabel3 = new QLabel( tr( "Colu&mns:" ), GroupBox4, "TextLabel3" );
-	Layout2->addWidget( TextLabel3, 0, 0 );
-	Distance = new MSpinBox( 0, 1000, GroupBox4, decimals );
-	Distance->setSuffix( ein );
-	Distance->setValue(11 * Umrech);
-	Dist = 11;
-	TextLabel4->setBuddy(Distance);
-	Layout2->addWidget( Distance, 1, 1, Qt::AlignLeft );
-	SpinBox10 = new QSpinBox( GroupBox4, "SpinBox10" );
-	SpinBox10->setButtonSymbols( QSpinBox::UpDownArrows );
-	SpinBox10->setMinValue( 1 );
-	SpinBox10->setValue( 1 );
-	TextLabel3->setBuddy(SpinBox10);
-	Layout2->addWidget( SpinBox10, 0, 1, Qt::AlignLeft );
-	GroupBox4Layout->addLayout( Layout2 );
-	Layout10->addWidget( GroupBox4 );
-	GroupBox4->setEnabled(false);
-
-	Layout1 = new QHBoxLayout;
+	Layout1 = new Q3HBoxLayout;
 	Layout1->setSpacing( 6 );
 	Layout1->setMargin( 0 );
-	OKButton = new QPushButton( tr( "&OK" ), this, "OKButton" );
-	OKButton->setDefault( true );
-	Layout1->addWidget( OKButton );
+	if (startUp)
+	{
+		startUpDialog = new QCheckBox( tr( "Do not show this dialog again" ), this, "startUpDialog" );
+		startUpDialog->setChecked(!prefsManager->appPrefs.showStartupDialog);
+		Layout1->addWidget( startUpDialog );
+	}
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
-	CancelB = new QPushButton( tr( "&Cancel" ), this, "CancelB" );
+	OKButton = new QPushButton( CommonStrings::tr_OK, this, "OKButton" );
+	OKButton->setDefault( true );
+	Layout1->addWidget( OKButton );
+	CancelB = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
 	CancelB->setAutoDefault( false );
 	Layout1->addWidget( CancelB );
-	Layout10->addLayout( Layout1 );
-	NewDocLayout->addLayout( Layout10 );
-
-	setMinimumSize(sizeHint());
-	//tab order
-	QWidget::setTabOrder ( AutoFrame, SpinBox10 );
-	QWidget::setTabOrder ( SpinBox10, Distance );
+	TabbedNewDocLayout->addLayout( Layout1 );
 	//tooltips
-	QToolTip::add( ComboBox1, tr( "Document page size, either a standard size or a custom size" ) );
-	QToolTip::add( ComboBox2, tr( "Orientation of the document's pages" ) );
-	QToolTip::add( Breite, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( Hoehe, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
-	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
-	QToolTip::add( TopR, tr( "Distance between the top margin guide and the edge of the page" ) );
-	QToolTip::add( BottomR, tr( "Distance between the bottom margin guide and the edge of the page" ) );
-	QToolTip::add( LeftR, tr( "Distance between the left margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
-	QToolTip::add( RightR, tr( "Distance between the right margin guide and the edge of the page.\nIf Facing Pages is selected, this margin space can be used to achieve the correct margins for binding" ) );
-	QToolTip::add( PgNr, tr( "First page number of the document" ) );
-	QToolTip::add( ComboBox3, tr( "Default unit of measurement for document editing" ) );
-	QToolTip::add( AutoFrame, tr( "Create text frames automatically when new pages are added" ) );
-	QToolTip::add( SpinBox10, tr( "Number of columns to create in automatically created text frames" ) );
+	QToolTip::add( pageSizeComboBox, tr( "Document page size, either a standard size or a custom size" ) );
+	QToolTip::add( pageOrientationComboBox, tr( "Orientation of the document's pages" ) );
+	QToolTip::add( widthSpinBox, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( heightSpinBox, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
+	QToolTip::add( pageCountSpinBox, tr( "Initial number of pages of the document" ) );
+	QToolTip::add( unitOfMeasureComboBox, tr( "Default unit of measurement for document editing" ) );
+	QToolTip::add( autoTextFrame, tr( "Create text frames automatically when new pages are added" ) );
+	QToolTip::add( numberOfCols, tr( "Number of columns to create in automatically created text frames" ) );
 	QToolTip::add( Distance, tr( "Distance between automatically created columns" ) );
 
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( Doppelseiten, SIGNAL( clicked() ), this, SLOT( setDS() ) );
-	connect( AutoFrame, SIGNAL( clicked() ), this, SLOT( setAT() ) );
-	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(setPGsize()));
-	connect(ComboBox2, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(ComboBox3, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
-	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
-	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
+	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
+	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
+	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
+	connect(Distance, SIGNAL(valueChanged(double)), this, SLOT(setDist(double)));
+	connect(autoTextFrame, SIGNAL(clicked()), this, SLOT(handleAutoFrame()));
+	connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
+	if (startUp)
+		connect(recentDocListBox, SIGNAL(selected(int)), this, SLOT(recentDocListBox_doubleClicked(int)));
+
+	setMinimumSize(minimumSizeHint());
+ 	setMaximumSize(minimumSizeHint());
+	resize(minimumSizeHint());
 }
 
-void NewDoc::code_repeat(int m)
+void NewDoc::createNewDocPage()
 {
-	// #869 pv - auto-flip landscape/portrait based on the height:width ratio
-	if (ComboBox1->currentItem() == USERFORMAT)
+	newDocFrame = new Q3Frame(this, "newDocFrame");
+
+	pageSizeGroupBox = new Q3GroupBox(newDocFrame, "pageSizeGroupBox" );
+	pageSizeGroupBox->setTitle( tr( "Document Layout" ) );
+	pageSizeGroupBox->setColumnLayout(0, Qt::Vertical );
+	pageSizeGroupBox->layout()->setSpacing( 5 );
+	pageSizeGroupBox->layout()->setMargin( 10 );
+	pageSizeGroupBoxLayout = new Q3GridLayout( pageSizeGroupBox->layout() );
+	pageSizeGroupBoxLayout->setAlignment( Qt::AlignTop );
+
+	layoutsView = new Q3IconView( pageSizeGroupBox, "layoutsView" );
+	layoutsView->setHScrollBarMode( Q3IconView::Auto );
+	layoutsView->setVScrollBarMode( Q3IconView::Auto );
+	layoutsView->setArrangement(Q3IconView::LeftToRight);
+	layoutsView->setItemsMovable(false);
+	layoutsView->setSorting( false );
+	layoutsView->setFocusPolicy(Qt::NoFocus);
+	layoutsView->setSelectionMode(Q3IconView::Single);
+	layoutsView->clear();
+	for (int pg = 0; pg < prefsManager->appPrefs.pageSets.count(); ++pg)
 	{
-		if (Breite->value() > Hoehe->value())
-			ComboBox2->setCurrentItem(LANDSCAPE);
+		Q3IconViewItem *ic;
+		QString psname=CommonStrings::translatePageSetString(prefsManager->appPrefs.pageSets[pg].Name);
+		if (pg == 0)
+		{
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
+			ic->setDragEnabled(false);
+		}
+		else if (pg == 1)
+		{
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-doublesided.png") );
+			ic->setDragEnabled(false);
+		}
+		else if (pg == 2)
+		{
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-3fold.png") );
+			ic->setDragEnabled(false);
+		}
+		else if (pg == 3)
+		{
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-4fold.png") );
+			ic->setDragEnabled(false);
+		}
 		else
-			ComboBox2->setCurrentItem(PORTRAIT);
-	} // end of #869
-
-	switch (m)
-	{
-	case 0 :
-	case 3 :
-		RightR->setMaxValue(Breite->value() - LeftR->value());
-		if (m == 3)
-			break;
-	case 4 :
-		LeftR->setMaxValue(Breite->value() - RightR->value());
-		if (m == 4)
-			break;
-	case 2 :
-		TopR->setMaxValue(Hoehe->value() - BottomR->value());
-		if (m == 2)
-			break;
-	case 1 :
-		BottomR->setMaxValue(Hoehe->value() - TopR->value());
-		break;
+		{
+			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
+			ic->setDragEnabled(false);
+		}
 	}
+	pageSizeGroupBoxLayout->addMultiCellWidget( layoutsView, 0, 4, 0, 0 );
+
+
+	TextLabel1 = new QLabel( tr( "&Size:" ), pageSizeGroupBox, "TextLabel1" );
+	pageSizeGroupBoxLayout->addWidget( TextLabel1, 0, 1 );
+	PageSize ps(prefsManager->appPrefs.pageSize);
+	pageSizeComboBox = new QComboBox( true, pageSizeGroupBox, "pageSizeComboBox" );
+	pageSizeComboBox->insertStringList(ps.sizeTRList());
+	pageSizeComboBox->insertItem( CommonStrings::trCustomPageSize );
+	pageSizeComboBox->setEditable(false);
+	TextLabel1->setBuddy(pageSizeComboBox);
+	pageSizeGroupBoxLayout->addWidget(pageSizeComboBox, 0, 2 );
+	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), pageSizeGroupBox, "TextLabel2" );
+	pageSizeGroupBoxLayout->addWidget( TextLabel2, 1, 1 );
+	pageOrientationComboBox = new QComboBox( true, pageSizeGroupBox, "pageOrientationComboBox" );
+	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
+	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
+	pageOrientationComboBox->setEditable(false);
+	pageOrientationComboBox->setCurrentItem(prefsManager->appPrefs.pageOrientation);
+	TextLabel2->setBuddy(pageOrientationComboBox);
+	pageSizeGroupBoxLayout->addWidget( pageOrientationComboBox, 1, 2 );
+
+	TextLabel1_2 = new QLabel( tr( "&Width:" ), pageSizeGroupBox, "TextLabel1_2" );
+	pageSizeGroupBoxLayout->addWidget(TextLabel1_2, 2, 1 );
+	widthSpinBox = new ScrSpinBox( 1, 10000, pageSizeGroupBox, unitIndex );
+	widthSpinBox->setSuffix(unitSuffix);
+	TextLabel1_2->setBuddy(widthSpinBox);
+	pageSizeGroupBoxLayout->addWidget(widthSpinBox, 2, 2 );
+	TextLabel2_2 = new QLabel( tr( "&Height:" ), pageSizeGroupBox, "TextLabel2_2" );
+	pageSizeGroupBoxLayout->addWidget(TextLabel2_2, 3, 1 );
+	heightSpinBox = new ScrSpinBox( 1, 10000, pageSizeGroupBox, unitIndex );
+	heightSpinBox->setSuffix(unitSuffix);
+	TextLabel2_2->setBuddy(heightSpinBox);
+	pageSizeGroupBoxLayout->addWidget(heightSpinBox, 3, 2 );
+	layoutLabel1 = new QLabel( pageSizeGroupBox, "layoutLabel1" );
+	layoutLabel1->setText( tr( "First Page is:" ) );
+	pageSizeGroupBoxLayout->addWidget( layoutLabel1, 4, 1 );
+	firstPage = new ScComboBox( false, pageSizeGroupBox, "firstPage" );
+	firstPage->clear();
+	pageSizeGroupBoxLayout->addWidget( firstPage, 4, 2 );
+	selectItem(prefsManager->appPrefs.FacingPages);
+	firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
+
+	MarginStruct marg(prefsManager->appPrefs.margins);
+	marginGroup = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, unitIndex );
+	marginGroup->setPageWidthHeight(prefsManager->appPrefs.PageWidth, prefsManager->appPrefs.PageHeight);
+	marginGroup->setFacingPages(!(prefsManager->appPrefs.FacingPages == singlePage));
+	widthSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
+	heightSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
+	QStringList pageSizes=ps.sizeList();
+	int sizeIndex=pageSizes.findIndex(ps.nameTR());
+	if (sizeIndex!=-1)
+		pageSizeComboBox->setCurrentItem(sizeIndex);
+	else
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	marginGroup->setPageSize(pageSizeComboBox->currentText());
+	setDS(prefsManager->appPrefs.FacingPages);
+	setSize(prefsManager->appPrefs.pageSize);
+	setOrien(prefsManager->appPrefs.pageOrientation);
+//	widthSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
+//	heightSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
+	marginGroup->setNewBleeds(prefsManager->appPrefs.bleeds);
+
+	optionsGroupBox = new Q3GroupBox( newDocFrame, "optionsGroupBox" );
+	optionsGroupBox->setTitle( tr( "Options" ) );
+	optionsGroupBox->setColumnLayout(0, Qt::Vertical );
+	optionsGroupBox->layout()->setSpacing( 5 );
+	optionsGroupBox->layout()->setMargin( 10 );
+	optionsGroupBoxLayout = new Q3GridLayout( optionsGroupBox->layout() );
+	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
+	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox, "pageCountLabel" );
+
+	pageCountSpinBox = new QSpinBox( optionsGroupBox, "pageCountSpinBox" );
+	pageCountSpinBox->setMaxValue( 10000 );
+	pageCountSpinBox->setMinValue( 1 );
+	pageCountLabel->setBuddy(pageCountSpinBox);
+	unitOfMeasureLabel = new QLabel( tr( "&Default Unit:" ), optionsGroupBox, "unitOfMeasureLabel" );
+	unitOfMeasureComboBox = new QComboBox( true, optionsGroupBox, "unitOfMeasureComboBox" );
+	unitOfMeasureComboBox->insertStringList(unitGetTextUnitList());
+	unitOfMeasureComboBox->setCurrentItem(unitIndex);
+	unitOfMeasureComboBox->setEditable(false);
+	unitOfMeasureLabel->setBuddy(unitOfMeasureComboBox);
+	optionsGroupBoxLayout->addWidget( pageCountLabel, 0, 0 );
+	optionsGroupBoxLayout->addWidget( pageCountSpinBox, 0, 1 );
+	optionsGroupBoxLayout->addWidget( unitOfMeasureLabel, 1, 0 );
+	optionsGroupBoxLayout->addWidget( unitOfMeasureComboBox, 1, 1 );
+
+	autoTextFrame = new QCheckBox( optionsGroupBox, "autoTextFrame" );
+	autoTextFrame->setText( tr( "&Automatic Text Frames" ) );
+	optionsGroupBoxLayout->addMultiCellWidget( autoTextFrame, 2, 2, 0, 1 );
+	TextLabel3 = new QLabel( tr( "Colu&mns:" ), optionsGroupBox, "TextLabel3" );
+	optionsGroupBoxLayout->addWidget( TextLabel3, 3, 0 );
+	numberOfCols = new QSpinBox( optionsGroupBox, "numberOfCols" );
+	numberOfCols->setButtonSymbols( QSpinBox::UpDownArrows );
+	numberOfCols->setMinValue( 1 );
+	numberOfCols->setValue( 1 );
+	TextLabel3->setBuddy(numberOfCols);
+	optionsGroupBoxLayout->addWidget( numberOfCols, 3, 1);
+
+	TextLabel4 = new QLabel( tr( "&Gap:" ), optionsGroupBox, "TextLabel4" );
+	optionsGroupBoxLayout->addWidget( TextLabel4, 4, 0 );
+	Distance = new ScrSpinBox( 0, 1000, optionsGroupBox, unitIndex );
+	Distance->setValue(11 * unitRatio);
+	Dist = 11;
+	optionsGroupBoxLayout->addWidget( Distance, 4, 1);
+	TextLabel4->setBuddy(Distance);
+
+	TextLabel3->setEnabled(false);
+	TextLabel4->setEnabled(false);
+	Distance->setEnabled(false);
+	numberOfCols->setEnabled(false);
+	startDocSetup = new QCheckBox( optionsGroupBox, "startDocSetup" );
+	startDocSetup->setText( tr( "Show Document Settings After Creation" ) );
+	startDocSetup->setChecked(false);
+	optionsGroupBoxLayout->addMultiCellWidget( startDocSetup, 5, 5, 0, 1 );
+
+	NewDocLayout = new Q3GridLayout( newDocFrame, 2, 2, 10, 5, "NewDocLayout");
+	NewDocLayout->addWidget( marginGroup, 1, 0 );
+	NewDocLayout->addWidget( optionsGroupBox, 1, 1 );
+	NewDocLayout->addMultiCellWidget( pageSizeGroupBox, 0, 0, 0, 1);
 }
 
-void NewDoc::setBreite(int)
+void NewDoc::createOpenDocPage()
 {
-	Pagebr = Breite->value() / Umrech;
-	code_repeat(0);
-}
-
-void NewDoc::setHoehe(int)
-{
-	Pageho = Hoehe->value() / Umrech;
-	code_repeat(0);
-}
-
-void NewDoc::setTop(int)
-{
-	Top = TopR->value() / Umrech;
-	code_repeat(1);
-}
-
-void NewDoc::setBottom(int)
-{
-	Bottom = BottomR->value() / Umrech;
-	code_repeat(2);
-}
-
-void NewDoc::setLeft(int)
-{
-	Left = LeftR->value() / Umrech;
-	code_repeat(3);
-}
-
-void NewDoc::setRight(int)
-{
-	Right = RightR->value() / Umrech;
-	code_repeat(4);
-}
-
-void NewDoc::setDist(int)
-{
-	Dist = Distance->value() / Umrech;
-}
-
-void NewDoc::setUnit(int u)
-{
-	QString units[] = { tr(" pt"), tr(" mm"), tr(" in"), tr(" p")};
-	ein = units[u];
-	int decimals;
-	double AltUmrech = Umrech;
-	double val, oldB, oldBM, oldH, oldHM;
-	// pv - removed switch hell
-	double umr[] = {1.0, 0.3527777, (1.0 / 72.0), (1.0 / 12.0)};
-	int dec[] = {100, 1000, 10000, 100};
-
-	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-	disconnect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	disconnect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	disconnect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	disconnect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
-	Breite->getValues(&oldB, &oldBM, &decimals, &val);
-	oldB /= AltUmrech;
-	oldBM /= AltUmrech;
-	Hoehe->getValues(&oldH, &oldHM, &decimals, &val);
-	oldH /= AltUmrech;
-	oldHM /= AltUmrech;
-
-	Umrech = umr[u];
-	decimals = dec[u];
-	einheit = u;
-	if (ComboBox2->currentItem() == PORTRAIT)
+	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
+	QString docDir = ".";
+	QString prefsDocDir=prefsManager->documentDir();
+	if (!prefsDocDir.isEmpty())
+		docDir = docContext->get("docsopen", prefsDocDir);
+	else
+		docDir = docContext->get("docsopen", ".");
+	QString formats(FileLoader::getLoadFilterString());
+	openDocFrame = new Q3Frame(this, "openDocFrame");
+	Q3VBoxLayout* openDocLayout = new Q3VBoxLayout(openDocFrame, 5,5, "openDocLayout");
+	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, fdNone);
+	fileDialog->setSizeGripEnabled(false);
+	fileDialog->setModal(false);
+	QList<QObject*> l = fileDialog->queryList("QPushButton");
+	QListIterator<QObject*> it(l);
+	QObject *obj;
+	while (it.hasNext())
 	{
-		Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pagebr * Umrech);
-		Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pageho * Umrech);
+		obj = it.next();
+		((QPushButton*)obj)->setVisible(false);
+	}
+	fileDialog->setWindowFlags(Qt::Widget);
+	openDocLayout->addWidget(fileDialog);
+	connect(fileDialog, SIGNAL(fileSelected ( const QString & )), this, SLOT(openFile(const QString& )));
+}
+
+void NewDoc::openFile(const QString &)
+{
+	ExitOK();
+}
+
+void NewDoc::createRecentDocPage()
+{
+	recentDocFrame = new Q3Frame(this, "recentDocFrame");
+	recentDocLayout = new Q3VBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
+	recentDocListBox = new Q3ListBox(recentDocFrame, "recentDocListBox");
+	recentDocLayout->addWidget(recentDocListBox);
+	uint max = qMin(prefsManager->appPrefs.RecentDCount, recentDocList.count());
+	for (uint m = 0; m < max; ++m)
+		recentDocListBox->insertItem( QDir::convertSeparators(recentDocList[m]) );
+}
+
+void NewDoc::setWidth(double)
+{
+	pageWidth = widthSpinBox->value() / unitRatio;
+	marginGroup->setPageWidth(pageWidth);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+}
+
+void NewDoc::setHeight(double)
+{
+	pageHeight = heightSpinBox->value() / unitRatio;
+	marginGroup->setPageHeight(pageHeight);
+	QString psText=pageSizeComboBox->currentText();
+	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
+		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+}
+
+void NewDoc::selectItem(uint nr)
+{
+	Q3IconViewItem* ic=0;
+	uint cce;
+	disconnect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
+	ic = layoutsView->firstItem();
+	cce = layoutsView->count();
+	for (uint cc = 0; cc < cce; ++cc)
+	{
+		if (cc == nr)
+		{
+			if (cc > 0)
+			{
+				firstPage->setEnabled(true);
+				firstPage->clear();
+				QStringList::Iterator pNames;
+				for(pNames = prefsManager->appPrefs.pageSets[cc].pageNames.begin(); pNames != prefsManager->appPrefs.pageSets[cc].pageNames.end(); ++pNames )
+				{
+					firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
+				}
+			}
+			else
+			{
+				firstPage->clear();
+				firstPage->insertItem(" ");
+				firstPage->setEnabled(false);
+			}
+			layoutsView->setSelected(ic, true);
+			break;
+		}
+		ic = ic->nextItem();
+	}
+	connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
+}
+
+void NewDoc::itemSelected(Q3IconViewItem* ic)
+{
+	if (ic == 0)
+		return;
+	selectItem(layoutsView->index(ic));
+	setDS(layoutsView->index(ic));
+}
+
+void NewDoc::handleAutoFrame()
+{
+	if (autoTextFrame->isChecked())
+	{
+		TextLabel3->setEnabled(true);
+		TextLabel4->setEnabled(true);
+		Distance->setEnabled(true);
+		numberOfCols->setEnabled(true);
 	}
 	else
 	{
-		Breite->setValues(oldB * Umrech, oldBM * Umrech, decimals, Pageho * Umrech);
-		Hoehe->setValues(oldH * Umrech, oldHM * Umrech, decimals, Pagebr * Umrech);
+		TextLabel3->setEnabled(false);
+		TextLabel4->setEnabled(false);
+		Distance->setEnabled(false);
+		numberOfCols->setEnabled(false);
 	}
-	RightR->setValues(0, Breite->value() - Left * Umrech, decimals, Right * Umrech);
-	LeftR->setValues(0, Breite->value() - Right * Umrech, decimals, Left * Umrech);
-	TopR->setValues(0, Hoehe->value() - Bottom * Umrech, decimals, Top * Umrech);
-	BottomR->setValues(0, Hoehe->value() - Top * Umrech, decimals, Bottom * Umrech);
-	Distance->setValue(Dist * Umrech);
-	TopR->setSuffix(ein);
-	BottomR->setSuffix(ein);
-	LeftR->setSuffix(ein);
-	RightR->setSuffix(ein);
-	Breite->setSuffix(ein);
-	Hoehe->setSuffix(ein);
-	Distance->setSuffix( ein );
-	connect(TopR, SIGNAL(valueChanged(int)), this, SLOT(setTop(int)));
-	connect(BottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom(int)));
-	connect(LeftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft(int)));
-	connect(RightR, SIGNAL(valueChanged(int)), this, SLOT(setRight(int)));
-	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+}
+
+void NewDoc::setDist(double)
+{
+	Dist = Distance->value() / unitRatio;
+}
+
+void NewDoc::setUnit(int newUnitIndex)
+{
+	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
+	widthSpinBox->setNewUnit(newUnitIndex);
+	heightSpinBox->setNewUnit(newUnitIndex);
+	Distance->setNewUnit(newUnitIndex);
+	unitRatio = unitGetRatioFromIndex(newUnitIndex);
+	unitIndex = newUnitIndex;
+/*	
+double oldUnitRatio = unitRatio;
+	double val, oldB, oldBM, oldH, oldHM;
+	int decimals;
+	widthSpinBox->getValues(&oldB, &oldBM, &decimals, &val);
+	oldB /= oldUnitRatio;
+	oldBM /= oldUnitRatio;
+	heightSpinBox->getValues(&oldH, &oldHM, &decimals, &val);
+	oldH /= oldUnitRatio;
+	oldHM /= oldUnitRatio;
+
+	unitIndex = newUnitIndex;
+	unitRatio = unitGetRatioFromIndex(newUnitIndex);
+	decimals = unitGetDecimalsFromIndex(newUnitIndex);
+	if (pageOrientationComboBox->currentItem() == portraitPage)
+	{
+		widthSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageWidth * unitRatio);
+		heightSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageHeight * unitRatio);
+	}
+	else
+	{
+		widthSpinBox->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageHeight * unitRatio);
+		heightSpinBox->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageWidth * unitRatio);
+	}
+	Distance->setValue(Dist * unitRatio);
+	unitSuffix = unitGetSuffixFromIndex(newUnitIndex);
+	widthSpinBox->setSuffix(unitSuffix);
+	heightSpinBox->setSuffix(unitSuffix);
+	Distance->setSuffix( unitSuffix );
+*/
+	marginGroup->setNewUnit(unitIndex);
+	marginGroup->setPageHeight(pageHeight);
+	marginGroup->setPageWidth(pageWidth);
+	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 
 }
 
 void NewDoc::ExitOK()
 {
-		Pagebr = Breite->value() / Umrech;
-		Pageho = Hoehe->value() / Umrech;
-		accept();
+	pageWidth = widthSpinBox->value() / unitRatio;
+	pageHeight = heightSpinBox->value() / unitRatio;
+	bleedBottom = marginGroup->bottomBleed();
+	bleedTop = marginGroup->topBleed();
+	bleedLeft = marginGroup->leftBleed();
+	bleedRight = marginGroup->rightBleed();
+	if (onStartup)
+		tabSelected = tabWidget->currentPageIndex();
+	else
+		tabSelected = 0;
+	accept();
 }
 
 void NewDoc::setOrien(int ori)
 {
 	double br;
-	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 	if (ori != Orient)
 	{
-		br = Breite->value();
-		Breite->setValue(Hoehe->value());
-		Hoehe->setValue(br);
+		br = widthSpinBox->value();
+		widthSpinBox->setValue(heightSpinBox->value());
+		heightSpinBox->setValue(br);
 	}
 	// #869 pv - defined constants added + code repeat (check w/h)
-	(ori == PORTRAIT) ? Orient = PORTRAIT : Orient = LANDSCAPE;
-	code_repeat(666); // just check w/h
+	(ori == portraitPage) ? Orient = portraitPage : Orient = landscapePage;
+	if (pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
+	{
+		if (widthSpinBox->value() > heightSpinBox->value())
+			pageOrientationComboBox->setCurrentItem(landscapePage);
+		else
+			pageOrientationComboBox->setCurrentItem(portraitPage);
+	}
 	// end of #869
-	RightR->setMaxValue(Breite->value() - LeftR->value());
-	LeftR->setMaxValue(Breite->value() - RightR->value());
-	TopR->setMaxValue(Hoehe->value() - BottomR->value());
-	BottomR->setMaxValue(Hoehe->value() - TopR->value());
-	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	marginGroup->setPageHeight(pageHeight);
+	marginGroup->setPageWidth(pageWidth);
+	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 }
 
-void NewDoc::setPGsize()
+void NewDoc::setPGsize(const QString &size)
 {
-	if (ComboBox1->currentItem() == USERFORMAT)
-		setSize(ComboBox1->currentItem());
+	if (size == CommonStrings::trCustomPageSize)
+		setSize(size);
 	else
 	{
-		setSize(ComboBox1->currentItem());
-		setOrien(ComboBox2->currentItem());
+		setSize(size);
+		setOrien(pageOrientationComboBox->currentItem());
 	}
+	marginGroup->setPageSize(size);
 }
 
-void NewDoc::setSize(int gr)
+void NewDoc::setSize(QString gr)
 {
-	Pagebr = Breite->value() / Umrech;
-	Pageho = Hoehe->value() / Umrech;
-	disconnect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	disconnect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
-	Breite->setEnabled(false);
-	Hoehe->setEnabled(false);
-	int page_x[] = {2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 105, 2836, 2004, 1418, 1002, 709, 501,
-	                355, 250, 178, 125, 89, 462, 298, 312, 542, 595, 1224, 612, 612, 792};
-	int page_y[] = {3368, 2380, 1684, 1190, 842, 595, 421, 297, 210, 148, 4008, 2836, 2004, 1418, 1002, 709,
-	                501, 355, 250, 178, 125, 649, 683, 624, 720, 935, 792, 1008, 792, 1225};
-	if (gr == USERFORMAT)
+	pageWidth = widthSpinBox->value() / unitRatio;
+	pageHeight = heightSpinBox->value() / unitRatio;
+
+	disconnect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	disconnect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
+	if (gr==CommonStrings::trCustomPageSize || gr==CommonStrings::customPageSize)
 	{
-		Breite->setEnabled(true);
-		Hoehe->setEnabled(true);
+		widthSpinBox->setEnabled(true);
+		heightSpinBox->setEnabled(true);
 	}
 	else
 	{
-		// pv - correct handling of the disabled spins
-		if (ComboBox2->currentItem() == PORTRAIT)
+		PageSize *ps2=new PageSize(gr);
+		if (pageOrientationComboBox->currentItem() == portraitPage)
 		{
-		Pagebr = page_x[gr];
-		Pageho = page_y[gr];
+			pageWidth = ps2->width();
+			pageHeight = ps2->height();
 		} else {
-			Pagebr = page_y[gr];
-			Pageho = page_x[gr];
+			pageWidth = ps2->height();
+			pageHeight = ps2->width();
 		}
+		delete ps2;
 	}
-	Breite->setValue(Pagebr * Umrech);
-	Hoehe->setValue(Pageho * Umrech);
-	RightR->setMaxValue(Breite->value() - LeftR->value());
-	LeftR->setMaxValue(Breite->value() - RightR->value());
-	TopR->setMaxValue(Hoehe->value() - BottomR->value());
-	BottomR->setMaxValue(Hoehe->value() - TopR->value());
-	connect(Breite, SIGNAL(valueChanged(int)), this, SLOT(setBreite(int)));
-	connect(Hoehe, SIGNAL(valueChanged(int)), this, SLOT(setHoehe(int)));
+	widthSpinBox->setValue(pageWidth * unitRatio);
+	heightSpinBox->setValue(pageHeight * unitRatio);
+	marginGroup->setPageHeight(pageHeight);
+	marginGroup->setPageWidth(pageWidth);
+	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
+	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
 }
 
-void NewDoc::setAT()
+void NewDoc::setDS(int layout)
 {
-	GroupBox4->setEnabled(AutoFrame->isChecked() ? true : false);
+	marginGroup->setFacingPages(!(layout == singlePage));
+	choosenLayout = layout;
+	firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }
 
-void NewDoc::setDS()
+void NewDoc::recentDocListBox_doubleClicked(int /*item*/)
 {
-	bool test = Doppelseiten->isChecked() ? false : true;
-	TextLabel6->setText(test == false ? tr("&Inside:") : tr("&Left:"));
-	TextLabel8->setText(test == false ? tr("O&utside:") : tr("&Right:"));
-	ErsteSeite->setEnabled(test == false ? true : false);
+	/* Yep. There is nothing to solve. ScribusMainWindow handles all
+	openings etc. It's Franz's programming style ;) */
+	ExitOK();
 }

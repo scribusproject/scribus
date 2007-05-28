@@ -1,172 +1,136 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "picsearch.h"
-#include "picsearch.moc"
-#include <qimage.h>
+//#include "picsearch.moc"
 #include <qpixmap.h>
-extern QImage LoadPict(QString fn, bool *gray = 0);
+#include <qpainter.h>
+#include "scribusstructs.h"
+#include "scimage.h"
+#include "commonstrings.h"
+#include "scpaths.h"
+#include "util.h"
+
 extern QPixmap loadIcon(QString nam);
 
-/*!
- \fn PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
- \author Franz Schmid
- \date
- \brief Constructor for PicSearch.[dox?]. Used in Extras / Manage Pictures / Search function
- \param parent QWidget pointer to parent window
- \param name QString name of image
- \param alt QStringList List of Paths where an Image with the given Name is present
- \retval None
- */
-PicSearch::PicSearch(QWidget* parent, QString name, QStringList alt)
-    : QDialog( parent, "pi2", true, 0 )
+
+PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles)
+	: QDialog( parent, "PicSearch", true, 0 ),
+	currentImage(QString())
 {
-    setCaption( tr( "Result" ) );
-  	setIcon(loadIcon("AppIcon.png"));
-  	Bild = "";
-    setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1,
-								sizePolicy().hasHeightForWidth() ) );
-    PicSearchLayout = new QVBoxLayout( this ); 
-    PicSearchLayout->setSpacing( 6 );
-    PicSearchLayout->setMargin( 11 );
+	setupUi(this);
+	setIcon(loadIcon("AppIcon.png"));
+	cancelButton->setText(CommonStrings::tr_Cancel);
+	previewLabel->hide();
+	fileNameLabel->setText(fileName);
 
-    Layout2 = new QHBoxLayout; 
-    Layout2->setSpacing( 6 );
-    Layout2->setMargin( 0 );
+	for (int i = 0; i < avalableFiles.count(); ++i)
+		foundFilesBox->insertItem( QDir::convertSeparators(avalableFiles[i]) );
 
-    TextLabel1 = new QLabel( this, "TextLabel1" );
-    TextLabel1->setText( tr( "Search Results for: " ) );
-    Layout2->addWidget( TextLabel1 );
-
-    Datei = new QLabel( this, "Datei" );
-    Datei->setText( tr( name ) );
-    Layout2->addWidget( Datei );
-    QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-    Layout2->addItem( spacer );
-    PicSearchLayout->addLayout( Layout2 );
-
-    Layout3 = new QHBoxLayout; 
-    Layout3->setSpacing( 6 );
-    Layout3->setMargin( 0 );
-
-    ListBox1 = new QListBox( this, "ListBox1" );
-    ListBox1->setMinimumSize( QSize( 250, 210 ) );
-    ListBox1->setMaximumSize( QSize( 250, 32767 ) );
-    ListBox1->insertStringList( alt );
-    Layout3->addWidget( ListBox1 );
-
-    Layout1 = new QVBoxLayout; 
-    Layout1->setSpacing( 6 );
-    Layout1->setMargin( 0 );
-
-    Preview = new QCheckBox( this, "Preview" );
-    Preview->setText( tr( "Preview" ) );
-    Preview->setChecked(false);
-    Layout1->addWidget( Preview );
-    QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Minimum, QSizePolicy::Expanding );
-    Layout1->addItem( spacer_2 );
-
-    UseB = new QPushButton( this, "UseB" );
-    UseB->setMinimumSize( QSize( 100, 30 ) );
-    UseB->setText( tr( "Select" ) );
-    UseB->setDefault( true );
-    UseB->setEnabled(false);
-    Layout1->addWidget( UseB );
-
-    CancelB = new QPushButton( this, "CancelB" );
-    CancelB->setMinimumSize( QSize( 100, 30 ) );
-    CancelB->setText( tr( "Cancel" ) );
-    Layout1->addWidget( CancelB );
-    Layout3->addLayout( Layout1 );
-
-    PixmapLabel1 = new QLabel( this, "PixmapLabel1" );
-    PixmapLabel1->setMinimumSize( QSize( 210, 210 ) );
-    PixmapLabel1->setAlignment(AlignLeft | AlignTop);
-    PixmapLabel1->setScaledContents( FALSE );
-    PixmapLabel1->setBackgroundColor( white );
-    PixmapLabel1->setFrameShape( QLabel::WinPanel );
-    PixmapLabel1->setFrameShadow( QLabel::Sunken );
-    Layout3->addWidget( PixmapLabel1 );
-	PixmapLabel1->hide();
-    PicSearchLayout->addLayout( Layout3 );
-    minS = minimumSize();
-    // signals and slots connections
-    connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-    connect( UseB, SIGNAL( clicked() ), this, SLOT( accept() ) );
-    connect( Preview, SIGNAL( clicked() ), this, SLOT( ShowPrev() ) );
-  	connect(ListBox1, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selBild(QListBoxItem*)));
+	// signals and slots connections
+	connect(cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(useButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect(previewCheckBox, SIGNAL( clicked() ), this, SLOT( previewCheckBox_clicked() ) );
+	connect(foundFilesBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(foundFilesBox_clicked(Q3ListBoxItem*)));
 }
 
-/*!
- \fn void PicSearch::ShowPrev()
- \author Franz Schmid
- \date
- \brief If preview is desired (checked) then the image preview is shown and generated, otherwise hidden.
- \param None
- \retval None
- */
-void PicSearch::ShowPrev()
+void PicSearch::previewCheckBox_clicked()
 {
-	if (Preview->isChecked())
+	if (previewCheckBox->isChecked())
 	{
-		PixmapLabel1->show();
-		if (Bild != "")
-			GenPreview();
+		previewLabel->show();
+		if (!currentImage.isEmpty())
+			createPreview();
 	}
 	else
-	{
-		PixmapLabel1->hide();
-		setMinimumSize(minS);
-		resize(minS);
-	}
+		previewLabel->hide();
 }
 
-/*!
- \fn void PicSearch::selBild(QListBoxItem *c)
- \author Franz Schmid
- \date
- \brief When image is selected from the ListBox then the image preview may be shown and the Use button is enabled.
- \param c QListBoxItem
- \retval None
- */
-void PicSearch::selBild(QListBoxItem *c)
+void PicSearch::foundFilesBox_clicked(Q3ListBoxItem *c)
 {
 	if (c == NULL)
 		return;
-	Bild = c->text();
-	if (Preview->isChecked())
-		GenPreview();
-	UseB->setEnabled(true);
+	currentImage = ScPaths::separatorsToSlashes(c->text());
+	if (previewCheckBox->isChecked())
+		createPreview();
+	useButton->setEnabled(true);
 }
 
-/*!
- \fn void PicSearch::GenPreview()
- \author Franz Schmid
- \date
- \brief Generates image preview for the found Picture
- \param None
- \retval None
- */
-void PicSearch::GenPreview()
+void PicSearch::createPreview()
 {
-	QPixmap pm;
-	QImage im = LoadPict(Bild);
-	if ((im.width() > 200) || (im.height() > 200))
+	QPixmap pm(200, 200);
+	QFileInfo fi = QFileInfo(currentImage);
+	int w = 200;
+	int h = 200;
+	bool mode = false;
+	QString ext = fi.extension(false).lower();
+	if (ext.isEmpty())
+		ext = getImageType(currentImage);
+	ScImage im;
+	//No doc to send data anyway, so no doc to get into scimage.
+	CMSettings cms(0, "", 0);
+	if (im.LoadPicture(currentImage, cms, false, false, ScImage::Thumbnail, 72, &mode))
 	{
+		int ix,iy;
+		if ((im.imgInfo.exifDataValid) && (!im.imgInfo.exifInfo.thumbnail.isNull()))
+		{
+			ix = im.imgInfo.exifInfo.width;
+			iy = im.imgInfo.exifInfo.height;
+		}
+		else
+		{
+			ix = im.width();
+			iy = im.height();
+		}
+		int xres = im.imgInfo.xres;
+		int yres = im.imgInfo.yres;
+		QString tmp = "";
+		QString tmp2 = "";
 		QImage im2;
-		double sx = im.width() / 200.0;
-		double sy = im.height() / 200.0;
-		im2 = sy < sx ?
-			im2 = im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
-			im2 = im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
-		im = im2;
-		im2.detach();
+		if ((ix > w-5) || (iy > h-44))
+		{
+			double sx = im.width() / static_cast<double>(w-5);
+			double sy = im.height() / static_cast<double>(h-44);
+			im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
+								im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
+		}
+		else
+			im2 = im.qImage(); // no need to copy
+		QPainter p;
+		QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+		p.begin(&pm);
+		p.fillRect(0, 0, w, h-44, b);
+		p.fillRect(0, h-44, w, 44, QColor(255, 255, 255));
+		p.drawImage((w - im2.width()) / 2, (h - 44 - im2.height()) / 2, im2);
+		p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
+		p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
+		QString cSpace;
+		if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (im.imgInfo.type != 7))
+			cSpace = tr("Unknown");
+		else
+		{
+			switch (im.imgInfo.colorspace)
+			{
+				case 0:
+					cSpace = tr("RGB");
+					break;
+				case 1:
+					cSpace = tr("CMYK");
+					break;
+				case 2:
+					cSpace = tr("Grayscale");
+					break;
+				case 3:
+					cSpace = tr("Duotone");
+					break;
+			}
+		}
+		p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
+		p.end();
+		repaint();
 	}
-	pm.convertFromImage(im);
-	PixmapLabel1->setPixmap(pm);
-}	
+	previewLabel->setPixmap(pm);
+}

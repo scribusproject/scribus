@@ -1,11 +1,9 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef CMDOBJ_H
 #define CMDOBJ_H
 
@@ -183,16 +181,21 @@ PyObject *scribus_deleteobj(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_textflow__doc__,
-QT_TR_NOOP("textFlowsAroundFrame(\"name\" [, state])\n\
+QT_TR_NOOP("textFlowMode(\"name\" [, state])\n\
 \n\
 Enables/disables \"Text Flows Around Frame\" feature for object \"name\".\n\
-Called with parameters string name and optional boolean \"state\". If \"state\"\n\
-is not passed, text flow is toggled.\n\
+Called with parameters string name and optional int \"state\" (0 <= state <= 3).\n\
+Setting \"state\" to 0 will disable text flow.\n\
+Setting \"state\" to 1 will make text flow around object frame.\n\
+Setting \"state\" to 2 will make text flow around bounding box.\n\
+Setting \"state\" to 3 will make text flow around contour line.\n\
+If \"state\" is not passed, text flow is toggled.\n\
 "));
 /**
-Enables/disables "Text Flows Around Box" feature for object.
-Called with params string objectName and voluntary 1|0.
-When 1 set flowing to true (0 to false). When is second param
+Enables/disables "Text Flows Around Object" feature for object.
+Called with params string objectName and state 0|1|2|3.
+When set to 0 disable flowing, 1 text flows around frame, 
+2 around bounding box, 3 around contour line. When is second param
 empty flowing is reverted.
 02/28/2004 petr vanek
  */
@@ -226,7 +229,6 @@ given, it's applied on the selected object.\n\
  Craig Ringer, 2004-09-09
  Apply the named style to the currently selected object.
  pv, 2004-09-13, optionaly param objectName + "check the page" stuff
- FIXME: should handled explicitly passed object name too.
  */
 PyObject *scribus_setstyle(PyObject */*self*/, PyObject* args);
 
@@ -241,6 +243,21 @@ Return a list of the names of all paragraph styles in the current document.\n\
  Enumerate all known paragraph styles
 */
 PyObject *scribus_getstylenames(PyObject */*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_duplicateobject__doc__,
+QT_TR_NOOP("duplicateObject([\"name\"]) -> string\n\
+\n\
+creates a Duplicate of the selected Object (or Selection Group).\n\
+"));
+/**
+ Christian Hausknecht, 2006-07-12
+ duplicate an object
+*/
+PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args);
+
+/* Internal function not intended for general use; no docstring */
+PyObject* scribus_getframetype(PyObject* self, PyObject* args, PyObject* kw);
 
 #endif
 

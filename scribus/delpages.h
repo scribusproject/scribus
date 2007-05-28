@@ -1,43 +1,47 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef DELPAGES_H
 #define DELPAGES_H
 
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
+#include "scribusapi.h"
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QDialog>
 
-class DelPages : public QDialog
-{ 
-    Q_OBJECT
+class QLabel;
+class QPushButton;
+class QSpinBox;
+
+class SCRIBUS_API DelPages : public QDialog
+{
+	Q_OBJECT
 
 public:
-    DelPages( QWidget* parent, int act, int max );
-    ~DelPages() {};
+	DelPages( QWidget* parent, int currentPage, int maxPage );
+	~DelPages() {};
 
-    QPushButton* Cancel;
-    QPushButton* OK;
-    QLabel* TextLabel2;
-    QSpinBox* ToPage;
-    QLabel* TextLabel1;
-    QSpinBox* FromPage;
+	const int getFromPage();
+	const int getToPage();
 
-protected:
-    QVBoxLayout* DLayout;
-    QHBoxLayout* Layout4;
-    QHBoxLayout* Layout3;
+private:
+	QVBoxLayout* dialogLayout;
+	QHBoxLayout* fromToLayout;
+	QHBoxLayout* okCancelLayout;
 
-public slots:
-    virtual void FromChanged(int nr);
-    virtual void ToChanged(int nr);
+	QPushButton* cancelButton;
+	QPushButton* okButton;
+	QLabel* fromLabel;
+	QLabel* toLabel;
+	QSpinBox* toPageData;
+	QSpinBox* fromPageData;
+
+private slots:
+	virtual void fromChanged(int pageNumber);
+	virtual void toChanged(int pageNumber);
 };
 
 #endif // DELPAGES_H

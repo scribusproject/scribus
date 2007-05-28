@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -21,7 +27,6 @@
 #ifndef GTGETTEXT_H
 #define GTGETTEXT_H
 
-#include <dlfcn.h>
 #include <iostream>
 #include <vector>
 
@@ -31,39 +36,50 @@
 #include <qstring.h>
 #include <qstringlist.h>
 
-#include "config.h"
+#include "scconfig.h"
+#include "scribusapi.h"
 #include "gtdialogs.h"
 #include "gtwriter.h"
-#include "pageitem.h"
-#include "scribus.h"
+#include "scfonts.h"
+
+class PageItem;
+class ScribusDoc;
 
 struct ImporterData {
 	QString     soFilePath;
-	void        *pointer;
 	QString     fileFormatName;
 	QStringList fileEndings;
+};
+
+struct ImportSetup {
+	bool runDialog;
+	int importer;
+	QString filename;
+	bool textOnly;
+	QString encoding;
 };
 
 /*
 	GetText handles the open file dialog and importer plugins loading and launching.
 */
-class gtGetText
+class SCRIBUS_API gtGetText
 {
 private:
 	std::vector<ImporterData> importers;
 	QMap<QString, ImporterData*> importerMap; // map ImporterDatas to file endings for easy launc for desired plugin
 	void loadImporterPlugins();
-	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append);
 	void CallDLL(const ImporterData& idata, const QString& filePath,
-	             const QString& encoding, bool textOnly, bool append);
-	bool DLLName(QString name, QString *PName, QStringList *fileEndings, void **Zeig);
+	             const QString& encoding, bool textOnly, bool append, PageItem* importItem);
+	bool DLLName(QString name, QString *ffName, QStringList *fileEndings);
 	void createMap();
 	gtDialogs* dias;
 	QStringList ilist;
+	ScribusDoc* m_Doc;
 public:
-	gtGetText();
+	gtGetText(ScribusDoc* doc);
 	~gtGetText();
-	void run(bool append);
+	ImportSetup run();
+	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append, PageItem* target=0);
 };
 
 #endif

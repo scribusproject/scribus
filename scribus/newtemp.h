@@ -1,13 +1,11 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-#ifndef QUERY_H
-#define QUERY_H
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+#ifndef QUERY2_H
+#define QUERY2_H
 
 #include <qdialog.h>
 #include <qlayout.h>
@@ -15,27 +13,32 @@
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include <qcombobox.h>
-#include "scribusdoc.h"
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
 
-class NewTm : public QDialog
+#include "scribusapi.h"
+class ScribusDoc;
+
+class SCRIBUS_API NewTm : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc );
-    ~NewTm() {};
+	NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, const QString& answerText=QString::null );
+	~NewTm() {};
 
-    QPushButton* PushButton1;
-    QPushButton* PushButton2;
-    QLineEdit* Answer;
-    QLabel* Frage;
-    QComboBox* Links;
+	QPushButton* PushButton1;
+	QPushButton* PushButton2;
+	QLineEdit* Answer;
+	QLabel* Frage;
+	QComboBox* Links;
 
 protected:
-    QVBoxLayout* QueryLayout;
-    QHBoxLayout* Layout3;
-    QHBoxLayout* Layout2;
-    QHBoxLayout* Layout1;
+	Q3VBoxLayout* QueryLayout;
+	Q3HBoxLayout* Layout3;
+	Q3HBoxLayout* Layout2;
+	Q3HBoxLayout* Layout1;
 };
 
 #endif // QUERY_H

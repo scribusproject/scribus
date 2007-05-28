@@ -1,18 +1,11 @@
-Building packages:
-    See BUILDING for information on using the shipped spec files to make your
-    own RPMs . This file is for people packaging Scribus for distributions and
-    other repositories.
-
 Packagers notes:
-
-* 64-bit building notes are in the README file.
 
 * All final release source tarballs are gpg signed to ensure their integrity. 
 You can verify them with:
 
 gpg --verify ./tarball.sig ./tarball.tar.bz2
 
-While we also note md5sums, gpg --verify is more secure and reliable.
+While we also note md5sums and shasums, gpg --verify is more secure and reliable.
 
 * The font sampler script, requires tkinter to run properly and optionally 
 python-imaging to enable print previews. Please consider adding these as 
@@ -24,13 +17,13 @@ part of the main package. Please consider adding:
 	Obsoletes:      scribus-svg
 	Obsoletes:      scribus-scripting
 	Obsoletes:      scribus-short-words
-	Obsoletes:	    scribus-vnla
+	Obsoletes:      scribus-vlna
 
 to ensure these old packages are removed on upgrade.
 
-* Currently, the full en documentation is included in the tarball, note
-it is licensed differently from the application source. We may decide to 
-distribute them separately. In any case a monolithic scribus application
+* Currently, the full en documentation is included in the tarball, Please
+note it is licensed differently from the application source. We may decide to 
+distribute them separately. In any case, a monolithic scribus application
 plus docs package should also obsolete all prior docs packages.
 
 	Obsoletes:      scribus-i18en
@@ -41,6 +34,10 @@ plus docs package should also obsolete all prior docs packages.
 licenses, not the GPL. Details for each are in the README_XX.xx.txt for
 each corresponding language.
 
+* You might notice that configure can check for the cairo libaries, this is not the
+default, and can be considered experimental. We do not recommend building against cairo
+for packaging.
+
 
 ===============================================================================
 
@@ -49,12 +46,7 @@ Recommended Spec File Description:
 %description
 Scribus is an desktop open source page layout program with the aim of producing 
 commerical grade output in PDF and Postscript, primarily, though not exclusively
-for Linux.
-
-While the goals of the program are for ease of use and simple easy to
-understand tools, Scribus offers support for professional publishing
-features, such as CMYK colors, easy PDF creation, Encapsulated Postscript
-import/export and creation of color separations.
+for Linux. Scirbus runs natively on  BSD, Linux, OS/2, Solaris, and Win32.
 
 Recommended Spec File Summary: Scribus - Open Source Page Layout 
 
@@ -89,6 +81,7 @@ umask 022
 We do appreciate the effort in maintaining packagers make for Scribus. 
 Please file issues or enhancement requests at http://bugs.scribus.net
 
+Detailed notes on exact library requirements are detailed in the BUILDING file with the source tarball.
 
 There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net
 and the mailing list. Mailing list info can be found at: 
@@ -96,4 +89,4 @@ http://nashi.altmuehlnet.de/mailman/listinfo/scribus
 
 For the Scribus Team,
 Peter Linnell
-in Sept. 2005
+in January 2006

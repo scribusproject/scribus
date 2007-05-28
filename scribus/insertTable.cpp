@@ -1,58 +1,57 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "insertTable.h"
-#include "insertTable.moc"
+
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
-InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol )
-		: QDialog( parent, "InsertTable", true, 0 )
+InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( parent )
 
 {
 	setCaption( tr( "Insert Table" ) );
 	setIcon(loadIcon("AppIcon.png"));
-
-	InsertTableLayout = new QVBoxLayout( this, 11, 8, "InsertTableLayout");
-	layout2 = new QGridLayout( 0, 1, 1, 0, 6, "layout2");
-	Cols = new QSpinBox( this, "Cols" );
-	Cols->setMaxValue( maxCol );
-	Cols->setMinValue( 1 );
+	setModal(true);
+	InsertTableLayout = new QVBoxLayout( this );
+	InsertTableLayout->setMargin(10);
+	InsertTableLayout->setSpacing(5);
+	layout2 = new QGridLayout();
+	layout2->setMargin(0);
+	layout2->setSpacing(5);
+	Cols = new QSpinBox(this);
+	Cols->setRange(1, maxCol);
+	Cols->setValue(1);
 	layout2->addWidget( Cols, 1, 1 );
-	Text1 = new QLabel( this, "Text1" );
-	Text1->setText( tr( "Number of Rows:" ) );
+	Text1 = new QLabel( tr( "Number of rows:" ), this, "Text1" );
+	Text2 = new QLabel( tr( "Number of columns:" ), this, "Text2" );
 	layout2->addWidget( Text1, 0, 0 );
-	Text2 = new QLabel( this, "Text2" );
-	Text2->setText( tr( "Number of Columns:" ) );
 	layout2->addWidget( Text2, 1, 0 );
-	Rows = new QSpinBox( this, "Rows" );
-	Rows->setMaxValue( maxRow );
-	Rows->setMinValue( 1 );
+	Rows = new QSpinBox(this);
+	Rows->setRange(1, maxRow);
+	Rows->setValue(1);
 	layout2->addWidget( Rows, 0, 1 );
 	InsertTableLayout->addLayout( layout2 );
-	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
-	OKButton = new QPushButton( this, "OKButton" );
-	OKButton->setText( tr( "OK" ) );
-	OKButton->setDefault( TRUE );
-	layout1->addWidget( OKButton );
-	CancelB = new QPushButton( this, "CancelB" );
-	CancelB->setText( tr( "Cancel" ) );
-	layout1->addWidget( CancelB );
+	layout1 = new QHBoxLayout();
+	layout1->setSpacing(5);
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	okButton->setDefault( true );
+	layout1->addWidget( okButton );
+	layout1->addWidget( cancelButton );
 	InsertTableLayout->addLayout( layout1 );
 	resize( QSize(200, 111).expandedTo(minimumSizeHint()) );
 
 	setTabOrder ( Rows, Cols );
-	setTabOrder ( Cols, OKButton );
-	setTabOrder ( OKButton, CancelB);
-	setTabOrder ( CancelB, Rows );
+	setTabOrder ( Cols, okButton );
+	setTabOrder ( okButton, cancelButton);
+	setTabOrder ( cancelButton, Rows );
 	Rows->setFocus();
 	// signals and slots connections
-	connect( OKButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 }
 

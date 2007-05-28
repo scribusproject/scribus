@@ -1,35 +1,50 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef SCRIPTPLUG_H
 #define SCRIPTPLUG_H
 
 #include "cmdvar.h"
+#include "scplugin.h"
+#include "pluginapi.h"
+//Added by qt3to4:
+#include <QPixmap>
 
-class ScribusApp;
+class QString;
+class QPixmap;
 class QWidget;
+class PrefsPanel;
 
-/** Calls the Plugin with the main Application window as parent
-  * and the main Application Class as parameter */
-extern "C" void Run(QWidget *d, ScribusApp *plug);
+class PLUGIN_API ScriptPlugin : public ScPersistentPlugin
+{
+	Q_OBJECT
 
-/** Returns the Name of the Plugin.
-  * This name appears in the relevant Menue-Entrys */
-extern "C" QString Name();
+	public:
+		// Standard plugin implementation
+		ScriptPlugin();
+		virtual ~ScriptPlugin();
+		virtual bool initPlugin();
+		virtual bool cleanupPlugin();
+		virtual const QString fullTrName() const;
+		virtual const AboutData* getAboutData() const;
+		virtual void deleteAboutData(const AboutData* about) const;
+		virtual void languageChange();
+		virtual bool newPrefsPanelWidget(QWidget* parent, PrefsPanel*& panel,
+										 QString& caption, QPixmap& icon);
+		virtual void addToMainWindowMenu(ScribusMainWindow *);
 
-/** Returns the Type of the Plugin.
-  * 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
-  * 2 = the Plugin is a Import Plugin, which appears in the Import Menue
-  * 3 = the Plugin is a Export Plugin, which appears in the Export Menue
-  * 4 = the Plugin is a resident Plugin   */
-extern "C" int Type();
-extern "C" int ID();
+		// Special features (none)
+};
 
-/** Initializes the Plugin if it's a Plugin of Type 4 */
-extern "C" void InitPlug(QWidget *d, ScribusApp *plug);
-
-/** Possible CleanUpOperations when closing the Plugin */
-extern "C" void CleanUpPlug();
+extern "C" PLUGIN_API int scriptplugin_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* scriptplugin_getPlugin();
+extern "C" PLUGIN_API void scriptplugin_freePlugin(ScPlugin* plugin);
 
 /** Some useful Subroutines */
 static PyObject *scribus_retval(PyObject *self, PyObject* args);
 static PyObject *scribus_getval(PyObject *self);
 
-#endif
+#endif // CMSPLUG_H

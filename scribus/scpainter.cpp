@@ -1,77 +1,33 @@
-/* This file is part of the KDE project.
-   Copyright (C) 2001, 2002, 2003 The Karbon Developers
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
 */
-/* Adapted for Scribus 22.08.2003 by Franz Schmid */
-// kopainter/libart wrapper
 
 #include "scpainter.h"
+#include "colorutil.h"
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
+#ifdef HAVE_CAIRO
+	#include <cairo.h>
+	#if defined(_WIN32)
+	#include <cairo-win32.h>
+	#elif defined(Q_WS_X11)
+	#include <cairo-xlib.h>
+	#elif defined(Q_WS_MAC)
+//	#include <cairo-quartz.h>
+	#endif
+	#include <cairo-svg.h>
 #endif
 
-#include <qpaintdevice.h>
-#include <qpixmap.h>
-#include <qpointarray.h>
-#include <qimage.h>
-
-#include <libart_lgpl/art_vpath.h>
-#include <libart_lgpl/art_bpath.h>
-#include <libart_lgpl/art_vpath_bpath.h>
-#include <libart_lgpl/art_svp_vpath.h>
-#include <libart_lgpl/art_svp_vpath_stroke.h>
-#include <libart_lgpl/art_svp.h>
-#include <libart_lgpl/art_svp_ops.h>
-#include <libart_lgpl/art_affine.h>
-#include <libart_lgpl/art_svp_intersect.h>
-#include <libart_lgpl/art_rect_svp.h>
-#include <libart_lgpl/art_pathcode.h>
-#include <libart_lgpl/art_vpath_dash.h>
-#include "art_render_misc.h"
-#include <libart_lgpl/art_render_svp.h>
-#include <libart_lgpl/art_vpath_svp.h>
-
-#include "art_rgb_svp.h"
-#include "art_render_pattern.h"
-
-#include <X11/Xlib.h>
-
-#include <gdk-pixbuf-xlibrgb.h>
 #include <math.h>
-#include "art_kmisc.h"
 
-#define INITIAL_ALLOC	300
-#define ALLOC_INCREMENT	100
-
-ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h )
+#ifdef HAVE_CAIRO
+/// image painter
+ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode )
 {
-	m_target = target;
 	m_width = w;
 	m_height= h;
-	m_buffer = 0L;
-	m_path = 0L;
-	m_index = 0;
-	resize( m_width, m_height );
-	clear();
 	m_stroke = QColor(0,0,0);
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
@@ -80,47 +36,561 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h )
 	fillMode = 1;
 	LineWidth = 1.0;
 	m_offset = 0;
+	m_layerTransparency = transparency;
+	m_blendMode = blendmode;
 	m_array.clear();
 	mf_underline = false;
 	mf_strikeout = false;
 	mf_shadow = false;
 	mf_outlined = false;
-	PLineEnd = Qt::SquareCap;
-	PLineJoin = Qt::RoundJoin;
+	PLineEnd = Qt::FlatCap;
+	PLineJoin = Qt::MiterJoin;
 	fill_gradient = VGradient(VGradient::linear);
 	stroke_gradient = VGradient(VGradient::linear);
-	xlib_rgb_init_with_depth( target->x11Display(), XScreenOfDisplay( target->x11Display(),
-							  target->x11Screen() ), target->x11Depth() );
-
-	gc = XCreateGC( target->x11Display(), target->handle(), 0, 0 );
 	m_zoomFactor = 1;
+	layeredMode = true;
+	imageMode = true;
+	svgMode = false;
+	m_image = target;
+	m_matrix = QMatrix();
+	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
+	m_cr = cairo_create(img);
+	cairo_save( m_cr );
+	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	cairo_set_tolerance( m_cr, 0.5 );
 }
+
+/// SVG file painter
+ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, double transparency, int blendmode )
+{
+	m_width = w;
+	m_height= h;
+	m_stroke = QColor(0,0,0);
+	m_fill = QColor(0,0,0);
+	fill_trans = 1.0;
+	stroke_trans = 1.0;
+	m_fillRule = true;
+	fillMode = 1;
+	LineWidth = 1.0;
+	m_offset = 0;
+	m_layerTransparency = transparency;
+	m_blendMode = blendmode;
+	m_array.clear();
+	mf_underline = false;
+	mf_strikeout = false;
+	mf_shadow = false;
+	mf_outlined = false;
+	PLineEnd = Qt::FlatCap;
+	PLineJoin = Qt::MiterJoin;
+	fill_gradient = VGradient(VGradient::linear);
+	stroke_gradient = VGradient(VGradient::linear);
+	m_zoomFactor = 1;
+	layeredMode = true;
+	imageMode = false;
+	svgMode = true;
+	m_matrix = QMatrix();
+	cairo_surface_t *img = cairo_svg_surface_create(target, w, h);
+	m_cr = cairo_create(img);
+	cairo_save( m_cr );
+	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
+	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+	cairo_set_tolerance( m_cr, 0.5 );
+}
+// HAVE_CAIRO
+#else
+/// image painter
+ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode )
+{
+	m_path = QPainterPath();
+	m_width = w;
+	m_height= h;
+	m_stroke = QColor(0,0,0);
+	m_fill = QColor(0,0,0);
+	fill_trans = 1.0;
+	stroke_trans = 1.0;
+	m_fillRule = true;
+	fillMode = 1;
+	LineWidth = 1.0;
+	m_offset = 0;
+	m_layerTransparency = transparency;
+	m_blendMode = blendmode;
+	m_array.clear();
+	mf_underline = false;
+	mf_strikeout = false;
+	mf_shadow = false;
+	mf_outlined = false;
+	PLineEnd = Qt::FlatCap;
+	PLineJoin = Qt::MiterJoin;
+	PLineStyle = Qt::SolidLine;
+	fill_gradient = VGradient(VGradient::linear);
+	stroke_gradient = VGradient(VGradient::linear);
+	m_zoomFactor = 1;
+	layeredMode = true;
+	imageMode = true;
+	svgMode = false;
+	m_image = target;
+	m_matrix = QMatrix();
+	painter.begin(m_image);
+	painter.setRenderHint(QPainter::Antialiasing, true);
+	painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+}
+#endif
 
 ScPainter::~ScPainter()
 {
-	// If we are in target mode, we created a buffer, else if we used the other ctor
-	// we didnt.
-	if( m_target )
-		art_free( m_buffer );
-	if( m_path )
-		art_free( m_path );
-	if( gc )
-		XFreeGC( m_target->x11Display(), gc );
+#ifdef HAVE_CAIRO
+	cairo_surface_destroy(cairo_get_target(m_cr));
+	cairo_destroy( m_cr );
+#else
+	painter.end();
+#endif
 }
 
-void ScPainter::resize( unsigned int w, unsigned int h )
+void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clipArray)
 {
-	if( !m_buffer || w != m_width || h != m_height )
+	layerProp la;
+	la.blendmode = m_blendMode;
+	la.tranparency = m_layerTransparency;
+	m_layerTransparency = transparency;
+	m_blendMode = blendmode;
+	la.pushed = false;
+	la.groupClip.resize(0);
+	if (clipArray != NULL)
+		la.groupClip = *clipArray;
+#ifdef HAVE_CAIRO
+	la.data = cairo_get_group_target(m_cr);
+	if (clipArray != NULL)
 	{
-		// TODO : realloc?
-		art_free( m_buffer );
-		m_buffer = 0;
-		m_width = w;
-		m_height = h;
-		if ( m_width != 0 && m_height != 0 )
-			m_buffer = art_new( art_u8, m_width * m_height * 4 );
-		clear();
+		setupPolygon(clipArray);
+		setClipPath();
 	}
+	cairo_push_group(m_cr);
+#else
+	la.data = new QImage(m_image->copy());
+	m_image->fill(qRgba(255, 255, 255, 0));
+#endif
+	la.pushed = true;
+	Layers.push(la);
+}
+
+void ScPainter::endLayer()
+{
+	layerProp la;
+	if (Layers.count() == 0)
+		return;
+	la = Layers.top();
+	if (la.pushed)
+	{
+		if ((m_blendMode != 0) && (Layers.count() != 0))
+		{
+#ifdef HAVE_CAIRO
+			cairo_surface_t *tmp = cairo_get_group_target(m_cr);
+			cairo_surface_t *tmpB = Layers.top().data;
+			if ((tmp != NULL) && (tmpB != NULL))
+			{
+				if ((cairo_surface_get_type(tmp) == CAIRO_SURFACE_TYPE_IMAGE) && (cairo_surface_get_type(tmpB) == CAIRO_SURFACE_TYPE_IMAGE))
+				{
+					cairo_surface_flush(tmp);
+					int stride = cairo_image_surface_get_stride(tmp);
+					unsigned char *s = cairo_image_surface_get_data(tmp);
+					unsigned char *d = cairo_image_surface_get_data(tmpB);
+					int h = cairo_image_surface_get_height(tmp);
+					int w = cairo_image_surface_get_width(tmp);
+					uint oldDst = 1;
+					uint oldSrc = 2;
+					uint newResult = 0;
+					bool first = true;
+					QRgb *src;
+					QRgb *dst;
+					uchar src_a, src_r, src_g, src_b, dst_a, dst_r, dst_g, dst_b, new_r, new_g, new_b;
+					for( int yi=0; yi < h; ++yi )
+					{
+						dst = (QRgb*)d;
+						src = (QRgb*)s;
+						for( int xi=0; xi < w; ++xi )
+						{
+							src_r = qRed(*src);
+							src_g = qGreen(*src);
+							src_b = qBlue(*src);
+							src_a = qAlpha(*src);
+							dst_r = qRed(*dst);
+							dst_g = qGreen(*dst);
+							dst_b = qBlue(*dst);
+							dst_a = qAlpha(*dst);
+							if ((src_a > 0) && (dst_a > 0))
+							{
+								if (((*dst) != oldDst) || ((*src) != oldSrc) || (first))
+								{
+									if (m_blendMode == 1)
+									{
+										src_r = dst_r  < src_r ? dst_r  : src_r;
+										src_g = dst_g < src_g ? dst_g : src_g;
+										src_b = dst_b < src_b ? dst_b : src_b;
+									}
+									else if (m_blendMode == 2)
+									{
+										src_r = dst_r  < src_r ? src_r : dst_r;
+										src_g = dst_g < src_g ? src_g : dst_g;
+										src_b = dst_b < src_b ? src_b : dst_b;
+									}
+									else if (m_blendMode == 3)
+									{
+										src_r = INT_MULT(src_r, dst_r);
+										src_g = INT_MULT(src_g, dst_g);
+										src_b = INT_MULT(src_b, dst_b);
+									}
+									else if (m_blendMode == 4)
+									{
+										src_r = 255 - ((255-src_r) * (255-dst_r) / 128);
+										src_g = 255 - ((255-src_g) * (255-dst_g) / 128);
+										src_b = 255 - ((255-src_b) * (255-dst_b) / 128);
+									}
+									else if (m_blendMode == 5)
+									{
+										src_r = dst_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
+										src_g = dst_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
+										src_b = dst_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
+									}
+									else if (m_blendMode == 6)
+									{
+										src_r = src_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
+										src_g = src_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
+										src_b = src_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
+									}
+									else if (m_blendMode == 7)
+									{
+										float s_r = (255 - src_r) / 255.0;
+										float s_g = (255 - src_g) / 255.0;
+										float s_b = (255 - src_b) / 255.0;
+										float d_r = (255 - dst_r) / 255.0;
+										float d_g = (255 - dst_g) / 255.0;
+										float d_b = (255 - dst_b) / 255.0;
+										float dzr = d_r > 0.25 ? sqrt(d_r) : ((16 * d_r - 12) * d_r + 4) * d_r;
+										float dzg = d_g > 0.25 ? sqrt(d_g) : ((16 * d_g - 12) * d_g + 4) * d_g;
+										float dzb = d_b > 0.25 ? sqrt(d_b) : ((16 * d_b - 12) * d_b + 4) * d_b;
+										s_r = s_r <= 0.5 ? d_r - (1 - 2 * s_r) * d_r * (1 - d_r) : d_r + (2 * s_r - 1) * (dzr  - d_r);
+										s_g = s_g <= 0.5 ? d_g - (1 - 2 * s_g) * d_g * (1 - d_g) : d_g + (2 * s_g - 1) * (dzg  - d_g);
+										s_b = s_b <= 0.5 ? d_b - (1 - 2 * s_b) * d_b * (1 - d_b) : d_b + (2 * s_b - 1) * (dzb  - d_b);
+										src_r = 255 - qRound(s_r * 255);
+										src_g = 255 - qRound(s_g * 255);
+										src_b = 255 - qRound(s_b * 255);
+									}
+									else if (m_blendMode == 8)
+									{
+										src_r = dst_r > src_r ? dst_r - src_r : src_r - dst_r;
+										src_g = dst_g > src_g ? dst_g - src_g : src_g - dst_g;
+										src_b = dst_b > src_b ? dst_b - src_b : src_b - dst_b;
+									}
+									else if (m_blendMode == 9)
+									{
+										src_r = dst_r + src_r - src_r * dst_r / 128;
+										src_g = dst_g + src_g - src_g * dst_g / 128;
+										src_b = dst_b + src_b - src_b * dst_b / 128;
+									}
+									else if (m_blendMode == 10)
+									{
+										src_r = src_r == 255 ? qMin(255, dst_r * 256) : qMin(255, ((dst_r * 256) / (255-src_r)));
+										src_g = src_g == 255 ? qMin(255, dst_g * 256) : qMin(255, ((dst_g * 256) / (255-src_g)));
+										src_b = src_b == 255 ? qMin(255, dst_b * 256) : qMin(255, ((dst_b * 256) / (255-src_b)));
+									}
+									else if (m_blendMode == 11)
+									{
+										src_r = qMax<uchar>(1, src_r);
+										src_g = qMax<uchar>(1, src_g);
+										src_b = qMax<uchar>(1, src_b);
+										src_r = static_cast<int>(255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
+										src_g = static_cast<int>(255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
+										src_b = static_cast<int>(255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
+									}
+									else if (m_blendMode == 12)
+									{
+										new_r = dst_r;
+										new_g = dst_g;
+										new_b = dst_b;
+										RGBTOHLS(src_r, src_g, src_b);
+										RGBTOHLS(new_r, new_g, new_b);
+										new_r = src_r;
+										HLSTORGB(new_r, new_g, new_b);
+										src_r = new_r;
+										src_g = new_g;
+										src_b = new_b;
+									}
+									else if (m_blendMode == 13)
+									{
+										new_r = dst_r;
+										new_g = dst_g;
+										new_b = dst_b;
+										RGBTOHLS(src_r, src_g, src_b);
+										RGBTOHLS(new_r, new_g, new_b);
+										new_b = src_b;
+										HLSTORGB(new_r, new_g, new_b);
+										src_r = new_r;
+										src_g = new_g;
+										src_b = new_b;
+									}
+									else if (m_blendMode == 14)
+									{
+										new_r = src_r;
+										new_g = src_g;
+										new_b = src_b;
+										setLum(new_r, new_g, new_b, Lum(dst_r, dst_g, dst_b));
+										src_r = new_r;
+										src_g = new_g;
+										src_b = new_b;
+									}
+									else if (m_blendMode == 15)
+									{
+										new_r = dst_r;
+										new_g = dst_g;
+										new_b = dst_b;
+										setLum(new_r, new_g, new_b, Lum(src_r, src_g, src_b));
+										src_r = new_r;
+										src_g = new_g;
+										src_b = new_b;
+									}
+									newResult = qRgba(src_r, src_g, src_b, src_a);
+									oldDst = (*dst);
+									oldSrc = (*src);
+									first = false;
+								}
+								(*src) = newResult;
+							}
+							src++;
+							dst++;
+						}
+						s += stride;
+						d += stride;
+					}
+					cairo_surface_mark_dirty(tmp);
+				}
+			}
+#else
+			int h = m_image->height();
+			int w = m_image->width();
+			uint oldDst = 1;
+			uint oldSrc = 2;
+			uint newResult = 0;
+			bool first = true;
+			QRgb *src;
+			QRgb *dst;
+			uchar src_a, src_r, src_g, src_b, dst_a, dst_r, dst_g, dst_b, new_r, new_g, new_b;
+			for( int yi = 0; yi < h; ++yi )
+			{
+				dst = (QRgb*)la.data->scanLine(yi);
+				src = (QRgb*)m_image->scanLine(yi);
+				for( int xi=0; xi < w; ++xi )
+				{
+					src_r = qRed(*src);
+					src_g = qGreen(*src);
+					src_b = qBlue(*src);
+					src_a = qAlpha(*src);
+					dst_r = qRed(*dst);
+					dst_g = qGreen(*dst);
+					dst_b = qBlue(*dst);
+					dst_a = qAlpha(*dst);
+					if ((src_a > 0) && (dst_a > 0))
+					{
+						if (((*dst) != oldDst) || ((*src) != oldSrc) || (first))
+						{
+							if (m_blendMode == 1)
+							{
+								src_r = dst_r  < src_r ? dst_r  : src_r;
+								src_g = dst_g < src_g ? dst_g : src_g;
+								src_b = dst_b < src_b ? dst_b : src_b;
+							}
+							else if (m_blendMode == 2)
+							{
+								src_r = dst_r  < src_r ? src_r : dst_r;
+								src_g = dst_g < src_g ? src_g : dst_g;
+								src_b = dst_b < src_b ? src_b : dst_b;
+							}
+							else if (m_blendMode == 3)
+							{
+								src_r = INT_MULT(src_r, dst_r);
+								src_g = INT_MULT(src_g, dst_g);
+								src_b = INT_MULT(src_b, dst_b);
+							}
+							else if (m_blendMode == 4)
+							{
+								src_r = 255 - ((255-src_r) * (255-dst_r) / 128);
+								src_g = 255 - ((255-src_g) * (255-dst_g) / 128);
+								src_b = 255 - ((255-src_b) * (255-dst_b) / 128);
+							}
+							else if (m_blendMode == 5)
+							{
+								src_r = dst_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
+								src_g = dst_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
+								src_b = dst_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
+							}
+							else if (m_blendMode == 6)
+							{
+								src_r = src_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
+								src_g = src_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
+								src_b = src_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
+							}
+							else if (m_blendMode == 7)
+							{
+								float s_r = (255 - src_r) / 255.0;
+								float s_g = (255 - src_g) / 255.0;
+								float s_b = (255 - src_b) / 255.0;
+								float d_r = (255 - dst_r) / 255.0;
+								float d_g = (255 - dst_g) / 255.0;
+								float d_b = (255 - dst_b) / 255.0;
+								float dzr = d_r > 0.25 ? sqrt(d_r) : ((16 * d_r - 12) * d_r + 4) * d_r;
+								float dzg = d_g > 0.25 ? sqrt(d_g) : ((16 * d_g - 12) * d_g + 4) * d_g;
+								float dzb = d_b > 0.25 ? sqrt(d_b) : ((16 * d_b - 12) * d_b + 4) * d_b;
+								s_r = s_r <= 0.5 ? d_r - (1 - 2 * s_r) * d_r * (1 - d_r) : d_r + (2 * s_r - 1) * (dzr  - d_r);
+								s_g = s_g <= 0.5 ? d_g - (1 - 2 * s_g) * d_g * (1 - d_g) : d_g + (2 * s_g - 1) * (dzg  - d_g);
+								s_b = s_b <= 0.5 ? d_b - (1 - 2 * s_b) * d_b * (1 - d_b) : d_b + (2 * s_b - 1) * (dzb  - d_b);
+								src_r = 255 - qRound(s_r * 255);
+								src_g = 255 - qRound(s_g * 255);
+								src_b = 255 - qRound(s_b * 255);
+							}
+							else if (m_blendMode == 8)
+							{
+								src_r = dst_r > src_r ? dst_r - src_r : src_r - dst_r;
+								src_g = dst_g > src_g ? dst_g - src_g : src_g - dst_g;
+								src_b = dst_b > src_b ? dst_b - src_b : src_b - dst_b;
+							}
+							else if (m_blendMode == 9)
+							{
+								src_r = dst_r + src_r - src_r * dst_r / 128;
+								src_g = dst_g + src_g - src_g * dst_g / 128;
+								src_b = dst_b + src_b - src_b * dst_b / 128;
+							}
+							else if (m_blendMode == 10)
+							{
+								src_r = src_r == 255 ? qMin(255, dst_r * 256) : qMin(255, ((dst_r * 256) / (255-src_r)));
+								src_g = src_g == 255 ? qMin(255, dst_g * 256) : qMin(255, ((dst_g * 256) / (255-src_g)));
+								src_b = src_b == 255 ? qMin(255, dst_b * 256) : qMin(255, ((dst_b * 256) / (255-src_b)));
+							}
+							else if (m_blendMode == 11)
+							{
+								src_r = qMax<uchar>(1, src_r);
+								src_g = qMax<uchar>(1, src_g);
+								src_b = qMax<uchar>(1, src_b);
+								src_r = static_cast<int>(255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
+								src_g = static_cast<int>(255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
+								src_b = static_cast<int>(255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
+							}
+							else if (m_blendMode == 12)
+							{
+								new_r = dst_r;
+								new_g = dst_g;
+								new_b = dst_b;
+								RGBTOHLS(src_r, src_g, src_b);
+								RGBTOHLS(new_r, new_g, new_b);
+								new_r = src_r;
+								HLSTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
+							else if (m_blendMode == 13)
+							{
+								new_r = dst_r;
+								new_g = dst_g;
+								new_b = dst_b;
+								RGBTOHLS(src_r, src_g, src_b);
+								RGBTOHLS(new_r, new_g, new_b);
+								new_b = src_b;
+								HLSTORGB(new_r, new_g, new_b);
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
+							else if (m_blendMode == 14)
+							{
+								new_r = src_r;
+								new_g = src_g;
+								new_b = src_b;
+								setLum(new_r, new_g, new_b, Lum(dst_r, dst_g, dst_b));
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
+							else if (m_blendMode == 15)
+							{
+								new_r = dst_r;
+								new_g = dst_g;
+								new_b = dst_b;
+								setLum(new_r, new_g, new_b, Lum(src_r, src_g, src_b));
+								src_r = new_r;
+								src_g = new_g;
+								src_b = new_b;
+							}
+							newResult = qRgba(src_r, src_g, src_b, src_a);
+							oldDst = (*dst);
+							oldSrc = (*src);
+							first = false;
+						}
+						(*src) = newResult;
+					}
+					src++;
+					dst++;
+				}
+			}
+#endif
+		}
+	}
+	la = Layers.pop();
+	if (la.pushed)
+	{
+#ifdef HAVE_CAIRO
+		cairo_pop_group_to_source (m_cr);
+//		if (la.groupClip.size() != 0)
+//		{
+//			setupPolygon(&la.groupClip);
+//			setClipPath();
+//		}
+		if (m_blendMode == 0)
+		{
+			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+			cairo_paint_with_alpha (m_cr, m_layerTransparency);
+		}
+		else
+		{
+			cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_OUT);
+			cairo_paint_with_alpha (m_cr, m_layerTransparency);
+			cairo_set_operator(m_cr, CAIRO_OPERATOR_ADD);
+			cairo_paint_with_alpha (m_cr, m_layerTransparency);
+		}
+		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+#else
+		QRgb *src;
+		QRgb *dst;
+		QRgb tmp;
+		int h = m_image->height();
+		int w = m_image->width();
+		for( int yi = 0; yi < h; ++yi )
+		{
+			src = (QRgb*)la.data->scanLine(yi);
+			dst = (QRgb*)m_image->scanLine(yi);
+			for( int xi=0; xi < w; ++xi )
+			{
+				tmp = *dst;
+				*dst = *src;
+				*src = tmp;
+				dst++;
+				src++;
+			}
+		}
+		painter.save();
+		if (la.groupClip.size() != 0)
+		{
+			setupPolygon(&la.groupClip);
+			setClipPath();
+		}
+		painter.resetMatrix();
+		painter.setOpacity(m_layerTransparency);
+		painter.drawImage(0, 0, *la.data);
+		painter.restore();
+		delete la.data;
+#endif
+	}
+	m_layerTransparency = la.tranparency;
+	m_blendMode = la.blendmode;
 }
 
 void ScPainter::begin()
@@ -129,106 +599,156 @@ void ScPainter::begin()
 
 void ScPainter::end()
 {
-	xlib_draw_rgb_32_image( m_target->handle(), gc, 0, 0, m_width, m_height,
-						 XLIB_RGB_DITHER_NONE, m_buffer, m_width * 4 );
-}
-
-void
-ScPainter::clear()
-{
-	if( m_buffer )
-		memset( m_buffer, 255, m_width * m_height * 4 );
-}
-
-void
-ScPainter::clear( const QColor &c )
-{
-	if( m_buffer )
+#ifdef HAVE_CAIRO
+	if (svgMode)
+		cairo_show_page (m_cr);
+	if (layeredMode)
 	{
-		unsigned int *src = (unsigned int*)m_buffer;
-		unsigned int co = qRgba(c.blue(), c.green(),  c.red(), 255);
-		for(unsigned int cc = 0; cc < (m_width * m_height); ++cc)
-		{
-			*src++ = co;
-		}
+		cairo_surface_flush(cairo_get_target(m_cr));
+		cairo_restore( m_cr );
+		return;
 	}
+#endif
 }
 
-void ScPainter::setWorldMatrix( const QWMatrix &mat )
+void ScPainter::clear()
 {
-	m_matrix = mat;
+#ifdef HAVE_CAIRO
+	if (imageMode)
+		m_image->fill( qRgba(255, 255, 255, 255) );
+#else
+	m_image->fill(qRgba(255, 255, 255, 255));
+#endif
+}
+
+void ScPainter::clear( const QColor &c )
+{
+	QRgb cs = c.rgb();
+#ifdef HAVE_CAIRO
+	if (imageMode)
+		m_image->fill( qRgba(qRed(cs), qGreen(cs), qBlue(cs), qAlpha(cs)) );
+#else
+	m_image->fill(qRgba(qRed(cs), qGreen(cs), qBlue(cs), qAlpha(cs)));
+#endif
+}
+
+const QMatrix ScPainter::worldMatrix()
+{
+#ifdef HAVE_CAIRO
+	cairo_matrix_t matrix;
+	cairo_get_matrix(m_cr, &matrix);
+	QMatrix mat;
+	mat.setMatrix ( matrix.xx, matrix.yx, matrix.xy, matrix.yy, matrix.x0, matrix.y0 );
+	return mat;
+#else
+	return painter.worldMatrix();
+#endif
+}
+
+void ScPainter::setWorldMatrix( const QMatrix &mat )
+{
+#ifdef HAVE_CAIRO
+	cairo_matrix_t matrix;
+	cairo_matrix_init(&matrix, mat.m11(), mat.m12(), mat.m21(), mat.m22(), mat.dx(), mat.dy());
+	cairo_set_matrix(m_cr, &matrix);
+#else
+	painter.setWorldMatrix(mat);
+#endif
+}
+
+void ScPainter::setAntialiasing(bool enable)
+{
+#ifdef HAVE_CAIRO
+	if (enable)
+		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
+	else
+		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
+#else
+	painter.setRenderHint(QPainter::Antialiasing, enable);
+#endif
 }
 
 void ScPainter::setZoomFactor( double zoomFactor )
 {
 	m_zoomFactor = zoomFactor;
+#ifdef HAVE_CAIRO
+	cairo_scale (m_cr, m_zoomFactor, m_zoomFactor);
+#else
+	painter.scale(m_zoomFactor, m_zoomFactor);
+#endif
 }
 
 void ScPainter::translate( double x, double y )
 {
-	m_matrix.translate(x, y);
+#ifdef HAVE_CAIRO
+	cairo_translate (m_cr, x, y);
+#else
+	painter.translate(x, y);
+#endif
 }
 
 void ScPainter::rotate( double r )
 {
-	m_matrix.rotate(r);
+#ifdef HAVE_CAIRO
+	cairo_rotate (m_cr, r * 3.1415927 / 180.0);
+#else
+	painter.rotate(r);
+#endif
 }
 
 void ScPainter::scale( double x, double y )
 {
-	m_matrix.scale(x, y);
-}
-
-void ScPainter::ensureSpace( unsigned int newindex )
-{
-	if( m_index == 0 )
-		{
-		if( !m_path )
-			m_path = art_new( ArtBpath, INITIAL_ALLOC );
-		m_alloccount = INITIAL_ALLOC;
-		}
-	else if( newindex > m_alloccount )
-		{
-		m_alloccount += ALLOC_INCREMENT;
-		m_path = art_renew( m_path, ArtBpath, m_alloccount );
-		}
+#ifdef HAVE_CAIRO
+	cairo_scale (m_cr, x, y);
+#else
+	painter.scale(x, y);
+#endif
 }
 
 void ScPainter::moveTo( const double &x, const double &y )
 {
-	ensureSpace( m_index + 1 );
-	m_path[ m_index ].code = ART_MOVETO;
-	m_path[ m_index ].x3 = x * m_zoomFactor;
-	m_path[ m_index ].y3 = y * m_zoomFactor;
-	m_index++;
+#ifdef HAVE_CAIRO
+	cairo_move_to( m_cr, x, y);
+#else
+	m_path.moveTo(x, y);
+#endif
 }
 
-void 
+void
 ScPainter::lineTo( const double &x, const double &y )
 {
-	ensureSpace( m_index + 1 );
-	m_path[ m_index ].code = ART_LINETO;
-	m_path[ m_index ].x3	= x * m_zoomFactor;
-	m_path[ m_index ].y3	= y * m_zoomFactor;
-	m_index++;
+#ifdef HAVE_CAIRO
+	cairo_line_to( m_cr, x, y);
+#else
+	m_path.lineTo(x, y);
+#endif
 }
 
 void ScPainter::curveTo( FPoint p1, FPoint p2, FPoint p3 )
 {
-	ensureSpace( m_index + 1 );
-	m_path[ m_index ].code = ART_CURVETO;
-	m_path[ m_index ].x1	= p1.x() * m_zoomFactor;
-	m_path[ m_index ].y1	= p1.y() * m_zoomFactor;
-	m_path[ m_index ].x2	= p2.x() * m_zoomFactor;
-	m_path[ m_index ].y2	= p2.y() * m_zoomFactor;
-	m_path[ m_index ].x3	= p3.x() * m_zoomFactor;
-	m_path[ m_index ].y3	= p3.y() * m_zoomFactor;
-	m_index++;
+#ifdef HAVE_CAIRO
+	cairo_curve_to(m_cr, p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
+#else
+	m_path.cubicTo(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
+#endif
 }
 
 void ScPainter::newPath()
 {
-	m_index = 0;
+#ifdef HAVE_CAIRO
+	cairo_new_path( m_cr );
+#else
+	m_path = QPainterPath();
+#endif
+}
+
+void ScPainter::closePath()
+{
+#ifdef HAVE_CAIRO
+	cairo_close_path( m_cr );
+#else
+	m_path.closeSubpath();
+#endif
 }
 
 void ScPainter::setFillRule( bool fillRule )
@@ -249,26 +769,29 @@ void ScPainter::setGradient(VGradient::VGradientType mode, FPoint orig, FPoint v
 	fill_gradient.setFocalPoint(foc);
 }
 
+void ScPainter::fillTextPath()
+{
+	drawVPath( 0 );
+}
+
+void ScPainter::strokeTextPath()
+{
+	if( LineWidth == 0 )
+		return;
+	drawVPath( 1 );
+}
+
 void ScPainter::fillPath()
 {
-	if( m_index == 0 ) return;
 	if( fillMode != 0)
-	{
-		ArtVpath *path = art_bez_path_to_vec( m_path , 0.25 );
-		drawVPath( path, 0 );
-	}
+		drawVPath( 0 );
 }
 
 void ScPainter::strokePath()
 {
-	if( m_index == 0 )
-		return;
 	if( LineWidth == 0 )
 		return;
-	if( m_path[ m_index ].code != ART_END)
-		m_path[ m_index ].code = ART_END;
-	ArtVpath *path = art_bez_path_to_vec( m_path , 0.25 );
-	drawVPath( path, 1 );
+	drawVPath( 1 );
 }
 
 QColor ScPainter::pen()
@@ -292,9 +815,9 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 	LineWidth = w;
 	PLineEnd = ca;
 	PLineJoin = jo;
-	double Dt = QMAX(2*w, 1);
-	double Da = QMAX(6*w, 1);
-	QValueList<double> tmp;
+#ifdef HAVE_CAIRO
+	double Dt = qMax(2*w, 1.0);
+	double Da = qMax(6*w, 1.0);
 	m_array.clear();
 	m_offset = 0;
 	switch (st)
@@ -325,6 +848,9 @@ void ScPainter::setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapSt
 		default:
 			break;
 		}
+#else
+	PLineStyle = st;
+#endif
 }
 
 void ScPainter::setLineWidth( double w )
@@ -338,7 +864,7 @@ void ScPainter::setPenOpacity( double op )
 }
 
 
-void ScPainter::setDash(const QValueList<double>& array, double ofs)
+void ScPainter::setDash(const Q3ValueList<double>& array, double ofs)
 {
 	m_array = array;
 	m_offset = ofs;
@@ -372,467 +898,384 @@ QFont ScPainter::font()
 
 void ScPainter::save()
 {
-	MStack.push(m_matrix);
+#ifdef HAVE_CAIRO
+	cairo_save( m_cr );
+#else
+	painter.save();
+#endif
 }
 
 void ScPainter::restore()
 {
-	m_matrix = MStack.pop();
+#ifdef HAVE_CAIRO
+	cairo_restore( m_cr );
+#else
+	painter.restore();
+#endif
 }
 
-void ScPainter::setRasterOp( Qt::RasterOp  )
+void ScPainter::setRasterOp( int   )
 {
 }
 
-void ScPainter::clampToViewport( int &x0, int &y0, int &x1, int &y1 )
+void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
 {
-	// clamp to viewport
-	x0 = QMAX( x0, 0 );
-	x0 = QMIN( x0, static_cast<int>( m_width ) );
-	y0 = QMAX( y0, 0 );
-	y0 = QMIN( y0, static_cast<int>( m_height ) );
-	x1 = QMAX( x1, 0 );
-	x1 = QMIN( x1, static_cast<int>( m_width ) );
-	y1 = QMAX( y1, 0 );
-	y1 = QMIN( y1, static_cast<int>( m_height ) );
+	m_pattern = pattern;
+	patternScaleX = scaleX / 100.0;
+	patternScaleY = scaleY / 100.0;
+	patternOffsetX = offsetX;
+	patternOffsetY = offsetY;
+	patternRotation = rotation;
 }
 
-void ScPainter::clampToViewport( const ArtSVP &svp, int &x0, int &y0, int &x1, int &y1 )
+#ifdef HAVE_CAIRO
+void ScPainter::drawVPath( int mode )
 {
-	// get SVP bbox
-	ArtDRect bbox;
-	art_drect_svp( &bbox, &svp );
-	// Remove comments if we really decide for SVP bbox usage
-	//m_bbox = KoRect( bbox.x0, bbox.y0, bbox.x1 - bbox.x0, bbox.y1 - bbox.y0 );
-
-	// clamp to viewport
-	x0 = static_cast<int>( bbox.x0 );
-	x0 = QMAX( x0, 0 );
-	x0 = QMIN( x0, static_cast<int>( m_width ) );
-	y0 = static_cast<int>( bbox.y0 );
-	y0 = QMAX( y0, 0 );
-	y0 = QMIN( y0, static_cast<int>( m_height ) );
-	x1 = static_cast<int>( bbox.x1 ) + 1;
-	x1 = QMAX( x1, 0 );
-	x1 = QMIN( x1, static_cast<int>( m_width ) );
-	y1 = static_cast<int>( bbox.y1 ) + 1;
-	y1 = QMAX( y1, 0 );
-	y1 = QMIN( y1, static_cast<int>( m_height ) );
-}
-
-void ScPainter::drawVPath( ArtVpath *vec, int mode )
-{
-	ArtSVP *strokeSvp = 0L;
-	ArtSVP *fillSvp = 0L;
-	// set up world matrix
-	double affine[6];
-	affine[0] = m_matrix.m11();
-	affine[1] = m_matrix.m12();   // was 0 in Karbon
-	affine[2] = m_matrix.m21();   // was 0 in Karbon, don't know why
-	affine[3] = m_matrix.m22();
-	affine[4] = m_matrix.dx();
-	affine[5] = m_matrix.dy();
-	ArtVpath *temp1 = art_vpath_affine_transform( vec, affine );
-	art_free( vec );
-	vec = temp1;
-	int af = 0;
-	int as = 0;
-	art_u32 fillColor = 0;
-	// filling
-	QColor color;
+	cairo_save( m_cr );
 	if (mode == 0)
-		{
-		color = m_fill;
-		af = qRound( 255 * fill_trans );
-#ifdef WORDS_BIGENDIAN
-		fillColor = ( color.red() << 24 ) | ( color.green() << 16 ) | ( color.blue() << 8 );
-#else
- 		fillColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
-#endif
-		ArtSvpWriter *swr;
-		ArtSVP *temp;
-		temp = art_svp_from_vpath( vec );
+	{
 		if( m_fillRule )
-			swr = art_svp_writer_rewind_new( ART_WIND_RULE_ODDEVEN );
+			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 		else
-			swr = art_svp_writer_rewind_new( ART_WIND_RULE_NONZERO );
-		art_svp_intersector( temp, swr );
-		fillSvp = art_svp_writer_rewind_reap( swr );
-		art_svp_free( temp );
-		}
-	art_u32 strokeColor = 0;
-	if (mode == 1)
+			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
+		if (fillMode == 1)
 		{
-		ArtPathStrokeCapType capStyle = ART_PATH_STROKE_CAP_BUTT;
-		ArtPathStrokeJoinType joinStyle = ART_PATH_STROKE_JOIN_MITER;
-		color = m_stroke;
-		as = qRound( 255 * stroke_trans );
-#ifdef WORDS_BIGENDIAN
-    strokeColor = ( color.red() << 24 ) | ( color.green() << 16 ) | ( color.blue() << 8 );
-#else
-		strokeColor = ( 0 << 24 ) | ( color.blue() << 16 ) | ( color.green() << 8 ) | color.red();
-#endif
-		double ratio = m_zoomFactor; //sqrt(pow(affine[0], 2) + pow(affine[3], 2)) / sqrt(2);
-		if( m_array.count() > 0 )
+			double r = qRed( m_fill.rgb() ) / 255.0;
+			double g = qGreen( m_fill.rgb() ) / 255.0;
+			double b = qBlue( m_fill.rgb() ) / 255.0;
+			cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
+			cairo_fill_preserve( m_cr );
+		}
+		else if (fillMode == 2)
+		{
+			cairo_pattern_t *pat;
+			double x1 = fill_gradient.origin().x();
+			double y1 = fill_gradient.origin().y();
+			double x2 = fill_gradient.vector().x();
+			double y2 = fill_gradient.vector().y();
+			if (fill_gradient.type() == VGradient::linear)
+				pat = cairo_pattern_create_linear (x1, y1,  x2, y2);
+			else
+				pat = cairo_pattern_create_radial (x1, y1, 0.1, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
+			Q3PtrVector<VColorStop> colorStops = fill_gradient.colorStops();
+			QColor qStopColor;
+			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
-			// there are dashes to be rendered
-			ArtVpathDash dash;
-			dash.offset = static_cast<double>(m_offset) * ratio;
-			dash.n_dash = m_array.count();
-			double *dashes = new double[ dash.n_dash ];
-			for( int i = 0; i < dash.n_dash; i++ )
-				{
-				dashes[i] = static_cast<double>(m_array[i]) * ratio;
-				}
-			dash.dash = dashes;
-			// get the dashed VPath and use that for the stroke render operation
-			ArtVpath *vec2 = art_vpath_dash( vec, &dash );
-			art_free( vec );
-			vec = vec2;
-			delete [] dashes;
+				qStopColor = colorStops[ offset ]->color;
+				int h, s, v, sneu, vneu;
+				int shad = colorStops[offset]->shade;
+				qStopColor.hsv(&h, &s, &v);
+				sneu = s * shad / 100;
+				vneu = 255 - ((255 - v) * shad / 100);
+				qStopColor.setHsv(h, sneu, vneu);
+				double r = qRed( qStopColor.rgb() ) / 255.0;
+				double g = qGreen( qStopColor.rgb() ) / 255.0;
+				double b = qBlue( qStopColor.rgb() ) / 255.0;
+				double a = colorStops[offset]->opacity;
+				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
 			}
-		if( PLineEnd == Qt::RoundCap )
-			capStyle = ART_PATH_STROKE_CAP_ROUND;
-		else if( PLineEnd == Qt::SquareCap )
-			capStyle = ART_PATH_STROKE_CAP_SQUARE;
-		if( PLineJoin == Qt::RoundJoin )
-			joinStyle = ART_PATH_STROKE_JOIN_ROUND;
-		else if( PLineJoin == Qt::BevelJoin )
-			joinStyle = ART_PATH_STROKE_JOIN_BEVEL;
-		//strokeSvp = art_svp_vpath_stroke( vec, joinStyle, capStyle, ratio * LineWidth, 10, 0.25 );
-		ArtVpath* strokeVpath = art_svp_vpath_stroke_raw( vec, joinStyle, capStyle, ratio * LineWidth, 10, 0.25 );
-		strokeSvp = art_svp_from_vpath( strokeVpath );
-		art_free(strokeVpath);
+			cairo_set_source (m_cr, pat);
+			cairo_clip_preserve (m_cr);
+			cairo_paint_with_alpha (m_cr, fill_trans);
+			cairo_pattern_destroy (pat);
 		}
-	int x0, y0, x1, y1;
-	if(( fillSvp ) && (mode == 0))
-	{
-		if (fillMode == 2)
-			applyGradient( fillSvp, true );
-		else
+		else if (fillMode == 3)
 		{
-			clampToViewport( *fillSvp, x0, y0, x1, y1 );
-			if( x0 != x1 && y0 != y1 )
-				art_rgb_svp_alpha_( fillSvp, x0, y0, x1, y1, fillColor, af, m_buffer + x0 * 4 + y0 * m_width * 4, m_width * 4, 0 );
+			cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_RGB24, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
+			cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
+			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
+			QImage mask;
+			cairo_surface_t *image3;
+			if (fill_trans != 1.0)
+			{
+				mask.create(m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), 8);
+				QRgb * s;
+				unsigned char *d;
+				for( int yi = 0; yi < m_pattern->getPattern()->height(); ++yi )
+				{
+					s = (QRgb*)(m_pattern->getPattern()->scanLine( yi ));
+					d = (unsigned char *)(mask.scanLine( yi ));
+					for( int xi=0; xi < m_pattern->getPattern()->width(); ++xi )
+					{
+						*d++ = static_cast<unsigned char>(qAlpha(*s++) * fill_trans);
+					}
+				}
+				int adj;
+				if (m_pattern->getPattern()->width() % 4 == 0)
+					adj = 0;
+				else
+					adj = 4 - (m_pattern->getPattern()->width() % 4);
+				image3 = cairo_image_surface_create_for_data ((uchar*)mask.bits(), CAIRO_FORMAT_A8, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width() + adj);
+			}
+			else
+				image3 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
+			cairo_matrix_t matrix;
+			QMatrix qmatrix;
+//			qmatrix.scale(m_zoomFactor, m_zoomFactor);
+			qmatrix.translate(patternOffsetX, patternOffsetY);
+			qmatrix.rotate(patternRotation);
+			qmatrix.scale(patternScaleX, patternScaleY);
+			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+			cairo_matrix_invert(&matrix);
+			cairo_pattern_set_matrix (m_pat, &matrix);
+			cairo_set_source (m_cr, m_pat);
+			cairo_clip_preserve (m_cr);
+			cairo_pattern_t *m_pat2 = cairo_pattern_create_for_surface(image3);
+			cairo_pattern_set_extend(m_pat2, CAIRO_EXTEND_REPEAT);
+			cairo_pattern_set_matrix (m_pat2, &matrix);
+			cairo_mask (m_cr, m_pat2);
+			cairo_pattern_destroy (m_pat);
+			cairo_pattern_destroy (m_pat2);
+			cairo_surface_destroy (image2);
+			cairo_surface_destroy (image3);
 		}
-		art_svp_free( fillSvp );
 	}
-	if(( strokeSvp ) && (mode == 1))
-	{
-		clampToViewport( *strokeSvp, x0, y0, x1, y1 );
-		if( x0 != x1 && y0 != y1 )
-			art_rgb_svp_alpha_( strokeSvp, x0, y0, x1, y1, strokeColor, as, m_buffer + x0 * 4 + y0 * m_width * 4, m_width * 4, 0 );
-		art_svp_free( strokeSvp );
-	}
-	art_free( vec );
-}
-
-void ScPainter::applyGradient( ArtSVP *svp, bool fill )
-{
-	int x0, y0, x1, y1;
-	clampToViewport( *svp, x0, y0, x1, y1 );
-	ArtRender *render = 0L;
-	VGradient gradient;
-	if (fill)
-		gradient = fill_gradient;
 	else
-		gradient = stroke_gradient;
-	double opa = fill ? fill_trans : stroke_trans;
-	if (gradient.type() == VGradient::linear)
-		{
-		ArtGradientLinear *linear = art_new( ArtGradientLinear, 1 );
-		linear->spread = ART_GRADIENT_PAD;
-		double _x1 = static_cast<double>(gradient.origin().x());
-		double _x2 = static_cast<double>(gradient.vector().x());
-		double _y2 = static_cast<double>(gradient.origin().y());
-		double _y1 = static_cast<double>(gradient.vector().y());
-		double dx = ( _x2 - _x1 ) * m_zoomFactor;
-		_y1 =  _y1 + m_matrix.dy() / m_zoomFactor;
-		_y2 =  _y2 + m_matrix.dy() / m_zoomFactor;
-		if (dx == 0.0)
-			dx = 1;
-		double dy = ( _y1 - _y2 ) * m_zoomFactor;
-		if (dy == 0.0)
-			dy = 1;
-		double scale = 1.0 / ( dx * dx + dy * dy );
-		linear->a = dx * scale;
-		linear->b = dy * scale;
-		linear->c = -( ( _x1 * m_zoomFactor + m_matrix.dx() ) * linear->a + ( _y2 * m_zoomFactor ) * linear->b );
-		int offsets = -1;
-		linear->stops = buildStopArray( gradient, offsets );
-		linear->n_stops = offsets;
-		if( x0 != x1 && y0 != y1 )
-		{
-			render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * static_cast<int>(x0) + m_width * 4 * static_cast<int>(y0), m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
-			int opacity = static_cast<int>( opa * 255.0 );
-			art_render_svp( render, svp );
-			art_render_mask_solid (render, (opacity << 8) + opacity + (opacity >> 7));
-			art_karbon_render_gradient_linear( render, linear, ART_FILTER_NEAREST );
-			art_render_invoke( render );
-		}
-		art_free( linear->stops );
-		art_free( linear );
-	}
-	else if( gradient.type() == VGradient::radial )
 	{
-		ArtGradientRadial *radial = art_new( ArtGradientRadial, 1 );
-		radial->spread = ART_GRADIENT_PAD;
-		radial->affine[0] = m_matrix.m11();
-		radial->affine[1] = m_matrix.m12();
-		radial->affine[2] = m_matrix.m21();
-		radial->affine[3] = m_matrix.m22();
-		radial->affine[4] = m_matrix.dx();
-		radial->affine[5] = m_matrix.dy();
-		double cx = gradient.origin().x() * m_zoomFactor;
-		double cy = gradient.origin().y() * m_zoomFactor;
-		double fx = gradient.focalPoint().x() * m_zoomFactor;
-		double fy = gradient.focalPoint().y() * m_zoomFactor;
-		double r = sqrt( pow( gradient.vector().x() - gradient.origin().x(), 2 ) + pow( gradient.vector().y() - gradient.origin().y(), 2 ) );
-		r *= m_zoomFactor;
-		radial->fx = (fx - cx) / r;
-		radial->fy = (fy - cy) / r;
-		double aff1[6], aff2[6];
-		art_affine_scale( aff1, r, r);
-		art_affine_translate( aff2, cx, cy );
-		art_affine_multiply( aff1, aff1, aff2 );
-		art_affine_multiply( aff1, aff1, radial->affine );
-		art_affine_invert( radial->affine, aff1 );
-		int offsets = -1;
-		radial->stops = buildStopArray( gradient, offsets );
-		radial->n_stops = offsets;
-		if( x0 != x1 && y0 != y1 )
+		double *dashes = NULL;
+		cairo_set_line_width( m_cr, LineWidth );
+		if( m_array.count() > 0 )
 		{
-			render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * x0 + m_width * 4 * y0, m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
-			int opacity = static_cast<int>( opa * 255.0 );
-			art_render_svp( render, svp );
-			art_render_mask_solid (render, (opacity << 8) + opacity + (opacity >> 7));
-			art_karbon_render_gradient_radial( render, radial, ART_FILTER_NEAREST );
-			art_render_invoke( render );
-		}
-		art_free( radial->stops );
-		art_free( radial );
-	}
-}
-
-
-ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
-{
-	QPtrVector<VColorStop> colorStops = gradient.colorStops();
-	offsets = colorStops.count();
-
-	ArtGradientStop *stopArray = art_new( ArtGradientStop, offsets * 2 - 1 );
-
-	for( int offset = 0 ; offset < offsets ; offset++ )
-	{
-		double ramp = colorStops[ offset ]->rampPoint;
-		stopArray[ offset * 2 ].offset = ramp;
-
-		QColor qStopColor = colorStops[ offset ]->color;
-		int h, s, v, sneu;
-		int shad = colorStops[offset]->shade;
-		qStopColor.rgb(&h, &s, &v);
-		if ((h == s) && (s == v))
-		{
-			qStopColor.hsv(&h, &s, &v);
-			sneu = 255 - ((255 - v) * shad / 100);
-			qStopColor.setHsv(h, s, sneu);
+			dashes = new double[ m_array.count() ];
+			for( int i = 0; i < m_array.count();++ i )
+			{
+				dashes[i] = static_cast<double>(m_array[i]);
+			}
+			cairo_set_dash( m_cr, dashes, m_array.count(), static_cast<double>(m_offset));
 		}
 		else
+			cairo_set_dash( m_cr, NULL, 0, 0 );
+		double r = qRed( m_stroke.rgb() ) / 255.0;
+		double g = qGreen( m_stroke.rgb() ) / 255.0;
+		double b = qBlue( m_stroke.rgb() ) / 255.0;
+		cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
+		if( PLineEnd == Qt::RoundCap )
+			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
+		else if( PLineEnd == Qt::SquareCap )
+			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_SQUARE);
+		else if( PLineEnd == Qt::FlatCap )
+			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_BUTT);
+		if( PLineJoin == Qt::RoundJoin )
+			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_ROUND );
+		else if( PLineJoin == Qt::BevelJoin )
+			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_BEVEL );
+		else if( PLineJoin == Qt::MiterJoin )
+			cairo_set_line_join( m_cr, CAIRO_LINE_JOIN_MITER );
+		cairo_stroke_preserve( m_cr );
+		if( m_array.count() > 0 )
+			delete [] dashes;
+	}
+	cairo_restore( m_cr );
+}
+#else
+	// not HAVE_CAIRO
+void ScPainter::drawVPath(int mode)
+{
+	painter.save();
+	if (mode == 0)
+	{
+		if( m_fillRule )
+			m_path.setFillRule(Qt::OddEvenFill);
+		else
+			m_path.setFillRule(Qt::WindingFill);
+		if (fillMode == 1)
 		{
-			qStopColor.hsv(&h, &s, &v);
-			sneu = s * shad / 100;
-			qStopColor.setHsv(h, sneu, v);
+			QColor paint = m_fill;
+			paint.setAlphaF(fill_trans);
+			painter.fillPath(m_path, paint);
 		}
-		int r = qRed( qStopColor.rgb() );
-		int g = qGreen( qStopColor.rgb() );
-		int b = qBlue( qStopColor.rgb() );
-		art_u32 rgba = (r << 24) | (g << 16) | (b << 8) | qAlpha(qStopColor.rgb());
-		int a = static_cast<int>( colorStops[offset]->opacity * 255.0 );
-		r = (rgba >> 24) * a + 0x80;
-		r = (r + (r >> 8)) >> 8;
-		g = ((rgba >> 16) & 0xff) * a + 0x80;
-		g = (g + (g >> 8)) >> 8;
-		b = ((rgba >> 8) & 0xff) * a + 0x80;
-		b = (b + (b >> 8)) >> 8;
-		stopArray[ offset * 2 ].color[ 0 ] = ART_PIX_MAX_FROM_8(r);
-		stopArray[ offset * 2 ].color[ 1 ] = ART_PIX_MAX_FROM_8(g);
-		stopArray[ offset * 2 ].color[ 2 ] = ART_PIX_MAX_FROM_8(b);
-		stopArray[ offset * 2 ].color[ 3 ] = ART_PIX_MAX_FROM_8(a);
-
-		if( offset + 1 != offsets )
+		else if (fillMode == 2)
 		{
-			stopArray[ offset * 2 + 1 ].offset = ramp + ( colorStops[ offset + 1 ]->rampPoint - ramp ) * colorStops[ offset ]->midPoint;
-
-			QColor qStopColor2 = colorStops[ offset + 1 ]->color;
-			rgba = static_cast<int>(r + ((qRed(qStopColor2.rgb()) - r)) * 0.5) << 24 |
-						 static_cast<int>(g + ((qGreen(qStopColor2.rgb()) - g)) * 0.5) << 16 |
-						 static_cast<int>(b + ((qBlue(qStopColor2.rgb()) - b)) * 0.5) << 8 |
-						qAlpha(qStopColor2.rgb());
-			int a = static_cast<int>( colorStops[offset]->opacity * 255.0 );
-			r = (rgba >> 24) * a + 0x80;
-			r = (r + (r >> 8)) >> 8;
-			g = ((rgba >> 16) & 0xff) * a + 0x80;
-			g = (g + (g >> 8)) >> 8;
-			b = ((rgba >> 8) & 0xff) * a + 0x80;
-			b = (b + (b >> 8)) >> 8;
-			stopArray[ offset * 2 + 1 ].color[ 0 ] = ART_PIX_MAX_FROM_8(r);
-			stopArray[ offset * 2 + 1 ].color[ 1 ] = ART_PIX_MAX_FROM_8(g);
-			stopArray[ offset * 2 + 1 ].color[ 2 ] = ART_PIX_MAX_FROM_8(b);
-			stopArray[ offset * 2 + 1 ].color[ 3 ] = ART_PIX_MAX_FROM_8(a);
+			QGradient pat;
+			double x1 = fill_gradient.origin().x();
+			double y1 = fill_gradient.origin().y();
+			double x2 = fill_gradient.vector().x();
+			double y2 = fill_gradient.vector().y();
+			if (fill_gradient.type() == VGradient::linear)
+				pat = QLinearGradient(x1, y1,  x2, y2);
+			else
+				pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
+			Q3PtrVector<VColorStop> colorStops = fill_gradient.colorStops();
+			QColor qStopColor;
+			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
+			{
+				qStopColor = colorStops[ offset ]->color;
+				int h, s, v, sneu, vneu;
+				int shad = colorStops[offset]->shade;
+				qStopColor.hsv(&h, &s, &v);
+				sneu = s * shad / 100;
+				vneu = 255 - ((255 - v) * shad / 100);
+				qStopColor.setHsv(h, sneu, vneu);
+				qStopColor.setAlphaF(colorStops[offset]->opacity);
+				pat.setColorAt(colorStops[ offset ]->rampPoint, qStopColor);
+			}
+			painter.setOpacity(fill_trans);
+			painter.fillPath(m_path, pat);
+		}
+		else if (fillMode == 3)
+		{
+			QMatrix qmatrix;
+			qmatrix.translate(patternOffsetX, patternOffsetY);
+			qmatrix.rotate(patternRotation);
+			qmatrix.scale(patternScaleX, patternScaleY);
+			QBrush brush = QBrush(*m_pattern->getPattern());
+			brush.setMatrix(qmatrix);
+			painter.rotate(0.0001);	// hack to get Qt-4's strange pattern rendering working
+			painter.setOpacity(fill_trans);
+			painter.fillPath(m_path, brush);
 		}
 	}
-
-	offsets = offsets * 2 - 1;
-	return stopArray;
+	else
+	{
+		QColor paint = m_stroke;
+		paint.setAlphaF(stroke_trans);
+		QPen pen = QPen(paint, LineWidth, PLineStyle, PLineEnd, PLineJoin);
+		painter.strokePath(m_path, pen);
+//		Workaround for not correctly working strokePath method of QPainter
+/*		painter.setPen(pen);
+		painter.setBrush(Qt::NoBrush);
+		QList<QPolygonF> pl = m_path.toSubpathPolygons();
+		for (int a = 0; a < pl.count(); a++)
+		{
+			if( m_fillRule )
+				painter.drawPolygon(pl[a], Qt::OddEvenFill);
+			else
+				painter.drawPolygon(pl[a],Qt::WindingFill);
+		} */
+	}
+	painter.restore();
 }
+#endif
 
 void ScPainter::setClipPath()
 {
-	ArtVpath *vec = art_bez_path_to_vec( m_path , 0.25 );
-	double affine[6];
-	affine[0] = m_matrix.m11();
-	affine[1] = m_matrix.m12();   // was 0 in Karbon
-	affine[2] = m_matrix.m21();   // was 0 in Karbon, don't know why
-	affine[3] = m_matrix.m22();
-	affine[4] = m_matrix.dx();
-	affine[5] = m_matrix.dy();
-	ArtVpath *temp1 = art_vpath_affine_transform( vec, affine );
-	art_free( vec );
-	ArtSvpWriter *swr;
-	ArtSVP *temp = art_svp_from_vpath( temp1 );
-	if( m_fillRule )
-		swr = art_svp_writer_rewind_new( ART_WIND_RULE_ODDEVEN );
-	else
-		swr = art_svp_writer_rewind_new( ART_WIND_RULE_NONZERO );
-	art_svp_intersector( temp, swr );
-	m_clipPath = art_svp_writer_rewind_reap( swr );
-	art_svp_free( temp );
-	art_free( temp1 );
+#ifdef HAVE_CAIRO
+	cairo_clip (m_cr);
+#else
+	painter.setClipPath(m_path, Qt::IntersectClip);
+	m_path = QPainterPath();
+#endif
 }
 
 void ScPainter::drawImage( QImage *image )
 {
-	double affineresult[6];
-	affineresult[0] = m_matrix.m11() * m_zoomFactor;
-	affineresult[1] = m_matrix.m12() * m_zoomFactor;
-	affineresult[2] = m_matrix.m21() * m_zoomFactor;
-	affineresult[3] = m_matrix.m22() * m_zoomFactor;
-	affineresult[4] = m_matrix.dx();
-	affineresult[5] = m_matrix.dy();
-	ksvg_art_rgb_affine_clip( m_clipPath, m_buffer, 0, 0, m_width, m_height, m_width * 4, 4,
-					 image->bits(), image->width(), image->height(), image->width() * 4,
-					 affineresult, qRound( 255 * fill_trans ), 0L );
-	art_svp_free( m_clipPath );
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 2, 6)
+/* Code with Layers, crashes on cairo_push_group */
+//	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
+	cairo_push_group(m_cr);
+	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
+	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
+	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	cairo_set_source_surface (m_cr, image2, 0, 0);
+    cairo_mask_surface (m_cr, image3, 0, 0);
+	cairo_surface_destroy (image2);
+	cairo_surface_destroy (image3);
+	cairo_pop_group_to_source (m_cr);
+	cairo_paint_with_alpha (m_cr, fill_trans);
+#else
+/* Working code, sadly we need to create an additional mask image with the same size as the image to be painted */
+	cairo_surface_t *image3;
+	QImage mask;
+	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
+	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
+	if (fill_trans != 1.0)
+	{
+		mask.create(image->width(), image->height(), 8);
+		for( int yi = 0; yi < image->height(); ++yi )
+		{
+			QRgb * s = (QRgb*)(image->scanLine( yi ));
+			unsigned char *d = (unsigned char *)(mask.scanLine( yi ));
+			for( int xi=0; xi < image->width(); ++xi )
+			{
+				*d++ = static_cast<unsigned char>(qAlpha(*s++) * fill_trans);
+			}
+		}
+		int adj;
+		if (image->width() % 4 == 0)
+			adj = 0;
+		else
+			adj = 4 - (image->width() % 4);
+		image3 = cairo_image_surface_create_for_data ((uchar*)mask.bits(), CAIRO_FORMAT_A8, image->width(), image->height(), image->width() + adj);
+	}
+	else
+		image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+//	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
+	cairo_set_source_surface (m_cr, image2, 0, 0);
+	cairo_mask_surface (m_cr, image3, 0, 0);
+	cairo_surface_destroy (image2);
+	cairo_surface_destroy (image3);
+#endif
+#else
+	painter.setOpacity(fill_trans);
+	painter.drawImage(0, 0, *image);
+#endif
 }
 
 void ScPainter::setupPolygon(FPointArray *points, bool closed)
 {
 	bool nPath = true;
 	FPoint np, np1, np2, np3;
+#ifdef HAVE_CAIRO
 	if (points->size() > 3)
-		{
+	{
 		newPath();
 		for (uint poi=0; poi<points->size()-3; poi += 4)
-			{
+		{
 			if (points->point(poi).x() > 900000)
-				{
+			{
 				nPath = true;
-				ensureSpace( m_index + 1 );
-				m_path[ m_index ].code = ART_END;
 				continue;
-				}
+			}
 			if (nPath)
-				{
+			{
 				np = points->point(poi);
-				ensureSpace( m_index + 1 );
-				if (closed)
-					m_path[ m_index ].code = ART_MOVETO;
-				else
-					m_path[ m_index ].code = ART_MOVETO_OPEN;
-				m_path[ m_index ].x3 = np.x() * m_zoomFactor;
-				m_path[ m_index ].y3 = np.y() * m_zoomFactor;
-				m_index++;
+    			cairo_move_to( m_cr, np.x(), np.y());
 				nPath = false;
-				}
+			}
 			np = points->point(poi);
 			np1 = points->point(poi+1);
 			np2 = points->point(poi+3);
 			np3 = points->point(poi+2);
-			ensureSpace( m_index + 1 );
 			if ((np == np1) && (np2 == np3))
-				{
-				m_path[ m_index ].code = ART_LINETO;
-				m_path[ m_index ].x3	= np3.x() * m_zoomFactor;
-				m_path[ m_index ].y3	= np3.y() * m_zoomFactor;
-				}
+				cairo_line_to( m_cr, np3.x(), np3.y());
 			else
-				{
-				m_path[ m_index ].code = ART_CURVETO;
-				m_path[ m_index ].x1	= np1.x() * m_zoomFactor;
-				m_path[ m_index ].y1	= np1.y() * m_zoomFactor;
-				m_path[ m_index ].x2	= np2.x() * m_zoomFactor;
-				m_path[ m_index ].y2	= np2.y() * m_zoomFactor;
-				m_path[ m_index ].x3	= np3.x() * m_zoomFactor;
-				m_path[ m_index ].y3	= np3.y() * m_zoomFactor;
-				}
-			m_index++;
-			}
-		ensureSpace( m_index + 1 );
-		m_path[ m_index ].code = ART_END;
-		m_index++;
+				cairo_curve_to(m_cr, np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
 		}
-}
-
-void ScPainter::setupTextPolygon(FPointArray *points)
-{
-	bool nPath = true;
-	FPoint np, np1, np2, np3;
-	newPath();
-	for (uint poi=0; poi<points->size()-3; poi += 4)
-	{
-		if (points->point(poi).x() > 900000)
-		{
-			nPath = true;
-			ensureSpace( m_index + 1 );
-			m_path[ m_index ].code = ART_END;
-			continue;
-		}
-		if (nPath)
-		{
-			np = points->point(poi);
-			ensureSpace( m_index + 1 );
-			m_path[ m_index ].code = ART_MOVETO;
-			m_path[ m_index ].x3 = np.x();
-			m_path[ m_index ].y3 = np.y();
-			m_index++;
-			nPath = false;
-		}
-		np = points->point(poi);
-		np1 = points->point(poi+1);
-		np2 = points->point(poi+3);
-		np3 = points->point(poi+2);
-		ensureSpace( m_index + 1 );
-		if ((np == np1) && (np2 == np3))
-		{
-			m_path[ m_index ].code = ART_LINETO;
-			m_path[ m_index ].x3	= np3.x();
-			m_path[ m_index ].y3	= np3.y();
-		}
-		else
-		{
-			m_path[ m_index ].code = ART_CURVETO;
-			m_path[ m_index ].x1	= np1.x();
-			m_path[ m_index ].y1	= np1.y();
-			m_path[ m_index ].x2	= np2.x();
-			m_path[ m_index ].y2	= np2.y();
-			m_path[ m_index ].x3	= np3.x();
-			m_path[ m_index ].y3	= np3.y();
-		}
-		m_index++;
+		if (closed)
+    		cairo_close_path( m_cr );
 	}
-	ensureSpace( m_index + 1 );
-	m_path[ m_index ].code = ART_END;
-	m_index++;
+#else
+	// not HAVE_CAIRO
+	if (points->size() > 3)
+	{
+		newPath();
+		for (uint poi=0; poi<points->size()-3; poi += 4)
+		{
+			if (points->point(poi).x() > 900000)
+			{
+				nPath = true;
+				continue;
+			}
+			if (nPath)
+			{
+				np = points->point(poi);
+    			m_path.moveTo(np.x(), np.y());
+				nPath = false;
+			}
+			np = points->point(poi);
+			np1 = points->point(poi+1);
+			np2 = points->point(poi+3);
+			np3 = points->point(poi+2);
+			if ((np == np1) && (np2 == np3))
+				m_path.lineTo(np3.x(), np3.y());
+			else
+				m_path.cubicTo(np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
+		}
+		if (closed)
+			m_path.closeSubpath();
+	}
+#endif
 }
 
 void ScPainter::drawPolygon()
@@ -851,20 +1294,21 @@ void ScPainter::drawLine(FPoint start, FPoint end)
 	moveTo(start.x(), start.y());
 	lineTo(end.x(), end.y());
 	strokePath();
-
 }
 
 void ScPainter::drawRect(double x, double y, double w, double h)
 {
 	newPath();
+#ifdef HAVE_CAIRO
 	moveTo( x, y );
 	lineTo( x+w, y );
 	lineTo( x+w, y+h );
 	lineTo( x, y+h );
 	lineTo( x, y );
-	ensureSpace( m_index + 1 );
-	m_path[ m_index ].code = ART_END;
-	m_index++;
+	cairo_close_path( m_cr );
+#else
+	m_path.addRect(x, y, w, h);
+#endif
 	fillPath();
 	strokePath();
 }

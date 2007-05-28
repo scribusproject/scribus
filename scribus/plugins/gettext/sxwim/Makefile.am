@@ -10,22 +10,20 @@ libsxwimplugin_la_LDFLAGS = -version-info 0:0:0
 libsxwimplugin_la_METASOURCES = AUTO
 libsxwimplugin_la_SOURCES = sxwim.cpp sxwdia.cpp stylereader.cpp contentreader.cpp
 
-EXTRA_DIST = sxwim.cpp sxwim.h sxwdia.cpp sxwdia.h stylereader.cpp stylereader.h contentreader.cpp contentreader.h
+EXTRA_DIST = sxwim.cpp sxwim.h sxwdia.cpp sxwdia.h stylereader.cpp stylereader.h contentreader.cpp contentreader.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
-
-if COMPILE_DEBUG
- linkflag =
-else
- linkflag = -s
-endif
-AM_LDFLAGS =  $(linkflag) $(LIBFREETYPE_LIBS) $(XML_LIBS)
+AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(XML_LIBS) $(MODULE_LINK_FLAGS)
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus \
     -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
     -DICONDIR=\"$(datadir)/scribus/icons/\" \
+    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
+    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
     -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
 
+AM_CXXFLAGS = \
+    $(GCC_CXX_VISIBILITY_FLAGS)

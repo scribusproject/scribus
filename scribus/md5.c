@@ -20,12 +20,8 @@
 
 /* Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.  */
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
+#ifdef HAVE_CONFIG_H
+#include "scconfig.h"
 #endif
 
 #include <sys/types.h>

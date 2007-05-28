@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           bookpalette.cpp  -  description
                              -------------------
@@ -16,41 +22,32 @@
  ***************************************************************************/
 
 #include "bookpalette.h"
-#include "bookpalette.moc"
+//#include "bookpalette.moc"
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3VBoxLayout>
 extern QPixmap loadIcon(QString nam);
 
-/*!
- \fn BookPalette::BookPalette(QWidget* parent)
- \author Franz Schmid
- \date
- \brief Constructor for Bookmark Palette
- \param parent Parent Window
- \retval None
- */
-
-BookPalette::BookPalette(QWidget* parent) : QDialog( parent, "Books", false, 0 )
+BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
 {
-	setIcon(loadIcon("AppIcon.png"));
-	setCaption( tr( "Bookmarks" ) );
-	PaletteLayout = new QVBoxLayout( this, 0, 0, "PaletteLayout");
+	PaletteLayout = new Q3VBoxLayout( this, 0, 0, "PaletteLayout");
 	BView = new BookMView(this);
 	BView->setMinimumSize(QSize(100,150));
 	PaletteLayout->addWidget( BView );
+	languageChange();
 }
 
-/*!
+/*
  \fn void BookPalette::closeEvent(QCloseEvent *ce)
  \author Franz Schmid
  \date
- \brief Emits the Signal Schliessen and accepts close event. The Signal is used in ScribusApp to adjust the Menues.
+ \brief Emits the Signal Schliessen and accepts close event. The Signal is used in ScribusMainWindow to adjust the Menues.
  \param ce Close Event
  \retval None
- */
-
+			  */
+			 /*
 void BookPalette::keyPressEvent(QKeyEvent *k)
 {
-	if (k->key() == Key_F10)
-		emit ToggleAllPalettes();
 	QDialog::keyPressEvent(k);
 }
 
@@ -64,4 +61,10 @@ void BookPalette::reject()
 {
 	emit Schliessen();
 	QDialog::reject();
+}
+*/
+
+void BookPalette::languageChange()
+{
+	setCaption( tr( "Bookmarks" ) );	
 }

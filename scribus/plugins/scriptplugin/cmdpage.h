@@ -1,11 +1,9 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef CMDPAGE_H
 #define CMDPAGE_H
 
@@ -16,13 +14,13 @@
 
 /*! docstring */
 PyDoc_STRVAR(scribus_newpage__doc__,
-QT_TR_NOOP("newPage(where [,\"template\"])\n\
+QT_TR_NOOP("newPage(where [,\"masterpage\"])\n\
 \n\
 Creates a new page. If \"where\" is -1 the new Page is appended to the\n\
 document, otherwise the new page is inserted before \"where\". Page numbers are\n\
 counted from 1 upwards, no matter what the displayed first page number of your\n\
-document is. The optional parameter \"template\" specifies the name of the\n\
-template page for the new page.\n\
+document is. The optional parameter \"masterpage\" specifies the name of the\n\
+master page for the new page.\n\
 \n\
 May raise IndexError if the page number is out of range\n\
 "));
@@ -47,6 +45,15 @@ Redraws all pages.\n\
 "));
 /*! redraw all */
 PyObject *scribus_redraw(PyObject */*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_pageposition__doc__,
+QT_TR_NOOP("getPageType() -> integer\n\
+\n\
+Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page\n\
+"));
+/*! Go to page */
+PyObject *scribus_pageposition(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_savepageeps__doc__,

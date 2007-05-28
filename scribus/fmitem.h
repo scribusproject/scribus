@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           fmitem.h  -  description
                              -------------------
@@ -23,14 +29,18 @@
 #include <qfont.h>
 #include <qstring.h>
 #include <qmenudata.h>
+
+#include "scribusapi.h"
+#include "scfonts.h"
+
 /**
   *@author Franz Schmid
   */
 
-class FmItem : public QCustomMenuItem 
+class SCRIBUS_API FmItem : public QCustomMenuItem 
 {
 public: 
-	FmItem(const QString& s, const QFont& f);
+	FmItem(const QString& s, const ScFace& f);
 	~FmItem() {};
 	void paint(QPainter *p, const QColorGroup& cg, bool act, bool enabled, int x, int y, int w, int h);
 	QSize sizeHint();

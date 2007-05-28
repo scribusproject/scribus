@@ -1,0 +1,50 @@
+Experimental support for the use of Boost::Python has been added to the Python
+interface. All Boost code is exported in a separate module, scribus2, that is
+only created if Boost::Python is available.
+
+Currently there's no autotools support for this in Scribus, so to compile the
+scripter with this highly experimental feature you must:
+
+$ make clean
+$ make CXXFLAGS=" -Wno-extra -Wno-unused -DHAVE_BOOST_PYTHON -fexceptions " LDFLAGS=" -lboost_python "
+$ make install
+
+For more information on Boost::Python see:
+	http://www.boost.org/libs/python/doc/
+	http://www-eleves-isia.cma.fr/documentation/BoostDoc/boost_1_29_0/libs/python/doc/tutorial/
+
+It's strongly recommended that you read the FAQ at:
+	http://www.boost.org/libs/python/doc/v2/faq.html
+(probably once before reading the code, and again after).
+
+All the fun stuff is in the `scribus2' module and is used for manipulating
+paragraph styles. There are currently two (dirty hack) interfaces. One is a
+"value based" interface - ask for a /copy of/ a style, add a style by /copying/
+it into the style list, etc. The other interface is reference based - get a
+dict of references to the existing styles and modify them directly. Soon,
+hopefully, add and remove styles from the dict as if it was a Python one too.
+The value based interface is safer but clumsier; the reference based one
+can be a tad dangerous but is very handy.
+
+Examples:
+
+>>> import scribus2
+>>> p = scribus2.ParagraphStyle()
+>>> p.Vname = "testing"
+>>> scribus2.addStyle(p)
+>>> scribus2.getStyleNames()
+[ blah, blah, blah , "testing" ]
+>>> scribus2.getStylesRef()['testing'].Vname = "newname"
+>>> scribus2.getStyleNames()
+[ blah, blah, blah, "newname"]
+>>> ref = scribus2.getStyleRef("newname")
+>>> ref.Vname = "renamed"
+>>> scribus2.getStyleNames()
+[ blah, blah, blah, "renamed"]
+>>> val = scribus2.getStyleVal("renamed")
+>>> val.Vname = "doesnothing"
+>>> scribus2.getStyleNames()
+[ blah, blah, blah, "renamed"]
+>>> scribus2.addStyle(val)
+>>> scribus2.getStyleNames()
+[ blah, blah, blah, "renamed", "doesnothing"]

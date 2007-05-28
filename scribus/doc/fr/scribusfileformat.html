@@ -1,0 +1,2983 @@
+<qt>
+<title>Sp&eacute;cifications des formats de fichier pour Scribus 1.2</title>
+	<h2>Sp&eacute;cifications des formats de fichier pour Scribus 1.2</h2>
+	<p>Cette sp&eacute;cification est fond&eacute;e sur le format actuel support&eacute; par Scribus 1.2. 	<p>Elle liste tous les marqueurs et attributs,
+certains d'entre eux &eacute;tant optionnels, suivant le type de document. Les marqueurs et attributs optionnels sont pr&eacute;sent&eacute;s sur fond bleu p&acirc;le; si l'un d'eux est absent, Scribus ins&egrave;re une valeur par d&eacute;faut.</p>
+	  
+	<table valign="top" border="1">
+		<tr valign="top">
+			<td colspan=5 align="center"><b>Marqueurs</b></td>
+			<td><b>Attributs</b></td>
+			<td><b>Signification</b></td>
+		</tr>
+		<tr valign="top">
+			<td>SCRIBUSUTF8</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Version</td>
+			<td>Num&eacute;ro de version pour le <br>d&eacute;bogage</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td>DOCUMENT</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ABSTSPALTEN</td>
+			<td>Distance entre les colonnes dans les <br>cadres de texte automatiques</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ALAYER</td>
+			<td>Calque actif</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ANZPAGES</td>
+			<td>Nombre de pages</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>AUTHOR</td>
+			<td>Auteur du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">AUTOCHECK</td>
+			<td>C&eacute;sure automatique lors de la saisie<br>0 = d&eacute;sactiv&eacute;, 1 = activ&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">AUTOMATIC</td>
+			<td>C&eacute;sure automatique<br>0 = d&eacute;sactiv&eacute;, 1 = activ&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>AUTOSPALTEN</td>
+			<td>Nombre de colonnes dans les cadres de texte<br>automatiques</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BASEGRID</td>
+			<td>Largeur de la grille typographique</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BASEO</td>
+			<td>Point de d&eacute;part de la grille typographique</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BOOK</td>
+			<td>Le document poss&egrave;de des pages "en regard"<br>lorsque cet attribut est pr&eacute;sent</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BORDERBOTTOM</td>
+			<td>Bordure du bas du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BORDERLEFT</td>
+			<td>Bordure gauche du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BORDERRIGHT</td>
+			<td>Bordure droite du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BORDERTOP</td>
+			<td>Bordure du haut du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>COMMENTS</td>
+			<td>Commentaires du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DCOL</td>
+			<td>Nombre de colonnes dans les cadres de texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DFONT</td>
+			<td>Police par d&eacute;faut</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DGAP</td>
+			<td>Goutti&egrave;re par d&eacute;faut entre les colonnes <br>dans les cadres de texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DIMo</td>
+			<td>Rendu par d&eacute;faut pour l'&eacute;cran<br>
+   0 = Perceptible<br>1 = Colorim&eacute;trie relative<br>
+   2 = Saturation<br>3 = Colorim&eacute;trie absolue</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DIMo2</td>
+			<td>Rendu par d&eacute;faut pour les images<br>
+   0 = Perceptible<br>1 = Colorim&eacute;trie relative<br>
+   2 = Saturation<br>3 = Colorim&eacute;trie absolue</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DIPr</td>
+			<td>Rendu par d&eacute;faut pour l'imprimante<br>
+   0 = Perceptible<br>1 = Colorim&eacute;trie relative<br>
+   2 = Saturation<br>3 = Colorim&eacute;trie absolue</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCCONTRIB</td>
+			<td>Personne ou organisation qui contribue au document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCCOVER</td>
+			<td>Prolongement de la port&eacute;e du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCDATE</td>
+			<td>Date relative au cycle de vie du document, AAAA-MM-JJ</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCFORMAT</td>
+			<td>Manifestation physique ou num&eacute;rique du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCIDENT</td>
+			<td>Une r&eacute;f&eacute;rence non ambigu&euml; au document, par exemple un ISBN</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCLANGINFO</td>
+			<td>Langue du contenu du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCRELATION</td>
+			<td>R&eacute;f&eacute;rence &agrave; un document connexe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCRIGHTS</td>
+			<td>Information &agrave; propos des droits dans et sur le document, par exemple le droit d'auteur</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCSOURCE</td>
+			<td>R&eacute;f&eacute;rence &agrave; un document dont celui-ci est le d&eacute;riv&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DOCTYPE</td>
+			<td>Nature ou genre de contenu du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Dpbla</td>
+			<td>&Eacute;quilibrer le point noir<br>0 = d&eacute;sactiv&eacute;, 1 = activ&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Dpgam</td>
+			<td>Marquer les couleurs hors gamme<br>0 = d&eacute;sactiv&eacute;, 1 = activ&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPIn</td>
+			<td>Profil ICC par d&eacute;faut pour les couleurs d'accompagnement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPIn2</td>
+			<td>Profil ICC par d&eacute;faut pour les images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPMo</td>
+			<td>Profil ICC par d&eacute;faut pour l'&eacute;cran</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPPr</td>
+			<td>Profil ICC par d&eacute;faut pour l'imprimante</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DPSo</td>
+			<td>Simuler l'imprimante &agrave; l'&eacute;cran<br>0 = d&eacute;sactiv&eacute;, 1 = activ&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Dpuse</td>
+			<td>Utiliser la gestion des couleurs<br>0 = d&eacute;sactiv&eacute;, 1 = activ&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DSIZE</td>
+			<td>Taille de police par d&eacute;faut</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">FIRSTLEFT</td>
+			<td>La premi&egrave;re page est une page de gauche quand cet<br>attribut est pr&eacute;sent</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">FIRSTNUM</td>
+			<td>Premier num&eacute;ro de page dans le document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GROUPC</td>
+			<td>Compteur de groupes dans le document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GUIDELOCK</td>
+			<td>Guides verrouill&eacute;s<br>0 = d&eacute;sactiv&eacute;, 1 = activ&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">HCMS</td>
+			<td>Gestion des couleurs disponible<br>0 = d&eacute;sactiv&eacute;, 1 = activ&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">HYCOUNT</td>
+			<td>Nombre de traits d'union cons&eacute;cutifs permis</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>KEYWORDS</td>
+			<td>Mots cl&eacute;s pour le document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LANGUAGE</td>
+			<td>Langage du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">MAJGRID</td>
+			<td>Distance des lignes de quadrillage majeures</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">MINGRID</td>
+			<td>Distance des lignes de quadrillage mineures</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">MINWORDLEN</td>
+			<td>Longueur minimale d'un mot pour &ecirc;tre c&eacute;sur&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ORIENTATION</td>
+			<td>Orientation du document<br>0 = Portrait<br>1 = Paysage</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PAGEHEIGHT</td>
+			<td>Hauteur du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PAGEWITH</td>
+			<td>Largueur du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PUBLISHER</td>
+			<td>
+   Personne ou organisation responsable de rendre le document disponible
+ 	</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TITLE</td>
+			<td>Titre du document</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">UNITS</td>
+			<td>Unit&eacute;s de mesure pour le document<br>0 = Points<br>1 = Millim&egrave;tres<br>2 = Pouces<br>3 = Picas</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VHOCH</td>
+			<td>Pourcentage d'exposant</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VHOCHSC</td>
+			<td>Pourcentage de mise &agrave; l'&eacute;chelle des caract&egrave;res dans les exposants</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VKAPIT</td>
+			<td>Pourcentage de mise &agrave; l'&eacute;chelle des caract&egrave;res dans les petites capitales</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VTIEF</td>
+			<td>Pourcentage pour les indices</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VTIEFSC</td>
+			<td>Pourcentage de mise &agrave; l'&eacute;chelle des caract&egrave;res dans les indices</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Multiligne</td>
+			<td></td>
+			<td></td>
+			<td>Name</td>
+			<td>Nom du style de filet</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Sous-ligne</td>
+			<td></td>
+			<td>Color</td>
+			<td>Nom de la couleur de cette ligne</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Dash</td>
+			<td>Comment le filet est trac&eacute;<br>1 = Ligne continue<br>2 = Ligne tiret&eacute;e<br>
+  3 = Ligne pointill&eacute;e<br>4 = Ligne mixte trait-point<br>5 = Ligne mixte trait-point-point</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LineEnd</td>
+			<td>Code pour le rendu de fin de ligne<br>0 = FlatCap<br>16 = SquareCap<br>32 = RoundCap</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LineJoin</td>
+			<td>Code pour le rendu de jonction de ligne<br>0 = MiterJoin<br>64 = BevelJoin<br>128 = RoundJoin</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Shade</td>
+			<td>Teinte de la couleur du filet en pourcentage</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Width</td>
+			<td>&Eacute;paisseur du filet en points</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">JAVA</td>
+			<td></td>
+			<td></td>
+			<td>NAME</td>
+			<td>Nom du script</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SCRIPT</td>
+			<td>Le JavaScript lui-m&ecirc;me</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Signets </td>
+			<td></td>
+			<td></td>
+			<td>Aktion</td>
+			<td>Action pour ce signet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Element</td>
+			<td>Num&eacute;ro de l'objet Scribus</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>First</td>
+			<td>Num&eacute;ro du premier signet &agrave; ce niveau</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ItemNr</td>
+			<td>Num&eacute;ro interne de ce signet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Last</td>
+			<td>Num&eacute;ro du dernier signet &agrave; ce niveau</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Next</td>
+			<td>Num&eacute;ro du signet suivant &agrave; ce niveau</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Parent</td>
+			<td>Num&eacute;ro du parent de ces signets</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Prev</td>
+			<td>Num&eacute;ro du signet pr&eacute;c&eacute;dent &agrave; ce niveau</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Seite</td>
+			<td>Page sur laquelle ce signet se situe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Text</td>
+			<td>Texte interne de ce signet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Title</td>
+			<td>Cha&icirc;ne de caract&egrave;res qui est export&eacute;e en PDF</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td>COULEUR</td>
+			<td></td>
+			<td></td>
+			<td>CMYK</td>
+			<td>Valeur sous forme de cha&icirc;ne hexad&eacute;cimale</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NAME</td>
+			<td>Nom de la couleur</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>RGB</td>
+			<td>Valeur sous forme de cha&icirc;ne hexad&eacute;cimale</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">STYLE</td>
+			<td></td>
+			<td></td>
+			<td>ALIGN</td>
+			<td>Code pour l'alignement du texte.<br>0 = Aligner le texte &agrave; gauche<br>1 = Centrer le texte<br>2 = Aligner le texte &agrave; droite <br>
+   3 = Justifier le texte <br>4 = Forcer la justification du texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BASE</td>
+			<td>Indicateur pour l'ajustement de la grille typographique<br>0 = aucun ajustement, 1 = ajustement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DROP</td>
+			<td>Indicateur pour lettrines<br>1 = lettrines activ&eacute;es</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DROPLIN</td>
+			<td>Nombre de lignes pour les lettrines</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>EFFECT</td>
+			<td>Style de caract&egrave;re pour le texte<br>1 = Exposant<br>2 = Indice<br>4 = Contour de texte<br>
+  8 = Soulign&eacute;<br>16 = Barr&eacute;<br>64 = Petites capitales</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FCOLOR</td>
+			<td>Nom de la couleur de fond</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FIRST</td>
+			<td>Indentation de la premi&egrave;re ligne</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FONT</td>
+			<td>Nom de la police</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FONTSIZE</td>
+			<td>Taille de la police</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FSHADE</td>
+			<td>Teinte de la couleur de fond en pourcentage</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>INDENT</td>
+			<td>Indentation pour toutes les lignes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LINESP</td>
+			<td>Espacement des lignes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NACH</td>
+			<td>Espacement apr&egrave;s un paragraphe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NAME</td>
+			<td>Nom du style</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMTAB</td>
+			<td>Nombre de tabulations</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SCOLOR</td>
+			<td>Nom de la couleur de contour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SSHADE</td>
+			<td>Teinte de la couleur de contour en pourcentage</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TABS</td>
+			<td>Liste des tabulations, codes de tabulations et positions d&eacute;finis<br>Codes de tabulation:<br>0 = Gauche<br>1 = Droite<br>
+  2 = Arr&ecirc;t total<br>3 = Virgule<br>4 = Centr&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VOR</td>
+			<td>Espacement avant un paragraphe</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td>CALQUES</td>
+			<td></td>
+			<td></td>
+			<td>DRUCKEN</td>
+			<td>Indicateur pour l'impression<br>0 = Le calque n'est pas imprim&eacute;<br>1 = Le calque est imprim&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LEVEL</td>
+			<td>Niveau du calque<br>0 = Arri&egrave;re-plan</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NAME</td>
+			<td>Nom du calque</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMMER</td>
+			<td>Num&eacute;ro du calque</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SICHTBAR</td>
+			<td>Indicateur de visibilit&eacute;<br>0 = Le calque n'est pas visible<br>1 = Le calque est visible</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td>PDF</td>
+			<td></td>
+			<td></td>
+			<td>Articles</td>
+			<td>Indicateur, mis &agrave; 1 lorsque l'usage des articles PDF est<br>coch&eacute; dans l'&eacute;cran des options PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BBottom</td>
+			<td>Distance du bas pour la marge de coupe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Binding</td>
+			<td>Reliure pour le document PDF<br>0 = Reliure &agrave; gauche<br>1 = Reliure &agrave; droite</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BLeft</td>
+			<td>Distance &agrave; gauche pour la marge de coupe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Bookmarks</td>
+			<td>Indicateur, mis &agrave; 1 lorsque "inclure les signets" est <br>coch&eacute; dans l'&eacute;cran des options PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BRight</td>
+			<td>Distance &agrave; droite pour la marge de coupe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BTop</td>
+			<td>Distance en haut pour la marge de coupe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CMethod</td>
+			<td>M&eacute;thode de compression pour les images<br>0 = Automatique, Scribus essaie d'utiliser la meilleure m&eacute;thode<br>1 = Compression JPEG<br>
+  2 = Compression Flate<br>3 = Pas de compression</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Compress</td>
+			<td>Indicateur, mis &agrave; 1 lorsque "Comprimer le texte" est <br>coch&eacute; dans l'&eacute;cran des options PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Encrypt</td>
+			<td>Indicateur, mis &agrave; 1 lorsque "Chiffrement" est <br>coch&eacute; dans l'&eacute;cran des options PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ImageP</td>
+			<td>Profil ICC pour les images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ImagePr</td>
+			<td>Indicateur, mis &agrave; 1 lorsque les profils ICC inclus ne doivent pas &ecirc;tre utilis&eacute;s pour les images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">InfoString</td>
+			<td>Cha&icirc;ne de caract&egrave;re contenant l'information pour la sortie PDF-X/3</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Intent</td>
+			<td>Rendu pour les couleurs d'accompagnement<br>0 = Perceptible<br>1 = Colorim&eacute;trie relative<br>
+   2 = Saturation<br>3 = Colorim&eacute;trie absolue</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Intent2</td>
+			<td>Rendu pour les images<br>0 = Perceptible<br>1 = Colorim&eacute;trie relative<br>
+   2 = Saturation<br>3 = Colorim&eacute;trie absolue</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PassOwner</td>
+			<td>Mot de passe propri&eacute;taire pour les PDF chiffr&eacute;s</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PassUser</td>
+			<td>Mot de passe utilisateur pour les PDF chiffr&eacute;s</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Permissions</td>
+			<td>Valeur utilis&eacute;e pour les param&egrave;tres de chiffrement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PicRes</td>
+			<td>R&eacute;solution pour le r&eacute;&eacute;chantillonnage des images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PresentMode</td>
+			<td>Indicateur, mis &agrave; 1 lorsque les effets de pr&eacute;sentation doivent &ecirc;tre utilis&eacute;s</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PrintP</td>
+			<td>Profil ICC de l'imprimante, utilis&eacute; seulement pour les sorties PDF-X/3</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">Quality</td>
+			<td>Param&egrave;tres de qualit&eacute; pour la compression d'image<br>0 = Maximale (95 %)<br>1 = Haute (85 %)<br>
+  2 = Moyenne (75 %)<br>3 = Basse (50 %)<br>4 =  Minimale (25 %)</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>RecalcPic</td>
+			<td>Indicateur, mis &agrave; 1 lorsque "R&eacute;&eacute;chantillonner les images" est <br>coch&eacute; dans l'&eacute;cran des options PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Resolution</td>
+			<td>R&eacute;solution pour les images EPS incluses ou les PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RGBMode</td>
+			<td>Indicateur, mis &agrave; 1 lorsque la sortie doit &ecirc;tre en RVB</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">SolidP</td>
+			<td>Profil ICC pour les couleurs d'accompagnement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Thumbnails</td>
+			<td>Indicateur, mis &agrave; 1 lorsque "G&eacute;n&eacute;rer les vignettes" est <br>coch&eacute; dans l'&eacute;cran des options PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">UseLpi</td>
+			<td>Indicateur, mis &agrave; 1 lorsque les informations dans les marqueurs LPI doivent &ecirc;tre utilis&eacute;es pour Linescreening</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">UseProfiles</td>
+			<td>Indicateur, mis &agrave; 1 lorsque les profils ICC doivent &ecirc;tre utilis&eacute;s pour les couleurs d'accompagnement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">UseProfiles2</td>
+			<td>Indicateur, mis &agrave; 1 lorsque les profils ICC doivent &ecirc;tre utilis&eacute;s pour les images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Version</td>
+			<td>Version du PDF qui doit &ecirc;tre g&eacute;n&eacute;r&eacute;<br>12 = PDF-X/3<br>13 = PDF-1.3<br>14 = PDF-1.4</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Effets</td>
+			<td></td>
+			<td>AnzeigeLen</td>
+			<td>Mesure combien de temps en secondes la page est affich&eacute;e en mode plein &eacute;cran</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Di</td>
+			<td>Direction pour l'effet d'effacement (Wipe) et le scintillement (Glitter)<br>0 = De gauche &agrave; droite<br>1 = De haut en bas<br>
+  2 = De bas en haut<br>3 = De droite &agrave; gauche<br>4 = Du coin sup&eacute;rieur gauche au coin inf&eacute;rieur droit</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Dm</td>
+			<td>Direction pour l'effet de s&eacute;paration (Split) et de stores (Blinds)<br>0 = horizontal<br>1 = vertical</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Effekt</td>
+			<td>Type d'effet<br>0 = Pas d'effet<br>1 = Stores<br>2 = Bo&icirc;te<br>3 = Dissolution<br>
+  4 = Scintillement<br>5 = S&eacute;paration<br>6 = Effacement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>EffektLen</td>
+			<td>Mesure combien de temps en secondes l'effet est affich&eacute; en mode plein &eacute;cran</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>M</td>
+			<td>Direction du mouvement pour les transitions S&eacute;paration et Bo&icirc;te<br>0 = vers l'int&eacute;rieur<br>1 = vers l'ext&eacute;rieur</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LPI</td>
+			<td></td>
+			<td>Angle</td>
+			<td>Angle de Linescreening</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Color</td>
+			<td>Nom de la couleur pour laquelle ces param&egrave;tres sont faits</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Frequency</td>
+			<td>Combien de lignes par pouce sont utilis&eacute;es</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SpotFunction</td>
+			<td>Code pour le Spotfunction utilis&eacute; :<br>0 = Point simple<br>1 = Ligne<br>
+   2 = Rond<br>3 = Ellipse<br></td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Polices</td>
+			<td></td>
+			<td>Name</td>
+			<td>Nom de la police &agrave; inclure dans le PDF</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td>PAGE</td>
+			<td></td>
+			<td></td>
+			<td>HorizontalGuides</td>
+			<td>Liste des guides horizontaux</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LEFT</td>
+			<td>Est &agrave; 1 si cette page est un gabarit gauche</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>MNAM</td>
+			<td>Nom du gabarit associ&eacute;,<br>vide si cette page est un gabarit</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NAM</td>
+			<td>Nom du gabarit, vide<br>lorsque cette page est une page normale</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUM</td>
+			<td>Num&eacute;ro de la page, en partant de 0</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NumHGuides</td>
+			<td>Nombre de guides horizontaux</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NumVGuides</td>
+			<td>Nombre de guides verticaux</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>VerticalGuides</td>
+			<td>Liste des guides verticaux</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PAGEOBJECT</td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ALIGN</td>
+			<td>Alignement du texte lorsqu'aucun style de paragraphe est choisi<br>0 = Pas de style, align&eacute; &agrave; gauche<br>1 = Texte centr&eacute;<br>
+   2 = Texte align&eacute; &agrave; droite<br>3 = Texte justifi&eacute;<br>4 = Texte avec justification forc&eacute;e<br></td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANAA</td>
+			<td>Mis &agrave; 1 si l'action d'annotations est une action JavaScript</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANACTION</td>
+			<td>Action pour le champ PDF, contient soit une URL soit du JavaScript</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANACTYP</td>
+			<td>Type d'action pour un champ PDF<br>0 = Aucune<br>1 = JavaScript<br>2 = Aller &agrave;<br>
+  3 = Soumettre le formulaire<br>4 = Effacer le formulaire<br>5 = Importer des donn&eacute;es</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANBCOL</td>
+			<td>Nom de la couleur de contour du bouton PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANBLACT</td>
+			<td>JavaScript ex&eacute;cut&eacute; lorsque le champ PDF n'est plus marqu&eacute; par le curseur</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANBSTY</td>
+			<td>Style de contour pour un bouton PDF<br>0 = Solide<br>1 = Intermittent<br>2 = Soulign&eacute;<br>
+  3 = Emboss&eacute;<br>4 = Renfonc&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANBWID</td>
+			<td>Largeur de contour pour un bouton PDF<br>0 = Aucune<br>1 = Mince<br>2 = Normale<br>3 = Large</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANCACT</td>
+			<td>JavaScript ex&eacute;cut&eacute; lorsqu'une page PDF est chang&eacute;e</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANCHK</td>
+			<td>Mis &agrave; 1 si PDF est coch&eacute; par d&eacute;faut</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANCHKS</td>
+			<td>Style de la marque dans une case &agrave; cocher PDF<br>0 = Coche<br>1 = Croix<br>2 = Diamant<br>
+  3 = Cercle<br>4 = &Eacute;toile<br>5 = Carr&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANDACT</td>
+			<td>JavaScript ex&eacute;cut&eacute; d&egrave;s l'appui sur le bouton de la souris</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANDOWN</td>
+			<td>Texte pour l'&eacute;tat enfonc&eacute; d'un bouton PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANEACT</td>
+			<td>JavaScript ex&eacute;cut&eacute; lorsque le curseur entre dans le champ PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANEXTERN</td>
+			<td>Chemin d'acc&egrave;s ou URL d'un lien PDF externe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFACT</td>
+			<td>JavaScript ex&eacute;cut&eacute; avant de formater le champ PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFEED</td>
+			<td>R&eacute;troaction lorsqu'un bouton PDF est enfonc&eacute;<br>0 = Aucune<br>1 = Inversion<br>2 = Contour<br>
+  3 = Animation &agrave; l'&eacute;tat enfonc&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFLAG</td>
+			<td>Indicateurs pour les annotations, la valeur &eacute;tant au niveau du bit ou &eacute;tablie selon les constantes suivantes<br>
+  1 = Le champ est en lecture seule<br>2 = Le champ doit avoir une valeur<br>4 = La valeur n'est pas export&eacute;e<br>
+  4096 = Le champ est multiligne<br>8192 = Le champ est un mot de passe<br>
+  262144 = Le champ est &eacute;ditable<br>4194304 = Ne pas v&eacute;rifier l'orthographe<br>8388608 = Ne pas faire d&eacute;filer</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFOACT</td>
+			<td>JavaScript ex&eacute;cut&eacute; lorsque le champ re&ccedil;oit le curseur</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFONT</td>
+			<td>Police pour le bouton PDF ou l'annotation<br>0 = Courier<br>1 = Courier gras<br>
+  2 = Courier italique<br>3 = Courier gras italique<br>4 = Helvetica<br>5 = Helveticar gras<br>
+  6 = Helvetica italique<br>7 = Helvetica gras italique<br>8 = Times<br>9 = Times gras<br>
+  10 = Times italique<br>11 = Times gras italique<br>12 = Zapf Dingbats<br>13 = Symbols</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANFORMAT</td>
+			<td>Format de la valeur dans un champ PDF<br>0 = Texte seul<br>1 = Chiffre<br>
+  2 = Pourcentage<br>3 = Date<br>4 = Heure<br>5 = Format personnalis&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANHTML</td>
+			<td>Mis &agrave; 1 si l'action Soumettre PDF doit envoyer en format HTML au lieu de FPF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANICON</td>
+			<td>Mis &agrave; 1 si les boutons PDF utilisent des ic&ocirc;nes</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANKACT</td>
+			<td>JavaScript pour les touches enfonc&eacute;es</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANMC</td>
+			<td>Nombre maximal de caract&egrave;res dans un champ texte PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANNAME</td>
+			<td>Nom du champ d'annotation, aussi utilis&eacute; comme nom d'objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANNOTATION</td>
+			<td>Mis &agrave; 1 si l'objet est une annotation ou un champ PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANPLACE</td>
+			<td>Comment afficher l'ic&ocirc;ne d'un bouton PDF<br>0 = Seulement le titre<br>1 = Seulement l'ic&ocirc;ne<br>
+  2 = Le titre sous l'ic&ocirc;ne<br>3 = Le titre au-dessus de l'ic&ocirc;ne<br>4 = Le titre &agrave; droite de l'ic&ocirc;ne<br>
+  5 = Le titre &agrave; gauche de l'ic&ocirc;ne<br>6 = Le titre par-dessus l'ic&ocirc;ne</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANROLL</td>
+			<td>Texte pour le survol des boutons PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANSCALE</td>
+			<td>Redimensionnement des ic&ocirc;nes sur les boutons PDF<br>0 = Toujours<br>1 = Lorsque l'ic&ocirc;ne est trop petite<br>
+  2 = Lorsque l'ic&ocirc;ne est trop grande<br>3 = Jamais</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANTOOLTIP</td>
+			<td>Info-bulle pour le champ PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANTYPE</td>
+			<td>Type de l'annotation ou du champ PDF<br>0 = Annotation texte<br>1 = Annotation lien<br>
+  2 = Bouton PDF<br>3 = Champ texte PDF<br>4 = Case &agrave; cocher PDF<br>5 = Liste d&eacute;roulante avec saisie PDF<br>
+  6 = Liste d&eacute;roulante PDF<br>7 = Lien externe<br>8 = Lien Web externe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANVACT</td>
+			<td>JavaScript ex&eacute;cut&eacute; lorsque les valeurs des champs ont chang&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANVIS</td>
+			<td>La visibilit&eacute; du champ PDF<br>0 = visible<br>1 = cach&eacute;<br>2 = ne pas imprimer<br>3 = ne pas afficher, mais imprimer</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANXACT</td>
+			<td>JavaScript ex&eacute;cut&eacute; lorsque le pointeur de la souris quitte le champ</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ANZIEL</td>
+			<td>Num&eacute;ro de page d'un lien PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>AUTOTEXT</td>
+			<td>Mis &agrave; 1 si l'objet est un cadre de texte automatique</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BACKITEM</td>
+			<td>Num&eacute;ro du cadre pr&eacute;c&eacute;dant d'un cadre de texte li&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BACKPAGE</td>
+			<td>Num&eacute;ro de la page du cadre pr&eacute;c&eacute;dent dans des cadres de textes li&eacute;s</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BASEOF</td>
+			<td>D&eacute;calage du texte de son trac&eacute; pour du texte sur trac&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BBOXH</td>
+			<td>Hauteur de la limite du cadre, utilis&eacute; seulement pour les images EPS</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BBOXX</td>
+			<td>Valeur X de la limite du cadre, utilis&eacute; seulement pour les images EPS</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BEXTRA</td>
+			<td>Distance du texte &agrave; partir du bas du cadre</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BOOKMARK</td>
+			<td>Mis &agrave; 1 si l'objet est un signet PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">BookNr</td>
+			<td>Nombre de signets</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BottomLine</td>
+			<td>Mis &agrave; 1 si le tableau a une ligne de bas</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>BottomLINK</td>
+			<td>Num&eacute;ro de l'objet qui est sous cet objet dans les tableaux</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CLIPEDIT</td>
+			<td>Mis &agrave; 1 si le formulaire a &eacute;t&eacute; &eacute;dit&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>COLGAP</td>
+			<td>Goutti&egrave;re entre les colonnes de texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>COLUMNS</td>
+			<td>Nombre de colonnes dans le texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">COCOOR</td>
+			<td>Coordonn&eacute;es de la ligne de contour des objets</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">DASHOFF</td>
+			<td>D&eacute;calage pour le premier trait d'union</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>DASHS</td>
+			<td>Liste des valeurs des traits d'union, voir le manuel PostScript pour les d&eacute;tails</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">EMBEDDED</td>
+			<td>Mis &agrave; 1 si les profils ICC inclus doivent &ecirc;tre utilis&eacute;s</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">EPROF</td>
+			<td>Profil ICC inclus pour les images</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>EXTRA</td>
+			<td>Distance du texte &agrave; partir de l'extr&ecirc;me gauche du cadre</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">EXTRAV</td>
+			<td>Valeur de l'espacement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FLIPPEDH</td>
+			<td>Mis &agrave; un nombre impair si l'objet est renvers&eacute; horizontalement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>FLIPPEDV</td>
+			<td>Mis &agrave; un nombre impair si l'objet est renvers&eacute; verticalement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">FRTYPE</td>
+			<td>Type de forme d'un objet<br>0 = Rectangle<br>1 = Ellipse<br>2 = Rectangle arrondi<br>
+  3 = Forme libre</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRENDX</td>
+			<td>Valeur x de la position de fin du d&eacute;grad&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRENDY</td>
+			<td>Valeur y de la valeur de fin du d&eacute;grad&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>GROUPS</td>
+			<td>Liste d'identificateurs de groupe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRSTARTX</td>
+			<td>Valeur x de la position de d&eacute;part du d&eacute;grad&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRSTARTY</td>
+			<td>Valeur y de la position de d&eacute;part du d&eacute;grad&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">GRTYP</td>
+			<td>Type de remplissage du d&eacute;grad&eacute;<br>0 = Pas de remplissage<br>1 = D&eacute;grad&eacute; horizontal<br>
+  2 = D&eacute;grad&eacute; vertical<br>3 = D&eacute;grad&eacute; diagonal<br>4 = D&eacute;grad&eacute; &agrave; diagonale crois&eacute;e<br>
+  5 = D&eacute;grad&eacute; radial<br>6 = D&eacute;grad&eacute; lin&eacute;aire libre<br>7 = D&eacute;grad&eacute; radial libre</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>HEIGHT</td>
+			<td>Hauteur de l'objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>IFONT</td>
+			<td>Nom de la police pour le texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">INVERS</td>
+			<td>L'image est invers&eacute;e</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">IRENDER</td>
+			<td>Rendu pour les images<br>
+0 = Perceptible<br>1 = Colorim&eacute;trie relative<br>
+   2 = Saturation<br>3 = Colorim&eacute;trie absolue</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">ISIZE</td>
+			<td>Taille de police pour le texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">isTableItem</td>
+			<td>Mis &agrave; 1 si l'objet appartient &agrave; un tableau</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LANGUAGE</td>
+			<td>Langage de l'objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LAYER</td>
+			<td>Num&eacute;ro de calque auquel l'objet appartient</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LeftLine</td>
+			<td>Mis &agrave; 1 si l'&eacute;l&eacute;ment du tableau a une ligne de gauche</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LeftLINK</td>
+			<td>Num&eacute;ro de l'objet qui est la gauche de cet objet dans les tableaux</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LINESP</td>
+			<td>Interlignage du texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LOCALSCX</td>
+			<td>Redimensionnement de l'image dans la direction x</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LOCALSCY</td>
+			<td>Redimensionnement de l'image dans la direction y</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LOCALX</td>
+			<td>Position x de l'image dans le cadre d'image</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>LOCALY</td>
+			<td>Position y de l'image dans le cadre d'image</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LOCK</td>
+			<td>Mis &agrave; 1 si l'objet est verrouill&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">LOCKR</td>
+			<td>Mis &agrave; 1 si l'objet est prot&eacute;g&eacute; contre le redimensionnement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">NAMEDLST</td>
+			<td>Nom du style personnalis&eacute; de filet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NEXTITEM</td>
+			<td>Num&eacute;ro du cadre suivant pour des cadres de texte li&eacute;s</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NEXTPAGE</td>
+			<td>Num&eacute;ro de la page du cadre suivant dans des cadres de textes li&eacute;s</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">NUMCO</td>
+			<td>Nombre de coordonn&eacute;es dans COCOOR</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMDASH</td>
+			<td>Nombre d'entr&eacute;es dans DASH</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMGROUP</td>
+			<td>Nombre de groupes dans GROUPS</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMPO</td>
+			<td>Nombre de coordonn&eacute;es dans POCOOR</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>NUMTAB</td>
+			<td>Nombre de tabulations list&eacute;es dans TABS</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">OwnLINK</td>
+			<td>Num&eacute;ro de cet objet dans les tableaux</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PCOLOR</td>
+			<td>Nom de la couleur de fond</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PCOLOR2</td>
+			<td>Nom de la couleur de trait</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PFILE</td>
+			<td>Nom du fichier image</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PFILE2</td>
+			<td>Nom du fichier de l'ic&ocirc;ne enfonc&eacute;e pour les boutons PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PFILE3</td>
+			<td>Nom du fichier de l'ic&ocirc;ne survol pour les boutons PDF</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PICART</td>
+			<td>Mis &agrave; 1 si l'image doit &ecirc;tre affich&eacute;e</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PLINEART</td>
+			<td>Comment la ligne est trac&eacute;e<br>1 = Ligne continue<br>2 = Ligne tiret&eacute;e<br>
+  3 = Ligne pointill&eacute;e<br>4 = Ligne mixte trait-point<br>5 = Ligne mixte trait-point-point</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PLINEEND</td>
+			<td>Code pour le rendu de fin de ligne<br>0 = FlatCap<br>16 = SquareCap<br>32 = RoundCap</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PLINEJOIN</td>
+			<td>Code pour le rendu de jonction de ligne<br>0 = MiterJoin<br>64 = BevelJoin<br>128 = RoundJoin</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PLTSHOW</td>
+			<td>Mis &agrave; 1 si le chemin d'un text sur chemin doit &ecirc;tre affich&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>POCOOR</td>
+			<td>Coordonn&eacute;es de la forme de l'objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">PRFILE</td>
+			<td>Profil ICC pour l'image</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PRINTABLE</td>
+			<td>Mis &agrave; 1 si l'objet doit &ecirc;tre imprim&eacute;, sinon 0</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PTYPE</td>
+			<td>Type de l'objet<br>2 = Image<br>4 = Texte<br>5 = Ligne<br>6 = Polygone<br>7 = Polyligne<br>8 = Texte sur un chemin</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>PWIDTH</td>
+			<td>&Eacute;paisseur du filet de l'objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RADRECT</td>
+			<td>Rayon du coin pour les rectangles arrondis</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RATIO</td>
+			<td>Mis &agrave; 1 si le redimensionnement de l'image doit respecter l'aspect des proportions</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">REVERS</td>
+			<td>Le texte est rendu invers&eacute;, par exemple l'arabe</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">REXTRA</td>
+			<td>Distance du texte &agrave; partir de l'extr&ecirc;me droite du cadre</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RightLine</td>
+			<td>Mis &agrave; 1 si l'&eacute;l&eacute;ment du tableau a une ligne de droite</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">RightLINK</td>
+			<td>Num&eacute;ro de l'objet qui est &agrave; la droite de cet objet dans les tableaux</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ROT</td>
+			<td>Rotation de l'objet en degr&eacute;s</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">SCALETYPE</td>
+			<td>Comment l'image peut &ecirc;tre redimensionn&eacute;e<br>0 = Redimensionnement libre<br>1 = Redimensionnent aux dimensions du cadre de l'image</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SHADE</td>
+			<td>Teinte de fond</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SHADE2</td>
+			<td>Teinte du trait</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TABS</td>
+			<td>Liste des tabulations, codes de tabulations et positions d&eacute;finis<br>Codes de tabulation :<br>0 = Gauche<br>1 = Droite<br>
+  2 = Arr&ecirc;t total<br>3 = Virgule<br>4 = Centr&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TEXTFLOW</td>
+			<td>Mis &agrave; 1 si le texte s'&eacute;coule autour de cet objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TEXTFLOW2</td>
+			<td>Mis &agrave; 1 si le texte s'&eacute;coule autour de la bo&icirc;te qui limite cet objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TEXTFLOW3</td>
+			<td>Mis &agrave; 1 si le texte s'&eacute;coule autour de la ligne de contour de cet objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TEXTRA</td>
+			<td>Distance du texte &agrave; partir du bas du cadre</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TopLine</td>
+			<td>Mis &agrave; 1 si le tableau a une ligne de haut</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TopLINK</td>
+			<td>Num&eacute;ro de l'objet qui est au-dessus de cet objet dans les tableaux</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TransValue</td>
+			<td>Valeur de la transparence pour le fond</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TransValueS</td>
+			<td>cValeur de la transparence pour le contour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTFILL</td>
+			<td>Nom de la couleur de fond par d&eacute;faut du texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTFILLSH</td>
+			<td>Teinte par d&eacute;faut pour la couleur de fond du texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTSCALE</td>
+			<td>Redimensionnement par d&eacute;faut du texte</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTSTROKE</td>
+			<td>Nom de la couleur par d&eacute;faut pour le texte barr&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTSTRSH</td>
+			<td>Teinte par d&eacute;faut pour le texte barr&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">TXTSTYLE</td>
+			<td>Style de caract&egrave;re par d&eacute;faut, la valeur &eacute;tant au niveau du bit ou &eacute;tablie selon les constantes suivantes :<br>
+1 = Exposant<br>2 = Indice<br>4 = Contour<br>8 = Soulign&eacute; <br>
+16 = Barr&eacute;<br>64 = Petites capitales</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>WIDTH</td>
+			<td>Largeur de l'objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>XPOS</td>
+			<td>Position x de l'objet</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>YPOS</td>
+			<td>Position y de l'objet</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CSTOP</td>
+			<td>NAME</td>
+			<td>Nom de la couleur finale</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>RAMP</td>
+			<td>Position de la couleur finale,<br>entre 0.0 et 1.0</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>SHADE</td>
+			<td>Teinte de la couleur finale en pourcentage</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>TRANS</td>
+			<td>Transparence de la couleur finale,<br>entre 0.0 et 1.0</td>
+		</tr>
+		<tr valign="top">
+			<td> </td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>ITEXT</td>
+			<td>CAB</td>
+			<td>Style de paragraphe pour le caract&egrave;re<br>0 = Pas de style, align&eacute; &agrave; gauche<br>1 = Texte centr&eacute;<br>
+   2 = Texte align&eacute; &agrave; droite<br>3 = Texte justifi&eacute;<br>4 = Texte avec justification forc&eacute;e<br>
+   Des valeurs plus &eacute;lev&eacute;es indiquent un style de paragraphe personnalis&eacute;</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CCOLOR</td>
+			<td>Nom de la couleur de fond</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CEXTRA</td>
+			<td>Valeurs de l'espacement</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CFONT</td>
+			<td>Nom de la police</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CH</td>
+			<td>Les caract&egrave;res en tant que tels</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CSCALE</td>
+			<td>Redimensionnement en pourcentage</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CSHADE</td>
+			<td>Teinte de la couleur de fond</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CSHADE2</td>
+			<td>Teinte de la couleur de contour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CSIZE</td>
+			<td>Taille de police en points</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td bgcolor="#A9D1FF">CSTROKE</td>
+			<td>Nom de la couleur de contour</td>
+		</tr>
+		<tr valign="top">
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>CSTYLE</td>
+			<td>Le style du caract&egrave;re, la valeur &eacute;tant au niveau du bit o &eacute;tabli selon une de ces constantes :<br>
+1 = Exposant<br>2 = Indice<br>4 = Contour<br>8 = Soulign&eacute; <br>
+16 = Barr&eacute;<br>64 = Petites capitales<br>128 = Le mot peut avoir un trait d'union ici</td>
+		</tr>
+	</table>
+</qt>
+d

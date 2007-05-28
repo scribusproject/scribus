@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                  	scribusXml.h the document xml library for scribus
                              -------------------
@@ -5,66 +11,64 @@
     copyright            : (C) 2001 by Christian T�p
     email                : christian.toepp@mr-ct@gmx.de
  ***************************************************************************/
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+
 #ifndef _SCRIBUS_CONFIG_
 #define _SCRIBUS_CONFIG_
 
-#include "scribusview.h"
-#include <qvaluelist.h>
+#include "scribusapi.h"
+#include <q3valuelist.h>
 #include <qdom.h>
-#include <qprogressbar.h>
+#include <q3progressbar.h>
 
-class SplashScreen;
+#include "pageitem.h"
+#include "multiline.h"
+#include "scfonts.h"
+#include "scribusstructs.h"
+#include "selection.h"
+#include "styles/styleset.h"
 
-class ScriXmlDoc : public QObject
+class PrefsManager;
+class ScribusView;
+class SCFonts;
+class ScribusDoc;
+
+class SCRIBUS_API ScriXmlDoc : public QObject
 {
 Q_OBJECT
 public:
-	ScriXmlDoc() {};
+	ScriXmlDoc();
 	~ScriXmlDoc() {};
-	bool IsScribus(QString fileName);
+	/*!
+	\author Frederic Dubuy <effediwhy@gmail.com>, Petr Vanek
+	\date august 17th 2004, 10/03/2004
+	\brief Preliminary Scribus file validator. totally rewritten when fixing crash bug #1092. It's much simpler now.
+	\param fileName filename of file to test
+	\retval bool true = Scribus format file, false : not Scribus
+	*/
 	QString ReadDatei(QString fileName);
-	void GetItemProps(bool newVersion, QDomElement *obj, struct CLBuf *OB);
-	void SetItemProps(QDomElement *ob, PageItem* item);
-	QString GetItemText(QDomElement *it, ScribusDoc *doc, preV *Prefs, bool VorLFound, bool impo);
-	QString AskForFont(SCFonts &avail, QString fStr, preV *Prefs, ScribusDoc *doc);
-	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
-	void GetStyle(QDomElement *pg, struct StVorL *vg, QValueList<StVorL> &Vorlagen, ScribusDoc* doc, preV *Prefs, bool fl);
-	bool ReadStyles(QString fileName, ScribusDoc* doc, preV *Prefs);
-	bool ReadColors(QString fileName);
-	bool ReadPageCount(QString fileName, int *num1, int *num2);
-	bool ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, ScribusView *view, int PageToLoad, bool Mpage);
-	QString WriteElem(QPtrList<PageItem> *Selitems, ScribusDoc *doc);
+	void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
+	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
+	QString WriteElem(ScribusDoc *doc, ScribusView *view, Selection *selection);
+	void WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &dc, QMap<int, int> &UsedMapped2Saved, PageItem *item);
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
-	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, int Xp, int Yp, bool Fi, bool loc,
-					 QMap<QString,QString> &FontSub, preV *Prefs);
-	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
-	void WritePages(ScribusView *view, QDomDocument docu, QDomElement dc, QProgressBar *dia2, uint maxC);
-	bool WriteDoc(QString fileName, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
-	void WritePref(preV *Vor, QString ho);
-	bool ReadPref(struct preV *Vorein, QString ho, SplashScreen *splash);
-	QColor SetFarbe(ScribusDoc *doc, QString farbe, int shad);
-	CListe Farben;
-	QValueList<StVorL> Vorlagen;
-	struct Linked { 
-					int Start;
-					int StPag;
-              	};
-	QValueList<Linked> LFrames;
+	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
+	ColorList Farben;
+	StyleSet<ParagraphStyle> docParagraphStyles;
+	Q3ValueList<Linked> LFrames;
 	QStringList MNames;
 	QMap<QString,QString> DoFonts;
+	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
+	Q3ValueList<ScFace> dummyScFaces;
 	uint VorlC;
+	bool newReplacement;
 	
-signals:
-	void NewPage(int);
+protected:
+	PrefsManager* prefsManager;
+	
+	void GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 };
 
 #endif // _SCRIBUS_CONFIG_
+

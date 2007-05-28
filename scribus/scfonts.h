@@ -1,122 +1,100 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef SCFONTS_H
 #define SCFONTS_H
 
-#include <qstring.h>
-#include <qstrlist.h>
-#include <qdict.h>
-#include <qfont.h>
-#include <qmap.h>
+#include <QByteArray>
+#include <QString>
+#include <QStringList>
+//#include <qvector.h>
+#include <QFont>
+#include <QMap>
+#include <QDateTime>
+#include <Q3ValueList>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
+
+FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, unsigned long count);
+
 // #include <qpixmap.h>
+
+#include "scribusapi.h"
 #include "fpointarray.h"
-#include "config.h"
+#include "scconfig.h"
 
-// #include "scfonts_encoding.h"
+#include "fonts/scface.h"
 
-/*  Base Class Foi : This is subclassed by a class to handle Type1 fonts, a class
-		to handle TrueType fonts, and potentially any other type that becomes appropriate in
-		the future.
-		Note the virtual destructor, needed to ensure that the correct destructor is called
-		for subclasses
+class ScribusDoc;
 
-		The RealName field has been changed from a data member to a member function.
-		This is because the only place the PostScript real name of a font is required is
-		the printing code, so it's cheaper to extract this information only when it is
-		required, for just the used fonts, than for every one of potentially hundreds at
-		application startup!  This also allows for the fact that truetype fonts will require
-		a different method of extracting their names.
-
-		One implication of using a base class/subclass model for fonts:  It is no longer
-		possible to store the Foi structures in a QMap.  This is because QMap allocates
-		its own structures, and copies the supplied data to them.  A QMap<QString,Foi>
-		would demote all subclasses to Foi classes, and hence break the polymorphism.
-		QDict can be used instead, with very little change to the rest of the code, since
-		it stores references to the data instead of copying the data.  With AutoDelete set
-		to true, it will automatically dispose of all data when its destructor is called,
-		so there are no extra cleaning-up chores to take care of.
+/*! \brief Main class SCFonts.
+Subclass of QDict<ScFace>.
+This class replaces the previous SCFonts typedef, and is nearly as convenient.
+The chief difference from the application point of view is that while data can
+still be retrieved with SCFonts[fontname], this cannot be used to add members.
+Since the only piece of code that will generally add members is scfonts.h, this
+is not a major problem.
 */
-
-class Foi
+class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 {
 	public:
-		Foi(QString scname, QString path, bool embedps);
-		virtual ~Foi() {};
-		virtual QString RealName();
-		virtual bool EmbedFont(QString &str);
-		virtual bool ReadMetrics();
-		virtual bool GlNames(QMap<uint, QString> *GList);
-//		virtual void FontBez();
-		QString SCName;
-		QString Datei;
-		QString cached_RealName;
-		QString Family;
-		QFont Font;
-		bool EmbedPS;
-		bool HasMetrics;
-		bool isOTF;
-		bool Subset;
-		bool isStroked;
-		bool HasNames;
-		struct GlyphR { FPointArray Outlines;
-					 					double x;
-					 					double y;
-				  				};
-		QMap<uint,double> CharWidth;
-		QMap<uint,GlyphR> GlyphArray;
-		QMap<uint,FPointArray> RealGlyphs;
-		QString Ascent;
-		QString CapHeight;
-		QString Descender;
-		QString ItalicAngle;
-		QString StdVW;
-		QString FontEnc;
-		bool IsFixedPitch;
-		QString FontBBox;
-		bool UseFont;
-		bool HasKern;
-		double uniEM;
-		double numAscent;
-		double numDescender;
-		double underline_pos;
-		double strikeout_pos;
-		double strokeWidth;
-//		QPixmap Appearance;
-};
-
-
-/* Main class SCFonts.
-   Subclass of QDict<Foi>.
-   This class replaces the previous SCFonts typedef, and is nearly as convenient.
-   The chief difference from the application point of view is that while data can
-   still be retrieved with SCFonts[fontname], this cannot be used to add members.
-   Since the only piece of code that will generally add members is scfonts.h, this
-   is not a major problem.
-*/
-
-class SCFonts : public QDict<Foi>
-{
-	public:
-		SCFonts() : QDict<Foi>(), FontPath(true)
-		{
-			setAutoDelete(true);
-		}
+		SCFonts();
 		~SCFonts();
-		void GetFonts(QString pf);
+		void updateFontMap();
+		void GetFonts(QString pf, bool showFontInfo=false);
+		void AddScalableFonts(const QString& path, QString DocName = "");
+		/// Returns a font with that name; creates a replacement font if not found
+		const ScFace& findFont(const QString& fontName, ScribusDoc* doc = NULL);
+		/// Returns a map of pairs (scName, replacementName). Using this map for replaceFonts() will make substitutions permanent
+		QMap<QString,QString> getSubstitutions(const Q3ValueList<QString> skip = Q3ValueList<QString>()) const;
+		/// Changes replacement fonts to point to new real fonts. For all keys 'nam' in 'substitutes', findFont(name).isReplacement() must be true
+		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = NULL);
+		void removeFont(QString name);
+		/// maps family name to face variants
+		QMap<QString, QStringList> fontMap;
 	private:
+		void ReadCacheList(QString pf);
+		void WriteCacheList(QString pf);
 		void AddPath(QString p);
-		void AddScalableFonts(const QString &path);
-		bool AddScalableFont(QString filename, FT_Library &library);
+		bool AddScalableFont(QString filename, FT_Library &library, QString DocName);
 		void AddUserPath(QString pf);
+#ifdef HAVE_FONTCONFIG
+		void AddFontconfigFonts();
+#else
+#ifndef QT_OS_MAC
 		void AddXFontServerPath();
 		void AddXFontPath();
-		void AddFontconfigFonts();
-		QStrList FontPath;
+#endif
+#endif
+		QStringList FontPath;
 		QString ExtraPath;
+		struct testCache
+		{
+			bool isOK;
+			bool isChecked;
+			QDateTime lastMod;
+		};
+		QMap<QString, testCache> checkedFonts;
+	protected:
+		bool showFontInformation;
 };
 
-typedef QDictIterator<Foi> SCFontsIterator;
+struct SCFontsIterator
+{
+	SCFontsIterator(SCFonts& fonts): it(fonts.begin()), end_it(fonts.end()) 
+	{}
+	ScFace& current()          { return *it; }
+	QString currentKey() const { return it.key(); }
+	bool hasNext()       const { return it != end_it; }
+	ScFace& next()             { ++it; return current(); }
+
+private:
+	QMap<QString,ScFace>::Iterator it, end_it;
+};
 
 #endif

@@ -1,44 +1,57 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef BIBLIO_H
 #define BIBLIO_H
 
-#include <qdialog.h>
-#include <qiconview.h>
-#include <qframe.h>
-#include <qpopupmenu.h>
+#include <q3iconview.h>
+#include <q3frame.h>
+#include <qtabwidget.h>
+// #include <qpopupmenu.h>
 #include <qmenubar.h>
-#include <qlayout.h>
+
 #include <qtooltip.h>
 #include <qpixmap.h>
-#include <qdragobject.h>
-#include "scribusdoc.h"
+#include <q3dragobject.h>
+//Added by qt3to4:
+#include <QDropEvent>
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+#include <QKeyEvent>
 
-class BibView : public QIconView
+#include "scribusapi.h"
+#include "scrpalettebase.h"
+#include "scribusstructs.h"
+
+class Q3HBoxLayout;
+class QToolButton;
+class Q3VBoxLayout;
+class QToolBox;
+
+class SCRIBUS_API BibView : public Q3IconView
 {
 	Q_OBJECT
 
 public:
-	BibView( QWidget* parent, preV *prefs);
+	BibView( QWidget* parent);
 	~BibView() {};
 	void keyPressEvent(QKeyEvent *k);
 	void AddObj(QString name, QString daten, QPixmap Bild);
-	void SaveContents(QString name);
+	void checkAndChange(QString &text, QString nam, QString dir);
+	void SaveContents(QString name, QString oldName);
+	void ReadOldContents(QString, QString newName);
 	void ReadContents(QString name);
-	void RebuildView();
 	struct Elem
 	{
 		QString Data;
 		QPixmap Preview;
 	};
-	QMap<QString,Elem> Objekte;
-	preV *Prefs;
+	QMap<QString,Elem> objectMap;
+	QString ScFilename;
+	bool canWrite;
 
 signals:
 	void ToggleAllPalettes();
@@ -47,58 +60,77 @@ signals:
 	void CloseTpal();
 
 protected:
-	virtual QDragObject *dragObject();
+	virtual Q3DragObject *dragObject();
 };
 
-class Biblio : public QDialog
+class SCRIBUS_API Biblio : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
-	Biblio( QWidget* parent, preV *prefs);
+	Biblio( QWidget* parent);
 	~Biblio() {};
-	void closeEvent(QCloseEvent *ce);
-	void AdjustMenu();
 	void ObjFromMenu(QString text);
-
-	QPopupMenu* pmenu;
-	QPopupMenu* fmenu;
-	QPopupMenu* vmenu;
-	QMenuBar* menuBar;
-	QFrame* Frame3;
-	BibView* BibWin;
-	preV *Prefs;
-	QString ScFilename;
-	QString OldName;
-	int fSave;
-	int vS;
-	int vM;
-	int vB;
-	bool Changed;
-
+	void ObjFromCopyAction(QString text);
+	void adjustReferences(QString nam);
+	void CleanUpTemp();
+	void setScrapbookFileName(QString);
+	const QString getScrapbookFileName();
+	const int objectCount();
+	void readContents(QString);
+	void readTempContents(QString);
+	void readOldContents(QString, QString);
+	void installEventFilter(QObject *);
+	void setOpenScrapbooks(QStringList &fileNames);
+	QStringList getOpenScrapbooks();
+	BibView* tempBView;
+	
 public slots:
-	void Save();
+	void languageChange();
 
 private slots:
-	void HandleMouse(QIconViewItem *ite);
-	void DeleteObj(QString name, QIconViewItem *ite);
-	void ItemRenamed(QIconViewItem *ite);
+	void HandleMouse(int button, Q3IconViewItem *ite);
+	bool copyObj(int id);
+	void moveObj(int id);
+	void DeleteObj(QString name, Q3IconViewItem *ite);
+	void ItemRenamed(Q3IconViewItem *ite);
 	void DropOn(QDropEvent *e);
-	void SaveAs();
-	void Load();
-	void CloseWin();
 	void NewLib();
-	void SetPreview(int id);
-
-protected:
-	QVBoxLayout* BiblioLayout;
-	QVBoxLayout* Frame3Layout;
-
-protected slots:
-	virtual void reject();
+	void Load();
+	void SaveAs();
+	void closeLib();
+//	void libChanged(QWidget *lib);
+	void libChanged(int index);
+	void Import();
 
 signals:
-	void Schliessen();
+	void updateRecentMenue();
+
+protected:
+//	QMap<QString, QGuardedPtr<ScrAction> > scrapbookActions;
+// 	QPopupMenu* pmenu;
+// 	QPopupMenu* fmenu;
+// 	QMenuBar* menuBar;
+//	QTabWidget* Frame3;
+	QToolBox* Frame3;
+	Q3VBoxLayout* BiblioLayout;
+	BibView* activeBView;
+	int tempCount;
+	QString OldName;
+// 	int mFile;
+// 	int mView;
+// 	int fNew;
+// 	int fLoad;
+// 	int fSave;
+// 	int fSaveAs;
+// 	int fClose;
+// 	int fImport;
+	Q3HBoxLayout* buttonLayout;
+	QToolButton* newButton;
+	QToolButton* loadButton;
+	QToolButton* saveAsButton;
+	QToolButton* importButton;
+	QToolButton* closeButton;
 };
 
 #endif // BIBLIO_H

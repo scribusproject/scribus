@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           texttoolb.h  -  description
                              -------------------
@@ -18,82 +24,55 @@
 #ifndef WERKTOOLB_H
 #define WERKTOOLB_H
 
+#include "scribusapi.h"
 #include "sctoolbar.h"
-#include <qmainwindow.h>
-#include <qtoolbutton.h>
-#include <qtooltip.h>
-#include <qpopupmenu.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
+#include <QMenu>
+#include <QWidgetAction>
+class QToolButton;
+class Q3PopupMenu;
+class AutoformButtonGroup;
+class ScribusMainWindow;
+class WidgetPopupMenu2;
 
-class Autoforms;
 /**
   *@author Franz Schmid
   */
 
-class WerkToolB : public ScToolBar
+class SCRIBUS_API ModeToolBar : public ScToolBar
 {
 	Q_OBJECT
 
 public: 
-	WerkToolB(QMainWindow* parent);
-	~WerkToolB() {};
-	QToolButton* Select;
-	QToolButton* Rotiere;
-	QToolButton* Textedit;
-	QToolButton* Textedit2;
-	QToolButton* Zoom;
-	QToolButton* Texte;
-	QToolButton* BildB;
-	QToolButton* TableB;
-	QToolButton* Linien;
-	Autoforms* Rechteck;
-	QToolButton* Polygon;
-	QToolButton* PolyLin;
-	QPopupMenu* PolyM;
-	QPopupMenu* LinM;
-	QToolButton* KetteEin;
-	QToolButton* KetteAus;
-	QToolButton* Measure;
-	bool Sichtbar;
+	ModeToolBar(ScribusMainWindow* parent);
+	~ModeToolBar() {};
+
 	int SubMode;
 	int ValCount;
-	int LMode;
 	double *ShapeVals;
 
 public slots:
 	void GetPolyProps();
 	void SelShape(int s, int c, double *vals);
-	void SelShape2();
-	void ModeFromTB();
-	void setLinMode(int id);
+	void languageChange();
 		
-signals:
-	void Schliessen();
-	void NewMode(int);
+protected:
+	AutoformButtonGroup* Rechteck;
+	QWidgetAction* insertShapeButtonAct;
+	QMenu* insertShapeButtonMenu;
+	Q3PopupMenu* insertPolygonButtonMenu;
+	int idInsertPolygonButtonMenu;
+	ScribusMainWindow* m_ScMW;
 };
 
-class WerkToolBP : public ScToolBar
+class SCRIBUS_API PDFToolBar : public ScToolBar
 {
 	Q_OBJECT
 
 public:
-	WerkToolBP(QMainWindow* parent);
-	~WerkToolBP() {};
-	QToolButton* PDFTool;
-	QPopupMenu* PDFM;
-	QToolButton* PDFaTool;
-	QPopupMenu* PDFA;
-	bool Sichtbar;
-	int PDFwerkz;
-	int PDFnotiz;
-
-public slots:
-	void setPDFnotiz(int id);
-	void setPDFtool(int id);
-	void ModeFromTB();
-
-signals:
-	void Schliessen();
-	void NewMode(int);
+	PDFToolBar(ScribusMainWindow* parent);
+	~PDFToolBar() {};
 };
 
 #endif

@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           bookmwin.h  -  description
                              -------------------
@@ -19,36 +25,41 @@
 #define BOOKMWIN_H
 
 #include <qdialog.h>
-#include <qlistview.h>
+#include <q3listview.h>
 #include <qevent.h>
 #include <qpoint.h>
 #include <qlayout.h>
+//Added by qt3to4:
+#include <QDropEvent>
+#include <QMouseEvent>
+#include <QDragMoveEvent>
+
+#include "scribusapi.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "pageitem.h"
 
 /**
-  *@author Franz Schmid
-  */
+*@author Franz Schmid
+*/
 
-class BookMItem : public QListViewItem
+class SCRIBUS_API BookMItem : public Q3ListViewItem
 {
 public:
-	BookMItem(QListViewItem* parent, struct ScribusDoc::BookMa *Bm);
-	BookMItem(QListViewItem* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
-	BookMItem(QListView* parent, QListViewItem* after, struct ScribusDoc::BookMa *Bm);
-	BookMItem(QListView* parent, struct ScribusDoc::BookMa *Bm);
-    BookMItem(QListView* parent, QListViewItem* after, int nr, int s, int el);
-    BookMItem(QListView* parent, int nr, int s, int el);
-    ~BookMItem() {};
+	BookMItem(Q3ListViewItem* parent, struct ScribusDoc::BookMa *Bm);
+	BookMItem(Q3ListViewItem* parent, Q3ListViewItem* after, struct ScribusDoc::BookMa *Bm);
+	BookMItem(Q3ListView* parent, Q3ListViewItem* after, struct ScribusDoc::BookMa *Bm);
+	BookMItem(Q3ListView* parent, struct ScribusDoc::BookMa *Bm);
+	BookMItem(Q3ListView* parent, Q3ListViewItem* after, int nr, PageItem *PObject);
+	BookMItem(Q3ListView* parent, int nr, PageItem *PObject);
+	~BookMItem() {};
 	void SetUp(struct ScribusDoc::BookMa *Bm);
-    virtual QString key(int, bool) const;
-    int ItemNr;
-    int Seite;
-    int Element;
-    int PdfObj;
-    QString Action;
-    QString Titel;
+	virtual QString key(int, bool) const;
+	PageItem *PageObject;
+	int ItemNr;
+	int PdfObj;
+	QString Action;
+	QString Titel;
 	int First;
 	int Last;
 	int Prev;
@@ -56,39 +67,42 @@ public:
 	int Pare;
 };
 
-class BookMView : public QListView
+class SCRIBUS_API BookMView : public Q3ListView
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    BookMView(QWidget* parent);
-    ~BookMView() {};
-    void AddItem(QString text, QString Tit, int s, int el);
-    void DeleteItem(int nr);
-    void SetAction(int nr, QString Act);
-    int NrItems;
-    bool Mpressed;
-    QPoint Mpos;
-    BookMItem *DraggedI;
-    int First;
-    int Last;
+	BookMView(QWidget* parent);
+	~BookMView() {};
+	void AddItem(QString text, QString Tit, PageItem *PageObject);
+	void DeleteItem(PageItem *PageObject);
+	void SetAction(PageItem *currItem, QString Act);
+	int NrItems;
+	bool Mpressed;
+	QPoint Mpos;
+	BookMItem *DraggedI;
+	int First;
+	int Last;
 
 public slots:
 	void AddPageItem(PageItem* ite);
-	void ChangeItem(int nr, int itnr);
-	void ChangeText(PageItem *b);
+	void ChangeText(PageItem *currItem);
+	void languageChange();
 
 signals:
 	void MarkMoved();
-	void ChangeBMNr(int, int, int);
-	void SelectElement(int, int);
+	void SelectElement(PageItem *);
+	void changed();
 
 protected:
-    void contentsMouseReleaseEvent(QMouseEvent *m);
-    void contentsMousePressEvent(QMouseEvent* e);
-    void contentsMouseMoveEvent(QMouseEvent* e);
-    void contentsDropEvent(QDropEvent *e);
-    void contentsDragMoveEvent(QDragMoveEvent *e);
+	void contentsMouseReleaseEvent(QMouseEvent *m);
+	void contentsMousePressEvent(QMouseEvent* e);
+	void contentsMouseMoveEvent(QMouseEvent* e);
+	void contentsDropEvent(QDropEvent *e);
+	void contentsDragMoveEvent(QDragMoveEvent *e);
+	
+private:
+	int idBookMarkCol;
 };
 
 #endif

@@ -1,10 +1,4 @@
 Makefile
 Makefile.in
-*.la
-*.lo
-*.moc.cpp
-*.moc
-*.o
-.deps
-.libs
-CVS
+CMakeFiles
+cmake_install.cmake

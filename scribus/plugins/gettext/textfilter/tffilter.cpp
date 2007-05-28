@@ -1,22 +1,26 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "tffilter.h"
-#include "tffilter.moc"
+//#include "tffilter.moc"
 
 #include <qlayout.h>
 #include <qtooltip.h>
-#include <scribus.h>
-#include <prefsfile.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3Frame>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
+#include "scribusapi.h"
+#include "scribuscore.h"
+#include "prefsmanager.h"
+#include "prefsfile.h"
 
-extern ScribusApp* ScApp;
-extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
                    int action, QString regExp, QString replace, QString pstyleName,
@@ -90,10 +94,10 @@ void tfFilter::createWidget()
 // 	thirdRegexpCheck = NULL;
 	fifthRegexpCheck = NULL;
 
-	prefs = prefsFile->getPluginContext("TextFilter");
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
 	history = prefs->getTable("history");
 
-	QHBoxLayout *layout = new QHBoxLayout(this);
+	Q3HBoxLayout *layout = new Q3HBoxLayout(this);
 	layout->setMargin(0);
 
 	enableCheck = new QCheckBox(this, "enableCheck");
@@ -103,15 +107,15 @@ void tfFilter::createWidget()
 	QToolTip::add(enableCheck, tr("Disable or enable this filter row"));
 	layout->addWidget(enableCheck);
 
-	actionFrame = new QFrame(this, "actionFrame");
+	actionFrame = new Q3Frame(this, "actionFrame");
 	layout->addWidget(actionFrame);
 
-	QBoxLayout* layout2 = new QVBoxLayout(actionFrame);
-	alayout = new QHBoxLayout();
+	Q3BoxLayout* layout2 = new Q3VBoxLayout(actionFrame);
+	alayout = new Q3HBoxLayout();
 	alayout->setMargin(0);
 	layout2->addLayout(alayout);
 	layout2->addSpacing(4);
-	blayout = new QHBoxLayout();
+	blayout = new Q3HBoxLayout();
 	blayout->setMargin(0);
 	layout2->addLayout(blayout);
 
@@ -121,12 +125,12 @@ void tfFilter::createWidget()
 // 	layout->addStretch(10);
 
 	layout->addSpacing(20);
-	removeButton = new QPushButton(loadIcon("removef.png"), 0, this, "removeButton");
+	removeButton = new QPushButton(loadIcon("22/list-remove.png"), 0, this, "removeButton");
 	QToolTip::add(removeButton, tr("Remove this filter row"));
 	removeButton->setMaximumSize(QSize(25,25));
 	removeButton->setMinimumSize(QSize(25,25));
 	layout->addWidget(removeButton);
-	addButton = new QPushButton(loadIcon("addf.png"), 0, this, "addButton");
+	addButton = new QPushButton(loadIcon("22/list-add.png"), 0, this, "addButton");
 	QToolTip::add(addButton, tr("Add a new filter row"));
 	addButton->setMaximumSize(QSize(25,25));
 	addButton->setMinimumSize(QSize(25,25));
@@ -163,12 +167,12 @@ void tfFilter::firstChanged(int index)
 	getSecondCombo();
 }
 
-void tfFilter::secondChanged(int index)
+void tfFilter::secondChanged(int)
 {
 
 }
 
-void tfFilter::thirdChanged(int index)
+void tfFilter::thirdChanged(int)
 {
 
 }
@@ -178,7 +182,7 @@ void tfFilter::fourthChanged(int index)
 	switch (currentAction)
 	{
 		case APPLY:
-			thirdLabel->setText(tr("to"));
+			thirdLabel->setText( tr("to"));
 			thirdLabel->show();
 // 			thirdRegexpCheck->hide();
 			switch (index)
@@ -196,12 +200,12 @@ void tfFilter::fourthChanged(int index)
 					fifthCombo->setEditable(true);
 					fifthCombo->show();
 					fifthRegexpCheck->show();
-					fifthLabel->setText(tr("and"));
+					fifthLabel->setText( tr("and"));
 					fifthLabel->show();
 					sixthCombo->clear();
 					sixthCombo->setEditable(false);
-					sixthCombo->insertItem(tr("remove match"));
-					sixthCombo->insertItem(tr("do not remove match"));
+					sixthCombo->insertItem( tr("remove match"));
+					sixthCombo->insertItem( tr("do not remove match"));
 					sixthCombo->show();
 					break;
 				case LESS_THAN:
@@ -211,7 +215,7 @@ void tfFilter::fourthChanged(int index)
 					fifthCombo->setEditable(true);
 					fifthCombo->show();
 					fifthRegexpCheck->hide();
-					fifthLabel->setText(tr("words"));
+					fifthLabel->setText( tr("words"));
 					fifthLabel->show();
 					sixthCombo->hide();
 					break;
@@ -220,12 +224,12 @@ void tfFilter::fourthChanged(int index)
 	}
 }
 
-void tfFilter::fifthChanged(int index)
+void tfFilter::fifthChanged(int)
 {
 
 }
 
-void tfFilter::sixthChanged(int index)
+void tfFilter::sixthChanged(int)
 {
 
 }
@@ -250,9 +254,9 @@ void tfFilter::getFirstCombo()
 	}
 	firstCombo->clear();
 	firstCombo->setMinimumSize(QSize(120, 0));
-	firstCombo->insertItem(tr("Remove"));
-	firstCombo->insertItem(tr("Replace"));
-	firstCombo->insertItem(tr("Apply"));
+	firstCombo->insertItem( tr("Remove"));
+	firstCombo->insertItem( tr("Replace"));
+	firstCombo->insertItem( tr("Apply"));
 	firstCombo->show();
 	getSecondCombo();
 }
@@ -285,7 +289,7 @@ void tfFilter::getSecondCombo()
 	{
 		case REPLACE:
 			firstLabel->hide();
-			secondLabel->setText(tr("with"));
+			secondLabel->setText( tr("with"));
 			secondLabel->show();
 			secondCombo->setEditable(true);
 			secondCombo->clear();
@@ -297,11 +301,11 @@ void tfFilter::getSecondCombo()
 			secondLabel->hide();
 			secondCombo->setEditable(false);
 			secondCombo->clear();
-			secondCombo->insertItem(tr("paragraph style"));
+			secondCombo->insertItem( tr("paragraph style"));
 			secondRegexpCheck->hide();
 			break;
 		case REMOVE:
-			firstLabel->setText(tr("all instances of"));
+			firstLabel->setText( tr("all instances of"));
 			firstLabel->show();
 			secondCombo->clear();
 			secondCombo->setEditable(true);
@@ -313,7 +317,7 @@ void tfFilter::getSecondCombo()
 	getThirdCombo(secondCombo->currentItem());
 }
 
-void tfFilter::getThirdCombo(int secondIndex)
+void tfFilter::getThirdCombo(int)
 {
 	if (!thirdCombo)
 	{
@@ -380,13 +384,13 @@ void tfFilter::getFourthCombo()
 	switch (currentAction)
 	{
 		case APPLY:
-			thirdLabel->setText(tr("to"));
+			thirdLabel->setText( tr("to"));
 			thirdLabel->show();
 			fourthCombo->clear();
-			fourthCombo->insertItem(tr("all paragraphs"));
-			fourthCombo->insertItem(tr("paragraphs starting with"));
-			fourthCombo->insertItem(tr("paragraphs with less than"));
-			fourthCombo->insertItem(tr("paragraphs with more than"));
+			fourthCombo->insertItem( tr("all paragraphs"));
+			fourthCombo->insertItem( tr("paragraphs starting with"));
+			fourthCombo->insertItem( tr("paragraphs with less than"));
+			fourthCombo->insertItem( tr("paragraphs with more than"));
 			fourthCombo->setEditable(false);
 			fourthCombo->show();
 			fourthLabel->hide();
@@ -477,9 +481,9 @@ void tfFilter::resetBRow()
 void tfFilter::getParagraphStyles()
 {
 	thirdCombo->insertItem("");
-	for (uint i = 5; i < ScApp->doc->Vorlagen.size(); ++i)
+	for (uint i = 0; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
 	{
-		thirdCombo->insertItem(ScApp->doc->Vorlagen[i].Vname);
+		thirdCombo->insertItem(ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name());
 	}
 }
 

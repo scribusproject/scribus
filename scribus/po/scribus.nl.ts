@@ -9,13 +9,7 @@ frame has some text selected the value assigned to the first character of
 the selection is returned.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation>getFontSize([&quot;name&quot;]) -&gt; float
-
-Retourneert de tekengrootte in punten voor het tekstframe &quot;name&quot;. Indien
-er tekst geselecteerd is wordt de tekengrootte van het eerste geselecteerde
-teken geretourneerd.
-Als &quot;name&quot; niet wordt opgegeven wordt het actieve item gebruikt.
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>getColorNames() -&gt; list
@@ -23,13 +17,7 @@ Als &quot;name&quot; niet wordt opgegeven wordt het actieve item gebruikt.
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-        <translation>getColorNames() -&gt; list
-
-Retourneert een lijst met de namen van alle gedefiniëerde kleuren in het document.
-Als er geen document geopend is wordt een lijst van de standaard documentkleuren
-geretourneerd.
- 
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>newDocDialog() -&gt; bool
@@ -38,12 +26,7 @@ Displays the &quot;New Document&quot; dialog box. Creates a new document if the 
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
 </source>
-        <translation>newDocDialog() -&gt; boolean
-
-Geeft de &quot;Nieuw document&quot; dialoog weer. Maakt een nieuw document aan als de
-gebruiker op OK klikt, en niet als de gebruiker op Annuleren klikt.
-Geeft True terug als een nieuw document werd aangemaakt. 
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
@@ -51,11 +34,7 @@ Geeft True terug als een nieuw document werd aangemaakt.
 Returns the name of the fill color of the object &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
 </source>
-        <translation>getFillColor([&quot;name&quot;]) -&gt; tekenreeks
-
-Geeft de naam van de vulkleur van het genoemde object terug.
-Als de &quot;name&quot; niet wordt opgegeven wordt het actieve item gebruikt.
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>moveObject(dx, dy [, &quot;name&quot;])
@@ -65,13 +44,7 @@ distances are expressed in the current measurement unit of the document (see
 UNIT constants). If &quot;name&quot; is not given the currently selected item is used.
 If the object &quot;name&quot; belongs to a group, the whole group is moved.
 </source>
-        <translation>moveObject(dx, dy [, &quot;name&quot;])
-
-Verplaatst het object &quot;name&quot; over de afstand dx en dy vanaf de huidige positie. De
-afstanden worden uitgedrukt in de huidige afstandseenheid van het document (zie
-Eenheidsconstanten). Als &quot;name&quot; niet wordt opgegeven wordt het actieve item
-gebruikt. Als het object tot een groep behoort wordt de hele groep verplaatst. 
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>setRedraw(bool)
@@ -80,12 +53,7 @@ Disables page redraw when bool = False, otherwise redrawing is enabled.
 This change will persist even after the script exits, so make sure to call
 setRedraw(True) in a finally: clause at the top level of your script.
 </source>
-        <translation>setRedraw(boolean)
-
-schakelt het verversen van de pagina uit indien boolean = False, anders in.
-Dit blijft zelfs van kracht als het script afsluit, dus wees er zeker van dat
-u setRedraw(True) aanroept in een finally: clausule in uw script.
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
@@ -98,37 +66,7 @@ is not given Scribus will create one for you.
 
 May raise NameExistsError if you explicitly pass a name that&apos;s already used.
 </source>
-        <translation>createRect(x, y, width, height, [&quot;naam&quot;]) -&gt; tekenreeks
-
-Maakt een nieuwe rechthoek aan op de huidige pagina en retourneert de naam
-ervan. De coördinaten worden opgegeven in de huidige eenheid van het document
-(zie Eenheidsconstanten). &quot;naam&quot; dient een uniek kenmerk te zijn voor het object. U
-gebruikt deze naam om in de toekomst aan dit object te kunnen refereren. Als u &quot;naam&quot;
-niet zelf opgeeft kiest Scribus een naam.
-
-Veroorzaakt NameExistsError als u een naam opgeeft die al bestaat.
-</translation>
-    </message>
-    <message>
-        <source>newPage(where [,&quot;template&quot;])
-
-Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
-document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
-counted from 1 upwards, no matter what the displayed first page number of your
-document is. The optional parameter &quot;template&quot; specifies the name of the
-template page for the new page.
-
-May raise IndexError if the page number is out of range
-</source>
-        <translation>newPage(plaats [,&quot;sjabloon&quot;])
-
-Voegt een nieuwe pagina toe. Als de plaats = -1 wordt de pagina aan het eind
-toegevoegd. Bij andere waarden wordt de nieuwe pagina voor de desbetreffende
-pagina ingevoegd. 1 staat altijd voor de eerste pagina, ongeacht het weergegeven
-paginanummer dat u hebt ingesteld. De optionele parameter &quot;sjabloon&quot; geeft de naam
-van het sjabloon dat u wilt gebruiken. 
-
-Veroorzaakt een IndexError als het paginanummer buiten het bestaande bereik ligt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
@@ -137,12 +75,7 @@ Sets the gradient fill of the object &quot;name&quot; to type. Color description
 the same as for setFillColor() and setFillShade(). See the constants for
 available types (FILL_&lt;type&gt;).
 </source>
-        <translation>setGradientFill(type, &quot;kleur1&quot;, shade1, &quot;kleur2&quot;, shade2, [&quot;naam&quot;])
-
-Stelt het vulverloop van het object met de naam &quot;naam&quot; in op type. Kleuromschrijvingen
-zijn gelijk aan die bij setFillColor() en setFillShade(). Zie de constanten voor een
-lijst met beschikbare typen (FILL_&lt;type&gt;).
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>messagebarText(&quot;string&quot;)
@@ -150,45 +83,24 @@ lijst met beschikbare typen (FILL_&lt;type&gt;).
 Writes the &quot;string&quot; into the Scribus message bar (status line). The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 </source>
-        <translation>messagebarText(&quot;tekenreeks&quot;)
-
-Schrijft de tekst &quot;tekenreeks&quot; in de statusbalk van Scribus. De tekst moet worden
-opgegeven in UTF8-codering of als &apos;unicode&apos; string (aanbevolen).
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>register_macro_callable(name, callable, accel=&apos;&apos;)
+        <source>newPage(where [,&quot;masterpage&quot;])
 
-Create a macro called &quot;name&quot; with the existing callable object &quot;callable&quot;.
-The passed callable must not require any arguments when called (it may take
-optional arguments, but will not be given any).
-If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
-for the macro.
-If the passed callable is a class, it will be rejected. Functions and bound
-methods are quite acceptable, as are instances of classes that provide a
-__call__ method with no arguments. There is no problem with registering
-a callable more than once, nor with registering multiple bound methods
-of a single instance.
+Creates a new page. If &quot;where&quot; is -1 the new Page is appended to the
+document, otherwise the new page is inserted before &quot;where&quot;. Page numbers are
+counted from 1 upwards, no matter what the displayed first page number of your
+document is. The optional parameter &quot;masterpage&quot; specifies the name of the
+master page for the new page.
+
+May raise IndexError if the page number is out of range
 </source>
-        <translation>register_macro_callable(name, callable, accel=&apos;&apos;)
-
-Maakt een macro aan met naam &quot;name&quot; met het bestaande aanroepbare
-object &quot;callable&quot;. Dit object moet geen parameters vereisen bij het aanroepen.
-Indien opgegeven wordt de tekenreeks &quot;accel&quot; gebruikt om een sneltoets aan te
-geven voor de macro.
-Het oproepbare object mag geen class zijn. Functies en bound methods zijn
-toegestaan, net als instanties van classes die een __call__ method zonder
-parameters aanboeden. Aanroepbare objecten mogen meermaals geregis-
-treerd worden, ook met verschillende bound methods van een enkele instantie.
-</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>newDocument(size, margins, orientation, firstPageNumber,
-unit, pagesType, firstPageOrder) -&gt; bool
-
-WARNING: This is backported function from 1.3.x series. You are using constants
-larger PAGE_3 and bigger on your own risk. So do you with firstPageOrder biger
-than 1.
+                        unit, pagesType, firstPageOrder, numPages) -&gt; bool
 
 Creates a new document and returns true if successful. The parameters have the
 following meaning:
@@ -216,14 +128,26 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeSVG(&quot;filename&quot;, x, y)
+
+Places the SVG &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SVG placed on the page
+
+If loading was successful, the selection contains the imported SVG
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -483,27 +407,6 @@ May raise ValueError if an invalid color name is specified.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot; ,haspreview, issave]) -&gt; string with filename
-
-Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
-with the filter string &quot;filter&quot;. A default filename or file path can also
-supplied, leave this string empty when you don&apos;t want to use it.  A value of
-True for haspreview enables a small preview widget in the FileSelect box.  When
-the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
-otherwise it acts like a &quot;File Open Dialog&quot;. The default for both of the
-opional parameters is False.
-
-The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
-For example &apos;Images (*.png *.xpm *.jpg)&apos;.
-
-Refer to the Qt-Documentation for QFileDialog for details on filters.
-
-Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
-Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>messageBox(&quot;caption&quot;, &quot;message&quot;,
     icon=ICON_NONE, button1=BUTTON_OK|BUTTONOPT_DEFAULT,
     button2=BUTTON_NONE, button3=BUTTON_NONE) -&gt; integer
@@ -592,14 +495,6 @@ Saves the current document under the new name &quot;name&quot; (which may be a f
 relative path).
 
 May raise ScribusError if the save fails.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -937,17 +832,6 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
-false the layer won&apos;t be printed.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>deleteLayer(&quot;layer&quot;)
 
 Deletes the layer with the name &quot;layer&quot;. Nothing happens if the layer doesn&apos;t
@@ -1098,15 +982,6 @@ May raise NotFoundError if one or both of the named base object don&apos;t exist
 
 Deletes the item with the name &quot;name&quot;. If &quot;name&quot; is not given the currently
 selected item is deleted.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>textFlowsAroundFrame(&quot;name&quot; [, state])
-
-Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
-Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
-is not passed, text flow is toggled.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1383,6 +1258,302 @@ won&apos;t automatically notice when you change the document using a script.
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
+
+Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
+If `proportional&apos; is specified, set fixed aspect ratio scaling to `proportional&apos;.
+Both `scaletoframe&apos; and `proportional&apos; are boolean.
+
+May raise WrongFrameTypeError.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
+that the layer &quot;layer&quot; can be printed, a value of False means that printing
+the layer &quot;layer&quot; is disabled.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
+
+Returns a tuple (R,G,B) containing the three color components of the
+color &quot;name&quot; from the current document, converted to the RGB color
+space. If no document is open, returns the value of the named color
+from the default document colors.
+
+May raise NotFoundError if the named color wasn&apos;t found.
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPropertyCType(object, property, includesuper=True)
+
+Returns the name of the C type of `property&apos; of `object&apos;. See getProperty()
+for details of arguments.
+
+If `includesuper&apos; is true, search inherited properties too.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPropertyNames(object, includesuper=True)
+
+Return a list of property names supported by `object&apos;.
+If `includesuper&apos; is true, return properties supported
+by parent classes as well.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getProperty(object, property)
+
+Return the value of the property `property&apos; of the passed `object&apos;.
+
+The `object&apos; argument may be a string, in which case the named PageItem
+is searched for. It may also be a PyCObject, which may point to any
+C++ QObject instance.
+
+The `property&apos; argument must be a string, and is the name of the property
+to look up on `object&apos;.
+
+The return value varies depending on the type of the property.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setProperty(object, property, value)
+
+Set `property&apos; of `object&apos; to `value&apos;. If `value&apos; cannot be converted to a type
+compatible with the type of `property&apos;, an exception is raised. An exception may
+also be raised if the underlying setter fails.
+
+See getProperty() for more information.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)
+
+Return a list of children of `object&apos;, possibly restricted to children
+of class named `ofclass&apos; or children named `ofname&apos;. If `recursive&apos; is true,
+search recursively through children, grandchildren, etc.
+
+See QObject::children() in the Qt docs for more information.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getChild(object, childname, ofclass=None, recursive=True)
+
+Return the first child of `object&apos; named `childname&apos;, possibly restricting
+the search to children of type name `ofclass&apos;. If `recursive&apos; is true,
+search recursively through children, grandchildren, etc.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+
+Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
+If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
+image data is returned as a string. The optional &quot;format&quot; argument
+specifies the image format to generate, and supports any format allowed
+by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
+
+May raise NotFoundError if the specified font can&apos;t be found.
+May raise ValueError if an empty sample or filename is passed.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>selectText(start, count, [&quot;name&quot;])
+
+Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
+character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
+text selection will be cleared.  If &quot;name&quot; is not given the currently
+selected item is used.
+
+May throw IndexError if the selection is outside the bounds of the text.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fileDialog(&quot;caption&quot;, [&quot;filter&quot;, &quot;defaultname&quot;, haspreview, issave, isdir]) -&gt; string with filename
+
+Shows a File Open dialog box with the caption &quot;caption&quot;. Files are filtered
+with the filter string &quot;filter&quot;. A default filename or file path can also
+supplied, leave this string empty when you don&apos;t want to use it.  A value of
+True for haspreview enables a small preview widget in the FileSelect box.  When
+the issave parameter is set to True the dialog acts like a &quot;Save As&quot; dialog
+otherwise it acts like a &quot;File Open Dialog&quot;. When the isdir parameter is True
+the dialog shows and returns only directories. The default for all of the
+opional parameters is False.
+
+The filter, if specified, takes the form &apos;comment (*.type *.type2 ...)&apos;.
+For example &apos;Images (*.png *.xpm *.jpg)&apos;.
+
+Refer to the Qt-Documentation for QFileDialog for details on filters.
+
+Example: fileDialog(&apos;Open input&apos;, &apos;CSV files (*.csv)&apos;)
+Example: fileDialog(&apos;Save report&apos;, defaultname=&apos;report.txt&apos;, issave=True)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newStyleDialog() -&gt; string
+
+Shows &apos;Create new paragraph style&apos; dialog. Function returns real
+style name or None when user cancels the dialog.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageMargins()
+
+Returns the page margins as a (top, left, right, bottom) tuple in the current
+units. See UNIT_&lt;type&gt; constants and getPageSize().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
+
+Returns the actual number of overflowing characters in text frame &quot;name&quot;.
+If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
+use text frame linking. Without this parameter it search all linking chain.
+
+May raise WrongFrameTypeError if the target frame is not an text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+
+Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
+
+Returns true if the text frame &quot;name&quot; is a PDF bookmark.
+If &quot;name&quot; is not given the currently selected item is used.
+
+May raise WrongFrameTypeError if the target frame is not a text frame
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newDoc(size, margins, orientation, firstPageNumber,
+                   unit, facingPages, firstSideLeft) -&gt; bool
+
+WARNING: Obsolete procedure! Use newDocument instead.
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+    size = A tuple (width, height) describing the size of the document. You can
+    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+    margins = A tuple (left, right, top, bottom) describing the document
+    margins
+
+    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+    firstPageNumer = is the number of the first page in the document used for
+    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+    numbers if you&apos;re creating a document in several parts.
+
+    unit: this value sets the measurement units used by the document. Use a
+    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+    UNIT_PICAS, UNIT_POINTS.
+
+    facingPages = FACINGPAGES, NOFACINGPAGES
+
+    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
+                FACINGPAGES, FIRSTPAGERIGHT)
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>closeMasterPage()
+
+Closes the currently active master page, if any, and returns editing
+to normal. Begin editing with editMasterPage().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>masterPageNames()
+
+Returns a list of the names of all master pages in the document.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>editMasterPage(pageName)
+
+Enables master page editing and opens the named master page
+for editing. Finish editing with closeMasterPage().
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>createMasterPage(pageName)
+
+Creates a new master page named pageName and opens it for
+editing.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>deleteMasterPage(pageName)
+
+Delete the named master page.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>zoomDocument(double)
+
+Zoom the document in main GUI window. Actions have whole number
+values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>defineColor(&quot;name&quot;, c, m, y, k)
 
 Defines a new color &quot;name&quot;. The color Value is defined via four components:
@@ -1390,6 +1561,38 @@ c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
 the range from 0 to 255.
 
 May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFillBlendmode([&quot;name&quot;]) -&gt; integer
+
+Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineBlendmode([&quot;name&quot;]) -&gt; integer
+
+Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1422,44 +1625,10 @@ selected item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)
+        <source>setLayerPrintable(&quot;layer&quot;, printable)
 
-Sets the scale to frame on the selected or specified image frame to `scaletoframe&apos;.
-If `proportional&apos; is specified, set fixed aspect ratio scaling to `proportional&apos;.
-Both `scaletoframe&apos; and `proportional&apos; are boolean.
-
-May raise WrongFrameTypeError.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>selectText(start, count, [&quot;name&quot;])
-
-Selects &quot;count&quot; characters of text in the text frame &quot;name&quot; starting from the
-character &quot;start&quot;. Character counting starts at 0. If &quot;count&quot; is zero, any
-text selection will be cleared. If &quot;count&quot; is -1, all text in the frame will
-be selected. If &quot;name&quot; is not given the currently selected item is used.
-
-May throw IndexError if the selection is outside the bounds of the text.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>register_macro_code(name, sourcetext, accel=&apos;&apos;)
-
-Create a macro named &quot;name&quot; by evaluating the the source code &quot;sourcetext&quot;.
-&quot;sourcetext&quot; must follow the same rules as macros created in the GUI.
-If provided, the string &quot;accel&quot; will be used to set a keyboard shortcut
-for the macro.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is printable or not, a value of True means
-that the layer &quot;layer&quot; can be printed, a value of False means that printing
-the layer &quot;layer&quot; is disabled.
+Sets the layer &quot;layer&quot; to be printable or not. If is the
+printable set to false the layer won&apos;t be printed.
 
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
@@ -1467,29 +1636,55 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>getColorAsRGB(&quot;name&quot;) -&gt; tuple
+        <source>setLayerLocked(&quot;layer&quot;, locked)
 
-Returns a tuple (R,G,B) containing the three color components of the
-color &quot;name&quot; from the current document, converted to the RGB colour
-space. If no document is open, returns the value of the named color
-from the default document colors.
+Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
+true the layer will be locked.
 
-May raise NotFoundError if the named color wasn&apos;t found.
-May raise ValueError if an invalid color name is specified.
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>renderFont(&quot;name&quot;, &quot;filename&quot;, &quot;sample&quot;, size, format=&quot;PPM&quot;) -&gt; bool
+        <source>setLayerOutlined&quot;layer&quot;, outline)
 
-Creates an image preview of font &quot;name&quot; with given text &quot;sample&quot; and size.
-If &quot;filename&quot; is not &quot;&quot;, image is saved into &quot;filename&quot;. Otherwise
-image data is returned as a string. The optional &quot;format&quot; argument
-specifies the image format to generate, and supports any format allowed
-by QPixmap.save(). Common formats are PPM, JPEG, PNG and XPM.
+Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
+true the layer will be displayed outlined.
 
-May raise NotFoundError if the specified font can&apos;t be found.
-May raise ValueError if an empty sample or filename is passed.
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerFlow&quot;layer&quot;, flow)
+
+Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
+true text in layers above this one will flow around objects on this layer.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerBlendmode&quot;layer&quot;, blend)
+
+Sets the layers &quot;layer&quot;  blendmode to blend.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerTransparency&quot;layer&quot;, trans)
+
+Sets the layers &quot;layer&quot;  transparency to trans.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1506,30 +1701,121 @@ May raise ValueError if the layer name isn&apos;t acceptable.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>setPDFBookmark(&quot;toggle&quot;, [&quot;name&quot;])
+        <source>isLayerLocked(&quot;layer&quot;) -&gt; bool
 
-Sets wether (toggle = 1) the text frame &quot;name&quot; is a bookmark nor not.
-If &quot;name&quot; is not given the currently selected item is used.
+Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
+that the layer &quot;layer&quot; is editable, a value of False means that the layer
+&quot;layer&quot; is locked.
 
-May raise WrongFrameTypeError if the target frame is not a text frame
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>isPDFBookmark([&quot;name&quot;]) -&gt; bool
+        <source>isLayerOutlined(&quot;layer&quot;) -&gt; bool
 
-Returns true if the text frame &quot;name&quot; is a PDF bookmark.
-If &quot;name&quot; is not given the currently selected item is used.
+Returns whether the layer &quot;layer&quot; is outlined or not, a value of True means
+that the layer &quot;layer&quot; is outlined, a value of False means that the layer
+&quot;layer&quot; is normal.
 
-May raise WrongFrameTypeError if the target frame is not a text frame
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>getPageMargins()
+        <source>isLayerFlow(&quot;layer&quot;) -&gt; bool
 
-Returns the page margins as a (top, left, right, bottom) tuple in the current
-units. See UNIT_&lt;type&gt; constants and getPageSize().
+Returns whether text flows around objects on layer &quot;layer&quot;, a value of True means
+that text flows around, a value of False means that the text does not flow around.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLayerBlendmode(&quot;layer&quot;) -&gt; int
+
+Returns the &quot;layer&quot; layer blendmode,
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLayerTransparency(&quot;layer&quot;) -&gt; float
+
+Returns the &quot;layer&quot; layer transparency,
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>textFlowMode(&quot;name&quot; [, state])
+
+Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
+Called with parameters string name and optional int &quot;state&quot; (0 &lt;= state &lt;= 3).
+Setting &quot;state&quot; to 0 will disable text flow.
+Setting &quot;state&quot; to 1 will make text flow around object frame.
+Setting &quot;state&quot; to 2 will make text flow around bounding box.
+Setting &quot;state&quot; to 3 will make text flow around contour line.
+If &quot;state&quot; is not passed, text flow is toggled.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageType() -&gt; integer
+
+Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the fill blendmode of the object &quot;name&quot; to blendmode
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the line blendmode of the object &quot;name&quot; to blendmode
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getTextLines([&quot;name&quot;]) -&gt; integer
+
+Returns the number of lines of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1537,112 +1823,47 @@ units. See UNIT_&lt;type&gt; constants and getPageSize().
         <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
 
 Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference). The first character has
-an index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot;
-is not given the currently selected Item is used.
+Text must be UTF encoded (see setText() as reference) The first character has an
+index of 0. Inserting text at position -1 appends it to the frame. If &quot;name&quot; is
+not given the currently selected Item is used.
 
 May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; bool
+        <source>placeEPS(&quot;filename&quot;, x, y)
 
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
+Places the EPS &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SVG placed on the page
 
-    size = A tuple (width, height) describing the size of the document. You can
-    use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-    margins = A tuple (left, right, top, bottom) describing the document
-    margins
-
-    orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-    firstPageNumber = is the number of the first page in the document used for
-    pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-    numbers if you&apos;re creating a document in several parts.
-
-    unit: this value sets the measurement units used by the document. Use a
-    predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-    UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES, NOFACINGPAGES
-
-    firstSideLeft = FIRSTPAGELEFT, FIRSTPAGERIGHT
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</source>
-        <translation type="unfinished">newDoc(size, margins, orientation, firstPageNumber,
-                   unit, facingPages, firstSideLeft) -&gt; boolean
-
-Maakt een nieuw document aan en retourneert True als dat lukte.
-
-    size = Een groep (breedte, hoogte) die de grootte van het document weergeeft. U kunt
-    voorgedefiniëerde constanten gebruiken als PAPER_&lt;papier_type&gt; bijv. PAPER_A4 etc.
-
-    margins = Een groep (links, rechts, boven, onder) die de marges weergeeft.
-
-    orientation = kies hier voor een van de constanten PORTRAIT (staand) of LANDSCAPE
-    (liggend).
-
-    firstPageNumber = het nummer van de eerste pagina. Normaalgesproken 1, maar
-    soms is het handig om een hoger nummer te kiezen om later documenten aaneen
-    te kunnen voegen.
-
-    unit = stelt in welke eenheid het document standaard gebruik. Kies een van de volgende constanten:
-    UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
-
-    facingPages = FACINGPAGES (links en rechts naast elkaar) of NOFACINGPAGES (niet)
-
-    firstSideLeft = FIRSTPAGELEFT (eerste pagina is een linkerpagina) of FIRSTPAGERIGHT (rechts)
-
-De waarden voor breedte, hoogte en de marges worden uitgedrukt in de opgegeven eenheid.
-De PAPER_* constanten zijn altijd in punten. Houdt hier rekening mee als u een andere eenheid in 
-uw document gebruikt.
-
-Voorbeeld: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
-                FACINGPAGES, FIRSTPAGERIGHT)
-</translation>
-    </message>
-    <message>
-        <source>textOverflows([&quot;name&quot;, nolinks]) -&gt; integer
-
-Returns the actual number of overflowing characters in text frame &quot;name&quot;.
-If is nolinks set to non zero value it takes only one frame - it doesn&apos;t
-use text frame linking. Without this parameter it search all linking chain.
-
-May raise WrongFrameTypeError if the target frame is not an text frame
+If loading was successful, the selection contains the imported SVG
 </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>zoomDocument(double)
+        <source>placeSXD(&quot;filename&quot;, x, y)
 
-Zoom the document in main GUI window. Actions have whole number
-values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
+Places the SXD &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the SXD placed on the page
+
+If loading was successful, the selection contains the imported SXD
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>placeODG(&quot;filename&quot;, x, y)
+
+Places the ODG &quot;filename&quot; onto the current page,
+x and y specify the coordinate of the topleft corner of the ODG placed on the page
+
+If loading was successful, the selection contains the imported ODG
 </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>About</name>
-    <message>
-        <source>Scribus Version %1
-%2 %3</source>
-        <translation>Scribus versie %1
-%2 %3</translation>
-    </message>
-    <message>
-        <source>Build-ID:</source>
-        <translation>Build-ID:</translation>
-    </message>
     <message>
         <source>&amp;About</source>
         <translation>Inf&amp;o</translation>
@@ -1652,96 +1873,8 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Bijdragen van:</translation>
     </message>
     <message>
-        <source>Windows port:</source>
-        <translation>Windows-versie:</translation>
-    </message>
-    <message>
         <source>A&amp;uthors</source>
         <translation>A&amp;uteurs</translation>
-    </message>
-    <message>
-        <source>German:</source>
-        <translation>Duits:</translation>
-    </message>
-    <message>
-        <source>French:</source>
-        <translation>Frans:</translation>
-    </message>
-    <message>
-        <source>Italian:</source>
-        <translation>Italiaans:</translation>
-    </message>
-    <message>
-        <source>Hungarian:</source>
-        <translation>Hongaars:</translation>
-    </message>
-    <message>
-        <source>Ukrainian:</source>
-        <translation>Ukraïens:</translation>
-    </message>
-    <message>
-        <source>Bulgarian:</source>
-        <translation>Bulgaars:</translation>
-    </message>
-    <message>
-        <source>Galician:</source>
-        <translation>Galiciaans:</translation>
-    </message>
-    <message>
-        <source>Turkish:</source>
-        <translation>Turks:</translation>
-    </message>
-    <message>
-        <source>Lithuanian:</source>
-        <translation>Litouws:</translation>
-    </message>
-    <message>
-        <source>Polish:</source>
-        <translation>Pools:</translation>
-    </message>
-    <message>
-        <source>Czech:</source>
-        <translation>Tsjechisch:</translation>
-    </message>
-    <message>
-        <source>Slovak:</source>
-        <translation>Slovaaks:</translation>
-    </message>
-    <message>
-        <source>Danish:</source>
-        <translation>Deens:</translation>
-    </message>
-    <message>
-        <source>Norwegian:</source>
-        <translation>Noors:</translation>
-    </message>
-    <message>
-        <source>Welsh:</source>
-        <translation>Welsh:</translation>
-    </message>
-    <message>
-        <source>Russian:</source>
-        <translation>Russisch:</translation>
-    </message>
-    <message>
-        <source>Brazilian:</source>
-        <translation>Braziliaans:</translation>
-    </message>
-    <message>
-        <source>Finnish:</source>
-        <translation>Fins:</translation>
-    </message>
-    <message>
-        <source>Slovenian:</source>
-        <translation>Sloveens:</translation>
-    </message>
-    <message>
-        <source>Basque:</source>
-        <translation>Baskisch:</translation>
-    </message>
-    <message>
-        <source>Swedish:</source>
-        <translation>Zweeds:</translation>
     </message>
     <message>
         <source>&amp;Translations</source>
@@ -1768,10 +1901,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Andere documentatie:</translation>
     </message>
     <message>
-        <source>English (British):</source>
-        <translation>Engels (Brits):</translation>
-    </message>
-    <message>
         <source>Homepage</source>
         <translation>Homepage</translation>
     </message>
@@ -1796,144 +1925,1090 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Officiële vertalingen en vertalers:</translation>
     </message>
     <message>
-        <source>Catalan:</source>
-        <translation>Catalaans:</translation>
-    </message>
-    <message>
-        <source>Esperanto:</source>
-        <translation>Esperanto:</translation>
-    </message>
-    <message>
-        <source>Korean:</source>
-        <translation>Koreaans:</translation>
-    </message>
-    <message>
-        <source>Serbian:</source>
-        <translation>Servisch:</translation>
-    </message>
-    <message>
-        <source>Spanish:</source>
-        <translation>Spaans:</translation>
-    </message>
-    <message>
         <source>Previous Translation Contributors:</source>
         <translation>Eerdere bijdragers van vertalingen:</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=littlecms C=CUPS T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation>Dit paneel toont de versie, compileerdatum en de
-meegecompileerde bibliotheken van Scribus,
-C-C-T slaat op C=littlecms C=CUPS T=TIFF-ondersteuning.
-Ontbrekende ondersteuning wordt door een * aangegeven</translation>
+        <source>Wiki</source>
+        <translation>Wiki</translation>
     </message>
     <message>
-        <source>%1 %2 %3 </source>
-        <translation>%1 %2 %3 </translation>
+        <source>%1 %2 %3</source>
+        <translation>%1 %2 %3</translation>
     </message>
     <message>
-        <source>Afrikaans:</source>
-        <translation>Afrikaans:</translation>
+        <source>%3-%2-%1 %4 %5</source>
+        <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <source>Portuguese (Brazilian):</source>
-        <translation>Portugees (Braziliaans):</translation>
+        <source>Using Ghostscript version %1</source>
+        <translation>Ghostscript versie %1</translation>
     </message>
     <message>
-        <source>Japanese:</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>AdvOptions</name>
-    <message>
-        <source>Advanced Options</source>
-        <translation>Geavanceerde opties</translation>
+        <source>No Ghostscript version available</source>
+        <translation>Geen Ghostscript beschikbaar</translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation>Pagina(&apos;s) &amp;horizontaal spiegelen</translation>
+        <source>&lt;b&gt;Scribus Version %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</source>
+        <translation>&lt;b&gt;Scribus Versie %1&lt;/b&gt;&lt;p&gt;%2&lt;br/&gt;%3 %4&lt;br/&gt;%5&lt;/p&gt;</translation>
     </message>
     <message>
-        <source>Mirror Page(s) &amp;Vertical</source>
-        <translation>Pagina(&apos;s) &amp;verticaal spiegelen</translation>
+        <source>Build ID:</source>
+        <translation>Build ID:</translation>
     </message>
     <message>
-        <source>Apply Under Color &amp;Removal</source>
-        <translation>Onde&amp;rliggende kleuren verwijderen</translation>
+        <source>Mac OS&amp;#174; X Aqua Port:</source>
+        <translation>Mac OS&amp;#174; X Aqua Port:</translation>
     </message>
     <message>
-        <source>Apply &amp;ICC Profiles</source>
-        <translation>&amp;ICC-profielen toepassen</translation>
+        <source>Windows&amp;#174; Port:</source>
+        <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
-        <source>PostScript Level &amp;1</source>
-        <translation>PostScript niveau &amp;1</translation>
+        <source>Tango Project Icons:</source>
+        <translation>Tango project iconen:</translation>
     </message>
     <message>
-        <source>PostScript Level &amp;2</source>
-        <translation>PostScript niveau &amp;2</translation>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482; Port:</translation>
     </message>
     <message>
-        <source>PostScript Level &amp;3</source>
-        <translation>PostScript niveau &amp;3</translation>
+        <source>&amp;Updates</source>
+        <translation>&amp;Updates</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>Check for &amp;Updates</source>
+        <translation>Zoek naar &amp;updates</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected. The Windows version does not use fontconfig or CUPS libraries.</source>
+        <translation>Dit scherm toont de versie, build datum en gecompileerde bibliotheek ondersteuning in Scribus. C-C-T-F staat gelijk aan C=littlecms C=CUPS T=TIFF ondersteuning F=Fontconfig ondersteuning. De laatste letter is de renderer C=cairo of A=libart. Ontbrekende bibliotheek ondersteuning wordt aangegeven met een *. Ook de door Scribus gevonden versie van Ghostscript wordt aangegeven. De Windows versie maakt geen gebruik van fontconfig of CUPS bibliotheken.</translation>
     </message>
     <message>
-        <source>Creates PostScript Level 3</source>
-        <translation>Maakt PostScript niveau 3 aan</translation>
-    </message>
-    <message>
-        <source>Creates PostScript Level 2 only, beware,
-this can create huge files</source>
-        <translation>Maakt PostScript niveau 2 aan, dit kan
-zeer grote bestanden tot gevolg hebben</translation>
-    </message>
-    <message>
-        <source>Creates PostScript Level 1 only, beware,
-this can create huge files</source>
-        <translation>Maakt PostScript niveau 1 aan, dit kan
-zeer grote bestanden tot gevolg hebben</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
-te vervangen door tinten enkel op zwart gebaseerd.
-UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
-die dicht bij grijs liggen. Sommige afbeeldingen worden fraaier afgedrukt door
-deze functie; experimenteren kan nodig zijn.
-UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
-    </message>
-    <message>
-        <source>Set Media Size</source>
-        <translation>Mediagrootte instellen</translation>
-    </message>
-    <message>
-        <source>This enables you to explicitely set,
-the media size of the PostScript file.
-Not recommended unless
- requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
+        <translation>Zoeken naar updates voor Scribus. Door deze computer wordt geen data verzonden.</translation>
     </message>
 </context>
 <context>
-    <name>Align</name>
+    <name>AboutPlugins</name>
     <message>
-        <source>Distribute/Align</source>
+        <source>Filename:</source>
+        <translation>Naam van het bestand:</translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation>Versie:</translation>
+    </message>
+    <message>
+        <source>Enabled:</source>
+        <translation>Aangezet:</translation>
+    </message>
+    <message>
+        <source>Release Date:</source>
+        <translation>Datum van publicatie:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>Omschrijving:</translation>
+    </message>
+    <message>
+        <source>Author(s):</source>
+        <translation>Auteur(s):</translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation>Auteursrecht:</translation>
+    </message>
+    <message>
+        <source>License:</source>
+        <translation>Licentie:</translation>
+    </message>
+</context>
+<context>
+    <name>AboutPluginsBase</name>
+    <message>
+        <source>Scribus: About Plug-ins</source>
+        <translation>Scribus: Over Plug-ins</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Sluiten</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+A</translation>
+    </message>
+</context>
+<context>
+    <name>ActionManager</name>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Nieuw</translation>
+    </message>
+    <message>
+        <source>&amp;Open...</source>
+        <translation>&amp;Openen...</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>S&amp;luiten</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>Op&amp;slaan</translation>
+    </message>
+    <message>
+        <source>Save &amp;As...</source>
+        <translation>Opslaan &amp;als...</translation>
+    </message>
+    <message>
+        <source>Re&amp;vert to Saved</source>
+        <translation>Terug&amp;zetten naar opgeslagen</translation>
+    </message>
+    <message>
+        <source>Collect for O&amp;utput...</source>
+        <translation>Verzamelen voor &amp;uitvoer...</translation>
+    </message>
+    <message>
+        <source>Get Text...</source>
+        <translation>Tekst verkrijgen ...</translation>
+    </message>
+    <message>
+        <source>Append &amp;Text...</source>
+        <translation>Tekst &amp;toevoegen...</translation>
+    </message>
+    <message>
+        <source>Get Image...</source>
+        <translation>Afbeelding verkrijgen ...</translation>
+    </message>
+    <message>
+        <source>Save &amp;Text...</source>
+        <translation>&amp;Tekst opslaan...</translation>
+    </message>
+    <message>
+        <source>Save as P&amp;DF...</source>
+        <translation>Opslaan als P&amp;DF...</translation>
+    </message>
+    <message>
+        <source>Document &amp;Setup...</source>
+        <translation>Documentin&amp;stellingen...</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <translation>Afdru&amp;kken...</translation>
+    </message>
+    <message>
+        <source>&amp;Quit</source>
+        <translation>A&amp;fsluiten</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Ongedaan maken</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>O&amp;pnieuw doen</translation>
+    </message>
+    <message>
+        <source>&amp;Item Action Mode</source>
+        <translation>&amp;Item Actie Mode</translation>
+    </message>
+    <message>
+        <source>Cu&amp;t</source>
+        <translation>Kni&amp;ppen</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopiëren</translation>
+    </message>
+    <message>
+        <source>&amp;Paste</source>
+        <translation>Pla&amp;kken</translation>
+    </message>
+    <message>
+        <source>Select &amp;All</source>
+        <translation>&amp;Alles selecteren</translation>
+    </message>
+    <message>
+        <source>&amp;Deselect All</source>
+        <translation>Alle&amp;s deselecteren</translation>
+    </message>
+    <message>
+        <source>&amp;Search/Replace...</source>
+        <translation>&amp;Zoeken/vervangen...</translation>
+    </message>
+    <message>
+        <source>Edit Image...</source>
+        <translation>Afbeelding bewerken ...</translation>
+    </message>
+    <message>
+        <source>C&amp;olors...</source>
+        <translation>Kle&amp;uren...</translation>
+    </message>
+    <message>
+        <source>&amp;Master Pages...</source>
+        <translation>S&amp;jablonen ...</translation>
+    </message>
+    <message>
+        <source>P&amp;references...</source>
+        <translation>&amp;Voorkeuren...</translation>
+    </message>
+    <message>
+        <source>%1 pt</source>
+        <translation>%1 pt</translation>
+    </message>
+    <message>
+        <source>&amp;Other...</source>
+        <translation>&amp;Overig...</translation>
+    </message>
+    <message>
+        <source>&amp;Left</source>
+        <translation>&amp;Links</translation>
+    </message>
+    <message>
+        <source>&amp;Center</source>
+        <translation>&amp;Midden</translation>
+    </message>
+    <message>
+        <source>&amp;Right</source>
+        <translation>&amp;Rechts</translation>
+    </message>
+    <message>
+        <source>&amp;Block</source>
+        <translation>&amp;Blok</translation>
+    </message>
+    <message>
+        <source>&amp;Forced</source>
+        <translation>Ge&amp;forceerd</translation>
+    </message>
+    <message>
+        <source>&amp;%1 %</source>
+        <translation>&amp;%1 %</translation>
+    </message>
+    <message>
+        <source>&amp;Normal</source>
+        <translation>&amp;Normaal</translation>
+    </message>
+    <message>
+        <source>&amp;Underline</source>
+        <translation>&amp;Onderstreept</translation>
+    </message>
+    <message>
+        <source>Underline &amp;Words</source>
+        <translation>Onderstreep &amp;woorden</translation>
+    </message>
+    <message>
+        <source>&amp;Strike Through</source>
+        <translation>Door&amp;haalen</translation>
+    </message>
+    <message>
+        <source>&amp;All Caps</source>
+        <translation>K&amp;apitalen</translation>
+    </message>
+    <message>
+        <source>Small &amp;Caps</source>
+        <translation>Kleinkap&amp;itaal</translation>
+    </message>
+    <message>
+        <source>Su&amp;perscript</source>
+        <translation>S&amp;uperscript</translation>
+    </message>
+    <message>
+        <source>Su&amp;bscript</source>
+        <translation>Su&amp;bscript</translation>
+    </message>
+    <message>
+        <source>S&amp;hadow</source>
+        <translation>Schadu&amp;w</translation>
+    </message>
+    <message>
+        <source>&amp;Image Effects</source>
+        <translation>&amp;Afbeelding effecten</translation>
+    </message>
+    <message>
+        <source>&amp;Tabulators...</source>
+        <translation>&amp;Tabstops...</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation>D&amp;upliceren</translation>
+    </message>
+    <message>
+        <source>&amp;Multiple Duplicate</source>
+        <translation>&amp;Meervoudig dupliceren</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation>&amp;Groeperen</translation>
+    </message>
+    <message>
+        <source>&amp;Ungroup</source>
+        <translation>&amp;Groep losmaken</translation>
+    </message>
+    <message>
+        <source>Is &amp;Locked</source>
+        <translation>Is &amp;vergrendeld</translation>
+    </message>
+    <message>
+        <source>Si&amp;ze is Locked</source>
+        <translation>Groo&amp;tte is vergrendeld</translation>
+    </message>
+    <message>
+        <source>Lower to &amp;Bottom</source>
+        <translation>Naar achte&amp;rgrond</translation>
+    </message>
+    <message>
+        <source>Raise to &amp;Top</source>
+        <translation>Naar voorgron&amp;d</translation>
+    </message>
+    <message>
+        <source>&amp;Lower</source>
+        <translation>&amp;Lager</translation>
+    </message>
+    <message>
+        <source>&amp;Raise</source>
+        <translation>&amp;Hoger</translation>
+    </message>
+    <message>
+        <source>Send to S&amp;crapbook</source>
+        <translation>In &amp;kladblok zetten</translation>
+    </message>
+    <message>
+        <source>&amp;Attributes...</source>
+        <translation>Eigensch&amp;appen...</translation>
+    </message>
+    <message>
+        <source>I&amp;mage Visible</source>
+        <translation>Af&amp;beelding zichtbaar</translation>
+    </message>
+    <message>
+        <source>&amp;Update Image</source>
+        <translation>Afbeelding bij&amp;werken</translation>
+    </message>
+    <message>
+        <source>Adjust Frame to Image</source>
+        <translation>Frame aan afbeelding aanpassen</translation>
+    </message>
+    <message>
+        <source>Extended Image Properties</source>
+        <translation>Uitgebreide afbeeldingseigenschappen</translation>
+    </message>
+    <message>
+        <source>&amp;Low Resolution</source>
+        <translation>&amp;Lage resolutie</translation>
+    </message>
+    <message>
+        <source>&amp;Normal Resolution</source>
+        <translation>&amp;Normale resolutie</translation>
+    </message>
+    <message>
+        <source>&amp;Full Resolution</source>
+        <translation>&amp;Volledige resolutie</translation>
+    </message>
+    <message>
+        <source>Is PDF &amp;Bookmark</source>
+        <translation>Dit is een PDF-&amp;bladwijzer</translation>
+    </message>
+    <message>
+        <source>Is PDF A&amp;nnotation</source>
+        <translation>Dit is een PDF-a&amp;nnotatie</translation>
+    </message>
+    <message>
+        <source>Annotation P&amp;roperties</source>
+        <translation>&amp;Eigenschappen van annotatie</translation>
+    </message>
+    <message>
+        <source>Field P&amp;roperties</source>
+        <translation>&amp;Veldeigenschappen</translation>
+    </message>
+    <message>
+        <source>&amp;Edit Shape...</source>
+        <translation>Vorm b&amp;ewerken...</translation>
+    </message>
+    <message>
+        <source>&amp;Attach Text to Path</source>
+        <translation>Tekst &amp;aan pad toevoegen</translation>
+    </message>
+    <message>
+        <source>&amp;Detach Text from Path</source>
+        <translation>Tekst van &amp;pad losmaken</translation>
+    </message>
+    <message>
+        <source>&amp;Combine Polygons</source>
+        <translation>Polygonen &amp;samenvoegen</translation>
+    </message>
+    <message>
+        <source>Split &amp;Polygons</source>
+        <translation>&amp;Polygonen opsplitsen</translation>
+    </message>
+    <message>
+        <source>&amp;Bezier Curve</source>
+        <translation>&amp;Beziercurve</translation>
+    </message>
+    <message>
+        <source>&amp;Image Frame</source>
+        <translation>&amp;Afbeeldingsframe</translation>
+    </message>
+    <message>
+        <source>&amp;Polygon</source>
+        <translation>&amp;Polygoon</translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation>&amp;Tekstframe</translation>
+    </message>
+    <message>
+        <source>&amp;Glyph...</source>
+        <translation>&amp;Symboolteken...</translation>
+    </message>
+    <message>
+        <source>Sample Text</source>
+        <translation>Voorbeeldtekst</translation>
+    </message>
+    <message>
+        <source>&amp;Insert...</source>
+        <translation>&amp;Invoegen...</translation>
+    </message>
+    <message>
+        <source>Im&amp;port...</source>
+        <translation>Im&amp;porteren ...</translation>
+    </message>
+    <message>
+        <source>&amp;Delete...</source>
+        <translation>Verwij&amp;deren...</translation>
+    </message>
+    <message>
+        <source>&amp;Copy...</source>
+        <translation>&amp;Kopiëren ...</translation>
+    </message>
+    <message>
+        <source>&amp;Move...</source>
+        <translation>&amp;Verplaatsen...</translation>
+    </message>
+    <message>
+        <source>&amp;Apply Master Page...</source>
+        <translation>Pa&amp;gina sjabloon toepassen ...</translation>
+    </message>
+    <message>
+        <source>Manage &amp;Guides...</source>
+        <translation>&amp;Hulplijnen beheren...</translation>
+    </message>
+    <message>
+        <source>Manage Page Properties...</source>
+        <translation>Paginaeigenschappen bewerken...</translation>
+    </message>
+    <message>
+        <source>&amp;50%</source>
+        <translation>&amp;50%</translation>
+    </message>
+    <message>
+        <source>&amp;75%</source>
+        <translation>&amp;75%</translation>
+    </message>
+    <message>
+        <source>&amp;100%</source>
+        <translation>&amp;100%</translation>
+    </message>
+    <message>
+        <source>&amp;200%</source>
+        <translation>&amp;200%</translation>
+    </message>
+    <message>
+        <source>&amp;Thumbnails</source>
+        <translation>Minia&amp;turen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Margins</source>
+        <translation>&amp;Marges tonen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Frames</source>
+        <translation>&amp;Frames tonen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Images</source>
+        <translation>Afbeeld&amp;ingen tonen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Grid</source>
+        <translation>R&amp;aster tonen</translation>
+    </message>
+    <message>
+        <source>Show G&amp;uides</source>
+        <translation>H&amp;ulplijnen tonen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Baseline Grid</source>
+        <translation>&amp;Basislijn-raster tonen</translation>
+    </message>
+    <message>
+        <source>Show &amp;Text Chain</source>
+        <translation>&amp;Tekstkoppeling tonen</translation>
+    </message>
+    <message>
+        <source>Show Control Characters</source>
+        <translation>Opmaaktekens tonen</translation>
+    </message>
+    <message>
+        <source>Rulers relative to Page</source>
+        <translation>Lineaal relatief naar pagina</translation>
+    </message>
+    <message>
+        <source>Sn&amp;ap to Grid</source>
+        <translation>Ma&amp;gnetisch raster</translation>
+    </message>
+    <message>
+        <source>Sna&amp;p to Guides</source>
+        <translation>Magnetische hul&amp;plijnen</translation>
+    </message>
+    <message>
+        <source>&amp;Properties</source>
+        <translation>&amp;Eigenschappen</translation>
+    </message>
+    <message>
+        <source>&amp;Scrapbook</source>
+        <translation>&amp;Kladblok</translation>
+    </message>
+    <message>
+        <source>&amp;Layers</source>
+        <translation>&amp;Lagen</translation>
+    </message>
+    <message>
+        <source>&amp;Arrange Pages</source>
+        <translation>&amp;Paginatablet</translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <translation>&amp;Bladwijzers</translation>
+    </message>
+    <message>
+        <source>&amp;Measurements</source>
+        <translation>&amp;Afstanden</translation>
+    </message>
+    <message>
+        <source>Action &amp;History</source>
+        <translation>Actie&amp;geschiedenis</translation>
+    </message>
+    <message>
+        <source>Preflight &amp;Verifier</source>
+        <translation>Preflight &amp;controle</translation>
+    </message>
+    <message>
+        <source>&amp;Align and Distribute</source>
+        <translation>&amp;Verdelen en uitlijnen</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Gereedschappen</translation>
+    </message>
+    <message>
+        <source>P&amp;DF Tools</source>
+        <translation>P&amp;DF-gereedschappen</translation>
+    </message>
+    <message>
+        <source>Select Item</source>
+        <translation>Item selecteren</translation>
+    </message>
+    <message>
+        <source>T&amp;able</source>
+        <translation>T&amp;abel</translation>
+    </message>
+    <message>
+        <source>&amp;Shape</source>
+        <translation>&amp;Vorm</translation>
+    </message>
+    <message>
+        <source>&amp;Line</source>
+        <translation>&amp;Lijn</translation>
+    </message>
+    <message>
+        <source>&amp;Freehand Line</source>
+        <translation>&amp;Vrijehand-curve</translation>
+    </message>
+    <message>
+        <source>Rotate Item</source>
+        <translation>Item roteren</translation>
+    </message>
+    <message>
+        <source>Zoom in or out</source>
+        <translation>In- of uitzoomen</translation>
+    </message>
+    <message>
+        <source>Zoom in</source>
+        <translation>Inzoomen</translation>
+    </message>
+    <message>
+        <source>Zoom out</source>
+        <translation>Uitzoomen</translation>
+    </message>
+    <message>
+        <source>Edit Contents of Frame</source>
+        <translation>Frameinhoud bewerken</translation>
+    </message>
+    <message>
+        <source>Edit Text...</source>
+        <translation>Tekst bewerken...</translation>
+    </message>
+    <message>
+        <source>Link Text Frames</source>
+        <translation>Tekstframes koppelen</translation>
+    </message>
+    <message>
+        <source>Unlink Text Frames</source>
+        <translation>Tekstframes loskoppelen</translation>
+    </message>
+    <message>
+        <source>&amp;Eye Dropper</source>
+        <translation>&amp;Pipet</translation>
+    </message>
+    <message>
+        <source>Copy Item Properties</source>
+        <translation>Itemeigenschappen kopiëren</translation>
+    </message>
+    <message>
+        <source>Edit the text with the Story Editor</source>
+        <translation>Tekst met de story-editor bewerken</translation>
+    </message>
+    <message>
+        <source>Insert Text Frame</source>
+        <translation>Tekstframe invoegen</translation>
+    </message>
+    <message>
+        <source>Insert Image Frame</source>
+        <translation>Afbeelding invoegen</translation>
+    </message>
+    <message>
+        <source>Insert Table</source>
+        <translation>Tabel invoegen</translation>
+    </message>
+    <message>
+        <source>Insert Shape</source>
+        <translation>Vorm invoegen</translation>
+    </message>
+    <message>
+        <source>Insert Polygon</source>
+        <translation>Polygoon invoegen</translation>
+    </message>
+    <message>
+        <source>Insert Line</source>
+        <translation>Lijn invoegen</translation>
+    </message>
+    <message>
+        <source>Insert Bezier Curve</source>
+        <translation>Beziercurve invoegen</translation>
+    </message>
+    <message>
+        <source>Insert Freehand Line</source>
+        <translation>Vrijehand-curve invoegen</translation>
+    </message>
+    <message>
+        <source>&amp;Manage Pictures</source>
+        <translation>Afbeeldingen &amp;beheren</translation>
+    </message>
+    <message>
+        <source>&amp;Hyphenate Text</source>
+        <translation>Tekst a&amp;fbreken</translation>
+    </message>
+    <message>
+        <source>Dehyphenate Text</source>
+        <translation>Afbreking ongedaan maken</translation>
+    </message>
+    <message>
+        <source>&amp;Generate Table Of Contents</source>
+        <translation>&amp;Inhoudsopgave aanmaken</translation>
+    </message>
+    <message>
+        <source>&amp;About Scribus</source>
+        <translation>&amp;Info over Scribus</translation>
+    </message>
+    <message>
+        <source>About &amp;Qt</source>
+        <translation>Info over &amp;Qt</translation>
+    </message>
+    <message>
+        <source>Toolti&amp;ps</source>
+        <translation>Hul&amp;pballonnen</translation>
+    </message>
+    <message>
+        <source>Scribus &amp;Manual...</source>
+        <translation>Scribus &amp;handboek...</translation>
+    </message>
+    <message>
+        <source>Smart &amp;Hyphen</source>
+        <translation>Slimme &amp;woordafbraak</translation>
+    </message>
+    <message>
+        <source>Non Breaking Dash</source>
+        <translation>Niet afbrekende streep</translation>
+    </message>
+    <message>
+        <source>Non Breaking &amp;Space</source>
+        <translation>Niet afbrekende &amp;spatie</translation>
+    </message>
+    <message>
+        <source>Page &amp;Number</source>
+        <translation>Pagina&amp;nummer</translation>
+    </message>
+    <message>
+        <source>New Line</source>
+        <translation>Nieuwe regel</translation>
+    </message>
+    <message>
+        <source>Frame Break</source>
+        <translation>Frame-einde</translation>
+    </message>
+    <message>
+        <source>Column Break</source>
+        <translation>Kolomeinde</translation>
+    </message>
+    <message>
+        <source>Copyright</source>
+        <translation>Copyright</translation>
+    </message>
+    <message>
+        <source>Registered Trademark</source>
+        <translation>Geregistreerd handelsmerk</translation>
+    </message>
+    <message>
+        <source>Trademark</source>
+        <translation>Handelsmerk</translation>
+    </message>
+    <message>
+        <source>Bullet</source>
+        <translation>Opsomteken</translation>
+    </message>
+    <message>
+        <source>Em Dash</source>
+        <translation>Kastlijn (Em-streepje)</translation>
+    </message>
+    <message>
+        <source>En Dash</source>
+        <translation>Halve kastlijn (En-streepje)</translation>
+    </message>
+    <message>
+        <source>Figure Dash</source>
+        <translation>Nummer streep</translation>
+    </message>
+    <message>
+        <source>Quotation Dash</source>
+        <translation>Quote streep</translation>
+    </message>
+    <message>
+        <source>Apostrophe</source>
+        <translation>Apostrof</translation>
+    </message>
+    <message>
+        <source>Straight Double</source>
+        <translation>Dubbel recht</translation>
+    </message>
+    <message>
+        <source>Single Left</source>
+        <translation>Enkel links</translation>
+    </message>
+    <message>
+        <source>Single Right</source>
+        <translation>Enkel rechts</translation>
+    </message>
+    <message>
+        <source>Double Left</source>
+        <translation>Dubbel links</translation>
+    </message>
+    <message>
+        <source>Double Right</source>
+        <translation>Dubbel rechts</translation>
+    </message>
+    <message>
+        <source>Single Reversed</source>
+        <translation>Enkel omgedraaid</translation>
+    </message>
+    <message>
+        <source>Double Reversed</source>
+        <translation>Dubbel omgedraaid</translation>
+    </message>
+    <message>
+        <source>Single Left Guillemet</source>
+        <translation>Enkele linker Guillemet</translation>
+    </message>
+    <message>
+        <source>Single Right Guillemet</source>
+        <translation>Enkele rechter Guillemet</translation>
+    </message>
+    <message>
+        <source>Double Left Guillemet</source>
+        <translation>Dubbele linker Guillemets</translation>
+    </message>
+    <message>
+        <source>Double Right Guillemet</source>
+        <translation>Dubbele rechter Guillemets</translation>
+    </message>
+    <message>
+        <source>Low Single Comma</source>
+        <translation>Lage enkele komma</translation>
+    </message>
+    <message>
+        <source>Low Double Comma</source>
+        <translation>Lage dubbele komma</translation>
+    </message>
+    <message>
+        <source>CJK Single Left</source>
+        <translation>CJK enkel links</translation>
+    </message>
+    <message>
+        <source>CJK Single Right</source>
+        <translation>CJK enkel rechts</translation>
+    </message>
+    <message>
+        <source>CJK Double Left</source>
+        <translation>CJK dubbel links</translation>
+    </message>
+    <message>
+        <source>CJK Double Right</source>
+        <translation>CJK dubbel rechts</translation>
+    </message>
+    <message>
+        <source>Toggle Palettes</source>
+        <translation>Paletten wisselen</translation>
+    </message>
+    <message>
+        <source>Toggle Guides</source>
+        <translation>Hulplijnen wisselen</translation>
+    </message>
+    <message>
+        <source>Print Previe&amp;w</source>
+        <translation>Afdruk&amp;voorbeeld</translation>
+    </message>
+    <message>
+        <source>&amp;JavaScripts...</source>
+        <translation>&amp;JavaScripts...</translation>
+    </message>
+    <message>
+        <source>Convert to Master Page...</source>
+        <translation>Omzetten naar pagina sjabloon...</translation>
+    </message>
+    <message>
+        <source>&amp;Cascade</source>
+        <translation>&amp;Trapsgewijs</translation>
+    </message>
+    <message>
+        <source>&amp;Tile</source>
+        <translation>&amp;Tegels</translation>
+    </message>
+    <message>
+        <source>&amp;About Plug-ins</source>
+        <translation>Over &amp;Plug-ins</translation>
+    </message>
+    <message>
+        <source>More Info...</source>
+        <translation>Meer informatie...</translation>
+    </message>
+    <message>
+        <source>&amp;Printing Enabled</source>
+        <translation>&amp;Printen toegestaan</translation>
+    </message>
+    <message>
+        <source>&amp;Flip Horizontally</source>
+        <translation>&amp;Draai horizontaal</translation>
+    </message>
+    <message>
+        <source>&amp;Flip Vertically</source>
+        <translation>&amp;Draai verticaal</translation>
+    </message>
+    <message>
+        <source>Show Rulers</source>
+        <translation>Toon linealen</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>Document Outline Palette</comment>
+        <translation>&amp;Outline</translation>
+    </message>
+    <message>
+        <source>Solidus</source>
+        <translation>Slash</translation>
+    </message>
+    <message>
+        <source>Middle Dot</source>
+        <translation>Interpunt</translation>
+    </message>
+    <message>
+        <source>En Space</source>
+        <translation>En-spatie</translation>
+    </message>
+    <message>
+        <source>Em Space</source>
+        <translation>Em-spatie</translation>
+    </message>
+    <message>
+        <source>Thin Space</source>
+        <translation>Halfspatie</translation>
+    </message>
+    <message>
+        <source>Thick Space</source>
+        <translation>Brede spatie</translation>
+    </message>
+    <message>
+        <source>Mid Space</source>
+        <translation>Midden spatie</translation>
+    </message>
+    <message>
+        <source>Hair Space</source>
+        <translation>Haarspatie</translation>
+    </message>
+    <message>
+        <source>Insert Smart Hyphen</source>
+        <translation>Pas slimme woordafbreking toe</translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Dash</source>
+        <translation>Niet afbrekende streep invoegen</translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Space</source>
+        <translation>Niet afbrekende spatie invoegen</translation>
+    </message>
+    <message>
+        <source>Insert Page Number</source>
+        <translation>Paginanummer invoegen</translation>
+    </message>
+    <message>
+        <source>ff</source>
+        <translation>ff</translation>
+    </message>
+    <message>
+        <source>fi</source>
+        <translation>fi</translation>
+    </message>
+    <message>
+        <source>fl</source>
+        <translation>fl</translation>
+    </message>
+    <message>
+        <source>ffi</source>
+        <translation>ffi</translation>
+    </message>
+    <message>
+        <source>ffl</source>
+        <translation>ffl</translation>
+    </message>
+    <message>
+        <source>ft</source>
+        <translation>ft</translation>
+    </message>
+    <message>
+        <source>st</source>
+        <translation>st</translation>
+    </message>
+    <message>
+        <source>S&amp;tyles...</source>
+        <translation>S&amp;tijlen...</translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>type effect</comment>
+        <translation>&amp;Outline</translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <comment>Convert to oulines</comment>
+        <translation>C&amp;urven</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation>Plakken (&amp;Absoluut)</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>W&amp;issen</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation>Toon tekstframe kolomlijnen</translation>
+    </message>
+    <message>
+        <source>Save as &amp;EPS...</source>
+        <translation>Opslaan als &amp;EPS...</translation>
+    </message>
+    <message>
+        <source>Patterns...</source>
+        <translation>Patronen...</translation>
+    </message>
+    <message>
+        <source>Send to Patterns</source>
+        <translation>In patroon zetten</translation>
+    </message>
+    <message>
+        <source>&amp;Frame...</source>
+        <translation>&amp;Frame...</translation>
+    </message>
+    <message>
+        <source>Sticky Tools</source>
+        <translation>Magnetisch gereedschap</translation>
+    </message>
+    <message>
+        <source>&amp;Fit to Height</source>
+        <translation>Aanpassen aan &amp;hoogte</translation>
+    </message>
+    <message>
+        <source>Fit to Width</source>
+        <translation>Aanpassen aan breedte</translation>
+    </message>
+    <message>
+        <source>Preview Mode</source>
+        <translation>Voorbeeldmodus</translation>
+    </message>
+    <message>
+        <source>Show Bleeds</source>
+        <translation>Toon afloop</translation>
+    </message>
+    <message>
+        <source>Show Layer Indicators</source>
+        <translation>Toon laag indicatoren</translation>
+    </message>
+    <message>
+        <source>Insert PDF Push Button</source>
+        <translation>Voeg PDF knop in</translation>
+    </message>
+    <message>
+        <source>Insert PDF Text Field</source>
+        <translation>Voet PDF tekst veld in</translation>
+    </message>
+    <message>
+        <source>Insert PDF Check Box</source>
+        <translation>Voeg PDF check box in</translation>
+    </message>
+    <message>
+        <source>Insert PDF Combo Box</source>
+        <translation>Voeg PDF Combo Box in</translation>
+    </message>
+    <message>
+        <source>Insert PDF List Box</source>
+        <translation>Voeg PDF List Box in</translation>
+    </message>
+    <message>
+        <source>Insert Text Annotation</source>
+        <translation>Voeg Tekst annotatie in</translation>
+    </message>
+    <message>
+        <source>Insert Link Annotation</source>
+        <translation>Voeg Link annotatie in</translation>
+    </message>
+    <message>
+        <source>&amp;Zero Width Space</source>
+        <translation>&amp;Nul breedte spatie</translation>
+    </message>
+    <message>
+        <source>Zero Width NB Space</source>
+        <translation>Nul breedte NB spatie</translation>
+    </message>
+</context>
+<context>
+    <name>AlignDistributeBase</name>
+    <message>
+        <source>Align and Distribute</source>
         <translation>Verdelen/uitlijnen</translation>
     </message>
     <message>
@@ -1941,100 +3016,187 @@ Not recommended unless
         <translation>Uitlijnen</translation>
     </message>
     <message>
-        <source>Horizontal</source>
-        <translation>Horizontaal</translation>
+        <source>&amp;Selected Guide:</source>
+        <translation>&amp;Geselecteerde hulplijn:</translation>
     </message>
     <message>
-        <source>Left Sides</source>
-        <translation>Links</translation>
+        <source>&amp;Relative To:</source>
+        <translation>&amp;Relatief ten opzichte van:</translation>
     </message>
     <message>
-        <source>Middles</source>
-        <translation>Midden</translation>
+        <source>...</source>
+        <translation>...</translation>
     </message>
     <message>
-        <source>Right Sides</source>
-        <translation>Rechts</translation>
+        <source>Distribute</source>
+        <translation>Verdelen</translation>
     </message>
     <message>
-        <source>&amp;Between:</source>
-        <translation>&amp;Tussen:</translation>
+        <source>&amp;Distance:</source>
+        <translation>&amp;Afstand:</translation>
+    </message>
+</context>
+<context>
+    <name>AlignDistributePalette</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation>Verdelen/uitlijnen</translation>
     </message>
     <message>
-        <source>&amp;Do Not Change</source>
-        <translation>Niet veran&amp;deren</translation>
+        <source>Align</source>
+        <translation>Uitlijnen</translation>
     </message>
     <message>
-        <source>A&amp;lign</source>
-        <translation>Uit&amp;lijnen</translation>
+        <source>&amp;Relative to:</source>
+        <translation>&amp;Relatief ten opzichte van:</translation>
     </message>
     <message>
-        <source>Di&amp;splacement</source>
-        <translation>Verplaat&amp;sing</translation>
+        <source>First Selected</source>
+        <translation>Eerste geselecteerde</translation>
     </message>
     <message>
-        <source>Distribute &amp;Evenly</source>
-        <translation>G&amp;elijk verdelen</translation>
+        <source>Last Selected</source>
+        <translation>Laatste geselecteerde</translation>
     </message>
     <message>
-        <source>Vertical</source>
-        <translation>Verticaal</translation>
+        <source>Page</source>
+        <translation>Pagina</translation>
     </message>
     <message>
-        <source>Top Sides</source>
-        <translation>Bovenkant</translation>
+        <source>Margins</source>
+        <translation>Marges</translation>
     </message>
     <message>
-        <source>Bottom Sides</source>
-        <translation>Onderkant</translation>
+        <source>Guide</source>
+        <translation>Hulplijn</translation>
     </message>
     <message>
-        <source>Bet&amp;ween:</source>
-        <translation>T&amp;ussen:</translation>
+        <source>Selection</source>
+        <translation>Selectie</translation>
     </message>
     <message>
-        <source>Do &amp;Not Change</source>
-        <translation>&amp;Niet veranderen</translation>
+        <source>Align bottoms</source>
+        <translation>Onderkanten uitlijnen</translation>
     </message>
     <message>
-        <source>Al&amp;ign</source>
-        <translation>U&amp;itlijnen</translation>
+        <source>Align right sides</source>
+        <translation>Rechterkanten uitlijnen</translation>
     </message>
     <message>
-        <source>Dis&amp;placement</source>
-        <translation>Ver&amp;plaatsing</translation>
+        <source>Center on vertical axis</source>
+        <translation>Centreer op verticale as</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation>pt</translation>
+        <source>Align left sides</source>
+        <translation>Linkerkanten uitlijnen</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation>mm</translation>
+        <source>Center on horizontal axis</source>
+        <translation>Centreer op horizontale as</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation>in</translation>
+        <source>Align tops</source>
+        <translation>Bovenkanten uitlijnen</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation>p</translation>
+        <source>&amp;Selected Guide:</source>
+        <translation>&amp;Geselecteerde hulplijn:</translation>
     </message>
     <message>
-        <source>Distribute E&amp;venly</source>
-        <translation>Gelijk &amp;verdelen</translation>
+        <source>Distribute</source>
+        <translation>Verdelen</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>Distribute right sides equidistantly</source>
+        <translation>Verdeel rechterkanten met gelijke afstand</translation>
     </message>
     <message>
-        <source>&amp;Apply</source>
-        <translation>Toe&amp;passen</translation>
+        <source>Distribute bottoms equidistantly</source>
+        <translation>Verdeel onderkanten met gelijke afstand</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Distribute centers equidistantly horizontally</source>
+        <translation>Verdeel middens met gelijke afstanden horizontaal</translation>
+    </message>
+    <message>
+        <source>Distribute left sides equidistantly</source>
+        <translation>Verdeel linkerkanten met gelijke afstand</translation>
+    </message>
+    <message>
+        <source>Distribute centers equidistantly vertically</source>
+        <translation>Verdeel middens met gelijke afstanden verticaal</translation>
+    </message>
+    <message>
+        <source>Distribute tops equidistantly</source>
+        <translation>Verdeel bovenkanten met gelijke afstand</translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation>&amp;Afstand:</translation>
+    </message>
+    <message>
+        <source>Distribute the items with the distance specified</source>
+        <translation>Verdeel de items met de opgegeven afstand</translation>
+    </message>
+    <message>
+        <source>None Selected</source>
+        <translation>Niets geselecteerd</translation>
+    </message>
+    <message>
+        <source>Y: %1%2</source>
+        <translation>Y: %1%2</translation>
+    </message>
+    <message>
+        <source>X: %1%2</source>
+        <translation>X: %1%2</translation>
+    </message>
+    <message>
+        <source>Align right sides of items to left side of anchor</source>
+        <translation>Rechterzijde van items uitlijnen op linkerzijde van referentie</translation>
+    </message>
+    <message>
+        <source>Align left sides of items to right side of anchor</source>
+        <translation>Linkerzijde van items uitlijnen op rechterzijde referentie</translation>
+    </message>
+    <message>
+        <source>Align tops of items to bottom of anchor</source>
+        <translation>Bovenzijde items uitlijnen op onderzijde referentie</translation>
+    </message>
+    <message>
+        <source>Align bottoms of items to top of anchor</source>
+        <translation>Onderzijde items uitlijnen op bovenzijde referentie</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between items equal</source>
+        <translation>Maak horizontale ruimte tussen items gelijk</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between items equal to the value specified</source>
+        <translation>Maak horizontale ruimte tussen items volgens aangegeven waarde</translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between items equal</source>
+        <translation>Maak verticale ruimte tussen items gelijk</translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between items equal to the value specified</source>
+        <translation>Maak verticale ruimte tussen items volgens aangegeven waarde</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between items and sides of page equal</source>
+        <translation>Maak horizontale ruimte tussen items en zijden van de pagina gelijk</translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between items and the top and bottom of page equal</source>
+        <translation>Maak verticale ruimte tussen items en boven- en onderzijde van de pagina gelijk</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between items and sides of page margins equal</source>
+        <translation>Maak horizontale ruimte tussen items en zijden van de pagina-marges gelijk</translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
+        <translation>Maak verticale ruimte tussen items en boven- en onderzijde van de pagina-marges gelijk</translation>
     </message>
 </context>
 <context>
@@ -2099,16 +3261,12 @@ Not recommended unless
         <translation>Naam:</translation>
     </message>
     <message>
-        <source>Tool-Tip:</source>
-        <translation>Hulpballon:</translation>
-    </message>
-    <message>
         <source>Text</source>
         <translation>Tekst</translation>
     </message>
     <message>
         <source>Font for use with PDF 1.3:</source>
-        <translation>Lettertype voor PDF 1.3:</translation>
+        <translation>Fonts voor gebruik met PDF 1.3:</translation>
     </message>
     <message>
         <source>Border</source>
@@ -2173,10 +3331,6 @@ Not recommended unless
     <message>
         <source>Required</source>
         <translation>Vereist</translation>
-    </message>
-    <message>
-        <source>Don&apos;t Export Value</source>
-        <translation>Waarde niet exporteren</translation>
     </message>
     <message>
         <source>Visibility:</source>
@@ -2588,11 +3742,29 @@ Not recommended unless
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <source>None</source>
+        <comment>highlight</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>action</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Tooltip:</source>
+        <translation>Hulpballon:</translation>
+    </message>
+    <message>
+        <source>Do Not Export Value</source>
+        <translation>Waarde niet exporteren</translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)</source>
+        <translation>Afbeeldingen  (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;Alle bestanden (*)</translation>
     </message>
 </context>
 <context>
@@ -2653,56 +3825,288 @@ Not recommended unless
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-pos:</translation>
     </message>
+</context>
+<context>
+    <name>ApplyMasterPageDialog</name>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>Apply Master Page</source>
+        <translation>Pagina sjabloon toepassen</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>&amp;Master Page:</source>
+        <translation>&amp;Pagina sjabloon:</translation>
+    </message>
+    <message>
+        <source>Apply To</source>
+        <translation>Toepassen op</translation>
+    </message>
+    <message>
+        <source>Current &amp;page</source>
+        <translation>Huidige &amp;pagina</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation>Alt+P</translation>
+    </message>
+    <message>
+        <source>&amp;Even pages</source>
+        <translation>&amp;Even pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation>Alt+E</translation>
+    </message>
+    <message>
+        <source>O&amp;dd pages</source>
+        <translation>O&amp;neven pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>&amp;All pages</source>
+        <translation>A&amp;lle pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Within range</source>
+        <translation>&amp;Toepassen vanaf</translation>
+    </message>
+    <message>
+        <source>Alt+W</source>
+        <translation>Alt+W</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation>tot</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Atl+O</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Apply the selected master page to even, odd or all pages within the following range</source>
+        <translation>Geselecteerde paginasjabloon op even, oneven of alle pagina&apos;s binnen het bereik toepassen</translation>
     </message>
 </context>
 <context>
-    <name>ApplyT</name>
+    <name>ArrowChooser</name>
     <message>
-        <source>Apply Template</source>
-        <translation>Sjabloon toepassen</translation>
+        <source>None</source>
+        <translation>Geen</translation>
+    </message>
+</context>
+<context>
+    <name>Barcode</name>
+    <message>
+        <source>&amp;Barcode Generator...</source>
+        <translation>&amp;Streepjescodegenerator...</translation>
     </message>
     <message>
-        <source>&amp;Template:</source>
-        <translation>&amp;Sjabloon:</translation>
+        <source>Scribus frontend for Pure Postscript Barcode Writer</source>
+        <translation>Scribus frontend om zuivere Postscript streepjescode te schrijven</translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGenerator</name>
+    <message>
+        <source>Error opening file: %1</source>
+        <translation>Fout bij het openen van bestand: %1</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normaal</translation>
+        <source>12 or 13 digits</source>
+        <translation>12 of 13 cijfers</translation>
     </message>
     <message>
-        <source>Apply to &amp;Current Page</source>
-        <translation>Toepassen op &amp;huidige pagina</translation>
+        <source>8 digits</source>
+        <translation>8 cijfers</translation>
     </message>
     <message>
-        <source>Apply to all &amp;even Pages</source>
-        <translation>Toepassen op &amp;even pagina&apos;s</translation>
+        <source>11 or 12 digits</source>
+        <translation>11 of 12 cijfers</translation>
     </message>
     <message>
-        <source>Apply to all &amp;odd Pages</source>
-        <translation>Toepassen op &amp;oneven pagina&apos;s</translation>
+        <source>7 or 8 digits</source>
+        <translation>7 of 8 cijfers</translation>
     </message>
     <message>
-        <source>Apply from &amp;Page:</source>
-        <translation>Toepassen vanaf &amp;pagina:</translation>
+        <source>5 digits</source>
+        <translation>5 cijfers</translation>
     </message>
     <message>
-        <source>To:</source>
-        <translation>tot:</translation>
+        <source>2 digits</source>
+        <translation>2 cijfers</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
+        <translation>Variabele aantal tekens, cijfers en de symbolen -. *$/+%.</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
+        <translation>textLabel16Variabele aantal van ADCII tekens en symbolen voor speciale functies, beginnend met het correcte teken voor het tekenstel. UCC/EAN-128-codes hebben in ieder geval een FNC1-symbool na het startteken nodig.</translation>
+    </message>
+    <message>
+        <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
+        <translation>Varaibele aantal cijfers en de symbolen -$:/.+ABCD.</translation>
+    </message>
+    <message>
+        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
+        <translation>Variabele aantal cijfers. Een ITF-14-code bestaat uit 14 tekens en heeft geen controlecijfer</translation>
+    </message>
+    <message>
+        <source>Variable number of digits</source>
+        <translation>Variabele aantal cijfers</translation>
+    </message>
+    <message>
+        <source>Variable number of digits and capital letters</source>
+        <translation>Variabele aantal cijfers en hoofdletters</translation>
+    </message>
+    <message>
+        <source>Variable number of hexadecimal characters</source>
+        <translation>Variabele aantal hexadecimale tekens</translation>
+    </message>
+    <message>
+        <source>Barcode incomplete</source>
+        <translation>Streepjescode onvolledig</translation>
+    </message>
+    <message>
+        <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -&gt; 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
+        <translation>12 of 13 cijfers met streepjes. Het oorspronkelijke ISBN-10 formaat accepteert 9 of 10 cijfers met streepjes, maar deze standaard is beïndigd voor publiek gebruik na 1 januari 2007. (Noot: om een oud ISBN-10 naar een nieuw ISBN-13 nummer om zetten. Zet 978 voor de eerste 9 cijfers, dus 1-56592-47907 -&gt; 978-1-56592-47907. Het uiteindelijke controle-cijfer wordt automatisch berekend.)</translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGeneratorBase</name>
+    <message>
+        <source>Barcode Creator</source>
+        <translation>Streepjescodegenerator</translation>
+    </message>
+    <message>
+        <source>Barcode</source>
+        <translation>Streepjescode</translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation>&amp;Type:</translation>
+    </message>
+    <message>
+        <source>Select one of the available barcode type here</source>
+        <translation>Kies een van de beschikbare streepjescodes</translation>
+    </message>
+    <message>
+        <source>The numeric representation of the code itself. See the help message below</source>
+        <translation>De numerieke uitdrukking van de code. Bekijk de uitleg hieronder</translation>
+    </message>
+    <message>
+        <source>Reset the barcode samples</source>
+        <translation>Reset de streepjescodevoorbeelden</translation>
+    </message>
+    <message>
+        <source>&amp;Include text in barcode</source>
+        <translation>Tekst in streepjescode &amp;invoegen</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>If checked, there will be numbers in the barcode too</source>
+        <translation>Als geselecteerd, zullen er ook cijfers in de streepjescode staan</translation>
+    </message>
+    <message>
+        <source>&amp;Guard whitespace</source>
+        <translation>&amp;Bewaak witruimte</translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation>Alt+G</translation>
+    </message>
+    <message>
+        <source>Draw arrows to be sure of space next the code</source>
+        <translation>Tekent een pijl om een afstand tussen tekst en streepjescode te waarborgen</translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation>Kleuren</translation>
+    </message>
+    <message>
+        <source>&amp;Background</source>
+        <translation>&amp;Achtergrond</translation>
+    </message>
+    <message>
+        <source>Alt+B</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>Background color - under the code lines</source>
+        <translation>Kleur van de achtergrond - onder de codestreepjes</translation>
+    </message>
+    <message>
+        <source>&amp;Lines</source>
+        <translation>&amp;Lijnen</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation>Alt+L</translation>
+    </message>
+    <message>
+        <source>Color of the lines in barcode</source>
+        <translation>Kleur van de streepjes in code</translation>
+    </message>
+    <message>
+        <source>&amp;Text</source>
+        <translation>&amp;Tekst</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation>Alt+T</translation>
+    </message>
+    <message>
+        <source>Color of the text and numbers</source>
+        <translation>Kleur van tekst en cijfers</translation>
+    </message>
+    <message>
+        <source>Hints and help is shown here</source>
+        <translation>Tips en hulp worden hier getoond</translation>
+    </message>
+    <message>
+        <source>Preview of the result. 72dpi sample.</source>
+        <translation>Voorbeeld van het resultaat in 72 dpi.</translation>
+    </message>
+    <message>
+        <source>Co&amp;de:</source>
+        <translation>Co&amp;de:</translation>
+    </message>
+    <message>
+        <source>I&amp;nclude checksum</source>
+        <translation>Controlenummer &amp;bijvoegen</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation>Alt+B</translation>
+    </message>
+    <message>
+        <source>Generate and include a checksum in barcode</source>
+        <translation>Controlenummer in streepjescode aanmaken en bijvoegen</translation>
+    </message>
+    <message>
+        <source>Incl&amp;ude checksum digit</source>
+        <translation>Controlenummer&amp;cijfer invoegen</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation>Alt+U</translation>
+    </message>
+    <message>
+        <source>Include the checksum digit in the barcode text</source>
+        <translation>Controlenummer in streepjescodetekst invoegen</translation>
     </message>
 </context>
 <context>
@@ -2712,70 +4116,12 @@ Not recommended unless
         <translation>Kladblok</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;Nieuw</translation>
-    </message>
-    <message>
-        <source>&amp;Load...</source>
-        <translation>&amp;Openen...</translation>
-    </message>
-    <message>
-        <source>&amp;Save</source>
-        <translation>Op&amp;slaan</translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
-        <translation>Opslaan &amp;als...</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Sluiten</translation>
-    </message>
-    <message>
-        <source>&amp;Small</source>
-        <translation>&amp;Klein</translation>
-    </message>
-    <message>
-        <source>&amp;Medium</source>
-        <translation>&amp;Middel</translation>
-    </message>
-    <message>
-        <source>&amp;Large</source>
-        <translation>&amp;Groot</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation>&amp;Bestand</translation>
-    </message>
-    <message>
-        <source>&amp;Preview</source>
-        <translation>&amp;Voorbeeld</translation>
-    </message>
-    <message>
-        <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation>Kladblokbestanden (*.scs);;Alle bestanden (*)</translation>
-    </message>
-    <message>
         <source>Rename</source>
         <translation>Hernoemen</translation>
     </message>
     <message>
         <source>Delete</source>
         <translation>Verwijderen</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation>De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
     </message>
     <message>
         <source>Object</source>
@@ -2788,6 +4134,64 @@ Kies een andere naam.</translation>
     <message>
         <source>New Entry</source>
         <translation>Nieuwe ingang</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; is not unique.
+Please choose another.</source>
+        <translation>De naam &quot;%1&quot; is niet uniek.
+Kies een andere naam.</translation>
+    </message>
+    <message>
+        <source>Choose a Scrapbook Directory</source>
+        <translation>Kies een kladblokmap</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation>Kies een map</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Kladblok (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Kies een kladblokbestand om te importeren</translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation>Hoofd</translation>
+    </message>
+    <message>
+        <source>Copied Items</source>
+        <translation>Gekopieerde items</translation>
+    </message>
+    <message>
+        <source>Copy To:</source>
+        <translation>Kopieer naar:</translation>
+    </message>
+    <message>
+        <source>Move To:</source>
+        <translation>Verplaats naar:</translation>
+    </message>
+    <message>
+        <source>Create a new scrapbook page</source>
+        <translation>Nieuwe kladblok pagina aanmaken</translation>
+    </message>
+    <message>
+        <source>Load an existing scrapbook</source>
+        <translation>Bestaand kladblok laden</translation>
+    </message>
+    <message>
+        <source>Save the selected scrapbook</source>
+        <translation>Geselecteerd kladblok opslaan</translation>
+    </message>
+    <message>
+        <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
+        <translation>Kladblok bestand van Scribus &lt;=1.3.2 importeren</translation>
+    </message>
+    <message>
+        <source>Close the selected scrapbook</source>
+        <translation>Geslecteerd kladblok sluiten</translation>
     </message>
 </context>
 <context>
@@ -2906,24 +4310,12 @@ Kies een andere naam.</translation>
 <context>
     <name>CMSPrefs</name>
     <message>
-        <source>Color Management Settings</source>
-        <translation>Instellingen voor kleurbeheer</translation>
-    </message>
-    <message>
         <source>&amp;Activate Color Management</source>
         <translation>Kleurbeheer &amp;activeren</translation>
     </message>
     <message>
         <source>System Profiles</source>
         <translation>Systeemprofielen</translation>
-    </message>
-    <message>
-        <source>&amp;Pictures:</source>
-        <translation>A&amp;fbeeldingen:</translation>
-    </message>
-    <message>
-        <source>&amp;Solid Colors:</source>
-        <translation>&amp;Effen kleuren:</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
@@ -2954,14 +4346,6 @@ Kies een andere naam.</translation>
         <translation>Absoluut colorimetrisch</translation>
     </message>
     <message>
-        <source>M&amp;onitor:</source>
-        <translation>Bee&amp;ldscherm:</translation>
-    </message>
-    <message>
-        <source>Pr&amp;inter:</source>
-        <translation>Pr&amp;inter:</translation>
-    </message>
-    <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
         <translation>Printerweergave op scherm sim&amp;uleren</translation>
     </message>
@@ -2974,22 +4358,6 @@ Kies een andere naam.</translation>
         <translation>&amp;Zwartpuntcompensatie gebruiken</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Default color profile for imported images</source>
-        <translation>Standaard kleurprofiel voor geïmporteerde afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Default color profile for solid colors on the page</source>
-        <translation>Standaard kleurprofiel voor effen kleuren op de pagina</translation>
-    </message>
-    <message>
         <source>Color profile that you have generated or received from the manufacturer.
 This profile should be specific to your monitor and not a generic profile (i.e. sRGB).</source>
         <translation>Door uzelf aangemaakt of via fabrikant verkregen kleurprofiel.
@@ -3000,18 +4368,6 @@ Dit profiel is specifiek voor uw beeldscherm en niet algemeen (zoals bijv. sRGB)
 This profile should be specific to your printer and not a generic profile (i.e. sRGB).</source>
         <translation>Kleurprofiel voor uw printer van de printerfabrikant.
 Dit profiel is specifiek voor uw printer en niet algemeen (zoals bijv. sRGB).</translation>
-    </message>
-    <message>
-        <source>Default rendering intent for your monitor. Unless you know why to change it,
-Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standaard rendering intent voor uw beeldscherm. Kies, tenzij u precies weet
-wat u doet, voor Relatief colorimetrisch of Perceptueel.</translation>
-    </message>
-    <message>
-        <source>Default rendering intent for your printer. Unless you know why to change it,
-Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation>Standaard rendering intent voor uw printer. Kies, tenzij u precies weet
-wat u doet, voor Relatief colorimetrisch of Perceptueel.</translation>
     </message>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
@@ -3030,6 +4386,68 @@ afgedrukt. Dit vereist zeer accurate profielen en dient enkel als waarschuwing.<
 It is recommended that you enable this if you have photos in your document.</source>
         <translation>Zwartpuntcompensatie is een methode om het contrast in foto&apos;s te verbeteren.
 Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Pictures:</source>
+        <translation>&amp;RGB-afbeeldingen:</translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Pictures:</source>
+        <translation>&amp;CMYK-afbeeldingen:</translation>
+    </message>
+    <message>
+        <source>Default color profile for imported CMYK images</source>
+        <translation>Standaard-kleurprofiel voor geïmporteerde CMYK-afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Default color profile for imported RGB images</source>
+        <translation>Standaard-kleurprofiel voor geïmporteerde RGB-afbeeldingen</translation>
+    </message>
+    <message>
+        <source>&amp;RGB Solid Colors:</source>
+        <translation>&amp;RGB effen kleuren:</translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Solid Colors:</source>
+        <translation>&amp;CMYK effen kleuren:</translation>
+    </message>
+    <message>
+        <source>Pictures:</source>
+        <translation>Afbeeldingen:</translation>
+    </message>
+    <message>
+        <source>Sol&amp;id Colors:</source>
+        <translation>Effen kl&amp;euren:</translation>
+    </message>
+    <message>
+        <source>Convert all colors to printer space</source>
+        <translation>Zet alle kleuren om naar printer kleurruimte</translation>
+    </message>
+    <message>
+        <source>Default color profile for solid RGB colors on the page</source>
+        <translation>Standaard kleurprofiel voor effen RGB kleuren op de pagina</translation>
+    </message>
+    <message>
+        <source>Default color profile for solid CMYK colors on the page</source>
+        <translation>Standaard kleurprofiel voor effen CMYK kleuren op de pagina</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for solid colors. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Standaard render keuze voor effen kleuren. Kies relatief colorimetrisch of perceptueel.
+Tenzij er een reden is voor een andere keuze.</translation>
+    </message>
+    <message>
+        <source>Default rendering intent for images. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation>Standaard render keuze voor afbeeldingen. Kies relatief colorimetrisch of perceptueel.
+Tenzij er een reden is voor een andere keuze.</translation>
+    </message>
+    <message>
+        <source>Simulate a full color managed environment :
+all colors, rgb or cmyk, are converted to printer color space.</source>
+        <translation>Simuleer een full colour management omgeving:
+Alle kleuren, rgb of cmyk, worden omgezet naar printer kleurruimte.</translation>
     </message>
 </context>
 <context>
@@ -3065,14 +4483,6 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
     <message>
         <source>Old</source>
         <translation>Oud</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
     </message>
     <message>
         <source>HSV-Colormap</source>
@@ -3119,45 +4529,1082 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
         <translation>B:</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
+        <source>Is Spot Color</source>
+        <translation>Is een steunkleur</translation>
     </message>
     <message>
-        <source>Name of the Color is not unique</source>
-        <translation>Deze kleurnaam is niet uniek</translation>
+        <source>Is Registration Color</source>
+        <translation>Is een registratie kleur</translation>
+    </message>
+    <message>
+        <source>You cannot create a color named &quot;%1&quot;.
+It is a reserved name for transparent color</source>
+        <translation>U kan niet een kleur maken genaamd &quot;%1&quot;.
+De naam is gereserveerd voor transparantkleur</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation>Hiermee worden alle platen afgedrukt. Registratiekleuren worden gebruikt voor afdrukmarkeringen zoals, snijtekens, registratietekens en dergelijke. Deze worden gebruikelijk buiten de de layout zelf geplaatst.</translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation>Hiermee wordt van deze kleur een steunkleur gemaakt. Voor elke steunkleur wordt een separatie gemaakt bij het maken van platen of films. Steunkleuren worden meestal gebruikt als een kleur exact moet worden weergegeven en niet kan worden samengesteld met cmyk kleuren. Metallic en fluoriserende inkten zijn specifieke voorbeelden welke niet met cmyk inkten kunnen worden aangemaakt.</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation>Als kleuren management is ingeschakeld, geeft een driehoekig teken aan dat de kleur buiten het kleurenspectrum van het huidige geselecteerde printerprofiel is. De afdruk op papier kan afwijken van de kleur op het beeldscherm. Meer informatie hierover zijn te vinden in de on-line help onder Color Management.</translation>
+    </message>
+    <message>
+        <source>The name of the color already exists,
+please choose another one.</source>
+        <translation>De naam van de kleur bestaat reeds,
+kies een andere.</translation>
+    </message>
+</context>
+<context>
+    <name>CStylePBase</name>
+    <message>
+        <source>Form1</source>
+        <translation>Form1</translation>
+    </message>
+    <message>
+        <source>Parent</source>
+        <translation>Parent</translation>
+    </message>
+</context>
+<context>
+    <name>CWDialog</name>
+    <message>
+        <source>Merging colors</source>
+        <translation>Vermeng kleuren</translation>
+    </message>
+    <message>
+        <source>Error: </source>
+        <translation>Fout: </translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation>Kleur %1 bestaat al!</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation>Kleur %1 toegevoegd.</translation>
+    </message>
+    <message>
+        <source>Now opening the color manager.</source>
+        <translation>Opent nu het kleurbeheer.</translation>
+    </message>
+    <message>
+        <source>Color Merging</source>
+        <translation>Kleursamenvoeging</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation>Kan de gevraagde kleur niet vinden. Waarschijnlijk is zwart, grijs of wit geselecteerd. Deze kleur kan niet worden verwerkt.</translation>
+    </message>
+</context>
+<context>
+    <name>CWDialogBase</name>
+    <message>
+        <source>Color Wheel</source>
+        <translation>Kleurwiel</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
+        <translation>Klik op het wiel om de basiskleur te verkrijgen. Het kleur model hangt af van de gekozen tab.</translation>
+    </message>
+    <message>
+        <source>Color Scheme Method</source>
+        <translation>Kleuren schema methode</translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation>Selecteer een van de methoden om een kleurenschema aan te maken. Lees de documentatie voor meer informatie.</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation>Hoek:</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation>Verschil tussen de geselecteerde en de berekende waarden. Lees de documentatie voor meer informatie.</translation>
+    </message>
+    <message>
+        <source>Preview:</source>
+        <translation>Voorbeeld:</translation>
+    </message>
+    <message>
+        <source>Vision Defect Type:</source>
+        <translation>Type visuele beperking:</translation>
+    </message>
+    <message>
+        <source>Simulate common vision defects here. Select type of the defect.</source>
+        <translation>Simuleer voorkomende gezichtsbeperkingen. Selecteer het type beperking.</translation>
+    </message>
+    <message>
+        <source>Sample color scheme.</source>
+        <translation>Voorbeeld kleurenschema.</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation>CMYK</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation>C:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation>M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation>K:</translation>
+    </message>
+    <message>
+        <source>RGB:</source>
+        <translation>RGB:</translation>
+    </message>
+    <message>
+        <source>HSV:</source>
+        <translation>HSV:</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation>RGB</translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation>R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation>G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation>B:</translation>
+    </message>
+    <message>
+        <source>CMYK:</source>
+        <translation>CMYK:</translation>
+    </message>
+    <message>
+        <source>HSV</source>
+        <translation>HSV</translation>
+    </message>
+    <message>
+        <source>H:</source>
+        <translation>H:</translation>
+    </message>
+    <message>
+        <source>S:</source>
+        <translation>S:</translation>
+    </message>
+    <message>
+        <source>V:</source>
+        <translation>V:</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Document</translation>
+    </message>
+    <message>
+        <source>Result Colors</source>
+        <translation>Resulterende kleuren</translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme.</source>
+        <translation>Kleuren van het gekozen schema.</translation>
+    </message>
+    <message>
+        <source>&amp;Merge</source>
+        <translation>Sa&amp;menvoegen</translation>
+    </message>
+    <message>
+        <source>Alt+M</source>
+        <translation>Alt+M</translation>
+    </message>
+    <message>
+        <source>Merge created colors into the document colors</source>
+        <translation>Voeg aangemaakte kleuren in de documentkleuren</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation>&amp;Vervangen</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation>Alt+R</translation>
+    </message>
+    <message>
+        <source>Replace created colors in the document colors</source>
+        <translation>Vervang aangemaakte kleuren in documentkleuren</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuleren</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Leave colors untouched</source>
+        <translation>Laat kleur onaangeraakt</translation>
+    </message>
+</context>
+<context>
+    <name>CharSelect</name>
+    <message>
+        <source>Font:</source>
+        <translation>Font:</translation>
+    </message>
+    <message>
+        <source>Character Class:</source>
+        <translation>Lettertekenklasse:</translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation>&amp;Invoegen</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>W&amp;issen</translation>
+    </message>
+    <message>
+        <source>Insert the characters at the cursor in the text</source>
+        <translation>Voegt de tekens in op de huidige cursorpositie</translation>
+    </message>
+    <message>
+        <source>Delete the current selection(s).</source>
+        <translation>Verwijdert de huidige selectie(s).</translation>
+    </message>
+    <message>
+        <source>Full Character Set</source>
+        <translation>Volledige lettertekenset</translation>
+    </message>
+    <message>
+        <source>Basic Latin</source>
+        <translation>Basis latijn</translation>
+    </message>
+    <message>
+        <source>Latin-1 Supplement</source>
+        <translation>Latijn-1 toevoeging</translation>
+    </message>
+    <message>
+        <source>Latin Extended-A</source>
+        <translation>Latijn uitgebreid-A</translation>
+    </message>
+    <message>
+        <source>Latin Extended-B</source>
+        <translation>Latijn uitgebreid-B</translation>
+    </message>
+    <message>
+        <source>General Punctuation</source>
+        <translation>Algemene puntuatie</translation>
+    </message>
+    <message>
+        <source>Super- and Subscripts</source>
+        <translation>Super- en subscripts</translation>
+    </message>
+    <message>
+        <source>Currency Symbols</source>
+        <translation>Valutasymbolen</translation>
+    </message>
+    <message>
+        <source>Letterlike Symbols</source>
+        <translation>Lettersymbolen</translation>
+    </message>
+    <message>
+        <source>Number Forms</source>
+        <translation>Getalvormen</translation>
+    </message>
+    <message>
+        <source>Arrows</source>
+        <translation>Pijlen</translation>
+    </message>
+    <message>
+        <source>Mathematical Operators</source>
+        <translation>Mathematische lettertekens</translation>
+    </message>
+    <message>
+        <source>Box Drawing</source>
+        <translation>Blok tekensymbolen</translation>
+    </message>
+    <message>
+        <source>Block Elements</source>
+        <translation>Blokelementen</translation>
+    </message>
+    <message>
+        <source>Geometric Shapes</source>
+        <translation>Geometrische vormen</translation>
+    </message>
+    <message>
+        <source>Miscellaneous Symbols</source>
+        <translation>Diverse symbolen</translation>
+    </message>
+    <message>
+        <source>Dingbats</source>
+        <translation>Dingbats</translation>
+    </message>
+    <message>
+        <source>Small Form Variants</source>
+        <translation>Small Form Variants</translation>
+    </message>
+    <message>
+        <source>Ligatures</source>
+        <translation>Ligaturen</translation>
+    </message>
+    <message>
+        <source>Specials</source>
+        <translation>Specials</translation>
+    </message>
+    <message>
+        <source>Greek</source>
+        <translation>Grieks</translation>
+    </message>
+    <message>
+        <source>Greek Extended</source>
+        <translation>Grieks uitgebreid</translation>
+    </message>
+    <message>
+        <source>Cyrillic</source>
+        <translation>Cyrillisch</translation>
+    </message>
+    <message>
+        <source>Cyrillic Supplement</source>
+        <translation>Cyrillisch supplement</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation>Arabisch</translation>
+    </message>
+    <message>
+        <source>Arabic Extended A</source>
+        <translation>Arabisch uitgebreid A</translation>
+    </message>
+    <message>
+        <source>Arabic Extended B</source>
+        <translation>Arabisch uitgebreid B</translation>
+    </message>
+    <message>
+        <source>Hebrew</source>
+        <translation>Hebreeuws</translation>
+    </message>
+    <message>
+        <source>Character Palette</source>
+        <translation>Letterteken palet</translation>
+    </message>
+    <message>
+        <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
+        <translation>Scribus letterteken palet (*.ucp);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Enhanced Palette</source>
+        <translation>Uitgebreid palet</translation>
+    </message>
+    <message>
+        <source>Quick Palette</source>
+        <translation>Snel palet</translation>
+    </message>
+    <message>
+        <source>Hide Enhanced</source>
+        <translation>Verberg uitbreiding</translation>
+    </message>
+    <message>
+        <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
+        <translation>U kunt een miniatuurweergave zien als u de rechter muisknop ingedrukt houdt. De insert-toets voegt een teken in de selectie hieronder en de delete-toets verwijderd de laatst ingevoegde</translation>
+    </message>
+    <message>
+        <source>Choose a filename to open</source>
+        <translation>Kies een bestandsnaam om te openen</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Fout</translation>
+    </message>
+    <message>
+        <source>Error reading file %1 - file is corrupted propably.</source>
+        <translation>Fout tijdens lezen bestand %1 - bestand is mogelijk beschadigd.</translation>
+    </message>
+    <message>
+        <source>Choose a filename to save under</source>
+        <translation>Kies een bestandsnaam om op te slaan</translation>
+    </message>
+    <message>
+        <source>Cannot write file %1</source>
+        <translation>Kan bestand %1 niet schrijven</translation>
+    </message>
+    <message>
+        <source>Clean the Palette?</source>
+        <translation>Palet wissen?</translation>
+    </message>
+    <message>
+        <source>You will clean all characters from this palette. Are you sure?</source>
+        <translation>Alle lettertekens van dit palet worden gewist. Zeker weten?</translation>
+    </message>
+</context>
+<context>
+    <name>CharStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation>Geen stijl</translation>
+    </message>
+</context>
+<context>
+    <name>CharTable</name>
+    <message>
+        <source>Delete</source>
+        <translation>Verwijderen</translation>
+    </message>
+</context>
+<context>
+    <name>CheckDocument</name>
+    <message>
+        <source>Current Profile:</source>
+        <translation>Huidige profiel:</translation>
+    </message>
+    <message>
+        <source>Items</source>
+        <translation>Items</translation>
+    </message>
+    <message>
+        <source>Problems</source>
+        <translation>Problemen</translation>
+    </message>
+    <message>
+        <source>Glyphs missing</source>
+        <translation>Missende symbooltekens</translation>
+    </message>
+    <message>
+        <source>Text overflow</source>
+        <translation>Tekstoverloop</translation>
+    </message>
+    <message>
+        <source>Object is not on a Page</source>
+        <translation>Object staat niet op een pagina</translation>
+    </message>
+    <message>
+        <source>Missing Image</source>
+        <translation>Missende afbeelding</translation>
+    </message>
+    <message>
+        <source>Object has transparency</source>
+        <translation>Object is doorzichtig</translation>
+    </message>
+    <message>
+        <source>Object is a placed PDF</source>
+        <translation>Object is een geplaatste PDF</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Document</translation>
+    </message>
+    <message>
+        <source>No Problems found</source>
+        <translation>Geen problemen gevonden</translation>
+    </message>
+    <message>
+        <source>Page </source>
+        <translation>Pagina</translation>
+    </message>
+    <message>
+        <source>Free Objects</source>
+        <translation>Vrije objecten</translation>
+    </message>
+    <message>
+        <source>Problems found</source>
+        <translation>Gevonden problemen</translation>
+    </message>
+    <message>
+        <source>Preflight Verifier</source>
+        <translation>Preflight controle</translation>
+    </message>
+    <message>
+        <source>Object is a PDF Annotation or Field</source>
+        <translation>Object is een PDF annotatie of veld</translation>
+    </message>
+    <message>
+        <source>&amp;Ignore Errors</source>
+        <translation>&amp;Negeer fouten</translation>
     </message>
     <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>Geen</translation>
+        <source>Transparency used</source>
+        <translation>Transparatie gebruikt</translation>
     </message>
     <message>
-        <source>You cannot create a color named &quot;%1&quot;.
-It&apos;s a reserved name for transparent color</source>
-        <translation>U kunt geen kleur aanmaken met de naam &quot;%1&quot;.
-Deze naam is reeds gereserveerd voor transparante kleuren</translation>
+        <source>Blendmode used</source>
+        <translation>Vermeng modus gebruikt</translation>
+    </message>
+    <message>
+        <source>Layer &quot;%1&quot;</source>
+        <translation>Laag &quot;%1&quot;</translation>
+    </message>
+    <message>
+        <source>Check again</source>
+        <translation>Check opnieuw</translation>
+    </message>
+    <message>
+        <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
+        <translation>Afbeeldingsresolutie minder dan %1 DPI, huidige %2 x %3 DPI</translation>
+    </message>
+    <message>
+        <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
+        <translation>Afbeeldingsresolutie meer dan %1 DPI, huidige %2 x %3 DPI</translation>
+    </message>
+    <message>
+        <source>Image is GIF</source>
+        <translation>Afbeelding is GIF</translation>
     </message>
 </context>
 <context>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation>Stijlen kiezen</translation>
+        <translation>Kies stijlen</translation>
     </message>
     <message>
         <source>Available Styles</source>
         <translation>Beschikbare stijlen</translation>
     </message>
+</context>
+<context>
+    <name>CollectForOutput</name>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>Choose a Directory</source>
+        <translation>Kies een map</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <source>Collecting...</source>
+        <translation>Verzamelen...</translation>
+    </message>
+    <message>
+        <source>Cannot collect all files for output for file:
+%1</source>
+        <translation>Kan niet alle bestanden vinden voor de output van bestand:
+%1</translation>
+    </message>
+    <message>
+        <source>Cannot collect the file: 
+%1</source>
+        <translation>Verzamelen niet gelukt van bestand:
+%1</translation>
+    </message>
+</context>
+<context>
+    <name>ColorManager</name>
+    <message>
+        <source>Colors</source>
+        <translation>Kleuren</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importeren</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Nieuw</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>Be&amp;werken</translation>
+    </message>
+    <message>
+        <source>D&amp;uplicate</source>
+        <translation>D&amp;upliceren</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>&amp;Remove Unused</source>
+        <translation>Ongebruikte ve&amp;rwijderen</translation>
+    </message>
+    <message>
+        <source>Color Sets</source>
+        <translation>Kleurensets</translation>
+    </message>
+    <message>
+        <source>Current Color Set:</source>
+        <translation>Huidige kleurenset:</translation>
+    </message>
+    <message>
+        <source>&amp;Save Color Set</source>
+        <translation>Kleurenset op&amp;slaan</translation>
+    </message>
+    <message>
+        <source>Choose a color set to load</source>
+        <translation>Kies de te laden kleurenset</translation>
+    </message>
+    <message>
+        <source>Save the current color set</source>
+        <translation>De huidige kleurenset opslaan</translation>
+    </message>
+    <message>
+        <source>Remove unused colors from current document&apos;s color set</source>
+        <translation>Verwijdert de ongebruikte kleuren uit de kleurenset van dit document</translation>
+    </message>
+    <message>
+        <source>Import colors to the current set from an existing document</source>
+        <translation>Importeer kleuren naar de huidige set uit een bestaand document</translation>
+    </message>
+    <message>
+        <source>Create a new color within the current set</source>
+        <translation>Een nieuwe kleur aanmaken in de huidige set</translation>
+    </message>
+    <message>
+        <source>Edit the currently selected color</source>
+        <translation>De geselecteerde kleur bewerken</translation>
+    </message>
+    <message>
+        <source>Make a copy of the currently selected color</source>
+        <translation>Een kopie van de geselecteerde kleur maken</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected color</source>
+        <translation>De geselecteerde kleur verwijderen</translation>
+    </message>
+    <message>
+        <source>Make the current colorset the default color set</source>
+        <translation>Stelt de huidige kleurenset in als standaard</translation>
+    </message>
+    <message>
+        <source>&amp;Name:</source>
+        <translation>&amp;Naam:</translation>
+    </message>
+    <message>
+        <source>Choose a Name</source>
+        <translation>Kies een naam</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Openen</translation>
+    </message>
+    <message>
+        <source>Copy of %1</source>
+        <translation>Kopie van %1</translation>
+    </message>
+    <message>
+        <source>New Color</source>
+        <translation>Nieuwe kleur</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation>Als het kleurbeheer is ingeschakeld, een driehoekig teken is een waarschuwing dat de kleur buiten het kleurspectrum van het huidige printerprofiel is. Dit betekend dat de kleur misschien niet geprint wordt zoals op het scherm getoond. Steunkleuren zijn gemerkt door een rode cirkel. Registratietekens hebben een registratiemerk naast de kleur. Meer hints over spectrumwaarschuwingen staan in de on-lin help onder kleurbeheer (Color Management).</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>Informatie</translation>
+    </message>
+    <message>
+        <source>The file %1 does not contain colors which can be imported.
+If the file was a PostScript-based, try to import it with File -&amp;gt; Import. 
+Not all files have DSC conformant comments where the color descriptions are located.
+ This prevents importing colors from some files.
+See the Edit Colors section of the documentation for more details.</source>
+        <translation>Het bestand %1 bevat geen kleuren die kunnen worden geïmporteerd.
+Als het een bestand is op PostScript basis, probeer dan Bestand -&amp;; Import.
+Niet alle bestand hebben DSC conform commentaar over de locatie van de kleurbeschrijving.
+Dit voorkomt import van kleuren bij bepaalde bestanden.
+Zie het Bewerk Kleuren deel van het document voor details.</translation>
+    </message>
+</context>
+<context>
+    <name>ColorWheel</name>
+    <message>
+        <source>Monochromatic</source>
+        <translation>Monochroom</translation>
+    </message>
+    <message>
+        <source>Analogous</source>
+        <translation>Analoog</translation>
+    </message>
+    <message>
+        <source>Complementary</source>
+        <translation>Complementair</translation>
+    </message>
+    <message>
+        <source>Split Complementary</source>
+        <translation>Gesplitst complementair</translation>
+    </message>
+    <message>
+        <source>Triadic</source>
+        <translation>Triadisch</translation>
+    </message>
+    <message>
+        <source>Tetradic (Double Complementary)</source>
+        <translation>Tetradisch (Dubbel complementair)</translation>
+    </message>
+    <message>
+        <source>Base Color</source>
+        <translation>Basiskleur</translation>
+    </message>
+    <message>
+        <source>Monochromatic Light</source>
+        <translation>Monochromatisch licht</translation>
+    </message>
+    <message>
+        <source>Monochromatic Dark</source>
+        <translation>Monochromatisch donker</translation>
+    </message>
+    <message>
+        <source>1st. Analogous</source>
+        <translation>1e Analoog</translation>
+    </message>
+    <message>
+        <source>2nd. Analogous</source>
+        <translation>2e Analoog</translation>
+    </message>
+    <message>
+        <source>1st. Split</source>
+        <translation>1e Splitsing</translation>
+    </message>
+    <message>
+        <source>2nd. Split</source>
+        <translation>2e Splitsing</translation>
+    </message>
+    <message>
+        <source>3rd. Split</source>
+        <translation>3e Splitsing</translation>
+    </message>
+    <message>
+        <source>4th. Split</source>
+        <translation>4e Splitsing</translation>
+    </message>
+    <message>
+        <source>1st. Triadic</source>
+        <translation>1e Triade</translation>
+    </message>
+    <message>
+        <source>2nd. Triadic</source>
+        <translation>2e Triade</translation>
+    </message>
+    <message>
+        <source>1st. Tetradic (base opposite)</source>
+        <translation>1e Tetrade (basis tegengesteld)</translation>
+    </message>
+    <message>
+        <source>2nd. Tetradic (angle)</source>
+        <translation>2e Tetrade (hoek)</translation>
+    </message>
+    <message>
+        <source>3rd. Tetradic (angle opposite)</source>
+        <translation>3e Tetrade (hoek tegengesteld)</translation>
+    </message>
+</context>
+<context>
+    <name>ColorWheelPlugin</name>
+    <message>
+        <source>&amp;Color Wheel...</source>
+        <translation>&amp;Kleurwiel...</translation>
+    </message>
+    <message>
+        <source>Color setting helper</source>
+        <translation>Kleurinstellingen helper</translation>
+    </message>
+    <message>
+        <source>Color selector with color theory included.</source>
+        <translation>Kleur selecteren inclusief kleurtheorie.</translation>
+    </message>
+</context>
+<context>
+    <name>CommonStrings</name>
+    <message>
+        <source>&amp;Apply</source>
+        <translation>Toe&amp;passen</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuleren</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Save</source>
+        <translation>Op&amp;slaan</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Waarschuwing</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>color name</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <comment>CommonStrings, custom page size</comment>
+        <translation>Aangepast</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation>Enkele pagina</translation>
+    </message>
+    <message>
+        <source>Double Sided</source>
+        <translation>Dubbelzijdig</translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation>Drieluik</translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation>Vierluik</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>Maandag</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>Dinsdag</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>Woensdag</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>Donderdag</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>Vrijdag</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>Zaterdag</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>Zondag</translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation>Januari</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation>Februari</translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation>Maart</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation>April</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation>Mei</translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation>Juni</translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation>Juli</translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation>Augustus</translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation>September</translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation>Oktober</translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation>November</translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation>December</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Ja</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>Nee</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>&amp;Nee</translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <comment>Left page location</comment>
+        <translation>Linker pagina</translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <comment>Middle page location</comment>
+        <translation>Midden</translation>
+    </message>
+    <message>
+        <source>Middle Left</source>
+        <comment>Middle Left page location</comment>
+        <translation>Midden links</translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <comment>Middle Right page location</comment>
+        <translation>Midden rechts</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <comment>Right page location</comment>
+        <translation>Rechter pagina</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <comment>Default single master page</comment>
+        <translation>Normaal</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <comment>Default left master page</comment>
+        <translation>Normaal links</translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <comment>Default middle master page</comment>
+        <translation>Normaal midden</translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <comment>Default right master page</comment>
+        <translation>Normaal rechts</translation>
+    </message>
+    <message>
+        <source>Normal Vision</source>
+        <comment>Color Blindness - Normal Vision</comment>
+        <translation>Normaal zicht</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <comment>Color Blindness - Red Color Blind</comment>
+        <translation>Protanopia (Rood)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <comment>Color Blindness - Greed Color Blind</comment>
+        <translation>Deuteranopia (Groen)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <comment>Color Blindness - Blue Color Blind</comment>
+        <translation>Tritanopia (Blauw)</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <comment>Color Blindness - Full Color Blindness</comment>
+        <translation>Volledig kleurenblind</translation>
+    </message>
+    <message>
+        <source>Custom: </source>
+        <comment>Custom Tab Fill Option</comment>
+        <translation>Aangepast: </translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation>Ononderbroken lijn</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation>Gestreepte lijn</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation>Stippellijn</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation>Streep-stip lijn</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation>Streep-stip-stip lijn</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>Optical Margin Setting</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Left Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Protruding</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right Hanging Punctuation</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <comment>Optical Margin Setting</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. Word Tracking</source>
+        <translation>Min. woord tracking</translation>
+    </message>
+    <message>
+        <source>Max. Word Tracking</source>
+        <translation>Max. woord tracking</translation>
+    </message>
+    <message>
+        <source>Min. Glyph Extension</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Max. Glyph Extension</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3247,24 +5694,231 @@ Deze naam is reeds gereserveerd voor transparante kleuren</translation>
         <translation>Geeft de mate van ondoorschijnendheid aan</translation>
     </message>
     <message>
-        <source>Color of selected object</source>
-        <translation>Kleur van het geselecteerde object</translation>
+        <source>Move Vector</source>
+        <translation>Verplaats vector</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>Geen</translation>
+        <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
+        <translation>Verplaats het begin van de gradiëntvector met de linker muisknop ingedrukt en verplaats het einde van de gradiëntvector met de rechter muisknop ingedrukt</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation>mm</translation>
+        <source>Transparency Settings</source>
+        <translation>Instellingen transparantie</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation>in</translation>
+        <source>Offsets</source>
+        <translation>Verschuiving</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation>p</translation>
+        <source>X:</source>
+        <translation>X:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation>Schalen</translation>
+    </message>
+    <message>
+        <source>X-Scale:</source>
+        <translation>X-schaal:</translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation>Y-schaal:</translation>
+    </message>
+    <message>
+        <source>Rotation</source>
+        <translation>Rotatie</translation>
+    </message>
+    <message>
+        <source>Angle</source>
+        <translation>Hoek</translation>
+    </message>
+    <message>
+        <source>Pattern</source>
+        <translation>Patroon</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation>Vermeng Mode:</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation>Donkerder</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation>Lichter</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation>Vermenigvuldig</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation>Scherm</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation>Maskerlaag</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation>Hard licht</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation>Zacht licht</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation>Verschil</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation>Uitsluiting</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation>Kleur tegenhouden</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation>Kleur doordrukken</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation>Tint</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Verzadiging</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Luminosity</source>
+        <translation>Helderheid</translation>
+    </message>
+</context>
+<context>
+    <name>CreateRangeBase</name>
+    <message>
+        <source>Create Range</source>
+        <translation>Maak bereik</translation>
+    </message>
+    <message>
+        <source>Number of Pages in Document:</source>
+        <translation>Aantal pagina&apos;s in document:</translation>
+    </message>
+    <message>
+        <source>Doc Page Range</source>
+        <translation>Doc pagina bereik</translation>
+    </message>
+    <message>
+        <source>Basic Range Selection</source>
+        <translation>Standaardselectie bereik</translation>
+    </message>
+    <message>
+        <source>Add a Range of Pages</source>
+        <translation>Voeg bereik van pagina&apos;s toe</translation>
+    </message>
+    <message>
+        <source>Consecutive Pages</source>
+        <translation>Opeenvolgende pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>From:</source>
+        <translation>Van:</translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation>Tot:</translation>
+    </message>
+    <message>
+        <source>Comma Separated List</source>
+        <translation>Lijst met kommagescheiden-waarden</translation>
+    </message>
+    <message>
+        <source>Even Pages</source>
+        <translation>Even pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>Odd Pages</source>
+        <translation>Oneven pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>&amp;Add To Range</source>
+        <translation>&amp;Aan bereik toevoegen</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>Range of Pages</source>
+        <translation>Bereik van pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>Move &amp;Up</source>
+        <translation>Naar bove&amp;n</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation>Alt+U</translation>
+    </message>
+    <message>
+        <source>Move &amp;Down</source>
+        <translation>Naar on&amp;der</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation>Ve&amp;rwijderen</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation>Alt+L</translation>
+    </message>
+    <message>
+        <source>Advanced Reordering</source>
+        <translation>Geavanceerd herschikken</translation>
+    </message>
+    <message>
+        <source>Page Group Size:</source>
+        <translation>Pagina groep formaat:</translation>
+    </message>
+    <message>
+        <source>Sample Page Order:</source>
+        <translation>Voorbeeld pagina volgorde:</translation>
+    </message>
+    <message>
+        <source>Page Order</source>
+        <translation>Pagina volgorde</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuleren</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -3286,10 +5940,6 @@ Deze naam is reeds gereserveerd voor transparante kleuren</translation>
         <translation>Waardescheidingsteken:</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
         <source>First row is a header</source>
         <translation>Eerste regel is een kopregel</translation>
     </message>
@@ -3300,6 +5950,11 @@ Deze naam is reeds gereserveerd voor transparante kleuren</translation>
     <message>
         <source>Cancel</source>
         <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>delimiter</comment>
+        <translation>Geen</translation>
     </message>
 </context>
 <context>
@@ -3327,14 +5982,6 @@ Deze naam is reeds gereserveerd voor transparante kleuren</translation>
     <message>
         <source>Mirror</source>
         <translation>Spiegelen</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>Nee</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Ja</translation>
     </message>
     <message>
         <source>Orientation</source>
@@ -3369,24 +6016,49 @@ Deze naam is reeds gereserveerd voor transparante kleuren</translation>
         <translation>Waarde</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
+        <translation>Dit scherm toont diverse CUPS- printopties. Exacte parameters zijn afhankelijk van de beschikbare printerdriver. CUPS support kan worden bevestigd door Help &gt; Over te selecteren. Kijk naar de lijst: C-C-T Dit is gelijk aan C=CUPS C=littlecms T=Tiff support. Ontbrekende bibliotheken worden aangegeven met een *</translation>
+    </message>
+</context>
+<context>
+    <name>CurveWidget</name>
+    <message>
+        <source>Open</source>
+        <translation>Openen</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Curve Files (*.scu);;All Files (*)</source>
+        <translation>Curve bestanden (*.scu);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>This panel displays various CUPS options when printing. 
-The exact parameters available will depend on your printer driver.
-You can confirm CUPS support by selecting Help &gt; About.
-Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation>Dit paneel toont verschillende CUPS-opties voor het afdrukken.
-Welke instellingen precies mogelijk zijn hangt van uw printerdriver af.
-Onder &quot;Help &gt; Info over&quot; kunt u kijken of CUPS-ondersteuning is ingebouwd.
-Kijk voor de tekens C-C-T, welke staan voor C=CUPS, C=littlecms, T=TIFF-ondersteuning.
-Een * geeft aan welke bibliotheken ontbreken</translation>
+        <source>Save as</source>
+        <translation>Opslaan als</translation>
+    </message>
+    <message>
+        <source>Cannot write the file: 
+%1</source>
+        <translation>Kan bestand niet schrijven:
+%1</translation>
+    </message>
+    <message>
+        <source>Inverts the curve</source>
+        <translation>Curve inverteren</translation>
+    </message>
+    <message>
+        <source>Resets the curve</source>
+        <translation>Curve herstellen</translation>
+    </message>
+    <message>
+        <source>Switches between linear and cubic interpolation of the curve</source>
+        <translation>Schakel tussen lineaire en kubieke interpolatie van de curve</translation>
+    </message>
+    <message>
+        <source>Loads a curve</source>
+        <translation>Laad een curve</translation>
+    </message>
+    <message>
+        <source>Saves this curve</source>
+        <translation>Bewaar deze curve</translation>
     </message>
 </context>
 <context>
@@ -3397,7 +6069,7 @@ Een * geeft aan welke bibliotheken ontbreken</translation>
     </message>
     <message>
         <source>&amp;Include Fonts</source>
-        <translation>Lettertypen &amp;inbedden</translation>
+        <translation>Fonts &amp;insluiten</translation>
     </message>
     <message>
         <source>Encoding:</source>
@@ -3409,6 +6081,17 @@ This can be set in the Preferences.</source>
         <translation>Gaat naar uw documentenmap.
 Deze kan worden ingesteld in de voorkeuren.</translation>
     </message>
+    <message>
+        <source>&amp;Include ICC Profiles</source>
+        <translation>&amp;ICC profielen insluiten</translation>
+    </message>
+</context>
+<context>
+    <name>DeferredTask</name>
+    <message>
+        <source>Cancelled by user</source>
+        <translation>Geannuleerd door gebruiker</translation>
+    </message>
 </context>
 <context>
     <name>DelColor</name>
@@ -3417,28 +6100,12 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation>Kleur verwijderen</translation>
     </message>
     <message>
-        <source>Delete color:</source>
+        <source>Delete Color:</source>
         <translation>Kleur verwijderen:</translation>
     </message>
     <message>
-        <source>?</source>
-        <translation>?</translation>
-    </message>
-    <message>
-        <source>Replace it with:</source>
+        <source>Replace With:</source>
         <translation>Vervangen door:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
     </message>
 </context>
 <context>
@@ -3448,56 +6115,44 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation>Pagina&apos;s verwijderen</translation>
     </message>
     <message>
-        <source>Delete from:</source>
-        <translation>Verwijderen van:</translation>
-    </message>
-    <message>
         <source>to:</source>
         <translation>tot:</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren
-</translation>
+        <source>Delete From:</source>
+        <translation>Verwijder van:</translation>
     </message>
 </context>
 <context>
-    <name>DmF</name>
+    <name>DelStyle</name>
     <message>
-        <source>Missing Font</source>
-        <translation>Ontbrekend lettertype</translation>
+        <source>Delete Style</source>
+        <translation>Verwijder stijl</translation>
     </message>
     <message>
-        <source>The Font %1 is not installed.</source>
-        <translation>Het lettertype %1 is niet geinstalleerd.</translation>
+        <source>Delete Style:</source>
+        <translation>Verwijder stijl:</translation>
     </message>
     <message>
-        <source>Use</source>
-        <translation>Gebruik</translation>
+        <source>Replace With:</source>
+        <translation>Vervangen door:</translation>
     </message>
     <message>
-        <source>instead</source>
-        <translation>in plaats daarvan</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>No Style</source>
+        <translation>Geen stijl</translation>
     </message>
 </context>
 <context>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Importeren mislukt</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Het importeren mislukt bij het bestand:
+%1 </translation>
     </message>
 </context>
 <context>
@@ -3567,36 +6222,8 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation>Rec&amp;hten:</translation>
     </message>
     <message>
-        <source>&amp;Document</source>
-        <translation>Docu&amp;ment</translation>
-    </message>
-    <message>
         <source>Further &amp;Information</source>
         <translation>Meer &amp;informatie</translation>
-    </message>
-    <message>
-        <source>The person or organisation primarily responsible for making the content of the document.
-This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>De persoon of organisatie die de hoofdverantwoordelijke is voor het aanmaken van de inhoud van dit document.
-Dit veld kan worden ingebed in het Scribus document, maar ook in de metadata van een PDF-bestand</translation>
-    </message>
-    <message>
-        <source>A name given to the document.
-This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation>Een naam voor dit document.
-Dit veld kan worden ingebed in het Scribus document, maar ook in de metadata van een PDF-bestand</translation>
-    </message>
-    <message>
-        <source>An account of the content of the document.
-This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation>Een korte weergave van de inhoud van het document.
-Dit wordt ook ingebed in PDF-bestanden bij exporteren</translation>
-    </message>
-    <message>
-        <source>The topic of the content of the document.
-This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation>De onderwerpen van het document.
-Deze sleutelwoorden worden ingebed in de PDF om zoeken en indexeren van PDF-bestanden mogelijk te maken</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making the document available</source>
@@ -3615,24 +6242,12 @@ Deze sleutelwoorden worden ingebed in de PDF om zoeken en indexeren van PDF-best
         <translation>Genre, categorie of type van dit document</translation>
     </message>
     <message>
-        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
-RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation>De fysieke of digitale gestalte van het document, zoals mediatype en afmetingen.
-RFC2045, RFC2046 voor MIME-bestandstypen zijn ook bruikbaar hier</translation>
-    </message>
-    <message>
         <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
         <translation>Een exacte referentie naar dit document, zoals een ISBN-nummer of een URI</translation>
     </message>
     <message>
         <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
         <translation>Een verwijzing naar een document waar dit document van is afgelijk, bijv. ISBN of een URI</translation>
-    </message>
-    <message>
-        <source>The language in which the content of the document is written, usually a ISO-639 language code
-optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation>De taal waarin het document is geschreven, normaal gesproken een ISO-639 taalcode,
-optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl-BE</translation>
     </message>
     <message>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
@@ -3647,12 +6262,243 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
         <translation>Informatie over rechten die voor dit document gelden, zoals copyright, patenten of handelsmerken</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>Documen&amp;t</source>
+        <translation>Documen&amp;t</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Persoon of organisatie verantwoordelijk voor de inhoud van het document. Dit veld kan worden ingesloten in het Scribus document ter referentie, alsmede in de PDF metadata</translation>
+    </message>
+    <message>
+        <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
+        <translation>Naam van een document. Dit veld kan worden ingebed in het Scribus document ter referentie, evenals in de PDF metadata</translation>
+    </message>
+    <message>
+        <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
+        <translation>Omschrijving van de inhoud van het document. Dit veld is een korte omschrijving van het document. Wordt bij export naar PDF ingebed</translation>
+    </message>
+    <message>
+        <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
+        <translation>Trefwoorden over de inhoud van het document. Dit veld is voor trefwoorden die in een PDF moeten worden ingebd, om zoeken en indexeren van PDF bestanden eenvoudiger te maken</translation>
+    </message>
+    <message>
+        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
+        <translation>Fysieke of digitale staat van het document. Media type en afmetingen zijn goed om te vermelden evenals RFC2045,RFC2046 for MIME types</translation>
+    </message>
+    <message>
+        <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
+        <translation>De taal waarin de inhoud van het document is geschreven, vaak wordt een ISO-639 taalcode geschreven met een afbreekstreepje en een ISO-3166 landcode, als en-GB, fr-CH</translation>
+    </message>
+</context>
+<context>
+    <name>DocSections</name>
+    <message>
+        <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
+        <translation>Voeg een sectie voor paginanummering toe aan het document. De nieuwe sectie wordt toegevoegd na de huidige geselecteerde sectie.</translation>
+    </message>
+    <message>
+        <source>Delete the currently selected section.</source>
+        <translation>Wis de geselecteerde sectie.</translation>
+    </message>
+    <message>
+        <source>1, 2, 3, ...</source>
+        <translation>1, 2, 3, ...</translation>
+    </message>
+    <message>
+        <source>i, ii, iii, ...</source>
+        <translation>i, ii, iii, ...</translation>
+    </message>
+    <message>
+        <source>I, II, III, ...</source>
+        <translation>I, II, III, ...</translation>
+    </message>
+    <message>
+        <source>a, b, c, ...</source>
+        <translation>a, b, c, ...</translation>
+    </message>
+    <message>
+        <source>A, B, C, ...</source>
+        <translation>A, B, C, ...</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
+        <translation>&lt;b&gt;Naam:&lt;/b&gt;Optionele naam voor sectie bijv. Index&lt;br/&gt;&lt;b&gt;Getoond:&lt;/b&gt;Selecteer om paginanummers in deze sectie tonen als dit voor meerdere tekstframes geldt.&lt;br/&gt;Van:&lt;/b&gt;De start van de pagina index voor deze sectie.&lt;br/&gt;&lt;b&gt;Tot:&lt;/b&gt;Het eind van de pagina index voor deze sectie.&lt;br/&gt;&lt;b&gt;Stijl:&lt;/b&gt; Selecteer de te gebruiken stijl voor de paginanummering.&lt;br/&gt;&lt;b&gt;Start:,/b&gt; De index waarbinnen binnen de nummeringsstijl moet worden gestart. Bijv. Als Start=2 en Stijl=a,b,c,..., zal de nummering beginnen bij b. Voor de eerste sectie in het document zal dit het oudere Eerste Pagina Nummer in het nieuwe bestandsvenster vervangen.</translation>
+    </message>
+    <message>
+        <source>Page Number Out Of Bounds</source>
+        <translation>Paginanummer buiten bereik</translation>
+    </message>
+    <message>
+        <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
+        <translation>De ingevoerde waarde ligt buiten de waarde van de paginanummering in dit document (%1-%2).</translation>
+    </message>
+</context>
+<context>
+    <name>DocSectionsBase</name>
+    <message>
+        <source>Document Sections</source>
+        <translation>Document Secties</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>From</source>
+        <translation>Van</translation>
+    </message>
+    <message>
+        <source>To</source>
+        <translation>Naar</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation>Stijl</translation>
+    </message>
+    <message>
+        <source>Start</source>
+        <translation>Start</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation>&amp;Toevoegen</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+T</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>Shown</source>
+        <translation>Getoond</translation>
+    </message>
+</context>
+<context>
+    <name>DocumentItemAttributes</name>
+    <message>
+        <source>Relates To</source>
+        <translation>Relatie tot</translation>
+    </message>
+    <message>
+        <source>Is Parent Of</source>
+        <translation>Is Parent van</translation>
+    </message>
+    <message>
+        <source>Is Child Of</source>
+        <translation>Is kind van</translation>
+    </message>
+    <message>
+        <source>Text Frames</source>
+        <translation>Tekstframes</translation>
+    </message>
+    <message>
+        <source>Image Frames</source>
+        <translation>Afbeeldingsframe</translation>
+    </message>
+    <message>
+        <source>Boolean</source>
+        <translation>Boolean</translation>
+    </message>
+    <message>
+        <source>Integer</source>
+        <translation>Integer</translation>
+    </message>
+    <message>
+        <source>String</source>
+        <translation>String</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>auto add</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>types</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Real Number</source>
+        <translation>Getal</translation>
+    </message>
+</context>
+<context>
+    <name>DocumentItemAttributesBase</name>
+    <message>
+        <source>Document Item Attributes</source>
+        <translation>Document Item attributen</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Waarde</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation>Parameter</translation>
+    </message>
+    <message>
+        <source>Relationship</source>
+        <translation>Relatie</translation>
+    </message>
+    <message>
+        <source>Relationship To</source>
+        <translation>Relatie tot</translation>
+    </message>
+    <message>
+        <source>Auto Add To</source>
+        <translation>Voeg automatisch toe aan</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation>&amp;Toevoegen</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+T</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopiëren</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+K</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>W&amp;issen</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation>Alt+I</translation>
     </message>
 </context>
 <context>
@@ -3683,13 +6529,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>A&amp;lternative Printer Command</source>
-        <translation>A&amp;lternatief printcommando</translation>
-    </message>
-    <message>
-        <source>Use an alternative print manager, such as kprinter or gtklp,
-to utilize additional printing options</source>
-        <translation>Gebruik een alternatief printcommando, zoals kprinter of gtklp,
-om extra printopties te kunnen gebruiken</translation>
+        <translation>A&amp;lternatieve printer opdracht</translation>
     </message>
     <message>
         <source>Co&amp;mmand:</source>
@@ -3728,14 +6568,6 @@ Een * staat voor alle pagina&apos;s.</translation>
         <translation>Opties</translation>
     </message>
     <message>
-        <source>Print &amp;Normal</source>
-        <translation>&amp;Normaal afdrukken</translation>
-    </message>
-    <message>
-        <source>Print &amp;Separations</source>
-        <translation>Ge&amp;scheiden afdrukken</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Alles</translation>
     </message>
@@ -3756,32 +6588,210 @@ Een * staat voor alle pagina&apos;s.</translation>
         <translation>Zwart</translation>
     </message>
     <message>
-        <source>Pr&amp;int In Color If Available</source>
-        <translation>&amp;In kleur afdrukken indien beschikbaar</translation>
-    </message>
-    <message>
-        <source>Print In Gra&amp;yscale</source>
-        <translation>In &amp;grijstinten afdrukken</translation>
-    </message>
-    <message>
-        <source>Ad&amp;vanced Options...</source>
-        <translation>Gea&amp;vanceerd...</translation>
-    </message>
-    <message>
         <source>&amp;Print</source>
         <translation>Afdru&amp;kken</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
     </message>
     <message>
         <source>Save as</source>
         <translation>Opslaan als</translation>
     </message>
     <message>
+        <source>Print Normal</source>
+        <translation>Druk Normaal af</translation>
+    </message>
+    <message>
+        <source>Print Separations</source>
+        <translation>Druk Separaties</translation>
+    </message>
+    <message>
+        <source>Print in Color if Available</source>
+        <translation>Druk bij beschikbaarheid in kleur af</translation>
+    </message>
+    <message>
+        <source>Print in Grayscale</source>
+        <translation>Druk in grijstinten af</translation>
+    </message>
+    <message>
+        <source>PostScript Level 1</source>
+        <translation>PostScript Level 1</translation>
+    </message>
+    <message>
+        <source>PostScript Level 2</source>
+        <translation>PostScript Level 2</translation>
+    </message>
+    <message>
+        <source>PostScript Level 3</source>
+        <translation>PostScript Level 3</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Pagina</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Spiegel pagina(&apos;s) horizontaal</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Spiegel pagina(&apos;s) verticaal</translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation>Papierformaat instellen</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Apply Under Color Removal</source>
+        <translation>Onderliggende kleurvlakken verwijderen</translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation>Steunkleuren naar Process kleuren omzetten</translation>
+    </message>
+    <message>
+        <source>Apply ICC Profiles</source>
+        <translation>ICC-profielen toepassen</translation>
+    </message>
+    <message>
+        <source>Advanced Options</source>
+        <translation>Geavanceerde opties</translation>
+    </message>
+    <message>
+        <source>Preview...</source>
+        <translation>Voorbeeld...</translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</source>
+        <translation>Stelt het PostScript Level in.
+Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
+    </message>
+    <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Postscript bestanden (*.ps);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
+        <translation>Gebruik een alternatieve print manager, bijvoorbeeld kprinter of gtklp, voor additionele opties</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>Een manier om uit cyaan, geel en magenta samengestelde tonen door zwarte tonen te vervangen. UCR heeft het meeste effect op delen van afbeeldingen met neutrale of grijsachtige tonen. Gebruik hiervan kan afdrukken van bepaalde afbeeldingen verbeteren. UCR reduceert de mogelijkheid van oververzadiging met CMY inkten.</translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Bij voorkeur aanvinken. Tenzij steunkleuren in een drukkerij gedrukt moeten worden.</translation>
+    </message>
+    <message>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation>Staat toe ICC-profielen te embedden in de printstroom als kleurbeheer ingeschakeld is</translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+        <translation>Geef hiermee het papierformaat in het PostScript bestand aan. Wordt niet aanbevolen tenzij de drukker hier uitdrukkelijk om vraagt.</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation>Afsnijden bij paginarand</translation>
+    </message>
+    <message>
+        <source>Failed to retrieve printer settings</source>
+        <translation>Ontvangen printerinstellingen niet gelukt</translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page</source>
+        <translation>Verberg objecten buiten de marges van de pagina</translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation>Overprint modus forceren</translation>
+    </message>
+    <message>
+        <source>Printer Marks</source>
+        <translation>Merktekens</translation>
+    </message>
+    <message>
+        <source>Crop Marks</source>
+        <translation>Snijtekens</translation>
+    </message>
+    <message>
+        <source>Bleed Marks</source>
+        <translation>Afloop merktekens</translation>
+    </message>
+    <message>
+        <source>Registration Marks</source>
+        <translation>Registratietekens</translation>
+    </message>
+    <message>
+        <source>Color Bars</source>
+        <translation>Kleurcontrole balk</translation>
+    </message>
+    <message>
+        <source>Offset:</source>
+        <translation>Verschuiving:</translation>
+    </message>
+    <message>
+        <source>Marks</source>
+        <translation>Merktekens</translation>
+    </message>
+    <message>
+        <source>Bleed Settings</source>
+        <translation>Instelling afloop</translation>
+    </message>
+    <message>
+        <source>Top:</source>
+        <translation>Boven:</translation>
+    </message>
+    <message>
+        <source>Bottom:</source>
+        <translation>Onder:</translation>
+    </message>
+    <message>
+        <source>Left:</source>
+        <translation>Links:</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation>Rechts:</translation>
+    </message>
+    <message>
+        <source>Use Document Bleeds</source>
+        <translation>Gebruik document afloop</translation>
+    </message>
+    <message>
+        <source>Bleeds</source>
+        <translation>Afloop</translation>
+    </message>
+    <message>
+        <source>Inside:</source>
+        <translation>Binnenzijde:</translation>
+    </message>
+    <message>
+        <source>Outside:</source>
+        <translation>Buitenzijde:</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Afstand voor afloop vanaf de bovenkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Afstand voor afloop vanaf de onderkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Afstand voor afloop vanaf de linkerkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Afstand voor afloop vanaf de rechterkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation>Inschakelen globale Overprint modus, object instellingen worden genegeerd</translation>
     </message>
 </context>
 <context>
@@ -3798,162 +6808,29 @@ is mislukt!</translation>
         <source>Fatal Error</source>
         <translation>Fatale fout</translation>
     </message>
-</context>
-<context>
-    <name>EditMacroDialog</name>
     <message>
-        <source>Editing Macro: &lt;b&gt;</source>
-        <translation>Macro wordt bewerkt: &lt;b&gt;</translation>
+        <source>Error</source>
+        <translation>Fout</translation>
     </message>
     <message>
-        <source>Scribus - Macro Manager</source>
-        <translation>Scribus - Macro Manager</translation>
+        <source>Analyzing PostScript:</source>
+        <translation>Analyseer Postscript:</translation>
     </message>
     <message>
-        <source>The file &apos;%1&apos; already exists.
-Are you sure you want to overwrite it?
-</source>
-        <translation>Het bestand &apos;%&apos; bestaat reeds.
-Wilt u het werkelijk overschrijven?</translation>
+        <source>Generating Items</source>
+        <translation>Verwerk items</translation>
     </message>
     <message>
-        <source>You have already edited this macro.
-Are you sure you want to discard all your changes?
-</source>
-        <translation>U heeft deze macro al bewerkt.
-Wilt u alle wijzigingen verwerpen?</translation>
+        <source>Converting of %1 images failed!</source>
+        <translation>Verwerken van %1 afbeelding mislukt!</translation>
     </message>
     <message>
-        <source>A full traceback follows:
-
-%1
-</source>
-        <translation>Een volledige backtrace volgt:
-
-%1
-</translation>
+        <source>Importing: %1</source>
+        <translation>Importeren: %1</translation>
     </message>
     <message>
-        <source>Compilation of the macro failed, so it can not 
-be saved in its current form. The error was:
-%1
-</source>
-        <translation>Het compileren van de macro is mislukt; deze kan dus
-niet worden opgeslagen in zijn huidige vorm. De foutmelding was:
-%1
-</translation>
-    </message>
-    <message>
-        <source>Scribus - New Macro</source>
-        <translation>Scribus - Nieuwe macro</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;This is the Edit Macro / New Macro dialog box. Here you can change the source code to macros. Edit the source code to the macro in the text editing area below the &quot;Source Code&quot; label and click OK to save your changes to the macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Dit is de dialoog Macro bewerken of aanmaken. Hier kunt u de broncode van macro&apos;s aanpassen. Bewerk de broncode van de macro in het tekstvenster en klik OK om uw wijzigingen op te slaan.&lt;/qt&gt; </translation>
-    </message>
-    <message>
-        <source>Source Code:</source>
-        <translation>Broncode:</translation>
-    </message>
-    <message>
-        <source>Editing Macro:</source>
-        <translation>Macro bewerken:</translation>
-    </message>
-    <message>
-        <source>The name of the macro being edited.</source>
-        <translation>De naam van de macro die momenteel wordt bewerkt.</translation>
-    </message>
-    <message>
-        <source>&lt;/qt&gt;This item displays the name of the macro you are currently editing.&lt;qt&gt;</source>
-        <translation>&lt;qt&gt;Dit item geeft de naam weer van de macro die u momenteel aan het bewerken bent.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation>Alt+A</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Discard all changes and exit.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Alle wijzigingen verwerpen en sluiten.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Exit the editing dialog, discarding all changes you have made. If you want to exit without saving the macro but don&apos;t want to lose your changes, save your changes with &quot;Save Source As...&quot;.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Hiermee kunt u dit venster verlaten zonder uw wijzigingen op te slaan. Als u wilt sluiten zonder de macro op te slaan, maar uw wijzigingen wel wilt bewaren kies dan &quot;Broncode opslaan als...&quot;.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&amp;Ok</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <translation>Atl+O</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Save changes and exit.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Wijzigingen opslaan en sluiten.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Save changes to the macro and exit. If there is a problem with the macro, a message will be displayed and the editing dialog will not close.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Hiermee kunt u de wijzigingen opslaan en het venster sluiten. Als er fouten in de macro zitten wordt een foutmelding gegeven en zal de dialoog niet sluiten.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;This text area contains the source code of the macro. If you&apos;re creating a new macro there won&apos;t be anything in it, and if you&apos;re editing an existing macro the source code the macro was defined with will be shown here.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Dit tekstvak toont de broncode van de macro. Als u een nieuwe macro aanmaakt is de ruimte leeg; als u een bestaande macro bewerkt wordt de broncode getoond.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&amp;Load Source ...</source>
-        <translation>Broncode &amp;laden...</translation>
-    </message>
-    <message>
-        <source>Alt+L</source>
-        <translation>Alt+L</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Replace the current source code with code from a file.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Vervang de huidige broncode door code uit een bestand.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Load new source code into the editing area from &quot;file&quot;. Any source code in the editing area is replaced. The loaded source must be a Scribus macro function. If you load any other script, you&apos;ll need to edit it so that it&apos;ll work as a scripter macro before saving it.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Hiermee kunt u nieuwe broncode in het tekstvak laden. Reeds aanwezige broncode wordt vervangen. De geladen broncode moet in het Scribus macro-formaat zijn. Als u een ander script laadt zult u de code moeten aanpassen zodat het functioneert als een scripter-macro voordat u het opslaat.&lt;/qt&gt; </translation>
-    </message>
-    <message>
-        <source>&amp;Save Source As...</source>
-        <translation>Broncode op&amp;slaan als...</translation>
-    </message>
-    <message>
-        <source>Alt+S</source>
-        <translation>Alt+S</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Save the source code being edited to a file.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;De broncode naar een ander bestand opslaan.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>Save the source code - the text - of the macro to a file. You can edit the saved source and load it again with &quot;Load Source...&quot;.</source>
-        <translation>Slaat de broncode (tekst) van deze macro op in een ander bestand. U kunt deze bijvoorbeeld met een andere editor bewerken en later opnieuw inladen.</translation>
-    </message>
-    <message>
-        <source>Save File Dialog</source>
-        <translation>Bestand opslaan</translation>
-    </message>
-    <message>
-        <source>Save macro source</source>
-        <translation>Macro-broncode opslaan</translation>
-    </message>
-    <message>
-        <source>Open File Dialog</source>
-        <translation>Bestand openen</translation>
-    </message>
-    <message>
-        <source>Select the source file to load</source>
-        <translation>Selecteer het te laden broncodebestand</translation>
-    </message>
-    <message>
-        <source>Python source files (*.py)</source>
-        <translation>Python bronbestanden (*.py)</translation>
+        <source>Group%1</source>
+        <translation>Groep %1</translation>
     </message>
 </context>
 <context>
@@ -3971,84 +6848,24 @@ niet worden opgeslagen in zijn huidige vorm. De foutmelding was:
         <translation>Teken</translation>
     </message>
     <message>
-        <source>&amp;Font:</source>
-        <translation>&amp;Lettertype:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Si&amp;ze:</source>
-        <translation>&amp;Grootte:</translation>
-    </message>
-    <message>
-        <source>Effect:</source>
-        <translation>Effect:</translation>
-    </message>
-    <message>
-        <source>&amp;Alignment:</source>
-        <translation>&amp;Uitlijning:</translation>
-    </message>
-    <message>
-        <source>&amp;Drop Caps</source>
-        <translation>&amp;Drop caps</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
         <translation>Rege&amp;ls:</translation>
     </message>
     <message>
-        <source>F&amp;ill Color:</source>
-        <translation>&amp;Vulkleur:</translation>
-    </message>
-    <message>
-        <source>St&amp;roke Color:</source>
-        <translation>&amp;Lijnkleur:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
-        <source>Vertical Spaces</source>
-        <translation>Verticale tussenruimtes</translation>
-    </message>
-    <message>
-        <source>Adjust to Baseline &amp;Grid</source>
-        <translation>Aanpassen aan basislijn &amp;raster</translation>
-    </message>
-    <message>
-        <source>Line &amp;Spacing:</source>
-        <translation>Regel&amp;spatiëring:</translation>
-    </message>
-    <message>
-        <source>Abo&amp;ve:</source>
-        <translation>Bo&amp;ven:</translation>
-    </message>
-    <message>
-        <source>&amp;Below:</source>
-        <translation>On&amp;der:</translation>
-    </message>
-    <message>
         <source>Tabulators and Indentation</source>
         <translation>Tabs en inspringing</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Name of your paragraph style</source>
-        <translation>Naam van uw paragraafstijl</translation>
+        <translation>Naam van uw alineastijl</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation>Lettertype van object of geselecteerde tekst</translation>
+        <translation>Font van object of geselecteerde tekst</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -4060,55 +6877,91 @@ niet worden opgeslagen in zijn huidige vorm. De foutmelding was:
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation>Kleur van de tekstlijnen</translation>
-    </message>
-    <message>
-        <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-        <translation>Maakt de eerste letter van een paragraaf groter aan de bovenkant uitgelijnd met het vervolg van een regel</translation>
+        <translation>Kleur van de tekstomlijning</translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
         <translation>Geeft de hoogte van de kapitaal aan in het aantal regels dat deze beslaat</translation>
     </message>
     <message>
-        <source>Align text to baseline grid</source>
-        <translation>Tekst aan de basislijn van het raster uitlijnen</translation>
-    </message>
-    <message>
         <source>Spacing above the paragraph</source>
-        <translation>Witruimte boven de paragraaf</translation>
+        <translation>Witruimte boven de alinea</translation>
     </message>
     <message>
         <source>Spacing below the paragraph</source>
-        <translation>Witruimte onder de paragraaf</translation>
+        <translation>Witruimte onder de alinea</translation>
     </message>
     <message>
         <source>Line Spacing</source>
         <translation>Tussenruimte tussen de regels</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation>mm</translation>
+        <source> %</source>
+        <translation> %</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation>in</translation>
+        <source>Distances</source>
+        <translation>Afstanden</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation>p</translation>
+        <source>Fixed Linespacing</source>
+        <translation>Vaste regelspatiëring</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
+        <source>Automatic Linespacing</source>
+        <translation>Automatische regelspatiëring</translation>
     </message>
     <message>
-        <source>Name of the Style is not unique</source>
-        <translation>De stijlnaam is niet uniek</translation>
+        <source>Align to Baseline Grid</source>
+        <translation>Aan de basislijn van het raster uitlijnen</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>Drop Caps</source>
+        <translation>Beginkapitaal</translation>
+    </message>
+    <message>
+        <source>Distance from Text:</source>
+        <translation>Afstand van tekst:</translation>
+    </message>
+    <message>
+        <source>Preview of the Paragraph Style</source>
+        <translation>Preview Alineastijl</translation>
+    </message>
+    <message>
+        <source>Determines the gap between the DropCaps and the Text</source>
+        <translation>Bepaalt ruimte tussen beginkapitaal en tekst</translation>
+    </message>
+    <message>
+        <source>Toggles sample text of this paragraph style</source>
+        <translation>Verwissel voorbeeldtekst van deze alineastijl</translation>
+    </message>
+    <message>
+        <source>Name of the style is not unique</source>
+        <translation>Naam van de stijl is niet uniek</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Achtergrond</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation>Handmatige tracking</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation>Offset ten opzichte van basislijn tekens</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source>Select for easier reading of light colored text styles</source>
+        <translation>Selecteer voor makkelijker lezen van licht gekleurde tekststijlen</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation>Klik om regelafstand modus te selecteren</translation>
     </message>
 </context>
 <context>
@@ -4175,7 +7028,149 @@ niet worden opgeslagen in zijn huidige vorm. De foutmelding was:
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScripts (*.js);;Alle bestanden (*)</translation>
+    </message>
+</context>
+<context>
+    <name>EffectsDialog</name>
+    <message>
+        <source>Image Effects</source>
+        <translation>Afbeeldingseffecten</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation>Opties:</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Kleur:</translation>
+    </message>
+    <message>
+        <source>Shade:</source>
+        <translation>Tint:</translation>
+    </message>
+    <message>
+        <source>Brightness:</source>
+        <translation>Helderheid:</translation>
+    </message>
+    <message>
+        <source>Contrast:</source>
+        <translation>Contrast:</translation>
+    </message>
+    <message>
+        <source>Radius:</source>
+        <translation>Radius:</translation>
+    </message>
+    <message>
+        <source>Value:</source>
+        <translation>Waarde:</translation>
+    </message>
+    <message>
+        <source>Posterize:</source>
+        <translation>Poster effect:</translation>
+    </message>
+    <message>
+        <source>Available Effects</source>
+        <translation>Beschikbare effecten</translation>
+    </message>
+    <message>
+        <source>Blur</source>
+        <translation>Vervagen</translation>
+    </message>
+    <message>
+        <source>Brightness</source>
+        <translation>Helderheid</translation>
+    </message>
+    <message>
+        <source>Colorize</source>
+        <translation>Colorizeren</translation>
+    </message>
+    <message>
+        <source>Contrast</source>
+        <translation>Contrast</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation>Grijsttinten</translation>
+    </message>
+    <message>
+        <source>Invert</source>
+        <translation>Inverteren</translation>
+    </message>
+    <message>
+        <source>Posterize</source>
+        <translation>Poster effect</translation>
+    </message>
+    <message>
+        <source>Sharpen</source>
+        <translation>Verscherpen</translation>
+    </message>
+    <message>
+        <source>&gt;&gt;</source>
+        <translation>&gt;&gt;</translation>
+    </message>
+    <message>
+        <source>&lt;&lt;</source>
+        <translation>&lt;&lt;</translation>
+    </message>
+    <message>
+        <source>Effects in use</source>
+        <translation>Effect in gebruik</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Color 1:</source>
+        <translation>Kleur 1:</translation>
+    </message>
+    <message>
+        <source>Color 2:</source>
+        <translation>Kleur 2:</translation>
+    </message>
+    <message>
+        <source>Color 3:</source>
+        <translation>Kleur 3:</translation>
+    </message>
+    <message>
+        <source>Color 4:</source>
+        <translation>Kleur 4:</translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation>Duotoon</translation>
+    </message>
+    <message>
+        <source>Tritone</source>
+        <translation>Tritoon</translation>
+    </message>
+    <message>
+        <source>Quadtone</source>
+        <translation>Quadtoon</translation>
+    </message>
+    <message>
+        <source>Curves</source>
+        <translation>Curven</translation>
+    </message>
+</context>
+<context>
+    <name>ExportBitmap</name>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation>Bestand bestaat. Wilt u het overschrijven?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation>bestaat al. Wilt u het overschrijven?</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Alles</translation>
     </message>
 </context>
 <context>
@@ -4237,14 +7232,6 @@ niet worden opgeslagen in zijn huidige vorm. De foutmelding was:
         <translation>&amp;Bereik</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>C</source>
         <translation>C</translation>
     </message>
@@ -4300,6 +7287,113 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
         <translation>Grootte van de afbeeldingen. 100% voor geen verandering, 200% voor twee maal groter, etc.</translation>
     </message>
+    <message>
+        <source>Image size in Pixels</source>
+        <translation>Afbeeldingsgrootte in pixels</translation>
+    </message>
+</context>
+<context>
+    <name>ExtImageProps</name>
+    <message>
+        <source>Extended Image Properties</source>
+        <translation>Uitgebreide afbeeldingseigenschappen</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normaal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation>Donkerder</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation>Lichter</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation>Tint</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Verzadiging</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Luminosity</source>
+        <translation>Helderheid</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation>Vermenigvuldig</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation>Scherm</translation>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation>Oplossen</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation>Maskerlaag</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation>Hard licht</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation>Zacht licht</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation>Verschil</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation>Uitsluiting</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation>Kleur tegenhouden</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation>Kleur doordrukken</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation>Vermeng Mode:</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation>Doorschijnendheid:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Layers</source>
+        <translation>Lagen</translation>
+    </message>
+    <message>
+        <source>Don&apos;t use any Path</source>
+        <translation>Gebruik geen enkel pad</translation>
+    </message>
+    <message>
+        <source>Paths</source>
+        <translation>Lokaties</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -4327,175 +7421,67 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <source>Scribus Document</source>
         <translation>Scribus document</translation>
     </message>
+    <message>
+        <source>Resolution:</source>
+        <translation>Resolutie:</translation>
+    </message>
+    <message>
+        <source>DPI</source>
+        <translation>DPI</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation>CMYK</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation>RGB</translation>
+    </message>
+    <message>
+        <source>Colorspace:</source>
+        <translation>Kleurruimte: </translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation>Grijstinten</translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation>Duotoon</translation>
+    </message>
 </context>
 <context>
-    <name>Farbmanager</name>
+    <name>FileLoader</name>
     <message>
-        <source>Colors</source>
-        <translation>Kleuren</translation>
+        <source>Some fonts used by this document have been substituted:</source>
+        <translation>Enkele in dit document gebruikte fonts zijn vervangen:</translation>
     </message>
     <message>
-        <source>&amp;Append</source>
-        <translation>Toe&amp;voegen</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation>&amp;Nieuw</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation>Be&amp;werken</translation>
-    </message>
-    <message>
-        <source>D&amp;uplicate</source>
-        <translation>D&amp;upliceren</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation>Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>&amp;Remove Unused</source>
-        <translation>Ongebruikte ve&amp;rwijderen</translation>
-    </message>
-    <message>
-        <source>Color Sets</source>
-        <translation>Kleurensets</translation>
-    </message>
-    <message>
-        <source>Current Color Set:</source>
-        <translation>Huidige kleurenset:</translation>
-    </message>
-    <message>
-        <source>&amp;Save Color Set</source>
-        <translation>Kleurenset op&amp;slaan</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Choose a color set to load</source>
-        <translation>Kies de te laden kleurenset</translation>
-    </message>
-    <message>
-        <source>Save the current color set</source>
-        <translation>De huidige kleurenset opslaan</translation>
-    </message>
-    <message>
-        <source>Remove unused colors from current document&apos;s color set</source>
-        <translation>Verwijdert de ongebruikte kleuren uit de kleurenset van dit document</translation>
-    </message>
-    <message>
-        <source>Append colors to the current set from an existing document</source>
-        <translation>Voeg kleuren toe van een ander document aan het huidige</translation>
-    </message>
-    <message>
-        <source>Create a new color within the current set</source>
-        <translation>Een nieuwe kleur aanmaken in de huidige set</translation>
-    </message>
-    <message>
-        <source>Edit the currently selected color</source>
-        <translation>De huidige kleur bewerken</translation>
-    </message>
-    <message>
-        <source>Make a copy of the currently selected color</source>
-        <translation>Een kopie van de momenteel geselecteerde kleur maken</translation>
-    </message>
-    <message>
-        <source>Delete the currently selected color</source>
-        <translation>De huidige kleur verwijderen</translation>
-    </message>
-    <message>
-        <source>Make the current colorset the default color set</source>
-        <translation>Stelt de huidige kleurenset in als standaard</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation>&amp;Naam:</translation>
-    </message>
-    <message>
-        <source>Choose a Name</source>
-        <translation>Kies een naam</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation>Openen</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Copy of %1</source>
-        <translation>Kopie van %1</translation>
-    </message>
-    <message>
-        <source>New Color</source>
-        <translation>Nieuwe kleur</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Geen</translation>
+        <source> was replaced by: </source>
+        <translation> vervangen door: </translation>
     </message>
 </context>
 <context>
     <name>FontPrefs</name>
     <message>
-        <source>Global Font Settings</source>
-        <translation>Algemene lettertype-instellingen</translation>
-    </message>
-    <message>
         <source>Available Fonts</source>
-        <translation>Beschikbare lettertypen</translation>
+        <translation>Beschikbare fonts</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation>Lettertype-vervangingen</translation>
+        <translation>Font-vervangingen</translation>
     </message>
     <message>
         <source>Additional Paths</source>
         <translation>Additionele lokaties</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Ja</translation>
-    </message>
-    <message>
         <source>Font Name</source>
-        <translation>Lettertype Naam</translation>
-    </message>
-    <message>
-        <source>Use Font</source>
-        <translation>Lettertype gebruiken</translation>
-    </message>
-    <message>
-        <source>Embed in:</source>
-        <translation>Invoegen in:</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation>Subset</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Type</translation>
-    </message>
-    <message>
-        <source>Path to Font File</source>
-        <translation>Pad naar lettertypebestand</translation>
+        <translation>Font Naam</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
-        <translation>Beschikbare &amp;lettertypen</translation>
+        <translation>Beschikbare &amp;fonts</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -4507,7 +7493,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
-        <translation>Lettertype-&amp;vervangingen</translation>
+        <translation>Font-&amp;vervangingen</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
@@ -4526,59 +7512,210 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <translation>Additionele l&amp;okaties</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Choose a Directory</source>
         <translation>Kies een map</translation>
     </message>
     <message>
-        <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <source>Font Name</source>
+        <comment>font preview</comment>
+        <translation>Font Naam</translation>
+    </message>
+    <message>
+        <source>Use Font</source>
+        <comment>font preview</comment>
+        <translation>Font gebruiken</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <comment>font preview</comment>
+        <translation>Subset</translation>
+    </message>
+    <message>
+        <source>Path to Font File</source>
+        <comment>font preview</comment>
+        <translation>Pad naar fontbestand</translation>
+    </message>
+    <message>
+        <source>Embed in PostScript</source>
+        <comment>font preview</comment>
+        <translation>Insluiten in PostScript</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
+        <translation>Een font zoekpad kan alleen worden ingesteld in Bestand &gt; Voorkeuren, en alleen als er geen document is geopend. Sluiten alle documenten, en gebruik Bestand &gt; Voorkeuren &gt; Fonts om het font zoekpad te wijzigen.</translation>
     </message>
 </context>
 <context>
     <name>FontPreview</name>
     <message>
-        <source>Fonts Preview</source>
-        <translation>Lettertypevoorbeeld</translation>
+        <source>User</source>
+        <comment>font preview</comment>
+        <translation>Gebruiker</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <translation>Atl+O</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation>Alt+A</translation>
-    </message>
-    <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Filmquiz bracht knappe ex-yogi van de wijs</translation>
+        <source>System</source>
+        <comment>font preview</comment>
+        <translation>Systeem</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation>Het geselecteerde lettertype toevoegen aan het menu Stijl, Lettertype</translation>
+        <comment>font preview</comment>
+        <translation>Het geselecteerde font toepassen in het menu Stijl, Font</translation>
     </message>
     <message>
         <source>Leave preview</source>
+        <comment>font preview</comment>
         <translation>Voorbeeld sluiten</translation>
     </message>
     <message>
-        <source>Size of the Font</source>
-        <translation>Tekengrootte</translation>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <comment>font preview</comment>
+        <translation>Sexy qua lijf, doch bang voor &apos;t zwempak</translation>
+    </message>
+    <message>
+        <source>Start searching</source>
+        <translation>Start zoeken</translation>
+    </message>
+    <message>
+        <source>Size of the selected font</source>
+        <translation>Grootte van geselecteerde font</translation>
+    </message>
+    <message>
+        <source>Sample will be shown after key release</source>
+        <translation>Voorbeeld wordt getoond nadat toets is losgelaten</translation>
+    </message>
+    <message>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
+        <translation>De tekst hier getyped zal snel gezocht worden in de fontnamen. Zoeken is hoofdletterongevoelig. U kunt gebruik maken van wildcards (*, ?, [...]) in de tekst. Voorbeeld: t* zal alle fonts beginnend met t of T opsommen. *bold* zal alle fonts met het woord bold, bolder enz. opsommen.</translation>
+    </message>
+</context>
+<context>
+    <name>FontPreviewBase</name>
+    <message>
+        <source>Fonts Preview</source>
+        <translation>Fontvoorbeeld</translation>
+    </message>
+    <message>
+        <source>&amp;Quick Search:</source>
+        <translation>&amp;Snel zoeken:</translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation>&amp;Zoeken</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation>Alt+S</translation>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation>Fontnaam</translation>
+    </message>
+    <message>
+        <source>Doc</source>
+        <translation>Doc</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <translation>Subset</translation>
+    </message>
+    <message>
+        <source>Access</source>
+        <translation>Toegang</translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation>&amp;Lettergrootte:</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Sample text to display</source>
+        <translation>Te tonen voorbeeldtekst</translation>
+    </message>
+    <message>
+        <source>Se&amp;t</source>
+        <translation>Se&amp;t</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation>Alt+T</translation>
+    </message>
+    <message>
+        <source>Reset the text</source>
+        <translation>Herstel de tekst</translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation>&amp;Toevoegen</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+T</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation>&amp;Sluiten</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+S</translation>
+    </message>
+</context>
+<context>
+    <name>FontPreviewPlugin</name>
+    <message>
+        <source>&amp;Font Preview...</source>
+        <translation>&amp;Fontweergave...</translation>
+    </message>
+    <message>
+        <source>Font Preview dialog</source>
+        <translation>Fontvoorbeeldvenster</translation>
+    </message>
+    <message>
+        <source>Sorting, searching and browsing available fonts.</source>
+        <translation>Sorteer, zoek en blader door beschikbare fonts.</translation>
+    </message>
+</context>
+<context>
+    <name>FontReplaceDialog</name>
+    <message>
+        <source>Font Substitution</source>
+        <translation>Fontvervanging</translation>
+    </message>
+    <message>
+        <source>Original Font</source>
+        <translation>Orginele font</translation>
+    </message>
+    <message>
+        <source>Substitution Font</source>
+        <translation>Vervangend font</translation>
+    </message>
+    <message>
+        <source>Make these substitutions permanent</source>
+        <translation>Maak deze vervanging definitief</translation>
+    </message>
+    <message>
+        <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
+        <translation>Dit document bevat enkele fonts die niet op uw systeem geïnstalleerd zijn, kies vervangende fonts. Annuleren stop het laden van dit document.</translation>
+    </message>
+    <message>
+        <source>Cancels these font substitutions and stops loading the document.</source>
+        <translation>Annuleert de fontvervanging en stopt het laden van het document.</translation>
+    </message>
+    <message>
+        <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
+        <translation>Bij inschakelen zal Scribus deze vervangingen voor ontbrekende fonts permanent gebruiken in toekomstige layouts. Dit kan ongedaan worden gemaakt of aangepast worden in Bestand&gt; Voorkeuren&gt; Fonts.</translation>
+    </message>
+    <message>
+        <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
+        <translation>Als u OK selecteert, dan bewaren, zullen deze vervangingen definitief gemaakt worden in dit document.</translation>
     </message>
 </context>
 <context>
@@ -4592,75 +7729,158 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <translation>%</translation>
     </message>
     <message>
-        <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Hier kunt u kleur-stops toevoegen, bewerken of verwijderen.</translation>
+        <source>Add, change or remove color stops here</source>
+        <translation>Verander, verwijder of voeg kleurstops hier toe</translation>
     </message>
 </context>
 <context>
     <name>GuideManager</name>
     <message>
+        <source>Edit Guide</source>
+        <translation>Hulplijn bewerken</translation>
+    </message>
+    <message>
+        <source>Enter a position:</source>
+        <translation>Positie invoeren:</translation>
+    </message>
+    <message>
+        <source>New Guide</source>
+        <translation>Nieuwe hulplijn</translation>
+    </message>
+</context>
+<context>
+    <name>GuideManagerBase</name>
+    <message>
         <source>Manage Guides</source>
         <translation>Hulplijnen beheren</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation>pt</translation>
+        <source>&amp;Single</source>
+        <translation>&amp;Enkele</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation>mm</translation>
+        <source>Horizontals</source>
+        <translation>Horizontalen</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
-    </message>
-    <message>
-        <source>Horizontal Guides</source>
-        <translation>Horizontale hulplijnen</translation>
-    </message>
-    <message>
-        <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-pos:</translation>
+        <source>Guide</source>
+        <translation>Hulplijn</translation>
     </message>
     <message>
         <source>&amp;Add</source>
         <translation>&amp;Toevoegen</translation>
     </message>
     <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
         <source>D&amp;elete</source>
         <translation>V&amp;erwijderen</translation>
     </message>
     <message>
-        <source>Vertical Guides</source>
-        <translation>Verticale hulplijnen</translation>
+        <source>Alt+E</source>
+        <translation>Alt+E</translation>
     </message>
     <message>
-        <source>&amp;X-Pos:</source>
-        <translation>&amp;X-pos:</translation>
+        <source>Verticals</source>
+        <translation>Verticalen</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
         <translation>Toe&amp;voegen</translation>
     </message>
     <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
         <source>De&amp;lete</source>
         <translation>Ve&amp;rwijderen</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
         <translation>Hulplijnen vast&amp;zetten</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>Appl&amp;y to All Pages</source>
+        <translation>Op all&amp;e pagina&apos;s toepassen</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Alt+Y</source>
+        <translation>Alt+Y</translation>
+    </message>
+    <message>
+        <source>&amp;Column/Row</source>
+        <translation>&amp;Kolom/Rij</translation>
+    </message>
+    <message>
+        <source>&amp;Number:</source>
+        <translation>&amp;Nummer:</translation>
+    </message>
+    <message>
+        <source>U&amp;se Gap:</source>
+        <translation>Gebru&amp;ik tussenruimte:</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation>Alt+S</translation>
+    </message>
+    <message>
+        <source>Refer To</source>
+        <translation>Refereer aan</translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation>&amp;Pagina</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation>Alt+P</translation>
+    </message>
+    <message>
+        <source>M&amp;argins</source>
+        <translation>M&amp;arges</translation>
+    </message>
+    <message>
+        <source>S&amp;election</source>
+        <translation>S&amp;electie</translation>
+    </message>
+    <message>
+        <source>Nu&amp;mber:</source>
+        <translation>Nu&amp;mmer:</translation>
+    </message>
+    <message>
+        <source>Use &amp;Gap:</source>
+        <translation>&amp;Gebruik tussenruimte:</translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation>Alt+G</translation>
+    </message>
+    <message>
+        <source>&amp;Misc</source>
+        <translation>&amp;Diversen</translation>
+    </message>
+    <message>
+        <source>Delete all guides from the current page</source>
+        <translation>Verwijder alle hulplijnen op de huidige pagina</translation>
+    </message>
+    <message>
+        <source>Delete all guides from the current document</source>
+        <translation>Verwijder alle hulplijnen van het huidige document</translation>
+    </message>
+    <message>
+        <source>Delete Guides from Current &amp;Page</source>
+        <translation>Verwijder alle hulplijnen op de huidige &amp;pagina</translation>
+    </message>
+    <message>
+        <source>Delete Guides from &amp;All Pages</source>
+        <translation>Verwijder hulplijnen op &amp;alle pagina&apos;s</translation>
     </message>
 </context>
 <context>
@@ -4692,28 +7912,88 @@ documentatie en op http://www.scribus.net/ voor downloads.</translation>
         <translation>&amp;Zoeken</translation>
     </message>
     <message>
-        <source>S&amp;earch</source>
+        <source>Se&amp;arch</source>
         <translation>Zo&amp;eken</translation>
     </message>
     <message>
-        <source>Ctrl+F</source>
-        <translation>Ctrl+F</translation>
+        <source>&amp;New</source>
+        <translation>&amp;Nieuw</translation>
     </message>
     <message>
-        <source>F3</source>
-        <translation>F3</translation>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
     </message>
     <message>
-        <source>unknown</source>
-        <translation>onbekend</translation>
+        <source>De&amp;lete All</source>
+        <translation>A&amp;lles verwijderen</translation>
+    </message>
+    <message>
+        <source>Book&amp;marks</source>
+        <translation>&amp;Bladwijzers</translation>
+    </message>
+    <message>
+        <source>&amp;Print...</source>
+        <translation>Afdru&amp;kken...</translation>
+    </message>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>&amp;Sluiten</translation>
+    </message>
+    <message>
+        <source>Searching is case unsensitive</source>
+        <translation>Zoeken is niet hoofdlettergevoelig</translation>
     </message>
     <message>
         <source>Find</source>
-        <translation>Zoeken</translation>
+        <translation>Vind</translation>
     </message>
     <message>
         <source>Search Term:</source>
         <translation>Zoekterm:</translation>
+    </message>
+    <message>
+        <source>New Bookmark</source>
+        <translation>Nieuwe bladwijzer</translation>
+    </message>
+    <message>
+        <source>New Bookmark&apos;s Title:</source>
+        <translation>Nieuwe bladwijzertitel:</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Bestand</translation>
+    </message>
+    <message>
+        <source>&amp;Find...</source>
+        <translation>&amp;Vind...</translation>
+    </message>
+    <message>
+        <source>Find &amp;Next</source>
+        <translation>Vind v&amp;olgende</translation>
+    </message>
+    <message>
+        <source>Find &amp;Previous</source>
+        <translation>Vind vo&amp;rige</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>Be&amp;werken</translation>
+    </message>
+    <message>
+        <source>&amp;Add Bookmark</source>
+        <translation>Bl&amp;adwijzer toevoegen</translation>
+    </message>
+    <message>
+        <source>D&amp;elete All</source>
+        <translation>All&amp;es verwijderen</translation>
+    </message>
+    <message>
+        <source>&amp;Bookmarks</source>
+        <translation>&amp;Bladwijzers</translation>
+    </message>
+    <message>
+        <source>Relevance</source>
+        <translation>Relevantie</translation>
     </message>
 </context>
 <context>
@@ -4738,24 +8018,12 @@ documentatie en op http://www.scribus.net/ voor downloads.</translation>
 <context>
     <name>HySettings</name>
     <message>
-        <source>Hyphenator Settings</source>
-        <translation>Afbreekinstellingen</translation>
-    </message>
-    <message>
         <source>&amp;Language:</source>
         <translation>&amp;Taal:</translation>
     </message>
     <message>
         <source>&amp;Smallest Word:</source>
         <translation>&amp;Kleinste woord:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -4789,14 +8057,118 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
 </context>
 <context>
+    <name>ImageInfoDialog</name>
+    <message>
+        <source>Image Info</source>
+        <translation>Afbeelding informatie</translation>
+    </message>
+    <message>
+        <source>General Info</source>
+        <translation>Algemene informatie</translation>
+    </message>
+    <message>
+        <source>Date / Time:</source>
+        <translation>Datum / Tijd:</translation>
+    </message>
+    <message>
+        <source>Has Embedded Profile:</source>
+        <translation>Heeft ingebed profiel:</translation>
+    </message>
+    <message>
+        <source>Profile Name:</source>
+        <translation>Profielnaam:</translation>
+    </message>
+    <message>
+        <source>Has Embedded Paths:</source>
+        <translation>Heeft ingebedde paden:</translation>
+    </message>
+    <message>
+        <source>Has Layers:</source>
+        <translation>Heeft lagen:</translation>
+    </message>
+    <message>
+        <source>EXIF Info</source>
+        <translation>EXIF Informatie</translation>
+    </message>
+    <message>
+        <source>Artist:</source>
+        <translation>Artiest:</translation>
+    </message>
+    <message>
+        <source>Comment:</source>
+        <translation>Commentaar:</translation>
+    </message>
+    <message>
+        <source>User Comment:</source>
+        <translation>Gebruikerscommentaar:</translation>
+    </message>
+    <message>
+        <source>Camera Model:</source>
+        <translation>Cameramodel:</translation>
+    </message>
+    <message>
+        <source>Camera Manufacturer:</source>
+        <translation>Camerafabrikant:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>Omschrijving:</translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation>Auteursrecht:</translation>
+    </message>
+    <message>
+        <source>Scanner Model:</source>
+        <translation>Scannermodel:</translation>
+    </message>
+    <message>
+        <source>Scanner Manufacturer:</source>
+        <translation>Scannerfabrikant:</translation>
+    </message>
+    <message>
+        <source>Exposure time</source>
+        <translation>Belichtingstijd</translation>
+    </message>
+    <message>
+        <source>Aperture:</source>
+        <translation>Diafragma:</translation>
+    </message>
+    <message>
+        <source>ISO equiv.:</source>
+        <translation>ISO equiv.:</translation>
+    </message>
+</context>
+<context>
+    <name>ImportPSPlugin</name>
+    <message>
+        <source>Import &amp;EPS/PS...</source>
+        <translation>&amp;EPS/PS importeren...</translation>
+    </message>
+    <message>
+        <source>Imports EPS Files</source>
+        <translation>EPS bestanden importeren</translation>
+    </message>
+    <message>
+        <source>Imports most EPS files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation>Importeert de meeste EPS bestanden naar het huidige document,
+zet de vectordata om naar Scribus objecten.</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation>Postscript</translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation>PDF</translation>
+    </message>
+</context>
+<context>
     <name>InsPage</name>
     <message>
         <source>Insert Page</source>
         <translation>Pagina invoegen</translation>
-    </message>
-    <message>
-        <source>&amp;Inserting</source>
-        <translation>&amp;Invoegen</translation>
     </message>
     <message>
         <source>Page(s)</source>
@@ -4815,24 +8187,250 @@ De waarde 0 betekent onbeperkt.</translation>
         <translation>aan het eind</translation>
     </message>
     <message>
-        <source>Inserting</source>
-        <translation>Invoegen</translation>
+        <source>&amp;Insert</source>
+        <translation>&amp;Invoegen</translation>
     </message>
     <message>
-        <source>&amp;Template (Left Page):</source>
-        <translation>&amp;Sjabloon (linker pagina):</translation>
+        <source>Master Pages</source>
+        <translation>Pagina sjablonen</translation>
     </message>
     <message>
-        <source>&amp;Template:</source>
-        <translation>&amp;Sjabloon:</translation>
+        <source>&amp;Master Page:</source>
+        <translation>&amp;Pagina sjabloon:</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normaal</translation>
+        <source>Page Size</source>
+        <translation>Paginagrootte</translation>
     </message>
     <message>
-        <source>Template (Right Page):</source>
-        <translation>Sjabloon (rechter pagina):</translation>
+        <source>&amp;Size:</source>
+        <translation>&amp;Grootte:</translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation>Orië&amp;ntatie:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation>Staand</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation>Liggend</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation>&amp;Breedte:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation>&amp;Hoogte:</translation>
+    </message>
+    <message>
+        <source>Move Objects with their Page</source>
+        <translation>Verplaats objecten met hun pagina</translation>
+    </message>
+</context>
+<context>
+    <name>InsertAFrame</name>
+    <message>
+        <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
+        <translation>&lt;b&gt;Tekst frame invoegen&lt;/b&gt;&lt;br/&gt;In een tekstframe kan tekst worden ingevoegd op een bepaalde plaats in een bepaalde gekozen vormgeving.. Tekst mag worden geselecteerd bij de Opties tab, als een document onmiddelijk in een tekstframe moet worden geïmporteerd. Scribus ondersteunt een groot aantal bestandsformaten, van platte tekst tot OpenOffice.org&lt;br/&gt;Tekst kan worden bewerkt direct op de pagina of in de eenvoudige Story Editor.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
+        <translation>&lt;b&gt;Voeg een afbeeldingenframe in&lt;/b&gt;&lt;br/&gt;Met een afbeeldingenframe kunnen afbeeldingen op een pagina worden geplaatst. Verschillende effecten kunnen worden toegepast en gecombineerd, waaronder transparatie, aanpassen helderheid, posterisatie voor interessante visuele resultaten. Aanpassen van grootte en vorm kan via het eigenschappen palet.</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Openen</translation>
+    </message>
+</context>
+<context>
+    <name>InsertAFrameBase</name>
+    <message>
+        <source>Insert A Frame</source>
+        <translation>Frame invoegen</translation>
+    </message>
+    <message>
+        <source>T&amp;ype</source>
+        <translation>T&amp;ype</translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation>&amp;Tekstframe</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation>Alt+T</translation>
+    </message>
+    <message>
+        <source>&amp;Image Frame</source>
+        <translation>&amp;Afbeeldingsframe</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>T&amp;able</source>
+        <translation>T&amp;abel</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation>Vorm</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Polygoon</translation>
+    </message>
+    <message>
+        <source>&amp;Location</source>
+        <translation>&amp;Locatie</translation>
+    </message>
+    <message>
+        <source>Page Placement</source>
+        <translation>Pagina plaatsing</translation>
+    </message>
+    <message>
+        <source>Current Page</source>
+        <translation>Huidige pagina</translation>
+    </message>
+    <message>
+        <source>Selecting this will place the frame only on the current page.</source>
+        <translation>Selectie zal dit frame uitsluitend op de huidige pagina plaatsen.</translation>
+    </message>
+    <message>
+        <source>All Pages</source>
+        <translation>Alle pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>Range of Pages:</source>
+        <translation>Bereik van pagina&apos;s:</translation>
+    </message>
+    <message>
+        <source>Selecting this will place frame on the selected range. </source>
+        <translation>Selectie zal dit frame uitsluitend in het huidige bereik plaatsen. </translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <source>Position of Frame</source>
+        <translation>Frame positie</translation>
+    </message>
+    <message>
+        <source>Top Left of Margins</source>
+        <translation>Linkerboven zijde van marges</translation>
+    </message>
+    <message>
+        <source>Selecting this places the frame in the upper left of the page margins defined in your doc setup.</source>
+        <translation>Selectie zal dit frame plaatsen in de linker bovenzijde van de paginamarges vastgesteld in de document instellingen.</translation>
+    </message>
+    <message>
+        <source>Top Left of Page</source>
+        <translation>Linker bovenzijde van de pagina</translation>
+    </message>
+    <message>
+        <source>Selecting this puts the frame on the top left with postion 0,0</source>
+        <translation>Selectie plaatst het frame linksboven in de positie 0,0</translation>
+    </message>
+    <message>
+        <source>Top Left of Bleed</source>
+        <translation>Linker bovenzijde van afloop</translation>
+    </message>
+    <message>
+        <source>Selecting this places the frame in the upper left of the page bleed defined in your doc setup.</source>
+        <translation>Selectie zal dit frame plaatsen in de linker bovenzijde van de pagina afloop vastgesteld in de document instellingen.</translation>
+    </message>
+    <message>
+        <source>Custom Position:</source>
+        <translation>Aangepaste positie:</translation>
+    </message>
+    <message>
+        <source>Set the dimensions wished below in the X: Y: dialog below.</source>
+        <translation>Stel de gewenste afmetingen vast in de X: Y: dialoog hieronder.</translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation>X:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation>Y:</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation>&amp;Grootte</translation>
+    </message>
+    <message>
+        <source>Same as the Page Margins</source>
+        <translation>Gelijk aan pagina marges</translation>
+    </message>
+    <message>
+        <source>Same as the Page</source>
+        <translation>Gelijk aan de pagina</translation>
+    </message>
+    <message>
+        <source>Same as the Bleed</source>
+        <translation>Gelijk aan afloop</translation>
+    </message>
+    <message>
+        <source>Same as the Imported Image</source>
+        <translation>Gelijk aan de geimporteerde afbeelding</translation>
+    </message>
+    <message>
+        <source>Custom Size:</source>
+        <translation>Aangepast formaat:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Hoogte:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Breedte:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation>&amp;Opties</translation>
+    </message>
+    <message>
+        <source>Source Image:</source>
+        <translation>Bron afbeelding:</translation>
+    </message>
+    <message>
+        <source>&amp;Select File...</source>
+        <translation>Be&amp;stand selecteren...</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation>Alt+S</translation>
+    </message>
+    <message>
+        <source>There are no options for this type of frame</source>
+        <translation>Voor dit type frame zijn geen opties</translation>
+    </message>
+    <message>
+        <source>Columns:</source>
+        <translation>Kolommen:</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Tussenruimte:</translation>
+    </message>
+    <message>
+        <source>Link Created Frames</source>
+        <translation>Koppel tekstframes</translation>
+    </message>
+    <message>
+        <source>Source Document:</source>
+        <translation>Bron document:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -4850,20 +8448,12 @@ De waarde 0 betekent onbeperkt.</translation>
         <translation>Tabel invoegen</translation>
     </message>
     <message>
-        <source>Number of Rows:</source>
+        <source>Number of rows:</source>
         <translation>Aantal rijen:</translation>
     </message>
     <message>
-        <source>Number of Columns:</source>
+        <source>Number of columns:</source>
         <translation>Aantal kolommen:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Annuleren</translation>
     </message>
 </context>
 <context>
@@ -4897,95 +8487,12 @@ De waarde 0 betekent onbeperkt.</translation>
         <translation>Nieuw script</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>&amp;No</source>
-        <translation>&amp;Nee</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Ja</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete this Script?</source>
+        <source>Do you really want to delete this script?</source>
         <translation>Wilt u dit script werkelijk verwijderen?</translation>
     </message>
-</context>
-<context>
-    <name>KeyManager</name>
     <message>
-        <source>Manage Keyboard Shortcuts</source>
-        <translation>Sneltoetsen instellen</translation>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation>Actie</translation>
-    </message>
-    <message>
-        <source>Current Key</source>
-        <translation>Huidige toets</translation>
-    </message>
-    <message>
-        <source>Select a Key for this Action</source>
-        <translation>Selecteer een toets voor deze actie</translation>
-    </message>
-    <message>
-        <source>&amp;No Key</source>
-        <translation>&amp;Geen toets</translation>
-    </message>
-    <message>
-        <source>&amp;User Defined Key</source>
-        <translation>Gebr&amp;uikersgedefiniëerd</translation>
-    </message>
-    <message>
-        <source>ALT+SHIFT+T</source>
-        <translation>Alt+Shift+T</translation>
-    </message>
-    <message>
-        <source>Set &amp;Key</source>
-        <translation>&amp;Toets instellen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Alt</source>
-        <translation>Alt</translation>
-    </message>
-    <message>
-        <source>Ctrl</source>
-        <translation>Ctrl</translation>
-    </message>
-    <message>
-        <source>Shift</source>
-        <translation>Shift</translation>
-    </message>
-    <message>
-        <source>Shift+</source>
-        <translation>Shift+</translation>
-    </message>
-    <message>
-        <source>Alt+</source>
-        <translation>Alt+</translation>
-    </message>
-    <message>
-        <source>Ctrl+</source>
-        <translation>Ctrl+</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>This Key Sequence is already in use</source>
-        <translation>Deze toets is al in gebruik</translation>
+        <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
+        <translation>Voegt een nieuw Script toe, benoemt een functie met dezelfde naam. Als u dit script als een &quot;Open Actie&quot; script wilt gebruiken, verander dan de naam van de functie.</translation>
     </message>
 </context>
 <context>
@@ -4995,28 +8502,140 @@ De waarde 0 betekent onbeperkt.</translation>
         <translation>Lagen</translation>
     </message>
     <message>
-        <source>Add a new Layer</source>
-        <translation>Nieuwe laag toevoegen</translation>
-    </message>
-    <message>
         <source>Delete Layer</source>
         <translation>Laag verwijderen</translation>
     </message>
     <message>
-        <source>Raise Layer</source>
-        <translation>Laag verhogen</translation>
+        <source>Name</source>
+        <translation>Naam</translation>
     </message>
     <message>
-        <source>Lower Layer</source>
-        <translation>Laag verlagen</translation>
-    </message>
-    <message>
-        <source>New Layer</source>
-        <translation>Nieuwe laag</translation>
-    </message>
-    <message>
-        <source>Do you want to delete all Objects on this Layer too?</source>
+        <source>Do you want to delete all objects on this layer too?</source>
         <translation>Wilt u alle objecten op deze laag ook verwijderen?</translation>
+    </message>
+    <message>
+        <source>Add a new layer</source>
+        <translation>Voeg een nieuwe laag toe</translation>
+    </message>
+    <message>
+        <source>Delete layer</source>
+        <translation>Laag verwijderen</translation>
+    </message>
+    <message>
+        <source>Raise layer</source>
+        <translation>Laag omhoog</translation>
+    </message>
+    <message>
+        <source>Lower layer</source>
+        <translation>Verlaag laag</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation>Ondoorschijnendheid:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation>Vermeng Mode:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normaal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation>Donkerder</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation>Lichter</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation>Vermenigvuldig</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation>Scherm</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation>Maskerlaag</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation>Hard licht</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation>Zacht licht</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation>Verschil</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation>Uitsluiting</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation>Kleur tegenhouden</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation>Kleur doordrukken</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation>Tint</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Verzadiging</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Luminosity</source>
+        <translation>Helderheid</translation>
+    </message>
+    <message>
+        <source>Duplicates the current layer</source>
+        <translation>Dupliceer de huidige laag</translation>
+    </message>
+    <message>
+        <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
+        <translation>Kleur van de laag indicator - Elke laag wordt een kleur voor weergave toegewezen als de laag indicatoren zijn ingeschakeld. Dubbelklik om de kleur te bewerken.</translation>
+    </message>
+    <message>
+        <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
+        <translation>Maak laag zichtbaar - Uitschakelen om de laag  te verbergen </translation>
+    </message>
+    <message>
+        <source>Print Layer - Uncheck to disable printing. </source>
+        <translation>Afdruklaag - Uitschakelen om printen uit te schakelen. </translation>
+    </message>
+    <message>
+        <source>Lock or Unlock Layer - Unchecked is unlocked </source>
+        <translation>Vergrendel of ontgrendel laag - Uitgeschakeld is ontgrendeld </translation>
+    </message>
+    <message>
+        <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
+        <translation>Tekst loopt om object in onderliggende lagen - Inschakelen zorgt voor tekstomloop rond andere objecten, zelfs in onderliggende lagen</translation>
+    </message>
+    <message>
+        <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
+        <translation>Outline modus - Schakelt &apos;draadmodel-weergave&apos; van objecten in om weergave van complexe objecten te versnellen.</translation>
+    </message>
+    <message>
+        <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
+        <translation>Naam van de laag - Dubbelklikken op de naam van de laag maakt bewerken mogelijk</translation>
     </message>
 </context>
 <context>
@@ -5024,10 +8643,6 @@ De waarde 0 betekent onbeperkt.</translation>
     <message>
         <source>Edit Line Styles</source>
         <translation>Lijnstijlen bewerken</translation>
-    </message>
-    <message>
-        <source>&amp;Append</source>
-        <translation>&amp;Toevoegen</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -5050,32 +8665,12 @@ De waarde 0 betekent onbeperkt.</translation>
         <translation>Op&amp;slaan</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Copy of %1</source>
         <translation>Kopie van %1</translation>
     </message>
     <message>
         <source>New Style</source>
         <translation>Nieuwe stijl</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>&amp;No</source>
-        <translation>&amp;Nee</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Ja</translation>
     </message>
     <message>
         <source>Open</source>
@@ -5086,372 +8681,385 @@ De waarde 0 betekent onbeperkt.</translation>
         <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
+        <source>&amp;Import</source>
+        <translation>&amp;Importeren</translation>
     </message>
     <message>
-        <source>Do you really want to delete this Style?</source>
+        <source>Do you really want to delete this style?</source>
         <translation>Wilt u deze stijl werkelijk verwijderen?</translation>
     </message>
 </context>
 <context>
-    <name>MSpinBox</name>
+    <name>LineStyleWBase</name>
+    <message>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation>Lijndikte:</translation>
+    </message>
+    <message>
+        <source>LineStyleWBase</source>
+        <translation type="unfinished">LijnstijlWBase</translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWidget</name>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation>pt</translation>
+        <source>Flat Cap</source>
+        <translation>Plat eind</translation>
     </message>
     <message>
-        <source>mm</source>
-        <translation>mm</translation>
+        <source>Square Cap</source>
+        <translation>Vierkant eind</translation>
     </message>
     <message>
-        <source>in</source>
-        <translation>in</translation>
+        <source>Round Cap</source>
+        <translation>Rond eind</translation>
     </message>
     <message>
-        <source>p</source>
-        <translation>p</translation>
+        <source>Miter Join</source>
+        <translation>Verstekverbinding</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation>mm</translation>
+        <source>Bevel Join</source>
+        <translation>Schuine verbinding</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation>in</translation>
+        <source>Round Join</source>
+        <translation>Ronde verbinding</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation>p</translation>
-    </message>
-</context>
-<context>
-    <name>Macro</name>
-    <message>
-        <source>Passed object is not callable</source>
-        <comment>python error</comment>
-        <translation>Het opgegeven object is niet aanroepbaar</translation>
-    </message>
-</context>
-<context>
-    <name>MacroManager</name>
-    <message>
-        <source>Manage Macros</source>
-        <translation>Macro&apos;s beheren</translation>
+        <source>Add a new line</source>
+        <translation>Nieuwe lijn toevoegen</translation>
     </message>
     <message>
-        <source>Brings up a graphical window for creating, deleting, editing, saving and loading macros.</source>
-        <translation>Opent een venster om macro&apos;s te maken, verwijderen, bewerken, laden en opslaan.</translation>
+        <source>Remove a line</source>
+        <translation>Lijn verwijderen</translation>
     </message>
     <message>
-        <source>Create, edit and delete macros</source>
-        <translation>Macro&apos;s aanmaken, bewerken en verwijderen</translation>
+        <source>Line style</source>
+        <translation>Lijnstijl</translation>
     </message>
     <message>
-        <source>&amp;Macro</source>
-        <translation>&amp;Macro</translation>
+        <source>Line width</source>
+        <translation>Lijndikte</translation>
     </message>
     <message>
-        <source>Scribus - Macro Manager</source>
-        <translation>Scribus - Macrobeheer</translation>
+        <source>End style</source>
+        <translation>Eindstijl</translation>
     </message>
     <message>
-        <source>Unable to open the requested file: %1</source>
-        <translation>Kan het gevraagde bestand niet openen: %1</translation>
+        <source>Join style</source>
+        <translation>Stijl verbinding</translation>
     </message>
     <message>
-        <source>Scribus - Edit Macro</source>
-        <translation>Scribus - Macro bewerken</translation>
+        <source>Line color</source>
+        <translation>Lijnkleur</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;The macro name you requested is already taken  by another macro.&lt;/qt&gt;</source>
-        <translation>  &lt;qt&gt;De gevraagde macronaam is al in gebruik door een andere macro.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Macro creation failed. The macro manager was unable to set up the macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Het aanmaken van de macro is mislukt. De macrobeheerder kon de macro niet initialiseren.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>The macro &apos;%1&apos; has reported a minor error.
-The error is: %2
-A full traceback follows:
-
-%3
-</source>
-        <translation>De macro &apos;%1&apos; rapporteerde een kleine fout.
-De fout is: %2
-Een volledige backtrace volgt:
-
-%3
-</translation>
-    </message>
-    <message>
-        <source>The macro &apos;%1&apos; failed to execute correctly.
-The error is: %2
-A full traceback follows:
-
-%3
-</source>
-        <translation>The macro &apos;%1&apos; kon niet correct worden uitgevoerd.
-De fout is: %2
-Een volledige backtrace volgt:
-
-%3
-</translation>
-    </message>
-    <message>
-        <source>Scribus - New Macro</source>
-        <translation>Scribus - Nieuwe macro</translation>
-    </message>
-    <message>
-        <source>Enter name for new macro: </source>
-        <translation> Voer een naam in voor de nieuwe macro:</translation>
+        <source>Line shade</source>
+        <translation>Lijntint</translation>
     </message>
 </context>
 <context>
-    <name>ManageMacrosDialog</name>
+    <name>LoadSavePlugin</name>
     <message>
-        <source>Scribus - Macro Manager</source>
-        <translation>Scribus - Macrobeheer</translation>
+        <source>All Files (*)</source>
+        <translation>Alle bestanden (*)</translation>
+    </message>
+</context>
+<context>
+    <name>LoremManager</name>
+    <message>
+        <source>Select Lorem Ipsum</source>
+        <translation>Selecteer Lorem Ipsum</translation>
     </message>
     <message>
-        <source>Renaming the macro failed because the name is already in use.</source>
-        <translation>De macro kon niet worden hernoemd omdat de naam al in gebruik is.</translation>
+        <source>Author:</source>
+        <translation>Auteur:</translation>
     </message>
     <message>
-        <source>Scribus - Manage Macros</source>
-        <translation>Scribus  - Macro&apos;s beheren</translation>
+        <source>Get More:</source>
+        <translation>Meer verkrijgen:</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;&lt;p&gt;This window is the Scribus Macro Manager. Here you can create macros, edit macros, etc. All changes are made using the buttons on the right hand side of the window.&lt;/p&gt;
-&lt;p&gt;All changes made in this dialog take effect instantly - you cannot cancel the actions you make here.
-The table in the center of the dialog lists what macros are currently loaded and some information about them. Use &quot;What&apos;s this&quot; on the table for more information.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Dit is de Scribus Macro manager. Hier kunt u macro&apos;s maken en bewerken. Alle wijzigingen worden gemaakt met de knoppen aan de rechterkant van het venster.&lt;/p&gt;
-&lt;p&gt;Alle wijzigingen worden direct van kracht in dit venster - u kunt geen handelingen annuleren.
-De tabel in het midden toont de lijst van macro&apos;s die op dit moment geladen zijn en enige informatie erover. Gebruik de &quot;Wat is dit&quot;-functie voor meer informatie.&lt;/p&gt;&lt;/qt&gt;</translation>
+        <source>XML File:</source>
+        <translation>XML bestand:</translation>
     </message>
     <message>
-        <source>&amp;New</source>
-        <translation>&amp;Nieuw</translation>
+        <source>Lorem Ipsum</source>
+        <translation>Lorem Ipsum</translation>
     </message>
     <message>
-        <source>Alt+N</source>
-        <translation>Alt+N</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Create a new macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Een nieuwe macro aanmaken.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Create a new macro by prompting for the macro name then bringing up the edit macro dialog box.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Maakt een nieuwe macro aan. Eerst wordt om een passende naam gevraagd.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&amp;Ok</source>
-        <translation>&amp;OK</translation>
+        <source>Paragraphs:</source>
+        <translation>Alinea&apos;s:</translation>
     </message>
     <message>
         <source>Alt+O</source>
         <translation>Atl+O</translation>
     </message>
     <message>
-        <source>Macro</source>
-        <translation>Macro</translation>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
     </message>
     <message>
-        <source>Edit</source>
-        <translation>Bewerken</translation>
+        <source>Standard Lorem Ipsum</source>
+        <translation>Standaard Lorem Ipsum</translation>
+    </message>
+</context>
+<context>
+    <name>MarginDialog</name>
+    <message>
+        <source>Manage Page Properties</source>
+        <translation>Paginaeigenschappen bewerken</translation>
     </message>
     <message>
-        <source>Accel</source>
-        <translation>Sneltoets</translation>
+        <source>Page Size</source>
+        <translation>Paginagrootte</translation>
     </message>
     <message>
-        <source>Description</source>
-        <translation>Omschrijving</translation>
+        <source>&amp;Size:</source>
+        <translation>&amp;Grootte:</translation>
     </message>
     <message>
-        <source>Rena&amp;me</source>
-        <translation>Hernoe&amp;men</translation>
+        <source>Orie&amp;ntation:</source>
+        <translation>Orië&amp;ntatie:</translation>
     </message>
     <message>
-        <source>Alt+M</source>
-        <translation>Alt+M</translation>
+        <source>Portrait</source>
+        <translation>Staand</translation>
     </message>
     <message>
-        <source>Rename the selected macro.</source>
-        <translation>De naam van de geselecteerde macro wijzigen.</translation>
+        <source>Landscape</source>
+        <translation>Liggend</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Rename the selected macro. You will be prompted for the new name.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Geeft de geselecteerde macro een nieuwe naam. U wordt om de nieuwe naam gevraagd.&lt;/qt&gt;</translation>
+        <source>&amp;Width:</source>
+        <translation>&amp;Breedte:</translation>
     </message>
     <message>
-        <source>&amp;Edit...</source>
-        <translation>B&amp;ewerken...</translation>
+        <source>&amp;Height:</source>
+        <translation>&amp;Hoogte:</translation>
     </message>
     <message>
-        <source>Alt+E</source>
-        <translation>Alt+E</translation>
+        <source>Move Objects with their Page</source>
+        <translation>Verplaats objecten met hun pagina</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Edit the source of the selected macro, if the source is availible.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;De broncode van de geselecteerde macro bewerken (indien aanwezig).&lt;/qt&gt;</translation>
+        <source>Type:</source>
+        <translation>Type:</translation>
     </message>
     <message>
-        <source>&amp;Delete</source>
-        <translation>Verwij&amp;deren</translation>
+        <source>Margin Guides</source>
+        <translation>Marge hulplijnen</translation>
     </message>
     <message>
-        <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <source>Other Settings</source>
+        <translation>Andere instellingen</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Delete the currently selected macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Verwijdert de geselecteerde macro.&lt;/qt&gt;</translation>
+        <source>Master Page:</source>
+        <translation>Sjabloon:</translation>
+    </message>
+</context>
+<context>
+    <name>MarginWidget</name>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation>On&amp;der:</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Delete the selected macro. This is instant, and there is no way to recover the macro once deleted. If the macro is created by a start-up script, it will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Verwijdert de geselecteerde macro. Dit gebeurt direct, en er is geen manier om een verwijderde macro terug te krijgen. Indien de macro werd gedefiniëerd door een opstartscript verschijnt deze opnieuw na herstarten van Scribus.&lt;/p&gt;</translation>
+        <source>&amp;Top:</source>
+        <translation>&amp;Boven:</translation>
     </message>
     <message>
-        <source>&amp;Set Accel</source>
-        <translation>&amp;Sneltoets instellen</translation>
+        <source>&amp;Right:</source>
+        <translation>&amp;Rechts:</translation>
     </message>
     <message>
-        <source>Alt+S</source>
-        <translation>Alt+S</translation>
+        <source>&amp;Left:</source>
+        <translation>&amp;Links:</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Set the keyboard shortcut for the selected macro.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Stelt de sneltoets in voor de geselecteerde macro.&lt;/qt&gt;</translation>
+        <source>Distance between the top margin guide and the edge of the page</source>
+        <translation>Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Set the keyboard shortcut (accelerator) key of the selected macro. You will be prompted for the new shortcut in a dialog box.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Stelt de sneltoets in voor de macro. U wordt gevraagd een nieuwe sneltoets aan te slaan in een speciaal venster.&lt;/p&gt;</translation>
+        <source>Distance between the bottom margin guide and the edge of the page</source>
+        <translation>Afstand tussen de onderkant van de marge en de rand van het papier</translation>
     </message>
     <message>
-        <source>E&amp;xport</source>
-        <translation>E&amp;xporteren</translation>
+        <source>&amp;Inside:</source>
+        <translation>B&amp;innenkant:</translation>
     </message>
     <message>
-        <source>Alt+X</source>
-        <translation>Alt+X</translation>
+        <source>O&amp;utside:</source>
+        <translation>B&amp;uitenkant:</translation>
     </message>
     <message>
-        <source>Export macros to a file.</source>
-        <translation>Macro&apos;s exporteren naar een bestand.</translation>
+        <source>Preset Layouts:</source>
+        <translation>Vooringestelde Layouts:</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Export macros to an external file. The file will be a Python script containing the scripter commands to re-create the macros. It can be run using &lt;tt&gt;Load extension script&lt;/tt&gt; from the &lt;tt&gt;Script&lt;/tt&gt; menu, or the import button in the macro manager.&lt;/p&gt;
-&lt;p&gt;If you want a nice, human readable version of your macros, select the macro you want, press the &lt;tt&gt;Edit&lt;/tt&gt;  button, and use the &lt;tt&gt;Save source&lt;/tt&gt; button in the &lt;tt&gt;Edit Macro&lt;/tt&gt; dialog. You won&apos;t be able to load that version with &lt;tt&gt;Load extension script&lt;/tt&gt; - instead, create a new macro with the&lt;tt&gt; New&lt;/tt&gt; button and use &lt;tt&gt;Load source&lt;/tt&gt;.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Slaat macro&apos;s op naar een extern bestand. Dit is een Python-script dat de scripter-commando&apos;s bevat om de macro&apos;s opnieuw aan te maken. Het kan worden gestart door de functie &lt;tt&gt;Extensie-script laden&lt;/tt&gt; uit het &lt;tt&gt;Script&lt;/tt&gt;-menu te gebruiken, of de knop Importeren in de Macro manager.&lt;/p&gt;
-  &lt;p&gt;Als u een nette goed leesbare versie van uw macro&apos;s wilt, selecteer dan de macro en klik op &lt;tt&gt;Bewerken&lt;/tt&gt;, en gebruik vervolgens de functie &lt;tt&gt;Broncode opslaan&lt;/tt&gt; de dialoog &lt;tt&gt;Macro bewerken&lt;/tt&gt;. U kunt die versie dan echter niet laden met de functie &lt;tt&gt;Extensie-script laden&lt;/tt&gt;. Maak dan een nieuwe macro aan met de knop &lt;tt&gt;Nieuw&lt;/tt&gt; en gebruik dan de functie &lt;tt&gt;Broncode laden&lt;/tt&gt;.&lt;/p&gt;</translation>
+        <source>Apply the margin changes to all existing pages in the document</source>
+        <translation>De geselecteerde margeinstellingen op alle bestaande pagina&apos;s van het document toepassen</translation>
     </message>
     <message>
-        <source>Delete &amp;All</source>
-        <translation>&amp;Alles verwijderen</translation>
+        <source>Printer Margins...</source>
+        <translation>Printer marges...</translation>
     </message>
     <message>
-        <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <source>Import the margins for the selected page size from the available printers.</source>
+        <translation>Importeer de marges voor de geselecteerde paginagrootte bij de beschikbare printers.</translation>
     </message>
     <message>
-        <source>Delete all macros.</source>
-        <translation>Verwijdert alle macro&apos;s.</translation>
+        <source>Apply settings to:</source>
+        <translation>Instellingen toepassen op:</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Delete all registered macros. This is instant, and there is no way to recover the deleted macros. Any macros created by your start-up script will reappear next time you load Scribus.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Verwijdert alle macro&apos;s. Dit gebeurt direct, en er is geen manier om de verwijderde macro&apos;s terug te krijgen. Macro&apos;s die door uw opstartscript werden aangemaakt zullen bij de volgende keer starten van Scribus wel weer geladen worden.&lt;/p&gt;</translation>
+        <source>All Document Pages</source>
+        <translation>Alle document pagina&apos;s</translation>
     </message>
     <message>
-        <source>&amp;Import</source>
-        <translation>&amp;Importeren</translation>
+        <source>All Master Pages</source>
+        <translation>Alle pagina sjablonen</translation>
     </message>
     <message>
-        <source>Alt+I</source>
-        <translation>Alt+I</translation>
+        <source>Apply the margin changes to all existing master pages in the document</source>
+        <translation>De geselecteerde margeinstellingen op alle bestaande pagina sjablonen van het document toepassen</translation>
     </message>
     <message>
-        <source>Import macros from a file.</source>
-        <translation>Macro&apos;s uit een bestand importeren.</translation>
+        <source>Margin Guides</source>
+        <translation>Marge hulplijnen</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Loads macros from an external file.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;Hiermee kunt u macro&apos;s uit een extern bestand importeren.&lt;/p&gt;</translation>
+        <source>Top:</source>
+        <translation>Boven:</translation>
     </message>
     <message>
-        <source>Close this dialog</source>
-        <translation>Dit dialoogvenster sluiten</translation>
+        <source>Bottom:</source>
+        <translation>Onder:</translation>
     </message>
     <message>
-        <source>Return to Scribus</source>
-        <translation>Terug naar Scribus</translation>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Afstand voor afloop vanaf de bovenkant van de fysieke pagina</translation>
     </message>
     <message>
-        <source>&lt;p&gt;Edit the selected macro. &lt;/p&gt;
-&lt;p&gt;If this button is greyed out, either there is no selected macro or the macro manager does not have the source code for the macro you have selected (in which case &lt;tt&gt;No&lt;/tt&gt; will be shown in the &lt;tt&gt;Edit &lt;/tt&gt;column of the macro).&lt;/p&gt;
-&lt;p&gt;If Scribus doesn&apos;t have the source, the macro was probably created by a script.&lt;/p&gt;</source>
-        <translation>&lt;p&gt;De geselecteerde macro bewerken.&lt;/p&gt;
-&lt;p&gt;Als deze knop niet actief is hebt u óf geen macro geselecteerd of de macro heeft geen broncode (in welk geval er &lt;tt&gt;Nee&lt;/tt&gt; wordt weergegeven in de kolom &lt;tt&gt;Bewerken&lt;/tt&gt; van de macro).&lt;/p&gt;
-&lt;p&gt;Als Scribus de broncode niet heeft is de macro wellicht aangemaakt door een script.&lt;/p&gt;</translation>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Afstand voor afloop vanaf de onderkant van de fysieke pagina</translation>
     </message>
     <message>
-        <source>Scribus Macro Files (*.pymacro)</source>
-        <translation>Scribus macrobestanden (*.pymacro)</translation>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Afstand voor afloop vanaf de linkerkant van de fysieke pagina</translation>
     </message>
     <message>
-        <source>Open File Dialog</source>
-        <translation>Bestand openen</translation>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Afstand voor afloop vanaf de rechterkant van de fysieke pagina</translation>
     </message>
     <message>
-        <source>Select the macro file to load.</source>
-        <translation>Selecteer de te laden macro.</translation>
+        <source>Bleeds</source>
+        <translation>Afloop</translation>
     </message>
     <message>
-        <source>Save File Dialog</source>
-        <translation>Bestand opslaan</translation>
+        <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Afstand tussen de linker marge hulplijn en de rand van de pagina. Als een dubbelzijdige,3 of 4 slag layout is geselecteerd, kan deze marge-ruimte worden gebruikt om correcte bindmarges te verkrijgen</translation>
     </message>
     <message>
-        <source>Save all macros</source>
-        <translation>Alle macro&apos;s opslaan</translation>
+        <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding</source>
+        <translation>Afstand tussen de rechter marge hulplijn en de rand van de pagina. Als een dubbelzijdige,3 of 4 slag layout is geselecteerd, kan deze marge-ruimte worden gebruikt om correcte bindmarges te verkrijgen</translation>
     </message>
     <message>
-        <source>Scribus - Rename Macro</source>
-        <translation>Scribus - Macro hernoemen</translation>
+        <source>Inside:</source>
+        <translation>Binnenzijde:</translation>
     </message>
     <message>
-        <source>Enter new name: </source>
-        <translation>Voer nieuwe naam in:</translation>
+        <source>Outside:</source>
+        <translation>Buitenzijde:</translation>
     </message>
     <message>
-        <source>Scribus - Set Macro Shortcut</source>
-        <translation>Scribus - macro sneltoets instellen</translation>
+        <source>Left:</source>
+        <translation>Links:</translation>
     </message>
     <message>
-        <source>Enter new shortcut: </source>
-        <translation>Voer nieuwe sneltoets in:</translation>
+        <source>Right:</source>
+        <translation>Rechts:</translation>
+    </message>
+</context>
+<context>
+    <name>MasterPagesPalette</name>
+    <message>
+        <source>Edit Master Pages</source>
+        <translation>Bewerk pagina sjabloon</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Ja</translation>
+        <source>Do you really want to delete this master page?</source>
+        <translation>Wilt u dit pagina sjabloon werkelijk verwijderen?</translation>
     </message>
     <message>
-        <source>No</source>
-        <translation>Nee</translation>
+        <source>&amp;Name:</source>
+        <translation>&amp;Naam:</translation>
     </message>
     <message>
-        <source>&lt;p&gt;This table lists the macros that are currently defined.&lt;/p&gt;
-
-&lt;p&gt;&lt;b&gt;Macro:&lt;/b&gt; The name of the macro, as shown in the menu bar and in other places around Scribus.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>New Master Page</source>
+        <translation>Nieuw pagina sjabloon</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>New MasterPage</source>
+        <translation>Nieuw pagina sjabloon</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation>Kopie #%1 van</translation>
+    </message>
+    <message>
+        <source>Duplicate the selected master page</source>
+        <translation>Dupliceer het geselecteerd pagina sjabloon</translation>
+    </message>
+    <message>
+        <source>Delete the selected master page</source>
+        <translation>Verwijder het geselecteerde pagina sjabloon</translation>
+    </message>
+    <message>
+        <source>Add a new master page</source>
+        <translation>Voeg een nieuw pagina sjabloon toe</translation>
+    </message>
+    <message>
+        <source>Import master pages from another document</source>
+        <translation>Importeer pagina sjablonen vanuit een ander document</translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation>Nieuw pagina sjabloon %1</translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation>Kan pagina sjabloon niet hernoemen</translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation>De standaard pagina is niet hernoembaar.</translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation>Hernoem pagina sjabloon</translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation>Nieuwe naam:</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of %2</source>
+        <translation>Kopie #%1 van %2</translation>
     </message>
 </context>
 <context>
@@ -5459,22 +9067,6 @@ De tabel in het midden toont de lijst van macro&apos;s die op dit moment geladen
     <message>
         <source>Multiple Duplicate</source>
         <translation>Meervoudig dupliceren</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
     </message>
     <message>
         <source>&amp;Number of Copies:</source>
@@ -5487,14 +9079,6 @@ De tabel in het midden toont de lijst van macro&apos;s die op dit moment geladen
     <message>
         <source>&amp;Vertical Shift:</source>
         <translation>&amp;Verticale verplaatsing:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
     </message>
 </context>
 <context>
@@ -5536,51 +9120,15 @@ De tabel in het midden toont de lijst van macro&apos;s die op dit moment geladen
         <translation>Lengte:</translation>
     </message>
     <message>
-        <source> pt</source>
+        <source>pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
     </message>
 </context>
 <context>
     <name>MergeDoc</name>
     <message>
-        <source>Import Template</source>
-        <translation>Sjabloon importeren</translation>
-    </message>
-    <message>
         <source>Import Page(s)</source>
         <translation>Pagina(&apos;s) importeren</translation>
-    </message>
-    <message>
-        <source>From Document:</source>
-        <translation>Van document:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation>Wijzigen...</translation>
-    </message>
-    <message>
-        <source>Import Page(s):</source>
-        <translation>Pagina(&apos;s) importeren:</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation>Voer hier de paginanummer(s) in die u wilt importeren,
-bijvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 importeren).
-Een * staat voor alle pagina&apos;s.</translation>
     </message>
     <message>
         <source> from 0</source>
@@ -5591,26 +9139,6 @@ Een * staat voor alle pagina&apos;s.</translation>
         <translation>Pagina(&apos;s) aanmaken</translation>
     </message>
     <message>
-        <source>before Page</source>
-        <translation>voor pagina</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation>na pagina</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation>aan het eind</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation>Importeren</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Annuleren</translation>
-    </message>
-    <message>
         <source>Open</source>
         <translation>Openen</translation>
     </message>
@@ -5619,12 +9147,78 @@ Een * staat voor alle pagina&apos;s.</translation>
         <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
-    </message>
-    <message>
         <source> from %1</source>
         <translation>van %1</translation>
+    </message>
+    <message>
+        <source>&amp;From Document:</source>
+        <translation>&amp;Van document:</translation>
+    </message>
+    <message>
+        <source>Chan&amp;ge...</source>
+        <translation>Wijzi&amp;gen...</translation>
+    </message>
+    <message>
+        <source>&amp;Import Page(s):</source>
+        <translation>Pagina(&apos;s) &amp;importeren:</translation>
+    </message>
+    <message>
+        <source>Before Page</source>
+        <translation>Voor pagina</translation>
+    </message>
+    <message>
+        <source>After Page</source>
+        <translation>Na pagina</translation>
+    </message>
+    <message>
+        <source>At End</source>
+        <translation>Aan het einde</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importeren</translation>
+    </message>
+    <message>
+        <source>Import Master Page</source>
+        <translation>Pagina sjabloon importeren</translation>
+    </message>
+    <message>
+        <source>&amp;Import Master Page</source>
+        <translation>Pag&amp;ina sjabloon importeren</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation>Voer hier de paginanummer(s) in die u wilt importeren,bijvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 exporteren). Een * staat voor alle pagina&apos;s.</translation>
+    </message>
+</context>
+<context>
+    <name>MissingFont</name>
+    <message>
+        <source>Missing Font</source>
+        <translation>Missend font</translation>
+    </message>
+    <message>
+        <source>The Font %1 is not installed.</source>
+        <translation>Font %1 is niet geïnstalleerd.</translation>
+    </message>
+    <message>
+        <source>Use</source>
+        <translation>Gebruik</translation>
+    </message>
+    <message>
+        <source>instead</source>
+        <translation>in plaats van</translation>
+    </message>
+</context>
+<context>
+    <name>ModeToolBar</name>
+    <message>
+        <source>Tools</source>
+        <translation>Gereedschappen</translation>
+    </message>
+    <message>
+        <source>Properties...</source>
+        <translation>Eigenschappen...</translation>
     </message>
 </context>
 <context>
@@ -5642,28 +9236,28 @@ Een * staat voor alle pagina&apos;s.</translation>
         <translation>Pagina(&apos;s) verplaatsen:</translation>
     </message>
     <message>
-        <source>to:</source>
-        <translation>naar:</translation>
+        <source>Move Page(s)</source>
+        <translation>Pagina(&apos;s) verplaatsen</translation>
     </message>
     <message>
-        <source>before Page</source>
-        <translation>voor pagina</translation>
+        <source>Before Page</source>
+        <translation>Voor pagina</translation>
     </message>
     <message>
-        <source>after Page</source>
-        <translation>na pagina</translation>
+        <source>After Page</source>
+        <translation>Na pagina</translation>
     </message>
     <message>
-        <source>at End</source>
-        <translation>aan het eind</translation>
+        <source>At End</source>
+        <translation>Aan het einde</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>To:</source>
+        <translation>tot:</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Number of copies:</source>
+        <translation>Aantal Kopieën:</translation>
     </message>
 </context>
 <context>
@@ -5759,10 +9353,6 @@ hoeken:</translation>
         <translation>Kolo&amp;mmen:</translation>
     </message>
     <message>
-        <source>&amp;Gap:</source>
-        <translation>Tussen&amp;ruimte:</translation>
-    </message>
-    <message>
         <source>To&amp;p:</source>
         <translation>&amp;Boven:</translation>
     </message>
@@ -5799,10 +9389,6 @@ hoeken:</translation>
         <translation>Afstand van curve:</translation>
     </message>
     <message>
-        <source>Text &amp;Flows Around Frame</source>
-        <translation>Tekst &amp;loopt om frame</translation>
-    </message>
-    <message>
         <source>Use &amp;Bounding Box</source>
         <translation>&amp;Bounding Box gebruiken</translation>
     </message>
@@ -5811,32 +9397,8 @@ hoeken:</translation>
         <translation>Contourlijn gebr&amp;uiken</translation>
     </message>
     <message>
-        <source>&amp;Font Size:</source>
-        <translation>&amp;Tekengrootte:</translation>
-    </message>
-    <message>
         <source> %</source>
         <translation>%</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation>Tint:</translation>
-    </message>
-    <message>
-        <source>Custom Spacing</source>
-        <translation>Aangepaste spatiëring</translation>
-    </message>
-    <message>
-        <source>L&amp;ine Spacing:</source>
-        <translation>&amp;Regelspatiëring:</translation>
-    </message>
-    <message>
-        <source>St&amp;yle:</source>
-        <translation>Sti&amp;jl:</translation>
-    </message>
-    <message>
-        <source>Lan&amp;guage:</source>
-        <translation>&amp;Taal:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
@@ -6047,20 +9609,8 @@ hoeken:</translation>
         <translation>Dit object wel of niet afdrukken</translation>
     </message>
     <message>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation>Laat tekst in lager gelegen frames om de vorm van dit object heen vloeien</translation>
-    </message>
-    <message>
-        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Gebruik een omliggende rechthoek in plaats van de vorm van het frame voor de tekstomloop</translation>
-    </message>
-    <message>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Gebruik een tweede lijn gebaseerd op de vorm van het frame voor de tekstomloop</translation>
-    </message>
-    <message>
         <source>Font of selected text or object</source>
-        <translation>Lettertype van geselecteerde tekst of object</translation>
+        <translation>Font van geselecteerde tekst of object</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -6069,14 +9619,6 @@ hoeken:</translation>
     <message>
         <source>Scaling width of characters</source>
         <translation>Schaalbreedte van tekens</translation>
-    </message>
-    <message>
-        <source>Color of text stroke</source>
-        <translation>Kleur van tekstlijnen</translation>
-    </message>
-    <message>
-        <source>Color of text fill</source>
-        <translation>Kleur van tekstinvulling</translation>
     </message>
     <message>
         <source>Saturation of color of text stroke</source>
@@ -6089,14 +9631,6 @@ hoeken:</translation>
     <message>
         <source>Line Spacing</source>
         <translation>Regelspatiëring</translation>
-    </message>
-    <message>
-        <source>Style of current paragraph</source>
-        <translation>Stijl van huidige paragraaf</translation>
-    </message>
-    <message>
-        <source>Hyphenation language of frame</source>
-        <translation>Taalinstelling (voor afbreken) van frame</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -6227,50 +9761,272 @@ hoeken:</translation>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
-    </message>
-    <message>
         <source>Column width</source>
         <translation>Kolombreedte</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation>De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
         <translation>Rechts naar links scrijven</translation>
     </message>
     <message>
-        <source>Trac&amp;king:</source>
-        <translation>Vol&amp;gen:</translation>
+        <source>Start Arrow:</source>
+        <translation>Begin pijl:</translation>
+    </message>
+    <message>
+        <source>End Arrow:</source>
+        <translation>Eind pijl:</translation>
+    </message>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation>Vaste regelspatiëring</translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation>Automatische regelspatiëring</translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation>Aan de basislijn van het raster uitlijnen</translation>
+    </message>
+    <message>
+        <source>Actual X-DPI:</source>
+        <translation>Werkelijk X-DPI:</translation>
+    </message>
+    <message>
+        <source>Actual Y-DPI:</source>
+        <translation>Werkelijk Y-DPI:</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation>Offset ten opzichte van basislijn tekens</translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation>Schaalhoogte van tekens</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Handmatig volgen</translation>
+        <translation>Handmatige tracking</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation>Naam &quot;%1&quot; is niet uniek.&lt;br/&gt;Kies een andere naam.</translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation>Vulmethode</translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation>Even-oneven</translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
+        <translation>Niet nul</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation>Kleur van tekstomlijning en/of valschaduw, afhankelijk van welke is gekozen. Als beiden zijn gekozen, gebruiken ze dezelfde kleur.</translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation>Kleur van de geselecteerde tekst. Als Outline tekt decoratie is ingeschakeld, zal deze kleur de vulkleur zijn. Als Valschaduw Tekst is ingeschakeld, is dit de bovenliggende kleur.</translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Gebruik de omliggende rechthoek, in plaats van de vorm van het frame voor de tekstomloop.</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation>Klik en houd ingedrukt om regelafstand modus te selecteren.</translation>
+    </message>
+    <message>
+        <source>Transparency Settings</source>
+        <translation>Instellingen transparantie</translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation>&amp;Groeperen</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation>Ondoorschijnendheid:</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation>Vermeng Modus:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normaal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation>Donkerder</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation>Lichter</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation>Vermenigvuldig</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation>Scherm</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation>Maskerlaag</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation>Hard licht</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation>Zacht licht</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation>Verschil</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation>Uitsluiting</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation>Kleur tegenhouden</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation>Kleur doordrukken</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation>Tint</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation>Tussenruimte:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Breedte:</translation>
+    </message>
+    <message>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation>Tekstomloop rond &amp;frame</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Uitgeschakeld</translation>
+    </message>
+    <message>
+        <source>Use Frame &amp;Shape</source>
+        <translation>Gebruik frame &amp;vorm</translation>
+    </message>
+    <message>
+        <source>Image Effects</source>
+        <translation>Afbeeldingseffecten</translation>
+    </message>
+    <message>
+        <source>Extended Image Properties</source>
+        <translation>Uitgebreide afbeeldingseigenschappen</translation>
+    </message>
+    <message>
+        <source>Overprinting</source>
+        <translation>Overprinten</translation>
+    </message>
+    <message>
+        <source>Knockout</source>
+        <translation>Uitsparen</translation>
+    </message>
+    <message>
+        <source>Overprint</source>
+        <translation>Overprint</translation>
+    </message>
+    <message>
+        <source>Group the selected objects</source>
+        <translation>Geselecteerde objecten groeperen</translation>
+    </message>
+    <message>
+        <source>Destroys the selected group</source>
+        <translation>Vernietigt de geselecteerde groep</translation>
+    </message>
+    <message>
+        <source>Disable text flow from lower frames around object</source>
+        <translation>Tekstomloop van onderliggende frames rond objecten uitschakelen</translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation>Gebruik de frame vorm van onderliggende frames voor tekstomloop rond object.</translation>
+    </message>
+    <message>
+        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
+        <translation>Indien gekozen, kan de contour lijn worden bewerkt met het Bewerk Vorm gereedschap in het palet boven. Indien bewerkt via het Vorm palet, wordt het een tweede separate lijn gebaseerd op de vorm van het frame voor tekstomloop of tekstframes onder het object. T</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation>Standaard</translation>
+    </message>
+    <message>
+        <source>Stair Step</source>
+        <translation>Getrapt</translation>
+    </message>
+    <message>
+        <source>Skew</source>
+        <translation>Schuintrekken</translation>
+    </message>
+    <message>
+        <source>Type:</source>
+        <translation>Type:</translation>
+    </message>
+    <message>
+        <source>Paragraph St&amp;yle:</source>
+        <translation>Alinea st&amp;ijl:</translation>
+    </message>
+    <message>
+        <source>Character St&amp;yle:</source>
+        <translation>Teken st&amp;ijl:</translation>
+    </message>
+    <message>
+        <source>Optical Margins:</source>
+        <translation>Optische marges:</translation>
+    </message>
+    <message>
+        <source>Word Tracking</source>
+        <translation>Woord tracking</translation>
+    </message>
+    <message>
+        <source>Min:</source>
+        <translation>Min:</translation>
+    </message>
+    <message>
+        <source>Max:</source>
+        <translation>Max:</translation>
+    </message>
+    <message>
+        <source>Glyph Extension</source>
+        <translation>Symboolteken extensie</translation>
+    </message>
+    <message>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation>Alineastijl van de huidige geselecteerde tekst of alinea</translation>
+    </message>
+    <message>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation>Tekenstijl van de huidige geselecteerde tekst of alinea</translation>
     </message>
 </context>
 <context>
@@ -6316,6 +10072,111 @@ Kies een andere naam.</translation>
         <translation>%</translation>
     </message>
     <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation>Naam &quot;%1&quot; is niet uniek.&lt;br/&gt;Kies een andere naam.</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+</context>
+<context>
+    <name>MultiProgressDialogBase</name>
+    <message>
+        <source>Progress</source>
+        <translation>Voortgang</translation>
+    </message>
+    <message>
+        <source>Overall Progress:</source>
+        <translation>Algehele voortgang:</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuleren</translation>
+    </message>
+</context>
+<context>
+    <name>MultipleDuplicate</name>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation>&amp;Horizontale verplaatsing:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation>&amp;Verticale verplaatsing:</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Gap:</source>
+        <translation>&amp;Horizontale tussenruimte:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Gap:</source>
+        <translation>&amp;Verticale tussenruimte:</translation>
+    </message>
+</context>
+<context>
+    <name>MultipleDuplicateBase</name>
+    <message>
+        <source>Multiple Duplicate</source>
+        <translation>Meervoudig dupliceren</translation>
+    </message>
+    <message>
+        <source>&amp;By Number of Copies</source>
+        <translation>&amp;Met aantal kopieën</translation>
+    </message>
+    <message>
+        <source>&amp;Number of Copies:</source>
+        <translation>Aa&amp;ntal kopieën:</translation>
+    </message>
+    <message>
+        <source>&amp;Shift Created Items By</source>
+        <translation>Ver&amp;schuif gemaakte items met </translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation>Alt+S</translation>
+    </message>
+    <message>
+        <source>Create &amp;Gap Between Items Of</source>
+        <translation>Maak &amp;tussenruimte tussen items van</translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation>Alt+G</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation>&amp;Horizontale verplaatsing:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation>&amp;Verticale verplaatsing:</translation>
+    </message>
+    <message>
+        <source>By &amp;Rows &amp;&amp; Columns</source>
+        <translation>Bij &amp;rijen &amp;&amp; kolommen</translation>
+    </message>
+    <message>
+        <source>Vertical Gap:</source>
+        <translation>Verticale tussenruimte:</translation>
+    </message>
+    <message>
+        <source>Horizontal Gap:</source>
+        <translation>Horizontale tussenruimte:</translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation>Aantal rijen:</translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation>Aantal kolommen:</translation>
+    </message>
+    <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -6324,160 +10185,37 @@ Kies een andere naam.</translation>
         <translation>&amp;Annuleren</translation>
     </message>
     <message>
-        <source> pt </source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>Solid Line</source>
-        <translation>Ononderbroken lijn</translation>
-    </message>
-    <message>
-        <source>Dashed Line</source>
-        <translation>Gestreepte lijn</translation>
-    </message>
-    <message>
-        <source>Dotted Line</source>
-        <translation>Stippellijn</translation>
-    </message>
-    <message>
-        <source>Dash Dot Line</source>
-        <translation>Streep-stip lijn</translation>
-    </message>
-    <message>
-        <source>Dash Dot Dot Line</source>
-        <translation>Streep-stip-stip lijn</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation>De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>Rotation:</source>
+        <translation>Rotatie:</translation>
     </message>
 </context>
 <context>
-    <name>MusterSeiten</name>
+    <name>MyPlugin</name>
     <message>
-        <source>Edit Templates</source>
-        <translation>Sjablonen bewerken</translation>
+        <source>My &amp;Plugin</source>
+        <translation>Mijn &amp;plug-in</translation>
+    </message>
+</context>
+<context>
+    <name>MyPluginImpl</name>
+    <message>
+        <source>Scribus - My Plugin</source>
+        <translation>Scribus - Mijn plug-in</translation>
     </message>
     <message>
-        <source>&amp;Append</source>
-        <translation>Toe&amp;voegen</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation>&amp;Nieuw</translation>
-    </message>
-    <message>
-        <source>D&amp;uplicate</source>
-        <translation>D&amp;upliceren</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation>Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Sluiten</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>&amp;No</source>
-        <translation>&amp;Nee</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Ja</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation>&amp;Naam:</translation>
-    </message>
-    <message>
-        <source>New Template</source>
-        <translation>Nieuwe sjabloon</translation>
-    </message>
-    <message>
-        <source>Copy of %1</source>
-        <translation>Kopie van %1</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation>Naam:</translation>
-    </message>
-    <message>
-        <source>Copy #%1 of </source>
-        <translation>Kopie #%1 van</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation>Normaal</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete this Template?</source>
-        <translation>Wilt u deze sjabloon werkelijk verwijderen?</translation>
-    </message>
-    <message>
-        <source>New Template %1</source>
-        <translation type="unfinished"></translation>
+        <source>The plugin worked!</source>
+        <translation>De plug-in werkt!</translation>
     </message>
 </context>
 <context>
     <name>NewDoc</name>
     <message>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
-    </message>
-    <message>
         <source>New Document</source>
         <translation>Nieuw document</translation>
     </message>
     <message>
-        <source>Page Size</source>
-        <translation>Paginagrootte</translation>
-    </message>
-    <message>
         <source>&amp;Size:</source>
         <translation>&amp;Grootte:</translation>
-    </message>
-    <message>
-        <source>Legal</source>
-        <translation>Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation>Letter (US)</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation>Tabloid</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation>Aangepast</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
@@ -6500,84 +10238,28 @@ Kies een andere naam.</translation>
         <translation>&amp;Hoogte:</translation>
     </message>
     <message>
-        <source>&amp;Facing Pages</source>
-        <translation>&amp;Tegenover elkaar</translation>
-    </message>
-    <message>
-        <source>Left &amp;Page First</source>
-        <translation>Linker&amp;pagina eerst</translation>
-    </message>
-    <message>
         <source>Margin Guides</source>
         <translation>Marge hulplijnen</translation>
     </message>
     <message>
-        <source>&amp;Left:</source>
-        <translation>&amp;Links:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation>&amp;Rechts:</translation>
-    </message>
-    <message>
-        <source>&amp;Top:</source>
-        <translation>&amp;Boven:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation>On&amp;der:</translation>
-    </message>
-    <message>
         <source>Options</source>
-        <translation>OptiesOpties</translation>
-    </message>
-    <message>
-        <source>F&amp;irst Page Number:</source>
-        <translation>N&amp;ummer eerste pagina:</translation>
+        <translation>Opties</translation>
     </message>
     <message>
         <source>&amp;Default Unit:</source>
         <translation>Stan&amp;daard eenheid:</translation>
     </message>
     <message>
-        <source>Points (pts)</source>
-        <translation>Punten (pt)</translation>
-    </message>
-    <message>
-        <source>Millimetres (mm)</source>
-        <translation>Millimeter (mm)</translation>
-    </message>
-    <message>
-        <source>Inches (in)</source>
-        <translation>Inch (in)</translation>
-    </message>
-    <message>
-        <source>Picas (p)</source>
-        <translation>Pica (p)</translation>
-    </message>
-    <message>
         <source>&amp;Automatic Text Frames</source>
         <translation>&amp;Automatische tekstframes</translation>
     </message>
     <message>
-        <source>Column Guides</source>
-        <translation>Kolom hulplijnen</translation>
-    </message>
-    <message>
         <source>&amp;Gap:</source>
-        <translation>&amp;Ruimte:</translation>
+        <translation>&amp;Tussenruimte:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
         <translation>Kolo&amp;mmen:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
@@ -6596,38 +10278,6 @@ Kies een andere naam.</translation>
         <translation>Hoogte van de pagina&apos;s in dit document, kies &apos;Aangepast&apos; om hier een waarde in te kunnen stellen</translation>
     </message>
     <message>
-        <source>Enable single or spread based layout</source>
-        <translation>Alle pagina&apos;s hetzelfde of onderscheid tussen linker en rechterpagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Make the first page the left page of the document</source>
-        <translation>Laat het document beginnen met een linker pagina</translation>
-    </message>
-    <message>
-        <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Afstand tussen de onderkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de rugkant van het document</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het document</translation>
-    </message>
-    <message>
-        <source>First page number of the document</source>
-        <translation>Eerste paginanummer van dit document</translation>
-    </message>
-    <message>
         <source>Default unit of measurement for document editing</source>
         <translation>Standaard meeteenheid voor het bewerken van dit document</translation>
     </message>
@@ -6644,50 +10294,66 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Afstand tussen de automatisch aangemaakte kolommen</translation>
     </message>
     <message>
-        <source>&amp;Inside:</source>
-        <translation>B&amp;innenkant:</translation>
+        <source>Do not show this dialog again</source>
+        <translation>Toon dit venster niet opnieuw</translation>
     </message>
     <message>
-        <source>O&amp;utside:</source>
-        <translation>B&amp;uitenkant:</translation>
+        <source>Initial number of pages of the document</source>
+        <translation>Gewenst aantal pagina&apos;s voor het document</translation>
     </message>
     <message>
-        <source>Executive</source>
-        <translation>Executive</translation>
+        <source>N&amp;umber of Pages:</source>
+        <translation>&amp;Aantal pagina&apos;s:</translation>
     </message>
     <message>
-        <source>Folio</source>
-        <translation>Folio</translation>
+        <source>Open</source>
+        <translation>Openen</translation>
     </message>
     <message>
-        <source>Ledger</source>
-        <translation>Ledger</translation>
+        <source>&amp;New Document</source>
+        <translation>&amp;Nieuw document</translation>
+    </message>
+    <message>
+        <source>Open &amp;Existing Document</source>
+        <translation>Open B&amp;estaand document</translation>
+    </message>
+    <message>
+        <source>Open Recent &amp;Document</source>
+        <translation>Open recent &amp;document</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation>Document layout</translation>
+    </message>
+    <message>
+        <source>First Page is:</source>
+        <translation>Eerste pagina is:</translation>
+    </message>
+    <message>
+        <source>Show Document Settings After Creation</source>
+        <translation>Toon document instelling na aanmaak</translation>
     </message>
 </context>
 <context>
-    <name>NewTm</name>
+    <name>NewFromTemplatePlugin</name>
     <message>
-        <source>Left Page</source>
-        <translation>Linker pagina</translation>
+        <source>New &amp;from Template...</source>
+        <translation>Nieuw &amp;van sjabloon...</translation>
     </message>
     <message>
-        <source>Right Page</source>
-        <translation>Rechter pagina</translation>
+        <source>Load documents with predefined layout</source>
+        <translation>Laad documenten met vooringestelde layout</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
+        <translation>Begin een document vanuit een sjabloon gemaakt door anderen of uzelf.(zodat u meerdere documenten in dezelfde stijl kunt maken).</translation>
     </message>
 </context>
 <context>
     <name>NodePalette</name>
     <message>
         <source>Nodes</source>
-        <translation>Nodes</translation>
+        <translation>Knooppunten</translation>
     </message>
     <message>
         <source>&amp;Absolute Coordinates</source>
@@ -6715,7 +10381,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Move Nodes</source>
-        <translation>Nodes verplaatsen</translation>
+        <translation>Knooppunten verplaatsen</translation>
     </message>
     <message>
         <source>Move Control Points</source>
@@ -6723,11 +10389,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Add Nodes</source>
-        <translation>Nodes toevoegen</translation>
+        <translation>Knooppunten toevoegen</translation>
     </message>
     <message>
         <source>Delete Nodes</source>
-        <translation>Nodes verwijderen</translation>
+        <translation>Knooppunten verwijderen</translation>
     </message>
     <message>
         <source>Move Control Points Independently</source>
@@ -6786,20 +10452,12 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Pad met de klok mee roteren</translation>
     </message>
     <message>
-        <source>Reduce the Size of the Path by shown %</source>
-        <translation>Pad met getoonde % vergroten</translation>
-    </message>
-    <message>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Pad met getoonde % verkleinen</translation>
     </message>
     <message>
         <source>Angle of Rotation</source>
         <translation>Rotatiehoek</translation>
-    </message>
-    <message>
-        <source>% to Enlarge or Reduce By</source>
-        <translation>Te vergroten of verkleinen %</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -6810,68 +10468,184 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Contourlijnen terugzetten naar oorspronkelijke framevorm</translation>
     </message>
     <message>
-        <source>When checked use Coordinates relative to the Page,
-otherwise Coordinates are relative to the Object.</source>
-        <translation>Indien geselecteerd worden coördinaten relatief t.o.v. de pagina
-gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
+        <translation>Als aangevinkt; gebruik coordinaten gerelateerd aan de pagina, anders relatief aan het object.</translation>
+    </message>
+    <message>
+        <source>Shrink the Size of the Path by shown %</source>
+        <translation>Verklein Pad met getoonde %</translation>
+    </message>
+    <message>
+        <source>Reduce the Size of the Path by the shown value</source>
+        <translation>Verklein het formaat van het pad me de getoonde waarde</translation>
+    </message>
+    <message>
+        <source>Enlarge the Size of the Path by the shown value</source>
+        <translation>Vergroot het formaat van het pad met de getoonde waarde</translation>
+    </message>
+    <message>
+        <source>% to Enlarge or Shrink By</source>
+        <translation>% te vergroten of te verkleinen</translation>
+    </message>
+    <message>
+        <source>Value to Enlarge or Shrink By</source>
+        <translation>Waarde om te vergroten of te verkleinen</translation>
+    </message>
+</context>
+<context>
+    <name>OODPlug</name>
+    <message>
+        <source>This document does not seem to be an OpenOffice Draw file.</source>
+        <translation>Dit bestand lijkt geen OpenOffice.org Draw bestand te zijn.</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation>Groep%1</translation>
+    </message>
+</context>
+<context>
+    <name>OODrawImportPlugin</name>
+    <message>
+        <source>Import &amp;OpenOffice.org Draw...</source>
+        <translation>&amp;OpenOffice.org Draw importeren...</translation>
+    </message>
+    <message>
+        <source>Imports OpenOffice.org Draw Files</source>
+        <translation>Importeer OpenOffice.org Draw bestanden</translation>
+    </message>
+    <message>
+        <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
+        <translation>Importeert de meeste OpenOffice.org Draw bestanden in het huidige document, de vectordata omzettend in Scribus objecten.</translation>
+    </message>
+    <message>
+        <source>OpenDocument 1.0 Draw</source>
+        <comment>Import/export format name</comment>
+        <translation>OpenDocument 1.0 Draw</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org 1.x Draw</source>
+        <comment>Import/export format name</comment>
+        <translation>OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation>Dit bestand bevat enkele niet ondersteunde functies</translation>
+    </message>
+    <message>
+        <source>The file could not be imported</source>
+        <translation>Het bestand kan niet worden geïmporteerd</translation>
     </message>
 </context>
 <context>
     <name>OdtDialog</name>
     <message>
+        <source>OpenDocument Importer Options</source>
+        <translation>OpenDocument importeeropties</translation>
+    </message>
+    <message>
+        <source>Overwrite Paragraph Styles</source>
+        <translation>Overschrijf alineastijlen</translation>
+    </message>
+    <message>
+        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
+        <translation>Hiermee worden bestaande stijlen in het huidige Scribus document overschreven</translation>
+    </message>
+    <message>
+        <source>Merge Paragraph Styles</source>
+        <translation>Voeg alineastijlen samen</translation>
+    </message>
+    <message>
+        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
+        <translation>Voeg de alineastijl samen op basis van attributen. Dit resulteert in een minder aantal op elkaar lijkende alineastijlen, zelfs als de originele stijlen anders zijn genoemd.</translation>
+    </message>
+    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Documentnaam als prefix voor alineastijlen gebruiken</translation>
+    </message>
+    <message>
+        <source>Prepend the document name to the paragraph style name in Scribus.</source>
+        <translation>Voeg documtennaam toe aan de alineastijlnaam in Scribus.</translation>
     </message>
     <message>
         <source>Do not ask again</source>
         <translation>Deze vraag niet meer stellen</translation>
     </message>
     <message>
+        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
+        <translation>Maak deze instellingen standaard, vraag niet opnieuw bij importeren van een OASIS OpenDocument.</translation>
+    </message>
+    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <source>OpenDocument Importer Options</source>
-        <translation>Instellingen voor OpenDocument import</translation>
-    </message>
-    <message>
-        <source>Update paragraph Styles</source>
-        <translation>Alineastijlen bijwerken</translation>
-    </message>
-    <message>
-        <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation>Als u deze optie inschakelt zullen bestaande stijlen in het huidige Scribus-document worden overschreven</translation>
-    </message>
-    <message>
-        <source>Merge Paragraph Styles</source>
-        <translation>Alineastijlen samenvoegen</translation>
-    </message>
-    <message>
-        <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation>Voegt stijlen samen op grond van attributen. U krijgt zo minder vrijwel gelijke alineastijlen. Stijlattributen blijven bewaard zelfs als ze andere namen hebben in het originele document.</translation>
-    </message>
-    <message>
-        <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>De documentnaam aan de alineastijlnaam toevoegen in Scribus.</translation>
-    </message>
-    <message>
-        <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Deze instellingen als standaard instellen en er niet om vragen bij het importeren van een OASIS OpenDocument.</translation>
-    </message>
-    <message>
         <source>Cancel</source>
-        <translation type="unfinished">Annuleren</translation>
+        <translation>Annuleren</translation>
     </message>
 </context>
 <context>
-    <name>PConsole</name>
+    <name>OldScribusFormat</name>
     <message>
-        <source>Script Console</source>
-        <translation>Scriptconsole</translation>
+        <source>Scribus Document</source>
+        <translation>Scribus document</translation>
+    </message>
+    <message>
+        <source>Scribus 1.2.x Document</source>
+        <translation>Scribus 1.2.x document</translation>
     </message>
 </context>
 <context>
-    <name>PDF_Opts</name>
+    <name>OneClick</name>
+    <message>
+        <source>Origin</source>
+        <translation>Oorsprong</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Grootte</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Breedte:</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Lengte:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Hoogte:</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation>Hoek:</translation>
+    </message>
+    <message>
+        <source>Remember Values</source>
+        <translation>Waarden onthouden</translation>
+    </message>
+</context>
+<context>
+    <name>OutlineValues</name>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Linewidth</source>
+        <translation>Lijndikte</translation>
+    </message>
+</context>
+<context>
+    <name>PDFExportDialog</name>
+    <message>
+        <source>Save as PDF</source>
+        <translation>Opslaan als PDF</translation>
+    </message>
     <message>
         <source>O&amp;utput to File:</source>
         <translation>&amp;Uitvoeren naar bestand:</translation>
@@ -6881,598 +10655,12 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
         <translation>Wijzige&amp;n...</translation>
     </message>
     <message>
-        <source>Export Range</source>
-        <translation>Exportbereik</translation>
-    </message>
-    <message>
-        <source>&amp;All Pages</source>
-        <translation>&amp;Alle pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>C&amp;hoose Pages</source>
-        <translation>&amp;Pagina&apos;s kiezen</translation>
-    </message>
-    <message>
-        <source>File Options</source>
-        <translation>Bestandsopties</translation>
-    </message>
-    <message>
-        <source>Compatibilit&amp;y:</source>
-        <translation>&amp;Compatibiliteit:</translation>
-    </message>
-    <message>
-        <source>&amp;Binding:</source>
-        <translation>In&amp;binden:</translation>
-    </message>
-    <message>
-        <source>Left Margin</source>
-        <translation>Linkermarge</translation>
-    </message>
-    <message>
-        <source>Right Margin</source>
-        <translation>Rechtermarge</translation>
-    </message>
-    <message>
-        <source>Generate &amp;Thumbnails</source>
-        <translation>Minia&amp;turen aanmaken</translation>
-    </message>
-    <message>
-        <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation>Gekoppe&amp;lde tekstframes als PDF-artikelen opslaan</translation>
-    </message>
-    <message>
-        <source>&amp;Include Bookmarks</source>
-        <translation>Bladwijzers &amp;invoegen</translation>
-    </message>
-    <message>
-        <source> dpi</source>
-        <translation>dpi</translation>
-    </message>
-    <message>
-        <source>&amp;Resolution:</source>
-        <translation>&amp;Resolutie:</translation>
-    </message>
-    <message>
-        <source>Automatic</source>
-        <translation>Automatisch</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
-        <source>&amp;Method:</source>
-        <translation>&amp;Methode:</translation>
-    </message>
-    <message>
-        <source>&amp;Quality:</source>
-        <translation>&amp;Kwaliteit:</translation>
-    </message>
-    <message>
-        <source>Maximum</source>
-        <translation>Maximaal</translation>
-    </message>
-    <message>
-        <source>High</source>
-        <translation>Hoog</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation>Medium</translation>
-    </message>
-    <message>
-        <source>Low</source>
-        <translation>Laag</translation>
-    </message>
-    <message>
-        <source>Minimum</source>
-        <translation>Minimaal</translation>
-    </message>
-    <message>
-        <source>&amp;Downsample Images to:</source>
-        <translation>A&amp;fbeeldingen terugsampelen naar:</translation>
-    </message>
-    <message>
-        <source>&amp;General</source>
-        <translation>Al&amp;gemeen</translation>
-    </message>
-    <message>
-        <source>&amp;Embed all Fonts</source>
-        <translation>Alle l&amp;ettertypen inbedden</translation>
-    </message>
-    <message>
-        <source>Embedding</source>
-        <translation>Inbedden</translation>
-    </message>
-    <message>
-        <source>Available Fonts:</source>
-        <translation>Beschikbare lettertypen:</translation>
-    </message>
-    <message>
-        <source>&amp;&gt;&gt;</source>
-        <translation>&amp;&gt;&gt;</translation>
-    </message>
-    <message>
-        <source>&amp;&lt;&lt;</source>
-        <translation>&amp;&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>Fonts to embed:</source>
-        <translation>In te bedden lettertypen:</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts</source>
-        <translation>&amp;Lettertypen</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation>Pagina</translation>
-    </message>
-    <message>
-        <source>Show Page Pre&amp;views</source>
-        <translation>Pagina&amp;voorbeelden tonen</translation>
-    </message>
-    <message>
-        <source>Effects</source>
-        <translation>Effecten</translation>
-    </message>
-    <message>
-        <source>&amp;Display Duration:</source>
-        <translation>Weergave tij&amp;dsduur:</translation>
-    </message>
-    <message>
-        <source>Effec&amp;t Duration:</source>
-        <translation>Effec&amp;t tijdsduur:</translation>
-    </message>
-    <message>
-        <source>Effect T&amp;ype:</source>
-        <translation>Effectt&amp;ype:</translation>
-    </message>
-    <message>
-        <source>&amp;Moving Lines:</source>
-        <translation>&amp;Bewegende lijnen:</translation>
-    </message>
-    <message>
-        <source>F&amp;rom the:</source>
-        <translation>&amp;Van de:</translation>
-    </message>
-    <message>
-        <source>D&amp;irection:</source>
-        <translation>R&amp;ichting:</translation>
-    </message>
-    <message>
-        <source> sec</source>
-        <translation>sec</translation>
-    </message>
-    <message>
-        <source>No Effect</source>
-        <translation>Geen effect</translation>
-    </message>
-    <message>
-        <source>Blinds</source>
-        <translation>Lamellen</translation>
-    </message>
-    <message>
-        <source>Box</source>
-        <translation>Box</translation>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation>Oplossen</translation>
-    </message>
-    <message>
-        <source>Glitter</source>
-        <translation>Glitter</translation>
-    </message>
-    <message>
-        <source>Split</source>
-        <translation>Splitsen</translation>
-    </message>
-    <message>
-        <source>Wipe</source>
-        <translation>Wegvegen</translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation>Horizontaal</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation>Verticaal</translation>
-    </message>
-    <message>
-        <source>Inside</source>
-        <translation>Binnen</translation>
-    </message>
-    <message>
-        <source>Outside</source>
-        <translation>Buiten</translation>
-    </message>
-    <message>
-        <source>Left to Right</source>
-        <translation>Links naar rechts</translation>
-    </message>
-    <message>
-        <source>Top to Bottom</source>
-        <translation>Boven naar beneden</translation>
-    </message>
-    <message>
-        <source>Bottom to Top</source>
-        <translation>Beneden naar boven</translation>
-    </message>
-    <message>
-        <source>Right to Left</source>
-        <translation>Rechts naar links</translation>
-    </message>
-    <message>
-        <source>Top-left to Bottom-Right</source>
-        <translation>Linksboven naar rechtsonder</translation>
-    </message>
-    <message>
-        <source>&amp;Apply Effect on all Pages</source>
-        <translation>Effect op &amp;alle pagina&apos;s toepassen</translation>
-    </message>
-    <message>
-        <source>&amp;Use Encryption</source>
-        <translation>Versle&amp;uteling gebruiken</translation>
-    </message>
-    <message>
-        <source>Passwords</source>
-        <translation>Wachtwoorden</translation>
-    </message>
-    <message>
-        <source>&amp;User:</source>
-        <translation>Gebr&amp;uiker:</translation>
-    </message>
-    <message>
-        <source>&amp;Owner:</source>
-        <translation>&amp;Eigenaar:</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation>Instellingen</translation>
-    </message>
-    <message>
-        <source>Allow &amp;Printing the Document</source>
-        <translation>A&amp;fdrukken van het document toestaan</translation>
-    </message>
-    <message>
-        <source>Allow &amp;Changing the Document</source>
-        <translation>Wi&amp;jzigen van het document toestaan</translation>
-    </message>
-    <message>
-        <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation>&amp;Kopiëren van tekst en afbeeldingen toestaan</translation>
-    </message>
-    <message>
-        <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation>Toevoegen van &amp;annotaties en velden toestaan</translation>
-    </message>
-    <message>
-        <source>S&amp;ecurity</source>
-        <translation>V&amp;eiligheid</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation>Algemeen</translation>
-    </message>
-    <message>
-        <source>Output &amp;Intended For:</source>
-        <translation>&amp;Uitvoer bestemd voor:</translation>
-    </message>
-    <message>
-        <source>Screen / Web</source>
-        <translation>Scherm / web</translation>
-    </message>
-    <message>
-        <source>Printer</source>
-        <translation>Printer</translation>
-    </message>
-    <message>
-        <source>&amp;Use Custom Rendering Settings</source>
-        <translation>Aangepaste &amp;weergaveinstellingen gebruiken</translation>
-    </message>
-    <message>
-        <source>Rendering Settings</source>
-        <translation>Weergaveinstellingen</translation>
-    </message>
-    <message>
-        <source>Fre&amp;quency:</source>
-        <translation>Fre&amp;quentie:</translation>
-    </message>
-    <message>
-        <source>&amp;Angle:</source>
-        <translation>&amp;Hoek:</translation>
-    </message>
-    <message>
-        <source>S&amp;pot Function:</source>
-        <translation>&amp;Punt-functie:</translation>
-    </message>
-    <message>
-        <source>Simple Dot</source>
-        <translation>Enkele stip</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation>Lijn</translation>
-    </message>
-    <message>
-        <source>Round</source>
-        <translation>Rond</translation>
-    </message>
-    <message>
-        <source>Ellipse</source>
-        <translation>Ellips</translation>
-    </message>
-    <message>
-        <source>Solid Colors:</source>
-        <translation>Effen kleuren:</translation>
-    </message>
-    <message>
-        <source>Use ICC Profile</source>
-        <translation>ICC-profiel gebruiken</translation>
-    </message>
-    <message>
-        <source>Profile:</source>
-        <translation>Profiel:</translation>
-    </message>
-    <message>
-        <source>Rendering-Intent:</source>
-        <translation>Rendering intent:</translation>
-    </message>
-    <message>
-        <source>Perceptual</source>
-        <translation>Perceptueel</translation>
-    </message>
-    <message>
-        <source>Relative Colorimetric</source>
-        <translation>Relatief colorimetrisch</translation>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation>Verzadiging</translation>
-    </message>
-    <message>
-        <source>Absolute Colorimetric</source>
-        <translation>Absoluut colorimetrisch</translation>
-    </message>
-    <message>
-        <source>Images:</source>
-        <translation>Afbeeldingen:</translation>
-    </message>
-    <message>
-        <source>Don&apos;t use embedded ICC profiles</source>
-        <translation>Geen ingebedde ICC-profielen gebruiken</translation>
-    </message>
-    <message>
-        <source>C&amp;olor</source>
-        <translation>&amp;Kleur</translation>
-    </message>
-    <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation>PDF/X-3 uitvoer intent</translation>
-    </message>
-    <message>
-        <source>&amp;Info String:</source>
-        <translation>&amp;Infotekst:</translation>
-    </message>
-    <message>
-        <source>Output &amp;Profile:</source>
-        <translation>Uitvoer&amp;profiel:</translation>
-    </message>
-    <message>
-        <source>Trim Box</source>
-        <translation>Rechthoek bijknippen</translation>
-    </message>
-    <message>
-        <source>PDF/X-&amp;3</source>
-        <translation>PDF/X-&amp;3</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
+        <source>Output one file for eac&amp;h page</source>
+        <translation>Uitvoeren van &amp;een bestand per pagina</translation>
     </message>
     <message>
         <source>&amp;Save</source>
         <translation>Op&amp;slaan</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Export all pages to PDF</source>
-        <translation>Alle pagina&apos;s naar PDF exporteren</translation>
-    </message>
-    <message>
-        <source>Export a range of pages to PDF</source>
-        <translation>Een bereik exporteren naar PDF</translation>
-    </message>
-    <message>
-        <source>Determines the binding of pages in the PDF. Unless you know
-you need to change it leave the default choice - Left.</source>
-        <translation>Bepaalt hoe de pagina&apos;s gebonden worden in de PDF. Laat hier de
-standaardwaarde (links) staan, tenzij u weet wat u doet.</translation>
-    </message>
-    <message>
-        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation>Maakt PDF-artikelen aan, zodat het gemakkelijker is door de tekst te navigeren.</translation>
-    </message>
-    <message>
-        <source>Embed the bookmarks you created in your document.
-These are useful for navigating long PDF documents.</source>
-        <translation>Bewaart de bladwijzers in het document, zodat lange
-documenten eenvoudiger kunnen worden doorgebladerd.</translation>
-    </message>
-    <message>
-        <source>Export resolution of text and vector graphics.
-This does not affect the resolution of bitmap images like photos.</source>
-        <translation>Bepaalt de exportresolutie voor tekst en vectorafbeeldingen.
-Heeft geen invloed op de resolutie van bitmapafbeeldingen zoals foto&apos;s.</translation>
-    </message>
-    <message>
-        <source>DPI (Dots Per Inch) for image export.</source>
-        <translation>DPI (dots per inch) voor afbeeldingen.</translation>
-    </message>
-    <message>
-        <source>Embed fonts into the PDF. Embedding the fonts
-will preserve the layout and appearance of your document.</source>
-        <translation>Lettertypen inbedden in de PDF.  Hierdoor weet u zeker
-dat layout en uiterlijk bewaard zullen blijven.</translation>
-    </message>
-    <message>
-        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation>Schakelt presentatie-effecten in wanneer Acrobat Reader in volledig scherm-modus wordt gebruikt.</translation>
-    </message>
-    <message>
-        <source>Show page previews of each page listed above.</source>
-        <translation>Laat van elke pagina een voorbeeld zien.</translation>
-    </message>
-    <message>
-        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Hoe lang de pagina wordt weergegeven voordat de presentatie start op de geselecteerde pagina.</translation>
-    </message>
-    <message>
-        <source>Length of time the effect runs.
-A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation>Hoe lang het effect erover mag doen.
-Een kortere tijd maakt het effect sneller.</translation>
-    </message>
-    <message>
-        <source>Type of the display effect.</source>
-        <translation>Type van het overgangseffect.</translation>
-    </message>
-    <message>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation>Richting van het effect van bewegende lijnen en de lamel-effecten.</translation>
-    </message>
-    <message>
-        <source>Starting position for the box and split effects.</source>
-        <translation>Startpositie voor de rechthoek en split-effecten.</translation>
-    </message>
-    <message>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation>Richting voor de glitter of veeg-effecten.</translation>
-    </message>
-    <message>
-        <source>Apply the selected effect to all pages.</source>
-        <translation>Het geselecteerde effect op alle pagina&apos;s toepassen.</translation>
-    </message>
-    <message>
-        <source>Enable the security features in your exported PDF.
-If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
-If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
-Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Schakelt beveiligingsfuncties in uw PDF in.
-Als u Acrobat 4.0 selecteerde, zal de PDF beschermd zijn met 40-bit versleuteling.
-Als u Acrobat 5.0 selecteerde, zal de PDF beschermd zijn met 128-bit versleuteling.
-Let op: PDF-versleuteling is niet zo veilig als GPG of PGP-versleuteling en heeft enkele andere beperkingen.</translation>
-    </message>
-    <message>
-        <source>Choose a master password which enables or disables all the
-security features in your exported PDF</source>
-        <translation>Kies een master-wachtwoord om alle beveiligingsinstellingen
-in of uit te schakelen in uw PDF</translation>
-    </message>
-    <message>
-        <source>Choose a password for users to be able to read your PDF.</source>
-        <translation>Kies een wachtwoord voor gebruikers om de PDF te kunnen lezen.</translation>
-    </message>
-    <message>
-        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation>Het afdrukken van de PDF toestaan. Indien niet geselecteerd is afdrukken onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation>Wijzigen van de PDF toestaan. Indien niet geselecteerd is wijzigen onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Allow copying of text or graphics from the PDF. 
-If un-checked, text and graphics cannot be copied.</source>
-        <translation>Het kopiëren van tekst of afbeeldingen uit de PDF toestaan.
-Indien niet geselecteerd is dit onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Color model for the output of your PDF.
-Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
-Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation>Kleurmodel voor de uitvoer van uw PDF.
-Kies Scherm/web voor PDF&apos;s die vanaf het scherm zullen worden gelezen of op gemiddelde inkjets afgedrukt.
-Kies Printer als u naar een echte vierkleuren (CMYK) printer afdrukt.</translation>
-    </message>
-    <message>
-        <source>This is an advanced setting which is not enabled by default. This should only be enabled
-when specifically requested by your printer and they have given you the exact details needed.
-Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>Dit is een geavanceerde instelling die standaard uit staat. Dit mag alleen worden ingeschakeld
-als dit voor uw printer werkelijk noodzakelijk is, en als u over de juiste details beschkt.
-Anders kan uw PDF niet correct op papier verschijnen, en is ook niet bruikbaar op andere systemen.</translation>
-    </message>
-    <message>
-        <source>Embed a color profile for solid colors</source>
-        <translation>Een kleurprofiel inbedden voor effen kleuren</translation>
-    </message>
-    <message>
-        <source>Color profile for solid colors</source>
-        <translation>Kleurprofiel voor effen kleuren</translation>
-    </message>
-    <message>
-        <source>Rendering intent for solid colors</source>
-        <translation>Rendering intent voor effen kleuren</translation>
-    </message>
-    <message>
-        <source>Embed a color profile for images</source>
-        <translation>Een kleurprofiel inbedden voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Do not use color profiles that are embedded in source images</source>
-        <translation>Kleurprofielen in bronafbeeldingen niet gebruiken</translation>
-    </message>
-    <message>
-        <source>Color profile for images</source>
-        <translation>Kleurprofiel voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Rendering intent for images</source>
-        <translation>Rendering intent voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation>Uitvoerprofiel voor het afdrukken. Indien mogelijk, probeer uw printer te gebruiken bij het selecteren van een profiel.</translation>
-    </message>
-    <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation>Een verplichte tekst voor PDF/X-3, anders is de PDF niet conformerend aan
-deze standaard. We bevelen aan de titel van het document te gebruiken.</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation>Afloop-afstand vanaf de bovenkant van de fysieke pagina</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Afloop-afstand vanaf de onderkant van de fysieke pagina</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation>Afloop-afstand vanaf de linkerkant van de fysieke pagina</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation>Afloop-afstand vanaf de rechterkant van de fysieke pagina</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -7483,112 +10671,56 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
         <translation>PDF-bestanden (*.pdf);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>&amp;Rotation:</source>
-        <translation>&amp;Rotatie:</translation>
+        <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
+        <translation>Hiermee wordt van elke pagina van het een afzonderlijk genummerd PDF bestand gemaakt. Dit is een bruikbare methode voor maken van plaatsbare PDF&apos;s voor commercieel drukwerk.</translation>
     </message>
     <message>
-        <source>Compress Text and &amp;Vector Graphics</source>
-        <translation>Tekst en &amp;vectorafbeeldingen comprimeren</translation>
+        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <translation>De Opslaan button wordt uitgeschakeld bij export naar PDF/X3 als de info string ontbreekt in de PDF/X3 tab.</translation>
     </message>
     <message>
-        <source>&amp;Subset all Fonts</source>
-        <translation>&amp;Subset van alle lettertypen</translation>
+        <source>%1 does not exists and will be created, continue?</source>
+        <translation>%1 bestaat niet en wordt aangemaakt, doorgaan?</translation>
     </message>
     <message>
-        <source>Fonts to subset:</source>
-        <translation>Lettertypen om subset van te nemen:</translation>
+        <source>Cannot create directory: 
+%1</source>
+        <translation>Kan map niet aanmaken:
+%1</translation>
     </message>
+</context>
+<context>
+    <name>PDFToolBar</name>
     <message>
-        <source>En&amp;able Presentation Effects</source>
-        <translation>Presentatie-effecten insch&amp;akelen</translation>
+        <source>PDF Tools</source>
+        <translation>PDF-gereedschappen</translation>
     </message>
+</context>
+<context>
+    <name>PDFlib</name>
     <message>
-        <source>&amp;Presentation</source>
-        <translation>&amp;Presentatie</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) horizontally</source>
-        <translation>Pagina(&apos;s) horizontaal spiegelen</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) vertically</source>
-        <translation>Pagina(&apos;s) verticaal spiegelen</translation>
-    </message>
-    <message>
-        <source>Save as PDF</source>
+        <source>Saving PDF</source>
         <translation>Opslaan als PDF</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Color management must be enabled to use PDF/X-3. You can enable color management from the Settings menu.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Kleurmanagement moet worden ingeschakeld om PDF/X-3 te kunnen gebruiken. U kunt kleurbeheer inschakelen in het menu Instellingen.&lt;/qt&gt;</translation>
+        <source>Exporting Items on Current Page:</source>
+        <translation>Exporteer items op huidige pagina:</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;PDF/X-3 is supported and enabled, but can not be used for the selected PDF version. If you want to use PDF/X-3, you need to set PDF/X-3 as your PDF version (compatibility level).&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;PDF/X-3 wordt ondersteund en is ingeschakeld, maar is niet bruikbaar voor de geselecteerde PDF-versie. Als u PDF/X-3 wilt gebruiken, selecteer dan onder PDF-versie (compatibiliteitsniveau): PDF/X-3.&lt;/qt&gt;</translation>
+        <source>Exporting Master Page:</source>
+        <translation>Exporteer pagina sjabloon:</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;PDF/X-3 is not supported by this Scribus build (CMS support not present).&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;PDF/X-3 wordt niet ondersteund door deze versie van Scribus (niet gecompileerd met CMS-ondersteuning).&lt;/qt&gt;</translation>
+        <source>Exporting Page:</source>
+        <translation>Exporteer pagina:</translation>
     </message>
     <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fields is prevented.</source>
-        <translation> Annotaties en velden aan PDF toevoegen toestaan.
-Indien uitgeschakeld kunt u geen annotaties en velden toevoegen.</translation>
+        <source>Page:</source>
+        <translation>Pagina:</translation>
     </message>
     <message>
-        <source>PDF security settings</source>
-        <translation>PDF-veiligheidsinstellingen</translation>
-    </message>
-    <message>
-        <source>PDF/X-3 settings</source>
-        <translation>PDF/X-3 instellingen</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;PDF security can not be used with PDF/X-3. If you want to turn on security, change your PDF version (compatibility level) to something other than PDF/X-3.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Beveiligde PDFs kunnen niet met PDF/X-3 worden aangemaakt. Als u de beveiliging wilt inschakelen, kies dan een andere compatibiliteitsversie.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source> Lossless compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation> Afbeeldingen en tekst zonder verlies comprimeren.
-Tenzij u een speciale reden hebt is deze optie aanbevolen. De PDFs worden daardoor compacter.</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility. Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Note: PDF/X-3 will convert all CMYK images to ICC based RGB colors. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Bepaalt de PDF-compatibiliteit. Standaard is &quot;Acrobat 4.0&quot;, dat het meest compatibel is. Kies Acrobat 5.0 als uw document PDF 1.4-functies gebruikt zoals transparantie of 128-bits encryptie. PDF/X-3 is voor het exporteren van PDF met kleurmanagement voor commercieel drukwerk en is beschikbaar indien u kleurmanagement hebt ingeschakeld. Let op: PDF/X-3 zal alle CMYK-afbeeldingen omzetten naar ICC-gebaseerde RGB-kleuren. Gebruik deze optie alleen als uw printer dit vereist, bijvoorbeeld bij een vier-kleuren digitale laserprinter. </translation>
-    </message>
-    <message>
-        <source>Image Compression Methods</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>JPEG - Lossy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Zip - Lossless</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <source>Date:</source>
+        <translation>Datum:</translation>
     </message>
 </context>
 <context>
@@ -7596,14 +10728,6 @@ Tenzij u een speciale reden hebt is deze optie aanbevolen. De PDFs worden daardo
     <message>
         <source>Print Preview</source>
         <translation>Afdrukvoorbeeld</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Text</source>
-        <translation>Anti-alias &amp;tekst</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Graphics</source>
-        <translation>Anti-alias &amp;grafisch</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -7634,12 +10758,6 @@ Tenzij u een speciale reden hebt is deze optie aanbevolen. De PDFs worden daardo
         <translation>&amp;K</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense
-of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Tekst ziet er beter uit met deze optie, maar de weergave wordt iets
-trager. Dit heeft alleen effect op Type 1 lettertypen</translation>
-    </message>
-    <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Toont doorschijnende elementen in uw document. Ghostscript 7.07 of hoger is hiervoor vereist</translation>
     </message>
@@ -7668,311 +10786,162 @@ trager. Dit heeft alleen effect op Type 1 lettertypen</translation>
         <translation>Alles</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
-te vervangen door tinten enkel op zwart gebaseerd.
-UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
-die dicht bij grijs liggen. Sommige afbeeldingen worden fraaier afgedrukt door
-deze functie; experimenteren kan nodig zijn.
-UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
+        <source>Separation Name</source>
+        <translation>Scheidingsnaam</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Geeft een fraaiere weergave van True- en OpenType lettertypen, EPS, PDF en
-vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldopbouw</translation>
+        <source>Cyan</source>
+        <translation>Cyaan</translation>
+    </message>
+    <message>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation>Geel</translation>
+    </message>
+    <message>
+        <source>Black</source>
+        <translation>Zwart</translation>
+    </message>
+    <message>
+        <source>Scaling:</source>
+        <translation>Schalen:</translation>
+    </message>
+    <message>
+        <source>Print...</source>
+        <translation>Afdrukken...</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>Een manier om uit cyaan, geel en magenta samengestelde tonen door zwarte tonen te vervangen. UCR heeft het meeste effect op delen van afbeeldingen met neutrale of grijsachtige tonen. Gebruik hiervan kan afdrukken van bepaalde afbeeldingen verbeteren. UCR reduceert de mogelijkheid van oververzadiging met CMY inkten. </translation>
+    </message>
+    <message>
+        <source>Resize the scale of the page.</source>
+        <translation>Pas afdrukformaat aan.</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Bestand</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>&amp;Antialiasing toepassen</translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation>Scherminstellingen</translation>
+    </message>
+    <message>
+        <source>Print Settings</source>
+        <translation>Printer instellingen</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Spiegel pagina(&apos;s) horizontaal</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Spiegel pagina(&apos;s) verticaal</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation>Afsnijden bij paginarand</translation>
+    </message>
+    <message>
+        <source>Print in Grayscale</source>
+        <translation>Druk af in grijstinten</translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation>Overprint modus forceren</translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors</source>
+        <translation>Steunkleuren omzetten</translation>
+    </message>
+    <message>
+        <source>Apply ICC Profiles</source>
+        <translation>ICC-profielen toepassen</translation>
+    </message>
+    <message>
+        <source>Fit to Width</source>
+        <translation>Aanpassen aan breedte</translation>
+    </message>
+    <message>
+        <source>Fit to Height</source>
+        <translation>Aanpassen aan hoogte</translation>
+    </message>
+    <message>
+        <source>Fit to Page</source>
+        <translation>Aanpassen aan pagina</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Geeft een verbeterd beeld van Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF en vectorafbeeldingen in een preview. Ten koste van licht snelheidsverlies in de weergave</translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Bij voorkeur aanvinken. Tenzij steunkleuren in een drukkerij gedrukt moeten worden.</translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation>Inschakelen globale Overprint modus voor dit document, object instellingen worden genegeerd</translation>
+    </message>
+    <message>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation>Staat toe ICC-profielen in te sluiten als kleurbeheer ingeschakeld is</translation>
     </message>
 </context>
 <context>
-    <name>Page</name>
+    <name>PSLib</name>
     <message>
-        <source>Copy Here</source>
-        <translation>Hierheen kopiëren</translation>
+        <source>Processing Master Page:</source>
+        <translation>Bewerk pagina sjabloon:</translation>
     </message>
     <message>
-        <source>Move Here</source>
-        <translation>Hierheen verplaatsen</translation>
+        <source>Exporting Page:</source>
+        <translation>Exporteren pagina:</translation>
     </message>
+</context>
+<context>
+    <name>PStyleWBase</name>
     <message>
-        <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <source>Form1</source>
+        <translation>Form1</translation>
     </message>
     <message>
-        <source>&amp;Paste</source>
-        <translation>&amp;Plakken</translation>
+        <source>Properties</source>
+        <translation>Eigenschappen</translation>
     </message>
     <message>
-        <source>Show &amp;Margins</source>
-        <translation>&amp;Marges tonen</translation>
+        <source>Tabulators and Indentation</source>
+        <translation>Tabs en inspringing</translation>
     </message>
     <message>
-        <source>Show &amp;Frames</source>
-        <translation>&amp;Frames tonen</translation>
+        <source>Parent</source>
+        <translation>Parent</translation>
     </message>
     <message>
-        <source>Show &amp;Images</source>
-        <translation>Afbeeld&amp;ingen tonen</translation>
+        <source>Distances and Alignment</source>
+        <translation>Afstanden en uitlijning</translation>
     </message>
     <message>
-        <source>Show &amp;Grid</source>
-        <translation>R&amp;aster tonen</translation>
+        <source>Drop Caps</source>
+        <translation>Beginkapitaal</translation>
     </message>
     <message>
-        <source>Show G&amp;uides</source>
-        <translation>H&amp;ulplijnen tonen</translation>
+        <source>Parent&apos;s Drop Cap Status</source>
+        <translation>Beginkapitaal status van Parent</translation>
     </message>
     <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation>&amp;Basislijn-raster tonen</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation>Ma&amp;gnetisch raster</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation>Magnetische hul&amp;plijnen</translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation>Afbeelding</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation>Bestand:</translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation>Oorspronkelijk PPI:</translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation>Werkelijk PPI:</translation>
-    </message>
-    <message>
-        <source>Linked Text</source>
-        <translation>Gekoppelde tekst</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation>Tekstframe</translation>
-    </message>
-    <message>
-        <source>Text on a Path</source>
-        <translation>Tekst op een pad</translation>
-    </message>
-    <message>
-        <source>Paragraphs: </source>
-        <translation>Alinea&apos;s:</translation>
-    </message>
-    <message>
-        <source>Words: </source>
-        <translation>Woorden:</translation>
-    </message>
-    <message>
-        <source>Chars: </source>
-        <translation>Tekens:</translation>
-    </message>
-    <message>
-        <source>Print: </source>
-        <translation>Afdrukken:</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation>Aan</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation>Uit</translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation>In&amp;fo</translation>
-    </message>
-    <message>
-        <source>&amp;Get Picture...</source>
-        <translation>Afbeelding verkrij&amp;gen...</translation>
-    </message>
-    <message>
-        <source>I&amp;mage Visible</source>
-        <translation>Af&amp;beelding zichtbaar</translation>
-    </message>
-    <message>
-        <source>&amp;Update Picture</source>
-        <translation>Afbeelding bij&amp;werken</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Picture</source>
-        <translation>Afb&amp;eelding bewerken</translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation>Frame aan &amp;afbeelding aanpassen</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation>Tekst verkrij&amp;gen...</translation>
-    </message>
-    <message>
-        <source>&amp;Append Text...</source>
-        <translation>Tekst &amp;toevoegen...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Text...</source>
-        <translation>T&amp;ekst bewerken...</translation>
-    </message>
-    <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation>Dit is een PDF-&amp;bladwijzer</translation>
-    </message>
-    <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation>Dit is een PDF-a&amp;nnotatie</translation>
-    </message>
-    <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation>&amp;Eigenschappen van annotatie</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation>&amp;Veldeigenschappen</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation>&amp;PDF-opties</translation>
-    </message>
-    <message>
-        <source>Edit Text...</source>
-        <translation>Tekst bewerken...</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation>Vergrende&amp;len</translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation>&amp;Losmaken</translation>
-    </message>
-    <message>
-        <source>Lock Object &amp;Size</source>
-        <translation>Object&amp;grootte vergrendelen</translation>
-    </message>
-    <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation>Object&amp;grootte losmaken</translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation>In &amp;kladblok zetten</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation>In &amp;laag zetten</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation>Voorbeeldtekst &amp;invoegen</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation>&amp;Groeperen</translation>
-    </message>
-    <message>
-        <source>Un&amp;group</source>
-        <translation>&amp;Groep losmaken</translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation>Ni&amp;veau</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation>Naar &amp;achtergrond</translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation>Naar &amp;voorgrond</translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation>&amp;Lager</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation>&amp;Hoger</translation>
-    </message>
-    <message>
-        <source>&amp;Picture Frame</source>
-        <translation>Afbeeldings&amp;frame</translation>
-    </message>
-    <message>
-        <source>Pol&amp;ygon</source>
-        <translation>Pol&amp;ygoon</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation>&amp;Outline</translation>
-    </message>
-    <message>
-        <source>&amp;Text Frame</source>
-        <translation>&amp;Tekstframe</translation>
-    </message>
-    <message>
-        <source>&amp;Bezier Curve</source>
-        <translation>&amp;Beziercurve</translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation>Omzetten naa&amp;r</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation>Kni&amp;ppen</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation>&amp;Kopiëren</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation>Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>C&amp;lear Contents</source>
-        <translation>Inhoud &amp;leegmaken</translation>
-    </message>
-    <message>
-        <source>Show P&amp;roperties...</source>
-        <translation>&amp;Eigenschappen tonen...</translation>
-    </message>
-    <message>
-        <source>Hide P&amp;roperties...</source>
-        <translation>&amp;Eigenschappen verbergen...</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation>Wilt u werkelijk alle tekst wissen?</translation>
-    </message>
-    <message>
-        <source>The Program</source>
-        <translation>Het programma</translation>
-    </message>
-    <message>
-        <source>is missing!</source>
-        <translation>ontbreekt op uw systeem!</translation>
+        <source>Ch&amp;aracter Style</source>
+        <translation>L&amp;etterteken stijl</translation>
     </message>
 </context>
 <context>
@@ -8001,20 +10970,183 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
         <source>PathText</source>
         <translation>Tekstpad</translation>
     </message>
+    <message>
+        <source>Copy of</source>
+        <translation>Kopie van</translation>
+    </message>
+</context>
+<context>
+    <name>PageItemAttributes</name>
+    <message>
+        <source>Relates To</source>
+        <translation>Relatie tot</translation>
+    </message>
+    <message>
+        <source>Is Parent Of</source>
+        <translation>Is Parent van</translation>
+    </message>
+    <message>
+        <source>Is Child Of</source>
+        <translation>Is kind van</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation>Geen</translation>
+    </message>
+</context>
+<context>
+    <name>PageItemAttributesBase</name>
+    <message>
+        <source>Page Item Attributes</source>
+        <translation>Pagina item attributen</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Waarde</translation>
+    </message>
+    <message>
+        <source>Parameter</source>
+        <translation>Parameter</translation>
+    </message>
+    <message>
+        <source>Relationship</source>
+        <translation>Relatie</translation>
+    </message>
+    <message>
+        <source>Relationship To</source>
+        <translation>Relatie tot</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation>&amp;Toevoegen</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+T</translation>
+    </message>
+    <message>
+        <source>&amp;Copy</source>
+        <translation>&amp;Kopiëren</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+K</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation>W&amp;issen</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuleren</translation>
+    </message>
+</context>
+<context>
+    <name>PageLayouts</name>
+    <message>
+        <source>First Page is:</source>
+        <translation>Eerste pagina is:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation>Document layout</translation>
+    </message>
+</context>
+<context>
+    <name>PagePalette</name>
+    <message>
+        <source>Double sided</source>
+        <translation>Dubbelzijdig</translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation>Midden rechts</translation>
+    </message>
+    <message>
+        <source>Drag pages or master pages onto the trashbin to delete them</source>
+        <translation>Sleep pagina&apos;s of pagina sjablonen in de prullenbak om ze te verwijderen</translation>
+    </message>
+    <message>
+        <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
+        <translation>Hier zijn al uw pagina sjablonen. Om een nieuwe pagina aan te maken, sleep een pagina sjabloon naar pagina hieronder</translation>
+    </message>
+    <message>
+        <source>Arrange Pages</source>
+        <translation>Rangschik pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>Available Master Pages:</source>
+        <translation>Beschikbare pagina sjablonen:</translation>
+    </message>
+    <message>
+        <source>Document Pages:</source>
+        <translation>Documentpagina&apos;s:</translation>
+    </message>
 </context>
 <context>
     <name>PageSelector</name>
     <message>
-        <source>Page </source>
-        <translation>Pagina</translation>
+        <source>%1 of %2</source>
+        <translation>%1 van %2</translation>
     </message>
     <message>
-        <source> of %1</source>
-        <translation>van %1</translation>
+        <source>%1 of %1</source>
+        <translation>%1 van %1</translation>
     </message>
 </context>
 <context>
-    <name>PicSearch</name>
+    <name>ParaStyleComboBox</name>
+    <message>
+        <source>No Style</source>
+        <translation>Geen stijl</translation>
+    </message>
+</context>
+<context>
+    <name>PatternDialog</name>
+    <message>
+        <source>Choose a Directory</source>
+        <translation>Kies een map</translation>
+    </message>
+    <message>
+        <source>Loading Patterns</source>
+        <translation>Patronen laden</translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation>Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Openen</translation>
+    </message>
+</context>
+<context>
+    <name>PicSearchBase</name>
     <message>
         <source>Result</source>
         <translation>Resultaat</translation>
@@ -8024,24 +11156,24 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
         <translation>Zoekresultaten voor: </translation>
     </message>
     <message>
-        <source>Preview</source>
-        <translation>Voorbeeld</translation>
+        <source>&amp;Preview</source>
+        <translation>&amp;Voorbeeld</translation>
     </message>
     <message>
-        <source>Select</source>
-        <translation>Selecteren</translation>
+        <source>Alt+P</source>
+        <translation>Alt+P</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Annuleren</translation>
+        <source>&amp;Select</source>
+        <translation>&amp;Selecteer</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation>Alt+S</translation>
     </message>
 </context>
 <context>
     <name>PicStatus</name>
-    <message>
-        <source>Pictures</source>
-        <translation>Afbeeldingen</translation>
-    </message>
     <message>
         <source>Name</source>
         <translation>Naam</translation>
@@ -8067,10 +11199,6 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
         <translation>Ga naar</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Ja</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -8083,8 +11211,179 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
         <translation>Zoeken</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>Cancel Search</source>
+        <translation>Annuleer zoekopdracht</translation>
+    </message>
+    <message>
+        <source>Manage Pictures</source>
+        <translation>Afbeelingen beheren</translation>
+    </message>
+    <message>
+        <source>Scribus - Image Search</source>
+        <translation>Scribus - Afbeelding zoeken</translation>
+    </message>
+    <message>
+        <source>The search failed: %1</source>
+        <translation>De zoekopdracht is mislukt: %1</translation>
+    </message>
+    <message>
+        <source>No images named &quot;%1&quot; were found.</source>
+        <translation>Geen afbeelding genaamd &quot;%1&quot; werd gevonden.</translation>
+    </message>
+    <message>
+        <source>Select a base directory for search</source>
+        <translation>Selecteer een te doorzoeken map</translation>
+    </message>
+    <message>
+        <source>Case insensitive search</source>
+        <translation>Niet hoofdlettergevoelig zoeken</translation>
+    </message>
+    <message>
+        <source>Show thumbnails</source>
+        <translation>Toon miniaturen</translation>
+    </message>
+    <message>
+        <source>Search Directory</source>
+        <translation>Zoek map</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Sluiten</translation>
+    </message>
+    <message>
+        <source>Set a new location for the selected items. Useful when you may have moved the document but not the images.</source>
+        <translation>Stel nieuwe locatie in voor geselecteerde items. Handig als het document is verplaatst maar niet de afbeeldingen.</translation>
+    </message>
+    <message>
+        <source>Show/hide image thumbnails</source>
+        <translation>Toon/verberg miniaturen afbeeldingen</translation>
+    </message>
+    <message>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
+        <translation>Bij inschakelen wordt het bestandssysyteem doorzocht op case-ongevoelige bestandsnamen. Dit is niet standaard in de meeste operating systems met uitzondering van MS Winsows</translation>
+    </message>
+    <message>
+        <source>Select a base directory for your selected rows</source>
+        <translation>Selecteer een basis map voor de geselecteerde rijen</translation>
+    </message>
+</context>
+<context>
+    <name>PixmapExportPlugin</name>
+    <message>
+        <source>Save as &amp;Image...</source>
+        <translation>Opslaan als &amp;afbeelding...</translation>
+    </message>
+    <message>
+        <source>Export As Image</source>
+        <translation>Exporteren als afbeelding</translation>
+    </message>
+    <message>
+        <source>Exports selected pages as bitmap images.</source>
+        <translation>Exporteer geselecteerde pagina&apos;s als bitmap afbeeldingen.</translation>
+    </message>
+    <message>
+        <source>Save as Image</source>
+        <translation>Opslaan als afbeelding</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation>Fout tijdens het schrijven naar uitvoerbestand(en).</translation>
+    </message>
+    <message>
+        <source>Export successful</source>
+        <translation>Export geslaagd</translation>
+    </message>
+</context>
+<context>
+    <name>PluginManager</name>
+    <message>
+        <source>Cannot find plugin</source>
+        <comment>plugin manager</comment>
+        <translation>Kan plug-in niet vinden</translation>
+    </message>
+    <message>
+        <source>unknown error</source>
+        <comment>plugin manager</comment>
+        <translation>onbekende fout</translation>
+    </message>
+    <message>
+        <source>Cannot find symbol (%1)</source>
+        <comment>plugin manager</comment>
+        <translation>Kan symbool (%1) niet vinden</translation>
+    </message>
+    <message>
+        <source>Plugin: loading %1</source>
+        <comment>plugin manager</comment>
+        <translation>Plug-in: laadt %1</translation>
+    </message>
+    <message>
+        <source>init failed</source>
+        <comment>plugin load error</comment>
+        <translation>init mislukt</translation>
+    </message>
+    <message>
+        <source>unknown plugin type</source>
+        <comment>plugin load error</comment>
+        <translation>onbekend plug-in type</translation>
+    </message>
+    <message>
+        <source>Plugin: %1 loaded</source>
+        <comment>plugin manager</comment>
+        <translation>Plugin: %1 geladen</translation>
+    </message>
+    <message>
+        <source>Plugin: %1 failed to load: %2</source>
+        <comment>plugin manager</comment>
+        <translation>Plugin: %1 kan %2 niet laden</translation>
+    </message>
+    <message>
+        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
+        <translation>Er is en probleem met het laden van %1 of %2 plugins. %3 Dit kan worden veroorzaakt door ontbreken van een afhankelijkheid of een oude plugin in de installatie map. Als de oude installatie map is leeggemaakt en de fout blijft optreden, rapporteer dit dan op bugs.scribus.net.</translation>
+    </message>
+    <message>
+        <source>Plugin: %1 initialized ok </source>
+        <comment>plugin manager</comment>
+        <translation>Pluginin: %1 initialisering ok </translation>
+    </message>
+    <message>
+        <source>Plugin: %1 failed post initialization</source>
+        <comment>plugin manager</comment>
+        <translation>Plugin: %1 post initialisatie mislukt</translation>
+    </message>
+</context>
+<context>
+    <name>PluginManagerPrefsGui</name>
+    <message>
+        <source>Plugin Manager</source>
+        <translation>Plug-in beheerder</translation>
+    </message>
+    <message>
+        <source>Plugin</source>
+        <translation>Plug-in</translation>
+    </message>
+    <message>
+        <source>How to run</source>
+        <translation>Hoe te starten</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <source>Load it?</source>
+        <translation>Laden?</translation>
+    </message>
+    <message>
+        <source>Plugin ID</source>
+        <translation>Plug-in ID</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Bestand</translation>
+    </message>
+    <message>
+        <source>You need to restart the application to apply the changes.</source>
+        <translation>Het programma dient opnieuw te worden opgestart om de verandering toe te passen.</translation>
     </message>
 </context>
 <context>
@@ -8093,6 +11392,9 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
         <source>Polygon Properties</source>
         <translation>Polygoon-eigenschappen</translation>
     </message>
+</context>
+<context>
+    <name>PolygonWidget</name>
     <message>
         <source>Corn&amp;ers:</source>
         <translation>Ho&amp;eken:</translation>
@@ -8100,6 +11402,10 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     <message>
         <source>&amp;Rotation:</source>
         <translation>&amp;Rotatie:</translation>
+    </message>
+    <message>
+        <source>Apply &amp;Factor</source>
+        <translation>&amp;Factor toepassen</translation>
     </message>
     <message>
         <source> %</source>
@@ -8110,38 +11416,24 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
         <translation>&amp;Factor:</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Number of corners for polygons</source>
-        <translation>Aantal hoeken voor polygoon</translation>
+        <translation>Aantal hoeken voor polygonen</translation>
     </message>
     <message>
         <source>Degrees of rotation for polygons</source>
-        <translation>Rotatie in graden voor polygoon</translation>
-    </message>
-    <message>
-        <source>Sample Polygon</source>
-        <translation>Voorbeeld</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation>&amp;Factor toepassen</translation>
+        <translation>Rotatiegraden voor polygonen</translation>
     </message>
     <message>
         <source>Apply Convex/Concave Factor to change shape of Polygons</source>
         <translation>Convex/concaaf-factor toepassen op de vorm van polygonen</translation>
     </message>
     <message>
-        <source>A negative value will make the polygon concave (or star shaped),
- a positive value will make it convex</source>
-        <translation>Een negatieve waarde maakt de polygoon concaaf (stervormig),
-een positieve waarde maakt haar convex</translation>
+        <source>Sample Polygon</source>
+        <translation>Voobeeldpolygoon</translation>
+    </message>
+    <message>
+        <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
+        <translation>Een negatieve waarde zal de polygoon concaaf (of stervormig) maken, een positieve waarde zal het convex maken</translation>
     </message>
 </context>
 <context>
@@ -8171,10 +11463,6 @@ een positieve waarde maakt haar convex</translation>
         <translation>Gereedschappen</translation>
     </message>
     <message>
-        <source>Scrapbook</source>
-        <translation>Kladblok</translation>
-    </message>
-    <message>
         <source>Display</source>
         <translation>Tonen</translation>
     </message>
@@ -8183,917 +11471,268 @@ een positieve waarde maakt haar convex</translation>
         <translation>Externe hulpprogramma&apos;s</translation>
     </message>
     <message>
-        <source>Misc.</source>
+        <source>Hyphenator</source>
+        <translation>Afbreekfunctie</translation>
+    </message>
+    <message>
+        <source>Fonts</source>
+        <translation>Fonts</translation>
+    </message>
+    <message>
+        <source>Color Management</source>
+        <translation>Kleurbeheer</translation>
+    </message>
+    <message>
+        <source>PDF Export</source>
+        <translation>PDF Exporteren</translation>
+    </message>
+    <message>
+        <source>Keyboard Shortcuts</source>
+        <translation>Toetsenbord sneltoetssets</translation>
+    </message>
+    <message>
+        <source>Plugins</source>
+        <translation>Plug-ins</translation>
+    </message>
+    <message>
+        <source>Preflight Verifier</source>
+        <translation>Preflight controle</translation>
+    </message>
+    <message>
+        <source>Document Item Attributes</source>
+        <translation>Document Item attributen</translation>
+    </message>
+    <message>
+        <source>Table of Contents and Indexes</source>
+        <translation>Inhoudsopgave en indices</translation>
+    </message>
+    <message>
+        <source>Miscellaneous</source>
         <translation>Diversen</translation>
     </message>
     <message>
-        <source>GUI</source>
-        <translation>GUI</translation>
+        <source>Printer</source>
+        <translation>Printer</translation>
     </message>
     <message>
-        <source>&amp;Theme:</source>
-        <translation>S&amp;tijl:</translation>
+        <source>Scrapbook</source>
+        <translation>Kladblok</translation>
     </message>
+</context>
+<context>
+    <name>PrefsDialogBase</name>
     <message>
-        <source> pt</source>
-        <translation>pt</translation>
+        <source>&amp;Defaults</source>
+        <translation>Stan&amp;daard</translation>
     </message>
     <message>
-        <source>&amp;Font Size:</source>
-        <translation>&amp;Tekengrootte:</translation>
+        <source>Save Preferences</source>
+        <translation>Voorkeuren opslaan</translation>
     </message>
     <message>
-        <source>Units</source>
-        <translation>Eenheden</translation>
+        <source>Export...</source>
+        <translation>Exporteren...</translation>
     </message>
     <message>
-        <source>Points (pt)</source>
-        <translation>Punten (pt)</translation>
+        <source>&amp;Apply</source>
+        <translation>Toe&amp;passen</translation>
     </message>
     <message>
-        <source>Millimetres (mm)</source>
-        <translation>Millimeter (mm)</translation>
+        <source>All preferences can be reset here</source>
+        <translation>Alle voorkeuren kunnen hier worden hersteld</translation>
     </message>
     <message>
-        <source>Inches (in)</source>
-        <translation>Inch (in)</translation>
+        <source>Apply all changes without closing the dialog</source>
+        <translation>Alle veranderingen toepassen zonder dialoog te sluiten</translation>
     </message>
     <message>
-        <source>Picas (p)</source>
-        <translation>Pica&apos;s (p)</translation>
+        <source>Export current preferences into file</source>
+        <translation>Exporteer huidige voorkeuren naar bestand</translation>
     </message>
+</context>
+<context>
+    <name>PrefsManager</name>
     <message>
-        <source>Mouse Settings</source>
-        <translation>Muisinstellingen</translation>
+        <source>Postscript</source>
+        <translation>Postscript</translation>
     </message>
     <message>
-        <source>&amp;Wheel Jump:</source>
-        <translation>Muis&amp;wiel:</translation>
+        <source>Migrate Old Scribus Settings?</source>
+        <translation>Migreer oude instellingen van Scribus?</translation>
     </message>
     <message>
-        <source> px</source>
-        <translation>px</translation>
+        <source>Scribus has detected existing Scribus 1.2 preferences files.
+Do you want to migrate them to the new Scribus version?</source>
+        <translation>Scribus heeft bestaande Scribus 1.2 voorkeurbestanden gedetecteerd.
+Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
     </message>
     <message>
-        <source>&amp;Grab Radius:</source>
-        <translation>&amp;Objecten vastpakken:</translation>
+        <source>PostScript</source>
+        <translation>PostScript</translation>
     </message>
     <message>
-        <source>Menus</source>
-        <translation>Menu&apos;s</translation>
+        <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
+        <translation>Kan voorkeurbestand &quot;%1&quot; niet openen om te schrijven: %2</translation>
     </message>
     <message>
-        <source>&amp;Recent Documents:</source>
-        <translation>&amp;Recente documenten:</translation>
+        <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
+        <translation>Schrijft naar voorkeurbestand &quot;%1&quot; mislukt: QIODevice status code %2</translation>
     </message>
     <message>
-        <source>Paths</source>
-        <translation>Lokaties</translation>
+        <source>Failed to open prefs file &quot;%1&quot;: %2</source>
+        <translation>Openen van voorkeurbestand &quot;%1&quot; mislukt: %2</translation>
     </message>
     <message>
-        <source>&amp;Documents:</source>
-        <translation>&amp;Documenten:</translation>
+        <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
+        <translation>Lezen van voorkeur XML &quot;%1&quot; mislukt: %2 op regel %3, col %4</translation>
     </message>
     <message>
-        <source>&amp;Change...</source>
-        <translation>&amp;Wijzigen...</translation>
+        <source>PDF 1.3</source>
+        <translation>PDF 1.3</translation>
     </message>
     <message>
-        <source>&amp;ICC Profiles:</source>
-        <translation>&amp;ICC-profielen:</translation>
+        <source>PDF 1.4</source>
+        <translation>PDF 1.4</translation>
     </message>
     <message>
-        <source>C&amp;hange...</source>
-        <translation>Wijzige&amp;n...</translation>
+        <source>PDF/X-3</source>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
-        <source>&amp;Scripts:</source>
-        <translation>&amp;Scripts:</translation>
+        <source>Error Writing Preferences</source>
+        <translation>Schrijffout voorkeuren</translation>
     </message>
     <message>
-        <source>Ch&amp;ange...</source>
-        <translation>Wij&amp;zigen...</translation>
+        <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
+        <comment>scribus app error</comment>
+        <translation>Scribus was niet in staat om de voorkeuren op te slaan:&lt;br&gt;%1&lt;br&gt;Controleer bestands- en maprechten en beschikbare schrijfruimte.</translation>
     </message>
     <message>
-        <source>Page Size</source>
-        <translation>Paginagrootte</translation>
+        <source>Error Loading Preferences</source>
+        <translation>Laadfout voorkeuren</translation>
     </message>
     <message>
-        <source>Custom</source>
-        <translation>Aangepast</translation>
+        <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
+        <translation>Scribus was niet in staat om de voorkeuren te laden: &lt;br&gt;%1&lt;br&gt;Standaard instellingen worden geladen.</translation>
     </message>
     <message>
-        <source>&amp;Size:</source>
-        <translation>&amp;Grootte:</translation>
+        <source>PDF 1.5</source>
+        <translation>PDF 1.5</translation>
     </message>
+</context>
+<context>
+    <name>PresetLayout</name>
     <message>
-        <source>Portrait</source>
-        <translation>Staand</translation>
+        <source>Magazine</source>
+        <translation>Magazine</translation>
     </message>
     <message>
-        <source>Landscape</source>
-        <translation>Liggend</translation>
+        <source>Fibonacci</source>
+        <translation>Fibonacci</translation>
     </message>
     <message>
-        <source>Orie&amp;ntation:</source>
-        <translation>Orië&amp;ntatie:</translation>
+        <source>Golden Mean</source>
+        <translation>Gulden snede</translation>
     </message>
     <message>
-        <source>&amp;Width:</source>
-        <translation>&amp;Breedte:</translation>
+        <source>Nine Parts</source>
+        <translation>Negen Delen</translation>
     </message>
     <message>
-        <source>&amp;Height:</source>
-        <translation>&amp;Hoogte:</translation>
-    </message>
-    <message>
-        <source>&amp;Facing Pages</source>
-        <translation>&amp;Tegenover elkaar</translation>
-    </message>
-    <message>
-        <source>Left &amp;Page First</source>
-        <translation>Linker&amp;pagina eerst</translation>
-    </message>
-    <message>
-        <source>Margin Guides</source>
-        <translation>Marge hulplijnen</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation>On&amp;der:</translation>
-    </message>
-    <message>
-        <source>&amp;Top:</source>
-        <translation>&amp;Boven:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation>&amp;Rechts:</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation>&amp;Links:</translation>
-    </message>
-    <message>
-        <source>Autosave</source>
-        <translation>Automatisch opslaan</translation>
-    </message>
-    <message>
-        <source>&amp;Enabled</source>
-        <translation>&amp;Aan</translation>
-    </message>
-    <message>
-        <source>min</source>
-        <translation>min</translation>
-    </message>
-    <message>
-        <source>&amp;Interval:</source>
-        <translation>&amp;Interval:</translation>
-    </message>
-    <message>
-        <source>Grid Layout</source>
-        <translation>Rasterlayout</translation>
-    </message>
-    <message>
-        <source>M&amp;inor Grid Spacing:</source>
-        <translation>Kl&amp;eine rasterspatiëring:</translation>
-    </message>
-    <message>
-        <source>Ma&amp;jor Grid Spacing:</source>
-        <translation>&amp;Grote rasterspatiëring:</translation>
-    </message>
-    <message>
-        <source>Guide &amp;Snap Distance:</source>
-        <translation>Hulplijn&amp;magnetisme:</translation>
-    </message>
-    <message>
-        <source>Grid Colors</source>
-        <translation>Rasterkleuren</translation>
-    </message>
-    <message>
-        <source>Min&amp;or Grid Color:</source>
-        <translation>&amp;Klein raster:</translation>
-    </message>
-    <message>
-        <source>Majo&amp;r Grid Color:</source>
-        <translation>&amp;Groot raster:</translation>
-    </message>
-    <message>
-        <source>&amp;User Guides Color:</source>
-        <translation>H&amp;ulplijnen:</translation>
-    </message>
-    <message>
-        <source>Base&amp;line Grid Color:</source>
-        <translation>Basis&amp;lijn-raster:</translation>
-    </message>
-    <message>
-        <source>Placing</source>
-        <translation>Plaatsing</translation>
-    </message>
-    <message>
-        <source>In the &amp;Background</source>
-        <translation>&amp;Achtergrond</translation>
-    </message>
-    <message>
-        <source>In the Fore&amp;ground</source>
-        <translation>&amp;Voorgrond</translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation>Basislijn raster</translation>
-    </message>
-    <message>
-        <source>O&amp;n</source>
-        <translation>&amp;Aan</translation>
-    </message>
-    <message>
-        <source>O&amp;ff</source>
-        <translation>&amp;Uit</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation>Subscript</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation>%</translation>
-    </message>
-    <message>
-        <source>&amp;Displacement:</source>
-        <translation>Ver&amp;plaatsing:</translation>
-    </message>
-    <message>
-        <source>&amp;Scaling:</source>
-        <translation>&amp;Schaal:</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation>Superscript</translation>
-    </message>
-    <message>
-        <source>D&amp;isplacement:</source>
-        <translation>Verplaat&amp;sing:</translation>
-    </message>
-    <message>
-        <source>S&amp;caling:</source>
-        <translation>S&amp;chaal:</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation>Kleinkapitalen</translation>
-    </message>
-    <message>
-        <source>Sc&amp;aling:</source>
-        <translation>Sch&amp;aal:</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation>Overig</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Grid:</source>
-        <translation>Basislijn &amp;raster:</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Offset:</source>
-        <translation>Basislijn &amp;afstand:</translation>
-    </message>
-    <message>
-        <source>Automatic &amp;Line Spacing:</source>
-        <translation>Automatische &amp;regelspatiëring:</translation>
-    </message>
-    <message>
-        <source>Default &amp;Font:</source>
-        <translation>Stan&amp;daardlettertype:</translation>
-    </message>
-    <message>
-        <source>Default &amp;Size:</source>
-        <translation>Standaard&amp;grootte:</translation>
-    </message>
-    <message>
-        <source>&amp;Text Color:</source>
-        <translation>&amp;Tekstkleur:</translation>
-    </message>
-    <message>
-        <source>Colu&amp;mns:</source>
-        <translation>Kolo&amp;mmen:</translation>
-    </message>
-    <message>
-        <source>&amp;Gap:</source>
-        <translation>Tussen&amp;ruimte:</translation>
-    </message>
-    <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation>Filmquiz bracht knappe ex-yogi van de wijs</translation>
+        <source>Gutenberg</source>
+        <translation>Gutenberg</translation>
     </message>
     <message>
         <source>None</source>
+        <comment>layout type</comment>
         <translation>Geen</translation>
     </message>
     <message>
-        <source>&amp;Line Color:</source>
-        <translation>&amp;Lijnkleur:</translation>
+        <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <translation>U kunt hier een vooringestelde paginalayout selecteren. &apos;None&apos;&apos; laat de marges ongewijzigd. Gutenberg stelt marges in op de klassieke wijze. &apos;Magazine&apos; stelt alle marges in op dezelfde waarde. Leidend is Links/Binnen waarde.</translation>
     </message>
+</context>
+<context>
+    <name>PythonConsole</name>
     <message>
-        <source>&amp;Shading:</source>
-        <translation>&amp;Tint:</translation>
+        <source>&amp;Open...</source>
+        <translation>&amp;Openen...</translation>
     </message>
     <message>
-        <source>&amp;Fill Color:</source>
-        <translation>&amp;Vulkleur:</translation>
+        <source>&amp;Save</source>
+        <translation>Op&amp;slaan</translation>
     </message>
     <message>
-        <source>S&amp;hading:</source>
-        <translation>T&amp;int:</translation>
+        <source>Save &amp;As...</source>
+        <translation>Opslaan &amp;als...</translation>
     </message>
     <message>
-        <source>&amp;Type of Line:</source>
-        <translation>Lijnt&amp;ype:</translation>
+        <source>&amp;Exit</source>
+        <translation>&amp;Sluiten</translation>
     </message>
     <message>
-        <source>Line &amp;Width:</source>
-        <translation>Linedi&amp;kte:</translation>
+        <source>&amp;File</source>
+        <translation>&amp;Bestand</translation>
     </message>
     <message>
-        <source>Mi&amp;nimum:</source>
-        <translation>Mi&amp;nimaal:</translation>
+        <source>&amp;Run</source>
+        <translation>&amp;Uitvoeren</translation>
     </message>
     <message>
-        <source>Ma&amp;ximum:</source>
-        <translation>Ma&amp;ximaal:</translation>
+        <source>Run As &amp;Console</source>
+        <translation>Voer als &amp;console uit</translation>
     </message>
     <message>
-        <source>&amp;Stepping:</source>
-        <translation>In &amp;stappen:</translation>
+        <source>&amp;Save Output...</source>
+        <translation>Op&amp;slaan Output...</translation>
     </message>
     <message>
-        <source>&amp;Free Scaling</source>
-        <translation>&amp;Vrije schaal</translation>
+        <source>&amp;Script</source>
+        <translation>&amp;Script</translation>
     </message>
     <message>
-        <source>&amp;Horizontal Scaling:</source>
-        <translation>&amp;Horizontale schaal:</translation>
+        <source>Scribus Python Console</source>
+        <translation>Scribus Python Console</translation>
     </message>
     <message>
-        <source>&amp;Vertical Scaling:</source>
-        <translation>&amp;Verticale schaal:</translation>
+        <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
+        <translation>Dit is een afgeleide van de standaard Python console en bevat beperkingen, speciaal in het geval van witruimten. Lees de Scribus handleiding voor meer informatie.</translation>
     </message>
     <message>
-        <source>&amp;Scale Picture to Frame Size</source>
-        <translation>Afbeelding &amp;schalen naar framegrootte</translation>
+        <source>Script Console</source>
+        <translation>Scriptconsole</translation>
     </message>
     <message>
-        <source>Keep Aspect &amp;Ratio</source>
-        <translation>Beeldve&amp;rhouding behouden</translation>
+        <source>Write your commands here. A selection is processed as script</source>
+        <translation>Voer commando&apos;s hier in. Een selectie wordt als script uitgevoerd</translation>
     </message>
     <message>
-        <source>F&amp;ill Color:</source>
-        <translation>V&amp;ulkleur:</translation>
+        <source>Output of your script</source>
+        <translation>Output van het script</translation>
     </message>
     <message>
-        <source>Corn&amp;ers:</source>
-        <translation>Ho&amp;eken:</translation>
+        <source>Save the Python Commands in File</source>
+        <translation>Sla Python commando&apos;s op in bestand</translation>
     </message>
     <message>
-        <source>&amp;Rotation:</source>
-        <translation>&amp;Rotatie:</translation>
+        <source>Text Files (*.txt)</source>
+        <translation>Tekstbestanden (*.txt)</translation>
     </message>
     <message>
-        <source>&amp;Factor:</source>
-        <translation>&amp;Factor:</translation>
+        <source>Save Current Output</source>
+        <translation>Bewaar huidige output</translation>
     </message>
     <message>
-        <source>Other Options</source>
-        <translation>Overige opties</translation>
+        <source>Open Python Script File</source>
+        <translation>Open Python Script bestand</translation>
     </message>
     <message>
-        <source>Sa&amp;ve Contents on Changes</source>
-        <translation>Inhoud &amp;opslaan bij wijzigen</translation>
+        <source>Line: %1 Column: %2</source>
+        <translation>Regel: %1 Kolom: %2</translation>
     </message>
     <message>
-        <source>Preview</source>
-        <translation>Voorbeeld</translation>
-    </message>
-    <message>
-        <source>Small</source>
-        <translation>Klein</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation>Middel</translation>
-    </message>
-    <message>
-        <source>Large</source>
-        <translation>Groot</translation>
-    </message>
-    <message>
-        <source>Display Pages &amp;Side by Side</source>
-        <translation>Pagina&apos;s naa&amp;st elkaar tonen</translation>
-    </message>
-    <message>
-        <source>Page Colors</source>
-        <translation>Paginakleuren</translation>
-    </message>
-    <message>
-        <source>&amp;Background:</source>
-        <translation>&amp;Achtergrond:</translation>
-    </message>
-    <message>
-        <source>&amp;Margins:</source>
-        <translation>&amp;Marges:</translation>
-    </message>
-    <message>
-        <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>&amp;Niet-afdrukbare gebieden in margekleur weergeven</translation>
-    </message>
-    <message>
-        <source>Use PDF 1.4 &amp;Transparency Features</source>
-        <translation>PDF-1.4 &amp;transparantie gebruiken</translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Display Size</source>
-        <translation>Venstergrootte &amp;aanpassen</translation>
-    </message>
-    <message>
-        <source>To adjust the display drag the ruler below with the Slider.</source>
-        <translation>Om aan te passen sleep de schuifknop op het lineaal hieronder.</translation>
-    </message>
-    <message>
-        <source>&amp;Name of Executable:</source>
-        <translation>&amp;Naam van uitvoerbaar programma:</translation>
-    </message>
-    <message>
-        <source>Antialias &amp;Text</source>
-        <translation>Anti-alias &amp;tekst</translation>
-    </message>
-    <message>
-        <source>Antialias &amp;Graphics</source>
-        <translation>Anti-alias &amp;grafisch</translation>
-    </message>
-    <message>
-        <source>Image Processing Tool</source>
-        <translation>Programma voor beeldbewerking</translation>
-    </message>
-    <message>
-        <source>Name of &amp;Executable:</source>
-        <translation>Naam van uitvoerbaar &amp;programma:</translation>
-    </message>
-    <message>
-        <source>Printing</source>
-        <translation>Afdrukken</translation>
-    </message>
-    <message>
-        <source>Clip to Page &amp;Margins</source>
-        <translation>Bij pagina-&amp;marges afknippen</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Under Color Removal</source>
-        <translation>Onde&amp;rliggende kleuren verwijderen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Choose the default window decoration and looks.
-Scribus inherits any available KDE or Qt themes</source>
-        <translation>Kies de standaard vensterdecoratie en stijl.
-Scribus kan elke beschikbare KDE- of Qt-stijl overnemen</translation>
-    </message>
-    <message>
-        <source>Default font size for the menus and windows</source>
-        <translation>Standaardtekengrootte voor menu&apos;s en vensters</translation>
-    </message>
-    <message>
-        <source>Default unit of measurement for document editing</source>
-        <translation>Standaard meeteenheid voor het bewerken van dit document</translation>
-    </message>
-    <message>
-        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation>Bepaalt hoeveel regels Scribus doorschuift bij een stap van het muiswiel</translation>
-    </message>
-    <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation>Geeft de straal aan van het gebied waar Scribus het u toestaat een object vast te pakken</translation>
-    </message>
-    <message>
-        <source>Number of recently edited documents to show in the File menu</source>
-        <translation>Bepaalt hoeveel recent geopende documenten Scribus toont in het menu Bestand</translation>
-    </message>
-    <message>
-        <source>Default documents directory</source>
-        <translation>Standaardmap voor documenten</translation>
-    </message>
-    <message>
-        <source>Default Scripter scripts directory</source>
-        <translation>Standaardmap voor Scripts</translation>
-    </message>
-    <message>
-        <source>Default page size, either a standard size or a custom size</source>
-        <translation>Standaard paginagrootte</translation>
-    </message>
-    <message>
-        <source>Default orientation of document pages</source>
-        <translation>Standaardoriëntatie van de pagina&apos;s van een document</translation>
-    </message>
-    <message>
-        <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation>Breedte van de pagina&apos;s, kies &apos;Aangepast&apos; om hier een waarde in te kunnen stellen</translation>
-    </message>
-    <message>
-        <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation>Hoogte van de pagina&apos;s, kies &apos;Aangepast&apos; om hier een waarde in te kunnen stellen</translation>
-    </message>
-    <message>
-        <source>Enable single or spread based layout</source>
-        <translation>Alle pagina&apos;s hetzelfde of onderscheid tussen linker en rechterpagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Make the first page the left page of a document</source>
-        <translation>Laat het document beginnen met een linker pagina</translation>
-    </message>
-    <message>
-        <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Afstand tussen de onderkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de rugkant van het document</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het document</translation>
-    </message>
-    <message>
-        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
-each time the time period elapses</source>
-        <translation>Indien ingeschakeld, zal Scibus om elk ingesteld tijdsinterval een veiligheidskopie
-van uw document opslaan met de .bak-extensie</translation>
-    </message>
-    <message>
-        <source>Time period between saving automatically</source>
-        <translation>Tijdsinterval voor automatisch opslaan</translation>
-    </message>
-    <message>
-        <source>Distance between the minor grid lines</source>
-        <translation>Afstand tussen de kleine rasterlijnen</translation>
-    </message>
-    <message>
-        <source>Distance between the major grid lines</source>
-        <translation>Afstand tussen de grote rasterlijnen</translation>
-    </message>
-    <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation>Afstand vanaf welke een object zal aantrekken tot de hulplijnen</translation>
-    </message>
-    <message>
-        <source>Color of the minor grid lines</source>
-        <translation>Kleur van de kleine rasterlijnen</translation>
-    </message>
-    <message>
-        <source>Color of the major grid lines</source>
-        <translation>Kleur van de grote rasterlijnen</translation>
-    </message>
-    <message>
-        <source>Color of the guide lines you insert</source>
-        <translation>Kleur van uw eigen hulplijnen</translation>
-    </message>
-    <message>
-        <source>Place the grid behind your page objects</source>
-        <translation>Het raster onder uw andere pagina-objecten plaatsen</translation>
-    </message>
-    <message>
-        <source>Place the grid in front of your page objects</source>
-        <translation>Het raster voor alle objecten plaatsen</translation>
-    </message>
-    <message>
-        <source>Displacement above the baseline of the font on a line</source>
-        <translation>Verplaatsing boven de basislijn van een lettertype op een regel</translation>
-    </message>
-    <message>
-        <source>Relative size of the superscript compared to the normal font</source>
-        <translation>Relatieve grootte van het superscript t.o.v. de normale tekengrootte</translation>
-    </message>
-    <message>
-        <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Verplaatsing onder de basislijn van een lettertype op een regel</translation>
-    </message>
-    <message>
-        <source>Relative size of the subscript compared to the normal font</source>
-        <translation>Relatieve grootte van het subscript t.o.v. de normale tekengrootte</translation>
-    </message>
-    <message>
-        <source>Relative size of the small caps font compared to the normal font</source>
-        <translation>Relatieve grootte van de kleinkapitalen t.o.v. de normale tekengrootte</translation>
-    </message>
-    <message>
-        <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Toename van regelhoogte in procent van de waarde die het lettertype aangeeft</translation>
-    </message>
-    <message>
-        <source>Text Frame Properties</source>
-        <translation>Eigenschappen voor tekstframe</translation>
-    </message>
-    <message>
-        <source>Picture Frame Properties</source>
-        <translation>Eigenschappen voor afbeeldingsframe</translation>
-    </message>
-    <message>
-        <source>Shape Drawing Properties</source>
-        <translation>Eigenschappen voor tekenen van vormen</translation>
-    </message>
-    <message>
-        <source>Magnification Level Defaults</source>
-        <translation>Standaardwaarden voor vergrotingsniveau</translation>
-    </message>
-    <message>
-        <source>Line Drawing Properties</source>
-        <translation>Lijneigenschappen</translation>
-    </message>
-    <message>
-        <source>Polygon Drawing Properties</source>
-        <translation>Polygooneigenschappen</translation>
-    </message>
-    <message>
-        <source>Font for new text frames</source>
-        <translation>Lettertype voor nieuwe tekstframes</translation>
-    </message>
-    <message>
-        <source>Size of font for new text frames</source>
-        <translation>Tekengrootte voor nieuwe tekstframes</translation>
-    </message>
-    <message>
-        <source>Color of font</source>
-        <translation>Letterkleur</translation>
-    </message>
-    <message>
-        <source>Number of columns in a text frame</source>
-        <translation>Aantal kolommen in een tekstframe</translation>
-    </message>
-    <message>
-        <source>Gap between text frame columns</source>
-        <translation>Tussenruimte tussen kolommen</translation>
-    </message>
-    <message>
-        <source>Sample of your font</source>
-        <translation>Voorbeeld van uw lettertype</translation>
-    </message>
-    <message>
-        <source>Picture frames allow pictures to scale to any size</source>
-        <translation>Afbeeldingsframes kunnen afbeeldingen meeschalen naar elke grootte</translation>
-    </message>
-    <message>
-        <source>Horizontal scaling of images</source>
-        <translation>Horizontale schaal voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Vertical scaling of images</source>
-        <translation>Verticale schaal voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Keep horizontal and vertical scaling the same</source>
-        <translation>Houdt de horizontale en verticale schaal gelijk</translation>
-    </message>
-    <message>
-        <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation>Afbeeldingen in afbeeldingsframes worden altijd naar de grootte van het frame geschaald</translation>
-    </message>
-    <message>
-        <source>Automatically scaled pictures keep their original proportions</source>
-        <translation>Automatisch geschaalde afbeeldingen houden hun oorspronkelijke beeldverhouding</translation>
-    </message>
-    <message>
-        <source>Fill color of picture frames</source>
-        <translation>Vulkleur voor afbeeldingsframes</translation>
-    </message>
-    <message>
-        <source>Saturation of color of fill</source>
-        <translation>Verzadiging van de vulkleur</translation>
-    </message>
-    <message>
-        <source>Line color of shapes</source>
-        <translation>Lijnkleur van vormen</translation>
-    </message>
-    <message>
-        <source>Saturation of color of lines</source>
-        <translation>Verzadiging van de lijnkleur</translation>
-    </message>
-    <message>
-        <source>Fill color of shapes</source>
-        <translation>Vulkleur van vormen</translation>
-    </message>
-    <message>
-        <source>Line style of shapes</source>
-        <translation>Lijnstijl van vormen</translation>
-    </message>
-    <message>
-        <source>Line width of shapes</source>
-        <translation>Lijndikte van vormen</translation>
-    </message>
-    <message>
-        <source>Minimum magnification allowed</source>
-        <translation>Minimaal toegestane vergroting</translation>
-    </message>
-    <message>
-        <source>Maximum magnification allowed</source>
-        <translation>Maximaal toegestane vergroting</translation>
-    </message>
-    <message>
-        <source>Change in magnification for each zoom operation</source>
-        <translation>Verandering in grootte bij elke zoom-stap</translation>
-    </message>
-    <message>
-        <source>Color of lines</source>
-        <translation>Lijnkleur</translation>
-    </message>
-    <message>
-        <source>Saturation of color</source>
-        <translation>Kleurverzadiging</translation>
-    </message>
-    <message>
-        <source>Style of lines</source>
-        <translation>Lijnstijl</translation>
-    </message>
-    <message>
-        <source>Width of lines</source>
-        <translation>Dikte van lijnen</translation>
-    </message>
-    <message>
-        <source>Number of corners for polygons</source>
-        <translation>Aantal hoeken van polygonen (veelhoeken)</translation>
-    </message>
-    <message>
-        <source>Degrees of rotation for polygons</source>
-        <translation>Graden in rotatie van polygonen</translation>
-    </message>
-    <message>
-        <source>Sample Polygon</source>
-        <translation>Voorbeeldpolygoon</translation>
-    </message>
-    <message>
-        <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation>Kies de grootte van de voorbeeldweergave in het kladblok-palet</translation>
-    </message>
-    <message>
-        <source>Save the scrapbook contents everytime after a change</source>
-        <translation>Het kladblok telkens opslaan na een wijziging</translation>
-    </message>
-    <message>
-        <source>When using facing pages, show the two pages side by side</source>
-        <translation>Wanneer u pagina&apos;s tegenover elkaar gebruikt, toon dan de twee pagina&apos;s naast elkaar</translation>
-    </message>
-    <message>
-        <source>Color for paper</source>
-        <translation>Papierkleur</translation>
-    </message>
-    <message>
-        <source>Color for the margin lines</source>
-        <translation>Kleur voor de kantlijnen</translation>
-    </message>
-    <message>
-        <source>Mask the area outside the margins in the margin color</source>
-        <translation>Maskeert het gebied buiten de kantlijnen in de kantlijnkleur</translation>
-    </message>
-    <message>
-        <source>Enable transparency features within PDF 1.4 export</source>
-        <translation>Schakelt doorschijnende mogelijkheden van PDF-1.4 in</translation>
-    </message>
-    <message>
-        <source>Set the default zoom level</source>
-        <translation>Stelt het standaardzoom-niveau in</translation>
-    </message>
-    <message>
-        <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation>Tekst voor EPS en PDF voorzien van zachte weergave op het scherm (anti-alias)</translation>
-    </message>
-    <message>
-        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation>Grafische objecten voor EPS en PDF weergeven met vloeiende lijnen</translation>
-    </message>
-    <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation>Objecten die buiten de marges vallen niet weergeven bij afdrukken of exporteren</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation>Kies een map</translation>
-    </message>
-    <message>
-        <source>&amp;Inside:</source>
-        <translation>B&amp;innenkant:</translation>
-    </message>
-    <message>
-        <source>O&amp;utside:</source>
-        <translation>B&amp;uitenkant:</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
-    </message>
-    <message>
-        <source>T&amp;emplates:</source>
-        <translation>Sjablon&amp;en:</translation>
-    </message>
-    <message>
-        <source>Cha&amp;nge...</source>
-        <translation>Wijzige&amp;n...</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation>&amp;Factor toepassen</translation>
-    </message>
-    <message>
-        <source>Additional Directory for Document Templates</source>
-        <translation>Andere map voor document-sjablonen</translation>
-    </message>
-    <message>
-        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation>Convex/concaaf-factor toepassen op de vorm van polygonen</translation>
-    </message>
-    <message>
-        <source>A negative value will make the polygon concave (or star shaped),
- a positive value will make it convex</source>
-        <translation>Een negatieve waarde maakt de polygoon concaaf (stervormig),
-een positieve waarde maakt haar convex</translation>
-    </message>
-    <message>
-        <source>Executive</source>
-        <translation>Executive</translation>
-    </message>
-    <message>
-        <source>Folio</source>
-        <translation>Folio</translation>
-    </message>
-    <message>
-        <source>Ledger</source>
-        <translation>Ledger</translation>
-    </message>
-    <message>
-        <source>Legal</source>
-        <translation>Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation>Letter (US)</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation>Tabloid</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory. This cannot
-be changed with documents open.</source>
-        <translation>Standaardmap voor ICC-profielen. Dit kan niet
-worden gewijzigd indien documenten geopend zijn.</translation>
-    </message>
-    <message>
-        <source>Turns on the base grid</source>
-        <translation>Schakelt het basisraster in</translation>
-    </message>
-    <message>
-        <source>Turns off the base grid</source>
-        <translation>Schakelt het basisraster uit</translation>
-    </message>
-    <message>
-        <source>File system location for graphics editor. If you use gimp
-and your distro includes it, we recommend &apos;gimp-remote&apos;,
-as it allows you to edit the image in an already running
-instance of gimp.</source>
-        <translation>Locatie van een programma om afbeeldingen te bewerken. Als u GIMP
-gebruikt, kies dan &apos;gimp-remote&apos;, zodat u verscheidene afbeeldingen
-kunt openen in een reeds gestarte instantie van The GIMP.</translation>
-    </message>
-    <message>
-        <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>File system location for the GhostScript interpreter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <source>Python Scripts (*.py *.PY)</source>
+        <translation>Python Scripts (*.py *.PY)</translation>
     </message>
 </context>
 <context>
@@ -9354,14 +11993,6 @@ kunt openen in een reeds gestarte instantie van The GIMP.</translation>
         <translation>&lt;qt&gt;Wilt u werkelijk %1 &quot;%2&quot; verwijderen?&lt;/qt&gt;</translation>
     </message>
     <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Ja, verwijderen</translation>
-    </message>
-    <message>
-        <source>&amp;No</source>
-        <translation>&amp;Nee</translation>
-    </message>
-    <message>
         <source>New Folder 1</source>
         <translation>Nieuwe map 1</translation>
     </message>
@@ -9414,7 +12045,7 @@ Controleer het pad en de bestandsnaam.</translation>
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Lettertype</translation>
+        <translation>&amp;Font</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
@@ -9466,7 +12097,7 @@ Controleer het pad en de bestandsnaam.</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation>Lettertype selecteren</translation>
+        <translation>Font selecteren</translation>
     </message>
 </context>
 <context>
@@ -9537,37 +12168,13 @@ Controleer het pad en de bestandsnaam.</translation>
         <translation>Bezig te initialiseren...</translation>
     </message>
     <message>
-        <source>Document</source>
-        <translation>Document</translation>
-    </message>
-    <message>
         <source>Background</source>
         <translation>Achtergrond</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
     </message>
     <message>
         <source>Do you really want to overwrite the File:
 %1 ?</source>
         <translation>Wilt u werkelijk het bestand %1 overschrijven:?</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview</source>
-        <translation>&amp;Lettertypeweergave</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Special</source>
-        <translation>&amp;Invoegen speciaal</translation>
-    </message>
-    <message>
-        <source>New &amp;from Template...</source>
-        <translation>Nieuw van &amp;sjabloon...</translation>
-    </message>
-    <message>
-        <source>Template: </source>
-        <translation>Sjabloon:</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -9658,80 +12265,24 @@ Controleer het pad en de bestandsnaam.</translation>
         <translation>Eigen sjablonen</translation>
     </message>
     <message>
-        <source>Save as &amp;Image...</source>
-        <translation>Opslaan als &amp;afbeelding...</translation>
-    </message>
-    <message>
-        <source>Save as Image</source>
-        <translation>Opslaan als afbeelding</translation>
-    </message>
-    <message>
-        <source>Error writting the output file(s).</source>
-        <translation>Fout tijdens het schrijven naar uitvoerbestand(en).</translation>
-    </message>
-    <message>
-        <source>Error writing the output file(s).</source>
-        <translation>Fout tijdens het schrijven naar uitvoerbestand(en).</translation>
-    </message>
-    <message>
-        <source>Export successful.</source>
-        <translation>Export was succesvol.</translation>
-    </message>
-    <message>
-        <source>File exists. Overwrite?</source>
-        <translation>Het bestand bestaat. Wilt u het overschrijven?</translation>
-    </message>
-    <message>
-        <source>exists already. Overwrite?</source>
-        <translation>bestaat al. Wilt u het overschrijven?</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>Nee</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Ja</translation>
-    </message>
-    <message>
-        <source>Yes all</source>
-        <translation>Ja, alles</translation>
-    </message>
-    <message>
-        <source>Print Preview</source>
-        <translation>Afdrukvoorbeeld</translation>
-    </message>
-    <message>
-        <source>Print Previe&amp;w</source>
-        <translation>Afdruk&amp;voorbeeld</translation>
-    </message>
-    <message>
-        <source>Import &amp;EPS/PS...</source>
-        <translation>&amp;EPS/PS importeren...</translation>
-    </message>
-    <message>
-        <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-        <translation>Alle ondersteunde formaten (*.eps *.EPS *.ps *.PS);;</translation>
-    </message>
-    <message>
         <source>Open</source>
         <translation>Openen</translation>
     </message>
     <message>
-        <source>Save as &amp;Template...</source>
-        <translation>Opslaan als &amp;sjabloon...</translation>
+        <source>&amp;Scribus Scripts</source>
+        <translation>&amp;Scribus scripts</translation>
     </message>
     <message>
-        <source>S&amp;cripter Manual...</source>
-        <translation>Scripter &amp;handleiding...</translation>
+        <source>&amp;Execute Script...</source>
+        <translation>Script &amp;uitvoeren...</translation>
     </message>
     <message>
-        <source>Online Reference</source>
-        <translation>Online naslag</translation>
+        <source>&amp;Recent Scripts</source>
+        <translation>&amp;Recente scripts</translation>
     </message>
     <message>
-        <source>Save Page as &amp;SVG...</source>
-        <translation>Pagina opslaan als &amp;SVG...</translation>
+        <source>Show &amp;Console</source>
+        <translation>&amp;Console tonen</translation>
     </message>
     <message>
         <source>Save as</source>
@@ -9740,14 +12291,6 @@ Controleer het pad en de bestandsnaam.</translation>
     <message>
         <source>SVG-Images (*.svg *.svgz);;All Files (*)</source>
         <translation>SVG-afbeeldingen (*.svg *.svgz);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg);;All Files (*)</source>
-        <translation>SVG-afbeeldingen (*.svg);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Import &amp;SVG...</source>
-        <translation>&amp;SVG importeren...</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
@@ -9783,7 +12326,7 @@ Externe koppelingen
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation>Het lettertype %1 is beschadigd en wordt weggelaten</translation>
+        <translation>Het font %1 is beschadigd en wordt weggelaten</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -9800,10 +12343,6 @@ Externe koppelingen
     <message>
         <source>Bulgarian</source>
         <translation>Bulgaars</translation>
-    </message>
-    <message>
-        <source>Brazilian</source>
-        <translation>Brazilliaans</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -9878,10 +12417,6 @@ Externe koppelingen
         <translation>Litouws</translation>
     </message>
     <message>
-        <source>Norwegian (Bokmaal)</source>
-        <translation>Noors (Bokmaal)</translation>
-    </message>
-    <message>
         <source>Norwegian (Nnyorsk)</source>
         <translation>Noors (Nnyorsk)</translation>
     </message>
@@ -9926,53 +12461,57 @@ Externe koppelingen
         <translation>Media-cases</translation>
     </message>
     <message>
-        <source>Tried to set progress &gt; maximum progress</source>
-        <translation>Kan voortgang niet &gt; max. voortgang instellen</translation>
+        <source>&amp;About Script...</source>
+        <translation>&amp;Over script...</translation>
+    </message>
+    <message>
+        <source>About Script</source>
+        <translation>Over script</translation>
     </message>
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan tekengrootte niet bepalen voor niet-tekst-frame.</translation>
+        <translation>Kan fontgrootte niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan lettertype niet bepalen voor niet-tekst-frame.</translation>
+        <translation>Kan font niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan tekstgrootte niet bepalen voor niet-tekst-frame.</translation>
+        <translation>Kan tekstgrootte niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan aantal kolommen niet bepalen voor niet-tekst-frame.</translation>
+        <translation>Kan kolomtelling niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan regelspatiëring niet bepalen voor niet-tekst-frame.</translation>
+        <translation>Kan regelspaciering niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan kolomtussenruimte niet bepalen voor niet-tekst-frame.</translation>
+        <translation>Kan kolomruimte niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan tekstinhoud niet bepalen voor niet-tekst-frame.</translation>
+        <translation>Kan tekst niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan tekstinhoud niet wijzigen voor niet-tekst-frame.</translation>
+        <translation>Kan tekst niet plaatsen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan geen tekst invoegen in niet-tekst-frame.</translation>
+        <translation>Kan tekst niet intvoegen in non-tekst frame.</translation>
     </message>
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
@@ -9982,17 +12521,7 @@ Externe koppelingen
     <message>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
-        <translation>Selectieindex buiten bereik</translation>
-    </message>
-    <message>
-        <source>Failed to open document</source>
-        <comment>python error</comment>
-        <translation>Kon document niet openen</translation>
-    </message>
-    <message>
-        <source>Failed to save document</source>
-        <comment>python error</comment>
-        <translation>Kon document niet opslaan</translation>
+        <translation>Selectie index buiten bereik</translation>
     </message>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
@@ -10005,127 +12534,34 @@ Externe koppelingen
         <translation>Doel is geen afbeeldingsframe.</translation>
     </message>
     <message>
-        <source>An object with the requested name already exists</source>
-        <comment>python error</comment>
-        <translation>Er bestaat reeds een object met de gevraagde naam</translation>
-    </message>
-    <message>
-        <source>Point list must contain at least two points (four values)</source>
-        <comment>python error</comment>
-        <translation>Lijst met punten moet op zijn minst 2 punten bevatten (4 waarden)</translation>
-    </message>
-    <message>
-        <source>Point list must contain an even number of values</source>
-        <comment>python error</comment>
-        <translation>Lijst met punten moet een even aantal waarden bevatten</translation>
-    </message>
-    <message>
-        <source>Point list must contain at least three points (six values)</source>
-        <comment>python error</comment>
-        <translation>Lijst met punten moet op zijn minst 3 punten bevatten (6 waarden)</translation>
-    </message>
-    <message>
-        <source>Point list must contain at least four points (eight values)</source>
-        <comment>python error</comment>
-        <translation>Lijst met punten moet op zijn minst 4 punten bevatten (8 waarden)</translation>
-    </message>
-    <message>
-        <source>Point list must have a multiple of six values</source>
-        <comment>python error</comment>
-        <translation>Lijst met punten moet een veelvoud van 6 waarden hebben</translation>
-    </message>
-    <message>
-        <source>Object not found</source>
-        <comment>python error</comment>
-        <translation>Object niet gevonden</translation>
-    </message>
-    <message>
-        <source>Style not found</source>
-        <comment>python error</comment>
-        <translation>Stijl niet gevonden</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set style on a non-text frame</source>
-        <comment>python error</comment>
-        <translation>Kan stijl niet wijzigen voor niet-tekst-frame</translation>
-    </message>
-    <message>
-        <source>Failed to save EPS</source>
-        <comment>python error</comment>
-        <translation>Kon EPS niet opslaan</translation>
-    </message>
-    <message>
-        <source>Page number out of range</source>
-        <comment>python error</comment>
-        <translation>Paginanummer buiten bereik</translation>
-    </message>
-    <message>
-        <source>argument is not list: must be list of float values</source>
-        <comment>python error</comment>
-        <translation>argument is geen lijst: moet een lijst van float-waarden zijn</translation>
-    </message>
-    <message>
-        <source>argument contains non-numeric values: must be list of float values</source>
-        <comment>python error</comment>
-        <translation>argument bevat niet-numerieke waarden: moet een lijst van float-waarden zijn</translation>
-    </message>
-    <message>
-        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12</source>
-        <comment>python error</comment>
-        <translation>Lijndikte buiten bereik, moet zijn: 0 &lt;= lijndikte &lt;= 12</translation>
-    </message>
-    <message>
-        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
-        <comment>python error</comment>
-        <translation>Lijntint buiten bereik, moet zijn: 0 &lt;= tint &lt;= 100</translation>
-    </message>
-    <message>
-        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100</source>
-        <comment>python error</comment>
-        <translation>Vultint buiten bereik, moet zijn: 0 &lt;= tint &lt;= 100</translation>
-    </message>
-    <message>
         <source>Corner radius must be a positive number.</source>
         <comment>python error</comment>
-        <translation>Hoek-straal moet een positief getal zijn.</translation>
-    </message>
-    <message>
-        <source>Line style not found</source>
-        <comment>python error</comment>
-        <translation>Lijnstijl niet gevonden</translation>
+        <translation>Hoekradius moet een positief nummer zijn.</translation>
     </message>
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Kan kleur met lege naam niet bepalen.</translation>
+        <translation>Kan een kleur niet verkrijgen met een lege naam.</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Kan kleur met lege naam niet wijzigen.</translation>
+        <translation>Kan een kleur niet veranderen met een lege naam.</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Kan kleur met lege naam niet aanmaken.</translation>
+        <translation>Kan een kleur niet aanmaken met een lege naam.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Kan kleur met lege naam niet verwijderen.</translation>
+        <translation>Kan een kleur niet verwijderen met een lege naam.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation>Kan kleur met lege naam niet vervangen.</translation>
-    </message>
-    <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation>&amp;OpenOffice.org Draw importeren...</translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation>OpenOffice.org Draw-bestanden (*.sxd);;Alle bestanden (*)</translation>
+        <translation>Kan een kleur niet vervangen met een lege naam.</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
@@ -10134,7 +12570,684 @@ Externe koppelingen
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation>Kleur niet gevonden</translation>
+        <translation>Kleur niet gevonden - pythonfout</translation>
+    </message>
+    <message>
+        <source>Custom (optional) configuration: </source>
+        <comment>short words plugin</comment>
+        <translation>Handmatige (optioneel) configuratie: </translation>
+    </message>
+    <message>
+        <source>Standard configuration: </source>
+        <comment>short words plugin</comment>
+        <translation>Standaard configuratie: </translation>
+    </message>
+    <message>
+        <source>Short Words processing. Wait please...</source>
+        <comment>short words plugin</comment>
+        <translation>Korte woorden in bewerking. Wachten aub...</translation>
+    </message>
+    <message>
+        <source>Short Words processing. Done.</source>
+        <comment>short words plugin</comment>
+        <translation>Korte woorden in bewerking. Gereed.</translation>
+    </message>
+    <message>
+        <source>Afrikaans</source>
+        <translation>Afrikaans</translation>
+    </message>
+    <message>
+        <source>Turkish</source>
+        <translation>Turks</translation>
+    </message>
+    <message>
+        <source>Ukranian</source>
+        <translation>Oekraïens</translation>
+    </message>
+    <message>
+        <source>Welsh</source>
+        <translation>Welsh</translation>
+    </message>
+    <message>
+        <source>The filename must be a string.</source>
+        <comment>python error</comment>
+        <translation>De bestandsnaam moet een string zijn.</translation>
+    </message>
+    <message>
+        <source>Cannot delete image type settings.</source>
+        <comment>python error</comment>
+        <translation>Kan afbeeldingtype instellingenniet verwijderen.</translation>
+    </message>
+    <message>
+        <source>The image type must be a string.</source>
+        <comment>python error</comment>
+        <translation>Het afbeeldingstype moet een string zijn.</translation>
+    </message>
+    <message>
+        <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
+        <comment>python error</comment>
+        <translation>&apos;allTypes&apos; attribuut is ALLEEN LEZEN</translation>
+    </message>
+    <message>
+        <source>Failed to export image</source>
+        <comment>python error</comment>
+        <translation>Exporteren van afbeelding mislukt</translation>
+    </message>
+    <message>
+        <source>Cannot scale by 0%.</source>
+        <comment>python error</comment>
+        <translation>Kan niet schalen met 0%.</translation>
+    </message>
+    <message>
+        <source>Specified item not an image frame.</source>
+        <comment>python error</comment>
+        <translation>Item is geen afbeeldingsframe.</translation>
+    </message>
+    <message>
+        <source>Font not found.</source>
+        <comment>python error</comment>
+        <translation>Font niet gevonden.</translation>
+    </message>
+    <message>
+        <source>Cannot render an empty sample.</source>
+        <comment>python error</comment>
+        <translation>Kan geen leeg voorbeeld renderen.</translation>
+    </message>
+    <message>
+        <source>Cannot have an empty layer name.</source>
+        <comment>python error</comment>
+        <translation>Naam van de laag ontbreekt.</translation>
+    </message>
+    <message>
+        <source>Layer not found.</source>
+        <comment>python error</comment>
+        <translation>Laag niet gevonden.</translation>
+    </message>
+    <message>
+        <source>Cannot remove the last layer.</source>
+        <comment>python error</comment>
+        <translation>Kan laatste laag niet verwijderen.</translation>
+    </message>
+    <message>
+        <source>Cannot create layer without a name.</source>
+        <comment>python error</comment>
+        <translation>Kan geen nieuwe laag aanmaken zonder naam.</translation>
+    </message>
+    <message>
+        <source>Insert index out of bounds.</source>
+        <comment>python error</comment>
+        <translation>In te voegen index buiten bereik.</translation>
+    </message>
+    <message>
+        <source>Cannot set text alignment on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan regeluitlijning niet verkrijgen van non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
+        <comment>python error</comment>
+        <translation>Fontgrootte buiten bereik - moet 1 &lt;= grootte &lt;= 512 zijn.</translation>
+    </message>
+    <message>
+        <source>Cannot set font size on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan fontgrootte niet instellen van non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Cannot set font on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan font niet instellen van non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Line space out of bounds, must be &gt;= 0.1.</source>
+        <comment>python error</comment>
+        <translation>Spatiëring buiten bereik, moet zijn &gt;= 0.1.</translation>
+    </message>
+    <message>
+        <source>Cannot set line spacing on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan regelspaciering niet instellen van non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation>Kolomruimte buiten bereik, moet positief zijn.</translation>
+    </message>
+    <message>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan kolomruimte niet instellen van non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Column count out of bounds, must be &gt; 1.</source>
+        <comment>python error</comment>
+        <translation>Kolomtelling buiten bereik, moet &gt; 1 zijn.</translation>
+    </message>
+    <message>
+        <source>Cannot set number of columns on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan aantal kolommen niet instellen in non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Cannot select text in a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan tekst niet selecteren in non-tekst frame</translation>
+    </message>
+    <message>
+        <source>Cannot delete text from a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan tekst niet wissen in een non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Cannot set text fill on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan tekenvulkleur niet instellen in een non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Cannot set text stroke on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan kleur tekenomlijning niet instellen in een non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Cannot set text shade on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan tint tekst niet instellen in een non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Can only link text frames.</source>
+        <comment>python error</comment>
+        <translation>Kan alleen tekstframes verbinden.</translation>
+    </message>
+    <message>
+        <source>Target frame links to another frame.</source>
+        <comment>python error</comment>
+        <translation>Doel frame linkt naar ander frame.</translation>
+    </message>
+    <message>
+        <source>Target frame is linked to by another frame.</source>
+        <comment>python error</comment>
+        <translation>Naar doelframe wordt gelinkt door ander frame.</translation>
+    </message>
+    <message>
+        <source>Source and target are the same object.</source>
+        <comment>python error</comment>
+        <translation>Bron en doel zijn het zelfde object.</translation>
+    </message>
+    <message>
+        <source>Cannot unlink a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan een non-tekst frame niet loskoppelen.</translation>
+    </message>
+    <message>
+        <source>Cannot convert a non-text frame to outlines.</source>
+        <comment>python error</comment>
+        <translation>Kan een non-tekst frame niet naar curven omzetten.</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Pagina</translation>
+    </message>
+    <message>
+        <source>Scribus Development Version</source>
+        <translation>Scribus ontwikkelings versie</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source> in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source> p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>mm</source>
+        <translation>mm</translation>
+    </message>
+    <message>
+        <source>in</source>
+        <translation>in</translation>
+    </message>
+    <message>
+        <source>p</source>
+        <translation>p</translation>
+    </message>
+    <message>
+        <source>Points (pt)</source>
+        <translation>Punten (pt)</translation>
+    </message>
+    <message>
+        <source>Inches (in)</source>
+        <translation>Inches (in)</translation>
+    </message>
+    <message>
+        <source>Picas (p)</source>
+        <translation>Picas (p)</translation>
+    </message>
+    <message>
+        <source>File exists</source>
+        <translation>Bestand bestaat</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation>&amp;Vervangen</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Alles</translation>
+    </message>
+    <message>
+        <source>Failed to open document.</source>
+        <comment>python error</comment>
+        <translation>Openen van document mislukt.</translation>
+    </message>
+    <message>
+        <source>Failed to save document.</source>
+        <comment>python error</comment>
+        <translation>Bewaren van document mislukt.</translation>
+    </message>
+    <message>
+        <source>Argument must be page item name, or PyCObject instance</source>
+        <translation>Argument moet een pagina item naam zijn, of PyCObject instance</translation>
+    </message>
+    <message>
+        <source>Property not found</source>
+        <translation>Eigenschap niet gevonden</translation>
+    </message>
+    <message>
+        <source>Child not found</source>
+        <translation>Child niet gevonden</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
+        <translation>Kan niet omzetten resultaat type &apos;%1&apos;.</translation>
+    </message>
+    <message>
+        <source>Property type &apos;%1&apos; not supported</source>
+        <translation>Eigenschap type &apos;%1&apos; niet ondersteunt</translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t convert &apos;%1&apos; to property type &apos;%2&apos;</source>
+        <translation>Kan &apos;%1&apos; eigenschap niet omzetten naar type &apos;%2&apos;</translation>
+    </message>
+    <message>
+        <source>Types matched, but setting property failed.</source>
+        <translation>Types komen overeen, maar instellen eigenschappen lukt niet.</translation>
+    </message>
+    <message>
+        <source>Unable to save pixmap</source>
+        <comment>scripter error</comment>
+        <translation>Kan pixmap niet opslaan</translation>
+    </message>
+    <message>
+        <source>An object with the requested name already exists.</source>
+        <comment>python error</comment>
+        <translation>Een object met deze naam bestaat reeds.</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least two points (four values).</source>
+        <comment>python error</comment>
+        <translation>Puntenlijst moet tenminste twee punten bevatten (vier waarden).</translation>
+    </message>
+    <message>
+        <source>Point list must contain an even number of values.</source>
+        <comment>python error</comment>
+        <translation>Puntenlijst moet een even aantal waarden bevatten.</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least three points (six values).</source>
+        <comment>python error</comment>
+        <translation>Puntenlijst moet tenminste drie punten bevatten (zes waarden).</translation>
+    </message>
+    <message>
+        <source>Point list must contain at least four points (eight values).</source>
+        <comment>python error</comment>
+        <translation>Puntenlijst moet tenminste vier punten bevatten (acht waarden).</translation>
+    </message>
+    <message>
+        <source>Point list must have a multiple of six values.</source>
+        <comment>python error</comment>
+        <translation>Puntenlijst moet een veelvoud van zes waarden bevatten.</translation>
+    </message>
+    <message>
+        <source>Object not found.</source>
+        <comment>python error</comment>
+        <translation>Object niet gevonden.</translation>
+    </message>
+    <message>
+        <source>Style not found.</source>
+        <comment>python error</comment>
+        <translation>Stijl niet gevonden.</translation>
+    </message>
+    <message>
+        <source>Cannot set style on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan stijl niet instellen van non-tekst frame.</translation>
+    </message>
+    <message>
+        <source>Failed to save EPS.</source>
+        <comment>python error</comment>
+        <translation>Opslaan van EPS mislukt.</translation>
+    </message>
+    <message>
+        <source>Page number out of range.</source>
+        <comment>python error</comment>
+        <translation>Paginanummer buiten bereik.</translation>
+    </message>
+    <message>
+        <source>argument is not list: must be list of float values.</source>
+        <comment>python error</comment>
+        <translation>argument is geen lijst: moet een lijst van zwevende waarden (float values) zijn.</translation>
+    </message>
+    <message>
+        <source>argument contains non-numeric values: must be list of float values.</source>
+        <comment>python error</comment>
+        <translation>argument bevat niet-nummerieke waarden: moet een lijst van zwevende waarden (float values) zijn.</translation>
+    </message>
+    <message>
+        <source>argument contains no-numeric values: must be list of float values.</source>
+        <comment>python error</comment>
+        <translation>argument bevat niet-nummerieke waarden: moet een lijst van zwevende waarden (float values) zijn.</translation>
+    </message>
+    <message>
+        <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
+        <comment>python error</comment>
+        <translation>Lijnbreedte buiten bereik, moet zijn 0 &lt;= line_width &lt;=12.</translation>
+    </message>
+    <message>
+        <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
+        <comment>python error</comment>
+        <translation>Lijn tint buiten bereik, moet zijn 0 &lt;= shade &lt;=100.</translation>
+    </message>
+    <message>
+        <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
+        <comment>python error</comment>
+        <translation>Vul tint buiten bereik, moet zijn 0 &lt;= shade &lt;=100.</translation>
+    </message>
+    <message>
+        <source>Line style not found.</source>
+        <comment>python error</comment>
+        <translation>Lijn stijl niet gevonden.</translation>
+    </message>
+    <message>
+        <source>Object is not a linked text frame, can&apos;t unlink.</source>
+        <comment>python error</comment>
+        <translation>Object is een niet gekoppeld tekst frame, kan niet ontkoppelen.</translation>
+    </message>
+    <message>
+        <source>Only text frames can be checked for overflowing</source>
+        <comment>python error</comment>
+        <translation>Alleeen tekst frames kunnen worden gecontroleerd op overloop</translation>
+    </message>
+    <message>
+        <source>&amp;Script</source>
+        <translation>&amp;Script</translation>
+    </message>
+    <message>
+        <source>Croatian</source>
+        <translation>Kroatisch</translation>
+    </message>
+    <message>
+        <source>Portuguese</source>
+        <translation>Portugees</translation>
+    </message>
+    <message>
+        <source>Portuguese (BR)</source>
+        <translation>Portugees (Br)</translation>
+    </message>
+    <message>
+        <source>Scribus Crash</source>
+        <translation>Scribus is gecrashed</translation>
+    </message>
+    <message>
+        <source>Scribus crashes due to Signal #%1</source>
+        <translation>Scribus is gecrashed met signaal #%1</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Master Page </source>
+        <translation>Pagina sjabloon </translation>
+    </message>
+    <message>
+        <source>4A0</source>
+        <translation>4A0</translation>
+    </message>
+    <message>
+        <source>2A0</source>
+        <translation>2A0</translation>
+    </message>
+    <message>
+        <source>Comm10E</source>
+        <translation>Comm10E</translation>
+    </message>
+    <message>
+        <source>DLE</source>
+        <translation>DLE</translation>
+    </message>
+    <message>
+        <source>Could not open output file %1</source>
+        <translation>Kan output bestand %1 niet openen</translation>
+    </message>
+    <message>
+        <source>Output stream not writeable</source>
+        <translation>Kan output stream %1 niet schrijven</translation>
+    </message>
+    <message>
+        <source>Verification of settings failed: %1</source>
+        <translation>Verificatie van instellingen mislukt: %1</translation>
+    </message>
+    <message>
+        <source>Could not open input file %1</source>
+        <translation>Kan input bestand %1 niet openen</translation>
+    </message>
+    <message>
+        <source>Unable to read settings XML:</source>
+        <translation>Kan XML instellingen niet lezen:</translation>
+    </message>
+    <message>
+        <source>%1 (line %2 col %3)</source>
+        <comment>Load PDF settings</comment>
+        <translation>%1 [line %2 col %3)</translation>
+    </message>
+    <message>
+        <source>Unable to read settings XML: %1</source>
+        <translation>Kan XML instellingen niet lezen: %1</translation>
+    </message>
+    <message>
+        <source>null root node</source>
+        <comment>Load PDF settings</comment>
+        <translation>null root node</translation>
+    </message>
+    <message>
+        <source>&lt;pdfVersion&gt; invalid</source>
+        <comment>Load PDF settings</comment>
+        <translation>&lt;pdfVersion&gt; niet correct</translation>
+    </message>
+    <message>
+        <source>found %1 &lt;%2&gt; nodes, need 1.</source>
+        <comment>Load PDF settings</comment>
+        <translation>gevonden %1 &lt;%2&gt; nodes, benodigd 1.</translation>
+    </message>
+    <message>
+        <source>unexpected null &lt;%2&gt; node</source>
+        <comment>Load PDF settings</comment>
+        <translation>onverwachte null &lt;%2&gt; node</translation>
+    </message>
+    <message>
+        <source>node &lt;%1&gt; not an element</source>
+        <comment>Load PDF settings</comment>
+        <translation>node &lt;%1&gt; is geen element</translation>
+    </message>
+    <message>
+        <source>element &lt;%1&gt; lacks `value&apos; attribute</source>
+        <comment>Load PDF settings</comment>
+        <translation>in element &lt;%1&gt; ontbreekt &apos;value&apos; attribuut</translation>
+    </message>
+    <message>
+        <source>element &lt;%1&gt; value must be `true&apos; or `false&apos;</source>
+        <comment>Load PDF settings</comment>
+        <translation>element &lt;%1&gt; moet waarde &apos;true&apos; of &apos;false&apos; zijn</translation>
+    </message>
+    <message>
+        <source>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</source>
+        <comment>Load PDF settings</comment>
+        <translation>in element &lt;lpiSettingsEntry&gt; ontbreekt &apos;name&apos; attribuut</translation>
+    </message>
+    <message>
+        <source>Freetype2 library not available</source>
+        <translation>Freetype2 library niet beschikbaar</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken (read stream), no embedding</source>
+        <translation>Het font %1 is beschadigd (read stream), wordt niet ingesloten</translation>
+    </message>
+    <message>
+        <source>Font %1 is broken (no Face), discarding it</source>
+        <translation>Font %1 is beschadigd (no Face), wordt genegeerd</translation>
+    </message>
+    <message>
+        <source>Font %1 has broken glyph %2 (charcode %3)</source>
+        <translation>Font %1 heeft beschadigde symboolteken %2 (charcode %3)</translation>
+    </message>
+    <message>
+        <source>Font %1 cannot be read, no embedding</source>
+        <translation>Font %1 kan niet worden gelezen, wordt niet ingesloten</translation>
+    </message>
+    <message>
+        <source>Failed to load font %1 - font type unknown</source>
+        <translation>Font %1 kan niet worden geladen, font type onbekend</translation>
+    </message>
+    <message>
+        <source>Font %1 loaded from %2(%3)</source>
+        <translation>Font %1 geladen uit %2(%3)</translation>
+    </message>
+    <message>
+        <source>Font %1(%2) is duplicate of %3</source>
+        <translation>Font %1(%2) is een duplicaat van %3</translation>
+    </message>
+    <message>
+        <source>Loading font %1 (found using fontconfig)</source>
+        <translation>Laden font %1 (gevonden met fontconfig)</translation>
+    </message>
+    <message>
+        <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
+        <translation>Laden van een font niet gelukt - freetype2 kan font bestand niet vinden</translation>
+    </message>
+    <message>
+        <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
+        <translation>extractie face %1 van font %2 (offset=%3, nTables=%4)</translation>
+    </message>
+    <message>
+        <source>memcpy header: %1 %2 %3</source>
+        <translation>memcpy header: %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>table &apos;%1&apos;</source>
+        <translation>tabel &apos;%1&apos;</translation>
+    </message>
+    <message>
+        <source>memcpy table: %1 %2 %3</source>
+        <translation>memcpy tabel: %1 %2 %3</translation>
+    </message>
+    <message>
+        <source>memcpy offset: %1 %2 %3</source>
+        <translation>memcpy positie: %1 %2 %3</translation>
+    </message>
+    <message>
+        <source> cm</source>
+        <translation> cm</translation>
+    </message>
+    <message>
+        <source> c</source>
+        <translation> c</translation>
+    </message>
+    <message>
+        <source>cm</source>
+        <translation>cm</translation>
+    </message>
+    <message>
+        <source>c</source>
+        <translation>c</translation>
+    </message>
+    <message>
+        <source>Millimeters (mm)</source>
+        <translation>Millimeters (mm)</translation>
+    </message>
+    <message>
+        <source>Centimeters (cm)</source>
+        <translation>Centimeters (cm)</translation>
+    </message>
+    <message>
+        <source>Cicero (c)</source>
+        <translation>Cicero (c)</translation>
+    </message>
+    <message>
+        <source>page</source>
+        <comment>page export</comment>
+        <translation>pagina</translation>
+    </message>
+    <message>
+        <source>Document Template: </source>
+        <translation>Document Sjabloon:</translation>
+    </message>
+    <message>
+        <source>Color not found.</source>
+        <comment>python error</comment>
+        <translation>Kleur niet gevonden.</translation>
+    </message>
+    <message>
+        <source>Color not found in document.</source>
+        <comment>python error</comment>
+        <translation>Kleur niet gevonden in document.</translation>
+    </message>
+    <message>
+        <source>Color not found in default colors.</source>
+        <comment>python error</comment>
+        <translation>Kleur niet gevonden in standaard kleuren.</translation>
+    </message>
+    <message>
+        <source>Cannot group less than two items</source>
+        <comment>python error</comment>
+        <translation>Kan minder dan twee items niet groeperen</translation>
+    </message>
+    <message>
+        <source>Can&apos;t group less than two items</source>
+        <comment>python error</comment>
+        <translation>Kan minder dan twee items niet groeperen</translation>
+    </message>
+    <message>
+        <source>Need selection or argument list of items to group</source>
+        <comment>python error</comment>
+        <translation>Benodig selectie of argumentenlijst van te groeperen items</translation>
+    </message>
+    <message>
+        <source>Can&apos;t set bookmark on a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan geen bookmark instellen van non-tekst frame</translation>
+    </message>
+    <message>
+        <source>Can&apos;t get info from a non-text frame</source>
+        <comment>python error</comment>
+        <translation>Kan geen informatie krijgen van non-tekst frame</translation>
+    </message>
+    <message>
+        <source>The filename should not be empty string.</source>
+        <comment>python error</comment>
+        <translation>De bestandsnaam kan geen lege string zijn.</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -10150,369 +13263,561 @@ a string - they are not real Python objects. Many functions take an
 optional (non-keyword) parameter, a frame name.
 Many exceptions are also common across most functions. These are
 not currently documented in the docstring for each function.
-- Many functions will raise a NoDocOpenError if you try to use themwithout a document to operate on.
-- If you do not pass a frame name to a function that requires one,the function will use the currently selected frame, if any, orraise a NoValidObjectError if it can&apos;t find anything to operateon.
+- Many functions will raise a NoDocOpenError if you try to use them
+without a document to operate on.
+- If you do not pass a frame name to a function that requires one,
+the function will use the currently selected frame, if any, or
+raise a NoValidObjectError if it can&apos;t find anything to operate
+on.
 - Many functions will raise WrongFrameTypeError if you try to use them
 on a frame type that they do not make sense with. For example, setting
-the text colour on a graphics frame doesn&apos;t make sense, and will result
+the text color on a graphics frame doesn&apos;t make sense, and will result
 in this exception being raised.
 - Errors resulting from calls to the underlying Python API will be
 passed through unaltered. As such, the list of exceptions thrown by
 any function as provided here and in its docstring is incomplete.
 
 Details of what exceptions each function may throw are provided on the
-function&apos;s documentation.</source>
+function&apos;s documentation, though as with most Python code this list
+is not exhaustive due to exceptions from called functions.
+</source>
         <translation>Scribus Python interface module
 
-Deze module is de Python-interface voor Scribus. Het bevat functies om scribus
-te besturen en objecten op het canvas te manipuleren. Elke functie wordt hier-
-onder apart beschreven.
+Deze module is de Python interface voor Scribus. Het bevat functies
+om Scribus te beheersen en voor manipulatie van objecten op het werkblad. 
+Elke functie is hieronder afzonderlijk gedocumenteerd.
 
-Een aantal zaken is vrijwel overal gelijk:
+De meeste functies zijn bewerkingen van frames. Frames worden 
+geïdentificeerd bij hun naam - zij zijn geen echte Python objecten.
+Veel functies benodigen een optionele (non-keyword) parameter, een frame naam.
+Veel uitzonderingen komen regelmatig bij de meeste functies voor. Zij zijn
+niet gedocumenteerd in de docstring voor elke functie.
+- Vele functies roepen een NoDocOpenError op als zij worden gebruikt 
+zonder te bewerken document.
+- Als er geen frame naam wordt toegekend aan een functie waarbij dat nodig is,
+zal de functie het actieve frame gebruiken, als aanwezig, of een NoValidObjectError 
+oproepen als er niets is om te bewerken.
+- Meerdere functies zullen een WrongFrameTypeError oproepen als getracht wordt
+deze toe te passen op een frame waar dit niet mogeljk is. Bijvoorbeeld,
+instellen van de tekstkleur in een afbeeldingenframe is niet relevant, en zal een
+WrongFrameTypeError oproepen.
+- Fouten die resulteren uit aanroepen de van de onderliggende Python API
+worden ongewijzigd doorgegeven. Zodoende is de lijst met uitzonderingen die
+elke functie die hier wordt gebruikt incompleet.
 
-De meeste functies werken op frames. Frames zijn bekend onder hun naam,
-een string - het zijn geen echte Python-objecten. Veel functies hebben een
-optionele parameter, een framenaam.
-Veel uitzonderingen zijn ook identiek tussen verschillende functies. Deze zijn
-momenteel niet gedocumenteerd in de docstring voor elke functie.
-- Vele functies veroorzaken een NoDocOpenError als ze probeert zonder dat er een document open is.
-- Als u geen framenaam aan een functie geeft die dat wel nodig heeft, gebruikt de functie het momenteel
-geselecteerde frame, indien deze bestaat, of veroorzaakt een NoValidObjectError als er geen frame is.
-- Veel functies geven WrongFrameTypeError als u ze gebruikt op een frame waarvoor ze niet bedoeld zijn.
-Bijvoorbeeld de tekstkleur instellen op een grafisch frame heeft geen zin.
-- Foutmeldingen vanuit de onderliggende Python API worden ongewijzigd
-doorgegeven. Zodoende is de lijst van mogelijke uitzonderingen bij iedere
-functie niet volledig.
-
-Details over de mogelijke excepties worden in de documentatie van elke fuctie
-gegeven.
+Details van welke uitzonderingen elke functie oproept worden meegegeven in de
+documentatie van de functie, maar zoals met het grootste deel van de Python code
+is deze documentatie niet uitputtend ten gevolge van uitzonderingen van
+aangeroepen functies.
 </translation>
     </message>
     <message>
-        <source>Custom (optional) configuration: </source>
-        <comment>short words plugin</comment>
-        <translation> Eigen (optionele) configuratie:</translation>
-    </message>
-    <message>
-        <source>Standard configuration: </source>
-        <comment>short words plugin</comment>
-        <translation> Standaardinstelling:</translation>
-    </message>
-    <message>
-        <source>Short &amp;Words...</source>
-        <comment>short words plugin</comment>
-        <translation>Korte &amp;woorden...</translation>
-    </message>
-    <message>
-        <source>Short Words processing. Wait please...</source>
-        <comment>short words plugin</comment>
-        <translation>Korte Woorden is bezig. Wacht a.u.b...</translation>
-    </message>
-    <message>
-        <source>Short Words processing. Done.</source>
-        <comment>short words plugin</comment>
-        <translation>Korte Woorden is bezig. Voltooid.</translation>
-    </message>
-    <message>
-        <source>Afrikaans</source>
-        <translation>Afrikaans</translation>
-    </message>
-    <message>
-        <source>Turkish</source>
-        <translation>Turks</translation>
-    </message>
-    <message>
-        <source>Ukranian</source>
-        <translation>Oekraïns</translation>
-    </message>
-    <message>
-        <source>Welsh</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>The filename must be a string.</source>
-        <comment>python error</comment>
-        <translation>De bestandsnaam dient een string (tekenreeks) te zijn.</translation>
-    </message>
-    <message>
-        <source>Cannot delete image type settings.</source>
-        <comment>python error</comment>
-        <translation>Kan afbeeldingstype-instellingen niet verwijderen.</translation>
-    </message>
-    <message>
-        <source>The image type must be a string.</source>
-        <comment>python error</comment>
-        <translation>Het afbeeldingstype moet een string (tekenreeks) zijn.</translation>
-    </message>
-    <message>
-        <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
-        <comment>python error</comment>
-        <translation>Het &apos;allTypes&apos;-attribuut is alleen-lezen</translation>
-    </message>
-    <message>
-        <source>Failed to export image</source>
-        <comment>python error</comment>
-        <translation>Kon afbeelding niet exporteren</translation>
-    </message>
-    <message>
-        <source>Color not found.</source>
-        <comment>python error</comment>
-        <translation>Kleur niet gevonden.</translation>
-    </message>
-    <message>
-        <source>Color not found in document.</source>
-        <comment>python error</comment>
-        <translation>Kleur niet gevonden in document.</translation>
-    </message>
-    <message>
-        <source>Color not found in default colors.</source>
-        <comment>python error</comment>
-        <translation>Kleur niet gevonden in standaardkleuren.</translation>
-    </message>
-    <message>
-        <source>Cannot scale by 0%.</source>
-        <comment>python error</comment>
-        <translation>Kan niet schalen met 0%.</translation>
-    </message>
-    <message>
-        <source>Specified item not an image frame.</source>
-        <comment>python error</comment>
-        <translation>Het opgegeven item is geen afbeeldingsframe.</translation>
-    </message>
-    <message>
-        <source>Font not found.</source>
-        <comment>python error</comment>
-        <translation>Lettertype niet gevonden.</translation>
-    </message>
-    <message>
-        <source>Cannot render an empty sample.</source>
-        <comment>python error</comment>
-        <translation>Kan leeg voorbeeld niet weergeven.</translation>
-    </message>
-    <message>
-        <source>Cannot have an empty layer name.</source>
-        <comment>python error</comment>
-        <translation>Laagnaam kan niet leeg zijn.</translation>
-    </message>
-    <message>
-        <source>Layer not found.</source>
-        <comment>python error</comment>
-        <translation>Laag niet gevonden.</translation>
-    </message>
-    <message>
-        <source>Cannot remove the last layer.</source>
-        <comment>python error</comment>
-        <translation>Kan de laatste laag niet verwijderen.</translation>
-    </message>
-    <message>
-        <source>Cannot create layer without a name.</source>
-        <comment>python error</comment>
-        <translation>Kan geen laag zonder naam aanmaken.</translation>
-    </message>
-    <message>
-        <source>Insert index out of bounds.</source>
-        <comment>python error</comment>
-        <translation>Invoegings-index buiten bereik.</translation>
-    </message>
-    <message>
-        <source>Cannot set text alignment on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan tekst-uitlijning niet instellen bij een niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
-        <comment>python error</comment>
-        <translation>Tekengrootte buiten bereik, moet zijn: 1 &lt;= grootte &lt;= 512.</translation>
-    </message>
-    <message>
-        <source>Cannot set font size on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan tekengrootte niet bepalen voor niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Cannot set font on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan lettertype niet bepalen voor niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Line space out of bounds, must be &gt;= 0.1.</source>
-        <comment>python error</comment>
-        <translation>Regelafstand buiten bereik, moet zijn &gt;= 0.1.</translation>
-    </message>
-    <message>
-        <source>Cannot set line spacing on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan regelspatiëring niet bepalen voor niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Column gap out of bounds, must be positive.</source>
-        <comment>python error</comment>
-        <translation>Kolomtussenruimte buiten bereik, moet positief zijn.</translation>
-    </message>
-    <message>
-        <source>Cannot set column gap on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan kolomtussenruimte niet bepalen voor niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Column count out of bounds, must be &gt; 1.</source>
-        <comment>python error</comment>
-        <translation>Aantal kolommen buiten bereik, moet zijn &gt; 1.</translation>
-    </message>
-    <message>
-        <source>Cannot set number of columns on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan aantal kolommen niet instellen voor niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Cannot select text in a non-text frame</source>
-        <comment>python error</comment>
-        <translation>Kan geen tekst selecteren in niet-tekst-frame</translation>
-    </message>
-    <message>
-        <source>Cannot delete text from a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan geen tekst verwijderen in niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Cannot set text fill on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan tekstvulling niet instellen voor niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Cannot set text stroke on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan tekst-lijn niet instellen voor niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Cannot set text shade on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan tekst-tint niet instellen voor niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Can only link text frames.</source>
-        <comment>python error</comment>
-        <translation>Alleen tekstframes kunnen worden verbonden.</translation>
-    </message>
-    <message>
-        <source>Target frame must be empty.</source>
-        <comment>python error</comment>
-        <translation>Doelframe moet leeg zijn.</translation>
-    </message>
-    <message>
-        <source>Target frame links to another frame.</source>
-        <comment>python error</comment>
-        <translation>Doelframe is al verbonden met ander frame.</translation>
-    </message>
-    <message>
-        <source>Target frame is linked to by another frame.</source>
-        <comment>python error</comment>
-        <translation>Een ander frame is al verbonden met het doelframe.</translation>
-    </message>
-    <message>
-        <source>Source and target are the same object.</source>
-        <comment>python error</comment>
-        <translation>Bron en doel zijn hetzelfde object.</translation>
-    </message>
-    <message>
-        <source>Cannot unlink a non-text frame.</source>
-        <comment>python error</comment>
-        <translation>Kan verbinding niet verwijderen van niet-tekst-frame.</translation>
-    </message>
-    <message>
-        <source>Object is not a linked text frame, cannot unlink.</source>
-        <comment>python error</comment>
-        <translation>Object is geen verbonden tekstframe, kan verbinding niet verwijderen.</translation>
-    </message>
-    <message>
-        <source>Object the last frame in a series, cannot unlink. Unlink the previous frame instead.</source>
-        <comment>python error</comment>
-        <translation>Dit object is het laatste in een reeks, kan de verbinding niet verwijderen. Gebruik het vorige frame inplaats.</translation>
-    </message>
-    <message>
-        <source>Cannot convert a non-text frame to outlines.</source>
-        <comment>python error</comment>
-        <translation>Kan een niet-tekst-frame niet converteren naar contouren.</translation>
-    </message>
-    <message>
-        <source>Portuguese (Brazilian)</source>
-        <translation>Portugees (Braziliaans)</translation>
-    </message>
-    <message>
-        <source>Cannot get a colour with an empty name.</source>
-        <comment>python error</comment>
-        <translation>Kan kleur met lege naam niet bepalen.</translation>
-    </message>
-    <message>
-        <source>Unable to save pixmap.</source>
-        <comment>scripter error</comment>
-        <translation>Kan pixmap niet opslaan.</translation>
-    </message>
-    <message>
-        <source>Can&apos;t set bookmark on a non-text frame</source>
-        <comment>python error</comment>
-        <translation>Kan geen bladwijzer instellen in een niet-tekst-frame</translation>
-    </message>
-    <message>
-        <source>Can&apos;t get info from a non-text frame</source>
-        <comment>python error</comment>
-        <translation>Kan informatie niet bepalen voor niet-tekst-frame</translation>
-    </message>
-    <message>
         <source>OpenDocument Text Documents</source>
-        <translation>OpenDocument tekstdocumenten</translation>
+        <translation>OpenDocument Text Documenten</translation>
     </message>
     <message>
-        <source>Croatian</source>
-        <translation>Croatisch</translation>
+        <source>Copy #%1 of </source>
+        <translation>Kopie #%1 van</translation>
     </message>
     <message>
-        <source>Color not found</source>
-        <comment>python error</comment>
-        <translation>Kleur niet gevonden</translation>
+        <source>Black</source>
+        <translation>Zwart</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normaal</translation>
+        <source>Cyan</source>
+        <translation>Cyaan</translation>
     </message>
     <message>
-        <source>page</source>
-        <comment>page export</comment>
-        <translation>pagina</translation>
+        <source>Magenta</source>
+        <translation>Magenta</translation>
+    </message>
+    <message>
+        <source>Yellow</source>
+        <translation>Geel</translation>
+    </message>
+    <message>
+        <source>Color Wheel</source>
+        <translation>Kleurwiel</translation>
+    </message>
+    <message>
+        <source>Font Preview</source>
+        <translation>Fontvoorbeeld</translation>
+    </message>
+    <message>
+        <source>My Plugin</source>
+        <translation>Mijn plug-in</translation>
+    </message>
+    <message>
+        <source>New From Template</source>
+        <translation>Nieuw van sjabloon</translation>
+    </message>
+    <message>
+        <source>PS/EPS Importer</source>
+        <translation>PS/EPS importfilter</translation>
+    </message>
+    <message>
+        <source>Save As Template</source>
+        <translation>Opslaan als sjabloon</translation>
+    </message>
+    <message>
+        <source>Scripter</source>
+        <translation>Scripter</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation>Korte woorden</translation>
+    </message>
+    <message>
+        <source>SVG Export</source>
+        <translation>SVG exporteren</translation>
+    </message>
+    <message>
+        <source>SVG Import</source>
+        <translation>SVG importeren</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw Importer</source>
+        <translation>OpenOffice.org Draw Importfilter</translation>
+    </message>
+    <message>
+        <source>Scribus crashes due to the following exception : %1</source>
+        <translation>Scribus wordt gestopt ten gevolge van de volgende uitzondering : %1</translation>
+    </message>
+    <message>
+        <source>Creating Font Cache</source>
+        <translation>Maak Font Cache aan</translation>
+    </message>
+    <message>
+        <source>New Font found, checking...</source>
+        <translation>Nieuw Font gevonden, controleren...</translation>
+    </message>
+    <message>
+        <source>Modified Font found, checking...</source>
+        <translation>Bijgewerkt Font gevonden, controleren...</translation>
+    </message>
+    <message>
+        <source>Reading Font Cache</source>
+        <translation>Lees Font Cache</translation>
+    </message>
+    <message>
+        <source>Writing updated Font Cache</source>
+        <translation>Schrijf bijgewerkte Font Cache</translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation>Zoekt naar fonts</translation>
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>De veranderingen in het document zijn nog niet opgeslagen en u heeft gevraagd deze terug te zetten. Wilt u doorgaan?</translation>
+    </message>
+    <message>
+        <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
+        <translation>Een bestand met de naam &apos;%1&apos; bestaat reeds.&lt;br/&gt;Wilt u dit bestand vervangen door de nieuwe versie?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>firstPageOrder is groter dan toegestaan.</translation>
     </message>
     <message>
-        <source>Only text frames can be checked for overflowing</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <source>Old .sla format support</source>
+        <translation>Oud .sla bestandsformaat ondersteuning</translation>
     </message>
     <message>
-        <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
+        <source>German (Trad.)</source>
+        <translation>Duits (Trad.)</translation>
     </message>
     <message>
-        <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <source>Exporting PostScript File</source>
+        <translation>Exporteren PostScript bestand</translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <source>Printing File</source>
+        <translation>Afdrukken bestand</translation>
     </message>
     <message>
-        <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
+        <translation>&lt;p&gt;U probeert meer pagina&apos;s te importeren dan er beschikbaar zijn in het huidige document geteld vanaf de actieve pagina.&lt;/p&gt;Maak een keuze:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Aanmaken&lt;/b&gt; ontbrekende pagina&apos;s&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importeren&lt;/b&gt; Pagina&apos;s tot de laatste pagina&lt;/li&gt;&lt;li&gt;&lt;b&gt;Afbreken&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
+    </message>
+    <message>
+        <source>C&amp;reate</source>
+        <translation>&amp;Aanmaken</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importeren</translation>
+    </message>
+    <message>
+        <source>Thai</source>
+        <translation>Thais</translation>
+    </message>
+    <message>
+        <source>Barcode Generator</source>
+        <translation>Streepjescodegenerator</translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
+        <translation>OpenOffice.org Draw (*.sxd *.odg);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Word documenten</translation>
+    </message>
+    <message>
+        <source>Palm PDB Documents</source>
+        <comment>PDB Importer</comment>
+        <translation>Palm PDB documenten</translation>
+    </message>
+    <message>
+        <source>PDB_data</source>
+        <comment>PDB Importer</comment>
+        <translation>PDB_data</translation>
+    </message>
+    <message>
+        <source>PDB Import</source>
+        <comment>PDB Importer</comment>
+        <translation>PDB import</translation>
+    </message>
+    <message>
+        <source>Could not open file %1</source>
+        <comment>PDB Importer</comment>
+        <translation>Kan bestand %1 niet openen</translation>
+    </message>
+    <message>
+        <source>Luxembourgish</source>
+        <translation>Luxemburgs</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation>Arabisch</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Estisch</translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation>Japans</translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation>Deze pagina sjabloon naam komt niet overeen met een bestaande.</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation>IJslands</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation>%1 kan beschadigd zijn: ontbrekende resolutie labels</translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation>Bestand wordt niet herkend als een PDF document. Meldt dit als een bug.</translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation>Bretons</translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation>Engels (Amerikaans)</translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation>Engels (Australisch)</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation>%1 kan beschadigd zijn: ontbrekende of verkeerde resolutie labels</translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation>Dzongkha</translation>
+    </message>
+    <message>
+        <source>German (Swiss)</source>
+        <translation>Duits (Zwitsers)</translation>
+    </message>
+    <message>
+        <source>Hebrew</source>
+        <translation>Hebreeuws</translation>
+    </message>
+    <message>
+        <source>Latin</source>
+        <translation>Latijn</translation>
+    </message>
+    <message encoding="UTF-8">
+        <source>Norwegian (Bokmål)</source>
+        <translation>Noors (Bokmål)</translation>
+    </message>
+    <message>
+        <source>Romanian</source>
+        <translation>Roemeens</translation>
+    </message>
+    <message>
+        <source>Quarto</source>
+        <translation>Quarto</translation>
+    </message>
+    <message>
+        <source>Foolscap</source>
+        <translation>Folio</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Letter (US)</translation>
+    </message>
+    <message>
+        <source>Govt. Letter</source>
+        <translation>Govt. Letter</translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation>Legal</translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation>Tabloid</translation>
+    </message>
+    <message>
+        <source>Executive</source>
+        <translation>Executive</translation>
+    </message>
+    <message>
+        <source>Post</source>
+        <translation>Post</translation>
+    </message>
+    <message>
+        <source>Crown</source>
+        <translation>Crown</translation>
+    </message>
+    <message>
+        <source>Large Post</source>
+        <translation>Large Post</translation>
+    </message>
+    <message>
+        <source>Demy</source>
+        <translation>Demy</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Medium</translation>
+    </message>
+    <message>
+        <source>Royal</source>
+        <translation>Royal</translation>
+    </message>
+    <message>
+        <source>Elephant</source>
+        <translation>Elephant</translation>
+    </message>
+    <message>
+        <source>Double Demy</source>
+        <translation>Double Demy</translation>
+    </message>
+    <message>
+        <source>Quad Demy</source>
+        <translation>Quad Demy</translation>
+    </message>
+    <message>
+        <source>STMT</source>
+        <translation>STMT</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>B</source>
+        <translation>B</translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation>C</translation>
+    </message>
+    <message>
+        <source>D</source>
+        <translation>D</translation>
+    </message>
+    <message>
+        <source>E</source>
+        <translation>E</translation>
+    </message>
+    <message>
+        <source>The Font(s):
+%1 are not available.
+They have been replaced by &quot;Courier&quot;
+Therefore the image may be not correct</source>
+        <translation>De Font(s):
+%1 zijn niet beschikbaar.
+Deze worden vervangen door &quot;Courier&quot;
+Weergave is mogelijk niet correct</translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
+        <translation>U werkt met een ontwikkelversie van Scribus 1.3.x. Het document waarin u werkt is oorspronkelijk opgezet in Scribus 1.2.x  Opslaan van dit bestand maakt het onbruikbaar voor Scribus 1.2.x versies. Om toch in 1.2.x te bewerken, bewaar dit bestand onder een andere naam bewerk het onder deze nieuwe naam en het originele bestand zal niet worden gewijzigd. Weet u zeker dat u wilt doorgaan?</translation>
+    </message>
+    <message>
+        <source>Font %1(%2) is broken</source>
+        <translation>Font %1 (%2) is beschadigd</translation>
+    </message>
+    <message>
+        <source>Font %1 has broken glyph %2</source>
+        <translation>Font %1 heeft beschadigde symboolteken %2</translation>
+    </message>
+    <message>
+        <source>font %1 </source>
+        <translation>font %1 </translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation>grootte %1 </translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation>+stijl </translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation>+kleur </translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation>+onderlijnen</translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation>-onderlijnen </translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation>+doorstrepen </translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation>-doorstrepen </translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation>+schaduw </translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation>-schaduw </translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation>-tekstomlijning </translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation>-tekstomlijning </translation>
+    </message>
+    <message>
+        <source>+tracking %1 </source>
+        <translation>+tracking %1 </translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation>-tracking </translation>
+    </message>
+    <message>
+        <source>+baseline %1 </source>
+        <translation>+basislijn %1</translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation>+rekken </translation>
+    </message>
+    <message>
+        <source>parent= %1</source>
+        <translation>parent= %1</translation>
+    </message>
+    <message>
+        <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
+        <translation>Alle ondersteunde formaten (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation>Transparantie buiten bereik, moet zijn 0 &lt;=transparatie &lt;= 1.</translation>
+    </message>
+    <message>
+        <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
+        <comment>python error</comment>
+        <translation>Meng modus buiten bereik, moet zijn 0 &lt;=mengmodus &lt;=15.</translation>
+    </message>
+    <message>
+        <source>Cannot get number of lines of non-text frame.</source>
+        <comment>python error</comment>
+        <translation>Kan aantal regels van niet-tekst frames niet vaststellen.</translation>
+    </message>
+    <message>
+        <source>Scribus 1.2.x Support</source>
+        <translation>Scribus 1.2.x ondersteuning</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.4 Support</source>
+        <translation>Scribus 1.3.4 ondersteuning</translation>
+    </message>
+    <message>
+        <source>Image</source>
+        <translation>Afbeelding</translation>
+    </message>
+    <message>
+        <source>PDF Push Button</source>
+        <translation>PDF knop</translation>
+    </message>
+    <message>
+        <source>PDF Text Field</source>
+        <translation>PDF tekstveld</translation>
+    </message>
+    <message>
+        <source>PDF Check Box</source>
+        <translation>PDF check box</translation>
+    </message>
+    <message>
+        <source>PDF Combo Box</source>
+        <translation>PDF Combo Box</translation>
+    </message>
+    <message>
+        <source>PDF List Box</source>
+        <translation>PDF List Box</translation>
+    </message>
+    <message>
+        <source>PDF Text Annotation</source>
+        <translation>PDF tekst annotatie</translation>
+    </message>
+    <message>
+        <source>PDF Link Annotation</source>
+        <translation>PDF link annotatie</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Lijn</translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation>Polygoon</translation>
+    </message>
+    <message>
+        <source>Polyline</source>
+        <translation>Polylijn</translation>
+    </message>
+    <message>
+        <source>PathText</source>
+        <translation>Tekstpad</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Support</source>
+        <translation>Scribus 1.3.0-&gt;1.3.3.7 ondersteuning</translation>
     </message>
 </context>
 <context>
@@ -10633,145 +13938,527 @@ gegeven.
     </message>
 </context>
 <context>
-    <name>Query</name>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-</context>
-<context>
     <name>ReformDoc</name>
-    <message>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
-    </message>
     <message>
         <source>Document Setup</source>
         <translation>Instellingen voor document</translation>
     </message>
     <message>
-        <source>Margin Guides</source>
-        <translation>Marge hulplijnen</translation>
+        <source>Document</source>
+        <translation>Document</translation>
     </message>
     <message>
-        <source>&amp;Top:</source>
-        <translation>&amp;Boven:</translation>
+        <source>Guides</source>
+        <translation>Hulplijnen</translation>
     </message>
     <message>
-        <source>&amp;Left:</source>
-        <translation>&amp;Links:</translation>
+        <source>Display</source>
+        <translation>Tonen</translation>
     </message>
     <message>
-        <source>&amp;Bottom:</source>
-        <translation>On&amp;der:</translation>
+        <source>Typography</source>
+        <translation>Typografie</translation>
     </message>
     <message>
-        <source>&amp;Right:</source>
-        <translation>&amp;Rechts:</translation>
+        <source>Tools</source>
+        <translation>Gereedschappen</translation>
     </message>
     <message>
-        <source>&amp;Facing Pages</source>
-        <translation>&amp;Tegenover elkaar</translation>
+        <source>Hyphenator</source>
+        <translation>Afbreekfunctie</translation>
     </message>
     <message>
-        <source>Left &amp;Page First</source>
-        <translation>Linker&amp;pagina eerst</translation>
+        <source>Fonts</source>
+        <translation>Fonts</translation>
+    </message>
+    <message>
+        <source>PDF Export</source>
+        <translation>PDF Exporteren</translation>
+    </message>
+    <message>
+        <source>Color Management</source>
+        <translation>Kleurbeheer</translation>
+    </message>
+    <message>
+        <source>Document Information</source>
+        <translation>Documentinformatie</translation>
+    </message>
+    <message>
+        <source>Preflight Verifier</source>
+        <translation>Preflight controle</translation>
+    </message>
+    <message>
+        <source>Document Item Attributes</source>
+        <translation>Document Item attributen</translation>
+    </message>
+    <message>
+        <source>Table of Contents and Indexes</source>
+        <translation>Inhoudsopgave en indices</translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation>Aanpassen kleuren</translation>
+    </message>
+    <message>
+        <source>Sections</source>
+        <translation>Secties</translation>
+    </message>
+</context>
+<context>
+    <name>RunScriptDialog</name>
+    <message>
+        <source>Run as Extension Script</source>
+        <comment>run script dialog</comment>
+        <translation>Voer uit als extensie script</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py *.PY);; All Files (*)</source>
+        <translation>Python Scripts (*.py *.PY);;Alle bestanden (*)</translation>
+    </message>
+</context>
+<context>
+    <name>SMAlignSelect</name>
+    <message>
+        <source>P</source>
+        <comment>P as in Parent</comment>
+        <translation>P</translation>
+    </message>
+    <message>
+        <source>Use parent style&apos;s alignment instead of overriding it</source>
+        <translation>Gebruik stijleffecten van de parent stijl in plaats van deze te overschrijven</translation>
+    </message>
+</context>
+<context>
+    <name>SMBase</name>
+    <message>
+        <source>Style Manager</source>
+        <translation>Stijl manager</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+T</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation>Alt+N</translation>
+    </message>
+    <message>
+        <source>&lt;&lt; &amp;Done</source>
+        <translation>&lt;&lt; &amp;Gereed</translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation>Toe&amp;passen</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>He&amp;rstel</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation>Alt+R</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Nieuw</translation>
+    </message>
+    <message>
+        <source>&amp;Clone</source>
+        <translation>&amp;Klonen</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importeren</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>Please select a unique name for the style</source>
+        <translation>Selecteer een unieke naam voor de stijl</translation>
+    </message>
+</context>
+<context>
+    <name>SMCStylePage</name>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>Parent style</source>
+        <translation>Parent stijl</translation>
+    </message>
+    <message>
+        <source>Font face</source>
+        <translation>Font aanblik</translation>
+    </message>
+    <message>
+        <source>Font size</source>
+        <translation>Tekengrootte</translation>
+    </message>
+    <message>
+        <source>Tracking</source>
+        <translation>Tracking</translation>
+    </message>
+    <message>
+        <source>Baseline offset</source>
+        <translation>Basislijn verschuiving</translation>
+    </message>
+    <message>
+        <source>Horizontal scaling</source>
+        <translation>Horizontale schaling</translation>
+    </message>
+    <message>
+        <source>Vertical scaling</source>
+        <translation>Verticale schaling</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation>Taal</translation>
+    </message>
+    <message>
+        <source>Fill color</source>
+        <translation>Vulkleur</translation>
+    </message>
+    <message>
+        <source>Fill shade</source>
+        <translation>Vultint</translation>
+    </message>
+    <message>
+        <source>Stroke color</source>
+        <translation>Lijnkleur</translation>
+    </message>
+    <message>
+        <source>Stroke shade</source>
+        <translation>Lijntint</translation>
+    </message>
+    <message>
+        <source>Parent</source>
+        <translation>Parent</translation>
+    </message>
+    <message>
+        <source>Shade</source>
+        <translation>Tint</translation>
+    </message>
+</context>
+<context>
+    <name>SMCharacterStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation>Eigenschappen</translation>
+    </message>
+    <message>
+        <source>Character Styles</source>
+        <translation>Teken stijlen</translation>
+    </message>
+    <message>
+        <source>Character Style</source>
+        <translation>Teken stijl</translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation>Nieuwe stijl</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation>Kloon van %1</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation>%1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>SMColorCombo</name>
+    <message>
+        <source>Use Parent Value</source>
+        <translation>Gebruik Parent waarde</translation>
+    </message>
+</context>
+<context>
+    <name>SMFontComboH</name>
+    <message>
+        <source>Use Parent Font</source>
+        <translation>Gebruik Parent font</translation>
+    </message>
+</context>
+<context>
+    <name>SMLineStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation>Eigenschappen</translation>
+    </message>
+    <message>
+        <source>Line Styles</source>
+        <translation>Lijnstijlen</translation>
+    </message>
+    <message>
+        <source>Line Style</source>
+        <translation>Lijnstijl</translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation>Nieuwe stijl</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation>Kloon van %1</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation>%1 (%2)</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation>Ononderbroken lijn</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation>Gestreepte lijn</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation>Stippellijn</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation>Streep-stip lijn</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation>Streep-stip-stip lijn</translation>
+    </message>
+    <message>
+        <source> pt </source>
+        <translation>pt</translation>
+    </message>
+</context>
+<context>
+    <name>SMPStyleWidget</name>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation>Vaste regelspatiëring</translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation>Automatische regelspatiëring</translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation>Aan de basislijn van het raster uitlijnen</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>Parent style</source>
+        <translation>Parent stijl</translation>
+    </message>
+    <message>
+        <source>Line spacing mode</source>
+        <translation>Regelspatiëring modus</translation>
+    </message>
+    <message>
+        <source>Line spacing</source>
+        <translation>Regelspatiëring</translation>
+    </message>
+    <message>
+        <source>Space above</source>
+        <translation>Ruimte boven</translation>
+    </message>
+    <message>
+        <source>Space below</source>
+        <translation>Ruimte tussen regels</translation>
+    </message>
+    <message>
+        <source>Enable or disable drop cap</source>
+        <translation>Beginkapitaal aan- of uitschakelen</translation>
+    </message>
+    <message>
+        <source>Drop cap lines</source>
+        <translation>Beginkapitaal regels</translation>
+    </message>
+    <message>
+        <source>Drop cap offset</source>
+        <translation>Beginkapitaal verschuiving</translation>
+    </message>
+    <message>
+        <source>Alignment</source>
+        <translation>Uitlijning</translation>
+    </message>
+    <message>
+        <source>First line indent</source>
+        <translation>Eerste regel inspringen</translation>
+    </message>
+    <message>
+        <source>Left indent</source>
+        <translation>Links inspringen</translation>
+    </message>
+    <message>
+        <source>Right indent</source>
+        <translation>Rechts inspringen</translation>
+    </message>
+    <message>
+        <source>Tabulators</source>
+        <translation>Tabulators</translation>
+    </message>
+    <message>
+        <source>Parent</source>
+        <translation>Parent</translation>
+    </message>
+    <message>
+        <source>Distances and Alignment</source>
+        <translation>Afstanden en uitlijning</translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation>Beginkapitaal</translation>
+    </message>
+    <message>
+        <source>Tabulators and Indentation</source>
+        <translation>Tabs en inspringing</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation>Eigenschappen</translation>
+    </message>
+    <message>
+        <source>Character Style</source>
+        <translation>Teken stijl</translation>
+    </message>
+    <message>
+        <source>&amp;Lines:</source>
+        <translation>Rege&amp;ls:</translation>
+    </message>
+    <message>
+        <source>Distance from Text:</source>
+        <translation>Afstand van tekst:</translation>
+    </message>
+    <message>
+        <source>Based on</source>
+        <translation>Gebaseerd op</translation>
+    </message>
+</context>
+<context>
+    <name>SMParagraphStyle</name>
+    <message>
+        <source>Paragraph Styles</source>
+        <translation>Alineastijlen</translation>
+    </message>
+    <message>
+        <source>Paragraph Style</source>
+        <translation>Alineastijl</translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation>Nieuwe alineastijl</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation>Kloon van %1</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation>%1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>SMReplaceDia</name>
+    <message>
+        <source>Remove</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Replace with</source>
+        <translation>Vervangen door</translation>
+    </message>
+</context>
+<context>
+    <name>SMReplaceDiaBase</name>
+    <message>
+        <source>Delete Styles</source>
+        <translation>Stijlen verwijderen</translation>
     </message>
     <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Ca&amp;ncel</source>
+        <translation>A&amp;nnuleren</translation>
     </message>
     <message>
-        <source>Enable single or spread based layout</source>
-        <translation>Alle pagina&apos;s hetzelfde of onderscheid tussen linker en rechterpagina&apos;s</translation>
+        <source>Alt+N</source>
+        <translation>Alt+N</translation>
+    </message>
+</context>
+<context>
+    <name>SMRowWidget</name>
+    <message>
+        <source>No Style</source>
+        <translation>Geen stijl</translation>
+    </message>
+</context>
+<context>
+    <name>SMScComboBox</name>
+    <message>
+        <source>Use Parent Value</source>
+        <translation>Gebruik Parent waarde</translation>
+    </message>
+</context>
+<context>
+    <name>SMShadeButton</name>
+    <message>
+        <source>Use Parent Value</source>
+        <translation>Gebruik Parent waarde</translation>
+    </message>
+</context>
+<context>
+    <name>SMStyleSelect</name>
+    <message>
+        <source>P</source>
+        <comment>P as in Parent</comment>
+        <translation>p</translation>
     </message>
     <message>
-        <source>Make the first page the left page of the document</source>
-        <translation>Laat het document beginnen met een linker pagina</translation>
+        <source>Use parent style&apos;s effects instead of overriding them</source>
+        <translation>Gebruik stijleffecten van de parentstijl in plaats van deze te overschrijven</translation>
     </message>
+</context>
+<context>
+    <name>SMTabruler</name>
     <message>
-        <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Afstand tussen de onderkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de rugkant van het document</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation>Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het document</translation>
-    </message>
-    <message>
-        <source>&amp;Inside:</source>
-        <translation>B&amp;innenkant:</translation>
-    </message>
-    <message>
-        <source>&amp;Outside:</source>
-        <translation>B&amp;uitenkant:</translation>
-    </message>
-    <message>
-        <source>Page Size</source>
-        <translation>Paginagrootte</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation>Grootte:</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation>Aangepast</translation>
-    </message>
-    <message>
-        <source>Orientation:</source>
-        <translation>Orientatie:</translation>
-    </message>
-    <message>
-        <source>Portrait</source>
-        <translation>Staand</translation>
-    </message>
-    <message>
-        <source>Landscape</source>
-        <translation>Liggend</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation>Breedte:</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation>Hoogte:</translation>
-    </message>
-    <message>
-        <source>F&amp;irst Page Number:</source>
-        <translation>N&amp;ummer eerste pagina:</translation>
+        <source> Parent Tabs </source>
+        <translation>Parent tabs</translation>
     </message>
 </context>
 <context>
@@ -10792,10 +14479,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Vulkleur-instellingen</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
         <source>Color of text fill</source>
         <translation>Kleur van de tekstvulling</translation>
     </message>
@@ -10811,10 +14494,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Lijnkleur-instellingen</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
         <source>Color of text stroke</source>
         <translation>Kleur van de tekstlijnen</translation>
     </message>
@@ -10827,7 +14506,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <name>SToolBFont</name>
     <message>
         <source>Font Settings</source>
-        <translation>Lettertype-instellingen</translation>
+        <translation>Font-instellingen</translation>
     </message>
     <message>
         <source> pt</source>
@@ -10839,7 +14518,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Font of selected text</source>
-        <translation>Lettertype van geselecteerde tekst</translation>
+        <translation>Font van geselecteerde tekst</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -10849,6 +14528,10 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <source>Scaling width of characters</source>
         <translation>Schaalbreedte van tekens</translation>
     </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation>Schaalhoogte van tekens</translation>
+    </message>
 </context>
 <context>
     <name>SToolBStyle</name>
@@ -10857,737 +14540,476 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Teken-instellingen</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>Tracking:</source>
-        <translation>Volgen:</translation>
+        <source> %</source>
+        <translation>%</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation>Handmatig volgen</translation>
+        <translation>Handmatige tracking</translation>
     </message>
 </context>
 <context>
-    <name>ScToolBar</name>
+    <name>SVGExportPlugin</name>
     <message>
-        <source>Top</source>
-        <translation type="unfinished"></translation>
+        <source>Exports SVG Files</source>
+        <translation>Exporteert SVG bestanden</translation>
     </message>
     <message>
-        <source>Right</source>
-        <translation type="unfinished">Rechts</translation>
+        <source>Exports the current page into an SVG file.</source>
+        <translation>Extorteert de huidige pagina naar een SVG bestand.</translation>
     </message>
     <message>
-        <source>Bottom</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="unfinished">Links</translation>
-    </message>
-    <message>
-        <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation type="unfinished">Horizontaal</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation type="unfinished">Verticaal</translation>
-    </message>
-    <message>
-        <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <source>Save as &amp;SVG...</source>
+        <translation>Opslaan als &amp;SVG...</translation>
     </message>
 </context>
 <context>
-    <name>ScriXmlDoc</name>
+    <name>SVGImportPlugin</name>
     <message>
-        <source>Copy #%1 of </source>
-        <translation>Kopie #%1 van</translation>
+        <source>Import &amp;SVG...</source>
+        <translation>&amp;SVG importeren...</translation>
     </message>
     <message>
-        <source>Background</source>
-        <translation>Achtergrond</translation>
+        <source>Imports SVG Files</source>
+        <translation>Importeert SVG bestanden</translation>
+    </message>
+    <message>
+        <source>Imports most SVG files into the current document,
+converting their vector data into Scribus objects.</source>
+        <translation>Importeert de meeste SVG bestanden naar het huidige document,
+zet de vectordata over naar Scribus objecten.</translation>
+    </message>
+    <message>
+        <source>Scalable Vector Graphics</source>
+        <translation>Scalable Vector Graphics</translation>
+    </message>
+    <message>
+        <source>SVG file contains some unsupported features</source>
+        <translation>SVG bestand bevat niet ondersteunde eigenschappen</translation>
+    </message>
+    <message>
+        <source>The file could not be imported</source>
+        <translation>Het bestand kan niet worden geïmporteerd</translation>
     </message>
 </context>
 <context>
-    <name>ScribusApp</name>
+    <name>SVGPlug</name>
     <message>
-        <source>Normal</source>
-        <translation>Normaal</translation>
+        <source>Group%1</source>
+        <translation>Groep %1</translation>
+    </message>
+</context>
+<context>
+    <name>SWDialog</name>
+    <message>
+        <source>Short Words</source>
+        <comment>short words plugin</comment>
+        <translation>Korte woorden</translation>
     </message>
     <message>
-        <source>File</source>
-        <translation>Bestand</translation>
+        <source>Apply unbreakable space on:</source>
+        <comment>short words plugin</comment>
+        <translation>Niet afbreekbare spatie toepassen op:</translation>
     </message>
     <message>
-        <source>Create a new Document</source>
-        <translation>Nieuw document aanmaken</translation>
+        <source>&amp;Selected frames</source>
+        <comment>short words plugin</comment>
+        <translation>Ge&amp;selecteerde frames</translation>
     </message>
     <message>
-        <source>Open a Document</source>
-        <translation>Een document openen</translation>
+        <source>Active &amp;page</source>
+        <comment>short words plugin</comment>
+        <translation>Actieve &amp;pagina</translation>
     </message>
     <message>
-        <source>Save the current Document</source>
-        <translation>Het huidige document opslaan</translation>
+        <source>&amp;All items</source>
+        <comment>short words plugin</comment>
+        <translation>&amp;Alle items</translation>
     </message>
     <message>
-        <source>Close the current Document</source>
-        <translation>Het huidige document sluiten</translation>
+        <source>Only selected frames processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Enkel geslecteerde frames verwerkt.</translation>
     </message>
     <message>
-        <source>Print the current Document</source>
-        <translation>Het huidige document afdrukken</translation>
+        <source>Only actual page processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Alleen huidige pagina verwerkt.</translation>
     </message>
     <message>
-        <source>Save the current Document as PDF</source>
-        <translation>Het huidige document als PDF opslaan</translation>
+        <source>All items in document processed.</source>
+        <comment>short words plugin</comment>
+        <translation>Alle items in document verwerkt.</translation>
+    </message>
+</context>
+<context>
+    <name>SWPrefsGui</name>
+    <message>
+        <source>User settings</source>
+        <translation>Gebruikersinstellingen</translation>
     </message>
     <message>
-        <source>Searching for Fonts</source>
-        <translation>Zoeken naar lettertypen</translation>
-    </message>
-    <message>
-        <source>Exiting now</source>
-        <translation>Bezig af te sluiten</translation>
-    </message>
-    <message>
-        <source>Fatal Error</source>
-        <translation>Fatale fout</translation>
-    </message>
-    <message>
-        <source>Smart Hyphen</source>
-        <translation>Intelligent afbreken</translation>
-    </message>
-    <message>
-        <source>Align Left</source>
-        <translation>Links uitlijnen</translation>
-    </message>
-    <message>
-        <source>Align Right</source>
-        <translation>Rechts uitlijnen</translation>
-    </message>
-    <message>
-        <source>Align Center</source>
-        <translation>Centreren</translation>
-    </message>
-    <message>
-        <source>Insert Page Number</source>
-        <translation>Paginanummer invoegen</translation>
-    </message>
-    <message>
-        <source>Attach Text to Path</source>
-        <translation>Tekst aan pad toevoegen</translation>
-    </message>
-    <message>
-        <source>Show Layers</source>
-        <translation>Lagen tonen</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation>Ongedaan maken</translation>
-    </message>
-    <message>
-        <source>Show Page Palette</source>
-        <translation>Paginapalet tonen</translation>
-    </message>
-    <message>
-        <source>Lock/Unlock</source>
-        <translation>Vergrendelen/losmaken</translation>
-    </message>
-    <message>
-        <source>Non Breaking Space</source>
-        <translation>Harde spatie</translation>
-    </message>
-    <message>
-        <source>Reading Preferences</source>
-        <translation>Instellingen worden gelezen</translation>
-    </message>
-    <message>
-        <source>Getting ICC Profiles</source>
-        <translation>ICC-profielen worden opgehaald</translation>
-    </message>
-    <message>
-        <source>Init Hyphenator</source>
-        <translation>Afbreekprogramma wordt ingesteld</translation>
-    </message>
-    <message>
-        <source>Setting up Shortcuts</source>
-        <translation>Sneltoetsen worden geladen</translation>
-    </message>
-    <message>
-        <source>&amp;Color Management...</source>
-        <translation>&amp;Kleurbeheer...</translation>
-    </message>
-    <message>
-        <source>Reading Scrapbook</source>
-        <translation>Kladblok wordt gelezen</translation>
-    </message>
-    <message>
-        <source>Initializing Plugins</source>
-        <translation>Plugins worden ingesteld</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation>&amp;Nieuw</translation>
-    </message>
-    <message>
-        <source>&amp;Open...</source>
-        <translation>&amp;Openen...</translation>
-    </message>
-    <message>
-        <source>Open &amp;Recent</source>
-        <translation>&amp;Recent geopend</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation>Nieuw</translation>
-    </message>
-    <message>
-        <source>Open...</source>
-        <translation>Openen...</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Sluiten</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation>Sluiten</translation>
+        <source>System wide configuration</source>
+        <translation>Systeeminstellingen</translation>
     </message>
     <message>
         <source>&amp;Save</source>
         <translation>Op&amp;slaan</translation>
     </message>
     <message>
-        <source>Save</source>
-        <translation>Opslaan</translation>
+        <source>&amp;Reset</source>
+        <translation>He&amp;rstel</translation>
     </message>
     <message>
-        <source>Save &amp;As...</source>
-        <translation>Opslaan &amp;als...</translation>
+        <source>Save user configuration</source>
+        <translation>Bewaar gebruikersinstellingen</translation>
     </message>
     <message>
-        <source>Save as...</source>
-        <translation>Opslaan als...</translation>
+        <source>Reload system wide configuration and remove user defined one</source>
+        <translation>Herlaad systeem instellingen en verwijder gebruikersinstellingen</translation>
     </message>
     <message>
-        <source>Re&amp;vert to Saved</source>
-        <translation>Terug&amp;zetten naar opgeslagen</translation>
+        <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
+        <translation>Bewerk handmatig instellingen. Als u deze bewaart zullen deze boven de systeeminstellingen gebruikt worden</translation>
     </message>
     <message>
-        <source>Collect for O&amp;utput...</source>
-        <translation>Verzamelen voor &amp;uitvoer...</translation>
+        <source>Short Words</source>
+        <translation>Korte woorden</translation>
     </message>
     <message>
-        <source>&amp;Get Text/Picture...</source>
-        <translation>Tekst/afbeelding verkrij&amp;gen...</translation>
+        <source>User configuration exists elready. Do you really want to overwrite it?</source>
+        <translation>Gerbruikersinstellingen bestaan reeds. Wilt u deze werkelijk overschrijven?</translation>
     </message>
     <message>
-        <source>Append &amp;Text...</source>
-        <translation>Tekst &amp;toevoegen...</translation>
+        <source>Cannot write file %1.</source>
+        <translation>Kan bestand %1 niet schrijven.</translation>
     </message>
     <message>
-        <source>Import &amp;Page(s)...</source>
-        <translation>&amp;Pagina(&apos;s) importeren...</translation>
+        <source>User settings saved</source>
+        <translation>Gebruikersinstellingen bewaart</translation>
+    </message>
+    <message>
+        <source>System wide configuration reloaded</source>
+        <translation>Systeeminstellingen herladen</translation>
+    </message>
+    <message>
+        <source>Cannot open file %1</source>
+        <translation>Kan bestand %1 niet openen</translation>
+    </message>
+</context>
+<context>
+    <name>SaveAsTemplatePlugin</name>
+    <message>
+        <source>Save as &amp;Template...</source>
+        <translation>Opslaan als &amp;sjabloon...</translation>
+    </message>
+    <message>
+        <source>Save a document as a template</source>
+        <translation>Bewaar een bestand als slabloon</translation>
+    </message>
+    <message>
+        <source>Save a document as a template. Good way to ease the initial work for documents with a constant look</source>
+        <translation>Bewaar een bestand als slabloon. Een goede manier om de gebruikelijke opmaak voor bestanden te vereenvoudigen</translation>
+    </message>
+</context>
+<context>
+    <name>ScGTFileDialog</name>
+    <message>
+        <source>Select a file to import</source>
+        <translation>Selecteer een bestand om te importeren</translation>
+    </message>
+    <message>
+        <source>Append</source>
+        <translation>Toevoegen</translation>
+    </message>
+    <message>
+        <source>Show options</source>
+        <translation>Toon opties</translation>
+    </message>
+</context>
+<context>
+    <name>ScInputDialog</name>
+    <message>
+        <source>Input Dialog</source>
+        <translation>Invoer dialoog</translation>
+    </message>
+    <message>
+        <source>InputDialog</source>
+        <translation>invoerdialoog</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuleren</translation>
+    </message>
+</context>
+<context>
+    <name>ScPlugin</name>
+    <message>
+        <source>Persistent</source>
+        <comment>plugin manager plugin type</comment>
+        <translation>Persistente</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <comment>plugin manager plugin type</comment>
+        <translation>Actie</translation>
+    </message>
+    <message>
+        <source>Load/Save/Import/Export</source>
+        <translation>Laad/Bewaar/Importeer/Exporteer</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Onbekend</translation>
+    </message>
+</context>
+<context>
+    <name>ScProgressBar</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation>%1 van %2</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation>Top</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation>Rechts</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation>Onder</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation>Links</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation>Toestaan vastzetten aan...</translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation>Horizontaal</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation>Verticaal</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation>Vrije oriëntatie...</translation>
+    </message>
+</context>
+<context>
+    <name>ScWinPrint</name>
+    <message>
+        <source>Printing...</source>
+        <translation>Afdrukken...</translation>
+    </message>
+</context>
+<context>
+    <name>Scribus12Format</name>
+    <message>
+        <source>Scribus 1.2.x Document</source>
+        <translation>Scribus 1.2.x document</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Achtergrond</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation>Kopie #%1 van</translation>
+    </message>
+</context>
+<context>
+    <name>Scribus134Format</name>
+    <message>
+        <source>Scribus 1.3.4 Document</source>
+        <translation>Scribus 1.3.4 Document</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation>Kopie #%1 van</translation>
+    </message>
+</context>
+<context>
+    <name>Scribus13Format</name>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation>Kopie #%1 van</translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.7 Document</source>
+        <translation>Scribus 1.3.0-&gt;1.3.3.7 Document</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusCore</name>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation>Initialiseren Plugins</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation>Initializeren Sneltoetssets</translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation>Voorkeuren inlezen</translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation>ICC Profielen inlezen</translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation>Zoekt naar fonts</translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation>Er zijn geen fonts op uw systeem gevonden.</translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation>Sluit nu af.</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation>Kritieke fout</translation>
+    </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation>Fonts geïnitialiseerd</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusDoc</name>
+    <message>
+        <source>New Layer</source>
+        <translation>Nieuwe laag</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation>Document</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation>Achtergrond</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation>Wilt u werkelijk uw tekst verwijderen?</translation>
+    </message>
+    <message>
+        <source>Cannot Delete In-Use Item</source>
+        <translation>Kan item in gebruik niet wissen</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Wissen wordt geannuleerd</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation>Fout opgetreden bij openen van ICC profielen, kleurmanagement is niet ingeschakeld.</translation>
+    </message>
+    <message>
+        <source>Default Paragraph Style</source>
+        <translation>Standaard alineastijl</translation>
+    </message>
+    <message>
+        <source>Default Character Style</source>
+        <translation>Standaard teken stijl</translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation>Aanpassen kleuren</translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation>Sommige objecten zijn vergrendeld.</translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation>&amp;Alle ontgrendelen</translation>
+    </message>
+    <message>
+        <source>&amp;Skip locked objects</source>
+        <translation>Vergrendelde objecten over&amp;slaan</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal gap: %2
+Vertical gap: %3</source>
+        <translation>Aantal kopieën: %1
+Horizontale ruimte: %2
+Verticale ruimte: %3</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3
+Rotation: %4</source>
+        <translation>Aantal afdrukken: %1
+Horizontale verschuiving: %2
+Verticale verschuiving: %3
+Rotatie: %4</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusMainWindow</name>
+    <message>
+        <source>Initializing Story Editor</source>
+        <translation>Initializeren Story Editor</translation>
+    </message>
+    <message>
+        <source>Initializing Hyphenator</source>
+        <translation>Initializeren Afbreekfunctie</translation>
+    </message>
+    <message>
+        <source>Reading Scrapbook</source>
+        <translation>Kladblok inlezen</translation>
+    </message>
+    <message>
+        <source>Setting up Shortcuts</source>
+        <translation>Instellen sneltoetssets</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Bestand</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Bewerken</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation>Kritieke fout</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;Bestand</translation>
+    </message>
+    <message>
+        <source>Open &amp;Recent</source>
+        <translation>&amp;Recent geopend</translation>
     </message>
     <message>
         <source>&amp;Import</source>
         <translation>&amp;Importeren</translation>
     </message>
     <message>
-        <source>Save &amp;Text...</source>
-        <translation>&amp;Tekst opslaan...</translation>
-    </message>
-    <message>
-        <source>Save Page as &amp;EPS...</source>
-        <translation>Pagina opslaan als &amp;EPS...</translation>
-    </message>
-    <message>
-        <source>Save as P&amp;DF...</source>
-        <translation>Opslaan als P&amp;DF...</translation>
-    </message>
-    <message>
         <source>&amp;Export</source>
         <translation>&amp;Exporteren</translation>
-    </message>
-    <message>
-        <source>Document &amp;Information...</source>
-        <translation>Document&amp;informatie...</translation>
-    </message>
-    <message>
-        <source>Document Info...</source>
-        <translation>Documentinformatie...</translation>
-    </message>
-    <message>
-        <source>Document &amp;Setup...</source>
-        <translation>Documentin&amp;stellingen...</translation>
-    </message>
-    <message>
-        <source>Document Setup...</source>
-        <translation>Documentinstellingen...</translation>
-    </message>
-    <message>
-        <source>&amp;Print...</source>
-        <translation>Afdru&amp;kken...</translation>
-    </message>
-    <message>
-        <source>Print...</source>
-        <translation>Afdrukken...</translation>
-    </message>
-    <message>
-        <source>&amp;Quit</source>
-        <translation>A&amp;fsluiten</translation>
-    </message>
-    <message>
-        <source>Quit</source>
-        <translation>Afsluiten</translation>
-    </message>
-    <message>
-        <source>&amp;Undo</source>
-        <translation>&amp;Ongedaan maken</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation>Kni&amp;ppen</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation>&amp;Kopiëren</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation>P&amp;lakken</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation>W&amp;issen</translation>
-    </message>
-    <message>
-        <source>Select &amp;All</source>
-        <translation>&amp;Alles selecteren</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation>Knippen</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation>Kopiëren</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation>Plakken</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation>Wissen</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation>Alles selecteren</translation>
-    </message>
-    <message>
-        <source>&amp;Search/Replace...</source>
-        <translation>&amp;Zoeken/vervangen...</translation>
-    </message>
-    <message>
-        <source>C&amp;olors...</source>
-        <translation>Kle&amp;uren...</translation>
-    </message>
-    <message>
-        <source>Colors...</source>
-        <translation>Kleuren...</translation>
-    </message>
-    <message>
-        <source>&amp;Paragraph Styles...</source>
-        <translation>&amp;Alineastijlen...</translation>
-    </message>
-    <message>
-        <source>&amp;Line Styles...</source>
-        <translation>&amp;Lijnstijlen...</translation>
-    </message>
-    <message>
-        <source>Styles...</source>
-        <translation>Stijlen...</translation>
-    </message>
-    <message>
-        <source>&amp;Templates...</source>
-        <translation>&amp;Sjablonen...</translation>
-    </message>
-    <message>
-        <source>Templates...</source>
-        <translation>Sjablonen...</translation>
-    </message>
-    <message>
-        <source>Select New Font</source>
-        <translation>Nieuw lettertype selecteren</translation>
-    </message>
-    <message>
-        <source>D&amp;uplicate</source>
-        <translation>D&amp;upliceren</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation>Dupliceren</translation>
-    </message>
-    <message>
-        <source>&amp;Multiple Duplicate</source>
-        <translation>&amp;Meervoudig dupliceren</translation>
-    </message>
-    <message>
-        <source>Multiple Duplicate</source>
-        <translation>Meervoudig dupliceren</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation>Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Verwijderen</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation>&amp;Groeperen</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation>Groeperen</translation>
-    </message>
-    <message>
-        <source>&amp;Ungroup</source>
-        <translation>&amp;Groep losmaken</translation>
-    </message>
-    <message>
-        <source>Un-group</source>
-        <translation>Groep losmaken</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation>Vergrende&amp;len</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation>Naar &amp;achtergrond</translation>
-    </message>
-    <message>
-        <source>Send to Back</source>
-        <translation>Naar achtergrond</translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation>Naar &amp;voorgrond</translation>
-    </message>
-    <message>
-        <source>Bring to Front</source>
-        <translation>Naar voorgrond</translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation>&amp;Lager</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation>Lager</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation>&amp;Hoger</translation>
-    </message>
-    <message>
-        <source>Raise</source>
-        <translation>Hoger</translation>
-    </message>
-    <message>
-        <source>Distribute/&amp;Align...</source>
-        <translation>Verdelen/&amp;uitlijnen...</translation>
-    </message>
-    <message>
-        <source>Distribute/Align...</source>
-        <translation>Verdelen/uitlijnen...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Shape</source>
-        <translation>Vorm b&amp;ewerken</translation>
-    </message>
-    <message>
-        <source>&amp;Shape</source>
-        <translation>&amp;Vorm</translation>
-    </message>
-    <message>
-        <source>&amp;Attach Text to Path</source>
-        <translation>Tekst &amp;aan pad toevoegen</translation>
-    </message>
-    <message>
-        <source>&amp;Detach Text from Path</source>
-        <translation>Tekst van &amp;pad losmaken</translation>
-    </message>
-    <message>
-        <source>&amp;Combine Polygons</source>
-        <translation>Polygonen &amp;samenvoegen</translation>
-    </message>
-    <message>
-        <source>Split &amp;Polygons</source>
-        <translation>&amp;Polygonen opsplitsen</translation>
-    </message>
-    <message>
-        <source>C&amp;onvert to Outlines</source>
-        <translation>Omzetten naar &amp;outlines</translation>
-    </message>
-    <message>
-        <source>&amp;Insert...</source>
-        <translation>&amp;Invoegen...</translation>
-    </message>
-    <message>
-        <source>Insert...</source>
-        <translation>Invoegen...</translation>
-    </message>
-    <message>
-        <source>&amp;Delete...</source>
-        <translation>Verwij&amp;deren...</translation>
-    </message>
-    <message>
-        <source>Delete...</source>
-        <translation>Verwijderen...</translation>
-    </message>
-    <message>
-        <source>&amp;Move...</source>
-        <translation>&amp;Verplaatsen...</translation>
-    </message>
-    <message>
-        <source>Move...</source>
-        <translation>Verplaatsen...</translation>
-    </message>
-    <message>
-        <source>&amp;Apply Template...</source>
-        <translation>Sj&amp;abloon toepassen...</translation>
-    </message>
-    <message>
-        <source>Apply Template...</source>
-        <translation>Sjabloon toepassen...</translation>
-    </message>
-    <message>
-        <source>Manage &amp;Guides...</source>
-        <translation>&amp;Hulplijnen beheren...</translation>
-    </message>
-    <message>
-        <source>Manage Guides...</source>
-        <translation>Hulplijnen beheren...</translation>
-    </message>
-    <message>
-        <source>&amp;Fit in Window</source>
-        <translation>Aanpassen aan &amp;venstergrootte</translation>
-    </message>
-    <message>
-        <source>Fit in Window</source>
-        <translation>Aanpassen aan venstergrootte</translation>
-    </message>
-    <message>
-        <source>50%</source>
-        <translation>50%</translation>
-    </message>
-    <message>
-        <source>75%</source>
-        <translation>75%</translation>
-    </message>
-    <message>
-        <source>&amp;100%</source>
-        <translation>&amp;100%</translation>
-    </message>
-    <message>
-        <source>100%</source>
-        <translation>100%</translation>
-    </message>
-    <message>
-        <source>200%</source>
-        <translation>200%</translation>
-    </message>
-    <message>
-        <source>&amp;Thumbnails</source>
-        <translation>Minia&amp;turen</translation>
-    </message>
-    <message>
-        <source>Thumbnails</source>
-        <translation>Miniaturen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Margins</source>
-        <translation>&amp;Marges tonen</translation>
-    </message>
-    <message>
-        <source>Hide Margins</source>
-        <translation>Marges verbergen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Frames</source>
-        <translation>&amp;Frames tonen</translation>
-    </message>
-    <message>
-        <source>Hide Frames</source>
-        <translation>Frames verbergen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Images</source>
-        <translation>Afbeeld&amp;ingen tonen</translation>
-    </message>
-    <message>
-        <source>Hide Images</source>
-        <translation>Afbeeldingen verbergen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Grid</source>
-        <translation>R&amp;aster tonen</translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation>Raster tonen</translation>
-    </message>
-    <message>
-        <source>Show G&amp;uides</source>
-        <translation>H&amp;ulplijnen tonen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation>&amp;Basislijn-raster tonen</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation>Ma&amp;gnetisch raster</translation>
-    </message>
-    <message>
-        <source>Snap to Grid</source>
-        <translation>Magnetisch raster</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation>Magnetische hul&amp;plijnen</translation>
-    </message>
-    <message>
-        <source>&amp;Properties</source>
-        <translation>&amp;Eigenschappen</translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation>Eigenschappen</translation>
-    </message>
-    <message>
-        <source>&amp;Outline</source>
-        <translation>&amp;Outline</translation>
-    </message>
-    <message>
-        <source>Outline</source>
-        <translation>Outline</translation>
-    </message>
-    <message>
-        <source>&amp;Scrapbook</source>
-        <translation>&amp;Kladblok</translation>
-    </message>
-    <message>
-        <source>Scrapbook</source>
-        <translation>Kladblok</translation>
-    </message>
-    <message>
-        <source>&amp;Layers</source>
-        <translation>&amp;Lagen</translation>
-    </message>
-    <message>
-        <source>P&amp;age Palette</source>
-        <translation>P&amp;aginapalet</translation>
-    </message>
-    <message>
-        <source>&amp;Bookmarks</source>
-        <translation>&amp;Bladwijzers</translation>
-    </message>
-    <message>
-        <source>&amp;Manage Pictures</source>
-        <translation>Afbeeldingen &amp;beheren</translation>
-    </message>
-    <message>
-        <source>Manage Pictures</source>
-        <translation>Afbeeldingen beheren</translation>
-    </message>
-    <message>
-        <source>&amp;Hyphenate Text</source>
-        <translation>Tekst a&amp;fbreken</translation>
-    </message>
-    <message>
-        <source>Hyphenate Text</source>
-        <translation>Tekst afbreken</translation>
-    </message>
-    <message>
-        <source>Toolti&amp;ps</source>
-        <translation>Hul&amp;pballonnen</translation>
-    </message>
-    <message>
-        <source>&amp;Tools</source>
-        <translation>&amp;Gereedschappen</translation>
-    </message>
-    <message>
-        <source>P&amp;DF Tools</source>
-        <translation>P&amp;DF-gereedschappen</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation>Gereedschappen</translation>
-    </message>
-    <message>
-        <source>Tooltips</source>
-        <translation>Hulpballonnen</translation>
-    </message>
-    <message>
-        <source>P&amp;references...</source>
-        <translation>&amp;Voorkeuren...</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts...</source>
-        <translation>&amp;Lettertypen...</translation>
-    </message>
-    <message>
-        <source>Fonts...</source>
-        <translation>Lettertypen...</translation>
-    </message>
-    <message>
-        <source>&amp;Hyphenator...</source>
-        <translation>&amp;Afbreekinstellingen...</translation>
-    </message>
-    <message>
-        <source>&amp;Keyboard Shortcuts...</source>
-        <translation>&amp;Sneltoetsen...</translation>
-    </message>
-    <message>
-        <source>&amp;About Scribus</source>
-        <translation>&amp;Info over Scribus</translation>
-    </message>
-    <message>
-        <source>About Scribus</source>
-        <translation>Info over Scribus</translation>
-    </message>
-    <message>
-        <source>About &amp;Qt</source>
-        <translation>Info over &amp;Qt</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation>Info over Qt</translation>
-    </message>
-    <message>
-        <source>Scribus &amp;Manual...</source>
-        <translation>Scribus &amp;handboek...</translation>
-    </message>
-    <message>
-        <source>Online-Help...</source>
-        <translation>Online hulp...</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation>&amp;Bestand</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
@@ -11598,8 +15020,68 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Sti&amp;jl</translation>
     </message>
     <message>
+        <source>&amp;Color</source>
+        <translation>&amp;Kleur</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation>&amp;Grootte</translation>
+    </message>
+    <message>
+        <source>&amp;Shade</source>
+        <translation>&amp;Tint</translation>
+    </message>
+    <message>
+        <source>&amp;Font</source>
+        <translation>&amp;Font</translation>
+    </message>
+    <message>
+        <source>&amp;Effects</source>
+        <translation>&amp;Effecten</translation>
+    </message>
+    <message>
         <source>&amp;Item</source>
         <translation>&amp;Item</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation>Voorbeeld instellingen</translation>
+    </message>
+    <message>
+        <source>Level</source>
+        <translation>Niveau</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation>In &amp;laag zetten</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation>&amp;PDF-opties</translation>
+    </message>
+    <message>
+        <source>&amp;Shape</source>
+        <translation>&amp;Vorm</translation>
+    </message>
+    <message>
+        <source>C&amp;onvert To</source>
+        <translation>&amp;Omzetten naar</translation>
+    </message>
+    <message>
+        <source>I&amp;nsert</source>
+        <translation>I&amp;nvoegen</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation>Teken</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation>Aanhalingsteken</translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation>Spatie</translation>
     </message>
     <message>
         <source>&amp;Page</source>
@@ -11611,11 +15093,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation>E&amp;xtra</translation>
-    </message>
-    <message>
-        <source>&amp;Settings</source>
-        <translation>In&amp;stellingen</translation>
+        <translation>E&amp;xtras</translation>
     </message>
     <message>
         <source>&amp;Windows</source>
@@ -11626,176 +15104,16 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>&amp;Help</translation>
     </message>
     <message>
-        <source>&amp;Left</source>
-        <translation>&amp;Links</translation>
-    </message>
-    <message>
-        <source>&amp;Center</source>
-        <translation>&amp;Midden</translation>
-    </message>
-    <message>
-        <source>&amp;Right</source>
-        <translation>&amp;Rechts</translation>
-    </message>
-    <message>
-        <source>&amp;Block</source>
-        <translation>&amp;Blok</translation>
-    </message>
-    <message>
-        <source>&amp;Forced</source>
-        <translation>Ge&amp;forceerd</translation>
-    </message>
-    <message>
-        <source>&amp;Other...</source>
-        <translation>&amp;Overig...</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>Underline</source>
-        <translation>Onderstreept</translation>
-    </message>
-    <message>
-        <source>Strikethru</source>
-        <translation>Doorhalen</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation>Kleinkapitalen</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation>Superscript</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation>Subscript</translation>
-    </message>
-    <message>
-        <source>Outlined</source>
-        <translation>Outline</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation>X-Pos:</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation>Y-Pos:</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation>p</translation>
+        <source>&amp;Alignment</source>
+        <translation>&amp;Uitlijning</translation>
     </message>
     <message>
         <source>Ready</source>
         <translation>Gereed</translation>
     </message>
     <message>
-        <source>&amp;Cascade</source>
-        <translation>&amp;Trapsgewijs</translation>
-    </message>
-    <message>
-        <source>&amp;Tile</source>
-        <translation>&amp;Tegels</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
-        <source>Get Text/Picture...</source>
-        <translation>Tekst/afbeelding verkrijgen...</translation>
-    </message>
-    <message>
-        <source>Get Picture...</source>
-        <translation>Afbeelding verkrijgen...</translation>
-    </message>
-    <message>
-        <source>&amp;Color</source>
-        <translation>&amp;Kleur</translation>
-    </message>
-    <message>
-        <source>&amp;Invert</source>
-        <translation>&amp;Inverteren</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation>Tekst verkrij&amp;gen...</translation>
-    </message>
-    <message>
-        <source>&amp;Font</source>
-        <translation>&amp;Lettertype</translation>
-    </message>
-    <message>
-        <source>&amp;Size</source>
-        <translation>&amp;Grootte</translation>
-    </message>
-    <message>
-        <source>&amp;Effects</source>
-        <translation>&amp;Effecten</translation>
-    </message>
-    <message>
-        <source>&amp;Alignment</source>
-        <translation>&amp;Uitlijning</translation>
-    </message>
-    <message>
-        <source>&amp;Shade</source>
-        <translation>&amp;Tint</translation>
-    </message>
-    <message>
-        <source>&amp;Tabulators...</source>
-        <translation>&amp;Tabulators...</translation>
-    </message>
-    <message>
-        <source>Get Text...</source>
-        <translation>Tekst verkrijgen...</translation>
-    </message>
-    <message>
-        <source>Font</source>
-        <translation>Lettertype</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation>Grootte</translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation>Stijl</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation>Kleur</translation>
-    </message>
-    <message>
-        <source>Shade</source>
-        <translation>Tint</translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation>&amp;Losmaken</translation>
-    </message>
-    <message>
         <source>Open</source>
         <translation>Openen</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Importing Pages...</source>
@@ -11806,18 +15124,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Pagina(&apos;s) importeren</translation>
     </message>
     <message>
-        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
-        <translation>&lt;p&gt;U probeert meer pagina&apos;s te importeren dan beschikbaar in het huidige document (geteld vanaf de actieve pagina).&lt;/p&gt;Kies een van de volgende mogelijkheden:&lt;br&gt;&lt;ul&gt;&lt;li&gt;Ontbrekende pagina&apos;s &lt;b&gt;aanmaken&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Pagina&apos;s &lt;b&gt;importeren&lt;/b&gt; tot aan laatste pagina&lt;/li&gt;&lt;li&gt;&lt;b&gt;Annuleren&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
-    </message>
-    <message>
-        <source>Create</source>
-        <translation>Aanmaken</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation>Importeren tot laatste</translation>
-    </message>
-    <message>
         <source>Import done</source>
         <translation>Importeren voltooid</translation>
     </message>
@@ -11826,50 +15132,59 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Niets gevonden om te importeren</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>File %1 is not in Scribus format</source>
-        <translation>Het bestand %1 is niet in Scribus-formaat</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>File %1 is not in an acceptable format</source>
+        <translation>Bestand %1 is een niet door Scribus geaccepteerd bestandsformaat.</translation>
     </message>
     <message>
         <source>Loading...</source>
         <translation>Laden...</translation>
     </message>
     <message>
-        <source>All Supported Formats</source>
-        <translation>Alle ondersteunde formaten</translation>
+        <source>PostScript</source>
+        <translation>PostScript</translation>
     </message>
     <message>
-        <source>All Files (*)</source>
-        <translation>Alle bestanden (*)</translation>
+        <source>Some ICC profiles used by this document are not installed:</source>
+        <translation>Enkele ICC profielen in dit document zijn niet geïnstalleerd:</translation>
     </message>
     <message>
-        <source>Can&apos;t write the File: 
+        <source> was replaced by: </source>
+        <translation> vervangen door: </translation>
+    </message>
+    <message>
+        <source>(converted)</source>
+        <translation>(omgezet)</translation>
+    </message>
+    <message>
+        <source>Cannot write the file: 
 %1</source>
-        <translation>Kan niet naar bestand schrijven: 
+        <translation>Kan het bestand niet schrijven:
 %1</translation>
     </message>
     <message>
-        <source>Save as</source>
+        <source>Save As</source>
         <translation>Opslaan als</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Saving...</source>
         <translation>Opslaan...</translation>
     </message>
     <message>
+        <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
+        <translation>Fouten geconstateerd. Gebruik Preflight Controle om te herstellen</translation>
+    </message>
+    <message>
+        <source>&amp;Ignore</source>
+        <translation>&amp;Afbreken</translation>
+    </message>
+    <message>
+        <source>&amp;Abort</source>
+        <translation>&amp;Stop
+</translation>
+    </message>
+    <message>
         <source>Printing...</source>
-        <translation>Bezig met afdrukken...</translation>
+        <translation>Afdrukken...</translation>
     </message>
     <message>
         <source>Document</source>
@@ -11880,248 +15195,311 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Afdrukken mislukt!</translation>
     </message>
     <message>
+        <source>Cannot Cut In-Use Item</source>
+        <translation>Kan item in gebruik niet knippen</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Knippen wordt geannuleerd</translation>
+    </message>
+    <message>
+        <source>About Qt</source>
+        <translation>Over Qt</translation>
+    </message>
+    <message>
         <source>Scribus Manual</source>
         <translation>Scribus handboek</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation>Opslaan als</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Tekstbestanden (*.txt);;Alle bestanden (*)</translation>
     </message>
     <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>Convert Page to Master Page</source>
+        <translation>Zet Pagina om naar pagina sjabloon</translation>
+    </message>
+    <message>
         <source>&amp;Size:</source>
         <translation>&amp;Grootte:</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Grootte</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
         <translation>&amp;Tint:</translation>
     </message>
     <message>
-        <source>Hide Baseline Grid</source>
-        <translation>Basislijn-raster verbergen</translation>
+        <source>Shade</source>
+        <translation>Tint</translation>
     </message>
     <message>
-        <source>Show Baseline Grid</source>
-        <translation>Basislijn-raster tonen</translation>
+        <source>No Style</source>
+        <translation>Geen stijl</translation>
     </message>
     <message>
-        <source>The following Programs are missing:</source>
+        <source>The following programs are missing:</source>
         <translation>De volgende programma&apos;s ontbreken:</translation>
     </message>
     <message>
+        <source>Ghostscript : You cannot use EPS images or Print Preview</source>
+        <translation>Ghostscript: EPS afbeeldingen of Print Preview kan niet worden gebruikt</translation>
+    </message>
+    <message>
         <source>All</source>
-        <translation>Alle</translation>
+        <translation>Alles</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation>pt</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation>mm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation>in</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation>p</translation>
-    </message>
-    <message>
-        <source>Some Objects are locked.</source>
-        <translation>Enkele objecten zijn vergrendeld.</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Annuleren</translation>
-    </message>
-    <message>
-        <source>Lock all</source>
-        <translation>Alle vergrendelen</translation>
-    </message>
-    <message>
-        <source>Unlock all</source>
-        <translation>Alle losmaken</translation>
-    </message>
-    <message>
-        <source>Unlock</source>
-        <translation>Losmaken</translation>
-    </message>
-    <message>
-        <source>Lock</source>
-        <translation>Vergrendelen</translation>
-    </message>
-    <message>
-        <source>Loading:</source>
-        <translation>Laden:</translation>
-    </message>
-    <message>
-        <source>Adjusting Colors</source>
-        <translation>Bezig kleuren aan te passen</translation>
-    </message>
-    <message>
-        <source>&amp;Undo Delete Object</source>
-        <translation>&amp;Object verwijderen ongedaan maken</translation>
-    </message>
-    <message>
-        <source>&amp;Undo Object Move</source>
-        <translation>&amp;Object verplaatsen ongedaan maken</translation>
-    </message>
-    <message>
-        <source>&amp;Undo Object Change</source>
-        <translation>&amp;Object wijzigen ongedaan maken</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation>Duits</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation>Pools</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation>Engels</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation>Spaans</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation>Italiaans</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation>Frans</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation>Russisch</translation>
-    </message>
-    <message>
-        <source>Danish</source>
-        <translation>Deens</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation>Slovaaks</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation>Hongaars</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation>Tsjechisch</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation>Nederlands</translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation>Portugees</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation>Ukraïns</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation>Grieks</translation>
-    </message>
-    <message>
-        <source>Catalan</source>
-        <translation>Catalaans</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation>Fins</translation>
-    </message>
-    <message>
-        <source>Irish</source>
-        <translation>Iers</translation>
-    </message>
-    <message>
-        <source>Lithuanian</source>
-        <translation>Litouws</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation>Zweeds</translation>
-    </message>
-    <message>
-        <source>Slovenian</source>
-        <translation>Sloveens</translation>
-    </message>
-    <message>
-        <source>Afrikaans</source>
-        <translation>Afrikaans</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation>Kies een map</translation>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation>Inverteren</translation>
-    </message>
-    <message>
-        <source>Scribus Crash</source>
-        <translation>Scribus is gecrashed</translation>
-    </message>
-    <message>
-        <source>Scribus crashes due to Signal #%1</source>
-        <translation>Scribus is gecrashed met signaal #%1</translation>
-    </message>
-    <message>
-        <source>Font System Initialized</source>
-        <translation>Lettertypen geïnitialiseerd</translation>
-    </message>
-    <message>
-        <source>Portuguese (BR)</source>
-        <translation>Portugees (BR)</translation>
-    </message>
-    <message>
-        <source>There are no suitable Fonts on your System</source>
-        <translation>Er zijn geen passende lettertypen op uw systeem</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Color management is supported but can not currently be enabled. Make sure you have ICC color profiles installed and that the profile path in the preferences points to where they&apos;re installed.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Kleurmanagement is ondersteund maar kan op dit moment niet ingeschakeld worden. Kijk of u ICC-kleurprofielen hebt geïnstalleerd en dat het pad ernaartoe in de voorkeuren correct is ingesteld.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Color management is not supported by this Scribus build (not compiled in).&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Kleurmanagement is niet ondersteund door deze compilatie van Scribus.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>Croatian</source>
-        <translation>Croatisch</translation>
-    </message>
-    <message>
-        <source>JavaScripts...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>GhostScript : You cannot use EPS Images</source>
-        <translation type="unfinished"></translation>
+        <source>Scribus detected some errors.
+Consider using the Preflight Verifier  to correct them.</source>
+        <translation>Fouten geconstateerd.
+Gebruik Preflight Controle om te herstellen</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>EPS bestanden (*.eps);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>Norwegian</source>
-        <translation type="unfinished">Noors</translation>
+        <source>Detected some errors.
+Consider using the Preflight Verifier to correct them</source>
+        <translation>Fouten geconstateerd.
+Gebruik Preflight Controle om te herstellen</translation>
     </message>
     <message>
-        <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <source>-Page%1</source>
+        <translation>-Pagina%1</translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation>Sommige objecten zijn vergrendeld.</translation>
+    </message>
+    <message>
+        <source>&amp;Lock All</source>
+        <translation>&amp;Alles vergrendelen</translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation>&amp;Alle losmaken</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>Informatie</translation>
+    </message>
+    <message>
+        <source>The program %1 is already running!</source>
+        <translation>Het programma %1 is al actief!</translation>
+    </message>
+    <message>
+        <source>The program %1 is missing!</source>
+        <translation>Het programma %1 ontbreekt!</translation>
+    </message>
+    <message>
+        <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
+        <translation>De geselecteerde kleur ontbreekt in de kleurenset van het document. Voer een naam in voor deze nieuwe kleur.</translation>
+    </message>
+    <message>
+        <source>Color Not Found</source>
+        <translation>Kleur niet gevonden</translation>
+    </message>
+    <message>
+        <source>The name you have selected already exists. Please enter a different name for this new color.</source>
+        <translation>De naam van deze kleur bestaat al. Gebruik een andere naam voor deze kleur.</translation>
+    </message>
+    <message>
+        <source>&amp;Level</source>
+        <translation>&amp;Niveau</translation>
+    </message>
+    <message>
+        <source>Send to Layer</source>
+        <translation>In laag zetten</translation>
+    </message>
+    <message>
+        <source>Previe&amp;w Settings</source>
+        <translation>&amp;Voorbeeldinstellingen</translation>
+    </message>
+    <message>
+        <source>&amp;Tools</source>
+        <translation>&amp;Gereedschappen</translation>
+    </message>
+    <message>
+        <source>X-Pos:</source>
+        <translation>X-positie:</translation>
+    </message>
+    <message>
+        <source>Y-Pos:</source>
+        <translation>Y-positie:</translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation>Nieuw pagina sjabloon %1</translation>
+    </message>
+    <message>
+        <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
+        <translation>Ghostscript: EPS afbeeldingen of Print Preview kan niet worden gebruikt</translation>
+    </message>
+    <message>
+        <source>Ghostscript is missing : Postscript Print Preview is not available</source>
+        <translation>Ghostscript ontbreekt: EPS afbeeldingen of Print Preview kan niet worden gebruikt</translation>
+    </message>
+    <message>
+        <source>Do you really want to replace your existing image?</source>
+        <translation>Wilt u deze afbeelding werkelijk vervangen?</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Inhoud</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation>Liga&amp;tuur</translation>
+    </message>
+    <message>
+        <source>Paste Recent</source>
+        <translation>Recente plakken</translation>
+    </message>
+    <message>
+        <source>&amp;Character</source>
+        <translation>&amp;Teken</translation>
+    </message>
+    <message>
+        <source>&amp;Quote</source>
+        <translation>&amp;Aanhalingsteken</translation>
+    </message>
+    <message>
+        <source>S&amp;paces &amp;&amp; Breaks</source>
+        <translation>S&amp;paties &amp;&amp; afbrekingen</translation>
+    </message>
+    <message>
+        <source>Updating Pictures</source>
+        <translation>Afbeeldingen bijwerken</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation>Wilt u werkelijk uw tekst verwijderen?</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
+        <translation>Documenten (*.sla *.sla.gz);;Alle bestanden (*)</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation>Groep%1</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusQApp</name>
+    <message>
+        <source>Invalid argument: </source>
+        <translation>Fout argument:</translation>
+    </message>
+    <message>
+        <source>File %1 does not exist, aborting.</source>
+        <translation>Bestand %1 bestaat niet, afbreken.</translation>
+    </message>
+    <message>
+        <source>Usage: scribus [option ... ] [file]</source>
+        <translation>Gebruik: scribus [optie...] [bestand]</translation>
+    </message>
+    <message>
+        <source>Options:</source>
+        <translation>Opties:</translation>
+    </message>
+    <message>
+        <source>Print help (this message) and exit</source>
+        <translation>Druk help af (deze mededeling) en sluit af</translation>
+    </message>
+    <message>
+        <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
+        <translation>Gebruik xx als afkorting voor een taal, bijv. &apos;en&apos; of &apos;nl&apos;</translation>
+    </message>
+    <message>
+        <source>List the currently installed interface languages</source>
+        <translation>Toon de momenteel geïnstalleerde interface talen</translation>
+    </message>
+    <message>
+        <source>Show information on the console when fonts are being loaded</source>
+        <translation>Toon informatie in de console als fonts worden geladen</translation>
+    </message>
+    <message>
+        <source>Do not show the splashscreen on startup</source>
+        <translation>Toon opstartscherm niet tijdens opstarten</translation>
+    </message>
+    <message>
+        <source>Output version information and exit</source>
+        <translation>Versie informatie Output en sluit af</translation>
+    </message>
+    <message>
+        <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
+        <translation>Gebruik van rechts naar links dialoogknop rangschikking (Afbreken/Nee/Ja inplaats van Ja/Nee/Afbreken)</translation>
+    </message>
+    <message>
+        <source>filename</source>
+        <translation>bestandsnaam</translation>
+    </message>
+    <message>
+        <source>Use filename as path for user given preferences</source>
+        <translation>Gebuik bestandsnaam als pad voor door gebruiker ingevoerde voorkeuren</translation>
+    </message>
+    <message>
+        <source>Installed interface languages for Scribus are as follows:</source>
+        <translation>Geïnstalleerde taal interfaces voor Scribus zijn:</translation>
+    </message>
+    <message>
+        <source>To override the default language choice:</source>
+        <translation>Standaard taalkeuze negeren:</translation>
+    </message>
+    <message>
+        <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
+        <translation>scribus -l xx of scribus --lang xx, waarbij xx de keuzetaal is.</translation>
+    </message>
+    <message>
+        <source>Scribus Version</source>
+        <translation>Scribus versie</translation>
+    </message>
+    <message>
+        <source>Scribus, Open Source Desktop Publishing</source>
+        <translation>Scribus, Open Source Desktop Publishing</translation>
+    </message>
+    <message>
+        <source>Homepage</source>
+        <translation>Homepage</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation>Documentatie</translation>
+    </message>
+    <message>
+        <source>Wiki</source>
+        <translation>Wiki</translation>
+    </message>
+    <message>
+        <source>Issues</source>
+        <translation>Kwesties</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation>Toon een console venster</translation>
+    </message>
+    <message>
+        <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
+        <translation>Toon geen opstartscherm tijdens starten. Schrijft een leeg bestand genaamd .neversplash in ~/.scribus.</translation>
+    </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation>Toon ICC kleurprofiel lokatie informatie in console tijdens starten</translation>
+    </message>
+    <message>
+        <source>Download a file from the Scribus website and show the latest available version.</source>
+        <translation>Download een bestand van de Scribus website en toon de laatst beschikbare versie.</translation>
     </message>
 </context>
 <context>
@@ -12131,48 +15509,198 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>%</translation>
     </message>
     <message>
-        <source>Layer</source>
-        <translation>Laag</translation>
+        <source>Copy Here</source>
+        <translation>Kopie hier</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation>pt</translation>
+        <source>Move Here</source>
+        <translation>Verplaatsen hier</translation>
     </message>
     <message>
-        <source>mm</source>
-        <translation>mm</translation>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
     </message>
     <message>
-        <source>in</source>
-        <translation>in</translation>
+        <source>&amp;Paste</source>
+        <translation>Pla&amp;kken</translation>
     </message>
     <message>
-        <source>p</source>
-        <translation>p</translation>
+        <source>Picture</source>
+        <translation>Afbeelding</translation>
     </message>
     <message>
-        <source>All</source>
-        <translation>Alles</translation>
+        <source>File: </source>
+        <translation>Bestand:</translation>
     </message>
     <message>
-        <source>Copy of</source>
-        <translation>Kopie van</translation>
+        <source>Original PPI: </source>
+        <translation>Oorspronkelijk PPI:</translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation>Werkelijk PPI:</translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation>Gekoppelde tekst</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation>Tekstframe</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation>Tekst op een pad</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation>Alinea&apos;s:</translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation>Woorden:</translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation>Tekens:</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation>Afdrukken:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Ingeschakeld</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Uitgeschakeld</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation>In&amp;fo</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation>&amp;PDF-opties</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation>In &amp;laag zetten</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation>Ni&amp;veau</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation>Omzetten naa&amp;r</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation>Voorbeeldinstellingen</translation>
+    </message>
+    <message>
+        <source>Linking Text Frames</source>
+        <translation>Verbind tekstframes</translation>
+    </message>
+    <message>
+        <source>Cannot Convert In-Use Item</source>
+        <translation>Kan item in gebruik niet omzetten</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Omzetten naar curven wordt voor dit item geannuleerd</translation>
+    </message>
+    <message>
+        <source>Page %1 to %2</source>
+        <translation>Pagina %1 tot %2</translation>
+    </message>
+    <message>
+        <source>Colorspace: </source>
+        <translation>Kleurruimte: </translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Onbekend</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation>RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation>CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation>Grijstinten</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Inhoud</translation>
+    </message>
+    <message>
+        <source>Switches Color Management on or off</source>
+        <translation>Kleurbeheer aan of uitschakelen</translation>
+    </message>
+    <message>
+        <source>Enables the Preview Mode</source>
+        <translation>Voorbeeld modus inschakelen</translation>
+    </message>
+    <message>
+        <source>Here you can select the visual appearance of the display
+You can choose between normal and several color blindness forms</source>
+        <translation>Selecteer hier de visuele aanblik van de display
+Er kan worden gekozen tussen normaal en verschillende soorten kleurenblindheid</translation>
+    </message>
+    <message>
+        <source>Preview Mode</source>
+        <translation>Voorbeeld modus</translation>
+    </message>
+    <message>
+        <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
+        <translation>CMS is actief. De kleuren weergave kan bij afwijkend zijn bij mensen met een visuele beperking</translation>
+    </message>
+    <message>
+        <source>Paste Recent</source>
+        <translation>Plak recent</translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation>Duotoon</translation>
+    </message>
+    <message>
+        <source>Lines: </source>
+        <translation>Lijnen: </translation>
+    </message>
+    <message>
+        <source>Enter Object Size</source>
+        <translation>Voer Object grootte in</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation>Groep %1</translation>
+    </message>
+    <message>
+        <source>No Image Loaded</source>
+        <translation>Geen afbeelding geladen</translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame to itself.</source>
+        <translation>U probeert een frame aan zichzelf te koppelen.</translation>
+    </message>
+    <message>
+        <source>You are trying to link a frame which is already linked.</source>
+        <translation>U probeert een frame aan een reeds gekoppeld frame te koppelen.</translation>
     </message>
 </context>
 <context>
     <name>ScribusWin</name>
-    <message>
-        <source>&amp;Leave Anyway</source>
-        <translation>Toch a&amp;fsluiten</translation>
-    </message>
-    <message>
-        <source>C&amp;lose Anyway</source>
-        <translation>Toch s&amp;luiten</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
     <message>
         <source>Document:</source>
         <translation>Het document:</translation>
@@ -12182,72 +15710,23 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>is gewijzigd na de laatste keer opslaan.</translation>
     </message>
     <message>
-        <source>&amp;Save Now</source>
-        <translation>Nu op&amp;slaan</translation>
+        <source>&amp;Discard</source>
+        <translation>&amp;Verwerpen</translation>
+    </message>
+</context>
+<context>
+    <name>ScriptPlugin</name>
+    <message>
+        <source>Embedded Python scripting support.</source>
+        <translation>Ingebedde Python scripting ondersteuning.</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Scripter</source>
+        <translation>Scripter</translation>
     </message>
 </context>
 <context>
     <name>ScripterCore</name>
-    <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation>&amp;Scribus scripts</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation>Script uitvo&amp;eren...</translation>
-    </message>
-    <message>
-        <source>Run a Python script from a file.</source>
-        <comment>scripter</comment>
-        <translation>Python-script uit bestand uitvoeren.</translation>
-    </message>
-    <message>
-        <source>&amp;Load Extension Script...</source>
-        <translation>Extensie-script &amp;laden...</translation>
-    </message>
-    <message>
-        <source>Load a Python script as an extension. Used for loading macros and for advanced Python scripts that extend the Scribus user interface.</source>
-        <comment>scripter</comment>
-        <translation>Python-script als extensie laden. Wordt gebruikt voor het laden van macro&apos;s en geavanceerde python scripts die de gebruikersinterface van Scribus uitbreiden. </translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation>&amp;Recente scripts</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation>&amp;Console weergeven</translation>
-    </message>
-    <message>
-        <source>Display an interactive Python console where you can write and run Python programs that use the Scripter tools.</source>
-        <comment>scripter</comment>
-        <translation>Toont een interactieve Python-console waar u Python programma&apos;s kunt schrijven en starten die de Scripter-tools gebruiken.</translation>
-    </message>
-    <message>
-        <source>&amp;About Script...</source>
-        <translation>&amp;Over script...</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation>S&amp;cript</translation>
-    </message>
-    <message>
-        <source>Scripter &amp;Settings</source>
-        <comment>script menu</comment>
-        <translation>Scripter &amp;instellingen</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation>Openen</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Python scripts (*.py);;Alle bestanden (*)</translation>
-    </message>
     <message>
         <source>Script error</source>
         <translation>Scriptfout</translation>
@@ -12261,169 +15740,102 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Dit bericht staat ook op het klembord. Met Ctrl+V kunt u het in de bugtracker plakken.</translation>
     </message>
     <message>
-        <source>Scribus - Script Plugin</source>
-        <translation>Scribus - Script plugin</translation>
+        <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
+        <translation>Er is een interne fout opgetreden tijdens de uitvoering van de ingevoerde opdracht. Details zijn geprint naar stderr.</translation>
     </message>
     <message>
-        <source>The &apos;Load Script&apos; function of the script plugin is currently disabled.
-If you just want to run a normal script, you probably want to use
-&apos;Execute Script...&apos; instead.
-
-If you do actually want to load a Python extension script or macro, you
-need to go into the Scripter Settings in the Script menu and enable
-scripter extensions there.
-
-Please read the documentation on extension scripts first.
-</source>
-        <translation>De functie &apos;Script laden&apos; van de script plugin is momenteel uigeschakeld.
-Als u een normaal script wilt starten kunt u de functie &apos;Script uitveoren...&apos;
-gebruiken.
-
-Als u werkelijkj een Python extensie-script of macro wilt laden, kunt u
-naar het Scripter-instellingenvenster gaan in het Script menu, en daar
-scripter-extensies inschakelen.
-
-Lees ook de documentatie over extensie-scripts.</translation>
+        <source>Examine Script</source>
+        <translation>Onderzoek Script</translation>
     </message>
     <message>
-        <source>Hide &amp;Console</source>
-        <translation>&amp;Console verbergen</translation>
+        <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
+        <translation>Instellen van Python plugin mislukt. Details zijn geprint naar stderr.</translation>
     </message>
     <message>
-        <source>About Script</source>
-        <translation>Over script</translation>
+        <source>Documentation for:</source>
+        <translation>Documentatie over:</translation>
+    </message>
+    <message>
+        <source>Script</source>
+        <translation>Script</translation>
+    </message>
+    <message>
+        <source> doesn&apos;t contain any docstring!</source>
+        <translation> bevat geen docstring!</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py *.PY);;All Files (*)</source>
+        <translation>Python Scripts (*.py *.PY);;Alle bestanden (*)</translation>
     </message>
 </context>
 <context>
-    <name>ScripterPreferences</name>
+    <name>ScripterPrefsGui</name>
     <message>
-        <source>Scribus - Scripter Preferences</source>
-        <translation>Scribus - Scripter instellingen</translation>
+        <source>Scripter Preferences</source>
+        <translation>Scripter voorkeuren</translation>
     </message>
     <message>
-        <source>Enable Scripter Extensions</source>
-        <translation>Scripter-extensies inschakelen</translation>
+        <source>Enable Extension Scripts</source>
+        <translation>Schakel Extensiescripts in</translation>
     </message>
     <message>
-        <source>Turn on extension scripts and macros</source>
-        <translation>Schakelt scripter-extensies en macro&apos;s in</translation>
+        <source>Extensions</source>
+        <translation>Extensies</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;&lt;p&gt;Enabling scripter extensions turns on additional scripter functionality including Python macros and the option of loading a Python script at start-up. Turning on this option unlocks the &lt;tt&gt;Load Extension Script&lt;/tt&gt; item in the Script menu.&lt;/p&gt;
-&lt;p&gt;
-Only scripts written to be run as extension scripts should be used with &lt;tt&gt;Load Extension Script&lt;/tt&gt; or as start-up scripts. See the scripter documentation for more details.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Als u deze optie inschakelt krijgt u de beschikking over extra mogelijkheden zoals het laden van Python macro&apos;s en het starten van een Python-script bij het opstarten van Scribus. De optie &lt;tt&gt;Extensie-script laden&lt;/tt&gt; uit het Script-menu wordt ook ingeschakeld.&lt;/p&gt;
-&lt;p&gt;Alleen scripts die geschreven zijn om als extensie-script te worden gebruikt, kunnen worden geladen. Lees de scripter-documentatie voor meer informatie.&lt;/p&gt;&lt;/qt&gt;</translation>
+        <source>Console</source>
+        <translation>Console</translation>
     </message>
     <message>
-        <source>Use a Startup Script</source>
-        <translation>Opstartscript gebruiken</translation>
+        <source>Startup Script:</source>
+        <translation>Opstartscript:</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;&lt;p&gt;If &lt;tt&gt;Use a Startup Script&lt;/tt&gt; is checked, Scribus will load the script file specified here as an extension script at start-up. It is important that the script be written as an extension script, as if not written carefully it can potentially cause problems.&lt;/p&gt;
-&lt;p&gt;&lt;tt&gt;Use a Startup Script&lt;/tt&gt; will be disabled if scripter extensions are off, as extension scripts cannot be loaded without scripter extensions enabled.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Als de optie &lt;tt&gt;Opstartscript gebruiken&lt;/tt&gt; is ingeschakeld zal Scribus het opgegeven scriptbestand als extensie laden bij het opstarten. Het is belangrijk dat het script correct geschreven is, anders kan het problemen veroorzaken.&lt;/p&gt;
-&lt;p&gt;De optie &lt;tt&gt;Opstartscript gebruiken&lt;/tt&gt; is uitgeschakeld als scripter-uibreidingen zijn uitgeschakeld.&lt;/p&gt;&lt;/qt&gt;</translation>
+        <source>Errors:</source>
+        <comment>syntax highlighting</comment>
+        <translation>Fouten:</translation>
     </message>
     <message>
-        <source>Browse...</source>
-        <translation>Bladeren...</translation>
+        <source>Comments:</source>
+        <comment>syntax highlighting</comment>
+        <translation>Commentaar:</translation>
     </message>
     <message>
-        <source>Browse for a new script file</source>
-        <translation>Blader naar een nieuw scriptbestand</translation>
+        <source>Keywords:</source>
+        <comment>syntax highlighting</comment>
+        <translation>Trefwoorden:</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;Browse for a new script file&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Blader naar een nieuw scriptbestand&lt;/qt&gt;</translation>
+        <source>Signs:</source>
+        <comment>syntax highlighting</comment>
+        <translation>Tekens:</translation>
     </message>
     <message>
-        <source>What script file to load at start-up</source>
-        <translation>Welk script u wilt laden bij het opstarten</translation>
+        <source>Numbers:</source>
+        <comment>syntax highlighting</comment>
+        <translation>Nummers:</translation>
     </message>
     <message>
-        <source>&lt;qt&gt;&lt;p&gt;The file containing the Python script to run as an extension script at start-up.&lt;/p&gt;
-&lt;p&gt;Note that when this script is run, Scribus has not completely started up and the workspace does not yet exist.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;Het Python-script dat moet worden gestart als extensie-script bij het opstarten.&lt;/p&gt;
-&lt;p&gt;Let op: op het moment dat dit script wordt gestart, is Scribus nog niet volledig opgestart en bestaat het werk-oppervlak nog niet.&lt;/p&gt;&lt;/qt&gt;</translation>
+        <source>Strings:</source>
+        <comment>syntax highlighting</comment>
+        <translation>Strings:</translation>
     </message>
     <message>
-        <source>Script File:</source>
-        <translation>Scriptbestand:</translation>
+        <source>Base Texts:</source>
+        <comment>syntax highlighting</comment>
+        <translation>Basis tekst:</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Select Color</source>
+        <translation>Kleur kiezen</translation>
     </message>
     <message>
-        <source>Alt+C</source>
-        <translation>Alt+A</translation>
+        <source>Change...</source>
+        <translation>Wijzigen...</translation>
     </message>
     <message>
-        <source>Close without saving changes</source>
-        <translation>Sluiten zonder opslaan</translation>
-    </message>
-    <message>
-        <source>&amp;Ok</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <translation>Atl+O</translation>
-    </message>
-    <message>
-        <source>Save changes and close</source>
-        <translation>Wijzigingen opslaan en sluiten</translation>
-    </message>
-    <message>
-        <source>Advanced Options</source>
-        <translation>Geavanceerde opties</translation>
-    </message>
-    <message>
-        <source>Import All Names at Startup</source>
-        <translation>Alle namen importeren bij opstarten</translation>
-    </message>
-    <message>
-        <source>Run &apos;from scribus import *&apos; in the script console at start-up</source>
-        <translation>Start &apos;from scribus import *&apos; in de scriptconsole bij het opstarten</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Import All Names at Startup&lt;/tt&gt; is an advanced option. You should probably leave it checked unless you have read the documentation and know what you are doing.&lt;/p&gt;
-&lt;p&gt;Unchecking this option will prevent the scripter from running its usual &lt;tt&gt;from scribus import *&lt;/tt&gt; command when it initializes the main interpreter (used for the script console and extension scripts) at start-up.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Alle namen importeren bij opstarten&lt;/tt&gt; is een geavanceerde optie. U kunt deze het beste ingeschakeld laten tenzij u de documentatie hebt gelezen en weet wat u doet.&lt;/p&gt;
-&lt;p&gt;Als u deze optie uitschakelt zal de scripter niet het gebruikelijke commando &lt;tt&gt;from scribus import *&lt;/tt&gt; uitvoeren tijdens het opstarten.&lt;/p&gt;
-&lt;p&gt;Deze optie heeft pas effect als Scribus herstart wordt.&lt;/p&gt;&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>Enable Legacy Name Aliases</source>
-        <translation>Oude naam-aliassen inschakelen</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Enable the use of OldStyle function names&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Schakelt het gebruik van functienamen OudeStijl in&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>Use Fake Stdin</source>
-        <translation>Fake-stdin gebruiken</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;Replace sys.stdin with a fake file to prevent Scribus hanging when a script tries to read from stdin.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Vervangt sys.stdin met een nepbestand zodat Scribus niet zal blijven hangen als een script van stdin probeert te lezen.&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Use Fake Stdin&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;Normally, scribus will provide Python with a fake file object for &lt;tt&gt;sys.stdin&lt;/tt&gt;, so that reads from stdin always return an empty string. If the real &lt;tt&gt;sys.stdin&lt;/tt&gt; is left in place, scripts that try to read from it will block - and in turn block scribus&apos;s execution, making the app appear to hang - until input arrives on stdin. It&apos;s unusual for GUI apps to expect anything on stdin, so mostly users will think scribus has crashed.&lt;/p&gt;
-&lt;p&gt;You can disable this option if you want to accept input on stdin. Generally you should use &lt;tt&gt;os.popen&lt;/tt&gt; to make a pipe instead, or use some other input mechanism, but this option is here just in case.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Fake-stdin gebruiken&lt;/tt&gt; is een geavanceerde optie die u het best zo kunt laten.&lt;/p&gt;
-&lt;p&gt;Normaal gesproken  biedt Scribus Python een nep-object aan voor &lt;tt&gt;sys.stdin&lt;/tt&gt;, zodat scripts niet blijven hangen als ze standaard invoer proberen te lezen.&lt;/p&gt;
-&lt;p&gt;U kunt deze optie uitschakelen als u toch werkelijk van stdin wilt kunnen lezen. In het algemeen kunt u in scripts beter de functie &lt;tt&gt;os.popen&lt;/tt&gt; gebruiken voor communicatie met andere processen, of een andere invoermethode gebruiken. Deze optie is hier voor het geval dát.&lt;/p&gt;&lt;/qt&gt;</translation>
-    </message>
-    <message>
-        <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
-&lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
-&lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <source>Locate Startup Script</source>
+        <translation>Lokaliseer opstartscript</translation>
     </message>
 </context>
 <context>
@@ -12431,13 +15843,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     <message>
         <source>Show Page Previews</source>
         <translation>Paginavoorbeelden tonen</translation>
-    </message>
-</context>
-<context>
-    <name>SeView</name>
-    <message>
-        <source>Show Template Names</source>
-        <translation>Sjabloonnamen tonen</translation>
     </message>
 </context>
 <context>
@@ -12460,7 +15865,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Font</source>
-        <translation>Lettertype</translation>
+        <translation>Font</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -12468,7 +15873,7 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
     </message>
     <message>
         <source>Font Effects</source>
-        <translation>Lettertype-effecten</translation>
+        <translation>Font-effecten</translation>
     </message>
     <message>
         <source>Fill Color</source>
@@ -12511,10 +15916,6 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>pt</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation>Geen</translation>
-    </message>
-    <message>
         <source>Replace with:</source>
         <translation>Vervangen door:</translation>
     </message>
@@ -12547,53 +15948,12 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <translation>Zoeken voltooid</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
         <source>C&amp;lear</source>
         <translation>W&amp;issen</translation>
     </message>
-</context>
-<context>
-    <name>SeitenPal</name>
     <message>
-        <source>Arrange Pages</source>
-        <translation>Pagina&apos;s herschikken</translation>
-    </message>
-    <message>
-        <source>Available Templates:</source>
-        <translation>Beschikbare sjablonen:</translation>
-    </message>
-    <message>
-        <source>Document Pages:</source>
-        <translation>Documentpagina&apos;s:</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation>Tegenover elkaar</translation>
-    </message>
-    <message>
-        <source>Left Page first</source>
-        <translation>Linkerpagina eerst</translation>
-    </message>
-    <message>
-        <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-        <translation>Sleep pagina&apos;s of Sjabloonpagina&apos;s naar de prullenbak om ze te verwijderen.</translation>
-    </message>
-    <message>
-        <source>Previews all the pages of your document.</source>
-        <translation>Toont voorbeelden van alle pagina&apos;s in uw document.</translation>
-    </message>
-    <message>
-        <source>Here are all your Templates, to create a new Page
-drag a Template to the Pageview below.</source>
-        <translation>Hier zijn al uw sjablonen. Sleep, om een nieuwe pagina
-aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation>Normaal</translation>
+        <source>Search finished, found %1 matches</source>
+        <translation>Zoeken gereed, %1 overeenkomsten gevonden</translation>
     </message>
 </context>
 <context>
@@ -12618,14 +15978,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <source>Selected Fields</source>
         <translation>Geselecteerde velden</translation>
     </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
 </context>
 <context>
     <name>ShadeButton</name>
@@ -12643,17 +15995,108 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
 </context>
 <context>
+    <name>ShadowValues</name>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>X-Offset</source>
+        <translation>X-Offset</translation>
+    </message>
+    <message>
+        <source>Y-Offset</source>
+        <translation>Y-Offset</translation>
+    </message>
+</context>
+<context>
+    <name>ShortWordsPlugin</name>
+    <message>
+        <source>Short &amp;Words...</source>
+        <comment>short words plugin</comment>
+        <translation>Korte &amp;woorden...</translation>
+    </message>
+    <message>
+        <source>Short Words</source>
+        <translation>Korte woorden</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation>Speciale plug-in om niet-afbrekende spaties voor en achter zgn. korte woorden te plaatsen. Beschikbaar in de volgende talen:</translation>
+    </message>
+</context>
+<context>
+    <name>ShortcutWidget</name>
+    <message>
+        <source>&amp;No Key</source>
+        <translation>&amp;Geen toets</translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation>Gebr&amp;uikersgedefiniëerde toets</translation>
+    </message>
+    <message>
+        <source>ALT+SHIFT+T</source>
+        <translation>ALT+SHIFT+T</translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation>&amp;Toets instellen</translation>
+    </message>
+    <message>
+        <source>No shortcut for the style</source>
+        <translation>Geen sneltoetsset voor de stijl</translation>
+    </message>
+    <message>
+        <source>Style has user defined shortcut</source>
+        <translation>Stijl heeft een door gebruiker gemaakte sneltoetsset</translation>
+    </message>
+    <message>
+        <source>Assign a shortcut for the style</source>
+        <translation>Sneltoetsset voor de stijl toewijzen</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation>Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation>Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation>Shift</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation>Meta</translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation>Meta+</translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation>Shift+</translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation>Alt+</translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation>Ctrl+</translation>
+    </message>
+</context>
+<context>
     <name>SideBar</name>
     <message>
         <source>No Style</source>
         <translation>Geen stijl</translation>
     </message>
-</context>
-<context>
-    <name>Spalette</name>
     <message>
-        <source>No Style</source>
-        <translation>Geen stijl</translation>
+        <source>Edit Styles...</source>
+        <translation>Stijlen bewerken...</translation>
     </message>
 </context>
 <context>
@@ -12661,10 +16104,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     <message>
         <source>Edit Styles</source>
         <translation>Stijlen bewerken</translation>
-    </message>
-    <message>
-        <source>&amp;Append</source>
-        <translation>Toe&amp;voegen</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -12683,36 +16122,12 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Verwij&amp;deren</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation>Op&amp;slaan</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Copy of %1</source>
         <translation>Kopie van %1</translation>
     </message>
     <message>
         <source>New Style</source>
         <translation>Nieuwe stijl</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>Nee</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Ja</translation>
     </message>
     <message>
         <source>Open</source>
@@ -12723,12 +16138,8 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete this Style?</source>
-        <translation>Wilt u deze stijl werkelijk verwijderen?</translation>
+        <source>&amp;Import</source>
+        <translation>&amp;Importeren</translation>
     </message>
 </context>
 <context>
@@ -12790,16 +16201,12 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>&amp;Zoeken/vervangen...</translation>
     </message>
     <message>
-        <source>&amp;Insert Special...</source>
-        <translation>&amp;Invoegen speciaal...</translation>
-    </message>
-    <message>
         <source>&amp;Edit Styles...</source>
         <translation>Stijlen b&amp;ewerken...</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation>&amp;Lettertypeweergave...</translation>
+        <translation>&amp;Fontweergave...</translation>
     </message>
     <message>
         <source>&amp;Update Text Frame</source>
@@ -12811,7 +16218,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>&amp;Display Font...</source>
-        <translation>Weergave&amp;lettertype...</translation>
+        <translation>Weergave&amp;font...</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -12828,38 +16235,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     <message>
         <source>File</source>
         <translation>Bestand</translation>
-    </message>
-    <message>
-        <source>Clear all Text</source>
-        <translation>Alle tekst wissen</translation>
-    </message>
-    <message>
-        <source>Load Text from File</source>
-        <translation>Tekst laden uit bestand</translation>
-    </message>
-    <message>
-        <source>Save Text to File</source>
-        <translation>Tekst opslaan naar bestand</translation>
-    </message>
-    <message>
-        <source>Update Text Frame and Exit</source>
-        <translation>Tekstframe bijwerken en sluiten</translation>
-    </message>
-    <message>
-        <source>Exit Without Updating Text Frame</source>
-        <translation>Sluiten zonder tekstframe bij te werken</translation>
-    </message>
-    <message>
-        <source>Reload Text from Frame</source>
-        <translation>Tekst uit frame herladen</translation>
-    </message>
-    <message>
-        <source>Update Text Frame</source>
-        <translation>Tekstframe bijwerken</translation>
-    </message>
-    <message>
-        <source>Search/Replace</source>
-        <translation>Zoeken/vervangen</translation>
     </message>
     <message>
         <source>Current Paragraph:</source>
@@ -12882,20 +16257,8 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Alinea&apos;s:</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
         <source>Do you want to save your changes?</source>
         <translation>Wilt u uw wijzigingen opslaan?</translation>
-    </message>
-    <message>
-        <source>Do you really want to lose all your Changes?</source>
-        <translation>Wilt u werkelijk al uw wijzigingen verwerpen?</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation>Wilt u werkelijk alle tekst wissen?</translation>
     </message>
     <message>
         <source>Open</source>
@@ -12913,13 +16276,207 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <source>&amp;Smart text selection</source>
         <translation>Intelligente tekst&amp;selectie</translation>
     </message>
+    <message>
+        <source>&amp;Insert Glyph...</source>
+        <translation>Voeg symboolteken &amp;in...</translation>
+    </message>
+    <message>
+        <source>Clear All Text</source>
+        <translation>Alle tekst verwijderen</translation>
+    </message>
+    <message>
+        <source>Story Editor - %1</source>
+        <translation>Story-editor - %1</translation>
+    </message>
+    <message>
+        <source>Do you really want to lose all your changes?</source>
+        <translation>Wilt u werkelijk alle veranderingen verliezen?</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation>Wilt u werkelijk uw tekst verwijderen?</translation>
+    </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation>&amp;Invoegen</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation>Teken</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation>Aanhalingsteken</translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation>Spaties &amp;&amp; onderbrekingen</translation>
+    </message>
+    <message>
+        <source>Ligature</source>
+        <translation>Ligatuur</translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>StrikeValues</name>
+    <message>
+        <source>Auto</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>Displacement</source>
+        <translation>Verplaatsing</translation>
+    </message>
+    <message>
+        <source>Linewidth</source>
+        <translation>Lijndikte</translation>
+    </message>
+</context>
+<context>
+    <name>StyleManager</name>
+    <message>
+        <source>Name</source>
+        <translation>Naam</translation>
+    </message>
+    <message>
+        <source>Shortcut</source>
+        <translation>Sneltoetsset</translation>
+    </message>
+    <message>
+        <source>Apply all changes and exit edit mode</source>
+        <translation>Alle veranderingen toepassen en bewerkmodus verlaten</translation>
+    </message>
+    <message>
+        <source>Edit styles</source>
+        <translation>Stijlen bewerken</translation>
+    </message>
+    <message>
+        <source>Name of the selected style</source>
+        <translation>Naam van de geselecteerde stijl</translation>
+    </message>
+    <message>
+        <source>Reset all changes</source>
+        <translation>Alle veranderingen terugzetten</translation>
+    </message>
+    <message>
+        <source>Apply all changes</source>
+        <translation>Alle veranderingen toepassen</translation>
+    </message>
+    <message>
+        <source>Create a new style</source>
+        <translation>Nieuwe stijl aanmaken</translation>
+    </message>
+    <message>
+        <source>Import styles from another document</source>
+        <translation>Stijlen van een ander document importeren</translation>
+    </message>
+    <message>
+        <source>Clone selected style</source>
+        <translation>Geselecteerde stijlen klonen</translation>
+    </message>
+    <message>
+        <source>Delete selected styles</source>
+        <translation>Geselecteerde stijlen verwijderen</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Naam:</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>He&amp;rstel</translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation>Toep&amp;assen</translation>
+    </message>
+    <message>
+        <source>&lt;&lt; &amp;Done</source>
+        <translation>&lt;&lt; &amp;Gereed</translation>
+    </message>
+    <message>
+        <source>&amp;Edit &gt;&gt;</source>
+        <translation>B&amp;ewerken &gt;&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Nieuw</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importeren</translation>
+    </message>
+    <message>
+        <source>&amp;Clone</source>
+        <translation>&amp;Klonen</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation>Nieuw</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation>Importeren</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Bewerken</translation>
+    </message>
+    <message>
+        <source>Clone</source>
+        <translation>Klonen</translation>
+    </message>
+    <message>
+        <source>Send to Scrapbook</source>
+        <translation>In kladblok zetten</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>New %1</source>
+        <translation>Nieuw %1</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>B&amp;ewerken</translation>
+    </message>
+    <message>
+        <source>&amp;Done</source>
+        <translation>&amp;Gereed</translation>
+    </message>
+    <message>
+        <source>This key sequence is already in use</source>
+        <translation>Deze toetsenvolgorde is al in gebruik</translation>
+    </message>
+    <message>
+        <source>More than one style selected</source>
+        <translation>Meer dan 1 stijl geselecteerd</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Openen</translation>
+    </message>
+    <message>
+        <source>documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
+        <translation>Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
+    </message>
 </context>
 <context>
     <name>StyleSelect</name>
-    <message>
-        <source>Underline</source>
-        <translation>Onderstreept</translation>
-    </message>
     <message>
         <source>Small Caps</source>
         <translation>Kleinkapitalen</translation>
@@ -12933,12 +16490,29 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Superscript</translation>
     </message>
     <message>
-        <source>Strike Out</source>
-        <translation>Doorhalen</translation>
+        <source>All Caps</source>
+        <translation>Kapitalen</translation>
     </message>
     <message>
-        <source>Outline Text</source>
-        <translation>Outline tekst</translation>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Onderstreep tekst. Houdt de knop een moment ingedrukt om de lijndikte en verplaatsing in te stellen.</translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Onderstreep alleen woorden. Houdt de knop een moment ingedrukt om de lijndikte en verplaatsing in te stellen.</translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Streep door. Houdt de knop een moment ingedrukt om de lijndikte en verplaatsing in te stellen.</translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation>Tekstschaduw. Houdt de knop een moment ingedrukt om de uitval in te stellen.</translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <comment>Text Style Selector</comment>
+        <translation>Tekstomlijning. Houdt de knop een moment ingedrukt om de lijndikte in te stellen.</translation>
     </message>
 </context>
 <context>
@@ -12960,32 +16534,1140 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Instellingen voor OpenOffice.org Writer-import</translation>
     </message>
     <message>
-        <source>Update Paragraph Styles</source>
-        <translation>Alineastijlen bijwerken</translation>
+        <source>Overwrite Paragraph Styles</source>
+        <translation>Overschrijf alineastijlen</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation>Als u deze optie inschakelt zullen bestaande stijlen in het huidige Scribus-document worden overschreven</translation>
+        <translation>Hiermee worden bestaande stijlen in het huidige Scribus document overschreven
+</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation>Alineastijlen samenvoegen</translation>
+        <translation>Alinea stijlen samenvoegen</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation>Voegt stijlen samen op grond van attributen. U krijgt zo minder vrijwel gelijke alineastijlen. Stijlattributen blijven bewaard zelfs als ze andere namen hebben in het originele document.</translation>
+        <translation>Voeg de alieastijl samen op basis van attributen. Dit resulteert in een minder aantal op elkaar lijkende alineastijlen, zelf als de originele stijlen anders zijn genoemd.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation>De documentnaam aan de alineastijlnaam toevoegen in Scribus.</translation>
+        <translation>Voeg documtennaam toe aan de alineastijlnaam in Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Deze instellingen als standaard instellen en er niet om vragen bij het importeren van een OpenOffice.org 1.x document.</translation>
+        <translation>Maak deze instellingen standaard, vraag niet opnieuw bij importeren van een OpenOffice.org 1.x document.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Annuleren</translation>
+        <translation>Annuleren</translation>
+    </message>
+</context>
+<context>
+    <name>TOCIndexPrefs</name>
+    <message>
+        <source>None</source>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>At the beginning</source>
+        <translation>Aan het begin</translation>
+    </message>
+    <message>
+        <source>At the end</source>
+        <translation>Aan het einde</translation>
+    </message>
+    <message>
+        <source>Not Shown</source>
+        <translation>Niet getoond</translation>
+    </message>
+    <message>
+        <source>Table of Contents and Indexes</source>
+        <translation>Inhoudsopgave en indices</translation>
+    </message>
+    <message>
+        <source>Table Of Contents</source>
+        <translation>Inhoudsopgave</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation>&amp;Toevoegen</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>The frame the table of contents will be placed into</source>
+        <translation>Het inhouds-tabel frame wordt geplaatst in</translation>
+    </message>
+    <message>
+        <source>Page Numbers Placed:</source>
+        <translation>Paginanummers geplaatst:</translation>
+    </message>
+    <message>
+        <source>Item Attribute Name:</source>
+        <translation>Naam item attributen:</translation>
+    </message>
+    <message>
+        <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
+        <translation>Het Item Attribuut ingesteld voor de frames gebruikt als basis voor de creatie van toevoegingen</translation>
+    </message>
+    <message>
+        <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
+        <translation>Plaats paginanummers van de toevoegingen aan het begin of aan het eind van de regel, of helemaal niet</translation>
+    </message>
+    <message>
+        <source>List Non-Printing Entries</source>
+        <translation>Maak een lijst vast niet af te drukken toevoegingen</translation>
+    </message>
+    <message>
+        <source>Include frames that are set to not print as well</source>
+        <translation>Inclusief frames die uitgeschakeld zijn voor afdrukken</translation>
+    </message>
+    <message>
+        <source>The paragraph style used for the entry lines</source>
+        <translation>De alineastijl gebruikt voor de toevoegingen</translation>
+    </message>
+    <message>
+        <source>Paragraph Style:</source>
+        <translation>Alineastijl:</translation>
+    </message>
+    <message>
+        <source>Destination Frame:</source>
+        <translation>Bestemmingsframe:</translation>
+    </message>
+    <message>
+        <source>Table of Contents %1</source>
+        <translation>Inhoudsopgave %1</translation>
+    </message>
+</context>
+<context>
+    <name>TOCIndexPrefsBase</name>
+    <message>
+        <source>Table of Contents and Indexes</source>
+        <translation>Inhoudsopgave en indices</translation>
+    </message>
+    <message>
+        <source>Table Of Contents</source>
+        <translation>Inhoudsopgave</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation>&amp;Toevoegen</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>The frame the table of contents will be placed into</source>
+        <translation>Het frame waarin de inhoudstabel wordt geplaatst</translation>
+    </message>
+    <message>
+        <source>Page Numbers Placed:</source>
+        <translation>Pagina nummer geplaatst:</translation>
+    </message>
+    <message>
+        <source>Item Attribute Name:</source>
+        <translation>Item attribuut naam:</translation>
+    </message>
+    <message>
+        <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
+        <translation>Het Item Attribuut ingesteld voor de frames gebruikt als basis voor de creatie van toevoegingen</translation>
+    </message>
+    <message>
+        <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
+        <translation>Plaats paginanummers van de toevoegingen aan het begin of aan het eind van de regel, of helemaal niet</translation>
+    </message>
+    <message>
+        <source>List Non-Printing Entries</source>
+        <translation>Maak een lijst vast niet af te drukken toevoegingen</translation>
+    </message>
+    <message>
+        <source>Include frames that are set to not print as well</source>
+        <translation>Inclusief frames die uitgeschakeld zijn voor afdrukken</translation>
+    </message>
+    <message>
+        <source>The paragraph style used for the entry lines</source>
+        <translation>De alineastijl gebruikt voor de toevoegingen</translation>
+    </message>
+    <message>
+        <source>Paragraph Style:</source>
+        <translation>Alineastijl:</translation>
+    </message>
+    <message>
+        <source>Destination Frame:</source>
+        <translation>Bestemmingsframe:</translation>
+    </message>
+</context>
+<context>
+    <name>TabCheckDoc</name>
+    <message>
+        <source>Ignore all errors</source>
+        <translation>Negeer alle fouten</translation>
+    </message>
+    <message>
+        <source>Automatic check before printing or exporting</source>
+        <translation>Automatische controle voor printen of exporteren</translation>
+    </message>
+    <message>
+        <source>Check for missing glyphs</source>
+        <translation>Controleer op missende symbooltekens</translation>
+    </message>
+    <message>
+        <source>Check for overflow in text frames</source>
+        <translation>Controleer op overloop in tekst frames</translation>
+    </message>
+    <message>
+        <source>Check for missing images</source>
+        <translation>Controleer op missende afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Check image resolution</source>
+        <translation>Controleer afbeeldingresoluties</translation>
+    </message>
+    <message>
+        <source>Lowest allowed resolution</source>
+        <translation>Laagst toegestane resolutie</translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation> dpi</translation>
+    </message>
+    <message>
+        <source>Check for PDF Annotations and Fields</source>
+        <translation>Controleer op PDF annotaties en velden</translation>
+    </message>
+    <message>
+        <source>Add Profile</source>
+        <translation>Voeg profiel toe</translation>
+    </message>
+    <message>
+        <source>Remove Profile</source>
+        <translation>Verwijder profiel</translation>
+    </message>
+    <message>
+        <source>Check for placed PDF Files</source>
+        <translation>Controleer op geplaatste PDF bestanden</translation>
+    </message>
+    <message>
+        <source>Check for items not on a page</source>
+        <translation>Controleer op items buiten de pagina</translation>
+    </message>
+    <message>
+        <source>Check for used transparencies</source>
+        <translation>Controleer op gebruikte transparanten</translation>
+    </message>
+    <message>
+        <source>Highest allowed resolution</source>
+        <translation>Hoogst toegestane resolutie</translation>
+    </message>
+    <message>
+        <source>Check for GIF images</source>
+        <translation>Controleer op GIF afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Ignore non-printable Layers</source>
+        <translation>Niet afdrukbare lagen negeren</translation>
+    </message>
+</context>
+<context>
+    <name>TabDisplay</name>
+    <message>
+        <source>Color for paper</source>
+        <translation>Papierkleur</translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation>Maskeert het gebied buiten de kantlijnen in de kantlijnkleur</translation>
+    </message>
+    <message>
+        <source>Enable or disable  the display of linked frames.</source>
+        <translation>Zet de  weergave van gekoppelde frames aan of uit.</translation>
+    </message>
+    <message>
+        <source>Display non-printing characters such as paragraph markers in text frames</source>
+        <translation>Geef niet-afdrukbare opmaaktekens weer , zoals alineatekens weer in tekst frames</translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation>Zet weergave van frames aan of uit</translation>
+    </message>
+    <message>
+        <source>Turns the display of layer indicators on or off</source>
+        <translation>Zet weergave van laag indicatoren aan of uit</translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation>Zet weergave van afbeeldingen aan of uit</translation>
+    </message>
+    <message>
+        <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation>Stelt ruimte in links van het document beschikbaar als kladblok voor aanmaken en bewerken van objecten en het slepen van objecten naar de actieve pagina</translation>
+    </message>
+    <message>
+        <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation>Stelt ruimte in rechts van het document beschikbaar als kladblok voor aanmaken en bewerken van objecten en het slepen van objecten naar de actieve pagina</translation>
+    </message>
+    <message>
+        <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation>Stelt ruimte in boven het document beschikbaar als kladblok voor aanmaken en bewerken van objecten en het slepen van objecten naar de actieve pagina</translation>
+    </message>
+    <message>
+        <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation>Stelt ruimte in onder het document beschikbaar als kladblok voor aanmaken en bewerken van objecten en het slepen van objecten naar de actieve pagina</translation>
+    </message>
+    <message>
+        <source>Set the default zoom level</source>
+        <translation>Stelt het standaardzoom-niveau in</translation>
+    </message>
+    <message>
+        <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
+        <translation>Plaats een lineaal tegen het scherm en stel met de slider het zoom-niveau in, zodat Scribus de pagina&apos;s en objecten in het correcte formaat weergeeft</translation>
+    </message>
+</context>
+<context>
+    <name>TabDisplayBase</name>
+    <message>
+        <source>General</source>
+        <translation>Algemeen</translation>
+    </message>
+    <message>
+        <source>Page Display</source>
+        <translation>Paginaweergave</translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation>Toon afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Show Text Control Characters</source>
+        <translation>Opmaaktekens tonen</translation>
+    </message>
+    <message>
+        <source>Rulers Relative to Page</source>
+        <translation>Lineaal relatief naar pagina</translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation>Tekstkoppeling tonen</translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation>Toon Frames</translation>
+    </message>
+    <message>
+        <source>Show Layer Indicators</source>
+        <translation>Toon laag indicatoren</translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation>&amp;Niet-afdrukbare gebieden in margekleur weergeven</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation>Alt+U</translation>
+    </message>
+    <message>
+        <source>Show Bleed Area</source>
+        <translation>Toon afloop rand</translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation>Kladblok</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation>&amp;Links:</translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation>&amp;Rechts:</translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation>&amp;Boven:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation>On&amp;der:</translation>
+    </message>
+    <message>
+        <source>Gaps Between Pages</source>
+        <translation>Ruimte tussen pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>Horizontal:</source>
+        <translation>Horizontaal:</translation>
+    </message>
+    <message>
+        <source>Vertical:</source>
+        <translation>Verticaal:</translation>
+    </message>
+    <message>
+        <source>Adjust Display Size</source>
+        <translation>Weergave grootte aanpassen</translation>
+    </message>
+    <message>
+        <source>To adjust the display drag the ruler below with the slider.</source>
+        <translation>Om weergave in te stellen sleep het lineaal hieronder met de schuifbalk.</translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation>Kleuren</translation>
+    </message>
+    <message>
+        <source>Pages:</source>
+        <translation>Pagina&apos;s:</translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation>VulKleur:</translation>
+    </message>
+    <message>
+        <source>Selected Page Border:</source>
+        <translation>Geselecteerde pagina rand:</translation>
+    </message>
+    <message>
+        <source>Frames</source>
+        <translation>Frames</translation>
+    </message>
+    <message>
+        <source>Locked:</source>
+        <translation>Vergrendeld:</translation>
+    </message>
+    <message>
+        <source>Normal:</source>
+        <translation>Normaal:</translation>
+    </message>
+    <message>
+        <source>Selected:</source>
+        <translation>Geselecteerd:</translation>
+    </message>
+    <message>
+        <source>Linked:</source>
+        <translation>Gekoppeld:</translation>
+    </message>
+    <message>
+        <source>Grouped:</source>
+        <translation>Gegroepeerd:</translation>
+    </message>
+    <message>
+        <source>Annotation:</source>
+        <translation>Annotatie:</translation>
+    </message>
+    <message>
+        <source>Text:</source>
+        <translation>Tekst:</translation>
+    </message>
+    <message>
+        <source>Control Characters:</source>
+        <translation>Opmaaktekens:</translation>
+    </message>
+    <message>
+        <source>TabDisplayBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scale%</source>
+        <translation>Schaal%</translation>
+    </message>
+</context>
+<context>
+    <name>TabDocument</name>
+    <message>
+        <source>Page Size</source>
+        <translation>Paginagrootte</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation>&amp;Grootte:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation>Staand</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation>Liggend</translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation>Orië&amp;ntatie:</translation>
+    </message>
+    <message>
+        <source>Units:</source>
+        <translation>Eenheden:</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation>&amp;Breedte:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation>&amp;Hoogte:</translation>
+    </message>
+    <message>
+        <source>Apply settings to:</source>
+        <translation>Instellingen toepassen op:</translation>
+    </message>
+    <message>
+        <source>All Document Pages</source>
+        <translation>Alle document pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>All Master Pages</source>
+        <translation>Alle pagina sjablonen</translation>
+    </message>
+    <message>
+        <source>Margin Guides</source>
+        <translation>Marge hulplijnen</translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation>Automatisch opslaan</translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation>min</translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation>&amp;Interval:</translation>
+    </message>
+    <message>
+        <source>Undo/Redo</source>
+        <translation>Ongedaan maken/opnieuw doen</translation>
+    </message>
+    <message>
+        <source>Action history length</source>
+        <translation>Actiehistorie lengte</translation>
+    </message>
+    <message>
+        <source>Width of document pages, editable if you have chosen a custom page size</source>
+        <translation>Breedte van de pagina&apos;s, kies &apos;Aangepast&apos; om hier een waarde in te kunnen stellen</translation>
+    </message>
+    <message>
+        <source>Height of document pages, editable if you have chosen a custom page size</source>
+        <translation>Hoogte van de pagina&apos;s, kies &apos;Aangepast&apos; om hier een waarde in te kunnen stellen</translation>
+    </message>
+    <message>
+        <source>Default page size, either a standard size or a custom size</source>
+        <translation>Standaard paginagrootte</translation>
+    </message>
+    <message>
+        <source>Default orientation of document pages</source>
+        <translation>Standaardoriëntatie van de pagina&apos;s van een document</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Standaard meeteenheid voor het bewerken van dit document</translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
+        <translation>Bij inschakeling zal Scribus aan het eind van de ingestelde tijd een backup van het bestand maken met de extensie .bak</translation>
+    </message>
+    <message>
+        <source>Time period between saving automatically</source>
+        <translation>Tijdsinterval voor automatisch opslaan</translation>
+    </message>
+    <message>
+        <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
+        <translation>Stel het aantal te bewaren stappen in van de actiegeschiedenis. Bij instelling 0 is het aantal opgeslagen acties oneindig.</translation>
+    </message>
+    <message>
+        <source>Apply the page size changes to all existing pages in the document</source>
+        <translation>Pas de pagina-formaat-instellingen toe op alle bestaande pagina&apos;s in het document</translation>
+    </message>
+    <message>
+        <source>Apply the page size changes to all existing master pages in the document</source>
+        <translation>Pas de wijzigingen van de paginagrootte toe op alle bestaande pagina sjablonen in het document</translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidget</name>
+    <message>
+        <source>Locate Ghostscript</source>
+        <translation>Lokaliseer Ghostscript</translation>
+    </message>
+    <message>
+        <source>Locate your image editor</source>
+        <translation>Lokaliseer uw afbeeldingsbewerker</translation>
+    </message>
+    <message>
+        <source>Locate your web browser</source>
+        <translation>Localiseer uw webbrowser</translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidgetBase</name>
+    <message>
+        <source>External Tools</source>
+        <translation>Externe hulpprogramma&apos;s</translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation>PostScript Interpreter</translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation>&amp;Naam van uitvoerbaar programma:</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Voeg het pad naar de Ghostscript toe. In Windows, is het belangrijk het programma gswin32c.exe te gebruiken - NIET gswin32.exe. Anders kan Scribus mogelijk niet starten.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Change..</source>
+        <translation>&amp;Wijzigen..</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation>Anti-alias &amp;tekst</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation>Alt+T</translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation>Tekst voor EPS en PDF voorzien van zachte weergave op het scherm (anti-alias)</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation>Anti-alias &amp;grafisch</translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation>Alt+G</translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation>Grafische objecten voor EPS en PDF weergeven met vloeiende lijnen</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation>Resolutie:</translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation> dpi</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation>Programma voor beeldbewerking</translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation>Naam van uitvoerbaar &amp;programma:</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Bestandslocatie van de afbeeldingseditor. Bij gebruik van een in de distributie geleverde versie van GIMP wordt de opdracht &apos;gimp-remote&apos; aanbevolen. Er kan dan im een reeds gestartte versie van GIMP worden gewerkt.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation>&amp;Wijzigen...</translation>
+    </message>
+    <message>
+        <source>Web Browser</source>
+        <translation>Web Browser</translation>
+    </message>
+    <message>
+        <source>Web Browser to launch with links from the Help system</source>
+        <translation>Te starten Web browser met links van het help systeem</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
+        <translation>&lt;qt&gt;Systeem locatie van de web browser. Wordt gebruikt voor externe links van het help-systeem.&lt;/qt&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;Rescan</source>
+        <translation>&amp;Opnieuw zoeken</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation>Alt+R</translation>
+    </message>
+    <message>
+        <source>Rescan for the external tools if they do not exist in the already specified location</source>
+        <translation>Zoek opnieuw naar externe gereedschappen als deze niet zijn te vinden op de aangewezen locatie</translation>
+    </message>
+</context>
+<context>
+    <name>TabGeneral</name>
+    <message>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
+        <translation>Kies de standaardtaal voor gebruik van Scribus. Bij geen keuze wordt de keuze gemaakt op basis van het gebruikte systeem. Dit kan naderhand worden aangepast door een command line optie toe te passen bij de start van Scribus</translation>
+    </message>
+    <message>
+        <source>Number of recently edited documents to show in the File menu</source>
+        <translation>Bepaalt hoeveel recent geopende documenten Scribus toont in het menu Bestand</translation>
+    </message>
+    <message>
+        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+        <translation>Bepaalt hoeveel regels Scribus doorschuift bij een stap van het muiswiel</translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
+        <translation>Kies de standaard stijl voor Scribus. Scribus maakt gebruik van elk beschikbaar KDE of QT thema, als QT is geconfigureerd om KDE plugins te zoeken.</translation>
+    </message>
+    <message>
+        <source>Default font size for the menus and windows</source>
+        <translation>Standaardtekengrootte voor menu&apos;s en vensters</translation>
+    </message>
+    <message>
+        <source>Default font size for the tool windows</source>
+        <translation>Standaardtekengrootte voor gereedschappen venster</translation>
+    </message>
+    <message>
+        <source>Default documents directory</source>
+        <translation>Standaardmap voor documenten</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
+        <translation>Standaard locatie voor ICC profielen. Kan niet worden aangepast bij een geopend document. Standaard zal Scribus in de systeemmappen zoek bij Mac OSX en Windows. Bij Linux en Unix zal Scribus zoeken in $home/.color/icc,/usr/share/color/icc en /usr/local/share/color/icc</translation>
+    </message>
+    <message>
+        <source>Default Scripter scripts directory</source>
+        <translation>Standaardmap voor Scripts</translation>
+    </message>
+    <message>
+        <source>Additional directory for document templates</source>
+        <translation>Additionele locatie voor documentsjablonen</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation>Kies een map</translation>
+    </message>
+</context>
+<context>
+    <name>TabGeneralBase</name>
+    <message>
+        <source>User Interface</source>
+        <translation>Gebruikers interface</translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation>Taa&amp;l:</translation>
+    </message>
+    <message>
+        <source>&amp;Theme:</source>
+        <translation>S&amp;tijl:</translation>
+    </message>
+    <message>
+        <source> ms</source>
+        <translation> ms</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation> pt</translation>
+    </message>
+    <message>
+        <source>Time before a Move or Resize starts:</source>
+        <translation>Tijd voor een verplaatsing of aanpassing start:</translation>
+    </message>
+    <message>
+        <source>Font Size (&amp;Palettes):</source>
+        <translation>Fontgrootte (&amp;Palettes):</translation>
+    </message>
+    <message>
+        <source>&amp;Font Size (Menus):</source>
+        <translation>&amp;Fontgrootte (Menu&apos;s):</translation>
+    </message>
+    <message>
+        <source>&amp;Wheel Jump:</source>
+        <translation>Muis&amp;wiel:</translation>
+    </message>
+    <message>
+        <source>&amp;Recent Documents:</source>
+        <translation>&amp;Recente documenten:</translation>
+    </message>
+    <message>
+        <source>Show Startup Dialog</source>
+        <translation>Opstart dialoog tonen</translation>
+    </message>
+    <message>
+        <source>Show Splashscreen on Startup</source>
+        <translation>Toon opstartscherm tijdens opstarten</translation>
+    </message>
+    <message>
+        <source>Paths</source>
+        <translation>Lokaties</translation>
+    </message>
+    <message>
+        <source>Ch&amp;ange...</source>
+        <translation>Wij&amp;zigen...</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>Document &amp;Templates:</source>
+        <translation>Documen&amp;t Sjabloon:</translation>
+    </message>
+    <message>
+        <source>&amp;Documents:</source>
+        <translation>&amp;Documenten:</translation>
+    </message>
+    <message>
+        <source>&amp;ICC Profiles:</source>
+        <translation>&amp;ICC-profielen:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation>Wijzige&amp;n...</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation>Alt+N</translation>
+    </message>
+    <message>
+        <source>&amp;Scripts:</source>
+        <translation>&amp;Scripts:</translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation>&amp;Wijzigen...</translation>
+    </message>
+    <message>
+        <source>Alt+H</source>
+        <translation>Alt+H</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation>&amp;Wijzigen...</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>TabGeneralBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabGuides</name>
+    <message>
+        <source>Common Settings</source>
+        <translation>Gebruikelijke instellingen</translation>
+    </message>
+    <message>
+        <source>Placing in Documents</source>
+        <translation>Plaatsing in documenten</translation>
+    </message>
+    <message>
+        <source>In the Background</source>
+        <translation>Op de achtergrond</translation>
+    </message>
+    <message>
+        <source>In the Foreground</source>
+        <translation>Op de voorgrond</translation>
+    </message>
+    <message>
+        <source>Snapping</source>
+        <translation>Magnetisch</translation>
+    </message>
+    <message>
+        <source>Snap Distance:</source>
+        <translation>Magnetische plak afstand:</translation>
+    </message>
+    <message>
+        <source>Grab Radius:</source>
+        <translation>Grijp Radius:</translation>
+    </message>
+    <message>
+        <source> px</source>
+        <translation>px</translation>
+    </message>
+    <message>
+        <source>Show Guides</source>
+        <translation>Toon hulplijnen</translation>
+    </message>
+    <message>
+        <source>Show Margins</source>
+        <translation>Toon Randen</translation>
+    </message>
+    <message>
+        <source>Show Page Grid</source>
+        <translation>Toon Pagina raster</translation>
+    </message>
+    <message>
+        <source>Major Grid</source>
+        <translation>Hoofd raster</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Kleur:</translation>
+    </message>
+    <message>
+        <source>Spacing:</source>
+        <translation>Spatiëring:</translation>
+    </message>
+    <message>
+        <source>Minor Grid</source>
+        <translation>Klein raster</translation>
+    </message>
+    <message>
+        <source>Show Baseline Grid</source>
+        <translation>Basislijn-raster tonen</translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Grid:</source>
+        <translation>Basislijn &amp;raster:</translation>
+    </message>
+    <message>
+        <source>Baseline &amp;Offset:</source>
+        <translation>Basislijn &amp;afstand:</translation>
+    </message>
+    <message>
+        <source>Distance between the minor grid lines</source>
+        <translation>Afstand tussen de kleine rasterlijnen</translation>
+    </message>
+    <message>
+        <source>Distance between the major grid lines</source>
+        <translation>Afstand tussen de grote rasterlijnen</translation>
+    </message>
+    <message>
+        <source>Distance within which an object will snap to your placed guides</source>
+        <translation>Afstand vanaf welke een object zal aantrekken tot de hulplijnen</translation>
+    </message>
+    <message>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
+        <translation>Geeft de straal aan van het gebied waar Scribus het u toestaat een object vast te pakken</translation>
+    </message>
+    <message>
+        <source>Color of the minor grid lines</source>
+        <translation>Kleur van de kleine rasterlijnen</translation>
+    </message>
+    <message>
+        <source>Color of the major grid lines</source>
+        <translation>Kleur van de grote rasterlijnen</translation>
+    </message>
+    <message>
+        <source>Color of the guide lines you insert</source>
+        <translation>Kleur van uw eigen hulplijnen</translation>
+    </message>
+    <message>
+        <source>Color for the margin lines</source>
+        <translation>Kleur voor de kantlijnen</translation>
+    </message>
+    <message>
+        <source>Turns the basegrid on or off</source>
+        <translation>Zet basislijnraster aan of uit</translation>
+    </message>
+    <message>
+        <source>Turns the gridlines on or off</source>
+        <translation>Zet basisrasterlijnen aan of uit</translation>
+    </message>
+    <message>
+        <source>Turns the guides on or off</source>
+        <translation>Zet de hulplijnen aan of uit</translation>
+    </message>
+    <message>
+        <source>Turns the margins on or off</source>
+        <translation>Zet de marges aan of uit</translation>
+    </message>
+    <message>
+        <source>Baseline Settings</source>
+        <translation>Basislijn instellingen</translation>
+    </message>
+    <message>
+        <source>Guides are not visible through objects on the page</source>
+        <translation>Hulplijnen zijn niet zichtbaar door objecten op de pagina</translation>
+    </message>
+    <message>
+        <source>Guides are visible above all objects on the page</source>
+        <translation>Hulplijnen zijn zichtbaar door alle objecten op de pagina</translation>
+    </message>
+    <message>
+        <source>Color for the baseline grid</source>
+        <translation>Kleur van het basislijn raster</translation>
+    </message>
+    <message>
+        <source>Distance between the lines of the baseline grid</source>
+        <translation>Afstanden tussen de lijnen van het basislijn raster</translation>
+    </message>
+    <message>
+        <source>Distance from the top of the page for the first baseline</source>
+        <translation>Afstand tot de bovenzijde van de pagina tot de eerste basislijn</translation>
+    </message>
+    <message>
+        <source>px</source>
+        <translation>px</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidget</name>
+    <message>
+        <source>Key Set XML Files (*.ksxml)</source>
+        <translation>Key Set XML bestanden (*.ksxml)</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation>Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation>Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation>Shift</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation>Meta</translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation>Meta+</translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation>Shift+</translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation>Alt+</translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation>Ctrl+</translation>
+    </message>
+    <message>
+        <source>This key sequence is already in use</source>
+        <translation>Deze toetsenvolgorde is al in gebruik</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidgetBase</name>
+    <message>
+        <source>Keyboard Shortcuts</source>
+        <translation>Toetsenbord sneltoetsset</translation>
+    </message>
+    <message>
+        <source>Search:</source>
+        <translation>Zoek:</translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation>Actie</translation>
+    </message>
+    <message>
+        <source>Shortcut</source>
+        <translation>Sneltoetsset</translation>
+    </message>
+    <message>
+        <source>Shortcut for Selected Action</source>
+        <translation>sneltoetssets voor geselecteerde actie</translation>
+    </message>
+    <message>
+        <source>&amp;No Key</source>
+        <translation>&amp;Geen toets</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation>Alt+N</translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation>Gebr&amp;uikersgedefiniëerd</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation>Alt+U</translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation>&amp;Toets instellen</translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation>Alt+K</translation>
+    </message>
+    <message>
+        <source>CTRL+ALT+SHIFT+W</source>
+        <translation>CTRL+ALT+SHIFT+W</translation>
+    </message>
+    <message>
+        <source>Loadable Shortcut Sets</source>
+        <translation>Laadbare sneltoetssets</translation>
+    </message>
+    <message>
+        <source>Keyboard shortcut sets available to load</source>
+        <translation>Toetsenbord sneltoetssets beschikbaar om te laden</translation>
+    </message>
+    <message>
+        <source>&amp;Load</source>
+        <translation>&amp;Laden</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation>Alt+L</translation>
+    </message>
+    <message>
+        <source>Load the selected shortcut set</source>
+        <translation>Laad de geselecteerde sneltoetsset</translation>
+    </message>
+    <message>
+        <source>&amp;Import...</source>
+        <translation>&amp;Importeren...</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
+    </message>
+    <message>
+        <source>Import a shortcut set into the current configuration</source>
+        <translation>Importeer een sneltoetsset in de huidige configuratie</translation>
+    </message>
+    <message>
+        <source>&amp;Export...</source>
+        <translation>&amp;Exporteren...</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation>Alt+E</translation>
+    </message>
+    <message>
+        <source>Export the current shortcuts into an importable file</source>
+        <translation>Exporteer de huidige sneltoetsset naar een importeerbaar bestand</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>He&amp;rstel</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation>Alt+R</translation>
+    </message>
+    <message>
+        <source>Reload the default Scribus shortcuts</source>
+        <translation>Herlaad de standaard Scribus sneltoetssets</translation>
     </message>
 </context>
 <context>
@@ -12994,13 +17676,1544 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <source>Manage Tabulators</source>
         <translation>Tabulators beheren</translation>
     </message>
+</context>
+<context>
+    <name>TabMiscellaneousBase</name>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
+        <source>Form1</source>
+        <translation>Form1</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
+        <source>Always ask before fonts are replaced when loading a document</source>
+        <translation>Vraag altijd voordat fonts vervangen worden bij het laden van een document</translation>
+    </message>
+    <message>
+        <source>Preview of current Paragraph Style visible when editing Styles</source>
+        <translation>Voorbeeld van de huidige alineastijl zichtbaar tijdens bijwerken stijlen</translation>
+    </message>
+    <message>
+        <source>Lorem Ipsum</source>
+        <translation>Lorem Ipsum</translation>
+    </message>
+    <message>
+        <source>Always use standard Lorem Ipsum</source>
+        <translation>Gebruik altijd de standaard Lorem Ipsum</translation>
+    </message>
+    <message>
+        <source>Count of the Paragraphs:</source>
+        <translation>Tellen van de alinea&apos;s:</translation>
+    </message>
+</context>
+<context>
+    <name>TabPDFOptions</name>
+    <message>
+        <source>Export Range</source>
+        <translation>Exporteer bereik</translation>
+    </message>
+    <message>
+        <source>&amp;All Pages</source>
+        <translation>&amp;Alle pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>C&amp;hoose Pages</source>
+        <translation>&amp;Pagina&apos;s kiezen</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation:</source>
+        <translation>&amp;Rotatie:</translation>
+    </message>
+    <message>
+        <source>File Options</source>
+        <translation>Bestandsopties</translation>
+    </message>
+    <message>
+        <source>Compatibilit&amp;y:</source>
+        <translation>&amp;Compatibiliteit:</translation>
+    </message>
+    <message>
+        <source>&amp;Binding:</source>
+        <translation>In&amp;binden:</translation>
+    </message>
+    <message>
+        <source>Left Margin</source>
+        <translation>Linker marge</translation>
+    </message>
+    <message>
+        <source>Right Margin</source>
+        <translation>Rechter marge</translation>
+    </message>
+    <message>
+        <source>Generate &amp;Thumbnails</source>
+        <translation>Minia&amp;turen aanmaken</translation>
+    </message>
+    <message>
+        <source>Save &amp;Linked Text Frames as PDF Articles</source>
+        <translation>Gekoppe&amp;lde tekstframes als PDF-artikelen opslaan</translation>
+    </message>
+    <message>
+        <source>&amp;Include Bookmarks</source>
+        <translation>Bladwijzers &amp;invoegen</translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation>dpi</translation>
+    </message>
+    <message>
+        <source>Com&amp;press Text and Vector Graphics</source>
+        <translation>Tekst en vectorafbeeldingen compri&amp;meren</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation>Maximaal</translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation>Hoog</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Gemiddeld</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation>Laag</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation>Minimaal</translation>
+    </message>
+    <message>
+        <source>&amp;General</source>
+        <translation>Al&amp;gemeen</translation>
+    </message>
+    <message>
+        <source>Embedding</source>
+        <translation>Insluiten</translation>
+    </message>
+    <message>
+        <source>Available Fonts:</source>
+        <translation>Beschikbare fonts:</translation>
+    </message>
+    <message>
+        <source>&amp;&gt;&gt;</source>
+        <translation>&amp;&gt;&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;&lt;&lt;</source>
+        <translation>&amp;&lt;&lt;</translation>
+    </message>
+    <message>
+        <source>Fonts to embed:</source>
+        <translation>Fonts om in te sluiten:</translation>
+    </message>
+    <message>
+        <source>&amp;Fonts</source>
+        <translation>&amp;Fonts</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Presentation Effects</source>
+        <translation>&amp;Presentatie-effecten</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Pagina</translation>
+    </message>
+    <message>
+        <source>Show Page Pre&amp;views</source>
+        <translation>Pagina&amp;voorbeelden tonen</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation>Effecten</translation>
+    </message>
+    <message>
+        <source>&amp;Display Duration:</source>
+        <translation>Weergave tij&amp;dsduur:</translation>
+    </message>
+    <message>
+        <source>Effec&amp;t Duration:</source>
+        <translation>Effec&amp;t tijdsduur:</translation>
+    </message>
+    <message>
+        <source>Effect T&amp;ype:</source>
+        <translation>Effectt&amp;ype:</translation>
+    </message>
+    <message>
+        <source>&amp;Moving Lines:</source>
+        <translation>&amp;Bewegende lijnen:</translation>
+    </message>
+    <message>
+        <source>F&amp;rom the:</source>
+        <translation>&amp;Van de:</translation>
+    </message>
+    <message>
+        <source>D&amp;irection:</source>
+        <translation>R&amp;ichting:</translation>
+    </message>
+    <message>
+        <source> sec</source>
+        <translation>sec</translation>
+    </message>
+    <message>
+        <source>No Effect</source>
+        <translation>Geen effect</translation>
+    </message>
+    <message>
+        <source>Blinds</source>
+        <translation>Luiken</translation>
+    </message>
+    <message>
+        <source>Box</source>
+        <translation>Box</translation>
+    </message>
+    <message>
+        <source>Dissolve</source>
+        <translation>Oplossen</translation>
+    </message>
+    <message>
+        <source>Glitter</source>
+        <translation>Glitter</translation>
+    </message>
+    <message>
+        <source>Split</source>
+        <translation>Splitsen</translation>
+    </message>
+    <message>
+        <source>Wipe</source>
+        <translation>Wegvegen</translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation>Horizontaal</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation>Verticaal</translation>
+    </message>
+    <message>
+        <source>Inside</source>
+        <translation>Binnen</translation>
+    </message>
+    <message>
+        <source>Outside</source>
+        <translation>Buiten</translation>
+    </message>
+    <message>
+        <source>Left to Right</source>
+        <translation>Links naar rechts</translation>
+    </message>
+    <message>
+        <source>Top to Bottom</source>
+        <translation>Boven naar beneden</translation>
+    </message>
+    <message>
+        <source>Bottom to Top</source>
+        <translation>Beneden naar boven</translation>
+    </message>
+    <message>
+        <source>Right to Left</source>
+        <translation>Rechts naar links</translation>
+    </message>
+    <message>
+        <source>Top-left to Bottom-Right</source>
+        <translation>Linksboven naar rechtsonder</translation>
+    </message>
+    <message>
+        <source>&amp;Apply Effect on all Pages</source>
+        <translation>Effect op &amp;alle pagina&apos;s toepassen</translation>
+    </message>
+    <message>
+        <source>E&amp;xtras</source>
+        <translation>E&amp;xtras</translation>
+    </message>
+    <message>
+        <source>&amp;Use Encryption</source>
+        <translation>Versle&amp;uteling gebruiken</translation>
+    </message>
+    <message>
+        <source>Passwords</source>
+        <translation>Wachtwoorden</translation>
+    </message>
+    <message>
+        <source>&amp;User:</source>
+        <translation>Gebr&amp;uiker:</translation>
+    </message>
+    <message>
+        <source>&amp;Owner:</source>
+        <translation>&amp;Eigenaar:</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Instellingen</translation>
+    </message>
+    <message>
+        <source>Allow &amp;Printing the Document</source>
+        <translation>A&amp;fdrukken van het document toestaan</translation>
+    </message>
+    <message>
+        <source>Allow &amp;Changing the Document</source>
+        <translation>Wi&amp;jzigen van het document toestaan</translation>
+    </message>
+    <message>
+        <source>Allow Cop&amp;ying Text and Graphics</source>
+        <translation>&amp;Kopiëren van tekst en afbeeldingen toestaan</translation>
+    </message>
+    <message>
+        <source>Allow Adding &amp;Annotations and Fields</source>
+        <translation>Toevoegen van &amp;annotaties en velden toestaan</translation>
+    </message>
+    <message>
+        <source>S&amp;ecurity</source>
+        <translation>V&amp;eiligheid</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Algemeen</translation>
+    </message>
+    <message>
+        <source>Output &amp;Intended For:</source>
+        <translation>&amp;Uitvoer bestemd voor:</translation>
+    </message>
+    <message>
+        <source>Screen / Web</source>
+        <translation>Scherm / web</translation>
+    </message>
+    <message>
+        <source>Printer</source>
+        <translation>Printer</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation>Grijstinten</translation>
+    </message>
+    <message>
+        <source>&amp;Use Custom Rendering Settings</source>
+        <translation>Aangepaste &amp;weergaveinstellingen gebruiken</translation>
+    </message>
+    <message>
+        <source>Rendering Settings</source>
+        <translation>Weergaveinstellingen</translation>
+    </message>
+    <message>
+        <source>Fre&amp;quency:</source>
+        <translation>Fre&amp;quentie:</translation>
+    </message>
+    <message>
+        <source>&amp;Angle:</source>
+        <translation>&amp;Hoek:</translation>
+    </message>
+    <message>
+        <source>S&amp;pot Function:</source>
+        <translation>&amp;Punt-functie:</translation>
+    </message>
+    <message>
+        <source>Simple Dot</source>
+        <translation>Enkele stip</translation>
+    </message>
+    <message>
+        <source>Line</source>
+        <translation>Lijn</translation>
+    </message>
+    <message>
+        <source>Round</source>
+        <translation>Rond</translation>
+    </message>
+    <message>
+        <source>Ellipse</source>
+        <translation>Ellips</translation>
+    </message>
+    <message>
+        <source>Solid Colors:</source>
+        <translation>Effen kleuren:</translation>
+    </message>
+    <message>
+        <source>Use ICC Profile</source>
+        <translation>ICC-profiel gebruiken</translation>
+    </message>
+    <message>
+        <source>Profile:</source>
+        <translation>Profiel:</translation>
+    </message>
+    <message>
+        <source>Rendering-Intent:</source>
+        <translation>Rendering intent:</translation>
+    </message>
+    <message>
+        <source>Perceptual</source>
+        <translation>Perceptueel</translation>
+    </message>
+    <message>
+        <source>Relative Colorimetric</source>
+        <translation>Relatief colorimetrisch</translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation>Verzadiging</translation>
+    </message>
+    <message>
+        <source>Absolute Colorimetric</source>
+        <translation>Absoluut colorimetrisch</translation>
+    </message>
+    <message>
+        <source>Images:</source>
+        <translation>Afbeeldingen:</translation>
+    </message>
+    <message>
+        <source>Don&apos;t use embedded ICC profiles</source>
+        <translation>Geen ingesloten ICC-profielen gebruiken</translation>
+    </message>
+    <message>
+        <source>C&amp;olor</source>
+        <translation>&amp;Kleur</translation>
+    </message>
+    <message>
+        <source>PDF/X-3 Output Intent</source>
+        <translation>PDF/X3 Output intentie</translation>
+    </message>
+    <message>
+        <source>&amp;Info String:</source>
+        <translation>&amp;Infotekst:</translation>
+    </message>
+    <message>
+        <source>Output &amp;Profile:</source>
+        <translation>Uitvoer&amp;profiel:</translation>
+    </message>
+    <message>
+        <source>Show page previews of each page listed above.</source>
+        <translation>Laat van elke pagina een voorbeeld zien.</translation>
+    </message>
+    <message>
+        <source>Type of the display effect.</source>
+        <translation>Type van het overgangseffect.</translation>
+    </message>
+    <message>
+        <source>Direction of the effect of moving lines for the split and blind effects.</source>
+        <translation>Richting van het effect van bewegende lijnen en de lamel-effecten.</translation>
+    </message>
+    <message>
+        <source>Starting position for the box and split effects.</source>
+        <translation>Startpositie voor de rechthoek en split-effecten.</translation>
+    </message>
+    <message>
+        <source>Direction of the glitter or wipe effects.</source>
+        <translation>Richting voor de glitter of veeg-effecten.</translation>
+    </message>
+    <message>
+        <source>Apply the selected effect to all pages.</source>
+        <translation>Het geselecteerde effect op alle pagina&apos;s toepassen.</translation>
+    </message>
+    <message>
+        <source>Export all pages to PDF</source>
+        <translation>Alle pagina&apos;s naar PDF exporteren</translation>
+    </message>
+    <message>
+        <source>Export a range of pages to PDF</source>
+        <translation>Een bereik exporteren naar PDF</translation>
+    </message>
+    <message>
+        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
+        <translation>Maakt PDF-artikelen aan, zodat het gemakkelijker is door de tekst te navigeren.</translation>
+    </message>
+    <message>
+        <source>DPI (Dots Per Inch) for image export.</source>
+        <translation>DPI (dots per inch) voor afbeeldingen.</translation>
+    </message>
+    <message>
+        <source>Choose a password for users to be able to read your PDF.</source>
+        <translation>Kies een wachtwoord voor gebruikers om de PDF te kunnen lezen.</translation>
+    </message>
+    <message>
+        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
+        <translation>Het afdrukken van de PDF toestaan. Indien niet geselecteerd is afdrukken onmogelijk.</translation>
+    </message>
+    <message>
+        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
+        <translation>Wijzigen van de PDF toestaan. Indien niet geselecteerd is wijzigen onmogelijk.</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for solid colors</source>
+        <translation>Een kleurprofiel insluiten voor effen kleuren</translation>
+    </message>
+    <message>
+        <source>Color profile for solid colors</source>
+        <translation>Kleurprofiel voor effen kleuren</translation>
+    </message>
+    <message>
+        <source>Rendering intent for solid colors</source>
+        <translation>Rendering intent voor effen kleuren</translation>
+    </message>
+    <message>
+        <source>Embed a color profile for images</source>
+        <translation>Een kleurprofiel insluiten voor afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Do not use color profiles that are embedded in source images</source>
+        <translation>Kleurprofielen in bronafbeeldingen niet gebruiken</translation>
+    </message>
+    <message>
+        <source>Color profile for images</source>
+        <translation>Kleurprofiel voor afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Rendering intent for images</source>
+        <translation>Rendering intent voor afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
+        <translation>Uitvoerprofiel voor het afdrukken. Laat u indien mogelijk, adviseren door uw drukkerij, bij het selecteren van een profiel.</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Afstand voor afloop vanaf de bovenkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Afstand voor afloop vanaf de onderkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Afstand voor afloop vanaf de linkerkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Afstand voor afloop vanaf de rechterkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) horizontally</source>
+        <translation>Pagina(&apos;s) horizontaal spiegelen</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) vertically</source>
+        <translation>Pagina(&apos;s) verticaal spiegelen</translation>
+    </message>
+    <message>
+        <source>&amp;Resolution for EPS Graphics:</source>
+        <translation>&amp;Resolutie van EPS afbeeldingen:</translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation>Steunkleuren naar Process kleuren omzetten</translation>
+    </message>
+    <message>
+        <source>Compression &amp;Quality:</source>
+        <translation>Compressie &amp;kwaliteit:</translation>
+    </message>
+    <message>
+        <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
+        <translation>Sta kopieëren van tekst of afbeeldingen van de PDF toe. Indien niet aangevinkt, kunnen tekst en afbeeldingen niet worden gekopieërd.</translation>
+    </message>
+    <message>
+        <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
+        <translation>Sta toevoegen van annotaties en velden aan de PDF toe. Indien niet aangevinkt, kunnen annotaties en velden niet worden bewerkt.</translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Bij voorkeur aanvinken. Tenzij steunkleuren in een drukkerij gedrukt moeten worden.</translation>
+    </message>
+    <message>
+        <source>Include La&amp;yers</source>
+        <translation>&amp;Lagen insluiten</translation>
+    </message>
+    <message>
+        <source>Compression Metho&amp;d:</source>
+        <translation>Compressie metho&amp;de:</translation>
+    </message>
+    <message>
+        <source>Resa&amp;mple Images to:</source>
+        <translation>Afbeeldingen o&amp;mzetten naar:</translation>
+    </message>
+    <message>
+        <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
+        <translation>Lengte in tijd van het effect. Een kortere tijd zal het effect versnellen, een langere tijd zal het effect vertragen.</translation>
+    </message>
+    <message>
+        <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
+        <translation>Voer hier de paginanummer(s) in die u wilt afdrukken, bijvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 afdrukken). Een * staat voor alle pagina&apos;s.</translation>
+    </message>
+    <message>
+        <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
+        <translation>Bepaalt de binding van pagina&apos;s in de PDF. Laat standaard (Links) tenzij anders is gewenst.</translation>
+    </message>
+    <message>
+        <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
+        <translation>Maakt thumbnails aan van elke pagina in de PDF. Thumbnails kunnen in pdf-viewers voor navigatie worden gebruikt.</translation>
+    </message>
+    <message>
+        <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
+        <translation>Sluit gecreëerde bookmarks in het document in. Bruikbaar bij navigeren in lange PDF documenten.</translation>
+    </message>
+    <message>
+        <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
+        <translation>Exporteer resolutie van tekst en afbeeldingen. Heeft geen invloed op de resolutie van pixel afbeeldingen, zoals foto&apos;s.</translation>
+    </message>
+    <message>
+        <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
+        <translation>Staat lossless compressie van tekst en afbeeldingen toe. Laat aangevinkt, tenzij er een reden voor is. Reduceert de grootte van het PDF bestand.</translation>
+    </message>
+    <message>
+        <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
+        <translation>Schakel veiligheidsmogelijk in de geëxporteerde PDF in. Bij selectie van PDF 1.3, wordt de PDF met 40 bit encryptie beveiligd. Bij PDF 1.4 met 128 bit encryptie. Disclaimer: PDF encryptie is niet zo betrouwbaar als GPG of PGP encryptie en heeft beperkingen.</translation>
+    </message>
+    <message>
+        <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
+        <translation>Kies een Master wachtwoord welke alle veiligheids mogelijkheden in de geëxporteerde PDF in- of uitschakeld</translation>
+    </message>
+    <message>
+        <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
+        <translation>Dit is een geavanceerde instelling welke niet standaard is ingeschakeld. Schakel uitsluitend in op aanvraag van uw drukkerij, zij voorzien u daarbij mogelijk van de benodigde details. Mogelijk kan de PDF bij inschakeling niet goed afgedrukt worden en is niet overdraagbaar naar andere systemen.</translation>
+    </message>
+    <message>
+        <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
+        <translation>Voorgeschreven regel voor PDF/X-3 bij niet invullen voldoet de PDF/X-3 niet aan de eisen. Wij adviseren de titel van het document te gebruiken.</translation>
+    </message>
+    <message>
+        <source>Display Settings</source>
+        <translation>Scherminstellingen</translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation>Enkele pagina</translation>
+    </message>
+    <message>
+        <source>Continuous</source>
+        <translation>Doorlopend</translation>
+    </message>
+    <message>
+        <source>Double Page Left</source>
+        <translation>Dubbele pagina links</translation>
+    </message>
+    <message>
+        <source>Double Page Right</source>
+        <translation>Dubbele pagina rechts</translation>
+    </message>
+    <message>
+        <source>Visual Appearance</source>
+        <translation>Uiterlijk</translation>
+    </message>
+    <message>
+        <source>Use Viewers Defaults</source>
+        <translation>Gebruik standaardinstelling Viewer</translation>
+    </message>
+    <message>
+        <source>Use Full Screen Mode</source>
+        <translation>Gebruik volledig scherm modus</translation>
+    </message>
+    <message>
+        <source>Display Bookmarks Tab</source>
+        <translation>Bladwijzertabblad weergeven</translation>
+    </message>
+    <message>
+        <source>Display Thumbnails</source>
+        <translation>Miniaturen weergeven</translation>
+    </message>
+    <message>
+        <source>Display Layers Tab</source>
+        <translation>Lagentabblad weergeven</translation>
+    </message>
+    <message>
+        <source>Hide Viewers Toolbar</source>
+        <translation>Verberg Toolbar Viewer</translation>
+    </message>
+    <message>
+        <source>Hide Viewers Menubar</source>
+        <translation>Verberg Menubar Viewer</translation>
+    </message>
+    <message>
+        <source>Zoom Pages to fit Viewer Window</source>
+        <translation>Zoom pagina&apos;s tot formaat venster Viewer</translation>
+    </message>
+    <message>
+        <source>Special Actions</source>
+        <translation>Speciale Acties</translation>
+    </message>
+    <message>
+        <source>No Script</source>
+        <translation>Geen script</translation>
+    </message>
+    <message>
+        <source>Viewer</source>
+        <translation>Viewer</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation>Afsnijden bij paginarand</translation>
+    </message>
+    <message>
+        <source>Lossy - JPEG</source>
+        <translation>Lossy - JPEG</translation>
+    </message>
+    <message>
+        <source>Lossless - Zip</source>
+        <translation>Lossles - Zip</translation>
+    </message>
+    <message>
+        <source>Image Compression Method</source>
+        <translation>Afbeelding compressie methode</translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when PDF document is opened:</source>
+        <translation>Javascript starten
+als PDF document wordt geopend:</translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
+        <translation>Staat presentatie-effecten toe bij gebruik van Adobe&amp;#174; Reader&amp;#174; en andere viewers welke full screen mode ondersteunen.</translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
+        <translation>Lagen in het document worden geexporteerd naar de PDF. Alleen beschikbaar bij selectie van PDF 1.5.</translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation>Pas de pixel-afbeeldingen aan naar het geselecteerde DPI. Indien niet aangevinkt worden de afbeeldingen gerenderd naar de oorspronkelijke resolutie. Dit kan resulteren in meer gebruik van geheugen.</translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation>Kleurmodel voor de output van de PDF. Kies Screen/Web voor PDF&apos;s die op alleen op een beeldscherm worden getoond en voor printen op bepaalde inkjets. Kies Printer voor drukwerk en als er naar een true color CMYK printer moet worden gedrukt. Kies Grijstinten als een grijswaarden PDF nodig is.</translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins in the exported file</source>
+        <translation>Verberg objecten buiten de marges in het geëxporteerde bestand</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation>Lengte in tijd waarin de pagina wordt getoont voor de presentatie start op de geselecteerde pagina. Instelling 0 zet automatische pagina-wisseling uit.</translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation>Naar curven om te zetten fonts:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation>Document layout</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation>Methode van compressie, te gebruiken voor afbeeldingen. Automatisch laat Scribus de beste methode kiezen. ZIP is lossless en goed voor afbeeldingen met effen kleurvlakken. JPEG is beter om kleinere PDF bestanden te verkrijgen welke veel foto&apos;s bevatten (licht kwaliteitsverlies mogelijk). Laat bij voorkeur staan op Automatisch tenzij er een speciale reden is om compressie te gebruiken.</translation>
+    </message>
+    <message>
+        <source>&amp;Embed all</source>
+        <translation>All&amp;es insluiten</translation>
+    </message>
+    <message>
+        <source>&amp;Outline all</source>
+        <translation>Alles naar c&amp;urven</translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation>Overprint modus forceren</translation>
+    </message>
+    <message>
+        <source>Printer Marks</source>
+        <translation>Merktekens</translation>
+    </message>
+    <message>
+        <source>Crop Marks</source>
+        <translation>Snijtekens</translation>
+    </message>
+    <message>
+        <source>Bleed Marks</source>
+        <translation>Afloop merktekens</translation>
+    </message>
+    <message>
+        <source>Registration Marks</source>
+        <translation>Registratietekens</translation>
+    </message>
+    <message>
+        <source>Color Bars</source>
+        <translation>Kleurcontrole balk</translation>
+    </message>
+    <message>
+        <source>Page Information</source>
+        <translation>Pagina informatie</translation>
+    </message>
+    <message>
+        <source>Offset:</source>
+        <translation>Verschuiving:</translation>
+    </message>
+    <message>
+        <source>Bleed Settings</source>
+        <translation>Instelling afloop</translation>
+    </message>
+    <message>
+        <source>Top:</source>
+        <translation>Boven:</translation>
+    </message>
+    <message>
+        <source>Bottom:</source>
+        <translation>Onder:</translation>
+    </message>
+    <message>
+        <source>Left:</source>
+        <translation>Links:</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation>Rechts:</translation>
+    </message>
+    <message>
+        <source>Use Document Bleeds</source>
+        <translation>Gebruik document afloop</translation>
+    </message>
+    <message>
+        <source>Pre-Press</source>
+        <translation>Pre-press</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
+        <translation>Alle fonts insluiten in PDF. Insluiten van fonts zorgt dat de layout en aanzicht van het document behouden blijven.</translation>
+    </message>
+    <message>
+        <source>Convert all glyphs in the document to outlines.</source>
+        <translation>Alle lettertekens in het document naar curven omzetten.</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation>Stelt PDF comptabiliteit vast. Standaard is PDF 1.3, welke het meest compatibel is. Kies PDF 1.4 als het bestand transparanten bevat of 128 bits encryptie benodigd is. PDF 1.5 is nodig als objecten in separate lagen in de PDF bewaard moeten blijven. PDF/X3 is voor PDF export als van color managed RGB gebruikt gemaakt moet worden woorden professioneel drukwerk en is selecteerbaar als kleurbeheer is ingeschakeld. Gebruik alleen op advies van uw drukker of in bepaalde gevallen bij afdrukken op een 4-kleuren digitale kleuren laserprinter.</translation>
+    </message>
+    <message>
+        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation>Kwaliteitsniveaus voor lossy compressie methoden. Minimum (25%). Laag (50%), Medium (75%), Hoog (85%), Maximum (95%). Het kwaliteitsniveau bepaalt niet direct de grootte van de resulterende afbeelding. Grootte en verlies van kwaliteit variëren bij elk afzonderlijk kwaliteitsniveau. Zelfs bij keuze voor het Maximum niveau is er altijd een kwaliteitsverlies bij jpeg.</translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation>Inschakelen globale Overprint modus voor dit document, object instellingen worden genegeerd</translation>
+    </message>
+    <message>
+        <source>Inside:</source>
+        <translation>Binnenzijde:</translation>
+    </message>
+    <message>
+        <source>Outside:</source>
+        <translation>Buitenzijde:</translation>
+    </message>
+</context>
+<context>
+    <name>TabPrinter</name>
+    <message>
+        <source>Distance for bleed from the top of the physical page</source>
+        <translation>Afstand voor afloop vanaf de bovenkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the bottom of the physical page</source>
+        <translation>Afstand voor afloop vanaf de onderkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the left of the physical page</source>
+        <translation>Afstand voor afloop vanaf de linkerkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Distance for bleed from the right of the physical page</source>
+        <translation>Afstand voor afloop vanaf de rechterkant van de fysieke pagina</translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page</source>
+        <translation>Verberg objecten buiten de marges van de pagina</translation>
+    </message>
+    <message>
+        <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
+        <translation>Gebruik een alternatieve print manager, bijvoorbeeld kprinter of gtklp, voor additionele opties</translation>
+    </message>
+    <message>
+        <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</source>
+        <translation>Stelt het PostScript Level in.
+Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
+    </message>
+    <message>
+        <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
+        <translation>Een manier om uit cyaan, geel en magenta samengestelde tonen door zwarte tonen te vervangen. UCR heeft het meeste effect op delen van afbeeldingen met neutrale of grijsachtige tonen. Gebruik hiervan kan afdrukken van bepaalde afbeeldingen verbeteren. UCR reduceert de mogelijkheid van oververzadiging met CMY inkten.</translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Bij voorkeur aanvinken. Tenzij steunkleuren in een drukkerij gedrukt moeten worden.</translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation>Inschakelen globale Overprint modus voor dit document, object instellingen worden genegeerd</translation>
+    </message>
+    <message>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation>Staat toe ICC-profielen te embedden in de printstroom als kleurbeheer ingeschakeld is</translation>
+    </message>
+    <message>
+        <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+        <translation>Geef hiermee het papierformaat in het PostScript bestand aan. Wordt niet aanbevolen tenzij de drukker hier uitdrukkelijk om vraagt.</translation>
+    </message>
+    <message>
+        <source>File</source>
+        <translation>Bestand</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>Alles</translation>
+    </message>
+</context>
+<context>
+    <name>TabPrinterBase</name>
+    <message>
+        <source>Print Destination</source>
+        <translation>Afdrukken naar</translation>
+    </message>
+    <message>
+        <source>Alternative Printer Command</source>
+        <translation>Alternatieve printer opdracht</translation>
+    </message>
+    <message>
+        <source>Command:</source>
+        <translation>Opdracht:</translation>
+    </message>
+    <message>
+        <source>Options</source>
+        <translation>Opties</translation>
+    </message>
+    <message>
+        <source>Postscript Options</source>
+        <translation>Postscript opties</translation>
+    </message>
+    <message>
+        <source>Level 1</source>
+        <translation>Niveau 1</translation>
+    </message>
+    <message>
+        <source>Level 2</source>
+        <translation>Niveau 2</translation>
+    </message>
+    <message>
+        <source>Level 3</source>
+        <translation>Niveau 3</translation>
+    </message>
+    <message>
+        <source>Print in Color if Available</source>
+        <translation>Druk af in kleur indien beschikbaar</translation>
+    </message>
+    <message>
+        <source>Print in Grayscale</source>
+        <translation>Druk af in grijstinten</translation>
+    </message>
+    <message>
+        <source>Page</source>
+        <translation>Pagina</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Spiegel pagina(&apos;s) horizontaal</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Spiegel pagina(&apos;s) verticaal</translation>
+    </message>
+    <message>
+        <source>Set Media Size</source>
+        <translation>Papierformaat instellen</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation>Afsnijden bij paginarand</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation>Kleur</translation>
+    </message>
+    <message>
+        <source>Apply Under Color Removal</source>
+        <translation>Onderliggende kleurvlakken verwijderen</translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors to Process Colors</source>
+        <translation>Steunkleuren naar Process kleuren omzetten</translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation>Overprint modus forceren</translation>
+    </message>
+    <message>
+        <source>Apply ICC Profiles</source>
+        <translation>ICC-profielen toepassen</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>Algemeen</translation>
+    </message>
+    <message>
+        <source>Print Normal</source>
+        <translation>Druk Normaal af</translation>
+    </message>
+    <message>
+        <source>Print Separations</source>
+        <translation>Druk Separaties</translation>
+    </message>
+    <message>
+        <source>Marks &amp;&amp; Bleeds</source>
+        <translation>Merktekens &amp;&amp; afloop</translation>
+    </message>
+    <message>
+        <source>Printer Marks</source>
+        <translation>Merktekens</translation>
+    </message>
+    <message>
+        <source>Crop Marks</source>
+        <translation>Snijtekens</translation>
+    </message>
+    <message>
+        <source>Bleed Marks</source>
+        <translation>Afloop merktekens</translation>
+    </message>
+    <message>
+        <source>Registration Marks</source>
+        <translation>Registratietekens</translation>
+    </message>
+    <message>
+        <source>Offset:</source>
+        <translation>Verschuiving:</translation>
+    </message>
+    <message>
+        <source>Color Bars</source>
+        <translation>Kleurcontrole balk</translation>
+    </message>
+    <message>
+        <source>Bleed Settings</source>
+        <translation>Instelling afloop</translation>
+    </message>
+    <message>
+        <source>Top:</source>
+        <translation>Boven:</translation>
+    </message>
+    <message>
+        <source>Bottom:</source>
+        <translation>Onder:</translation>
+    </message>
+    <message>
+        <source>Left:</source>
+        <translation>Links:</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation>Rechts:</translation>
+    </message>
+    <message>
+        <source>TabPrinterBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabScrapbookBase</name>
+    <message>
+        <source>Send Copied Items Automatically to Scrapbook</source>
+        <translation>Stuur gekopieerde items automatisch naar kladblok</translation>
+    </message>
+    <message>
+        <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
+        <translation>Hier wordt het kladblok een extensie van de knipeen/plakken buffers. Door een object of objectgroep te kopieëren wordt dit automatisch in het kladblok geplaatst</translation>
+    </message>
+    <message>
+        <source>Keep Copied Items Permanently Across Sessions</source>
+        <translation>Gekopieerde items permanent behouden tijdens sessies</translation>
+    </message>
+    <message>
+        <source>This enables copied items to be kept permanently in the scrapbook.</source>
+        <translation>Gekopieerde items permanent permanent behouden in kladblok.</translation>
+    </message>
+    <message>
+        <source>Number of Copied Items to Keep in Scrapbook:</source>
+        <translation>Aantal gekopieerde items te bewaren in kladblok:</translation>
+    </message>
+    <message>
+        <source>The minimum number is 1; the maximum us 100.</source>
+        <translation>Het minimum aantal is 1; het maximum is 100.</translation>
+    </message>
+    <message>
+        <source>TabScrapbookBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabTools</name>
+    <message>
+        <source>Font:</source>
+        <translation>Font:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>Size:</source>
+        <translation>Grootte:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation>VulKleur:</translation>
+    </message>
+    <message>
+        <source>Stroke Color:</source>
+        <translation>Lijnkleur:</translation>
+    </message>
+    <message>
+        <source>Colu&amp;mns:</source>
+        <translation>Kolo&amp;mmen:</translation>
+    </message>
+    <message>
+        <source>&amp;Gap:</source>
+        <translation>Tussen&amp;ruimte:</translation>
+    </message>
+    <message>
+        <source>Woven silk pyjamas exchanged for blue quartz</source>
+        <translation>Pa&apos;s wijze lynx bezag vroom het fikse aquaduct</translation>
+    </message>
+    <message>
+        <source>&amp;Line Color:</source>
+        <translation>&amp;Lijnkleur:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>&amp;Shading:</source>
+        <translation>&amp;Tint:</translation>
+    </message>
+    <message>
+        <source>&amp;Fill Color:</source>
+        <translation>&amp;Vulkleur:</translation>
+    </message>
+    <message>
+        <source>S&amp;hading:</source>
+        <translation>T&amp;int:</translation>
+    </message>
+    <message>
+        <source>Line Style:</source>
+        <translation>Lijnstijl:</translation>
+    </message>
+    <message>
+        <source>Line &amp;Width:</source>
+        <translation>Linedi&amp;kte:</translation>
+    </message>
+    <message>
+        <source>Line S&amp;tyle:</source>
+        <translation>Lijns&amp;tijl:</translation>
+    </message>
+    <message>
+        <source>Arrows:</source>
+        <translation>Pijlen:</translation>
+    </message>
+    <message>
+        <source>Start:</source>
+        <translation>Start:</translation>
+    </message>
+    <message>
+        <source>End:</source>
+        <translation>Einde:</translation>
+    </message>
+    <message>
+        <source>&amp;Free Scaling</source>
+        <translation>&amp;Vrije schaal</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Scaling:</source>
+        <translation>&amp;Horizontale schaal:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Scaling:</source>
+        <translation>&amp;Verticale schaal:</translation>
+    </message>
+    <message>
+        <source>&amp;Scale Picture to Frame Size</source>
+        <translation>Afbeelding &amp;schalen naar framegrootte</translation>
+    </message>
+    <message>
+        <source>Keep Aspect &amp;Ratio</source>
+        <translation>Beeldve&amp;rhouding behouden</translation>
+    </message>
+    <message>
+        <source>F&amp;ill Color:</source>
+        <translation>V&amp;ulKleur:</translation>
+    </message>
+    <message>
+        <source>Mi&amp;nimum:</source>
+        <translation>Mi&amp;nimaal:</translation>
+    </message>
+    <message>
+        <source>Ma&amp;ximum:</source>
+        <translation>Ma&amp;ximaal:</translation>
+    </message>
+    <message>
+        <source>&amp;Stepping:</source>
+        <translation>In &amp;stappen:</translation>
+    </message>
+    <message>
+        <source>Text Frame Properties</source>
+        <translation>Eigenschappen voor tekstframe</translation>
+    </message>
+    <message>
+        <source>Picture Frame Properties</source>
+        <translation>Eigenschappen voor afbeeldingsframe</translation>
+    </message>
+    <message>
+        <source>Shape Drawing Properties</source>
+        <translation>Eigenschappen voor tekenen van vormen</translation>
+    </message>
+    <message>
+        <source>Magnification Level Defaults</source>
+        <translation>Standaardwaarden voor vergrotingsniveau</translation>
+    </message>
+    <message>
+        <source>Line Drawing Properties</source>
+        <translation>Lijneigenschappen</translation>
+    </message>
+    <message>
+        <source>Polygon Drawing Properties</source>
+        <translation>Polygooneigenschappen</translation>
+    </message>
+    <message>
+        <source>Font for new text frames</source>
+        <translation>Font voor nieuwe tekstframes</translation>
+    </message>
+    <message>
+        <source>Size of font for new text frames</source>
+        <translation>Tekengrootte voor nieuwe tekstframes</translation>
+    </message>
+    <message>
+        <source>Color of font</source>
+        <translation>Letterkleur</translation>
+    </message>
+    <message>
+        <source>Number of columns in a text frame</source>
+        <translation>Aantal kolommen in een tekstframe</translation>
+    </message>
+    <message>
+        <source>Gap between text frame columns</source>
+        <translation>Tussenruimte tussen kolommen</translation>
+    </message>
+    <message>
+        <source>Sample of your font</source>
+        <translation>Voorbeeld van uw font</translation>
+    </message>
+    <message>
+        <source>Picture frames allow pictures to scale to any size</source>
+        <translation>Afbeeldingsframes kunnen afbeeldingen meeschalen naar elke grootte</translation>
+    </message>
+    <message>
+        <source>Horizontal scaling of images</source>
+        <translation>Horizontale schaal voor afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Vertical scaling of images</source>
+        <translation>Verticale schaal voor afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Keep horizontal and vertical scaling the same</source>
+        <translation>Houdt de horizontale en verticale schaal gelijk</translation>
+    </message>
+    <message>
+        <source>Pictures in picture frames are scaled to the size of the frame</source>
+        <translation>Afbeeldingen in afbeeldingsframes worden altijd naar de grootte van het frame geschaald</translation>
+    </message>
+    <message>
+        <source>Automatically scaled pictures keep their original proportions</source>
+        <translation>Automatisch geschaalde afbeeldingen houden hun oorspronkelijke beeldverhouding</translation>
+    </message>
+    <message>
+        <source>Fill color of picture frames</source>
+        <translation>Vulkleur voor afbeeldingsframes</translation>
+    </message>
+    <message>
+        <source>Saturation of color of fill</source>
+        <translation>Verzadiging van de vulkleur</translation>
+    </message>
+    <message>
+        <source>Line color of shapes</source>
+        <translation>Lijnkleur van vormen</translation>
+    </message>
+    <message>
+        <source>Saturation of color of lines</source>
+        <translation>Verzadiging van de lijnkleur</translation>
+    </message>
+    <message>
+        <source>Fill color of shapes</source>
+        <translation>Vulkleur van vormen</translation>
+    </message>
+    <message>
+        <source>Line style of shapes</source>
+        <translation>Lijnstijl van vormen</translation>
+    </message>
+    <message>
+        <source>Line width of shapes</source>
+        <translation>Lijndikte van vormen</translation>
+    </message>
+    <message>
+        <source>Minimum magnification allowed</source>
+        <translation>Minimaal toegestane vergroting</translation>
+    </message>
+    <message>
+        <source>Maximum magnification allowed</source>
+        <translation>Maximaal toegestane vergroting</translation>
+    </message>
+    <message>
+        <source>Change in magnification for each zoom operation</source>
+        <translation>Verandering in grootte bij elke zoom-stap</translation>
+    </message>
+    <message>
+        <source>Color of lines</source>
+        <translation>Lijnkleur</translation>
+    </message>
+    <message>
+        <source>Saturation of color</source>
+        <translation>Kleurverzadiging</translation>
+    </message>
+    <message>
+        <source>Style of lines</source>
+        <translation>Lijnstijl</translation>
+    </message>
+    <message>
+        <source>Width of lines</source>
+        <translation>Dikte van lijnen</translation>
+    </message>
+    <message>
+        <source>Tab Fill Character:</source>
+        <translation>Tab uitvulteken:</translation>
+    </message>
+    <message>
+        <source>Tab Width:</source>
+        <translation>Tabbreedte:</translation>
+    </message>
+    <message>
+        <source>Use embedded Clipping Path</source>
+        <translation>Gebruik ingebed uitknip pad</translation>
+    </message>
+    <message>
+        <source>On Screen Preview</source>
+        <translation>Afdrukvoorbeeld</translation>
+    </message>
+    <message>
+        <source>Full Resolution Preview</source>
+        <translation>Volledige resolutie voorbeeld</translation>
+    </message>
+    <message>
+        <source>Normal Resolution Preview</source>
+        <translation>Normale resolutie voorbeeld</translation>
+    </message>
+    <message>
+        <source>Low Resolution Preview</source>
+        <translation>Lage resolutie voorbeeld</translation>
+    </message>
+    <message>
+        <source>Text Color:</source>
+        <translation>Tekstkleur:</translation>
+    </message>
+    <message>
+        <source>Shading:</source>
+        <translation>Tint:</translation>
+    </message>
+    <message>
+        <source>Text Stroke:</source>
+        <translation>Tekstlijn:</translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation>Punt</translation>
+    </message>
+    <message>
+        <source>Hyphen</source>
+        <translation>Afbreekstreepje</translation>
+    </message>
+    <message>
+        <source>Underscore</source>
+        <translation>Underscore</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Aangepast</translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation>Tekst</translation>
+    </message>
+    <message>
+        <source>Shapes</source>
+        <translation>Vormen</translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation>Lijnen</translation>
+    </message>
+    <message>
+        <source>Images</source>
+        <translation>Afbeeldingen</translation>
+    </message>
+    <message>
+        <source>Regular Polygons</source>
+        <translation>Reguliere polygonen</translation>
+    </message>
+    <message>
+        <source>Zoom</source>
+        <translation>Zoomen</translation>
+    </message>
+    <message>
+        <source>Miscellaneous Settings</source>
+        <translation>Diverse instellingen</translation>
+    </message>
+    <message>
+        <source>Item Duplicate</source>
+        <translation>Item dupliceren</translation>
+    </message>
+    <message>
+        <source>X Displacement</source>
+        <translation>X verschuiving</translation>
+    </message>
+    <message>
+        <source>Y Displacement</source>
+        <translation>Y verschuiving</translation>
+    </message>
+    <message>
+        <source>Rotation Tool</source>
+        <translation>Rotatie gereedschap</translation>
+    </message>
+    <message>
+        <source>Constrain to:</source>
+        <translation>Beperk tot:</translation>
+    </message>
+    <message>
+        <source>Other Properties</source>
+        <translation>Andere eigenschappen</translation>
+    </message>
+    <message>
+        <source>Horizontal displacement of page items</source>
+        <translation>Horizontale pagina verschuiving van pagina items</translation>
+    </message>
+    <message>
+        <source>Vertical displacement of page items</source>
+        <translation>Verticale pagina verschuiving van pagina items</translation>
+    </message>
+    <message>
+        <source>Constrain value for the rotation tool when the Control key is pressed</source>
+        <translation>Beperk waarde van het rotatiegereedschap als de Control toets is ingedrukt</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Degrees</source>
+        <translation>Graden</translation>
+    </message>
+</context>
+<context>
+    <name>TabTypograpy</name>
+    <message>
+        <source>Subscript</source>
+        <translation>Subscript</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+    <message>
+        <source>&amp;Displacement:</source>
+        <translation>Ver&amp;plaatsing:</translation>
+    </message>
+    <message>
+        <source>&amp;Scaling:</source>
+        <translation>&amp;Schaal:</translation>
+    </message>
+    <message>
+        <source>Superscript</source>
+        <translation>Superscript</translation>
+    </message>
+    <message>
+        <source>D&amp;isplacement:</source>
+        <translation>Verplaat&amp;sing:</translation>
+    </message>
+    <message>
+        <source>S&amp;caling:</source>
+        <translation>S&amp;chaal:</translation>
+    </message>
+    <message>
+        <source>Small Caps</source>
+        <translation>Kleinkapitalen</translation>
+    </message>
+    <message>
+        <source>Sc&amp;aling:</source>
+        <translation>Sch&amp;aal:</translation>
+    </message>
+    <message>
+        <source>Displacement above the baseline of the font on a line</source>
+        <translation>Verplaatsing boven de basislijn van een font op een regel</translation>
+    </message>
+    <message>
+        <source>Relative size of the superscript compared to the normal font</source>
+        <translation>Relatieve grootte van het superscript t.o.v. de normale tekengrootte</translation>
+    </message>
+    <message>
+        <source>Displacement below the baseline of the normal font on a line</source>
+        <translation>Verplaatsing onder de basislijn van een font op een regel</translation>
+    </message>
+    <message>
+        <source>Relative size of the subscript compared to the normal font</source>
+        <translation>Relatieve grootte van het subscript t.o.v. de normale tekengrootte</translation>
+    </message>
+    <message>
+        <source>Relative size of the small caps font compared to the normal font</source>
+        <translation>Relatieve grootte van de kleinkapitalen t.o.v. de normale tekengrootte</translation>
+    </message>
+    <message>
+        <source>Underline</source>
+        <translation>Onderstrepen</translation>
+    </message>
+    <message>
+        <source>Displacement:</source>
+        <translation>Verplaatsing:</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation>Lijndikte:</translation>
+    </message>
+    <message>
+        <source>Strikethru</source>
+        <translation>Doorhalen</translation>
+    </message>
+    <message>
+        <source>Automatic &amp;Line Spacing</source>
+        <translation>Automatische &amp;interlinie
+</translation>
+    </message>
+    <message>
+        <source>Line Spacing:</source>
+        <translation>Interlinie:</translation>
+    </message>
+    <message>
+        <source>Percentage increase over the font size for the line spacing</source>
+        <translation>Toename van regelhoogte in procent van de waarde die het font aangeeft</translation>
+    </message>
+    <message>
+        <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
+        <translation>Verplaatsing onder de basislijn van het normale font uitgedrukt in percentage van de font onderzijde</translation>
+    </message>
+    <message>
+        <source>Line width expressed as a percentage of the font size</source>
+        <translation>Lijndikte uitgedrukt in percentage van het font formaat</translation>
+    </message>
+    <message>
+        <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
+        <translation>Verplaatsing boven de basislijn van het normale font in percentage van de font bovenzijde</translation>
     </message>
 </context>
 <context>
@@ -13030,10 +19243,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>&amp;Positie:</translation>
     </message>
     <message>
-        <source>First &amp;Line:</source>
-        <translation>Eerste &amp;regel:</translation>
-    </message>
-    <message>
         <source>Delete All</source>
         <translation>Alles verwijderen</translation>
     </message>
@@ -13050,24 +19259,48 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Alle tabstops verwijderen</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation>pt</translation>
+        <source>Dot</source>
+        <translation>Punt</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation>mm</translation>
+        <source>Hyphen</source>
+        <translation>Afbreekstreepje</translation>
     </message>
     <message>
-        <source> in</source>
-        <translation>in</translation>
+        <source>Underscore</source>
+        <translation>Underscore</translation>
     </message>
     <message>
-        <source> p</source>
-        <translation>p</translation>
+        <source>Custom</source>
+        <translation>Aangepast</translation>
     </message>
     <message>
-        <source>Left Ind&amp;ent:</source>
-        <translation>Links inspring&amp;en:</translation>
+        <source>Fill Char:</source>
+        <translation>Opvulteken:</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation>Geen</translation>
+    </message>
+    <message>
+        <source>Indentation from the right for the whole paragraph</source>
+        <translation>Inspringen vanaf rechts voor de hele alinea</translation>
+    </message>
+</context>
+<context>
+    <name>TextBrowser</name>
+    <message>
+        <source>Locate your web browser</source>
+        <translation>Localiseer uw webbrowser</translation>
+    </message>
+    <message>
+        <source>External Web Browser Failed to Start</source>
+        <translation>Externe webbrowser start niet</translation>
+    </message>
+    <message>
+        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
+        <translation>Scribus kon externe webbrowser niet starten %1. Controleer instellingen in Voorkeuren</translation>
     </message>
 </context>
 <context>
@@ -13081,70 +19314,841 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Element</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation>Type</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Info</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation>De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>X:</source>
-        <translation>X:</translation>
-    </message>
-    <message>
-        <source>Y:</source>
-        <translation>Y:</translation>
-    </message>
-    <message>
-        <source>Font:</source>
-        <translation>Lettertype:</translation>
-    </message>
-    <message>
         <source>Group </source>
         <translation>Groep</translation>
     </message>
     <message>
-        <source>Image</source>
+        <source>Free Objects</source>
+        <translation>Vrije objecten</translation>
+    </message>
+    <message>
+        <source>Page </source>
+        <translation>Pagina </translation>
+    </message>
+    <message>
+        <source>Picture</source>
         <translation>Afbeelding</translation>
     </message>
     <message>
-        <source>Text</source>
-        <translation>Tekst</translation>
+        <source>File: </source>
+        <translation>Bestand:</translation>
     </message>
     <message>
-        <source>Line</source>
-        <translation>Lijn</translation>
+        <source>Original PPI: </source>
+        <translation>Oorspronkelijk PPI:</translation>
+    </message>
+    <message>
+        <source>Actual PPI: </source>
+        <translation>Werkelijk PPI:</translation>
+    </message>
+    <message>
+        <source>Colorspace: </source>
+        <translation>Kleurruimte: </translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation>Onbekend</translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation>RGB</translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation>CMYK</translation>
+    </message>
+    <message>
+        <source>Grayscale</source>
+        <translation>Grijsttinten</translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation>Duotoon</translation>
+    </message>
+    <message>
+        <source>No Image Loaded</source>
+        <translation>Geen afbeelding geladen</translation>
+    </message>
+    <message>
+        <source>Linked Text</source>
+        <translation>Gekoppelde tekst</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation>Tekstframe</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation>Tekst op een pad</translation>
+    </message>
+    <message>
+        <source>Paragraphs: </source>
+        <translation>Alinea&apos;s:</translation>
+    </message>
+    <message>
+        <source>Lines: </source>
+        <translation>Lijnen: </translation>
+    </message>
+    <message>
+        <source>Words: </source>
+        <translation>Woorden:</translation>
+    </message>
+    <message>
+        <source>Chars: </source>
+        <translation>Tekens:</translation>
+    </message>
+    <message>
+        <source>Print: </source>
+        <translation>Afdrukken:</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>Ingeschakeld</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>Uitgeschakeld</translation>
+    </message>
+    <message>
+        <source>In&amp;fo</source>
+        <translation>In&amp;fo</translation>
+    </message>
+    <message>
+        <source>Preview Settings</source>
+        <translation>Voorbeeld instellingen</translation>
+    </message>
+    <message>
+        <source>&amp;PDF Options</source>
+        <translation>&amp;PDF-opties</translation>
+    </message>
+    <message>
+        <source>Send to La&amp;yer</source>
+        <translation>In &amp;laag zetten</translation>
+    </message>
+    <message>
+        <source>Le&amp;vel</source>
+        <translation>Ni&amp;veau</translation>
+    </message>
+    <message>
+        <source>Conve&amp;rt to</source>
+        <translation>Omzetten naa&amp;r</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Hernoemen</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>Verwij&amp;deren</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation>Inhoud</translation>
+    </message>
+    <message>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation>Naam &quot;%1&quot; is niet uniek.&lt;br/&gt;Kies een andere naam.</translation>
+    </message>
+</context>
+<context>
+    <name>UnderlineValues</name>
+    <message>
+        <source>Auto</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation> %</translation>
+    </message>
+    <message>
+        <source>Displacement</source>
+        <translation>Verplaatsing</translation>
+    </message>
+    <message>
+        <source>Linewidth</source>
+        <translation>Lijndikte</translation>
+    </message>
+</context>
+<context>
+    <name>UndoManager</name>
+    <message>
+        <source>Add vertical guide</source>
+        <translation>Voeg verticale hulplijnen toe</translation>
+    </message>
+    <message>
+        <source>Add horizontal guide</source>
+        <translation>Voeg horizontale hulplijnen toe</translation>
+    </message>
+    <message>
+        <source>Remove vertical guide</source>
+        <translation>Verwijder verticale hulplijnen</translation>
+    </message>
+    <message>
+        <source>Remove horizontal guide</source>
+        <translation>Verwijder horizontale hulplijnen</translation>
+    </message>
+    <message>
+        <source>Move vertical guide</source>
+        <translation>Verplaats verticale hulplijnen</translation>
+    </message>
+    <message>
+        <source>Move horizontal guide</source>
+        <translation>Verplaats horizontale hulplijnen</translation>
+    </message>
+    <message>
+        <source>Lock guides</source>
+        <translation>Hulplijnen vastzetten</translation>
+    </message>
+    <message>
+        <source>Unlock guides</source>
+        <translation>Hulplijnen losmaken</translation>
+    </message>
+    <message>
+        <source>Move</source>
+        <translation>Verplaatsen</translation>
+    </message>
+    <message>
+        <source>Resize</source>
+        <translation>Grootte aanpassen</translation>
+    </message>
+    <message>
+        <source>Rotate</source>
+        <translation>Roteer</translation>
+    </message>
+    <message>
+        <source>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</source>
+        <translation>X1: %1, Y1: %2, %3
+X2: %4, Y2: %5, %6</translation>
+    </message>
+    <message>
+        <source>W1: %1, H1: %2
+W2: %3, H2: %4</source>
+        <translation>W1: %1, H1: %2
+W2: %3, H2: %4</translation>
+    </message>
+    <message>
+        <source>Selection</source>
+        <translation>Selectie</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation>Groeperen</translation>
+    </message>
+    <message>
+        <source>Selection/Group</source>
+        <translation>Selectie/Grouperen</translation>
+    </message>
+    <message>
+        <source>Create</source>
+        <translation>Aanmaken</translation>
+    </message>
+    <message>
+        <source>X: %1, Y: %2
+W: %3, H: %4</source>
+        <translation>X: %1, Y: %2
+W: %3, H: %4</translation>
+    </message>
+    <message>
+        <source>Align/Distribute</source>
+        <translation>Verdelen/uitlijnen</translation>
+    </message>
+    <message>
+        <source>Items involved</source>
+        <translation>Items betrokken</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
+    </message>
+    <message>
+        <source>Set fill color</source>
+        <translation>Bepaal vulkleur</translation>
+    </message>
+    <message>
+        <source>Color1: %1, Color2: %2</source>
+        <translation>Kleur1: %1, Kleur2: %2</translation>
+    </message>
+    <message>
+        <source>Set fill color shade</source>
+        <translation>Bepaal vulkleur schaduw</translation>
+    </message>
+    <message>
+        <source>Set line color</source>
+        <translation>Bepaal lijnkleur</translation>
+    </message>
+    <message>
+        <source>Set line color shade</source>
+        <translation>Bepaal tint lijnkleur schaduw</translation>
+    </message>
+    <message>
+        <source>Flip horizontally</source>
+        <translation>Horizontaal spiegelen</translation>
+    </message>
+    <message>
+        <source>Flip vertically</source>
+        <translation>Verticaal spiegelen</translation>
+    </message>
+    <message>
+        <source>Lock</source>
+        <translation>Vastzetten</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation>Losmaken</translation>
+    </message>
+    <message>
+        <source>Lock size</source>
+        <translation>Grootte vastzetten</translation>
+    </message>
+    <message>
+        <source>Unlock size</source>
+        <translation>Grootte losmaken</translation>
+    </message>
+    <message>
+        <source>Ungroup</source>
+        <translation>Degroeperen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Rename</source>
+        <translation>Hernoemen</translation>
+    </message>
+    <message>
+        <source>From %1
+to %2</source>
+        <translation>Van %1
+tot %2</translation>
+    </message>
+    <message>
+        <source>Paste</source>
+        <translation>Plakken</translation>
+    </message>
+    <message>
+        <source>Cut</source>
+        <translation>Knippen</translation>
+    </message>
+    <message>
+        <source>Set fill color transparency</source>
+        <translation>Bepaal vulkleur transparantie</translation>
+    </message>
+    <message>
+        <source>Set line color transparency</source>
+        <translation>Bepaal lijnkleur transparantie</translation>
+    </message>
+    <message>
+        <source>Set line style</source>
+        <translation>Bepaal lijnstijl</translation>
+    </message>
+    <message>
+        <source>Set the style of line end</source>
+        <translation>Stel stijl in van eindpunt lijn</translation>
+    </message>
+    <message>
+        <source>Set the style of line join</source>
+        <translation>Stel stijl in van lijnverbinding</translation>
+    </message>
+    <message>
+        <source>Set line width</source>
+        <translation>Bepaal lijndikte</translation>
+    </message>
+    <message>
+        <source>No style</source>
+        <translation>Geen stijl</translation>
+    </message>
+    <message>
+        <source>Set custom line style</source>
+        <translation>Bepaal eigen lijnstijl</translation>
+    </message>
+    <message>
+        <source>Do not use custom line style</source>
+        <translation>Gebruik eigen lijnstijl niet</translation>
+    </message>
+    <message>
+        <source>Set start arrow</source>
+        <translation>Stel begin pijl in</translation>
+    </message>
+    <message>
+        <source>Set end arrow</source>
+        <translation>Stel einde pijl in</translation>
+    </message>
+    <message>
+        <source>Create table</source>
+        <translation>Maak tabel</translation>
+    </message>
+    <message>
+        <source>Rows: %1, Cols: %2</source>
+        <translation>Rijen: %1, Kolommen: %2</translation>
+    </message>
+    <message>
+        <source>Set font</source>
+        <translation>Font instellen</translation>
+    </message>
+    <message>
+        <source>Set font size</source>
+        <translation>Tekengrootte instellen</translation>
+    </message>
+    <message>
+        <source>Set font width</source>
+        <translation>Schaalbreedte van tekens instellen</translation>
+    </message>
+    <message>
+        <source>Set font fill color</source>
+        <translation>Font vulkleur instellen</translation>
+    </message>
+    <message>
+        <source>Set font stroke color</source>
+        <translation>Kleur font-omlijning instellen</translation>
+    </message>
+    <message>
+        <source>Set font fill color shade</source>
+        <translation>Tint font vulkleur instellen</translation>
+    </message>
+    <message>
+        <source>Set font stroke color shade</source>
+        <translation>Tint font-omlijning kleur instellen</translation>
+    </message>
+    <message>
+        <source>Set kerning</source>
+        <translation>Kerning instellen</translation>
+    </message>
+    <message>
+        <source>Set line spacing</source>
+        <translation>Regelspatiëring instellen</translation>
+    </message>
+    <message>
+        <source>Set paragraph style</source>
+        <translation>Alineastijl instellen</translation>
+    </message>
+    <message>
+        <source>Set language</source>
+        <translation>Taal instellen</translation>
+    </message>
+    <message>
+        <source>Align text</source>
+        <translation>Tekst uitlijnen</translation>
+    </message>
+    <message>
+        <source>Set font effect</source>
+        <translation>Font-effecten instellen</translation>
+    </message>
+    <message>
+        <source>Image frame</source>
+        <translation>Afbeeldingsframe</translation>
+    </message>
+    <message>
+        <source>Text frame</source>
+        <translation>Tekstframe</translation>
     </message>
     <message>
         <source>Polygon</source>
         <translation>Polygoon</translation>
     </message>
     <message>
+        <source>Bezier curve</source>
+        <translation>Beziercurve</translation>
+    </message>
+    <message>
         <source>Polyline</source>
         <translation>Polylijn</translation>
     </message>
     <message>
-        <source>PathText</source>
-        <translation>Tekstpad</translation>
+        <source>Convert to</source>
+        <translation>Converteer naar</translation>
     </message>
     <message>
-        <source>Page</source>
-        <translation>Pagina</translation>
+        <source>Import SVG image</source>
+        <translation>Importeer SVG bestand</translation>
+    </message>
+    <message>
+        <source>Import EPS image</source>
+        <translation>Importeer EPS bestand </translation>
+    </message>
+    <message>
+        <source>Scratch space</source>
+        <translation>Kladblok</translation>
+    </message>
+    <message>
+        <source>Text flows around the frame</source>
+        <translation>Tekst loopt om frame</translation>
+    </message>
+    <message>
+        <source>Text flows around bounding box</source>
+        <translation>Tekstomloop rond omliggende rechthoek</translation>
+    </message>
+    <message>
+        <source>Text flows around contour line</source>
+        <translation>Tekstomloop rond contourlijn</translation>
+    </message>
+    <message>
+        <source>No text flow</source>
+        <translation>Geen tekstomloop</translation>
+    </message>
+    <message>
+        <source>No bounding box</source>
+        <translation>Geen omliggende rechthoek</translation>
+    </message>
+    <message>
+        <source>No contour line</source>
+        <translation>Geen contourlijn</translation>
+    </message>
+    <message>
+        <source>Page %1</source>
+        <translation>Pagina %1</translation>
+    </message>
+    <message>
+        <source>Set image scaling</source>
+        <translation>Stel afbeeldingsschaal in</translation>
+    </message>
+    <message>
+        <source>Frame size</source>
+        <translation>Framegrootte</translation>
+    </message>
+    <message>
+        <source>Free scaling</source>
+        <translation>Vrije schaal</translation>
+    </message>
+    <message>
+        <source>Keep aspect ratio</source>
+        <translation>Beeldverhouding behouden</translation>
+    </message>
+    <message>
+        <source>Break aspect ratio</source>
+        <translation>Beeldverhouding niet behouden</translation>
+    </message>
+    <message>
+        <source>Edit contour line</source>
+        <translation>Contourlijn bewerken</translation>
+    </message>
+    <message>
+        <source>Edit shape</source>
+        <translation>Bewerk vorm</translation>
+    </message>
+    <message>
+        <source>Reset contour line</source>
+        <translation>Contourlijn opnieuw instellen</translation>
+    </message>
+    <message>
+        <source>Apply Master Page</source>
+        <translation>Pagina sjabloon toepassen</translation>
+    </message>
+    <message>
+        <source>Set font height</source>
+        <translation>Bepaal letertypehoogte</translation>
+    </message>
+    <message>
+        <source>Import OpenOffice.org Draw image</source>
+        <translation>Importeer OpenOffice.org Draw afbeelding</translation>
+    </message>
+    <message>
+        <source>Add page</source>
+        <translation>Pagina toevoegen</translation>
+    </message>
+    <message>
+        <source>Add pages</source>
+        <translation>Pagina&apos;s toevoegen</translation>
+    </message>
+    <message>
+        <source>Delete page</source>
+        <translation>Pagina verwijderen</translation>
+    </message>
+    <message>
+        <source>Delete pages</source>
+        <translation>Pagina&apos;s verwijderen</translation>
+    </message>
+    <message>
+        <source>Add layer</source>
+        <translation>Laag toevoegen</translation>
+    </message>
+    <message>
+        <source>Delete layer</source>
+        <translation>Laag verwijderen</translation>
+    </message>
+    <message>
+        <source>Rename layer</source>
+        <translation>Laag hernoemen</translation>
+    </message>
+    <message>
+        <source>Raise layer</source>
+        <translation>Laag niveau hoger</translation>
+    </message>
+    <message>
+        <source>Lower layer</source>
+        <translation>Laag niveau lager</translation>
+    </message>
+    <message>
+        <source>Send to layer</source>
+        <translation>In laag zetten</translation>
+    </message>
+    <message>
+        <source>Enable printing of layer</source>
+        <translation>Printen van deze laag inschakelen</translation>
+    </message>
+    <message>
+        <source>Disable printing of layer</source>
+        <translation>Printen van deze laag uitschakelen</translation>
+    </message>
+    <message>
+        <source>Change name of the layer</source>
+        <translation>Naam van laag veranderen</translation>
+    </message>
+    <message>
+        <source>Get image</source>
+        <translation>Verkrijg afbeelding</translation>
+    </message>
+    <message>
+        <source>Text on a Path</source>
+        <translation>Tekst op een pad</translation>
+    </message>
+    <message>
+        <source>Enable Item Printing</source>
+        <translation>Item printen inschakelen</translation>
+    </message>
+    <message>
+        <source>Disable Item Printing</source>
+        <translation>Item printen uitschakelen</translation>
+    </message>
+    <message>
+        <source>Multiple duplicate</source>
+        <translation>Meervoudig dupliceren</translation>
+    </message>
+    <message>
+        <source>Change Image Offset</source>
+        <translation>Verander afbeeldingspositie</translation>
+    </message>
+    <message>
+        <source>Change Image Scale</source>
+        <translation>Verander afbeeldingsschaal</translation>
+    </message>
+    <message>
+        <source>X1: %1, Y1: %2
+X2: %4, Y2: %5</source>
+        <translation>X1: %1, Y1: %2
+X2: %4, Y2: %5</translation>
+    </message>
+    <message>
+        <source>X: %1, Y: %2
+X: %4, Y: %5</source>
+        <translation>X: %1, Y: %2
+X: %4, Y: %5</translation>
+    </message>
+    <message>
+        <source>Reset control point</source>
+        <translation>Controlepunt opnieuw instellen</translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation>Controlepunten opnieuw instellen</translation>
+    </message>
+    <message>
+        <source>No object frame</source>
+        <translation>Geen object frame</translation>
+    </message>
+    <message>
+        <source>Apply text style</source>
+        <translation>Tekst stijl toepassen</translation>
+    </message>
+    <message>
+        <source>&amp;Undo: %1</source>
+        <comment>f.e. Undo: Move</comment>
+        <translation>&amp;Ongedaan maken: %1</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Ongedaan maken</translation>
+    </message>
+    <message>
+        <source>&amp;Redo: %1</source>
+        <comment>f.e. Redo: Move</comment>
+        <translation>O&amp;pnieuw doen: %1</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>O&amp;pnieuw doen</translation>
+    </message>
+    <message>
+        <source>Apply image effects</source>
+        <translation>Afbeelding effecten toepassen</translation>
+    </message>
+    <message>
+        <source>Insert frame</source>
+        <translation>Frame invoegen</translation>
+    </message>
+    <message>
+        <source>Adjust frame to the image size</source>
+        <translation>Frame aanpassen aan afbeeldingsgrootte</translation>
+    </message>
+    <message>
+        <source>Set start and end arrows</source>
+        <translation>Stel begin en eindpijl in</translation>
+    </message>
+    <message>
+        <source>Remove all guides</source>
+        <translation>Alle hulplijnen verwijderen</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation>Kopieëren</translation>
+    </message>
+    <message>
+        <source>Copy page</source>
+        <translation>Kopieer pagina</translation>
+    </message>
+</context>
+<context>
+    <name>UndoPalette</name>
+    <message>
+        <source>Action History</source>
+        <translation>Actiegeschiedenis</translation>
+    </message>
+    <message>
+        <source>Show selected object only</source>
+        <translation>Laat alleen geselecteerd object zien</translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation>&amp;Ongedaan maken</translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation>O&amp;pnieuw doen</translation>
+    </message>
+    <message>
+        <source>Initial State</source>
+        <translation>Oorspronkelijke staat</translation>
+    </message>
+</context>
+<context>
+    <name>UndoWidget</name>
+    <message>
+        <source>%1: %2</source>
+        <comment>undo target: action (f.e. Text frame: Resize)</comment>
+        <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UnicodeSearchBase</name>
+    <message>
+        <source>Unicode Search</source>
+        <translation>Unicode zoeken</translation>
+    </message>
+    <message>
+        <source>&amp;Search:</source>
+        <translation>&amp;Zoeken:</translation>
+    </message>
+    <message>
+        <source>Hex</source>
+        <translation>Hex</translation>
+    </message>
+    <message>
+        <source>Meaning</source>
+        <translation>Betekenis</translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation>Poging Scribus versie update bestand op te halen</translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation>(Er wordt geen data van deze computer verzonden naar een externe locatie)</translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation>Tijdslimiet overschreden tijdens poging update bestand op te halen.</translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation>Fout tijdens poging update bestand op te halen: %1</translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation>Bestand niet gevonden op de server</translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation>Kan niet openen versie bestand: %1
+Fout: %2 in regel: %3, rij: %4</translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation>Er is een fout opgetreden tijdens zoeken naar updates voor Scribus. Controleer de internet verbinding.</translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation>Er zijn geen updates beschikbaar voor deze versie van Scribus %1</translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation>Een of meer updates voor deze versie van Scribus (%1) zijn beschikbaar:</translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation>Deze lijst kan ontwikkel versies bevatten.</translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation>Bezoek www.scribus.net voor details.</translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialog</name>
+    <message>
+        <source>Minimum Margins for Page Size %1</source>
+        <translation>Minimale marges voor paginagrootte %1</translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialogBase</name>
+    <message>
+        <source>Use Printer Margins</source>
+        <translation>Gebruik printermarges</translation>
+    </message>
+    <message>
+        <source>Select &amp;Printer:</source>
+        <translation>Selecteer &amp;printer:</translation>
+    </message>
+    <message>
+        <source>Margins</source>
+        <translation>Marges</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation>Rechts:</translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation>&amp;Boven:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation>On&amp;der:</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation>&amp;Links:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Atl+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Annuleren</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+A</translation>
     </message>
 </context>
 <context>
@@ -13162,10 +20166,6 @@ Kies een andere naam.</translation>
         <translation>Voer een waarde in en klik op OK</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
         <source>Alt+O</source>
         <translation>Atl+O</translation>
     </message>
@@ -13175,255 +20175,10 @@ Kies een andere naam.</translation>
     </message>
 </context>
 <context>
-    <name>VlnaDialog</name>
-    <message>
-        <source>Short Words</source>
-        <comment>short words plugin</comment>
-        <translation>Korte woorden</translation>
-    </message>
-    <message>
-        <source>Apply unbreakable space on:</source>
-        <comment>short words plugin</comment>
-        <translation>Harde spatie toepassen op:</translation>
-    </message>
-    <message>
-        <source>&amp;Selected frames</source>
-        <comment>short words plugin</comment>
-        <translation>Ge&amp;selecteerde frames</translation>
-    </message>
-    <message>
-        <source>Active &amp;page</source>
-        <comment>short words plugin</comment>
-        <translation>Actieve &amp;pagina</translation>
-    </message>
-    <message>
-        <source>&amp;All items</source>
-        <comment>short words plugin</comment>
-        <translation>&amp;Alle items</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <comment>short words plugin</comment>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <comment>short words plugin</comment>
-        <translation>&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>&amp;Info and
-Languages</source>
-        <comment>short words plugin</comment>
-        <translation>&amp;Info en talen</translation>
-    </message>
-    <message>
-        <source>Replace defaults by user config</source>
-        <comment>short words plugin</comment>
-        <translation>Standaardinstellingen vervangen door gebruikersconfiguratie</translation>
-    </message>
-    <message>
-        <source>When the user config file exists 
-(%1)
-you can choose if you want to append your config
-to the global configuration by unchecked button.
-
-You can replace predefined values by yours
-with checked button too.</source>
-        <comment>short words plugin</comment>
-        <translation> Als het gebruikersconfiguratiebestand bestaat
-(%1)
-worden uw instellingen toegevoegd aan de globale
-instellingen als u deze optie niet selecteert.
-
-De globale instellingen worden vervangen als u deze
-optie selecteert.</translation>
-    </message>
-    <message>
-        <source>Only selected frames processed.</source>
-        <comment>short words plugin</comment>
-        <translation>Alleen het geselecteerde frame is bewerkt.</translation>
-    </message>
-    <message>
-        <source>Only actual page processed.</source>
-        <comment>short words plugin</comment>
-        <translation>Alleen de actieve pagina is bewerkt.</translation>
-    </message>
-    <message>
-        <source>All items in document processed.</source>
-        <comment>short words plugin</comment>
-        <translation>Alle items in het document zijn bewerkt.</translation>
-    </message>
-    <message>
-        <source>Short Words for Scribus</source>
-        <comment>short words plugin</comment>
-        <translation>Korte woorden voor Scribus</translation>
-    </message>
-    <message>
-        <source>Available in the following languages</source>
-        <comment>short words plugin</comment>
-        <translation>Beschikbaar in de volgende talen</translation>
-    </message>
-    <message>
-        <source>About Short Words</source>
-        <comment>short words plugin</comment>
-        <translation>Over Korte woorden</translation>
-    </message>
-</context>
-<context>
-    <name>WerkToolB</name>
-    <message>
-        <source>Tools</source>
-        <translation>Gereedschappen</translation>
-    </message>
-    <message>
-        <source>Select Items</source>
-        <translation>Items selecteren</translation>
-    </message>
-    <message>
-        <source>Insert Text Frame</source>
-        <translation>Tekstframe invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Picture</source>
-        <translation>Afbeelding invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Table</source>
-        <translation>Tabel invoegen</translation>
-    </message>
-    <message>
-        <source>Properties...</source>
-        <translation>Eigenschappen...</translation>
-    </message>
-    <message>
-        <source>Insert Polygons</source>
-        <translation>Polygoon invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Lines</source>
-        <translation>Lijnen invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Bezier Curves</source>
-        <translation>Beziercurven invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Freehand Line</source>
-        <translation>Vrijehand-curve invoegen</translation>
-    </message>
-    <message>
-        <source>Rotate Item</source>
-        <translation>Item roteren</translation>
-    </message>
-    <message>
-        <source>Zoom in or out</source>
-        <translation>In- of uitzoomen</translation>
-    </message>
-    <message>
-        <source>Edit Contents of Frame</source>
-        <translation>Inhoud van frame bewerken</translation>
-    </message>
-    <message>
-        <source>Edit the text with the Story Editor</source>
-        <translation>Tekst met de story-editor bewerken</translation>
-    </message>
-    <message>
-        <source>Link Text Frames</source>
-        <translation>Tekstframes koppelen</translation>
-    </message>
-    <message>
-        <source>Unlink Text Frames</source>
-        <translation>Tekstframes loskoppelen</translation>
-    </message>
-    <message>
-        <source>Do measurements</source>
-        <translation>Metingen uitvoeren</translation>
-    </message>
-    <message>
-        <source>Draw various Shapes</source>
-        <translation>Verschillende vormen tekenen</translation>
-    </message>
-</context>
-<context>
-    <name>WerkToolBP</name>
-    <message>
-        <source>PDF Tools</source>
-        <translation>PDF-gereedschappen</translation>
-    </message>
-    <message>
-        <source>Button</source>
-        <translation>Knop</translation>
-    </message>
-    <message>
-        <source>Text Field</source>
-        <translation>Tekstveld</translation>
-    </message>
-    <message>
-        <source>Check Box</source>
-        <translation>Checkbox</translation>
-    </message>
-    <message>
-        <source>Combo Box</source>
-        <translation>Combobox</translation>
-    </message>
-    <message>
-        <source>List Box</source>
-        <translation>Listbox</translation>
-    </message>
-    <message>
-        <source>Insert PDF Fields</source>
-        <translation>PDF-velden invoegen</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation>Tekst</translation>
-    </message>
-    <message>
-        <source>Link</source>
-        <translation>Koppeling</translation>
-    </message>
-    <message>
-        <source>Insert PDF Annotations</source>
-        <translation>PDF-annotaties invoegen</translation>
-    </message>
-</context>
-<context>
-    <name>ZAuswahl</name>
-    <message>
-        <source>Select Character:</source>
-        <translation>Karakter selecteren:</translation>
-    </message>
-    <message>
-        <source>&amp;Insert</source>
-        <translation>&amp;Invoegen</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation>W&amp;issen</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation>&amp;Sluiten</translation>
-    </message>
-    <message>
-        <source>Insert the characters at the cursor in the text</source>
-        <translation>Voegt de tekens in op de huidige cursorpositie</translation>
-    </message>
-    <message>
-        <source>Delete the current selection(s).</source>
-        <translation>Verwijdert de huidige selectie(s).</translation>
-    </message>
-    <message>
-        <source>Close this dialog and return to text editing.</source>
-        <translation>Sluit deze dialoog om verder te werken aan de tekst.</translation>
-    </message>
-</context>
-<context>
     <name>gtFileDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Selecteer de te gebruiken importer</translation>
+        <translation>Selecteer het te gebruiken importfilter</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -13435,7 +20190,7 @@ optie selecteert.</translation>
     </message>
     <message>
         <source>Importer:</source>
-        <translation>Importer:</translation>
+        <translation>Importfilter:</translation>
     </message>
     <message>
         <source>Encoding:</source>
@@ -13443,34 +20198,26 @@ optie selecteert.</translation>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation>Alleen tekst importeren</translation>
+        <translation>Importeer alleen tekst</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Openen</translation>
     </message>
 </context>
 <context>
     <name>gtImporterDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Selecteer de te gebruiken importer</translation>
-    </message>
-    <message>
-        <source></source>
-        <translation></translation>
+        <translation>Selecteer het te gebruiken importfilter</translation>
     </message>
     <message>
         <source>Remember association</source>
-        <translation>Deze associatie onhouden</translation>
+        <translation>Deze associatie onthouden</translation>
     </message>
     <message>
-        <source>Remember the file extension - importer association
-and do not ask again to select an importer for
-files of this type.</source>
-        <translation>Onthoudt de bestandsnaamextensie-importer associatie.
-De volgende keer wordt bij het importeren van een bestand
-van dit type dezelfde importer gebruikt.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
+        <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
+        <translation>Onthoudt de bestandsnaamextensie-importfilter associatie. De volgende keer wordt bij het importeren van een bestand van dit type hetzelfde importfilter gebruikt.</translation>
     </message>
 </context>
 <context>
@@ -13478,14 +20225,6 @@ van dit type dezelfde importer gebruikt.</translation>
     <message>
         <source>New From Template</source>
         <translation>Nieuw van sjabloon</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
@@ -13545,7 +20284,7 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
-        <translation>Pak het pakketje uit in de sjablonenmap van Scibus: ~/.scribus/templates voor de huidige gebruiker of PREFIX/share/scribus/templates voor alle gebruikers van het systeem.</translation>
+        <translation>Pak het bestand uit in de sjablonenmap van Scibus: ~/.scribus/templates voor de huidige gebruiker of PREFIX/share/scribus/templates voor alle gebruikers van het systeem.</translation>
     </message>
     <message>
         <source>Preparing a template</source>
@@ -13553,11 +20292,11 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Vergewis u ervan dat afbeeldingen en lettertypen vrij gebruikt kunnen worden. Als lettertypen niet kunnen worden gedeeld, verzamel deze dan niet als u een document opslaat als een sjabloon.</translation>
+        <translation>Vergewis u ervan dat afbeeldingen en fonts vrij gebruikt kunnen worden. Als fonts niet kunnen worden gedeeld, verzamel deze dan niet als u een document opslaat als een sjabloon.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Wie een sjabloon maakt dient ook zeker te zijn dat het installeren van de sjabllon goed zal werken, zodat een gebruiker deze eenvoudig kan uitpakken en beginnen te gebruiken.</translation>
+        <translation>Wie een sjabloon maakt dient ook zeker te zijn dat het installeren van de sjabloon goed zal werken, zodat een gebruiker deze eenvoudig kan uitpakken en ermee beginnen te werken.</translation>
     </message>
     <message>
         <source>Removing a template</source>
@@ -13574,6 +20313,37 @@ van dit type dezelfde importer gebruikt.</translation>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Dit kan door een bestaand template.xml te kopiëren naar een bestand met de naam template.lang_LANDCODE.xml (gebruik dezelfde landcode als het .ts-bestand voor uw taal), bijvoorbeeld template.nl.xml voor de Nederlandse vertaling van sjabloonnamen. De kopie dient zich in dezelfde map te bevingen als het oorspronkelijke bestand, zodat Scribus het kan vinden.</translation>
+    </message>
+</context>
+<context>
+    <name>patternDialogBase</name>
+    <message>
+        <source>Patterns</source>
+        <translation>Patronen</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Laden</translation>
+    </message>
+    <message>
+        <source>Load Set</source>
+        <translation>Set laden</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation>Verwijderen</translation>
+    </message>
+    <message>
+        <source>Remove All</source>
+        <translation>Alle verwijderen</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Annuleren</translation>
     </message>
 </context>
 <context>
@@ -13676,14 +20446,6 @@ van dit type dezelfde importer gebruikt.</translation>
     <message>
         <source>Give a name for saving</source>
         <translation>Voer een naam in</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation>&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation>&amp;Annuleren</translation>
     </message>
 </context>
 <context>

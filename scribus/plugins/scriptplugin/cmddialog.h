@@ -1,11 +1,9 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef CMDDIALOG_H
 #define CMDDIALOG_H
 
@@ -27,20 +25,21 @@ PyObject *scribus_newdocdia(PyObject */*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_filedia__doc__,
-QT_TR_NOOP("fileDialog(\"caption\", [\"filter\", \"defaultname\" ,haspreview, issave]) -> string with filename\n\
+QT_TR_NOOP("fileDialog(\"caption\", [\"filter\", \"defaultname\", haspreview, issave, isdir]) -> string with filename\n\
 \n\
 Shows a File Open dialog box with the caption \"caption\". Files are filtered\n\
 with the filter string \"filter\". A default filename or file path can also\n\
 supplied, leave this string empty when you don't want to use it.  A value of\n\
 True for haspreview enables a small preview widget in the FileSelect box.  When\n\
 the issave parameter is set to True the dialog acts like a \"Save As\" dialog\n\
-otherwise it acts like a \"File Open Dialog\". The default for both of the\n\
+otherwise it acts like a \"File Open Dialog\". When the isdir parameter is True\n\
+the dialog shows and returns only directories. The default for all of the\n\
 opional parameters is False.\n\
 \n\
 The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.\n\
 For example 'Images (*.png *.xpm *.jpg)'.\n\
 \n\
-Refer to the Qt-Documentation for QFileDialog for details on filters.\n\
+Refer to the Qt-Documentation for Q3FileDialog for details on filters.\n\
 \n\
 Example: fileDialog('Open input', 'CSV files (*.csv)')\n\
 Example: fileDialog('Save report', defaultname='report.txt', issave=True)\n\
@@ -103,5 +102,14 @@ Example: valueDialog('title', 'text in the window', 'optional')\n\
 /* 09/24/2004 petr vanek */
 PyObject *scribus_valdialog(PyObject */*self*/, PyObject* args);
 
-#endif
 
+PyDoc_STRVAR(scribus_newstyledialog__doc__,
+QT_TR_NOOP("newStyleDialog() -> string\n\
+\n\
+Shows 'Create new paragraph style' dialog. Function returns real\n\
+style name or None when user cancels the dialog.\n\
+"));
+/* 09/24/2004 petr vanek */
+PyObject *scribus_newstyledialog(PyObject * /*self*/, PyObject* args);
+
+#endif

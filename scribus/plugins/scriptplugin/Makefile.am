@@ -1,24 +1,68 @@
-SUBDIRS = samples scripts
-
+if HAVE_SCRIPTER2
+  scripter2dir = scripter2
+  scripter2lib = -L$(top_builddir)/scribus/plugins/scriptplugin/scripter2 -lscripter2
+endif
+SUBDIRS = samples scripts $(scripter2dir)
 pluginsdir = $(libdir)/scribus/plugins
-
 plugins_LTLIBRARIES = libscriptplugin.la
-
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
-
-libscriptplugin_la_LDFLAGS = -version-info 0:0:0
+libscriptplugin_la_LDFLAGS = -version-info 0:0:0 $(scripter2lib)
 libscriptplugin_la_METASOURCES = AUTO
-libscriptplugin_la_SOURCES = valuedialog.cpp cmdutil.cpp cmddialog.cpp cmddoc.cpp cmdpage.cpp cmdobj.cpp cmdgetprop.cpp cmdsetprop.cpp cmdtext.cpp cmdmani.cpp cmdcolor.cpp cmdmisc.cpp objprinter.cpp objpdffile.cpp extmacro.cpp guiapp.cpp conswin.cpp pconsole.cpp scripterprefs.ui managemacrosdialog.ui editmacrodialog.ui macro.cpp macromanager.cpp scriptplugin.cpp objimageexport.cpp scriptercore.cpp
 
-EXTRA_DIST = valuedialog.h cmdvar.h cmdutil.cpp cmdutil.h cmddialog.cpp cmddialog.h cmddoc.cpp cmddoc.h cmdpage.cpp cmdpage.h cmdobj.cpp cmdobj.h cmdgetprop.cpp cmdgetprop.h cmdsetprop.cpp cmdsetprop.h cmdtext.cpp cmdtext.h cmdmani.cpp cmdmani.h cmdcolor.cpp cmdcolor.h cmdmisc.cpp cmdmisc.h objprinter.cpp objprinter.h objpdffile.cpp objpdffile.h extmacro.cpp extmacro.h guiapp.cpp guiapp.h scriptplugin.cpp scriptplugin.h pconsole.cpp pconsole.h conswin.cpp conswin.h scripterprefs.ui scripterprefs.ui.h managemacrosdialog.ui managemacrosdialog.ui.h editmacrodialog.ui editmacrodialog.ui.h macromanager.cpp macromanager.h macro.cpp macro.h objimageexport.cpp objimageexport.h scriptercore.cpp scriptercore.h
+libscriptplugin_la_SOURCES = \
+	cmdcolor.cpp \
+	cmddialog.cpp \
+	cmddoc.cpp \
+	cmdgetprop.cpp \
+	cmdgetsetprop.cpp \
+	cmdmani.cpp \
+	cmdmisc.cpp \
+	cmdobj.cpp \
+	cmdpage.cpp \
+	cmdsetprop.cpp \
+	cmdtext.cpp \
+	cmdutil.cpp \
+	guiapp.cpp \
+	objimageexport.cpp \
+	objpdffile.cpp \
+	objprinter.cpp \
+	pconsole.cpp \
+	runscriptdialog.cpp \
+	scriptercore.cpp \
+	scripterprefsgui.cpp \
+	scriptplugin.cpp \
+	svgimport.cpp \
+	valuedialog.cpp
+
+EXTRA_DIST = \
+	cmdcolor.h \
+	cmddialog.h \
+	cmddoc.h \
+	cmdgetprop.h \
+	cmdgetsetprop.h \
+	cmdmani.h \
+	cmdmisc.h \
+	cmdobj.h \
+	cmdpage.h \
+	cmdsetprop.h \
+	cmdtext.h \
+	cmdutil.h \
+	cmdvar.h \
+	guiapp.h \
+	objimageexport.h \
+	objpdffile.h \
+	objprinter.h \
+	pconsole.h \
+	runscriptdialog.h \
+	scriptercore.h \
+	scripterprefsgui.h \
+	scriptplugin.h \
+	svgimport.h \
+	valuedialog.h \
+        CMakeLists.txt
 
 KDE_OPTIONS = qtonly
-if COMPILE_DEBUG
- linkflag =
-else
- linkflag = -s
-endif
-AM_LDFLAGS =  $(linkflag) -Xlinker $(PYTHONLIB) $(LIBPYTHON)
+AM_LDFLAGS = $(PYTHONLIB) $(LIBPYTHON) $(MODULE_LINK_FLAGS) $(BOOST_PYTHON_LDFLAGS)
 
 AM_CPPFLAGS = \
     -I$(top_builddir)/scribus $(PYTHONINC) \
@@ -30,3 +74,11 @@ AM_CPPFLAGS = \
     -DLIBDIR=\"$(libdir)/scribus/\" \
     -DPLUGINDIR=\"$(libdir)/scribus/plugins/\"
 
+AM_CXXFLAGS = \
+    $(GCC_CXX_VISIBILITY_FLAGS)
+
+# even though we don't use Boost::Python in the plain scripter, we need to
+# enable support for it if we've found it, since cmdvar pulls in the boost
+# header (which requires exceptions) instead of Python.h .
+KDE_CXXFLAGS = \
+    $(BOOST_PYTHON_CXXFLAGS)

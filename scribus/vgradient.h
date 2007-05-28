@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /* This file is part of the KDE project
    Copyright (C) 2002, The Karbon Developers
  
@@ -20,13 +26,14 @@
 #ifndef __VGRADIENT_H__
 #define __VGRADIENT_H__
 
-#include <qptrlist.h>
-#include <qptrvector.h>
+#include <q3ptrlist.h>
+#include <q3ptrvector.h>
+#include "scribusapi.h"
 #include "fpoint.h"
 #include <qcolor.h>
-#include <qwmatrix.h>
+#include <qmatrix.h>
 
-class VColorStop
+class SCRIBUS_API VColorStop
 {
 public:
 	VColorStop( double r, double m, QColor c, double o, QString n, int s )
@@ -65,7 +72,10 @@ public:
 }
 ; // VColorStop
 
-class VGradient
+// comparison function for use with stable_sort
+bool compareStops( const VColorStop* item1, const VColorStop* item2 );
+
+class SCRIBUS_API VGradient
 {
 	// friend class VGradientWidget;
 
@@ -84,12 +94,15 @@ public:
 	    repeat  = 2
 	};
 
-class VColorStopList : public QPtrList<VColorStop>
+	class SCRIBUS_API VColorStopList : public Q3PtrList<VColorStop>
 	{
 	protected:
-		virtual int compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 );
-	}
-	; // VColorStopList
+		virtual int compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 ) const;
+	public:
+		// Reimplement inSort so that two color stop with same offset can be found
+		// in the same order they are inserted
+		void inSort( Q3PtrCollection::Item d );
+	}; // VColorStopList
 
 	VGradient( VGradientType type = linear );
 	VGradient( const VGradient& gradient );
@@ -102,13 +115,17 @@ class VColorStopList : public QPtrList<VColorStop>
 	VGradientRepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod( VGradientRepeatMethod repeatMethod ) { m_repeatMethod = repeatMethod; }
 
-	const QPtrVector<VColorStop> colorStops() const;
+	const Q3PtrVector<VColorStop> colorStops() const;
 	void addStop( const VColorStop& colorStop );
 	void addStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name = "", int shade = 100 );
 	void removeStop( const VColorStop& colorStop );
 	void removeStop( uint n );
 	void clearStops();
-	uint Stops() { return m_colorStops.count(); }
+	uint Stops()  const { return m_colorStops.count(); }
+
+	// This function let only one stop with offset value equal to 0 and 1.0
+	// by removing the firsts with 0.0 value and the lasts with 1.0 value;
+	void filterStops(void);
 
 	FPoint origin() const { return m_origin; }
 	void setOrigin( const FPoint &origin ) { m_origin = origin; }
@@ -119,7 +136,7 @@ class VColorStopList : public QPtrList<VColorStop>
 	FPoint vector() const { return m_vector; }
 	void setVector( const FPoint &vector ) { m_vector = vector; }
 
-	void transform( const QWMatrix& m );
+	void transform( const QMatrix& m );
 
 protected:
 	VColorStopList        m_colorStops;

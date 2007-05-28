@@ -1,15 +1,28 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include "multiline.h"
-#include "multiline.moc"
+//#include "multiline.moc"
+
 #include <qpainter.h>
 #include <qmessagebox.h>
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <QPixmap>
+#include <QLabel>
+#include <Q3VBoxLayout>
+
+#include "colorlistbox.h"
+#include "sccombobox.h"
+#include "scribusdoc.h"
+#include "page.h"
+#include "colorutil.h"
+#include "commonstrings.h"
+#include "sccolorengine.h"
+
 extern QPixmap loadIcon(QString nam);
 
 MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString nam, QMap<QString,multiLine> *Sty)
@@ -22,18 +35,18 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	CurLin = 0;
 	TempStyles = Sty;
 	GivenName = nam;
-	MultiLineLayout = new QVBoxLayout( this, 5, 4, "MultiLineLayout");
+	MultiLineLayout = new Q3VBoxLayout( this, 5, 4, "MultiLineLayout");
 	SName = new QLineEdit(this, "Name");
 	SName->setText(nam);
 	MultiLineLayout->addWidget(SName);
 	Preview = new QLabel( this, "Preview" );
 	Preview->setFrameShape( QLabel::Panel );
 	Preview->setFrameShadow( QLabel::Sunken );
-	Preview->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignHCenter ) );
-	Preview->setScaledContents( FALSE );
+	Preview->setAlignment( Qt::AlignVCenter | Qt::AlignHCenter );
+	Preview->setScaledContents( false );
 	MultiLineLayout->addWidget( Preview );
 
-	layout2 = new QHBoxLayout( 0, 0, 4, "layout2");
+	layout2 = new Q3HBoxLayout( 0, 0, 4, "layout2");
 
 	AddStyle = new QPushButton( this, "AddStyle" );
 	AddStyle->setPixmap(loadIcon("penciladd.png"));
@@ -52,59 +65,54 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	layout2->addItem( spacer );
 	MultiLineLayout->addLayout( layout2 );
 
-	Styles = new QListBox( this, "Styles" );
+	Styles = new Q3ListBox( this, "Styles" );
 	RebuildList();
 	MultiLineLayout->addWidget( Styles );
 
-	Properties = new QGroupBox( this, "Properties" );
+	Properties = new Q3GroupBox( this, "Properties" );
 	Properties->setTitle( QString::null );
-	Properties->setFrameShape( QGroupBox::NoFrame );
-	Properties->setFrameShadow( QGroupBox::Plain );
+	Properties->setFrameShape( Q3GroupBox::NoFrame );
+	Properties->setFrameShadow( Q3GroupBox::Plain );
 	Properties->setColumnLayout(0, Qt::Vertical );
 	Properties->layout()->setSpacing( 4 );
 	Properties->layout()->setMargin( 0 );
-	PropertiesLayout = new QVBoxLayout( Properties->layout() );
+	PropertiesLayout = new Q3VBoxLayout( Properties->layout() );
 	PropertiesLayout->setAlignment( Qt::AlignTop );
 
 	Dashes = new LineCombo(Properties);
 	PropertiesLayout->addWidget( Dashes );
 
-	LineEnds = new QComboBox( true, Properties, "LineEnds" );
-	LineEnds->setEditable(false);
+	LineEnds = new ScComboBox( false, Properties, "LineEnds" );
 	LineEnds->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
 	LineEnds->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
 	LineEnds->insertItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
 	PropertiesLayout->addWidget( LineEnds );
 
-	LineJoin = new QComboBox( true, Properties, "LineJoin" );
-	LineJoin->setEditable(false);
+	LineJoin = new ScComboBox( false, Properties, "LineJoin" );
 	LineJoin->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
 	LineJoin->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
 	LineJoin->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 	PropertiesLayout->addWidget( LineJoin );
 
-	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
+	layout1 = new Q3HBoxLayout( 0, 0, 6, "layout1");
 
 	WidthText = new QLabel( Properties, "WidthText" );
 	WidthText->setText( tr( "Line Width:" ) );
-	WidthText->setAlignment( int( QLabel::AlignVCenter | QLabel::AlignLeft ) );
+	WidthText->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	layout1->addWidget( WidthText );
 
-	LWidth = new MSpinBox( 0, 36, Properties, 1 );
+	LWidth = new ScrSpinBox( 0, 300, Properties, 1 );
 	LWidth->setSuffix( tr( " pt" ) );
 	layout1->addWidget( LWidth );
 	PropertiesLayout->addLayout( layout1 );
 
-	layout4 = new QHBoxLayout( 0, 0, 6, "layout4");
-	Color = new QComboBox( true, Properties, "Color" );
-	CListe::Iterator it;
-	QPixmap pm = QPixmap(30, 15);
+	layout4 = new Q3HBoxLayout( 0, 0, 6, "layout4");
+	Color = new ScComboBox( false, Properties, "Color" );
+	ColorList::Iterator it;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRGBColor());
-		Color->insertItem(pm, it.key());
+//Qt4			Color->listBox()->insertItem( new ColorWidePixmapItem(it.data(), doc, it.key()) );
 	}
-	Color->setEditable(false);
 	layout4->addWidget( Color );
 	Shade = new QSpinBox( Properties, "Shade" );
 	Shade->setSuffix( tr( " %" ) );
@@ -114,20 +122,19 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	PropertiesLayout->addLayout( layout4 );
 	MultiLineLayout->addWidget( Properties );
 
-	layout3 = new QHBoxLayout( 0, 0, 6, "layout3");
+	layout3 = new Q3HBoxLayout( 0, 0, 6, "layout3");
 
-	OK = new QPushButton( tr( "&OK" ), this, "OK" );
+	OK = new QPushButton( CommonStrings::tr_OK, this, "OK" );
 	OK->setAutoDefault(false);
 	OK->setDefault(false);
 	layout3->addWidget( OK );
 
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
 	Cancel->setAutoDefault(false);
 	Cancel->setDefault(false);
 	layout3->addWidget( Cancel );
 	MultiLineLayout->addLayout( layout3 );
 	resize( QSize(222, 349).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
 
 	// signals and slots connections
 	connect(Styles, SIGNAL(highlighted(int)), this, SLOT(slotEditStyle(int)));
@@ -136,7 +143,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	connect(Dashes, SIGNAL(activated(int)), this, SLOT(NewLSty()));
 	connect(LineJoin, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	connect(LineEnds, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
-	connect(LWidth, SIGNAL(valueChanged(int)), this, SLOT(NewLWidth()));
+	connect(LWidth, SIGNAL(valueChanged(double)), this, SLOT(NewLWidth()));
 	connect(Color, SIGNAL(activated(int)), this, SLOT(NewLColor()));
 	connect(AddStyle, SIGNAL(clicked()), this, SLOT(NewSubLine()));
 	connect(RemoveStyle, SIGNAL(clicked()), this, SLOT(DelSubLine()));
@@ -149,83 +156,73 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 void MultiLine::updatePreview()
 {
 	QPixmap pm = QPixmap(200, 37);
-	pm.fill(white);
+	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
 	for (int it = TempVorl.size()-1; it > -1; it--)
 	{
 		p.setPen(QPen(calcFarbe(TempVorl[it].Color, TempVorl[it].Shade),
-		              QMAX(static_cast<int>(TempVorl[it].Width), 1),
-		              static_cast<PenStyle>(TempVorl[it].Dash),
-		              static_cast<PenCapStyle>(TempVorl[it].LineEnd),
-		              static_cast<PenJoinStyle>(TempVorl[it].LineJoin)));
+		              qMax(static_cast<int>(TempVorl[it].Width), 1),
+		              static_cast<Qt::PenStyle>(TempVorl[it].Dash),
+		              static_cast<Qt::PenCapStyle>(TempVorl[it].LineEnd),
+		              static_cast<Qt::PenJoinStyle>(TempVorl[it].LineJoin)));
 		p.drawLine(17, 18, 183, 18);
 	}
 	p.end();
 	Preview->setPixmap(pm);
 }
 
-QColor MultiLine::calcFarbe(QString name, int shade)
+QColor MultiLine::calcFarbe(const QString& name, int shade)
 {
-	QColor tmpf;
-	int h, s, v, sneu;
-	Docu->PageColors[name].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-	{
-		Docu->PageColors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shade / 100);
-		tmpf.setHsv(h, s, sneu);
-	}
-	else
-	{
-		Docu->PageColors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shade / 100;
-		tmpf.setHsv(h, sneu, v);
-	}
+	const ScColor& color = Docu->PageColors[name];
+	QColor tmpf = ScColorEngine::getDisplayColor(color, Docu, shade);
 	return tmpf;
 }
 
 void MultiLine::updateSList()
 {
 	QString tmp, tmp2;
-	QPixmap pm = QPixmap(30, 15);
-	pm.fill(calcFarbe(TempVorl[CurLin].Color, TempVorl[CurLin].Shade));
-	tmp2 = " "+tmp.setNum(TempVorl[CurLin].Width)+ tr(" pt ");
-	switch (static_cast<PenStyle>(TempVorl[CurLin].Dash))
-	{
-	case SolidLine:
-		tmp2 += tr("Solid Line");
-		break;
-	case DashLine:
-		tmp2 += tr("Dashed Line");
-		break;
-	case DotLine:
-		tmp2 += tr("Dotted Line");
-		break;
-	case DashDotLine:
-		tmp2 += tr("Dash Dot Line");
-		break;
-	case DashDotDotLine:
-		tmp2 += tr("Dash Dot Dot Line");
-		break;
-	default:
-		tmp2 += tr("Solid Line");
-		break;
-	}
+	QPixmap * pm;
+	pm = getWidePixmap(calcFarbe(TempVorl[CurLin].Color, TempVorl[CurLin].Shade));
+	tmp2 = " "+tmp.setNum(TempVorl[CurLin].Width) + " " + tr("pt") + " ";
+	tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(TempVorl[CurLin].Dash));
 	tmp2 += " ";
+	
+// 	switch (static_cast<PenStyle>(TempVorl[CurLin].Dash))
+// 	{
+// 	case Qt::SolidLine:
+// 		tmp2 += tr("Solid Line");
+// 		break;
+// 	case Qt::DashLine:
+// 		tmp2 += tr("Dashed Line");
+// 		break;
+// 	case Qt::DotLine:
+// 		tmp2 += tr("Dotted Line");
+// 		break;
+// 	case Qt::DashDotLine:
+// 		tmp2 += tr("Dash Dot Line");
+// 		break;
+// 	case Qt::DashDotDotLine:
+// 		tmp2 += tr("Dash Dot Dot Line");
+// 		break;
+// 	default:
+// 		tmp2 += tr("Solid Line");
+// 		break;
+// 	}
+// 	tmp2 += " ";
 	if (Styles->count() == 1)				// to avoid Bug in Qt-3.1.2
 	{
 		Styles->clear();
-		Styles->insertItem(pm, tmp2);
+		Styles->insertItem(*pm, tmp2);
 	}
 	else
-		Styles->changeItem(pm, tmp2, CurLin);
+		Styles->changeItem(*pm, tmp2, CurLin);
 }
 
 void MultiLine::reSort()
 {
 	int cc = 0;
-	struct singleLine sl;
+	struct SingleLine sl;
 	sl.Color = TempVorl[CurLin].Color;
 	sl.Shade = TempVorl[CurLin].Shade;
 	sl.Dash = TempVorl[CurLin].Dash;
@@ -266,34 +263,14 @@ void MultiLine::RebuildList()
 {
 	QString tmp, tmp2;
 	Styles->clear();
-	QPixmap pm2 = QPixmap(30, 15);
+	QPixmap * pm2;
 	for (multiLine::iterator it = TempVorl.begin(); it != TempVorl.end(); ++it)
 	{
-		pm2.fill(calcFarbe((*it).Color, (*it).Shade));
-		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
-		switch (static_cast<PenStyle>((*it).Dash))
-		{
-		case SolidLine:
-			tmp2 += tr("Solid Line");
-			break;
-		case DashLine:
-			tmp2 += tr("Dashed Line");
-			break;
-		case DotLine:
-			tmp2 += tr("Dotted Line");
-			break;
-		case DashDotLine:
-			tmp2 += tr("Dash Dot Line");
-			break;
-		case DashDotDotLine:
-			tmp2 += tr("Dash Dot Dot Line");
-			break;
-		default:
-			tmp2 += tr("Solid Line");
-			break;
-		}
+		pm2 = getWidePixmap(calcFarbe((*it).Color, (*it).Shade));
+		tmp2 = " "+tmp.setNum((*it).Width) + " " + tr("pt") + " ";
+		tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>((*it).Dash));
 		tmp2 += " ";
-		Styles->insertItem(pm2, tmp2);
+		Styles->insertItem(*pm2, tmp2);
 	}
 }
 
@@ -304,7 +281,7 @@ void MultiLine::NewName()
 	{
 		if (TempStyles->contains(NameNew))
 		{
-			QMessageBox::warning(this, tr("Warning"), tr("Name \"%1\" isn't unique.\nPlease choose another.").arg(NameNew), tr("OK"));
+			QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+ tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", tr("OK"));
 			SName->setText(GivenName);
 			SName->setFocus();
 		}
@@ -315,7 +292,7 @@ void MultiLine::NewName()
 
 void MultiLine::NewSubLine()
 {
-	struct singleLine sl;
+	struct SingleLine sl;
 	sl.Color = TempVorl[CurLin].Color;
 	sl.Shade = TempVorl[CurLin].Shade;
 	sl.Dash = TempVorl[CurLin].Dash;
@@ -364,17 +341,17 @@ void MultiLine::DelSubLine()
 
 void MultiLine::NewLJoin()
 {
-	PenJoinStyle c = MiterJoin;
+	Qt::PenJoinStyle c = Qt::MiterJoin;
 	switch (LineJoin->currentItem())
 	{
 	case 0:
-		c = MiterJoin;
+		c = Qt::MiterJoin;
 		break;
 	case 1:
-		c = BevelJoin;
+		c = Qt::BevelJoin;
 		break;
 	case 2:
-		c = RoundJoin;
+		c = Qt::RoundJoin;
 		break;
 	}
 	TempVorl[CurLin].LineJoin = static_cast<int>(c);
@@ -383,17 +360,17 @@ void MultiLine::NewLJoin()
 
 void MultiLine::NewLEnd()
 {
-	PenCapStyle c = FlatCap;
+	Qt::PenCapStyle c = Qt::FlatCap;
 	switch (LineEnds->currentItem())
 	{
 	case 0:
-		c = FlatCap;
+		c = Qt::FlatCap;
 		break;
 	case 1:
-		c = SquareCap;
+		c = Qt::SquareCap;
 		break;
 	case 2:
-		c = RoundCap;
+		c = Qt::RoundCap;
 		break;
 	}
 	TempVorl[CurLin].LineEnd = static_cast<int>(c);
@@ -403,23 +380,23 @@ void MultiLine::NewLEnd()
 
 void MultiLine::NewLSty()
 {
-	PenStyle c = SolidLine;
+	Qt::PenStyle c = Qt::SolidLine;
 	switch (Dashes->currentItem())
 	{
 	case 0:
-		c = SolidLine;
+		c = Qt::SolidLine;
 		break;
 	case 1:
-		c = DashLine;
+		c = Qt::DashLine;
 		break;
 	case 2:
-		c = DotLine;
+		c = Qt::DotLine;
 		break;
 	case 3:
-		c = DashDotLine;
+		c = Qt::DashDotLine;
 		break;
 	case 4:
-		c = DashDotDotLine;
+		c = Qt::DashDotDotLine;
 		break;
 	}
 	TempVorl[CurLin].Dash = static_cast<int>(c);
@@ -454,70 +431,74 @@ void MultiLine::slotEditStyle(int i)
 	disconnect(Dashes, SIGNAL(activated(int)), this, SLOT(NewLSty()));
 	disconnect(LineJoin, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	disconnect(LineEnds, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
-	disconnect(LWidth, SIGNAL(valueChanged(int)), this, SLOT(NewLWidth()));
+	disconnect(LWidth, SIGNAL(valueChanged(double)), this, SLOT(NewLWidth()));
 	disconnect(Color, SIGNAL(activated(int)), this, SLOT(NewLColor()));
 	disconnect(Shade, SIGNAL(valueChanged(int)), this, SLOT(NewLShade()));
 	Styles->setSelected(i, true);
 	CurLin = i;
-	LWidth->setValue(TempVorl[i].Width);
-	Color->setCurrentText(TempVorl[i].Color);
-	Shade->setValue(TempVorl[i].Shade);
-	switch (static_cast<PenStyle>(TempVorl[i].Dash))
+	int tvs=static_cast<int>(TempVorl.size());
+	if (i >=0 && i < tvs)
 	{
-	case SolidLine:
-		Dashes->setCurrentItem(0);
-		break;
-	case DashLine:
-		Dashes->setCurrentItem(1);
-		break;
-	case DotLine:
-		Dashes->setCurrentItem(2);
-		break;
-	case DashDotLine:
-		Dashes->setCurrentItem(3);
-		break;
-	case DashDotDotLine:
-		Dashes->setCurrentItem(4);
-		break;
-	default:
-		Dashes->setCurrentItem(0);
-		break;
-	}
-	switch (static_cast<PenCapStyle>(TempVorl[i].LineEnd))
-	{
-	case FlatCap:
-		LineEnds->setCurrentItem(0);
-		break;
-	case SquareCap:
-		LineEnds->setCurrentItem(1);
-		break;
-	case RoundCap:
-		LineEnds->setCurrentItem(2);
-		break;
-	default:
-		LineEnds->setCurrentItem(0);
-		break;
-	}
-	switch (static_cast<PenJoinStyle>(TempVorl[i].LineJoin))
-	{
-	case MiterJoin:
-		LineJoin->setCurrentItem(0);
-		break;
-	case BevelJoin:
-		LineJoin->setCurrentItem(1);
-		break;
-	case RoundJoin:
-		LineJoin->setCurrentItem(2);
-		break;
-	default:
-		LineJoin->setCurrentItem(0);
-		break;
+		LWidth->setValue(TempVorl[i].Width);
+		Color->setCurrentText(TempVorl[i].Color);
+		Shade->setValue(TempVorl[i].Shade);
+		switch (static_cast<Qt::PenStyle>(TempVorl[i].Dash))
+		{
+		case Qt::SolidLine:
+			Dashes->setCurrentItem(0);
+			break;
+		case Qt::DashLine:
+			Dashes->setCurrentItem(1);
+			break;
+		case Qt::DotLine:
+			Dashes->setCurrentItem(2);
+			break;
+		case Qt::DashDotLine:
+			Dashes->setCurrentItem(3);
+			break;
+		case Qt::DashDotDotLine:
+			Dashes->setCurrentItem(4);
+			break;
+		default:
+			Dashes->setCurrentItem(0);
+			break;
+		}
+		switch (static_cast<Qt::PenCapStyle>(TempVorl[i].LineEnd))
+		{
+		case Qt::FlatCap:
+			LineEnds->setCurrentItem(0);
+			break;
+		case Qt::SquareCap:
+			LineEnds->setCurrentItem(1);
+			break;
+		case Qt::RoundCap:
+			LineEnds->setCurrentItem(2);
+			break;
+		default:
+			LineEnds->setCurrentItem(0);
+			break;
+		}
+		switch (static_cast<Qt::PenJoinStyle>(TempVorl[i].LineJoin))
+		{
+		case Qt::MiterJoin:
+			LineJoin->setCurrentItem(0);
+			break;
+		case Qt::BevelJoin:
+			LineJoin->setCurrentItem(1);
+			break;
+		case Qt::RoundJoin:
+			LineJoin->setCurrentItem(2);
+			break;
+		default:
+			LineJoin->setCurrentItem(0);
+			break;
+		}
 	}
 	connect(Styles, SIGNAL(highlighted(int)), this, SLOT(slotEditStyle(int)));
 	connect(Dashes, SIGNAL(activated(int)), this, SLOT(NewLSty()));
 	connect(LineJoin, SIGNAL(activated(int)), this, SLOT(NewLJoin()));
 	connect(LineEnds, SIGNAL(activated(int)), this, SLOT(NewLEnd()));
-	connect(LWidth, SIGNAL(valueChanged(int)), this, SLOT(NewLWidth()));
+	connect(LWidth, SIGNAL(valueChanged(double)), this, SLOT(NewLWidth()));
 	connect(Color, SIGNAL(activated(int)), this, SLOT(NewLColor()));
 	connect(Shade, SIGNAL(valueChanged(int)), this, SLOT(NewLShade()));
 }

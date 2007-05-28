@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           fmitem.cpp  -  description
                              -------------------
@@ -22,22 +28,23 @@
 #include <qfontmetrics.h>
 #include <qapplication.h>
 
-FmItem::FmItem(const QString& s, const QFont& f)
+FmItem::FmItem(const QString& s, const ScFace&)
 {
 	stringy = s;
-	font = f;
-	font.setPointSize(qApp->font().pointSize());
+//	font = f;
+//	font.setPointSize(qApp->font().pointSize());
+	font = qApp->font();
 }
 
 void FmItem::paint(QPainter *p, const QColorGroup&, bool, bool, int x, int y, int w, int h)
 {
 	p->setFont(font);
-	p->drawText(x, y, w, h, AlignLeft | AlignVCenter | ShowPrefix | DontClip, stringy);
+	p->drawText(x, y, w, h, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic | Qt::TextDontClip, stringy);
 }
 
 QSize FmItem::sizeHint()
 {
-	return QFontMetrics(font).size(AlignLeft | AlignVCenter | ShowPrefix | DontClip, stringy);
+	return QFontMetrics(font).size(Qt::AlignLeft | Qt::AlignVCenter | Qt::ShowPrefix | Qt::DontClip, stringy);
 }
 
 QString FmItem::Ctext()

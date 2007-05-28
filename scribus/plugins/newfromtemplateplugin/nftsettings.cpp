@@ -1,21 +1,20 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
- *   Riku Leino, riku.leino@gmail.com                                          *
- ***************************************************************************/
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
+ *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "nftsettings.h"
+#include "scpaths.h"
 
 nftsettings::nftsettings(QString guilang, QString templateDir)
 {
 	lang = guilang;
-	scribusShare = TEMPLATEDIR;
-	scribusUserHome = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
+	scribusShare = ScPaths::instance().templateDir();
+	scribusUserHome = QDir::convertSeparators(ScPaths::getApplicationDataDir());
 	userTemplateDir = templateDir;
 	if (userTemplateDir.right(1) == "/")
 		userTemplateDir = userTemplateDir.left(userTemplateDir.length() - 1);
@@ -30,7 +29,7 @@ void nftsettings::read()
 
 	addTemplates(scribusShare);
 	addTemplates(scribusUserHome+"/templates");
-	if ((userTemplateDir != NULL) && (userTemplateDir != ""))
+	if ((!userTemplateDir.isNull()) && (!userTemplateDir.isEmpty()))
 		addTemplates(userTemplateDir);
 }
 
@@ -56,7 +55,7 @@ void nftsettings::addTemplates(QString dir) // dir will be searched for a sub fo
 	{
 		tmpldir.setFilter(QDir::Dirs);
 		QStringList dirs = tmpldir.entryList();
-		for (uint i = 0; i < dirs.size(); ++i)
+		for (int i = 0; i < dirs.size(); ++i)
 		{
 			if ((dirs[i] != ".") && (dirs[i] != "..")) {
 				tmplFile = findTemplateXml(dir + "/" + dirs[i]);

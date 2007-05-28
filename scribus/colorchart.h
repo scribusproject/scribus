@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           colorchart.h  -  description
                              -------------------
@@ -18,19 +24,25 @@
 #ifndef COLORCHART_H
 #define COLORCHART_H
 
-#include <qlabel.h>
-#include <qpixmap.h>
+#include <QWidget>
+#include <QPixmap>
+#include <QPaintEvent>
+#include <QMouseEvent>
+#include "scribusapi.h"
+
+class ScribusDoc;
 
 /**
   *@author Franz Schmid
   */
 
-class ColorChart : public QLabel  {
+class SCRIBUS_API ColorChart : public QWidget
+{
 
 Q_OBJECT
 
 public: 
-	ColorChart(QWidget *parent);
+	ColorChart(QWidget *parent, ScribusDoc* doc);
 	~ColorChart() {};
 	void mouseMoveEvent(QMouseEvent *m);
 	void mousePressEvent(QMouseEvent *m);
@@ -41,7 +53,11 @@ public:
 	void drawPalette(int val);
 	int Xp;
 	int Yp;
+	bool doDrawMark;
 	QPixmap pmx;
+
+protected:
+	ScribusDoc* m_doc;
 
 signals:
 	void ColorVal(int h, int s, bool ende);

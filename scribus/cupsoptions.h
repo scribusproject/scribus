@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           cupsoptions.h  -  description
                              -------------------
@@ -21,17 +27,23 @@
 #include <qdialog.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
-#include <qtable.h>
+#include <q3table.h>
 #include <qcombobox.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qmap.h>
-#include "prefscontext.h"
+//Added by qt3to4:
+#include <Q3HBoxLayout>
+#include <Q3VBoxLayout>
+
+#include "scribusapi.h"
 
 /**
   *@author Franz Schmid
   */
 
-class CupsOptions : public QDialog
+class PrefsContext;
+
+class SCRIBUS_API CupsOptions : public QDialog
 {
     Q_OBJECT
 
@@ -40,19 +52,19 @@ public:
 	~CupsOptions();
 	QPushButton* PushButton1;
 	QPushButton* PushButton2;
-	QHeader *Header;
-	QTable* Table;
+	Q3Header *Header;
+	Q3Table* Table;
 	struct OpData { 
 					int Cnum;
 					QString KeyW;
 				  };
-	QPtrList<QComboBox> FlagsOpt;
+	Q3PtrList<QComboBox> FlagsOpt;
 	QMap<QString,OpData> KeyToText;
 	QMap<QString,QString> KeyToDefault;
 
 protected:
-	QVBoxLayout* CupsOptionsLayout;
-	QHBoxLayout* Layout2;
+	Q3VBoxLayout* CupsOptionsLayout;
+	Q3HBoxLayout* Layout2;
 	PrefsContext* prefs;
 };
 

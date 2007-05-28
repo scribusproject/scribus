@@ -1,80 +1,86 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-#include "delpages.h"
-#include "delpages.moc"
-extern QPixmap loadIcon(QString nam);
-
 /*
- *  Constructs a DelPages which is a child of 'parent', with the 
- *  name 'name' and widget flags set to 'f' 
- *
- *  The dialog will by default be modeless, unless you set 'modal' to
- *  TRUE to construct a modal dialog.
- */
-DelPages::DelPages( QWidget* parent, int act, int max )
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+#include <QLabel>
+#include <QPushButton>
+#include <QSpinBox>
+
+#include "delpages.h"
+#include "util.h"
+#include "commonstrings.h"
+
+DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 		: QDialog( parent, "DelPages", true, 0 )
 {
 	setCaption( tr( "Delete Pages" ) );
+	setModal(true);
 	setIcon(loadIcon("AppIcon.png"));
-	DLayout = new QVBoxLayout( this );
-	DLayout->setSpacing( 5 );
-	DLayout->setMargin( 10 );
-	Layout4 = new QHBoxLayout;
-	Layout4->setSpacing( 6 );
-	Layout4->setMargin( 5 );
-	TextLabel1 = new QLabel( this, "TextLabel1" );
-	TextLabel1->setText( tr( "Delete from:" ) );
-	Layout4->addWidget( TextLabel1 );
-	FromPage = new QSpinBox( 1, max, 1, this, "FromPage" );
-	FromPage->setValue( act );
-	Layout4->addWidget( FromPage );
-	TextLabel2 = new QLabel( this, "TextLabel2" );
-	TextLabel2->setText( tr( "to:" ) );
-	Layout4->addWidget( TextLabel2 );
-	ToPage = new QSpinBox( 1, max, 1, this, "ToPage" );
-	ToPage->setValue( act );
-	Layout4->addWidget( ToPage );
-	DLayout->addLayout( Layout4 );
-	Layout3 = new QHBoxLayout;
-	Layout3->setSpacing( 6 );
-	Layout3->setMargin( 0 );
+	dialogLayout = new QVBoxLayout( this );
+	dialogLayout->setSpacing( 5 );
+	dialogLayout->setMargin( 10 );
+	fromToLayout = new QHBoxLayout;
+	fromToLayout->setSpacing( 5 );
+	fromToLayout->setMargin( 5 );
+	fromLabel = new QLabel( tr( "Delete From:" ), this, "fromLabel" );
+	fromToLayout->addWidget( fromLabel );
+	fromPageData = new QSpinBox( 1, maxPage, 1, this, "fromPageData" );
+	fromPageData->setValue( currentPage );
+	fromToLayout->addWidget( fromPageData );
+	toLabel = new QLabel( this, "toLabel" );
+	toLabel->setText( tr( "to:" ) );
+	fromToLayout->addWidget( toLabel );
+	toPageData = new QSpinBox( 1, maxPage, 1, this, "toPageData" );
+	toPageData->setValue( currentPage );
+	fromToLayout->addWidget( toPageData );
+	dialogLayout->addLayout( fromToLayout );
+
+	okCancelLayout = new QHBoxLayout;
+	okCancelLayout->setSpacing( 5 );
+	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout3->addItem( spacer );
-	OK = new QPushButton( tr( "&OK" ), this, "OK" );
-	OK->setDefault( true );
-	Layout3->addWidget(OK);
-	Cancel = new QPushButton( tr( "&Cancel" ), this, "Cancel" );
-	Cancel->setDefault( false );
-	Layout3->addWidget(Cancel);
-	DLayout->addLayout( Layout3 );
+	okCancelLayout->addItem( spacer );
+	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	okButton->setDefault( true );
+	okCancelLayout->addWidget(okButton);
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	cancelButton->setDefault( false );
+	okCancelLayout->addWidget(cancelButton);
+	dialogLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
 
 	// signals and slots connections
-	connect( OK, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	connect( Cancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( FromPage, SIGNAL( valueChanged(int) ), this, SLOT( FromChanged(int) ) );
-	connect( ToPage, SIGNAL( valueChanged(int) ), this, SLOT( ToChanged(int) ) );
+	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect( fromPageData, SIGNAL( valueChanged(int) ), this, SLOT( fromChanged(int) ) );
+	connect( toPageData, SIGNAL( valueChanged(int) ), this, SLOT( toChanged(int) ) );
 }
 
-void DelPages::FromChanged(int nr)
+void DelPages::fromChanged(int pageNumber)
 {
-	if (nr > ToPage->value())
-		ToPage->setValue(nr);
-	if ((nr == 1) && (ToPage->value() == ToPage->maxValue()))
-		ToPage->setValue(ToPage->maxValue()-1);
+	if (pageNumber > toPageData->value())
+		toPageData->setValue(pageNumber);
+	if ((pageNumber == 1) && (toPageData->value() == toPageData->maxValue()))
+		toPageData->setValue(toPageData->maxValue()-1);
 }
 
-void DelPages::ToChanged(int nr)
+void DelPages::toChanged(int pageNumber)
 {
-	if (nr < FromPage->value())
-		FromPage->setValue(nr);
-	if ((FromPage->value() == 1) && (nr == ToPage->maxValue()))
-		FromPage->setValue(2);
+	if (pageNumber < fromPageData->value())
+		fromPageData->setValue(pageNumber);
+	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maxValue()))
+		fromPageData->setValue(2);
+}
+
+const int DelPages::getFromPage()
+{
+	return fromPageData->value();
+}
+
+const int DelPages::getToPage()
+{
+	return toPageData->value();
 }
 

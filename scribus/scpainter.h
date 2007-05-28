@@ -1,58 +1,54 @@
-/* This file is part of the KDE project
-   Copyright (C) 2001, 2002, 2003 The Karbon Developers
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public License
-   along with this library; see the file COPYING.LIB.  If not, write to
-   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-   Boston, MA 02111-1307, USA.
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
 */
-/* Adapted for Scribus 22.08.2003 by Franz Schmid */
 
 #ifndef __SCPAINTER_H__
 #define __SCPAINTER_H__
 
-// libart wrapper
-
-#include <qwmatrix.h>
-#include <qvaluelist.h>
-#include <qvaluestack.h>
-#include <qcolor.h>
-#include <qfont.h>
+#include <QPainterPath>
+#include <QPainter>
+#include <QList>
+#include <QStack>
+#include <QColor>
+#include <QMatrix>
+#include <QFont>
+#include <QImage>
+#include "scribusapi.h"
+#include "scconfig.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "vgradient.h"
+#include "scpattern.h"
 
-class QPainter;
-struct _ArtVpath;
-struct _ArtBpath;
-struct _ArtSVP;
-struct _ArtGradientStop;
+#ifdef HAVE_CAIRO
+typedef struct _cairo cairo_t;
+typedef struct _cairo_surface cairo_surface_t;
+typedef struct _cairo_pattern cairo_pattern_t;
+#endif
 
-class ScPainter
+class SCRIBUS_API ScPainter
 {
 public:
-	ScPainter( QPaintDevice *target, unsigned int w = 0, unsigned int h = 0 );
+	ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency = 1.0, int blendmode = 0 );
+#ifdef HAVE_CAIRO
+	ScPainter( QString target, unsigned int w, unsigned int h, double transparency = 1.0, int blendmode = 0 );
+#endif
 	virtual ~ScPainter();
-
-	virtual void resize( unsigned int w, unsigned int h );
+	enum FillMode { None, Solid, Gradient, Pattern };
+	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = 0);
+	virtual void endLayer();
+	virtual void setAntialiasing(bool enable);
 	virtual void begin();
 	virtual void end();
 	void clear();
 	virtual void clear( const QColor & );
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QWMatrix & );
-	virtual const QWMatrix worldMatrix() { return m_matrix; }
+	virtual void setWorldMatrix( const QMatrix & );
+	virtual const QMatrix worldMatrix();
 	virtual void setZoomFactor( double );
 	virtual double zoomFactor() { return m_zoomFactor; }
 	virtual void translate( double, double );
@@ -64,16 +60,20 @@ public:
 	virtual void lineTo( const double &, const double & );
 	virtual void curveTo( FPoint p1, FPoint p2, FPoint p3 );
 	virtual void newPath();
+	virtual void closePath();
+	virtual void fillTextPath();
+	virtual void strokeTextPath();
 	virtual void fillPath();
+	virtual void strokePath();
 	virtual void setFillRule( bool fillRule );
+	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
-	virtual void strokePath();
+	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 	virtual void setClipPath();
 
 	virtual void drawImage( QImage *image );
 	virtual void setupPolygon(FPointArray *points, bool closed = true);
-	virtual void setupTextPolygon(FPointArray *points);
 	virtual void drawPolygon();
 	virtual void drawPolyLine();
 	virtual void drawLine(FPoint start, FPoint end);
@@ -86,75 +86,89 @@ public:
 	virtual void setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
 	virtual void setPenOpacity( double op );
 	virtual void setLineWidth( double w);
-	virtual void setDash(const QValueList<double>& array, double ofs);
+	virtual void setDash(const Q3ValueList<double>& array, double ofs);
 	virtual void setBrush( const QColor & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
 	virtual void setFont( const QFont &f );
 	virtual QFont font();
 
-
 	// stack management
 	virtual void save();
 	virtual void restore();
 
-	//
-	virtual void setRasterOp( Qt::RasterOp );
 
-	virtual QPaintDevice *device() { return m_target; }
-	unsigned char *buffer() { return m_buffer; }
+	virtual void setRasterOp( int op );
+
 	VGradient fill_gradient;
 	VGradient stroke_gradient;
+	ScPattern *m_pattern;
 
 private:
-	void drawVPath( struct _ArtVpath *vec, int mode );
-	void applyGradient( _ArtSVP *, bool );
-//	void applyPattern( _ArtSVP *, bool );
-	_ArtGradientStop *buildStopArray( VGradient &gradient, int & );
-	void clampToViewport( const _ArtSVP &, int &, int &, int &, int & );
-	void clampToViewport( int &, int &, int &, int & );
-	void ensureSpace( unsigned int );
-
-private:
-	struct _ArtBpath *m_path;
-	struct _ArtBpath *m_path2;
-	unsigned int m_index;
-	unsigned int m_alloccount;
-	unsigned char *m_buffer;
-	QPaintDevice *m_target;
+	void drawVPath( int mode );
+#ifdef HAVE_CAIRO
+	cairo_t *m_cr;
+	struct layerProp
+	{
+		cairo_surface_t *data;
+		int blendmode;
+		double tranparency;
+		FPointArray groupClip;
+		bool pushed;
+	};
+#else
+	QPainter painter;
+	QPainterPath m_path;
+	struct layerProp
+	{
+		QImage *data;
+		int blendmode;
+		double tranparency;
+		FPointArray groupClip;
+		bool pushed;
+	};
+	Qt::PenStyle PLineStyle;
+#endif
+	QStack<layerProp> Layers;
+	QImage *m_image;
+	double  m_layerTransparency;
+	int  m_blendMode;
 	unsigned int m_width;
 	unsigned int m_height;
-	QWMatrix m_matrix;
+	QMatrix m_matrix;
 	QFont m_font;
 	bool mf_underline;
 	bool mf_strikeout;
 	bool mf_shadow;
 	bool mf_outlined;
-/* Filling */
+	/*! \brief Filling */
 	QColor m_fill;
 	double fill_trans;
 	bool m_fillRule;
-	int fillMode;				// 0 = none, 1 = solid, 2 = gradient
+	int fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
 	int gradientMode;		// 1 = linear, 2 = radial
-/* Stroking */
+	double patternScaleX;
+	double patternScaleY;
+	double patternOffsetX;
+	double patternOffsetY;
+	double patternRotation;
+	/*! \brief Stroking */
 	QColor m_stroke;
 	double stroke_trans;
 	double LineWidth;
 
-/* Line End Style */
-  Qt::PenCapStyle PLineEnd;
-/* Line Join Style */
-  Qt::PenJoinStyle PLineJoin;
-/* The Dash Array */
-	QValueList<double> m_array;
+	/*! \brief Line End Style */
+	Qt::PenCapStyle PLineEnd;
+  /*! \brief Line Join Style */
+	Qt::PenJoinStyle PLineJoin;
+  /*! \brief The Dash Array */
+	Q3ValueList<double> m_array;
 	double m_offset;
-/* Transformation Stack */
-	QValueStack<QWMatrix> MStack;
-/* Zoom Factor of the Painter */
+	/*! \brief Zoom Factor of the Painter */
 	double m_zoomFactor;
-	struct _ArtSVP *m_clipPath;
-
-	GC gc;
+	bool imageMode;
+	bool layeredMode;
+	bool svgMode;
 };
 
 #endif

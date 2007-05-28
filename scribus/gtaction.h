@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -23,21 +29,27 @@
 
 #include <qcolor.h>
 #include <qtextcodec.h>
-#include <qvaluelist.h>
-#include "scribus.h"
-#include "scribusdoc.h"
-#include "missing.h"
-#include "mpalette.h"
+#include <q3valuelist.h>
+#include <qmap.h>
+#include <qstring.h>
+class PageItem;
+class PrefsManager;
+class ScFace;
+#include "scribusapi.h"
 #include "gtfont.h"
 #include "gtframestyle.h"
 #include "gtparagraphstyle.h"
 #include "gtstyle.h"
 
+class ScribusDoc;
+class ScribusMainWindow;
+
 typedef QMap<QString, QString> FontFamilyMap;
 
-class gtAction
+class SCRIBUS_API gtAction
 {
 private:
+	ScribusMainWindow* m_ScMW;
 	PageItem *textFrame;
 	PageItem *it;
 	int lastParagraphStyle;
@@ -55,14 +67,16 @@ private:
 	int findParagraphStyle(const QString& name);
 	int findParagraphStyle(gtParagraphStyle* pstyle);
 	int applyParagraphStyle(gtParagraphStyle* pstyle);
-	QString validateFont(gtFont* font);
+	ScFace validateFont(gtFont* font);
 	QString findFontName(gtFont* font);
 	void updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
 	QString parseColor(const QString &s);
 	QColor parseColorN(const QString &rgbColor);
 	void finalize();
+	PrefsManager *prefsManager;
 public:
-	gtAction(bool append);
+//	gtAction(bool append);
+	gtAction(bool append, PageItem *pageitem);
 	~gtAction();
 	void setTextFrame(PageItem* frame);
 	void setProgressInfo();

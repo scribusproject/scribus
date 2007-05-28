@@ -1,73 +1,123 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
- *   Riku Leino, riku.leino@gmail.com                                          *
+ *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
-#include "nftemplate.h"
-#include "nftemplate.moc"
-#include "nftdialog.h"
 #include <qstring.h>
 #include <qcursor.h>
 #include <qdir.h>
 #include <qwidget.h>
-ScribusApp* Carrier;
-QWidget* par;
 
-QString Name()
+#include "scribus.h"
+#include "scribuscore.h"
+#include "nftemplate.h"
+//#include "nftemplate.moc"
+#include "nftdialog.h"
+#include "scraction.h"
+#include "menumanager.h"
+#include "undomanager.h"
+#include "prefsmanager.h"
+
+int newfromtemplateplugin_getPluginAPIVersion()
 {
-    return QObject::tr("New &from Template...");
+	return PLUGIN_API_VERSION;
 }
 
-int Type()
+ScPlugin* newfromtemplateplugin_getPlugin()
 {
-    return 5;
+	NewFromTemplatePlugin* plug = new NewFromTemplatePlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void newfromtemplateplugin_freePlugin(ScPlugin* plugin)
 {
-	return 3;
+	NewFromTemplatePlugin* plug = dynamic_cast<NewFromTemplatePlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-void InitPlug(QWidget *d, ScribusApp *plug)
+NewFromTemplatePlugin::NewFromTemplatePlugin() : ScActionPlugin()
 {
-	Carrier = plug;
-	par = d;
-	Nft = new MenuNFT(d);
-	int id = plug->fileMenu->insertItem(QObject::tr("New &from Template..."), -1, plug->fileMenu->indexOf(plug->M_NewFile)+1);
-	plug->fileMenu->connectItem(id, Nft, SLOT(RunNFTPlug()));
-	plug->fileMenu->setItemEnabled(id, 1);
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
 }
 
-void CleanUpPlug()
+NewFromTemplatePlugin::~NewFromTemplatePlugin() {};
+
+void NewFromTemplatePlugin::languageChange()
 {
+	// Note that we leave the unused members unset. They'll be initialised
+	// with their default ctors during construction.
+	// Action name
+	m_actionInfo.name = "NewFromDocumentTemplate";
+	// Action text for menu, including accel
+	m_actionInfo.text = tr("New &from Template...");
+	// Shortcut
+	m_actionInfo.keySequence = "Ctrl+Alt+N";
+	// Menu
+	m_actionInfo.menu = "File";
+	m_actionInfo.menuAfterName = "New";
+	m_actionInfo.enabledOnStartup = true;
 }
 
-void Run(QWidget *d, ScribusApp *plug)
+const QString NewFromTemplatePlugin::fullTrName() const
 {
-	QWidget *p;
-	p = d;
-	ScribusApp *a;
-	a = plug;
+	return QObject::tr("New From Template");
 }
 
-void MenuNFT::RunNFTPlug()
+const ScActionPlugin::AboutData* NewFromTemplatePlugin::getAboutData() const
 {
-	nftdialog* nftdia = new nftdialog(par, Carrier->GuiLanguage, Carrier->Prefs.TemplateDir);
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8("Riku Leino <riku@scribus.info>");
+	about->shortDescription = tr("Load documents with predefined layout");
+	about->description = tr("Start a document from a template made by other users or "
+	                        "yourself (f.e. for documents you have a constant style).");
+    // about->version
+    // about->releaseDate
+    // about->copyright
+	about->license = "GPL";
+	return about;
+}
+
+void NewFromTemplatePlugin::deleteAboutData(const AboutData* about) const
+{
+	Q_ASSERT(about);
+	delete about;
+}
+
+bool NewFromTemplatePlugin::run(ScribusDoc* doc, QString target)
+{
+	Q_ASSERT(target.isNull());
+	Nft = new MenuNFT();
+	Q_CHECK_PTR(Nft);
+	Nft->RunNFTPlug(doc);
+	return true;
+}
+
+
+void MenuNFT::RunNFTPlug(ScribusDoc* /*doc*/)
+{
+	ScribusMainWindow* mw=ScCore->primaryMainWindow();
+	nftdialog* nftdia = new nftdialog(mw, ScCore->getGuiLanguage(), PrefsManager::instance()->appPrefs.documentTemplatesDir);
 	if (nftdia->exec())
 	{
-		qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
-		Carrier->LadeDoc(nftdia->currentTemplate->file);
-		Carrier->doc->hasName = false;
-		Carrier->doc->DocName = nftdia->currentTemplate->name;
-		Carrier->ActWin->setCaption(QObject::tr("Template: ") + nftdia->currentTemplate->name);
-		QDir::setCurrent(Carrier->Prefs.DocDir);
-		Carrier->RemoveRecent(nftdia->currentTemplate->file);
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+		if (mw->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file)))
+		{
+			mw->doc->hasName = false;
+			UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
+			mw->doc->DocName = nftdia->currentDocumentTemplate->name;
+			mw->updateActiveWindowCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
+			QDir::setCurrent(PrefsManager::instance()->documentDir());
+			mw->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+		}
 		qApp->restoreOverrideCursor();
 	}
 	delete nftdia;

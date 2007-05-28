@@ -6,27 +6,27 @@ INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 
 libscribusshortwords_la_LDFLAGS = -version-info 0:0:0
 libscribusshortwords_la_METASOURCES = AUTO
-libscribusshortwords_la_SOURCES = vlnadialog.cpp parse.cpp shortwords.cpp configuration.cpp version.h
+libscribusshortwords_la_SOURCES = vlnadialog.cpp parse.cpp shortwords.cpp configuration.cpp version.h swprefsgui.cpp
 
-EXTRA_DIST = parse.h vlnadialog.h shortwords.h version.h configuration.h scribus-short-words.rc
+EXTRA_DIST = parse.h vlnadialog.h shortwords.h version.h configuration.h scribus-short-words.rc swprefsgui.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 
-if COMPILE_DEBUG
- linkflag =
-else
- linkflag = -s
-endif
-AM_LDFLAGS = $(linkflag) $(LIBFREETYPE_LIBS)
+AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)
 
 AM_CPPFLAGS = \
-        -I$(top_builddir)/scribus \
-        -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
-        -DICONDIR=\"$(datadir)/scribus/icons/\" \
-        -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
-        -DLIBDIR=\"$(libdir)/scribus/\" \
-        -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
-        -DPLUGINDATA=\"$(datadir)/scribus/plugins/\"
+    -I$(top_builddir)/scribus \
+    -DDOCDIR=\"$(datadir)/doc/scribus-$(VERSION)/\" \
+    -DICONDIR=\"$(datadir)/scribus/icons/\" \
+    -DSAMPLESDIR=\"$(datadir)/scribus/samples/\" \
+    -DSCRIPTSDIR=\"$(datadir)/scribus/scripts/\" \
+    -DTEMPLATEDIR=\"$(datadir)/scribus/templates/\" \
+    -DLIBDIR=\"$(libdir)/scribus/\" \
+    -DPLUGINDIR=\"$(libdir)/scribus/plugins/\" \
+    -DPLUGINDATA=\"$(datadir)/scribus/plugins/\"
+
+AM_CXXFLAGS = \
+    $(GCC_CXX_VISIBILITY_FLAGS)
 
 install-data-local:
 	$(mkinstalldirs) $(datadir)/scribus/plugins/

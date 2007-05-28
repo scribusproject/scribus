@@ -1,0 +1,21 @@
+<qt>
+<title>Editing and Importing Colors, Scribus Color Sets</title>
+<h3>Editing and Importing Colors, Scribus Color Sets</h3>
+<p>Within Scribus there are several methods to create, import and edit colors via different methods. Which method to follow,depends on if you need to replicate or import colors from another Scribus document or other third party document like an EPS, SVG or other vector format file. Moreover, Scribus has a well developed tool, the Color Wheel plug-in, which help to guide you selecting complementary colors, as well as visualize colors seen by folks with certain kinds of color-blindness.</p>
+<p>Let us start by looking at <strong>Color Sets</strong>:</p>
+<p>By default, Scribus comes with a handful of very useful color sets, which can be used as a basis creating your own, which can be saved and used in all future documents. It is helpful to understand the differences between RGB and CMYK color models and I reccomend you have color management properly setup and enabled when using CMYK color sets. Remember, true CMYK colors cannot be shown directly on a computer monitor; they can only be simulated. Color Management when enabled, presents a truer representation of colors when printed using CMYK inks. Note, that most common desktop inkjet printers are actually what we call an RGB device, like a monitor. This is because their drivers expect RGB color data and do the RGB to CMYK conversion internally via the driver and/or a combination of driver/firmware in the printer.</p>
+<p>One other term which is handy to know is in page layout color sets are also known as <em><strong>swatches</strong></em>, much like a swatch book of fabrics or paints.</p>
+<ul>
+   <li><strong>Scribus Small</strong>is a set of primary CMYK colors. These are based on a mix of percentages of the standard CMYK inks.  </li>
+   <li><strong>Scribus Gnome</strong> is a set of named RGB colors, which are standard on recent Gnome Desktops.  </li>
+   <li><strong>Scribus Open Office</strong> is a set of CMYK colors which are based on the standard colors found in Open Office applications.</li>
+   <li><strong>Scribus SVG</strong> is a set of RGB colors based on the named colors from the <a href="http://www.w3.org/TR/css3-color/#svg-color">SVG specification</a>.</li>
+   <li><strong>Scribus X11</strong> is a set of RGB colors based on the named colors from X-Windows</li>
+   <li><strong>Scribus X11</strong> is a set of Grey Scale shades based on the named shades from X-Windows  </li>
+ </ul>
+<p>You can choose the default color set for all documents by closing all documents and then picking one from the Color Editor Palette.</p>
+<table width="100%"><tr><td align="center"><img src="images/colormanager1.png" title="Scribus' Story Editor" alt="Scribus' Story Editor" /></td></tr></table><br />
+<h4>Importing Colors</h4>
+<p>From the Color Manager you can import colors from other Scribus documents or from vector based EPS, Postscript or AI (Adobe Illustrator&#174;) files. This includes spot colors which are special named colors. To import the colors only, click the Import button and then change the file type drop down to show non-Scribus files. You can import colors from Adobe Illustrator, PS and EPS files.  </p>
+<p>Not all files will have colors which can be imported, even if they are Postscript based. Why? Not all programs save <a href="http://en.wikipedia.org/wiki/Document_structure_convention">DSC</a>(Document Structure Convention) comments properly and incompatible proprietary extensions which do with the Postscript specification.</p>
+</qt>

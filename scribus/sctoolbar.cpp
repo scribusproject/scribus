@@ -25,27 +25,30 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "sctoolbar.h"
-#include "sctoolbar.moc"
+//#include "sctoolbar.moc"
 #include "prefscontext.h"
 #include "prefsfile.h"
+#include "prefsmanager.h"
 #include <qevent.h>
-#include <qdockarea.h>
-#include <qdockwindow.h>
-#include <qmainwindow.h>
+#include <q3dockarea.h>
+#include <q3dockwindow.h>
+#include <q3mainwindow.h>
 #include <qstring.h>
 #include <qtoolbutton.h>
-#include <qpopupmenu.h>
+#include <q3popupmenu.h>
+//Added by qt3to4:
+#include <QPixmap>
+#include <Q3PtrList>
 
 extern QPixmap loadIcon(QString nam);
-extern PrefsFile* prefsFile;
 
-ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, QDockWindow::Orientation o)
-: QToolBar(name, parent),
+ScToolBar::ScToolBar(const QString& name, const QString &prefName, Q3MainWindow *parent, Qt::Orientation o)
+: Q3ToolBar(name, parent),
   m_name(QString("ToolBar-%1").arg(prefName)),
-  m_prefs(prefsFile->getContext(m_name))
+  m_prefs(PrefsManager::instance()->prefsFile->getContext(m_name))
 {
 	hide();
-	setCloseMode(QDockWindow::Undocked);
+	setCloseMode(Q3DockWindow::Undocked);
 
 	if (m_prefs->contains("IsDocked")) // set docking
 	{
@@ -68,12 +71,12 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 	if (m_prefs->contains("FloatOrientation")) // set float orientation
 	{
 		floatOrientation = m_prefs->getInt("FloatOrientation", 1) == Hor ?
-		                   QDockWindow::Horizontal : QDockWindow::Vertical;
+		                   Qt::Horizontal : Qt::Vertical;
 	}
 	else
 	{
 		floatOrientation = o;
-		m_prefs->set("FloatOrientation", o == QDockWindow::Horizontal ? Hor : Vert);
+		m_prefs->set("FloatOrientation", o == Qt::Horizontal ? Hor : Vert);
 	}
 
 	if (!m_prefs->contains("PosIndex"))
@@ -85,10 +88,10 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 	dockRight = m_prefs->getBool("DockRight", 1);
 	dockBottom = m_prefs->getBool("DockBottom", 1);
 	dockLeft = m_prefs->getBool("DockLeft", 1);
-	mainWindow()->setDockEnabled(this, DockTop, dockTop);
-	mainWindow()->setDockEnabled(this, DockRight, dockRight);
-	mainWindow()->setDockEnabled(this, DockBottom, dockBottom);
-	mainWindow()->setDockEnabled(this, DockLeft, dockLeft);
+	mainWindow()->setDockEnabled(this, Qt::DockTop, dockTop);
+	mainWindow()->setDockEnabled(this, Qt::DockRight, dockRight);
+	mainWindow()->setDockEnabled(this, Qt::DockBottom, dockBottom);
+	mainWindow()->setDockEnabled(this, Qt::DockLeft, dockLeft);
 
 	if (place() == InDock)
 		setOrientation(area()->orientation());
@@ -98,8 +101,8 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *
 	initPrefsButton();
 	languageChange();
 
-	connect(this, SIGNAL(placeChanged(QDockWindow::Place)),
-	        this, SLOT(slotPlaceChanged(QDockWindow::Place)));
+	connect(this, SIGNAL(placeChanged(Q3DockWindow::Place)),
+	        this, SLOT(slotPlaceChanged(Q3DockWindow::Place)));
 }
 
 void ScToolBar::initVisibility()
@@ -119,7 +122,7 @@ void ScToolBar::initVisibility()
 
 int ScToolBar::position()
 {
-	if (place() == QDockWindow::OutsideDock)
+	if (place() == Q3DockWindow::OutsideDock)
 		return -1;
 
 	int index = -1;
@@ -136,10 +139,10 @@ void ScToolBar::storeDockPosition()
 
 void ScToolBar::storeDockPositions()
 {
-	if (place() == QDockWindow::OutsideDock)
+	if (place() == Q3DockWindow::OutsideDock)
 		return; // nothing to store if not docked
-	QPtrList<QDockWindow> tbs = area()->dockWindowList();
-	for (uint i = 0; i < tbs.count(); ++i)
+	QList<Q3DockWindow*> tbs = area()->dockWindowList();
+	for (int i = 0; i < tbs.count(); ++i)
 	{
 		if (ScToolBar *sctb = dynamic_cast<ScToolBar*>(tbs.at(i)))
 			sctb->storeDockPosition();
@@ -148,10 +151,10 @@ void ScToolBar::storeDockPositions()
 
 void ScToolBar::moveDocks()
 {
-	if (place() == QDockWindow::OutsideDock)
+	if (place() == Q3DockWindow::OutsideDock)
 		return; // do not move if not docked;
-	QPtrList<QDockWindow> tbs = area()->dockWindowList();
-	for (uint i = 0; i < tbs.count(); ++i)
+	QList<Q3DockWindow*> tbs = area()->dockWindowList();
+	for (int i = 0; i < tbs.count(); ++i)
 	{
 		if (ScToolBar *sctb = dynamic_cast<ScToolBar*>(tbs.at(i)))
 			sctb->moveDock();
@@ -160,18 +163,18 @@ void ScToolBar::moveDocks()
 
 void ScToolBar::moveDock()
 {
-	if (place() == QDockWindow::OutsideDock)
+	if (place() == Q3DockWindow::OutsideDock)
 		return; // do not move if not docked
 	area()->moveDockWindow(this, m_prefs->getInt("PosIndex", -1));
 	setOffset(m_prefs->getInt("Offset", 0));
 }
 
-void ScToolBar::slotPlaceChanged(QDockWindow::Place p)
+void ScToolBar::slotPlaceChanged(Q3DockWindow::Place p)
 {
-	m_prefs->set("IsDocked", p == QDockWindow::InDock);
+	m_prefs->set("IsDocked", p == Q3DockWindow::InDock);
 	m_prefs->set("x", x());
 	m_prefs->set("y", y());
-	if (p == QDockWindow::InDock) {
+	if (p == Q3DockWindow::InDock) {
 		setOrientation(area()->orientation());
 		QString dockPlace = "top";
 		if (area() == mainWindow()->leftDock())
@@ -196,7 +199,7 @@ void ScToolBar::slotVisibilityChanged(bool visible)
 void ScToolBar::slotTop()
 {
 	dockTop = !dockTop;
-	mainWindow()->setDockEnabled(this, DockTop, dockTop);
+	mainWindow()->setDockEnabled(this, Qt::DockTop, dockTop);
 	dockMenu->setItemChecked(dockMenu->idAt(0), dockTop);
 	m_prefs->set("DockTop", dockTop);
 	if (place() == InDock && mainWindow()->topDock() == area())
@@ -206,7 +209,7 @@ void ScToolBar::slotTop()
 void ScToolBar::slotRight()
 {
 	dockRight = !dockRight;
-	mainWindow()->setDockEnabled(this, DockRight, dockRight);
+	mainWindow()->setDockEnabled(this, Qt::DockRight, dockRight);
 	dockMenu->setItemChecked(dockMenu->idAt(1), dockRight);
 	m_prefs->set("DockRight", dockRight);
 	if (place() == InDock && mainWindow()->rightDock() == area())
@@ -216,7 +219,7 @@ void ScToolBar::slotRight()
 void ScToolBar::slotBottom()
 {
 	dockBottom = !dockBottom;
-	mainWindow()->setDockEnabled(this, DockBottom, dockBottom);
+	mainWindow()->setDockEnabled(this, Qt::DockBottom, dockBottom);
 	dockMenu->setItemChecked(dockMenu->idAt(2), dockBottom);
 	m_prefs->set("DockBottom", dockBottom);
 	if (place() == InDock && mainWindow()->bottomDock() == area())
@@ -226,7 +229,7 @@ void ScToolBar::slotBottom()
 void ScToolBar::slotLeft()
 {
 	dockLeft = !dockLeft;
-	mainWindow()->setDockEnabled(this, DockLeft, dockLeft);
+	mainWindow()->setDockEnabled(this, Qt::DockLeft, dockLeft);
 	dockMenu->setItemChecked(dockMenu->idAt(3), dockLeft);
 	m_prefs->set("DockLeft", dockLeft);
 	if (place() == InDock && mainWindow()->leftDock() == area())
@@ -235,7 +238,7 @@ void ScToolBar::slotLeft()
 
 void ScToolBar::slotVert()
 {
-	floatOrientation = QDockWindow::Vertical;
+	floatOrientation = Qt::Vertical;
 	orientationMenu->setItemChecked(orientationMenu->idAt(0), false);
 	orientationMenu->setItemChecked(orientationMenu->idAt(1), true);
 	m_prefs->set("FloatOrientation", Vert);
@@ -245,7 +248,7 @@ void ScToolBar::slotVert()
 
 void ScToolBar::slotHor()
 {
-	floatOrientation = QDockWindow::Horizontal;
+	floatOrientation = Qt::Horizontal;
 	orientationMenu->setItemChecked(orientationMenu->idAt(0), true);
 	orientationMenu->setItemChecked(orientationMenu->idAt(1), false);
 	m_prefs->set("FloatOrientation", Hor);
@@ -257,40 +260,33 @@ void ScToolBar::languageChange()
 {
 	popup->clear();
 
-	dockMenu = new QPopupMenu(0, "dockMenu");
+	dockMenu = new Q3PopupMenu(0, "dockMenu");
 	dockMenu->setCheckable(true);
-	dockMenu->insertItem(tr("Top"), this, SLOT(slotTop()));
-	dockMenu->insertItem(tr("Right"), this, SLOT(slotRight()));
-	dockMenu->insertItem(tr("Bottom"), this, SLOT(slotBottom()));
-	dockMenu->insertItem(tr("Left"), this, SLOT(slotLeft()));
-	popup->insertItem(tr("Allow Docking To..."), dockMenu);
+	dockMenu->insertItem( tr("Top"), this, SLOT(slotTop()));
+	dockMenu->insertItem( tr("Right"), this, SLOT(slotRight()));
+	dockMenu->insertItem( tr("Bottom"), this, SLOT(slotBottom()));
+	dockMenu->insertItem( tr("Left"), this, SLOT(slotLeft()));
+	popup->insertItem( tr("Allow Docking To..."), dockMenu);
 	dockMenu->setItemChecked(dockMenu->idAt(0), dockTop);
 	dockMenu->setItemChecked(dockMenu->idAt(1), dockRight);
 	dockMenu->setItemChecked(dockMenu->idAt(2), dockBottom);
 	dockMenu->setItemChecked(dockMenu->idAt(3), dockLeft);
 
-	orientationMenu = new QPopupMenu(0, "orientationMenu");
+	orientationMenu = new Q3PopupMenu(0, "orientationMenu");
 	orientationMenu->setCheckable(true);
-	orientationMenu->insertItem(tr("Horizontal"), this, SLOT(slotHor()));
-	orientationMenu->insertItem(tr("Vertical"), this, SLOT(slotVert()));
-	popup->insertItem(tr("Floating Orientation..."), orientationMenu);
-	if (floatOrientation == QDockWindow::Horizontal)
-	{
-		orientationMenu->setItemChecked(orientationMenu->idAt(0), true);
-		orientationMenu->setItemChecked(orientationMenu->idAt(1), false);
-	}
-	else
-	{
-		orientationMenu->setItemChecked(orientationMenu->idAt(0), false);
-		orientationMenu->setItemChecked(orientationMenu->idAt(1), true);
-	}
+	orientationMenu->insertItem( tr("Horizontal"), this, SLOT(slotHor()));
+	orientationMenu->insertItem( tr("Vertical"), this, SLOT(slotVert()));
+	popup->insertItem( tr("Floating Orientation..."), orientationMenu);
+	bool b=(floatOrientation == Qt::Horizontal);
+	orientationMenu->setItemChecked(orientationMenu->idAt(0), b);
+	orientationMenu->setItemChecked(orientationMenu->idAt(1), !b);
 }
 
 void ScToolBar::initPrefsButton()
 {
 	prefsButton = new QToolButton(Qt::DownArrow, this, "tbprefsbutton");
 	prefsButton->setAutoRaise(true);
-	popup = new QPopupMenu(0, "prefspopup");
+	popup = new Q3PopupMenu(0, "prefspopup");
 	prefsButton->setPopup(popup);
 	prefsButton->setPopupDelay(1);
 }

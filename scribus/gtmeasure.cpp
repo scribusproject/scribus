@@ -1,6 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
- *   riku.leino@gmail.com                                                      *
+ *   tsoots@gmail.com                                                      *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -18,27 +24,16 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <qstring.h>
+#include <qobject.h>
+
 #include "gtmeasure.h"
 
 double gtMeasure::ratio = 1.0;
 
-void gtMeasure::init(Unit u)
+void gtMeasure::init(scUnit u)
 {
-	switch (u)
-	{
-	case SC_PT:
-		ratio = 1.0;
-		break;
-	case SC_MM:
-		ratio = 25.4/72;
-		break;
-	case SC_IN:
-		ratio = 1.0 / 72.0;
-		break;
-	case SC_P:
-		ratio = 1.0 / 12.0;
-		break;
-	}
+	ratio=unitGetRatioFromIndex((int)u);
 }
 
 double gtMeasure::convert(double value)
@@ -63,46 +58,21 @@ double gtMeasure::convert2(int value)
 
 double gtMeasure::parse(const QString& value)
 {
-	QString lowerValue = value.lower();
-	QString dbl = "0.0";
-	if (lowerValue.find("pt") != -1)
-	{
-		init(SC_PT);
-		dbl = lowerValue.remove("pt");
-	}
-	else if (lowerValue.find("mm") != -1)
-	{
-		init(SC_MM);
-		dbl = lowerValue.remove("mm");
-	}
-	else if (lowerValue.find("in") != -1)
-	{
-		init(SC_IN);
-		dbl = lowerValue.remove("in");
-	}
-	else if (lowerValue.find("p") != -1)
-	{
-		init(SC_P);
-		dbl = lowerValue.remove("p");
-	}
-	else
-		init(SC_PT);
-
-	dbl = dbl.stripWhiteSpace();
-	return dbl.toDouble();
+	init(unitIndexFromString(value));
+	return unitValueFromString(value);
 }
 
-double gtMeasure::convert(double value, Unit from, Unit to)
+double gtMeasure::convert(double value, scUnit from, scUnit to)
 {
 	return d2d(value, from, to);
 }
 
-double gtMeasure::convert(int value, Unit from, Unit to)
+double gtMeasure::convert(int value, scUnit from, scUnit to)
 {
 	return i2d(value, from, to);
 }
 
-double gtMeasure::d2d(double value, Unit from, Unit to)
+double gtMeasure::d2d(double value, scUnit from, scUnit to)
 {
 	init(from);
 	double tmp = convert(value);
@@ -111,7 +81,7 @@ double gtMeasure::d2d(double value, Unit from, Unit to)
 }
 
 
-double gtMeasure::i2d(int value, Unit from, Unit to)
+double gtMeasure::i2d(int value, scUnit from, scUnit to)
 {
 	init(from);
 	double tmp = convert(value);
@@ -119,9 +89,11 @@ double gtMeasure::i2d(int value, Unit from, Unit to)
 	return convert2(tmp);
 }
 
-double gtMeasure::qs2d(const QString& value, Unit to)
+double gtMeasure::qs2d(const QString& value, scUnit to)
 {
 	double tmp = convert(parse(value));
 	init(to);
 	return convert2(tmp);
 }
+
+

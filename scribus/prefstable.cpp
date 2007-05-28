@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
  *   Copyright (C) 2004 by Riku Leino                                      *
  *   riku.leino@gmail.com                                                      *
@@ -56,7 +62,7 @@ QString PrefsTable::get(int row, int col, const QString& defValue)
 {
 	checkSize(row, col, defValue);
 	if ((*table[row])[col] == "__NOT__SET__")
-		table[row]->insert(table[row]->at(col), defValue);
+		table[row]->insert(table[row]->begin()+col, defValue);
 
 	return (*table[row])[col];
 }
@@ -74,7 +80,7 @@ void PrefsTable::set(int row, int col, const std::string& value)
 void PrefsTable::set(int row, int col, const QString& value)
 {
 	checkSize(row, col, "__NOT__SET__");
-	table[row]->insert(table[row]->at(col), value);
+	table[row]->insert(table[row]->begin()+col, value);
 }
 
 int PrefsTable::getInt(int row, int col, int defValue)
@@ -88,6 +94,11 @@ int PrefsTable::getInt(int row, int col, int defValue)
 }
 
 void PrefsTable::set(int row, int col, int value)
+{
+	set(row, col, QString("%1").arg(value));
+}
+
+void PrefsTable::set(int row, int col, uint value)
 {
 	set(row, col, QString("%1").arg(value));
 }
@@ -198,7 +209,13 @@ void PrefsTable::checkWidth(int rowIndex, int colIndex, QString defValue)
 	}
 }
 
+void PrefsTable::clear()
+{
+	rowCount = 0;
+	colCount = 0;
+	table.clear();
+}
+
 PrefsTable::~PrefsTable()
 {
-
 }

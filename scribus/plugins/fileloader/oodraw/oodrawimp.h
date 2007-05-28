@@ -1,48 +1,135 @@
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef OODPLUG_H
 #define OODPLUG_H
 
-#include <qdom.h>
-#include <qdict.h>
-#include "scribus.h"
+#include <qobject.h>
+#include <q3dict.h>
+#include <q3ptrlist.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include "pluginapi.h"
+#include "loadsaveplugin.h"
+#include "../../formatidlist.h"
 #include "stylestack.h"
+#include "pageitem.h"
+#include "scribusstructs.h"
 
-/** Calls the Plugin with the main Application window as parent
-  * and the main Application Class as parameter */
-extern "C" void Run(QWidget *d, ScribusApp *plug);
-/** Returns the Name of the Plugin.
-  * This name appears in the relevant Menue-Entrys */
-extern "C" QString Name();
-/** Returns the Type of the Plugin.
-  * 1 = the Plugin is a normal Plugin, which appears in the Extras Menue
-  * 2 = the Plugins is a import Plugin, which appears in the Import Menue
-  * 3 = the Plugins is a export Plugin, which appears in the Export Menue */
-extern "C" int Type();
-extern "C" int ID();
+class ScrAction;
+class ScribusDoc;
+class Selection;
+
+class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
+{
+	Q_OBJECT
+
+	public:
+		// Standard plugin implementation
+		OODrawImportPlugin();
+		virtual ~OODrawImportPlugin();
+		virtual const QString fullTrName() const;
+		virtual const AboutData* getAboutData() const;
+		virtual void deleteAboutData(const AboutData* about) const;
+		virtual void languageChange();
+		virtual bool fileSupported(QIODevice* file, const QString & fileName=QString::null) const;
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
+		virtual void addToMainWindowMenu(ScribusMainWindow *);
+
+		// Special features - File->Import slot
+	public slots:
+		virtual bool import(QString target = QString::null, int flags = lfUseCurrentPage|lfInteractive);
+
+	private:
+		void registerFormats();
+		ScrAction* importAction;
+};
+
+extern "C" PLUGIN_API int oodrawimp_getPluginAPIVersion();
+extern "C" PLUGIN_API ScPlugin* oodrawimp_getPlugin();
+extern "C" PLUGIN_API void oodrawimp_freePlugin(ScPlugin* plugin);
+
+class QWidget;
+class ScribusMainWindow;
+class ScribusDoc;
+class FPointArray;
+class QDomDocument;
+class QDomElement;
+
+class OODrawStyle
+{
+public:
+	OODrawStyle() :
+	  fillColor("None"),
+	  strokeColor("None"),
+	  fillTrans(0.0),
+	  strokeTrans(0.0),
+	  strokeWidth(0.0),
+	  haveGradient(false),
+	  gradientType(0),
+	  gradientAngle(0.0),
+	  gradientPointX(0.0),
+	  gradientPointY(0.0)
+	  {}
+	QString fillColor;
+	QString strokeColor;
+	double  fillTrans;
+	double  strokeTrans;
+	double  strokeWidth;
+	Q3ValueList<double> dashes;
+	bool    haveGradient;
+	int     gradientType;
+	VGradient gradient;
+	double  gradientAngle;
+	double  gradientPointX;
+	double  gradientPointY;
+};
 
 class OODPlug : public QObject
-{ 
+{
 	Q_OBJECT
 
 public:
-	OODPlug( ScribusApp *plug, QString fName );
+
+	OODPlug(ScribusDoc* doc);
 	~OODPlug();
-	void convert();
-	QPtrList<PageItem> parseGroup(const QDomElement &e);
+
+	//! \brief Indicator if there is any unsupported feature in imported svg.
+	bool unsupported;
+	bool importFailed;
+	bool importCanceled;
+	bool import( QString fName, int flags );
+	static double parseUnit(const QString &unit);
+
+protected:
+
+	bool convert(int flags);
+	Q3PtrList<PageItem> parseGroup(const QDomElement &e);
+	Q3PtrList<PageItem> parseElement(const QDomElement &e);
+	Q3PtrList<PageItem> parseRect(const QDomElement &e);
+	Q3PtrList<PageItem> parseEllipse(const QDomElement &e);
+	Q3PtrList<PageItem> parseLine(const QDomElement &e);
+	Q3PtrList<PageItem> parsePolygon(const QDomElement &e);
+	Q3PtrList<PageItem> parsePolyline(const QDomElement &e);
+	Q3PtrList<PageItem> parsePath(const QDomElement &e);
+	Q3PtrList<PageItem> parseTextBox(const QDomElement &e);
+	Q3PtrList<PageItem> parseFrame(const QDomElement &e);
+	Q3PtrList<PageItem> parseConnector(const QDomElement &e);
+	void parseStyle(OODrawStyle& style, const QDomElement &e);
+	void parseCharStyle(CharStyle& style, const QDomElement &e);
+	void parseParagraphStyle(ParagraphStyle& style, const QDomElement &e);
+	PageItem* parseTextP(const QDomElement& e, PageItem* item);
+	PageItem* parseTextSpans(const QDomElement& elm, PageItem* item);
+	PageItem* finishNodeParsing(const QDomElement &elm, PageItem* item, OODrawStyle& oostyle);
 	void createStyleMap( QDomDocument &docstyles );
 	void insertDraws( const QDomElement& styles );
 	void insertStyles( const QDomElement& styles );
 	void fillStyleStack( const QDomElement& object );
 	void addStyles( const QDomElement* style );
 	void storeObjectStyles( const QDomElement& object );
-	static double parseUnit(const QString &unit);
 	QColor parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
 	void parseTransform(FPointArray *composite, const QString &transform);
@@ -56,21 +143,22 @@ public:
 	void svgLineTo(FPointArray *i, double x1, double y1);
 	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
 
-	ScribusDoc* Doku;
-	ScribusApp* Prog;
 	QDomDocument inpContents;
 	QDomDocument inpStyles;
 	QDomDocument inpMeta;
-	QDict<QDomElement> m_styles, m_draws;
+	Q3Dict<QDomElement> m_styles, m_draws;
 	StyleStack m_styleStack;
 	QString stylePath;
 	QString contentPath;
 	QString metaPath;
 	double CurrX, CurrY, StartX, StartY;
 	int PathLen;
-	QPtrList<PageItem> Elements;
 	bool FirstM, WasM, PathClosed, HaveMeta;
+
+	bool interactive;
+	ScribusDoc* m_Doc;
+	Selection* tmpSel;
+	QStringList importedColors;
 };
 
 #endif
-

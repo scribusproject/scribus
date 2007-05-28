@@ -8,3 +8,6 @@ Makefile.in
 .deps
 .libs
 CVS
+scribus
+CMakeFiles
+cmake_install.cmake

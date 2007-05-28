@@ -1,0 +1,15 @@
+Makefile
+Makefile.in
+*.la
+*.lo
+*.moc.cpp
+*.moc
+*.o
+.deps
+.libs
+CVS
+scribus
+barcodegeneratorbase.cpp
+barcodegeneratorbase.h
+CMakeFiles
+cmake_install.cmake

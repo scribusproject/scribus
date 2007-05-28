@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 /***************************************************************************
                           scriptplugin.cpp  -  description
                              -------------------
@@ -15,7 +21,8 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "scriptplugin.h"
+// include cmdvar.h first, as it pulls in <Python.h>
+#include "cmdvar.h"
 
 #include "cmddialog.h"
 #include "cmddoc.h"
@@ -27,33 +34,49 @@
 #include "cmdmani.h"
 #include "cmdcolor.h"
 #include "cmdmisc.h"
+#include "cmdgetsetprop.h"
+#include "scriptplugin.h"
+//#include "scriptplugin.moc"
 #include "cmdutil.h"
 #include "objprinter.h"
 #include "objpdffile.h"
 #include "objimageexport.h"
-#include "macro.h"
-#include "macromanager.h"
-#include "extmacro.h"
-#include "scripterprefs.h"
 #include "guiapp.h"
+#include "svgimport.h"
+#include "scriptercore.h"
+#include "scribuscore.h"
 #include "customfdialog.h"
 #include "helpbrowser.h"
 #include "mpalette.h"
-#include "scriptercore.h"
+//#include "seiten.h"
+//#include "layers.h"
+//#include "tree.h"
+#include "menumanager.h"
+#include "scpaths.h"
+#include "units.h"
+#include "scribusstructs.h"
+#include "scconfig.h"
+#include "scripterprefsgui.h"
 
-#ifdef _MSC_VER
- #if (_MSC_VER >= 1200)
-  #include "win-config.h"
- #endif
-#else
- #include "config.h"
-#endif
-
+#include <qapplication.h>
 #include <qmessagebox.h>
 #include <qtextcodec.h>
 #include <qdom.h>
-#include <qtextstream.h>
+#include <qregexp.h>
+#include <q3textstream.h>
+#include <qpixmap.h>
+#include <qwidget.h>
+#include <qstring.h>
+//Added by qt3to4:
+#include <QByteArray>
 #include <cstdlib>
+#include <iostream>
+
+extern QPixmap SCRIBUS_API loadIcon(QString nam);
+
+#ifdef HAVE_SCRIPTER2
+extern void scripter2_init();
+#endif
 
 // Exceptions; visible from cmdvar.h, set up in initscribus()
 PyObject* ScribusException;
@@ -62,36 +85,84 @@ PyObject* WrongFrameTypeError;
 PyObject* NoValidObjectError;
 PyObject* NotFoundError;
 PyObject* NameExistsError;
-PyObject* AccessDeniedError;
 
-// Script console globals declared `extern' in cmdvar.h
-QString RetString;
-QString InValue;
-int RetVal;
-
-// Scripter core instance
+// Other extern variables defined in cmdvar.h
+PyObject* wrappedMainWindow;
+PyObject* wrappedQApp;
 ScripterCore* scripterCore;
 
-QString Name()
+
+int scriptplugin_getPluginAPIVersion()
 {
-	return QObject::tr("S&cripter Manual...");
+	return PLUGIN_API_VERSION;
 }
 
-int Type()
+ScPlugin* scriptplugin_getPlugin()
 {
-	return 4;
+	scripterCore=0;
+	ScriptPlugin* plug = new ScriptPlugin();
+	Q_CHECK_PTR(plug);
+	return plug;
 }
 
-int ID()
+void scriptplugin_freePlugin(ScPlugin* plugin)
 {
-	return 8;
+	ScriptPlugin* plug = dynamic_cast<ScriptPlugin*>(plugin);
+	Q_ASSERT(plug);
+	delete plug;
 }
 
-void InitPlug(QWidget *d, ScribusApp *plug)
+ScriptPlugin::ScriptPlugin() : ScPersistentPlugin()
 {
-	// push the QApplication instance we've been passed into the Carrier global
-	Carrier = plug;
-	// init Python
+	// Set action info in languageChange, so we only have to do
+	// it in one place.
+	languageChange();
+}
+
+ScriptPlugin::~ScriptPlugin() {};
+
+void ScriptPlugin::languageChange()
+{
+	if (scripterCore)
+		scripterCore->languageChange();
+}
+
+void ScriptPlugin::addToMainWindowMenu(ScribusMainWindow* mw)
+{
+	if (scripterCore)
+		scripterCore->addToMainWindowMenu(mw);
+}
+
+const QString ScriptPlugin::fullTrName() const
+{
+	return QObject::tr("Scripter");
+}
+
+const ScActionPlugin::AboutData* ScriptPlugin::getAboutData() const
+{
+	AboutData* about = new AboutData;
+	Q_CHECK_PTR(about);
+	about->authors = QString::fromUtf8(
+			"Petr Van\xc4\x9bk <petr@scribus.info>, "
+			"Franz Schmid <franz@scribus.info>, "
+			"Craig Ringer <craig@scribus.info>");
+	about->shortDescription = tr("Embedded Python scripting support.");
+	// about->description = tr("Write me!")
+	// about->version
+	// about->releaseDate
+	// about->copyright
+	// about->license
+	return about;
+}
+
+void ScriptPlugin::deleteAboutData(const AboutData* about) const
+{
+	Q_ASSERT(about);
+	delete about;
+}
+
+bool ScriptPlugin::initPlugin()
+{
 	QString cm;
 	Py_Initialize();
 	if (PyUnicode_SetDefaultEncoding("utf-8"))
@@ -99,87 +170,50 @@ void InitPlug(QWidget *d, ScribusApp *plug)
 		qDebug("Failed to set default encoding to utf-8.\n");
 		PyErr_Clear();
 	}
-	RetVal = 0;
-	// Init the class that manages the scripter and its gui
-	scripterCore = new ScripterCore(d);
-	if (!scripterCore)
-		qDebug("scripterCore failed to initialize");
-	// Set up the `scribus' module in the main interpreter
-	initscribus(Carrier);
-	// If Python extensions are enabled, load the macro manager.
-	if (scripterCore->enableExtPython)
-		MacroManager::instance();
-	// and run the start-up script, if any
+
+	scripterCore = new ScripterCore(ScCore->primaryMainWindow());
+	Q_CHECK_PTR(scripterCore);
+	initscribus(ScCore->primaryMainWindow());
+#ifdef HAVE_SCRIPTER2
+	scripter2_init();
+#endif
+	scripterCore->setupMainInterpreter();
+	scripterCore->initExtensionScripts();
 	scripterCore->runStartupScript();
+	return true;
 }
 
-void CleanUpPlug()
+bool ScriptPlugin::cleanupPlugin()
 {
-	MacroManager::deleteInstance();
 	if (scripterCore)
-		delete(scripterCore);
+		delete scripterCore;
 	Py_Finalize();
+	return true;
 }
 
-void Run(QWidget *d, ScribusApp *plug)
+bool ScriptPlugin::newPrefsPanelWidget(QWidget* parent,
+									   PrefsPanel*& panel,
+									   QString& caption,
+									   QPixmap& icon)
 {
-	QString pfad = DOCDIR;
+	panel = new ScripterPrefsGui(parent);
+	Q_CHECK_PTR(panel);
+	caption = tr("Scripter");
+	icon = loadIcon("python.png");
+	return true;
+}
+
+/*  TEMPORARILY DISABLED
+void run()
+{
+	QString pfad = ScPaths::instance().docDir();
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad + "en/Scripter/index.html");
-	HelpBrowser *dia = new HelpBrowser(d, QObject::tr("Online Reference"), plug->GuiLanguage, "scripter");
+	HelpBrowser *dia = new HelpBrowser(0, QObject::tr("Online Reference"), ScCore->primaryMainWindow()->getGuiLanguage(), "scripter");
 	dia->show();
 }
+*/
 
-// This function builds a Python wrapper function called newName around the
-// python function called oldName. The wrapper function prints a warning, then
-// calls oldName with all passed arguments and returns the result from oldName.
-// The wrapper is stored in the module dictionary passed, so it appears in the
-// `scribus' module and will be imported by 'from scribus import'. A docstring
-// is provided to direct the user to the correct function.
-// By default the warning gets output only on the first use of the function in a given
-// interpreter instance, but user scripts can change this.
-void deprecatedFunctionAlias(PyObject* scribusdict, char* oldName, char* newName)
-{
-	// Build the Python code to create the wrapper function
-	QString wrapperFunc = "";
-	wrapperFunc += QString("def %1(*args, **kwargs):\n").arg(newName);
-	wrapperFunc += QString("    \"\"\"Deprecated alias for function %1 - see help(%2).\"\"\"\n").arg(oldName).arg(oldName);
-	wrapperFunc += QString("    warnings.warn(\"Warning, script function %1 is deprecated, use %2 instead.\\n\",exceptions.DeprecationWarning)\n").arg(newName).arg(oldName);
-	wrapperFunc += QString("    return %1(*args,**kwargs)\n").arg(oldName);
-	QCString wsData = wrapperFunc.latin1();	//this should probably be utf8 now
-	// And run it in the namespace of the scribus module
-	PyObject* result = PyRun_String(wsData, Py_file_input, scribusdict, scribusdict);
-	// NULL is returned if an exception is set. We don't care about any other return value and
-	// can ignore it.
-	if (result == NULL)
-	{
-		qDebug("Failed to alias %s to %s in Python scripter - exception raised!", oldName, newName);
-		PyErr_Print();
-	}
-	// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
-	Py_XDECREF(result);
-}
-
-// Copy constants by coping the reference to them. Equivalent to
-// scribus.__dict__[newName] = scribus.__dict__[oldName].
-void constantAlias(PyObject* scribusdict, const char* oldName, const char* newName)
-{
-	/* Work around the braindead Python/C API not using 'const' for
-	 * strings it won't change. */
-	char* newNameTemp = strdup(newName);
-	char* oldNameTemp = strdup(oldName);
-	assert(newNameTemp != NULL);
-	assert(oldNameTemp != NULL);
-	/* We use PyMapping_GetItemString because unlike PyDict_GetItemString it
-	 * returns a new (not borrowed) reference, while PyDict_SetItemString
-	 * consumes the reference. That means we don't have to Py_INCREF anything.
-	 */
-	PyObject* item = PyMapping_GetItemString(scribusdict, oldNameTemp);
-	assert(item != NULL);
-	PyDict_SetItemString(scribusdict, newNameTemp, item);
-	free(newNameTemp);
-	free(oldNameTemp);
-}
 
 /****************************************************************************************/
 /*                                                                                      */
@@ -190,24 +224,23 @@ void constantAlias(PyObject* scribusdict, const char* oldName, const char* newNa
 static PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
 {
 	char *Name = NULL;
-	int retV = 0;
-	if (!PyArg_ParseTuple(args, (char*)"si", &Name, &retV))
+	if (!PyArg_ParseTuple(args, (char*)"s", &Name))
 		return NULL;
 	// Because sysdefaultencoding is not utf-8, Python is returning utf-8 encoded
 	// 8-bit char* strings. Make sure Qt understands that the input is utf-8 not
 	// the default local encoding (usually latin-1) by using QString::fromUtf8()
-	RetString = QString::fromUtf8(Name);
-	RetVal = retV;
+	/*RetString = QString::fromUtf8(Name);
+	RetVal = retV;*/
+	scripterCore->returnString = QString::fromUtf8(Name);
 	return PyInt_FromLong(0L);
 }
 
 static PyObject *scribus_getval(PyObject* /*self*/)
 {
-	return PyString_FromString(InValue.utf8().data());
+	return PyString_FromString(scripterCore->inValue.utf8().data());
 }
 
-/*!
- * Translate a docstring. Small helper function for use with the
+/*! \brief Translate a docstring. Small helper function for use with the
  * PyMethodDef struct.
  */
 char* tr(const char* docstringConstant)
@@ -215,6 +248,10 @@ char* tr(const char* docstringConstant)
 	// Alas, there's a lot of wasteful string copying going on
 	// here.
 	QString translated = QObject::tr(docstringConstant, "scripter docstring");
+	// pv - hack for ugly formating in console removing
+	translated.replace("\n\n", "<P>");
+	translated.replace('\n', " ");
+	translated.replace("<P>", "\n\n");
 	/*
 	 * Python doesn't support 'unicode' object docstrings in the PyMethodDef,
 	 * and has no way to specify what encoding docstrings are in. The passed C
@@ -228,9 +265,14 @@ char* tr(const char* docstringConstant)
 	 * considered 8-bit strings of binary data that can be later interpreted as
 	 * a text string in a particular text encoding.
 	 */
-	QCString utfTranslated = translated.utf8();
-	const char* trch = utfTranslated.data();
-	return strdup(trch);
+	//QCString utfTranslated = translated.utf8();
+	QByteArray trch = translated.toUtf8();
+	char* utfstr = strdup(trch.data());
+	if (!utfstr)
+		// Complain, but then return NULL anyway. Python will treat NULL as
+		// "no value" so that's fine.
+		qDebug("scriptplugin.cpp:tr() - strdup() failure");
+	return utfstr;
 }
 
 /* Now we're using the more pythonic convention for names:
@@ -242,11 +284,13 @@ PyMethodDef scribus_methods[] = {
 	// 2004-11-06 cr - move aliasing to dynamically generated wrapper functions, sort methoddef
 	{const_cast<char*>("changeColor"), scribus_setcolor, METH_VARARGS, tr(scribus_setcolor__doc__)},
 	{const_cast<char*>("closeDoc"), (PyCFunction)scribus_closedoc, METH_NOARGS, tr(scribus_closedoc__doc__)},
+	{const_cast<char*>("closeMasterPage"), (PyCFunction)scribus_closemasterpage, METH_NOARGS, tr(scribus_closemasterpage__doc__)},
 	{const_cast<char*>("createBezierLine"), scribus_bezierline, METH_VARARGS, tr(scribus_bezierline__doc__)},
 	{const_cast<char*>("createEllipse"), scribus_newellipse, METH_VARARGS, tr(scribus_newellipse__doc__)},
 	{const_cast<char*>("createImage"), scribus_newimage, METH_VARARGS, tr(scribus_newimage__doc__)},
 	{const_cast<char*>("createLayer"), scribus_createlayer, METH_VARARGS, tr(scribus_createlayer__doc__)},
 	{const_cast<char*>("createLine"), scribus_newline, METH_VARARGS, tr(scribus_newline__doc__)},
+	{const_cast<char*>("createMasterPage"), scribus_createmasterpage, METH_VARARGS, tr(scribus_createmasterpage__doc__)},
 	{const_cast<char*>("createPathText"), scribus_pathtext, METH_VARARGS, tr(scribus_pathtext__doc__)},
 	{const_cast<char*>("createPolygon"), scribus_polygon, METH_VARARGS, tr(scribus_polygon__doc__)},
 	{const_cast<char*>("createPolyLine"), scribus_polyline, METH_VARARGS, tr(scribus_polyline__doc__)},
@@ -256,11 +300,13 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("defineColor"), scribus_newcolor, METH_VARARGS, tr(scribus_newcolor__doc__)},
 	{const_cast<char*>("deleteColor"), scribus_delcolor, METH_VARARGS, tr(scribus_delcolor__doc__)},
 	{const_cast<char*>("deleteLayer"), scribus_removelayer, METH_VARARGS, tr(scribus_removelayer__doc__)},
+	{const_cast<char*>("deleteMasterPage"), scribus_deletemasterpage, METH_VARARGS, tr(scribus_deletemasterpage__doc__)},
 	{const_cast<char*>("deleteObject"), scribus_deleteobj, METH_VARARGS, tr(scribus_deleteobj__doc__)},
 	{const_cast<char*>("deletePage"), scribus_deletepage, METH_VARARGS, tr(scribus_deletepage__doc__)},
 	{const_cast<char*>("deleteText"), scribus_deletetext, METH_VARARGS, tr(scribus_deletetext__doc__)},
 	{const_cast<char*>("deselectAll"), (PyCFunction)scribus_deselect, METH_NOARGS, tr(scribus_deselect__doc__)},
 	{const_cast<char*>("docChanged"), scribus_docchanged, METH_VARARGS, tr(scribus_docchanged__doc__)},
+	{const_cast<char*>("editMasterPage"), scribus_editmasterpage, METH_VARARGS, tr(scribus_editmasterpage__doc__)},
 	{const_cast<char*>("fileDialog"), (PyCFunction)scribus_filedia, METH_VARARGS|METH_KEYWORDS, tr(scribus_filedia__doc__)},
 	{const_cast<char*>("getActiveLayer"), (PyCFunction)scribus_getactlayer, METH_NOARGS, tr(scribus_getactlayer__doc__)},
 	{const_cast<char*>("getAllObjects"), scribus_getallobj, METH_VARARGS, tr(scribus_getallobj__doc__)},
@@ -274,6 +320,10 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getCornerRadius"), scribus_getcornerrad, METH_VARARGS, tr(scribus_getcornerrad__doc__)},
 	{const_cast<char*>("getFillColor"), scribus_getfillcolor, METH_VARARGS, tr(scribus_getfillcolor__doc__)},
 	{const_cast<char*>("getFillShade"), scribus_getfillshade, METH_VARARGS, tr(scribus_getfillshade__doc__)},
+	{const_cast<char*>("getFillBlendmode"), scribus_getfillblend, METH_VARARGS, tr(scribus_getfillblend__doc__)},
+	{const_cast<char*>("getFillTransparency"), scribus_getfilltrans, METH_VARARGS, tr(scribus_getfilltrans__doc__)},
+	{const_cast<char*>("getLineBlendmode"), scribus_getlineblend, METH_VARARGS, tr(scribus_getlineblend__doc__)},
+	{const_cast<char*>("getLineTransparency"), scribus_getlinetrans, METH_VARARGS, tr(scribus_getlinetrans__doc__)},
 	{const_cast<char*>("getFontNames"), (PyCFunction)scribus_fontnames, METH_NOARGS, tr(scribus_fontnames__doc__)},
 	{const_cast<char*>("getFont"), scribus_getfont, METH_VARARGS, tr(scribus_getfont__doc__)},
 	{const_cast<char*>("getFontSize"), scribus_getfontsize, METH_VARARGS, tr(scribus_getfontsize__doc__)},
@@ -282,6 +332,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getImageFile"), scribus_getimgname, METH_VARARGS, tr(scribus_getimgname__doc__)},
 	{const_cast<char*>("getImageScale"), scribus_getimgscale, METH_VARARGS, tr(scribus_getimgscale__doc__)},
 	{const_cast<char*>("getLayers"), (PyCFunction)scribus_getlayers, METH_NOARGS, tr(scribus_getlayers__doc__)},
+	{const_cast<char*>("getLayerBlendmode"), scribus_glayerblend, METH_VARARGS, tr(scribus_glayerblend__doc__)},
+	{const_cast<char*>("getLayerTransparency"), scribus_glayertrans, METH_VARARGS, tr(scribus_glayertrans__doc__)},
 	{const_cast<char*>("getLineCap"), scribus_getlineend, METH_VARARGS, tr(scribus_getlineend__doc__)},
 	{const_cast<char*>("getLineColor"), scribus_getlinecolor, METH_VARARGS, tr(scribus_getlinecolor__doc__)},
 	{const_cast<char*>("getLineJoin"), scribus_getlinejoin, METH_VARARGS, tr(scribus_getlinejoin__doc__)},
@@ -291,6 +343,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getLineWidth"), scribus_getlinewidth, METH_VARARGS, tr(scribus_getlinewidth__doc__)},
 	{const_cast<char*>("getPageItems"), (PyCFunction)scribus_getpageitems, METH_NOARGS, tr(scribus_getpageitems__doc__)},
 	{const_cast<char*>("getPageMargins"), (PyCFunction)scribus_getpagemargins, METH_NOARGS, tr(scribus_getpagemargins__doc__)},
+	{const_cast<char*>("getPageType"), (PyCFunction)scribus_pageposition, METH_VARARGS, tr(scribus_pageposition__doc__)},
 	{const_cast<char*>("getPageSize"), (PyCFunction)scribus_pagedimension, METH_NOARGS, tr(scribus_pagedimension__doc__)}, // just an alias to PageDimension()
 	{const_cast<char*>("getPosition"), scribus_getposi, METH_VARARGS, tr(scribus_getposi__doc__)},
 	{const_cast<char*>("getRotation"), scribus_getrotation, METH_VARARGS, tr(scribus_getrotation__doc__)},
@@ -298,6 +351,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getSize"), scribus_getsize, METH_VARARGS, tr(scribus_getsize__doc__)},
 	{const_cast<char*>("getTextColor"), scribus_getlinecolor, METH_VARARGS, tr(scribus_getlinecolor__doc__)},
 	{const_cast<char*>("getTextLength"), scribus_gettextsize, METH_VARARGS, tr(scribus_gettextsize__doc__)},
+	{const_cast<char*>("getTextLines"), scribus_gettextlines, METH_VARARGS, tr(scribus_gettextlines__doc__)},
 	{const_cast<char*>("getText"), scribus_getframetext, METH_VARARGS, tr(scribus_getframetext__doc__)},
 	{const_cast<char*>("getTextShade"), scribus_getlineshade, METH_VARARGS, tr(scribus_getlineshade__doc__)},
 	{const_cast<char*>("getUnit"), (PyCFunction)scribus_getunit, METH_NOARGS, tr(scribus_getunit__doc__)},
@@ -306,14 +360,22 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("gotoPage"), scribus_gotopage, METH_VARARGS, tr(scribus_gotopage__doc__)},
 	{const_cast<char*>("groupObjects"), scribus_groupobj, METH_VARARGS, tr(scribus_groupobj__doc__)},
 	{const_cast<char*>("haveDoc"), (PyCFunction)scribus_havedoc, METH_NOARGS, tr(scribus_havedoc__doc__)},
+	{const_cast<char*>("placeSVG"), scribus_placesvg, METH_VARARGS, tr(scribus_placesvg__doc__)},
+	{const_cast<char*>("placeEPS"), scribus_placeeps, METH_VARARGS, tr(scribus_placeeps__doc__)},
+	{const_cast<char*>("placeSXD"), scribus_placesxd, METH_VARARGS, tr(scribus_placesxd__doc__)},
+	{const_cast<char*>("placeODG"), scribus_placeodg, METH_VARARGS, tr(scribus_placeodg__doc__)},
 	{const_cast<char*>("insertText"), scribus_inserttext, METH_VARARGS, tr(scribus_inserttext__doc__)},
 	{const_cast<char*>("isLayerPrintable"), scribus_glayerprint, METH_VARARGS, tr(scribus_glayerprint__doc__)},
 	{const_cast<char*>("isLayerVisible"), scribus_glayervisib, METH_VARARGS, tr(scribus_glayervisib__doc__)},
+	{const_cast<char*>("isLayerLocked"), scribus_glayerlock, METH_VARARGS, tr(scribus_glayerlock__doc__)},
+	{const_cast<char*>("isLayerOutlined"), scribus_glayeroutline, METH_VARARGS, tr(scribus_glayeroutline__doc__)},
+	{const_cast<char*>("isLayerFlow"), scribus_glayerflow, METH_VARARGS, tr(scribus_glayerflow__doc__)},
 	{const_cast<char*>("isLocked"), scribus_islocked, METH_VARARGS, tr(scribus_islocked__doc__)},
 	{const_cast<char*>("linkTextFrames"), scribus_linktextframes, METH_VARARGS, tr(scribus_linktextframes__doc__)},
 	{const_cast<char*>("loadImage"), scribus_loadimage, METH_VARARGS, tr(scribus_loadimage__doc__)},
 	{const_cast<char*>("loadStylesFromFile"), scribus_loadstylesfromfile, METH_VARARGS, tr(scribus_loadstylesfromfile__doc__)},
 	{const_cast<char*>("lockObject"), scribus_lockobject, METH_VARARGS, tr(scribus_lockobject__doc__)},
+	{const_cast<char*>("masterPageNames"), (PyCFunction)scribus_masterpagenames, METH_NOARGS, tr(scribus_masterpagenames__doc__)},
 	{const_cast<char*>("messagebarText"), scribus_messagebartext, METH_VARARGS, tr(scribus_messagebartext__doc__)},
 	{const_cast<char*>("messageBox"), (PyCFunction)scribus_messdia, METH_VARARGS|METH_KEYWORDS, tr(scribus_messdia__doc__)},
 	{const_cast<char*>("moveObjectAbs"), scribus_moveobjabs, METH_VARARGS, tr(scribus_moveobjabs__doc__)},
@@ -322,10 +384,11 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("newDoc"), scribus_newdoc, METH_VARARGS, tr(scribus_newdoc__doc__)},
 	{const_cast<char*>("newDocument"), scribus_newdocument, METH_VARARGS, tr(scribus_newdocument__doc__)},
 	{const_cast<char*>("newPage"), scribus_newpage, METH_VARARGS, tr(scribus_newpage__doc__)},
+	{const_cast<char*>("newStyleDialog"), scribus_newstyledialog, METH_NOARGS, tr(scribus_newstyledialog__doc__)},
 	{const_cast<char*>("objectExists"),scribus_objectexists, METH_VARARGS, tr(scribus_objectexists__doc__)},
 	{const_cast<char*>("openDoc"), scribus_opendoc, METH_VARARGS, tr(scribus_opendoc__doc__)},
 	{const_cast<char*>("pageCount"), (PyCFunction)scribus_pagecount, METH_NOARGS, tr(scribus_pagecount__doc__)},
-	{const_cast<char*>("pageDimension"), (PyCFunction)scribus_pagedimension, METH_NOARGS, tr(scribus_pagedimension__doc__)},
+	{const_cast<char*>("pageDimension"), (PyCFunction)scribus_pagedimension, METH_NOARGS, "Obsolete function. Don't use it."},
 	{const_cast<char*>("progressReset"), (PyCFunction)scribus_progressreset, METH_NOARGS, tr(scribus_progressreset__doc__)},
 	{const_cast<char*>("progressSet"), scribus_progresssetprogress, METH_VARARGS, tr(scribus_progresssetprogress__doc__)},
 	{const_cast<char*>("progressTotal"), scribus_progresssettotalsteps, METH_VARARGS, tr(scribus_progresssettotalsteps__doc__)},
@@ -352,6 +415,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setCursor"), scribus_setcursor, METH_VARARGS, tr(scribus_setcursor__doc__)},
 	{const_cast<char*>("setDocType"), scribus_setdoctype, METH_VARARGS, tr(scribus_setdoctype__doc__)},
 	{const_cast<char*>("setFillColor"), scribus_setfillcolor, METH_VARARGS, tr(scribus_setfillcolor__doc__)},
+	{const_cast<char*>("setFillTransparency"), scribus_setfilltrans, METH_VARARGS, tr(scribus_setfilltrans__doc__)},
+	{const_cast<char*>("setFillBlendmode"), scribus_setfillblend, METH_VARARGS, tr(scribus_setfillblend__doc__)},
 	{const_cast<char*>("setFillShade"), scribus_setfillshade, METH_VARARGS, tr(scribus_setfillshade__doc__)},
 	{const_cast<char*>("setFont"), scribus_setfont, METH_VARARGS, tr(scribus_setfont__doc__)},
 	{const_cast<char*>("setFontSize"), scribus_setfontsize, METH_VARARGS, tr(scribus_setfontsize__doc__)},
@@ -360,8 +425,15 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setInfo"), scribus_setinfo, METH_VARARGS, tr(scribus_setinfo__doc__)},
 	{const_cast<char*>("setLayerPrintable"), scribus_layerprint, METH_VARARGS, tr(scribus_layerprint__doc__)},
 	{const_cast<char*>("setLayerVisible"), scribus_layervisible, METH_VARARGS, tr(scribus_layervisible__doc__)},
+	{const_cast<char*>("setLayerLocked"), scribus_layerlock, METH_VARARGS, tr(scribus_layerlock__doc__)},
+	{const_cast<char*>("setLayerOutlined"), scribus_layeroutline, METH_VARARGS, tr(scribus_layeroutline__doc__)},
+	{const_cast<char*>("setLayerFlow"), scribus_layerflow, METH_VARARGS, tr(scribus_layerflow__doc__)},
+	{const_cast<char*>("setLayerBlendmode"), scribus_layerblend, METH_VARARGS, tr(scribus_layerblend__doc__)},
+	{const_cast<char*>("setLayerTransparency"), scribus_layertrans, METH_VARARGS, tr(scribus_layertrans__doc__)},
 	{const_cast<char*>("setLineCap"), scribus_setlineend, METH_VARARGS, tr(scribus_setlineend__doc__)},
 	{const_cast<char*>("setLineColor"), scribus_setlinecolor, METH_VARARGS, tr(scribus_setlinecolor__doc__)},
+	{const_cast<char*>("setLineTransparency"), scribus_setlinetrans, METH_VARARGS, tr(scribus_setlinetrans__doc__)},
+	{const_cast<char*>("setLineBlendmode"), scribus_setlineblend, METH_VARARGS, tr(scribus_setlineblend__doc__)},
 	{const_cast<char*>("setLineJoin"), scribus_setlinejoin, METH_VARARGS, tr(scribus_setlinejoin__doc__)},
 	{const_cast<char*>("setLineShade"), scribus_setlineshade, METH_VARARGS, tr(scribus_setlineshade__doc__)},
 	{const_cast<char*>("setLineSpacing"), scribus_setlinespace, METH_VARARGS, tr(scribus_setlinespace__doc__)},
@@ -383,28 +455,41 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setVGuides"), scribus_setVguides, METH_VARARGS, tr(scribus_setVguides__doc__)},
 	{const_cast<char*>("sizeObject"), scribus_sizeobjabs, METH_VARARGS, tr(scribus_sizeobjabs__doc__)},
 	{const_cast<char*>("statusMessage"), scribus_messagebartext, METH_VARARGS, tr(scribus_messagebartext__doc__)},
-	{const_cast<char*>("textFlowsAroundFrame"), scribus_textflow, METH_VARARGS, tr(scribus_textflow__doc__)},
+	{const_cast<char*>("textFlowMode"), scribus_textflow, METH_VARARGS, tr(scribus_textflow__doc__)},
 	{const_cast<char*>("traceText"), scribus_tracetext, METH_VARARGS, tr(scribus_tracetext__doc__)},
 	{const_cast<char*>("unGroupObject"), scribus_ungroupobj, METH_VARARGS, tr(scribus_ungroupobj__doc__)},
 	{const_cast<char*>("unlinkTextFrames"), scribus_unlinktextframes, METH_VARARGS, tr(scribus_unlinktextframes__doc__)},
 	{const_cast<char*>("valueDialog"), scribus_valdialog, METH_VARARGS, tr(scribus_valdialog__doc__)},
 	{const_cast<char*>("textOverflows"), (PyCFunction)scribus_istextoverflowing, METH_KEYWORDS, tr(scribus_istextoverflowing__doc__)},
 	{const_cast<char*>("zoomDocument"), scribus_zoomdocument, METH_VARARGS, tr(scribus_zoomdocument__doc__)},
-	// Functions for use by extension scripts
-	{const_cast<char*>("register_macro_callable"), (PyCFunction)register_macro_callable, METH_KEYWORDS, tr(register_macro_callable__doc__)},
-	{const_cast<char*>("register_macro_code"), (PyCFunction)register_macro_code, METH_KEYWORDS, tr(register_macro_code__doc__)},
-	{const_cast<char*>("unregister_macro"), (PyCFunction)unregister_macro, METH_KEYWORDS, const_cast<char*>("Un-register a macro")},
-	// Private functions for use by the scripter API its self
-	{const_cast<char*>("_retval"), scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal API for console.")},
-	{const_cast<char*>("_getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal API for console.")},
+	// Property magic
+	{const_cast<char*>("getPropertyCType"), (PyCFunction)scribus_propertyctype, METH_KEYWORDS, tr(scribus_propertyctype__doc__)},
+	{const_cast<char*>("getPropertyNames"), (PyCFunction)scribus_getpropertynames, METH_KEYWORDS, tr(scribus_getpropertynames__doc__)},
+	{const_cast<char*>("getProperty"), (PyCFunction)scribus_getproperty, METH_KEYWORDS, tr(scribus_getproperty__doc__)},
+	{const_cast<char*>("setProperty"), (PyCFunction)scribus_setproperty, METH_KEYWORDS, tr(scribus_setproperty__doc__)},
+	{const_cast<char*>("getChildren"), (PyCFunction)scribus_getchildren, METH_KEYWORDS, tr(scribus_getchildren__doc__)},
+	{const_cast<char*>("getChild"), (PyCFunction)scribus_getchild, METH_KEYWORDS, tr(scribus_getchild__doc__)},
+	// by Christian Hausknecht
+	{const_cast<char*>("duplicateObject"), scribus_duplicateobject, METH_VARARGS, tr(scribus_duplicateobject__doc__)},
+	// Internal methods - Not for public use
+	{const_cast<char*>("retval"), (PyCFunction)scribus_retval, METH_VARARGS, const_cast<char*>("Scribus internal.")},
+	{const_cast<char*>("getval"), (PyCFunction)scribus_getval, METH_NOARGS, const_cast<char*>("Scribus internal.")},
 	{NULL, (PyCFunction)(0), 0, NULL} /* sentinel */
 };
 
-void initscribus(ScribusApp *pl)
+void initscribus_failed(const char* fileName, int lineNo)
+{
+	qDebug("Scripter setup failed (%s:%i)", fileName, lineNo);
+	if (PyErr_Occurred())
+		PyErr_Print();
+	return;
+}
+
+void initscribus(ScribusMainWindow *pl)
 {
 	if (!scripterCore)
 	{
-		qDebug("initscribus called but no scripterCore");
+		qWarning("scriptplugin: Tried to init scribus module, but no scripter core. Aborting.");
 		return;
 	}
 	PyObject *m, *d;
@@ -446,23 +531,21 @@ void initscribus(ScribusApp *pl)
 	NameExistsError = PyErr_NewException((char*)"scribus.NameExistsError", ScribusException, NULL);
 	Py_INCREF(NameExistsError);
 	PyModule_AddObject(m, (char*)"NameExistsError", NameExistsError);
-	// Tried to run an extension only function with python extensions disabled or from a normal script
-	AccessDeniedError = PyErr_NewException((char*)"scribus.AccessDeniedError", ScribusException, NULL);
-	Py_INCREF(AccessDeniedError);
-	PyModule_AddObject(m, (char*)"AccessDeniedError", AccessDeniedError);
 	// Done with exception setup
 
 	// CONSTANTS
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_POINTS"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_MILLIMETERS"), Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_INCHES"), Py_BuildValue(const_cast<char*>("i"), 2));
-	PyDict_SetItemString(d, const_cast<char*>("UNIT_PICAS"), Py_BuildValue(const_cast<char*>("i"), 3));
-	PyDict_SetItemString(d, const_cast<char*>("PORTRAIT"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("LANDSCAPE"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_POINTS"), PyInt_FromLong(unitIndexFromString("pt")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_MILLIMETERS"), PyInt_FromLong(unitIndexFromString("mm")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_INCHES"), PyInt_FromLong(unitIndexFromString("in")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_PICAS"), PyInt_FromLong(unitIndexFromString("p")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_CENTIMETRES"), PyInt_FromLong(unitIndexFromString("cm")));
+	PyDict_SetItemString(d, const_cast<char*>("UNIT_CICERO"), PyInt_FromLong(unitIndexFromString("c")));
+	PyDict_SetItemString(d, const_cast<char*>("PORTRAIT"), Py_BuildValue(const_cast<char*>("i"), portraitPage));
+	PyDict_SetItemString(d, const_cast<char*>("LANDSCAPE"), Py_BuildValue(const_cast<char*>("i"), landscapePage));
 	PyDict_SetItemString(d, const_cast<char*>("NOFACINGPAGES"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("FACINGPAGES"),  Py_BuildValue(const_cast<char*>("i"), 1));
-	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGERIGHT"), Py_BuildValue(const_cast<char*>("i"), 0));
-	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGELEFT"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGERIGHT"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("FIRSTPAGELEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_LEFT"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_RIGHT"), Py_BuildValue(const_cast<char*>("i"), 2));
 	PyDict_SetItemString(d, const_cast<char*>("ALIGN_CENTERED"), Py_BuildValue(const_cast<char*>("i"), 1));
@@ -527,11 +610,55 @@ void initscribus(ScribusApp *pl)
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LEGAL"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 1008.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LETTER"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 792.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_TABLOID"), Py_BuildValue(const_cast<char*>("(ff)"), 792.0, 1224.0));
-	// preset page layouts - backward comp. from 1.3.x
+	PyDict_SetItemString(d, const_cast<char*>("NORMAL"), Py_BuildValue(const_cast<char*>("i"), 0));
+	PyDict_SetItemString(d, const_cast<char*>("DARKEN"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("LIGHTEN"), Py_BuildValue(const_cast<char*>("i"), 2));
+	PyDict_SetItemString(d, const_cast<char*>("MULTIPLY"), Py_BuildValue(const_cast<char*>("i"), 3));
+	PyDict_SetItemString(d, const_cast<char*>("SCREEN"), Py_BuildValue(const_cast<char*>("i"), 4));
+	PyDict_SetItemString(d, const_cast<char*>("OVERLAY"), Py_BuildValue(const_cast<char*>("i"), 5));
+	PyDict_SetItemString(d, const_cast<char*>("HARD_LIGHT"), Py_BuildValue(const_cast<char*>("i"), 6));
+	PyDict_SetItemString(d, const_cast<char*>("SOFT_LIGHT"), Py_BuildValue(const_cast<char*>("i"), 7));
+	PyDict_SetItemString(d, const_cast<char*>("DIFFERENCE"), Py_BuildValue(const_cast<char*>("i"), 8));
+	PyDict_SetItemString(d, const_cast<char*>("EXCLUSION"), Py_BuildValue(const_cast<char*>("i"), 9));
+	PyDict_SetItemString(d, const_cast<char*>("COLOR_DODGE"), Py_BuildValue(const_cast<char*>("i"), 10));
+	PyDict_SetItemString(d, const_cast<char*>("COLOR_BURN"), Py_BuildValue(const_cast<char*>("i"), 11));
+	PyDict_SetItemString(d, const_cast<char*>("HUE"), Py_BuildValue(const_cast<char*>("i"), 12));
+	PyDict_SetItemString(d, const_cast<char*>("SATURATION"), Py_BuildValue(const_cast<char*>("i"), 13));
+	PyDict_SetItemString(d, const_cast<char*>("COLOR"), Py_BuildValue(const_cast<char*>("i"), 14));
+	PyDict_SetItemString(d, const_cast<char*>("LUMINOSITY"), Py_BuildValue(const_cast<char*>("i"), 15));
+	// preset page layouts
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_1"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_2"), Py_BuildValue(const_cast<char*>("i"), 1));
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_3"), Py_BuildValue(const_cast<char*>("i"), 2));
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_4"), Py_BuildValue(const_cast<char*>("i"), 3));
+
+	// Measurement units understood by Scribus's units.cpp functions are exported as constant conversion
+	// factors to be used from Python.
+	for (int i = 0; i <= unitGetMaxIndex(); ++i)
+	{
+		PyObject* value = PyFloat_FromDouble(unitGetRatioFromIndex(i));
+		if (!value)
+		{
+			initscribus_failed(__FILE__, __LINE__);
+			return;
+		}
+		// `in' is a reserved word in Python so we must replace it
+		PyObject* name;
+		if (unitGetStrFromIndex(i) == "in")
+			name = PyString_FromString("inch");
+		else
+			name = PyString_FromString(unitGetStrFromIndex(i).ascii());
+		if (!name)
+		{
+			initscribus_failed(__FILE__, __LINE__);
+			return;
+		}
+		if (PyDict_SetItem(d, name, value))
+		{
+			initscribus_failed(__FILE__, __LINE__);
+			return;
+		}
+	}
 
 	// Export the Scribus version into the module namespace so scripts know what they're running in
 	PyDict_SetItemString(d, const_cast<char*>("scribus_version"), PyString_FromString(const_cast<char*>(VERSION)));
@@ -550,30 +677,14 @@ void initscribus(ScribusApp *pl)
 		PyObject* versionTuple = Py_BuildValue(const_cast<char*>("(iiisi)"),\
 				majorVersion, minorVersion, patchVersion, (const char*)extraVersion.utf8(), 0);
 		if (versionTuple != NULL)
-				PyDict_SetItemString(d, const_cast<char*>("scribus_version_info"), versionTuple);
+			PyDict_SetItemString(d, const_cast<char*>("scribus_version_info"), versionTuple);
 		else
-				qDebug("Failed to build version tuple for version string '%s' in scripter", VERSION);
+			qDebug("Failed to build version tuple for version string '%s' in scripter", VERSION);
 	}
 	else
-			qDebug("Couldn't parse version string '%s' in scripter", VERSION);
+		qDebug("Couldn't parse version string '%s' in scripter", VERSION);
 
-	// Push some build defines into the scribus module so scripts can see them.
-	PyDict_SetItemString(d, const_cast<char*>("LIBDIR"),
-		PyString_FromString(const_cast<char*>(LIBDIR)));
-	PyDict_SetItemString(d, const_cast<char*>("SAMPLESDIR"),
-		PyString_FromString(const_cast<char*>(SAMPLESDIR)));
-	PyDict_SetItemString(d, const_cast<char*>("SCRIPTSDIR"),
-		PyString_FromString(const_cast<char*>(SCRIPTSDIR)));
-	PyDict_SetItemString(d, const_cast<char*>("ICONDIR"),
-		PyString_FromString(const_cast<char*>(ICONDIR)));
-	PyDict_SetItemString(d, const_cast<char*>("DOCDIR"),
-		PyString_FromString(const_cast<char*>(DOCDIR)));
-	PyDict_SetItemString(d, const_cast<char*>("TEMPLATEDIR"),
-		PyString_FromString(const_cast<char*>(TEMPLATEDIR)));
-	PyDict_SetItemString(d, const_cast<char*>("PLUGINDIR"),
-		PyString_FromString(const_cast<char*>(PLUGINDIR)));
-
-	Carrier = pl;
+// 	ScMW = pl;
 	// Function aliases for compatibility
 	// We need to import the __builtins__, warnings and exceptions modules to be able to run
 	// the generated Python functions from inside the `scribus' module's context.
@@ -603,234 +714,6 @@ void initscribus(ScribusApp *pl)
 		return;
 	}
 	PyDict_SetItemString(d, const_cast<char*>("warnings"), warningsModule);
-	// Now actually add the aliases
-	if (scripterCore->legacyAliases)
-	{
-		deprecatedFunctionAlias(d, const_cast<char*>("changeColor"), const_cast<char*>("ChangeColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("closeDoc"), const_cast<char*>("CloseDoc"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createBezierLine"), const_cast<char*>("CreateBezierLine"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createEllipse"), const_cast<char*>("CreateEllipse"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createImage"), const_cast<char*>("CreateImage"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createLayer"), const_cast<char*>("CreateLayer"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createLine"), const_cast<char*>("CreateLine"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createPathText"), const_cast<char*>("CreatePathText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createPolygon"), const_cast<char*>("CreatePolygon"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createPolyLine"), const_cast<char*>("CreatePolyLine"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createRect"), const_cast<char*>("CreateRect"));
-		deprecatedFunctionAlias(d, const_cast<char*>("createText"), const_cast<char*>("CreateText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("currentPage"), const_cast<char*>("CurrentPage"));
-		deprecatedFunctionAlias(d, const_cast<char*>("defineColor"), const_cast<char*>("DefineColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("deleteColor"), const_cast<char*>("DeleteColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("deleteLayer"), const_cast<char*>("DeleteLayer"));
-		deprecatedFunctionAlias(d, const_cast<char*>("deleteObject"), const_cast<char*>("DeleteObject"));
-		deprecatedFunctionAlias(d, const_cast<char*>("deletePage"), const_cast<char*>("DeletePage"));
-		deprecatedFunctionAlias(d, const_cast<char*>("deleteText"), const_cast<char*>("DeleteText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("deselectAll"), const_cast<char*>("DeselectAll"));
-		deprecatedFunctionAlias(d, const_cast<char*>("docChanged"), const_cast<char*>("DocChanged"));
-		deprecatedFunctionAlias(d, const_cast<char*>("fileDialog"), const_cast<char*>("FileDialog"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getActiveLayer"), const_cast<char*>("GetActiveLayer"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getAllObjects"), const_cast<char*>("GetAllObjects"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getAllStyles"), const_cast<char*>("GetAllStyles"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getAllText"), const_cast<char*>("GetAllText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getColor"), const_cast<char*>("GetColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getColorNames"), const_cast<char*>("GetColorNames"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getColumnGap"), const_cast<char*>("GetColumnGap"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getColumns"), const_cast<char*>("GetColumns"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getCornerRadius"), const_cast<char*>("GetCornerRadius"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getFillColor"), const_cast<char*>("GetFillColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getFillShade"), const_cast<char*>("GetFillShade"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getFont"), const_cast<char*>("GetFont"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getFontNames"), const_cast<char*>("GetFontNames"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getFontSize"), const_cast<char*>("GetFontSize"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getGuiLanguage"), const_cast<char*>("GetGuiLanguage"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getHGuides"), const_cast<char*>("GetHGuides"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getImageFile"), const_cast<char*>("GetImageFile"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getImageScale"), const_cast<char*>("GetImageScale"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getLayers"), const_cast<char*>("GetLayers"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getLineCap"), const_cast<char*>("GetLineCap"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getLineColor"), const_cast<char*>("GetLineColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getLineJoin"), const_cast<char*>("GetLineJoin"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getLineShade"), const_cast<char*>("GetLineShade"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getLineSpacing"), const_cast<char*>("GetLineSpacing"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getLineStyle"), const_cast<char*>("GetLineStyle"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getLineWidth"), const_cast<char*>("GetLineWidth"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getPageItems"), const_cast<char*>("GetPageItems"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getPageMargins"), const_cast<char*>("GetPageMargins"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getPageSize"), const_cast<char*>("GetPageSize"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getPosition"), const_cast<char*>("GetPosition"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getRotation"), const_cast<char*>("GetRotation"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getSelectedObject"), const_cast<char*>("GetSelectedObject"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getSize"), const_cast<char*>("GetSize"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getText"), const_cast<char*>("GetText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getTextColor"), const_cast<char*>("GetTextColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getTextLength"), const_cast<char*>("GetTextLength"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getTextShade"), const_cast<char*>("GetTextShade"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getUnit"), const_cast<char*>("GetUnit"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getVGuides"), const_cast<char*>("GetVGuides"));
-		deprecatedFunctionAlias(d, const_cast<char*>("getXFontNames"), const_cast<char*>("GetXFontNames"));
-		deprecatedFunctionAlias(d, const_cast<char*>("gotoPage"), const_cast<char*>("GotoPage"));
-		deprecatedFunctionAlias(d, const_cast<char*>("groupObjects"), const_cast<char*>("GroupObjects"));
-		deprecatedFunctionAlias(d, const_cast<char*>("haveDoc"), const_cast<char*>("HaveDoc"));
-		deprecatedFunctionAlias(d, const_cast<char*>("insertText"), const_cast<char*>("InsertText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("isLayerPrintable"), const_cast<char*>("IsLayerPrintable"));
-		deprecatedFunctionAlias(d, const_cast<char*>("isLayerVisible"), const_cast<char*>("IsLayerVisible"));
-		deprecatedFunctionAlias(d, const_cast<char*>("isLocked"), const_cast<char*>("IsLocked"));
-		deprecatedFunctionAlias(d, const_cast<char*>("linkTextFrames"), const_cast<char*>("LinkTextFrames"));
-		deprecatedFunctionAlias(d, const_cast<char*>("loadImage"), const_cast<char*>("LoadImage"));
-		deprecatedFunctionAlias(d, const_cast<char*>("loadStylesFromFile"), const_cast<char*>("LoadStylesFromFile"));
-		deprecatedFunctionAlias(d, const_cast<char*>("lockObject"), const_cast<char*>("LockObject"));
-		deprecatedFunctionAlias(d, const_cast<char*>("messagebarText"), const_cast<char*>("MessagebarText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("messageBox"), const_cast<char*>("MessageBox"));
-		deprecatedFunctionAlias(d, const_cast<char*>("moveObject"), const_cast<char*>("MoveObject"));
-		deprecatedFunctionAlias(d, const_cast<char*>("moveObjectAbs"), const_cast<char*>("MoveObjectAbs"));
-		deprecatedFunctionAlias(d, const_cast<char*>("newDoc"), const_cast<char*>("NewDoc"));
-		deprecatedFunctionAlias(d, const_cast<char*>("newDocDialog"), const_cast<char*>("NewDocDialog"));
-		deprecatedFunctionAlias(d, const_cast<char*>("newPage"), const_cast<char*>("NewPage"));
-		deprecatedFunctionAlias(d, const_cast<char*>("objectExists"), const_cast<char*>("ObjectExists"));
-		deprecatedFunctionAlias(d, const_cast<char*>("openDoc"), const_cast<char*>("OpenDoc"));
-		deprecatedFunctionAlias(d, const_cast<char*>("pageCount"), const_cast<char*>("PageCount"));
-		deprecatedFunctionAlias(d, const_cast<char*>("pageDimension"), const_cast<char*>("PageDimension"));
-		deprecatedFunctionAlias(d, const_cast<char*>("progressReset"), const_cast<char*>("ProgressReset"));
-		deprecatedFunctionAlias(d, const_cast<char*>("progressSet"), const_cast<char*>("ProgressSet"));
-		deprecatedFunctionAlias(d, const_cast<char*>("progressTotal"), const_cast<char*>("ProgressTotal"));
-		deprecatedFunctionAlias(d, const_cast<char*>("redrawAll"), const_cast<char*>("RedrawAll"));
-		deprecatedFunctionAlias(d, const_cast<char*>("renderFont"), const_cast<char*>("RenderFont"));
-		deprecatedFunctionAlias(d, const_cast<char*>("replaceColor"), const_cast<char*>("ReplaceColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("rotateObject"), const_cast<char*>("RotateObject"));
-		deprecatedFunctionAlias(d, const_cast<char*>("rotateObjectAbs"), const_cast<char*>("RotateObjectAbs"));
-		deprecatedFunctionAlias(d, const_cast<char*>("saveDoc"), const_cast<char*>("SaveDoc"));
-		deprecatedFunctionAlias(d, const_cast<char*>("saveDocAs"), const_cast<char*>("SaveDocAs"));
-		deprecatedFunctionAlias(d, const_cast<char*>("savePageAsEPS"), const_cast<char*>("SavePageAsEPS"));
-		deprecatedFunctionAlias(d, const_cast<char*>("scaleGroup"), const_cast<char*>("ScaleGroup"));
-		deprecatedFunctionAlias(d, const_cast<char*>("scaleImage"), const_cast<char*>("ScaleImage"));
-		deprecatedFunctionAlias(d, const_cast<char*>("selectionCount"), const_cast<char*>("SelectionCount"));
-		deprecatedFunctionAlias(d, const_cast<char*>("selectObject"), const_cast<char*>("SelectObject"));
-		deprecatedFunctionAlias(d, const_cast<char*>("selectText"), const_cast<char*>("SelectText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("sentToLayer"), const_cast<char*>("SentToLayer"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setActiveLayer"), const_cast<char*>("SetActiveLayer"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setColumnGap"), const_cast<char*>("SetColumnGap"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setColumns"), const_cast<char*>("SetColumns"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setCornerRadius"), const_cast<char*>("SetCornerRadius"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setCursor"), const_cast<char*>("SetCursor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setDocType"), const_cast<char*>("SetDocType"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setFillColor"), const_cast<char*>("SetFillColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setFillShade"), const_cast<char*>("SetFillShade"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setFont"), const_cast<char*>("SetFont"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setFontSize"), const_cast<char*>("SetFontSize"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setGradientFill"), const_cast<char*>("SetGradientFill"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setHGuides"), const_cast<char*>("SetHGuides"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setInfo"), const_cast<char*>("SetInfo"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setLayerPrintable"), const_cast<char*>("SetLayerPrintable"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setLayerVisible"), const_cast<char*>("SetLayerVisible"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setLineCap"), const_cast<char*>("SetLineCap"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setLineColor"), const_cast<char*>("SetLineColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setLineJoin"), const_cast<char*>("SetLineJoin"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setLineShade"), const_cast<char*>("SetLineShade"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setLineSpacing"), const_cast<char*>("SetLineSpacing"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setLineStyle"), const_cast<char*>("SetLineStyle"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setLineWidth"), const_cast<char*>("SetLineWidth"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setMargins"), const_cast<char*>("SetMargins"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setMultiLine"), const_cast<char*>("SetMultiLine"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setMultiLine"), const_cast<char*>("SetMultiLine"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setRedraw"), const_cast<char*>("SetRedraw"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setSelectedObject"), const_cast<char*>("SetSelectedObject"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setStyle"), const_cast<char*>("SetStyle"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setText"), const_cast<char*>("SetText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setTextAlignment"), const_cast<char*>("SetTextAlignment"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setTextColor"), const_cast<char*>("SetTextColor"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setTextShade"), const_cast<char*>("SetTextShade"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setTextStroke"), const_cast<char*>("SetTextStroke"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setUnit"), const_cast<char*>("SetUnit"));
-		deprecatedFunctionAlias(d, const_cast<char*>("setVGuides"), const_cast<char*>("SetVGuides"));
-		deprecatedFunctionAlias(d, const_cast<char*>("sizeObject"), const_cast<char*>("SizeObject"));
-		deprecatedFunctionAlias(d, const_cast<char*>("statusMessage"), const_cast<char*>("StatusMessage"));
-		deprecatedFunctionAlias(d, const_cast<char*>("textFlowsAroundFrame"), const_cast<char*>("TextFlowsAroundFrame"));
-		deprecatedFunctionAlias(d, const_cast<char*>("traceText"), const_cast<char*>("TraceText"));
-		deprecatedFunctionAlias(d, const_cast<char*>("unGroupObject"), const_cast<char*>("UnGroupObject"));
-		deprecatedFunctionAlias(d, const_cast<char*>("unlinkTextFrames"), const_cast<char*>("UnlinkTextFrames"));
-		deprecatedFunctionAlias(d, const_cast<char*>("valueDialog"), const_cast<char*>("ValueDialog"));
-	}
-	// end function aliases
-	// legacy constants - alas, we can't print warnings when these
-	// are used.
-	if (scripterCore->legacyAliases)
-	{
-		constantAlias(d, "UNIT_POINTS", "Points");
-		constantAlias(d, "UNIT_MILLIMETERS", "Millimeters");
-		constantAlias(d, "UNIT_INCHES", "Inches");
-		constantAlias(d, "UNIT_PICAS", "Picas");
-		constantAlias(d, "PORTRAIT", "Portrait");
-		constantAlias(d, "LANDSCAPE", "Landscape");
-		constantAlias(d, "NOFACINGPAGES", "NoFacingPages");
-		constantAlias(d, "FACINGPAGES", "FacingPages");
-		constantAlias(d, "FIRSTPAGERIGHT", "FirstPageRight");
-		constantAlias(d, "FIRSTPAGELEFT", "FirstPageLeft");
-		constantAlias(d, "ALIGN_LEFT", "LeftAlign");
-		constantAlias(d, "ALIGN_RIGHT", "RightAlign");
-		constantAlias(d, "ALIGN_CENTERED", "Centered");
-		constantAlias(d, "ALIGN_FORCED", "Forced");
-		constantAlias(d, "FILL_NOG", "NoGradient");
-		constantAlias(d, "FILL_HORIZONTALG", "HorizontalGradient");
-		constantAlias(d, "FILL_VERTICALG", "VerticalGradient");
-		constantAlias(d, "FILL_DIAGONALG", "DiagonalGradient");
-		constantAlias(d, "FILL_CROSSDIAGONALG", "CrossDiagonalGradient");
-		constantAlias(d, "FILL_RADIALG", "RadialGradient");
-		constantAlias(d, "LINE_SOLID", "SolidLine");
-		constantAlias(d, "LINE_DASH", "DashLine");
-		constantAlias(d, "LINE_DOT", "DotLine");
-		constantAlias(d, "LINE_DASHDOT", "DashDotLine");
-		constantAlias(d, "LINE_DASHDOTDOT", "DashDotDotLine");
-		constantAlias(d, "JOIN_MITTER", "MiterJoin");
-		constantAlias(d, "JOIN_BEVEL", "BevelJoin");
-		constantAlias(d, "JOIN_ROUND", "RoundJoin");
-		constantAlias(d, "CAP_FLAT", "FlatCap");
-		constantAlias(d, "CAP_SQUARE", "SquareCap");
-		constantAlias(d, "CAP_ROUND", "RoundCap");
-		constantAlias(d, "BUTTON_NONE", "NoButton");
-		constantAlias(d, "BUTTON_OK", "Ok");
-		constantAlias(d, "BUTTON_CANCEL", "Cancel");
-		constantAlias(d, "BUTTON_YES", "Yes");
-		constantAlias(d, "BUTTON_NO", "No");
-		constantAlias(d, "BUTTON_ABORT", "Abort");
-		constantAlias(d, "BUTTON_RETRY", "Retry");
-		constantAlias(d, "BUTTON_IGNORE", "Ignore");
-		constantAlias(d, "ICON_NONE", "NoIcon");
-		constantAlias(d, "ICON_INFORMATION", "Information");
-		constantAlias(d, "ICON_WARNING", "Warning");
-		constantAlias(d, "ICON_CRITICAL", "Critical");
-		constantAlias(d, "PAPER_A0", "Paper_A0");
-		constantAlias(d, "PAPER_A1", "Paper_A1");
-		constantAlias(d, "PAPER_A2", "Paper_A2");
-		constantAlias(d, "PAPER_A3", "Paper_A3");
-		constantAlias(d, "PAPER_A4", "Paper_A4");
-		constantAlias(d, "PAPER_A5", "Paper_A5");
-		constantAlias(d, "PAPER_A6", "Paper_A6");
-		constantAlias(d, "PAPER_A7", "Paper_A7");
-		constantAlias(d, "PAPER_A8", "Paper_A8");
-		constantAlias(d, "PAPER_A9", "Paper_A9");
-		constantAlias(d, "PAPER_B0", "Paper_B0");
-		constantAlias(d, "PAPER_B1", "Paper_B1");
-		constantAlias(d, "PAPER_B2", "Paper_B2");
-		constantAlias(d, "PAPER_B3", "Paper_B3");
-		constantAlias(d, "PAPER_B4", "Paper_B4");
-		constantAlias(d, "PAPER_B5", "Paper_B5");
-		constantAlias(d, "PAPER_B6", "Paper_B6");
-		constantAlias(d, "PAPER_B7", "Paper_B7");
-		constantAlias(d, "PAPER_B8", "Paper_B8");
-		constantAlias(d, "PAPER_B9", "Paper_B9");
-		constantAlias(d, "PAPER_B10", "Paper_B10");
-		constantAlias(d, "PAPER_C5E", "Paper_C5E");
-		constantAlias(d, "PAPER_COMM10E", "Paper_Comm10E");
-		constantAlias(d, "PAPER_DLE", "Paper_DLE");
-		constantAlias(d, "PAPER_EXECUTIVE", "Paper_Executive");
-		constantAlias(d, "PAPER_FOLIO", "Paper_Folio");
-		constantAlias(d, "PAPER_LEDGER", "Paper_Ledger");
-		constantAlias(d, "PAPER_LEGAL", "Paper_Legal");
-		constantAlias(d, "PAPER_LETTER", "Paper_Letter");
-		constantAlias(d, "PAPER_TABLOID", "Paper_Tabloid");
-	}
-	// end of deprecated cosntants
-
 	// Create the module-level docstring. This can be a proper unicode string, unlike
 	// the others, because we can just create a Unicode object and insert it in our
 	// module dictionary.
@@ -847,29 +730,71 @@ a string - they are not real Python objects. Many functions take an\n\
 optional (non-keyword) parameter, a frame name.\n\
 Many exceptions are also common across most functions. These are\n\
 not currently documented in the docstring for each function.\n\
-- Many functions will raise a NoDocOpenError if you try to use them\
+- Many functions will raise a NoDocOpenError if you try to use them\n\
 without a document to operate on.\n\
-- If you do not pass a frame name to a function that requires one,\
-the function will use the currently selected frame, if any, or\
-raise a NoValidObjectError if it can't find anything to operate\
+- If you do not pass a frame name to a function that requires one,\n\
+the function will use the currently selected frame, if any, or\n\
+raise a NoValidObjectError if it can't find anything to operate\n\
 on.\n\
 - Many functions will raise WrongFrameTypeError if you try to use them\n\
 on a frame type that they do not make sense with. For example, setting\n\
-the text colour on a graphics frame doesn't make sense, and will result\n\
+the text color on a graphics frame doesn't make sense, and will result\n\
 in this exception being raised.\n\
 - Errors resulting from calls to the underlying Python API will be\n\
 passed through unaltered. As such, the list of exceptions thrown by\n\
 any function as provided here and in its docstring is incomplete.\n\
 \n\
 Details of what exceptions each function may throw are provided on the\n\
-function's documentation.");
+function's documentation, though as with most Python code this list\n\
+is not exhaustive due to exceptions from called functions.\n\
+");
 
-	// Py_UNICODE is a typedef for unsigned short
-	PyObject* uniDocStr = Py_BuildValue(const_cast<char*>("u"), (Py_UNICODE*)(docstring.ucs2()));
-	if (uniDocStr == NULL)
-		qDebug("Failed to create module-level docstring object!");
+	PyObject* docStr = PyString_FromString(docstring.utf8().data());
+	if (!docStr)
+		qDebug("Failed to create module-level docstring (couldn't make str)");
 	else
-		PyDict_SetItemString(d, const_cast<char*>("__doc__"), uniDocStr);
-	Py_DECREF(uniDocStr);
+	{
+		PyObject* uniDocStr = PyUnicode_FromEncodedObject(docStr, "utf-8", NULL);
+		Py_DECREF(docStr);
+		docStr = NULL;
+		if (!uniDocStr)
+			qDebug("Failed to create module-level docstring object (couldn't make unicode)");
+		else
+			PyDict_SetItemString(d, const_cast<char*>("__doc__"), uniDocStr);
+		Py_DECREF(uniDocStr);
+		uniDocStr = NULL;
+	}
+
+	// Wrap up pointers to the the QApp and main window and push them out
+	// to Python.
+	wrappedQApp = wrapQObject(qApp);
+	if (!wrappedQApp)
+	{
+		qDebug("Failed to wrap up QApp");
+		PyErr_Print();
+	}
+	// Push it into the module dict, stealing a ref in the process
+	PyDict_SetItemString(d, const_cast<char*>("qApp"), wrappedQApp);
+	Py_DECREF(wrappedQApp);
+	wrappedQApp = NULL;
+
+	wrappedMainWindow = wrapQObject(pl);
+	if (!wrappedMainWindow)
+	{
+		qDebug("Failed to wrap up ScMW");
+		PyErr_Print();
+	}
+	// Push it into the module dict, stealing a ref in the process
+	PyDict_SetItemString(d, const_cast<char*>("mainWindow"), wrappedMainWindow);
+	Py_DECREF(wrappedMainWindow);
+	wrappedMainWindow = NULL;
 }
 
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void scriptplugindocwarnings()
+{
+    QStringList s;
+    s <<printer__doc__<<pdffile__doc__<<imgexp__doc__<<imgexp_dpi__doc__<<imgexp_scale__doc__ <<imgexp_quality__doc__<<imgexp_filename__doc__<<imgexp_type__doc__<<imgexp_alltypes__doc__ << imgexp_save__doc__ << imgexp_saveas__doc__;
+}

@@ -27,22 +27,26 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCTOOLBAR_H
 #define SCTOOLBAR_H
 
-#include <qtoolbar.h>
+#include "scribusapi.h"
+#include <q3toolbar.h>
+//Added by qt3to4:
+#include <Q3PopupMenu>
+#include <QCloseEvent>
 
-class QMainWindow;
+class Q3MainWindow;
 class QString;
 class PrefsContext;
 class QCloseEvent;
 class QToolButton;
-class QPopupMenu;
+class Q3PopupMenu;
 
-class ScToolBar : public QToolBar
+class SCRIBUS_API ScToolBar : public Q3ToolBar
 {
 	Q_OBJECT
 public:
 	// prefName is the name without tr() that will be used in the preferences for this toolbar
 	// if using name settings depend on the language
-	ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, QDockWindow::Orientation o = QDockWindow::Horizontal);
+	ScToolBar(const QString& name, const QString &prefName, Q3MainWindow *parent, Qt::Orientation o = Qt::Horizontal);
 	virtual ~ScToolBar();
 
 	int position();
@@ -54,7 +58,7 @@ public slots:
 	void languageChange();
 
 protected slots:
-	void slotPlaceChanged(QDockWindow::Place p);
+	void slotPlaceChanged(Q3DockWindow::Place p);
 	void slotVisibilityChanged(bool visible);
 	void slotTop();
 	void slotRight();
@@ -66,11 +70,11 @@ protected slots:
 private:
 	QString m_name;
 	PrefsContext *m_prefs;
-	QDockWindow::Orientation floatOrientation;
+	Qt::Orientation floatOrientation;
 	QToolButton *prefsButton;
-	QPopupMenu  *popup;
-	QPopupMenu  *dockMenu;
-	QPopupMenu  *orientationMenu;
+	Q3PopupMenu  *popup;
+	Q3PopupMenu  *dockMenu;
+	Q3PopupMenu  *orientationMenu;
 
 	bool dockTop;
 	bool dockRight;
