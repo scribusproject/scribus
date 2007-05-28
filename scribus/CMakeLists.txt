@@ -4,14 +4,8 @@ ADD_SUBDIRECTORY(doc)
 ADD_SUBDIRECTORY(dtd)
 ADD_SUBDIRECTORY(icons)
 ADD_SUBDIRECTORY(keysets)
-# IF(RENDER_LIB STREQUAL "LIBART")
-#  ADD_SUBDIRECTORY(libart)
-# ENDIF(RENDER_LIB STREQUAL "LIBART")
 ADD_SUBDIRECTORY(loremipsum)
 ADD_SUBDIRECTORY(manpages)
-# IF(NOT APPLE)
-#  ADD_SUBDIRECTORY(pixbuf)
-# ENDIF(NOT APPLE)
 ADD_SUBDIRECTORY(plugins)
 ADD_SUBDIRECTORY(profiles)
 ADD_SUBDIRECTORY(qm)
@@ -28,514 +22,489 @@ IF (WANT_DESIGNER)
 ENDIF (WANT_DESIGNER)
 
 SET(SCRIBUS_UI_SRC
-aboutplugins.ui
-aligndistribute.ui
-createrange.ui
-docitemattrprefs.ui
-docsections.ui
-guidemanager.ui
-insertaframe.ui
-multipleduplicate.ui
-multiprogressdialog.ui
-pageitemattributes.ui
-patterndialog.ui
-picsearch.ui
-picsearchoptions.ui
-picstatus.ui
-smlinestylew.ui
-smreplacedia.ui
-smpstylew.ui
-smcstylew.ui
-stylemanager.ui
-tabexternaltoolswidget.ui
-tabkeyboardshortcutswidget.ui
-tocindexprefs.ui
-useprintermarginsdialog.ui
-tabdisplay.ui
-tabgeneral.ui
-tabmiscellaneous.ui
-tabprinter.ui
-tabscrapbook.ui
-unicodesearch.ui
+  aboutplugins.ui
+  aligndistribute.ui
+  createrange.ui
+  docitemattrprefs.ui
+  docsections.ui
+  guidemanager.ui
+  insertaframe.ui
+  multipleduplicate.ui
+  multiprogressdialog.ui
+  pageitemattributes.ui
+  patterndialog.ui
+  picsearch.ui
+  picsearchoptions.ui
+  picstatus.ui
+  smlinestylew.ui
+  smreplacedia.ui
+  smpstylew.ui
+  smcstylew.ui
+  stylemanager.ui
+  tabexternaltoolswidget.ui
+  tabkeyboardshortcutswidget.ui
+  tocindexprefs.ui
+  useprintermarginsdialog.ui
+  tabdisplay.ui
+  tabgeneral.ui
+  tabmiscellaneous.ui
+  tabprinter.ui
+  tabscrapbook.ui
+  unicodesearch.ui
 )
 
 SET(SCRIBUS_MOC_CLASSES
-about.h
-aboutplugins.h
-actionmanager.h
-aligndistribute.h
-alignselect.h
-annota.h
-annot.h
-applytemplatedialog.h
-arrowchooser.h
-autoform.h
-autoformbuttongroup.h
-bookmwin.h
-bookpalette.h
-buttonicon.h
-charselect.h
-chartable.h
-charzoom.h
-checkDocument.h
-cmsprefs.h
-cmykfw.h
-collect4output.h
-colorblind.h
-colorchart.h
-colorcombo.h
-colorlistbox.h
-colorm.h
-# colorsetmanager.h
-commonstrings.h
-cpalette.h
-createrange.h
-cupsoptions.h
-curvewidget.h
-customfdialog.h
-dcolor.h
-deferredtask.h
-delpages.h
-docinfo.h
-docitemattrprefs.h
-docsections.h
-# documentinformation.h
-druck.h
-# edit1format.h
-# editformats.h
-editor.h
-effectsdialog.h
-extimageprops.h
-fileloader.h
-filesearch.h
-filewatcher.h
-fontcombo.h
-fontprefs.h
-fontreplacedialog.h
-frameedit.h
-gradienteditor.h
-gtdialogs.h
-guidemanager.h
-helpbrowser.h
-hruler.h
-hyask.h
-hyphenator.h
-hysettings.h
-imageinfodialog.h
-insertaframe.h
-insertTable.h
-inspage.h
-javadocs.h
-layers.h
-lineformats.h
-loadsaveplugin.h
-loremipsum.h
-margindialog.h
-marginWidget.h
-mdup.h
-measurements.h
-menumanager.h
-mergedoc.h
-movepage.h
-missing.h
-mpalette.h
-#mspinbox.h
-multiline.h
-multipleduplicate.h
-multiprogressdialog.h
-muster.h
-navigator.h
-newfile.h
-newtemp.h
-oneclick.h
-pageitem.h
-pageitemattributes.h
-pageitem_imageframe.h
-pageitem_line.h
-pageitem_pathtext.h
-pageitem_polygon.h
-pageitem_polyline.h
-pageitem_textframe.h
-pagelayout.h
-pageselector.h
-patterndialog.h
-pdflib.h
-pdfopts.h
-picsearch.h
-picsearchoptions.h
-picstatus.h
-pluginmanager.h
-pluginmanagerprefsgui.h
-polygonwidget.h
-polyprops.h
-prefs.h
-prefsdialogbase.h
-prefsmanager.h
-prefspanel.h
-preview.h
-pslib.h
-query.h
-reformdoc.h
-rulermover.h
-sampleitem.h
-# sccolorshade.h
-scinputdialog.h
-scmenu.h
-scmessagebox.h
-scgtplugin.h
-scplugin.h
-# scpreview.h
-scprogressbar.h
-scraction.h
-scrap.h
-scribus.h
-scribusapp.h
-scribuscore.h
-scribusdoc.h
-scribusview.h
-scribusXml.h
-scribuswin.h
-scrpalettebase.h
-scrspinbox.h
-sctoolbar.h
-search.h
-seiten.h
-selection.h
-selfield.h
-shadebutton.h
-smlinestyle.h
-smreplacedia.h
-smstyleimport.h
-smtextstyles.h
-smtextstylewidgets.h
-smwidgets.h
-spalette.h
-story.h
-styleitem.h
-stylemanager.h
-styleselect.h
-tabcheckdoc.h
-tabexternaltoolswidget.h
-tabkeyboardshortcutswidget.h
-tabdisplay.h
-tabdocument.h
-tabgeneral.h
-tabguides.h
-tabmanager.h
-tabmiscellaneous.h
-tabpdfoptions.h
-tabprinter.h
-tabruler.h
-tabscrapbook.h
-tabtools.h
-tabtypography.h
-tocgenerator.h
-tocindexprefs.h
-tree.h
-undogui.h
-undomanager.h
-unicodesearch.h
-upgradechecker.h
-useprintermarginsdialog.h
-vruler.h
-werktoolb.h
+  about.h
+  aboutplugins.h
+  actionmanager.h
+  aligndistribute.h
+  alignselect.h
+  annota.h
+  annot.h
+  applytemplatedialog.h
+  arrowchooser.h
+  autoform.h
+  autoformbuttongroup.h
+  bookmwin.h
+  bookpalette.h
+  buttonicon.h
+  charselect.h
+  chartable.h
+  charzoom.h
+  checkDocument.h
+  cmsprefs.h
+  cmykfw.h
+  collect4output.h
+  colorblind.h
+  colorchart.h
+  colorcombo.h
+  colorlistbox.h
+  colorm.h
+  commonstrings.h
+  cpalette.h
+  createrange.h
+  cupsoptions.h
+  curvewidget.h
+  customfdialog.h
+  dcolor.h
+  deferredtask.h
+  delpages.h
+  docinfo.h
+  docitemattrprefs.h
+  docsections.h
+  druck.h
+  editor.h
+  effectsdialog.h
+  extimageprops.h
+  fileloader.h
+  filesearch.h
+  filewatcher.h
+  fontcombo.h
+  fontprefs.h
+  fontreplacedialog.h
+  frameedit.h
+  gradienteditor.h
+  gtdialogs.h
+  guidemanager.h
+  helpbrowser.h
+  hruler.h
+  hyask.h
+  hyphenator.h
+  hysettings.h
+  imageinfodialog.h
+  insertaframe.h
+  insertTable.h
+  inspage.h
+  javadocs.h
+  layers.h
+  lineformats.h
+  loadsaveplugin.h
+  loremipsum.h
+  margindialog.h
+  marginWidget.h
+  mdup.h
+  measurements.h
+  menumanager.h
+  mergedoc.h
+  movepage.h
+  missing.h
+  mpalette.h
+  multiline.h
+  multipleduplicate.h
+  multiprogressdialog.h
+  muster.h
+  navigator.h
+  newfile.h
+  newtemp.h
+  oneclick.h
+  pageitem.h
+  pageitemattributes.h
+  pageitem_imageframe.h
+  pageitem_line.h
+  pageitem_pathtext.h
+  pageitem_polygon.h
+  pageitem_polyline.h
+  pageitem_textframe.h
+  pagelayout.h
+  pageselector.h
+  patterndialog.h
+  pdflib.h
+  pdfopts.h
+  picsearch.h
+  picsearchoptions.h
+  picstatus.h
+  pluginmanager.h
+  pluginmanagerprefsgui.h
+  polygonwidget.h
+  polyprops.h
+  prefs.h
+  prefsdialogbase.h
+  prefsmanager.h
+  prefspanel.h
+  preview.h
+  pslib.h
+  query.h
+  reformdoc.h
+  rulermover.h
+  sampleitem.h
+  scinputdialog.h
+  scmenu.h
+  scmessagebox.h
+  scgtplugin.h
+  scplugin.h
+  scprogressbar.h
+  scraction.h
+  scrap.h
+  scribus.h
+  scribusapp.h
+  scribuscore.h
+  scribusdoc.h
+  scribusview.h
+  scribusXml.h
+  scribuswin.h
+  scrpalettebase.h
+  scrspinbox.h
+  sctoolbar.h
+  search.h
+  seiten.h
+  selection.h
+  selfield.h
+  shadebutton.h
+  smlinestyle.h
+  smreplacedia.h
+  smstyleimport.h
+  smtextstyles.h
+  smtextstylewidgets.h
+  smwidgets.h
+  spalette.h
+  story.h
+  styleitem.h
+  stylemanager.h
+  styleselect.h
+  tabcheckdoc.h
+  tabexternaltoolswidget.h
+  tabkeyboardshortcutswidget.h
+  tabdisplay.h
+  tabdocument.h
+  tabgeneral.h
+  tabguides.h
+  tabmanager.h
+  tabmiscellaneous.h
+  tabpdfoptions.h
+  tabprinter.h
+  tabruler.h
+  tabscrapbook.h
+  tabtools.h
+  tabtypography.h
+  tocgenerator.h
+  tocindexprefs.h
+  tree.h
+  undogui.h
+  undomanager.h
+  unicodesearch.h
+  upgradechecker.h
+  useprintermarginsdialog.h
+  vruler.h
+  werktoolb.h
 )
-
-# linkbutton.h
 
 SET(SCRIBUS_SOURCES
-about.cpp
-aboutplugins.cpp
-actionmanager.cpp
-aligndistribute.cpp
-alignselect.cpp
-annotation.cpp
-annota.cpp
-annot.cpp
-applytemplatedialog.cpp
-arrowchooser.cpp
-autoformbuttongroup.cpp
-autoform.cpp
-bookmwin.cpp
-bookpalette.cpp
-buttonicon.cpp
-charselect.cpp
-chartable.cpp
-charzoom.cpp
-checkDocument.cpp
-cmserrorhandling.cpp
-cmykfw.cpp
-cmsprefs.cpp
-cmsutil.cpp
-cmsettings.cpp
-collect4output.cpp
-colorblind.cpp
-colorchart.cpp
-colorcombo.cpp
-colorlistbox.cpp
-colorm.cpp
-colorsetmanager.cpp
-colorutil.cpp
-commonstrings.cpp
-cpalette.cpp
-createrange.cpp
-cupsoptions.cpp
-curvewidget.cpp
-customfdialog.cpp
-dcolor.cpp
-deferredtask.cpp
-delpages.cpp
-docinfo.cpp
-docitemattrprefs.cpp
-docsections.cpp
-documentchecker.cpp
-documentinformation.cpp
-druck.cpp
-dynamictip.cpp
-editor.cpp
-# edit1format.cpp
-# editformats.cpp
-effectsdialog.cpp
-exif.cpp
-extimageprops.cpp
-fileloader.cpp
-filesearch.cpp
-fileunzip.cpp
-filewatcher.cpp
-# fmitem.cpp
-fontcombo.cpp
-fontprefs.cpp
-fontreplacedialog.cpp
-fparser.cpp
-fpointarray.cpp
-fpoint.cpp
-fpoptimizer.cpp
-frameedit.cpp
-gradienteditor.cpp
-gsutil.cpp
-gtaction.cpp
-gtdialogs.cpp
-gtfont.cpp
-gtframestyle.cpp
-gtgettext.cpp
-gtmeasure.cpp
-gtparagraphstyle.cpp
-gtstyle.cpp
-gtwriter.cpp
-guidemanager.cpp
-guidemanagercore.cpp
-helpbrowser.cpp
-hnjalloc.c
-hruler.cpp
-hyask.cpp
-hyphen.c
-hyphenator.cpp
-hysettings.cpp
-imageinfodialog.cpp
-insertaframe.cpp
-insertTable.cpp
-inspage.cpp
-ioapi.c
-javadocs.cpp
-langmgr.cpp
-layers.cpp
-linecombo.cpp
-lineformats.cpp
-linkbutton.cpp
-loadsaveplugin.cpp
-loremipsum.cpp
-main.cpp
-margindialog.cpp
-marginWidget.cpp
-md5.c
-mdup.cpp
-measurements.cpp
-menumanager.cpp
-mergedoc.cpp
-movepage.cpp
-missing.cpp
-mpalette.cpp
-#mspinbox.cpp
-multiline.cpp
-multipleduplicate.cpp
-multiprogressdialog.cpp
-muster.cpp
-navigator.cpp
-newfile.cpp
-newtemp.cpp
-oneclick.cpp
-page.cpp
-pageitem.cpp
-pageitem_desaxe.cpp
-pageitemattributes.cpp
-pageitem_imageframe.cpp
-pageitem_line.cpp
-pageitem_pathtext.cpp
-pageitem_polygon.cpp
-pageitem_polyline.cpp
-pageitem_textframe.cpp
-pagelayout.cpp
-pageselector.cpp
-pagesize.cpp
-patterndialog.cpp
-pdflib.cpp
-pdfoptions.cpp
-pdfoptionsio.cpp
-pdfopts.cpp
-picsearch.cpp
-picsearchoptions.cpp
-picstatus.cpp
-pluginmanager.cpp
-pluginmanagerprefsgui.cpp
-polygonwidget.cpp
-polyprops.cpp
-prefs.cpp
-prefscontext.cpp
-prefsdialogbase.cpp
-prefsfile.cpp
-prefspanel.cpp
-prefsreader.cpp
-prefsmanager.cpp
-prefstable.cpp
-preview.cpp
-printerutil.cpp
-pslib.cpp
-query.cpp
-rawimage.cpp
-rc4.c
-reformdoc.cpp
-rulermover.cpp
-sampleitem.cpp
-sccolor.cpp
-sccolorengine.cpp
-sccolorshade.cpp
-sccombobox.cpp
-scinputdialog.cpp
-scfonts.cpp
-scgtplugin.cpp
-scgzfile.cpp
-scimage.cpp
-scimagestructs.cpp
-scimgdataloader.cpp
-scimgdataloader_gimp.cpp
-scimgdataloader_jpeg.cpp
-scimgdataloader_pdf.cpp
-scimgdataloader_ps.cpp
-scimgdataloader_psd.cpp
-scimgdataloader_qt.cpp
-scimgdataloader_tiff.cpp
-scpainter.cpp
-scpaths.cpp
-scpattern.cpp
-scplugin.cpp
-scpreview.cpp
-scprogressbar.cpp
-scraction.cpp
-scrap.cpp
-scribus.cpp
-scribusapp.cpp
-scribuscore.cpp
-scribusdoc.cpp
-scribusview.cpp
-scribusXml.cpp
-scribuswin.cpp
-scrpalettebase.cpp
-scrspinbox.cpp
-scmenu.cpp
-scmessagebox.cpp
-sctextstruct.cpp
-sctoolbar.cpp
-search.cpp
-seiten.cpp
-selection.cpp
-selfield.cpp
-serializer.cpp
-shadebutton.cpp
-smlinestyle.cpp
-smreplacedia.cpp
-smstyleimport.cpp
-smtextstyles.cpp
-smtextstylewidgets.cpp
-smwidgets.cpp
-spalette.cpp
-splash.cpp
-stencilreader.cpp
-story.cpp
-styleitem.cpp
-stylemanager.cpp
-styleselect.cpp
-tabcheckdoc.cpp
-tabexternaltoolswidget.cpp
-tabkeyboardshortcutswidget.cpp
-tabdisplay.cpp
-tabdocument.cpp
-tabgeneral.cpp
-tabguides.cpp
-tabmanager.cpp
-tabmiscellaneous.cpp
-tabpdfoptions.cpp
-tabprinter.cpp
-tabruler.cpp
-tabscrapbook.cpp
-tabtools.cpp
-tabtypography.cpp
-tocgenerator.cpp
-tocindexprefs.cpp
-tree.cpp
-undogui.cpp
-undomanager.cpp
-undoobject.cpp
-undostack.cpp
-undostate.cpp
-unicodesearch.cpp
-units.cpp
-unzip.c
-upgradechecker.cpp
-useprintermarginsdialog.cpp
-util.cpp
-vgradient.cpp
-vgradientex.cpp
-vruler.cpp
-werktoolb.cpp
+  about.cpp
+  aboutplugins.cpp
+  actionmanager.cpp
+  aligndistribute.cpp
+  alignselect.cpp
+  annotation.cpp
+  annota.cpp
+  annot.cpp
+  applytemplatedialog.cpp
+  arrowchooser.cpp
+  autoformbuttongroup.cpp
+  autoform.cpp
+  bookmwin.cpp
+  bookpalette.cpp
+  buttonicon.cpp
+  charselect.cpp
+  chartable.cpp
+  charzoom.cpp
+  checkDocument.cpp
+  cmserrorhandling.cpp
+  cmykfw.cpp
+  cmsprefs.cpp
+  cmsutil.cpp
+  cmsettings.cpp
+  collect4output.cpp
+  colorblind.cpp
+  colorchart.cpp
+  colorcombo.cpp
+  colorlistbox.cpp
+  colorm.cpp
+  colorsetmanager.cpp
+  colorutil.cpp
+  commonstrings.cpp
+  cpalette.cpp
+  createrange.cpp
+  cupsoptions.cpp
+  curvewidget.cpp
+  customfdialog.cpp
+  dcolor.cpp
+  deferredtask.cpp
+  delpages.cpp
+  docinfo.cpp
+  docitemattrprefs.cpp
+  docsections.cpp
+  documentchecker.cpp
+  documentinformation.cpp
+  druck.cpp
+  dynamictip.cpp
+  editor.cpp
+  effectsdialog.cpp
+  exif.cpp
+  extimageprops.cpp
+  fileloader.cpp
+  filesearch.cpp
+  fileunzip.cpp
+  filewatcher.cpp
+  fontcombo.cpp
+  fontprefs.cpp
+  fontreplacedialog.cpp
+  fparser.cpp
+  fpointarray.cpp
+  fpoint.cpp
+  fpoptimizer.cpp
+  frameedit.cpp
+  gradienteditor.cpp
+  gsutil.cpp
+  gtaction.cpp
+  gtdialogs.cpp
+  gtfont.cpp
+  gtframestyle.cpp
+  gtgettext.cpp
+  gtmeasure.cpp
+  gtparagraphstyle.cpp
+  gtstyle.cpp
+  gtwriter.cpp
+  guidemanager.cpp
+  guidemanagercore.cpp
+  helpbrowser.cpp
+  hnjalloc.c
+  hruler.cpp
+  hyask.cpp
+  hyphen.c
+  hyphenator.cpp
+  hysettings.cpp
+  imageinfodialog.cpp
+  insertaframe.cpp
+  insertTable.cpp
+  inspage.cpp
+  ioapi.c
+  javadocs.cpp
+  langmgr.cpp
+  layers.cpp
+  linecombo.cpp
+  lineformats.cpp
+  linkbutton.cpp
+  loadsaveplugin.cpp
+  loremipsum.cpp
+  main.cpp
+  margindialog.cpp
+  marginWidget.cpp
+  md5.c
+  mdup.cpp
+  measurements.cpp
+  menumanager.cpp
+  mergedoc.cpp
+  movepage.cpp
+  missing.cpp
+  mpalette.cpp
+  multiline.cpp
+  multipleduplicate.cpp
+  multiprogressdialog.cpp
+  muster.cpp
+  navigator.cpp
+  newfile.cpp
+  newtemp.cpp
+  oneclick.cpp
+  page.cpp
+  pageitem.cpp
+  pageitem_desaxe.cpp
+  pageitemattributes.cpp
+  pageitem_imageframe.cpp
+  pageitem_line.cpp
+  pageitem_pathtext.cpp
+  pageitem_polygon.cpp
+  pageitem_polyline.cpp
+  pageitem_textframe.cpp
+  pagelayout.cpp
+  pageselector.cpp
+  pagesize.cpp
+  patterndialog.cpp
+  pdflib.cpp
+  pdfoptions.cpp
+  pdfoptionsio.cpp
+  pdfopts.cpp
+  picsearch.cpp
+  picsearchoptions.cpp
+  picstatus.cpp
+  pluginmanager.cpp
+  pluginmanagerprefsgui.cpp
+  polygonwidget.cpp
+  polyprops.cpp
+  prefs.cpp
+  prefscontext.cpp
+  prefsdialogbase.cpp
+  prefsfile.cpp
+  prefspanel.cpp
+  prefsreader.cpp
+  prefsmanager.cpp
+  prefstable.cpp
+  preview.cpp
+  printerutil.cpp
+  pslib.cpp
+  query.cpp
+  rawimage.cpp
+  rc4.c
+  reformdoc.cpp
+  rulermover.cpp
+  sampleitem.cpp
+  sccolor.cpp
+  sccolorengine.cpp
+  sccolorshade.cpp
+  sccombobox.cpp
+  scinputdialog.cpp
+  scfonts.cpp
+  scgtplugin.cpp
+  scgzfile.cpp
+  scimage.cpp
+  scimagestructs.cpp
+  scimgdataloader.cpp
+  scimgdataloader_gimp.cpp
+  scimgdataloader_jpeg.cpp
+  scimgdataloader_pdf.cpp
+  scimgdataloader_ps.cpp
+  scimgdataloader_psd.cpp
+  scimgdataloader_qt.cpp
+  scimgdataloader_tiff.cpp
+  scpainter.cpp
+  scpaths.cpp
+  scpattern.cpp
+  scplugin.cpp
+  scpreview.cpp
+  scprogressbar.cpp
+  scraction.cpp
+  scrap.cpp
+  scribus.cpp
+  scribusapp.cpp
+  scribuscore.cpp
+  scribusdoc.cpp
+  scribusview.cpp
+  scribusXml.cpp
+  scribuswin.cpp
+  scrpalettebase.cpp
+  scrspinbox.cpp
+  scmenu.cpp
+  scmessagebox.cpp
+  sctextstruct.cpp
+  sctoolbar.cpp
+  search.cpp
+  seiten.cpp
+  selection.cpp
+  selfield.cpp
+  serializer.cpp
+  shadebutton.cpp
+  smlinestyle.cpp
+  smreplacedia.cpp
+  smstyleimport.cpp
+  smtextstyles.cpp
+  smtextstylewidgets.cpp
+  smwidgets.cpp
+  spalette.cpp
+  splash.cpp
+  stencilreader.cpp
+  story.cpp
+  styleitem.cpp
+  stylemanager.cpp
+  styleselect.cpp
+  tabcheckdoc.cpp
+  tabexternaltoolswidget.cpp
+  tabkeyboardshortcutswidget.cpp
+  tabdisplay.cpp
+  tabdocument.cpp
+  tabgeneral.cpp
+  tabguides.cpp
+  tabmanager.cpp
+  tabmiscellaneous.cpp
+  tabpdfoptions.cpp
+  tabprinter.cpp
+  tabruler.cpp
+  tabscrapbook.cpp
+  tabtools.cpp
+  tabtypography.cpp
+  tocgenerator.cpp
+  tocindexprefs.cpp
+  tree.cpp
+  undogui.cpp
+  undomanager.cpp
+  undoobject.cpp
+  undostack.cpp
+  undostate.cpp
+  unicodesearch.cpp
+  units.cpp
+  unzip.c
+  upgradechecker.cpp
+  useprintermarginsdialog.cpp
+  util.cpp
+  vgradient.cpp
+  vgradientex.cpp
+  vruler.cpp
+  werktoolb.cpp
 )
 
-# IF(QT4_WRAP_UI)
-#  QT4_WRAP_UI(scribus SCRIBUS_UI_H SCRIBUS_UI_CPP ${SCRIBUS_UI_SRC} )
-  QT4_WRAP_UI(SCRIBUS_UI_SOURCES ${SCRIBUS_UI_SRC} )
-# ENDIF(QT4_WRAP_UI)
-
-# IF(QT4_WRAP_CPP)
-  QT4_WRAP_CPP(SCRIBUS_MOC_SOURCES ${SCRIBUS_MOC_CLASSES})
-# ENDIF(QT4_WRAP_CPP)
+QT4_WRAP_UI(SCRIBUS_UI_SOURCES ${SCRIBUS_UI_SRC} )
+QT4_WRAP_CPP(SCRIBUS_MOC_SOURCES ${SCRIBUS_MOC_CLASSES})
 
 LINK_DIRECTORIES(
-desaxe
-text
-styles
-fonts
+  desaxe
+  text
+  styles
+  fonts
 )
 
-#IF(NOT APPLE)
-#  SET(SCRIBUS_PIXBUF_LIB "scribus_pixbuf_lib")
-#  LINK_DIRECTORIES(pixbuf)
-#ENDIF(NOT APPLE)
-
-#SET(SCRIBUS_LIBART_LIB "scribus_libart_lib")
 SET(SCRIBUS_TEXT_LIB "scribus_text_lib")
 SET(SCRIBUS_STYLES_LIB "scribus_styles_lib")
 SET(SCRIBUS_FONTS_LIB "scribus_fonts_lib")
 SET(SCRIBUS_DESAXE_LIB "scribus_desaxe_lib")
 
 INCLUDE_DIRECTORIES(
-${CMAKE_SOURCE_DIR}
-${CMAKE_CURRENT_SOURCE_DIR}
+  ${CMAKE_SOURCE_DIR}
+  ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-IF(APPLE AND BUILD_OSX_BUNDLE)
+IF(APPLEBUNDLE)
   SET(EXE_NAME "Scribus${TAG_VERSION}" CACHE TYPE STRING)
-ELSE(APPLE AND BUILD_OSX_BUNDLE)
+ELSE(APPLEBUNDLE)
   SET(EXE_NAME "scribus${TAG_VERSION}" CACHE TYPE STRING)
-ENDIF(APPLE AND BUILD_OSX_BUNDLE)
+ENDIF(APPLEBUNDLE)
 
 ADD_EXECUTABLE(${EXE_NAME}
   ${SCRIBUS_MOC_SOURCES}
@@ -550,11 +519,6 @@ ADD_EXECUTABLE(${EXE_NAME}
 #Set up libraries to link with all found packages
 
 #Select Libart_LGPL or Cairo
-#IF(RENDER_LIB STREQUAL "LIBART")
-#  INCLUDE_DIRECTORIES(${LIBART_LGPL_INCLUDE_DIR})
-#  TARGET_LINK_LIBRARIES(${EXE_NAME} ${LIBART_LGPL_LIBRARIES})
-#  LINK_DIRECTORIES(libart)
-#ENDIF(RENDER_LIB STREQUAL "LIBART")
 IF(RENDER_LIB STREQUAL "CAIRO")
   INCLUDE_DIRECTORIES(${CAIRO_INCLUDE_DIR})
   TARGET_LINK_LIBRARIES(${EXE_NAME} ${CAIRO_LIBRARIES})
@@ -565,22 +529,20 @@ ENDIF(RENDER_LIB STREQUAL "CAIRO")
 MESSAGE("RPATH: ${CMAKE_INSTALL_RPATH}")
 
 TARGET_LINK_LIBRARIES(${EXE_NAME}
-${QT_LIBRARIES}
-${CUPS_LIBRARIES}
-${FREETYPE_LIBRARIES}
-${FONTCONFIG_LIBRARIES}
-${LCMS_LIBRARIES}
-${LIBXML2_LIBRARIES}
-${PYTHON_LIBRARIES}
-${TIFF_LIBRARIES}
-${JPEG_LIBRARIES}
-${ZLIB_LIBRARIES}
+  ${QT_LIBRARIES}
+  ${CUPS_LIBRARIES}
+  ${FREETYPE_LIBRARIES}
+  ${FONTCONFIG_LIBRARIES}
+  ${LCMS_LIBRARIES}
+  ${LIBXML2_LIBRARIES}
+  ${PYTHON_LIBRARIES}
+  ${TIFF_LIBRARIES}
+  ${JPEG_LIBRARIES}
+  ${ZLIB_LIBRARIES}
 )
 
 IF(WIN32)
-  TARGET_LINK_LIBRARIES(${EXE_NAME}
-    ${QT_QTMAIN_LIBRARY}
-  )
+  TARGET_LINK_LIBRARIES(${EXE_NAME} ${QT_QTMAIN_LIBRARY})
 ENDIF(WIN32)
 
 IF(WIN32)
@@ -589,45 +551,30 @@ ENDIF(WIN32)
 
 IF(APPLE)
   TARGET_LINK_LIBRARIES(${EXE_NAME}
-    "-undefined dynamic_lookup" 
+    "-undefined dynamic_lookup"
     "-framework CoreFoundation" )
 ENDIF(APPLE)
 
-
-
 TARGET_LINK_LIBRARIES(${EXE_NAME}
-${SCRIBUS_DESAXE_LIB}
-${SCRIBUS_TEXT_LIB}
-${SCRIBUS_STYLES_LIB}
-${SCRIBUS_FONTS_LIB}
+  ${SCRIBUS_DESAXE_LIB}
+  ${SCRIBUS_TEXT_LIB}
+  ${SCRIBUS_STYLES_LIB}
+  ${SCRIBUS_FONTS_LIB}
 )
 
-#IF(NOT APPLE)
-#  TARGET_LINK_LIBRARIES(${EXE_NAME}
-#  ${SCRIBUS_PIXBUF_LIB}
-#)
-#ENDIF(NOT APPLE)
-
-#IF(RENDER_LIB STREQUAL "LIBART")
-#  TARGET_LINK_LIBRARIES(${EXE_NAME}
-#  ${SCRIBUS_LIBART_LIB}
-#  )
-#ENDIF(RENDER_LIB STREQUAL "LIBART")
-IF(APPLE AND BUILD_OSX_BUNDLE)
+IF(APPLEBUNDLE)
   INSTALL(DIRECTORY DESTINATION MacOS)
   INSTALL(TARGETS ${EXE_NAME}
     RUNTIME DESTINATION MacOS
     LIBRARY DESTINATION lib
     )
-ELSE(APPLE AND BUILD_OSX_BUNDLE)
+ELSE(APPLEBUNDLE)
   INSTALL(TARGETS ${EXE_NAME}
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
     )
-ENDIF(APPLE AND BUILD_OSX_BUNDLE)
+ENDIF(APPLEBUNDLE)
 
-#  INSTALL(CODE "EXECUTE_PROCESS(COMMAND ${CMAKE_COMMAND} -E create_symlink bin/${EXE_NAME} MacOS/Scribus)" )
-#  WORKING_DIRECTORY ${CMAKE_INSTALL_PREFIX})
-
+#Install our header files, selected from all existing dirs
 FILE( GLOB_RECURSE SCRIBUS_HEADER_FILES *.h )
 INSTALL(FILES ${SCRIBUS_HEADER_FILES} DESTINATION ${INCLUDEDIR})
