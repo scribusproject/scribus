@@ -2,19 +2,6 @@ INCLUDE_DIRECTORIES(
 "${CMAKE_SOURCE_DIR}/scribus"
 )
 
-INSTALL(FILES
-ar.xml
-cs.xml
-de.xml
-el.xml
-en.xml
-eo.xml
-fi.xml
-he.xml
-it.xml
-la.xml
-nl.xml
-ru.xml
-sl.xml
-  DESTINATION ${SHAREDIR}loremipsum
-)
+#Install our lorem ipsum sample files, selected from *.xml in this directory
+FILE( GLOB SCRIBUS_LOREM_FILES *.xml )
+INSTALL(FILES ${SCRIBUS_LOREM_FILES} DESTINATION ${SHAREDIR}loremipsum)

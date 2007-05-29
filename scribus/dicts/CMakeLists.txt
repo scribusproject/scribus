@@ -3,37 +3,6 @@ ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 )
 
-INSTALL(FILES
-hyph_af.dic
-hyph_bg.dic
-hyph_ca.dic
-hyph_cs.dic
-hyph_da.dic
-hyph_de.dic
-hyph_el.dic
-hyph_en.dic
-hyph_es.dic
-hyph_fi.dic
-hyph_fr.dic
-hyph_ga.dic
-hyph_hr.dic
-hyph_hu.dic
-hyph_ia.dic
-hyph_id.dic
-hyph_is.dic
-hyph_it.dic
-hyph_lt.dic
-hyph_nl.dic
-hyph_nn_NO.dic
-hyph_nb_NO.dic
-hyph_pl.dic
-hyph_pt_BR.dic
-hyph_pt.dic
-hyph_ro.dic
-hyph_ru.dic
-hyph_sk.dic
-hyph_sl.dic
-hyph_sv.dic
-hyph_uk.dic
-  DESTINATION ${LIBDIR}dicts
-)
+#Install our hyphenation dict files, selected from *.dic in this directory
+FILE( GLOB SCRIBUS_DICT_FILES *.dic )
+INSTALL(FILES ${SCRIBUS_DICT_FILES} DESTINATION ${LIBDIR}dicts)

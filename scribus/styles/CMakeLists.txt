@@ -8,19 +8,15 @@ SET(SCRIBUS_STYLES_MOC_CLASSES
 )
 
 SET(SCRIBUS_STYLES_LIB_SOURCES
-style.cpp
-stylecontext.cpp
-stylecontextproxy.cpp
-linestyle.cpp
-charstyle.cpp
-paragraphstyle.cpp
+  style.cpp
+  stylecontext.cpp
+  stylecontextproxy.cpp
+  linestyle.cpp
+  charstyle.cpp
+  paragraphstyle.cpp
 )
 
-
-#IF(QT4_WRAP_CPP)
-  QT4_WRAP_CPP(SCRIBUS_STYLES_MOC_SOURCES ${SCRIBUS_STYLES_MOC_CLASSES})
-#ENDIF(QT4_WRAP_CPP)
-
+QT4_WRAP_CPP(SCRIBUS_STYLES_MOC_SOURCES ${SCRIBUS_STYLES_MOC_CLASSES})
 
 SET(SCRIBUS_STYLES_LIB "scribus_styles_lib")
 ADD_LIBRARY(${SCRIBUS_STYLES_LIB} STATIC ${SCRIBUS_STYLES_LIB_SOURCES} ${SCRIBUS_STYLES_MOC_SOURCES})

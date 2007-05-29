@@ -4,26 +4,24 @@ ${CMAKE_SOURCE_DIR}/scribus
 )
 
 SET(SHORTWORDS_PLUGIN_MOC_CLASSES
-configuration.h
-parse.h
-shortwords.h
-swprefsgui.h
-vlnadialog.h
+  configuration.h
+  parse.h
+  shortwords.h
+  swprefsgui.h
+  vlnadialog.h
 )
 
 SET(SHORTWORDS_PLUGIN_SOURCES
-configuration.cpp
-parse.cpp
-shortwords.cpp
-swprefsgui.cpp
-vlnadialog.cpp
+  configuration.cpp
+  parse.cpp
+  shortwords.cpp
+  swprefsgui.cpp
+  vlnadialog.cpp
 )
 
 SET(SCRIBUS_SHORTWORDS_PLUGIN "scribusshortwords")
 
-#IF(QT4_WRAP_CPP)
-  QT4_WRAP_CPP(SHORTWORDS_PLUGIN_MOC_SOURCES ${SHORTWORDS_PLUGIN_MOC_CLASSES})
-#ENDIF(QT4_WRAP_CPP)
+QT4_WRAP_CPP(SHORTWORDS_PLUGIN_MOC_SOURCES ${SHORTWORDS_PLUGIN_MOC_CLASSES})
 
 ADD_LIBRARY(${SCRIBUS_SHORTWORDS_PLUGIN} MODULE ${SHORTWORDS_PLUGIN_SOURCES} ${SHORTWORDS_PLUGIN_MOC_SOURCES})
 
