@@ -1,5 +1,5 @@
 <qt>
-<title>Compiling and Installing Using CMake and Scribus 1.3.3.6+ and 1.3.4+</title>
+<title>Compiling and Installing Using CMake and Scribus 1.3.3.6+</title>
 <h2>Compiling and Installing using CMake and Scribus 1.3.3.6 and 1.3.4 or higher</h2>
 <p>After many years of using the autotools build system, the developers of Scribus have selected CMake as a replacement system. It provides a much more flexible setup with a lot less complexity. It also provides compatibility with build tools on Linux and variants of Unix, Windows and Mac OSX.</p>
 <p>To build with the CMake build system you will of course need CMake itself. Most Linux and some Unix distributions provide it as a standard package. If not, please <a href="http://www.cmake.org">download it</a>, make sure you get a recent version, like 2.4.3 or higher. MacOSX users can also find installers there as well. Scribus does not yet use CMake for Windows, although this may be added in the future. </p>
@@ -38,7 +38,7 @@
 <p>Some options that the Scribus CMake files know about (more to come!):</p>
 <ul>
 <li>
-<strong>WANT_VERSIONING=1</strong>: Sets the build to use the VERSION setting as a suffix for the install directories and the binary. Eg, the binary could be scribus-1.3.4cvs. This should mean that you can install multiple versions with the same prefix with no clashes.
+<strong>WANT_VERSIONING=1</strong>: Sets the build to use the VERSION setting as a suffix for the install directories and the binary. Eg, the binary could be scribus-1.3.4svn. This should mean that you can install multiple versions with the same prefix with no clashes.
 </li>
 <li>
 <strong>WANT_DEBUG=1</strong>: Sets the build to be a debug release and use -O0 -g3, instead of -O2 (This is the default for now, and cannot be turned off unless you edit the CMakeFiles.txt file).
@@ -58,11 +58,11 @@
 
 <h3>Specifying Library Locations</h3>
 <p>Whenever your distribution releases their package for a library Scribus depends on, it may still not be the very latest stable or unstable version from the writers of the library. In some cases, the Scribus developers have had to rely on the very latest code to further some parts of Scribus. In this case it is necessary to build your own version of such a library.</p>
-<p>On example of this is the cairo graphics library. Right now, 1.3.4cvs has the capability to use the very very latest code from the just released cairo 1.2.4.</p>
+<p>On example of this is the cairo graphics library. Right now, 1.3.4svn has the capability to use the very very latest code from the just released cairo 1.2.4.</p>
 <p>To specify a new cairo install path, other than your system's default add this to the cmake command line: <code>-DPREFIX_CAIRO:PATH=/path/to/your/cairo/install</code></p>
 
 <h3>When system has both Qt3 and Qt4 installed</h3>
-<p>Systems with both Qt3 and Qt4 installed: You have <code>uic</code> and <code>moc</code> from Qt4 in the path and it may results to the compilation crash. This should NOT be the case with CMake 2.4.2 and higher, or when using current Scribus CVS. However, this might be a useful workaround:</p>
+<p>Systems with both Qt3 and Qt4 installed: You have <code>uic</code> and <code>moc</code> from Qt4 in the path and it may results to the compilation crash. This should NOT be the case with CMake 2.4.2 and higher, or when using current Scribus SVN. However, this might be a useful workaround:</p>
 <p>Remove cached options from previous cmake configuration run from your build location: <code>rm CMakeCache.txt</code></p>
 <p>Then change PATH variable (for my Gentoo) e.g.:</p>
 <pre>export PATH=/usr/qt/3/bin/:$PATH</pre>
