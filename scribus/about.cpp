@@ -59,25 +59,8 @@ About::About( QWidget* parent ) : QDialog( parent )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "28";
-	QString BUILD_MONTH = CommonStrings::may;
-	QString BUILD_YEAR = "2007";
-	QString BUILD_TIME = "";
-	QString BUILD_TZ = "";
-	QString BUILD_NAME = "";
 
-// This is the old way:
-	QString built = tr("%1 %2 %3").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR);
-
-// This is my way, only activated when envvar BUILD_NAME is set :-)  AV
-//#include "about_builddate.inc"
-	QString version = VERSION;
-	if (BUILD_NAME != "")
-		version += " \"" + BUILD_NAME + "\"";
-	if (BUILD_NAME == "BleedingEdge")
-		 built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
-
-    
+	QString version = QString(" \"%1\"").arg(VERSION);
 
 	QString bu;
 	bu += "C";
