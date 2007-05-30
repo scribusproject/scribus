@@ -1,7 +1,0 @@
-*.cpp
-*.h
-*.moc
-*~
-.deps
-CMakeFiles
-cmake_install.cmake
