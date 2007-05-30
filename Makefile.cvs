@@ -1,7 +1,0 @@
-all:
-	$(MAKE) -f admin/Makefile.common cvs
-
-dist:
-	$(MAKE) -f admin/Makefile.common dist
-
-.SILENT:
