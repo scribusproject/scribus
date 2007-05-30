@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include "pslib.h"
 #include "gsutil.h"
+#include "printerutil.h"
 #include "scribuscore.h"
 #include "util.h"
 
@@ -130,45 +131,18 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 		Py_DECREF(self->allPrinters);
 		self->allPrinters = allPrinters;
 	}
-#ifdef HAVE_CUPS
-	cups_dest_t *dests;
-	int num_dests = cupsGetDests(&dests);
-	for (int i = 0; i < num_dests; ++i) {
-		if (dests[i].name != NULL) {
-			PyObject *tmp = PyString_FromString(dests[i].name);
-			if (tmp) {
-				PyList_Append(self->allPrinters, tmp);
-				Py_DECREF(tmp);
-			}
-		}
-	}
-	cupsFreeDests(num_dests, dests);
-#else
-	QString Pcap;
-	// loadText is defined in utils.cpp
-	if (loadText("/etc/printcap", &Pcap))
+	QStringList printers = PrinterUtil::getPrinterNames();
+	for (uint i = 0; i < printers.count(); ++i)
 	{
-		QTextStream ts(&Pcap, QIODevice::ReadOnly);
-		while(!ts.atEnd())
-		{
-			QStringList wt;
-			QString tmp = ts.readLine();
-			if (tmp.isEmpty())
-				continue;
-			if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
-			{
-				tmp = tmp.stripWhiteSpace();
-				tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));
-				wt = QStringList::split("|", tmp);
-				PyObject *tmppr = PyString_FromString(wt[0]);
-				if (tmppr){
-					PyList_Append(self->allPrinters, tmppr);
-					Py_DECREF(tmppr);
-				}
-			}
+		QString prn = printers[i];
+		if (prn.isEmpty())
+			continue;
+		PyObject *tmppr = PyString_FromString(prn);
+		if (tmppr){
+			PyList_Append(self->allPrinters, tmppr);
+			Py_DECREF(tmppr);
 		}
 	}
-#endif
 	PyObject *tmp2 = PyString_FromString("File");
 	PyList_Append(self->allPrinters, tmp2);
 	Py_DECREF(tmp2);
