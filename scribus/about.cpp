@@ -132,9 +132,8 @@ About::About( QWidget* parent ) : QDialog( parent )
 		gsver = tr("Using Ghostscript version %1").arg(gsver);
 	else
 		gsver = tr("No Ghostscript version available");
-	buildID->setText( tr("<b>Scribus Version %1</b><p>Built %2<br/>From subversion r%3 (Created %4 UTC)<br/>%5 %6<br/>%7</p>")
+	buildID->setText( tr("<b>Scribus Version %1</b><p>From subversion r%2 (Created %3 UTC)<br/>%4 %5<br/>%6</p>")
 			.arg(version)
-			.arg(built)
 			.arg(getSvnRev())
 			.arg(getSvnDateTime().toString())
 			.arg( tr("Build ID:")).arg(bu).arg(gsver));
