@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include <windows.h>
 
-class ScWinPrint : public QObject
+class SCRIBUS_API ScWinPrint : public QObject
 {
 	Q_OBJECT
 

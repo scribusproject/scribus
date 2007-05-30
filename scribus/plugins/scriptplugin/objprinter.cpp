@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "printerutil.h"
 #include "scribuscore.h"
 #include "util.h"
+#include "scpaths.h"
 
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
@@ -26,6 +27,9 @@ bool SCRIBUS_API loadText(QString nam, QString *Buffer);
 void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 
+#if defined(_WIN32)
+#include "scwinprint.h"
+#endif
 
 typedef struct
 {
@@ -132,7 +136,7 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 		self->allPrinters = allPrinters;
 	}
 	QStringList printers = PrinterUtil::getPrinterNames();
-	for (uint i = 0; i < printers.count(); ++i)
+	for (int i = 0; i < printers.count(); ++i)
 	{
 		QString prn = printers[i];
 		if (prn.isEmpty())
@@ -437,11 +441,28 @@ static PyObject *Printer_print(Printer *self)
 	ReallyUsed.clear();
 	ScCore->primaryMainWindow()->doc->getUsedFonts(ReallyUsed);
 	PrefsManager *prefsManager=PrefsManager::instance();
+
+#if defined(_WIN32)
+	if (!fil)
+	{
+		QByteArray devMode;
+		bool printDone = false;
+		if ( PrinterUtil::getDefaultSettings(prn, devMode) )
+		{
+			ScWinPrint winPrint;
+			printDone = winPrint.print( ScCore->primaryMainWindow()->doc, options, devMode, false );
+		}
+		if (!printDone)
+			PyErr_SetString(PyExc_SystemError, "Printing failed");
+		Py_RETURN_NONE;
+	}
+#endif
+
 	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, ReallyUsed, ScCore->primaryMainWindow()->doc->PageColors, false, true);
 	if (dd != NULL)
 	{
 		if (!fil)
-			fna = QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps");
+			fna = QDir::convertSeparators(ScPaths::getTempFileDir()+"/tmp.ps");
 		PSfile = dd->PS_set_file(fna);
 		fna = QDir::convertSeparators(fna);
 		if (PSfile)
