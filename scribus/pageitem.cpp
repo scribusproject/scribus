@@ -1280,6 +1280,7 @@ void PageItem::paintObj(QPainter *p)
 		{
 			if (Groups.count() == 0)
 			{
+				//Locked line colour selection
 				if (m_Locked)
 					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				else
@@ -1301,6 +1302,7 @@ void PageItem::paintObj(QPainter *p)
 					lw = qMax(ml[ml.size()-1].Width, 1.0) / sc;
 					le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
 				}
+				//Draw our frame outline
 				if (asLine())
 				{
 					if (le != Qt::FlatCap)
@@ -1309,7 +1311,7 @@ void PageItem::paintObj(QPainter *p)
 						p->drawRect(QRectF(-1 / sc, -lw2, Width, lw));
 				}
 				else
-					p->drawRect(QRectF(-1 / sc, -1 / sc, Width + 2 / sc, Height + 2 / sc));
+					p->drawRect(QRectF(0 / sc, 0 / sc, Width + 2 / sc, Height + 2 / sc));
 				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setBrush(PrefsManager::instance()->appPrefs.DFrameColor);
 				if ((!m_Locked) && (!m_SizeLocked))
