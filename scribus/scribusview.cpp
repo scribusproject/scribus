@@ -389,6 +389,8 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		return;
 //	QTime tim;
 //	tim.start();
+	psx->setRenderHint(QPainter::Antialiasing, false);
+	psx->setRenderHint(QPainter::SmoothPixmapTransform, false);
 	if ((clipw > 0) && (cliph > 0))
 	{
 

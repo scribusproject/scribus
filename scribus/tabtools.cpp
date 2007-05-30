@@ -171,7 +171,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( tabFillCombo, 7, 1, Qt::AlignLeft );
 	textLabel3b2t = new QLabel(tabFillCombo, tr( "Tab Fill Character:" ), subTabText, "textLabel3b2t" );
 	subTabTextLayout->addWidget( textLabel3b2t, 7, 0 );
-	gapTab = new ScrSpinBox( 1, 200, subTabText, precision );
+	gapTab = new ScrSpinBox( 1, 200, subTabText, unitIndex );
 
 	subTabTextLayout->addWidget( gapTab, 7, 3, Qt::AlignLeft );
 	textLabel3b2t2 = new QLabel(gapTab, tr( "Tab Width:" ), subTabText, "textLabel3b2t2" );
@@ -183,7 +183,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( columnsText, 8, 1, Qt::AlignLeft );
 	textLabel4b = new QLabel(columnsText, tr("Colu&mns:"), subTabText, "TextCol");
 	subTabTextLayout->addWidget( textLabel4b, 8, 0 );
-	gapText = new ScrSpinBox( 0, 200, subTabText, precision );
+	gapText = new ScrSpinBox( 0, 200, subTabText, unitIndex );
 
 	subTabTextLayout->addWidget( gapText, 8, 3, Qt::AlignLeft );
 	textLabel5b = new QLabel(gapText, tr("&Gap:"), subTabText, "TextCol");
@@ -235,6 +235,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel11b = new QLabel( comboStyleShape, tr( "Line Style:" ), subTabShape, "textLabel11b" );
 	subTabShapeLayout->addWidget( textLabel11b, 5, 0 );
 	lineWidthShape = new ScrSpinBox( 0, 36, subTabShape, 1 );
+	lineWidthShape->setDecimals(1);
 	lineWidthShape->setSuffix( tr( " pt" ) );
 
 	subTabShapeLayout->addWidget( lineWidthShape, 6, 1, Qt::AlignLeft );
@@ -278,6 +279,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	endArrowText = new QLabel( endArrow, tr( "End:" ), subTabLine, "endArrowText" );
 	subTabLineLayout->addWidget( endArrowText, 4, 2 );
 	lineWidthLine = new ScrSpinBox( 1, 36, subTabLine, 1 );
+	lineWidthLine->setDecimals(1);
 	lineWidthLine->setSuffix( tr( " pt" ) );
 
 	subTabLineLayout->addMultiCellWidget( lineWidthLine, 6, 6, 1, 2, Qt::AlignLeft );
@@ -425,14 +427,14 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	genDispBox->layout()->setMargin( 10 );
 	subTabGeneralLayout2 = new Q3GridLayout( genDispBox->layout() );
 
-	genDispX = new ScrSpinBox( -1000, 1000, genDispBox, 1 );
-	genDispX->setSuffix( tr( " pt" ) );
+	genDispX = new ScrSpinBox( -1000, 1000, genDispBox, unitIndex );
+//	genDispX->setSuffix( tr( " pt" ) );
 	subTabGeneralLayout2->addWidget( genDispX, 0, 1, Qt::AlignLeft );
 	genText1 = new QLabel( genDispX, tr( "X Displacement" ), genDispBox, "genText1" );
 	subTabGeneralLayout2->addWidget( genText1, 0, 0);
 
-	genDispY = new ScrSpinBox( -1000, 1000, genDispBox, 1 );
-	genDispY->setSuffix( tr( " pt" ) );
+	genDispY = new ScrSpinBox( -1000, 1000, genDispBox, unitIndex );
+//	genDispY->setSuffix( tr( " pt" ) );
 	subTabGeneralLayout2->addWidget( genDispY, 1, 1, Qt::AlignLeft );
 	genText2 = new QLabel( genDispY, tr( "Y Displacement" ), genDispBox, "genText2" );
 	subTabGeneralLayout2->addWidget( genText2, 1, 0);
@@ -446,6 +448,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabGeneralLayout3 = new Q3GridLayout( genRotBox->layout() );
 
 	genRot = new ScrSpinBox( 1, 90, genRotBox, 1 );
+	genRot->setDecimals(1);
+	genRot->setSuffix("");
 	subTabGeneralLayout3->addWidget( genRot, 0, 1, Qt::AlignLeft );
 	genText3 = new QLabel( genRot, tr( "Constrain to:" ), genRotBox, "genText3" );
 	subTabGeneralLayout3->addWidget( genText3, 0, 0);
@@ -665,10 +669,10 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		tabFillCombo->setEditable(true);
 		tabFillCombo->setEditText( CommonStrings::trCustomTabFill + prefsData->tabFillChar);
 	}
-	gapTab->setSuffix( unit );
+	gapText->setNewUnit(unitIndex);
+	gapTab->setNewUnit(unitIndex);
 	gapTab->setValue(prefsData->dTabWidth * unitRatio);
 	columnsText->setValue(prefsData->dCols);
-	gapText->setSuffix( unit );
 	gapText->setValue(prefsData->dGap * unitRatio);
 
 	colorComboLineShape->clear();
@@ -810,6 +814,8 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 
 	genDispX->setValue(prefsData->dispX);
 	genDispY->setValue(prefsData->dispY);
+	genDispX->setNewUnit(unitIndex);
+	genDispY->setNewUnit(unitIndex);
 	genRot->setValue(prefsData->constrain);
 
 	setSample();
@@ -967,16 +973,20 @@ void TabTools::enableFontPreview(bool state)
 
 void TabTools::unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion)
 {
-	double oldMin, oldMax, val;
-	int decimalsOld;
+//	double oldMin, oldMax, val;
+//	int decimalsOld;
+	gapText->setNewUnit(docUnitIndex);
+	gapTab->setNewUnit(docUnitIndex);
+	genDispX->setNewUnit(docUnitIndex);
+	genDispY->setNewUnit(docUnitIndex);
 
-	gapText->setSuffix(unit);
-	gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	gapTab->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	gapTab->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	genDispX->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	genDispX->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	genDispY->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	genDispY->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+//	gapText->setSuffix(unit);
+//	gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+//	gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+//	gapTab->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+//	gapTab->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+//	genDispX->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+//	genDispX->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+//	genDispY->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+//	genDispY->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 }
