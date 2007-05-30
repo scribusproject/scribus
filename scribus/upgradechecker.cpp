@@ -45,11 +45,11 @@ void UpgradeChecker::init()
 	getter=0;
 	updates.clear();
 	version=(VERSION);
-	stability="unstablecvs";
+	stability="unstablesvn";
 	QString versionStripped=version.lower();
-	isCVS=versionStripped.contains("cvs");
+	isCVS=versionStripped.contains("svn");
 	if (isCVS)
-		versionStripped.remove("cvs");
+		versionStripped.remove("svn");
 	major=versionStripped.section('.',0,0).toInt();
 	minor=versionStripped.section('.',1,1).toInt();
 	revision1=versionStripped.section('.',2,2).toInt();

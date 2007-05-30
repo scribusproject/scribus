@@ -645,9 +645,9 @@ bool overwrite(QWidget *parent, QString filename)
 	if (fi.exists())
 	{
 		QString fn = QDir::convertSeparators(filename);
-		int t = ScMessageBox::warning(parent, QObject::tr("File exists"),
+		int t = QMessageBox::warning(parent, QObject::tr("File exists"),
 									"<qt>"+ QObject::tr("A file named '%1' already exists.<br/>Do you want to replace it with the file you are saving?").arg(fn) +"</qt>",
-									QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
+									QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel);
 		if (t == QMessageBox::Cancel)
 			retval = false;
 	}
