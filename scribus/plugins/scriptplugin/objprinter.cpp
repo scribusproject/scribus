@@ -28,6 +28,9 @@ bool SCRIBUS_API loadText(QString nam, QString *Buffer);
 void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 
+#if defined(_WIN32)
+#include "scwinprint.h"
+#endif
 
 typedef struct
 {
@@ -430,11 +433,48 @@ static PyObject *Printer_print(Printer *self)
 	ReallyUsed.clear();
 	ScMW->doc->getUsedFonts(&ReallyUsed);
 	PrefsManager *prefsManager=PrefsManager::instance();
+
+#if defined(_WIN32)
+	if (!fil)
+	{
+		PrintOptions options;
+		options.printer  = prn;
+		options.filename = fna;
+		options.toFile   = fil;
+		options.pageNumbers = pageNs;
+		options.copies   = Nr;
+		options.outputSeparations = sep;
+		options.separationName    = SepName;
+		options.allSeparations    = false;
+		options.useColor = color;
+		options.mirrorH  = mirrorH;
+		options.mirrorV  = mirrorV;
+		options.useICC   = useICC;
+		options.doClip   = false;
+		options.doGCR    = DoGCR;
+		options.PSLevel  = psl;
+		options.setDevParam = false;
+		options.useAltPrintCommand = false;
+
+		QByteArray devMode;
+		bool printDone = false;
+		if ( PrinterUtil::getDefaultSettings(prn, devMode) )
+		{
+			ScWinPrint winPrint;
+			printDone = winPrint.print( ScMW->doc, options, devMode, false );
+		}
+		if (!printDone)
+			PyErr_SetString(PyExc_SystemError, "Printing failed");
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+#endif
+
 	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, ScMW->doc->PageColors, false, true);
 	if (dd != NULL)
 	{
 		if (!fil)
-			fna = ScMW->PrefsPfad+"/tmp.ps";
+			fna = ScMW->PrefsPfad + "/tmp.ps";
 		PSfile = dd->PS_set_file(fna);
 		fna = QDir::convertSeparators(fna);
 		if (PSfile)
