@@ -60,7 +60,7 @@ public:
 						 int unitIndex, double PageH, double PageB,
 						 ScribusDoc *mdoc, bool exporting);
 
-	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
+	void unitChange(QString unit, int docUnitIndex, double invUnitConversion);
 
 	// GUI member pointers
 	// Remember to initialize these in the initializer list of the ctor when

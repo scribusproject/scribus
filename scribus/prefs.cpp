@@ -295,16 +295,15 @@ void Preferences::unitChange()
 	double oldUnitRatio = unitRatio;
 	docUnitIndex = tabDocument->unitCombo->currentItem();
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 	
 	tabDocument->unitChange();
-	tabGuides->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
-	tabView->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
-	tabTools->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
-	tabPDF->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
-	tabPrinter->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
+	tabGuides->unitChange(suffix, docUnitIndex, invUnitConversion);
+	tabView->unitChange(docUnitIndex);
+	tabTools->unitChange(docUnitIndex);
+	tabPDF->unitChange(suffix, docUnitIndex, invUnitConversion);
+	tabPrinter->unitChange(suffix, docUnitIndex, invUnitConversion);
 }
 
 

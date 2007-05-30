@@ -26,7 +26,7 @@ class SCRIBUS_API TabDisplay : public QWidget, public Ui::TabDisplay
 		TabDisplay(QWidget* parent = 0, const char* name = 0);
 		~TabDisplay(){};
 		void restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, Q3ValueList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch);
-		void unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion);
+		void unitChange(int docUnitIx);
 		//! \brief Hide non-needed widgets for ReformDoc widget
 		void setDocSetupMode();
 		void setPaperColor(QColor neu);

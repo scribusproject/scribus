@@ -169,14 +169,13 @@ void ReformDoc::unitChange()
 	double oldUnitRatio = unitRatio;
 	docUnitIndex = tabPage->unitCombo->currentItem();
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 	tabPage->unitChange();
-	tabGuides->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
-	tabView->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
-	tabTools->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
-	tabPDF->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
+	tabGuides->unitChange(suffix, docUnitIndex, invUnitConversion);
+	tabView->unitChange(docUnitIndex);
+	tabTools->unitChange(docUnitIndex);
+	tabPDF->unitChange(suffix, docUnitIndex, invUnitConversion);
 }
 
 void ReformDoc::setDS(int layout)

@@ -2023,10 +2023,11 @@ void TabPDFOptions::OutlineAll()
 	}
 }
 
-void TabPDFOptions::unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion)
+void TabPDFOptions::unitChange(QString unit, int docUnitIndex, double invUnitConversion)
 {
 	double oldMin = -1, oldMax = -1, val = -1;
 	int decimalsOld = -1;
+	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 
 	BleedBottom->setSuffix(unit);
 	BleedTop->setSuffix(unit);

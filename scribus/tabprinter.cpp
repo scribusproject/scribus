@@ -49,23 +49,23 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
 	bleedTop->setDecimals( decimals );
 	bleedTop->setMinimum(0.0);
-	bleedTop->setMinimum(3000*unitRatio);
+	bleedTop->setMaximum(3000*unitRatio);
 	bleedTop->setSuffix(unitSuffix);
 	bleedBottom->setDecimals( decimals );
 	bleedBottom->setMinimum(0.0);
-	bleedBottom->setMinimum(3000*unitRatio);
+	bleedBottom->setMaximum(3000*unitRatio);
 	bleedBottom->setSuffix(unitSuffix);
 	bleedLeft->setDecimals( decimals );
 	bleedLeft->setMinimum(0.0);
-	bleedLeft->setMinimum(3000*unitRatio);
+	bleedLeft->setMaximum(3000*unitRatio);
 	bleedLeft->setSuffix(unitSuffix);
 	bleedRight->setDecimals( decimals );
 	bleedRight->setMinimum(0.0);
-	bleedRight->setMinimum(3000*unitRatio);
+	bleedRight->setMaximum(3000*unitRatio);
 	bleedRight->setSuffix(unitSuffix);
 	offsetValue->setDecimals( decimals );
 	offsetValue->setMinimum(0.0);
-	offsetValue->setMinimum(3000*unitRatio);
+	offsetValue->setMaximum(3000*unitRatio);
 	offsetValue->setSuffix(unitSuffix);
 
 	defaultPrinter->setMinimumSize( QSize( 250, 22 ) );
@@ -177,11 +177,12 @@ void TabPrinter::selOtherComm()
 	}
 }
 
-void TabPrinter::unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion)
+void TabPrinter::unitChange(QString unit, int docUnitIx, double invUnitConversion)
 {
 	double oldMin, oldMax, val;
 	int decimalsOld;
 	docUnitIndex = docUnitIx;
+	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 
 	bleedTop->setSuffix(unit);
 	bleedBottom->setSuffix(unit);

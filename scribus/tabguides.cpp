@@ -247,6 +247,7 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 {
 	QString unit = unitGetSuffixFromIndex(unitIndex);
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
+	int decimals = unitGetPrecisionFromIndex(unitIndex);
 
 	QPixmap pm3(54, 14);
 	pm3.fill(prefsData->guideColor);
@@ -268,16 +269,20 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	pm4.fill(prefsData->baseColor);
 	colorBaselineGrid = prefsData->baseColor;
 	baselineColor->setPixmap(pm4);
+	minorSpace->setDecimals( decimals );
 	minorSpace->setValue(prefsData->minorGrid  * unitRatio);
 	minorSpace->setSuffix( unit );
+	majorSpace->setDecimals( decimals );
 	majorSpace->setValue(prefsData->majorGrid * unitRatio);
 	majorSpace->setSuffix( unit );
 	snapDistance->setValue(qRound(prefsData->guideRad));
 	snapDistance->setSuffix( " " + tr( "px" ) );
 	grabDistance->setValue(prefsData->grabRad);
 	grabDistance->setSuffix( " " + tr( " px" ) );
+	baseGrid->setDecimals( decimals );
 	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
 	baseGrid->setSuffix( unit );
+	baseOffset->setDecimals( decimals );
 	baseOffset->setValue(prefsData2->offsetBaseGrid * unitRatio);
 	baseOffset->setSuffix( unit );
 	inBackground->setChecked( prefsData->before );
@@ -353,10 +358,11 @@ void TabGuides::changeMarginColor()
 	}
 }
 
-void TabGuides::unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion)
+void TabGuides::unitChange(QString unit, int docUnitIndex, double invUnitConversion)
 {
 	double oldMin, oldMax, val;
 	int decimalsOld;
+	int decimal = unitGetPrecisionFromIndex(docUnitIndex);
 
 	minorSpace->setSuffix(unit);
 	majorSpace->setSuffix(unit);
@@ -364,11 +370,11 @@ void TabGuides::unitChange(QString unit, int docUnitIndex, int decimals, double 
 	baseOffset->setSuffix(unit);
 	
 	minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
 	majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
 	baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
 	baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
 }

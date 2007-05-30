@@ -57,7 +57,7 @@ public:
 	\author Petr Vanek <petr@scribus.info> */
 	void enableFontPreview(bool state);
 
-	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
+	void unitChange(int docUnitIndex);
 
 	Q3ButtonGroup* buttonGroupTools;
 	QToolButton* toolShape;

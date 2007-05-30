@@ -971,22 +971,10 @@ void TabTools::enableFontPreview(bool state)
 	setSample();
 }
 
-void TabTools::unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion)
+void TabTools::unitChange(int docUnitIndex)
 {
-//	double oldMin, oldMax, val;
-//	int decimalsOld;
 	gapText->setNewUnit(docUnitIndex);
 	gapTab->setNewUnit(docUnitIndex);
 	genDispX->setNewUnit(docUnitIndex);
 	genDispY->setNewUnit(docUnitIndex);
-
-//	gapText->setSuffix(unit);
-//	gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-//	gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-//	gapTab->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-//	gapTab->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-//	genDispX->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-//	genDispX->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-//	genDispY->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-//	genDispY->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 }

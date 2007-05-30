@@ -137,31 +137,15 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
 }
 
-void TabDisplay::unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion)
+void TabDisplay::unitChange(int docUnitIx)
 {
-	double oldMin, oldMax, val;
-	int decimalsOld;
 	docUnitIndex = docUnitIx;
-
-	topScratch->setSuffix(unit);
-	bottomScratch->setSuffix(unit);
-	leftScratch->setSuffix(unit);
-	rightScratch->setSuffix(unit);
-	gapVertical->setSuffix( unit );
-	gapHorizontal->setSuffix( unit );
-
-	topScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	topScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	bottomScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	bottomScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	leftScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	leftScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	rightScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	rightScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	gapVertical->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	gapVertical->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	gapHorizontal->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	gapHorizontal->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	topScratch->setNewUnit(docUnitIndex);
+	bottomScratch->setNewUnit(docUnitIndex);
+	leftScratch->setNewUnit(docUnitIndex);
+	rightScratch->setNewUnit(docUnitIndex);
+	gapVertical->setNewUnit(docUnitIndex);
+	gapHorizontal->setNewUnit(docUnitIndex);
 	drawRuler();
 }
 

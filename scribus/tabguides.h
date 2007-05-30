@@ -37,7 +37,7 @@ public:
 	TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex);
 	~TabGuides() {};
 	void restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex);
-	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
+	void unitChange(QString unit, int docUnitIndex, double invUnitConversion);
 
 	ScrSpinBox* majorSpace;
 	ScrSpinBox* minorSpace;
