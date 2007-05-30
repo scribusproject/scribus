@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include "helpbrowser.h" // due the TextBrowser (for html browsing)
 #include "upgradechecker.h"
 #include "langmgr.h"
-#include "svndate.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -59,8 +58,23 @@ About::About( QWidget* parent ) : QDialog( parent )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
+	QString BUILD_DAY = "28";
+	QString BUILD_MONTH = CommonStrings::may;
+	QString BUILD_YEAR = "2007";
+	QString BUILD_TIME = "";
+	QString BUILD_TZ = "";
+	QString BUILD_NAME = "";
 
-	QString version = QString(" \"%1\"").arg(VERSION);
+// This is the old way:
+	QString built = tr("%1 %2 %3").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR);
+
+// This is my way, only activated when envvar BUILD_NAME is set :-)  AV
+//#include "about_builddate.inc"
+	QString version = VERSION;
+	if (BUILD_NAME != "")
+		version += " \"" + BUILD_NAME + "\"";
+	if (BUILD_NAME == "BleedingEdge")
+		 built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
 
 	QString bu;
 	bu += "C";
@@ -115,11 +129,7 @@ About::About( QWidget* parent ) : QDialog( parent )
 		gsver = tr("Using Ghostscript version %1").arg(gsver);
 	else
 		gsver = tr("No Ghostscript version available");
-	buildID->setText( tr("<b>Scribus Version %1</b><p>From subversion r%2 (Created %3 UTC)<br/>%4 %5<br/>%6</p>")
-			.arg(version)
-			.arg(getSvnRev())
-			.arg(getSvnDateTime().toString())
-			.arg( tr("Build ID:")).arg(bu).arg(gsver));
+	buildID->setText( tr("<b>Scribus Version %1</b><p>%2<br/>%3 %4<br/>%5</p>").arg(version).arg(built).arg( tr("Build ID:")).arg(bu).arg(gsver));
 	tabLayout1->addWidget( buildID );
 	tabWidget2->addTab( tab, tr( "&About" ) );
 	tab_2 = new QWidget( tabWidget2, "tab_2" );
