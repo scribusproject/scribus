@@ -513,7 +513,7 @@ static PyObject *Printer_print(Printer *self)
 }
 
 static PyMethodDef Printer_methods[] = {
-	{const_cast<char*>("print"), (PyCFunction)Printer_print, METH_NOARGS, const_cast<char*>("Prints selected pages.")},
+	{const_cast<char*>("printNow"), (PyCFunction)Printer_print, METH_NOARGS, const_cast<char*>("Prints selected pages.")},
 	{NULL, (PyCFunction)(0), 0, NULL} // sentinel
 };
 
