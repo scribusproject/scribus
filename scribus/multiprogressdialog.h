@@ -31,15 +31,14 @@ for which a new license (GPL+exception) is in place.
 #include "ui_multiprogressdialog.h"
 
 #include "scprogressbar.h"
-#include <qdialog.h>
-
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qmap.h>
-#include <qpushbutton.h>
-#include <qstringlist.h>
-#include <qstring.h>
-#include <q3valuelist.h>
+#include <QDialog>
+#include <QLabel>
+#include <QLayout>
+#include <QMap>
+#include <QPushButton>
+#include <QStringList>
+#include <QString>
+#include <QList>
 
 
 class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
@@ -77,7 +76,7 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 * @param barsNumerical
 		 * @return Success
 		 */
-		bool addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const Q3ValueList<bool>& barsNumerical);
+		bool addExtraProgressBars(const QStringList &barsList, const QStringList &barsTexts, const QList<bool>& barsNumerical);
 		/**
 		 * Set a new label for a user defined progress bar
 		 * @param barName Progress bar name

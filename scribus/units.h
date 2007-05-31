@@ -23,8 +23,8 @@ for which a new license (GPL+exception) is in place.
 #define UNITS_H
 
 #include "scribusapi.h"
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QString>
+#include <QStringList>
 
 #define UNITMIN 0
 #define UNITMAX 7

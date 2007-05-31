@@ -18,17 +18,17 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- 
-#include <iostream>
 
-#include <qmap.h>
-#include <qobject.h>
-#include <qstringlist.h> 
+#include "pagesize.h"
+ 
+
+#include <QStringList>
 
 #include <cmath>
+#include <iostream>
 
 #include "commonstrings.h"
-#include "pagesize.h"
+
 
 PageSize::PageSize(const QString sizeName)
 {

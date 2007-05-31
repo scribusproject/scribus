@@ -7,7 +7,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdir.h>
 #include <qdom.h>
-// #include <QNnetwork.h>
 #include <QTextStream>
 #include <QWidget>
 #include <iostream>

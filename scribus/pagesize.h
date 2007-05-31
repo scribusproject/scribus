@@ -22,8 +22,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGESIZE_H
 #define PAGESIZE_H
 
-#include <qmap.h>
-#include <qstring.h>
+#include <QMap>
+#include <QString>
 #include "scribusapi.h"
 #include "units.h"
 

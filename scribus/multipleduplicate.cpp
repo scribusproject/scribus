@@ -5,14 +5,13 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "multipleduplicate.h"
-//#include "multipleduplicate.moc"
 
-#include <q3buttongroup.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
-#include <qtabwidget.h>
+#include <QGroupBox>
+#include <QLabel>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSpinBox>
+#include <QTabWidget>
 
 #include "scrspinbox.h"
 #include "units.h"

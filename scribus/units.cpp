@@ -19,8 +19,8 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <qstring.h>
-#include <qobject.h>
+#include <QString>
+#include <QObject>
 #include "units.h"
 
 /*!
@@ -64,9 +64,9 @@ const double unitValueFromString(const QString& value)
 	{
 		dbl = lowerValue.remove("cm");
 	}
-	else if (lowerValue.find("°") != -1)
+	else if (lowerValue.find("Â°") != -1)
 	{
-		dbl = lowerValue.remove("°");
+		dbl = lowerValue.remove("Â°");
 	}
 	else if (lowerValue.find("%") != -1)
 	{
@@ -110,7 +110,7 @@ const scUnit unitIndexFromString(const QString& value)
 	{
 		retVal=SC_C;
 	}	
-	else if (lowerValue.find("°") != -1)
+	else if (lowerValue.find("Â°") != -1)
 	{
 		retVal=SC_DEGREES;
 	}
@@ -128,20 +128,7 @@ const scUnit unitIndexFromString(const QString& value)
  */
 const QString unitGetSuffixFromIndex(const int index)
 {
-	//Could also return " "+unitGetStrFromIndex(indeX);
-	if (index<UNITMIN || index>UNITMAX) 
-		return "";
-	QString suffix[] = {
-						QObject::tr(" pt"), 
-						QObject::tr(" mm"), 
-						QObject::tr(" in"), 
-						QObject::tr(" p"), 
-						QObject::tr(" cm"), 
-						QObject::tr(" c"), 
-						QObject::tr(" °"),
-						QObject::tr(" %")
-					  };
-	return suffix[index];
+	return QString(" %1").arg(unitGetStrFromIndex(index));
 }
 
 /*!
@@ -158,7 +145,7 @@ const QString unitGetStrFromIndex(const int index)
 						QObject::tr("p"), 
 						QObject::tr("cm"), 
 						QObject::tr("c"),
-						QObject::tr("°"),
+						QObject::tr("Â°"),
 						QObject::tr("%")
 						};
 	return suffix[index];
@@ -171,7 +158,7 @@ const QString unitGetUntranslatedStrFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return "";
-	QString suffix[] = { "pt", "mm", "in", "p", "cm", "c", "°", "%" };
+	QString suffix[] = { "pt", "mm", "in", "p", "cm", "c", "ï¿½", "%" };
 	return suffix[index];
 }
 /*!
@@ -181,7 +168,7 @@ const int unitGetDecimalsFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
-	//                      PT,   MM,    IN,   P,    CM,     C,   °,   %
+	//                      PT,   MM,    IN,   P,    CM,     C,   Â°,   %
 	int decimalPoints[] = {100, 1000, 10000, 100, 10000, 10000, 100, 100};
 	return decimalPoints[index];
 }
@@ -193,7 +180,7 @@ const int unitGetPrecisionFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
-	//                PT,MM,IN, P,CM, C, °, %
+	//                PT,MM,IN, P,CM, C, Â°, %
 	int precision[] = {2, 3, 4, 2, 4, 4, 2, 2};
 	return precision[index];
 }
@@ -211,7 +198,7 @@ const QStringList unitGetTextUnitList()
 	suffixList.append( QObject::tr( "Centimeters (cm)" ) );
 	suffixList.append( QObject::tr( "Cicero (c)" ) );
 	//Here for completeness, dont use!
-	//suffixList.append( QObject::tr( "°" ) );
+	//suffixList.append( QObject::tr( "Â°" ) );
 	//suffixList.append( QObject::tr( "%" ) );
 	return QStringList(suffixList);
 }
@@ -366,7 +353,7 @@ double unitRulerGetIter1FromIndex(const int index)
 {
 	if (!unitValidForDocUnit(index)) 
 		return 0;
-	//                 PT,         MM,   IN,    P,        CM,               C     °,    %
+	//                 PT,         MM,   IN,    P,        CM,               C     Â°,    %
 	double iter[] = {10.0, 720.0/25.4, 18.0, 12.0, 72.0/25.4, 72.0/25.4*4.512, 10.0, 10.0};
 	return iter[index];
 }
@@ -378,7 +365,7 @@ double unitRulerGetIter2FromIndex(const int index)
 {
 	if (!unitValidForDocUnit(index))
 		return 0;
-	//                  PT,          MM,   IN,     P,         CM,                C,     °,     %
+	//                  PT,          MM,   IN,     P,         CM,                C,     Â°,     %
 	double iter[] = {100.0, 7200.0/25.4, 72.0, 120.0, 720.0/25.4, 720.0/25.4*4.512, 100.0, 100.0};
 	return iter[index];
 }

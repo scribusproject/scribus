@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SPALETTE_H
 #define SPALETTE_H
 
-#include <qcombobox.h>
-#include <qlayout.h>
+#include <QComboBox>
+#include <QLayout>
 #include "scribusapi.h"
 class ScribusDoc;
 
