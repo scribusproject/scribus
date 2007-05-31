@@ -1274,6 +1274,8 @@ void PageItem::paintObj(QPainter *p)
 		return;
 	}
 	double sc = m_Doc->view()->scale();
+	double handleSize = 6.0 / sc;
+	double halfSize = 3.0 / sc;
 	if ((!FrameOnly) && (!m_Doc->RePos))
 	{
 		if (!m_Doc->m_Selection->isEmpty())
@@ -1311,32 +1313,33 @@ void PageItem::paintObj(QPainter *p)
 						p->drawRect(QRectF(-1 / sc, -lw2, Width, lw));
 				}
 				else
-					p->drawRect(QRectF(0 / sc, 0 / sc, Width + 2 / sc, Height + 2 / sc));
-				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+					p->drawRect(QRectF(0, 0, Width, Height));
+//				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setBrush(PrefsManager::instance()->appPrefs.DFrameColor);
+				p->setPen(Qt::NoPen);
 				if ((!m_Locked) && (!m_SizeLocked))
 				{
 					if (! asLine())
 					{
-						p->drawRect(QRectF(-1.0, -1.0, 6.0 / sc, 6.0 / sc));
-						p->drawRect(QRectF(Width, Height, -6 / sc, -6 / sc));
-						p->drawRect(QRectF(Width, -1 / sc, -6 / sc, 6 / sc));
-						p->drawRect(QRectF(-1 / sc, Height, 6 / sc, -6 / sc));
+						p->drawRect(QRectF(0.0, 0.0, handleSize, handleSize));
+						p->drawRect(QRectF(Width - handleSize, Height - handleSize, handleSize, handleSize));
+						p->drawRect(QRectF(Width - handleSize, 0.0, handleSize, handleSize));
+						p->drawRect(QRectF(0.0, Height - handleSize, handleSize, handleSize));
 						if (Width > 6)
 						{
-							p->drawRect(QRectF(Width / 2.0 - 3 / sc, Height, 6 / sc, -6 / sc));
-							p->drawRect(QRectF(Width / 2.0 - 3 / sc, -1, 6 / sc, 6 / sc));
+							p->drawRect(QRectF(Width / 2.0 - halfSize, Height - handleSize, handleSize, handleSize));
+							p->drawRect(QRectF(Width / 2.0 - halfSize, 0.0, handleSize, handleSize));
 						}
 						if (Height > 6)
 						{
-							p->drawRect(QRectF(Width, Height / 2.0 - 3 / sc, -6 / sc, 6 / sc));
-							p->drawRect(QRectF(-1 / sc, Height / 2.0 - 3 / sc, 6 / sc, 6 / sc));
+							p->drawRect(QRectF(Width - handleSize, Height / 2.0 - halfSize, handleSize, handleSize));
+							p->drawRect(QRectF(0.0, Height / 2.0 - halfSize, handleSize, handleSize));
 						}
 					}
 					else
 					{
-						p->drawRect(QRectF(-3 / sc, -3 / sc, 6 / sc, 6 / sc));
-						p->drawRect(QRectF(Width + 3 / sc, -3 / sc, -6 / sc, 6 / sc));
+						p->drawRect(QRectF(-halfSize, -halfSize, handleSize, handleSize));
+						p->drawRect(QRectF(Width + halfSize, -halfSize, -handleSize, handleSize));
 					}
 				}
 			}
@@ -1344,24 +1347,25 @@ void PageItem::paintObj(QPainter *p)
 			{
 				p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1.0 / sc, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 				p->setBrush(Qt::NoBrush);
-				p->drawRect(QRectF(-1 / sc, -1 / sc, Width + 2 / sc, Height + 2 / sc));
+				p->drawRect(QRectF(0.0, 0.0, Width, Height));
 				if (m_Doc->m_Selection->count() == 1)
 				{
-					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+					p->setPen(Qt::NoPen);
+//					p->setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1.0 / sc, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 					p->setBrush(PrefsManager::instance()->appPrefs.DFrameGroupColor);
-					p->drawRect(QRectF(-1.0 / sc, -1.0 / sc, 6.0 / sc, 6.0 / sc));
-					p->drawRect(QRectF(Width, Height, -6 / sc, -6 / sc));
-					p->drawRect(QRectF(Width, -1, -6 / sc, 6 / sc));
-					p->drawRect(QRectF(-1, Height, 6 / sc, -6 / sc));
+					p->drawRect(QRectF(0.0, 0.0, handleSize, handleSize));
+					p->drawRect(QRectF(Width - handleSize, Height - handleSize, handleSize, handleSize));
+					p->drawRect(QRectF(Width - handleSize, 0.0, handleSize, handleSize));
+					p->drawRect(QRectF(0.0, Height - handleSize, handleSize, handleSize));
 					if (Width > 6)
 					{
-						p->drawRect(QRectF(Width / 2.0 - 3 / sc, Height, 6 / sc, -6 / sc));
-						p->drawRect(QRectF(Width / 2.0 - 3 / sc, -1 / sc, 6 / sc, 6 / sc));
+						p->drawRect(QRectF(Width / 2.0 - halfSize, Height - handleSize, handleSize, handleSize));
+						p->drawRect(QRectF(Width / 2.0 - halfSize, 0.0, handleSize, handleSize));
 					}
 					if (Height > 6)
 					{
-						p->drawRect(QRectF(Width, Height / 2.0 - 3 / sc, -6 / sc, 6 / sc));
-						p->drawRect(QRectF(-1 / sc, Height / 2.0 - 3/ sc, 6 / sc, 6 / sc));
+						p->drawRect(QRectF(Width - handleSize, Height / 2.0 - halfSize, handleSize, handleSize));
+						p->drawRect(QRectF(0.0, Height / 2.0 - halfSize, handleSize, handleSize));
 					}
 				}
 			}
