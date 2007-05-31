@@ -7834,21 +7834,19 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		for (int i=0; i<mdData.copyCount; ++i)
 		{
 			m_ScMW->slotEditPaste();
-			QMatrix ma;
-			ma.translate(m_View->RCenter.x(), m_View->RCenter.y());
-			ma.scale(1, 1);
-			ma.rotate(dR2);
 			for (uint b=0; b<m_Selection->count(); ++b)
 			{
 				PageItem* bItem=m_Selection->itemAt(b);
 				bItem->setLocked(false);
 				MoveItem(dH2, dV2, bItem, true);
-				if (dR != 0.0)
-				{
-					FPoint n = FPoint(bItem->xPos() - m_View->RCenter.x(), bItem->yPos() - m_View->RCenter.y());
-					bItem->setXYPos(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
-					RotateItem(dR2, bItem);
-				}
+			}
+			m_Selection->setGroupRect();
+			if (dR != 0.0)
+			{
+				if (m_Selection->count() > 1)
+					m_View->RotateGroup(dR2);
+				else
+					RotateItem(dR2, m_Selection->itemAt(0));
 			}
 			dH2 += dH;
 			dV2 += dV;
