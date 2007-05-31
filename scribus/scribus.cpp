@@ -239,6 +239,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 //	CommonStrings::languageChange();
 	previewDinUse = false;
 	printDinUse = false;
+	internalCopy = false;
 //	guiLanguage = newGuiLanguage;
 //	initSplash(showSplash);
 	setUsesBigPixmaps(true);
@@ -4773,7 +4774,7 @@ void ScribusMainWindow::slotEditCopy()
 			doc->itemSelection_DeleteItem(&objects);
 #endif
 			
-			if (prefsManager->appPrefs.doCopyToScrapbook)
+			if ((prefsManager->appPrefs.doCopyToScrapbook) && (!internalCopy))
 			{
 				scrapbookPalette->ObjFromCopyAction(Buffer2);
 				rebuildRecentPasteMenu();
@@ -7323,6 +7324,7 @@ void ScribusMainWindow::ObjektDup()
 	slotSelect();
 	bool savedAlignGrid = doc->useRaster;
 	bool savedAlignGuides = doc->SnapGuides;
+	internalCopy = true;
 	doc->useRaster = false;
 	doc->SnapGuides = false;
 	slotEditCopy();
@@ -7335,6 +7337,8 @@ void ScribusMainWindow::ObjektDup()
 	}
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
+	internalCopy = false;
+	view->DrawNew();
 }
 
 void ScribusMainWindow::ObjektDupM()
@@ -7343,6 +7347,7 @@ void ScribusMainWindow::ObjektDupM()
 		return;
 	slotSelect();
 	NoFrameEdit();
+	internalCopy = true;
 	MultipleDuplicate *dia = new MultipleDuplicate(doc->unitIndex(), this);
 	if (dia->exec())
 	{
@@ -7350,6 +7355,7 @@ void ScribusMainWindow::ObjektDupM()
 		dia->getMultiplyData(mdData);
 		doc->itemSelection_MultipleDuplicate(mdData);
 	}
+	internalCopy = false;
 	delete dia;
 }
 
