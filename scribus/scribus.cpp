@@ -5427,6 +5427,8 @@ void ScribusMainWindow::ToggleStickyTools()
 {
 	prefsManager->appPrefs.stickyTools = !prefsManager->appPrefs.stickyTools;
 	scrActions["stickyTools"]->setOn(prefsManager->appPrefs.stickyTools);
+	if (!prefsManager->appPrefs.stickyTools)
+		setAppMode(modeNormal);
 }
 
 void ScribusMainWindow::ToggleAllPalettes()
