@@ -9283,6 +9283,7 @@ void ScribusView::ToBack()
 //		m_ScMW->outlinePalette->BuildTree();
 		emit LevelChanged(0);
 		emit DocChanged();
+		forceRedraw = true;
 		updateContents();
 	}
 }
@@ -9295,6 +9296,7 @@ void ScribusView::ToFront()
 //		m_ScMW->outlinePalette->BuildTree();
 		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
+		forceRedraw = true;
 		updateContents();
 	}
 }
@@ -9352,6 +9354,7 @@ void ScribusView::LowerItem()
 		*Doc->m_Selection=tempSelection;
 		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
+		forceRedraw = true;
 		updateContents();
 	}
 }
@@ -9411,6 +9414,7 @@ void ScribusView::RaiseItem()
 		*Doc->m_Selection=tempSelection;
 		emit LevelChanged(Doc->m_Selection->itemAt(0)->ItemNr);
 		emit DocChanged();
+		forceRedraw = true;
 		updateContents();
 	}
 }
