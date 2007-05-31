@@ -46,8 +46,8 @@ GradientPreview::GradientPreview(QWidget *pa) : QLabel(pa)
 	setFrameShadow( Q3Frame::Sunken );
 	setLineWidth( 2 );
 	setEraseColor(QColor(255,255,255));
-	setMinimumSize(QSize(200, 60));
-	setMaximumSize(QSize(3000, 60));
+	setMinimumSize(QSize(200, 70));
+	setMaximumSize(QSize(3000, 70));
 	setMouseTracking(true);
 	Mpressed = false;
 	outside = true;
@@ -135,7 +135,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 {
 	QRect fpo;
-	if ((Mpressed) && (ActStop != 0) && (ActStop != static_cast<int>(StopM.count()-1)) && (ActStop != -1) && (outside))
+	if ((Mpressed) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)) && (outside || m->y() > 60))
 	{
 		onlyselect = false;
 		fill_gradient.removeStop(ActStop);
@@ -212,13 +212,13 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		onlyselect = false;
 		repaint();
 	}
-	if ((Mpressed) && (outside) && (ActStop != 0) && (ActStop != static_cast<int>(StopM.count()-1)) && (ActStop != -1))
+	if ((Mpressed) && (outside || m->y() > 60) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
 		qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
 }
 
 void GradientPreview::leaveEvent(QEvent*)
 {
-	if ((Mpressed) && (ActStop != 0) && (ActStop != static_cast<int>(StopM.count()-1)) && (ActStop != -1))
+	if ((Mpressed) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
 		qApp->changeOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1));
 	else
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));

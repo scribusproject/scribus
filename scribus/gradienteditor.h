@@ -25,11 +25,11 @@ for which a new license (GPL+exception) is in place.
 #define GRADEDITOR_H
 
 #include <qlabel.h>
-#include <q3valuelist.h>
 #include <qspinbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 //Added by qt3to4:
+#include <QList>
 #include <QPaintEvent>
 #include <QMouseEvent>
 #include <Q3VBoxLayout>
@@ -57,7 +57,7 @@ public:
 	void setActTrans(double t);
 	void setActStep(double t);
 	VGradient fill_gradient;
-	Q3ValueList<int> StopM;
+	QList<int> StopM;
 	bool Mpressed;
 	bool outside;
 	bool onlyselect;
