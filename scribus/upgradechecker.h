@@ -7,11 +7,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef UPGRADECHECKER_H
 #define UPGRADECHECKER_H
 
-#include <qfile.h>
-#include <q3http.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QFile>
+#include <QHttp>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 class QWidget;
 
@@ -49,7 +49,7 @@ protected:
 	QStringList updates;
 	QString tempFile;
 	bool fin;
-	Q3Http* getter;
+	QHttp* getter;
 	int getterID;
 	bool retrieveError;
 	QString message;

@@ -7,17 +7,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdir.h>
 #include <qdom.h>
-#include <q3http.h>
-#include <q3network.h>
-#include <q3textstream.h>
-#include <qwidget.h>
+// #include <QNnetwork.h>
+#include <QTextStream>
+#include <QWidget>
 #include <iostream>
 #include <cstdlib>
 
 #include "helpbrowser.h"
 #include "scpaths.h"
 #include "upgradechecker.h"
-//#include "upgradechecker.moc"
 #include "prefsmanager.h"
 #include "scribuscore.h"
 
@@ -74,7 +72,7 @@ bool UpgradeChecker::fetch()
 	QFile file(tempFile);
 	if (getter)
 		delete getter;
-	getter=new Q3Http();
+	getter=new QHttp();
 	connect (getter, SIGNAL(done(bool)), this, SLOT(fileFinished(bool)));
 	connect (getter, SIGNAL(requestStarted(int)), this, SLOT(reqStarted(int)));
 	connect (getter, SIGNAL(requestFinished(int, bool)), this, SLOT(reqFinished(int, bool)));
@@ -106,7 +104,7 @@ bool UpgradeChecker::fetch()
 		outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
 		errorOccurred=true;
 	}
-	if (retrieveError || getter->error()!=Q3Http::NoError)
+	if (retrieveError || getter->error()!=QHttp::NoError)
 	{
 		outputText("<b>"+ tr("Error when attempting to get update file: %1").arg(getter->errorString())+"</b>");
 		errorOccurred=true;
@@ -128,8 +126,8 @@ bool UpgradeChecker::fetch()
 bool UpgradeChecker::process( QFile& dataFile )
 {
 	
-	Q3TextStream ts(&dataFile);
-	ts.setEncoding(Q3TextStream::UnicodeUTF8);
+	QTextStream ts(&dataFile);
+	ts.setEncoding(QTextStream::UnicodeUTF8);
 	QString errorMsg;
 	int eline;
 	int ecol;
