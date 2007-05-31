@@ -582,6 +582,9 @@ QByteArray ComputeMD5Sum(QByteArray *in)
 
 QString Path2Relative(QString Path)
 {
+	QDir d = QDir::current();
+	return d.relativeFilePath(Path);
+/*
 	QString	Ndir("");
 	QStringList Pdir;
 	QFileInfo Bfi = QFileInfo(Path);
@@ -627,7 +630,7 @@ QString Path2Relative(QString Path)
 	for (int ddx = dcoun2; ddx < Bdir.count(); ddx++)
 		Ndir += Bdir[ddx]+"/";
 	Ndir += Bfi.fileName();
-	return Ndir;
+	return Ndir; */
 }
 
 /***************************************************************************
