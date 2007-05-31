@@ -3442,7 +3442,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->updateClip();
 			Doc->setRedrawBounding(currItem);
 			currItem->OwnPage = Doc->OnPage(currItem);
-			inItemCreation = false;
 			operItemResizing = false;
 			specialRendering = false;
 			updateContents();
@@ -3485,7 +3484,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->OwnPage = Doc->OnPage(currItem);
 			currItem->OldB2 = currItem->width();
 			currItem->OldH2 = currItem->height();
-			inItemCreation = false;
 			operItemResizing = false;
 			specialRendering = false;
 			updateContents();
@@ -3493,7 +3491,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		if (moveTimerElapsed() && (GetItem(&currItem)))
 		{
 			dragTimer->stop();
-			inItemCreation = false;
 			specialRendering = false;
 			if (Doc->m_Selection->isMultipleSelection())
 			{
