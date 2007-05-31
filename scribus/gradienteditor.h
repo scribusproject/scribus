@@ -32,9 +32,9 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QPaintEvent>
 #include <QMouseEvent>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QEvent>
-#include <Q3HBoxLayout>
 
 #include "scribusapi.h"
 #include "vgradient.h"
@@ -90,8 +90,8 @@ signals:
 	void gradientChanged();
 
 protected:
-	Q3VBoxLayout* Form1Layout;
-	Q3HBoxLayout* Layout1;
+	QVBoxLayout* Form1Layout;
+	QHBoxLayout* Layout1;
 };
 
 #endif

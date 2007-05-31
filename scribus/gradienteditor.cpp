@@ -28,22 +28,20 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <QApplication>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3PointArray>
+#include <QPolygon>
 #include <QPaintEvent>
-#include <Q3Frame>
+#include <QFrame>
 #include <QLabel>
 #include <QMouseEvent>
 #include <QEvent>
-#include <Q3VBoxLayout>
 #include "scpainter.h"
 #include "fpoint.h"
 extern QPixmap loadIcon(QString nam);
 
 GradientPreview::GradientPreview(QWidget *pa) : QLabel(pa)
 {
-	setFrameShape( Q3Frame::Panel );
-	setFrameShadow( Q3Frame::Sunken );
+	setFrameShape( QFrame::Panel );
+	setFrameShadow( QFrame::Sunken );
 	setLineWidth( 2 );
 	setEraseColor(QColor(255,255,255));
 	setMinimumSize(QSize(200, 70));
@@ -102,7 +100,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 			pw.setBrush(Qt::red);
 		else
 			pw.setBrush(Qt::blue);
-		Q3PointArray cr;
+		QPolygon cr;
 		cr.setPoints(3, qRound(center), 43, qRound(center-4), 56, qRound(center+4), 56);
 		pw.drawPolygon(cr);
 	}
@@ -274,10 +272,10 @@ void GradientPreview::setActStep(double t)
 
 GradientEditor::GradientEditor(QWidget *pa) : QLabel(pa)
 {
-	Form1Layout = new Q3VBoxLayout( this, 0, 0, "Form1Layout");
+	Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
 	Preview = new GradientPreview(this);
 	Form1Layout->addWidget(Preview);
-	Layout1 = new Q3HBoxLayout(0,0,0,"Layout1");
+	Layout1 = new QHBoxLayout(0,0,0,"Layout1");
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 0 );
 	Position = new QSpinBox( this, "shspin" );
