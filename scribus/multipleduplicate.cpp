@@ -43,7 +43,9 @@ MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char
 	horizRCGapSpinBox->setMaximum(1000);
 	vertRCGapSpinBox->setMaximum(1000);
 
-	rotationSpinBox->setValues(-180.0, 180.0, 10, 0.0);
+	rotationSpinBox->setValues(-180.0, 180.0, 6, 0.0);
+	rotationSpinBox->setDecimals(1);
+	rotationSpinBox->setNewUnit(6);
 	
 	copiesCreateButtonGroup->setButton(0);
 	// signals and slots connections
