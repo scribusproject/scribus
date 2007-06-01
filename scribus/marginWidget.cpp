@@ -338,6 +338,7 @@ void MarginWidget::setPreset()
 	}
 	if (pageType == 1)
 		rightR->setEnabled(false);
+	leftR->setEnabled(item != PresetLayout::nineparts);
 	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
