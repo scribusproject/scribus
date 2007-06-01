@@ -1516,13 +1516,22 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						{
 							if ((doc->EditClip) && (view->ClRe != -1))
 							{
-								FPoint np;
-								if (view->EditContour)
-									np = currItem->ContourLine.point(view->ClRe);
-								else
-									np = currItem->PoLine.point(view->ClRe);
-								np = np - FPoint(moveBy, 0);
-								view->MoveClipPoint(currItem, np);
+								int storedClRe = view->ClRe;
+								if ((view->SelNode.count() != 0) && (view->EdPoints))
+								{
+									for (int itm = 0; itm < view->SelNode.count(); ++itm)
+									{
+										FPoint np;
+										if (view->EditContour)
+											np = currItem->ContourLine.point(*view->SelNode.at(itm));
+										else
+											np = currItem->PoLine.point(*view->SelNode.at(itm));
+										view->ClRe = *view->SelNode.at(itm);
+										np = np - FPoint(moveBy, 0);
+										view->MoveClipPoint(currItem, np);
+									}
+								}
+								view->ClRe = storedClRe;
 							}
 							else
 							{
@@ -1569,13 +1578,22 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						{
 							if ((doc->EditClip) && (view->ClRe != -1))
 							{
-								FPoint np;
-								if (view->EditContour)
-									np = currItem->ContourLine.point(view->ClRe);
-								else
-									np = currItem->PoLine.point(view->ClRe);
-								np = np + FPoint(moveBy, 0);
-								view->MoveClipPoint(currItem, np);
+								int storedClRe = view->ClRe;
+								if ((view->SelNode.count() != 0) && (view->EdPoints))
+								{
+									for (int itm = 0; itm < view->SelNode.count(); ++itm)
+									{
+										FPoint np;
+										if (view->EditContour)
+											np = currItem->ContourLine.point(*view->SelNode.at(itm));
+										else
+											np = currItem->PoLine.point(*view->SelNode.at(itm));
+										view->ClRe = *view->SelNode.at(itm);
+										np = np + FPoint(moveBy, 0);
+										view->MoveClipPoint(currItem, np);
+									}
+								}
+								view->ClRe = storedClRe;
 							}
 							else
 							{
@@ -1622,13 +1640,22 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						{
 							if ((doc->EditClip) && (view->ClRe != -1))
 							{
-								FPoint np;
-								if (view->EditContour)
-									np = currItem->ContourLine.point(view->ClRe);
-								else
-									np = currItem->PoLine.point(view->ClRe);
-								np = np - FPoint(0, moveBy);
-								view->MoveClipPoint(currItem, np);
+								int storedClRe = view->ClRe;
+								if ((view->SelNode.count() != 0) && (view->EdPoints))
+								{
+									for (int itm = 0; itm < view->SelNode.count(); ++itm)
+									{
+										FPoint np;
+										if (view->EditContour)
+											np = currItem->ContourLine.point(*view->SelNode.at(itm));
+										else
+											np = currItem->PoLine.point(*view->SelNode.at(itm));
+										view->ClRe = *view->SelNode.at(itm);
+										np = np - FPoint(0, moveBy);
+										view->MoveClipPoint(currItem, np);
+									}
+								}
+								view->ClRe = storedClRe;
 							}
 							else
 							{
@@ -1675,13 +1702,22 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						{
 							if ((doc->EditClip) && (view->ClRe != -1))
 							{
-								FPoint np;
-								if (view->EditContour)
-									np = currItem->ContourLine.point(view->ClRe);
-								else
-									np = currItem->PoLine.point(view->ClRe);
-								np = np + FPoint(0, moveBy);
-								view->MoveClipPoint(currItem, np);
+								int storedClRe = view->ClRe;
+								if ((view->SelNode.count() != 0) && (view->EdPoints))
+								{
+									for (int itm = 0; itm < view->SelNode.count(); ++itm)
+									{
+										FPoint np;
+										if (view->EditContour)
+											np = currItem->ContourLine.point(*view->SelNode.at(itm));
+										else
+											np = currItem->PoLine.point(*view->SelNode.at(itm));
+										view->ClRe = *view->SelNode.at(itm);
+										np = np - FPoint(0, moveBy);
+										view->MoveClipPoint(currItem, np);
+									}
+								}
+								view->ClRe = storedClRe;
 							}
 							else
 							{
@@ -1800,7 +1836,15 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 			{
 				uint docSelectionCount=doc->m_Selection->count();
 				if ((docSelectionCount != 0) && (doc->appMode == modeNormal) && (doc->EditClip) && (view->ClRe != -1))
+				{
+					PageItem *currItem = doc->m_Selection->itemAt(0);
+					double xposOrig = currItem->xPos();
+					double yposOrig = currItem->yPos();
+					doc->AdjustItemSize(currItem);
+					if (!view->EditContour)
+						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
 					view->updateContents();
+				}
 				for (uint i = 0; i < docSelectionCount; ++i)
 					doc->m_Selection->itemAt(i)->checkChanges(true);
 				if (docSelectionCount > 1 && view->groupTransactionStarted())
