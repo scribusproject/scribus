@@ -145,7 +145,7 @@ const QString unitGetStrFromIndex(const int index)
 						QObject::tr("p"), 
 						QObject::tr("cm"), 
 						QObject::tr("c"),
-						QObject::tr("°"),
+						QObject::tr("\xB0", "degrees, unicode 0xB0"), //degree
 						QObject::tr("%")
 						};
 	return suffix[index];
@@ -158,7 +158,7 @@ const QString unitGetUntranslatedStrFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return "";
-	QString suffix[] = { "pt", "mm", "in", "p", "cm", "c", "�", "%" };
+	QString suffix[] = { "pt", "mm", "in", "p", "cm", "c", "\xB0", "%" };
 	return suffix[index];
 }
 /*!
