@@ -4798,7 +4798,7 @@ void ScribusMainWindow::slotEditPaste()
 			return;
 		if (UndoManager::undoEnabled())
 			undoManager->beginTransaction(doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
-		if (doc->appMode == modeEdit)
+		if (doc->appMode == modeEdit && doc->m_Selection->itemAt(0))
 		{
 			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->m_Selection->itemAt(0));
 			if (currItem->HasSel)
