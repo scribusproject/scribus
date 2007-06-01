@@ -4342,16 +4342,21 @@ void ScribusMainWindow::slotReallyPrint()
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
+	qDebug(QString("scribus.cpp: before print dialog color=%1 copies = %2").arg(doc->Print_Options.useColor).arg(doc->Print_Options.copies));
 	Druck *printer = new Druck(this, doc, doc->Print_Options.filename, doc->Print_Options.printer, PDef.Command, PDef.DevMode, prefsManager->appPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage()->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
 	if (printer->exec())
 	{
+		qDebug(QString("scribus.cpp: before print dialog color=%1 copies = %2").arg(doc->Print_Options.useColor).arg(doc->Print_Options.copies));
 		ReOrderText(doc, view);
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
+		doc->Print_Options.pageNumbers.clear();
 		if (printer->CurrentPage->isChecked())
+		{
 			doc->Print_Options.pageNumbers.push_back(doc->currentPage()->pageNr()+1);
+		}
 		else
 		{
 			if (printer->RadioButton1->isChecked())
@@ -4451,7 +4456,7 @@ bool ScribusMainWindow::doPrint(PrintOptions &options)
 				else
 				{
 					QString cc;
-					cmd = "lpr -P" + options.printer;
+					cmd = "lpr -P '" + options.printer + "'";
 					if (options.copies > 1)
 						cmd += " -#" + cc.setNum(options.copies);
 					cmd += options.printerOptions;
