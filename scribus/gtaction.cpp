@@ -134,7 +134,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 
 
 	if (paragraphStyle == -1)
-		paragraphStyle = ::findParagraphStyle(textFrame->doc(), textFrame->doc()->currentStyle);
+		paragraphStyle = 0; //::findParagraphStyle(textFrame->doc(), textFrame->doc()->currentStyle);
 
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font).scName();
