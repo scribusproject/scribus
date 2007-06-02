@@ -450,6 +450,7 @@ void SVGPlug::convert(int flags)
 			m_Doc->minCanvasCoordinate = minSize;
 			m_Doc->maxCanvasCoordinate = maxSize;
 			m_Doc->view()->updatesOn(true);
+			m_Doc->view()->updateContents();
 			dr->setPixmap(loadIcon("DragPix.xpm"));
 			importCanceled = dr->drag();
 			if (!importCanceled)
