@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 //
 
 #include "insertaframe.h"
-//#include "insertaframe.moc"
 
 #include "createrange.h"
 #include "customfdialog.h"
@@ -24,13 +23,13 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "scpaths.h"
 
-#include <q3buttongroup.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
-#include <q3textedit.h>
-#include <q3widgetstack.h>
+#include <QGroupBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSpinBox>
+#include <QTextEdit>
+#include <QStackedWidget>
 
 InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	QDialog(parent),
@@ -38,9 +37,9 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 {
 	setupUi(this);
 	//Hide some unused items for now
-	radioButtonTable->setShown(false);
-	radioButtonShape->setShown(false);
-	radioButtonPolygon->setShown(false);
+// 	radioButtonTable->setShown(false);
+// 	radioButtonShape->setShown(false);
+// 	radioButtonPolygon->setShown(false);
 	
 	placementPagesRangeButton->setPixmap(loadIcon("ellipsis.png"));
 	
@@ -51,10 +50,28 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	QWidget::setTabOrder(widthScrSpinBox, heightScrSpinBox);
 	QWidget::setTabOrder(textColumnCountSpinBox, textColumnGapScrSpinBox);
 	
-	typeButtonGroup->setButton(0);
-	pagePlacementButtonGroup->setButton(0);
-	framePositionButtonGroup->setButton(0);
-	sizeButtonGroup->setButton(0);
+	typeButtonGroup = new QButtonGroup(typeGroupBox);
+	typeButtonGroup->addButton(radioButtonTextFrame,0);
+	typeButtonGroup->addButton(radioButtonImageFrame,1);
+	pagePlacementButtonGroup = new QButtonGroup(pagePlacementGroupBox);
+	pagePlacementButtonGroup->addButton(radioButtonCurrentPage,0);
+	pagePlacementButtonGroup->addButton(radioButtonAllPages,1);
+	pagePlacementButtonGroup->addButton(radioButtonRangeOfPages,2);
+	framePositionButtonGroup = new QButtonGroup(framePositionGroupBox);
+	framePositionButtonGroup->addButton(radioButtonTopLeftOfMargins,0);
+	framePositionButtonGroup->addButton(radioButtonTopLeftOfPage,1);
+	framePositionButtonGroup->addButton(radioButtonTopLeftOfBleed,2);
+	framePositionButtonGroup->addButton(radioButtonCustomPosition,3);
+	sizeButtonGroup = new QButtonGroup(sizeGroupBox);
+	sizeButtonGroup->addButton(radioButtonPageMarginSize,0);
+	sizeButtonGroup->addButton(radioButtonPageSize,1);
+	sizeButtonGroup->addButton(radioButtonBleedSize,2);
+	sizeButtonGroup->addButton(radioButtonImageSize,3);
+	sizeButtonGroup->addButton(radioButtonCustomSize,4);
+	radioButtonTextFrame->setChecked(true);
+	radioButtonCurrentPage->setChecked(true);
+	radioButtonTopLeftOfMargins->setChecked(true);
+	radioButtonPageMarginSize->setChecked(true);
 	slotSelectType(0);
 	slotSelectPagePlacement(0);
 	slotSelectPosition(0);
@@ -75,11 +92,11 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	textColumnGapScrSpinBox->setSuffix(unitSuffix);
 
 	sourceDocLineEdit->setText("");
- 	connect(typeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectType(int)));
- 	connect(pagePlacementButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectPagePlacement(int)));
+ 	connect(typeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectType(int)));
+ 	connect(pagePlacementButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectPagePlacement(int)));
 	connect(placementPagesRangeButton, SIGNAL(clicked()), this, SLOT(slotCreatePageNumberRange()));
- 	connect(framePositionButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectPosition(int)));
- 	connect(sizeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectSize(int)));
+ 	connect(framePositionButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectPosition(int)));
+ 	connect(sizeButtonGroup, SIGNAL(buttonClicked(int)), this, SLOT(slotSelectSize(int)));
  	connect(selectImageFileButton, SIGNAL(clicked()), this, SLOT(locateImageFile()));
  	connect(selectDocFileButton, SIGNAL(clicked()), this, SLOT(locateDocFile()));
 }
@@ -92,57 +109,57 @@ void InsertAFrame::slotSelectType( int id )
 	{
 		case 0:
 			typeTextEdit->setText( tr("<b>Insert a text frame</b><br/>A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.<br/>Your text may be edited and formatted on the page directly or in the simple Story Editor."));
-			optionsWidgetStack->raiseWidget(2);
+			optionsStackedWidget->setCurrentIndex(0);
 			break;
 		case 1:
 			typeTextEdit->setText( tr("<b>Insert an image frame</b><br/>An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette."));
-			optionsWidgetStack->raiseWidget(0);
+			optionsStackedWidget->setCurrentIndex(1);
 			break;
 		case 2:
 			typeTextEdit->setText("Insert a table");
-			optionsWidgetStack->raiseWidget(1);
+			optionsStackedWidget->setCurrentIndex(2);
 			break;
 		case 3:
 			typeTextEdit->setText("Insert a shape");
-			optionsWidgetStack->raiseWidget(1);
+			optionsStackedWidget->setCurrentIndex(2);
 			break;
 		case 4:
 			typeTextEdit->setText("Insert a polygon");
-			optionsWidgetStack->raiseWidget(1);
+			optionsStackedWidget->setCurrentIndex(2);
 			break;
 		case 5:
 			typeTextEdit->setText("Insert a line");
-			optionsWidgetStack->raiseWidget(1);
+			optionsStackedWidget->setCurrentIndex(2);
 			break;
 		case 6:
 			typeTextEdit->setText("Insert a bezier curve");
-			optionsWidgetStack->raiseWidget(1);
+			optionsStackedWidget->setCurrentIndex(2);
 			break;
 	}
 }
 
 void InsertAFrame::slotSelectPagePlacement( int id )
 {
-	placementPagesLineEdit->setEnabled(id==1);
-	placementPagesRangeButton->setEnabled(id==1);
-	checkBoxLinkCreatedTextFrames->setEnabled(typeButtonGroup->selectedId()==0 && (id!=0));
+	placementPagesLineEdit->setEnabled(id==2);
+	placementPagesRangeButton->setEnabled(id==2);
+	checkBoxLinkCreatedTextFrames->setEnabled(typeButtonGroup->checkedId()==0 && (id!=0));
 }
 
 void InsertAFrame::slotSelectPosition( int id )
 {
-	xPosScrSpinBox->setEnabled(id==99);
-	yPosScrSpinBox->setEnabled(id==99);
+	xPosScrSpinBox->setEnabled(id==3);
+	yPosScrSpinBox->setEnabled(id==3);
 }
 
 void InsertAFrame::slotSelectSize( int id )
 {
-	widthScrSpinBox->setEnabled(id==99);
-	heightScrSpinBox->setEnabled(id==99);
+	widthScrSpinBox->setEnabled(id==3);
+	heightScrSpinBox->setEnabled(id==3);
 }
 
 void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 {
-	int type=typeButtonGroup->selectedId();
+	int type=typeButtonGroup->checkedId();
 	iafData.source="";
 	switch(type)
 	{
@@ -155,10 +172,10 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 			iafData.source=ScPaths::separatorsToSlashes(sourceImageLineEdit->text());
 			break;
 	}
-	iafData.locationType=pagePlacementButtonGroup->selectedId();
+	iafData.locationType=pagePlacementButtonGroup->checkedId();
 	iafData.pageList=placementPagesLineEdit->text();
-	iafData.positionType=framePositionButtonGroup->selectedId();
-	iafData.sizeType=sizeButtonGroup->selectedId();
+	iafData.positionType=framePositionButtonGroup->checkedId();
+	iafData.sizeType=sizeButtonGroup->checkedId();
 	iafData.x=xPosScrSpinBox->value();
 	iafData.y=yPosScrSpinBox->value();
 	iafData.width=widthScrSpinBox->value();

@@ -21,7 +21,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "pageitem.h"
 
-#include <qstring.h>
+#include <QButtonGroup>
+#include <QString>
 
 class ScribusDoc;
 
@@ -37,6 +38,10 @@ public:
 protected:
 	ScribusDoc* m_Doc;
 	ImportSetup m_ImportSetup;
+	QButtonGroup *typeButtonGroup;
+	QButtonGroup *pagePlacementButtonGroup;
+	QButtonGroup *framePositionButtonGroup;
+	QButtonGroup *sizeButtonGroup;
 	
 protected slots:
 	void slotSelectType(int id);
