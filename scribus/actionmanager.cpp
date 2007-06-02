@@ -374,6 +374,7 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert("viewFit75", new ScrAction(ScrAction::DataDouble, QIconSet(), "", QKeySequence(), ScMW, "viewFit75", 0, 75.0));
 	scrActions->insert("viewFit100", new ScrAction(ScrAction::DataDouble, QIconSet(), "", CTRL+Key_1, ScMW, "viewFit100", 0, 100.0));
 	scrActions->insert("viewFit200", new ScrAction(ScrAction::DataDouble, QIconSet(), "", QKeySequence(), ScMW, "viewFit200", 0, 200.0));
+	scrActions->insert("viewFit400", new ScrAction(ScrAction::DataDouble, QIconSet(), "", QKeySequence(), ScMW, "viewFit400", 0, 400.0));
 	scrActions->insert("viewFit20", new ScrAction(ScrAction::DataDouble, QIconSet(), "", QKeySequence(), ScMW, "viewFit20", 0, 20.0));
 	scrActions->insert("viewShowMargins", new ScrAction(ScMW, "viewShowMargins"));
 	scrActions->insert("viewShowFrames", new ScrAction(ScMW, "viewShowFrames"));
@@ -417,6 +418,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewFit75"], SIGNAL(activatedData(double)), ScMW, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit100"], SIGNAL(activatedData(double)), ScMW, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit200"], SIGNAL(activatedData(double)), ScMW, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFit400"], SIGNAL(activatedData(double)), ScMW, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit20"], SIGNAL(activatedData(double)), ScMW, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewShowMargins"], SIGNAL(activated()), ScMW, SLOT(ToggleMarks()) );
 	connect( (*scrActions)["viewShowFrames"], SIGNAL(activated()), ScMW, SLOT(ToggleFrames()) );
@@ -996,6 +998,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewFit75"]->setTexts( tr("&75%"));
 	(*scrActions)["viewFit100"]->setTexts( tr("&100%"));
 	(*scrActions)["viewFit200"]->setTexts( tr("&200%"));
+	(*scrActions)["viewFit400"]->setTexts( tr("&400%"));
 	(*scrActions)["viewFit20"]->setTexts( tr("&Thumbnails"));
 	(*scrActions)["viewShowMargins"]->setTexts( tr("Show &Margins"));
 	(*scrActions)["viewShowFrames"]->setTexts( tr("Show &Frames"));
