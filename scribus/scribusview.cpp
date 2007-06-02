@@ -9511,6 +9511,7 @@ void ScribusView::PasteToPage()
 		}
 		currItem->emitAllToGUI();
 	}
+	newObjects.clear();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
