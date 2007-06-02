@@ -4425,6 +4425,7 @@ void ScribusMainWindow::slotReallyPrint()
 	{
 		ReOrderText(doc, view);
 		qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+		doc->Print_Options.pageNumbers.clear();
 		if (printer->CurrentPage->isChecked())
 			doc->Print_Options.pageNumbers.push_back(doc->currentPage()->pageNr()+1);
 		else
@@ -4526,7 +4527,7 @@ bool ScribusMainWindow::doPrint(PrintOptions &options)
 				else
 				{
 					QString cc;
-					cmd = "lpr -P" + options.printer;
+					cmd = "lpr -P '" + options.printer + "'";
 					if (options.copies > 1)
 						cmd += " -#" + cc.setNum(options.copies);
 					cmd += options.printerOptions;

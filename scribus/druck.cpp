@@ -796,7 +796,7 @@ void Druck::setStoredValues(bool gcr)
 		pageNr->setText(prefs->get("PageNr", "1-1"));
 		Copies->setValue(1);
 		PrintSep->setCurrentItem(m_doc->Print_Options.outputSeparations);
-		colorType->setCurrentItem(m_doc->Print_Options.useColor);
+		colorType->setCurrentItem(m_doc->Print_Options.useColor? 0 : 1);
 		ColorList usedSpots;
 		m_doc->getUsedColors(usedSpots, true);
 		QStringList spots = usedSpots.keys();
