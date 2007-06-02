@@ -521,6 +521,8 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, loadIcon("16/zoom-original.png"), loadIcon("22/zoom-original.png"), "", defKeys[name], mainWindow, name, 0, 100.0));
 	name="viewFit200";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, name, 0, 200.0));
+	name="viewFit400";
+	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, name, 0, 400.0));
 	name="viewFitPreview";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, name, 0, 20.0));
 	name="viewShowMargins";
@@ -589,6 +591,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewFit75"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit100"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit200"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFit400"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewShowMargins"], SIGNAL(activated()), mainWindow, SLOT(ToggleMarks()) );
 	connect( (*scrActions)["viewShowBleeds"], SIGNAL(activated()), mainWindow, SLOT(ToggleBleeds()) );
 	connect( (*scrActions)["viewShowFrames"], SIGNAL(activated()), mainWindow, SLOT(ToggleFrames()) );
@@ -1305,6 +1308,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewFit75"]->setTexts( tr("&75%"));
 	(*scrActions)["viewFit100"]->setTexts( tr("&100%"));
 	(*scrActions)["viewFit200"]->setTexts( tr("&200%"));
+	(*scrActions)["viewFit400"]->setTexts( tr("&400%"));
 	(*scrActions)["viewFitPreview"]->setTexts( tr("Preview Mode"));
 	(*scrActions)["viewShowMargins"]->setTexts( tr("Show &Margins"));
 	(*scrActions)["viewShowBleeds"]->setTexts( tr("Show Bleeds"));
@@ -1613,6 +1617,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("viewFit75", QKeySequence());
 	defKeys.insert("viewFit100", Qt::CTRL+Qt::Key_1);
 	defKeys.insert("viewFit200", QKeySequence());
+	defKeys.insert("viewFit400", QKeySequence());
 	defKeys.insert("viewFitPreview", QKeySequence());
 	defKeys.insert("viewShowMargins", QKeySequence());
 	defKeys.insert("viewShowBleeds", QKeySequence());
@@ -1889,7 +1894,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "pageInsert" << "pageImport" << "pageDelete" << "pageCopy" << "pageMove" << "pageApplyMasterPage" << "pageCopyToMasterPage" << "pageManageGuides" << "pageManageMargins" << "viewSnapToGrid" << "viewSnapToGuides";
 	//View
 	++itmenu;
-	itmenu->second << "viewFitWidth" << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFitPreview" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
+	itmenu->second << "viewFitWidth" << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit400" << "viewFitPreview" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
 	//Extras
 	++itmenu;
 	itmenu->second << "extrasManagePictures" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";
