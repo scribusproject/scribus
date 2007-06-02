@@ -394,7 +394,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutDoc(FontDesc);
 	if ((!colorDesc.isEmpty()) && (!sep))
 		PutDoc(colorDesc);
-	PutDoc("Scribusdict begin\n");
+//	PutDoc("Scribusdict begin\n");
 	PutDoc(Fonts);
 	if (GraySc)
 		PutDoc(GrayCalc);
@@ -464,7 +464,8 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutDoc("} def\n");
 		PutDoc("end\n");
 	}
-	PutDoc("%%EndSetup\n");
+//	PutDoc("end\n");
+//	PutDoc("%%EndSetup\n");
 	Prolog = "";
 	FontDesc = "";
 }
@@ -544,6 +545,7 @@ void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 	}
 	PutSeite("%%PageBoundingBox: 0 0 "+IToStr(qRound(maxBoxX))+" "+IToStr(qRound(maxBoxY))+"\n");
 	PutSeite("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.bleeds.Bottom+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-Options.bleeds.Top-markOffs*2.0)+"\n");
+	PutSeite("Scribusdict begin\n");
 	PutSeite("save\n");
 	if (Clipping)
 		PutSeite(PDev);
@@ -765,6 +767,7 @@ void PSLib::PS_end_page()
 		PutSeite("gr\n");
 	}
 	PutSeite("sp\n");
+	PutSeite("end\n");
 }
 
 void PSLib::PS_curve(double x1, double y1, double x2, double y2, double x3, double y3)
@@ -962,7 +965,10 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, Q3ValueL
 	bool oneSpot1 = false;
 	bool oneSpot2 = false;
 	bool twoSpot = false;
-	int cc, mc, yc, kc;
+	int cc = 0;
+	int mc = 0;
+	int yc = 0;
+	int kc = 0;
 	CMYKColor cmykValues;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
@@ -1117,7 +1123,10 @@ void PSLib::PS_MultiLinGradient(double w, double h, Q3ValueList<double> Stops, Q
 	bool oneSpot1 = false;
 	bool oneSpot2 = false;
 	bool twoSpot = false;
-	int cc, mc, yc, kc;
+	int cc = 0;
+	int mc = 0;
+	int yc = 0;
+	int kc = 0;
 	CMYKColor cmykValues;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
@@ -1598,7 +1607,7 @@ void PSLib::PDF_Annotation(QString text, double x, double y, double b, double h)
 void PSLib::PS_close()
 {
 	PutDoc("%%Trailer\n");
-	PutDoc("end\n");
+//	PutDoc("end\n");
 	PutDoc("%%EOF\n");
 	Spool.close();
 }
@@ -1794,6 +1803,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	sepac = 0;
 	uint aa = 0;
 	uint a;	
+	PutDoc("%%EndSetup\n");
 	while (aa < pageNs.size() && !abortExport)
 	{
 		progressDialog->setProgress("EP", aa);
