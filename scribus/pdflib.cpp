@@ -1984,7 +1984,35 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				StartObj(ObjCounter);
 				ObjCounter++;
 				PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
-				PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
+				double bleedRight = 0.0;
+				double bleedLeft = 0.0;
+				if (doc.pageSets[doc.currentPageLayout].Columns == 1)
+				{
+					bleedRight = Options.bleeds.Right;
+					bleedLeft = Options.bleeds.Left;
+				}
+				else
+				{
+					if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
+					{
+						bleedRight = Options.bleeds.Left;
+						bleedLeft = Options.bleeds.Right;
+					}
+					else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+					{
+						bleedRight = Options.bleeds.Right;
+						bleedLeft = Options.bleeds.Left;
+					}
+					else
+					{
+						bleedRight = Options.bleeds.Left;
+						bleedLeft = Options.bleeds.Left;
+					}
+				}
+				double maxBoxX = ActPageP->width()+bleedRight+bleedLeft;
+				double maxBoxY = ActPageP->height()+Options.bleeds.Top+Options.bleeds.Bottom;
+				PutDoc("/BBox [ "+FToStr(-bleedLeft)+" "+FToStr(-Options.bleeds.Bottom)+" "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" ]\n");
+//				PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
 				PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 				if (Seite.ImgObjects.count() != 0)
 				{
@@ -3178,7 +3206,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	{
 		if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
 		{
-			qDebug("Q exit");
+//			qDebug("Q exit");
 			tmp += "Q\n";
 			return tmp;
 		}
@@ -3325,10 +3353,10 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			}
 			break;
 		case PageItem::TextFrame:
-			qDebug("case TextFrame");
+//			qDebug("case TextFrame");
 			if ((ite->isAnnotation()) && (Options.Version != 12))
 			{
-				qDebug("Annotation");
+//				qDebug("Annotation");
 				PDF_Annotation(ite, PNr);
 				break;
 			}
