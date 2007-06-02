@@ -5083,7 +5083,7 @@ void ScribusMainWindow::slotEditPaste()
 				if (docSelectionCount > 1)
 				{
 					doc->m_Selection->setGroupRect();
-					view->paintGroupRect();
+//					view->paintGroupRect();
 					double x, y, w, h;
 					doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 					propertiesPalette->setXY(x, y);
@@ -9561,6 +9561,7 @@ void ScribusMainWindow::PutToPatterns()
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	QString objectString = ss->WriteElem(doc, view, doc->m_Selection);
 	uint ac = doc->Items->count();
+	uint oldNum = doc->TotalItems;
 	bool savedAlignGrid = doc->useRaster;
 	bool savedAlignGuides = doc->SnapGuides;
 	doc->useRaster = false;
@@ -9582,6 +9583,9 @@ void ScribusMainWindow::PutToPatterns()
 	doc->addPattern(patternName, pat);
 	propertiesPalette->updateColorList();
 	delete ss;
+	if (outlinePalette->isVisible())
+		outlinePalette->BuildTree();
+	doc->TotalItems = oldNum;
 	undoManager->setUndoEnabled(true);
 }
 
