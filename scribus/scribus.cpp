@@ -5120,7 +5120,6 @@ void ScribusMainWindow::SelectAll()
 			nextItem->HasSel = true;
 			nextItem = nextItem->nextInChain();
 		}
-		view->DrawNew();
 		EnableTxEdit();
 	}
 	else
@@ -5134,19 +5133,14 @@ void ScribusMainWindow::SelectAll()
 			if ((currItem->LayerNr == doc->activeLayer()) && (!doc->layerLocked(currItem->LayerNr)))
 			{
 				if (!currItem->isSelected())
-				{
 					doc->m_Selection->addItem(currItem);
-//					currItem->FrameOnly = true;
-//					currItem->paintObj();
-				}
 			}
 		}
 		int docSelectionCount=doc->m_Selection->count();
 		if (docSelectionCount > 1)
 		{
-			doc->m_Selection->setGroupRect();
-			view->paintGroupRect();
 			double x, y, w, h;
+			doc->m_Selection->setGroupRect();
 			doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			propertiesPalette->setXY(x, y);
 			propertiesPalette->setBH(w, h);
@@ -5157,6 +5151,7 @@ void ScribusMainWindow::SelectAll()
 			HaveNewSel(currItem->itemType());
 		}
 	}
+	view->DrawNew();
 }
 
 void ScribusMainWindow::deselectAll()
