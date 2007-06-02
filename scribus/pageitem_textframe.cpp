@@ -243,7 +243,7 @@ static void fillInTabLeaders(StoryText & itemText, LineSpec & curLine)
 	for (int ti= curLine.firstItem; ti < curLine.lastItem; ++ti)
 	{
 		ScText * hl = itemText.item(ti);
-		if (hl->ch[0] == SpecialChars::TAB) 
+		if (hl->ch == SpecialChars::TAB) 
 		{
 			GlyphLayout * tglyph = hl->glyph.more;
 			
@@ -922,7 +922,7 @@ void PageItem_TextFrame::layout()
 			if (legacy)
 			{
 				// unless at begin of par (eeks)
-				if ( (current.itemsInLine == 0) && (SpecialChars::isBreakingSpace(hl->ch[0]))
+				if ( (current.itemsInLine == 0) && (SpecialChars::isBreakingSpace(hl->ch))
 					 && (a > 0 && ! SpecialChars::isBreak(itemText.text(a-1)))
 					 && ! (a > 0 && SpecialChars::isBreakingSpace(itemText.text(a-1)) 
 						   && (itemText.charStyle(a-1).effects() & ScStyle_SuppressSpace) != ScStyle_SuppressSpace))
@@ -936,7 +936,7 @@ void PageItem_TextFrame::layout()
 			}
 			else // from 134 on use NBSPACE for this effect
 			{
-				if ( current.itemsInLine == 0 && SpecialChars::isBreakingSpace(hl->ch[0]))
+				if ( current.itemsInLine == 0 && SpecialChars::isBreakingSpace(hl->ch))
 				{
 					hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
 					hl->glyph.xadvance = 0;
@@ -1014,7 +1014,7 @@ void PageItem_TextFrame::layout()
 			}
 			else // ! dropCapMode
 			{
-				if ((hl->ch[0] == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 					chs = qRound((hl->embedded.getItem()->gHeight + hl->embedded.getItem()->lineWidth()) * 10);
 				else
 					chs = charStyle.fontSize();
@@ -1033,7 +1033,7 @@ void PageItem_TextFrame::layout()
 			hl->glyph.yadvance = 0;
 			oldCurY = layoutGlyphs(*hl, chstr, hl->glyph);
 			// find out width of char
-			if ((hl->ch[0] == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+			if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
 			else
 			{
@@ -1050,7 +1050,7 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				// drop caps are wider...
-				if ((hl->ch[0] == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				{
 					wide = hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth();
 					if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
@@ -1084,7 +1084,7 @@ void PageItem_TextFrame::layout()
 //				qDebug(QString("textframe ascent/descent: fontsize=%1, ascent=%2, descent=%3")
 //					   .arg(charStyle.fontSize()).arg(charStyle.font().ascent()).arg(charStyle.font().descent()));				
 
-				if (SpecialChars::isExpandingSpace(hl->ch[0]))
+				if (SpecialChars::isExpandingSpace(hl->ch))
 				{
 					double wordtracking = charStyle.wordTracking();
 					hl->glyph.xadvance *= wordtracking;
@@ -1093,14 +1093,14 @@ void PageItem_TextFrame::layout()
 				
 				// find ascent / descent
 				double hlcsize10=charStyle.fontSize() / 10.0;
-				if ((hl->ch[0] == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
+				if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 				{
 					desc = desc2 = 0;
 				}
 				else
 				{
 					desc = desc2 = -charStyle.font().descent(hlcsize10);
-					current.rememberShrinkStretch(hl->ch[0], wide, style);
+					current.rememberShrinkStretch(hl->ch, wide, style);
 				}
 				asce = charStyle.font().ascent(hlcsize10);
 //				wide = wide * hl->glyph.scaleH;
@@ -1307,14 +1307,14 @@ void PageItem_TextFrame::layout()
 			// right tab stuff
 			if (tabs.active)
 			{
-				if (((hl->ch[0] == '.') && (tabs.status == TabPOINT)) || ((hl->ch[0] == ',') && (tabs.status == TabCOMMA)) || (hl->ch[0] == SpecialChars::TAB))
+				if (((hl->ch == '.') && (tabs.status == TabPOINT)) || ((hl->ch == ',') && (tabs.status == TabCOMMA)) || (hl->ch == SpecialChars::TAB))
 				{
 					tabs.active = false;
 					tabs.status = TabNONE;
 				}
 			}
 			// tab positioning
-			if (hl->ch[0] == SpecialChars::TAB)
+			if (hl->ch == SpecialChars::TAB)
 			{
 				wide = 1;
 				if (tabs.active)
@@ -1398,10 +1398,10 @@ void PageItem_TextFrame::layout()
 			
 			//FIXME: asce / desc set correctly?
 			if (legacy && 
-				((hl->ch[0] == '-' || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  
-				|| hl->ch[0] == SpecialChars::SHYPHEN)
+				((hl->ch == '-' || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  
+				|| hl->ch == SpecialChars::SHYPHEN)
 			{
-				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
+				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch == SpecialChars::SHYPHEN)
 				{
 					pt1 = QPoint(qRound(ceil(current.xPos+extra.Right - current.maxShrink + charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(current.yPos+desc));
 					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right - current.maxShrink + charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(ceil(current.yPos-asce)));
@@ -1412,7 +1412,7 @@ void PageItem_TextFrame::layout()
 					pt2 = QPoint(qRound(ceil(current.xPos+extra.Right - current.maxShrink )), qRound(ceil(current.yPos-asce)));
 				}
 			}
-			else if (!legacy && SpecialChars::isBreakingSpace(hl->ch[0]))
+			else if (!legacy && SpecialChars::isBreakingSpace(hl->ch))
 			{
 				pt1 = QPoint(qRound(ceil(breakPos + extra.Right - current.maxShrink )), qRound(current.yPos+desc));
 				pt2 = QPoint(qRound(ceil(breakPos + extra.Right - current.maxShrink )), qRound(ceil(current.yPos-asce)));
@@ -1428,14 +1428,14 @@ void PageItem_TextFrame::layout()
 				outs = true;
 			if (current.isEndOfCol())
 				outs = true;
-			if ((hl->ch[0] == SpecialChars::FRAMEBREAK) && (a < itemText.length()-1))
+			if ((hl->ch == SpecialChars::FRAMEBREAK) && (a < itemText.length()-1))
 				goNoRoom = true;
-			if ((hl->ch[0] == SpecialChars::COLBREAK) && (Cols > 1))
+			if ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1))
 				goNextColumn = true;
 
 
 			// remember possible break
-			if ( (SpecialChars::isBreakingSpace(hl->ch[0]) || hl->ch[0] == SpecialChars::TAB) && !outs)
+			if ( (SpecialChars::isBreakingSpace(hl->ch) || hl->ch == SpecialChars::TAB) && !outs)
 			{
 				if ( a == firstInFrame() || !SpecialChars::isBreakingSpace(itemText.text(a-1)) )
 				{
@@ -1445,10 +1445,10 @@ void PageItem_TextFrame::layout()
 			
 
 			// hyphenation
-			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch[0] == '-') || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
+			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == '-') || hl->ch == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
 			{
 				breakPos = current.xPos;
-				if (hl->ch[0] != '-')
+				if (hl->ch != '-')
 				{
 					breakPos += charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0);
 				}
@@ -1460,7 +1460,7 @@ void PageItem_TextFrame::layout()
 				
 				if (legacy || (breakPos - rightHang < current.colRight - style.rightMargin()))
 				{
-					if ((current.hyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0) || hl->ch[0] == SpecialChars::SHYPHEN)
+					if ((current.hyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0) || hl->ch == SpecialChars::SHYPHEN)
 					{
 						current.rememberBreak(a, breakPos);
 					}
@@ -1537,11 +1537,11 @@ void PageItem_TextFrame::layout()
 //				current.yPos = maxDY;
 			}
 			// end of line
-			if ( SpecialChars::isBreak(hl->ch[0], Cols > 1) || (outs))
+			if ( SpecialChars::isBreak(hl->ch, Cols > 1) || (outs))
 			{
 				tabs.active = false;
 				tabs.status = TabNONE;
-				if (SpecialChars::isBreak(hl->ch[0], Cols > 1))
+				if (SpecialChars::isBreak(hl->ch, Cols > 1))
 				{
 					// find end of line
 					current.breakLine(itemText, a);
@@ -1563,9 +1563,9 @@ void PageItem_TextFrame::layout()
 						
 						if (style.alignment() == 4
 							|| (style.alignment() == 3 
-								&&  (hl->ch[0] == SpecialChars::LINEBREAK ||
-									 hl->ch[0] == SpecialChars::FRAMEBREAK ||
-									 hl->ch[0] == SpecialChars::COLBREAK)
+								&&  (hl->ch == SpecialChars::LINEBREAK ||
+									 hl->ch == SpecialChars::FRAMEBREAK ||
+									 hl->ch == SpecialChars::COLBREAK)
 								&&  !itemText.text(current.line.lastItem - 1).isSpace()))
 						{
 							justifyLine(itemText, current.line); 
@@ -1605,7 +1605,7 @@ void PageItem_TextFrame::layout()
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
 //							   .arg(a));
 
-						if (hl->ch[0] == ' ') {
+						if (hl->ch == ' ') {
 							hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
 							hl->glyph.xadvance = 0;
 						}
@@ -1617,7 +1617,7 @@ void PageItem_TextFrame::layout()
 //???						for (int j=current.line.firstItem; j <= a; ++j)
 //???							current.breakXPos += itemText.item(j)->glyph.wide();
 						
-						if ((hl->effects() & ScStyle_HyphenationPossible) || hl->ch[0] == SpecialChars::SHYPHEN)
+						if ((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == SpecialChars::SHYPHEN)
 						{
 							// insert hyphen
 							current.hyphenCount++;
@@ -1628,7 +1628,7 @@ void PageItem_TextFrame::layout()
 						}
 						else 
 						{
-							if (hl->ch[0] != '-')
+							if (hl->ch != '-')
 								current.hyphenCount = 0;
 							hl->setEffects(hl->effects() & ~ScStyle_SmartHyphenVisible);
 							hl->glyph.shrink();
@@ -1691,11 +1691,11 @@ void PageItem_TextFrame::layout()
 						indentLine(itemText, current.line, 0);
 					}
 				}
-				if ( outs || SpecialChars::isBreak(hl->ch[0], (Cols > 1)) )
+				if ( outs || SpecialChars::isBreak(hl->ch, (Cols > 1)) )
 				{
 					if (outs && !current.isEndOfLine(hl->glyph.wide() + style.rightMargin()))
 					{
-						if (( hl->ch[0] == SpecialChars::PARSEP || hl->ch[0] == SpecialChars::LINEBREAK) 
+						if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK) 
 							&& AbsHasDrop)
 						{
 							AbsHasDrop = false;
@@ -1738,9 +1738,9 @@ void PageItem_TextFrame::layout()
 								}
 								else
 									current.xPos = current.colLeft;
-								if (SpecialChars::isBreak(hl->ch[0]))
+								if (SpecialChars::isBreak(hl->ch))
 								{
-									if (hl->ch[0] == SpecialChars::PARSEP)
+									if (hl->ch == SpecialChars::PARSEP)
 									{
 //										qDebug(QString("gap after: y=%1+%2").arg(current.yPos).arg(style.gapAfter()));
 										current.yPos += style.gapAfter();
@@ -1770,7 +1770,7 @@ void PageItem_TextFrame::layout()
 					}
 					else
 					{
-						if (( hl->ch[0] == SpecialChars::PARSEP || hl->ch[0] == SpecialChars::LINEBREAK ) 
+						if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK ) 
 							&& AbsHasDrop)
 						{
 							AbsHasDrop = false;
@@ -1809,9 +1809,9 @@ void PageItem_TextFrame::layout()
 						}
 						else
 							current.xPos = current.colLeft;
-						if ( SpecialChars::isBreak(hl->ch[0]) )
+						if ( SpecialChars::isBreak(hl->ch) )
 						{
-							if (hl->ch[0] == SpecialChars::PARSEP)
+							if (hl->ch == SpecialChars::PARSEP)
 							{
 //								qDebug(QString("gap after: y=%1+%2").arg(current.yPos).arg(style.gapAfter()));
 								current.yPos += style.gapAfter();
@@ -1997,9 +1997,9 @@ void PageItem_TextFrame::layout()
 				OFs = 0;
 			if (style.alignment() == 4
 				|| (style.alignment() == 3 
-					&&  (hl->ch[0] == SpecialChars::LINEBREAK ||
-						 hl->ch[0] == SpecialChars::FRAMEBREAK ||
-						 hl->ch[0] == SpecialChars::COLBREAK)
+					&&  (hl->ch == SpecialChars::LINEBREAK ||
+						 hl->ch == SpecialChars::FRAMEBREAK ||
+						 hl->ch == SpecialChars::COLBREAK)
 					&&  !itemText.text(current.line.firstItem + current.itemsInLine-1).isSpace()))
 			{
 				justifyLine(itemText, current.line);
@@ -2246,7 +2246,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				bool selected = itemText.selected(a);
 				if (charStyle.effects() & ScStyle_StartOfLine)
 					tabCc = 0;
-				chstr0 = hl->ch[0];
+				chstr0 = hl->ch;
 				actFill = charStyle.fillColor();
 				actFillShade = charStyle.fillShade();
 				if (actFill != CommonStrings::None)
@@ -2327,13 +2327,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						p->save();
 						p->translate(CurX, ls.y);
-						if (hl->ch[0] == SpecialChars::OBJECT)
+						if (hl->ch == SpecialChars::OBJECT)
 							DrawObj_Embedded(p, e, charStyle, hl->embedded.getItem());
 						else
 							drawGlyphs(p, charStyle, hl->glyph);
 						p->restore();
 					}
-					if (hl->ch[0] == SpecialChars::OBJECT)
+					if (hl->ch == SpecialChars::OBJECT)
 						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 					else
 						CurX += hl->glyph.wide();

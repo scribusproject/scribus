@@ -122,7 +122,7 @@ public:
 	float PtransY;
 	float PRot;
 	InlineFrame embedded;
-	QString ch;
+	QChar ch;
 	ScText() : 
 		CharStyle(),
 		parstyle(NULL), glyph(), 

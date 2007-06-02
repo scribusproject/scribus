@@ -3971,7 +3971,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 						double wt = chstyle.font().charWidth(tTabValues[tabCc].tabFillChar, chstyle.fontSize());
 						int coun = static_cast<int>((CurX+hl->glyph.xoffset - tabDist) / wt);
 						double sPos = CurX+hl->glyph.xoffset - (CurX+hl->glyph.xoffset - tabDist) + 1;
-						hl2.ch = QString(tTabValues[tabCc].tabFillChar);
+						hl2.ch = tTabValues[tabCc].tabFillChar;
 						hl2.setTracking(0);
 						hl2.setScaleH(1000);
 						hl2.setScaleV(1000);
@@ -4007,7 +4007,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				if ((chstyle.effects() & ScStyle_Shadowed) && (chstyle.strokeColor() != CommonStrings::None))
 				{
 					ScText hl2;
-					hl2.ch = ch;
+					hl2.ch = ch[0];
 					hl2.glyph.glyph = hl->glyph.glyph;
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 					hl2.setFillColor(hl->strokeColor());
@@ -4018,7 +4018,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 					setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl2, pstyle, pag);
 				}
 				setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, hl, pstyle, pag);
-				if (hl->ch[0] == SpecialChars::OBJECT)
+				if (hl->ch == SpecialChars::OBJECT)
 				{
 					InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
 					CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth());
@@ -4054,7 +4054,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 					double wt = chstyle.font().charWidth(tTabValues[tabCc].tabFillChar, chstyle.fontSize());
 					int coun = static_cast<int>((CurX+hl->glyph.xoffset - tabDist) / wt);
 					double sPos = CurX+hl->glyph.xoffset - (CurX+hl->glyph.xoffset - tabDist) + 1;
-					hl2.ch = QString(tTabValues[tabCc].tabFillChar);
+					hl2.ch = tTabValues[tabCc].tabFillChar;
 					hl2.setTracking(0);
 					hl2.setScaleH(1000);
 					hl2.setScaleV(1000);
@@ -4090,7 +4090,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 			if ((chstyle.effects() & ScStyle_Shadowed) && (chstyle.strokeColor() != CommonStrings::None))
 			{
 				ScText hl2;
-				hl2.ch = ch;
+				hl2.ch = ch[0];
 				hl2.glyph.glyph = hl->glyph.glyph;
 				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 				hl2.setFillColor(hl->strokeColor());

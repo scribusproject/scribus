@@ -3182,7 +3182,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 					double wt = cstyle.font().charWidth(tTabValues[tabCc].tabFillChar, cstyle.fontSize());
 					int coun = static_cast<int>((ls.x + hl->glyph.xoffset - tabDist) / wt);
 					double sPos = ls.x + hl->glyph.xoffset - (ls.x + hl->glyph.xoffset - tabDist) + 1;
-					hl2.ch = QString(tTabValues[tabCc].tabFillChar);
+					hl2.ch = tTabValues[tabCc].tabFillChar;
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 					
 					hl2.glyph.yoffset = hl->glyph.yoffset;
@@ -3234,7 +3234,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 				setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, &hl2, pstyle, pg, sep, farb, ic, master);
 			}
 			setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, hl, pstyle, pg, sep, farb, ic, master);
-			if (hl->ch[0] == SpecialChars::OBJECT)
+			if (hl->ch == SpecialChars::OBJECT)
 			{
 				InlineFrame& embedded(const_cast<InlineFrame&>(hl->embedded));
 				CurX += (embedded.getItem()->gWidth + embedded.getItem()->lineWidth());

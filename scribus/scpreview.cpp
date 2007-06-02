@@ -376,7 +376,7 @@ QPixmap ScPreview::createPreview(QString data)
 					wt = QStringList::split("\t", cc);
 					it = wt.begin();
 					hg = new ScText;
-					hg->ch = (*it);
+					hg->ch = it->at(0);
 					if (hg->ch == QChar(5))
 						hg->ch = QChar(13);
 					it++;

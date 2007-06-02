@@ -1366,13 +1366,13 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					{
 						painter->save();
 						painter->translate(CurX, ls.y);
-						if (hl->ch[0] == SpecialChars::OBJECT)
+						if (hl->ch == SpecialChars::OBJECT)
 							DrawItem_Embedded(item, painter, clip, charStyle, hl->embedded.getItem());
 						else
 							DrawGlyphs(item, painter, charStyle, hl->glyph, clip);
 						painter->restore();
 					}
-					if (hl->ch[0] == SpecialChars::OBJECT)
+					if (hl->ch == SpecialChars::OBJECT)
 						CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 					else
 						CurX += hl->glyph.wide();

@@ -104,7 +104,7 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 		elem->setContext(newContext);
 	--it;
 	while ( (elem = it.current()) != NULL ) {
-		if (elem->ch[0] == SpecialChars::PARSEP)
+		if (elem->ch == SpecialChars::PARSEP)
 			break;
 		elem->setContext(newContext);
 		--it;
@@ -113,11 +113,11 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 	Q3PtrListIterator<ScText> test( *this );
 	const StyleContext* lastContext = NULL;
 	while ( (elem = it.current()) != NULL ) {
-		if ( elem->ch.isEmpty() ) 
+		if ( elem->ch.isNull() ) 
 		{
 			// nothing, see code in removeParSep
 		}
-		else if (elem->ch[0] == SpecialChars::PARSEP)
+		else if (elem->ch == SpecialChars::PARSEP)
 		{
 			assert( elem->parstyle );
 			if ( lastContext )

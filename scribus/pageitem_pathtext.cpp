@@ -163,7 +163,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		hl->glyph.yadvance = 0;
 		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();
-		if (hl->ch[0] == SpecialChars::OBJECT)
+		if (hl->ch == SpecialChars::OBJECT)
 			totalTextLen += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 		else
 			totalTextLen += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0;
@@ -199,7 +199,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		hl->glyph.yadvance = 0;
 		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 		hl->glyph.shrink();                                                           // HACK
-		if (hl->ch[0] == SpecialChars::OBJECT)
+		if (hl->ch == SpecialChars::OBJECT)
 			dx = (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth()) / 2.0;
 		else
 			dx = hl->glyph.wide() / 2.0;
@@ -318,7 +318,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				else
 					p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			}
-			if (hl->ch[0] == SpecialChars::OBJECT)
+			if (hl->ch == SpecialChars::OBJECT)
 			{
 				p->translate(0.0, BaseOffs);
 				DrawObj_Embedded(p, e, itemText.charStyle(a), hl->embedded.getItem());
@@ -333,7 +333,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		MaxChars = a+1;
 		oCurX = CurX;
 		CurX -= dx;
-		if (hl->ch[0] == SpecialChars::OBJECT)
+		if (hl->ch == SpecialChars::OBJECT)
 			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 		else
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;

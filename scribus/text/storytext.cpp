@@ -272,7 +272,7 @@ void StoryText::removeParSep(int pos)
 	}
 	// demote this parsep so the assert code in replaceCharStyleContextInParagraph()
 	// doesnt choke:
-	it->ch = "";
+	it->ch = 0;
 	d->replaceCharStyleContextInParagraph(pos, paragraphStyle(pos+1).charStyleContext());	
 }
 
@@ -288,10 +288,10 @@ void StoryText::removeChars(int pos, uint len)
 	for ( int i=pos + static_cast<int>(len) - 1; i >= pos; --i )
 	{
 		ScText *it = d->at(i);
-		if ((it->ch[0] == SpecialChars::PARSEP)) {
+		if ((it->ch == SpecialChars::PARSEP)) {
 			removeParSep(i);
 		}
-//		qDebug("remove char %d at %d", it->ch[0].unicode(), i);
+//		qDebug("remove char %d at %d", (int) it->ch.unicode(), i);
 		d->take(i);
 		d->len--;
 		delete it;
@@ -324,11 +324,11 @@ void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, 
 
 	for (int i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText(clone);
-		item->ch= txt.mid(i, 1);
+		item->ch= txt.at(i);
 		item->setContext(cStyleContext);
 		d->insert(pos + i, item);
 		d->len++;
-		if (item->ch[0] == SpecialChars::PARSEP) {
+		if (item->ch == SpecialChars::PARSEP) {
 //			qDebug(QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name()));
 			insertParSep(pos + i);
 		}
@@ -347,14 +347,14 @@ void StoryText::replaceChar(int pos, QChar ch)
 	assert(pos < length());
 
 	ScText* item = d->at(pos);
-	if (item->ch[0] == ch)
+	if (item->ch == ch)
 		return;
 	
-	if (d->at(pos)->ch[0] == SpecialChars::PARSEP) {
+	if (d->at(pos)->ch == SpecialChars::PARSEP) {
 		removeParSep(pos);
 	}
 	item->ch = ch;
-	if (d->at(pos)->ch[0] == SpecialChars::PARSEP) {
+	if (d->at(pos)->ch == SpecialChars::PARSEP) {
 		insertParSep(pos);
 	}
 	
@@ -406,7 +406,7 @@ QChar StoryText::text(int pos) const
 	assert(pos >= 0);
 	assert(pos < length());
 
-	return const_cast<StoryText *>(this)->d->at(pos)->ch[0];
+	return const_cast<StoryText *>(this)->d->at(pos)->ch;
 }
 
 QString StoryText::text(int pos, uint len) const
@@ -480,7 +480,7 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 //	return doc->docParagraphStyles[that->at(pos)->cab];
 	
 	that->d->at(pos);
-	while (pos < length() && that->d->current()->ch[0] != SpecialChars::PARSEP) {
+	while (pos < length() && that->d->current()->ch != SpecialChars::PARSEP) {
 		++pos;
 		that->d->next();
 	}
@@ -539,7 +539,7 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 
 	d->at(pos);
 	for (uint i=pos; i < pos+len; ++i) {
-		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
+		if (d->current()->ch == SpecialChars::PARSEP && d->current()->parstyle != NULL)
 			d->current()->parstyle->charStyle().applyCharStyle(style);
 		d->current()->applyCharStyle(style);
 		d->next();
@@ -563,7 +563,7 @@ void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
 	
 	d->at(pos);
 	for (uint i=pos; i < pos+len; ++i) {
-		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
+		if (d->current()->ch == SpecialChars::PARSEP && d->current()->parstyle != NULL)
 			d->current()->parstyle->charStyle().eraseCharStyle(style);
 		d->current()->eraseCharStyle(style);
 		d->next();
@@ -582,7 +582,7 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 	assert(pos <= length());
 
 	int i = pos;
-	while (i < length() && d->at(i)->ch[0] != SpecialChars::PARSEP) {
+	while (i < length() && d->at(i)->ch != SpecialChars::PARSEP) {
 		++i;
 	}
 	if (i < length()) {
@@ -614,7 +614,7 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 	assert(pos <= length());
 		
 	int i = pos;
-	while (i < length() && d->at(i)->ch[0] != SpecialChars::PARSEP) {
+	while (i < length() && d->at(i)->ch != SpecialChars::PARSEP) {
 		++i;
 	}
 	if (i < length()) {
@@ -659,7 +659,7 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 	
 	d->at(pos);
 	for (uint i=pos; i < pos+len; ++i) {
-		if (d->current()->ch[0] == SpecialChars::PARSEP && d->current()->parstyle != NULL)
+		if (d->current()->ch == SpecialChars::PARSEP && d->current()->parstyle != NULL)
 			d->current()->parstyle->charStyle() = style;
 		d->current()->setStyle(style);
 		d->next();
@@ -732,7 +732,7 @@ uint StoryText::nrOfParagraphs() const
 	that->d->at(0);
 	bool lastWasPARSEP = true;
 	for (int i=0; i < length(); ++i) {
-		lastWasPARSEP = that->d->current()->ch[0] == SpecialChars::PARSEP;
+		lastWasPARSEP = that->d->current()->ch == SpecialChars::PARSEP;
 		if (lastWasPARSEP)
 			++result;
 		that->d->next();
@@ -748,7 +748,7 @@ int StoryText::startOfParagraph(uint index) const
 	StoryText* that = const_cast<StoryText *>(this);
 	that->d->at(0);
 	for (int i=0; i < length(); ++i) {
-		if (that->d->current()->ch[0] == SpecialChars::PARSEP && ! --index)
+		if (that->d->current()->ch == SpecialChars::PARSEP && ! --index)
 			return i + 1;
 		that->d->next();
 	}
@@ -761,7 +761,7 @@ int StoryText::endOfParagraph(uint index) const
 	StoryText* that = const_cast<StoryText *>(this);
 	that->d->at(0);
 	for (int i=0; i < length(); ++i) {
-		if (that->d->current()->ch[0] == SpecialChars::PARSEP && ! --index)
+		if (that->d->current()->ch == SpecialChars::PARSEP && ! --index)
 			return i;
 		that->d->next();
 	}
