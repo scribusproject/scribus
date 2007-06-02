@@ -933,6 +933,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	TabStack3 = new Q3WidgetStack( page_5, "TabStack3" );
 	TabStack3->setFrameShape( Q3WidgetStack::NoFrame );
+	TabStack3->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 
 	page_5a = new QWidget( TabStack3, "page" );
 	pageLayout_5a = new Q3VBoxLayout( page_5a, 0, 5, "pageLayout_5a");
