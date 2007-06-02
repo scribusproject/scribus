@@ -910,21 +910,24 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			doc->useRaster = savedAlignGrid;
 			doc->SnapGuides = savedAlignGuides;
 			uint ae = doc->Items->count();
-			pat.setDoc(doc);
-			PageItem* currItem = doc->Items->at(ac);
-			pat.pattern = currItem->DrawObj_toImage();
-			for (uint as = ac; as < ae; ++as)
+			if (ae > ac)
 			{
-				PageItem* Neu = doc->Items->take(ac);
-				Neu->ItemNr = pat.items.count();
-				pat.items.append(Neu);
+				pat.setDoc(doc);
+				PageItem* currItem = doc->Items->at(ac);
+				pat.pattern = currItem->DrawObj_toImage();
+				for (uint as = ac; as < ae; ++as)
+				{
+					PageItem* Neu = doc->Items->take(ac);
+					Neu->ItemNr = pat.items.count();
+					pat.items.append(Neu);
+				}
+				pat.scaleX = pg.attribute("scaleX", "0").toDouble();
+				pat.scaleY = pg.attribute("scaleY", "0").toDouble();
+				pat.width = pg.attribute("width", "0").toDouble();
+				pat.height = pg.attribute("height", "0").toDouble();
+				if (!doc->docPatterns.contains(pg.attribute("Name")))
+					doc->docPatterns.insert(pg.attribute("Name"), pat);
 			}
-			pat.scaleX = pg.attribute("scaleX", "0").toDouble();
-			pat.scaleY = pg.attribute("scaleY", "0").toDouble();
-			pat.width = pg.attribute("width", "0").toDouble();
-			pat.height = pg.attribute("height", "0").toDouble();
-			if (!doc->docPatterns.contains(pg.attribute("Name")))
-				doc->docPatterns.insert(pg.attribute("Name"), pat);
 		}
 		DOC=DOC.nextSibling();
 	}
@@ -1358,7 +1361,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	QStringList patterns = doc->getUsedPatternsSelection();
 	for (int c = 0; c < patterns.count(); ++c)
 	{
-		ScPattern pa = doc->docPatterns[patterns[c]];
+		ScPattern& pa = doc->docPatterns[patterns[c]];
 		QDomElement pat = docu.createElement("Pattern");
 		pat.setAttribute("Name", patterns[c]);
 		pat.setAttribute("scaleX", pa.scaleX);

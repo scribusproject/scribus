@@ -2527,8 +2527,12 @@ QStringList ScribusDoc::getUsedPatternsSelection()
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			PageItem *currItem = m_Selection->itemAt(a);
-			if ((!results.contains(currItem->pattern())) && (currItem->GrType == 8))
-				results.append(currItem->pattern());
+			if (currItem->GrType == 8)
+			{
+				const QString& pat = currItem->pattern();
+				if (!pat.isEmpty() && !results.contains(pat))
+					results.append(currItem->pattern());
+			}
 		}
 		for (int c = 0; c < results.count(); ++c)
 		{
@@ -2549,8 +2553,12 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	pats.clear();
 	for (uint c = 0; c < pat->items.count(); ++c)
 	{
-		if ((!results.contains(pat->items.at(c)->pattern())) && (pat->items.at(c)->GrType == 8))
-			pats.append(pat->items.at(c)->pattern());
+		if (pat->items.at(c)->GrType == 8)
+		{
+			const QString& patName = pat->items.at(c)->pattern();
+			if (!patName.isEmpty() && !results.contains(patName))
+				pats.append(patName);
+		}
 	}
 	if (!pats.isEmpty())
 	{
