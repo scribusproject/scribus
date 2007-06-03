@@ -130,6 +130,16 @@ localization = {
       'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь',
       'Октябрь', 'Ноябрь', 'Декабрь'],
      ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота', 'Воскресенье']],
+'Slovak' :
+    [['Január', 'Február', 'Marec', 'Apríl',
+      'Máj', 'Jún', 'Júl', 'August', 'September',
+      'Október', 'November', 'December'],
+      ['Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota', 'Nedeľa']],
+'Slovak-short' :
+    [['Január', 'Február', 'Marec', 'Apríl',
+      'Máj', 'Jún', 'Júl', 'August', 'September',
+      'Október', 'November', 'December'],
+      ['Po','Ut','St','Št','Pi','So', 'Ne']],
 'Spanish' :
     [['Enero', 'Febrero', 'Marco', 'Abril', 'Mayo',
       'Junio', 'Julio', 'Agosto', 'Septiembre',
