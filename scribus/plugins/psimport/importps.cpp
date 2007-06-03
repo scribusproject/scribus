@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefstable.h"
 #include "scribusXml.h"
 #include <qfile.h>
-#include <q3textstream.h>
 #include <qcursor.h>
 #include <q3dragobject.h>
 #include <qregexp.h>
@@ -28,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3ValueList>
 #include <QByteArray>
+#include <QTextStream>
 #include <cmath>
 #include <cstdlib>
 
@@ -97,7 +97,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		if (f.open(QIODevice::ReadOnly))
 		{
 /* Try to find Bounding Box */
-			Q3TextStream ts(&f);
+			QTextStream ts(&f);
 			while (!ts.atEnd())
 			{
 				tmp = ts.readLine();
@@ -118,7 +118,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				if (tmp.startsWith("%%CMYKCustomColor"))
 				{
 					tmp = tmp.remove(0,18);
-					Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
+					QTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> y >> k;
 					FarNam = ts2.read();
 					FarNam = FarNam.stripWhiteSpace();
@@ -140,7 +140,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 							break;
 						}
 						tmp = tmp.remove(0,3);
-						Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
+						QTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> y >> k;
 						FarNam = ts2.read();
 						FarNam = FarNam.stripWhiteSpace();
@@ -163,7 +163,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				QStringList bb = QStringList::split(" ", BBox);
 				if (bb.count() == 4)
 				{
-					Q3TextStream ts2(&BBox, QIODevice::ReadOnly);
+					QTextStream ts2(&BBox, QIODevice::ReadOnly);
 					ts2 >> x >> y >> b >> h;
 				}
 			}
@@ -356,7 +356,10 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 			qDebug("psimport: enddata");
 			qDebug(QString("psimport: drag type %1").arg(dr->format()));
 #endif
-				if (!dr->drag())
+				dr->drag();
+				/* JG : incorrect, see the Qt Reference: "The function returns TRUE if the caller should 
+				delete the original copy of the dragged data */
+				/*if (!dr->drag())
 				{
 					if (importedColors.count() != 0)
 					{
@@ -365,7 +368,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 							m_Doc->PageColors.remove(importedColors[cd]);
 						}
 					}
-				}
+				}*/
 				delete ss;
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = 0;
@@ -522,8 +525,10 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	pagecount = 1;
 	if (f.open(QIODevice::ReadOnly))
 	{
+		int fProgress = 0;
+		int fSize = (int) f.size();
 		if (progressDialog) {
-			progressDialog->setTotalSteps("GI", (int) f.size());
+			progressDialog->setTotalSteps("GI", fSize);
 			qApp->processEvents();
 		}
 		lastPath = "";
@@ -534,15 +539,21 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 		JoinStyle = Qt::MiterJoin;
 		CapStyle = Qt::FlatCap;
 		DashPattern.clear();
-		Q3TextStream ts(&f);
+		QTextStream ts(&f);
 		int line_cnt = 0;
 		while (!ts.atEnd() && !cancel)
 		{
 			tmp = "";
 			tmp = ts.readLine();
 			if (progressDialog && (++line_cnt % 100 == 0)) {
-				progressDialog->setProgress("GI", (int) f.at());
-				qApp->processEvents();
+				int fPos = f.at();
+				int progress = ceil(fPos / (double) fSize * 100);
+				if (progress > fProgress)
+				{
+					progressDialog->setProgress("GI", fPos);
+					qApp->processEvents();
+					fProgress = progress;
+				}
 			}
 			token = tmp.section(' ', 0, 0);
 			params = tmp.section(' ', 1, -1, QString::SectionIncludeTrailingSep);
@@ -744,13 +755,13 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "w")
 			{
-				Q3TextStream Lw(&params, QIODevice::ReadOnly);
+				QTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> LineW;
 //				currPath += params;
 			}
 			else if (token == "ld")
 			{
-				Q3TextStream Lw(&params, QIODevice::ReadOnly);
+				QTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> dc;
 				Lw >> DashOffset;
 				DashPattern.clear();
@@ -766,7 +777,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "lc")
 			{
-				Q3TextStream Lw(&params, QIODevice::ReadOnly);
+				QTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> lcap;
 				switch (lcap)
 				{
@@ -787,7 +798,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			}
 			else if (token == "lj")
 			{
-				Q3TextStream Lw(&params, QIODevice::ReadOnly);
+				QTextStream Lw(&params, QIODevice::ReadOnly);
 				Lw >> ljoin;
 				switch (ljoin)
 				{
@@ -844,7 +855,7 @@ bool EPSPlug::Image(QString vals)
 	double x, y, w, h, angle;
 	int horpix, verpix;
 	QString filename, device;
-	Q3TextStream Code(&vals, QIODevice::ReadOnly);
+	QTextStream Code(&vals, QIODevice::ReadOnly);
 	Code >> x;
 	Code >> y;
 	Code >> w;
@@ -989,7 +1000,7 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 	double c, m, y, k, r, g, b;
 	ScColor tmp;
 	ColorList::Iterator it;
-	Q3TextStream Code(&vals, QIODevice::ReadOnly);
+	QTextStream Code(&vals, QIODevice::ReadOnly);
 	bool found = false;
 	if (model == colorModelRGB)
 	{

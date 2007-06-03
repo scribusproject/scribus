@@ -535,7 +535,10 @@ bool OODPlug::convert(int flags)
 			m_Doc->view()->updatesOn(true);
 			m_Doc->view()->updateContents();
 			dr->setPixmap(loadIcon("DragPix.xpm"));
-			importCanceled = dr->drag();
+			dr->drag();
+			/* JG : incorrect, see the Qt Reference: "The function returns TRUE if the caller should 
+			delete the original copy of the dragged data */
+			/*importCanceled = dr->drag();
 			if (!importCanceled)
 			{
 				if (importedColors.count() != 0)
@@ -545,7 +548,7 @@ bool OODPlug::convert(int flags)
 						m_Doc->PageColors.remove(importedColors[cd]);
 					}
 				}
-			}
+			}*/
 			delete ss;
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = 0;
