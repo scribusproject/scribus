@@ -27,7 +27,10 @@
    </property>
    <item>
     <widget class="QTabWidget" name="tabWidget" >
-     <widget class="QWidget" name="tab" >
+     <property name="currentIndex" >
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tabAlign" >
       <attribute name="title" >
        <string>Align</string>
       </attribute>
@@ -262,7 +265,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab" >
+     <widget class="QWidget" name="tabDistribute" >
       <attribute name="title" >
        <string>Distribute</string>
       </attribute>
@@ -498,7 +501,7 @@
             </widget>
            </item>
            <item>
-            <widget class="ScrSpinBox" native="1" name="distributeDistSpinBox" >
+            <widget class="ScrSpinBox" name="distributeDistSpinBox" >
              <property name="minimumSize" >
               <size>
                <width>50</width>
@@ -552,15 +555,15 @@
  <layoutdefault spacing="6" margin="11" />
  <customwidgets>
   <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
    <class>ScrPaletteBase</class>
    <extends>QWidget</extends>
    <header>scrpalettebase.h</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>ScrSpinBox</class>
-   <extends>QDoubleSpinBox</extends>
-   <header>scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <includes>

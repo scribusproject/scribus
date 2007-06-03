@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <qobject.h>
 #include <q3dict.h>
 #include <qcolor.h>
-#include <q3valuelist.h>
+#include <QList>
 #include <q3valuevector.h>
 #include <qpixmap.h>
 #include <q3ptrlist.h>
@@ -899,7 +899,7 @@ public: // Public attributes
 	QString DocName;
 	QMap<QString,int> UsedFonts;
 	SCFonts * const AllFonts;
-	Q3ValueList<AlignObjs> AObjects;
+	QList<AlignObjs> AObjects;
 	QColor papColor;
 	int CurrentSel;
 	ParagraphStyle currentStyle;

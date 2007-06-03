@@ -6868,7 +6868,7 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePos
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newX = 99999.9;
 	switch ( currAlignTo )
 	{
@@ -6910,7 +6910,7 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosi
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newX = 99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -6952,7 +6952,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newX = 0.0;
 	switch ( currAlignTo ) 
 	{
@@ -7004,7 +7004,7 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePos
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newX = -99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -7048,7 +7048,7 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePo
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newX = -99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -7092,7 +7092,7 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosi
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newY = 99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -7134,7 +7134,7 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosit
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newY = 99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -7177,7 +7177,7 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newY = 0.0;
 	switch ( currAlignTo ) 
 	{
@@ -7230,7 +7230,7 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePo
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newY = -99999.9;
 	switch ( currAlignTo ) 
 	{
@@ -7274,7 +7274,7 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guideP
 	if (!startAlign())
 		return;
 	uint alignObjectsCount=AObjects.count();
-	int loopStart=0, loopEnd=alignObjectsCount;
+	int loopStart=0, loopEnd=alignObjectsCount-1;
 	double newY = -99999.9;
 	switch ( currAlignTo )
 	{

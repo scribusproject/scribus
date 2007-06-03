@@ -20,20 +20,18 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "aligndistribute.h"
-//#include "aligndistribute.moc"
 
-#include <qvariant.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qlineedit.h>
-#include <qtabwidget.h>
+#include <QVariant>
+#include <QPushButton>
+#include <QLabel>
+#include <QComboBox>
+#include <QToolButton>
+#include <QLayout>
+#include <QToolTip>
+#include <QImage>
+#include <QPixmap>
+#include <QLineEdit>
+#include <QTabWidget>
 
 #include "page.h"
 #include "scmessagebox.h"
@@ -69,8 +67,8 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	distributeDistLabel->setBuddy( distributeDistSpinBox );
 	
 	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
-	init();
 	languageChange();
+	init();
 	setDoc(NULL);
 }
 
@@ -84,7 +82,7 @@ void AlignDistributePalette::languageChange()
 	tabWidget->changeTab(tabWidget->page(0), tr( "Align"));
 	tabWidget->changeTab(tabWidget->page(1), tr( "Distribute"));
 	alignRelativeToLabel->setText( tr( "&Relative to:" ) );
-	int alignComboValue=alignRelativeToCombo->currentItem();
+	int alignComboValue=alignRelativeToCombo->currentIndex();
 	alignRelativeToCombo->clear();
 	alignRelativeToCombo->insertItem( tr( "First Selected" ) );
 	alignRelativeToCombo->insertItem( tr( "Last Selected" ) );
@@ -92,7 +90,7 @@ void AlignDistributePalette::languageChange()
 	alignRelativeToCombo->insertItem( tr( "Margins" ) );
 	alignRelativeToCombo->insertItem( tr( "Guide" ) );		
 	alignRelativeToCombo->insertItem( tr( "Selection" ) );
-	alignRelativeToCombo->setCurrentItem(alignComboValue);
+	alignRelativeToCombo->setCurrentIndex(alignComboValue);
 	alignToChanged(alignComboValue);
 	alignLeftOutToolButton->setText( QString::null );
 	QToolTip::add( alignLeftOutToolButton, tr( "Align right sides of items to left side of anchor" ) );
@@ -213,6 +211,8 @@ void AlignDistributePalette::init()
 	connect(distributeAcrossMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossMargins()));
 	connect(distributeDownMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownMargins()));
 	
+	alignRelativeToCombo->setCurrentIndex(0);
+	alignToChanged(0);
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
 	
 	unitRatio=1.0;
