@@ -153,8 +153,8 @@ void InsertAFrame::slotSelectPosition( int id )
 
 void InsertAFrame::slotSelectSize( int id )
 {
-	widthScrSpinBox->setEnabled(id==3);
-	heightScrSpinBox->setEnabled(id==3);
+	widthScrSpinBox->setEnabled(id==4);
+	heightScrSpinBox->setEnabled(id==4);
 }
 
 void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
