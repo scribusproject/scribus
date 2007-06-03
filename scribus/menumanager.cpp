@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include <q3dict.h>
 #include <qmenubar.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 #include "scribus.h"
 #include "menumanager.h"
 //#include "menumanager.moc"
@@ -130,7 +130,7 @@ void MenuManager::setMenuIcon(const QString &menuName, const QIcon &menuIcon)
 	}
 }
 
-Q3PopupMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
+QMenu *MenuManager::getLocalPopupMenu(const QString &menuName)
 {
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 		return menuList[menuName]->getLocalPopupMenu();
@@ -292,7 +292,7 @@ void MenuManager::runMenuAtPos(const QString &menuName, const QPoint position)
 {
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{	
-		Q3PopupMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
+		QMenu *popupmenu=menuList[menuName]->getLocalPopupMenu();
 		if (popupmenu)
 			popupmenu->exec(position);
 	}

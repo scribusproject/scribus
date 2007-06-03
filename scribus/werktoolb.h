@@ -27,11 +27,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "sctoolbar.h"
 //Added by qt3to4:
-#include <Q3PopupMenu>
+#include <QMenu>
 #include <QMenu>
 #include <QWidgetAction>
 class QToolButton;
-class Q3PopupMenu;
 class AutoformButtonGroup;
 class ScribusMainWindow;
 class WidgetPopupMenu2;
@@ -61,7 +60,7 @@ protected:
 	AutoformButtonGroup* Rechteck;
 	QWidgetAction* insertShapeButtonAct;
 	QMenu* insertShapeButtonMenu;
-	Q3PopupMenu* insertPolygonButtonMenu;
+	QMenu* insertPolygonButtonMenu;
 	int idInsertPolygonButtonMenu;
 	ScribusMainWindow* m_ScMW;
 };

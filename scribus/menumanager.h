@@ -21,15 +21,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef MENUMANAGER_H
 #define MENUMANAGER_H
 
-#include <qaction.h>
-#include <qobject.h>
+#include <QAction>
+#include <QObject>
 #include <q3ptrlist.h>
-#include <qpoint.h>
-//Added by qt3to4:
-#include <Q3PopupMenu>
+#include <QPoint>
+#include <QMenu>
 
 class QMenuBar;
-class Q3PopupMenu;
 
 #include "scribusapi.h"
 class ScrAction;
@@ -55,7 +53,7 @@ public:
 	bool clearMenu(const QString &menuName);
 	void setMenuText(const QString &menuName, const QString &menuText);
 	void setMenuIcon(const QString &menuName, const QIcon &menuIcon);
-	Q3PopupMenu *getLocalPopupMenu(const QString &menuName);
+	QMenu *getLocalPopupMenu(const QString &menuName);
 	void setMenuEnabled(const QString &menuName, const bool enabled);
 	bool addMenuToMenuBar(const QString &menuName);
 	bool addMenuToMenuBarAfter(const QString &, const QString &);

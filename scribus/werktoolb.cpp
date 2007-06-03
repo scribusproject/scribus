@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <qtooltip.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 #include <qpixmap.h>
 
 #include "werktoolb.h"

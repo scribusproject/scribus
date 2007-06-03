@@ -18,10 +18,9 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <q3popupmenu.h>
+#include <QMenu>
 #include <QIcon>
 #include "scraction.h"
-//#include "scraction.moc"
 #include "scribus.h"
 #include "scribusdoc.h"
 
@@ -166,7 +165,7 @@ void ScrAction::toggledToToggledData(bool ison)
 	}
 }
 
-void ScrAction::addedTo ( int index, Q3PopupMenu * menu )
+void ScrAction::addedTo ( int index, QMenu * menu )
 {
 	if (menuIndex==-1) // Add the first time, not for secondary popups.
 	{

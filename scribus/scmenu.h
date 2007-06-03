@@ -21,14 +21,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCMENU_H
 #define SCMENU_H
 
-#include <qaction.h>
-#include <qicon.h>
-#include <qpointer.h>
-//Added by qt3to4:
-#include <Q3ValueList>
-#include <Q3PopupMenu>
+#include <QAction>
+#include <QIcon>
+#include <QPointer>
+#include <QList>
+#include <QMenu>
 
-class Q3PopupMenu;
+class QMenu;
 class ScrAction;
 
 #include "scribusapi.h"
@@ -50,7 +49,7 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 		void setMenuBarID(int id);
 		int getMenuBarID();
 		void setEnabled(bool menuEnabled);
-		Q3PopupMenu *getLocalPopupMenu();
+		QMenu *getLocalPopupMenu();
 		bool repopulateLocalMenu();
 		bool clear();
 		
@@ -72,8 +71,8 @@ class SCRIBUS_API ScrPopupMenu : public QObject
 		void setParentMenuName(const QString& newParentMenuName);
 		
 	protected:
-		Q3PopupMenu *localPopupMenu;
-		Q3ValueList< QPointer<QObject> > menuItemList;
+		QMenu *localPopupMenu;
+		QList< QPointer<QObject> > menuItemList;
 		QString menuName;
 		QString parentMenuName;
 		int parentMenuID;

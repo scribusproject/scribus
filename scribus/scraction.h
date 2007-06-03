@@ -22,10 +22,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRACTION_H
 #define SCRACTION_H
 
-#include <qaction.h>
+#include <QAction>
 #include <QPixmap>
-//Added by qt3to4:
-#include <Q3PopupMenu>
+#include <QMenu>
 #include "scribusapi.h"
 class ScribusDoc;
 /**
@@ -199,7 +198,7 @@ protected:
 	ActionType _actionType;
 	QWidget *widgetAddedTo;
 	QWidget *containerWidgetAddedTo;
-	Q3PopupMenu *popupMenuAddedTo;
+	QMenu *popupMenuAddedTo;
 	QKeySequence savedKeySequence;
 	bool shortcutSaved;
 	bool fakeToggle;
@@ -211,7 +210,7 @@ protected:
 		\param index The saved index within the QPopupMenu
 		\param menu The menu we are adding this action to
 	*/
-	void addedTo( int index, Q3PopupMenu * menu );
+	void addedTo( int index, QMenu * menu );
 			
 	/*!
 		\author Craig Bradney

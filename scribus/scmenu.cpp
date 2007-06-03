@@ -19,13 +19,11 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include <q3ptrlist.h>
-#include <qobject.h>
-#include <qmetaobject.h>
-#include <q3popupmenu.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QObject>
+#include <QMetaObject>
+#include <QMenu>
+#include <QList>
 #include "scmenu.h"
-//#include "scmenu.moc"
 #include "scraction.h"
 #include "util.h"
 
@@ -37,7 +35,7 @@ ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString 
 	menuName=pMenuName;
 	menuBarID=-1;
 	menuItemList.clear();
-	localPopupMenu=new Q3PopupMenu(parent, name);
+	localPopupMenu=new QMenu(parent);//, name);
 //	localPopupMenu->setCheckable(pCheckable);
 	enabled=true;
 	checkable = pCheckable;
@@ -52,7 +50,7 @@ ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString 
 	menuName=pMenuName;
 	menuBarID=-1;
 	menuItemList.clear();
-	localPopupMenu=new Q3PopupMenu(parent, name);
+	localPopupMenu=new QMenu(parent);//, name);
 //	localPopupMenu->setCheckable(pCheckable);
 	enabled=true;
 	checkable=pCheckable;
@@ -103,7 +101,7 @@ int ScrPopupMenu::getMenuBarID()
 	return menuBarID;
 }
 
-Q3PopupMenu *ScrPopupMenu::getLocalPopupMenu()
+QMenu *ScrPopupMenu::getLocalPopupMenu()
 {
 	return localPopupMenu;
 }
@@ -154,7 +152,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 #ifdef Q_WS_MAC
 		bool menuListHasNoIcons = true;
 		// look for ScrAction or ScrPopupMenu from the end of the list
-		Q3ValueList< QPointer<QObject> >::Iterator it = menuItemList.end(); 
+		QList< QPointer<QObject> >::Iterator it = menuItemList.end(); 
 		for (--it; it != menuItemList.end(); --it) {
 			QObject * menuItem = *it;
 			QString menuItemListClassName = menuItem->className();
@@ -210,7 +208,7 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 		newMenuAction->setIconSet(loadIcon("noicon.xpm"));
 #endif
 		
-	Q3ValueList< QPointer<QObject> >::Iterator it=menuItemList.find(QPointer<QObject>(afterMenuAction));
+	QList< QPointer<QObject> >::Iterator it=menuItemList.find(QPointer<QObject>(afterMenuAction));
 	menuItemList.insert(++it, QPointer<QObject>(newMenuAction));
 	/*
 	if (index==-1)
@@ -280,13 +278,13 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, const QString a
 bool ScrPopupMenu::repopulateLocalMenu()
 {
 	localPopupMenu->clear();
-	Q3ValueList< QPointer<QObject> >::Iterator menuItemListIt = menuItemList.begin();
+	QList< QPointer<QObject> >::Iterator menuItemListIt = menuItemList.begin();
 	while (menuItemListIt!=menuItemList.end())
 	{
 		QObject *listObj=(*menuItemListIt);
 		if (listObj==NULL)
 		{
-			Q3ValueList< QPointer<QObject> >::Iterator menuItemListItToDelete = menuItemListIt;
+			QList< QPointer<QObject> >::Iterator menuItemListItToDelete = menuItemListIt;
 			++menuItemListIt;
 			menuItemList.remove(*menuItemListItToDelete);
 			continue;
@@ -320,13 +318,13 @@ bool ScrPopupMenu::repopulateLocalMenu()
 
 bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 {
-	Q3ValueList< QPointer<QObject> >::Iterator menuItemListIt = menuItemList.begin();
+	QList< QPointer<QObject> >::Iterator menuItemListIt = menuItemList.begin();
 	while (menuItemListIt!=menuItemList.end())
 	{
 		QObject *listObj=(*menuItemListIt);
 		if (listObj==NULL)
 		{
-			Q3ValueList< QPointer<QObject> >::Iterator menuItemListItToDelete = menuItemListIt;
+			QList< QPointer<QObject> >::Iterator menuItemListItToDelete = menuItemListIt;
 			++menuItemListIt;
 			menuItemList.remove(*menuItemListItToDelete);
 			continue;

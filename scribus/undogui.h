@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtoolbutton.h>
 #include <qpainter.h>
 #include <qpixmap.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 
 class QCheckBox;
 class PrefsContext;
@@ -158,8 +158,8 @@ private:
 	QToolButton* undoButton;
 	QToolButton* redoButton;
 	*/
-	Q3PopupMenu* undoMenu;
-	Q3PopupMenu* redoMenu;
+	QMenu* undoMenu;
+	QMenu* redoMenu;
 	void updateUndoMenu();
 	void updateRedoMenu();
 public:
