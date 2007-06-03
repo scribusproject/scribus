@@ -8241,23 +8241,24 @@ void ScribusMainWindow::Apply_MasterPage(QString pageName, int pageNumber, bool 
 }
 
 //CB-->Doc
-void ScribusMainWindow::GroupObj(bool showLockDia)
+void ScribusMainWindow::GroupObj(bool showLockDia, Selection* customSelection)
 {
 	if (HaveDoc)
 	{
-		if (doc->m_Selection->count() < 2)
+		Selection* itemSelection = (customSelection!=0) ? customSelection : doc->m_Selection;
+		if (itemSelection->count() < 2)
 			return;
 		PageItem *currItem;
 		PageItem* bb;
 		double x, y, w, h;
 		QString tooltip = Um::ItemsInvolved + "\n";
-		uint selectedItemCount=doc->m_Selection->count();
+		uint selectedItemCount=itemSelection->count();
 		if (showLockDia)
 		{
 			uint lockedCount=0;
 			for (uint a=0; a<selectedItemCount; ++a)
 			{
-				if (doc->m_Selection->itemAt(a)->locked())
+				if (itemSelection->itemAt(a)->locked())
 					++lockedCount;
 			}
 			int t=-1;
@@ -8284,12 +8285,12 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 //					return; // user chose cancel -> do not group but return
 				for (uint a=0; a<selectedItemCount; ++a)
 				{
-					currItem = doc->m_Selection->itemAt(a);
+					currItem = itemSelection->itemAt(a);
 					if (currItem->locked())
 					{
 						for (uint c=0; c<selectedItemCount; ++c)
 						{
-							bb = doc->m_Selection->itemAt(c);
+							bb = itemSelection->itemAt(c);
 							bool t1=(t==1);
 							bb->setLocked(t1);
 							scrActions["itemLock"]->setOn(t1);
@@ -8300,12 +8301,12 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 				unlockButton = NULL;	// just to silence the compiler
 			}
 		}
-		doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+		itemSelection->getGroupRect(&x, &y, &w, &h);
 		uint lowestItem = 999999;
 		uint highestItem = 0;
 		for (uint a=0; a<selectedItemCount; ++a)
 		{
-			currItem = doc->m_Selection->itemAt(a);
+			currItem = itemSelection->itemAt(a);
 			currItem->gXpos = currItem->xPos() - x;
 			currItem->gYpos = currItem->yPos() - y;
 			currItem->gWidth = w;
@@ -8319,7 +8320,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		double maxy = -99999.9;
 		for (uint ep = 0; ep < selectedItemCount; ++ep)
 		{
-			PageItem* currItem = doc->m_Selection->itemAt(ep);
+			PageItem* currItem = itemSelection->itemAt(ep);
 			double lw = currItem->lineWidth() / 2.0;
 			if (currItem->rotation() != 0)
 			{
@@ -8363,7 +8364,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		QMap<int, uint> ObjOrder;
 		for (uint c = 0; c < selectedItemCount; ++c)
 		{
-			currItem = doc->m_Selection->itemAt(c);
+			currItem = itemSelection->itemAt(c);
 			ObjOrder.insert(currItem->ItemNr, c);
 			int d = doc->Items->findRef(currItem);
 			doc->Items->take(d);
@@ -8371,19 +8372,19 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		Q3ValueList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
-			doc->Items->insert(lowestItem+1, doc->m_Selection->itemAt(Oindex[c]));
+			doc->Items->insert(lowestItem+1, itemSelection->itemAt(Oindex[c]));
 		}
 
 		doc->renumberItemsInListOrder();
-		doc->m_Selection->prependItem(neu);
-		selectedItemCount=doc->m_Selection->count();
+		itemSelection->prependItem(neu);
+		selectedItemCount=itemSelection->count();
 		SimpleState *ss = new SimpleState(Um::Group, tooltip);
 		ss->set("GROUP", "group");
 		ss->set("itemcount", selectedItemCount);
 
 		for (uint a=0; a<selectedItemCount; ++a)
 		{
-			currItem = doc->m_Selection->itemAt(a);
+			currItem = itemSelection->itemAt(a);
 			currItem->Groups.push(doc->GroupCounter);
 			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
 		}
@@ -8398,40 +8399,41 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 }
 
 //CB-->Doc
-void ScribusMainWindow::UnGroupObj()
+void ScribusMainWindow::UnGroupObj(Selection* customSelection)
 {
 	if (HaveDoc)
 	{
-		if (doc->m_Selection->count() != 0)
+		Selection* itemSelection = (customSelection!=0) ? customSelection : doc->m_Selection;
+		if (itemSelection->count() != 0)
 		{
-			uint docSelectionCount=doc->m_Selection->count();
+			uint docSelectionCount=itemSelection->count();
 			PageItem *currItem;
 			uint lowestItem = 999999;
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
-				currItem = doc->m_Selection->itemAt(a);
+				currItem = itemSelection->itemAt(a);
 				if (currItem->Groups.count() != 0)
 					currItem->Groups.pop();
 				lowestItem = qMin(lowestItem, currItem->ItemNr);
 			}
 			if (doc->Items->at(lowestItem)->isGroupControl)
 			{
-				doc->m_Selection->removeItem(doc->Items->at(lowestItem));
+				itemSelection->removeItem(doc->Items->at(lowestItem));
 				doc->Items->remove(lowestItem);
 				doc->renumberItemsInListOrder();
 			}
-			docSelectionCount = doc->m_Selection->count();
+			docSelectionCount = itemSelection->count();
 			SimpleState *ss = new SimpleState(Um::Ungroup);
 			ss->set("UNGROUP", "ungroup");
 			ss->set("itemcount", docSelectionCount);
 			QString tooltip = Um::ItemsInvolved + "\n";
 			slotDocCh();
-			HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
-			doc->m_Selection->connectItemToGUI();
-//			doc->m_Selection->itemAt(0)->emitAllToGUI();
+			HaveNewSel(itemSelection->itemAt(0)->itemType());
+			itemSelection->connectItemToGUI();
+//			itemSelection->itemAt(0)->emitAllToGUI();
 			for (uint a=0; a<docSelectionCount; ++a)
 			{
-				currItem = doc->m_Selection->itemAt(a);
+				currItem = itemSelection->itemAt(a);
 				ss->set(QString("item%1").arg(a), currItem->uniqueNr);
 				ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
 				tooltip += "\t" + currItem->getUName() + "\n";

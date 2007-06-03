@@ -300,8 +300,9 @@ PageItem* Selection::takeItem(int itemIndex)
 			return item;
 		}
 	}
-	if (m_isGUISelection)
-		emit selectionChanged();
+	// JG Should not be needed here
+	/*if (m_isGUISelection)
+		emit selectionChanged();*/
 	return NULL;
 }
 

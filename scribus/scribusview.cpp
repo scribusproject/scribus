@@ -10981,7 +10981,9 @@ void ScribusView::TextToPath()
 {
 #ifndef NLS_PROTO
 	m_ScMW->NoFrameEdit();
-	PageItem *currItem = Doc->m_Selection->itemAt(0);
+	Selection tmpSelection(this, false);
+	tmpSelection.copy(*Doc->m_Selection, false, false);
+	PageItem *currItem = tmpSelection.itemAt(0);
 	if ((currItem->prevInChain() != 0) || (currItem->nextInChain() != 0))
 	{
 		// select whole chain
@@ -10995,11 +10997,11 @@ void ScribusView::TextToPath()
 		}
 		currItem = backItem;
 		Deselect(true);
-		Doc->m_Selection->addItem(currItem);
+		tmpSelection.addItem(currItem);
 		backItem = currItem->nextInChain();
 		while (backItem != 0)
 		{
-			Doc->m_Selection->addItem(backItem);
+			tmpSelection.addItem(backItem);
 			if (backItem->nextInChain() != 0)
 				backItem = backItem->nextInChain();
 			else
@@ -11008,14 +11010,14 @@ void ScribusView::TextToPath()
 	}
 	Q3PtrList<PageItem> delItems,newGroupedItems;
 	newGroupedItems.clear();
-	uint selectedItemCount=Doc->m_Selection->count();
+	uint selectedItemCount = tmpSelection.count();
 	if (selectedItemCount != 0)
 	{
 		undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), Um::ToOutlines, "", 0);
 		uint offset=0;
 		for(uint i=0; i<selectedItemCount; ++i)
 		{
-			PageItem *currItem = Doc->m_Selection->itemAt(offset);
+			PageItem *currItem = tmpSelection.itemAt(offset);
 			bool cont=false;
 			if ((!((currItem->asTextFrame()) || (currItem->asPathText()))) || (currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()) || currItem->itemText.length() == 0)
 				cont=true;
@@ -11390,18 +11392,18 @@ void ScribusView::TextToPath()
 				Doc->AdjustItemSize(bb);
 				newGroupedItems.append(Doc->Items->take(z));
 			}
-			delItems.append(Doc->m_Selection->takeItem(offset));
+			delItems.append(tmpSelection.takeItem(offset));
 		}
-		Doc->m_Selection->clear();
+		tmpSelection.clear();
 		if (newGroupedItems.count() > 1)
 		{
 			for (uint ag = 0; ag < newGroupedItems.count(); ++ag)
 			{
 				Doc->Items->insert(currItem->ItemNr+1, newGroupedItems.at(ag));
-				Doc->m_Selection->addItem(newGroupedItems.at(ag));
+				tmpSelection.addItem(newGroupedItems.at(ag));
 			}
 			Doc->renumberItemsInListOrder();
-			m_ScMW->GroupObj();
+			m_ScMW->GroupObj(true, &tmpSelection);
 		}
 		else
 		{
@@ -11411,11 +11413,12 @@ void ScribusView::TextToPath()
 		uint toDeleteItemCount=delItems.count();
 		if (toDeleteItemCount != 0)
 		{
-			Doc->m_Selection->clear();
+			tmpSelection.clear();
 			for(uint i=0; i<toDeleteItemCount; ++i)
-				Doc->m_Selection->addItem(delItems.take(0)); //yes, 0, remove the first
-			Doc->itemSelection_DeleteItem();
+				tmpSelection.addItem(delItems.take(0)); //yes, 0, remove the first
+			Doc->itemSelection_DeleteItem(&tmpSelection);
 		}
+		Doc->m_Selection->copy(tmpSelection, false, true);
 		undoManager->commit();
 	}
 #endif
