@@ -210,6 +210,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	TopLeft = new QRadioButton( RotationGroup, "TopLeft" );
 	TopLeft->setText( "" );
 	TopLeft->setChecked( true );
+	TopLeft->setLayoutDirection(Qt::RightToLeft);
+	TopLeft->setMaximumSize( TopLeft->iconSize() );
 	Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
 	Line1 = new Q3Frame( RotationGroup, "Line1" );
 	Line1->setMinimumSize( QSize( 20, 4 ) );
@@ -221,6 +223,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
 	TopRight = new QRadioButton( RotationGroup, "TopRight" );
 	TopRight->setText( "" );
+	TopRight->setMaximumSize( TopRight->iconSize() );
 	Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
 	Line2 = new Q3Frame( RotationGroup, "Line2" );
 	Line2->setMinimumSize( QSize( 4, 20 ) );
@@ -232,6 +235,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
 	Center = new QRadioButton( RotationGroup, "Center" );
 	Center->setText( "" );
+	Center->setMaximumSize( Center->iconSize() );
 	Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
 	Line4 = new Q3Frame( RotationGroup, "Line4" );
 	Line4->setMinimumSize( QSize( 4, 20 ) );
@@ -242,6 +246,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
 	BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
 	BottomLeft->setText( "" );
+	BottomLeft->setLayoutDirection(Qt::RightToLeft);
+	BottomLeft->setMaximumSize( BottomLeft->iconSize() );
 	Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
 	Line5 = new Q3Frame( RotationGroup, "Line5" );
 	Line5->setMinimumSize( QSize( 20, 4 ) );
@@ -253,6 +259,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
 	BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
 	BottomRight->setText( "" );
+	BottomRight->setMaximumSize( BottomRight->iconSize() );
 	Layout12->addWidget( BottomRight, 2, 2, Qt::AlignCenter );
 	RotationGroupLayout->addLayout( Layout12 );
 	QSpacerItem* spacer12 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
