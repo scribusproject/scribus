@@ -1,23 +1,21 @@
-Generic build instructions are available in the INSTALL file. Please read these
-notes below for Scribus-specifc information plus notes about compiling Scribus on
-particular distributions and operating systems.
-
 CMake Build
 ====================
 
-Scribus 1.3.5+ has replaced  the traditionally used so called 
-autotools. CMake (cmake.org) is 
-a modern, cross-platform replacement for autotools. 
+Scribus 1.3.5+ has replaced  the traditionally used so called autotools with
+the CMake build system (cmake.org).
 
-Please see install4.html or http://docs.scribus.net/index.php?lang=en&page=install4
+Please see install4.html in scribus/doc or:
+	http://docs.scribus.net/index.php?lang=en&page=install4
 for details *after* reviewing the build requirements below.
 
-
-
-REQUIREMENTS AND BUILDING - *BSD/Linux/*nix
+REQUIREMENTS AND BUILDING - Geneiric *BSD/Linux/*nix
 =========================
 
-Install the below packages BEFORE running configure or compiling Scribus:
+These requirements are generic information for any BSD, UNIX or Linux flavour.
+More specific information for particular Linux distros, including lists of
+exact package names for the distro, are provided below.
+
+Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
 	Qt >= 4.2.x (we may require Qt 4.3.x at the time of release)
@@ -28,7 +26,6 @@ Requirements:
 	libjpeg (depending on how Qt is packaged)
 	libpng
 
-
 Recommended:
 	CUPS
 	Fontconfig >= 2.0
@@ -38,7 +35,6 @@ Recommended:
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
 	pkgconfig (to assist finding other libraries)
-
 
 
 If any recommended libraries (and their dev/devel packages or headers) are not
@@ -55,46 +51,34 @@ You can skip this section unless:
     (b) Scribus is not finding libraries that you KNOW you have installed
         (remember the -dev/-devel package if applicable).
 
-If any of your libraries are in non-standard locations and not on the same
---prefix as you're configuring Scribus with, you will need to set some extra
-environment variables when configuring and compiling Scribus to ensure that
-configure and gcc can find all the required information. Where
-/home/fred/libfred is the path to the the directory the lib was installed to
-(--prefix), eg /usr/local or /home/fred/libfred (*NOT* the lib/ subdirectory
-the actual library file is in), the following commands to bash should do the
-trick:
+If any of your libraries are in non-standard locations you will need to provide
+some extra arguments to CMake to ensure that CMake and gcc can find all the
+required files. Where /path/to/libfoo is the path to the the directory the
+library was installed to, eg /usr/local or /home/fred/libfoo (not the 'lib'
+subdirectory the actual .so files are in), you can use the following extra
+arguments to CMake to help it find the library:
 
-	instdir=/home/fred/libfred
-	export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:${instdir}/lib/pkgconfig"
-	export LIBRARY_PATH="${LIBRARY_PATH}:${instdir}/lib"
-	export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${instdir}/lib"
-	export CPATH="${CPATH}:${instdir}/include"
-	export PATH="${PATH}:${instdir}/bin"
+   -DCMAKE_INCLUDE_PATH=/path/to/libfoo/include
+   -DCMAKE_LIBRARY_PATH=/path/to/libfoo/lib
 
-In most cases, you can get away with just some of them for any given lib, but
-setting all of those means any of the several methods of finding libraries that
-might be used should work. These requirements are standard for pretty much any
-package, they are not specific to Scribus - it's just most packages don't
-bother to explain this to you ;-)
+If you have multiple custom paths to specify, use a ; path separator, eg:
 
-If you have more than one collection of libraries, simply repeat the above
-commands for each additional location.
+   -DCMAKE_INCLUDE_PATH=/path/to/libfoo/include;/path/to/libalice/include
 
-In general, you should not add "-I/path" directives to `CXXFLAGS', `CPPFLAGS',
-or `CFLAGS'; that's what `CPATH' is for. Similarly, use `LIBRARY_PATH' rather
-than adding "-L/path" to `LDFLAGS' when trying to get `ld' to find a library.
+In most cases you should not and should not need to modify the CFLAGS,
+CXXFLAGS, LIBRARY_PATH, LD_LIBRARY_PATH, CPATH, or LDFLAGS environment
+variables. If you need to alter these to get Scribus to build, please file a
+bug on http://bugs.scribus.net/ with information about your exact Scribus
+version (including Subversion revision), full CMake command line, output of the
+`env' command, and the full compiler error messages including the original
+compiler command obtained by running `make' with the VERBOSE=1 argument.
 
-`LD_LIBRARY_PATH' may also need to be set when running Scribus later. To avoid
-this requirement under Linux, add the library path to `/etc/ld.so.conf' (on its
-own line, nothing but the path, eg "/home/fred/libfred/lib" without the quotes)
-and run ldconfig as root. Other operating systems have other requirements.
-
-MacOS/X users may need to set `DYLD_LIBRARY_PATH' as well as `LD_LIBRARY_PATH'.
-
-Note that Scribus's build scripts will always find a library installed to the
-same --prefix as Scribus its self ; no special configuration should be required
-in that case.  Any failure to do so is a bug and should be reported on
-http://bugs.scribus.net/ .
+CMake will try to embed the paths to the required libraries into the
+executable,so you should generally not need to set the LD_LIBRARY_PATH
+environment variable or your platform's equivalent. On platforms like win32
+where no such rpath support exists, you will need to ensure that the libraries
+required by Scribus are on the library search path. For Windows, the library
+search path is the PATH environment variable.
 
 REQUIREMENTS - DETAILS
 ======================
@@ -112,30 +96,22 @@ package for your distro.
 
 It is strongly recommended that you install the CUPS development packages if
 you are compiling Scribus. Without CUPS, Scribus will have significantly
-reduced printing functionality.
+reduced printing functionality, and building without CUPS is poorly tested.
 
 Fontconfig, if installed, will let Scribus find fonts using the same method as
 most other major desktop applications such as all KDE and GNOME applications.
 If fontconfig support is installed, Scribus will not search your X font path, X
 server configuration, or X font server configuration for fonts - it will only
 use fonts found using fontconfig and any custom font locations configured in
-the preferences.
+the preferences. Use of fontconfig is strongly recommended and will soon be
+required on supporting platforms.
 
-Python will be used to add scripting support to Scribus. If Python is not
-found, or there are no header files for Python installed (usually because you
-haven't installed the development package), the scripting support will not be
-enabled.
+Python is used to add scripting support to Scribus. If Python is not found, or
+there are no header files for Python installed (usually because you haven't
+installed the development package), the scripting support will not be enabled.
 
 See the distro-specific notes below for more information on installing and
 using Scribus with your distro.
-
-If you have a 64-bit version of Qt, sometimes ./configure will not detect the 
-64-bit version headers. Try : ./configure --enable-libsuffix=64 to test for 64-bit 
-versions of libraries.
-
-If you're on an AMD64 Linux distro and configure can't find Python, try using the argument:
-    --with-extra-libs=/usr/lib64
-to configure.
 
 TROUBLESHOOTING
 ===============
@@ -152,42 +128,40 @@ doing this, re-run configure.
 If the library is still not found, please read and act on the section above,
 entitled `LIBRARIES IN NONSTANDARD LOCATIONS'. Check that all those environment
 variables are set to sensible values. If you are using any other custom CFLAGS,
-LDFLAGS, CXXFLAGS, CPPFLAGS, etc, then unset or disable them unless you're really
-sure you know what you're doing. This is doubly true for "optimisation" flags
-like -mcpu and -march .
-
-If you're still having problems, have a look at config.log (in the same
-directory as configure) and see if you can tell what the problem is. You'll
-probably want to use some sort of search command to look for the name of the
-library that's not being found - config.log is *long*.
+LDFLAGS, CXXFLAGS, CPPFLAGS, etc, then unset or disable them unless you're
+really sure you know what you're doing. This is doubly true for "optimisation"
+flags like -mcpu and -march .
 
 If you're still unable to determine what the problem is, please post a message
-to the Scribus mailing list or report a bug on bugs.scribus.net. If you report
-a bug, please attach a gzipped copy of config.log. If posting to the mailing
-list, DO NOT attach config.log - but if possible, please post it on a website
-or somewhere else we can get to it and provide the address. Otherwise, just
-email it if someone asks for it. In any problem report, MAKE SURE YOU INCLUDE
-THE FOLLOWING INFORMATION:
+to the Scribus mailing list or report a bug on bugs.scribus.net.
+
+In any problem report, MAKE SURE YOU INCLUDE THE FOLLOWING INFORMATION:
+    - Your CMakeCache.txt
+    - The exact CMake command you ran
+    - The output of the `env' command
+    - A full listing of the compile command and compiler error messages,
+      obtained by running `make' with VERBOSE=1 .
     - Operating system or distro, eg "Mac OS X" or "Debian Linux"
     - OS or distro version, eg "Panther" or "Fedora Core 3". This is NOT the
       Linux kernel version, though you can provide that too.
     - Scribus version you're trying to compile, eg "1.2.1" or "1.3 cvs". If
-      you're building CVS, please make sure you've run "cvs up -Pd -C" (this
-      WILL erase any patches / custom changes you've made) then re-built
-      starting at "make -f Makefile.cvs" before reporting a problem. If
-      you're using a snapshot or CVS, please tell us when you downloaded
-      it (eg "todays CVS snapshot").
-    - What compiler you're using. You can get this from `gcc --version'.
-      if you're using gcc.
+      you're building an SVN version, please make sure you've run
+      "svn revert -R ." (this WILL erase any patches / custom changes you've
+      made), deleted the CMake cache with `rm -f CMakeCache.txt' and re-built
+      before reporting a problem. Include the output of `svn info' in your
+      bug report if you are using a svn version.
+    - What compiler & version you're using. You can get this from `gcc
+      --version'.  if you're using gcc.
     - If you're having problems with a particular library, what version
       of the library you have installed and where you got it from. eg:
       "freetype 2.0.1 from sunfreeware,"
-      "LittleCMS 1.1.4, compiled myself and installed in /usr/local,"
-      "freetype 2.1.3 from backports.org,"
+      "LittleCMS 1.1.4, compiled myself and installed in /usr/local",
+      "freetype 2.1.3 from backports.org",
       "fontconfig 2.2.0 (stock Fedora Core 3 devel package)"
       "I installed the qt-3.0.1.rpm and qt-devel-3.0.1.rpm from the CD."
     - Check again to make REALLY REALLY SURE you have the devel package
-      installed.
+      installed, and list the names of the relevant installed devel packages
+      in your problem report.
     - Any environment variables you may have set
     - Anything else you can think of that might be useful. There's no
       such thing as too much information, though please put big files
@@ -207,21 +181,22 @@ information can be found in the README.
 Debian
 ======
 
-Recommended packages for compiling from source on Sarge (Debian 3.1):
-	libqt3-mt-dev (Required)
+Recommended packages for compiling from source on Etch (Debian 4.0):
+	libqt4-dev (Required)
 	libfreetype6-dev (Required)
-	libart-2.0-dev (Required)
+	libcairo2-dev (Required)
+	libfontconfig1-dev (Required)
 	libcupsys2-dev
 	liblcms1-dev
-	libfontconfig1-dev
 	libtiff4-dev
 	libxml2-dev
 	python2.3-dev  or  python2.4-dev
-	gs-afpl
+	gs-gpl or gs-afpl (usually gs-gpl is newer now)
 
 You are unlikely to be able to compile Scribus 1.3.x on Debian 3.0 (Woody)
-without significant upgrades; it is not at all recommended. Scribus 1.3.x
-should be considered not to support Debian Woody.
+or Debian 3.1 (Sarge) without significant upgrades; it is not at all
+recommended. Scribus 1.3.x should be considered not to support Debian Woody,
+with versions above 1.3.5 unsupported on Sarge as well.
 
 More info can be found in the README.
 
@@ -273,30 +248,16 @@ Recommended packages for compiling from source on SuSE 9.x/10.x:
 	tk
 	python-imaging
 
-You can install these packages using YaST. You may find it difficult to compile Scribus 1.3.5+
-on anything older than Suse 10.0. 
+You can install these packages using YaST. You may find it difficult to compile
+Scribus 1.3.5+ on anything older than Suse 10.0. 
 
-Please note we do provide frequently updated packages including debuginfo rpms on the Suse Build
-Server. at http//software.opensuse.org
+Please note we do provide frequently updated packages including debuginfo rpms
+on the Suse Build Server. at http//software.opensuse.org .
 
 Mac OS X
 ========
 
 No detailed build instructions yet. Please see the README for info on MacOS/X.
-
-Fink or a similar package collection will generally be required for compiling
-Scribus. Scribus requires several libraries that do not come with Mac OS X,
-and a few where the version in Mac OS X is too old.
-
-Mac OS X users will want a copy of freetype that was configured with
---enable-old-macfonts . The Mac OS X bundled Freetype is too old, and the one
-that comes with Fink is not (at time of writing) configured that way. You'll
-need to compile your own copy of Freetype, then use --with-extra-includes and
---with-extra-libs or environment variables to tell configure where to find it.
-
-See `LIBRARIES IN NON-STANDARD LOCATIONS' for additional instructions. /sw is
-a "non standard location" that won't be searched by most of the tools configure
-uses, so you must tell Scribus about it.
 
 Microsoft Windows
 =================
