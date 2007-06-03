@@ -212,7 +212,7 @@ Recommended packages for compiling from source on FC4 / FC5
 	gcc-c++ (Required)
 	qt-devel (Required)
 	freetype-devel (Required)
-	libart_lgpl-devel (Required)
+	cairo-devel (Required)
 	fontconfig-devel
 	cups-devel
 	libtiff-devel
