@@ -6,14 +6,14 @@ for which a new license (GPL+exception) is in place.
 */
 #include <qwidget.h>
 #include <qfile.h>
-#include <q3textstream.h>
 #include <qregexp.h>
 #include <qcursor.h>
-#include <q3dragobject.h>
 #include <qdir.h>
 #include <qstring.h>
 #include <qdom.h>
 //Added by qt3to4:
+#include <QDrag>
+#include <QMimeData>
 #include <Q3PtrList>
 #include <cmath>
 
@@ -523,7 +523,11 @@ bool OODPlug::convert(int flags)
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			tmpSel->setGroupRect();
-			Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view()->viewport());
+			//Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view()->viewport());
+			QMimeData* md = new QMimeData();
+			md->setText(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+			QDrag* dr = new QDrag(m_Doc->view()->viewport());
+			dr->setMimeData(md);
 #ifndef QT_WS_MAC
 // see #2196, #2526
 			m_Doc->itemSelection_DeleteItem(tmpSel);
@@ -534,8 +538,11 @@ bool OODPlug::convert(int flags)
 			m_Doc->maxCanvasCoordinate = maxSize;
 			m_Doc->view()->updatesOn(true);
 			m_Doc->view()->updateContents();
-			dr->setPixmap(loadIcon("DragPix.xpm"));
-			dr->drag();
+			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
+			dr->setDragCursor(dragCursor, Qt::CopyAction);
+			dr->setDragCursor(dragCursor, Qt::MoveAction);
+			dr->setDragCursor(dragCursor, Qt::LinkAction);
+			dr->start();
 			/* JG : incorrect, see the Qt Reference: "The function returns TRUE if the caller should 
 			delete the original copy of the dragged data */
 			/*importCanceled = dr->drag();

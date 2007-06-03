@@ -20,11 +20,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include <qfile.h>
 #include <qcursor.h>
-#include <q3dragobject.h>
 #include <qregexp.h>
 #include <q3ptrstack.h>
 #include <q3valuestack.h>
 //Added by qt3to4:
+#include <QDrag>
+#include <QMimeData>
 #include <Q3ValueList>
 #include <QByteArray>
 #include <QTextStream>
@@ -333,7 +334,10 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				}
 				tmpSel->setGroupRect();
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel),m_Doc->view()->viewport());
+				QMimeData* md = new QMimeData();
+				md->setText(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
+				QDrag* dr = new QDrag(m_Doc->view()->viewport());
+				dr->setMimeData(md);
 #ifndef QT_WS_MAC
 // see #2196
 				m_Doc->itemSelection_DeleteItem(tmpSel);
@@ -346,7 +350,11 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				m_Doc->maxCanvasCoordinate = maxSize;
 				m_Doc->view()->updatesOn(true);
 				m_Doc->view()->updateContents();
-				dr->setPixmap(loadIcon("DragPix.xpm"));
+				const QPixmap& dragCursor = loadIcon("DragPix.xpm");
+				dr->setDragCursor(dragCursor, Qt::CopyAction);
+				dr->setDragCursor(dragCursor, Qt::MoveAction);
+				dr->setDragCursor(dragCursor, Qt::LinkAction);
+				dr->start();
 #if 0
 			qDebug("psimport: data");
 			QString data(dr->encodedData("text/plain"));
@@ -356,7 +364,6 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 			qDebug("psimport: enddata");
 			qDebug(QString("psimport: drag type %1").arg(dr->format()));
 #endif
-				dr->drag();
 				/* JG : incorrect, see the Qt Reference: "The function returns TRUE if the caller should 
 				delete the original copy of the dragged data */
 				/*if (!dr->drag())

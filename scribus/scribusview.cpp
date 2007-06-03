@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <q3pointarray.h>
 #include <qstringlist.h>
-#include <q3dragobject.h>
 #include <qimage.h>
 #include <q3cstring.h>
 #include <qfileinfo.h>
@@ -42,8 +41,10 @@ for which a new license (GPL+exception) is in place.
 #include <QWheelEvent>
 #include <Q3PtrList>
 #include <QPaintEvent>
+#include <QDrag>
 #include <QDragMoveEvent>
 #include <QDragLeaveEvent>
+#include <QMimeData>
 #include <Q3StrList>
 #include <QLabel>
 #include <QDropEvent>
@@ -1738,9 +1739,10 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 	QString text;
 //	e->accept(Q3TextDrag::canDecode(e));
 	e->accept();
-	if (Q3TextDrag::decode(e, text))
+	if (e->mimeData()->hasText())
 	{
 		e->acceptProposedAction();
+		text = e->mimeData()->text();
 		double gx, gy, gw, gh;
 		/*<< #3524
 		setActiveWindow();
@@ -1784,9 +1786,10 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 //	bool img;
 //	e->accept(Q3TextDrag::canDecode(e));
 	e->accept();
-	if (Q3TextDrag::decode(e, text))
+	if (e->mimeData()->hasText())
 	{
 		e->acceptProposedAction();
+		text = e->mimeData()->text();
 		if (DraggedGroup)
 		{
 			double gx, gy, gw, gh;
@@ -1865,9 +1868,10 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	DraggedGroupFirst = false;
 	int ex = qRound(e->pos().x()/Scale + Doc->minCanvasCoordinate.x());
 	int ey = qRound(e->pos().y()/Scale + Doc->minCanvasCoordinate.y());
-	if (Q3TextDrag::decode(e, text))
+	if (e->mimeData()->hasText())
 	{
 		e->acceptProposedAction();
+		text = e->mimeData()->text();
 		//<<#3524
 		setActiveWindow();
 		raise();
@@ -2026,15 +2030,17 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				}
 				else
 					emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
-				Doc->m_Selection->clear();
+				Selection tmpSelection(this, false);
+				tmpSelection.copy(*Doc->m_Selection, false, true);
 				for (uint as = oldDocItemCount; as < Doc->Items->count(); ++as)
 				{
 					currItem = Doc->Items->at(as);
 					Doc->setRedrawBounding(currItem);
-					Doc->m_Selection->addItem(currItem, true);
+					tmpSelection.addItem(currItem, true);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
 				}
+				Doc->m_Selection->copy(tmpSelection, false, false);
 				undoManager->commit();
 			}
 			else
@@ -2075,11 +2081,13 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						{
 							pasted.append(Doc->Items->at(as));
 						}
-						Doc->m_Selection->clear();
+						Selection tmpSelection(this, false);
+						tmpSelection.copy(*Doc->m_Selection, false, true);
 						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
-							Doc->m_Selection->addItem(Doc->Items->at(Doc->DragElements[dre]), true);
+							tmpSelection.addItem(Doc->Items->at(Doc->DragElements[dre]), true);
 						}
+						Doc->m_Selection->copy(tmpSelection, false, false);
 						PageItem* bb;
 						int fin;
 						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
@@ -2123,15 +2131,17 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
 				Doc->DraggedElem = 0;
 				Doc->DragElements.clear();
-				Doc->m_Selection->clear();
+				Selection tmpSelection(this, false);
+				tmpSelection.copy(*Doc->m_Selection, false, true);
 				for (uint as = oldDocItemCount; as < Doc->Items->count(); ++as)
 				{
 					currItem = Doc->Items->at(as);
 					Doc->setRedrawBounding(currItem);
-					Doc->m_Selection->addItem(currItem, true);
+					tmpSelection.addItem(currItem, true);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
 				}
+				Doc->m_Selection->copy(tmpSelection, false, false);
 			}
 			if (Doc->m_Selection->count() > 1)
 			{
@@ -4833,13 +4843,19 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				for (uint dre=0; dre<Doc->m_Selection->count(); ++dre)
 					Doc->DragElements.append(Doc->m_Selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(Doc, this, Doc->m_Selection), this);
+				//Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(Doc, this, Doc->m_Selection), this);
+				QMimeData* md = new QMimeData();
+				md->setText(ss->WriteElem(Doc, this, Doc->m_Selection));
+				QDrag* dr = new QDrag(this);
+				dr->setMimeData(md);
+				dr->setDragCursor(loadIcon("DragPix.xpm"), Qt::ActionMask);
+				dr->start();
 //				QImage drImg = currItem->DrawObj_toImage();
 //				QPixmap pm;
 //				pm.convertFromImage(drImg);
 //				dr->setPixmap(pm);
-				dr->setPixmap(loadIcon("DragPix.xpm"));
-				dr->drag();
+//				dr->setPixmap(loadIcon("DragPix.xpm"));
+//				dr->drag();
 //				if (!dr->drag())
 //					qDebug("ScribusView::contentsMouseMoveEvent: couldn't start drag operation!");
 /* commented out the code above as the debug message is incorrect,
