@@ -8,8 +8,12 @@ Please see install4.html in scribus/doc or:
 	http://docs.scribus.net/index.php?lang=en&page=install4
 for details *after* reviewing the build requirements below.
 
+Note that while a QMake project file (Scribus.pro) is provided in the Scribus
+source distribution, it is not possible to build Scribus with this project
+file.  It is only used for generating the translation template files.
+
 REQUIREMENTS AND BUILDING - Geneiric *BSD/Linux/*nix
-=========================
+====================================================
 
 These requirements are generic information for any BSD, UNIX or Linux flavour.
 More specific information for particular Linux distros, including lists of
