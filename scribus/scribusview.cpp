@@ -399,7 +399,16 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		{
 			if (firstSpecial)
 			{
+#ifdef Q_WS_MAC
+				QPoint viewportOrigin = mapToGlobal(QPoint(0,0));
+				m_buffer = QPixmap::grabWindow(viewport()->winId(), viewportOrigin.x(), viewportOrigin.y(), viewport()->width(), viewport()->height());
+				//m_buffer.resize(viewport()->width(), viewport()->height());
+				//viewport()->render(m_buffer);
+//				qDebug(QString("drawContents:viewport (%1,%2) %3x%4 -> %5x%6").arg(viewportOrigin.x()).arg(viewportOrigin.y())
+//					   .arg(viewport()->width()).arg(viewport()->height()).arg(m_buffer.width()).arg(m_buffer.height()));
+#else
 				m_buffer = QPixmap::grabWindow(viewport()->winId(), 0, 0);
+#endif
 				firstSpecial = false;
 			}
 			QPainter pp;
@@ -637,7 +646,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			}
 			pp.end();
 			psx->resetMatrix();
-			psx->drawPixmap(0, 0, ppx);
+			psx->drawPixmap(0,0,ppx);
 			return;
 		}
 
