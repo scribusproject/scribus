@@ -7,28 +7,19 @@ for which a new license (GPL+exception) is in place.
 #ifndef CURVEWIDGET_H
 #define CURVEWIDGET_H
 
-#include <qvariant.h>
-#include <qpixmap.h>
-#include <qwidget.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
+#include <QWidget>
 #include <QEvent>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
 #include <QMouseEvent>
-#include <QLabel>
 #include <QKeyEvent>
 #include <QPaintEvent>
 #include "fpointarray.h"
 #include "scribusapi.h"
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QSpacerItem;
+class QVBoxLayout;
+class QHBoxLayout;
 class QPushButton;
-class QToolButton;
-class QLabel;
+class QPixmap;
+class QSpacerItem;
 
 class SCRIBUS_API KCurve : public QWidget
 {
@@ -95,8 +86,8 @@ private slots:
 	void doSave();
 
 protected:
-	Q3HBoxLayout* CurveWidgetLayout;
-	Q3VBoxLayout* layout1;
+	QHBoxLayout* CurveWidgetLayout;
+	QVBoxLayout* layout1;
 	QSpacerItem* spacer1;
 
 protected slots:

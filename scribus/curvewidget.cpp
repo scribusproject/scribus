@@ -9,23 +9,16 @@ for which a new license (GPL+exception) is in place.
 
 #include <cmath>
 
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qpainter.h>
-#include <qapplication.h>
-#include <qcursor.h>
-#include <qmessagebox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QPaintEvent>
+#include <QHBoxLayout>
 #include <QPixmap>
-#include <QMouseEvent>
-#include <QKeyEvent>
-#include <QEvent>
-#include <Q3VBoxLayout>
+#include <QPainter>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QPushButton>
+#include <QCursor>
+#include <QMessageBox>
+#include <QToolTip>
+#include <QApplication>
 #include "colorutil.h"
 #include "customfdialog.h"
 #include "util.h"
@@ -346,18 +339,22 @@ void KCurve::leaveEvent( QEvent * )
 
 CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 {
-	CurveWidgetLayout = new Q3HBoxLayout( this, 5, 5, "CurveWidgetLayout");
+	CurveWidgetLayout = new QHBoxLayout(this);
+	CurveWidgetLayout->setMargin(5);
+	CurveWidgetLayout->setSpacing(5);
 
-	layout1 = new Q3VBoxLayout( 0, 0, 5, "layout1");
+	layout1 = new QVBoxLayout;
+	layout1->setMargin(0);
+	layout1->setSpacing(5);
 
 	invertButton = new QPushButton( this, "invertButton" );
-	invertButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, invertButton->sizePolicy().hasHeightForWidth() ) );
+	invertButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	invertButton->setIcon( loadIcon("invert.png") );
 	invertButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( invertButton );
 
 	resetButton = new QPushButton( this, "resetButton" );
-	resetButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, resetButton->sizePolicy().hasHeightForWidth() ) );
+	resetButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	resetButton->setIcon( loadIcon("reload.png") );
 	resetButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( resetButton );
@@ -369,6 +366,7 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	linearButton->setCheckable( true );
 	linearButton->setChecked(false);
 	linearButton->setIconSize(QSize(22, 22));
+	linearButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	layout1->addWidget( linearButton );
 	spacer1 = new QSpacerItem( 2, 3, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout1->addItem( spacer1 );
@@ -377,12 +375,14 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	loadButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, loadButton->sizePolicy().hasHeightForWidth() ) );
 	loadButton->setIcon( loadIcon("22/document-open.png") );
 	loadButton->setIconSize(QSize(22, 22));
+	loadButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	layout1->addWidget( loadButton );
 
 	saveButton = new QPushButton( this, "saveButton" );
 	saveButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, saveButton->sizePolicy().hasHeightForWidth() ) );
 	saveButton->setIcon( loadIcon("22/document-save-as.png") );
 	saveButton->setIconSize(QSize(22, 22));
+	saveButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	layout1->addWidget( saveButton );
 	CurveWidgetLayout->addLayout( layout1 );
 
