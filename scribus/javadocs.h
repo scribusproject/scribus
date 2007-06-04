@@ -7,16 +7,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef JAVADOCS_H
 #define JAVADOCS_H
 
-#include <qdialog.h>
-#include <q3listbox.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDialog>
 
 #include "scribusapi.h"
+class QListWidget;
+class QPushButton;
+class QVBoxLayout;
+class QHBoxLayout;
 class ScribusDoc;
 class ScribusView;
 
@@ -28,7 +25,7 @@ public:
 	JavaDocs( QWidget* parent, ScribusDoc *doc, ScribusView* vie);
 	~JavaDocs() {};
 
-	Q3ListBox* Scripts;
+	QListWidget* Scripts;
 	QPushButton* EditScript;
 	QPushButton* AddScript;
 	QPushButton* DeleteScript;
@@ -45,8 +42,8 @@ signals:
 	void docChanged(bool);
 
 protected:
-	Q3HBoxLayout* JavaDocsLayout;
-	Q3VBoxLayout* Layout1;
+	QHBoxLayout* JavaDocsLayout;
+	QVBoxLayout* Layout1;
 };
 
 #endif // JAVADOCS_H
