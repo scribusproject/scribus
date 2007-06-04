@@ -29,8 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include <q3toolbar.h>
-//Added by qt3to4:
-#include <Q3PopupMenu>
+#include <QMenu>
 #include <QCloseEvent>
 
 class Q3MainWindow;
@@ -38,7 +37,6 @@ class QString;
 class PrefsContext;
 class QCloseEvent;
 class QToolButton;
-class Q3PopupMenu;
 
 class SCRIBUS_API ScToolBar : public Q3ToolBar
 {
@@ -72,9 +70,9 @@ private:
 	PrefsContext *m_prefs;
 	Qt::Orientation floatOrientation;
 	QToolButton *prefsButton;
-	Q3PopupMenu  *popup;
-	Q3PopupMenu  *dockMenu;
-	Q3PopupMenu  *orientationMenu;
+	QMenu  *popup;
+	QMenu  *dockMenu;
+	QMenu  *orientationMenu;
 
 	bool dockTop;
 	bool dockRight;

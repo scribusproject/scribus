@@ -18,12 +18,10 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <q3dict.h>
-#include <qmenubar.h>
+#include <QMenuBar>
 #include <QMenu>
 #include "scribus.h"
 #include "menumanager.h"
-//#include "menumanager.moc"
 #include "scmenu.h"
 #include "scraction.h"
 

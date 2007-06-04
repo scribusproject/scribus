@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QAction>
 #include <QObject>
-#include <q3ptrlist.h>
 #include <QPoint>
 #include <QMenu>
 

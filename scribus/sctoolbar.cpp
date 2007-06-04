@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "sctoolbar.h"
-//#include "sctoolbar.moc"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -35,10 +34,8 @@ for which a new license (GPL+exception) is in place.
 #include <q3mainwindow.h>
 #include <qstring.h>
 #include <qtoolbutton.h>
-#include <q3popupmenu.h>
-//Added by qt3to4:
+#include <QMenu>
 #include <QPixmap>
-#include <Q3PtrList>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -260,7 +257,7 @@ void ScToolBar::languageChange()
 {
 	popup->clear();
 
-	dockMenu = new Q3PopupMenu(0, "dockMenu");
+	dockMenu = new QMenu(0);
 	dockMenu->setCheckable(true);
 	dockMenu->insertItem( tr("Top"), this, SLOT(slotTop()));
 	dockMenu->insertItem( tr("Right"), this, SLOT(slotRight()));
@@ -272,7 +269,7 @@ void ScToolBar::languageChange()
 	dockMenu->setItemChecked(dockMenu->idAt(2), dockBottom);
 	dockMenu->setItemChecked(dockMenu->idAt(3), dockLeft);
 
-	orientationMenu = new Q3PopupMenu(0, "orientationMenu");
+	orientationMenu = new QMenu(0);
 	orientationMenu->setCheckable(true);
 	orientationMenu->insertItem( tr("Horizontal"), this, SLOT(slotHor()));
 	orientationMenu->insertItem( tr("Vertical"), this, SLOT(slotVert()));
@@ -286,7 +283,7 @@ void ScToolBar::initPrefsButton()
 {
 	prefsButton = new QToolButton(Qt::DownArrow, this, "tbprefsbutton");
 	prefsButton->setAutoRaise(true);
-	popup = new Q3PopupMenu(0, "prefspopup");
+	popup = new QMenu(0);
 	prefsButton->setPopup(popup);
 	prefsButton->setPopupDelay(1);
 }
