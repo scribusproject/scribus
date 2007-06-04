@@ -58,7 +58,7 @@ About::About( QWidget* parent ) : QDialog( parent )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "3";
+	QString BUILD_DAY = "4";
 	QString BUILD_MONTH = CommonStrings::june;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
@@ -129,7 +129,7 @@ About::About( QWidget* parent ) : QDialog( parent )
 		gsver = tr("Using Ghostscript version %1").arg(gsver);
 	else
 		gsver = tr("No Ghostscript version available");
-	buildID->setText( tr("<b>Scribus Version %1</b><p>%2<br>%3 %4<br>%5</p>").arg(version).arg(built).arg( tr("Build ID:")).arg(bu).arg(gsver));
+	buildID->setText( tr("<p align=\"center\"><b>%1 %2</b></p><p align=\"center\">%3<br>%4 %5<br>%6</p>").arg( tr("Scribus Version")).arg(version).arg(built).arg( tr("Build ID:")).arg(bu).arg(gsver));
 	tabLayout1->addWidget( buildID, 0, Qt::AlignHCenter );
 	tabWidget2->addTab( tab, tr( "&About" ) );
 	tab_2 = new QWidget( tabWidget2, "tab_2" );
