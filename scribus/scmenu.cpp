@@ -152,23 +152,24 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 #ifdef Q_WS_MAC
 		bool menuListHasNoIcons = true;
 		// look for ScrAction or ScrPopupMenu from the end of the list
-		QList< QPointer<QObject> >::Iterator it = menuItemList.end(); 
-		for (--it; it != menuItemList.end(); --it) {
-			QObject * menuItem = *it;
-			QString menuItemListClassName = menuItem->className();
+		QList< QPointer<QObject> >::Iterator it = menuItemList.end();
+		int s=menuItemList.size()-1; 
+		for (int i=s; i>=0; --i) {
+			QObject* menuItem = menuItemList[i];
+			QString menuItemListClassName = menuItemList[i]->className();
 			if (menuItemListClassName == "ScrAction")
 			{
 				ScrAction * act = dynamic_cast<ScrAction *>(menuItem);
 				menuListHasNoIcons = act->iconSet().isNull();
 				break;
 			}
+
 			else if (menuItemListClassName == "ScrPopupMenu")
 			{
 				ScrPopupMenu * men = dynamic_cast<ScrPopupMenu *>(menuItem);
 				menuListHasNoIcons = men->getMenuIcon().isNull();
 				break;
 			}
-			
 		}
 		if (newMenuAction->iconSet().isNull() && ! menuListHasNoIcons)
 			newMenuAction->setIconSet(loadIcon("noicon.xpm"));
