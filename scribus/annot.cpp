@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 #include <Q3Frame>
+#include <QTextEdit>
 #include "colorlistbox.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"

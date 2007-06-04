@@ -5,57 +5,94 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "editor.h"
-//#include "editor.moc"
 #include "selfield.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "scribusview.h"
 
-#include <qfile.h>
-#include <q3textstream.h>
-#include <q3filedialog.h>
-//Added by qt3to4:
+#include <QFile>
+#include <QTextStream>
+#include <QTextEdit>
+#include <QTextCursor>
+#include <QFileDialog>
 #include <QPixmap>
-#include <Q3VBoxLayout>
-#include <Q3PopupMenu>
+#include <QVBoxLayout>
+#include <QMenu>
+#include <QMenuBar>
+#include <QAction>
 
 extern QPixmap loadIcon(QString nam);
 
-Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( parent, "editor", true, 0 )
+Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( parent )
 {
-	setCaption( tr( "Editor" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle( tr( "Editor" ) );
+	setWindowIcon(loadIcon("AppIcon.png"));
 	view = vie;
 	dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-	EditorLayout = new Q3VBoxLayout( this, 0, 0, "EditorLayout");
-	EditTex = new Q3TextEdit( this, "EditTex" );
-
-	fmenu = new Q3PopupMenu();
-	fmenu->insertItem(loadIcon("DateiNeu16.png"), tr("&New"), EditTex, SLOT(clear()), Qt::CTRL+Qt::Key_N);
-	fmenu->insertItem(loadIcon("DateiOpen16.png"), tr("&Open..."), this, SLOT(OpenScript()));
-	fmenu->insertItem( tr("Save &As..."), this, SLOT(SaveAs()));
-	fmenu->insertSeparator();
-	fmenu->insertItem( tr("&Save and Exit"), this, SLOT(accept()));
-	fmenu->insertItem( tr("&Exit without Saving"), this, SLOT(reject()));
-	emenu = new Q3PopupMenu();
-	emenu->insertItem( tr("&Undo"), EditTex, SLOT(undo()), Qt::CTRL+Qt::Key_Z);
-	emenu->insertItem( tr("&Redo"), EditTex, SLOT(redo()));
-	emenu->insertSeparator();
-	emenu->insertItem(loadIcon("editcut.png"), tr("Cu&t"), EditTex, SLOT(cut()), Qt::CTRL+Qt::Key_X);
-	emenu->insertItem(loadIcon("editcopy.png"), tr("&Copy"), EditTex, SLOT(copy()), Qt::CTRL+Qt::Key_C);
-	emenu->insertItem(loadIcon("editpaste.png"), tr("&Paste"), EditTex, SLOT(paste()), Qt::CTRL+Qt::Key_V);
-	emenu->insertItem(loadIcon("editdelete.png"), tr("C&lear"), EditTex, SLOT(del()), Qt::CTRL+Qt::Key_V);
-	emenu->insertSeparator();
-	emenu->insertItem( tr("&Get Field Names"), this, SLOT(GetFieldN()));
+	EditorLayout = new QVBoxLayout(this);
+	EditTex = new QTextEdit(this);
+	newAct = new QAction(QIcon(loadIcon("16/document-new.png")), tr("&New"), this);
+	newAct->setShortcut(tr("Ctrl+N"));
+	connect(newAct, SIGNAL(triggered()), EditTex, SLOT(clear()));
+	openAct = new QAction(QIcon(loadIcon("16/document-open.png")), tr("&Open..."), this);
+	connect(openAct, SIGNAL(triggered()), this, SLOT(OpenScript()));
+	saveAsAct = new QAction( tr("Save &As..."), this);
+	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(SaveAs()));
+	saveExitAct = new QAction( tr("&Save and Exit"), this);
+	connect(saveExitAct, SIGNAL(triggered()), this, SLOT(accept()));
+	exitAct = new QAction( tr("&Exit without Saving"), this);
+	connect(exitAct, SIGNAL(triggered()), this, SLOT(reject()));
+	undoAct = new QAction(QIcon(loadIcon("16/edit-undo.png")), tr("&Undo"), this);
+	undoAct->setShortcut(tr("Ctrl+Z"));
+	connect(undoAct, SIGNAL(triggered()), EditTex, SLOT(undo()));
+	redoAct = new QAction(QIcon(loadIcon("16/edit-redo.png")),  tr("&Redo"), this);
+	connect(redoAct, SIGNAL(triggered()), EditTex, SLOT(redo()));
+	cutAct = new QAction(QIcon(loadIcon("16/edit-cut.png")), tr("Cu&t"), this);
+	cutAct->setShortcut(tr("Ctrl+X"));
+	connect(cutAct, SIGNAL(triggered()), EditTex, SLOT(cut()));
+	copyAct = new QAction(QIcon(loadIcon("16/edit-copy.png")), tr("&Copy"), this);
+	copyAct->setShortcut(tr("Ctrl+C"));
+	connect(copyAct, SIGNAL(triggered()), EditTex, SLOT(copy()));
+	pasteAct = new QAction(QIcon(loadIcon("16/edit-paste.png")), tr("&Paste"), this);
+	pasteAct->setShortcut(tr("Ctrl-V"));
+	connect(pasteAct, SIGNAL(triggered()), EditTex, SLOT(paste()));
+	clearAct = new QAction(QIcon(loadIcon("16/edit-delete.png")), tr("C&lear"), this);
+	connect(clearAct, SIGNAL(triggered()), this, SLOT(del()));
+	getFieldAct = new QAction( tr("&Get Field Names"), this);
+	connect(getFieldAct, SIGNAL(triggered()), this, SLOT(GetFieldN()));
+	fmenu = new QMenu( tr("&File"));
+	fmenu->addAction(newAct);
+	fmenu->addAction(openAct);
+	fmenu->addAction(saveAsAct);
+	fmenu->addSeparator();
+	fmenu->addAction(saveExitAct);
+	fmenu->addAction(exitAct);
+	emenu = new QMenu( tr("&Edit"));
+	emenu->addAction(undoAct);
+	emenu->addAction(redoAct);
+	emenu->addSeparator();
+	emenu->addAction(cutAct);
+	emenu->addAction(copyAct);
+	emenu->addAction(pasteAct);
+	emenu->addAction(clearAct);
+	emenu->addSeparator();
+	emenu->addAction(getFieldAct);
 	menuBar = new QMenuBar(this);
-	menuBar->insertItem( tr("&File"), fmenu);
-	menuBar->insertItem( tr("&Edit"), emenu);
+	menuBar->addMenu(fmenu);
+	menuBar->addMenu(emenu);
 	EditorLayout->setMenuBar( menuBar );
-
 	EditTex->setMinimumSize( QSize( 400, 400 ) );
-	EditTex->setText(daten);
+	EditTex->setPlainText(daten);
 	EditorLayout->addWidget( EditTex );
+}
+
+void Editor::del()
+{
+	QTextCursor curs = EditTex->textCursor();
+	curs.deleteChar();
+	EditTex->setTextCursor(curs);
 }
 
 void Editor::GetFieldN()
@@ -71,15 +108,15 @@ void Editor::GetFieldN()
 
 void Editor::OpenScript()
 {
-	QString fileName = Q3FileDialog::getOpenFileName(dirs->get("editor_open", "."), tr("JavaScripts (*.js);;All Files (*)"),this);
+	QString fileName = QFileDialog::getOpenFileName(dirs->get("editor_open", "."), tr("JavaScripts (*.js);;All Files (*)"),this);
 	if (!fileName.isEmpty())
 	{
 		dirs->set("editor_open", fileName.left(fileName.findRev("/")));
 		QFile file( fileName );
 		if ( file.open( QIODevice::ReadOnly ) )
 		{
-			Q3TextStream ts( &file );
-			EditTex->setText( ts.read() );
+			QTextStream ts( &file );
+			EditTex->setPlainText( ts.read() );
 			file.close();
 		}
 	}
@@ -87,15 +124,15 @@ void Editor::OpenScript()
 
 void Editor::SaveAs()
 {
-	QString fn = Q3FileDialog::getSaveFileName(dirs->get("editor_save", "."), tr("JavaScripts (*.js);;All Files (*)"), this);
+	QString fn = QFileDialog::getSaveFileName(dirs->get("editor_save", "."), tr("JavaScripts (*.js);;All Files (*)"), this);
 	if (!fn.isEmpty())
 	{
 		dirs->set("editor_save", fn.left(fn.findRev("/")));
 		QFile file( fn );
 		if ( file.open( QIODevice::WriteOnly ) )
 		{
-			Q3TextStream ts( &file );
-			ts << EditTex->text();
+			QTextStream ts( &file );
+			ts << EditTex->toPlainText();
 			EditTex->setModified(false);
 			file.close();
 		}
