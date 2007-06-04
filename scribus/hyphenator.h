@@ -7,8 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef HYPLUG_H
 #define HYPLUG_H
 
-#include <qobject.h>
-#include <qtextcodec.h>
+#include <QObject>
+#include <QTextCodec>
+#include <QHash>
 
 #include "scribusapi.h"
 #include "hyphen.h"
@@ -73,6 +74,7 @@ public:
 	bool Automatic;
 	/*! Flag - obsolete? */
 	bool AutoCheck;
+	QHash<QString, QString> rememberedWords;
 	
 public slots:
 	/*!

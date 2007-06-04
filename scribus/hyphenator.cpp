@@ -197,6 +197,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	int Ccount = 0;
 	QString found = "";
 	QString found2 = "";
+	rememberedWords.clear();
 	//uint maxC = it->itemText.length() - 1;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QRegExp wordBoundary("\\w");
@@ -282,6 +283,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 				}
 				else {
 					QString outs = "";
+					QString input = "";
 					outs += found2[0];
 					for (i = 1; i < found.length()-1; ++i)
 					{
@@ -290,17 +292,10 @@ void Hyphenator::slotHyphenate(PageItem* it)
 							outs += "-";
 					}
 					outs += found2.right(1);
-					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
-					int xpos = prefs->getInt("Xposition", -9999);
-					int ypos = prefs->getInt("Yposition", -9999);
-					HyAsk *dia = new HyAsk((QWidget*)parent(), outs);
-					if ((xpos != -9999) && (ypos != -9999))
-						dia->move(xpos, ypos);
-					qApp->processEvents();
-					if (dia->exec())
+					input = outs;
+					if (rememberedWords.contains(input))
 					{
-						outs = dia->Wort->text();
+						outs = rememberedWords.value(input);
 						uint ii = 0;
 						for (i = 1; i < outs.length()-1; ++i)
 						{
@@ -314,17 +309,44 @@ void Hyphenator::slotHyphenate(PageItem* it)
 					}
 					else
 					{
-						free(buffer);
-						buffer = NULL;
+						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
+						int xpos = prefs->getInt("Xposition", -9999);
+						int ypos = prefs->getInt("Yposition", -9999);
+						HyAsk *dia = new HyAsk((QWidget*)parent(), outs);
+						if ((xpos != -9999) && (ypos != -9999))
+							dia->move(xpos, ypos);
+						qApp->processEvents();
+						if (dia->exec())
+						{
+							outs = dia->Wort->text();
+							uint ii = 0;
+							for (i = 1; i < outs.length()-1; ++i)
+							{
+								QChar cht = outs[i];
+								if (cht == '-')
+									buffer[ii] = 1;
+								else
+									ii++;
+							}
+							if (!rememberedWords.contains(input))
+								rememberedWords.insert(input, outs);
+							it->itemText.hyphenateWord(firstC, found.length(), buffer);
+						}
+						else
+						{
+							free(buffer);
+							buffer = NULL;
+							prefs->set("Xposition", dia->xpos);
+							prefs->set("Yposition", dia->ypos);
+							delete dia;
+							break;
+						}
 						prefs->set("Xposition", dia->xpos);
 						prefs->set("Yposition", dia->ypos);
 						delete dia;
-						break;
+						qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 					}
-					prefs->set("Xposition", dia->xpos);
-					prefs->set("Yposition", dia->ypos);
-					delete dia;
-					qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 				}
 			}
 			free(buffer);
@@ -335,6 +357,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	}
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	doc->DoDrawing = true;
+	rememberedWords.clear();
 }
 
 void Hyphenator::slotDeHyphenate(PageItem* it)

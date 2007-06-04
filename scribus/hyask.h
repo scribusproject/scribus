@@ -7,51 +7,48 @@ for which a new license (GPL+exception) is in place.
 #ifndef HYASK_H
 #define HYASK_H
 
-#include <qdialog.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <QKeyEvent>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDialog>
+#include <QLineEdit>
 
 #include "scribusapi.h"
+class QPushButton;
+class QHBoxLayout;
+class QVBoxLayout;
+class QKeyEvent;
 
 class SCRIBUS_API WortEdit : public QLineEdit
 {
-    Q_OBJECT
-public:
-	WortEdit(QWidget* parent);
-	~WortEdit() {};
-	void keyPressEvent(QKeyEvent *k);
+		Q_OBJECT
+	public:
+		WortEdit ( QWidget* parent );
+		~WortEdit() {};
+		void keyPressEvent ( QKeyEvent *k );
 };
 
 class SCRIBUS_API HyAsk : public QDialog
-{ 
-    Q_OBJECT
+{
+		Q_OBJECT
 
-public:
-    HyAsk( QWidget* parent, QString HWort );
-    ~HyAsk() {};
+	public:
+		HyAsk ( QWidget* parent, QString HWort );
+		~HyAsk() {};
 
-    WortEdit* Wort;
-    QPushButton* OK;
-    QPushButton* Skip;
-    QPushButton* Cancel;
-	int xpos;
-	int ypos;
+		WortEdit* Wort;
+		QPushButton* OK;
+		QPushButton* Skip;
+		QPushButton* Cancel;
+		int xpos;
+		int ypos;
 
-public slots:
-	void Check();
-	void DoSkip();
-	void accept();
-	void reject();
+	public slots:
+		void Check();
+		void DoSkip();
+		void accept();
+		void reject();
 
-protected:
-    Q3VBoxLayout* HyAskLayout;
-    Q3HBoxLayout* Layout1;
+	protected:
+		QVBoxLayout* HyAskLayout;
+		QHBoxLayout* Layout1;
 };
 
 #endif // HYASK_H
