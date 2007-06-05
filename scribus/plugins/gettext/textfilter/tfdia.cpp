@@ -189,13 +189,17 @@ void tfDia::createFilter(PrefsTable* table)
 void tfDia::removeRow(tfFilter* tff)
 {
 	std::vector<tfFilter*>::iterator it = filters.begin();
-	for (uint i = 0; i < filters.size(); ++i, ++it)
+	for (uint i = 0; i < filters.size(); ++i)
 	{
 		if (filters[i] == tff)
 		{
 			filters[i]->hide();
 			delete filters[i];
-			filters.erase(it);
+			it = filters.erase(it);
+		}
+		else
+		{
+			++it;
 		}
 	}
 	if (filters.size() == 1)

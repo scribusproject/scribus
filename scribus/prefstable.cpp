@@ -168,12 +168,15 @@ void PrefsTable::removeRow(int colIndex, const QString& what)
 		return;
 
 	Table::iterator it = table.begin();
-	for (int i = 0; i < height(); ++i, ++it)
+	for (int i = 0; i < height(); ++i)
 	{
 		if (get(i, colIndex, "__NOT__SET__") == what)
 		{
-			table.erase(it);
+			it = table.erase(it);
 			--rowCount;
+		}
+		else {
+			++it;
 		}
 	}
 }

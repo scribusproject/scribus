@@ -311,11 +311,16 @@ void UndoManager::disconnectGuis()
 
 void UndoManager::removeGui(UndoGui* gui)
 {
-	std::vector<UndoGui*>::iterator it;
-	for (it = undoGuis_.begin(); it != undoGuis_.end(); ++it)
+	std::vector<UndoGui*>::iterator it = undoGuis_.begin();
+	while(it != undoGuis_.end())
+	{
 		if (*it == gui)
-			undoGuis_.erase(it);
+			it = undoGuis_.erase(it);
+		else  
+			++it;
+	}
 }
+
 
 void UndoManager::switchStack(const QString& stackName)
 {
