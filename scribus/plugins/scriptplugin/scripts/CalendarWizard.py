@@ -130,6 +130,16 @@ localization = {
       'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь',
       'Октябрь', 'Ноябрь', 'Декабрь'],
      ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота', 'Воскресенье']],
+'Slovak' :
+    [['Január', 'Február', 'Marec', 'Apríl',
+      'Máj', 'Jún', 'Júl', 'August', 'September',
+      'Október', 'November', 'December'],
+      ['Pondelok','Utorok','Streda','Štvrtok','Piatok','Sobota', 'Nedeľa']],
+'Slovak-short' :
+    [['Január', 'Február', 'Marec', 'Apríl',
+      'Máj', 'Jún', 'Júl', 'August', 'September',
+      'Október', 'November', 'December'],
+      ['Po','Ut','St','Št','Pi','So', 'Ne']],
 'Spanish' :
     [['Enero', 'Febrero', 'Marco', 'Abril', 'Mayo',
       'Junio', 'Julio', 'Agosto', 'Septiembre',
@@ -340,8 +350,9 @@ class TkCalendar(Frame):
         self.statusLabel = Label(self, textvariable=self.statusVar)
         self.statusVar.set('Select Options and Values')
         # langs
+	# change the height = to match number of langs.
         self.langLabel = Label(self, text='Select language:')
-        self.langListbox = Listbox(self, selectmode=SINGLE, height=10)
+        self.langListbox = Listbox(self, selectmode=SINGLE, height=16)
         keys = localization.keys()
         keys.sort()
         for i in keys:
