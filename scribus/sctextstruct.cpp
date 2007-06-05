@@ -25,7 +25,7 @@ struct InlineFrameData
 		++refs; 
 	}
 	
-	void release()
+	bool release()
 	{
 		--refs;
 		if (refs == 0 && item != NULL)
@@ -35,6 +35,7 @@ struct InlineFrameData
 			delete item;
 			item = NULL;
 		}
+		return refs == 0;
 	}
 };
 
@@ -55,7 +56,8 @@ InlineFrame& InlineFrame::operator= (const InlineFrame& other)
 {
 	if (this != &other)
 	{
-		d->release();
+		if (d->release())
+			delete d;
 		d = other.d;
 		d->reserve();
 	}
@@ -64,7 +66,8 @@ InlineFrame& InlineFrame::operator= (const InlineFrame& other)
 
 InlineFrame::~InlineFrame()
 {
-	d->release();
+	if (d->release())
+		delete d;
 }
 
 bool InlineFrame::hasItem()
