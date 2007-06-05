@@ -80,7 +80,9 @@ void TOCGenerator::generateDefault()
 			PageItem *currentDocItem;
 			QMap<QString, QString> tocMap;
 			tocMap.clear();
-			uint *pageCounter =  new uint[currDoc->DocPages.count()];
+			uint *pageCounter = new uint[currDoc->DocPages.count()];
+			if (pageCounter==NULL)
+				return;
 			uint pageNumberWidth=QString("%1").arg(currDoc->DocPages.count()).length();
 			for (uint i=0;i<currDoc->DocPages.count();++i)
 				pageCounter[i]=0;
@@ -112,35 +114,37 @@ void TOCGenerator::generateDefault()
 			}
 			//Set up the gtWriter instance with the selected paragraph style
 			gtWriter* writer = new gtWriter(false, tocFrame);
-			writer->setUpdateParagraphStyles(false);
-			writer->setOverridePStyleFont(false);
-			gtFrameStyle* fstyle = writer->getDefaultStyle();
-			gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
-			pstyle->setName((*tocSetupIt).textStyle);
-			writer->setParagraphStyle(pstyle);
-			
-			QString oldTocPage=QString::null;
-			for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
-			{
-				QString tocPage(tocIt.key().section( ',', 2, 2 ).stripWhiteSpace());
-				QString tocLine;
-				//Start with text or numbers
-				if ((*tocSetupIt).pageLocation==End || (*tocSetupIt).pageLocation==NotShown)
-					tocLine = tocIt.data();
-				if ((*tocSetupIt).pageLocation==Beginning && oldTocPage!=tocPage)
-					tocLine = tocPage;
-				//Add in the tab for the leaders
-				tocLine+="\t";
-				//End with text or numbers
-				if ((*tocSetupIt).pageLocation==Beginning)
-					tocLine += tocIt.data();
-				if ((*tocSetupIt).pageLocation==End && oldTocPage!=tocPage)
-					tocLine += tocPage;
-				tocLine += "\n";
-				writer->append(tocLine);
-			}
 			if (writer!=NULL)
+			{
+				writer->setUpdateParagraphStyles(false);
+				writer->setOverridePStyleFont(false);
+				gtFrameStyle* fstyle = writer->getDefaultStyle();
+				gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
+				pstyle->setName((*tocSetupIt).textStyle);
+				writer->setParagraphStyle(pstyle);
+				
+				QString oldTocPage=QString::null;
+				for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
+				{
+					QString tocPage(tocIt.key().section( ',', 2, 2 ).stripWhiteSpace());
+					QString tocLine;
+					//Start with text or numbers
+					if ((*tocSetupIt).pageLocation==End || (*tocSetupIt).pageLocation==NotShown)
+						tocLine = tocIt.data();
+					if ((*tocSetupIt).pageLocation==Beginning && oldTocPage!=tocPage)
+						tocLine = tocPage;
+					//Add in the tab for the leaders
+					tocLine+="\t";
+					//End with text or numbers
+					if ((*tocSetupIt).pageLocation==Beginning)
+						tocLine += tocIt.data();
+					if ((*tocSetupIt).pageLocation==End && oldTocPage!=tocPage)
+						tocLine += tocPage;
+					tocLine += "\n";
+					writer->append(tocLine);
+				}
 				delete writer;
+			}
 			delete[] pageCounter;
 		}
 	}
