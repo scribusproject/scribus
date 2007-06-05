@@ -29,8 +29,8 @@ typedef QMap<Xml_string, Xml_string> Xml_attr;
 
 inline Xml_string Xml_key(Xml_attr::iterator& it) { return it.key(); }
 inline Xml_string Xml_data(Xml_attr::iterator& it) { return it.value(); }
-inline const char* fromXMLString(const Xml_string& s) { return s.ascii(); }
-inline Xml_string fromSTLString(const std::string& s) { return QString(s.c_str()); }
+inline std::string fromXMLString(const Xml_string& s) { QByteArray ba(s.toUtf8()); return std::string(ba.constData()); }
+inline Xml_string fromSTLString(const std::string& s) { return QString::fromUtf8(s.c_str()); }
 
 #else
 

@@ -61,7 +61,7 @@ void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 		for (int k=0; k < m_indentLevel*4; ++k)
 			m_stream << " ";
 	}
-	m_stream << "<" << tag.toStdString();
+	m_stream << "<" << fromXMLString(tag);
 	Xml_attr::iterator it;
 	m_manyAttributes = false;
 	uint i = 0;
@@ -76,9 +76,9 @@ void SaxXML::begin(const Xml_string& tag, Xml_attr attr)
 		}
 		++i;
 		if (Xml_data(it).isNull())
-			m_stream << " " << Xml_key(it).toStdString() << "=\"\"";
+			m_stream << " " << fromXMLString(Xml_key(it)) << "=\"\"";
 		else 
-			m_stream << " " << Xml_key(it).toStdString() << "=\"" << Xml_data(it).toStdString() << "\"";
+			m_stream << " " << fromXMLString(Xml_key(it)) << "=\"" << fromXMLString(Xml_data(it)) << "\"";
 	}
 	pendingEmptyTag = true;
 	++m_indentLevel;
@@ -105,7 +105,7 @@ void SaxXML::end(const Xml_string& tag)
 			for (int k=0; k < m_indentLevel*4; ++k)
 				m_stream << " ";
 		}
-		m_stream << "</" << tag.toStdString() << ">";
+		m_stream << "</" << fromXMLString(tag) << ">";
 	}
 }
 
@@ -117,6 +117,6 @@ void SaxXML::chars(const Xml_string& text)
 	txt.replace("&", "&amp;");
 	txt.replace("<", "&lt;");
 	txt.replace(">", "&gt;");
-	m_stream << txt.toStdString();
+	m_stream << fromXMLString(txt);
 }
 
