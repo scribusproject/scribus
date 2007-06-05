@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include <q3listview.h>
 #include <qpushbutton.h>
 #include <qpixmap.h>
-#include <q3valuelist.h>
 #include <qtabwidget.h>
 #include <qlayout.h>
 #include <q3listbox.h>
@@ -237,13 +236,13 @@ void SMLineStyle::currentDoc(ScribusDoc *doc)
 	}
 }
 
-Q3ValueList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
+QList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
 {
 	if (doc_ && reloadFromDoc) {
 		tmpLines = doc_->MLineStyles;
 	}
 
-	Q3ValueList<StyleName> tmp;
+	QList<StyleName> tmp;
 	QMap<QString,multiLine>::Iterator it;
 
 	for (it = tmpLines.begin(); it != tmpLines.end(); ++it)
@@ -463,7 +462,7 @@ void SMLineStyle::setShortcut(const QString &shortcut)
 	}
 }
 
-void SMLineStyle::deleteStyles(const Q3ValueList<RemoveItem> &removeList)
+void SMLineStyle::deleteStyles(const QList<RemoveItem> &removeList)
 {
 	for (int i = 0; i < removeList.count(); ++i)
 	{
@@ -490,7 +489,7 @@ void SMLineStyle::nameChanged(const QString &newName)
 	tmpLines.insert(newName, newLine);
 	selection_[newName] = &tmpLines[newName];
 
-	Q3ValueList<RemoveItem>::iterator it;
+	QList<RemoveItem>::iterator it;
 	for (it = deleted_.begin(); it != deleted_.end(); ++it)
 	{
 		if ((*it).second == oldName)

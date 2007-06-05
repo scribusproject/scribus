@@ -14,8 +14,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <qobject.h>
 #include <qcolor.h>
-//Added by qt3to4:
-#include <Q3ValueList>
 
 class ScribusDoc;
 class LineCombo;
@@ -59,7 +57,7 @@ public:
 	QString typeNamePlural();
 	QString typeNameSingular();
 	void currentDoc(ScribusDoc *doc);
-	Q3ValueList<StyleName> styles(bool reloadFromDoc = true);
+	QList<StyleName> styles(bool reloadFromDoc = true);
 	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
@@ -69,7 +67,7 @@ public:
 	void apply();
 	QString shortcut(const QString &stylename) const;
 	void setShortcut(const QString &shortcut);
-	void deleteStyles(const Q3ValueList<RemoveItem> &removeList);
+	void deleteStyles(const QList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
 	QString getUniqueName(const QString &name);
 	void languageChange();
@@ -86,7 +84,7 @@ private:
 	QMap<QString, multiLine>  tmpLines;
 	bool                      selectionIsDirty_;
 	QMap<QString, multiLine*> selection_;
-	Q3ValueList<RemoveItem>    deleted_;
+	QList<RemoveItem>         deleted_;
 	int                       currentLine_;
 
 	void setSelection(const QString& styleName);

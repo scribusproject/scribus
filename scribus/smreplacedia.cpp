@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 //Added by qt3to4:
 #include <Q3VBoxLayout>
-#include <Q3ValueList>
 #include <Q3HBoxLayout>
 
 SMRowWidget::SMRowWidget(const QString &toBeDeleted, QStringList replaceOptions, QWidget *parent)
@@ -81,9 +80,9 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 	layout->addStretch(10);
 }
 
-Q3ValueList<RemoveItem> SMReplaceDia::items()
+QList<RemoveItem> SMReplaceDia::items()
 {
-	Q3ValueList<RemoveItem> tmp;
+	QList<RemoveItem> tmp;
 	for (int i = 0; i < rowWidgets.count(); ++i)
 	{
 		QString s1 = rowWidgets.at(i)->toBeDeleted();

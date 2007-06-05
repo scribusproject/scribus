@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include <QCloseEvent>
 #include <QShowEvent>
 #include <Q3GridLayout>
-#include <Q3ValueList>
 #include <QLabel>
 #include <QMouseEvent>
 #include <Q3PtrList>
@@ -74,7 +73,7 @@ protected:
 	void showEvent(QShowEvent *e);
 
 private:
-	Q3PtrList<StyleItem> items_;
+	QList<StyleItem*> items_;
 	StyleItem          *item_;
 	Q3GridLayout        *layout_;
 	QTabWidget         *widget_;
@@ -129,7 +128,7 @@ private:
 	bool shortcutExists(const QString &keys);
 	void updateActionName(const QString &oldName, const QString &newName);
 	/* QPair.first = type name and QPair.second = style name */
-	void setSelection(const Q3ValueList<QPair<QString, QString> > &selected);
+	void setSelection(const QList<QPair<QString, QString> > &selected);
 	void setOkButtonText();
 
 private slots:

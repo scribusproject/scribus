@@ -43,7 +43,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <QKeyEvent>
-#include <Q3ValueList>
 #include <Q3GridLayout>
 #include <QHideEvent>
 #include <Q3PopupMenu>
@@ -158,7 +157,7 @@ void StyleManager::languageChange()
 
 	newPopup_->clear();
 	QStringList popupStrings;
-	for (uint i = 0; i < items_.count(); ++i)
+	for (int i = 0; i < items_.count(); ++i)
 	{
 		popupStrings << items_.at(i)->typeNameSingular();
 		items_.at(i)->languageChange();
@@ -170,7 +169,7 @@ void StyleManager::languageChange()
 		newPopup_->insertItem(popupStrings[i]);
 
 	styleView->clear();
-	for (uint i = 0; i < items_.count(); ++i)
+	for (int i = 0; i < items_.count(); ++i)
 		addNewType(items_.at(i));
 
 	rightClickPopup_->clear();
@@ -188,7 +187,7 @@ void StyleManager::unitChange()
 {
 	if (doc_)
 	{
-		for (uint i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < items_.count(); ++i)
 			items_.at(i)->unitChange();
 
 		slotSetupWidget();
@@ -230,7 +229,7 @@ void StyleManager::setDoc(ScribusDoc *doc)
 	// clear the style list and reload from new doc
 	styleView->clear();
 	styleActions_.clear();
-	for (uint i = 0; i < items_.count(); ++i)
+	for (int i = 0; i < items_.count(); ++i)
 	{
 		items_.at(i)->currentDoc(doc);
 		addNewType(items_.at(i)); // forces a reload
@@ -241,7 +240,7 @@ void StyleManager::setDoc(ScribusDoc *doc)
 
 void StyleManager::updateColorList()
 {
-	for (uint i = 0; i < items_.count(); ++i)
+	for (int i = 0; i < items_.count(); ++i)
 	{
 		items_.at(i)->currentDoc(doc_);
 		items_.at(i)->reload();
@@ -260,7 +259,7 @@ void StyleManager::slotApply()
 {
 	if (applyButton->isEnabled())
 	{
-		for (uint i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < items_.count(); ++i)
 			items_.at(i)->apply();
 	}
 
@@ -284,11 +283,11 @@ void StyleManager::slotDelete()
 			++it;
 		}
 	}
-	if (selected.isEmpty())
+	if (!item_ || selected.isEmpty())
 		return; // nothing to delete
 
 	QStringList tmp;
-	Q3ValueList<StyleName> styles = item_->styles(false); // get list from cache
+	QList<StyleName> styles = item_->styles(false); // get list from cache
 	for (int i = 0; i < styles.count(); ++i)
 		tmp << styles[i].first;
 	SMReplaceDia *dia = new SMReplaceDia(selected, tmp, this);
@@ -330,19 +329,19 @@ void StyleManager::slotImport()
 		SMParagraphStyle *pstyle = 0;
 		SMCharacterStyle *cstyle = 0;
 		SMLineStyle      *lstyle = 0;
-		for (uint i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < items_.count(); ++i)
 		{
 			pstyle = dynamic_cast<SMParagraphStyle*>(items_.at(i));
 			if (pstyle)
 				break;
 		}
-		for (uint i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < items_.count(); ++i)
 		{
 			cstyle = dynamic_cast<SMCharacterStyle*>(items_.at(i));
 			if (cstyle)
 				break;
 		}
-		for (uint i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < items_.count(); ++i)
 		{
 			lstyle = dynamic_cast<SMLineStyle*>(items_.at(i));
 			if (lstyle)
@@ -354,7 +353,7 @@ void StyleManager::slotImport()
 		ImportDialog *dia2 = new ImportDialog(this, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 // end hack
 
-		Q3ValueList<QPair<QString, QString> > selected;
+		QList<QPair<QString, QString> > selected;
 		if (dia2->exec())
 		{
 			if (!isEditMode_)
@@ -467,7 +466,7 @@ void StyleManager::slotImport()
 		return;
 }
 
-void StyleManager::setSelection(const Q3ValueList<QPair<QString, QString> > &selected)
+void StyleManager::setSelection(const QList<QPair<QString, QString> > &selected)
 {
 	styleView->clearSelection();
 	
@@ -554,7 +553,7 @@ void StyleManager::slotClone()
 	}
 
 	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
-	Q3ValueList<QPair<QString, QString> > names;
+	QList<QPair<QString, QString> > names;
 
 	while (it.current())
 	{ // can't create styles here cause createNewStyle() alters the selection
@@ -744,7 +743,7 @@ void StyleManager::slotOk()
 // 		editButtonsFrame->hide();
 		rightFrame->hide();
 		isEditMode_ = false;
-		for (uint i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < items_.count(); ++i)
 		{
 			items_.at(i)->apply();
 			items_.at(i)->editMode(false);
@@ -793,7 +792,7 @@ void StyleManager::slotOk()
 // 		editButtonsFrame->show();
 		rightFrame->show();
 		isEditMode_ = true;
-		for (uint i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < items_.count(); ++i)
 			items_.at(i)->editMode(true);
 		QToolTip::add(okButton, exitEditModeOk_);
 		slotClean();
@@ -816,7 +815,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 	if (item) {
 		item_ = item;
 
-		Q3ValueList<StyleName> styles = item_->styles(loadFromDoc);
+		QList<StyleName> styles = item_->styles(loadFromDoc);
 		StyleViewItem *rootItem = new StyleViewItem(styleView, item_->typeName());
 		rootItem->setOpen(true);
 		QMap<QString, StyleViewItem*> sitems;
@@ -908,7 +907,7 @@ void StyleManager::slotClean()
 	{
 		StyleItem *tmp = item_;
 
-		for (uint i = 0; i < items_.count(); ++i)
+		for (int i = 0; i < items_.count(); ++i)
 		{
 			item_ = items_.at(i);
 			reloadStyleView();
@@ -924,7 +923,7 @@ void StyleManager::slotClean()
 void StyleManager::reloadStyleView(bool loadFromDoc)
 {
 	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
-	Q3ValueList<QPair<QString, QString> > selected;
+	QList<QPair<QString, QString> > selected;
 
 	while (it.current())
 	{
@@ -938,7 +937,7 @@ void StyleManager::reloadStyleView(bool loadFromDoc)
 	if (item_ && loadFromDoc)
 		item_->reload();
 
-	for (uint i = 0; i < items_.count(); ++i)
+	for (int i = 0; i < items_.count(); ++i)
 		addNewType(items_.at(i), false);
 
 	Q3ListViewItemIterator it2(styleView, Q3ListViewItemIterator::Selectable);
@@ -982,7 +981,7 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 
 void StyleManager::slotNameChanged(const QString& name)
 {
-	if (!nameIsUnique(name))
+	if (item_ && !nameIsUnique(name))
 	{
 		uniqueLabel->show();
 		okButton->setEnabled(false);
@@ -1100,7 +1099,7 @@ void StyleManager::slotApplyStyle(QString keyString)
 
 bool StyleManager::nameIsUnique(const QString &name)
 {
-	Q3ValueList<StyleName> names = item_->styles(false);
+	QList<StyleName> names = item_->styles(false);
 	for (int i = 0; i < names.count(); ++i)
 	{
 		if (names[i].first == name)
@@ -1182,9 +1181,9 @@ void StyleManager::slotDocSelectionChanged()
 
 	styleView->clearSelection();
 
-	Q3ValueList<QPair<QString, QString> > selected;
+	QList<QPair<QString, QString> > selected;
 
-	for (uint i = 0; i < items_.count(); ++i)
+	for (int i = 0; i < items_.count(); ++i)
 		selected << QPair<QString, QString>(items_.at(i)->typeName(), items_.at(i)->fromSelection());
 	
 	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selectable);
@@ -1267,7 +1266,7 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 void StyleManager::loadType(const QString &name)
 {
 	item_ = 0;
-	for (uint i = 0; i < items_.count(); ++i)
+	for (int i = 0; i < items_.count(); ++i)
 	{
 		if (items_.at(i)->typeNameSingular() == name || items_.at(i)->typeName() == name)
 		{
@@ -1283,10 +1282,10 @@ void StyleManager::loadType(const QString &name)
 		widget_->hide();
 		layout_->remove(widget_);
 		widget_->reparent(0,0, QPoint(0,0), false);
+		// show the widget for the new style type
+		if (shortcutWidget_)
+			widget_->removeTab(widget_->indexOf(shortcutWidget_));
 	}
-	// show the widget for the new style type
-	if (shortcutWidget_)
-		widget_->removePage(shortcutWidget_);
 	widget_ = item_->widget(); // show the widget for the style type
 	insertShortcutPage(widget_);
 	widget_->reparent(mainFrame, 0, QPoint(0,0), true);

@@ -30,8 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include "smwidgets.h"
 
 #include <qtabwidget.h>
-//Added by qt3to4:
-#include <Q3ValueList>
 
 SMParagraphStyle::SMParagraphStyle(StyleSet<CharStyle> *cstyles) : StyleItem(),
 pwidget_(0), doc_(0), selectionIsDirty_(false), unitRatio_(1.0), cstyles_(cstyles)
@@ -84,9 +82,9 @@ StyleSet<ParagraphStyle>* SMParagraphStyle::tmpStyles()
 	return &tmpStyles_;
 }
 
-Q3ValueList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
+QList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 {
-	Q3ValueList<StyleName> tmpList;
+	QList<StyleName> tmpList;
 
 	if (!doc_)
 		return tmpList; // no doc available
@@ -130,8 +128,8 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 
 	tmpStyles_.invalidate();
 
-	Q3ValueList<ParagraphStyle> pstyles; // get saved styles
-	Q3ValueList<CharStyle> cstyles;
+	QList<ParagraphStyle> pstyles; // get saved styles
+	QList<CharStyle> cstyles;
 	for (uint i = 0; i < tmpStyles_.count(); ++i)
 		pstyles << tmpStyles_[i];
 	for (uint i = 0; i < cstyles_->count(); ++i)
@@ -145,14 +143,14 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 			selection_.append(&tmpStyles_[index]);
 	}
 
-	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), (*cstyles_).get("").language());
+	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), PrefsManager::instance()->appPrefs.Language);
 
 	setupConnections();
 }
 
-Q3ValueList<CharStyle> SMParagraphStyle::getCharStyles()
+QList<CharStyle> SMParagraphStyle::getCharStyles()
 {
-	Q3ValueList<CharStyle> charStyles;
+	QList<CharStyle> charStyles;
 	if (!doc_)
 		return charStyles; // no doc available
 
@@ -303,7 +301,7 @@ void SMParagraphStyle::setShortcut(const QString &shortcut)
 	}
 }
 
-void SMParagraphStyle::deleteStyles(const Q3ValueList<RemoveItem> &removeList)
+void SMParagraphStyle::deleteStyles(const QList<RemoveItem> &removeList)
 {
 	for (int i = 0; i < removeList.count(); ++i)
 	{
@@ -311,7 +309,7 @@ void SMParagraphStyle::deleteStyles(const Q3ValueList<RemoveItem> &removeList)
 		{
 			if (selection_[k]->name() == removeList[i].first)
 			{
-				selection_.erase(selection_.at(k));
+				selection_.removeAt(k);
 				break;
 			}
 		}
@@ -351,7 +349,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 			tmpStyles_[j].setParent(newName);
 	}
 
-	Q3ValueList<RemoveItem>::iterator it;
+	QList<RemoveItem>::iterator it;
 	for (it = deleted_.begin(); it != deleted_.end(); ++it)
 	{
 		if ((*it).second == oldName)
@@ -698,7 +696,7 @@ void SMParagraphStyle::slotTabRuler()
 	}
 	else
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> newTabs = pwidget_->tabList_->getTabVals();
+		QList<ParagraphStyle::TabRecord> newTabs = pwidget_->tabList_->getTabVals();
 		for (int i = 0; i < selection_.count(); ++i)
 			selection_[i]->setTabValues(newTabs);
 	}
@@ -1224,9 +1222,9 @@ StyleSet<CharStyle>* SMCharacterStyle::tmpStyles()
 	return &tmpStyles_;
 }
 
-Q3ValueList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
+QList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 {
-	Q3ValueList<StyleName> tmpList;
+	QList<StyleName> tmpList;
 
 	if (!doc_)
 		return tmpList; // no doc available
@@ -1261,7 +1259,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 	selection_.clear();
 	selectionIsDirty_ = false;
 	removeConnections();
-	Q3ValueList<CharStyle> cstyles;
+	QList<CharStyle> cstyles;
 
 	tmpStyles_.invalidate();
 
@@ -1276,7 +1274,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 
 	}
 
-	page_->show(selection_, cstyles, doc_->paragraphStyle("").charStyle().language(), doc_->unitIndex());
+	page_->show(selection_, cstyles, PrefsManager::instance()->appPrefs.Language, doc_->unitIndex());
 	setupConnections();
 }
 
@@ -1418,7 +1416,7 @@ void SMCharacterStyle::setShortcut(const QString &shortcut)
 	}
 }
 
-void SMCharacterStyle::deleteStyles(const Q3ValueList<RemoveItem> &removeList)
+void SMCharacterStyle::deleteStyles(const QList<RemoveItem> &removeList)
 {
 	for (int i = 0; i < removeList.count(); ++i)
 	{
@@ -1426,7 +1424,7 @@ void SMCharacterStyle::deleteStyles(const Q3ValueList<RemoveItem> &removeList)
 		{
 			if (selection_[k]->name() == removeList[i].first)
 			{
-				selection_.erase(selection_.at(k));
+				selection_.removeAt(k);
 				break;
 			}
 		}
@@ -1465,7 +1463,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 			tmpStyles_[j].setParent(newName);
 	}
 
-	Q3ValueList<RemoveItem>::iterator it;
+	QList<RemoveItem>::iterator it;
 	for (it = deleted_.begin(); it != deleted_.end(); ++it)
 	{
 		if ((*it).second == oldName)

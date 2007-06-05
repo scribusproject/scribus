@@ -16,8 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "fontcombo.h"
 #include "tabruler.h"
-//Added by qt3to4:
-#include <Q3ValueList>
 
 class SMSpinBox : public QSpinBox
 {
@@ -246,13 +244,13 @@ public:
 	SMTabruler(QWidget* parent,
 			   bool haveFirst = true,
 			   int dEin = 1,
-			   Q3ValueList<ParagraphStyle::TabRecord> Tabs = Q3ValueList<ParagraphStyle::TabRecord>(),
+			   QList<ParagraphStyle::TabRecord> Tabs = QList<ParagraphStyle::TabRecord>(),
 			   double wid = -1);
 	~SMTabruler() {};
 
-	void setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
-	void setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin, bool isParentValue);
-	void setParentTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs);
+	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin);
+	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin, bool isParentValue);
+	void setParentTabs(QList<ParagraphStyle::TabRecord> Tabs);
 
 	void setFirstLineValue(double t);
 	void setFirstLineValue(double t, bool isParentValue);
@@ -276,7 +274,7 @@ public:
 	SMScrSpinBox *right_;
 
 private:
-	Q3ValueList<ParagraphStyle::TabRecord> pTabs_;
+	QList<ParagraphStyle::TabRecord> pTabs_;
 	int pDein_;
 	QToolButton *parentButton_;
 	bool hasParent_;

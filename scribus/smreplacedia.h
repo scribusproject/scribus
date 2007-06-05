@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3PtrList>
 #include <QLabel>
-#include <Q3ValueList>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 
@@ -45,7 +44,7 @@ public:
 	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions, QWidget *parent);
 	~SMReplaceDia();
 
-	Q3ValueList<RemoveItem> items();
+	QList<RemoveItem> items();
 
 private:
 	Q3VBoxLayout *layout;

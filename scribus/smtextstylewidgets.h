@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
-#include <Q3ValueList>
 #include <QLabel>
 #include <Q3PopupMenu>
 #include <Q3VBoxLayout>
@@ -52,8 +51,8 @@ public:
 	SMCStylePage(QWidget *parent = 0);
 	~SMCStylePage();
 
-	void show(CharStyle *cstyle, Q3ValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
-	void show(Q3ValueList<CharStyle*> &cstyles, Q3ValueList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex);
+	void show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
+	void show(QList<CharStyle*> &cstyles, QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex);
 	void fillLangCombo(QMap<QString,QString> langMap);
 	void fillColorCombo(ColorList &colors);
 	void languageChange();
@@ -102,11 +101,11 @@ private:
 
 	QMap<QString, QString> langMap_;
 
-	void showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles);
-	void showEffects(const Q3ValueList<CharStyle*> &cstyles);
-	void showColors(const Q3ValueList<CharStyle*> &cstyles);
-	void showLanguage(const Q3ValueList<CharStyle*> &cstyles, const QString &defLang);
-	void showParent(const Q3ValueList<CharStyle*> &cstyles);
+	void showSizeAndPosition(const QList<CharStyle*> &cstyles);
+	void showEffects(const QList<CharStyle*> &cstyles);
+	void showColors(const QList<CharStyle*> &cstyles);
+	void showLanguage(const QList<CharStyle*> &cstyles, const QString &defLang);
+	void showParent(const QList<CharStyle*> &cstyles);
 
 	friend class SMParagraphStyle;
 	friend class SMCharacterStyle;
@@ -123,8 +122,8 @@ public:
 	SMPStyleWidget();
 	~SMPStyleWidget();
 
-	void show(ParagraphStyle *pstyle, Q3ValueList<ParagraphStyle> &pstyles, Q3ValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
-	void show(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueList<ParagraphStyle> &pstylesAll, Q3ValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
+	void show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
+	void show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle> &pstylesAll, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
 
 	void clearAll();
 
@@ -165,13 +164,13 @@ private:
 	void setupTabs();
 	void setupCharStyle();
 
-	void showLineSpacing(Q3ValueList<ParagraphStyle*> &pstyles);
-	void showSpaceAB(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showDropCap(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showAlignment(Q3ValueList<ParagraphStyle*> &pstyles);
-	void showTabs(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showCStyle(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
-	void showParent(Q3ValueList<ParagraphStyle*> &pstyles);
+	void showLineSpacing(QList<ParagraphStyle*> &pstyles);
+	void showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showDropCap(QList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showAlignment(QList<ParagraphStyle*> &pstyles);
+	void showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showCStyle(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex);
+	void showParent(QList<ParagraphStyle*> &pstyles);
 
 	friend class SMParagraphStyle;
 

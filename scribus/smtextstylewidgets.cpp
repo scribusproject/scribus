@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <qmap.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
-#include <Q3ValueList>
 #include <Q3GridLayout>
 #include <Q3VBoxLayout>
 #include <cmath>
@@ -280,7 +279,7 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
 }
 
-void SMCStylePage::show(CharStyle *cstyle, Q3ValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
+void SMCStylePage::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	parentCombo->setEnabled(true);
@@ -389,6 +388,7 @@ void SMCStylePage::show(CharStyle *cstyle, Q3ValueList<CharStyle> &cstyles, cons
 			di = i;
 	}
 
+//	qDebug(QString("SMCStylePage::show(): deflan='%1'->'%2'").arg(defLang).arg(langMap_[defLang]));
 	Q_ASSERT(di != -1);
 
 	if (hasParent)
@@ -411,7 +411,7 @@ void SMCStylePage::show(CharStyle *cstyle, Q3ValueList<CharStyle> &cstyles, cons
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 }
 
-void SMCStylePage::show(Q3ValueList<CharStyle*> &cstyles, Q3ValueList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex)
+void SMCStylePage::show(QList<CharStyle*> &cstyles, QList<CharStyle> &cstylesAll, const QString &defLang, int unitIndex)
 {
 // 	int decimals = unitGetDecimalsFromIndex(unitIndex);
 // 	QString suffix = unitGetSuffixFromIndex(unitIndex);
@@ -428,7 +428,7 @@ void SMCStylePage::show(Q3ValueList<CharStyle*> &cstyles, Q3ValueList<CharStyle>
 	}
 }
 
-void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
+void SMCStylePage::showSizeAndPosition(const QList<CharStyle*> &cstyles)
 {
 	int d = -30000;
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -511,7 +511,7 @@ void SMCStylePage::showSizeAndPosition(const Q3ValueList<CharStyle*> &cstyles)
 		tracking_->setValue(d / 10.0);
 }
 
-void SMCStylePage::showEffects(const Q3ValueList<CharStyle*> &cstyles)
+void SMCStylePage::showEffects(const QList<CharStyle*> &cstyles)
 {
 	int d = -30000;
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -539,7 +539,7 @@ void SMCStylePage::showEffects(const Q3ValueList<CharStyle*> &cstyles)
 // 		effects_->UnderlineVal->LWidth->setValue(cstyle->underlineWidth() / 10.0);
 }
 
-void SMCStylePage::showColors(const Q3ValueList<CharStyle*> &cstyles)
+void SMCStylePage::showColors(const QList<CharStyle*> &cstyles)
 {
 	strokeShade_->setEnabled(true);
 	strokeColor_->setEnabled(true);
@@ -620,7 +620,7 @@ void SMCStylePage::showColors(const Q3ValueList<CharStyle*> &cstyles)
 		strokeColor_->setCurrentText(s);
 }
 
-void SMCStylePage::showLanguage(const Q3ValueList<CharStyle*> &cstyles, const QString &defLang)
+void SMCStylePage::showLanguage(const QList<CharStyle*> &cstyles, const QString &defLang)
 {
 	QString s(cstyles[0]->language());
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -647,7 +647,7 @@ void SMCStylePage::showLanguage(const Q3ValueList<CharStyle*> &cstyles, const QS
 	}
 }
 
-void SMCStylePage::showParent(const Q3ValueList<CharStyle*> &cstyles)
+void SMCStylePage::showParent(const QList<CharStyle*> &cstyles)
 {
 	parentCombo->setEnabled(false);
 }
@@ -839,7 +839,7 @@ void SMPStyleWidget::setupCharStyle()
 	characterBox->setEnabled(true);
 }
 
-void SMPStyleWidget::show(ParagraphStyle *pstyle, Q3ValueList<ParagraphStyle> &pstyles, Q3ValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
+void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	parentCombo->setEnabled(true);
@@ -884,9 +884,9 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, Q3ValueList<ParagraphStyle> &p
 		alignement_->setParentItem(parent->alignment());
 
 		bool hasParentTabs = pstyle->isInhTabValues();
-		Q3ValueList<ParagraphStyle::TabRecord> tabs;
+		QList<ParagraphStyle::TabRecord> tabs;
 		if (hasParentTabs)
-			tabs = Q3ValueList<ParagraphStyle::TabRecord>(parent->tabValues());
+			tabs = QList<ParagraphStyle::TabRecord>(parent->tabValues());
 		else
 			tabs = pstyle->tabValues();
 
@@ -960,7 +960,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, Q3ValueList<ParagraphStyle> &p
 	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 }
 
-void SMPStyleWidget::show(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueList<ParagraphStyle> &pstylesAll, Q3ValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
+void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle> &pstylesAll, QList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
 {
 	if (pstyles.count() == 1)
 		show(pstyles[0], pstylesAll, cstyles, unitIndex, defLang);
@@ -976,7 +976,7 @@ void SMPStyleWidget::show(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueList<Par
 	}
 }
 
-void SMPStyleWidget::showLineSpacing(Q3ValueList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 {
 	lineSpacingMode_->clear();
 	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
@@ -1022,7 +1022,7 @@ void SMPStyleWidget::showLineSpacing(Q3ValueList<ParagraphStyle*> &pstyles)
 		lineSpacing_->setValue(tmpLS);
 }
 
-void SMPStyleWidget::showSpaceAB(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex)
+void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	double tmpA = -1.2;
@@ -1058,7 +1058,7 @@ void SMPStyleWidget::showSpaceAB(Q3ValueList<ParagraphStyle*> &pstyles, int unit
 		spaceBelow_->setValue(tmpA * unitRatio);
 }
 
-void SMPStyleWidget::showDropCap(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex)
+void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, int unitIndex)
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	parentDropCapButton->hide();
@@ -1114,7 +1114,7 @@ void SMPStyleWidget::showDropCap(Q3ValueList<ParagraphStyle*> &pstyles, int unit
 	dropCapOffset_->setEnabled(true);
 }
 
-void SMPStyleWidget::showAlignment(Q3ValueList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showAlignment(QList<ParagraphStyle*> &pstyles)
 {
 	ParagraphStyle::AlignmentType a = pstyles[0]->alignment();
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -1133,15 +1133,15 @@ void SMPStyleWidget::showAlignment(Q3ValueList<ParagraphStyle*> &pstyles)
 	alignement_->setStyle(a);
 }
 
-void SMPStyleWidget::showTabs(Q3ValueList<ParagraphStyle*> &pstyles, int unitIndex)
+void SMPStyleWidget::showTabs(QList<ParagraphStyle*> &pstyles, int unitIndex)
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
-	Q3ValueList<ParagraphStyle::TabRecord> t = pstyles[0]->tabValues();
+	QList<ParagraphStyle::TabRecord> t = pstyles[0]->tabValues();
 	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (t != pstyles[i]->tabValues())
 		{
-			t = Q3ValueList<ParagraphStyle::TabRecord>();
+			t = QList<ParagraphStyle::TabRecord>();
 			break;
 		}
 	}
@@ -1206,18 +1206,18 @@ void SMPStyleWidget::showTabs(Q3ValueList<ParagraphStyle*> &pstyles, int unitInd
 
 }
 
-void SMPStyleWidget::showCStyle(Q3ValueList<ParagraphStyle*> &pstyles, Q3ValueList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
+void SMPStyleWidget::showCStyle(QList<ParagraphStyle*> &pstyles, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex)
 {
 	cpage->parentLabel->setText( tr("Based On:"));
 
-	Q3ValueList<CharStyle*> cstyle;
+	QList<CharStyle*> cstyle;
 	for (int i = 0; i < pstyles.count(); ++i)
 		cstyle << &pstyles[i]->charStyle();
 
 	cpage->show(cstyle, cstyles, defLang, unitIndex);
 }
 
-void SMPStyleWidget::showParent(Q3ValueList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showParent(QList<ParagraphStyle*> &pstyles)
 {
 	parentCombo->setEnabled(false);
 

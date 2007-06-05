@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
-#include <Q3ValueList>
 
 extern QPixmap loadIcon(QString nam);
 
@@ -57,7 +56,7 @@ ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleLis
 	}
 
 	Q3ListViewItem *lroot = new Q3ListViewItem(StyleView, tr("Line Styles"));
-	Q3ValueList<QString> lkeys = lstyleList->keys();
+	QList<QString> lkeys = lstyleList->keys();
 	for (int x = 0; x < lkeys.count(); ++x)
 	{
 		Q3CheckListItem *item = new Q3CheckListItem (lroot, lkeys[x], Q3CheckListItem::CheckBox);

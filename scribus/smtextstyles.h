@@ -11,8 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include "styleitem.h"
 #include "styles/styleset.h"
 #include "styles/paragraphstyle.h"
-//Added by qt3to4:
-#include <Q3ValueList>
 
 class CharStyle;
 class ScribusDoc;
@@ -30,7 +28,7 @@ public:
 	QString typeNamePlural();
 	QString typeNameSingular();
 	void currentDoc(ScribusDoc *doc);
-	Q3ValueList<StyleName> styles(bool reloadFromDoc = true);
+	QList<StyleName> styles(bool reloadFromDoc = true);
 	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
@@ -41,7 +39,7 @@ public:
 	void editMode(bool isOn);
 	QString shortcut(const QString &stylename) const;
 	void setShortcut(const QString &shortcut);
-	void deleteStyles(const Q3ValueList<RemoveItem> &removeList);
+	void deleteStyles(const QList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
 	QString getUniqueName(const QString &name);
 	void languageChange();
@@ -58,14 +56,14 @@ private:
 	double unitRatio_;
 	StyleSet<ParagraphStyle> tmpStyles_;
 	StyleSet<CharStyle> *cstyles_;
-	Q3ValueList<ParagraphStyle*> selection_;
-	Q3ValueList<RemoveItem> deleted_;
+	QList<ParagraphStyle*> selection_;
+	QList<RemoveItem> deleted_;
 
 	void setupConnections();
 	void removeConnections();
 	void updateStyleList();
 	void reloadTmpStyles();
-	Q3ValueList<CharStyle> getCharStyles();
+	QList<CharStyle> getCharStyles();
 
 private slots:
 	// pstyle
@@ -111,7 +109,7 @@ public:
 	QString typeNamePlural();
 	QString typeNameSingular();
 	void currentDoc(ScribusDoc *doc);
-	Q3ValueList<StyleName> styles(bool reloadFromDoc = true);
+	QList<StyleName> styles(bool reloadFromDoc = true);
 	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
@@ -122,7 +120,7 @@ public:
 	void editMode(bool isOn);
 	QString shortcut(const QString &stylename) const;
 	void setShortcut(const QString &shortcut);
-	void deleteStyles(const Q3ValueList<RemoveItem> &removeList);
+	void deleteStyles(const QList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
 	QString getUniqueName(const QString &name);
 	void languageChange();
@@ -137,8 +135,8 @@ private:
 	SMCStylePage *page_;
 	ScribusDoc   *doc_;
 	StyleSet<CharStyle> tmpStyles_;
-	Q3ValueList<CharStyle*> selection_;
-	Q3ValueList<RemoveItem> deleted_;
+	QList<CharStyle*> selection_;
+	QList<RemoveItem> deleted_;
 	bool selectionIsDirty_;
 
 	void reloadTmpStyles();
