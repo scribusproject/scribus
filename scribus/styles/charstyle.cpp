@@ -262,7 +262,7 @@ void CharStyle::runFeatures(const QStringList& featureList, const CharStyle* par
 	QStringList::ConstIterator it;
 	for (it = featureList.begin(); it != featureList.end(); ++it)
 	{
-		QString feature = *it;
+		QString feature = it->stripWhiteSpace();
 		if (feature == INHERIT)
 		{
 			if (parent)
@@ -485,6 +485,12 @@ template<>
 StyleFlag parse<StyleFlag>(const Xml_string& str)
 {
 	return StyleFlag(parseInt(str));
+}
+
+template<>
+QStringList parse<QStringList>(const Xml_string& str)
+{
+	return str.split(" ", QString::SkipEmptyParts);
 }
 
 template<>
