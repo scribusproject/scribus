@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 #include "tabkeyboardshortcutswidget.h"
-//#include "tabkeyboardshortcutswidget.moc"
 
 #include <qcombobox.h>
 #include <qdir.h>
@@ -313,6 +312,11 @@ QString TabKeyboardShortcutsWidget::getKeyText(int KeyC)
 
 void TabKeyboardShortcutsWidget::setKeyText()
 {
+	if (keyTable->currentItem()==0)
+	{
+		setKeyButton->setOn(false);
+		return;
+	}
 	if (setKeyButton->isOn())
 	{
 		keyCode = 0;
