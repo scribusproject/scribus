@@ -3274,9 +3274,9 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 {
 	double x1=0.0,y1=0.0,w1=iafData.width,h1=iafData.height;
 	std::vector<int> pageNs;
-	if (iafData.locationType==0) // On the current page or ona range of pages
+	if (iafData.locationType==0) // On the current page or on a range of pages
 		pageNs.push_back(currentPage()->pageNr()+1);
-	else if (iafData.locationType==2) // On all pages
+	else if (iafData.locationType==1) // On all pages
 	{
 		parsePagesString(QString("1-%1").arg(DocPages.count()), &pageNs, DocPages.count());
 	}
@@ -3285,12 +3285,10 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 	Page* oldCurrentPage = currentPage();
 	int z=-2;
 	PageItem *prevItem=0; //Previous item for text frame linking
-
 	undoManager->beginTransaction(
 			iafData.frameType==PageItem::TextFrame ? Um::TextFrame : Um::ImageFrame,
 			iafData.frameType==PageItem::TextFrame ? Um::ITextFrame : Um::IImageFrame,
 			Um::InsertFrame, "", Um::ICreate);
-
 	for (uint i=0;i<pageNs.size();++i)
 	{
 		Page* targetPage=Pages->at(pageNs[i]-1);
