@@ -160,14 +160,16 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 			if (menuItemListClassName == "ScrAction")
 			{
 				ScrAction * act = dynamic_cast<ScrAction *>(menuItem);
-				menuListHasNoIcons = act->iconSet().isNull();
+				if (act!=NULL)
+					menuListHasNoIcons = act->iconSet().isNull();
 				break;
 			}
 
 			else if (menuItemListClassName == "ScrPopupMenu")
 			{
 				ScrPopupMenu * men = dynamic_cast<ScrPopupMenu *>(menuItem);
-				menuListHasNoIcons = men->getMenuIcon().isNull();
+				if (men!=NULL)
+					menuListHasNoIcons = men->getMenuIcon().isNull();
 				break;
 			}
 		}
