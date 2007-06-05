@@ -2686,15 +2686,16 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(callGimp()), this, SLOT(callImageEditor()));
 }
 
-void ScribusMainWindow::HaveNewSel(int Nr)
+void ScribusMainWindow::HaveNewSel(int SelectedType)
 {
 	PageItem *currItem = NULL;
-	if (Nr != -1)
+	const uint docSelectionCount=doc->m_Selection->count();
+	if (SelectedType != -1)
 	{
-		if (doc->m_Selection->count() != 0)
+		if (docSelectionCount != 0)
 		{
 			uint lowestItem = 999999;
-			for (uint a=0; a<doc->m_Selection->count(); ++a)
+			for (uint a=0; a < docSelectionCount; ++a)
 			{
 				currItem = doc->m_Selection->itemAt(a);
 				lowestItem = qMin(lowestItem, currItem->ItemNr);
@@ -2703,43 +2704,51 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 //			doc->m_Selection->removeItem(currItem);
 //			doc->m_Selection->prependItem(currItem);
 //			currItem = doc->m_Selection->itemAt(0);
-			if (!currItem)
-				Nr=-1;
+			assert(currItem);
+//			if (!currItem)
+//				SelectedType=-1;
 		}
 		else
-			Nr = -1;
+			SelectedType = -1;
 	}
+	else if (docSelectionCount > 0)
+	{
+		currItem = doc->m_Selection->itemAt(0);
+	}
+	
+	assert (docSelectionCount == 0 || currItem != NULL); // help coverity analysis
+	
 	actionManager->disconnectNewSelectionActions();
-	scrActions["editDeselectAll"]->setEnabled(Nr!=-1);
+	scrActions["editDeselectAll"]->setEnabled(SelectedType != -1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	charPalette->setEnabled(false, 0);
-	scrActions["itemUpdateImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail);
-	scrActions["itemAdjustFrameToImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
-	scrActions["itemExtendedImageProperties"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && currItem->pixm.imgInfo.valid);
-	scrMenuMgr->setMenuEnabled("ItemPreviewSettings", Nr==PageItem::ImageFrame);
-	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
-	scrActions["itemPreviewLow"]->setEnabled(Nr==PageItem::ImageFrame);
-	scrActions["itemPreviewNormal"]->setEnabled(Nr==PageItem::ImageFrame);
-	scrActions["itemPreviewFull"]->setEnabled(Nr==PageItem::ImageFrame);
-	scrActions["styleImageEffects"]->setEnabled(Nr==PageItem::ImageFrame);
-	scrActions["editCopyContents"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail);
-	scrActions["editPasteContents"]->setEnabled(Nr==PageItem::ImageFrame);
-	scrActions["editPasteContentsAbs"]->setEnabled(Nr==PageItem::ImageFrame);
-	scrActions["editEditWithImageEditor"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
-	if (Nr!=PageItem::ImageFrame)
+	scrActions["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail);
+	scrActions["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
+	scrActions["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && currItem->pixm.imgInfo.valid);
+	scrMenuMgr->setMenuEnabled("ItemPreviewSettings", SelectedType==PageItem::ImageFrame);
+	scrActions["itemImageIsVisible"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["itemPreviewNormal"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["itemPreviewFull"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["editCopyContents"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail);
+	scrActions["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
+	if (SelectedType!=PageItem::ImageFrame)
 	{
 		scrActions["itemImageIsVisible"]->setOn(false);
 		scrActions["itemPreviewLow"]->setOn(false);
 		scrActions["itemPreviewNormal"]->setOn(false);
 		scrActions["itemPreviewFull"]->setOn(false);
 	}
-	if ((Nr==-1) || (Nr!=-1 && !currItem->asTextFrame()))
+	if ((SelectedType==-1) || (SelectedType!=-1 && !currItem->asTextFrame()))
 		enableTextActions(&scrActions, false);
 	scrActions["insertSampleText"]->setEnabled(false);
 
 	view->horizRuler->ItemPosValid = false;
 	view->horizRuler->repaint();
-	switch (Nr)
+	switch (SelectedType)
 	{
 	case -1: // None
 		scrActions["fileImportText"]->setEnabled(false);
@@ -2975,7 +2984,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["extrasHyphenateText"]->setEnabled(false);
 		scrActions["extrasDeHyphenateText"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Item", true);
-		if (Nr == 6) //Polygon
+		if (SelectedType == 6) //Polygon
 		{
 			scrMenuMgr->setMenuEnabled("ItemShapes", true);
 			scrMenuMgr->setMenuEnabled("ItemConvertTo", true);
@@ -2989,17 +2998,16 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
-//		if (Nr != 5)
+//		if (SelectedType != 5)
 			scrActions["toolsRotate"]->setEnabled(true);
 //		else
 //			scrActions["toolsRotate"]->setEnabled(false);
 		scrActions["toolsCopyProperties"]->setEnabled(true);
 		break;
 	}
-	doc->CurrentSel = Nr;
-	rebuildStyleMenu(Nr);
+	doc->CurrentSel = SelectedType;
+	rebuildStyleMenu(SelectedType);
 	propertiesPalette->RotationGroup->setButton(doc->RotMode);
-	uint docSelectionCount=doc->m_Selection->count();
 	if (docSelectionCount > 1)
 	{
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
@@ -3014,7 +3022,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		int firstElem = -1;
 		if (currItem->Groups.count() != 0)
 			firstElem = currItem->Groups.top();
-		for (uint bx=0; bx<docSelectionCount; ++bx)
+		for (uint bx=0; bx < docSelectionCount; ++bx)
 		{
 			PageItem* bxi=doc->m_Selection->itemAt(bx);
 			if ((bxi->asPolygon()) || (bxi->asPolyLine()))
@@ -3104,8 +3112,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemPrintingEnabled"]->setOn(currItem->printEnabled());
 	}
 
-	//propertiesPalette->NewSel(Nr);
-	if (Nr != -1)
+	//propertiesPalette->NewSel(SelectedType);
+	if (SelectedType != -1)
 	{
 		//propertiesPalette->SetCurItem(currItem);
 		outlinePalette->slotShowSelect(currItem->OwnPage, currItem->ItemNr);
@@ -3118,10 +3126,10 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			SCustom->setPixmap(SCustom->getIconPixmap(currItem->FrameType-2));
 */
 		actionManager->connectNewSelectionActions(view, doc);
-// 		propertiesPalette->NewSel(Nr);
+// 		propertiesPalette->NewSel(SelectedType);
 	}
 	else
-		propertiesPalette->NewSel(Nr);
+		propertiesPalette->NewSel(SelectedType);
 }
 
 void ScribusMainWindow::rebuildStyleMenu(int itemType)

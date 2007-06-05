@@ -1029,6 +1029,8 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		case 3:
 			items = some_items;
 			break;
+		default:
+			assert(false);
 	}
 	objects = items->count();
 	for(uint j = 0; j < objects;++j)

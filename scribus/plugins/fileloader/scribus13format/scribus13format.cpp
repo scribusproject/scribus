@@ -2152,7 +2152,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem = doc->Items->at(z);
 		break;
 	case PageItem::Multiple:
-		Q_ASSERT(false);
+	default:
+		assert(false);
 		break;
 	}
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();

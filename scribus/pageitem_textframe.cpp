@@ -2479,13 +2479,9 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 void PageItem_TextFrame::clearContents()
 {
 	PageItem *nextItem = this;
-	while (nextItem != 0)
-	{
-		if (nextItem->prevInChain() != 0)
-			nextItem = nextItem->prevInChain();
-		else
-			break;
-	}
+	while (nextItem->prevInChain() != 0)
+		nextItem = nextItem->prevInChain();
+
 	ParagraphStyle defaultStyle = nextItem->itemText.defaultStyle();
 	nextItem->itemText.clear();
 	nextItem->itemText.setDefaultStyle(defaultStyle);

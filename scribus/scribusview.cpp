@@ -11013,13 +11013,8 @@ void ScribusView::TextToPath()
 	{
 		// select whole chain
 		PageItem *backItem = currItem;
-		while (backItem != 0)
-		{
-			if (backItem->prevInChain() != 0)
-				backItem = backItem->prevInChain();
-			else
-				break;
-		}
+		while (backItem->prevInChain() != 0)
+			backItem = backItem->prevInChain();
 		currItem = backItem;
 		Deselect(true);
 		tmpSelection.addItem(currItem);

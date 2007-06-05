@@ -202,7 +202,7 @@ bool GuideManager::deleteValueFormList(Q3ListView *list)
 		else
 			currentPage->guides.deleteVertical(m_verMap[value], GuideManagerCore::Standard);
 		++it;
-		if (itemToDelete)
+//		if (itemToDelete)  coverity complains since itemToDelete was dereferenced before
 		{
 			list->takeItem(itemToDelete);
 			delete itemToDelete;

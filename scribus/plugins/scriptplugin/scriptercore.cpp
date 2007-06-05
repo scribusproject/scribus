@@ -180,13 +180,8 @@ void ScripterCore::FinishScriptRun()
 					if ((ite->prevInChain() != 0) || (ite->nextInChain() != 0))
 					{
 						PageItem *nextItem = ite;
-						while (nextItem != 0)
-						{
-							if (nextItem->prevInChain() != 0)
-								nextItem = nextItem->prevInChain();
-							else
-								break;
-						}
+						while (nextItem->prevInChain() != 0)
+							nextItem = nextItem->prevInChain();
 						ite = nextItem;
 						ite->DrawObj(painter, rd);
 					}
