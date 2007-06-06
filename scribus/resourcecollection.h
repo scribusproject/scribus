@@ -19,7 +19,7 @@
 
 #include <qstring.h>
 #include <qmap.h>
-#include <q3valuelist.h>
+#include <qlist.h>
 
 /** 
 *   A simple structure which holds the names of all resources & styles used in a doc or part of a document.
@@ -65,15 +65,15 @@ public:
 	const QMap<QString, QString>& charStyles() { return m_cstyles; }
 	const QMap<QString, QString>& lineStyles() { return m_linestyles; }
 	
-	Q3ValueList<QString> fontNames() const      { return m_fonts.keys(); }
-	Q3ValueList<QString> patternNames() const   { return m_patterns.keys(); }
-	Q3ValueList<QString> colorNames() const     { return m_colors.keys(); }
-	Q3ValueList<QString> styleNames() const     { return m_pstyles.keys(); }
-	Q3ValueList<QString> charStyleNames() const { return m_cstyles.keys(); }
-	Q3ValueList<QString> lineStyleNames() const { return m_linestyles.keys(); }
+	QList<QString> fontNames() const      { return m_fonts.keys(); }
+	QList<QString> patternNames() const   { return m_patterns.keys(); }
+	QList<QString> colorNames() const     { return m_colors.keys(); }
+	QList<QString> styleNames() const     { return m_pstyles.keys(); }
+	QList<QString> charStyleNames() const { return m_cstyles.keys(); }
+	QList<QString> lineStyleNames() const { return m_linestyles.keys(); }
 
 	// modifies newNames so that forall x in both newNames.key() and in existingNames, newNames[x] will map to a new unique name
-	static void makeUnique(QMap<QString,QString>& newNames, const Q3ValueList<QString> existingNames);
+	static void makeUnique(QMap<QString,QString>& newNames, const QList<QString> existingNames);
 
 	void makeNamedResourcesUnique(ResourceCollection& other);
 	

@@ -18,7 +18,6 @@
 #define LINESTYLE_H
 
 #include <qstring.h>
-#include <q3valuelist.h>
 #include "style.h"
 #include "styles/stylecontextproxy.h"
 

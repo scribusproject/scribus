@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef GTPARAGRAPHSTYLE_H
 #define GTPARAGRAPHSTYLE_H
 
-#include <q3valuelist.h>
 #include "scribusapi.h"
 #include "gtstyle.h"
 #include "sctextstruct.h"
@@ -60,7 +59,7 @@ protected:
 	double firstLineIndent;
 	double spaceAbove;
 	double spaceBelow;
-	Q3ValueList<ParagraphStyle::TabRecord> tabValues;
+	QList<ParagraphStyle::TabRecord> tabValues;
 	bool dropCap;
 	int  dropCapHeight;
 	bool adjToBaseline;
@@ -82,7 +81,7 @@ public:
 	void   setSpaceAbove(double newSpaceAbove);
 	double getSpaceBelow();
 	void   setSpaceBelow(double newSpaceBelow);
-	Q3ValueList<ParagraphStyle::TabRecord>* getTabValues();
+	QList<ParagraphStyle::TabRecord>* getTabValues();
 	void   setTabValue(double newTabValue, TabType ttype = LEFT_T);
 	bool   hasDropCap();
 	void   setDropCap(bool newDropCap);

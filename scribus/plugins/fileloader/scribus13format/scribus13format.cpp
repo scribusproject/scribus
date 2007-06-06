@@ -1430,11 +1430,11 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 				for (int a = 0; a < m_Doc->paragraphStyles()[ff].tabValues().count(); ++a)
 				{
 					QDomElement tabs = docu.createElement("Tabs");
-					tabs.setAttribute("Type", (*m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabType);
-					tabs.setAttribute("Pos", (*m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabPosition);
+					tabs.setAttribute("Type", (m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabType);
+					tabs.setAttribute("Pos", (m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabPosition);
 					QString tabCh = "";
-					if (!(*m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabFillChar.isNull())
-						tabCh = QString((*m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabFillChar);
+					if (!(m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabFillChar.isNull())
+						tabCh = QString((m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabFillChar);
 					tabs.setAttribute("Fill", tabCh);
 					fo.appendChild(tabs);
 				}
@@ -1934,7 +1934,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 //		vg.tabValues().clear();
 	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> tbs;
+		QList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg.attribute("TABS");
 		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
@@ -1953,7 +1953,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	}
 	else
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> tbs;
+		QList<ParagraphStyle::TabRecord> tbs;
  		vg.setTabValues(tbs);
 		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
@@ -2213,7 +2213,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		pstyle.charStyle().setTracking(qRound(obj->attribute("TXTKERN", "0").toDouble() * 10));
 	pstyle.charStyle().setFeatures(static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt()).featureList());
 	tmp = "";
-	Q3ValueList<ParagraphStyle::TabRecord> tbValues;
+	QList<ParagraphStyle::TabRecord> tbValues;
 	if ((obj->hasAttribute("NUMTAB")) && (obj->attribute("NUMTAB", "0").toInt() != 0))
 	{
 		ParagraphStyle::TabRecord tb;
@@ -3749,7 +3749,7 @@ void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, bool newForm
 	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
-	Q3ValueList<double>::Iterator dax;
+	QList<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	ob->setAttribute("DASHS", dlp);

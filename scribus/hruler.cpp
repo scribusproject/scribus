@@ -30,7 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include <q3pointarray.h>
 //Added by qt3to4:
 #include <QPaintEvent>
-#include <Q3ValueList>
 #include <QPixmap>
 #include <QMouseEvent>
 #include "scribusview.h"
@@ -242,9 +241,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 		{
 			if (RulerCode == rc_tab)
 			{
-				Q3ValueList<ParagraphStyle::TabRecord>::Iterator it;
-				it = TabValues.at(ActTab);
-				TabValues.remove(it);
+				TabValues.removeAt(ActTab);
 				ActTab = 0;
 				currItem->changeCurrentStyle().setTabValues(TabValues);
 				emit DocChanged(false);
@@ -817,11 +814,9 @@ void Hruler::UpdateTabList()
 	tb.tabPosition = TabValues[ActTab].tabPosition;
 	tb.tabType = TabValues[ActTab].tabType;
 	tb.tabFillChar =  TabValues[ActTab].tabFillChar;
-	Q3ValueList<ParagraphStyle::TabRecord>::Iterator it;
 	int gg = static_cast<int>(TabValues.count());
 	int g = gg;
-	it = TabValues.at(ActTab);
-	TabValues.remove(it);
+	TabValues.removeAt(ActTab);
 	for (int yg = static_cast<int>(TabValues.count()-1); yg > -1; yg--)
 	{
 		if (tb.tabPosition < TabValues[yg].tabPosition)
@@ -835,8 +830,7 @@ void Hruler::UpdateTabList()
 	}
 	else
 	{
-		it = TabValues.at(ActTab);
-		TabValues.insert(it, tb);
+		TabValues.insert(ActTab, tb);
 	}
 }
 

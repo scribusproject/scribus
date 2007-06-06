@@ -1884,7 +1884,7 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	//		vg.tabValues().clear();
 	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> tbs;
+		QList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg.attribute("TABS");
 		QTextStream tgv(&tmp, QIODevice::ReadOnly);
@@ -1903,7 +1903,7 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	}
 	else
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> tbs;
+		QList<ParagraphStyle::TabRecord> tbs;
 		vg.resetTabValues();
 		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
@@ -2321,11 +2321,10 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	else
 		currItem->Groups.clear();
 
-	Q3ValueList<ParagraphStyle::TabRecord> tbs;
+	QList<ParagraphStyle::TabRecord> tbs;
 	tmp = "";
 	if ((obj->hasAttribute("NUMTAB")) && (obj->attribute("NUMTAB", "0").toInt() != 0))
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
 		QTextStream tgv(&tmp, QIODevice::ReadOnly);

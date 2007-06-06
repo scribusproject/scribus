@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <q3whatsthis.h>
 //Added by qt3to4:
 #include <Q3VBoxLayout>
-#include <Q3ValueList>
 #include <QPixmap>
 #include <Q3HBoxLayout>
 #include "tabruler.h"
@@ -23,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-TabManager::TabManager( QWidget* parent, int dEin, Q3ValueList<ParagraphStyle::TabRecord> inTab, double) : QDialog( parent, "TabManager", true, 0 )
+TabManager::TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabRecord> inTab, double) : QDialog( parent, "TabManager", true, 0 )
 {
 	setCaption( tr( "Manage Tabulators" ) );
 	setIcon(loadIcon("AppIcon.png"));

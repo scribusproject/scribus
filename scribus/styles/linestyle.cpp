@@ -6,7 +6,6 @@
  */
 
 
-#include <q3valuelist.h>
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
@@ -126,7 +125,7 @@ void LineStyle::setStyle(const LineStyle& other)
 
 void LineStyle::getNamedResources(ResourceCollection& lists) const
 {
-	Q3ValueList<LineStyle>::const_iterator it, itend = m_Sublines.constEnd();
+	QList<LineStyle>::const_iterator it, itend = m_Sublines.constEnd();
 
 	lists.collectColor(color());
 	for (const Style* sty = parentStyle(); sty != NULL; sty = sty->parentStyle())
@@ -138,7 +137,7 @@ void LineStyle::getNamedResources(ResourceCollection& lists) const
 void LineStyle::replaceNamedResources(ResourceCollection& newNames)
 {
 	QMap<QString,QString>::ConstIterator it;
-	Q3ValueList<LineStyle>::iterator itl, itle = m_Sublines.end();
+	QList<LineStyle>::iterator itl, itle = m_Sublines.end();
 
 	if (!inh_Color && (it = newNames.colors().find(color())) != newNames.colors().end())
 		setColor(it.data());
@@ -186,7 +185,7 @@ bool LineStyle::inheritsAll() const
 }
 */
 
-typedef Q3ValueList<LineStyle> Sublist;
+typedef QList<LineStyle> Sublist;
 
 static QString toXMLString(const Sublist & )
 {

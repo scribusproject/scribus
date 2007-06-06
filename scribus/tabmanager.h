@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qdialog.h>
-#include <q3valuelist.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
@@ -27,12 +26,12 @@ class SCRIBUS_API TabManager : public QDialog
 	Q_OBJECT
 
 public:
-	TabManager( QWidget* parent, int dEin, Q3ValueList<ParagraphStyle::TabRecord> inTab, double wid);
+	TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabRecord> inTab, double wid);
 	~TabManager() {};
 	Tabruler* TabList;
 	QPushButton* OKButton;
 	QPushButton* CancelButton;
-	Q3ValueList<ParagraphStyle::TabRecord> tmpTab;
+	QList<ParagraphStyle::TabRecord> tmpTab;
 
 public slots:
 	void exitOK();

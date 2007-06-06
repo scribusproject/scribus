@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QApplication>
 #include <Q3HBoxLayout>
-#include <Q3ValueList>
 #include <Q3PointArray>
 #include <QPixmap>
 #include <QMouseEvent>
@@ -34,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-RulerT::RulerT(QWidget *pa, int ein, Q3ValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
+RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
 {
 	setEraseColor(QColor(255,255,255));
 	unitIndex = ein;
@@ -66,7 +65,7 @@ RulerT::RulerT(QWidget *pa, int ein, Q3ValueList<ParagraphStyle::TabRecord> Tabs
 	}
 }
 
-void RulerT::setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
+void RulerT::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
 {
 	unitIndex = dEin;
 	iter=unitRulerGetIter1FromIndex(unitIndex);
@@ -251,9 +250,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (rulerCode == 3)
 		{
-			Q3ValueList<ParagraphStyle::TabRecord>::Iterator it;
-			it = tabValues.at(actTab);
-			tabValues.remove(it);
+			tabValues.removeAt(actTab);
 			actTab = 0;
 			if (tabValues.count() != 0)
 			{
@@ -364,11 +361,9 @@ void RulerT::updateTabList()
 	tb.tabPosition = tabValues[actTab].tabPosition;
 	tb.tabType = tabValues[actTab].tabType;
 	tb.tabFillChar =  tabValues[actTab].tabFillChar;
-	Q3ValueList<ParagraphStyle::TabRecord>::Iterator it;
 	int gg = static_cast<int>(tabValues.count()-1);
 	int g = gg;
-	it = tabValues.at(actTab);
-	tabValues.remove(it);
+	tabValues.removeAt(actTab);
 	for (int yg = static_cast<int>(tabValues.count()); yg > -1; yg--)
 	{
 		if (tb.tabPosition < tabValues[yg].tabPosition)
@@ -382,8 +377,7 @@ void RulerT::updateTabList()
 	}
 	else
 	{
-		it = tabValues.at(actTab);
-		tabValues.insert(it, tb);
+		tabValues.insert(actTab, tb);
 	}
 }
 
@@ -463,7 +457,7 @@ void RulerT::moveLeftIndent(double t)
 	repaint();
 }
 
-Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, Q3ValueList<ParagraphStyle::TabRecord> Tabs, double wid ) : QWidget( parent )
+Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphStyle::TabRecord> Tabs, double wid ) : QWidget( parent )
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	double ww;
@@ -615,7 +609,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, Q3ValueList<Parag
 	haveF = haveFirst;
 }
 
-void Tabruler::setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
+void Tabruler::setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin)
 {
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	QString ein = unitGetSuffixFromIndex(dEin);
@@ -835,7 +829,7 @@ void Tabruler::setLeftIndent()
 	emit leftIndentChanged(value);
 }
 
-Q3ValueList<ParagraphStyle::TabRecord> Tabruler::getTabVals()
+QList<ParagraphStyle::TabRecord> Tabruler::getTabVals()
 {
 	return ruler->tabValues;
 }

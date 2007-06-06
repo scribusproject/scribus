@@ -154,8 +154,8 @@ struct CopyPasteBuffer
 	QString guiLanguage;
 	int Cols;
 	double ColGap;
-	Q3ValueList<ParagraphStyle::TabRecord> TabValues;
-	Q3ValueList<double> DashValues;
+	QList<ParagraphStyle::TabRecord> TabValues;
+	QList<double> DashValues;
 	double DashOffset;
 	bool isTableItem;
 	bool TopLine;

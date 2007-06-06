@@ -453,11 +453,11 @@ public:
 	bool controlsGroup() const { return isGroupControl; }
 	void setControlsGroup(bool val) { isGroupControl = val; }
 	
-	Q3ValueList<double> DashValues;
+	QList<double> DashValues;
 	double DashOffset;
-	const Q3ValueList<double>& dashes() const { return DashValues; }
-	Q3ValueList<double>& dashes() { return DashValues; }
-	void setDashes(Q3ValueList<double> val) { DashValues = val; }
+	const QList<double>& dashes() const { return DashValues; }
+	QList<double>& dashes() { return DashValues; }
+	void setDashes(QList<double> val) { DashValues = val; }
 	double dashOffset() const { return DashOffset; }
 	void setDashOffset(double val) { DashOffset = val; }
 	VGradient fill_gradient;

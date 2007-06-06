@@ -13,8 +13,6 @@
 #include "pageitem_line.h"
 #include "scribusdoc.h"
 #include "colorutil.h"
-//Added by qt3to4:
-#include <Q3ValueList>
 
 
 using namespace desaxe;
@@ -315,7 +313,7 @@ class Gradient_body : public Action_body
 //		qDebug(QString("pageitem_desaxe: gradient %1").arg(tagName));
 		if (tagName=="CStop")
 		{
-			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
+//			ScribusDoc* doc = this->dig->lookup<ScribusDoc>("<scribusdoc>");
 			PageItem* item = this->dig->top<PageItem>();
 			QString name = attr["NAME"];
 			double ramp = parseDouble(attr["RAMP"]);
@@ -583,7 +581,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconPressed, "icon-pressed-file" ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconRollover, "icon-rollover-file" ));
 	
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,Q3ValueList<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleList ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QList<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleList ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setDashOffset, "line-dash-offset", &parseDouble ));
 
 	StoryText::desaxeRules(itemPrefix, ruleset, "text-content");

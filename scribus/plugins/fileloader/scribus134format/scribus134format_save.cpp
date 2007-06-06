@@ -428,11 +428,11 @@ void Scribus134Format::putPStyle(QDomDocument & docu, QDomElement & fo, const Pa
 		for (int a = 0; a < style.tabValues().count(); ++a)
 		{
 			QDomElement tabs = docu.createElement("Tabs");
-			tabs.setAttribute("Type", (*style.tabValues().at(a)).tabType);
-			tabs.setAttribute("Pos", (*style.tabValues().at(a)).tabPosition);
+			tabs.setAttribute("Type", (style.tabValues().at(a)).tabType);
+			tabs.setAttribute("Pos", (style.tabValues().at(a)).tabPosition);
 			QString tabCh = "";
-			if (!(*style.tabValues().at(a)).tabFillChar.isNull())
-				tabCh = QString((*style.tabValues().at(a)).tabFillChar);
+			if (!(style.tabValues().at(a)).tabFillChar.isNull())
+				tabCh = QString((style.tabValues().at(a)).tabFillChar);
 			tabs.setAttribute("Fill", tabCh);
 			fo.appendChild(tabs);
 		}
@@ -1115,11 +1115,11 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			for (int a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
 			{
 				QDomElement tabs = docu->createElement("Tabs");
-				tabs.setAttribute("Type", (*item->itemText.defaultStyle().tabValues().at(a)).tabType);
-				tabs.setAttribute("Pos", (*item->itemText.defaultStyle().tabValues().at(a)).tabPosition);
+				tabs.setAttribute("Type", (item->itemText.defaultStyle().tabValues().at(a)).tabType);
+				tabs.setAttribute("Pos", (item->itemText.defaultStyle().tabValues().at(a)).tabPosition);
 				QString tabCh = "";
-				if (!(*item->itemText.defaultStyle().tabValues().at(a)).tabFillChar.isNull())
-					tabCh = QString((*item->itemText.defaultStyle().tabValues().at(a)).tabFillChar);
+				if (!(item->itemText.defaultStyle().tabValues().at(a)).tabFillChar.isNull())
+					tabCh = QString((item->itemText.defaultStyle().tabValues().at(a)).tabFillChar);
 				tabs.setAttribute("Fill", tabCh);
 				ob.appendChild(tabs);
 			}
@@ -1383,7 +1383,7 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
-	Q3ValueList<double>::Iterator dax;
+	QList<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	ob->setAttribute("DASHS", dlp);

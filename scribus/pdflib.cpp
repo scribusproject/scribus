@@ -1582,7 +1582,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				if (ite->DashValues.count() != 0)
 				{
 					PutPage("[ ");
-					Q3ValueList<double>::iterator it;
+					QList<double>::iterator it;
 					for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 					{
 						int da = static_cast<int>(*it);
@@ -3067,7 +3067,7 @@ QString PDFlib::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 	if (ite->DashValues.count() != 0)
 	{
 		tmp += "[ ";
-		Q3ValueList<double>::iterator it;
+		QList<double>::iterator it;
 		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 		{
 			int da = static_cast<int>(*it);
@@ -3219,7 +3219,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	if (ite->DashValues.count() != 0)
 	{
 		tmp += "[ ";
-		Q3ValueList<double>::iterator it;
+		QList<double>::iterator it;
 		for ( it = ite->DashValues.begin(); it != ite->DashValues.end(); ++it )
 		{
 			int da = static_cast<int>(*it);
@@ -3963,7 +3963,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 	QString tmp("");
 	QString tmp2("");
 	int tabCc = 0;
-	Q3ValueList<ParagraphStyle::TabRecord> tTabValues;
+	QList<ParagraphStyle::TabRecord> tTabValues;
 	double tabDist=ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;

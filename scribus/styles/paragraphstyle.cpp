@@ -20,8 +20,6 @@
 #include "resourcecollection.h"
 #include "desaxe/saxiohelper.h"
 #include "desaxe/simple_actions.h"
-//Added by qt3to4:
-#include <Q3ValueList>
 
 
 ParagraphStyle::ParagraphStyle() : Style(), cstyleContext(NULL), cstyleContextIsInh(true), cstyle()
@@ -246,7 +244,7 @@ static QString toXMLString(ParagraphStyle::AlignmentType val)
 }
 
 
-static QString toXMLString(const Q3ValueList<ParagraphStyle::TabRecord> & )
+static QString toXMLString(const QList<ParagraphStyle::TabRecord> & )
 {
 	return "dummy";
 }
@@ -265,7 +263,7 @@ void ParagraphStyle::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	handler.begin(elemtag, att);
 //	if (parentStyle() && hasParent())
 //		parentStyle()->saxx(handler);
-	Q3ValueList<ParagraphStyle::TabRecord>::const_iterator it;
+	QList<ParagraphStyle::TabRecord>::const_iterator it;
 	for (it=m_TabValues.begin(); it != m_TabValues.end(); ++it)
 	{
 		const ParagraphStyle::TabRecord& tb(*it);
@@ -305,7 +303,7 @@ class SetTabStop_body : public desaxe::Action_body
 		tb.tabPosition = parseDouble(attr["pos"]);
 		tb.tabFillChar = QChar(parseInt(attr["fillChar"]));
 		tb.tabType = parseInt(attr["type"]);
-		Q3ValueList<ParagraphStyle::TabRecord> tabs = pstyle->tabValues();
+		QList<ParagraphStyle::TabRecord> tabs = pstyle->tabValues();
 		tabs.append(tb);
 		pstyle->setTabValues(tabs);
 	}
@@ -331,7 +329,7 @@ ParagraphStyle::LineSpacingMode parse<ParagraphStyle::LineSpacingMode>(const Xml
 }
 
 
-typedef Q3ValueList<ParagraphStyle::TabRecord> Tablist;
+typedef QList<ParagraphStyle::TabRecord> Tablist;
 
 template<>
 Tablist parse<Tablist>(const Xml_string& str)

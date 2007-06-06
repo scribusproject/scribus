@@ -2,7 +2,7 @@
 #define SAXHELPER_H
 
 #include "desaxe_conf.h"
-#include <q3valuelist.h>
+#include <qlist.h>
 #include <q3valuestack.h>
 #include <qstringlist.h>
 
@@ -21,8 +21,8 @@ Xml_string toXMLString(const Xml_string& val);
 Xml_string toXMLString(const ScFace& val);
 Xml_string toXMLString(const FPointArray& path);
 
-Xml_string toXMLString(const Q3ValueList<double>& doublelist);
-Xml_string toXMLString(const Q3ValueList<int>& intlist);
+Xml_string toXMLString(const QList<double>& doublelist);
+Xml_string toXMLString(const QList<int>& intlist);
 Xml_string toXMLString(const QStringList& list);
 
 unsigned int parseUInt(const Xml_string& str);
@@ -33,8 +33,8 @@ double parseDouble(const Xml_string& str);
 float parseFloat(const Xml_string& str);
 bool parseBool(const Xml_string& str);
 QStringList parseStringList(const Xml_string& str);
-Q3ValueList<double> parseDoubleList(const Xml_string& str);
-Q3ValueList<int> parseIntList(const Xml_string& str);
+QList<double> parseDoubleList(const Xml_string& str);
+QList<int> parseIntList(const Xml_string& str);
 Q3ValueStack<int> parseIntStack(const Xml_string& str);
 
 
@@ -121,14 +121,21 @@ bool parse<bool>(const Xml_string& str)
 
 template<>
 inline
-Q3ValueList<int> parse<Q3ValueList<int> >(const Xml_string& str)
+QStringList parse<QStringList>(const Xml_string& str)
+{
+	return parseStringList(str);
+}
+
+template<>
+inline
+QList<int> parse<QList<int> >(const Xml_string& str)
 {
 	return parseIntList(str);
 }
 
 template<>
 inline
-Q3ValueList<double> parse<Q3ValueList<double> >(const Xml_string& str)
+QList<double> parse<QList<double> >(const Xml_string& str)
 {
 	return parseDoubleList(str);
 }

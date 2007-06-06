@@ -841,14 +841,14 @@ void PSLib::PS_setlinewidth(double w)
 	LineW = w;
 }
 
-void PSLib::PS_setdash(Qt::PenStyle st, double offset, Q3ValueList<double> dash)
+void PSLib::PS_setdash(Qt::PenStyle st, double offset, QList<double> dash)
 {
 	QString Dt = ToStr(qMax(2*LineW, 1.0));
 	QString Da = ToStr(qMax(6*LineW, 1.0));
 	if (dash.count() != 0)
 	{
 		PutSeite("[ ");
-		Q3ValueList<double>::iterator it;
+		QList<double>::iterator it;
 		for ( it = dash.begin(); it != dash.end(); ++it )
 		{
 			PutSeite(IToStr(static_cast<int>(*it))+" ");
@@ -1641,7 +1641,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		pagemult = spots.count();
 	else
 		pagemult = 1;
-	Q3ValueList<double> dum;
+	QList<double> dum;
 	double gx = 0.0;
 	double gy = 0.0;
 	double gw = 0.0;
@@ -2149,7 +2149,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 	int h, s, v, k, tsz;
 	int d;
 	ScText *hl;
-	Q3ValueList<double> dum;
+	QList<double> dum;
 	dum.clear();
 	QString tmps, chstr;
 	if (c->printEnabled())
@@ -3264,7 +3264,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	QString chstr;
 	int h, s, v, k, tsz;
 	double wideR;
-	Q3ValueList<double> dum;
+	QList<double> dum;
 	dum.clear();
 	chstr = hl->ch;
 	tsz = hl->fontSize();
@@ -3607,7 +3607,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 
 	int h, s, v, k, tsz;
 	double wideR = 0.0;
-	Q3ValueList<double> dum;
+	QList<double> dum;
 	dum.clear();
 
 	QString chstr = hl->ch;

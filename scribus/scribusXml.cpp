@@ -385,7 +385,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
-	Q3ValueList<double>::Iterator dax;
+	QList<double>::Iterator dax;
 	for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 		dlp += tmp.setNum((*dax)) + " ";
 	ob->setAttribute("DASHS", dlp);
@@ -467,7 +467,7 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 //	vg.tabValues().clear();
 	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> tbs;
+		QList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg.attribute("TABS");
 		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
@@ -486,7 +486,7 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 	}
 	else
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> tbs;
+		QList<ParagraphStyle::TabRecord> tbs;
 		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
 		{
@@ -1421,11 +1421,11 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		for (int a = 0; a < item->itemText.defaultStyle().tabValues().count(); ++a)
 		{
 			QDomElement tabs = docu.createElement("Tabs");
-			tabs.setAttribute("Type", (*item->itemText.defaultStyle().tabValues().at(a)).tabType);
-			tabs.setAttribute("Pos", (*item->itemText.defaultStyle().tabValues().at(a)).tabPosition);
+			tabs.setAttribute("Type", (item->itemText.defaultStyle().tabValues().at(a)).tabType);
+			tabs.setAttribute("Pos", (item->itemText.defaultStyle().tabValues().at(a)).tabPosition);
 			QString tabCh = "";
-			if (!(*item->itemText.defaultStyle().tabValues().at(a)).tabFillChar.isNull())
-				tabCh = QString((*item->itemText.defaultStyle().tabValues().at(a)).tabFillChar);
+			if (!(item->itemText.defaultStyle().tabValues().at(a)).tabFillChar.isNull())
+				tabCh = QString((item->itemText.defaultStyle().tabValues().at(a)).tabFillChar);
 			tabs.setAttribute("Fill", tabCh);
 			ob.appendChild(tabs);
 		}

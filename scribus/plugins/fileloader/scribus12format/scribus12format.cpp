@@ -417,7 +417,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					tmp = pg.attribute("TABS");
 					Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
 //					vg.tabValues().clear();
-					Q3ValueList<ParagraphStyle::TabRecord> tbs;
+					QList<ParagraphStyle::TabRecord> tbs;
 					ParagraphStyle::TabRecord tb;
 					for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 					{
@@ -1388,7 +1388,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 //	vg->tabValues().clear();
 	if ((pg->hasAttribute("NUMTAB")) && (pg->attribute("NUMTAB", "0").toInt() != 0))
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> tbs;
+		QList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
 		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
@@ -1406,7 +1406,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	}
 	else
 	{
-		Q3ValueList<ParagraphStyle::TabRecord> tbs;
+		QList<ParagraphStyle::TabRecord> tbs;
 		QDomNode IT = pg->firstChild();
 		while(!IT.isNull())
 		{

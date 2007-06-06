@@ -6,7 +6,6 @@
  */
 
 
-#include <q3valuelist.h>
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
@@ -485,12 +484,6 @@ template<>
 StyleFlag parse<StyleFlag>(const Xml_string& str)
 {
 	return StyleFlag(parseInt(str));
-}
-
-template<>
-QStringList parse<QStringList>(const Xml_string& str)
-{
-	return str.split(" ", QString::SkipEmptyParts);
 }
 
 template<>

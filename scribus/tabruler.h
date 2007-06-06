@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <QPaintEvent>
 #include <Q3GridLayout>
-#include <Q3ValueList>
 #include <QLabel>
 #include <QMouseEvent>
 #include <QEvent>
@@ -36,12 +35,12 @@ class SCRIBUS_API RulerT : public QWidget
 	Q_OBJECT
 
 public:
-	RulerT(QWidget* parent, int ein, Q3ValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid);
+	RulerT(QWidget* parent, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid);
 	~RulerT() {};
-	void setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
+	void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin);
 	void updateTabList();
 	bool mousePressed;
-	Q3ValueList<ParagraphStyle::TabRecord> tabValues;
+	QList<ParagraphStyle::TabRecord> tabValues;
 	bool haveInd;
 	int unitIndex;
 	int offset;
@@ -93,13 +92,13 @@ public:
 	Tabruler( QWidget* parent,
 	          bool haveFirst = true,
 	          int dEin = 1,
-	          Q3ValueList<ParagraphStyle::TabRecord> Tabs = Q3ValueList<ParagraphStyle::TabRecord>(),
+	          QList<ParagraphStyle::TabRecord> Tabs = QList<ParagraphStyle::TabRecord>(),
 	          double wid = -1);
 	~Tabruler() {};
 
-	virtual void setTabs(Q3ValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
+	virtual void setTabs(QList<ParagraphStyle::TabRecord> Tabs, int dEin);
 
-	Q3ValueList<ParagraphStyle::TabRecord> getTabVals();
+	QList<ParagraphStyle::TabRecord> getTabVals();
 	bool haveF;
 	double getFirstLine();
 	double getLeftIndent();

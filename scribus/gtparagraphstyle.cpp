@@ -26,8 +26,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "gtparagraphstyle.h"
 #include "scribusstructs.h"
-//Added by qt3to4:
-#include <Q3ValueList>
 
 gtParagraphStyle::gtParagraphStyle(QString name) : gtStyle(name) 
 {
@@ -150,7 +148,7 @@ void gtParagraphStyle::setSpaceBelow(double newSpaceBelow)
 	spaceBelow = newSpaceBelow;
 }
 
-Q3ValueList<ParagraphStyle::TabRecord>* gtParagraphStyle::getTabValues()
+QList<ParagraphStyle::TabRecord>* gtParagraphStyle::getTabValues()
 {
 	return &tabValues;
 }
