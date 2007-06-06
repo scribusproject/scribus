@@ -4,21 +4,17 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qdialog.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
 #include <QPixmap>
-#include <Q3VBoxLayout>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QGroupBox>
+#include <QComboBox>
+#include <QCheckBox>
 
 #include "margindialog.h"
-//#include "margindialog.moc"
 #include "marginWidget.h"
 #include "pagestructs.h"
 #include "page.h"
@@ -30,24 +26,24 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent, "MarginDialog", true, 0 )
+MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent)
 {
-	setCaption( tr( "Manage Page Properties" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle( tr( "Manage Page Properties" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	unitRatio = doc->unitRatio();
-	dialogLayout = new Q3VBoxLayout( this, 10, 5);
+	dialogLayout = new QVBoxLayout(this);
+	dialogLayout->setMargin(10);
+	dialogLayout->setSpacing(5);
 	
-	dsGroupBox7 = new Q3GroupBox( this, "GroupBox7" );
+	dsGroupBox7 = new QGroupBox(this);
 	dsGroupBox7->setTitle( tr( "Page Size" ) );
-	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
-	dsGroupBox7->layout()->setSpacing( 0 );
-	dsGroupBox7->layout()->setMargin( 0 );
-	dsGroupBox7Layout = new Q3GridLayout( dsGroupBox7->layout() );
+	dsGroupBox7Layout = new QGridLayout(dsGroupBox7);
 	dsGroupBox7Layout->setAlignment( Qt::AlignTop );
 	dsGroupBox7Layout->setSpacing( 5 );
 	dsGroupBox7Layout->setMargin( 10 );
 	TextLabel1 = new QLabel( tr( "&Size:" ), dsGroupBox7, "TextLabel1" );
-	dsGroupBox7Layout->addMultiCellWidget( TextLabel1, 0, 0, 0, 1 );
+	dsGroupBox7Layout->addWidget( TextLabel1, 0, 0, 1, 2 );
 	PageSize *ps=new PageSize(doc->currentPage()->m_pageSize);
 	sizeQComboBox = new QComboBox( true, dsGroupBox7, "ComboBox1" );
 	sizeQComboBox->setEditable(false);
@@ -61,9 +57,9 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	else
 		sizeQComboBox->setCurrentItem(sizeQComboBox->count()-1);
 	TextLabel1->setBuddy(sizeQComboBox);
-	dsGroupBox7Layout->addMultiCellWidget(sizeQComboBox, 0, 0, 2, 3);
+	dsGroupBox7Layout->addWidget(sizeQComboBox, 0, 2, 1, 2);
 	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), dsGroupBox7, "TextLabel2" );
-	dsGroupBox7Layout->addMultiCellWidget( TextLabel2, 1, 1, 0, 1 );
+	dsGroupBox7Layout->addWidget( TextLabel2, 1, 0, 1, 2 );
 	orientationQComboBox = new QComboBox( true, dsGroupBox7, "ComboBox2" );
 	orientationQComboBox->insertItem( tr( "Portrait" ) );
 	orientationQComboBox->insertItem( tr( "Landscape" ) );
@@ -71,7 +67,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	orientationQComboBox->setCurrentItem(doc->currentPage()->PageOri );
 	oldOri = doc->currentPage()->PageOri;
 	TextLabel2->setBuddy(orientationQComboBox);
-	dsGroupBox7Layout->addMultiCellWidget( orientationQComboBox, 1, 1, 2, 3 );
+	dsGroupBox7Layout->addWidget( orientationQComboBox, 1, 2, 1, 2 );
 	widthSpinBox = new ScrSpinBox( 1, 100000, dsGroupBox7, doc->unitIndex() );
 	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
 	widthSpinBox->setValue(doc->currentPage()->width() * doc->unitRatio());
@@ -86,12 +82,12 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	moveObjects = new QCheckBox( dsGroupBox7, "moveObjects" );
 	moveObjects->setText( tr( "Move Objects with their Page" ) );
 	moveObjects->setChecked( true );
-	dsGroupBox7Layout->addMultiCellWidget( moveObjects, 3, 3, 0, 3 );
+	dsGroupBox7Layout->addWidget( moveObjects, 3, 0, 1, 4 );
 	Links=0;
 	if ((doc->currentPageLayout != singlePage) && (doc->masterPageMode()))
 	{
 		TextLabel3 = new QLabel( tr( "Type:" ), dsGroupBox7, "TextLabel3" );
-		dsGroupBox7Layout->addMultiCellWidget( TextLabel3, 4, 4, 0, 1 );
+		dsGroupBox7Layout->addWidget( TextLabel3, 4, 0, 1, 2 );
 		Links = new QComboBox( true, dsGroupBox7, "links" );
 		QStringList::Iterator pNames;
 		for(pNames = doc->pageSets[doc->currentPageLayout].pageNames.begin(); pNames != doc->pageSets[doc->currentPageLayout].pageNames.end(); ++pNames )
@@ -100,7 +96,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 			Links->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
 		Links->setEditable(false);
-		dsGroupBox7Layout->addMultiCellWidget( Links, 4, 4, 2, 3 );
+		dsGroupBox7Layout->addWidget( Links, 4, 2, 1, 2 );
 		if (doc->currentPage()->LeftPg == 0)
 			Links->setCurrentItem(Links->count()-1);
 		else if (doc->currentPage()->LeftPg == 1)
@@ -115,13 +111,9 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	GroupRand->setFacingPages(!(doc->currentPageLayout == singlePage), doc->locationOfPage(doc->currentPage()->pageNr()));
 	dialogLayout->addWidget( GroupRand );
 
-	groupMaster = new Q3GroupBox( this, "groupMaster" );
+	groupMaster = new QGroupBox( this );
 	groupMaster->setTitle( tr( "Other Settings" ) );
-	groupMaster->setColumnLayout(0, Qt::Vertical );
-	groupMaster->layout()->setSpacing( 0 );
-	groupMaster->layout()->setMargin( 0 );
-	masterLayout = new Q3HBoxLayout( groupMaster->layout() );
-	masterLayout->setAlignment( Qt::AlignTop );
+	masterLayout = new QHBoxLayout( groupMaster );
 	masterLayout->setSpacing( 5 );
 	masterLayout->setMargin( 10 );
 	masterPageLabel = new QLabel( groupMaster, "masterPageLabel" );
@@ -144,10 +136,10 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	if (doc->masterPageMode())
 		groupMaster->hide();
 
-	okCancelLayout = new Q3HBoxLayout;
-	okCancelLayout->setSpacing( 6 );
+	okCancelLayout = new QHBoxLayout;
+	okCancelLayout->setSpacing( 5 );
 	okCancelLayout->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
 	okButton->setDefault( true );
