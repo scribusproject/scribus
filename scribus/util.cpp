@@ -1109,8 +1109,7 @@ QString checkFileExtension(const QString &currName, const QString &extension)
 
 QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension)
 {
-	QString number;
-	number = number.setNum(pageNo + currDoc->FirstPnum);
+	uint number = pageNo + currDoc->FirstPnum;
 	QString defaultName = currDoc->DocName;
 	if (defaultName.isNull())
 		defaultName = "export";
@@ -1119,7 +1118,7 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension)
 		QFileInfo fi(defaultName);
 		defaultName = fi.baseName(true);
 	}
-	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number).arg(extension);
+	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number, 3, 10, QChar('0')).arg(extension);
 }
 
 bool compareDouble(double a, double b)
