@@ -2625,14 +2625,14 @@ void Mpalette::setCharStyle(const QString& name)
 
 void Mpalette::setOpticalMargins(int i)
 {
-	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	doc->itemSelection_SetOpticalMargins(i==0 ? ParagraphStyle::OM_None : ParagraphStyle::OM_Default);
 }
 
 void Mpalette::setMinWordTracking()
 {
-	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	ParagraphStyle newStyle;
 	newStyle.setMinWordTracking(minWordTrackingSpinBox->value() / 100.0);
@@ -2642,7 +2642,7 @@ void Mpalette::setMinWordTracking()
 
 void Mpalette::setNormWordTracking()
 {
-	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	ParagraphStyle newStyle;
 //	newStyle.setNormWordTracking(percent / 100.0);
@@ -2652,7 +2652,7 @@ void Mpalette::setNormWordTracking()
 
 void Mpalette::setMinGlyphExtension()
 {
-	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	ParagraphStyle newStyle;
 	newStyle.setMinGlyphExtension(minGlyphExtSpinBox->value() / 100.0);
@@ -2661,7 +2661,7 @@ void Mpalette::setMinGlyphExtension()
 
 void Mpalette::setMaxGlyphExtension()
 {
-	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !HaveItem || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	ParagraphStyle newStyle;
 	newStyle.setMaxGlyphExtension(maxGlyphExtSpinBox->value() / 100.0);
