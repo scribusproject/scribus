@@ -137,12 +137,12 @@ void LineFormate::neuesFormat()
 	int selectedIndex=ListBox1->currentItem();
 	int topIndex=ListBox1->topItem();
 	struct SingleLine sl;
-/*	sl.Color = "Black";
-	sl.Shade = 100;
-	sl.Dash = SolidLine;
-	sl.LineEnd = FlatCap;
-	sl.LineJoin = MiterJoin;
-	sl.Width = 1.0; */
+//	sl.Color = "Black";
+//	sl.Shade = 100;
+//	sl.Dash = SolidLine;
+//	sl.LineEnd = FlatCap;
+//	sl.LineJoin = MiterJoin;
+//	sl.Width = 1.0;
 	sl.Color = Docu->toolSettings.dPenLine;
 	sl.Shade = Docu->toolSettings.dShadeLine;
 	sl.Dash = Qt::SolidLine;//Docu->toolSettings.;
@@ -193,8 +193,8 @@ void LineFormate::deleteFormat()
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this style?"),
 	                              QMessageBox::Yes | QMessageBox::No);
-	/* PFJ - 29.02.04 - Changed from 1 to QMessageBox::Yes */
-	/* FS - 12.05.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2 */
+	// PFJ - 29.02.04 - Changed from 1 to QMessageBox::Yes
+	// FS - 12.05.04 the 1 is correct in this version of QMessageBox, it returns the Nr of the clicked Button either 0 or 1 or 2
 	if (exit == QMessageBox::Yes)
 	{
 		Replacement.insert(sFnumber, "");
