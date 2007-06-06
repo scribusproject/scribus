@@ -5,14 +5,14 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "marginWidget.h"
-//#include "marginWidget.moc"
 
-#include <qcheckbox.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
 #include <QLabel>
+#include <QToolTip>
+#include <QCheckBox>
+#include <QLabel>
+#include <QPushButton>
 
 #include "scrspinbox.h"
 #include "units.h"
@@ -51,8 +51,7 @@ pageType(0)
 	lText = new QLabel( leftR, tr( "&Left:" ), marginPage, "lText" );
 
 	// layout
-	GroupLayout = new Q3GridLayout( marginPage );
-	GroupLayout->setAlignment( Qt::AlignTop );
+	GroupLayout = new QGridLayout( marginPage );
 	GroupLayout->setSpacing( 5 );
 	GroupLayout->setMargin( 10 );
 	GroupLayout->addWidget(presetLabel, 0, 0);
@@ -67,7 +66,9 @@ pageType(0)
 	GroupLayout->addWidget( bText, 4, 0 );
 	if (showChangeAll)
 	{
-		marginsForPagesLayout = new Q3HBoxLayout( 0, 5, 5, "marginsForPagesLayout");
+		marginsForPagesLayout = new QHBoxLayout;
+		marginsForPagesLayout->setMargin(5);
+		marginsForPagesLayout->setSpacing(5);
 		marginsForPages = new QLabel( tr( "Apply settings to:" ), marginPage, "marginsForPages" );
 		marginsForPagesLayout->addWidget(marginsForPages);
 		marginsForAllPages = new QCheckBox( marginPage, "marginsForAllPages" );
@@ -78,7 +79,7 @@ pageType(0)
 		marginsForAllMasterPages->setText( tr( "All Master Pages" ) );
 		marginsForAllMasterPages->setChecked( false );
 		marginsForPagesLayout->addWidget(marginsForAllMasterPages);
-		GroupLayout->addMultiCellLayout( marginsForPagesLayout, 6, 6, 0, 1 );
+		GroupLayout->addLayout( marginsForPagesLayout, 6, 0, 1, 2 );
 		QToolTip::add( marginsForAllPages, "<qt>" + tr( "Apply the margin changes to all existing pages in the document" ) + "</qt>" );
 		QToolTip::add( marginsForAllMasterPages, "<qt>" + tr( "Apply the margin changes to all existing master pages in the document" ) + "</qt>" );
 	}
@@ -102,7 +103,7 @@ pageType(0)
 	if (useBleeds)
 	{
 		bleedPage = new QWidget(this);
-		BleedGroupLayout = new Q3GridLayout( bleedPage );
+		BleedGroupLayout = new QGridLayout( bleedPage );
 		BleedGroupLayout->setSpacing( 5 );
 		BleedGroupLayout->setMargin( 10 );
 		BleedGroupLayout->setAlignment( Qt::AlignTop );
@@ -128,7 +129,7 @@ pageType(0)
 		linkBleeds->setToggleButton( true );
 		linkBleeds->setAutoRaise( true );
 		linkBleeds->setMaximumSize( QSize( 15, 32767 ) );
-		BleedGroupLayout->addMultiCellWidget( linkBleeds, 0, 3, 2, 2 );
+		BleedGroupLayout->addWidget( linkBleeds, 0, 2, 4, 1 );
 		QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
 		QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 		QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );

@@ -10,18 +10,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
-#include <qcombobox.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qtabwidget.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
+#include <QComboBox>
+#include <QTabWidget>
 #include "linkbutton.h"
 class QCheckBox;
-
+class QPushButton;
+class QLabel;
+class QGridLayout;
+class QHBoxLayout;
 class ScrSpinBox;
 
 
@@ -196,9 +192,9 @@ protected slots:
 	virtual void setMarginsToPrinterMargins();
 
 protected:
-	Q3GridLayout* GroupLayout;
-	Q3HBoxLayout* marginsForPagesLayout;
-	Q3GridLayout* BleedGroupLayout;
+	QGridLayout* GroupLayout;
+	QHBoxLayout* marginsForPagesLayout;
+	QGridLayout* BleedGroupLayout;
 	QString m_pageSize;
 	int m_unitIndex;
 	double m_unitRatio;
