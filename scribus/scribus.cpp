@@ -352,14 +352,14 @@ ScribusMainWindow::~ScribusMainWindow()
 void ScribusMainWindow::initToolBars()
 {
 	fileToolBar = new ScToolBar( tr("File"), "File", this);
-	scrActions["fileNew"]->addTo(fileToolBar);
-	scrActions["fileOpen"]->addTo(fileToolBar);
+	fileToolBar->addAction(scrActions["fileNew"]);
+	fileToolBar->addAction(scrActions["fileOpen"]);
 	scrMenuMgr->addMenuToWidgetOfAction("FileOpenRecent", scrActions["fileOpen"]);
-	scrActions["fileSave"]->addTo(fileToolBar);
-	scrActions["fileClose"]->addTo(fileToolBar);
-	scrActions["filePrint"]->addTo(fileToolBar);
-	scrActions["toolsPreflightVerifier"]->addTo(fileToolBar);
-	scrActions["fileExportAsPDF"]->addTo(fileToolBar);
+	fileToolBar->addAction(scrActions["fileSave"]);
+	fileToolBar->addAction(scrActions["fileClose"]);
+	fileToolBar->addAction(scrActions["filePrint"]);
+	fileToolBar->addAction(scrActions["toolsPreflightVerifier"]);
+	fileToolBar->addAction(scrActions["fileExportAsPDF"]);
 
 	editToolBar = new ScToolBar( tr("Edit"), "Edit", this);
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");

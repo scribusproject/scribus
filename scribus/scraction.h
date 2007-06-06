@@ -96,23 +96,6 @@ public:
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
-		\brief Overriden addTo() call for storing addedTo widget
-		\param w Widget to add the action to
-		\retval bool Success or failure of addition
-	 */
-	bool addTo(QWidget *w);
-	
-	/*!
-		\author Craig Bradney
-		\date Jan 2005
-		\brief Return a pointer to the widget we added this action too. Given actions can be added to many, this might need some controls.
-		\retval QWidget * Pointer to widget
-	*/
-	QWidget *getWidgetAddedTo();
-			
-	/*!
-		\author Craig Bradney
-		\date Jan 2005
 		\brief Return a copy of the menu text, without the &s, possibility to remove ellipses in future.
 		\retval QString Stripped copy of the menu text
 	*/
@@ -196,8 +179,6 @@ protected:
 	double _dataDouble;
 	QString _dataQString;
 	ActionType _actionType;
-	QWidget *widgetAddedTo;
-	QWidget *containerWidgetAddedTo;
 	QMenu *popupMenuAddedTo;
 	QKeySequence savedKeySequence;
 	bool shortcutSaved;
@@ -211,16 +192,7 @@ protected:
 		\param menu The menu we are adding this action to
 	*/
 	void addedTo( int index, QMenu * menu );
-			
-	/*!
-		\author Craig Bradney
-		\date Jan 2005
-		\brief Overridden addedTo QWidget based function to save a pointer to the widget we are adding to and its container widget.
-		\param actionWidget Widget action is added to
-		\param container Container widget of actionWidget
-	*/
-	void addedTo( QWidget * actionWidget, QWidget * container );
-	
+				
 	/*!
 		\author Craig Bradney
 		\date Jan 2005

@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3StrList>
 #include <QLabel>
 #include <QDropEvent>
-#include <Q3PopupMenu>
+#include <QMenu>
 #include <QMenu>
 #include <QDragEnterEvent>
 #include <Q3ValueList>
@@ -2058,7 +2058,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				{
 					if (!Doc->leaveDrag)
 					{
-						Q3PopupMenu *pmen = new Q3PopupMenu();
+						QMenu *pmen = new QMenu();
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 						pmen->insertItem( tr("Copy Here"));
 						int mov = pmen->insertItem( tr("Move Here"));
@@ -2071,7 +2071,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 								break;
 							}
 						}
-						re = pmen->indexOf(pmen->exec(QCursor::pos()));
+						re = pmen->actions().indexOf(pmen->exec(QCursor::pos()));
 						delete pmen;
 						pmen=NULL;
 					}
@@ -2748,7 +2748,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	}
 	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal))
 	{
-		Q3PopupMenu *pmen = new Q3PopupMenu();
+		QMenu *pmen = new QMenu();
 		if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")) || (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0))
 		{
 			Mxp = m->x();
@@ -2757,7 +2757,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("&Paste") , this, SLOT(PasteToPage()));
 			if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
 			{
-				pmen3 = new Q3PopupMenu();
+				pmen3 = new QMenu();
 				QMap<QString,BibView::Elem>::Iterator it;
 				it = m_ScMW->scrapbookPalette->tempBView->objectMap.end();
 				it--;
@@ -2775,21 +2775,21 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			pmen->insertSeparator();
 		}
 		setObjectUndoMode();
-		m_ScMW->scrActions["editUndoAction"]->addTo(pmen);
-		m_ScMW->scrActions["editRedoAction"]->addTo(pmen);
+		pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
+		pmen->addAction(m_ScMW->scrActions["editRedoAction"]);
 		pmen->insertSeparator();
-		m_ScMW->scrActions["viewShowMargins"]->addTo(pmen);
-		m_ScMW->scrActions["viewShowFrames"]->addTo(pmen);
-		m_ScMW->scrActions["viewShowLayerMarkers"]->addTo(pmen);
-		m_ScMW->scrActions["viewShowImages"]->addTo(pmen);
-		m_ScMW->scrActions["viewShowGrid"]->addTo(pmen);
-		m_ScMW->scrActions["viewShowGuides"]->addTo(pmen);
-		m_ScMW->scrActions["viewShowBaseline"]->addTo(pmen);
-		m_ScMW->scrActions["viewShowTextChain"]->addTo(pmen);
-		m_ScMW->scrActions["viewRulerMode"]->addTo(pmen);
+		pmen->addAction(m_ScMW->scrActions["viewShowMargins"]);
+		pmen->addAction(m_ScMW->scrActions["viewShowFrames"]);
+		pmen->addAction(m_ScMW->scrActions["viewShowLayerMarkers"]);
+		pmen->addAction(m_ScMW->scrActions["viewShowImages"]);
+		pmen->addAction(m_ScMW->scrActions["viewShowGrid"]);
+		pmen->addAction(m_ScMW->scrActions["viewShowGuides"]);
+		pmen->addAction(m_ScMW->scrActions["viewShowBaseline"]);
+		pmen->addAction(m_ScMW->scrActions["viewShowTextChain"]);
+		pmen->addAction(m_ScMW->scrActions["viewRulerMode"]);
 		pmen->insertSeparator();
-		m_ScMW->scrActions["viewSnapToGrid"]->addTo(pmen);
-		m_ScMW->scrActions["viewSnapToGuides"]->addTo(pmen);
+		pmen->addAction(m_ScMW->scrActions["viewSnapToGrid"]);
+		pmen->addAction(m_ScMW->scrActions["viewSnapToGuides"]);
 		int pgNum = -1;
 		int docPageCount = static_cast<int>(Doc->Pages->count() - 1);
 		double bleedRight = 0.0;
@@ -2833,11 +2833,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		if (pgNum != -1)
 		{
 			pmen->insertSeparator();
-			m_ScMW->scrActions["pageApplyMasterPage"]->addTo(pmen);
-			m_ScMW->scrActions["pageManageGuides"]->addTo(pmen);
-			m_ScMW->scrActions["pageManageMargins"]->addTo(pmen);
+			pmen->addAction(m_ScMW->scrActions["pageApplyMasterPage"]);
+			pmen->addAction(m_ScMW->scrActions["pageManageGuides"]);
+			pmen->addAction(m_ScMW->scrActions["pageManageMargins"]);
 			pmen->insertSeparator();
-			m_ScMW->scrActions["pageDelete"]->addTo(pmen);
+			pmen->addAction(m_ScMW->scrActions["pageDelete"]);
 		}
 		pmen->exec(QCursor::pos());
 		setGlobalUndoMode();
@@ -2854,15 +2854,15 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!Doc->DragP))
 		{
-			Q3PopupMenu *pmen = new Q3PopupMenu();
-			Q3PopupMenu *pmen2 = new Q3PopupMenu();
-			pmen3 = new Q3PopupMenu();
+			QMenu *pmen = new QMenu();
+			QMenu *pmen2 = new QMenu();
+			pmen3 = new QMenu();
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			QMenu *pmen4 = new QMenu();
-			Q3PopupMenu *pmenEditContents = new Q3PopupMenu();
-			Q3PopupMenu *pmenLevel = new Q3PopupMenu();
-			Q3PopupMenu *pmenPDF = new Q3PopupMenu();
-			pmenResolution = new Q3PopupMenu();
+			QMenu *pmenEditContents = new QMenu();
+			QMenu *pmenLevel = new QMenu();
+			QMenu *pmenPDF = new QMenu();
+			pmenResolution = new QMenu();
 			setObjectUndoMode();
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 			{
@@ -3018,12 +3018,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 // Qt4				pmen4->insertItem(InfoGroup);
 				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
-					m_ScMW->scrActions["itemImageInfo"]->addTo(pmen4);
+					pmen4->addAction(m_ScMW->scrActions["itemImageInfo"]);
 				pmen->insertItem( tr("In&fo"), pmen4);
 			}
 			pmen->insertSeparator();
-			m_ScMW->scrActions["editUndoAction"]->addTo(pmen);
-			m_ScMW->scrActions["editRedoAction"]->addTo(pmen);
+			pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
+			pmen->addAction(m_ScMW->scrActions["editRedoAction"]);
 			if (currItem->itemType() == PageItem::ImageFrame ||
 				currItem->itemType() == PageItem::TextFrame ||
 				currItem->itemType() == PageItem::PathText)
@@ -3031,36 +3031,36 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				pmen->insertSeparator();
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
-					m_ScMW->scrActions["fileImportImage"]->addTo(pmen);
+					pmen->addAction(m_ScMW->scrActions["fileImportImage"]);
 					if (currItem->PicAvail)
 					{
 						if (!currItem->isTableItem)
-							m_ScMW->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
+							pmen->addAction(m_ScMW->scrActions["itemAdjustFrameToImage"]);
 						if (currItem->pixm.imgInfo.valid)
-							m_ScMW->scrActions["itemExtendedImageProperties"]->addTo(pmen);
-						m_ScMW->scrActions["itemUpdateImage"]->addTo(pmen);
+							pmen->addAction(m_ScMW->scrActions["itemExtendedImageProperties"]);
+						pmen->addAction(m_ScMW->scrActions["itemUpdateImage"]);
 					}
 					pmen->insertItem( tr("Preview Settings"), pmenResolution);
-					m_ScMW->scrActions["itemImageIsVisible"]->addTo(pmenResolution);
+					pmenResolution->addAction(m_ScMW->scrActions["itemImageIsVisible"]);
 					pmenResolution->insertSeparator();
-					m_ScMW->scrActions["itemPreviewLow"]->addTo(pmenResolution);
-					m_ScMW->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
-					m_ScMW->scrActions["itemPreviewFull"]->addTo(pmenResolution);
+					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewLow"]);
+					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewNormal"]);
+					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewFull"]);
 					if (currItem->PicAvail && currItem->isRaster)
 					{
-						m_ScMW->scrActions["styleImageEffects"]->addTo(pmen);
-						m_ScMW->scrActions["editEditWithImageEditor"]->addTo(pmen);
+						pmen->addAction(m_ScMW->scrActions["styleImageEffects"]);
+						pmen->addAction(m_ScMW->scrActions["editEditWithImageEditor"]);
 					}
 				}
 				if (currItem->itemType() == PageItem::TextFrame)
 				{
-					m_ScMW->scrActions["fileImportText"]->addTo(pmen);
-					m_ScMW->scrActions["fileImportAppendText"]->addTo(pmen);
-					m_ScMW->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
-					m_ScMW->scrActions["insertSampleText"]->addTo(pmen);
+					pmen->addAction(m_ScMW->scrActions["fileImportText"]);
+					pmen->addAction(m_ScMW->scrActions["fileImportAppendText"]);
+					pmen->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
+					pmen->addAction(m_ScMW->scrActions["insertSampleText"]);
 				}
 				if (currItem->itemType() == PageItem::PathText)
-					m_ScMW->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
+					pmen->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
 			}
 			if (Doc->m_Selection->count() == 1)
 			{
@@ -3071,25 +3071,25 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				if (Doc->currentPage()->pageName().isEmpty())
 				{
-					m_ScMW->scrActions["itemPDFIsAnnotation"]->addTo(pmenPDF);
-					m_ScMW->scrActions["itemPDFIsBookmark"]->addTo(pmenPDF);
+					pmenPDF->addAction(m_ScMW->scrActions["itemPDFIsAnnotation"]);
+					pmenPDF->addAction(m_ScMW->scrActions["itemPDFIsBookmark"]);
 					if (currItem->isAnnotation())
 					{
 						if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || (currItem->annotation().Type() > 9))
-							m_ScMW->scrActions["itemPDFAnnotationProps"]->addTo(pmenPDF);
+							pmenPDF->addAction(m_ScMW->scrActions["itemPDFAnnotationProps"]);
 						else
-							m_ScMW->scrActions["itemPDFFieldProps"]->addTo(pmenPDF);
+							pmenPDF->addAction(m_ScMW->scrActions["itemPDFFieldProps"]);
 					}
 				}
 				pmen->insertItem( tr("&PDF Options"), pmenPDF);
 			}
 			pmen->insertSeparator();
-			m_ScMW->scrActions["itemLock"]->addTo(pmen);
-			m_ScMW->scrActions["itemLockSize"]->addTo(pmen);
+			pmen->addAction(m_ScMW->scrActions["itemLock"]);
+			pmen->addAction(m_ScMW->scrActions["itemLockSize"]);
 			if (!currItem->isSingleSel)
 			{
-				m_ScMW->scrActions["itemSendToScrapbook"]->addTo(pmen);
-				m_ScMW->scrActions["itemSendToPattern"]->addTo(pmen);
+				pmen->addAction(m_ScMW->scrActions["itemSendToScrapbook"]);
+				pmen->addAction(m_ScMW->scrActions["itemSendToPattern"]);
 				if (Doc->layerCount() > 1)
 				{
 					QMap<int,int> layerMap;
@@ -3125,19 +3125,19 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						isGroup = false;
 				}
 				if (!isGroup)
-					m_ScMW->scrActions["itemGroup"]->addTo(pmen);
+					pmen->addAction(m_ScMW->scrActions["itemGroup"]);
 			}
 			if (currItem->Groups.count() != 0)
-				m_ScMW->scrActions["itemUngroup"]->addTo(pmen);
+				pmen->addAction(m_ScMW->scrActions["itemUngroup"]);
 			if (!currItem->locked())
 			{
 				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
 				{
 					pmen->insertItem( tr("Le&vel"), pmenLevel);
-					m_ScMW->scrActions["itemRaiseToTop"]->addTo(pmenLevel);
-					m_ScMW->scrActions["itemRaise"]->addTo(pmenLevel);
-					m_ScMW->scrActions["itemLower"]->addTo(pmenLevel);
-					m_ScMW->scrActions["itemLowerToBottom"]->addTo(pmenLevel);
+					pmenLevel->addAction(m_ScMW->scrActions["itemRaiseToTop"]);
+					pmenLevel->addAction(m_ScMW->scrActions["itemRaise"]);
+					pmenLevel->addAction(m_ScMW->scrActions["itemLower"]);
+					pmenLevel->addAction(m_ScMW->scrActions["itemLowerToBottom"]);
 				}
 			}
 			if (Doc->appMode != modeEdit && (Doc->m_Selection->itemsAreSameType() || currItem->isSingleSel)) //Create convertTo Menu
@@ -3147,21 +3147,21 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					insertConvertToMenu=true;
 					if (currItem->itemType() == PageItem::PathText)
-						m_ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+						pmen2->addAction(m_ScMW->scrActions["itemConvertToOutlines"]);
 					else
 					{
 						if (currItem->isTableItem)
 						{
 							m_ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(true);
-							m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+							pmen2->addAction(m_ScMW->scrActions["itemConvertToImageFrame"]);
 						}
 						if (!currItem->isTableItem)
 						{
 							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
-								m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-							m_ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
+								pmen->addAction(m_ScMW->scrActions["itemConvertToImageFrame"]);
+							pmen2->addAction(m_ScMW->scrActions["itemConvertToOutlines"]);
 							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
-								m_ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+								pmen2->addAction(m_ScMW->scrActions["itemConvertToPolygon"]);
 						}
 					}
 				}
@@ -3169,16 +3169,16 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					insertConvertToMenu=true;
 					m_ScMW->scrActions["itemConvertToTextFrame"]->setEnabled(true);
-					m_ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					pmen2->addAction(m_ScMW->scrActions["itemConvertToTextFrame"]);
 					if (!currItem->isTableItem)
-						m_ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+						pmen2->addAction(m_ScMW->scrActions["itemConvertToPolygon"]);
 				}
 				if (currItem->itemType() == PageItem::Polygon)
 				{
 					insertConvertToMenu=true;
-					m_ScMW->scrActions["itemConvertToBezierCurve"]->addTo(pmen2);
-					m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-					m_ScMW->scrActions["itemConvertToTextFrame"]->addTo(pmen2);
+					pmen2->addAction(m_ScMW->scrActions["itemConvertToBezierCurve"]);
+					pmen2->addAction(m_ScMW->scrActions["itemConvertToImageFrame"]);
+					pmen2->addAction(m_ScMW->scrActions["itemConvertToTextFrame"]);
 				}
 				bool insertedMenusEnabled = false;
 				for (uint pc = 0; pc < pmen2->count(); pc++)
@@ -3191,11 +3191,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			pmen->insertSeparator();
 			if (!currItem->locked() && !(currItem->isSingleSel))
-				m_ScMW->scrActions["editCut"]->addTo(pmen);
+				pmen->addAction(m_ScMW->scrActions["editCut"]);
 			if (!(currItem->isSingleSel))
-				m_ScMW->scrActions["editCopy"]->addTo(pmen);
+				pmen->addAction(m_ScMW->scrActions["editCopy"]);
 			if ((Doc->appMode == modeEdit) && (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
-				m_ScMW->scrActions["editPaste"]->addTo(pmen);
+				pmen->addAction(m_ScMW->scrActions["editPaste"]);
 			if (!currItem->locked() && (Doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), Doc, SLOT(itemSelection_DeleteItem()));
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
@@ -3203,14 +3203,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					if (currItem->PicAvail)
-						m_ScMW->scrActions["editCopyContents"]->addTo(pmenEditContents);
+						pmenEditContents->addAction(m_ScMW->scrActions["editCopyContents"]);
 					if (m_ScMW->contentsBuffer.sourceType==PageItem::ImageFrame)
 					{
-						m_ScMW->scrActions["editPasteContents"]->addTo(pmenEditContents);
-						m_ScMW->scrActions["editPasteContentsAbs"]->addTo(pmenEditContents);
+						pmenEditContents->addAction(m_ScMW->scrActions["editPasteContents"]);
+						pmenEditContents->addAction(m_ScMW->scrActions["editPasteContentsAbs"]);
 					}
 					if (currItem->PicAvail)
-						m_ScMW->scrActions["editClearContents"]->addTo(pmenEditContents);
+						pmenEditContents->addAction(m_ScMW->scrActions["editClearContents"]);
 					if ((currItem->PicAvail) || (m_ScMW->contentsBuffer.sourceType==PageItem::ImageFrame))
 						pmen->insertItem( tr("Contents"), pmenEditContents);
 				}
@@ -3218,7 +3218,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					if (currItem->itemText.lines() != 0)
 					{
-						m_ScMW->scrActions["editClearContents"]->addTo(pmenEditContents);
+						pmenEditContents->addAction(m_ScMW->scrActions["editClearContents"]);
 						pmen->insertItem( tr("Contents"), pmenEditContents);
 					}
 				}

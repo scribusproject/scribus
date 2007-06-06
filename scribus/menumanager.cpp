@@ -206,6 +206,7 @@ bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *ac
 	bool retVal=false;
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL && action!=NULL)
 	{
+		/* //qt4 cb replace with qwidgetaction or similar
 		QWidget *w=action->getWidgetAddedTo();
 		if (w)
 		{
@@ -220,6 +221,7 @@ bool MenuManager::addMenuToWidgetOfAction(const QString &menuName, ScrAction *ac
 				}
 			}
 		}
+		*/
 	}
 	return retVal;
 }

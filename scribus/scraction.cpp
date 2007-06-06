@@ -89,8 +89,6 @@ void ScrAction::initScrAction()
 {
 	_actionType=ScrAction::Normal;
 	menuIndex=-1;
-	widgetAddedTo=0;
-	containerWidgetAddedTo=0;
 	savedKeySequence=QKeySequence("");
 	shortcutSaved=false;
 	fakeToggle=false;
@@ -174,21 +172,6 @@ void ScrAction::addedTo ( int index, QMenu * menu )
 	}
 }
 
-
-void ScrAction::addedTo( QWidget * actionWidget, QWidget * container )
-{
-	if (actionWidget)
-		widgetAddedTo = actionWidget;
-	if (containerWidgetAddedTo)
-		containerWidgetAddedTo = container;
-}
-
-
-QWidget* ScrAction::getWidgetAddedTo()
-{
-	return widgetAddedTo;
-}
-
 QString ScrAction::cleanMenuText()
 {
 	return menuText().remove('&').remove("...");
@@ -197,12 +180,6 @@ QString ScrAction::cleanMenuText()
 const int ScrAction::getMenuIndex()
 {
 	return menuIndex;
-}
-
-bool ScrAction::addTo ( QWidget * w )
-{
-	widgetAddedTo=w;
-	return (QAction::addTo(w));
 }
 
 const bool ScrAction::isDLLAction()

@@ -178,7 +178,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 #endif
 		
 		menuItemList.append(newMenuAction);
-		newMenuAction->addTo(localPopupMenu);			
+		localPopupMenu->addAction(newMenuAction);
 		return true;
 	}
 	else 
@@ -301,7 +301,7 @@ bool ScrPopupMenu::repopulateLocalMenu()
 				localPopupMenu->insertSeparator();
 			else {
 				ScrAction * act = dynamic_cast<ScrAction *>(listObj);
-				act->addTo(localPopupMenu);
+				localPopupMenu->addAction(act);
 			}
 		}
 		else 

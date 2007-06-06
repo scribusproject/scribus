@@ -1523,14 +1523,14 @@ void StoryEditor::buildGUI()
 
 /* Setting up Toolbars */
 	FileTools = new Q3ToolBar(this);
-	seActions["fileNew"]->addTo(FileTools);
-	seActions["fileLoadFromFile"]->addTo(FileTools);
-	seActions["fileSaveToFile"]->addTo(FileTools);
-	seActions["fileUpdateAndExit"]->addTo(FileTools);
-	seActions["fileExit"]->addTo(FileTools);
-	seActions["fileRevert"]->addTo(FileTools);
-	seActions["editUpdateFrame"]->addTo(FileTools);
-	seActions["editSearchReplace"]->addTo(FileTools);
+	FileTools->addAction(seActions["fileNew"]);
+	FileTools->addAction(seActions["fileLoadFromFile"]);
+	FileTools->addAction(seActions["fileSaveToFile"]);
+	FileTools->addAction(seActions["fileUpdateAndExit"]);
+	FileTools->addAction(seActions["fileExit"]);
+	FileTools->addAction(seActions["fileRevert"]);
+	FileTools->addAction(seActions["editUpdateFrame"]);
+	FileTools->addAction(seActions["editSearchReplace"]);
 
 	setDockEnabled(FileTools, Qt::DockLeft, false);
 	setDockEnabled(FileTools, Qt::DockRight, false);

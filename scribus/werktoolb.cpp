@@ -21,12 +21,11 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <qtooltip.h>
+#include <QToolTip>
 #include <QMenu>
-#include <qpixmap.h>
+#include <QPixmap>
 
 #include "werktoolb.h"
-//#include "werktoolb.moc"
 
 #include "autoformbuttongroup.h"
 #include "menumanager.h"
@@ -46,12 +45,12 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 									0.0, 100.0, 0.0, 100.0, 0.0, 0.0, 0.0, 0.0};
 	ShapeVals = AutoShapes0;
 	m_ScMW=parent;
-	m_ScMW->scrActions["toolsSelect"]->addTo(this);
-	m_ScMW->scrActions["toolsInsertTextFrame"]->addTo(this);
-	m_ScMW->scrActions["toolsInsertImageFrame"]->addTo(this);
-	m_ScMW->scrActions["toolsInsertTableFrame"]->addTo(this);
+	this->addAction(m_ScMW->scrActions["toolsSelect"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertTextFrame"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertImageFrame"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertTableFrame"]);
 	
-	m_ScMW->scrActions["toolsInsertShape"]->addTo(this);
+	this->addAction(m_ScMW->scrActions["toolsInsertShape"]);
 //	m_ScMW->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
 //	insertShapeButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
 //	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", m_ScMW->scrActions["toolsInsertShape"]);
@@ -77,28 +76,24 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(0,16)));
 //qt4 fixme, Rechteck->getIconPixmap(0)));
 
-	m_ScMW->scrActions["toolsInsertPolygon"]->addTo(this);
+	this->addAction(m_ScMW->scrActions["toolsInsertPolygon"]);
 	m_ScMW->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
 	insertPolygonButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertPolygonButtonMenu");
 	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertPolygonButtonMenu", m_ScMW->scrActions["toolsInsertPolygon"]);
 	idInsertPolygonButtonMenu=insertPolygonButtonMenu->insertItem( "Properties...", this, SLOT(GetPolyProps()));
-	
-	QToolButton *insertPolygonButton = dynamic_cast<QToolButton*>(m_ScMW->scrActions["toolsInsertPolygon"]->getWidgetAddedTo());
-	if (insertPolygonButton)
-		insertPolygonButton->setPopupDelay(0);
-	
-	m_ScMW->scrActions["toolsInsertLine"]->addTo(this);
-	m_ScMW->scrActions["toolsInsertBezier"]->addTo(this);
-	m_ScMW->scrActions["toolsInsertFreehandLine"]->addTo(this);
-	m_ScMW->scrActions["toolsRotate"]->addTo(this);
-	m_ScMW->scrActions["toolsZoom"]->addTo(this);
-	m_ScMW->scrActions["toolsEditContents"]->addTo(this);
-	m_ScMW->scrActions["toolsEditWithStoryEditor"]->addTo(this);
-	m_ScMW->scrActions["toolsLinkTextFrame"]->addTo(this);
-	m_ScMW->scrActions["toolsUnlinkTextFrame"]->addTo(this);
-	m_ScMW->scrActions["toolsMeasurements"]->addTo(this);
-	m_ScMW->scrActions["toolsCopyProperties"]->addTo(this);
-	m_ScMW->scrActions["toolsEyeDropper"]->addTo(this);
+		
+	this->addAction(m_ScMW->scrActions["toolsInsertLine"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertBezier"]);
+	this->addAction(m_ScMW->scrActions["toolsInsertFreehandLine"]);
+	this->addAction(m_ScMW->scrActions["toolsRotate"]);
+	this->addAction(m_ScMW->scrActions["toolsZoom"]);
+	this->addAction(m_ScMW->scrActions["toolsEditContents"]);
+	this->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
+	this->addAction(m_ScMW->scrActions["toolsLinkTextFrame"]);
+	this->addAction(m_ScMW->scrActions["toolsUnlinkTextFrame"]);
+	this->addAction(m_ScMW->scrActions["toolsMeasurements"]);
+	this->addAction(m_ScMW->scrActions["toolsCopyProperties"]);
+	this->addAction(m_ScMW->scrActions["toolsEyeDropper"]);
 
 	languageChange();
 	connect(Rechteck, SIGNAL(FormSel(int, int, double *)), this, SLOT(SelShape(int, int, double *)));
@@ -137,11 +132,11 @@ void ModeToolBar::languageChange()
 
 PDFToolBar::PDFToolBar(ScribusMainWindow* parent) : ScToolBar( tr("PDF Tools"), "PDF_Tools", parent)
 {
-	parent->scrActions["toolsPDFPushButton"]->addTo(this);
-	parent->scrActions["toolsPDFTextField"]->addTo(this);
-	parent->scrActions["toolsPDFCheckBox"]->addTo(this);
-	parent->scrActions["toolsPDFComboBox"]->addTo(this);
-	parent->scrActions["toolsPDFListBox"]->addTo(this);
-	parent->scrActions["toolsPDFAnnotText"]->addTo(this);
-	parent->scrActions["toolsPDFAnnotLink"]->addTo(this);
+	this->addAction(parent->scrActions["toolsPDFPushButton"]);
+	this->addAction(parent->scrActions["toolsPDFTextField"]);
+	this->addAction(parent->scrActions["toolsPDFCheckBox"]);
+	this->addAction(parent->scrActions["toolsPDFComboBox"]);
+	this->addAction(parent->scrActions["toolsPDFListBox"]);
+	this->addAction(parent->scrActions["toolsPDFAnnotText"]);
+	this->addAction(parent->scrActions["toolsPDFAnnotLink"]);
 }

@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #else
     #include <qpushbutton.h>
 #endif
-#include <q3popupmenu.h>
+#include <QMenu>
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <q3progressdialog.h>
@@ -324,8 +324,8 @@ public slots: // Public slots
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 
 private: // Private attributes
-	Q3PopupMenu *pmen3;
-	Q3PopupMenu *pmenResolution;
+	QMenu *pmen3;
+	QMenu *pmenResolution;
 	QTime moveTimer;
 	QTimer *dragTimer;
 	bool dragTimerFired;

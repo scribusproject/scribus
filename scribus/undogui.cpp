@@ -83,25 +83,18 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	redoButton->setAutoRaise(true);
 	*/
 	//Scribus action based toolbar button construction
-	ScCore->primaryMainWindow()->scrActions["editUndoAction"]->addTo(parent);
-	ScCore->primaryMainWindow()->scrActions["editRedoAction"]->addTo(parent);
+	parent->addAction(ScCore->primaryMainWindow()->scrActions["editUndoAction"]);
+	parent->addAction(ScCore->primaryMainWindow()->scrActions["editRedoAction"]);
 	ScCore->primaryMainWindow()->scrMenuMgr->createMenu("undoButtonMenu", "undoButtonMenu");
 	ScCore->primaryMainWindow()->scrMenuMgr->createMenu("redoButtonMenu", "redoButtonMenu");
 	undoMenu=ScCore->primaryMainWindow()->scrMenuMgr->getLocalPopupMenu("undoButtonMenu");
 	redoMenu=ScCore->primaryMainWindow()->scrMenuMgr->getLocalPopupMenu("redoButtonMenu");
 	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("undoButtonMenu", ScCore->primaryMainWindow()->scrActions["editUndoAction"]);
 	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("redoButton/*Menu*/", ScCore->primaryMainWindow()->scrActions["editRedoAction"]);
-	QToolButton *undoButton = dynamic_cast<QToolButton*>(ScCore->primaryMainWindow()->scrActions["editUndoAction"]->getWidgetAddedTo());
-	QToolButton *redoButton = dynamic_cast<QToolButton*>(ScCore->primaryMainWindow()->scrActions["editRedoAction"]->getWidgetAddedTo());
-	if (undoButton && redoButton)
-	{
-		undoButton->setPopupDelay(0);
-		redoButton->setPopupDelay(0);
-	}
 	
-	ScCore->primaryMainWindow()->scrActions["editCut"]->addTo(parent);
-	ScCore->primaryMainWindow()->scrActions["editCopy"]->addTo(parent);
-	ScCore->primaryMainWindow()->scrActions["editPaste"]->addTo(parent);
+	parent->addAction(ScCore->primaryMainWindow()->scrActions["editCut"]);
+	parent->addAction(ScCore->primaryMainWindow()->scrActions["editCopy"]);
+	parent->addAction(ScCore->primaryMainWindow()->scrActions["editPaste"]);
 	ScCore->primaryMainWindow()->scrMenuMgr->addMenuToWidgetOfAction("EditPasteRecent", ScCore->primaryMainWindow()->scrActions["editPaste"]);
 	
 	/* BnF Undo buttons
