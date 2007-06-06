@@ -117,7 +117,6 @@ SET(SCRIBUS_MOC_CLASSES
   inspage.h
   javadocs.h
   layers.h
-  lineformats.h
   loadsaveplugin.h
   loremipsum.h
   margindialog.h
@@ -129,7 +128,6 @@ SET(SCRIBUS_MOC_CLASSES
   movepage.h
   missing.h
   mpalette.h
-  multiline.h
   multipleduplicate.h
   multiprogressdialog.h
   muster.h
@@ -322,7 +320,6 @@ SET(SCRIBUS_SOURCES
   langmgr.cpp
   layers.cpp
   linecombo.cpp
-  lineformats.cpp
   linkbutton.cpp
   loadsaveplugin.cpp
   loremipsum.cpp
@@ -337,7 +334,6 @@ SET(SCRIBUS_SOURCES
   movepage.cpp
   missing.cpp
   mpalette.cpp
-  multiline.cpp
   multipleduplicate.cpp
   multiprogressdialog.cpp
   muster.cpp

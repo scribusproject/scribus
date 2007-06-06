@@ -143,7 +143,7 @@ for which a new license (GPL+exception) is in place.
 #include "hysettings.h"
 #include "guidemanager.h"
 #include "mergedoc.h"
-#include "lineformats.h"
+// #include "lineformats.h"
 #include "story.h"
 #include "autoform.h"
 #include "tabmanager.h"

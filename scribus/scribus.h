@@ -85,7 +85,7 @@ class GuideManager;
 class CharSelect;
 class ColorCombo;
 class LayerPalette;
-class LineFormate;
+// class LineFormate;
 class Mpalette;
 class Measurements;
 class MenuManager;

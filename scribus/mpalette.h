@@ -50,38 +50,25 @@ class ScribusDoc;
 class StyleSelect;
 #include "alignselect.h"
 #include "shadebutton.h"
+#include "sclistboxpixmap.h"
 class Cpalette;
 class Autoforms;
 class ArrowChooser;
 class ScComboBox;
 class ScribusMainWindow;
 class UserActionSniffer;
-/*
-class SCRIBUS_API LabelButton : public QLabel
+
+class SCRIBUS_API LineFormateItem : public ScListBoxPixmap<37, 37>
 {
-	Q_OBJECT
-
 public:
-	LabelButton(QWidget* parent, QString text1, QString text2);
-	~LabelButton() {};
-	void setTexts(QString text1, QString text2);
-	bool getState();
-
-private:
-	bool state;
-	QString TextA;
-	QString TextB;
-
-signals:
-	void clicked();
-
+	LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text);
+	virtual int rtti() const { return 148523874; }
 protected:
-	virtual void enterEvent(QEvent*);
-	virtual void leaveEvent(QEvent*);
-	virtual void mousePressEvent(QMouseEvent*);
-	virtual void mouseReleaseEvent(QMouseEvent *);
+	multiLine mLine;
+	ScribusDoc* doc;
+	virtual void redraw(void);
 };
-*/
+
 class SCRIBUS_API NameWidget : public QLineEdit
 {
 	Q_OBJECT

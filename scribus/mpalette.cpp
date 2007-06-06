@@ -34,8 +34,8 @@ for which a new license (GPL+exception) is in place.
 #include "autoform.h"
 #include "commonstrings.h"
 #include "colorlistbox.h"
+#include "sccolorengine.h"
 #include "cpalette.h"
-#include "lineformats.h"
 #include "sccombobox.h"
 #include "scfonts.h"
 #include "scribus.h"
@@ -54,58 +54,33 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 
-/*
-LabelButton::LabelButton(QWidget* parent, QString text1, QString text2) : QLabel(parent)
+LineFormateItem::LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text) : ScListBoxPixmap<37, 37>()
 {
-	state = true;
-	setTexts(text1, text2);
+	setText(Text);
+	mLine = MultiLine;
+	doc = Doc;
 }
 
-void LabelButton::setTexts(QString text1, QString text2)
+void LineFormateItem::redraw(void)
 {
-	TextA = text1;
-	TextB = text2;
-	if (state)
-		setText(TextA);
-	else
-		setText(TextB);
+	QColor tmpf;
+	pmap->fill(Qt::white);
+	QPainter p;
+	p.begin(pmap.get());
+	for (int its = mLine.size()-1; its > -1; its--)
+	{
+		const ScColor& col = doc->PageColors[mLine[its].Color];
+		tmpf = ScColorEngine::getDisplayColor(col, doc, mLine[its].Shade);
+		p.setPen(QPen(tmpf,
+						qMax(static_cast<int>(mLine[its].Width), 1),
+						static_cast<Qt::PenStyle>(mLine[its].Dash),
+						static_cast<Qt::PenCapStyle>(mLine[its].LineEnd),
+						static_cast<Qt::PenJoinStyle>(mLine[its].LineJoin)));
+		p.drawLine(0, 18, 37, 18);
+	}
+	p.end();
 }
 
-bool LabelButton::getState()
-{
-	return state;
-}
-
-void LabelButton::enterEvent(QEvent*)
-{
-	setFrameStyle( QFrame::Panel | QFrame::Raised );
-	setLineWidth( 2 );
-}
-
-void LabelButton::leaveEvent(QEvent*)
-{
-	setFrameStyle( QFrame::Panel | QFrame::Plain );
-	setLineWidth( 0 );
-}
-
-void LabelButton::mousePressEvent(QMouseEvent*)
-{
-	setFrameStyle( QFrame::Panel | QFrame::Sunken );
-	setLineWidth( 2 );
-}
-
-void LabelButton::mouseReleaseEvent(QMouseEvent*)
-{
-	state = !state;
-	if (state)
-		setText(TextA);
-	else
-		setText(TextB);
-	setFrameStyle( QFrame::Panel | QFrame::Raised );
-	setLineWidth( 2 );
-	emit clicked();
-}
-*/
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
 {
 	QRegExp rx( "\\w+" );

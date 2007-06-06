@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3progressbar.h>
 
 #include "pageitem.h"
-#include "multiline.h"
+// #include "multiline.h"
 #include "scfonts.h"
 #include "scribusstructs.h"
 #include "selection.h"
