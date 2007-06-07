@@ -166,6 +166,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel10 = new QLabel( tr( "Radius:" ), WStackPage_5, "textLabel10" );
 	layout22->addWidget( textLabel10 );
 	shRadius = new ScrSpinBox( 0.0, 10.0, WStackPage_5, 1 );
+	shRadius->setDecimals(1);
+	shRadius->setSuffix("");
 	shRadius->setValue(0);
 	layout22->addWidget( shRadius );
 	WStackPage5Layout->addLayout( layout22 );
@@ -175,6 +177,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel11 = new QLabel( tr("Value:"), WStackPage_5, "textLabel11" );
 	layout23->addWidget( textLabel11 );
 	shValue = new ScrSpinBox( 0.0, 5.0, WStackPage_5, 1 );
+	shValue->setDecimals(1);
+	shValue->setSuffix("");
 	shValue->setValue(1.0);
 	layout23->addWidget( shValue );
 	WStackPage5Layout->addLayout( layout23 );
@@ -191,6 +195,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel12 = new QLabel( tr( "Radius:" ), WStackPage_6, "textLabel10" );
 	layout24->addWidget( textLabel12 );
 	blRadius = new ScrSpinBox( 0.0, 30.0, WStackPage_6, 1 );
+	blRadius->setDecimals(1);
+	blRadius->setSuffix("");
 	blRadius->setValue(0);
 	layout24->addWidget( blRadius );
 	WStackPage6Layout->addLayout( layout24 );
