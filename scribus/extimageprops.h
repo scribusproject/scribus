@@ -7,26 +7,22 @@ for which a new license (GPL+exception) is in place.
 #ifndef EXTIMAGEPROPS_H
 #define EXTIMAGEPROPS_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3PtrList>
-#include <Q3HBoxLayout>
-#include <QLabel>
-#include <QCheckBox>
+#include <QDialog>
+#include <QList>
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
+class QVBoxLayout;
+class QHBoxLayout;
 class QTabWidget;
 class QWidget;
 class QLabel;
 class QComboBox;
+class QCheckBox;
 class QSpinBox;
 class Q3Table;
-class Q3ListBox;
-class Q3ListBoxItem;
+class QListWidget;
+class QListWidgetItem;
 class QPushButton;
+class QTableWidget;
 
 class ScribusView;
 class PageItem;
@@ -47,12 +43,12 @@ public:
 	QComboBox* blendMode;
 	QLabel* textLabel2;
 	QSpinBox* opacitySpinBox;
-	Q3Table* layerTable;
+	QTableWidget* layerTable;
 	QWidget* tab_2;
-	Q3ListBox* pathList;
+	QListWidget* pathList;
 	QPushButton* resetPath;
-	Q3PtrList<QCheckBox> FlagsSicht;
-	Q3PtrList<QCheckBox> FlagsMask;
+	QList<QCheckBox*> FlagsSicht;
+	QList<QCheckBox*> FlagsMask;
 	ScribusView *viewWidget;
 	PageItem *currentItem;
 	int currentLayer;
@@ -62,14 +58,14 @@ public:
 public slots:
 	void changedLayer();
 	void selLayer(int layer);
-	void selPath(Q3ListBoxItem *c);
+	void selPath(QListWidgetItem *c);
 	void noPath();
 
 protected:
-	Q3VBoxLayout* ExtImagePropsLayout;
-	Q3VBoxLayout* tabLayout;
-	Q3HBoxLayout* layout1;
-	Q3VBoxLayout* tabLayout_2;
+	QVBoxLayout* ExtImagePropsLayout;
+	QVBoxLayout* tabLayout;
+	QHBoxLayout* layout1;
+	QVBoxLayout* tabLayout_2;
 
 };
 

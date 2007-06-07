@@ -5,26 +5,22 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "extimageprops.h"
-//#include "extimageprops.moc"
-#include <qvariant.h>
-#include <qpushbutton.h>
-#include <qtabwidget.h>
-#include <qwidget.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
-#include <qspinbox.h>
-#include <q3table.h>
-#include <q3listbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <q3header.h>
-#include <qpainter.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QList>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QListWidget>
+#include <QListWidgetItem>
 #include <QPixmap>
-#include <Q3VBoxLayout>
+#include <QTabWidget>
+#include <QLabel>
+#include <QCheckBox>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QToolTip>
+#include <QPainter>
+#include <QWidget>
+#include <QHeaderView>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 
 #include "pageitem.h"
 #include "sccombobox.h"
@@ -33,11 +29,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "util.h"
 
-ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent, "ExtImageProps", true, 0 )
+ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent )
 {
-	setIcon(loadIcon("AppIcon.png"));
-	setCaption( tr( "Extended Image Properties" ) );
-	ExtImagePropsLayout = new Q3VBoxLayout( this, 1, 2, "ExtImagePropsLayout");
+	setModal(true);
+	setWindowTitle( tr( "Extended Image Properties" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	ExtImagePropsLayout = new QVBoxLayout( this );
+	ExtImagePropsLayout->setMargin(1);
+	ExtImagePropsLayout->setSpacing(2);
 	viewWidget = view;
 	currentItem = item;
 	currentLayer = 0;
@@ -82,30 +81,34 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	if (info->layerInfo.count() != 0)
 	{
 		tab = new QWidget( propsTab, "tab" );
-		tabLayout = new Q3VBoxLayout( tab, 4, 4, "tabLayout");
-		layout1 = new Q3HBoxLayout( 0, 0, 4, "layout1");
+		tabLayout = new QVBoxLayout( tab );
+		tabLayout->setMargin(4);
+		tabLayout->setSpacing(4);
+		layout1 = new QHBoxLayout;
+		layout1->setMargin(0);
+		layout1->setSpacing(4);
 		textLabel1 = new QLabel( tab, "textLabel1" );
 		textLabel1->setText( tr( "Blend Mode:" ) );
 		layout1->addWidget( textLabel1 );
 		blendMode = new ScComboBox( false, tab, "blendMode" );
 		blendMode->clear();
-		blendMode->insertItem( tr("Normal"));
-		blendMode->insertItem( tr("Darken"));
-		blendMode->insertItem( tr("Lighten"));
-		blendMode->insertItem( tr("Hue"));
-		blendMode->insertItem( tr("Saturation"));
-		blendMode->insertItem( tr("Color"));
-		blendMode->insertItem( tr("Luminosity"));
-		blendMode->insertItem( tr("Multiply"));
-		blendMode->insertItem( tr("Screen"));
-		blendMode->insertItem( tr("Dissolve"));
-		blendMode->insertItem( tr("Overlay"));
-		blendMode->insertItem( tr("Hard Light"));
-		blendMode->insertItem( tr("Soft Light"));
-		blendMode->insertItem( tr("Difference"));
-		blendMode->insertItem( tr("Exclusion"));
-		blendMode->insertItem( tr("Color Dodge"));
-		blendMode->insertItem( tr("Color Burn"));
+		blendMode->addItem( tr("Normal"));
+		blendMode->addItem( tr("Darken"));
+		blendMode->addItem( tr("Lighten"));
+		blendMode->addItem( tr("Hue"));
+		blendMode->addItem( tr("Saturation"));
+		blendMode->addItem( tr("Color"));
+		blendMode->addItem( tr("Luminosity"));
+		blendMode->addItem( tr("Multiply"));
+		blendMode->addItem( tr("Screen"));
+		blendMode->addItem( tr("Dissolve"));
+		blendMode->addItem( tr("Overlay"));
+		blendMode->addItem( tr("Hard Light"));
+		blendMode->addItem( tr("Soft Light"));
+		blendMode->addItem( tr("Difference"));
+		blendMode->addItem( tr("Exclusion"));
+		blendMode->addItem( tr("Color Dodge"));
+		blendMode->addItem( tr("Color Burn"));
 		layout1->addWidget( blendMode );
 		textLabel2 = new QLabel( tab, "textLabel2" );
 		textLabel2->setText( tr( "Opacity:" ) );
@@ -117,32 +120,28 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		opacitySpinBox->setSuffix( tr(" %"));
 		layout1->addWidget( opacitySpinBox );
 		tabLayout->addLayout( layout1 );
-		layerTable = new Q3Table( tab, "layerTable" );
-		layerTable->setNumRows( 0 );
-		layerTable->setNumCols( 3 );
-		Q3Header *header = layerTable->horizontalHeader();
-		header->setLabel(0, loadIcon("16/show-object.png"), "");
-		header->setLabel(1, "");
-		header->setLabel(2, tr("Name"));
-		layerTable->setColumnReadOnly(0, true);
-		layerTable->setColumnReadOnly(1, true);
-		layerTable->setColumnReadOnly(2, true);
+		layerTable = new QTableWidget(info->layerInfo.count(), 3, tab );
+		layerTable->setHorizontalHeaderItem(0, new QTableWidgetItem(QIcon(loadIcon("16/show-object.png")), ""));
+		layerTable->setHorizontalHeaderItem(1, new QTableWidgetItem(""));
+		layerTable->setHorizontalHeaderItem(2, new QTableWidgetItem( tr("Name")));
+		QHeaderView* headerH = layerTable->horizontalHeader();
+		headerH->setStretchLastSection(true);
+		headerH->setMovable(false);
+		headerH->setResizeMode(QHeaderView::Fixed);
 		if (info->layerInfo.count() == 1)
 		{
 			layerTable->setColumnWidth(1, 40);
 			layerTable->setColumnWidth(0, 24);
 		}
-		layerTable->setColumnStretchable(2, true);
-		layerTable->setRowMovingEnabled(false);
-		layerTable->setSorting(false);
-		layerTable->setSelectionMode( Q3Table::SingleRow );
-		layerTable->setFocusStyle( Q3Table::FollowStyle );
-		Q3Header *Header = layerTable->verticalHeader();
-		Header->setMovingEnabled(false);
-		Header->setResizeEnabled(false);
-		layerTable->setLeftMargin(0);
+		layerTable->setSortingEnabled(false);
+		layerTable->setSelectionBehavior( QAbstractItemView::SelectRows );
+		QHeaderView *Header = layerTable->verticalHeader();
+		Header->setMovable(false);
+		Header->setResizeMode(QHeaderView::Fixed);
 		Header->hide();
 		FlagsSicht.clear();
+		int col2Width = 0;
+		int col1Width = 0;
 		if (info->layerInfo.count() != 0)
 		{
 			if ((info->isRequest) && (info->RequestProps.contains(0)))
@@ -159,7 +158,6 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			blendMode->setEnabled(true);
 			QString tmp;
 			QList<PSDLayer>::iterator it2;
-			layerTable->setNumRows(info->layerInfo.count());
 			uint counter = 0;
 			for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
 			{
@@ -171,6 +169,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 					cp->setChecked(!((*it2).flags & 2));
 				QPixmap pm;
 				pm.convertFromImage((*it2).thumb);
+				col1Width = qMax(col1Width, pm.width());
 				cp->setPixmap(pm);
 				FlagsSicht.append(cp);
 				connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
@@ -185,6 +184,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 						cp2->setChecked(true);
 					QPixmap pm2;
 					pm2.convertFromImage((*it2).thumb_mask);
+					col2Width = qMax(col2Width, pm2.width());
 					cp2->setPixmap(pm2);
 					connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
 					layerTable->setCellWidget(info->layerInfo.count()-counter-1, 1, cp2);
@@ -192,22 +192,26 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 				}
 				else
 					FlagsMask.append(0);
-				layerTable->setText(info->layerInfo.count()-counter-1, 2, (*it2).layerName);
-				Header->setLabel(info->layerInfo.count()-counter-1, tmp.setNum(counter+1));
+				QTableWidgetItem *tW = new QTableWidgetItem((*it2).layerName);
+				tW->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+				layerTable->setItem(info->layerInfo.count()-counter-1, 2, tW);
 				layerTable->setRowHeight(info->layerInfo.count()-counter-1, 40);
 				counter++;
 			}
-			layerTable->adjustColumn(0);
-			layerTable->adjustColumn(1);
 		}
 		tabLayout->addWidget( layerTable );
+		layerTable->setColumnWidth(1, 24 + col2Width);
+		layerTable->setColumnWidth(0, 24 + col2Width);
 		blendMode->setCurrentItem(0);
 		propsTab->insertTab( tab,  tr( "Layers" ) );
 	}
 	tab_2 = new QWidget( propsTab, "tab_2" );
-	tabLayout_2 = new Q3VBoxLayout( tab_2, 4, 4, "tabLayout_2");
-	pathList = new Q3ListBox( tab_2, "pathList" );
+	tabLayout_2 = new QVBoxLayout( tab_2 );
+	tabLayout_2->setMargin(4);
+	tabLayout_2->setSpacing(4);
+	pathList = new QListWidget( tab_2 );
 	pathList->clear();
+	pathList->setIconSize(QSize(40, 40));
 	QMap<QString, FPointArray>::Iterator it;
 	if (info->PDSpathData.count() != 0)
 	{
@@ -243,9 +247,12 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			delete p;
 			QPixmap pm;
 			pm.convertFromImage(pixm);
-			pathList->insertItem(pm, it.key());
+			new QListWidgetItem(QIcon(pm), it.key(), pathList);
 			if (it.key() == info->usedPath)
-				pathList->setSelected(pathList->count()-1, true);
+			{
+				pathList->setCurrentRow(pathList->count()-1);
+				pathList->currentItem()->setSelected(true);
+			}
 		}
 	}
 	tabLayout_2->addWidget( pathList );
@@ -255,11 +262,11 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	ExtImagePropsLayout->addWidget( propsTab );
 	resize(330, 320);
 
-	connect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
+	connect(pathList, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selPath(QListWidgetItem*) ) );
 	connect(resetPath, SIGNAL(clicked()), this, SLOT(noPath()));
 	if (info->layerInfo.count() != 0)
 	{
-		connect(layerTable, SIGNAL(currentChanged(int, int)), this, SLOT(selLayer(int)));
+		connect(layerTable, SIGNAL(cellClicked(int, int)), this, SLOT(selLayer(int)));
 		connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
 		connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 	}
@@ -269,29 +276,24 @@ void ExtImageProps::changedLayer()
 {
 	struct ImageLoadRequest loadingInfo;
 	currentItem->pixm.imgInfo.isRequest = true;
-	for (int r = 0; r < layerTable->numRows(); ++r)
+	for (int r = 0; r < layerTable->rowCount(); ++r)
 	{
-		if (currentLayer == layerTable->numRows() - r - 1)
+		if (currentLayer == layerTable->rowCount() - r - 1)
 		{
 			loadingInfo.blend = blendModesRev[blendMode->currentText()];
 			loadingInfo.opacity = qRound(opacitySpinBox->value() / 100.0 * 255);
 		}
-/*		else if (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->numRows() - r - 1))
-		{
-			loadingInfo.blend = currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - r - 1].blend;
-			loadingInfo.opacity = currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - r - 1].opacity;
-		} */
 		else
 		{
-			loadingInfo.blend = currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - r - 1].blend;
-			loadingInfo.opacity = currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - r - 1].opacity;
+			loadingInfo.blend = currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - r - 1].blend;
+			loadingInfo.opacity = currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - r - 1].opacity;
 		}
-		loadingInfo.visible = FlagsSicht.at(layerTable->numRows() - r - 1)->isChecked();
-		if (FlagsMask.at(layerTable->numRows() - r - 1))
-			loadingInfo.useMask = FlagsMask.at(layerTable->numRows() - r - 1)->isChecked();
+		loadingInfo.visible = FlagsSicht.at(layerTable->rowCount() - r - 1)->isChecked();
+		if (FlagsMask.at(layerTable->rowCount() - r - 1))
+			loadingInfo.useMask = FlagsMask.at(layerTable->rowCount() - r - 1)->isChecked();
 		else
 			loadingInfo.useMask = true;
-		currentItem->pixm.imgInfo.RequestProps.insert(layerTable->numRows() - r - 1, loadingInfo);
+		currentItem->pixm.imgInfo.RequestProps.insert(layerTable->rowCount() - r - 1, loadingInfo);
 	}
 	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
 	viewWidget->updateContents();
@@ -301,41 +303,44 @@ void ExtImageProps::selLayer(int layer)
 {
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
-	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->numRows() - layer - 1)))
+	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->rowCount() - layer - 1)))
 	{
-		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setCurrentText(blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - layer - 1].blend]);
+		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
+		blendMode->setCurrentText(blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].blend]);
 	}
 	else
 	{
-		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setCurrentText(blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - layer - 1].blend]);
+		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
+		blendMode->setCurrentText(blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].blend]);
 	}
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);
-	currentLayer = layerTable->numRows() - layer - 1;
+	currentLayer = layerTable->rowCount() - layer - 1;
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 }
 
 void ExtImageProps::noPath()
 {
-	disconnect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
+	disconnect(pathList, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selPath(QListWidgetItem*) ) );
 	currentItem->imageClip.resize(0);
 	currentItem->pixm.imgInfo.usedPath = "";
 	pathList->clearSelection();
 	viewWidget->updateContents();
-	connect(pathList, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selPath(Q3ListBoxItem*) ) );
+	connect(pathList, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selPath(QListWidgetItem*) ) );
 }
 
-void ExtImageProps::selPath(Q3ListBoxItem *c)
+void ExtImageProps::selPath(QListWidgetItem *c)
 {
-	currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
-	currentItem->pixm.imgInfo.usedPath = c->text();
-	QMatrix cl;
-	cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
-	cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
-	currentItem->imageClip.map(cl);
-	viewWidget->updateContents();
+	if (c != NULL)
+	{
+		currentItem->imageClip = currentItem->pixm.imgInfo.PDSpathData[c->text()].copy();
+		currentItem->pixm.imgInfo.usedPath = c->text();
+		QMatrix cl;
+		cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
+		cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
+		currentItem->imageClip.map(cl);
+		viewWidget->updateContents();
+	}
 }
 
