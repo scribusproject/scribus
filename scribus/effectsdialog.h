@@ -7,51 +7,31 @@ for which a new license (GPL+exception) is in place.
 #ifndef EFFECTSDIALOG_H
 #define EFFECTSDIALOG_H
 
-#include <qvariant.h>
-#include <qpixmap.h>
-#include <qdialog.h>
-#include <q3valuelist.h>
-#include <qmap.h>
-#include <q3listbox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <QLabel>
-#include <Q3PopupMenu>
-#include <QMenu>
-#include <QWidgetAction>
-#include <Q3VBoxLayout>
+#include <QDialog>
+#include <QMap>
 
 #include "scribusapi.h"
 #include "pageitem.h"
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QSpacerItem;
+class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
 class QLabel;
 class QPushButton;
 class QComboBox;
 class ColorCombo;
 class ScribusDoc;
 class ShadeButton;
-class Q3WidgetStack;
+class QStackedWidget;
 class QWidget;
 class QSlider;
-class Q3PopupMenu;
+class QMenu;
+class QWidgetAction;
 class QToolButton;
+class QTime;
+class QListWidgetItem;
+class QListWidget;
 class ScrSpinBox;
 class CurveWidget;
-
-class SCRIBUS_API EffectListItem : public Q3ListBoxText
-{
-public:
-    EffectListItem(Q3ListBox* parent, QString f);
-    virtual ~EffectListItem() {};
-    virtual const int width(const Q3ListBox *);
-    virtual const int height(const Q3ListBox *);
-protected:
-    virtual void paint(QPainter *p);
-};
 
 class SCRIBUS_API EffectsDialog : public QDialog
 {
@@ -61,6 +41,7 @@ public:
 	EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc );
 	~EffectsDialog() {};
 	void selectEffectHelper(bool final = false);
+	void setItemSelectable(QListWidget* widget, int itemNr, bool enable);
 
 	QLabel* pixmapLabel1;
 	QLabel* textLabel1;
@@ -77,7 +58,7 @@ public:
 	QLabel* textLabel12;
 	QLabel* textLabel14;
 	QLabel* textLabel15;
-	Q3WidgetStack* optionStack;
+	QStackedWidget* optionStack;
 	QWidget* WStackPage;
 	QWidget* WStackPage_2;
 	ColorCombo* colData;
@@ -165,17 +146,17 @@ public:
 	QWidget* WStackPage_11;
 	CurveWidget *Kdisplay;
 
-	Q3ListBox* usedEffects;
+	QListWidget* usedEffects;
 	QPushButton* effectUp;
 	QPushButton* effectDown;
 	QPushButton* toEffects;
 	QPushButton* fromEffects;
-	Q3ListBox* availableEffects;
+	QListWidget* availableEffects;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	ScImageEffectList effectsList;
-	QMap<Q3ListBoxItem*, QString> effectValMap;
-	Q3ListBoxItem* currentOptions;
+	QMap<QListWidgetItem*, QString> effectValMap;
+	QListWidgetItem* currentOptions;
 	ScribusDoc* doc;
 	PageItem* currItem;
 	ScImage image;
@@ -193,38 +174,38 @@ public slots:
 	virtual void moveFromEffects();
 	virtual void moveEffectUp();
 	virtual void moveEffectDown();
-	virtual void selectEffect(Q3ListBoxItem* c);
-	virtual void selectAvailEffect(Q3ListBoxItem* c);
-	virtual void selectAvailEffectDbl(Q3ListBoxItem* c);
+	virtual void selectEffect(QListWidgetItem* c);
+	virtual void selectAvailEffect(QListWidgetItem* c);
+	virtual void selectAvailEffectDbl(QListWidgetItem* c);
 
 protected:
-	Q3HBoxLayout* EffectsDialogLayout;
-	Q3VBoxLayout* WStackPageLayout;
-	Q3VBoxLayout* WStackPage3Layout;
-	Q3HBoxLayout* layout20;
-	Q3VBoxLayout* WStackPage4Layout;
-	Q3HBoxLayout* layout21;
-	Q3VBoxLayout* WStackPage5Layout;
-	Q3HBoxLayout* layout22;
-	Q3HBoxLayout* layout23;
-	Q3VBoxLayout* WStackPage6Layout;
-	Q3HBoxLayout* layout24;
-	Q3VBoxLayout* WStackPage7Layout;
-	Q3GridLayout* WStackPage8Layout;
-	Q3GridLayout* WStackPage9Layout;
-	Q3GridLayout* WStackPage10Layout;
-	Q3VBoxLayout* WStackPage11Layout;
-	Q3HBoxLayout* layout26;
-	Q3HBoxLayout* layout17;
-	Q3HBoxLayout* layout19;
-	Q3GridLayout* layout10;
-	Q3VBoxLayout* layout8;
-	Q3HBoxLayout* layout7;
-	Q3VBoxLayout* layout1;
-	Q3VBoxLayout* layout2;
-	Q3VBoxLayout* layout16;
-	Q3VBoxLayout* layout18;
-	Q3HBoxLayout* layout9;
+	QHBoxLayout* EffectsDialogLayout;
+	QVBoxLayout* WStackPageLayout;
+	QVBoxLayout* WStackPage3Layout;
+	QHBoxLayout* layout20;
+	QVBoxLayout* WStackPage4Layout;
+	QHBoxLayout* layout21;
+	QVBoxLayout* WStackPage5Layout;
+	QHBoxLayout* layout22;
+	QHBoxLayout* layout23;
+	QVBoxLayout* WStackPage6Layout;
+	QHBoxLayout* layout24;
+	QVBoxLayout* WStackPage7Layout;
+	QGridLayout* WStackPage8Layout;
+	QGridLayout* WStackPage9Layout;
+	QGridLayout* WStackPage10Layout;
+	QVBoxLayout* WStackPage11Layout;
+	QHBoxLayout* layout26;
+	QHBoxLayout* layout17;
+	QHBoxLayout* layout19;
+	QGridLayout* layout10;
+	QVBoxLayout* layout8;
+	QHBoxLayout* layout7;
+	QVBoxLayout* layout1;
+	QVBoxLayout* layout2;
+	QVBoxLayout* layout16;
+	QVBoxLayout* layout18;
+	QHBoxLayout* layout9;
 };
 
 #endif // EFFECTSDIALOG_H

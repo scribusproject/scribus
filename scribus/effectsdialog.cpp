@@ -5,26 +5,25 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "effectsdialog.h"
-//#include "effectsdialog.moc"
-#include <qvariant.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qimage.h>
-#include <q3textstream.h>
-#include <q3widgetstack.h>
-#include <qwidget.h>
-#include <qslider.h>
-#include <qpainter.h>
-#include <qtoolbutton.h>
-#include <q3popupmenu.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
 #include <QPixmap>
-#include <Q3VBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QToolButton>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QToolTip>
+#include <QSlider>
+#include <QImage>
+#include <QWidget>
+#include <QMenu>
+#include <QWidgetAction>
+#include <QTime>
+#include <QStackedWidget>
+#include <QTextStream>
 #include "colorcombo.h"
 #include "cmsettings.h"
 #include "sccombobox.h"
@@ -34,48 +33,19 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "colorutil.h"
 #include "curvewidget.h"
+#include "util.h"
 
-extern QPixmap loadIcon(QString nam);
-
-EffectListItem::EffectListItem(Q3ListBox* parent, QString f) : Q3ListBoxText(parent, f)
+EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent )
 {
-}
-
-const int EffectListItem::width(const Q3ListBox *listbox)
-{
-	return listbox->fontMetrics().width(text()) + 2;
-}
-
-const int EffectListItem::height(const Q3ListBox *listbox)
-{
-	QFontMetrics fontMetrics(listbox->fontMetrics());
-	return fontMetrics.lineSpacing() + 2;
-}
-
-void EffectListItem::paint(QPainter *painter)
-{
-	QFontMetrics fontMetrics(painter->fontMetrics());
-	if (!isSelectable())
-		painter->setPen(QColor(128, 128, 128));
-	painter->drawText(3, fontMetrics.lineSpacing()-fontMetrics.descent(), text());
-}
-
-EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent, "EffectsDialog", true, 0 )
-{
-	EffectsDialogLayout = new Q3HBoxLayout( this, 10, 5, "EffectsDialogLayout");
-	setCaption( tr( "Image Effects" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle( tr( "Image Effects" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	currItem = item;
 	effectsList = currItem->effectsInUse;
 	doc = docc;
 	currentOptions = 0;
 	bool mode = false;
 	CMSettings cms(docc, "", 0);
-/*	if (currItem->pixm.imgInfo.RequestProps.count() != 0)
-	{
-		image.imgInfo.RequestProps = currItem->pixm.imgInfo.RequestProps;
-		image.imgInfo.isRequest = true;
-	} */
 	image.LoadPicture(currItem->Pfile, cms, false, false, ScImage::RGBData, 72, &mode);
 	int ix = image.width();
 	int iy = image.height();
@@ -90,7 +60,12 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			image.createLowRes(sy);
 		imageScale = qMin(sx, sy);
 	}
-	layout16 = new Q3VBoxLayout( 0, 0, 5, "layout16");
+	EffectsDialogLayout = new QHBoxLayout( this );
+	EffectsDialogLayout->setMargin(10);
+	EffectsDialogLayout->setSpacing(5);
+	layout16 = new QVBoxLayout;
+	layout16->setMargin(0);
+	layout16->setSpacing(5);
 	pixmapLabel1 = new QLabel( this, "pixmapLabel1" );
 	pixmapLabel1->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, pixmapLabel1->sizePolicy().hasHeightForWidth() ) );
 	pixmapLabel1->setMinimumSize( QSize( 220, 220 ) );
@@ -102,17 +77,21 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel5 = new QLabel( this, "textLabel5" );
 	textLabel5->setText( tr( "Options:" ) );
 	layout16->addWidget( textLabel5 );
-	optionStack = new Q3WidgetStack( this, "optionStack" );
+	optionStack = new QStackedWidget( this );
 	optionStack->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, optionStack->sizePolicy().hasHeightForWidth() ) );
 	optionStack->setMinimumSize( QSize( 220, 180 ) );
-	optionStack->setFrameShape( Q3WidgetStack::GroupBoxPanel );
+	optionStack->setFrameShape( QFrame::Box );
 	WStackPage = new QWidget( optionStack, "WStackPage" );
-	optionStack->addWidget( WStackPage, 0 );
+	optionStack->addWidget( WStackPage );
 
 	WStackPage_2 = new QWidget( optionStack, "WStackPage_2" );
-	WStackPageLayout = new Q3VBoxLayout( WStackPage_2, 5, 5, "WStackPageLayout");
+	WStackPageLayout = new QVBoxLayout( WStackPage_2 );
+	WStackPageLayout->setMargin(5);
+	WStackPageLayout->setSpacing(5);
 	WStackPageLayout->setAlignment( Qt::AlignTop );
-	layout17 = new Q3HBoxLayout( 0, 0, 5, "layout7");
+	layout17 = new QHBoxLayout;
+	layout17->setMargin(0);
+	layout17->setSpacing(5);
 	textLabel3 = new QLabel( tr( "Color:" ), WStackPage_2, "textLabel3" );
 	layout17->addWidget( textLabel3 );
 
@@ -121,19 +100,25 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout17->addWidget( colData );
 	WStackPageLayout->addLayout( layout17 );
 
-	layout19 = new Q3HBoxLayout( 0, 0, 5, "layout7");
+	layout19 = new QHBoxLayout;
+	layout19->setMargin(0);
+	layout19->setSpacing(5);
 	textLabel4 = new QLabel( tr( "Shade:" ), WStackPage_2, "textLabel4" );
 	layout19->addWidget( textLabel4 );
 	shade = new ShadeButton(WStackPage_2);
 	shade->setValue(100);
 	layout19->addWidget( shade );
 	WStackPageLayout->addLayout( layout19 );
-	optionStack->addWidget( WStackPage_2, 1 );
+	optionStack->addWidget( WStackPage_2 );
 
 	WStackPage_3 = new QWidget( optionStack, "WStackPage_3" );
-	WStackPage3Layout = new Q3VBoxLayout( WStackPage_3, 5, 5, "WStackPageLayout");
+	WStackPage3Layout = new QVBoxLayout( WStackPage_3 );
+	WStackPage3Layout->setMargin(5);
+	WStackPage3Layout->setSpacing(5);
 	WStackPage3Layout->setAlignment( Qt::AlignTop );
-	layout20 = new Q3HBoxLayout( 0, 0, 5, "layout7");
+	layout20 = new QHBoxLayout;
+	layout20->setMargin(0);
+	layout20->setSpacing(5);
 	textLabel6 = new QLabel( tr( "Brightness:" ), WStackPage_3, "textLabel6" );
 	layout20->addWidget( textLabel6, Qt::AlignLeft );
 	textLabel7 = new QLabel( "0", WStackPage_3, "textLabel7" );
@@ -146,12 +131,16 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	brightnessSlider->setOrientation( Qt::Horizontal );
 	brightnessSlider->setTickmarks( QSlider::Below );
 	WStackPage3Layout->addWidget( brightnessSlider );
-	optionStack->addWidget( WStackPage_3, 2 );
+	optionStack->addWidget( WStackPage_3 );
 
 	WStackPage_4 = new QWidget( optionStack, "WStackPage_4" );
-	WStackPage4Layout = new Q3VBoxLayout( WStackPage_4, 5, 5, "WStackPageLayout");
+	WStackPage4Layout = new QVBoxLayout( WStackPage_4 );
+	WStackPage4Layout->setMargin(5);
+	WStackPage4Layout->setSpacing(5);
 	WStackPage4Layout->setAlignment( Qt::AlignTop );
-	layout21 = new Q3HBoxLayout( 0, 0, 5, "layout7");
+	layout21 = new QHBoxLayout;
+	layout21->setMargin(0);
+	layout21->setSpacing(5);
 	textLabel8 = new QLabel( tr( "Contrast:" ), WStackPage_4, "textLabel8" );
 	layout21->addWidget( textLabel8, Qt::AlignLeft );
 	textLabel9 = new QLabel( "0", WStackPage_4, "textLabel9" );
@@ -164,43 +153,57 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	contrastSlider->setOrientation( Qt::Horizontal );
 	contrastSlider->setTickmarks( QSlider::Below );
 	WStackPage4Layout->addWidget( contrastSlider );
-	optionStack->addWidget( WStackPage_4, 3 );
+	optionStack->addWidget( WStackPage_4 );
 
 	WStackPage_5 = new QWidget( optionStack, "WStackPage_5" );
-	WStackPage5Layout = new Q3VBoxLayout( WStackPage_5, 5, 5, "WStackPageLayout");
+	WStackPage5Layout = new QVBoxLayout( WStackPage_5 );
+	WStackPage5Layout->setMargin(5);
+	WStackPage5Layout->setSpacing(5);
 	WStackPage5Layout->setAlignment( Qt::AlignTop );
-	layout22 = new Q3HBoxLayout( 0, 0, 5, "layout7");
+	layout22 = new QHBoxLayout;
+	layout22->setMargin(0);
+	layout22->setSpacing(5);
 	textLabel10 = new QLabel( tr( "Radius:" ), WStackPage_5, "textLabel10" );
 	layout22->addWidget( textLabel10 );
 	shRadius = new ScrSpinBox( 0.0, 10.0, WStackPage_5, 1 );
 	shRadius->setValue(0);
 	layout22->addWidget( shRadius );
 	WStackPage5Layout->addLayout( layout22 );
-	layout23 = new Q3HBoxLayout( 0, 0, 5, "layout7");
+	layout23 = new QHBoxLayout;
+	layout23->setMargin(0);
+	layout23->setSpacing(5);
 	textLabel11 = new QLabel( tr("Value:"), WStackPage_5, "textLabel11" );
 	layout23->addWidget( textLabel11 );
 	shValue = new ScrSpinBox( 0.0, 5.0, WStackPage_5, 1 );
 	shValue->setValue(1.0);
 	layout23->addWidget( shValue );
 	WStackPage5Layout->addLayout( layout23 );
-	optionStack->addWidget( WStackPage_5, 4 );
+	optionStack->addWidget( WStackPage_5 );
 
 	WStackPage_6 = new QWidget( optionStack, "WStackPage_6" );
-	WStackPage6Layout = new Q3VBoxLayout( WStackPage_6, 5, 5, "WStackPageLayout");
+	WStackPage6Layout = new QVBoxLayout( WStackPage_6 );
+	WStackPage6Layout->setMargin(5);
+	WStackPage6Layout->setSpacing(5);
 	WStackPage6Layout->setAlignment( Qt::AlignTop );
-	layout24 = new Q3HBoxLayout( 0, 0, 5, "layout7");
+	layout24 = new QHBoxLayout;
+	layout24->setMargin(0);
+	layout24->setSpacing(5);
 	textLabel12 = new QLabel( tr( "Radius:" ), WStackPage_6, "textLabel10" );
 	layout24->addWidget( textLabel12 );
 	blRadius = new ScrSpinBox( 0.0, 30.0, WStackPage_6, 1 );
 	blRadius->setValue(0);
 	layout24->addWidget( blRadius );
 	WStackPage6Layout->addLayout( layout24 );
-	optionStack->addWidget( WStackPage_6, 5 );
+	optionStack->addWidget( WStackPage_6 );
 
 	WStackPage_7 = new QWidget( optionStack, "WStackPage_4" );
-	WStackPage7Layout = new Q3VBoxLayout( WStackPage_7, 5, 5, "WStackPageLayout");
+	WStackPage7Layout = new QVBoxLayout( WStackPage_7 );
+	WStackPage7Layout->setMargin(5);
+	WStackPage7Layout->setSpacing(5);
 	WStackPage7Layout->setAlignment( Qt::AlignTop );
-	layout26 = new Q3HBoxLayout( 0, 0, 5, "layout7");
+	layout26 = new QHBoxLayout;
+	layout26->setMargin(0);
+	layout26->setSpacing(5);
 	textLabel14 = new QLabel( tr( "Posterize:" ), WStackPage_7, "textLabel8" );
 	layout26->addWidget( textLabel14, Qt::AlignLeft );
 	textLabel15 = new QLabel( "0", WStackPage_7, "textLabel9" );
@@ -213,15 +216,18 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	solarizeSlider->setOrientation( Qt::Horizontal );
 	solarizeSlider->setTickmarks( QSlider::Below );
 	WStackPage7Layout->addWidget( solarizeSlider );
-	optionStack->addWidget( WStackPage_7, 6 );
+	optionStack->addWidget( WStackPage_7 );
 
 	WStackPage_8 = new QWidget( optionStack, "WStackPage_8" );
-	WStackPage8Layout = new Q3GridLayout( WStackPage_8, 1, 1, 4, 5, "WStackPage8Layout");
+	WStackPage8Layout = new QGridLayout( WStackPage_8 );
+	WStackPage8Layout->setMargin(4);
+	WStackPage8Layout->setSpacing(5);
+	WStackPage8Layout->setAlignment( Qt::AlignTop );
 	textLabel1d = new QLabel( tr( "Color 1:" ), WStackPage_8, "textLabel1d" );
 	WStackPage8Layout->addWidget( textLabel1d, 0, 0 );
 	colData1 = new ColorCombo(false, WStackPage_8, "colData1");
 	colData1->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage8Layout->addMultiCellWidget( colData1, 0, 0, 1, 2);
+	WStackPage8Layout->addWidget( colData1, 0, 1, 1, 2);
 	shade1 = new ShadeButton(WStackPage_8);
 	shade1->setValue(100);
 	WStackPage8Layout->addWidget( shade1, 1, 1 );
@@ -242,7 +248,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage8Layout->addWidget( textLabel2d, 2, 0 );
 	colData2 = new ColorCombo(false, WStackPage_8, "colData2");
 	colData2->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage8Layout->addMultiCellWidget( colData2, 2, 2, 1, 2);
+	WStackPage8Layout->addWidget( colData2, 2, 1, 1, 2);
 	shade2 = new ShadeButton(WStackPage_8);
 	shade2->setValue(100);
 	WStackPage8Layout->addWidget( shade2, 3, 1 );
@@ -260,15 +266,18 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage8Layout->addWidget( CurveD2Button, 3, 2 );
 	QSpacerItem *spacerD1 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	WStackPage8Layout->addItem( spacerD1, 4, 0 );
-	optionStack->addWidget( WStackPage_8, 7 );
+	optionStack->addWidget( WStackPage_8 );
 
 	WStackPage_9 = new QWidget( optionStack, "WStackPage_9" );
-	WStackPage9Layout = new Q3GridLayout( WStackPage_9, 1, 1, 4, 5, "WStackPage9Layout");
+	WStackPage9Layout = new QGridLayout( WStackPage_9 );
+	WStackPage9Layout->setMargin(4);
+	WStackPage9Layout->setSpacing(5);
+	WStackPage9Layout->setAlignment( Qt::AlignTop );
 	textLabel1t = new QLabel( tr( "Color 1:" ), WStackPage_9, "textLabel1t" );
 	WStackPage9Layout->addWidget( textLabel1t, 0, 0 );
 	colDatat1 = new ColorCombo(false, WStackPage_9, "colDatat1");
 	colDatat1->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage9Layout->addMultiCellWidget( colDatat1, 0, 0, 1, 2 );
+	WStackPage9Layout->addWidget( colDatat1, 0, 1, 1, 2 );
 	shadet1 = new ShadeButton(WStackPage_9);
 	shadet1->setValue(100);
 	WStackPage9Layout->addWidget( shadet1, 1, 1 );
@@ -288,7 +297,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage9Layout->addWidget( textLabel2t, 2, 0 );
 	colDatat2 = new ColorCombo(false, WStackPage_9, "colDatat2");
 	colDatat2->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage9Layout->addMultiCellWidget( colDatat2, 2, 2, 1, 2 );
+	WStackPage9Layout->addWidget( colDatat2, 2, 1, 1, 2 );
 	shadet2 = new ShadeButton(WStackPage_9);
 	shadet2->setValue(100);
 	WStackPage9Layout->addWidget( shadet2, 3, 1 );
@@ -308,7 +317,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage9Layout->addWidget( textLabel3t, 4, 0 );
 	colDatat3 = new ColorCombo(false, WStackPage_9, "colDatat3");
 	colDatat3->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage9Layout->addMultiCellWidget( colDatat3, 4, 4, 1, 2 );
+	WStackPage9Layout->addWidget( colDatat3, 4, 1, 1, 2 );
 	shadet3 = new ShadeButton(WStackPage_9);
 	shadet3->setValue(100);
 	WStackPage9Layout->addWidget( shadet3, 5, 1 );
@@ -324,15 +333,17 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveT3Button->setMenu(CurveT3Pop);
 	CurveT3Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage9Layout->addWidget( CurveT3Button, 5, 2 );
-	optionStack->addWidget( WStackPage_9, 8 );
+	optionStack->addWidget( WStackPage_9 );
 
 	WStackPage_10 = new QWidget( optionStack, "WStackPage_10" );
-	WStackPage10Layout = new Q3GridLayout( WStackPage_10, 1, 1, 4, 5, "WStackPage10Layout");
+	WStackPage10Layout = new QGridLayout( WStackPage_10 );
+	WStackPage10Layout->setMargin(4);
+	WStackPage10Layout->setSpacing(5);
 	textLabel1q = new QLabel( tr( "Color 1:" ), WStackPage_10, "textLabel1q" );
 	WStackPage10Layout->addWidget( textLabel1q, 0, 0 );
 	colDataq1 = new ColorCombo(false, WStackPage_10, "colDataq1");
 	colDataq1->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage10Layout->addMultiCellWidget( colDataq1, 0, 0, 1, 2 );
+	WStackPage10Layout->addWidget( colDataq1, 0, 1, 1, 2 );
 	shadeq1 = new ShadeButton(WStackPage_10);
 	shadeq1->setValue(100);
 	WStackPage10Layout->addWidget( shadeq1, 1, 1 );
@@ -352,7 +363,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( textLabel2q, 2, 0 );
 	colDataq2 = new ColorCombo(false, WStackPage_10, "colDataq2");
 	colDataq2->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage10Layout->addMultiCellWidget( colDataq2, 2, 2, 1, 2 );
+	WStackPage10Layout->addWidget( colDataq2, 2, 1, 1, 2 );
 	shadeq2 = new ShadeButton(WStackPage_10);
 	shadeq2->setValue(100);
 	WStackPage10Layout->addWidget( shadeq2, 3, 1 );
@@ -372,7 +383,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( textLabel3q, 4, 0 );
 	colDataq3 = new ColorCombo(false, WStackPage_10, "colDataq3");
 	colDataq3->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage10Layout->addMultiCellWidget( colDataq3, 4, 4, 1, 2 );
+	WStackPage10Layout->addWidget( colDataq3, 4, 1, 1, 2 );
 	shadeq3 = new ShadeButton(WStackPage_10);
 	shadeq3->setValue(100);
 	WStackPage10Layout->addWidget( shadeq3, 5, 1 );
@@ -392,7 +403,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( textLabel4q, 6, 0 );
 	colDataq4 = new ColorCombo(false, WStackPage_10, "colDataq4");
 	colDataq4->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage10Layout->addMultiCellWidget( colDataq4, 6, 6, 1, 2 );
+	WStackPage10Layout->addWidget( colDataq4, 6, 1, 1, 2 );
 	shadeq4 = new ShadeButton(WStackPage_10);
 	shadeq4->setValue(100);
 	WStackPage10Layout->addWidget( shadeq4, 7, 1 );
@@ -408,59 +419,55 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	CurveQ4Button->setMenu(CurveQ4Pop);
 	CurveQ4Button->setPopupMode(QToolButton::InstantPopup);
 	WStackPage10Layout->addWidget( CurveQ4Button, 7, 2 );
-	optionStack->addWidget( WStackPage_10, 9 );
+	optionStack->addWidget( WStackPage_10 );
 
 	WStackPage_11 = new QWidget( optionStack, "WStackPage_11" );
-	WStackPage11Layout = new Q3VBoxLayout( WStackPage_11, 5, 5, "WStackPageLayout");
+	WStackPage11Layout = new QVBoxLayout( WStackPage_11 );
+	WStackPage11Layout->setMargin(5);
+	WStackPage11Layout->setSpacing(5);
 	WStackPage11Layout->setAlignment( Qt::AlignTop );
 	Kdisplay = new CurveWidget(WStackPage_11);
 	WStackPage11Layout->addWidget( Kdisplay );
-	optionStack->addWidget( WStackPage_11, 10 );
+	optionStack->addWidget( WStackPage_11 );
 
 	layout16->addWidget( optionStack );
 	EffectsDialogLayout->addLayout( layout16 );
 
-	layout18 = new Q3VBoxLayout( 0, 0, 0, "layout18");
-	layout10 = new Q3GridLayout( 0, 1, 1, 0, 5, "layout10");
-	layout2 = new Q3VBoxLayout( 0, 0, 5, "layout2");
+	layout18 = new QVBoxLayout;
+	layout18->setMargin(0);
+	layout18->setSpacing(5);
+	layout10 = new QGridLayout;
+	layout10->setMargin(0);
+	layout10->setSpacing(5);
+	layout2 = new QVBoxLayout;
+	layout2->setMargin(0);
+	layout2->setSpacing(5);
 	textLabel1 = new QLabel( this, "textLabel1" );
 	textLabel1->setText( tr( "Available Effects" ) );
 	layout2->addWidget( textLabel1 );
-	availableEffects = new Q3ListBox( this, "availableEffects" );
+	availableEffects = new QListWidget( this );
 	availableEffects->clear();
-	
-	new EffectListItem(availableEffects, tr("Blur"));
-	new EffectListItem(availableEffects, tr("Brightness"));
-	new EffectListItem(availableEffects, tr("Colorize"));
-	new EffectListItem(availableEffects, tr("Duotone"));
-	new EffectListItem(availableEffects, tr("Tritone"));
-	new EffectListItem(availableEffects, tr("Quadtone"));
-	new EffectListItem(availableEffects, tr("Contrast"));
-	new EffectListItem(availableEffects, tr("Grayscale"));
-	new EffectListItem(availableEffects, tr("Curves"));
-	new EffectListItem(availableEffects, tr("Invert"));
-	new EffectListItem(availableEffects, tr("Posterize"));
-	new EffectListItem(availableEffects, tr("Sharpen"));
-/*
-	availableEffects->insertItem( tr("Blur"));
-	availableEffects->insertItem( tr("Brightness"));
-	availableEffects->insertItem( tr("Colorize"));
-	availableEffects->insertItem( tr("Duotone"));
-	availableEffects->insertItem( tr("Tritone"));
-	availableEffects->insertItem( tr("Quadtone"));
-	availableEffects->insertItem( tr("Contrast"));
-	availableEffects->insertItem( tr("Grayscale"));
-	availableEffects->insertItem( tr("Curves"));
-	availableEffects->insertItem( tr("Invert"));
-	availableEffects->insertItem( tr("Posterize"));
-	availableEffects->insertItem( tr("Sharpen"));
-*/
+	availableEffects->addItem( tr("Blur"));
+	availableEffects->addItem( tr("Brightness"));
+	availableEffects->addItem( tr("Colorize"));
+	availableEffects->addItem( tr("Duotone"));
+	availableEffects->addItem( tr("Tritone"));
+	availableEffects->addItem( tr("Quadtone"));
+	availableEffects->addItem( tr("Contrast"));
+	availableEffects->addItem( tr("Grayscale"));
+	availableEffects->addItem( tr("Curves"));
+	availableEffects->addItem( tr("Invert"));
+	availableEffects->addItem( tr("Posterize"));
+	availableEffects->addItem( tr("Sharpen"));
+
 	availableEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
 	layout2->addWidget( availableEffects );
 	layout10->addLayout( layout2, 0, 0 );
 
-	layout1 = new Q3VBoxLayout( 0, 0, 5, "layout1");
-	QSpacerItem* spacer1 = new QSpacerItem( 21, 61, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	layout1 = new QVBoxLayout;
+	layout1->setMargin(0);
+	layout1->setSpacing(5);
+	QSpacerItem* spacer1 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout1->addItem( spacer1 );
 	toEffects = new QPushButton( this, "toEffects" );
 	toEffects->setText( tr( ">>" ) );
@@ -470,15 +477,17 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	fromEffects->setText( tr( "<<" ) );
 	fromEffects->setEnabled(false);
 	layout1->addWidget( fromEffects );
-	QSpacerItem* spacer2 = new QSpacerItem( 31, 81, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	QSpacerItem* spacer2 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout1->addItem( spacer2 );
 	layout10->addLayout( layout1, 0, 1 );
 
-	layout8 = new Q3VBoxLayout( 0, 0, 5, "layout8");
+	layout8 = new QVBoxLayout;
+	layout8->setMargin(0);
+	layout8->setSpacing(5);
 	textLabel2 = new QLabel( this, "textLabel2" );
 	textLabel2->setText( tr( "Effects in use" ) );
 	layout8->addWidget( textLabel2 );
-	usedEffects = new Q3ListBox( this, "usedEffects" );
+	usedEffects = new QListWidget( this );
 	usedEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
 	usedEffects->clear();
 	effectValMap.clear();
@@ -486,84 +495,86 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	{
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_INVERT)
 		{
-			usedEffects->insertItem( tr("Invert"));
+			usedEffects->addItem( tr("Invert"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_GRAYSCALE)
 		{
-			usedEffects->insertItem( tr("Grayscale"));
+			usedEffects->addItem( tr("Grayscale"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_COLORIZE)
 		{
-			usedEffects->insertItem( tr("Colorize"));
+			usedEffects->addItem( tr("Colorize"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
-			availableEffects->item(2)->setSelectable(false);
-			availableEffects->item(3)->setSelectable(false);
-			availableEffects->item(4)->setSelectable(false);
-			availableEffects->item(5)->setSelectable(false);
+			setItemSelectable(availableEffects, 2, false);
+			setItemSelectable(availableEffects, 3, false);
+			setItemSelectable(availableEffects, 4, false);
+			setItemSelectable(availableEffects, 5, false);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_BRIGHTNESS)
 		{
-			usedEffects->insertItem( tr("Brightness"));
+			usedEffects->addItem( tr("Brightness"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_CONTRAST)
 		{
-			usedEffects->insertItem( tr("Contrast"));
+			usedEffects->addItem( tr("Contrast"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_SHARPEN)
 		{
-			usedEffects->insertItem( tr("Sharpen"));
+			usedEffects->addItem( tr("Sharpen"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_BLUR)
 		{
-			usedEffects->insertItem( tr("Blur"));
+			usedEffects->addItem( tr("Blur"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_SOLARIZE)
 		{
-			usedEffects->insertItem( tr("Posterize"));
+			usedEffects->addItem( tr("Posterize"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_DUOTONE)
 		{
-			usedEffects->insertItem( tr("Duotone"));
+			usedEffects->addItem( tr("Duotone"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
-			availableEffects->item(2)->setSelectable(false);
-			availableEffects->item(3)->setSelectable(false);
-			availableEffects->item(4)->setSelectable(false);
-			availableEffects->item(5)->setSelectable(false);
+			setItemSelectable(availableEffects, 2, false);
+			setItemSelectable(availableEffects, 3, false);
+			setItemSelectable(availableEffects, 4, false);
+			setItemSelectable(availableEffects, 5, false);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_TRITONE)
 		{
-			usedEffects->insertItem( tr("Tritone"));
+			usedEffects->addItem( tr("Tritone"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
-			availableEffects->item(2)->setSelectable(false);
-			availableEffects->item(3)->setSelectable(false);
-			availableEffects->item(4)->setSelectable(false);
-			availableEffects->item(5)->setSelectable(false);
+			setItemSelectable(availableEffects, 2, false);
+			setItemSelectable(availableEffects, 3, false);
+			setItemSelectable(availableEffects, 4, false);
+			setItemSelectable(availableEffects, 5, false);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_QUADTONE)
 		{
-			usedEffects->insertItem( tr("Quadtone"));
+			usedEffects->addItem( tr("Quadtone"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
-			availableEffects->item(2)->setSelectable(false);
-			availableEffects->item(3)->setSelectable(false);
-			availableEffects->item(4)->setSelectable(false);
-			availableEffects->item(5)->setSelectable(false);
+			setItemSelectable(availableEffects, 2, false);
+			setItemSelectable(availableEffects, 3, false);
+			setItemSelectable(availableEffects, 4, false);
+			setItemSelectable(availableEffects, 5, false);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_GRADUATE)
 		{
-			usedEffects->insertItem( tr("Curves"));
+			usedEffects->addItem( tr("Curves"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
 	}
 	layout8->addWidget( usedEffects );
-	layout7 = new Q3HBoxLayout( 0, 0, 5, "layout7");
-	QSpacerItem* spacer4 = new QSpacerItem( 10, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout7 = new QHBoxLayout;
+	layout7->setMargin(0);
+	layout7->setSpacing(5);
+	QSpacerItem* spacer4 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout7->addItem( spacer4 );
 	effectUp = new QPushButton( this, "effectUp" );
 	effectUp->setText( "" );
@@ -575,14 +586,16 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	effectDown->setPixmap(loadIcon("16/go-down.png"));
 	effectDown->setEnabled(false);
 	layout7->addWidget( effectDown );
-	QSpacerItem* spacer5 = new QSpacerItem( 10, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer5 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout7->addItem( spacer5 );
 	layout8->addLayout( layout7 );
 	layout10->addLayout( layout8, 0, 2 );
 	layout18->addLayout( layout10 );
 
-	layout9 = new Q3HBoxLayout( 0, 0, 5, "layout9");
-	QSpacerItem* spacer3 = new QSpacerItem( 111, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout9 = new QHBoxLayout;
+	layout9->setMargin(0);
+	layout9->setSpacing(5);
+	QSpacerItem* spacer3 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout9->addItem( spacer3 );
 
 	okButton = new QPushButton( this, "okButton" );
@@ -594,18 +607,19 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout9->addWidget( cancelButton );
 	layout18->addLayout( layout9 );
 	EffectsDialogLayout->addLayout( layout18 );
-	optionStack->raiseWidget(0);
+	optionStack->setCurrentIndex(0);
 	createPreview();
-	availableEffects->repaintContents();
+	usedEffects->clearSelection();
+	availableEffects->clearSelection();
 	resize( minimumSizeHint() );
 
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( leaveOK() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( usedEffects, SIGNAL( clicked(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
-	connect( usedEffects, SIGNAL( doubleClicked(Q3ListBoxItem*) ), this, SLOT( moveFromEffects() ) );
-	connect( availableEffects, SIGNAL( clicked(Q3ListBoxItem*) ), this, SLOT( selectAvailEffect(Q3ListBoxItem*) ) );
-	connect( availableEffects, SIGNAL( doubleClicked(Q3ListBoxItem*) ), this, SLOT( selectAvailEffectDbl(Q3ListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	connect( usedEffects, SIGNAL( itemDoubleClicked(QListWidgetItem*) ), this, SLOT( moveFromEffects() ) );
+	connect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
+	connect( availableEffects, SIGNAL( itemDoubleClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffectDbl(QListWidgetItem*) ) );
 	connect( toEffects, SIGNAL( clicked() ), this, SLOT( moveToEffects() ) );
 	connect( fromEffects, SIGNAL( clicked() ), this, SLOT( moveFromEffects() ) );
 	connect( effectUp, SIGNAL( clicked() ), this, SLOT( moveEffectUp() ) );
@@ -650,6 +664,14 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( CurveQ3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	connect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	tim.start();
+}
+
+void EffectsDialog::setItemSelectable(QListWidget* widget, int itemNr, bool enable)
+{
+	if (enable)
+		widget->item(itemNr)->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	else
+		widget->item(itemNr)->setFlags(0);
 }
 
 void EffectsDialog::leaveOK()
@@ -707,7 +729,7 @@ void EffectsDialog::saveValues(bool final)
 	selectEffectHelper(final);
 	effectsList.clear();
 	struct ScImage::imageEffect ef;
-	for (uint e = 0; e < usedEffects->count(); ++e)
+	for (int e = 0; e < usedEffects->count(); ++e)
 	{
 		if (usedEffects->item(e)->text() == tr("Invert"))
 		{
@@ -773,11 +795,11 @@ void EffectsDialog::saveValues(bool final)
 	}
 }
 
-void EffectsDialog::selectAvailEffectDbl(Q3ListBoxItem* c)
+void EffectsDialog::selectAvailEffectDbl(QListWidgetItem* c)
 {
 	if (c)
 	{
-		if (!c->isSelectable())
+		if (!(c->flags() & Qt::ItemIsSelectable))
 			return;
 		else
 			moveToEffects();
@@ -786,135 +808,144 @@ void EffectsDialog::selectAvailEffectDbl(Q3ListBoxItem* c)
 
 void EffectsDialog::moveToEffects()
 {
-	usedEffects->insertItem(availableEffects->currentText());
-	if (availableEffects->currentText() == tr("Invert"))
+	usedEffects->addItem(availableEffects->currentItem()->text());
+	if (availableEffects->currentItem()->text() == tr("Invert"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
-	if (availableEffects->currentText() == tr("Grayscale"))
+	if (availableEffects->currentItem()->text() == tr("Grayscale"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
-	if (availableEffects->currentText() == tr("Brightness"))
+	if (availableEffects->currentItem()->text() == tr("Brightness"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0");
-	if (availableEffects->currentText() == tr("Contrast"))
+	if (availableEffects->currentItem()->text() == tr("Contrast"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0");
-	if (availableEffects->currentText() == tr("Sharpen"))
+	if (availableEffects->currentItem()->text() == tr("Sharpen"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0 1");
-	if (availableEffects->currentText() == tr("Blur"))
+	if (availableEffects->currentItem()->text() == tr("Blur"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "0 1");
-	if (availableEffects->currentText() == tr("Posterize"))
+	if (availableEffects->currentItem()->text() == tr("Posterize"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "255");
-	if (availableEffects->currentText() == tr("Colorize"))
+	if (availableEffects->currentItem()->text() == tr("Colorize"))
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
 		QString efval = it.key()+"\n100";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
-		availableEffects->item(2)->setSelectable(false);
-		availableEffects->item(3)->setSelectable(false);
-		availableEffects->item(4)->setSelectable(false);
-		availableEffects->item(5)->setSelectable(false);
+		setItemSelectable(availableEffects, 2, false);
+		setItemSelectable(availableEffects, 3, false);
+		setItemSelectable(availableEffects, 4, false);
+		setItemSelectable(availableEffects, 5, false);
 	}
-	if (availableEffects->currentText() == tr("Duotone"))
+	if (availableEffects->currentItem()->text() == tr("Duotone"))
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
 		QString efval = it.key()+"\n"+it.key()+"\n100 100 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
-		availableEffects->item(2)->setSelectable(false);
-		availableEffects->item(3)->setSelectable(false);
-		availableEffects->item(4)->setSelectable(false);
-		availableEffects->item(5)->setSelectable(false);
+		setItemSelectable(availableEffects, 2, false);
+		setItemSelectable(availableEffects, 3, false);
+		setItemSelectable(availableEffects, 4, false);
+		setItemSelectable(availableEffects, 5, false);
 	}
-	if (availableEffects->currentText() == tr("Tritone"))
+	if (availableEffects->currentItem()->text() == tr("Tritone"))
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
 		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
-		availableEffects->item(2)->setSelectable(false);
-		availableEffects->item(3)->setSelectable(false);
-		availableEffects->item(4)->setSelectable(false);
-		availableEffects->item(5)->setSelectable(false);
+		setItemSelectable(availableEffects, 2, false);
+		setItemSelectable(availableEffects, 3, false);
+		setItemSelectable(availableEffects, 4, false);
+		setItemSelectable(availableEffects, 5, false);
 	}
-	if (availableEffects->currentText() == tr("Quadtone"))
+	if (availableEffects->currentItem()->text() == tr("Quadtone"))
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
 		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 100 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
-		availableEffects->item(2)->setSelectable(false);
-		availableEffects->item(3)->setSelectable(false);
-		availableEffects->item(4)->setSelectable(false);
-		availableEffects->item(5)->setSelectable(false);
+		setItemSelectable(availableEffects, 2, false);
+		setItemSelectable(availableEffects, 3, false);
+		setItemSelectable(availableEffects, 4, false);
+		setItemSelectable(availableEffects, 5, false);
 	}
-	if (availableEffects->currentText() == tr("Curves"))
+	if (availableEffects->currentItem()->text() == tr("Curves"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "2 0.0 0.0 1.0 1.0 0");
-	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
+	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 	usedEffects->setCurrentItem(usedEffects->item(usedEffects->count()-1));
 	selectEffect(usedEffects->item(usedEffects->count()-1));
-	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 	createPreview();
-	availableEffects->repaintContents();
 }
 
 void EffectsDialog::moveFromEffects()
 {
-	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
-	if ((usedEffects->currentText() == tr("Colorize")) || (usedEffects->currentText() == tr("Duotone")) || (usedEffects->currentText() == tr("Tritone")) || (usedEffects->currentText() == tr("Quadtone")))
+	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	if ((usedEffects->currentItem()->text() == tr("Colorize")) || (usedEffects->currentItem()->text() == tr("Duotone")) || (usedEffects->currentItem()->text() == tr("Tritone")) || (usedEffects->currentItem()->text() == tr("Quadtone")))
 	{
-		availableEffects->item(2)->setSelectable(true);
-		availableEffects->item(3)->setSelectable(true);
-		availableEffects->item(4)->setSelectable(true);
-		availableEffects->item(5)->setSelectable(true);
-		availableEffects->repaintContents();
+		setItemSelectable(availableEffects, 2, true);
+		setItemSelectable(availableEffects, 3, true);
+		setItemSelectable(availableEffects, 4, true);
+		setItemSelectable(availableEffects, 5, true);
 	}
-	effectValMap.remove(usedEffects->item(usedEffects->currentItem()));
-	usedEffects->removeItem(usedEffects->currentItem());
+	effectValMap.remove(usedEffects->currentItem());
+	int curr = usedEffects->currentRow();
+	QListWidgetItem *it = usedEffects->takeItem(curr);
+	delete it;
 	currentOptions = 0;
+	usedEffects->clearSelection();
 	if (usedEffects->count() == 0)
+	{
 		fromEffects->setEnabled(false);
+		toEffects->setEnabled(false);
+		selectEffectHelper();
+		optionStack->setCurrentIndex(0);
+		disconnect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
+		availableEffects->clearSelection();
+		connect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
+	}
+	else
+	{
+		usedEffects->setCurrentItem(usedEffects->item(qMax(curr-1, 0)));
+		usedEffects->currentItem()->setSelected(true);
+		selectEffect(usedEffects->currentItem());
+	}
 	if (usedEffects->count() < 2)
 	{
 		effectUp->setEnabled(false);
 		effectDown->setEnabled(false);
 	}
-	usedEffects->setSelected(usedEffects->item(usedEffects->currentItem()), true);
-	selectEffect(usedEffects->item(usedEffects->currentItem()));
 	createPreview();
-	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 }
 
 void EffectsDialog::moveEffectUp()
 {
-	int curr = usedEffects->currentItem();
+	int curr = usedEffects->currentRow();
 	if (curr == 0)
 		return;
-	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
-	usedEffects->clearSelection();
-	Q3ListBoxItem *it = usedEffects->item(curr);
-	usedEffects->takeItem(it);
-	usedEffects->insertItem(it, curr-1);
+	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	QListWidgetItem *it = usedEffects->takeItem(curr);
+	usedEffects->insertItem(curr-1, it);
 	usedEffects->setCurrentItem(it);
-	selectEffect(usedEffects->item(usedEffects->currentItem()));
+	selectEffect(usedEffects->currentItem());
 	createPreview();
-	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 }
 
 void EffectsDialog::moveEffectDown()
 {
-	int curr = usedEffects->currentItem();
+	int curr = usedEffects->currentRow();
 	if (curr == static_cast<int>(usedEffects->count())-1)
 		return;
-	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
-	usedEffects->clearSelection();
-	Q3ListBoxItem *it = usedEffects->item(curr);
-	usedEffects->takeItem(it);
-	usedEffects->insertItem(it, curr+1);
+	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
+	QListWidgetItem *it = usedEffects->takeItem(curr);
+	usedEffects->insertItem(curr+1, it);
 	usedEffects->setCurrentItem(it);
-	selectEffect(usedEffects->item(usedEffects->currentItem()));
+	selectEffect(usedEffects->currentItem());
 	createPreview();
-	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
+	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 }
 
-void EffectsDialog::selectEffect(Q3ListBoxItem* c)
+void EffectsDialog::selectEffect(QListWidgetItem* c)
 {
 	toEffects->setEnabled(false);
 	selectEffectHelper();
@@ -927,13 +958,13 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			effectDown->setEnabled(true);
 			if (usedEffects->currentItem() == 0)
 				effectUp->setEnabled(false);
-			if (usedEffects->currentItem() == static_cast<int>(usedEffects->count())-1)
+			if (usedEffects->currentRow() == static_cast<int>(usedEffects->count())-1)
 				effectDown->setEnabled(false);
 		}
 		if (c->text() == tr("Grayscale"))
-			optionStack->raiseWidget(0);
+			optionStack->setCurrentIndex(0);
 		else if (c->text() == tr("Invert"))
-			optionStack->raiseWidget(0);
+			optionStack->setCurrentIndex(0);
 		else if (c->text() == tr("Colorize"))
 		{
 			disconnect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
@@ -941,12 +972,12 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			QString tmpstr = effectValMap[c];
 			QString col;
 			int shading;
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> col;
 			fp >> shading;
 			colData->setCurrentText(col);
 			shade->setValue(shading);
-			optionStack->raiseWidget(1);
+			optionStack->setCurrentIndex(1);
 			connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
 		}
@@ -961,7 +992,7 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			QString tmpstr = effectValMap[c];
 			QString col1, col2;
 			int shading1, shading2;
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			col1 = fp.readLine();
 			col2 = fp.readLine();
 			fp >> shading1;
@@ -996,7 +1027,7 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			CurveD2->cDisplay->setCurve(curve);
 			fp >> lin;
 			CurveD2->setLinear(lin);
-			optionStack->raiseWidget(7);
+			optionStack->setCurrentIndex(7);
 			connect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
 			connect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
@@ -1018,7 +1049,7 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			QString tmpstr = effectValMap[c];
 			QString col1, col2, col3;
 			int shading1, shading2, shading3;
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			col1 = fp.readLine();
 			col2 = fp.readLine();
 			col3 = fp.readLine();
@@ -1068,7 +1099,7 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			CurveT3->cDisplay->setCurve(curve);
 			fp >> lin;
 			CurveT3->setLinear(lin);
-			optionStack->raiseWidget(8);
+			optionStack->setCurrentIndex(8);
 			connect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
 			connect( colDatat2, SIGNAL(activated(int)), this, SLOT( createPreview()));
@@ -1096,7 +1127,7 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			QString tmpstr = effectValMap[c];
 			QString col1, col2, col3, col4;
 			int shading1, shading2, shading3, shading4;
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			col1 = fp.readLine();
 			col2 = fp.readLine();
 			col3 = fp.readLine();
@@ -1161,7 +1192,7 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			CurveQ4->cDisplay->setCurve(curve);
 			fp >> lin;
 			CurveQ4->setLinear(lin);
-			optionStack->raiseWidget(9);
+			optionStack->setCurrentIndex(9);
 			connect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
 			connect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
@@ -1181,13 +1212,13 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			disconnect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			int brightness;
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> brightness;
 			brightnessSlider->setValue(brightness);
 			QString tmp;
 			tmp.setNum(brightness);
 			textLabel7->setText(tmp);
-			optionStack->raiseWidget(2);
+			optionStack->setCurrentIndex(2);
 			connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
 			connect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 		}
@@ -1197,13 +1228,13 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			disconnect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			int contrast;
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> contrast;
 			contrastSlider->setValue(contrast);
 			QString tmp;
 			tmp.setNum(contrast);
 			textLabel9->setText(tmp);
-			optionStack->raiseWidget(3);
+			optionStack->setCurrentIndex(3);
 			connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
 			connect( contrastSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 		}
@@ -1213,12 +1244,12 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			disconnect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius, sigma;
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> radius;
 			fp >> sigma;
 			shRadius->setValue(radius);
 			shValue->setValue(sigma);
-			optionStack->raiseWidget(4);
+			optionStack->setCurrentIndex(4);
 			connect( shRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 			connect( shValue, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 		}
@@ -1227,12 +1258,12 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			disconnect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius, sigma;
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> radius;
 			fp >> sigma;
 			blRadius->setValue(radius);
 			//			blValue->setValue(sigma);
-			optionStack->raiseWidget(5);
+			optionStack->setCurrentIndex(5);
 			connect( blRadius, SIGNAL(valueChanged(double)), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Posterize"))
@@ -1241,13 +1272,13 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 			disconnect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			int solarize;
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> solarize;
 			solarizeSlider->setValue(solarize);
 			QString tmp;
 			tmp.setNum(solarize);
 			textLabel15->setText(tmp);
-			optionStack->raiseWidget(6);
+			optionStack->setCurrentIndex(6);
 			connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
 			connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 		}
@@ -1255,7 +1286,7 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 		{
 			disconnect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
-			Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
@@ -1274,25 +1305,25 @@ void EffectsDialog::selectEffect(Q3ListBoxItem* c)
 				Kdisplay->setLinear(true);
 			else
 				Kdisplay->setLinear(false);
-			optionStack->raiseWidget(10);
+			optionStack->setCurrentIndex(10);
 			connect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else
-			optionStack->raiseWidget(0);
+			optionStack->setCurrentIndex(0);
 		currentOptions = c;
 	}
 	else
-		optionStack->raiseWidget(0);
-	disconnect( availableEffects, SIGNAL( clicked(Q3ListBoxItem*) ), this, SLOT( selectAvailEffect(Q3ListBoxItem*) ) );
+		optionStack->setCurrentIndex(0);
+	disconnect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
 	availableEffects->clearSelection();
-	connect( availableEffects, SIGNAL( clicked(Q3ListBoxItem*) ), this, SLOT( selectAvailEffect(Q3ListBoxItem*) ) );
+	connect( availableEffects, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selectAvailEffect(QListWidgetItem*) ) );
 }
 
-void EffectsDialog::selectAvailEffect(Q3ListBoxItem* c)
+void EffectsDialog::selectAvailEffect(QListWidgetItem* c)
 {
 	if (c)
 	{
-		if (!c->isSelectable())
+		if (!(c->flags() & Qt::ItemIsSelectable))
 			toEffects->setEnabled(false);
 		else
 			toEffects->setEnabled(true);
@@ -1300,12 +1331,12 @@ void EffectsDialog::selectAvailEffect(Q3ListBoxItem* c)
 	fromEffects->setEnabled(false);
 	effectUp->setEnabled(false);
 	effectDown->setEnabled(false);
-	disconnect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
+	disconnect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 	selectEffectHelper();
 	currentOptions = 0;
 	usedEffects->clearSelection();
-	optionStack->raiseWidget(0);
-	connect( usedEffects, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selectEffect(Q3ListBoxItem*) ) );
+	optionStack->setCurrentIndex(0);
+	connect( usedEffects, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selectEffect(QListWidgetItem*) ) );
 }
 
 void EffectsDialog::selectEffectHelper(bool final)
