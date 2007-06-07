@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <q3valuestack.h>
-#include <q3valuelist.h>
+#include <QList>
 #include <q3valuevector.h>
 #include <qstring.h>
 #include <qaction.h>
@@ -440,7 +440,7 @@ enum PageOrientation
 };
 
 //! \brief Common type for guides list
-typedef Q3ValueList<double> Guides;
+typedef QList<double> Guides;
 
 //! \brief from ols scribusXml
 struct Linked 

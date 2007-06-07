@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <qcolor.h>
 #include <qtextcodec.h>
-#include <q3valuelist.h>
 #include <qmap.h>
 #include <qstring.h>
 class PageItem;

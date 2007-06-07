@@ -493,81 +493,81 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	effectValMap.clear();
 	for (int a = 0; a < effectsList.count(); ++a)
 	{
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_INVERT)
+		if (effectsList.at(a).effectCode == ScImage::EF_INVERT)
 		{
 			usedEffects->addItem( tr("Invert"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_GRAYSCALE)
+		if (effectsList.at(a).effectCode == ScImage::EF_GRAYSCALE)
 		{
 			usedEffects->addItem( tr("Grayscale"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), "");
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_COLORIZE)
+		if (effectsList.at(a).effectCode == ScImage::EF_COLORIZE)
 		{
 			usedEffects->addItem( tr("Colorize"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 			setItemSelectable(availableEffects, 2, false);
 			setItemSelectable(availableEffects, 3, false);
 			setItemSelectable(availableEffects, 4, false);
 			setItemSelectable(availableEffects, 5, false);
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_BRIGHTNESS)
+		if (effectsList.at(a).effectCode == ScImage::EF_BRIGHTNESS)
 		{
 			usedEffects->addItem( tr("Brightness"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_CONTRAST)
+		if (effectsList.at(a).effectCode == ScImage::EF_CONTRAST)
 		{
 			usedEffects->addItem( tr("Contrast"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_SHARPEN)
+		if (effectsList.at(a).effectCode == ScImage::EF_SHARPEN)
 		{
 			usedEffects->addItem( tr("Sharpen"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_BLUR)
+		if (effectsList.at(a).effectCode == ScImage::EF_BLUR)
 		{
 			usedEffects->addItem( tr("Blur"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_SOLARIZE)
+		if (effectsList.at(a).effectCode == ScImage::EF_SOLARIZE)
 		{
 			usedEffects->addItem( tr("Posterize"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_DUOTONE)
+		if (effectsList.at(a).effectCode == ScImage::EF_DUOTONE)
 		{
 			usedEffects->addItem( tr("Duotone"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 			setItemSelectable(availableEffects, 2, false);
 			setItemSelectable(availableEffects, 3, false);
 			setItemSelectable(availableEffects, 4, false);
 			setItemSelectable(availableEffects, 5, false);
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_TRITONE)
+		if (effectsList.at(a).effectCode == ScImage::EF_TRITONE)
 		{
 			usedEffects->addItem( tr("Tritone"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 			setItemSelectable(availableEffects, 2, false);
 			setItemSelectable(availableEffects, 3, false);
 			setItemSelectable(availableEffects, 4, false);
 			setItemSelectable(availableEffects, 5, false);
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_QUADTONE)
+		if (effectsList.at(a).effectCode == ScImage::EF_QUADTONE)
 		{
 			usedEffects->addItem( tr("Quadtone"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 			setItemSelectable(availableEffects, 2, false);
 			setItemSelectable(availableEffects, 3, false);
 			setItemSelectable(availableEffects, 4, false);
 			setItemSelectable(availableEffects, 5, false);
 		}
-		if ((*effectsList.at(a)).effectCode == ScImage::EF_GRADUATE)
+		if (effectsList.at(a).effectCode == ScImage::EF_GRADUATE)
 		{
 			usedEffects->addItem( tr("Curves"));
-			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), effectsList.at(a).effectParameters);
 		}
 	}
 	layout8->addWidget( usedEffects );

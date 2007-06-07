@@ -86,7 +86,7 @@ public:
 	virtual void setPen( const QColor &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
 	virtual void setPenOpacity( double op );
 	virtual void setLineWidth( double w);
-	virtual void setDash(const Q3ValueList<double>& array, double ofs);
+	virtual void setDash(const QList<double>& array, double ofs);
 	virtual void setBrush( const QColor & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
@@ -162,7 +162,7 @@ private:
   /*! \brief Line Join Style */
 	Qt::PenJoinStyle PLineJoin;
   /*! \brief The Dash Array */
-	Q3ValueList<double> m_array;
+	QList<double> m_array;
 	double m_offset;
 	/*! \brief Zoom Factor of the Painter */
 	double m_zoomFactor;

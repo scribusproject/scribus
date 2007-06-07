@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scribuscore.h"
 #include "undostack.h"
-#include <q3valuelist.h>
+#include <QList>
 //Added by qt3to4:
 #include <QPixmap>
 

@@ -869,7 +869,7 @@ public: // Public attributes
 	// int pageCount; Disabled CR no longer required
 	/** \brief Margins */
 	MarginStruct pageMargins;
-	Q3ValueList<PageSet> pageSets;
+	QList<PageSet> pageSets;
 	MarginStruct bleeds;
 // 	double BleedTop;
 // 	double BleedLeft;
@@ -919,12 +919,12 @@ public: // Public attributes
 	bool leaveDrag;
 	PageItem *DraggedElem;
 	PageItem *ElemToLink;
-	Q3ValueList<uint> DragElements;
+	QList<uint> DragElements;
 private:
 	StyleSet<ParagraphStyle> docParagraphStyles;
 	StyleSet<CharStyle> docCharStyles;
 public:
-	Q3ValueList<Layer> Layers;
+	QList<Layer> Layers;
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;
@@ -973,7 +973,7 @@ public:
 					int Prev;
 					int Next;
 					};
-	Q3ValueList<BookMa> BookMarks;
+	QList<BookMa> BookMarks;
 	bool OldBM;
 	bool hasName;
 	int RotMode;
@@ -981,7 +981,7 @@ public:
 	int AutoSaveTime;
 	QTimer * const autoSaveTimer;
 	QMap<QString,multiLine> MLineStyles;
-	Q3ValueList<ArrowDesc> arrowStyles;
+	QList<ArrowDesc> arrowStyles;
 	QMap<QString, ScPattern> docPatterns;
 	QWidget* WinHan;
 	bool DoDrawing;
@@ -991,7 +991,7 @@ public:
 		Page *page;
 		PageItem *item;
 	};
-	Q3ValueList<OpenNodesList> OpenNodes;
+	QList<OpenNodesList> OpenNodes;
 	QTimer *CurTimer;
 	QMap<int, errorCodes> docLayerErrors;
 	QMap<int, errorCodes> docItemErrors;

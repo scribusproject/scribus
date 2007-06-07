@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QDrag>
 #include <QMimeData>
-#include <Q3ValueList>
+#include <QList>
 #include <QByteArray>
 #include <QTextStream>
 #include <cmath>
@@ -71,7 +71,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing PostScript:");
-		Q3ValueList<bool> barsNumeric;
+		QList<bool> barsNumeric;
 		barsNumeric << false;
 		progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
 		progressDialog->setOverallTotalSteps(3);

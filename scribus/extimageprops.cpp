@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
-#include <Q3ValueList>
+#include <QList>
 #include <QPixmap>
 #include <Q3VBoxLayout>
 
@@ -158,7 +158,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			opacitySpinBox->setEnabled(true);
 			blendMode->setEnabled(true);
 			QString tmp;
-			Q3ValueList<PSDLayer>::iterator it2;
+			QList<PSDLayer>::iterator it2;
 			layerTable->setNumRows(info->layerInfo.count());
 			uint counter = 0;
 			for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)

@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <qregexp.h>
 #include <qmessagebox.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <QKeyEvent>
 #include <Q3PointArray>
 #include <cmath>
@@ -90,14 +90,14 @@ static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, d
 	}
 	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
 	{
-		Q3ValueList<uint> Segs;
+		QList<uint> Segs;
 		Q3PointArray Clip2 = FlattenPath(docItem->imageClip, Segs);
 //		res = QRegion(pp.xForm(Clip2));
 		res = QRegion(pp.map(Clip2)).intersect(QRegion(pp.map(docItem->Clip)));
 	}
 	else if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 	{
-		Q3ValueList<uint> Segs;
+		QList<uint> Segs;
 		Q3PointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
 //		res = QRegion(pp.xForm(Clip2));
 		res = QRegion(pp.map(Clip2));
@@ -769,7 +769,7 @@ void PageItem_TextFrame::layout()
 	tabs.charIndex = -1;        // StartRT
 	tabs.xPos      = 0;         // RTabX
 
-	Q3ValueList<ParagraphStyle::TabRecord> tTabValues;
+	QList<ParagraphStyle::TabRecord> tTabValues;
 	tTabValues.clear();
 	
 	bool DropCmode = false;

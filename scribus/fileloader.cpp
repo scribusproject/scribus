@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <q3progressbar.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <cstdlib>
 #include <cmath>
 #include <q3textstream.h>
@@ -95,9 +95,9 @@ int FileLoader::TestFile()
 		ret = -1;
 	QString ext = fi.extension(true).lower();
 
-	Q3ValueList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
-	Q3ValueList<FileFormat>::const_iterator it(fileFormats.constBegin());
-	Q3ValueList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
+	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
+	QList<FileFormat>::const_iterator it(fileFormats.constBegin());
+	QList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
 		if ((*it).nameMatch.search("."+ext)!=-1)
@@ -161,7 +161,7 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 // 	newReplacement = false;
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
 // 	dummyScFaces.clear();
-	Q3ValueList<FileFormat>::const_iterator it;
+	QList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
 	{
 		if (FileType==FORMATID_SLA12XIMPORT)
@@ -268,7 +268,7 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	ReplacedFonts = currDoc->AllFonts->getSubstitutions();
 	//dummyScFaces.clear();
 	bool ret = false;
-	Q3ValueList<FileFormat>::const_iterator it;
+	QList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
 	{
 		qDebug(QString("fileloader: type %1 plugin %2").arg(FileType).arg((*it).trName));
@@ -303,7 +303,7 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, Q3ProgressBar */*dia2*/)
 {
 	bool ret = false;
-	Q3ValueList<FileFormat>::const_iterator it;
+	QList<FileFormat>::const_iterator it;
 	if (findFormat(FORMATID_SLA134EXPORT, it))
 // 		switch (FileType)
 // 		{
@@ -323,7 +323,7 @@ bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, Q3ProgressBa
 
 bool FileLoader::ReadStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
-	Q3ValueList<FileFormat>::const_iterator it;
+	QList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it)) {
 		(*it).plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 		return (*it).readStyles(fileName, doc, docParagraphStyles);
@@ -333,7 +333,7 @@ bool FileLoader::ReadStyles(const QString& fileName, ScribusDoc* doc, StyleSet<P
 
 bool FileLoader::ReadCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles)
 {
-	Q3ValueList<FileFormat>::const_iterator it;
+	QList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it)) {
 		(*it).plug->setupTargets(doc, 0, doc->scMW(), doc->scMW()->mainWindowProgressBar, &(prefsManager->appPrefs.AvailFonts));
 		return (*it).readCharStyles(fileName, doc, docCharStyles);
@@ -343,7 +343,7 @@ bool FileLoader::ReadCharStyles(const QString& fileName, ScribusDoc* doc, StyleS
 
 bool FileLoader::ReadColors(const QString& fileName, ColorList & colors)
 {
-	Q3ValueList<FileFormat>::const_iterator it;
+	QList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
 		return (*it).readColors(fileName, colors);
 	return false;
@@ -352,7 +352,7 @@ bool FileLoader::ReadColors(const QString& fileName, ColorList & colors)
 
 bool FileLoader::ReadPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames)
 {
-	Q3ValueList<FileFormat>::const_iterator it;
+	QList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
 		return (*it).readPageCount(fileName, num1, num2, masterPageNames);
 	return false;
@@ -360,7 +360,7 @@ bool FileLoader::ReadPageCount(const QString& fileName, int *num1, int *num2, QS
 
 bool FileLoader::ReadLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty)
 {
-	Q3ValueList<FileFormat>::const_iterator it;
+	QList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
 		return (*it).readLineStyles(fileName, Sty);
 	return false;
@@ -407,7 +407,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
 		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 		{
-			Q3ValueList<ParagraphStyle::TabRecord> tbs;
+			QList<ParagraphStyle::TabRecord> tbs;
 			ParagraphStyle::TabRecord tb;
 			QString tmp = pg.attribute("TABS");
 			Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
@@ -426,7 +426,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		}
 		else
 		{
-			Q3ValueList<ParagraphStyle::TabRecord> tbs;
+			QList<ParagraphStyle::TabRecord> tbs;
 			QDomNode IT = pg.firstChild();
 			while(!IT.isNull())
 			{
@@ -605,11 +605,11 @@ void FileLoader::informReplacementFonts()
 	}
 }
 
-bool FileLoader::findFormat(uint formatId, Q3ValueList<FileFormat>::const_iterator &it)
+bool FileLoader::findFormat(uint formatId, QList<FileFormat>::const_iterator &it)
 {
-	Q3ValueList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
+	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
 	it=fileFormats.constBegin();
-	Q3ValueList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
+	QList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
 		if (formatId==(*it).formatId)

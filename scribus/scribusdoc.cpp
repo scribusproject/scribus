@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3progressbar.h>
 //Added by qt3to4:
 #include <Q3PtrList>
-#include <Q3ValueList>
+#include <QList>
 #include <QPixmap>
 #include <QByteArray>
 
@@ -1730,8 +1730,8 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 {
 	if (Layers.count() < 2)
 		return false;
-	Q3ValueList<Layer>::iterator it2;
-	Q3ValueList<Layer>::iterator it2end=Layers.end();
+	QList<Layer>::iterator it2;
+	QList<Layer>::iterator it2end=Layers.end();
 	bool found=false;
 	int layerLevel = -1;
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
@@ -1796,8 +1796,8 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 
 	QString name = (*it2).Name;
 	Layers.remove(it2);
-	Q3ValueList<Layer>::iterator it;
-	Q3ValueList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).Level > layerLevel)
@@ -1826,8 +1826,8 @@ int ScribusDoc::activeLayer()
 
 const QString& ScribusDoc::activeLayerName()
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1880,8 +1880,8 @@ bool ScribusDoc::setActiveLayer(const QString& layerNameToActivate)
 
 bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1910,8 +1910,8 @@ bool ScribusDoc::setLayerPrintable(const int layerNumber, const bool isPrintable
 
 bool ScribusDoc::layerPrintable(const int layerNumber)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -1922,8 +1922,8 @@ bool ScribusDoc::layerPrintable(const int layerNumber)
 
 bool ScribusDoc::setLayerVisible(const int layerNumber, const bool isViewable)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1941,8 +1941,8 @@ bool ScribusDoc::setLayerVisible(const int layerNumber, const bool isViewable)
 
 bool ScribusDoc::layerVisible(const int layerNumber)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -1953,8 +1953,8 @@ bool ScribusDoc::layerVisible(const int layerNumber)
 
 bool ScribusDoc::setLayerLocked(const int layerNumber, const bool isLocked)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -1972,8 +1972,8 @@ bool ScribusDoc::setLayerLocked(const int layerNumber, const bool isLocked)
 
 bool ScribusDoc::layerLocked(const int layerNumber)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -1984,8 +1984,8 @@ bool ScribusDoc::layerLocked(const int layerNumber)
 
 bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -2003,8 +2003,8 @@ bool ScribusDoc::setLayerFlow(const int layerNumber, const bool flow)
 
 bool ScribusDoc::layerFlow(const int layerNumber)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -2015,8 +2015,8 @@ bool ScribusDoc::layerFlow(const int layerNumber)
 
 bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -2034,8 +2034,8 @@ bool ScribusDoc::setLayerTransparency(const int layerNumber, double trans)
 
 double ScribusDoc::layerTransparency(const int layerNumber)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -2046,8 +2046,8 @@ double ScribusDoc::layerTransparency(const int layerNumber)
 
 bool ScribusDoc::setLayerBlendMode(const int layerNumber, int blend)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -2065,8 +2065,8 @@ bool ScribusDoc::setLayerBlendMode(const int layerNumber, int blend)
 
 int ScribusDoc::layerBlendMode(const int layerNumber)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -2077,8 +2077,8 @@ int ScribusDoc::layerBlendMode(const int layerNumber)
 
 bool ScribusDoc::setLayerOutline(const int layerNumber, const bool outline)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -2096,8 +2096,8 @@ bool ScribusDoc::setLayerOutline(const int layerNumber, const bool outline)
 
 bool ScribusDoc::layerOutline(const int layerNumber)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -2108,8 +2108,8 @@ bool ScribusDoc::layerOutline(const int layerNumber)
 
 bool ScribusDoc::setLayerMarker(const int layerNumber, QColor color)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	bool found=false;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
@@ -2127,8 +2127,8 @@ bool ScribusDoc::setLayerMarker(const int layerNumber, QColor color)
 
 QColor ScribusDoc::layerMarker(const int layerNumber)
 {
-	Q3ValueList<Layer>::iterator itend=Layers.end();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).LNr == layerNumber)
@@ -2181,15 +2181,15 @@ bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
 
-	Q3ValueList<Layer>::iterator it;
-	Q3ValueList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).Level == layerLevel-1)
 			break;
 	}
-	Q3ValueList<Layer>::iterator it2;
-	Q3ValueList<Layer>::iterator it2end=Layers.end();
+	QList<Layer>::iterator it2;
+	QList<Layer>::iterator it2end=Layers.end();
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
 	{
 		if ((*it2).Level == layerLevel)
@@ -2217,15 +2217,15 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 		undoManager->action(this, ss, DocName, Um::ILayer);
 	}
 
-	Q3ValueList<Layer>::iterator it;
-	Q3ValueList<Layer>::iterator itend=Layers.end();
+	QList<Layer>::iterator it;
+	QList<Layer>::iterator itend=Layers.end();
 	for (it = Layers.begin(); it != itend; ++it)
 	{
 		if ((*it).Level == layerLevel+1)
 			break;
 	}
-	Q3ValueList<Layer>::iterator it2;
-	Q3ValueList<Layer>::iterator it2end=Layers.end();
+	QList<Layer>::iterator it2;
+	QList<Layer>::iterator it2end=Layers.end();
 	for (it2 = Layers.begin(); it2 != it2end; ++it2)
 	{
 		if ((*it2).Level == layerLevel)
@@ -2304,8 +2304,8 @@ void ScribusDoc::orderedLayerList(QStringList* list)
 	{
 		for (uint i=0; i < layerCount; ++i)
 		{
-			Q3ValueList<Layer>::iterator itend=Layers.end();
-			for (Q3ValueList<Layer>::iterator it = Layers.begin(); it != itend; ++it)
+			QList<Layer>::iterator itend=Layers.end();
+			for (QList<Layer>::iterator it = Layers.begin(); it != itend; ++it)
 			{
 				if (layerCount-(*it).Level-1 == i)
 					list->append((*it).Name);
@@ -3142,7 +3142,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	uint end = DocItems.count();
 	uint end2 = MasterItems.count();
 	m_Selection->clear();
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator it;
 	if (Layers.count()!= 0)
 	{
 		int currActiveLayer = activeLayer();
@@ -4445,7 +4445,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		m_Selection->clear();
 		if (oldItems>0)
 		{
-			Q3ValueList<Layer>::iterator it;
+			QList<Layer>::iterator it;
 			if (Layers.count()!= 0)
 			{
 				int currActiveLayer = activeLayer();
@@ -4680,7 +4680,7 @@ bool ScribusDoc::sendItemSelectionToBack()
 			int d = Items->findRef(currItem);
 			Items->take(d);
 		}
-		Q3ValueList<uint> Oindex = ObjOrder.values();
+		QList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
 			Items->prepend(m_Selection->itemAt(Oindex[c]));
@@ -4707,7 +4707,7 @@ bool ScribusDoc::bringItemSelectionToFront()
 			int d = Items->findRef(currItem);
 			Items->take(d);
 		}
-		Q3ValueList<uint> Oindex = ObjOrder.values();
+		QList<uint> Oindex = ObjOrder.values();
 		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
 		{
 			Items->append(m_Selection->itemAt(Oindex[c]));
@@ -8566,7 +8566,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 {
 	PageItem *currItem;
 	PageItem *bb;
-	Q3ValueList<int> toDel;
+	QList<int> toDel;
 	toDel.clear();
 	uint docSelectionCount = m_Selection->count();
 	if (docSelectionCount > 1)
@@ -8598,7 +8598,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		currItem->ContourLine = currItem->PoLine.copy();
 		m_View->Deselect(true);
 		for (int c = 0; c < toDel.count(); ++c)
-			m_View->SelectItemNr(*toDel.at(c));
+			m_View->SelectItemNr(toDel.at(c));
 		itemSelection_DeleteItem();
 		emit updateContents();
 	}

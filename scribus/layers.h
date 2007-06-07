@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <q3table.h>
 #include <q3ptrlist.h>
-#include <q3valuelist.h>
 #include <qcheckbox.h>
 //Added by qt3to4:
 #include <QCheckBox>
@@ -18,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 #include <QLabel>
+#include <QList>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
@@ -115,7 +115,7 @@ protected:
 	Q3PtrList<QCheckBox> flagsFlow;
 	Q3PtrList<QCheckBox> flagsOutline;
 	Q3PtrList<QToolButton> flagsMarker;
-	Q3ValueList<Layer> *layers;
+	QList<Layer> *layers;
 // 	DynamicTip* dynTip;
 };
 

@@ -45,7 +45,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 //Added by qt3to4:
 #include <QDragLeaveEvent>
-#include <Q3ValueList>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
@@ -53,7 +52,8 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QPaintEvent>
 #include <QWheelEvent>
- #include <QRubberBand>
+#include <QRubberBand>
+#include <QList>
 // application specific includes
 #include "scribusapi.h"
 #include "scribusdoc.h"
@@ -178,7 +178,7 @@ public:
 	//does NOT create a page anymore.
 	Page* addPage(int nr, bool mov = true);
 	Q3PtrList<PageItem> linkedFramesToShow;
-	Q3ValueList<int> SelNode;
+	QList<int> SelNode;
 
 	
 	struct oldPageVar

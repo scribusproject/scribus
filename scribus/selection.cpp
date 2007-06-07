@@ -222,8 +222,8 @@ PageItem *Selection::itemAt_(int index)
 		//If not NULL return it, otherwise remove from the list and return NULL
 		if (!pi.isNull())
 			return pi;
-		SelectionList::Iterator it=m_SelList.at(index);
-		m_SelList.remove(it);
+//		SelectionList::Iterator it=m_SelList.at(index);
+		m_SelList.removeAt(index);
 	}
 	return NULL;
 }

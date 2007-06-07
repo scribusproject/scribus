@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtextcodec.h>
 //Added by qt3to4:
 #include <QByteArray>
-#include <Q3ValueList>
+#include <QList>
 #include <Q3PtrList>
 #include "sccolor.h"
 #include "util.h"
@@ -51,8 +51,8 @@ struct Collection
 	StyleSet<ParagraphStyle> pstyles;
 	StyleSet<CharStyle> cstyles;
 	QMap<QString,multiLine> lstyles;
-	Q3ValueList<QString> fonts;
-	Q3ValueList<QString> patterns;
+	QList<QString> fonts;
+	QList<QString> patterns;
 
 	void collectItem(PageItem* p)              { items.append(p); }
 	void collectColor(QString name, ScColor c) { colors[name] = c; }
@@ -200,8 +200,8 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 	for (uint i=0; i < doc->Items->count(); ++i)
 		doc->Items->at(i)->getNamedResources(lists);
 	
-	Q3ValueList<QString>::Iterator it;
-	Q3ValueList<QString> names = lists.styleNames();
+	QList<QString>::Iterator it;
+	QList<QString> names = lists.styleNames();
 	for (it = names.begin(); it != names.end(); ++it)
 		doc->paragraphStyles().get(*it).saxx(handler);
 

@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef SC_USE_GDIPLUS
 #include <gdiplus.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 using namespace Gdiplus;
 #endif
 
@@ -411,7 +411,7 @@ void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 	m_lineJoin = jo;
 	double Dt = qMax(2*w, 1.0);
 	double Da = qMax(6*w, 1.0);
-	Q3ValueList<double> tmp;
+	QList<double> tmp;
 	m_array.clear();
 	m_offset = 0;
 	switch (st)
@@ -458,7 +458,7 @@ void ScPainterEx_GDI::setPenOpacity( double op )
 }
 
 
-void ScPainterEx_GDI::setDash(const Q3ValueList<double>& array, double ofs)
+void ScPainterEx_GDI::setDash(const QList<double>& array, double ofs)
 {
 	m_array = array;
 	m_offset = ofs;

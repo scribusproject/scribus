@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qstringlist.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include "color.h"
 #include "prefsmanager.h"
 #include "hyphenator.h"
@@ -247,7 +247,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->setFillColor(parseColor(fstyle->getBgColor()));
 	textFrame->setFillShade(fstyle->getBgShade());
 	ParagraphStyle newTabs(textFrame->itemText.defaultStyle());
-	newTabs.setTabValues(Q3ValueList<ParagraphStyle::TabRecord>(*(fstyle->getTabValues())));
+	newTabs.setTabValues(QList<ParagraphStyle::TabRecord>(*(fstyle->getTabValues())));
 	textFrame->itemText.setDefaultStyle(newTabs);
 
 // 	gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);

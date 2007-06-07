@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <q3textstream.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <Q3MemArray>
 #include <QByteArray>
 #include <memory>
@@ -119,20 +119,20 @@ ScImage::~ScImage()
 	curveTable.resize(0);
 }
 
-void ScImage::applyEffect(Q3ValueList<imageEffect> effectsList, ColorList& colors, bool cmyk)
+void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, bool cmyk)
 {
 	ScribusDoc* doc = colors.document();
 	if (effectsList.count() != 0)
 	{
 		for (int a = 0; a < effectsList.count(); ++a)
 		{
-			if ((*effectsList.at(a)).effectCode == EF_INVERT)
+			if (effectsList.at(a).effectCode == EF_INVERT)
 				invert(cmyk);
-			if ((*effectsList.at(a)).effectCode == EF_GRAYSCALE)
+			if (effectsList.at(a).effectCode == EF_GRAYSCALE)
 				toGrayscale(cmyk);
-			if ((*effectsList.at(a)).effectCode == EF_COLORIZE)
+			if (effectsList.at(a).effectCode == EF_COLORIZE)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				QString col = CommonStrings::None;
 				int shading = 100;
 				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
@@ -140,51 +140,51 @@ void ScImage::applyEffect(Q3ValueList<imageEffect> effectsList, ColorList& color
 				fp >> shading;
 				colorize(doc, colors[col], shading, cmyk);
 			}
-			if ((*effectsList.at(a)).effectCode == EF_BRIGHTNESS)
+			if (effectsList.at(a).effectCode == EF_BRIGHTNESS)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				int brightnessValue = 0;
 				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> brightnessValue;
 				brightness(brightnessValue, cmyk);
 			}
-			if ((*effectsList.at(a)).effectCode == EF_CONTRAST)
+			if (effectsList.at(a).effectCode == EF_CONTRAST)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				int contrastValue = 0;
 				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> contrastValue;
 				contrast(contrastValue, cmyk);
 			}
-			if ((*effectsList.at(a)).effectCode == EF_SHARPEN)
+			if (effectsList.at(a).effectCode == EF_SHARPEN)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				double radius, sigma;
 				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> radius;
 				fp >> sigma;
 				sharpen(radius, sigma);
 			}
-			if ((*effectsList.at(a)).effectCode == EF_BLUR)
+			if (effectsList.at(a).effectCode == EF_BLUR)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				double radius, sigma;
 				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> radius;
 				fp >> sigma;
 				blur(static_cast<int>(radius));
 			}
-			if ((*effectsList.at(a)).effectCode == EF_SOLARIZE)
+			if (effectsList.at(a).effectCode == EF_SOLARIZE)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				double sigma;
 				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> sigma;
 				solarize(sigma, cmyk);
 			}
-			if ((*effectsList.at(a)).effectCode == EF_DUOTONE)
+			if (effectsList.at(a).effectCode == EF_DUOTONE)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				QString col1 = CommonStrings::None;
 				int shading1 = 100;
 				QString col2 = CommonStrings::None;
@@ -220,9 +220,9 @@ void ScImage::applyEffect(Q3ValueList<imageEffect> effectsList, ColorList& color
 				fp >> lin2;
 				duotone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, cmyk);
 			}
-			if ((*effectsList.at(a)).effectCode == EF_TRITONE)
+			if (effectsList.at(a).effectCode == EF_TRITONE)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				QString col1 = CommonStrings::None;
 				QString col2 = CommonStrings::None;
 				QString col3 = CommonStrings::None;
@@ -273,9 +273,9 @@ void ScImage::applyEffect(Q3ValueList<imageEffect> effectsList, ColorList& color
 				fp >> lin3;
 				tritone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, cmyk);
 			}
-			if ((*effectsList.at(a)).effectCode == EF_QUADTONE)
+			if (effectsList.at(a).effectCode == EF_QUADTONE)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				QString col1 = CommonStrings::None;
 				QString col2 = CommonStrings::None;
 				QString col3 = CommonStrings::None;
@@ -341,9 +341,9 @@ void ScImage::applyEffect(Q3ValueList<imageEffect> effectsList, ColorList& color
 				fp >> lin4;
 				quadtone(doc, colors[col1], shading1, curve1, lin1, colors[col2], shading2, curve2, lin2, colors[col3], shading3, curve3, lin3, colors[col4], shading4, curve4, lin4, cmyk);
 			}
-			if ((*effectsList.at(a)).effectCode == EF_GRADUATE)
+			if (effectsList.at(a).effectCode == EF_GRADUATE)
 			{
-				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString tmpstr = effectsList.at(a).effectParameters;
 				int numVals;
 				double xval, yval;
 				FPointArray curve;

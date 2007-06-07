@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qdatastream.h>
 #include <qmap.h>
-#include <q3valuelist.h>
+#include <QList>
 #include <qfile.h>
 #include <qdir.h>
 #include <qstringlist.h>
@@ -105,7 +105,7 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
-	void applyEffect(Q3ValueList<imageEffect> effectsList, ColorList& colors, bool cmyk);
+	void applyEffect(QList<imageEffect> effectsList, ColorList& colors, bool cmyk);
 
 	// Generate a low res image for user preview
 	void createLowRes(double scale);
@@ -151,11 +151,11 @@ private:
 	uint icclen;
 	//std::valarray<int> curveTable;
 	Q3MemArray<int> curveTable;
-	Q3ValueList<unsigned int> colorTable;
+	QList<unsigned int> colorTable;
 	int random_table[4096];
 	
 };
 
-typedef Q3ValueList<ScImage::imageEffect> ScImageEffectList;
+typedef QList<ScImage::imageEffect> ScImageEffectList;
 
 #endif

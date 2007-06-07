@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <qglobal.h>
 #include <qmatrix.h>
-#include <q3valuelist.h>
 #include <q3valuestack.h>
 #include <qcolor.h>
 #include <qfont.h>
@@ -48,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include <valarray>
 #include <windows.h>
 
+class QList;
 class QPainter;
 class ScribusDoc;
 
@@ -119,7 +119,7 @@ public:
 	virtual void setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo );
 	virtual void setPenOpacity( double op );
 	virtual void setLineWidth( double w);
-	virtual void setDash(const Q3ValueList<double>& array, double ofs);
+	virtual void setDash(const QList<double>& array, double ofs);
 	virtual void setBrush( const ScColorShade & );
 	virtual void setBrushOpacity( double op );
 	virtual void setOpacity( double op );
@@ -170,7 +170,7 @@ private:
 /* Line Join Style */
 	Qt::PenJoinStyle m_lineJoin;
 /* The Dash Array */
-	Q3ValueList<double> m_array;
+	QList<double> m_array;
 	double m_offset;
 /* Transformation Stack */
 	Q3ValueStack<QMatrix> m_stack;

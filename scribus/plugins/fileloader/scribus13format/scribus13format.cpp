@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include "scgzfile.h"
 #include <qcursor.h>
 #include <qfileinfo.h>
-#include <q3valuelist.h>
 //Added by qt3to4:
 #include <QByteArray>
 #include <Q3PtrList>
@@ -140,7 +139,7 @@ QString Scribus13Format::readSLA(const QString & fileName)
 	return docText;
 }
 
-void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces)
+void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
 	getNewReplacement=newReplacement;
 	getReplacedFonts=ReplacedFonts;
@@ -1348,7 +1347,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 		}
 		dc.appendChild(MuL);
 	}
-	Q3ValueList<ArrowDesc>::Iterator itar;
+	QList<ArrowDesc>::Iterator itar;
 	for (itar = m_Doc->arrowStyles.begin(); itar != m_Doc->arrowStyles.end(); ++itar)
 	{
 		if ((*itar).userArrow)
@@ -1376,7 +1375,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 		jav.setAttribute("SCRIPT",itja.data());
 		dc.appendChild(jav);
 	}
-	Q3ValueList<ScribusDoc::BookMa>::Iterator itbm;
+	QList<ScribusDoc::BookMa>::Iterator itbm;
 	for (itbm = m_Doc->BookMarks.begin(); itbm != m_Doc->BookMarks.end(); ++itbm)
 	{
 		QDomElement fn=docu.createElement("Bookmark");
@@ -1634,7 +1633,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.appendChild(sectionElem);
 
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	Q3ValueList<PageSet>::Iterator itpgset;
+	QList<PageSet>::Iterator itpgset;
 	for(itpgset = m_Doc->pageSets.begin(); itpgset != m_Doc->pageSets.end(); ++itpgset )
 	{
 		QDomElement pgst = docu.createElement("Set");
@@ -3331,8 +3330,8 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			for (int a = 0; a < item->effectsInUse.count(); ++a)
 			{
 				QDomElement imeff = docu->createElement("ImageEffect");
-				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
-				imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
+				imeff.setAttribute("Code", item->effectsInUse.at(a).effectCode);
+				imeff.setAttribute("Param", item->effectsInUse.at(a).effectParameters);
 				ob.appendChild(imeff);
 			}
 		}

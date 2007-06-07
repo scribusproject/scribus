@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QPixmap>
 #include <Q3GridLayout>
-#include <Q3ValueList>
+#include <QList>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 
@@ -42,7 +42,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const SCFonts &AllFonts,
                                 const ProfilesL & PDFXProfiles,
                                 const QMap<QString, int> & DocFonts,
-                                const Q3ValueList<PDFPresentationData> & Eff,
+                                const QList<PDFPresentationData> & Eff,
                                 int unitIndex, double PageH, double PageB,
                                 ScribusDoc * mdoc, bool exporting )
 	: QTabWidget( parent, "pdf" ),
@@ -996,7 +996,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 									const SCFonts &AllFonts,
 									const ProfilesL & PDFXProfiles,
 									const QMap<QString, int> & DocFonts,
-									const Q3ValueList<PDFPresentationData> & Eff,
+									const QList<PDFPresentationData> & Eff,
 									int unitIndex, double PageH, double PageB,
 									ScribusDoc * mdoc, bool exporting)
 {

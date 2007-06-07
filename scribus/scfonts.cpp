@@ -587,7 +587,7 @@ const ScFace& SCFonts::findFont(const QString& fontname, ScribusDoc *doc)
 }
 
 
-QMap<QString,QString> SCFonts::getSubstitutions(const Q3ValueList<QString> skip) const
+QMap<QString,QString> SCFonts::getSubstitutions(const QList<QString> skip) const
 {
 	QMap<QString,QString> result;
 	QMap<QString,ScFace>::ConstIterator it;

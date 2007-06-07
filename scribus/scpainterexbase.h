@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qglobal.h>
 #include <qmatrix.h>
-#include <q3valuelist.h>
+#include <QList>
 #include <q3valuestack.h>
 #include <qcolor.h>
 #include <qfont.h>
@@ -107,7 +107,7 @@ public:
 	virtual void setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo ) = 0;
 	virtual void setPenOpacity( double op ) = 0;
 	virtual void setLineWidth( double w) = 0;
-	virtual void setDash(const Q3ValueList<double>& array, double ofs) = 0;
+	virtual void setDash(const QList<double>& array, double ofs) = 0;
 	virtual void setBrush( const ScColorShade & ) = 0;
 	virtual void setBrushOpacity( double op ) = 0;
 	virtual void setOpacity( double op ) = 0;

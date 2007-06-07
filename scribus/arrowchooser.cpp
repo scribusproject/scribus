@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <q3listbox.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <QListView>
 #include "scpainter.h"
 #include <qimage.h>
@@ -25,7 +25,7 @@ ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : Q3ComboBox(true, pa)
 	arrowDirection = direction;
 }
 
-void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
+void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 {
 	clear();
 	FPointArray Path;
@@ -41,7 +41,7 @@ void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
 		painter->setFillMode(1);
 		painter->translate(3.0, 3.0);
 		Path.resize(0);
-		Path = (*arrowStyles->at(a)).points.copy();
+		Path = arrowStyles->at(a).points.copy();
 		FPoint min = getMinClipF(&Path);
 		Path.translate(-min.x(), -min.y());
 		FPoint max = Path.WidthHeight();
@@ -74,7 +74,7 @@ void ArrowChooser::rebuildList(Q3ValueList<ArrowDesc> *arrowStyles)
     	}
     	QPixmap Ico;
 		Ico.convertFromImage(image);
-		insertItem(Ico, (*arrowStyles->at(a)).name);
+		insertItem(Ico, arrowStyles->at(a).name);
 	}
 	listBox()->setMinimumWidth(listBox()->maxItemWidth()+24);
 }

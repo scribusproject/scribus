@@ -20,7 +20,7 @@
 #include <cassert>
 #include <q3signal.h>
 #include <qstring.h>
-#include <q3valuelist.h>
+#include <QList>
 #include "scribusapi.h"
 
 

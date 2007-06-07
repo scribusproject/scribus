@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qdir.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <Q3PointArray>
 #include <Q3PtrList>
 #include <QPixmap>
@@ -67,7 +67,7 @@ QPixmap ScPreview::createPreview(QString data)
 	QColor tmpfa;
 	QString chstr;
 	double CurY, EndX, CurX, wide, rota, wid;
-	Q3ValueList<ArrowDesc> arrowStyles;
+	QList<ArrowDesc> arrowStyles;
 	Q3ValueStack<int> groupStack;
 	arrowStyles = prefsManager->appPrefs.arrowStyles;
 	QDomDocument docu("scridoc");
@@ -670,7 +670,7 @@ QPixmap ScPreview::createPreview(QString data)
 				if (OB.startArrowIndex != 0)
 				{
 					QMatrix arrowTrans;
-					FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).points.copy();
+					FPointArray arrow = arrowStyles.at(OB.startArrowIndex-1).points.copy();
 					arrowTrans.translate(0, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
 					arrowTrans.scale(-1,1);
@@ -684,7 +684,7 @@ QPixmap ScPreview::createPreview(QString data)
 				if (OB.endArrowIndex != 0)
 				{
 					QMatrix arrowTrans;
-					FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).points.copy();
+					FPointArray arrow = arrowStyles.at(OB.endArrowIndex-1).points.copy();
 					arrowTrans.translate(OB.Width, 0);
 					arrowTrans.scale(OB.Pwidth, OB.Pwidth);
 					arrow.map(arrowTrans);
@@ -771,7 +771,7 @@ QPixmap ScPreview::createPreview(QString data)
 						{
 							double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 							QMatrix arrowTrans;
-							FPointArray arrow = (*arrowStyles.at(OB.startArrowIndex-1)).points.copy();
+							FPointArray arrow = arrowStyles.at(OB.startArrowIndex-1).points.copy();
 							arrowTrans.translate(Start.x(), Start.y());
 							arrowTrans.rotate(r);
 							arrowTrans.scale(OB.Pwidth, OB.Pwidth);
@@ -795,7 +795,7 @@ QPixmap ScPreview::createPreview(QString data)
 						{
 							double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 							QMatrix arrowTrans;
-							FPointArray arrow = (*arrowStyles.at(OB.endArrowIndex-1)).points.copy();
+							FPointArray arrow = arrowStyles.at(OB.endArrowIndex-1).points.copy();
 							arrowTrans.translate(End.x(), End.y());
 							arrowTrans.rotate(r);
 							arrowTrans.scale(OB.Pwidth, OB.Pwidth);

@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "qbuffer.h"
 #include "qpixmap.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 #include "scribuscore.h"
 #include "fonts/scfontmetrics.h"
@@ -699,22 +699,22 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			Q3ValueList<Layer>::iterator it2 = ScCore->primaryMainWindow()->doc->Layers.at(lam);
-			int num2 = (*it2).LNr;
+			Layer it2 = ScCore->primaryMainWindow()->doc->Layers.at(lam);
+			int num2 = it2.LNr;
 			if (!num2)
 			{
 				// FIXME: WTF DOES THIS DO?
 				Py_INCREF(Py_None);
 				return Py_None;
 			}
-			int num = (*it2).Level;
-			ScCore->primaryMainWindow()->doc->Layers.remove(it2);
-			Q3ValueList<Layer>::iterator it;
+			int num = it2.Level;
+			ScCore->primaryMainWindow()->doc->Layers.removeAt(lam);
+			Layer it;
 			for (int l = 0; l < ScCore->primaryMainWindow()->doc->Layers.count(); l++)
 			{
 				it = ScCore->primaryMainWindow()->doc->Layers.at(l);
-				if ((*it).Level > num)
-					(*it).Level -= 1;
+				if (it.Level > num)
+					it.Level -= 1;
 			}
 			ScCore->primaryMainWindow()->doc->removeLayer(num2);
 			ScCore->primaryMainWindow()->doc->setActiveLayer(0);

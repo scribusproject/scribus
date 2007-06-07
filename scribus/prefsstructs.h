@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcolor.h>
 #include <qstring.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include "scribusstructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
@@ -153,8 +153,8 @@ struct toolPrefs
 struct ApplicationPrefs
 {
 	SCFonts AvailFonts;
-	Q3ValueList<ArrowDesc> arrowStyles;
-	Q3ValueList<PageSet> pageSets;
+	QList<ArrowDesc> arrowStyles;
+	QList<PageSet> pageSets;
 	ColorList DColors;
 	int moveTimeout;
 	int Wheelval;

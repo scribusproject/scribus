@@ -1,5 +1,5 @@
 //FIXME: this include must go to sctextstruct.h !
-#include <q3valuelist.h>
+#include <QList>
 //Added by qt3to4:
 #include <Q3PtrList>
 #include <cassert>  //added to make Fedora-5 happy

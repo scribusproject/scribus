@@ -87,7 +87,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 		if (m_startArrowIndex != 0)
 		{
 			QMatrix arrowTrans;
-			FPointArray arrow = (*m_Doc->arrowStyles.at(m_startArrowIndex-1)).points.copy();
+			FPointArray arrow = m_Doc->arrowStyles.at(m_startArrowIndex-1).points.copy();
 			arrowTrans.translate(0, 0);
 			arrowTrans.scale(m_lineWidth, m_lineWidth);
 			arrowTrans.scale(-1,1);
@@ -107,7 +107,7 @@ void PageItem_Line::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 		if (m_endArrowIndex != 0)
 		{
 			QMatrix arrowTrans;
-			FPointArray arrow = (*m_Doc->arrowStyles.at(m_endArrowIndex-1)).points.copy();
+			FPointArray arrow = m_Doc->arrowStyles.at(m_endArrowIndex-1).points.copy();
 			arrowTrans.translate(Width, 0);
 			arrowTrans.scale(m_lineWidth, m_lineWidth);
 			arrow.map(arrowTrans);

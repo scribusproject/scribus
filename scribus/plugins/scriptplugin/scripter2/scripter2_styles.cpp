@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribus.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 // This file contains some basic methods for testing purposes,
 // providing access to the docParagraphStyles member of the current
@@ -25,8 +25,8 @@ using namespace boost::python;
 
 ParagraphStyle & getStyleRef(const QString & styleName)
 {
-	Q3ValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
-	Q3ValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
+	QList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 	{
 		if ((*it).Vname == styleName)
@@ -52,8 +52,8 @@ ParagraphStyle getStyleVali(int index)
 
 void addStyle(const ParagraphStyle & style)
 {
-	Q3ValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
-	Q3ValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
+	QList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 	{
 		if ((*it).Vname == style.Vname)
@@ -69,8 +69,8 @@ void addStyle(const ParagraphStyle & style)
 dict getStylesVal()
 {
 	dict d;
-	Q3ValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
-	Q3ValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
+	QList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 		d[(*it).Vname] = *it;
 	return d;
@@ -79,8 +79,8 @@ dict getStylesVal()
 dict getStylesRef()
 {
 	dict d;
-	Q3ValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
-	Q3ValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
+	QList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 		d[(*it).Vname] = boost::ref(*it);
 	return d;
@@ -89,8 +89,8 @@ dict getStylesRef()
 list getStyleNames()
 {
 	list l;
-	Q3ValueList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
-	Q3ValueList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
+	QList<ParagraphStyle>::iterator it(ScCore->primaryMainWindow()->doc->docParagraphStyles.begin());
+	QList<ParagraphStyle>::iterator itEnd(ScCore->primaryMainWindow()->doc->docParagraphStyles.end());
 	for ( ; it != itEnd; ++it)
 		l.append((*it).Vname);
 	return l;

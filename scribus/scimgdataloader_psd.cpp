@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qfileinfo.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 #include CMS_INC
 
@@ -454,9 +454,9 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 		}
 		else
 		{
-			Q3ValueList<uchar> colorTableR;
-			Q3ValueList<uchar> colorTableG;
-			Q3ValueList<uchar> colorTableB;
+			QList<uchar> colorTableR;
+			QList<uchar> colorTableG;
+			QList<uchar> colorTableB;
 			colorTableR.clear();
 			colorTableG.clear();
 			colorTableB.clear();
@@ -656,7 +656,7 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 	return true;
 }
 
-bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
+bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
 {
 	uint base = s.device()->at();
 	uchar cbyte;
@@ -826,7 +826,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 	return true;
 }
 
-bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
+bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
 {
 	// Find out if the data is compressed.
 	// Known values:

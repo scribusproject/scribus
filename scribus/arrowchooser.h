@@ -9,9 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <Q3ComboBox>
 //Added by qt3to4:
-#include <Q3ValueList>
 #include "scribusapi.h"
 #include "scribusstructs.h"
+#include <QList>
 
 class SCRIBUS_API ArrowChooser : public Q3ComboBox
 {
@@ -20,7 +20,7 @@ class SCRIBUS_API ArrowChooser : public Q3ComboBox
 public:
 	ArrowChooser(QWidget* pa, bool direction);
 	~ArrowChooser() {};
-	void rebuildList(Q3ValueList<ArrowDesc> *arrowStyles);
+	void rebuildList(QList<ArrowDesc> *arrowStyles);
 
 private:
 	bool arrowDirection;

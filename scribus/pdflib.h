@@ -24,11 +24,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef PDFLIB_H
 #define PDFLIB_H
 
-#include <q3valuelist.h>
 #include <qfile.h>
 #include <QDataStream>
-//Added by qt3to4:
 #include <QPixmap>
+#include <QList>
 #include <string>
 #include <vector>
 
@@ -108,7 +107,7 @@ private:
 	QByteArray ComputeMD5(const QString& in);
 	void PDF_Bookmark(PageItem *currItem, double ypos);
 	QString PDF_Gradient(PageItem *currItem);
-	QString PDF_DoLinGradient(PageItem *currItem, Q3ValueList<double> Stops, Q3ValueList<double> Trans, const QStringList& Colors, QStringList colorNames, Q3ValueList<int> colorShades);
+	QString PDF_DoLinGradient(PageItem *currItem, QList<double> Stops, QList<double> Trans, const QStringList& Colors, QStringList colorNames, QList<int> colorShades);
 	QString PDF_TransparenzFill(PageItem *currItem);
 	QString PDF_TransparenzStroke(PageItem *currItem);
 	void PDF_Annotation(PageItem *ite, uint PNr);
@@ -140,7 +139,7 @@ private:
 	Catalog;
 	struct PagT
 	{
-		Q3ValueList<int> Kids;
+		QList<int> Kids;
 		int Count;
 	}
 	PageTree;
@@ -151,8 +150,8 @@ private:
 		QMap<QString,int> XObjects;
 		QMap<QString,int> ImgObjects;
 		QMap<QString,int> FObjects;
-		Q3ValueList<int> AObjects;
-		Q3ValueList<int> FormObjects;
+		QList<int> AObjects;
+		QList<int> FormObjects;
 	}
 	Seite;
 	struct OutL
@@ -207,11 +206,11 @@ private:
 		QString data;
 	};
 	QMap<QString,ShIm> SharedImages;
-	Q3ValueList<uint> XRef;
-	Q3ValueList<Dest> NamedDest;
-	Q3ValueList<int> Threads;
-	Q3ValueList<Bead> Beads;
-	Q3ValueList<int> CalcFields;
+	QList<uint> XRef;
+	QList<Dest> NamedDest;
+	QList<int> Threads;
+	QList<Bead> Beads;
+	QList<int> CalcFields;
 	QMap<QString,int> Patterns;
 	QMap<QString,int> Shadings;
 	QMap<QString,int> Transpar;

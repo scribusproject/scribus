@@ -11,9 +11,9 @@ for which a new license (GPL+exception) is in place.
 #include <q3groupbox.h>
 //Added by qt3to4:
 #include <Q3VBoxLayout>
-#include <Q3ValueList>
 #include <Q3HBoxLayout>
 #include <QLabel>
+#include <QList>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -29,16 +29,16 @@ class SCRIBUS_API PageLayouts : public Q3GroupBox
 	Q_OBJECT
 
 public:
-	PageLayouts( QWidget* parent, Q3ValueList<PageSet> pSets, bool mode = true );
+	PageLayouts( QWidget* parent, QList<PageSet> pSets, bool mode = true );
 	~PageLayouts() {};
-	void updateLayoutSelector(Q3ValueList<PageSet> pSets);
+	void updateLayoutSelector(QList<PageSet> pSets);
 	void selectFirstP(int nr);
 	void selectItem(uint nr);
 	Q3IconView* layoutsView;
 	ScComboBox* layoutsCombo;
 	QLabel* layoutLabel1;
 	ScComboBox* firstPage;
-	Q3ValueList<PageSet> pageSets;
+	QList<PageSet> pageSets;
 
 public slots:
 	void itemSelected(Q3IconViewItem* ic);

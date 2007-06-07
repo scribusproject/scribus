@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3cstring.h>
 #include <qfontinfo.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <Q3PtrList>
 #include <cstdlib>
 #include <qregexp.h>
@@ -959,7 +959,7 @@ void PSLib::PS_newpath()
 	PutSeite("newpath\n");
 }
 
-void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, Q3ValueList<double> Stops, QStringList Colors, QStringList colorNames, Q3ValueList<int> colorShades)
+void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades)
 {
 	bool first = true;
 	bool oneSpot1 = false;
@@ -1064,7 +1064,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, Q3ValueL
 					PutSeite("/Extend [false false]\n");
 			}
 		}
-		PutSeite("/Coords ["+ToStr(x)+" "+ToStr(y)+" "+ToStr((*Stops.at(c+1)))+" "+ToStr(x)+" "+ToStr(y)+" "+ToStr((*Stops.at(c)))+"]\n");
+		PutSeite("/Coords ["+ToStr(x)+" "+ToStr(y)+" "+ToStr(Stops.at(c+1))+" "+ToStr(x)+" "+ToStr(y)+" "+ToStr(Stops.at(c))+"]\n");
 		PutSeite("/Function\n");
 		PutSeite("<<\n");
 		PutSeite("/FunctionType 2\n");
@@ -1117,7 +1117,7 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, Q3ValueL
 	PutSeite("cliprestore\n");
 }
 
-void PSLib::PS_MultiLinGradient(double w, double h, Q3ValueList<double> Stops, QStringList Colors, QStringList colorNames, Q3ValueList<int> colorShades)
+void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades)
 {
 	bool first = true;
 	bool oneSpot1 = false;
@@ -1224,7 +1224,7 @@ void PSLib::PS_MultiLinGradient(double w, double h, Q3ValueList<double> Stops, Q
 			}
 		}
 		first = false;
-		PutSeite("/Coords ["+ToStr((*Stops.at(c*2)))+"  "+ToStr((*Stops.at(c*2+1)))+" "+ToStr((*Stops.at(c*2+2)))+" "+ToStr((*Stops.at(c*2+3)))+"]\n");
+		PutSeite("/Coords ["+ToStr(Stops.at(c*2))+"  "+ToStr(Stops.at(c*2+1))+" "+ToStr(Stops.at(c*2+2))+" "+ToStr(Stops.at(c*2+3))+"]\n");
 		PutSeite("/Function\n");
 		PutSeite("<<\n");
 		PutSeite("/FunctionType 2\n");
@@ -1669,7 +1669,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			QStringList barNames, barTexts;
 			barNames << "EMP" << "EP";
 			barTexts << tr("Processing Master Page:") << tr("Exporting Page:");
-			Q3ValueList<bool> barsNumeric;
+			QList<bool> barsNumeric;
 			barsNumeric << true << true;
 			progressDialog->addExtraProgressBars(barNames, barTexts, barsNumeric);
 			progressDialog->setOverallTotalSteps(pageNs.size()+Doc->MasterPages.count());
@@ -2367,7 +2367,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			if (c->startArrowIndex() != 0)
 			{
 				QMatrix arrowTrans;
-				FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex()-1)).points.copy();
+				FPointArray arrow = Doc->arrowStyles.at(c->startArrowIndex()-1).points.copy();
 				arrowTrans.translate(0, 0);
 				arrowTrans.scale(c->lineWidth(), c->lineWidth());
 				arrowTrans.scale(-1,1);
@@ -2382,7 +2382,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			if (c->endArrowIndex() != 0)
 			{
 				QMatrix arrowTrans;
-				FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex()-1)).points.copy();
+				FPointArray arrow = Doc->arrowStyles.at(c->endArrowIndex()-1).points.copy();
 				arrowTrans.translate(c->width(), 0);
 				arrowTrans.scale(c->lineWidth(), c->lineWidth());
 				arrow.map(arrowTrans);
@@ -2485,7 +2485,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					{
 						double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 						QMatrix arrowTrans;
-						FPointArray arrow = (*Doc->arrowStyles.at(c->startArrowIndex()-1)).points.copy();
+						FPointArray arrow = Doc->arrowStyles.at(c->startArrowIndex()-1).points.copy();
 						arrowTrans.translate(Start.x(), Start.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(c->lineWidth(), c->lineWidth());
@@ -2510,7 +2510,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					{
 						double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 						QMatrix arrowTrans;
-						FPointArray arrow = (*Doc->arrowStyles.at(c->endArrowIndex()-1)).points.copy();
+						FPointArray arrow = Doc->arrowStyles.at(c->endArrowIndex()-1).points.copy();
 						arrowTrans.translate(End.x(), End.y());
 						arrowTrans.rotate(r);
 						arrowTrans.scale(c->lineWidth(), c->lineWidth());
@@ -3044,10 +3044,10 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			return;
 			break;
 	}
-	Q3ValueList<double> StopVec;
+	QList<double> StopVec;
 	QStringList Gcolors;
 	QStringList colorNames;
-	Q3ValueList<int> colorShades;
+	QList<int> colorShades;
 	QString hs,ss,vs,ks;
 	double lastStop = -1.0;
 	double actualStop = 0.0;
@@ -3161,7 +3161,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 #ifndef NLS_PROTO
 	ScText *hl;
 	int tabCc = 0;
-	Q3ValueList<ParagraphStyle::TabRecord> tTabValues;
+	QList<ParagraphStyle::TabRecord> tTabValues;
 	double tabDist = ite->textToFrameDistLeft();
 	if (ite->lineColor() != CommonStrings::None)
 		tabDist += ite->lineWidth() / 2.0;

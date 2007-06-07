@@ -25,12 +25,12 @@ for which a new license (GPL+exception) is in place.
 #include <qmap.h>
 #include <q3valuevector.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 #include "pageitem.h"
 #include "scribusapi.h"
 
-typedef Q3ValueList< QPointer<PageItem> > SelectionList;
+typedef QList< QPointer<PageItem> > SelectionList;
 
 class SCRIBUS_API Selection : public QObject
 {

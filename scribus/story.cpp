@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCloseEvent>
 #include <Q3GridLayout>
 #include <QShowEvent>
-#include <Q3ValueList>
+#include <QList>
 #include <QKeyEvent>
 #include <Q3HBoxLayout>
 #include <QEvent>
@@ -1305,7 +1305,7 @@ void StoryEditor::savePrefs()
 	prefs->set("top", geo.top());
 	prefs->set("width", width());
 	prefs->set("height", height());
-	Q3ValueList<int> splitted = EdSplit->sizes();
+	QList<int> splitted = EdSplit->sizes();
 	prefs->set("side", splitted[0]);
 	prefs->set("main", splitted[1]);
 }
@@ -1337,7 +1337,7 @@ void StoryEditor::loadPrefs()
 	int txtarea = prefs->getInt("main", -1);
 	if ((side != -1) && (txtarea != -1))
 	{
-		Q3ValueList<int> splitted;
+		QList<int> splitted;
 		splitted.append(side);
 		splitted.append(txtarea);
 		EdSplit->setSizes(splitted);

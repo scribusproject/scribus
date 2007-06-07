@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3ptrlist.h>
 #include <qpixmap.h>
 #include <q3valuestack.h>
-#include <q3valuelist.h>
+#include <QList>
 
 #include <qstring.h>
 #include <qrect.h>

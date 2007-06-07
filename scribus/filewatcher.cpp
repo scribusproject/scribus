@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef _WIN32
 #include <windows.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #endif
 
 #include <QStringList>
@@ -110,7 +110,7 @@ bool FileWatcher::isActive()
 	return blockAddRemove;
 }
 
-Q3ValueList<QString> FileWatcher::files()
+QList<QString> FileWatcher::files()
 {
 	return watchedFiles.keys();
 }

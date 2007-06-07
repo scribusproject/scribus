@@ -18,14 +18,14 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 //Added by qt3to4:
 #include <Q3VBoxLayout>
-#include <Q3ValueList>
+#include <QList>
 
 #include "sccombobox.h"
 #include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
-PageLayouts::PageLayouts( QWidget* parent, Q3ValueList<PageSet> pSets, bool mode )  : Q3GroupBox( parent )
+PageLayouts::PageLayouts( QWidget* parent, QList<PageSet> pSets, bool mode )  : Q3GroupBox( parent )
 {
 	pageSets = pSets;
 	modus = mode;
@@ -67,7 +67,7 @@ PageLayouts::PageLayouts( QWidget* parent, Q3ValueList<PageSet> pSets, bool mode
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 }
 
-void PageLayouts::updateLayoutSelector(Q3ValueList<PageSet> pSets)
+void PageLayouts::updateLayoutSelector(QList<PageSet> pSets)
 {
 	disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 	pageSets = pSets;

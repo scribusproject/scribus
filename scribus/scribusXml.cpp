@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include <qtextcodec.h>
 //Added by qt3to4:
 #include <QApplication>
-#include <Q3ValueList>
 #include <Q3PtrList>
 #include <QByteArray>
 #include <cstdlib>
@@ -68,10 +67,10 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		bool isThere = false;
 		for (int dl = 0; dl < dummyScFaces.count(); ++dl)
 		{
-			if ((*dummyScFaces.at(dl)).scName() == tmpf)
+			if (dummyScFaces.at(dl).scName() == tmpf)
 			{
 				isThere = true;
-				dummy = *dummyScFaces.at(dl);
+				dummy = dummyScFaces.at(dl);
 				break;
 			}
 		}
@@ -1325,14 +1324,14 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		int endIndex = item->endArrowIndex();
 		if (startIndex != 0)
 		{
-			arrow.points = (*doc->arrowStyles.at(startIndex-1)).points.copy();
-			arrow.name = (*doc->arrowStyles.at(startIndex-1)).name;
+			arrow.points = doc->arrowStyles.at(startIndex-1).points.copy();
+			arrow.name = doc->arrowStyles.at(startIndex-1).name;
 			usedArrows.insert(startIndex, arrow);
 		}
 		if (endIndex != 0)
 		{
-			arrow.points = (*doc->arrowStyles.at(endIndex-1)).points.copy();
-			arrow.name = (*doc->arrowStyles.at(endIndex-1)).name;
+			arrow.points = doc->arrowStyles.at(endIndex-1).points.copy();
+			arrow.name = doc->arrowStyles.at(endIndex-1).name;
 			usedArrows.insert(endIndex, arrow);
 		}
 	}
@@ -1411,8 +1410,8 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		for (int a = 0; a < item->effectsInUse.count(); ++a)
 		{
 			QDomElement imeff = docu.createElement("ImageEffect");
-			imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
-			imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
+			imeff.setAttribute("Code", item->effectsInUse.at(a).effectCode);
+			imeff.setAttribute("Param", item->effectsInUse.at(a).effectParameters);
 			ob.appendChild(imeff);
 		}
 	}

@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <Q3GridLayout>
 #include <Q3VBoxLayout>
-#include <Q3ValueList>
+#include <QList>
 
 extern QPixmap loadIcon(QString nam);
 

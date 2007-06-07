@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCIMGDATALOADER_PSD_H
 #define SCIMGDATALOADER_PSD_H
 
-#include <q3valuelist.h>
 //Added by qt3to4:
 #include <Q3MemArray>
+#include <QList>
 #include "scimgdataloader.h"
 #include "sccolor.h"
 
@@ -37,8 +37,8 @@ public:
 
 protected:
 
-	Q3ValueList<unsigned int> colorTable;
-	Q3ValueList<ScColor> colorTableSc;
+	QList<unsigned int> colorTable;
+	QList<ScColor> colorTableSc;
 	int random_table[4096];
 
 	void initSupportedFormatList();
@@ -49,8 +49,8 @@ protected:
 	bool LoadPSD( QDataStream & s, const PSDHeader & header);
 	bool LoadPSDResources( QDataStream & s, const PSDHeader & header, uint dataOffset );
 	bool LoadPSDImgData( QDataStream & s, const PSDHeader & header, uint dataOffset );
-	bool loadChannel( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
-	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
+	bool loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
+	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 	bool loadLayer( QDataStream & s, const PSDHeader & header);
 	bool parseLayer( QDataStream & s, const PSDHeader & header);
 	QString getLayerString(QDataStream & s);

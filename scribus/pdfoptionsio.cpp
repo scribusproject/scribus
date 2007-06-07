@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "qapplication.h"
 #include <QTextStream>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 const int PDFOptionsIO::formatVersion = 1300;
 
@@ -189,12 +189,12 @@ void PDFOptionsIO::addElem(QDomElement& addTo, QString name, double value)
 
 // Save a QValueList<String> or QStringList as a list of
 // <item value=""> elements
-void PDFOptionsIO::addList(QDomElement& addTo, QString name, Q3ValueList<QString>& value)
+void PDFOptionsIO::addList(QDomElement& addTo, QString name, QList<QString>& value)
 {
 	// List base element has no attributes, only children
 	QDomElement listbase = m_doc.createElement(name);
 	addTo.appendChild(listbase);
-	Q3ValueList<QString>::iterator it;
+	QList<QString>::iterator it;
 	for (it = value.begin(); it != value.end(); ++it)
 		addElem(listbase, "item", *(it));
 }
@@ -221,7 +221,7 @@ void PDFOptionsIO::addPresentationData()
 	// </presentationSettings>
 	QDomElement presentationSettings = m_doc.createElement("presentationSettings");
 	m_root.appendChild(presentationSettings);
-	Q3ValueList<PDFPresentationData>::iterator it;
+	QList<PDFPresentationData>::iterator it;
 	for (it = m_opts->PresentVals.begin(); it != m_opts->PresentVals.end(); ++it)
 	{
 		// Settings entry has no attributes, only children
@@ -569,13 +569,13 @@ bool PDFOptionsIO::readElem(QDomElement& parent, QString name, QString* value)
 }
 
 // Read a stringlist saved as a list of child <item value=""> elements
-bool PDFOptionsIO::readList(QDomElement& parent, QString name, Q3ValueList<QString>* value)
+bool PDFOptionsIO::readList(QDomElement& parent, QString name, QList<QString>* value)
 {
 	QDomNode basenode = getUniqueNode(parent, name);
 	QDomElement listbase = getValueElement(basenode, name, false);
 	if (listbase.isNull())
 		return false;
-	Q3ValueList<QString> list;
+	QList<QString> list;
 	for (QDomNode node = listbase.firstChild(); !node.isNull(); node = node.nextSibling())
 	{
 		QDomElement elem = getValueElement(node, "item");
@@ -608,7 +608,7 @@ bool PDFOptionsIO::readPresentationData()
 	QDomElement pSettings = getValueElement(basenode, "presentationSettings", false);
 	if (pSettings.isNull())
 		return false;
-	Q3ValueList<PDFPresentationData> pList;
+	QList<PDFPresentationData> pList;
 	for (QDomNode node = pSettings.firstChild(); !node.isNull(); node = node.nextSibling())
 	{
 		QDomElement elem = getValueElement(basenode, "presentationSettingsEntry", false);

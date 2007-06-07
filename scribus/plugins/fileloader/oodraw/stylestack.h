@@ -27,10 +27,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLESTACK_H
 #define STYLESTACK_H
 
-#include <q3valuelist.h>
 #include <qdom.h>
 #include <q3valuestack.h>
 #include <qstringlist.h>
+#include <QList>
+
 
 /**
  *  This class implements a stack for the different styles of an object.
@@ -153,7 +154,7 @@ private:
 
     // We use QValueList instead of QValueStack because we need access to all styles
     // not only the top one.
-    Q3ValueList<QDomElement> m_stack;
+    QList<QDomElement> m_stack;
 
 	// Get node name to look for according to property type
 	void fillNodeNameList( QStringList& names, const StyleStack::Mode mode );

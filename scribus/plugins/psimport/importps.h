@@ -10,13 +10,13 @@ for which a new license (GPL+exception) is in place.
 #include "qglobal.h"
 #include "qobject.h"
 #include "qstring.h"
-#include "q3valuelist.h"
 #include "q3ptrlist.h"
 
 #include "pluginapi.h"
 #include "pageitem.h"
 #include "sccolor.h"
 #include "fpointarray.h"
+#include <QList>
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -97,7 +97,7 @@ private:
 	Q3PtrList<PageItem> Elements;
 	ColorList CustColors;
 	double LineW, Opacity, DashOffset, baseX, baseY;
-	Q3ValueList<double> DashPattern;
+	QList<double> DashPattern;
 	QString CurrColor;
 	FPointArray Coords;
 	FPointArray clipCoords;

@@ -23,7 +23,7 @@ pageitem.cpp  -  description
 
 
 //FIXME: this include must go to sctextstruct.h !
-#include <q3valuelist.h>
+#include <QList>
 #include <cassert>  //added to make Fedora-5 happy
 #include "fpoint.h"
 #include "scfonts.h"

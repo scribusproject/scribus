@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdom.h>
 #include <qmap.h>
 #include <qstring.h>
-#include <q3valuelist.h>
+#include <QList>
 
 class LastStyles;
 
@@ -45,7 +45,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
 		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
-		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces);
+		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
 
 	private:
 		void registerFormats();

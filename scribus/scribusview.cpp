@@ -51,7 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <QMenu>
 #include <QDragEnterEvent>
-#include <Q3ValueList>
+#include <QList>
 #include <QMouseEvent>
 #include <Q3GridLayout>
 #include <QImageReader>
@@ -3093,7 +3093,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (Doc->layerCount() > 1)
 				{
 					QMap<int,int> layerMap;
-					for (Q3ValueList<Layer>::iterator it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
+					for (QList<Layer>::iterator it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
 						layerMap.insert((*it).Level, (*it).LNr);
 					int i=layerMap.count()-1;
 					while (i>=0)
@@ -5077,9 +5077,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								Clip = currItem->ContourLine;
 							else
 								Clip = currItem->PoLine;
-							npf.setX(Clip.point(*SelNode.at(itm)).x() + np.x() / Scale);
-							npf.setY(Clip.point(*SelNode.at(itm)).y() + np.y() / Scale);
-							ClRe = *SelNode.at(itm);
+							npf.setX(Clip.point(SelNode.at(itm)).x() + np.x() / Scale);
+							npf.setY(Clip.point(SelNode.at(itm)).y() + np.y() / Scale);
+							ClRe = SelNode.at(itm);
 							currItem->OldB2 = currItem->width();
 							currItem->OldH2 = currItem->height();
 							if (((ClRe != 0) && (SelNode.count() > 1)) || (SelNode.count() == 1))
@@ -5551,7 +5551,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					double d8 = sqrt(pow(((gx+gw/2) * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
 					if (d8 < Doc->guidesSettings.grabRad)
 						distance.insert(d8, 8);
-					Q3ValueList<int> result = distance.values();
+					QList<int> result = distance.values();
 					if (result.count() != 0)
 					{
 						how = result[0];
@@ -6346,7 +6346,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						double d8 = sqrt(pow(((gx+gw/2) * Scale) - m->x(),2)+pow((gy * Scale) - m->y(),2));
 						if (d8 < Doc->guidesSettings.grabRad)
 							distance.insert(d8, 8);
-						Q3ValueList<int> result = distance.values();
+						QList<int> result = distance.values();
 						if (result.count() != 0)
 						{
 							frameResizeHandle = result[0];
@@ -7254,7 +7254,7 @@ void ScribusView::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, boo
 		p->setPen(QPen(Qt::red, 8 / Scale, Qt::SolidLine, Qt::RoundCap, Qt::MiterJoin));
 		cli.point(ClRe, &x, &y);
 		p->drawPoint(QPointF(x, y));
-		Q3ValueList<int>::Iterator itm;
+		QList<int>::Iterator itm;
 		for (itm = SelNode.begin(); itm != SelNode.end(); ++itm)
 		{
 			cli.point((*itm), &x, &y);
@@ -9150,7 +9150,7 @@ void ScribusView::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m)
 		if (d1 < Doc->guidesSettings.grabRad)
 			distance.insert(d1, 8);
 	}
-	Q3ValueList<int> result = distance.values();
+	QList<int> result = distance.values();
 	if (result.count() != 0)
 		frameResizeHandle = result[0];
 	mpo.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
@@ -9380,7 +9380,7 @@ void ScribusView::LowerItem()
 			Doc->Items->take(d);
 		}
 		d = Doc->Items->findRef(b2);
-		Q3ValueList<uint> Oindex = ObjOrder.values();
+		QList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
 			Doc->Items->insert(d+1, Doc->m_Selection->itemAt(Oindex[c]));
@@ -9437,7 +9437,7 @@ void ScribusView::RaiseItem()
 			d = Doc->Items->findRef(currItem);
 			Doc->Items->take(d);
 		}
-		Q3ValueList<uint> Oindex = ObjOrder.values();
+		QList<uint> Oindex = ObjOrder.values();
 		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
 		{
 			d = Doc->Items->findRef(b2);
@@ -9697,7 +9697,7 @@ void ScribusView::setRulerPos(int x, int y)
 	QString newStatusBarText(" ");
 	if ((verticalScrollBar()->draggingSlider()) || (horizontalScrollBar()->draggingSlider()))
 	{
-		Q3ValueList<int> pag;
+		QList<int> pag;
 		pag.clear();
 		uint docPageCount=Doc->Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)

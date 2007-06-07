@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstylefactory.h>
 #include <qmatrix.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 #include "prefsmanager.h"
 //#include "prefsmanager.moc"
@@ -1214,7 +1214,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc76.setAttribute("BleedBottom", appPrefs.bleeds.Bottom);
 	elem.appendChild(dc76);
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	Q3ValueList<PageSet>::Iterator itpgset;
+	QList<PageSet>::Iterator itpgset;
 	for(itpgset = appPrefs.pageSets.begin(); itpgset != appPrefs.pageSets.end(); ++itpgset )
 	{
 		QDomElement pgst = docu.createElement("Set");

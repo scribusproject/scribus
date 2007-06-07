@@ -11,8 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include <q3ptrstack.h>
 #include <qsize.h>
 //Added by qt3to4:
-#include <Q3ValueList>
 #include <Q3PtrList>
+#include <QList>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "../formatidlist.h"
@@ -142,7 +142,7 @@ public:
 	bool Display;
 	bool CSpace;
 	QString CurCol;
-	Q3ValueList<double> dashArray;
+	QList<double> dashArray;
 	double dashOffset;
 	QString Family;
 	QString FillCol;

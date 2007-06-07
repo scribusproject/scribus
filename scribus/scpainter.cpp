@@ -864,7 +864,7 @@ void ScPainter::setPenOpacity( double op )
 }
 
 
-void ScPainter::setDash(const Q3ValueList<double>& array, double ofs)
+void ScPainter::setDash(const QList<double>& array, double ofs)
 {
 	m_array = array;
 	m_offset = ofs;

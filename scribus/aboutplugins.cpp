@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3textbrowser.h>
 #include <qfileinfo.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 
 AboutPlugins::AboutPlugins( QWidget* parent )

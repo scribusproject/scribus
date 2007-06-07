@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "scgzfile.h"
 #include <qcursor.h>
 #include <qfileinfo.h>
-#include <q3valuelist.h>
+#include <QList>
 //Added by qt3to4:
 #include <Q3PtrList>
 #include <QDataStream>
@@ -287,7 +287,7 @@ void Scribus134Format::writeLinestyles(QDomDocument & docu)
 		}
 		dc.appendChild(MuL);
 	}
-	Q3ValueList<ArrowDesc>::Iterator itar;
+	QList<ArrowDesc>::Iterator itar;
 	for (itar = m_Doc->arrowStyles.begin(); itar != m_Doc->arrowStyles.end(); ++itar)
 	{
 		if ((*itar).userArrow)
@@ -330,7 +330,7 @@ void Scribus134Format::writeBookmarks(QDomDocument & docu)
 {	
 	QDomElement dc=docu.documentElement().firstChild().toElement();
 
-	Q3ValueList<ScribusDoc::BookMa>::Iterator itbm;
+	QList<ScribusDoc::BookMa>::Iterator itbm;
 	for (itbm = m_Doc->BookMarks.begin(); itbm != m_Doc->BookMarks.end(); ++itbm)
 	{
 		QDomElement fn=docu.createElement("Bookmark");
@@ -763,7 +763,7 @@ void Scribus134Format::writePageSets(QDomDocument & docu)
 	QDomElement dc=docu.documentElement().firstChild().toElement();
 
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	Q3ValueList<PageSet>::Iterator itpgset;
+	QList<PageSet>::Iterator itpgset;
 	for(itpgset = m_Doc->pageSets.begin(); itpgset != m_Doc->pageSets.end(); ++itpgset )
 	{
 		QDomElement pgst = docu.createElement("Set");
@@ -1104,8 +1104,8 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			for (int a = 0; a < item->effectsInUse.count(); ++a)
 			{
 				QDomElement imeff = docu->createElement("ImageEffect");
-				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
-				imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
+				imeff.setAttribute("Code", item->effectsInUse.at(a).effectCode);
+				imeff.setAttribute("Param", item->effectsInUse.at(a).effectParameters);
 				ob.appendChild(imeff);
 			}
 		}

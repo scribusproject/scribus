@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3dict.h>
 #include <q3ptrlist.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "../../formatidlist.h"
@@ -79,7 +79,7 @@ public:
 	double  fillTrans;
 	double  strokeTrans;
 	double  strokeWidth;
-	Q3ValueList<double> dashes;
+	QList<double> dashes;
 	bool    haveGradient;
 	int     gradientType;
 	VGradient gradient;

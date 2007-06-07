@@ -9,8 +9,8 @@ for which a new license (GPL+exception) is in place.
 #include <qobject.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include <q3valuelist.h>
 #include <qmap.h>
+#include <QList>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -51,7 +51,7 @@ public:
 	const FileFormat * const formatSVG;
 	const FileFormat * const formatSXD;
 	const FileFormat * const formatODG;
- 	Q3ValueList<int> LFrames;
+ 	QList<int> LFrames;
 	QMap<uint,QString> DoVorl;
 	uint VorlC;
 // 	Q3ValueList<ScFace> dummyScFaces;
@@ -61,7 +61,7 @@ private:
 	QMap<QString, QString> ReplacedFonts;
 	bool newReplacement;
 	void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
-	bool findFormat(uint formatId, Q3ValueList<FileFormat>::const_iterator &it);
+	bool findFormat(uint formatId, QList<FileFormat>::const_iterator &it);
 	PrefsManager* prefsManager;
 	double maximumX;
 	double maximumY;

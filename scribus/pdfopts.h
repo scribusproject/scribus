@@ -15,13 +15,13 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qmap.h>
-#include <q3valuelist.h>
 #include <q3groupbox.h>
 #include <qcheckbox.h>
 //Added by qt3to4:
 #include <Q3VBoxLayout>
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>
+#include <QList>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -49,7 +49,7 @@ public:
 	PDFExportDialog( QWidget* parent, const QString & docFileName,
 					 const QMap<QString, int > & DocFonts,
 					 ScribusView * currView, PDFOptions & pdfOptions,
-					 const Q3ValueList<PDFPresentationData> & Eff,
+					 const QList<PDFPresentationData> & Eff,
 					 const ProfilesL & PDFXProfiles, const SCFonts & AllFonts,
 					 double unitRatio, const ProfilesL & printerProfiles);
 	~PDFExportDialog() {};
@@ -81,7 +81,7 @@ protected:
 
 	// Other members
 	ScribusDoc* doc;
-	Q3ValueList<PDFPresentationData> EffVal;
+	QList<PDFPresentationData> EffVal;
 	PDFOptions & Opts;
 	double docUnitRatio;
 	QString cmsDescriptorName;

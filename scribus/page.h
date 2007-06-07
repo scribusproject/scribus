@@ -26,8 +26,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <utility>
 
-#include "q3valuelist.h"
 #include "q3ptrlist.h"
+#include <QList>
 
 #include "scribusapi.h"
 #include "undoobject.h"

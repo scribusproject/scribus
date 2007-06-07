@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scgzfile.h"
 #include <qcursor.h>
 #include <qfileinfo.h>
-#include <q3valuelist.h>
+#include <QList>
 //Added by qt3to4:
 #include <QByteArray>
 #include <Q3PtrList>
@@ -142,7 +142,7 @@ QString Scribus134Format::readSLA(const QString & fileName)
 	return docText;
 }
 
-void Scribus134Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, Q3ValueList<ScFace> &getDummyScFaces)
+void Scribus134Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces)
 {
 	getNewReplacement=false;
 	getReplacedFonts.clear();

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QMap>
 #include <QDateTime>
-#include <Q3ValueList>
+#include <QList>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
@@ -51,7 +51,7 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		/// Returns a font with that name; creates a replacement font if not found
 		const ScFace& findFont(const QString& fontName, ScribusDoc* doc = NULL);
 		/// Returns a map of pairs (scName, replacementName). Using this map for replaceFonts() will make substitutions permanent
-		QMap<QString,QString> getSubstitutions(const Q3ValueList<QString> skip = Q3ValueList<QString>()) const;
+		QMap<QString,QString> getSubstitutions(const QList<QString> skip = QList<QString>()) const;
 		/// Changes replacement fonts to point to new real fonts. For all keys 'nam' in 'substitutes', findFont(name).isReplacement() must be true
 		void setSubstitutions(const QMap<QString,QString>& substitutes, ScribusDoc* doc = NULL);
 		void removeFont(QString name);

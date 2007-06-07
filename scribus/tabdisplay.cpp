@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcolordialog.h>
 #include <qpainter.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <QPixmap>
 
 #include "tabdisplay.h"
@@ -54,7 +54,7 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 }
 
-void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, Q3ValueList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch)
+void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs &guidesSettings, QList<PageSet> &pageSets, int pageLayout, MarginStruct &scratch)
 {
 	docUnitIndex = prefsData->docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);

@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwidget.h>
 //Added by qt3to4:
 #include <QPixmap>
-#include <Q3ValueList>
+#include <QList>
 #include <QByteArray>
 #include <Q3PointArray>
 #include <QImageReader>
@@ -425,7 +425,7 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 	return pts;
 }
 
-Q3PointArray FlattenPath(FPointArray ina, Q3ValueList<uint> &Segs)
+Q3PointArray FlattenPath(FPointArray ina, QList<uint> &Segs)
 {
 	Q3PointArray Bez(4);
 	Q3PointArray outa, cli;

@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <q3textstream.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <QByteArray>
 #include <Q3PtrList>
 
@@ -396,7 +396,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 				strokeDA = "stroke-dasharray:";
 				if (Item->DashValues.count() != 0)
 				{
-					Q3ValueList<double>::iterator it;
+					QList<double>::iterator it;
 					for ( it = Item->DashValues.begin(); it != Item->DashValues.end(); ++it )
 					{
 						strokeDA += IToStr(static_cast<int>(*it))+" ";

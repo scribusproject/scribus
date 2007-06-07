@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDesktopWidget>
 #include <QDropEvent>
 #include <QCloseEvent>
-#include <Q3ValueList>
+#include <QList>
 #include <QLabel>
 #include <QEvent>
 #include <QWheelEvent>
@@ -1523,7 +1523,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									for (int itm = 0; itm < view->SelNode.count(); ++itm)
 									{
 										FPoint np;
-										int clRe = *view->SelNode.at(itm);
+										int clRe = view->SelNode.at(itm);
 										if (clRe != 0)
 										{
 											if (view->EditContour)
@@ -1589,7 +1589,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									for (int itm = 0; itm < view->SelNode.count(); ++itm)
 									{
 										FPoint np;
-										int clRe = *view->SelNode.at(itm);
+										int clRe = view->SelNode.at(itm);
 										if (clRe != 0)
 										{
 											if (view->EditContour)
@@ -1655,7 +1655,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									for (int itm = 0; itm < view->SelNode.count(); ++itm)
 									{
 										FPoint np;
-										int clRe = *view->SelNode.at(itm);
+										int clRe = view->SelNode.at(itm);
 										if (clRe != 0)
 										{
 											if (view->EditContour)
@@ -1721,7 +1721,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 									for (int itm = 0; itm < view->SelNode.count(); ++itm)
 									{
 										FPoint np;
-										int clRe = *view->SelNode.at(itm);
+										int clRe = view->SelNode.at(itm);
 										if (clRe != 0)
 										{
 											if (view->EditContour)
@@ -3345,7 +3345,7 @@ void ScribusMainWindow::rebuildLayersList()
 		for( QMap<QString, QPointer<ScrAction> >::Iterator it0 = scrLayersActions.begin(); it0 != scrLayersActions.end(); ++it0 )
 			scrMenuMgr->removeMenuItem((*it0), layerMenuName);
 		scrLayersActions.clear();
-		Q3ValueList<Layer>::iterator it;
+		QList<Layer>::iterator it;
 		if (doc->Layers.count()!= 0)
 		{
 			for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
@@ -6759,7 +6759,7 @@ void ScribusMainWindow::setCSMenu()
 //CB still called from SE
 void ScribusMainWindow::saveStyles(StilFormate *dia)
 {
-	Q3ValueList<uint> ers;
+	QList<uint> ers;
 	QString nn;
 // 	PageItem* ite = 0;
 	bool ff;
@@ -7872,8 +7872,8 @@ void ScribusMainWindow::doSaveAsPDF()
 	QMap<QString, int> ReallyUsed = doc->UsedFonts;
 	if (doc->PDF_Options.EmbedList.count() != 0)
 	{
-		Q3ValueList<QString> tmpEm;
-		Q3ValueList<QString>::Iterator itef;
+		QList<QString> tmpEm;
+		QList<QString>::Iterator itef;
 		for (itef = doc->PDF_Options.EmbedList.begin(); itef != doc->PDF_Options.EmbedList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
@@ -7883,8 +7883,8 @@ void ScribusMainWindow::doSaveAsPDF()
 	}
 	if (doc->PDF_Options.SubsetList.count() != 0)
 	{
-		Q3ValueList<QString> tmpEm;
-		Q3ValueList<QString>::Iterator itef;
+		QList<QString> tmpEm;
+		QList<QString>::Iterator itef;
 		for (itef = doc->PDF_Options.SubsetList.begin(); itef != doc->PDF_Options.SubsetList.end(); ++itef)
 		{
 			if (ReallyUsed.contains((*itef)))
@@ -7985,7 +7985,7 @@ void ScribusMainWindow::BookMarkTxT(PageItem *ite)
 //CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::RestoreBookMarks()
 {
-	Q3ValueList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
+	QList<ScribusDoc::BookMa>::Iterator it2 = doc->BookMarks.begin();
 	bookmarkPalette->BView->clear();
 	bookmarkPalette->BView->NrItems = 0;
 	bookmarkPalette->BView->First = 1;
@@ -8393,7 +8393,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia, Selection* customSelection)
 			int d = doc->Items->findRef(currItem);
 			doc->Items->take(d);
 		}
-		Q3ValueList<uint> Oindex = ObjOrder.values();
+		QList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
 		{
 			doc->Items->insert(lowestItem+1, itemSelection->itemAt(Oindex[c]));

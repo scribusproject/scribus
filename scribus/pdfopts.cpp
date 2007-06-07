@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
-#include <Q3ValueList>
+#include <QList>
 #include <Q3GridLayout>
 #include <Q3VBoxLayout>
 #include <QByteArray>
@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const QMap<QString, int > & DocFonts,
 								  ScribusView *currView, PDFOptions & pdfOptions,
-								  const Q3ValueList<PDFPresentationData> & Eff,
+								  const QList<PDFPresentationData> & Eff,
 								  const ProfilesL & PDFXProfiles, const SCFonts &AllFonts,
 								  double unitRatio, const ProfilesL & printerProfiles)
 	: QDialog( parent, "pdf", true, 0 ),

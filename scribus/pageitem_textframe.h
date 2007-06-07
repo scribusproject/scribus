@@ -32,10 +32,10 @@ for which a new license (GPL+exception) is in place.
 #include <qrect.h>
 #include <qstring.h>
 #include <q3valuestack.h>
-#include <q3valuelist.h>
 #include <qwidget.h>
 //Added by qt3to4:
 #include <QKeyEvent>
+#include <QList>
 
 #include "scribusapi.h"
 #include "undoobject.h"

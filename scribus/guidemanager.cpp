@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <q3listview.h>
 #include <qdialog.h>
-#include <q3valuelist.h>
 #include <q3groupbox.h>
 #include <qlabel.h>
 #include <q3listview.h>
@@ -36,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qbuttongroup.h>
 #include <qtabwidget.h>
+#include <QList>
 
 #include "guidemanager.h"
 //#include "guidemanager.moc"

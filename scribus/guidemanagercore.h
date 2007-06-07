@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #define GUIDEMANAGERCORE_H
 
 #include <qpair.h>
-#include <q3valuelist.h>
 
 #include "scribusstructs.h"
 #include "undoobject.h"

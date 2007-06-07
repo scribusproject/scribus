@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qcheckbox.h>
 #include <q3header.h>
-#include <q3valuelist.h>
+#include <QList>
 #include <qtooltip.h>
 #include <qcheckbox.h>
 #include <qspinbox.h>
@@ -299,7 +299,7 @@ void LayerPalette::rebuildList()
 	flagsOutline.clear();
 	flagsMarker.clear();
 	QString tmp;
-	Q3ValueList<Layer>::iterator it;
+	QList<Layer>::iterator it;
 	int layerCount=m_Doc->layerCount();
 	Table->setNumRows(layerCount);
 	for (it = layers->begin(); it != layers->end(); ++it)

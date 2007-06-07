@@ -180,8 +180,8 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		for (int a = 0; a < effectsInUse.count(); ++a)
 		{
 			Xml_attr imeff;
-			imeff.insert("Code", toXMLString((*effectsInUse.at(a)).effectCode));
-			imeff.insert("Param", (*effectsInUse.at(a)).effectParameters);
+			imeff.insert("Code", toXMLString(effectsInUse.at(a).effectCode));
+			imeff.insert("Param", effectsInUse.at(a).effectParameters);
 			handler.begin("ImageEffect", imeff);
 			handler.end("ImageEffect");
 		}

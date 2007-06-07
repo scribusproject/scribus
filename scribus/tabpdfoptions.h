@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <q3listbox.h>
 #include <qmap.h>
-#include <q3valuelist.h>
 #include <q3buttongroup.h>
 #include <q3groupbox.h>
 #include <qcheckbox.h>
@@ -30,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
 #include <Q3VBoxLayout>
+#include <QList>
 
 #include "scribusapi.h"
 #include "bookmwin.h"
@@ -48,7 +48,7 @@ public:
 	                const SCFonts &AllFonts,
 	                const ProfilesL & PDFXProfiles,
 	                const QMap<QString, int> & DocFonts,
-	                const Q3ValueList<PDFPresentationData> & Eff,
+	                const QList<PDFPresentationData> & Eff,
 	                int unitIndex, double PageH, double PageB,
 	                ScribusDoc *mdoc = 0, bool exporting = false);
 	~TabPDFOptions() {};
@@ -56,7 +56,7 @@ public:
 						 const SCFonts &AllFonts,
 						 const ProfilesL & PDFXProfiles,
 						 const QMap<QString, int> & DocFonts,
-						 const Q3ValueList<PDFPresentationData> & Eff,
+						 const QList<PDFPresentationData> & Eff,
 						 int unitIndex, double PageH, double PageB,
 						 ScribusDoc *mdoc, bool exporting);
 
@@ -164,10 +164,10 @@ protected:
 	// be added to a very thin dialog class instead.
 	friend class PDFExportDialog;
 	int PgSel;
-	Q3ValueList<PDFPresentationData> EffVal;
+	QList<PDFPresentationData> EffVal;
 	QString SelLPIcolor;
-	Q3ValueList<QString> FontsToEmbed;
-	Q3ValueList<QString> FontsToOutline;
+	QList<QString> FontsToEmbed;
+	QList<QString> FontsToOutline;
 
 	// PDFExportDialog needs access to these GUI members
 	// but they don't need to be exposed to the rest of Scribus.

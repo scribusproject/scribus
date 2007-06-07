@@ -6,7 +6,7 @@
 #include <assert.h>
 #include "style.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 
 template<class STYLE>
@@ -91,7 +91,7 @@ private:
 	StyleSet(const StyleSet&)             { assert(false); }
 	StyleSet& operator= (const StyleSet&) { assert(false); return *this; }
 
-	Q3ValueList<STYLE*> styles;
+	QList<STYLE*> styles;
 	const StyleContext* m_context;
 	STYLE* m_default;
 };
@@ -100,11 +100,12 @@ template<class STYLE>
 inline void StyleSet<STYLE>::remove(int index)
 {
 	assert(index>=0 && index < styles.count()); 
-	typename Q3ValueList<STYLE*>::Iterator it = styles.at(index);
-	if (*it == m_default)
+//	QList<STYLE*> it = styles.at(index);
+	if (styles.at(index) == m_default)
 		return;
-	delete (*it);
-	styles.erase(it);
+//	delete (*it);
+//	styles.erase(it);
+	styles.removeAt(index);
 }
 
 template<class STYLE>

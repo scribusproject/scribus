@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <qobject.h>
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include "scconfig.h"
 #include "scimgdataloader_tiff.h"
 #include "colorutil.h"
@@ -1004,7 +1004,7 @@ QString ScImgDataLoader_TIFF::getLayerString(QDataStream & s)
 	return ret;
 }
 
-bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
+bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
 {
 	uint base = s.device()->at();
 	uchar cbyte;
@@ -1098,7 +1098,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 	return true;
 }
 
-bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader & header, Q3ValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
+bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, bool* firstLayer)
 {
 	// Find out if the data is compressed.
 	// Known values:

@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QDrag>
 #include <QMimeData>
-#include <Q3ValueList>
+#include <QList>
 #include <Q3PtrList>
 #include <cmath>
 #include <zlib.h>
@@ -1878,7 +1878,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	//		gc->stroke.setMiterLimit( params.todouble() );
 	else if( command == "stroke-dasharray" )
 	{
-		Q3ValueList<double> array;
+		QList<double> array;
 		if(params != "none")
 		{
 			QString params2 = params.simplifyWhiteSpace().replace(',', " ");

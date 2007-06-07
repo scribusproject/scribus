@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <QDragLeaveEvent>
-#include <Q3ValueList>
+#include <QList>
 #include <QLabel>
 #include <QPixmap>
 //QPixmap doesnt seem to include this for its mask() code
@@ -528,7 +528,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	Layout1 = new Q3HBoxLayout;
 	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
-	Q3ValueList<PageSet> dummy;
+	QList<PageSet> dummy;
 	dummy.clear();
 	struct PageSet pageS;
 	pageS.Name = tr( "Double sided" );

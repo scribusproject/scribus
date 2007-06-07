@@ -28,8 +28,8 @@ for which a new license (GPL+exception) is in place.
 #include <qpen.h>
 #include <qfile.h>
 #include <q3textstream.h>
+#include <QList>
 //Added by qt3to4:
-#include <Q3ValueList>
 #include <vector>
 #include <utility>
 class ScribusDoc;
@@ -85,8 +85,8 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_strokespot(QString color, int shade);
 		virtual void PS_fill_stroke();
 		virtual void PS_newpath();
-		virtual void PS_MultiRadGradient(double w, double h, double x, double y, Q3ValueList<double> Stops, QStringList Colors, QStringList colorNames, Q3ValueList<int> colorShades);
-		virtual void PS_MultiLinGradient(double w, double h, Q3ValueList<double> Stops, QStringList Colors, QStringList colorNames, Q3ValueList<int> colorShades);
+		virtual void PS_MultiRadGradient(double w, double h, double x, double y, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades);
+		virtual void PS_MultiLinGradient(double w, double h, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades);
 		virtual void PS_show(double x, double y);
 		virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
 		virtual void PS_show_xyG(QString font, uint gl, double x, double y, bool stop);

@@ -241,7 +241,7 @@ void CWDialog::setPreview()
 {
 	int x = previewLabel->width();
 	int y = previewLabel->height();
-	Q3ValueList<ScColor> cols = colorWheel->colorList.values();
+	QList<ScColor> cols = colorWheel->colorList.values();
 	int xstep = x / cols.count();
 	QPixmap pm = QPixmap(x, y);
 	QPainter *p = new QPainter(&pm);

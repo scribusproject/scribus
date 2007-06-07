@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 
 //Added by qt3to4:
 #include <Q3PtrStack.h>
-#include <Q3ValueList>
 #include <Q3PtrList>
+#include <QList>
 #include "pageitem.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
@@ -947,7 +947,7 @@ void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	if (startArrowIndex != 0)
 	{
 		QWMatrix arrowTrans;
-		FPointArray arrow = ( *m_doc->arrowStyles.at(startArrowIndex - 1) ).points.copy();
+		FPointArray arrow = m_doc->arrowStyles.at(startArrowIndex - 1).points.copy();
 		arrowTrans.translate( 0, 0 );
 		arrowTrans.scale( item->lineWidth(), item->lineWidth());
 		arrowTrans.scale( -1 , 1 );
@@ -962,7 +962,7 @@ void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 	if (endArrowIndex != 0)
 	{
 		QWMatrix arrowTrans;
-		FPointArray arrow = (*m_doc->arrowStyles.at(endArrowIndex-1) ).points.copy();
+		FPointArray arrow = m_doc->arrowStyles.at(endArrowIndex-1).points.copy();
 		arrowTrans.translate( item->width(), 0 );
 		arrowTrans.scale( item->lineWidth(), item->lineWidth());
 		arrow.map( arrowTrans );
@@ -1212,7 +1212,7 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				{
 					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
 					QWMatrix arrowTrans;
-					FPointArray arrow = (*m_doc->arrowStyles.at(startArrowIndex-1)).points.copy();
+					FPointArray arrow = m_doc->arrowStyles.at(startArrowIndex-1).points.copy();
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
 					arrowTrans.scale(item->lineWidth(), item->lineWidth());
@@ -1237,7 +1237,7 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 				{
 					double r = atan2(End.y()-Vector.y(),End.x()-Vector.x())*(180.0/M_PI);
 					QWMatrix arrowTrans;
-					FPointArray arrow = (*m_doc->arrowStyles.at(endArrowIndex-1)).points.copy();
+					FPointArray arrow = m_doc->arrowStyles.at(endArrowIndex-1).points.copy();
 					arrowTrans.translate(End.x(), End.y());
 					arrowTrans.rotate(r);
 					arrowTrans.scale( item->lineWidth(), item->lineWidth() );

@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3PtrList>
 #include <Q3PointArray>
 #include <QKeyEvent>
-#include <Q3ValueList>
+#include <QList>
 #include <QPixmap>
 #include <cmath>
 #include <cassert>
@@ -1945,9 +1945,9 @@ void PageItem::DrawPolyL(QPainter *p, Q3PointArray pts)
 	ScribusView* view = m_Doc->view();
 	if (Segments.count() != 0)
 	{
-		Q3ValueList<uint>::Iterator it2end=Segments.end();
+		QList<uint>::Iterator it2end=Segments.end();
 		uint FirstVal = 0;
-		for (Q3ValueList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
+		for (QList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
 		{
 			if (NamedLStyle.isEmpty())
 				p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);

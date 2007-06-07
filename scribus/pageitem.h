@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3ptrlist.h>
 #include <qpixmap.h>
 #include <q3valuestack.h>
-#include <q3valuelist.h>
+#include <QList>
 //Added by qt3to4:
 #include <QKeyEvent>
 
@@ -333,7 +333,7 @@ public:
 	void setContour(FPointArray val) { ContourLine = val; }
 	
 	FPointArray imageClip;
-	Q3ValueList<uint> Segments;
+	QList<uint> Segments;
 	ScImageEffectList effectsInUse;
 	bool PoShow;
 	double BaseOffs;

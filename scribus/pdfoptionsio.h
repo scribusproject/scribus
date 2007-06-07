@@ -9,9 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "pdfoptions.h"
-#include "qdom.h"
+#include <qdom.h>
+#include <QList>
 //Added by qt3to4:
-#include <Q3ValueList>
 
 /**
  * @file pdfoptionsio.h
@@ -101,7 +101,7 @@ protected:
 	void addElem(QDomElement& addTo, QString name, QString value);
 	void addElem(QDomElement& addTo, QString name, int value);
 	void addElem(QDomElement& addTo, QString name, double value);
-	void addList(QDomElement& addTo, QString name, Q3ValueList<QString>& value);
+	void addList(QDomElement& addTo, QString name, QList<QString>& value);
 
 	// Helper: add the PresentVals data to the document
 	void addPresentationData();
@@ -118,7 +118,7 @@ protected:
 	bool readElem(QDomElement& parent, QString name, int* value);
 	bool readElem(QDomElement& parent, QString name, double* value);
 	bool readElem(QDomElement& parent, QString name, QString* value);
-	bool readList(QDomElement& parent, QString name, Q3ValueList<QString>* value);
+	bool readList(QDomElement& parent, QString name, QList<QString>* value);
 
 	bool readPDFVersion();
 	bool readPresentationData();
