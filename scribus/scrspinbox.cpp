@@ -23,7 +23,7 @@ ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent)
 	init(unitIndex);
 }
 
-ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex):QDoubleSpinBox(pa)
+ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex) : QDoubleSpinBox(pa)
 {
 	init(unitIndex);
 	setMinimum(minValue);
@@ -45,6 +45,7 @@ void ScrSpinBox::init(int unitIndex)
 ScrSpinBox::~ScrSpinBox()
 {
 }
+
 
 void ScrSpinBox::setParameters( int s )
 {
@@ -185,7 +186,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 
 QValidator::State ScrSpinBox::validate ( QString & input, int & pos ) const
 {
-	return QValidator::Acceptable;
+	return QValidator::Intermediate;
 }
 
 void ScrSpinBox::textChanged()
