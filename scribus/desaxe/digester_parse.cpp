@@ -52,21 +52,21 @@ private:
 
 void Digester::parseFile(const Xml_string& filename)
 {
-	DigesterParser* handler = new DigesterParser(this);
+	DigesterParser handler(this);
 	QFile xmlFile( filename );
 	QXmlInputSource source( &xmlFile );
 	QXmlSimpleReader reader;
-	reader.setContentHandler( handler );
+	reader.setContentHandler( &handler );
 	reader.parse( source );
 }
 
 void Digester::parseMemory(const char* data, unsigned int length)
 {
-	DigesterParser* handler = new DigesterParser(this);
+	DigesterParser handler(this);
 	QXmlInputSource source;
 	source.setData(QString::fromUtf8(data, length));
 	QXmlSimpleReader reader;
-	reader.setContentHandler( handler );
+	reader.setContentHandler( &handler );
 	reader.parse( source );
 }
 
