@@ -64,6 +64,8 @@ using namespace std;
 PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::TextFrame, x, y, w, h, w2, fill, outline)
 {
+	invalid = true;
+	firstChar = 0;
 	cursorBiasBackward = false;
 	unicodeTextEditMode = false;
 	unicodeInputCount = 0;
@@ -2238,7 +2240,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 //			p->drawRect(ls.x, ls.y, ls.width, ls.descent);
 			
 			QColor tmp;
-			for (int a = ls.firstItem; a <= ls.lastItem; ++a)
+			for (int a = ls.firstItem; a <= qMin(ls.lastItem, itemText.length()); ++a)
 			{
 				hl = itemText.item(a);
 				const CharStyle& charStyle(itemText.charStyle(a));
