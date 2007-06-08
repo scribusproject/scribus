@@ -55,8 +55,6 @@ public:
 	void addStyle(StyleItem *item);
 	void updateColorList();
 
-	void show();
-
 	QMap<QString,Keys> keyMap();
 
 public slots:

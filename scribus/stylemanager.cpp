@@ -722,11 +722,6 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 	resetButton->setEnabled(true);
 }
 
-void StyleManager::show()
-{
-	QDialog::show();
-}
-
 // open or close edit mode
 void StyleManager::slotOk()
 {
