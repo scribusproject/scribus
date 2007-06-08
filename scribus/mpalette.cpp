@@ -4407,11 +4407,13 @@ bool Mpalette::userActionOn()
 
 void Mpalette::spinboxStartUserAction()
 {
+	qDebug("sniffer: spinbox start action");
 	_userActionOn = true;
 }
 
 void Mpalette::spinboxFinishUserAction()
 {
+	qDebug("sniffer: spinbox finish action");
 	_userActionOn = false;
 
 	for (uint i = 0; i < doc->m_Selection->count(); ++i)

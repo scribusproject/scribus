@@ -62,7 +62,7 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 		Q3ListViewItem *plugItem = new Q3ListViewItem(pluginsList);
 		// Get the plugin, even if it's loaded but disabled
 		ScPlugin* plugin = pluginManager.getPlugin(*it, true);
-		Q_ASSERT(plugin); // all the returned names should represent loaded plugins
+		assert(plugin); // all the returned names should represent loaded plugins
 		plugItem->setText(0, plugin->fullTrName());
 		if (plugin->inherits("ScActionPlugin"))
 		{

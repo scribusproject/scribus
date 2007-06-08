@@ -255,7 +255,7 @@ void PluginManager::enablePlugin(PluginData & pda)
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
 		ScPersistentPlugin* plugin = dynamic_cast<ScPersistentPlugin*>(pda.plugin);
-		Q_ASSERT(plugin);
+		assert(plugin);
 		pda.enabled = plugin->initPlugin();
 		if (!pda.enabled)
 			failReason = tr("init failed", "plugin load error");
@@ -288,7 +288,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			//Add in ScrAction based plugin linkage
 			//Insert DLL Action into Dictionary with values from plugin interface
 			plugin = dynamic_cast<ScActionPlugin*>(it.data().plugin);
-			Q_ASSERT(plugin);
+			assert(plugin);
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.icon1, ai.icon2, ai.text, ai.keySequence, mw, ai.name);
 			Q_CHECK_PTR(action);
@@ -429,14 +429,14 @@ void PluginManager::disablePlugin(PluginData & pda)
 	if (pda.plugin->inherits("ScActionPlugin"))
 	{
 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pda.plugin);
-		Q_ASSERT(plugin);
+		assert(plugin);
 		// FIXME: Correct way to delete action?
 		delete ScCore->primaryMainWindow()->scrActions[plugin->actionInfo().name];
 	}
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
 		ScPersistentPlugin* plugin = dynamic_cast<ScPersistentPlugin*>(pda.plugin);
-		Q_ASSERT(plugin);
+		assert(plugin);
 		plugin->cleanupPlugin();
 	}
 /* temporary hack to enable the import plugins */

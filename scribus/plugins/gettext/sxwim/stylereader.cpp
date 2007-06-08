@@ -109,6 +109,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  				if (plist->target() == "paragraph")
  				{
  					pstyle = dynamic_cast<gtParagraphStyle*>(plist);
+					assert(pstyle != NULL);
  					gtParagraphStyle* tmp = new gtParagraphStyle(*pstyle);
  					currentStyle = tmp;
  				}
@@ -136,6 +137,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  					if (ok)
  					{
  						gtParagraphStyle* s = dynamic_cast<gtParagraphStyle*>(currentStyle);
+						assert(s != NULL);
  						s->setDropCapHeight(dh);
  						s->setDropCap(true);
  					}
@@ -219,7 +221,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			if (parentStyle->target() == "paragraph")
  			{
  				ppstyle = dynamic_cast<gtParagraphStyle*>(parentStyle);
- 				pstyle->setLineSpacing(getSize(attrs.value(i), writer->getPreferredLineSpacing(currentStyle->getFont()->getSize())));
+				assert(ppstyle != NULL);
+ 				ppstyle->setLineSpacing(getSize(attrs.value(i), writer->getPreferredLineSpacing(currentStyle->getFont()->getSize())));
  			}
  		}
  		else if (attrs.localName(i) == "fo:color")
@@ -357,6 +360,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  			if (parentStyle->target() == "paragraph")
  			{
  				tmpP = dynamic_cast<gtParagraphStyle*>(parentStyle);
+				assert(tmpP != NULL);
  				gtParagraphStyle* tmp = new gtParagraphStyle(*tmpP);
  // 				tmp->setAutoLineSpacing(true);
  				currentStyle = tmp;
@@ -386,6 +390,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	if (currentStyle->target() == "paragraph")
  	{
  		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(currentStyle);
+		assert(pstyle != NULL);
  		QString pos = NULL;
  		QString type = NULL;
  		for (int i = 0; i < attrs.count(); ++i)
@@ -474,6 +479,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	if ((style->target() == "paragraph") && (packStyles))
  	{
  		s = dynamic_cast<gtParagraphStyle*>(style);
+		assert(s != NULL);
  		QString nameByAttrs = QString("%1-").arg(s->getSpaceAbove());
  		nameByAttrs += QString("%1-").arg(s->getSpaceBelow());
  		nameByAttrs += QString("%1-").arg(s->getLineSpacing());
@@ -580,7 +586,8 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		if (parent2Style->target() == "paragraph")
  		{
  			ppstyle = dynamic_cast<gtParagraphStyle*>(parent2Style);
- 			pstyle->setLineSpacing(getSize(value, writer->getPreferredLineSpacing(style->getFont()->getSize())));
+			assert(ppstyle != NULL);
+ 			ppstyle->setLineSpacing(getSize(value, writer->getPreferredLineSpacing(style->getFont()->getSize())));
  		}
  	}
  	else if (key == "fo:color")
@@ -642,6 +649,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  	if (!align.isNull())
  	{
+		assert(pstyle);
  		if (align == "end")
  			pstyle->setAlignment(RIGHT);
  		else if (align == "center")

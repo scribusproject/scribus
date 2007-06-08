@@ -4871,6 +4871,7 @@ void ScribusMainWindow::slotEditPaste()
 		if (doc->appMode == modeEdit && doc->m_Selection->itemAt(0))
 		{
 			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->m_Selection->itemAt(0));
+			assert(currItem != NULL);
 			if (currItem->HasSel)
 				currItem->deleteSelectedTextFromFrame();
 

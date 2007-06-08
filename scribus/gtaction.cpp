@@ -119,6 +119,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 	if (style->target() == "paragraph")
 	{
 		gtParagraphStyle* pstyle = dynamic_cast<gtParagraphStyle*>(style);
+		assert(pstyle != NULL);
 		paragraphStyle = applyParagraphStyle(pstyle);
 		if (isFirstWrite)
 			inPara = true;
@@ -126,6 +127,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 	else if (style->target() == "frame")
 	{
 		gtFrameStyle* fstyle = dynamic_cast<gtFrameStyle*>(style);
+		assert(fstyle != NULL);
 		applyFrameStyle(fstyle);
 	}
 

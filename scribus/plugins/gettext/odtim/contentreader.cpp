@@ -338,6 +338,7 @@ void ContentReader::getStyle()
 		par = dynamic_cast<gtParagraphStyle*>(sreader->getStyle("default-style"));
 	else
 		par = dynamic_cast<gtParagraphStyle*>(sreader->getStyle(styleNames[0]));
+	assert(par != NULL);
 	gtParagraphStyle* tmp = new gtParagraphStyle(*par);
 	for (uint i = 1; i < styleNames.size(); ++i)
 	{

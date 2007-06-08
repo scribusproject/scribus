@@ -129,7 +129,7 @@ void PicSearchOptions::SearchPicAborted(bool userCancelled)
 {
 	m_userCancelled = userCancelled;
 	const FileSearch* search = dynamic_cast<const FileSearch*>(sender());
-	Q_ASSERT(search);
+	assert(search);
 	setSearchButton(false, search);
 	if (!userCancelled)
 		// A running search failed

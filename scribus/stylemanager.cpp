@@ -707,7 +707,7 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 		}
 		++it;
 	}
-	Q_ASSERT(root);
+	assert(root);
 	styleView->clearSelection();
 	StyleViewItem *newItem = new StyleViewItem(root, newName, item_->typeName());
 	Q_CHECK_PTR(newItem);
