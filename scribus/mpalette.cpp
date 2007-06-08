@@ -1180,10 +1180,15 @@ void Mpalette::setDoc(ScribusDoc *d)
 	HaveDoc = true;
 	HaveItem = false;
 
+	QMap<QString, double>* docConstants = doc? &doc->constants()  : NULL;
 	Xpos->setValues( minXYVal, maxXYWHVal, precision, minXYVal);
+	Xpos->setConstants(docConstants);
 	Ypos->setValues( minXYVal, maxXYWHVal, precision, minXYVal);
+	Ypos->setConstants(docConstants);
 	Width->setValues( m_unitRatio, maxXYWHVal, precision, m_unitRatio);
+	Width->setConstants(docConstants);
 	Height->setValues( m_unitRatio, maxXYWHVal, precision, m_unitRatio);
+	Height->setConstants(docConstants);
 	imageXOffsetSpinBox->setValues( -30000, maxXYWHVal, precision, 0);
 	imageYOffsetSpinBox->setValues( -30000, maxXYWHVal, precision, 0);
 
@@ -1245,6 +1250,10 @@ void Mpalette::unsetDoc()
 	CurItem = NULL;
 	Cpal->setCurrentItem(NULL);
 	Cpal->setDocument(NULL);
+	Xpos->setConstants(NULL);
+	Ypos->setConstants(NULL);
+	Width->setConstants(NULL);
+	Height->setConstants(NULL);
 	paraStyleCombo->setDoc(0);
 	charStyleCombo->setDoc(0);
 	SetLineFormats(0);
@@ -4407,13 +4416,13 @@ bool Mpalette::userActionOn()
 
 void Mpalette::spinboxStartUserAction()
 {
-	qDebug("sniffer: spinbox start action");
+//	qDebug("sniffer: spinbox start action");
 	_userActionOn = true;
 }
 
 void Mpalette::spinboxFinishUserAction()
 {
-	qDebug("sniffer: spinbox finish action");
+//	qDebug("sniffer: spinbox finish action");
 	_userActionOn = false;
 
 	for (uint i = 0; i < doc->m_Selection->count(); ++i)

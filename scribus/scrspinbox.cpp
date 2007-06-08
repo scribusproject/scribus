@@ -95,11 +95,18 @@ double ScrSpinBox::getValue(int unitIndex)
 	return val * unitGetRatioFromIndex(unitIndex);
 }
 
+void ScrSpinBox::setConstants(const QMap<QString, double>* constants)
+{
+	m_constants = constants;
+}
+
+
+
 static const QString FinishTag("\xA0");
 
 double ScrSpinBox::valueFromText ( const QString & text ) const
 {
-	qDebug() << "vft:" << text;
+//	qDebug() << "vft:" << text;
 // 	return QDoubleSpinBox::valueFromText(text);
 	
 	FunctionParser fp;
@@ -175,7 +182,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 			ts.replace(pos, rx.cap(0).length(), replacement);
 		}
 	}
-	qDebug() << "text2value: text for fp =" << ts;
+//	qDebug() << "text2value: text for fp =" << ts;
 	//Get the index of our suffix
 	int toConvertToIndex=unitIndexFromString(su);
 	//Add in the fparser constants using our unit strings, and the conversion factors.
@@ -199,11 +206,11 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	}
 	
 	int ret = fp.Parse(ts.toStdString(), "", true);
-	qDebug() << "fp return =" << ret;
+//	qDebug() << "fp return =" << ret;
 	if (ret >= 0)
 		return 0;
 	double erg = fp.Eval(NULL);
-	qDebug() << "fp value =" << erg;
+//	qDebug() << "fp value =" << erg;
 	return erg;
 }
 
@@ -211,12 +218,12 @@ QValidator::State ScrSpinBox::validate ( QString & input, int & pos ) const
 {
 	if (input.endsWith(FinishTag))
 	{
-		qDebug() << "spinbox validate acceptable:" << input;
+//		qDebug() << "spinbox validate acceptable:" << input;
 		return QValidator::Acceptable;
 	}
 	else
 	{
-		qDebug() << "spinbox validate intermediate:" << input;
+//		qDebug() << "spinbox validate intermediate:" << input;
 		return QValidator::Intermediate;
 	}
 }
@@ -235,8 +242,6 @@ void ScrSpinBox::textChanged()
 
 bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 {
-	return false;
- 	qDebug() << "eventFilter " << event->type();
 	bool retval = false;
 /* Adding this to be sure that the IM* events are processed correctly i.e not intercepted by our KeyPress/Release handlers */
  	if (event->type() == QEvent::InputMethod)
@@ -266,7 +271,7 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 		{
  			if (!m_tabAdvance)
 			{
-				qDebug() << "eventFilter: interpretText";
+//				qDebug() << "eventFilter: interpretText";
 				QDoubleSpinBox::interpretText();
 				return true;
 			}
