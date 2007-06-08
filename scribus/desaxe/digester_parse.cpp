@@ -30,7 +30,7 @@ public:
 	{
 		Xml_attr attr;
 		for (int i=0; i < qattr.count(); ++i)
-			attr[qattr.qName(i)] = static_cast<Xml_string>(qattr.value(i).toUtf8());
+			attr[qattr.qName(i)] = fromSTLString(qattr.value(i).toUtf8().data());
 		dig->begin(qName, attr);
 		return true;
 	}
