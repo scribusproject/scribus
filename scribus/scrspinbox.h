@@ -30,9 +30,11 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		//overridden members
 		double valueFromText ( const QString & text ) const;
 		QValidator::State validate ( QString & input, int & pos ) const;
+		void fixup ( QString & input ) const;
 		
 		//custom
 		void init(int unitIndex);
+		void setConstants(const QMap<QString, double>* constants);
 		void setNewUnit(int unitIndex);
 		double getValue(int unitIndex=0);
 		//implemented for backwards compatibility, perhaps we can remove these?
@@ -47,6 +49,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		void setParameters( int s );
 		uint m_unitIndex;
 		bool m_tabAdvance;
+		const QMap<QString, double>* m_constants;
 		bool eventFilter ( QObject * watched, QEvent * event );
 		
 	protected slots:

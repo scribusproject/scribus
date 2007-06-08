@@ -18,12 +18,12 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "units.h"
 
-ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent)
+ScrSpinBox::ScrSpinBox(QWidget *parent, int unitIndex) : QDoubleSpinBox(parent), m_constants(NULL)
 {
 	init(unitIndex);
 }
 
-ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex) : QDoubleSpinBox(pa)
+ScrSpinBox::ScrSpinBox(double minValue, double maxValue, QWidget *pa, int unitIndex) : QDoubleSpinBox(pa), m_constants(NULL)
 {
 	init(unitIndex);
 	setMinimum(minValue);
@@ -95,17 +95,24 @@ double ScrSpinBox::getValue(int unitIndex)
 	return val * unitGetRatioFromIndex(unitIndex);
 }
 
+static const QString FinishTag("\xA0");
+
 double ScrSpinBox::valueFromText ( const QString & text ) const
 {
-//	qDebug() << "vft:" << text;
+	qDebug() << "vft:" << text;
 // 	return QDoubleSpinBox::valueFromText(text);
 	
 	FunctionParser fp;
-//  	setFPConstants(fp);
+// 	setFPConstants(fp);
 	QString ts = text;
 	QString su = suffix().trimmed();
 	ts.replace(",", ".");
 	ts.replace("%", "");
+	ts.replace("°", "");
+	ts.replace(FinishTag, "");
+	ts = ts.trimmed();
+	if (ts.endsWith(su))
+		ts = ts.left(ts.length()-su.length());
 	int pos = ts.length();
 	while (pos > 0)
 	{
@@ -158,6 +165,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	if (trStrC.localeAwareCompare(strPT)!=0)
 		ts.replace(trStrC, strC);
 	//Replace in our typed text all of the units strings with *unitstring
+//	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
 	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
 	pos = 0;
 	while (pos >= 0) {
@@ -167,6 +175,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 			ts.replace(pos, rx.cap(0).length(), replacement);
 		}
 	}
+	qDebug() << "text2value: text for fp =" << ts;
 	//Get the index of our suffix
 	int toConvertToIndex=unitIndexFromString(su);
 	//Add in the fparser constants using our unit strings, and the conversion factors.
@@ -176,31 +185,63 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	fp.AddConstant(strP.toStdString(), value2value(1.0, SC_P, toConvertToIndex));
 	fp.AddConstant(strCM.toStdString(), value2value(1.0, SC_CM, toConvertToIndex));
 	fp.AddConstant(strC.toStdString(), value2value(1.0, SC_C, toConvertToIndex));
-	//int ret = fp.Parse(ts.toLatin1().toStdString(), "", true);
+
+	fp.AddConstant("old", value());
+	if (m_constants)
+	{
+		QMap<QString, double>::ConstIterator itend = m_constants->constEnd();
+		QMap<QString, double>::ConstIterator it = m_constants->constBegin();
+		while(it != itend)
+		{
+			fp.AddConstant(it.key().toStdString(), it.data());
+			++it;
+		}
+	}
+	
 	int ret = fp.Parse(ts.toStdString(), "", true);
+	qDebug() << "fp return =" << ret;
 	if (ret >= 0)
 		return 0;
 	double erg = fp.Eval(NULL);
+	qDebug() << "fp value =" << erg;
 	return erg;
 }
 
 QValidator::State ScrSpinBox::validate ( QString & input, int & pos ) const
 {
-	return QValidator::Intermediate;
+	if (input.endsWith(FinishTag))
+	{
+		qDebug() << "spinbox validate acceptable:" << input;
+		return QValidator::Acceptable;
+	}
+	else
+	{
+		qDebug() << "spinbox validate intermediate:" << input;
+		return QValidator::Intermediate;
+	}
 }
+
+void ScrSpinBox::fixup ( QString & input ) const
+{
+	if (!input.endsWith(FinishTag))
+		input += FinishTag;
+}
+
 
 void ScrSpinBox::textChanged()
 {
-	//qDebug() << "v:" << value() << "t:" << text() << "ct:" << cleanText();
+	qDebug() << "v:" << value() << "t:" << text() << "ct:" << cleanText();
 }
 
 bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 {
-// 	qDebug() << "eventFilter";
+	return false;
+ 	qDebug() << "eventFilter " << event->type();
 	bool retval = false;
 /* Adding this to be sure that the IM* events are processed correctly i.e not intercepted by our KeyPress/Release handlers */
  	if (event->type() == QEvent::InputMethod)
  		return QDoubleSpinBox::eventFilter(watched, event);
+	
 	if ( event->type() == QEvent::KeyPress )
 	{
 		QKeyEvent* k = (QKeyEvent*)event;
@@ -225,13 +266,13 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 		{
  			if (!m_tabAdvance)
 			{
+				qDebug() << "eventFilter: interpretText";
 				QDoubleSpinBox::interpretText();
 				return true;
 			}
 		}
 	}
-	else
-	if (event->type() == QEvent::KeyRelease )
+	else if (event->type() == QEvent::KeyRelease )
 	{
 		QKeyEvent* k = (QKeyEvent*)event;
 		bool shiftB=k->modifiers() & Qt::ShiftModifier;
@@ -252,8 +293,7 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 			retval = QWidget::event(event);
 		}
 	}
-	else
-	if ( event->type() == QEvent::Wheel )
+	else if ( event->type() == QEvent::Wheel )
 	{
 		//If read only dont spin
 		if (isReadOnly())
