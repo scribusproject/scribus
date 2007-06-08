@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcolor.h>
 #include <qfont.h>
 #include <qpixmap.h>
+#include <QList>
 #include "scribusapi.h"
 #include "scconfig.h"
 #include "fpoint.h"
@@ -47,7 +48,6 @@ for which a new license (GPL+exception) is in place.
 #include <valarray>
 #include <windows.h>
 
-class QList;
 class QPainter;
 class ScribusDoc;
 
