@@ -1103,6 +1103,7 @@ QPixmap StencilReader::createPreview(QString data)
 	pmmax = 60 / qMax(GrW, GrH);
 	tmp = QImage(static_cast<int>(GrW), static_cast<int>(GrH), QImage::Format_ARGB32);
 	pS = new ScPainter(&tmp, tmp.width(), tmp.height());
+	pS->clear();
 	pS->translate(5, 5);
 	QDomNode DOC=elem.firstChild();
 	while(!DOC.isNull())

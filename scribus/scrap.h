@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDropEvent>
 #include <QDragMoveEvent>
 #include <QDragEnterEvent>
-#include <QKeyEvent>
 #include <QListWidget>
 
 #include "scribusapi.h"
@@ -31,7 +30,6 @@ class SCRIBUS_API BibView : public QListWidget
 public:
 	BibView( QWidget* parent);
 	~BibView() {};
-//	void keyPressEvent(QKeyEvent *k);
 	void AddObj(QString name, QString daten, QPixmap Bild);
 	void checkAndChange(QString &text, QString nam, QString dir);
 	void SaveContents(QString name, QString oldName);
@@ -80,17 +78,18 @@ public:
 	void setOpenScrapbooks(QStringList &fileNames);
 	QStringList getOpenScrapbooks();
 	BibView* tempBView;
+	QListWidgetItem *actItem;
 	
 public slots:
 	void languageChange();
 	void ObjFromMenu(QString text);
 
 private slots:
-	void HandleMouse();
+	void HandleMouse(QPoint p);
 	bool copyObj(int id);
 	void moveObj(int id);
 	void deleteObj();
-	void ItemRenamed(QListWidgetItem *ite);
+	void renameObj();
 	void NewLib();
 	void Load();
 	void SaveAs();

@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolBox>
 #include <QMessageBox>
 #include <QToolTip>
+#include <QPainter>
 #include "scpreview.h"
 #include "prefsfile.h"
 #include "util.h"
@@ -57,27 +58,12 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	setResizeMode(QListView::Adjust);
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	setContextMenuPolicy(Qt::CustomContextMenu);
+	setIconSize(QSize(60, 60));
 	objectMap.clear();
 	ScFilename = "";
+	canWrite = true;
 }
-/*
-void BibView::keyPressEvent(QKeyEvent *k)
-{
-	//Why doesnt this widget send Escape to the QDialog? Lets make Escape work for now anyway.
-	if (k->key()==Qt::Key_Escape && k->state() == 0)
-	{
-		Q3Frame *f=dynamic_cast<Q3Frame *>(parent());
-		if (f)
-		{
-			QDialog *d=dynamic_cast<QDialog *>(f->parent());
-			if (d)
-				d->close();
-		}
-	}
-	else
-		Q3IconView::keyPressEvent(k);
-}
-*/
+
  void BibView::startDrag(Qt::DropActions supportedActions)
  {
 	QString dt = objectMap[currentItem()->text()].Data;
@@ -443,9 +429,6 @@ void BibView::ReadContents(QString name)
 	QString nd;
 	if (name.endsWith(QDir::convertSeparators("/")))
 		nd = name.left(name.length()-1);
-//	QFileInfo fd(nd);
-//	canWrite = fd.permission( QFileInfo::WriteUser );
-// Above code is commented out because QFileInfo::permissons does not work properly
 	QDir d(name, "*.sce", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
@@ -468,8 +451,7 @@ void BibView::ReadContents(QString name)
 					f = cf.data();
 				ScPreview *pre = new ScPreview();
 				pm = pre->createPreview(f);
-//				if (canWrite)
-// Above code is commented out because QFileInfo::permissons does not work properly
+				if (canWrite)
 					pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
 				delete pre;
 			}
@@ -494,8 +476,7 @@ void BibView::ReadContents(QString name)
 				QString f = QString::fromUtf8(cf.data());
 				StencilReader *pre = new StencilReader();
 				pm = pre->createPreview(f);
-//				if (canWrite)
-// Above code is commented out because QFileInfo::permissons does not work properly
+				if (canWrite)
 					pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
 				delete pre;
 			}
@@ -528,6 +509,8 @@ void BibView::ReadContents(QString name)
 				QString f2 = pre->createShape(f);
 				ScPreview *pre2 = new ScPreview();
 				pm = pre2->createPreview(f2);
+				if (canWrite)
+					pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
 				delete pre;
 				delete pre2;
 			}
@@ -537,7 +520,17 @@ void BibView::ReadContents(QString name)
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
-		new QListWidgetItem(QIcon(itf.data().Preview), itf.key(), this);
+		if (itf.data().Preview.width() > 60)
+			itf.data().Preview = itf.data().Preview.scaledToWidth(60, Qt::SmoothTransformation);
+		if (itf.data().Preview.height() > 60)
+			itf.data().Preview = itf.data().Preview.scaledToHeight(60, Qt::SmoothTransformation);
+		QPixmap pm(60, 60);
+		pm.fill(palette().base());
+		QPainter p;
+		p.begin(&pm);
+		p.drawPixmap(30 - itf.data().Preview.width() / 2, 30 - itf.data().Preview.height() / 2, itf.data().Preview);
+		p.end();
+		new QListWidgetItem(QIcon(pm), itf.key(), this);
 	}
 }
 
@@ -587,6 +580,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	tempBView = new BibView(this);
 	Frame3->addItem(tempBView, tr("Copied Items"));
 	tempCount = 0;
+	actItem = 0;
 	BiblioLayout->addWidget( Frame3 );
 
 	languageChange();
@@ -597,16 +591,14 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	connect(importButton, SIGNAL(clicked()), this, SLOT(Import()));
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(closeLib()));
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//	connect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	connect(Frame3, SIGNAL(currentChanged(int)), this, SLOT(libChanged(int )));
 }
 
 void Biblio::setOpenScrapbooks(QStringList &fileNames)
 {
 	disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//	disconnect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	for (int rd = 0; rd < fileNames.count(); ++rd)
 	{
 		QString fileName = fileNames[rd];
@@ -614,11 +606,13 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 		{
 			QDir d(fileName);
 			activeBView = new BibView(this);
-/*			if (!activeBView->canWrite)
-				Frame3->addTab(activeBView, loadIcon("spot.png"), d.dirName());
-			else */
-// Above code is commented out because QFileInfo::permissons does not work properly
-			Frame3->addItem(activeBView, d.dirName());
+			QFileInfo fd(fileName);
+			activeBView->canWrite = fd.isWritable();
+			activeBView->setAcceptDrops(activeBView->canWrite);
+			if (activeBView->canWrite)
+				Frame3->addItem(activeBView, d.dirName());
+			else
+				Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
 			activeBView->ReadContents(fileName);
 			activeBView->ScFilename = fileName;
 		}
@@ -626,8 +620,7 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 	activeBView = (BibView*)Frame3->item(0);
 	Frame3->setCurrentIndex(0);
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//	connect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 }
 
 QStringList Biblio::getOpenScrapbooks()
@@ -697,8 +690,7 @@ void Biblio::NewLib()
 				return;
 		}
 		disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//		disconnect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 		QDir d(fileName);
 		activeBView = new BibView(this);
 		Frame3->addItem(activeBView, d.dirName());
@@ -707,8 +699,7 @@ void Biblio::NewLib()
 		d.cdUp();
 		dirs->set("scrap_load", d.absPath());
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//		connect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	}
 }
 
@@ -725,23 +716,23 @@ void Biblio::Load()
 				return;
 		}
 		disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//		disconnect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 		QDir d(fileName);
 		activeBView = new BibView(this);
-/*		if (!activeBView->canWrite)
-			Frame3->addTab(activeBView, loadIcon("spot.png"), d.dirName());
-		else */
-// Above code is commented out because QFileInfo::permissons does not work properly
-		Frame3->addItem(activeBView, d.dirName());
+		QFileInfo fd(fileName);
+		activeBView->canWrite = fd.isWritable();
+		activeBView->setAcceptDrops(activeBView->canWrite);
+		if (activeBView->canWrite)
+			Frame3->addItem(activeBView, d.dirName());
+		else
+			Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
 		activeBView->ReadContents(fileName);
 		activeBView->ScFilename = fileName;
 		Frame3->setCurrentItem(activeBView);
 		d.cdUp();
 		dirs->set("scrap_load", d.absPath());
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//		connect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	}
 }
 
@@ -797,81 +788,92 @@ void Biblio::closeLib()
 	else
 	{
 		disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//		disconnect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+		disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 		Frame3->removeItem(activeBView);
 //		delete activeBView;   currently disabled as the whole TabWidget vanishes when executing that delete?????
 		activeBView = (BibView*)Frame3->item(0);
 		Frame3->setCurrentIndex(0);
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//		connect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	}
 }
 
 void Biblio::libChanged(int index)
 {
 	disconnect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//	disconnect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+	disconnect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	activeBView = (BibView*)Frame3->item(index);
 	connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
-	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse()));
-//	connect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+	connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 }
 
-void Biblio::HandleMouse()
+void Biblio::HandleMouse(QPoint p)
 {
-	QListWidgetItem *ite = activeBView->currentItem();
+	QListWidgetItem *ite = activeBView->itemAt(p);
 	if (ite != 0)
 	{
+		actItem = ite;
 		QMenu *pmenu = new QMenu();
-//		QAction* renAct = pmenu->addAction( tr("Rename"));
-//		connect(renAct, SIGNAL(triggered()), this, SLOT(renameObj()));
-		QAction* delAct = pmenu->addAction( tr("Delete"));
-		connect(delAct, SIGNAL(triggered()), this, SLOT(deleteObj()));
+		QAction* renAct;
+		QAction* delAct;
+		if (activeBView->canWrite)
+		{
+			renAct = pmenu->addAction( tr("Rename"));
+			connect(renAct, SIGNAL(triggered()), this, SLOT(renameObj()));
+			delAct = pmenu->addAction( tr("Delete"));
+			connect(delAct, SIGNAL(triggered()), this, SLOT(deleteObj()));
+		}
 		QSignalMapper *signalMapper = new QSignalMapper(this);
 		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(copyObj(int)));
-		QSignalMapper *signalMapper2 = new QSignalMapper(this);
-		connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(moveObj(int)));
 		QMenu *pmenu2 = new QMenu( tr("Copy To:"));
-		QMenu *pmenu3 = new QMenu( tr("Move To:"));
+		QMenu *pmenu3;
+		QSignalMapper *signalMapper2;
+		if (activeBView->canWrite)
+		{
+			pmenu3 = new QMenu( tr("Move To:"));
+			signalMapper2 = new QSignalMapper(this);
+			connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(moveObj(int)));
+		}
 		for (int a = 0; a < Frame3->count(); a++)
 		{
 			BibView* bv = (BibView*)Frame3->item(a);
 			if (bv != activeBView)
 			{
-        		QAction *action = pmenu2->addAction(Frame3->itemLabel(Frame3->indexOf(Frame3->item(a))));
-				connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
-				signalMapper->setMapping(action, a);
-        		QAction *action2 = pmenu3->addAction(Frame3->itemLabel(Frame3->indexOf(Frame3->item(a))));
-				connect(action2, SIGNAL(triggered()), signalMapper2, SLOT(map()));
-				signalMapper2->setMapping(action2, a);
+				if (bv->canWrite)
+				{
+        			QAction *action = pmenu2->addAction(Frame3->itemLabel(Frame3->indexOf(Frame3->item(a))));
+					connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
+					signalMapper->setMapping(action, a);
+					if (activeBView->canWrite)
+					{
+        				QAction *action2 = pmenu3->addAction(Frame3->itemLabel(Frame3->indexOf(Frame3->item(a))));
+						connect(action2, SIGNAL(triggered()), signalMapper2, SLOT(map()));
+						signalMapper2->setMapping(action2, a);
+					}
+				}
 			}
 		}
 		pmenu->addMenu(pmenu2);
-		pmenu->addMenu(pmenu3);
+		if (activeBView->canWrite)
+			pmenu->addMenu(pmenu3);
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		pmenu->exec(QCursor::pos());
-//		if (mret == ren)
-//		{
-//			ite->setRenameEnabled(true);
-//			OldName = ite->text();
-//			ite->rename();
-//			ite->setRenameEnabled(false);
-//		}
 		delete pmenu;
 		delete pmenu2;
-		delete pmenu3;
 		delete signalMapper;
-		delete signalMapper2;
+		if (activeBView->canWrite)
+		{
+			delete pmenu3;
+			delete signalMapper2;
+		}
 	}
 	activeBView->clearSelection();
+	actItem = 0;
 }
 
 bool Biblio::copyObj(int id)
 {
-	QListWidgetItem *ite = activeBView->currentItem();
+	QListWidgetItem *ite = actItem;
 	QString nam = ite->text();
 	BibView* bv = (BibView*)Frame3->item(id);
 	if (bv->objectMap.contains(nam))
@@ -931,7 +933,17 @@ bool Biblio::copyObj(int id)
 		if (fiD.baseName() != nam)
 			adjustReferences(QDir::convertSeparators(bv->ScFilename + "/" + nam + "." + fi.extension(true).lower()));
 	}
-	(void) new QListWidgetItem(pm, nam, bv);
+	if (pm.width() > 60)
+		pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
+	if (pm.height() > 60)
+		pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
+	QPixmap pm2(60, 60);
+	pm2.fill(palette().base());
+	QPainter p;
+	p.begin(&pm2);
+	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
+	p.end();
+	new QListWidgetItem(QIcon(pm), nam, bv);
 	if (bv == tempBView)
 	{
 		tempCount++;
@@ -970,7 +982,6 @@ bool Biblio::copyObj(int id)
 				delete tempBView->takeItem(tempBView->row(ite));
 			}
 			tempBView->sortItems();
-//			tempBView->arrangeItemsInGrid(true);
 		}
 		emit updateRecentMenue();
 	}
@@ -987,10 +998,9 @@ void Biblio::moveObj(int id)
 
 void Biblio::deleteObj()
 {
-/*	if (!activeBView->canWrite)
-		return; */
-// Above code is commented out because QFileInfo::permissons does not work properly
-	QListWidgetItem *ite = activeBView->currentItem();
+	if (!activeBView->canWrite)
+		return;
+	QListWidgetItem *ite = actItem;
 	QString name = ite->text();
 	QFile::remove(activeBView->objectMap[name].Data);
 	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + name + ".png"));
@@ -1013,51 +1023,62 @@ void Biblio::deleteObj()
 	activeBView->objectMap.remove(name);
 	delete activeBView->takeItem(activeBView->row(ite));
 	activeBView->sortItems();
-//	activeBView->arrangeItemsInGrid(true);
 	if (activeBView == tempBView)
 		emit updateRecentMenue();
+	actItem = 0;
 }
 
-void Biblio::ItemRenamed(QListWidgetItem *ite)
+void Biblio::renameObj()
 {
-/*	if (!activeBView->canWrite)
-		return; */
-// Above code is commented out because QFileInfo::permissons does not work properly
+	if (!activeBView->canWrite)
+		return;
+	QString nam;
 	QString ObjData;
 	QPixmap ObjPreview;
-//	disconnect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
-	if (OldName != ite->text())
+	QListWidgetItem *ite = actItem;
+	QString OldName = ite->text();
+	Query *dia = new Query(this, "tt", 1, 0, tr("&Name:"), tr("New Name"));
+	dia->setEditText(ite->text(), true);
+	if (dia->exec())
 	{
-		if (activeBView->objectMap.contains(ite->text()))
+		nam = dia->getEditText();
+		while (activeBView->objectMap.contains(nam))
 		{
-			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(ite->text()), CommonStrings::tr_OK);
-			ite->setText(OldName);
-		}
-		else
-		{
-			ObjData = activeBView->objectMap[OldName].Data;
-			ObjPreview = activeBView->objectMap[OldName].Preview;
-			QDir d = QDir();
-			d.rename(ObjData, QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")));
-			QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"));
-			if (fi.exists())
-				d.rename(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".png")));
-			QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName));
-			if ((fiD.exists()) && (fiD.isDir()))
+			QMessageBox::warning(this, CommonStrings::trWarning, tr("Name \"%1\" is not unique.\nPlease choose another.").arg(nam), CommonStrings::tr_OK);
+			if (!dia->exec())
 			{
-				QDir d = QDir();
-				d.rename(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text())));
-				adjustReferences(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")));
+				delete dia;
+				return;
 			}
-			activeBView->objectMap.remove(OldName);
-			activeBView->AddObj(ite->text(), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")), ObjPreview);
-			activeBView->sortItems();
-//			activeBView->arrangeItemsInGrid(true);
-			if (activeBView == tempBView)
-				emit updateRecentMenue();
+			nam = dia->getEditText();
 		}
 	}
-//	connect(activeBView, SIGNAL(itemRenamed(Q3IconViewItem*)), this, SLOT(ItemRenamed(Q3IconViewItem*)));
+	else
+	{
+		delete dia;
+		return;
+	}
+	delete dia;
+	ite->setText(nam);
+	ObjData = activeBView->objectMap[OldName].Data;
+	ObjPreview = activeBView->objectMap[OldName].Preview;
+	QDir d = QDir();
+	d.rename(ObjData, QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")));
+	QFileInfo fi(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"));
+	if (fi.exists())
+		d.rename(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName + ".png"), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".png")));
+	QFileInfo fiD(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName));
+	if ((fiD.exists()) && (fiD.isDir()))
+	{
+		QDir d = QDir();
+		d.rename(QDir::convertSeparators(activeBView->ScFilename + "/" + OldName), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text())));
+		adjustReferences(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")));
+	}
+	activeBView->objectMap.remove(OldName);
+	activeBView->AddObj(ite->text(), QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + ite->text() + ".sce")), ObjPreview);
+	activeBView->sortItems();
+	if (activeBView == tempBView)
+		emit updateRecentMenue();
 }
 
 void Biblio::adjustReferences(QString nam)
@@ -1111,7 +1132,6 @@ void Biblio::adjustReferences(QString nam)
 			return ;
 		QDataStream s;
 		QByteArray cs = docu.toByteArray();
-//		s.setCodec("UTF-8");
 		s.setDevice(&fl);
 		s.writeRawBytes(cs.data(), cs.length());
 		fl.close();
@@ -1121,10 +1141,8 @@ void Biblio::adjustReferences(QString nam)
 void Biblio::ObjFromMenu(QString text)
 {
 	QString nam, tmp;
-/*	if (!activeBView->canWrite)
-		return; */
-// Above code is commented out because QFileInfo::permissons does not work properly
-//	if (Frame3->currentPageIndex() == 1)
+	if (!activeBView->canWrite)
+		return;
 	if (Frame3->currentIndex() == 1)
 	{
 		nam = tr("Object") + tmp.setNum(tempCount);
@@ -1159,7 +1177,6 @@ void Biblio::ObjFromMenu(QString text)
 		return ;
 	QDataStream s;
 	QByteArray cs = ff.toUtf8();
-//	s.setCodec("UTF-8");
 	s.setDevice(&f);
 	s.writeRawBytes(cs.data(), cs.length());
 	f.close();
@@ -1167,7 +1184,17 @@ void Biblio::ObjFromMenu(QString text)
 	QPixmap pm = pre->createPreview(ff);
 	activeBView->AddObj(nam, QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")), pm);
 	pm.save(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam +".png")), "PNG");
-	(void) new QListWidgetItem(pm, nam, activeBView);
+	if (pm.width() > 60)
+		pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
+	if (pm.height() > 60)
+		pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
+	QPixmap pm2(60, 60);
+	pm2.fill(palette().base());
+	QPainter p;
+	p.begin(&pm2);
+	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
+	p.end();
+	new QListWidgetItem(QIcon(pm), nam, activeBView);
 	delete pre;
 	if (Frame3->currentIndex() == 1)
 	{
@@ -1206,7 +1233,6 @@ void Biblio::ObjFromMenu(QString text)
 				delete tempBView->takeItem(tempBView->row(ite));
 			}
 			tempBView->sortItems();
-//			tempBView->arrangeItemsInGrid(true);
 		}
 		emit updateRecentMenue();
 	}
@@ -1223,7 +1249,6 @@ void Biblio::ObjFromCopyAction(QString text)
 		return ;
 	QDataStream s;
 	QByteArray cs = ff.toUtf8();
-//	s.setCodec("UTF-8");
 	s.setDevice(&f);
 	s.writeRawBytes(cs.data(), cs.length());
 	f.close();
@@ -1231,7 +1256,17 @@ void Biblio::ObjFromCopyAction(QString text)
 	QPixmap pm = pre->createPreview(ff);
 	tempBView->AddObj(nam, QDir::cleanDirPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam + ".sce")), pm);
 	pm.save(QDir::cleanDirPath(QDir::convertSeparators(tempBView->ScFilename + "/" + nam +".png")), "PNG");
-	(void) new QListWidgetItem(pm, nam, tempBView);
+	if (pm.width() > 60)
+		pm = pm.scaledToWidth(60, Qt::SmoothTransformation);
+	if (pm.height() > 60)
+		pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
+	QPixmap pm2(60, 60);
+	pm2.fill(palette().base());
+	QPainter p;
+	p.begin(&pm2);
+	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
+	p.end();
+	new QListWidgetItem(QIcon(pm), nam, tempBView);
 	delete pre;
 	if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
 	{
@@ -1268,7 +1303,6 @@ void Biblio::ObjFromCopyAction(QString text)
 			delete tempBView->takeItem(tempBView->row(ite));
 		}
 		tempBView->sortItems();
-//		tempBView->arrangeItemsInGrid(true);
 	}
 }
 
