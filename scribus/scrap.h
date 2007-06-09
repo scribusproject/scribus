@@ -7,38 +7,31 @@ for which a new license (GPL+exception) is in place.
 #ifndef BIBLIO_H
 #define BIBLIO_H
 
-#include <q3iconview.h>
-#include <q3frame.h>
-#include <qtabwidget.h>
-// #include <qpopupmenu.h>
-#include <qmenubar.h>
-
-#include <qtooltip.h>
-#include <qpixmap.h>
-#include <q3dragobject.h>
-//Added by qt3to4:
 #include <QDropEvent>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDragMoveEvent>
+#include <QDragEnterEvent>
 #include <QKeyEvent>
+#include <QListWidget>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusstructs.h"
 
-class Q3HBoxLayout;
+class QHBoxLayout;
 class QToolButton;
-class Q3VBoxLayout;
+class QVBoxLayout;
 class QToolBox;
+class QPixmap;
+class QListWidgetItem;
 
-class SCRIBUS_API BibView : public Q3IconView
+class SCRIBUS_API BibView : public QListWidget
 {
 	Q_OBJECT
 
 public:
 	BibView( QWidget* parent);
 	~BibView() {};
-	void keyPressEvent(QKeyEvent *k);
+//	void keyPressEvent(QKeyEvent *k);
 	void AddObj(QString name, QString daten, QPixmap Bild);
 	void checkAndChange(QString &text, QString nam, QString dir);
 	void SaveContents(QString name, QString oldName);
@@ -58,9 +51,13 @@ signals:
 	void Schliessen();
 	void CloseMpal();
 	void CloseTpal();
+	void objDropped(QString text);
 
 protected:
-	virtual Q3DragObject *dragObject();
+	void dragEnterEvent(QDragEnterEvent *e);
+	void dragMoveEvent(QDragMoveEvent *e);
+	void dropEvent(QDropEvent *e);
+	void startDrag(Qt::DropActions supportedActions);
 };
 
 class SCRIBUS_API Biblio : public ScrPaletteBase
@@ -70,7 +67,6 @@ class SCRIBUS_API Biblio : public ScrPaletteBase
 public:
 	Biblio( QWidget* parent);
 	~Biblio() {};
-	void ObjFromMenu(QString text);
 	void ObjFromCopyAction(QString text);
 	void adjustReferences(QString nam);
 	void CleanUpTemp();
@@ -87,19 +83,18 @@ public:
 	
 public slots:
 	void languageChange();
+	void ObjFromMenu(QString text);
 
 private slots:
-	void HandleMouse(int button, Q3IconViewItem *ite);
+	void HandleMouse();
 	bool copyObj(int id);
 	void moveObj(int id);
-	void DeleteObj(QString name, Q3IconViewItem *ite);
-	void ItemRenamed(Q3IconViewItem *ite);
-	void DropOn(QDropEvent *e);
+	void deleteObj();
+	void ItemRenamed(QListWidgetItem *ite);
 	void NewLib();
 	void Load();
 	void SaveAs();
 	void closeLib();
-//	void libChanged(QWidget *lib);
 	void libChanged(int index);
 	void Import();
 
@@ -107,25 +102,12 @@ signals:
 	void updateRecentMenue();
 
 protected:
-//	QMap<QString, QGuardedPtr<ScrAction> > scrapbookActions;
-// 	QPopupMenu* pmenu;
-// 	QPopupMenu* fmenu;
-// 	QMenuBar* menuBar;
-//	QTabWidget* Frame3;
 	QToolBox* Frame3;
-	Q3VBoxLayout* BiblioLayout;
+	QVBoxLayout* BiblioLayout;
 	BibView* activeBView;
 	int tempCount;
 	QString OldName;
-// 	int mFile;
-// 	int mView;
-// 	int fNew;
-// 	int fLoad;
-// 	int fSave;
-// 	int fSaveAs;
-// 	int fClose;
-// 	int fImport;
-	Q3HBoxLayout* buttonLayout;
+	QHBoxLayout* buttonLayout;
 	QToolButton* newButton;
 	QToolButton* loadButton;
 	QToolButton* saveAsButton;
