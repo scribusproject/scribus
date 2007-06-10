@@ -876,7 +876,7 @@ bool EPSPlug::Image(QString vals)
 		filename = filename.mid(0, filename.length()-3) + "psd";
 	}
 		
-	qDebug(QString("import %6 image %1: %2x%3 @ (%4,%5) °%5").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device));
+	qDebug(QString("import %7 image %1: %2x%3 @ (%4,%5) °%6").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device));
 	QString rawfile = filename.mid(0, filename.length()-3) + "dat";
 	QStringList args;
 	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
