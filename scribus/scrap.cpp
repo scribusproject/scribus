@@ -532,6 +532,7 @@ void BibView::ReadContents(QString name)
 		p.end();
 		new QListWidgetItem(QIcon(pm), itf.key(), this);
 	}
+	sortItems();
 }
 
 /* This is the main Dialog-Class for the Scrapbook */
@@ -615,6 +616,7 @@ void Biblio::setOpenScrapbooks(QStringList &fileNames)
 				Frame3->addItem(activeBView, QIcon(loadIcon("16/lock.png")), d.dirName());
 			activeBView->ReadContents(fileName);
 			activeBView->ScFilename = fileName;
+			activeBView->scrollToTop();
 		}
 	}
 	activeBView = (BibView*)Frame3->item(0);
@@ -656,6 +658,7 @@ const int Biblio::objectCount()
 void Biblio::readOldContents(QString fileName, QString newName)
 {
 	activeBView->ReadOldContents(fileName, newName);
+	activeBView->scrollToTop();
 }
 
 void Biblio::readContents(QString fileName)
@@ -731,6 +734,7 @@ void Biblio::Load()
 		Frame3->setCurrentItem(activeBView);
 		d.cdUp();
 		dirs->set("scrap_load", d.absPath());
+		activeBView->scrollToTop();
 		connect(activeBView, SIGNAL(objDropped(QString)), this, SLOT(ObjFromMenu(QString)));
 		connect(activeBView, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(HandleMouse(QPoint)));
 	}
@@ -756,6 +760,7 @@ void Biblio::Import()
 			readOldContents(scrapbookFileO, activeBView->ScFilename);
 			readContents(activeBView->ScFilename);
 		}
+		activeBView->scrollToTop();
 	}
 }
 
@@ -1194,7 +1199,7 @@ void Biblio::ObjFromMenu(QString text)
 	p.begin(&pm2);
 	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
 	p.end();
-	new QListWidgetItem(QIcon(pm), nam, activeBView);
+	new QListWidgetItem(QIcon(pm2), nam, activeBView);
 	delete pre;
 	if (Frame3->currentIndex() == 1)
 	{
@@ -1266,7 +1271,7 @@ void Biblio::ObjFromCopyAction(QString text)
 	p.begin(&pm2);
 	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
 	p.end();
-	new QListWidgetItem(QIcon(pm), nam, tempBView);
+	new QListWidgetItem(QIcon(pm2), nam, tempBView);
 	delete pre;
 	if (tempBView->objectMap.count() > PrefsManager::instance()->appPrefs.numScrapbookCopies)
 	{
