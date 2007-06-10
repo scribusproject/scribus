@@ -3192,23 +3192,24 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 			tTabValues = pstyle.tabValues();
 			if (hl->effects() & 16384)
 				tabCc = 0;
-			if ((hl->ch == QChar(9)) && (tTabValues.count() != 0))
+			if ((hl->ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 			{
 				if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
 				{
 					ScText hl2;
-					double wt = cstyle.font().charWidth(tTabValues[tabCc].tabFillChar, cstyle.fontSize());
-					int coun = static_cast<int>((ls.x + hl->glyph.xoffset - tabDist) / wt);
-					double sPos = ls.x + hl->glyph.xoffset - (ls.x + hl->glyph.xoffset - tabDist) + 1;
-					hl2.ch = tTabValues[tabCc].tabFillChar;
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-					
-					hl2.glyph.yoffset = hl->glyph.yoffset;
-					
+					const GlyphLayout * const gl = hl->glyph.more;
+					double scale = gl ? gl->scaleV : 1.0;
+					double wt    = cstyle.font().charWidth(tTabValues[tabCc].tabFillChar, cstyle.fontSize() * scale / 10.0);
+					double len   = hl->glyph.xadvance;
+					int coun     = static_cast<int>(len / wt);
+					double sPos  = CurX - len + cstyle.fontSize() / 10.0 * 0.7 + 1;
+					hl2.ch = tTabValues[tabCc].tabFillChar;
 					hl2.setTracking(0);
 					hl2.setScaleH(1000);
 					hl2.setScaleV(1000);
-					
+					hl2.glyph.glyph   = cstyle.font().char2CMap(tTabValues[tabCc].tabFillChar);
+					hl2.glyph.yoffset = hl->glyph.yoffset;
 					for (int cx = 0; cx < coun; ++cx)
 					{
 						hl2.glyph.xoffset =  sPos + wt * cx;
@@ -3221,7 +3222,6 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 							hl3.setFillColor(hl2.strokeColor());
 							hl3.glyph.yoffset = hl2.glyph.yoffset - (hl2.fontSize() * hl2.shadowYOffset() / 10000.0);
 							hl3.glyph.xoffset = hl2.glyph.xoffset + (hl2.fontSize() * hl2.shadowXOffset() / 10000.0);
-							
 							setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, &hl3, pstyle, pg, sep, farb, ic, master);
 						}
 						setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, &hl2, pstyle, pg, sep, farb, ic, master);

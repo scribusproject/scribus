@@ -4000,13 +4000,17 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 					{
 						ScText hl2;
 						static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
-						double wt = chstyle.font().charWidth(tTabValues[tabCc].tabFillChar, chstyle.fontSize());
-						int coun = static_cast<int>((CurX+hl->glyph.xoffset - tabDist) / wt);
-						double sPos = CurX+hl->glyph.xoffset - (CurX+hl->glyph.xoffset - tabDist) + 1;
+						const GlyphLayout * const gl = hl->glyph.more;
+						double scale = gl ? gl->scaleV : 1.0;
+						double wt    = chstyle.font().charWidth(tTabValues[tabCc].tabFillChar, chstyle.fontSize() * scale / 10.0);
+						double len   = hl->glyph.xadvance;
+						int coun     = static_cast<int>(len / wt);
+						double sPos  = CurX - len + chstyle.fontSize() / 10.0 * 0.7 + 1;
 						hl2.ch = tTabValues[tabCc].tabFillChar;
 						hl2.setTracking(0);
 						hl2.setScaleH(1000);
 						hl2.setScaleV(1000);
+						hl2.glyph.glyph   = chstyle.font().char2CMap(tTabValues[tabCc].tabFillChar);
 						hl2.glyph.yoffset = hl->glyph.yoffset;
 						for (int cx = 0; cx < coun; ++cx)
 						{
