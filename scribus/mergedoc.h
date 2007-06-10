@@ -7,26 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef MERGEDOC_H
 #define MERGEDOC_H
 
-#include <qdialog.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <QLabel>
+#include <QDialog>
 #include "scribusapi.h"
 class QPushButton;
 class QLabel;
 class QLineEdit;
 class QSpinBox;
 class QString;
-class QLayout;
-class QToolTip;
-class QComboBox;
 class QCheckBox;
-class QTooltip;
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
+class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
+class ScComboBox;
 
 
 class SCRIBUS_API MergeDoc : public QDialog
@@ -56,12 +48,12 @@ private:
 	QPushButton* cancelButton;
 	QPushButton* changeButton;
 	QCheckBox* createPageData;
-	QComboBox* masterPageNameData;
-	QComboBox* importWhereData;
+	ScComboBox* masterPageNameData;
+	ScComboBox* importWhereData;
 	QSpinBox* importWherePageData;
-	Q3VBoxLayout* dialogLayout;
-	Q3GridLayout* fromInfoLayout;
-	Q3HBoxLayout* importCancelLayout;
+	QVBoxLayout* dialogLayout;
+	QGridLayout* fromInfoLayout;
+	QHBoxLayout* importCancelLayout;
 	int count;
 	bool masterPages;
 

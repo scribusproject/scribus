@@ -4,27 +4,23 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qdialog.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qspinbox.h>
-#include <qstring.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <QPixmap>
-#include <Q3VBoxLayout>
 
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QPixmap>
+#include <QVBoxLayout>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QLabel>
+#include <QSpinBox>
+#include <QCheckBox>
+#include <QSpacerItem>
 #include <QApplication>
+#include <QCursor>
+#include <QToolTip>
+
 #include "scconfig.h"
 #include "mergedoc.h"
-//#include "mergedoc.moc"
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "fileloader.h"
@@ -33,20 +29,22 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scpaths.h"
 
-#include <qcursor.h>
-
 extern QPixmap loadIcon(QString nam);
 
-MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCount, int currentPage ) : 
-    QDialog( parent, "merge", true, 0 )
+MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCount, int currentPage) : QDialog(parent)
 {
 	masterPages = importMasterPages;
-	setCaption( (masterPages) ? tr("Import Master Page") : tr( "Import Page(s)" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle((masterPages) ? tr("Import Master Page") : tr( "Import Page(s)" ));
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 
 	count = 0;
-	dialogLayout = new Q3VBoxLayout( this, 10, 10, "dialogLayout"); 
-	fromInfoLayout = new Q3GridLayout(1, 1, 5, "layout");
+	dialogLayout = new QVBoxLayout(this);
+	dialogLayout->setMargin(10);
+	dialogLayout->setSpacing(5);
+	fromInfoLayout = new QGridLayout;
+	fromInfoLayout->setMargin(0);
+	fromInfoLayout->setSpacing(5);
 	fromDocData = new QLineEdit( this, "fromDocData" );
 	fromDocLabel = new QLabel( fromDocData, tr( "&From Document:"), this, "fromDocLabel" );
 	fromInfoLayout->addWidget( fromDocLabel, 0, 0 );
@@ -93,8 +91,10 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	}
 
 	dialogLayout->addLayout( fromInfoLayout );
-	importCancelLayout = new Q3HBoxLayout( 0, 0, 2, "importCancelLayout"); 
-	QSpacerItem* spacer = new QSpacerItem( 41, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	importCancelLayout = new QHBoxLayout;
+	importCancelLayout->setMargin(0);
+	importCancelLayout->setSpacing(5);
+	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	importCancelLayout->addItem( spacer );
 	importButton = new QPushButton( tr( "&Import" ), this, "importButton" );
 	importButton->setEnabled(false);
@@ -103,7 +103,7 @@ MergeDoc::MergeDoc( QWidget* parent, bool importMasterPages, int targetDocPageCo
 	cancelButton->setDefault( true );
 	importCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( importCancelLayout );
-	resize( QSize(350, 134).expandedTo(minimumSizeHint()) );
+	resize(minimumSizeHint());
 
 	connect( importButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
