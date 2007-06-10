@@ -1259,6 +1259,8 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 				p->endLayer();
 				p->restore();
 				groupStack.pop();
+				if (groupStack.count() == 0)
+					break;
 			}
 		}
 		embedded->m_lineWidth = pws;
@@ -1511,6 +1513,8 @@ QImage PageItem::DrawObj_toImage(Q3PtrList<PageItem> &emG)
 				painter->endLayer();
 				painter->restore();
 				groupStack.pop();
+				if (groupStack.count() == 0)
+					break;
 			}
 		}
 	}

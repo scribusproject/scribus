@@ -2569,6 +2569,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							{
 								PutPage("Q\n");
 								groupStack.pop();
+								if (groupStack.count() == 0)
+									break;
 							}
 						}
 					}
@@ -2690,6 +2692,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							PutPage("Q\n");
 						}
 						groupStack.pop();
+						if (groupStack.count() == 0)
+							break;
 					}
 				}
 			}
@@ -4245,6 +4249,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				{
 					tmp2 += "Q\n";
 					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
 				}
 			}
 		}
@@ -4956,6 +4962,8 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 				{
 					tmp2 += "Q\n";
 					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
 				}
 			}
 		}

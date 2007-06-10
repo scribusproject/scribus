@@ -167,6 +167,8 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, QRect& 
 								painter->setClipPath();
 								painter->restore();
 								groupStack.pop();
+								if (groupStack.count() == 0)
+									break;
 							}
 						}
 					}
@@ -304,6 +306,8 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect& cl
 							painter->setClipPath();
 							painter->restore();
 							groupStack.pop();
+							if (groupStack.count() == 0)
+								break;
 						}
 					}
 				}
@@ -734,6 +738,8 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect&
 			{
 				p->restore();
 				groupStack.pop();
+				if (groupStack.count() == 0)
+					break;
 			}
 		}
 		embedded->m_lineWidth = pws;

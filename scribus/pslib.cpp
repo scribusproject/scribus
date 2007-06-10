@@ -456,6 +456,8 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 				{
 					PS_restore();
 					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
 				}
 			}
 		}
@@ -2048,6 +2050,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 								{
 									PS_restore();
 									groupStack.pop();
+									if (groupStack.count() == 0)
+										break;
 								}
 							}
 						}
@@ -2666,6 +2670,8 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							{
 								PS_restore();
 								groupStack.pop();
+								if (groupStack.count() == 0)
+									break;
 							}
 						}
 					}
@@ -2881,6 +2887,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 					{
 						PS_restore();
 						groupStack.pop();
+						if (groupStack.count() == 0)
+							break;
 					}
 				}
 			}
@@ -3674,6 +3682,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 				{
 					PS_restore();
 					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
 				}
 			}
 		}
