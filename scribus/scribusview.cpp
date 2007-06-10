@@ -1323,6 +1323,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 									cite->BoundingY = OldBY;
 								}
 								groupStack.pop();
+								if (groupStack.count() == 0)
+									break;
 							}
 						}
 					}
@@ -1514,6 +1516,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 							if ((clip.intersects(oldR)) && (((Doc->guidesSettings.layerMarkersShown) && (Doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
 								cite->DrawObj(painter, clip);
 							groupStack.pop();
+							if (groupStack.count() == 0)
+								break;
 						}
 					}
 				}

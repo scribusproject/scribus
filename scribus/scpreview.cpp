@@ -949,6 +949,8 @@ QPixmap ScPreview::createPreview(QString data)
 					pS->endLayer();
 					pS->restore();
 					groupStack.pop();
+					if (groupStack.count() == 0)
+						break;
 				}
 			}
 			QDir::setCurrent(CurDirP);
