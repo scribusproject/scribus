@@ -24,9 +24,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef BOOKPALETTE_H
 #define BOOKPALETTE_H
 
-#include <qlayout.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "bookmwin.h"
@@ -50,22 +48,13 @@ public:
 	*/
 	BookPalette(QWidget* parent);
 	~BookPalette() {};
-	//void keyPressEvent(QKeyEvent *k);
-	//void closeEvent(QCloseEvent *ce);
 	BookMView	*BView;
 	
 public slots:
 	void languageChange();
 
-signals:
-	//void ToggleAllPalettes();
-	//void Schliessen();
-
 protected:
-	Q3VBoxLayout* PaletteLayout;
-
-protected slots:
-	//virtual void reject();
+	QVBoxLayout* PaletteLayout;
 };
 
 #endif

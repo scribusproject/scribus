@@ -22,49 +22,19 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "bookpalette.h"
-//#include "bookpalette.moc"
-//Added by qt3to4:
-#include <QPixmap>
-#include <Q3VBoxLayout>
-extern QPixmap loadIcon(QString nam);
 
 BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
 {
-	PaletteLayout = new Q3VBoxLayout( this, 0, 0, "PaletteLayout");
+	PaletteLayout = new QVBoxLayout( this );
+	PaletteLayout->setMargin(0);
+	PaletteLayout->setSpacing(0);
 	BView = new BookMView(this);
 	BView->setMinimumSize(QSize(100,150));
 	PaletteLayout->addWidget( BView );
 	languageChange();
 }
 
-/*
- \fn void BookPalette::closeEvent(QCloseEvent *ce)
- \author Franz Schmid
- \date
- \brief Emits the Signal Schliessen and accepts close event. The Signal is used in ScribusMainWindow to adjust the Menues.
- \param ce Close Event
- \retval None
-			  */
-			 /*
-void BookPalette::keyPressEvent(QKeyEvent *k)
-{
-	QDialog::keyPressEvent(k);
-}
-
-void BookPalette::closeEvent(QCloseEvent *ce)
-{
-	emit Schliessen();
-	ce->accept();
-}
-
-void BookPalette::reject()
-{
-	emit Schliessen();
-	QDialog::reject();
-}
-*/
-
 void BookPalette::languageChange()
 {
-	setCaption( tr( "Bookmarks" ) );	
+	setWindowTitle( tr( "Bookmarks" ) );
 }

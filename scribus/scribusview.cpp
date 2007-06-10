@@ -2005,10 +2005,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		}
 		else
 		{
-			for (uint as = 0; as < Doc->Items->count(); ++as)
-			{
-				Doc->Items->at(as)->setSelected(false);
-			}
+//			for (uint as = 0; as < Doc->Items->count(); ++as)
+//			{
+//				Doc->Items->at(as)->setSelected(false);
+//			}
+			Deselect(true);
 			uint oldDocItemCount = Doc->Items->count();
 			if ((!img) && (Doc->DraggedElem == 0))
 			{
