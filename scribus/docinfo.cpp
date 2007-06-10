@@ -4,21 +4,19 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qlineedit.h>
-#include <q3multilineedit.h>
-//Added by qt3to4:
+
 #include <QPixmap>
-#include <Q3GridLayout>
+#include <QGridLayout>
+#include <QLineEdit>
+#include <QTextEdit>
+#include <QLabel>
+#include <QToolTip>
 
 #include "docinfo.h"
-//#include "docinfo.moc"
+#include "documentinformation.h"
 
 extern QPixmap loadIcon(QString nam);
 
-#include <qtooltip.h>
-#include "documentinformation.h"
 /*
  *  Constructs a DocInfos which is a child of 'parent', with the
  *  name 'name' and widget flags set to 'f'
@@ -26,17 +24,16 @@ extern QPixmap loadIcon(QString nam);
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  TRUE to construct a modal dialog.
  */
-DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
-		: QTabWidget( parent, 0, 0 )
+DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo ) : QTabWidget( parent )
 {
 	infos = docInfo;
 	setMaximumSize( QSize( 32767, 32767 ) );
-	setCaption( tr( "Document Information" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowTitle( tr( "Document Information" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 
 	page1 = new QWidget( this );
-	layout1 = new Q3GridLayout(page1);
-	layout1->setSpacing( 6 );
+	layout1 = new QGridLayout(page1);
+	layout1->setSpacing( 5 );
 	layout1->setMargin( 5 );
 
 	titleEdit = new QLineEdit( page1, "titleEdit" );
@@ -51,14 +48,14 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	layout1->addWidget( authorLabel, 1, 0 );
 	layout1->addWidget( authorEdit, 1, 1 );
 
-	keywordsEdit = new Q3MultiLineEdit( page1, "keywordsEdit" );
+	keywordsEdit = new QTextEdit( page1, "keywordsEdit" );
 	keywordsLabel = new QLabel( keywordsEdit, tr("&Keywords:"), page1, "keywordsLabel" );
 	keywordsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	keywordsEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( keywordsLabel, 2, 0 );
 	layout1->addWidget( keywordsEdit, 2, 1 );
 
-	descriptionEdit = new Q3MultiLineEdit( page1, "descriptionEdit" );
+	descriptionEdit = new QTextEdit( page1, "descriptionEdit" );
 	descriptionLabel = new QLabel( descriptionEdit, tr("Descri&ption:"), page1, "descriptionLabel" );
 	descriptionLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	descriptionEdit->setMinimumSize(QSize(200, 105));
@@ -66,8 +63,8 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	layout1->addWidget( descriptionEdit, 3, 1 );
 
 	page2 = new QWidget( this );
-	layout2 = new Q3GridLayout(page2);
-	layout2->setSpacing( 6 );
+	layout2 = new QGridLayout(page2);
+	layout2->setSpacing( 5 );
 	layout2->setMargin( 5 );
 
 	publisherEdit = new QLineEdit( page2, "publisherEdit" );
@@ -76,7 +73,7 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo )
 	layout2->addWidget( publisherLabel, 0, 0 );
 	layout2->addWidget( publisherEdit, 0, 1 );
 
-	contributorsEdit = new Q3MultiLineEdit( page2, "contributorsEdit" );
+	contributorsEdit = new QTextEdit( page2, "contributorsEdit" );
 	contributorsLabel = new QLabel( contributorsEdit, tr("&Contributors:"), page2, "contributorsLabel" );
 	contributorsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
 	contributorsEdit->setMinimumSize(QSize(200, 105));
@@ -167,13 +164,13 @@ DocumentInformation DocInfos::getDocInfo()
 {
 	DocumentInformation docInfo;
 	docInfo.setAuthor(authorEdit->text());
-	docInfo.setComments(descriptionEdit->text());
-	docInfo.setContrib(contributorsEdit->text());
+	docInfo.setComments(descriptionEdit->toPlainText());
+	docInfo.setContrib(contributorsEdit->toPlainText());
 	docInfo.setCover(coverageEdit->text());
 	docInfo.setDate(dateEdit->text());
 	docInfo.setFormat(formatEdit->text());
 	docInfo.setIdent(identifierEdit->text());
-	docInfo.setKeywords(keywordsEdit->text());
+	docInfo.setKeywords(keywordsEdit->toPlainText());
 	docInfo.setLangInfo(languageEdit->text());
 	docInfo.setPublisher(publisherEdit->text());
 	docInfo.setRelation(relationEdit->text());
@@ -188,8 +185,8 @@ void DocInfos::restoreDefaults()
 {
 	titleEdit->setText(infos.getTitle());
 	authorEdit->setText(infos.getAuthor());
-	descriptionEdit->setText(infos.getComments());
-	keywordsEdit->setText(infos.getKeywords());
+	descriptionEdit->setPlainText(infos.getComments());
+	keywordsEdit->setPlainText(infos.getKeywords());
 	publisherEdit->setText(infos.getPublisher());
 	dateEdit->setText(infos.getDate());
 	typeEdit->setText(infos.getType());
@@ -200,5 +197,5 @@ void DocInfos::restoreDefaults()
 	relationEdit->setText(infos.getRelation());
 	coverageEdit->setText(infos.getCover());
 	rightsEdit->setText(infos.getRights());
-	contributorsEdit->setText(infos.getContrib());
+	contributorsEdit->setPlainText(infos.getContrib());
 }

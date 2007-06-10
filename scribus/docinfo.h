@@ -7,19 +7,16 @@ for which a new license (GPL+exception) is in place.
 #ifndef DOCINFOS_H
 #define DOCINFOS_H
 
-#include <qtabwidget.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <QLabel>
+#include <QTabWidget>
 
 #include "scribusapi.h"
 #include "documentinformation.h"
 
 class QLineEdit;
-class Q3MultiLineEdit;
+class QTextEdit;
 class QLabel;
 class QWidget;
-class Q3GridLayout;
+class QGridLayout;
 
 
 /*! \brief The DocInfos class is now part of the ReformDoc multi widgets storage.
@@ -59,9 +56,9 @@ protected:
 	QLineEdit* titleEdit;
 	QLineEdit* authorEdit;
 
-	Q3MultiLineEdit* descriptionEdit;
-	Q3MultiLineEdit* keywordsEdit;
-	Q3MultiLineEdit* contributorsEdit;
+	QTextEdit* descriptionEdit;
+	QTextEdit* keywordsEdit;
+	QTextEdit* contributorsEdit;
 
 	QLabel* authorLabel;
 	QLabel* titleLabel;
@@ -79,8 +76,8 @@ protected:
 	QLabel* keywordsLabel;
 	QLabel* contributorsLabel;
 
-	Q3GridLayout* layout1;
-	Q3GridLayout* layout2;
+	QGridLayout* layout1;
+	QGridLayout* layout2;
 
 	QWidget* page1;
 	QWidget* page2;
