@@ -100,7 +100,7 @@ for which a new license (GPL+exception) is in place.
 #include "aboutplugins.h"
 #include "pslib.h"
 #include "druck.h"
-#include "editformats.h"
+// #include "editformats.h"
 #include "muster.h"
 #include "newtemp.h"
 #include "applytemplatedialog.h"
@@ -6757,6 +6757,7 @@ void ScribusMainWindow::setCSMenu()
 		scrActions[QString("shade%1").arg(lb)]->setOn(true);
 }
 
+#if 0
 //CB still called from SE
 void ScribusMainWindow::saveStyles(StilFormate *dia)
 {
@@ -7060,7 +7061,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 	view->DrawNew();
 	slotDocCh();
 }
-
+#endif
 //CB-->Doc
 void ScribusMainWindow::setNewAlignment(int a)
 {

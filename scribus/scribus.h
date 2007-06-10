@@ -104,7 +104,7 @@ class ScribusQApp;
 class ScribusWin;
 class ScToolBar;
 class SimpleState;
-class StilFormate;
+// class StilFormate;
 class StoryEditor;
 class StyleManager;
 class TOCGenerator;
@@ -479,7 +479,7 @@ public slots:
 	/*! \brief Change Preferences dialog.
 	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
 	void slotPrefsOrg();
-	void saveStyles(StilFormate *dia); //still required for style save from SE
+//	void saveStyles(StilFormate *dia); //still required for style save from SE
 	void setNewAlignment(int a);
 	void setNewParStyle(const QString& name);
 	void setNewCharStyle(const QString& name);

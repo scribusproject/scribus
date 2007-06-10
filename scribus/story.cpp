@@ -58,7 +58,6 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
-// #include "editformats.h"
 #include "fontcombo.h"
 #include "menumanager.h"
 #include "scrspinbox.h"
