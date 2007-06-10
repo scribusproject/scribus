@@ -22,20 +22,20 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "hruler.h"
-//#include "hruler.moc"
-#include "page.h"
-#include <qcursor.h>
-#include <qcolor.h>
-#include <qrect.h>
-#include <q3pointarray.h>
-//Added by qt3to4:
+
 #include <QPaintEvent>
-#include <QPixmap>
 #include <QMouseEvent>
+#include <QPixmap>
+#include <QPainter>
+#include <QPixmap>
+#include <QCursor>
+#include <QRect>
+#include <QPolygon>
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include "scribus.h"
 #include "selection.h"
+#include "page.h"
 #include "units.h"
 #include "prefsmanager.h"
 
@@ -702,7 +702,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 	}
 	if (drawMark)
 	{
-		Q3PointArray cr;
+		QPolygon cr;
 #ifdef OPTION_SMOOTH_MARKERS
 		// draw new marker to pixmap
 		static const int SCALE = 16;

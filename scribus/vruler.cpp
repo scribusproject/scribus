@@ -22,19 +22,18 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "vruler.h"
-//#include "vruler.moc"
-#include "page.h"
-#include <qcursor.h>
-#include <qcolor.h>
-#include <qrect.h>
-#include <q3pointarray.h>
-//Added by qt3to4:
+
 #include <QPaintEvent>
-#include <QPixmap>
 #include <QMouseEvent>
+#include <QPainter>
+#include <QPixmap>
+#include <QCursor>
+#include <QRect>
+#include <QPolygon>
 #include <QRubberBand>
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "page.h"
 #include "units.h"
 #include "prefsmanager.h"
 
@@ -163,7 +162,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.end();
 	if (drawMark)
 	{
-		Q3PointArray cr;
+		QPolygon cr;
 		QPainter p;
 #ifdef OPTION_SMOOTH_MARKERS
 		// draw new marker to pixmap
@@ -171,7 +170,8 @@ void Vruler::paintEvent(QPaintEvent *e)
 		static const QColor BACKGROUND(255, 255, 255);
 		static QPixmap pix( 16*SCALE, 4*SCALE );
 		static bool initpix = true;
-		if (initpix) {
+		if (initpix)
+		{
 			initpix = false;
 			p.begin( &pix );
 			p.setBrush( BACKGROUND );

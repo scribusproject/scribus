@@ -24,12 +24,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef VRULER_H
 #define VRULER_H
 
-#include <qwidget.h>
-#include <qpainter.h>
-//Added by qt3to4:
-#include <QPaintEvent>
-#include <QMouseEvent>
+#include <QWidget>
 #include "scribusapi.h"
+class QPaintEvent;
+class QMouseEvent;
 class ScribusDoc;
 class ScribusView;
 class PrefsManager;

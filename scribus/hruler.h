@@ -24,15 +24,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef HRULER_H
 #define HRULER_H
 
-#include <qwidget.h>
-#include <qpainter.h>
-//Added by qt3to4:
-#include <QMouseEvent>
-#include <QPaintEvent>
+#include <QWidget>
 
 #include "scribusapi.h"
 #include "pageitem.h"
 
+class QPaintEvent;
+class QMouseEvent;
 class ScribusView;
 class ScribusDoc;
 class ScribusMainWindow;
