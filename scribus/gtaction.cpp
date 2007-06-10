@@ -138,6 +138,8 @@ void gtAction::write(const QString& text, gtStyle *style)
 	if (paragraphStyle == -1)
 		paragraphStyle = 0; //::findParagraphStyle(textFrame->doc(), textFrame->doc()->currentStyle);
 
+	const ParagraphStyle& paraStyle = textFrame->doc()->paragraphStyles()[paragraphStyle];
+
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font).scName();
 	gtFont font2(*font);
@@ -145,61 +147,63 @@ void gtAction::write(const QString& text, gtStyle *style)
 	QString fontName2 = validateFont(&font2).scName();
 	CharStyle lastStyle;
 	int lastStyleStart = 0;
+
+	CharStyle newStyle;
+	if ((inPara) && (!overridePStyleFont))
+	{
+		if (textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().font().isNone())
+			newStyle.setFont((*textFrame->doc()->AllFonts)[fontName2]);
+		else
+			newStyle.setFont(paraStyle.charStyle().font());
+		newStyle.setFontSize(paraStyle.charStyle().fontSize());
+		newStyle.setFillColor(paraStyle.charStyle().fillColor());
+		newStyle.setFillShade(paraStyle.charStyle().fillShade());
+		newStyle.setStrokeColor(paraStyle.charStyle().strokeColor());
+		newStyle.setStrokeShade(paraStyle.charStyle().strokeShade());
+		newStyle.setFeatures(paraStyle.charStyle().features());
+	}
+	else
+	{
+		newStyle.setFont((*textFrame->doc()->AllFonts)[fontName]);
+		newStyle.setFontSize(font->getSize());
+		newStyle.setFillColor(parseColor(font->getColor()));
+		newStyle.setFillShade(font->getShade());
+		newStyle.setStrokeColor(parseColor(font->getStrokeColor()));
+		newStyle.setStrokeShade(font->getStrokeShade());
+		newStyle.setFeatures(static_cast<StyleFlag>(font->getEffectsValue()).featureList());
+	}
+	newStyle.setScaleH(font->getHscale());
+	newStyle.setScaleV(1000);
+	newStyle.setBaselineOffset(0);
+	newStyle.setShadowXOffset(50);
+	newStyle.setShadowYOffset(-50);
+	newStyle.setOutlineWidth(10);
+	newStyle.setUnderlineOffset(-1);
+	newStyle.setUnderlineWidth(-1);
+	newStyle.setStrikethruOffset(-1);
+	newStyle.setStrikethruWidth(-1);
+	newStyle.setTracking(font->getKerning());
+
+	lastStyle = newStyle;
+	lastStyleStart = it->itemText.length();
+
+	QChar ch0(0), ch5(5), ch10(10), ch13(13); 
 	for (int a = 0; a < text.length(); ++a)
 	{
-		CharStyle newStyle;
-		if ((text.at(a) == QChar(0)) || (text.at(a) == QChar(13)))
+		if ((text.at(a) == ch0) || (text.at(a) == ch13))
 			continue;
 		QChar ch = text.at(a);
-		if ((ch == QChar(10)) || (ch == QChar(5)))
-			ch = QChar(13);
-		if ((inPara) && (!overridePStyleFont))
-		{
-			if (textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().font().isNone())
-				newStyle.setFont((*textFrame->doc()->AllFonts)[fontName2]);
-			else
-				newStyle.setFont(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().font());
-			newStyle.setFontSize(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().fontSize());
-			newStyle.setFillColor(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().fillColor());
-			newStyle.setFillShade(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().fillShade());
-			newStyle.setStrokeColor(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().strokeColor());
-			newStyle.setStrokeShade(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().strokeShade());
-			newStyle.setFeatures(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().features());
-		}
-		else
-		{
-			newStyle.setFont((*textFrame->doc()->AllFonts)[fontName]);
-			newStyle.setFontSize(font->getSize());
-			newStyle.setFillColor(parseColor(font->getColor()));
-			newStyle.setFillShade(font->getShade());
-			newStyle.setStrokeColor(parseColor(font->getStrokeColor()));
-			newStyle.setStrokeShade(font->getStrokeShade());
-			newStyle.setFeatures(static_cast<StyleFlag>(font->getEffectsValue()).featureList());
-		}
-		newStyle.setScaleH(font->getHscale());
-		newStyle.setScaleV(1000);
-		newStyle.setBaselineOffset(0);
-		newStyle.setShadowXOffset(50);
-		newStyle.setShadowYOffset(-50);
-		newStyle.setOutlineWidth(10);
-		newStyle.setUnderlineOffset(-1);
-		newStyle.setUnderlineWidth(-1);
-		newStyle.setStrikethruOffset(-1);
-		newStyle.setStrikethruWidth(-1);
-		newStyle.setTracking(font->getKerning());
+		if ((ch == ch10) || (ch == ch5))
+			ch = ch13;
+		
 		int pos = it->itemText.length();
 		it->itemText.insertChars(pos, QString(ch));
-		if (newStyle != lastStyle) {
-			it->itemText.applyCharStyle(lastStyleStart, pos-lastStyleStart, lastStyle);
-			lastStyle = newStyle;
-			lastStyleStart = pos;
-		}
 		if (ch == SpecialChars::PARSEP) {
-			it->itemText.applyStyle(pos, textFrame->doc()->paragraphStyles()[paragraphStyle]);
+			it->itemText.applyStyle(pos, paraStyle);
 		}
 	}
 	it->itemText.applyCharStyle(lastStyleStart, it->itemText.length()-lastStyleStart, lastStyle);
-	it->itemText.applyStyle(qMax(0,it->itemText.length()-1), textFrame->doc()->paragraphStyles()[paragraphStyle]);
+	it->itemText.applyStyle(qMax(0,it->itemText.length()-1), paraStyle);
 	
 	lastCharWasLineChange = text.right(1) == "\n";
 	inPara = style->target() == "paragraph";
