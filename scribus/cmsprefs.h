@@ -7,20 +7,17 @@ for which a new license (GPL+exception) is in place.
 #ifndef CMSPREFS_H
 #define CMSPREFS_H
 
-#include <qwidget.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
+#include <QWidget>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
+class QGridLayout;
+class QHBoxLayout;
+class QVBoxLayout;
+class QCheckBox;
+class QComboBox;
+class QGroupBox;
+class QLabel;
 class ScribusDoc;
 
 class SCRIBUS_API CMSPrefs : public QWidget
@@ -35,7 +32,7 @@ public:
 	void updateDocSettings(ScribusDoc* doc);
 
 	QCheckBox* checkBox1;
-	Q3GroupBox* sysProfiles;
+	QGroupBox* sysProfiles;
 	QLabel* text2;
 	QLabel* text1;
 	QLabel* text1CMYK;
@@ -48,7 +45,7 @@ public:
 	QComboBox* inputPCMYK;
 	QComboBox* monitorP;
 	QComboBox* printerP;
-	Q3GroupBox* render;
+	QGroupBox* render;
 	QLabel* text22;
 	QComboBox* imagesI;
 	QComboBox* colorsI;
@@ -69,11 +66,11 @@ signals:
 	void cmsOn(bool);
 
 protected:
-	Q3VBoxLayout* cmsPrefsLayout;
-	Q3GridLayout* sysProfilesLayout;
-	Q3GridLayout* renderLayout;
-	Q3HBoxLayout* convertLayout;
-	Q3HBoxLayout* gamutLayout;
+	QVBoxLayout* cmsPrefsLayout;
+	QGridLayout* sysProfilesLayout;
+	QGridLayout* renderLayout;
+	QHBoxLayout* convertLayout;
+	QHBoxLayout* gamutLayout;
 };
 
 #endif // CMSPREFS_H
