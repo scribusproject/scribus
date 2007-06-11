@@ -5,17 +5,20 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "polygonwidget.h"
-//#include "polygonwidget.moc"
 #include "scconfig.h"
-#include <q3pointarray.h>
-#include <qpainter.h>
-#include <qrect.h>
-#include <qmatrix.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
 #include <QPixmap>
 #include <QLabel>
-#include <Q3VBoxLayout>
+#include <QPainter>
+#include <QPolygon>
+#include <QRect>
+#include <QMatrix>
+#include <QToolTip>
+#include <QSpinBox>
+#include <QSlider>
+#include <QCheckBox>
 #include <cmath>
 #include "util.h"
 
@@ -26,10 +29,18 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	Pre = new QPixmap(101, 101);
 	Pre->fill(Qt::white);
 	PFactor = polyF;
-	PolygonPropsLayout = new Q3VBoxLayout( this, 10, 5, "PolygonPropsLayout");
-	Layout11 = new Q3HBoxLayout( 0, 0, 5, "Layout11");
-	Layout10 = new Q3VBoxLayout( 0, 0, 5, "Layout10");
-	Layout2 = new Q3HBoxLayout( 0, 0, 5, "Layout2");
+	PolygonPropsLayout = new QVBoxLayout( this );
+	PolygonPropsLayout->setMargin(10);
+	PolygonPropsLayout->setSpacing(5);
+	Layout11 = new QHBoxLayout;
+	Layout11->setMargin(0);
+	Layout11->setSpacing(5);
+	Layout10 = new QVBoxLayout;
+	Layout10->setMargin(0);
+	Layout10->setSpacing(5);
+	Layout2 = new QHBoxLayout;
+	Layout2->setMargin(0);
+	Layout2->setSpacing(5);
 	Ecken = new QSpinBox( this, "Ecken" );
 	Ecken->setMaxValue( 999 );
 	Ecken->setMinValue( 3 );
@@ -39,9 +50,15 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	Layout2->addWidget( Ecken );
 	Layout10->addLayout( Layout2 );
 
-	Layout9_2 = new Q3HBoxLayout( 0, 0, 5, "Layout9_2");
-	Layout8_2 = new Q3VBoxLayout( 0, 0, 5, "Layout8_2");
-	Layout7_2 = new Q3HBoxLayout( 0, 0, 5, "Layout7_2");
+	Layout9_2 = new QHBoxLayout;
+	Layout9_2->setMargin(0);
+	Layout9_2->setSpacing(5);
+	Layout8_2 = new QVBoxLayout;
+	Layout8_2->setMargin(0);
+	Layout8_2->setSpacing(5);
+	Layout7_2 = new QHBoxLayout;
+	Layout7_2->setMargin(0);
+	Layout7_2->setSpacing(5);
 	Faktor2 = new QSpinBox( this, "Faktor_2" );
 	Faktor2->setSuffix(" ");
 	Faktor2->setMaxValue( 180 );
@@ -65,11 +82,17 @@ PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double poly
 	Konvex->setText( tr( "Apply &Factor" ) );
 	Konvex->setChecked(polyS);
 	Layout10->addWidget( Konvex );
-	Layout9 = new Q3HBoxLayout( 0, 0, 5, "Layout9");
+	Layout9 = new QHBoxLayout;
+	Layout9->setMargin(0);
+	Layout9->setSpacing(5);
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout9->addItem( spacer );
-	Layout8 = new Q3VBoxLayout( 0, 0, 5, "Layout8");
-	Layout7 = new Q3HBoxLayout( 0, 0, 5, "Layout7");
+	Layout8 = new QVBoxLayout;
+	Layout8->setMargin(0);
+	Layout8->setSpacing(5);
+	Layout7 = new QHBoxLayout;
+	Layout7->setMargin(0);
+	Layout7->setSpacing(5);
 	Faktor = new QSpinBox( this, "Faktor" );
 	Faktor->setSuffix( tr( " %" ) );
 	Faktor->setMaxValue( 100 );
@@ -176,7 +199,7 @@ void PolygonWidget::UpdatePreView()
 	p.begin(Pre);
 	p.setBrush(Qt::NoBrush);
 	p.setPen(Qt::black);
-	Q3PointArray pp = RegularPolygon(100, 100, Ecken->value(), Konvex->isChecked(), GetFaktor(), Slider2->value());
+	QPolygon pp = RegularPolygon(100, 100, Ecken->value(), Konvex->isChecked(), GetFaktor(), Slider2->value());
 	QRect br = pp.boundingRect();
 	if (br.x() < 0)
 		pp.translate(-br.x(), 0);

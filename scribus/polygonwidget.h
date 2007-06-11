@@ -7,18 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef POLYGONWIDGET_H
 #define POLYGONWIDGET_H
 
-#include <qwidget.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qslider.h>
-#include <qspinbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qpixmap.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3HBoxLayout>
-
+#include <QWidget>
+class QSpinBox;
+class QSlider;
+class QLabel;
+class QCheckBox;
+class QPixmap;
+class QHBoxLayout;
+class QVBoxLayout;
 #include "scribusapi.h"
 #include "prefsstructs.h"
 
@@ -54,17 +50,17 @@ public slots:
 	void ValFromSpin2(int a);
 
 protected:
-	Q3VBoxLayout* PolygonPropsLayout;
-	Q3HBoxLayout* Layout11;
-	Q3VBoxLayout* Layout10;
-	Q3HBoxLayout* Layout2;
-	Q3HBoxLayout* Layout9;
-	Q3VBoxLayout* Layout8;
-	Q3HBoxLayout* Layout7;
-	Q3HBoxLayout* Layout1_2;
-	Q3HBoxLayout* Layout9_2;
-	Q3VBoxLayout* Layout8_2;
-	Q3HBoxLayout* Layout7_2;
+	QVBoxLayout* PolygonPropsLayout;
+	QHBoxLayout* Layout11;
+	QVBoxLayout* Layout10;
+	QHBoxLayout* Layout2;
+	QHBoxLayout* Layout9;
+	QVBoxLayout* Layout8;
+	QHBoxLayout* Layout7;
+	QHBoxLayout* Layout1_2;
+	QHBoxLayout* Layout9_2;
+	QVBoxLayout* Layout8_2;
+	QHBoxLayout* Layout7_2;
 };
 
 #endif
