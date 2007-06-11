@@ -27,13 +27,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABEXTERNALTOOLSWIDGET_H
 #define TABEXTERNALTOOLSWIDGET_H
 
-#include <qcheckbox.h>
-#include <q3filedialog.h>
-#include <qfileinfo.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qspinbox.h>
-
 #include "scpaths.h"
 #include "ui_tabexternaltoolswidget.h"
 #include "prefsstructs.h"

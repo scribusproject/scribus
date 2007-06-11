@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "tabexternaltoolswidget.h"
-//#include "tabexternaltoolswidget.moc"
+#include <QFileDialog>
 #include "gsutil.h"
 #include "scpaths.h"
 
@@ -74,7 +74,7 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 void TabExternalToolsWidget::changePostScriptTool()
 {
 	QFileInfo fi(psToolLineEdit->text());
-	QString s = Q3FileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
+	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
 	if (!s.isEmpty())
 		psToolLineEdit->setText( QDir::convertSeparators(s) );
 }
@@ -82,7 +82,7 @@ void TabExternalToolsWidget::changePostScriptTool()
 void TabExternalToolsWidget::changeImageTool()
 {
 	QFileInfo fi(imageToolLineEdit->text());
-	QString s = Q3FileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
+	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
 	if (!s.isEmpty())
 		imageToolLineEdit->setText( QDir::convertSeparators(s) );
 }
@@ -90,7 +90,7 @@ void TabExternalToolsWidget::changeImageTool()
 void TabExternalToolsWidget::changeExtBrowserTool()
 {
 	QFileInfo fi(extBrowserToolLineEdit->text());
-	QString s = Q3FileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeextBrowser", tr("Locate your web browser"));
+	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeextBrowser", tr("Locate your web browser"));
 	if (!s.isEmpty())
 		extBrowserToolLineEdit->setText( QDir::convertSeparators(s) );
 }
