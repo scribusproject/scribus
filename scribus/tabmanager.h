@@ -7,17 +7,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABMANAGER_H
 #define TABMANAGER_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDialog>
 
 #include "scribusapi.h"
 #include "pageitem.h"
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
+class QVBoxLayout;
+class QHBoxLayout;
 class QPushButton;
 class Tabruler;
 
@@ -37,8 +33,8 @@ public slots:
 	void exitOK();
 
 protected:
-	Q3VBoxLayout* TabManagerLayout;
-	Q3HBoxLayout* layout10;
+	QVBoxLayout* TabManagerLayout;
+	QHBoxLayout* layout10;
 	
 	double docUnitRatio;
 };
