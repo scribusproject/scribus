@@ -5,24 +5,29 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "polyprops.h"
-//#include "polyprops.moc"
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QSpacerItem>
+#include <QPixmap>
+#include <QPushButton>
 #include "polygonwidget.h"
 #include "commonstrings.h"
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <QPixmap>
-#include <Q3HBoxLayout>
 
 extern QPixmap loadIcon(QString nam);
 
-PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR) : QDialog( parent, "poly", true, 0 )
+PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR) : QDialog( parent )
 {
-	setCaption( tr( "Polygon Properties" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	PolygonPropsLayout = new Q3VBoxLayout( this, 10, 5, "PolygonPropsLayout");
+	setModal(true);
+	setWindowTitle( tr( "Polygon Properties" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	PolygonPropsLayout = new QVBoxLayout( this );
+	PolygonPropsLayout->setMargin(10);
+	PolygonPropsLayout->setSpacing(5);
 	polyWidget = new PolygonWidget(this, polyC, polyFd, polyF, polyS, polyR);
 	PolygonPropsLayout->addWidget( polyWidget );
-	Layout1 = new Q3HBoxLayout( 0, 0, 6, "Layout1_2");
+	Layout1 = new QHBoxLayout;
+	Layout1->setMargin(0);
+	Layout1->setSpacing(5);
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer_2 );
 	okButton = new QPushButton( this, "PushButton1" );

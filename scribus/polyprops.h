@@ -7,13 +7,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef POLYGONPROPS_H
 #define POLYGONPROPS_H
 
-#include <qdialog.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qpixmap.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDialog>
+class QVBoxLayout;
+class QHBoxLayout;
+class QPushButton;
 
 #include "scribusapi.h"
 class PolygonWidget;
@@ -31,8 +28,8 @@ public:
 	QPushButton* cancelButton;
 
 protected:
-	Q3VBoxLayout* PolygonPropsLayout;
-	Q3HBoxLayout* Layout1;
+	QVBoxLayout* PolygonPropsLayout;
+	QHBoxLayout* Layout1;
 };
 
 #endif // POLYGONPROPS_H
