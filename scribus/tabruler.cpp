@@ -364,7 +364,7 @@ void RulerT::updateTabList()
 	int gg = static_cast<int>(tabValues.count()-1);
 	int g = gg;
 	tabValues.removeAt(actTab);
-	for (int yg = static_cast<int>(tabValues.count()); yg > -1; yg--)
+	for (int yg = static_cast<int>(tabValues.count()-1); yg > -1; yg--)
 	{
 		if (tb.tabPosition < tabValues[yg].tabPosition)
 			g = yg;
