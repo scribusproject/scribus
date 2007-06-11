@@ -20,53 +20,23 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <qstringlist.h>
-#include <qcombobox.h>
-// #include <q3listbox.h>
-#include <qfont.h>
-#include <qpainter.h>
-//Added by qt3to4:
+
 #include <QGridLayout>
 #include <QPixmap>
 #include <QLabel>
 #include <QAbstractItemView>
+#include <QFont>
+#include <QStringList>
 
 #include "sccombobox.h"
 
 #include "scribusdoc.h"
 #include "fontcombo.h"
-//#include "fontcombo.moc"
 #include "page.h"
 #include "prefsmanager.h"
-extern QPixmap SCRIBUS_API loadIcon(QString nam);
-/*
-FontListItem::FontListItem(Q3ComboBox* parent, QString f, QFont fo) : Q3ListBoxItem(parent->listBox())
-{
-	fontName = f;
-	iFont = fo;
-	setText(fontName);
-}
+#include "util.h"
 
-const int FontListItem::width(const Q3ListBox *listbox)
-{
-	return listbox->fontMetrics().width(text()) + 2;
-}
-
-const int FontListItem::height(const Q3ListBox *listbox)
-{
-	QFontMetrics fontMetrics(listbox->fontMetrics());
-	return fontMetrics.lineSpacing() + 2;
-}
-
-void FontListItem::paint(QPainter *painter)
-{
-	painter->setFont(iFont);
-	QFontMetrics fontMetrics(painter->fontMetrics());
-	painter->drawText(3, fontMetrics.ascent() + fontMetrics.leading() / 2, fontName);
-}
-*/
-
-FontCombo::FontCombo(QWidget* pa) : QComboBox(true, pa)
+FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
 {
 	prefsManager = PrefsManager::instance();
 	ttfFont = loadIcon("font_truetype16.png");
@@ -110,7 +80,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 		if (forSubstitute && fon.isReplacement())
 			continue;
 		if (fon.isReplacement())
-			insertItem(substFont, it2.data());
+			addItem(substFont, it2.data());
 		else if (type == ScFace::OTF)
 			addItem(otfFont, it2.data());
 		else if (type == ScFace::TYPE1)
@@ -118,7 +88,6 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 		else if (type == ScFace::TTF)
 			addItem(ttfFont, it2.data());
 	}
-//	QAbstractItemView *tmpView = dynamic_cast<QAbstractItemView*>(view());
 	QAbstractItemView *tmpView = view();
 	int tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
@@ -269,7 +238,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 		if ((forSubstitute) && fon.isReplacement())
 			continue;
 		if (fon.isReplacement())
-			fontFamily->insertItem(substFont, it2a.data());
+			fontFamily->addItem(substFont, it2a.data());
 		else if (type == ScFace::OTF)
 			fontFamily->addItem(otfFont, it2a.data());
 		else if (type == ScFace::TYPE1)

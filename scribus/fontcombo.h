@@ -24,46 +24,22 @@ for which a new license (GPL+exception) is in place.
 #ifndef FONTCOMBO_H
 #define FONTCOMBO_H
 
-#include <qcombobox.h>
-#include <qlabel.h>
-//#include <q3listbox.h>
-//#include <q3combobox.h>
-#include <qlayout.h>
-#include <qwidget.h>
-//Added by qt3to4:
-#include <QGridLayout>
-#include <QPixmap>
-
+#include <QWidget>
+#include <QComboBox>
 #include "scribusapi.h"
 #include "scribusstructs.h"
-//class Q3ListBoxItem;
 class QFont;
-
+class QGridLayout;
+class QPixmap;
+class QLabel;
 class ScribusDoc;
 class PrefsManager;
 
 /**
   *@author Franz Schmid
   */
-/*
-class SCRIBUS_API FontListItem : public Q3ListBoxItem
-{
-public:
-    FontListItem(Q3ComboBox* parent, QString f, QFont fo);
-    virtual ~FontListItem() {};
 
-    virtual const int width(const Q3ListBox *);
-    virtual const int height(const Q3ListBox *);
-
-protected:
-    virtual void paint(QPainter *p);
-
-private:
-    QFont iFont;
-    QString fontName;
-};
-*/
-class SCRIBUS_API FontCombo : public QComboBox  
+class SCRIBUS_API FontCombo : public QComboBox
 {
 public:
 	FontCombo(QWidget* pa);
