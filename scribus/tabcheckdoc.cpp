@@ -5,29 +5,27 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tabcheckdoc.h"
-//#include "tabcheckdoc.moc"
-#include <qvariant.h>
-#include <qcheckbox.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qspinbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qcombobox.h>
-#include <qpushbutton.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
+
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QSpacerItem>
+#include <QCheckBox>
+#include <QGroupBox>
+#include <QLabel>
+#include <QComboBox>
+#include <QPushButton>
+#include <QSpinBox>
 
 #include "prefsstructs.h"
 
 TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString prefProfile ) : QWidget( parent, "tabcheckDoc", 0 )
 {
-	TabCheckDocLayout = new Q3VBoxLayout( this, 0, 5, "TabCheckDocLayout");
+	TabCheckDocLayout = new QVBoxLayout(this);
+	TabCheckDocLayout->setMargin(0);
+	TabCheckDocLayout->setSpacing(5);
 	TabCheckDocLayout->setAlignment( Qt::AlignTop );
-	curCheckProfile = new QComboBox( true, this, "Profiles" );
+	curCheckProfile = new QComboBox(this);
 	curCheckProfile->setEditable(true);
 	curCheckProfile->setDuplicatesEnabled(false);
 
@@ -53,13 +51,12 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	missingPictures = new QCheckBox( this, "missingPictures" );
 	missingPictures->setText( tr( "Check for missing images" ) );
 	TabCheckDocLayout->addWidget( missingPictures );
-	pictResolution = new Q3GroupBox( this, "pictResolution" );
+	pictResolution = new QGroupBox( this, "pictResolution" );
 	pictResolution->setTitle( tr( "Check image resolution" ) );
 	pictResolution->setCheckable( true );
-	pictResolution->setColumnLayout(0, Qt::Vertical );
-	pictResolution->layout()->setSpacing( 5 );
-	pictResolution->layout()->setMargin( 10 );
-	pictResolutionLayout = new Q3GridLayout( pictResolution->layout() );
+	pictResolutionLayout = new QGridLayout(pictResolution);
+	pictResolutionLayout->setMargin(10);
+	pictResolutionLayout->setSpacing(5);
 	pictResolutionLayout->setAlignment( Qt::AlignTop );
 	textLabel1 = new QLabel( pictResolution, "textLabel1" );
 	textLabel1->setText( tr( "Lowest allowed resolution" ) );
@@ -90,14 +87,16 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	ignoreOffLayers = new QCheckBox( this, "ignoreOffLayers" );
 	ignoreOffLayers->setText( tr( "Ignore non-printable Layers" ) );
 	TabCheckDocLayout->addWidget( ignoreOffLayers );
-	layout1 = new Q3HBoxLayout( 0, 0, 5, "layout1");
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout1 = new QHBoxLayout;
+	layout1->setMargin(0);
+	layout1->setSpacing(5);
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
 	addProfile = new QPushButton( tr( "Add Profile" ), this, "addProfile" );
 	layout1->addWidget( addProfile );
 	removeProfile = new QPushButton( tr( "Remove Profile" ), this, "removeProfile" );
 	layout1->addWidget( removeProfile );
-	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer2 );
 	TabCheckDocLayout->addLayout( layout1 );
 
@@ -133,7 +132,7 @@ void TabCheckDoc::restoreDefaults(CheckerPrefsList *prefsData, QString prefProfi
 	CheckerPrefsList::Iterator it;
 	curCheckProfile->clear();
 	for (it = checkerProfile.begin(); it != checkerProfile.end(); ++it)
-		curCheckProfile->insertItem(it.key());
+		curCheckProfile->addItem(it.key());
 	curCheckProfile->setCurrentText(prefProfile);
 	ignoreErrors->setChecked(checkerProfile[prefProfile].ignoreErrors);
 	automaticCheck->setChecked(checkerProfile[prefProfile].autoCheck);
@@ -268,7 +267,7 @@ void TabCheckDoc::addProf()
 	int j,i=0;
 	for (it = checkerProfile.begin(), j=0; it != checkerProfile.end(); ++it, ++j)
 	{
-		curCheckProfile->insertItem(it.key());
+		curCheckProfile->addItem(it.key());
 		if (it.key()==currentProfile)
 			i=j;
 	}
@@ -288,7 +287,7 @@ void TabCheckDoc::delProf()
 	CheckerPrefsList::Iterator it;
 	CheckerPrefsList::Iterator itend=checkerProfile.end();
 	for (it = checkerProfile.begin(); it != itend; ++it)
-		curCheckProfile->insertItem(it.key());
+		curCheckProfile->addItem(it.key());
 	curCheckProfile->setCurrentText(currentProfile);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));

@@ -7,25 +7,19 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABCHECKDOC_H
 #define TABCHECKDOC_H
 
-#include <qvariant.h>
-#include <qwidget.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <QLabel>
+#include <QWidget>
+class QGridLayout;
+class QVBoxLayout;
+class QHBoxLayout;
+class QCheckBox;
+class QGroupBox;
+class QLabel;
+class QComboBox;
+class QPushButton;
+class QSpinBox;
 
 #include "scribusapi.h"
 #include "prefsstructs.h"
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QComboBox;
-class QCheckBox;
-class Q3GroupBox;
-class QLabel;
-class QSpinBox;
-class QPushButton;
 
 
 /*! \brief A setup widget for checking Profiles (for Preflight Verifier constraints)
@@ -51,7 +45,7 @@ public:
 	QCheckBox* rasterPDF;
 	QCheckBox* checkForGIF;
 	QCheckBox* ignoreOffLayers;
-	Q3GroupBox* pictResolution;
+	QGroupBox* pictResolution;
 	QLabel* textLabel1;
 	QSpinBox* resolutionValue;
 	QLabel* textLabel1m;
@@ -69,9 +63,9 @@ public slots:
 	void delProf();
 
 protected:
-	Q3VBoxLayout* TabCheckDocLayout;
-	Q3GridLayout* pictResolutionLayout;
-	Q3HBoxLayout* layout1;
+	QVBoxLayout* TabCheckDocLayout;
+	QGridLayout* pictResolutionLayout;
+	QHBoxLayout* layout1;
 	QString tempNewProfileName;
 };
 
