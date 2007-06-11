@@ -5,21 +5,21 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "muster.h"
-//#include "muster.moc"
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QToolButton>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QToolTip>
+#include <QCursor>
+#include <QCloseEvent>
+#include <QMessageBox>
+#include <QInputDialog>
+
 #include "newtemp.h"
 #include "mergedoc.h"
-#include <qinputdialog.h>
-#include <qlayout.h>
-#include <q3listbox.h>
-#include <qmessagebox.h>
-#include <qpushbutton.h>
-#include <qcursor.h>
-#include <qstring.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QCloseEvent>
-#include <Q3VBoxLayout>
 #include "page.h"
 #include "pagestructs.h"
 #include "scribusdoc.h"
@@ -30,35 +30,38 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "prefsmanager.h"
 
-#include "scmessagebox.h"
-
 MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName)
-		: QDialog( parent, "Muster", false, Qt::WDestructiveClose)
+		: QDialog(parent)
 {
-	setCaption( tr( "Edit Master Pages" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setAttribute(Qt::WA_DeleteOnClose);
+	setModal(false);
+	setWindowTitle( tr( "Edit Master Pages" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	currentDoc = pCurrentDoc;
 	currentView = pCurrentView;
-	masterPagesLayout = new Q3VBoxLayout( this, 5, 5 );
-	buttonLayout = new Q3HBoxLayout;
+	masterPagesLayout = new QVBoxLayout(this);
+	masterPagesLayout->setMargin(5);
+	masterPagesLayout->setSpacing(5);
+	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 5 );
 	buttonLayout->setMargin( 0 );
 	importButton = new QToolButton(this, "importButton" );
-	importButton->setPixmap(loadIcon("16/document-open.png"));
+	importButton->setIcon(QIcon(loadIcon("16/document-open.png")));
 	newButton = new QToolButton(this, "newButton" );
-	newButton->setPixmap(loadIcon("16/document-new.png"));
+	newButton->setIcon(QIcon(loadIcon("16/document-new.png")));
 	duplicateButton = new QToolButton(this, "DublicateB" );
-	duplicateButton->setPixmap(loadIcon("16/edit-copy.png"));
+	duplicateButton->setIcon(QIcon(loadIcon("16/edit-copy.png")));
 	deleteButton = new QToolButton(this, "deleteButton" );
-	deleteButton->setPixmap(loadIcon("16/edit-delete.png"));
+	deleteButton->setIcon(QIcon(loadIcon("16/edit-delete.png")));
 	buttonLayout->addWidget( newButton );
 	buttonLayout->addWidget( duplicateButton );
 	buttonLayout->addWidget( importButton );
 	buttonLayout->addWidget( deleteButton );
-	QSpacerItem* spacer = new QSpacerItem( 16, 16, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	buttonLayout->addItem( spacer );
 	masterPagesLayout->addLayout( buttonLayout );
-	masterPageListBox = new Q3ListBox( this, "masterPageListBox" );
+	masterPageListBox = new QListWidget( this );
+	masterPageListBox->clear();
 	masterPageListBox->setMinimumSize( QSize( 100, 240 ) );
 	masterPagesLayout->addWidget( masterPageListBox );
 
@@ -81,8 +84,8 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteMasterPage()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(newMasterPage()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(appendPage()));
-	connect(masterPageListBox, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(selectMasterPage(Q3ListBoxItem*)));
-	connect(masterPageListBox, SIGNAL(doubleClicked(Q3ListBoxItem*)), this, SLOT(renameMasterPage( Q3ListBoxItem*)));
+	connect(masterPageListBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectMasterPage(QListWidgetItem*)));
+	connect(masterPageListBox, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(renameMasterPage( QListWidgetItem*)));
 }
 
 void MasterPagesPalette::reject()
@@ -342,7 +345,7 @@ void MasterPagesPalette::appendPage()
 	delete dia;
 }
 
-void MasterPagesPalette::selectMasterPage(Q3ListBoxItem *item)
+void MasterPagesPalette::selectMasterPage(QListWidgetItem *item)
 {
 	sMuster = item->text();
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
@@ -374,17 +377,19 @@ void MasterPagesPalette::updateMasterPageList(QString MasterPageName)
 {
 	masterPageListBox->clear();
 	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-		masterPageListBox->insertItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
+		masterPageListBox->addItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
 	if (MasterPageName == CommonStrings::masterPageNormal)
 	{
 		MasterPageName = CommonStrings::trMasterPageNormal;
 		deleteButton->setEnabled(false);
 	}
-	masterPageListBox->setSelected(masterPageListBox->index(masterPageListBox->findItem(MasterPageName)), true);
+	QList<QListWidgetItem *> itL = masterPageListBox->findItems(MasterPageName, Qt::MatchExactly);
+	if (itL.count() != 0)
+		itL.at(0)->setSelected(true);
 }
 
-void MasterPagesPalette::renameMasterPage(Q3ListBoxItem * item)
+void MasterPagesPalette::renameMasterPage(QListWidgetItem * item)
 {
 	QString oldName(item->text());
 	if ((oldName == CommonStrings::masterPageNormal) || (oldName == CommonStrings::trMasterPageNormal) || (oldName == CommonStrings::trMasterPageNormalLeft) || (oldName == CommonStrings::trMasterPageNormalMiddle) || (oldName == CommonStrings::trMasterPageNormalRight))
@@ -393,10 +398,10 @@ void MasterPagesPalette::renameMasterPage(Q3ListBoxItem * item)
 		return;
 	}
 	bool ok;
-	QString newName = QInputDialog::getText(
-			tr("Rename Master Page"), tr("New Name:"), QLineEdit::Normal,
-			oldName, &ok, this );
+	QString newName = QInputDialog::getText( tr("Rename Master Page"), tr("New Name:"), QLineEdit::Normal, oldName, &ok, this );
 	if (ok && !newName.isEmpty())
+	{
 		if (currentDoc->renameMasterPage( oldName, newName))
 			updateMasterPageList(newName);
+	}
 }
