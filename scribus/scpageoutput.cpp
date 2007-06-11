@@ -848,17 +848,17 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 	}
 	if (item->Pfile.isEmpty())
 	{
-		painter->setPen( ScColorShade(Qt::black, 100), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		/*painter->setPen( ScColorShade(Qt::black, 100), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		painter->drawLine(FPoint(0, 0), FPoint(item->width(), item->height()));
-		painter->drawLine(FPoint(0, item->height()), FPoint(item->width(), 0));
+		painter->drawLine(FPoint(0, item->height()), FPoint(item->width(), 0));*/
 	}
 	else
 	{
 		if ((!item->imageShown()) || (!item->PicAvail))
 		{
-			painter->setPen( ScColorShade(Qt::red, 100), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+			/*painter->setPen( ScColorShade(Qt::red, 100), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 			painter->drawLine(FPoint(0, 0), FPoint(item->width(), item->height()));
-			painter->drawLine(FPoint(0, item->height()), FPoint(item->width(), 0));
+			painter->drawLine(FPoint(0, item->height()), FPoint(item->width(), 0));*/
 		}
 		else
 		{
