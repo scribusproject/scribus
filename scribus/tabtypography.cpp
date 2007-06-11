@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "tabtypography.h"
 
-#include <Q3GridLayout>
+#include <QGridLayout>
 #include <QGroupBox>
 #include <QSpinBox>
 #include <QLabel>
@@ -22,7 +22,7 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	tabTypoLayout->setSpacing(5);
 	groupBox1a = new QGroupBox( this, "groupBox1a" );
 	groupBox1a->setTitle( tr( "Subscript" ) );
-	groupBox1aLayout = new Q3GridLayout( groupBox1a );
+	groupBox1aLayout = new QGridLayout( groupBox1a );
 	groupBox1aLayout->setMargin(10);
 	groupBox1aLayout->setSpacing(5);
 	groupBox1aLayout->setAlignment( Qt::AlignTop );
