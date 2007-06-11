@@ -5,27 +5,26 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tabtypography.h"
-//#include "tabtypography.moc"
-#include <qlayout.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qtooltip.h>
-#include <qspinbox.h>
-//Added by qt3to4:
+
 #include <Q3GridLayout>
+#include <QGroupBox>
+#include <QSpinBox>
+#include <QLabel>
+#include <QToolTip>
 #include "scrspinbox.h"
 #include "prefsstructs.h"
 #include "scribusstructs.h"
 
 TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWidget( parent, "tabtypo", 0 )
 {
-	tabTypoLayout = new Q3GridLayout( this, 1, 1, 0, 6, "tabTypoLayout");
-	groupBox1a = new Q3GroupBox( this, "groupBox1a" );
-	groupBox1a->setColumnLayout(0, Qt::Vertical );
-	groupBox1a->layout()->setSpacing( 6 );
-	groupBox1a->layout()->setMargin( 11 );
+	tabTypoLayout = new QGridLayout( this );
+	tabTypoLayout->setMargin(0);
+	tabTypoLayout->setSpacing(5);
+	groupBox1a = new QGroupBox( this, "groupBox1a" );
 	groupBox1a->setTitle( tr( "Subscript" ) );
-	groupBox1aLayout = new Q3GridLayout( groupBox1a->layout() );
+	groupBox1aLayout = new Q3GridLayout( groupBox1a );
+	groupBox1aLayout->setMargin(10);
+	groupBox1aLayout->setSpacing(5);
 	groupBox1aLayout->setAlignment( Qt::AlignTop );
 	subDisplacement = new QSpinBox( groupBox1a, "subDisplacement" );
 	subDisplacement->setMaxValue( 100 );
@@ -40,13 +39,13 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox1aLayout->addWidget( subScaling, 0, 3, Qt::AlignLeft );
 	textLabel2a = new QLabel(subScaling, tr( "&Scaling:" ), groupBox1a, "textLabel2a" );
 	groupBox1aLayout->addWidget( textLabel2a, 0, 2 );
-	tabTypoLayout->addMultiCellWidget( groupBox1a, 0, 0, 0, 1 );
-	groupBox2a = new Q3GroupBox( this, "groupBox2a" );
-	groupBox2a->setColumnLayout(0, Qt::Vertical );
-	groupBox2a->layout()->setSpacing( 6 );
-	groupBox2a->layout()->setMargin( 11 );
+	tabTypoLayout->addWidget( groupBox1a, 0, 0, 1, 2 );
+
+	groupBox2a = new QGroupBox( this, "groupBox2a" );
 	groupBox2a->setTitle( tr( "Superscript" ) );
-	groupBox2aLayout = new Q3GridLayout( groupBox2a->layout() );
+	groupBox2aLayout = new QGridLayout( groupBox2a );
+	groupBox2aLayout->setMargin(10);
+	groupBox2aLayout->setSpacing(5);
 	groupBox2aLayout->setAlignment( Qt::AlignTop );
 	superDisplacement = new QSpinBox( groupBox2a, "superDisplacement" );
 	superDisplacement->setMaxValue( 100 );
@@ -61,64 +60,61 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox2aLayout->addWidget( superScaling, 0, 3, Qt::AlignLeft );
 	textLabel4a = new QLabel(superScaling, tr( "S&caling:" ), groupBox2a, "textLabel4a" );
 	groupBox2aLayout->addWidget( textLabel4a, 0, 2 );
-	tabTypoLayout->addMultiCellWidget( groupBox2a, 1, 1, 0, 1 );
+	tabTypoLayout->addWidget( groupBox2a, 1, 0, 1, 2 );
 
-	underlineGroup = new Q3GroupBox( this, "underlineGroup" );
+	underlineGroup = new QGroupBox( this, "underlineGroup" );
 	underlineGroup->setTitle( tr( "Underline" ) );
-	underlineGroup->setColumnLayout(0, Qt::Vertical );
-	underlineGroup->layout()->setSpacing( 6 );
-	underlineGroup->layout()->setMargin( 11 );
-	underlineGroupLayout = new Q3GridLayout( underlineGroup->layout() );
+	underlineGroupLayout = new QGridLayout( underlineGroup );
+	underlineGroupLayout->setMargin(10);
+	underlineGroupLayout->setSpacing(5);
 	underlineGroupLayout->setAlignment( Qt::AlignTop );
 	textLabel1 = new QLabel( underlineGroup, "textLabel1" );
 	textLabel1->setText( tr( "Displacement:" ) );
 	underlineGroupLayout->addWidget( textLabel1, 0, 0 );
-	underlinePos = new ScrSpinBox( -0.1, 100, underlineGroup, 1 );
+	underlinePos = new ScrSpinBox( -0.1, 100, underlineGroup, 7 );
 	underlinePos->setWrapping(true);
 	underlinePos->setSuffix( tr( " %" ) );
 	underlinePos->setSpecialValueText( tr( "Auto" ) );
-	underlineGroupLayout->addWidget( underlinePos, 0, 1 );
+	underlineGroupLayout->addWidget( underlinePos, 0, 1, Qt::AlignLeft );
 	textLabel2 = new QLabel( underlineGroup, "textLabel2" );
 	textLabel2->setText( tr( "Line Width:" ) );
 	underlineGroupLayout->addWidget( textLabel2, 0, 2 );
-	underlineWidth = new ScrSpinBox( -0.1, 100, underlineGroup, 1 );
+	underlineWidth = new ScrSpinBox( -0.1, 100, underlineGroup, 7 );
 	underlineWidth->setSuffix( tr( " %" ) );
 	underlineWidth->setWrapping(true);
 	underlineWidth->setSpecialValueText( tr( "Auto" ) );
-	underlineGroupLayout->addWidget( underlineWidth, 0, 3 );
-	tabTypoLayout->addMultiCellWidget( underlineGroup, 2, 2, 0, 1 );
+	underlineGroupLayout->addWidget( underlineWidth, 0, 3, Qt::AlignLeft );
+	tabTypoLayout->addWidget( underlineGroup, 2, 0, 1, 2 );
 
-	strikethruGroup = new Q3GroupBox( this, "strikethruGroup" );
+	strikethruGroup = new QGroupBox( this, "strikethruGroup" );
 	strikethruGroup->setTitle( tr( "Strikethru" ) );
-	strikethruGroup->setColumnLayout(0, Qt::Vertical );
-	strikethruGroup->layout()->setSpacing( 6 );
-	strikethruGroup->layout()->setMargin( 11 );
-	strikethruGroupLayout = new Q3GridLayout( strikethruGroup->layout() );
+	strikethruGroupLayout = new QGridLayout( strikethruGroup );
+	strikethruGroupLayout->setMargin(10);
+	strikethruGroupLayout->setSpacing(5);
 	strikethruGroupLayout->setAlignment( Qt::AlignTop );
 	textLabel1_2 = new QLabel( strikethruGroup, "textLabel1" );
 	textLabel1_2->setText( tr( "Displacement:" ) );
 	strikethruGroupLayout->addWidget( textLabel1_2, 0, 0 );
-	strikethruPos = new ScrSpinBox( -0.1, 100, strikethruGroup, 1 );
+	strikethruPos = new ScrSpinBox( -0.1, 100, strikethruGroup, 7 );
 	strikethruPos->setSuffix( tr( " %" ) );
 	strikethruPos->setSpecialValueText( tr( "Auto" ) );
 	strikethruPos->setWrapping(true);
-	strikethruGroupLayout->addWidget( strikethruPos, 0, 1 );
+	strikethruGroupLayout->addWidget( strikethruPos, 0, 1, Qt::AlignLeft );
 	textLabel2_2 = new QLabel( strikethruGroup, "textLabel2" );
 	textLabel2_2->setText( tr( "Line Width:" ) );
 	strikethruGroupLayout->addWidget( textLabel2_2, 0, 2 );
-	strikethruWidth = new ScrSpinBox( -0.1, 100, strikethruGroup, 1 );
+	strikethruWidth = new ScrSpinBox( -0.1, 100, strikethruGroup, 7 );
 	strikethruWidth->setWrapping(true);
 	strikethruWidth->setSuffix( tr( " %" ) );
 	strikethruWidth->setSpecialValueText( tr( "Auto" ) );
-	strikethruGroupLayout->addWidget( strikethruWidth, 0, 3 );
-	tabTypoLayout->addMultiCellWidget( strikethruGroup, 3, 3, 0, 1 );
+	strikethruGroupLayout->addWidget( strikethruWidth, 0, 3, Qt::AlignLeft );
+	tabTypoLayout->addWidget( strikethruGroup, 3, 0, 1, 2 );
 
-	groupBox3a = new Q3GroupBox( this, "groupBox3a" );
-	groupBox3a->setColumnLayout(0, Qt::Vertical );
-	groupBox3a->layout()->setSpacing( 6 );
-	groupBox3a->layout()->setMargin( 11 );
+	groupBox3a = new QGroupBox( this, "groupBox3a" );
 	groupBox3a->setTitle( tr( "Small Caps" ) );
-	groupBox3aLayout = new Q3GridLayout( groupBox3a->layout() );
+	groupBox3aLayout = new QGridLayout( groupBox3a );
+	groupBox3aLayout->setMargin(10);
+	groupBox3aLayout->setSpacing(5);
 	groupBox3aLayout->setAlignment( Qt::AlignTop );
 	capsScaling = new QSpinBox( groupBox3a, "capsScaling" );
 	capsScaling->setMaxValue( 100 );
@@ -129,18 +125,17 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	groupBox3aLayout->addWidget( textLabel5a, 0, 0 );
 	tabTypoLayout->addWidget( groupBox3a, 4, 0 );
 
-	groupBox4a = new Q3GroupBox( this, "groupBox3a" );
-	groupBox4a->setColumnLayout(0, Qt::Vertical );
-	groupBox4a->layout()->setSpacing( 6 );
-	groupBox4a->layout()->setMargin( 11 );
+	groupBox4a = new QGroupBox( this, "groupBox3a" );
 	groupBox4a->setTitle( tr( "Automatic &Line Spacing" ) );
-	groupBox4aLayout = new Q3GridLayout( groupBox4a->layout() );
+	groupBox4aLayout = new QGridLayout( groupBox4a );
+	groupBox4aLayout->setMargin(10);
+	groupBox4aLayout->setSpacing(5);
 	groupBox4aLayout->setAlignment( Qt::AlignTop );
 	autoLine = new QSpinBox( groupBox4a, "autoLine" );
 	autoLine->setMaxValue( 100 );
 	autoLine->setMinValue( 1 );
 	autoLine->setSuffix( tr( " %" ) );
-	groupBox4aLayout->addWidget( autoLine, 1, 1 );
+	groupBox4aLayout->addWidget( autoLine, 1, 1, Qt::AlignLeft );
 	textLabel8a = new QLabel( autoLine, tr( "Line Spacing:" ), groupBox4a, "textLabel8a" );
 	groupBox4aLayout->addWidget( textLabel8a, 1, 0 );
 	tabTypoLayout->addWidget( groupBox4a, 4, 1 );
