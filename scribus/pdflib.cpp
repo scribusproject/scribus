@@ -6196,32 +6196,31 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				QByteArray dataP;
 				struct ICCD dataD;
 				if ((Embedded) && (!Options.EmbeddedI))
-				{
 					img3.getEmbeddedProfile(fn, &dataP, &components);
-					if (dataP.isEmpty())
-					{
-						if (img.imgInfo.colorspace == 1)
-						{
-							loadRawBytes((Embedded ? ScCore->InputProfilesCMYK[Options.ImageProf] : ScCore->InputProfilesCMYK[Profil]), dataP);
-							components = 4;
-						}
-						else
-						{
-							loadRawBytes((Embedded ? ScCore->InputProfiles[Options.ImageProf] : ScCore->InputProfiles[Profil]), dataP);
-							components = 3;
-						}
-					}
-				}
-				else
+				if (dataP.isEmpty())
 				{
 					if (img.imgInfo.colorspace == 1)
 					{
-						loadRawBytes((Embedded ? ScCore->InputProfilesCMYK[Options.ImageProf] : ScCore->InputProfilesCMYK[Profil]), dataP);
+						QString profilePath;
+						if (Embedded && ScCore->InputProfilesCMYK.contains(Options.ImageProf))
+							profilePath = ScCore->InputProfilesCMYK[Options.ImageProf];
+						else if (ScCore->InputProfilesCMYK.contains(Profil))
+							profilePath = ScCore->InputProfilesCMYK[Profil];
+						else
+							profilePath = ScCore->InputProfilesCMYK[c->doc()->CMSSettings.DefaultImageCMYKProfile];
+						loadRawBytes(profilePath, dataP);
 						components = 4;
 					}
 					else
 					{
-						loadRawBytes((Embedded ? ScCore->InputProfiles[Options.ImageProf] : ScCore->InputProfiles[Profil]), dataP);
+						QString profilePath;
+						if (Embedded && ScCore->InputProfiles.contains(Options.ImageProf))
+							profilePath = ScCore->InputProfiles[Options.ImageProf];
+						else if (ScCore->InputProfiles.contains(Profil))
+							profilePath = ScCore->InputProfiles[Profil];
+						else
+							profilePath = ScCore->InputProfiles[c->doc()->CMSSettings.DefaultImageRGBProfile];
+						loadRawBytes(profilePath, dataP);
 						components = 3;
 					}
 				}

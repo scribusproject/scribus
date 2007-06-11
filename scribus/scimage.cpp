@@ -2021,7 +2021,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(false);
-					imgInfo = pDataLoader->imageInfoRecord();
+					// JG : this line overwrite image profile info and should not be needed here!!!!
+					// imgInfo = pDataLoader->imageInfoRecord();
 				}
 			}
 			break;
@@ -2053,7 +2054,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 			{
 				*this = pDataLoader->r_image.convertToQImage(true, true);
-				imgInfo = pDataLoader->imageInfoRecord();
+				// JG : this line overwrite image profile info and should not be needed here!!!!
+				// imgInfo = pDataLoader->imageInfoRecord();
 			}
 			break;
 		}
@@ -2063,7 +2065,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			{
 				create(pDataLoader->r_image.width(), pDataLoader->r_image.height(), 32);
 				setAlphaBuffer( true );
-				imgInfo = pDataLoader->imageInfoRecord();
+				// JG : this line overwrite image profile info and should not be needed here!!!!
+				// imgInfo = pDataLoader->imageInfoRecord();
 			}
 			LPBYTE ptr2 = NULL;
 			for (int i = 0; i < height(); i++)
@@ -2165,7 +2168,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(false);
-					imgInfo = pDataLoader->imageInfoRecord();
+					// JG : this line overwrite image profile info and should not be needed here!!!!
+					// imgInfo = pDataLoader->imageInfoRecord();
 				}
 				unsigned char cc, cm, cy ,ck;
 				QRgb *ptr;
@@ -2187,7 +2191,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(true, true);
-					imgInfo = pDataLoader->imageInfoRecord();
+					// JG : this line overwrite image profile info and should not be needed here!!!!
+					// imgInfo = pDataLoader->imageInfoRecord();
 				}
 			}
 			break;
@@ -2199,7 +2204,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(true);
-					imgInfo = pDataLoader->imageInfoRecord();
+					// JG : this line overwrite image profile info and should not be needed here!!!!
+					// imgInfo = pDataLoader->imageInfoRecord();
 				}
 				else
 				{
@@ -2224,7 +2230,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(false);
-					imgInfo = pDataLoader->imageInfoRecord();
+					// JG : this line overwrite image profile info and should not be needed here!!!!
+					// imgInfo = pDataLoader->imageInfoRecord();
 				}
 			}
 			break;
@@ -2232,7 +2239,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(true, true);
-					imgInfo = pDataLoader->imageInfoRecord();
+					// JG : this line overwrite image profile info and should not be needed here!!!!
+					// imgInfo = pDataLoader->imageInfoRecord();
 				}
 			break;
 		}
