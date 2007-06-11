@@ -7,19 +7,17 @@ for which a new license (GPL+exception) is in place.
 #ifndef FARBMANAGER_H
 #define FARBMANAGER_H
 
-#include <qdialog.h>
-#include <qlayout.h>
+#include <QDialog>
 #include <q3listbox.h>
-#include <qpushbutton.h>
-#include <q3groupbox.h>
-#include <qtoolbutton.h>
-#include <qlabel.h>
-#include <q3popupmenu.h>
-#include <qcolor.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+class QHBoxLayout;
+class QVBoxLayout;
+class QLabel;
+class QPushButton;
+class QGroupBox;
+class QToolButton;
+class QColor;
+class QMenu;
+class QSignalMapper;
 
 #include "colorsetmanager.h"
 #include "scribusapi.h"
@@ -56,8 +54,8 @@ public:
 private:
 	QToolButton* LoadColSet;
 	ColorListBox* colorListBox;
-	Q3GroupBox* ColorsGroup;
-	Q3GroupBox* ColsSetGroup;
+	QGroupBox* ColorsGroup;
+	QGroupBox* ColsSetGroup;
 	QPushButton* importColorsButton;
 	QPushButton* newColorButton;
 	QPushButton* editColorButton;
@@ -68,15 +66,16 @@ private:
 	QPushButton* cancelButton;
 	QLabel* textLabel1;
 	QPushButton* SaveColSet;
-	Q3PopupMenu* CSets;
+	QMenu* CSets;
 	QString sColor;
 	QColor tmpColor;
 	QStringList DontChange;
 	ScribusDoc* m_Doc;
+	QSignalMapper *signalMapper;
 
 private slots:
 	void saveDefaults();
-	void loadDefaults(int id);
+	void loadDefaults(const QString &txt);
 	//! \brief Just note: Farbe is German word for Color...
 	void importColors();
 	void deleteColor();
@@ -89,11 +88,11 @@ private slots:
 	void updateCList();
 
 protected:
-	Q3VBoxLayout* Layout2;
-	Q3HBoxLayout* layout5;
-	Q3VBoxLayout* layout3;
-	Q3VBoxLayout* ColsSetGroupLayout;
-	Q3VBoxLayout* Layout1;
+	QVBoxLayout* Layout2;
+	QHBoxLayout* layout5;
+	QVBoxLayout* layout3;
+	QVBoxLayout* ColsSetGroupLayout;
+	QVBoxLayout* Layout1;
 	
 	ColorSetManager csm;	
 	int customSetStartIndex;

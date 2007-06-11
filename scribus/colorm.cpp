@@ -5,17 +5,24 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "colorm.h"
-//#include "colorm.moc"
-#include <qmessagebox.h>
-#include <qpixmap.h>
-#include <qbitmap.h>
-#include <qdom.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QLabel>
 #include <QByteArray>
-#include <Q3PopupMenu>
-#include <Q3VBoxLayout>
+#include <QMenu>
+#include <QToolTip>
+#include <QPushButton>
+#include <QGroupBox>
+#include <QToolButton>
+#include <QSignalMapper>
+#include <QAction>
+#include <QList>
+#include <QPixmap>
+#include <QMessageBox>
+#include <QDomDocument>
+#include <QDataStream>
+#include <QTextStream>
 #include <cstdlib>
 
 #include "scconfig.h"
@@ -31,36 +38,38 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 
 #include "util.h"
-#include "dynamictip.h"
 #include "sccolorengine.h"
 
 ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QString docColSet, QStringList custColSet)
-		: QDialog( parent, "ColorManager", true, 0 ), EditColors(doc, true), UsedC(doc, true)
+		: QDialog( parent ), EditColors(doc, true), UsedC(doc, true)
 {
-	setName( "ColorManager" );
+	setModal(true);
+	setWindowTitle( tr( "Colors" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	m_Doc=doc;
 	customColSet = custColSet;
 	setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, sizePolicy().hasHeightForWidth() ) );
 	setSizeGripEnabled(true);
-	setCaption( tr( "Colors" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	Layout2 = new Q3VBoxLayout( this );
-	Layout2->setSpacing( 6 );
-	Layout2->setMargin( 11 );
+	Layout2 = new QVBoxLayout( this );
+	Layout2->setSpacing( 5 );
+	Layout2->setMargin( 10 );
 
-	layout5 = new Q3HBoxLayout( 0, 0, 6, "layout5");
-	layout3 = new Q3VBoxLayout( 0, 0, 6, "layout3");
+	layout5 = new QHBoxLayout;
+	layout5->setSpacing( 5 );
+	layout5->setMargin( 0 );
+	layout3 = new QVBoxLayout;
+	layout3->setSpacing( 5 );
+	layout3->setMargin( 0 );
 	colorListBox = new ColorListBox( this, "colorListBox" );
-	colorListBox->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)3, colorListBox->sizePolicy().hasHeightForWidth() ) );
+	colorListBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
 	colorListBox->setMinimumSize( QSize( 164, 228 ) );
 	colorListBox->setColumnMode( Q3ListBox::FixedNumber );
 	layout5->addWidget( colorListBox );
 
-	ColorsGroup = new Q3GroupBox( this, "ColorsGroup" );
-	ColorsGroup->setColumnLayout(0, Qt::Vertical );
-	ColorsGroup->layout()->setSpacing( 6 );
-	ColorsGroup->layout()->setMargin( 11 );
-	Layout1 = new Q3VBoxLayout( ColorsGroup->layout() );
+	ColorsGroup = new QGroupBox( this, "ColorsGroup" );
+	Layout1 = new QVBoxLayout( ColorsGroup );
+	Layout1->setSpacing( 5 );
+	Layout1->setMargin( 10 );
 	Layout1->setAlignment( Qt::AlignTop );
 	importColorsButton = new QPushButton( tr( "&Import" ), ColorsGroup, "importColorsButton" );
 	Layout1->addWidget( importColorsButton );
@@ -84,33 +93,32 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	layout3->addWidget( ColorsGroup );
 	if (m_Doc==0)
 	{
-		ColsSetGroup = new Q3GroupBox( this, "ColsSetGroup" );
+		ColsSetGroup = new QGroupBox( this, "ColsSetGroup" );
 		ColsSetGroup->setTitle( tr( "Color Sets" ) );
-		ColsSetGroup->setColumnLayout(0, Qt::Vertical );
-		ColsSetGroup->layout()->setSpacing( 6 );
-		ColsSetGroup->layout()->setMargin( 11 );
-		ColsSetGroupLayout = new Q3VBoxLayout( ColsSetGroup->layout() );
+		ColsSetGroupLayout = new QVBoxLayout( ColsSetGroup );
+		ColsSetGroupLayout->setSpacing( 5 );
+		ColsSetGroupLayout->setMargin( 10 );
 		ColsSetGroupLayout->setAlignment( Qt::AlignTop );
 		textLabel1 = new QLabel( ColsSetGroup, "textLabel1" );
 		textLabel1->setText( tr( "Current Color Set:" ) );
 		ColsSetGroupLayout->addWidget( textLabel1 );
-		CSets = new Q3PopupMenu();
-		CSets->insertItem("Scribus Small");
-/*
-		CSets->insertItem("X11 RGB-Set");
-		CSets->insertItem("X11 Grey-Set");
-		CSets->insertItem("Gnome-Set");
-		CSets->insertItem("SVG-Set");
-		CSets->insertItem("OpenOffice.org-Set");
-*/
+		QSignalMapper *signalMapper = new QSignalMapper(this);
+		CSets = new QMenu();
+		QAction *action = CSets->addAction("Scribus Small");
+		connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
+		signalMapper->setMapping(action, action->text());
+		int setCount = 1;
 		csm.findPaletteLocations();
 		csm.findPalettes();
 		QStringList allSets(csm.paletteNames());
 		for ( QStringList::Iterator it = allSets.begin(); it != allSets.end(); ++it )
 		{
-			CSets->insertItem((*it));
+			action = CSets->addAction((*it));
+			connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
+			signalMapper->setMapping(action, action->text());
+			setCount++;
 		}
-		customSetStartIndex=CSets->count();
+		customSetStartIndex = setCount;
 		if (custColSet.count() != 0)
 		{
 			QStringList realEx;
@@ -121,18 +129,22 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 				QFileInfo cfi(Cpfad);
 				if (cfi.exists())
 				{
-					CSets->insertItem(custColSet[m]);
+					action = CSets->addAction(custColSet[m]);
+					signalMapper->setMapping(action, action->text());
 					realEx.append(custColSet[m]);
 				}
 			}
 			customColSet = realEx;
 		}
+		connect(signalMapper, SIGNAL(mapped(const QString &)), this, SLOT(loadDefaults(const QString &)));
 		LoadColSet = new QToolButton( ColsSetGroup, "LoadColSet" );
-		LoadColSet->setPopup(CSets);
-		LoadColSet->setPopupDelay(0);
+		LoadColSet->setMenu(CSets);
+		LoadColSet->setPopupMode(QToolButton::MenuButtonPopup);
 		LoadColSet->setText(docColSet);
+		LoadColSet->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 		ColsSetGroupLayout->addWidget( LoadColSet );
 		SaveColSet = new QPushButton( tr( "&Save Color Set" ), ColsSetGroup, "SaveColSet" );
+		SaveColSet->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 		ColsSetGroupLayout->addWidget( SaveColSet );
 		layout3->addWidget( ColsSetGroup );
 	}
@@ -149,7 +161,6 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	// signals and slots connections
 	if (m_Doc==0)
 	{
-		connect(CSets, SIGNAL(activated(int)), this, SLOT(loadDefaults(int)));
 		connect(SaveColSet, SIGNAL( clicked() ), this, SLOT( saveDefaults() ) );
 		QToolTip::add( LoadColSet, "<qt>" + tr( "Choose a color set to load" ) + "</qt>");
 		QToolTip::add( SaveColSet, "<qt>" + tr( "Save the current color set" ) + "</qt>");
@@ -214,7 +225,7 @@ void ColorManager::saveDefaults()
 			}
 			static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 			QByteArray cs = docu.toString().toUtf8();
-			Q3TextStream s(&fx);
+			QDataStream s(&fx);
 			s.writeRawBytes(xmlpi, strlen(xmlpi));
 			s.writeRawBytes(cs, cs.length());
 /*			CMYKColor cmyk;
@@ -237,25 +248,35 @@ void ColorManager::saveDefaults()
 			if (dia->getEditText() != Name)
 			{
 				customColSet.append(dia->getEditText());
-				CSets->insertItem(dia->getEditText());
+				QAction* action = CSets->addAction(dia->getEditText());
+				connect(action, SIGNAL(triggered()), signalMapper, SLOT(map()));
+				signalMapper->setMapping(action, action->text());
 			}
 		}
 	}
 	delete dia;
 }
 
-void ColorManager::loadDefaults(int id)
+void ColorManager::loadDefaults(const QString &txt)
 {
-	int c = CSets->indexOf(id);
+	int c = 0;
+	QList<QAction*> cAct = CSets->actions();
+	for (int a = 0; a < cAct.count(); a++)
+	{
+		if (txt == cAct.at(a)->text())
+		{
+			c = a;
+			break;
+		}
+	}
 	bool cus = false;
-	LoadColSet->setText(CSets->text(id));
+	LoadColSet->setText(txt);
 	EditColors.clear();
-	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir()+CSets->text(id));
+	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir()+txt);
 	QString pfadC = ScPaths::instance().libDir()+"swatches/";
 	QString pfadC2 = pfadC + "Scribus_X11.txt";
-	switch (c)
+	if (txt == "Scribus Small")
 	{
-	case 0:
 		LoadColSet->setText("Scribus Small");
 		EditColors.insert("White", ScColor(0, 0, 0, 0));
 		EditColors.insert("Black", ScColor(0, 0, 0, 255));
@@ -265,29 +286,13 @@ void ColorManager::loadDefaults(int id)
 		EditColors.insert("Red", ScColor(0, 255, 255, 0));
 		EditColors.insert("Yellow", ScColor(0, 0, 255, 0));
 		EditColors.insert("Magenta", ScColor(0, 255, 0, 0));
-		break;
-		/*
-	case 1:
-		pfadC2 = pfadC + "Scribus_X11.txt";
-		break;
-	case 2:
-		pfadC2 = pfadC + "Scribus_X11Grey.txt";
-		break;
-	case 3:
-		pfadC2 = pfadC + "Scribus_Gnome.txt";
-		break;
-	case 4:
-		pfadC2 = pfadC + "Scribus_SVG.txt";
-		break;
-	case 5:
-		pfadC2 = pfadC + "Scribus_OpenOffice.txt";
-		cus = true;
-		break;*/
-	default:
-		if (c<customSetStartIndex)
+	}
+	else
+	{
+		if ( c < customSetStartIndex)
 		{
-			QString listText=CSets->text(id);
-			if (listText=="Scribus OpenOffice")
+			QString listText = txt;
+			if (listText == "Scribus OpenOffice")
 				cus=true;
 			pfadC2 = csm.paletteFileFromName(listText);
 		}
@@ -296,9 +301,8 @@ void ColorManager::loadDefaults(int id)
 			pfadC2 = Cpfad;
 			cus = true;
 		}
-		break;
 	}
-	if (c != 0)
+	if (txt != "Scribus Small")
 	{
 		QFile fiC(pfadC2);
 		if (fiC.open(QIODevice::ReadOnly))
@@ -350,7 +354,7 @@ void ColorManager::loadDefaults(int id)
 						continue;
 					
 					if (ColorEn[0].isNumber()) {
-						Q3TextStream CoE(&ColorEn, QIODevice::ReadOnly);
+						QTextStream CoE(&ColorEn, QIODevice::ReadOnly);
 						CoE >> Rval;
 						CoE >> Gval;
 						CoE >> Bval;
@@ -437,7 +441,7 @@ void ColorManager::importColors()
 			QFile f(fileName);
 			if (f.open(QIODevice::ReadOnly))
 			{
-				Q3TextStream ts(&f);
+				QTextStream ts(&f);
 				while (!ts.atEnd())
 				{
 					tmp = ts.readLine();
@@ -447,7 +451,7 @@ void ColorManager::importColors()
 							tmp = tmp.remove(0,18);
 						else if (tmp.startsWith("%%CMYKProcessColor"))
 							tmp = tmp.remove(0,19);
-						Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
+						QTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> y >> k;
 						FarNam = ts2.read();
 						FarNam = FarNam.stripWhiteSpace();
@@ -468,7 +472,7 @@ void ColorManager::importColors()
 								break;
 							}
 							tmp = tmp.remove(0,3);
-							Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
+							QTextStream ts2(&tmp, QIODevice::ReadOnly);
 							ts2 >> c >> m >> y >> k;
 							FarNam = ts2.read();
 							FarNam = FarNam.stripWhiteSpace();
@@ -490,7 +494,7 @@ void ColorManager::importColors()
 								tmp = ts.readLine();
 								if ((tmp.endsWith("Xa") || tmp.endsWith(" k")) && (tmp.length() > 4))
 								{
-									Q3TextStream ts2(&tmp, QIODevice::ReadOnly);
+									QTextStream ts2(&tmp, QIODevice::ReadOnly);
 									ts2 >> c >> m >> y >> k;
 									tmp = ts.readLine();
 									if (tmp.endsWith("Pc"))
