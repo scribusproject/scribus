@@ -7,26 +7,22 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABTOOLS_H
 #define TABTOOLS_H
 
-#include <qvariant.h>
-#include <qwidget.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qtoolbutton.h>
-#include <q3buttongroup.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qradiobutton.h>
-#include <q3widgetstack.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
+#include <QWidget>
 
 #include "scribusapi.h"
 
-class Q3GroupBox;
-class LinkButton;
+class QHBoxLayout;
+class QVBoxLayout;
+class QGridLayout;
+class QGroupBox;
+class QStackedWidget;
+class QLabel;
 class QSpinBox;
+class QToolButton;
+class QComboBox;
+class QCheckBox;
+class QRadioButton;
+class LinkButton;
 class FontCombo;
 class PolygonWidget;
 class ArrowChooser;
@@ -34,7 +30,6 @@ class ScrSpinBox;
 class LineCombo;
 class ScribusDoc;
 class ColorCombo;
-
 
 /*! \brief Tools panel for preferences dialog.
 This class is inherited from UI base class.
@@ -59,7 +54,7 @@ public:
 
 	void unitChange(int docUnitIndex);
 
-	Q3ButtonGroup* buttonGroupTools;
+	QGroupBox* buttonGroupTools;
 	QToolButton* toolShape;
 	QToolButton* toolPoly;
 	QToolButton* toolImage;
@@ -67,7 +62,7 @@ public:
 	QToolButton* toolLine;
 	QToolButton* toolZoom;
 	QToolButton* toolMisc;
-	Q3WidgetStack* subStackTools;
+	QStackedWidget* subStackTools;
 	QWidget* subTabText;
 	QLabel* textHeadLine;
 	QLabel* textLabel3b;
@@ -129,16 +124,16 @@ public:
 	QLabel* textLabel19b;
 	QSpinBox* shadingFillImage;
 	QLabel* textLabel20b;
-	Q3ButtonGroup* buttonGroup3;
+	QGroupBox* buttonGroup3;
 	QLabel* textLabel17b;
 	QLabel* textLabel18b;
 	QSpinBox* scalingHorizontal;
 	QSpinBox* scalingVertical;
 	LinkButton* chainButton;
-	Q3ButtonGroup* buttonGroup5;
+	QGroupBox* buttonGroup5;
 	QCheckBox* checkRatioImage;
 	QCheckBox* embeddedPath;
-	Q3ButtonGroup* buttonGroupRes;
+	QGroupBox* buttonGroupRes;
 	QRadioButton* checkFullRes;
 	QRadioButton* checkNormalRes;
 	QRadioButton* checkHalfRes;
@@ -160,12 +155,12 @@ public:
 	QLabel* arrowText;
 	QWidget* subTabGeneral;
 	QLabel* generalHeadLine;
-	Q3GroupBox* genDispBox;
+	QGroupBox* genDispBox;
 	QLabel* genText1;
 	QLabel* genText2;
 	ScrSpinBox* genDispX;
 	ScrSpinBox* genDispY;
-	Q3GroupBox* genRotBox;
+	QGroupBox* genRotBox;
 	QLabel* genText3;
 	QLabel* genText4;
 	ScrSpinBox* genRot;
@@ -202,20 +197,20 @@ protected slots:
 	virtual void setCustomFillChar(const QString &txt);
 
 protected:
-	Q3HBoxLayout* tabToolsLayout;
-	Q3VBoxLayout* buttonGroupToolsLayout;
-	Q3GridLayout* subTabTextLayout;
-	Q3GridLayout* subTabShapeLayout;
-	Q3GridLayout* subTabLineLayout;
-	Q3GridLayout* subTabImageLayout;
-	Q3GridLayout* buttonGroup3Layout;
-	Q3HBoxLayout* buttonGroup5Layout;
-	Q3VBoxLayout* buttonGroupResLayout;
-	Q3GridLayout* subTabPolygonLayout;
-	Q3GridLayout* subTabZoomLayout;
-	Q3GridLayout* subTabGeneralLayout;
-	Q3GridLayout* subTabGeneralLayout2;
-	Q3GridLayout* subTabGeneralLayout3;
+	QHBoxLayout* tabToolsLayout;
+	QVBoxLayout* buttonGroupToolsLayout;
+	QGridLayout* subTabTextLayout;
+	QGridLayout* subTabShapeLayout;
+	QGridLayout* subTabLineLayout;
+	QGridLayout* subTabImageLayout;
+	QGridLayout* buttonGroup3Layout;
+	QHBoxLayout* buttonGroup5Layout;
+	QVBoxLayout* buttonGroupResLayout;
+	QGridLayout* subTabPolygonLayout;
+	QGridLayout* subTabZoomLayout;
+	QGridLayout* subTabGeneralLayout;
+	QGridLayout* subTabGeneralLayout2;
+	QGridLayout* subTabGeneralLayout3;
 	ScribusDoc* docu;
 	double unitRatio;
 	QString unit;

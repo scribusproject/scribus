@@ -5,16 +5,19 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tabtools.h"
-//#include "tabtools.moc"
-#include <qtooltip.h>
-#include <qspinbox.h>
-#include <q3groupbox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QGroupBox>
+#include <QStackedWidget>
 #include <QLabel>
-#include <Q3GridLayout>
-#include <Q3Frame>
-#include <Q3VBoxLayout>
+#include <QSpinBox>
+#include <QToolButton>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QRadioButton>
+#include <QToolTip>
 
 #include "sccombobox.h"
 #include "colorcombo.h"
@@ -40,74 +43,90 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	docu = doc;
 	fontPreview = false;
 
-	tabToolsLayout = new Q3HBoxLayout( this, 0, 5, "tabToolsLayout");
-	buttonGroupTools = new Q3ButtonGroup( this, "buttonGroupTools" );
-	buttonGroupTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)5, 0, 0, buttonGroupTools->sizePolicy().hasHeightForWidth() ) );
-	buttonGroupTools->setExclusive( true );
-	buttonGroupTools->setRadioButtonExclusive( true );
-	buttonGroupTools->setColumnLayout(0, Qt::Vertical );
-	buttonGroupTools->layout()->setSpacing( 5 );
-	buttonGroupTools->layout()->setMargin( 5 );
+	tabToolsLayout = new QHBoxLayout(this);
+	tabToolsLayout->setMargin(0);
+	tabToolsLayout->setSpacing(5);
+	buttonGroupTools = new QGroupBox( this, "buttonGroupTools" );
+	buttonGroupTools->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding);
 	buttonGroupTools->setTitle( QString::null );
-	buttonGroupToolsLayout = new Q3VBoxLayout( buttonGroupTools->layout() );
+	buttonGroupToolsLayout = new QVBoxLayout(buttonGroupTools);
+	buttonGroupToolsLayout->setMargin(5);
+	buttonGroupToolsLayout->setSpacing(5);
 	buttonGroupToolsLayout->setAlignment( Qt::AlignTop );
 	toolText = new QToolButton( buttonGroupTools, "toolText" );
-	toolText->setToggleButton( true );
+	toolText->setCheckable( true );
+	toolText->setAutoExclusive(true);
 	toolText->setText( QString::null );
-	toolText->setIconSet( QIcon( loadIcon("16/insert-text-frame.png") ) );
+	toolText->setIconSize(QSize(16, 16));
+	toolText->setIcon( QIcon( loadIcon("16/insert-text-frame.png") ) );
 	buttonGroupToolsLayout->addWidget( toolText );
 	toolImage = new QToolButton( buttonGroupTools, "toolImage" );
-	toolImage->setToggleButton( true );
+	toolImage->setCheckable( true );
+	toolImage->setAutoExclusive(true);
 	toolImage->setText( QString::null );
-	toolImage->setIconSet( QIcon( loadIcon("16/insert-image.png") ) );
+	toolImage->setIconSize(QSize(16, 16));
+	toolImage->setIcon( QIcon( loadIcon("16/insert-image.png") ) );
 	buttonGroupToolsLayout->addWidget( toolImage );
 	toolShape = new QToolButton( buttonGroupTools, "toolShape" );
-	toolShape->setToggleButton( true );
+	toolShape->setCheckable( true );
+	toolShape->setAutoExclusive(true);
 	toolShape->setText( QString::null );
-	toolShape->setIconSet( QIcon( loadIcon("16/draw-rectangle.png") ) );
+	toolShape->setIconSize(QSize(16, 16));
+	toolShape->setIcon( QIcon( loadIcon("16/draw-rectangle.png") ) );
 	buttonGroupToolsLayout->addWidget( toolShape);
 	toolPoly = new QToolButton( buttonGroupTools, "toolPoly" );
-	toolPoly->setToggleButton( true );
+	toolPoly->setCheckable( true );
+	toolPoly->setAutoExclusive(true);
 	toolPoly->setText( QString::null );
-	toolPoly->setIconSet( QIcon( loadIcon("16/draw-polygon.png") ) );
+	toolPoly->setIconSize(QSize(16, 16));
+	toolPoly->setIcon( QIcon( loadIcon("16/draw-polygon.png") ) );
 	buttonGroupToolsLayout->addWidget( toolPoly );
 	toolLine = new QToolButton( buttonGroupTools, "toolLine" );
-	toolLine->setToggleButton( true );
+	toolLine->setCheckable( true );
+	toolLine->setAutoExclusive(true);
 	toolLine->setText( QString::null );
-	toolLine->setIconSet( QIcon( loadIcon("Stift.xpm") ) );
+	toolLine->setIconSize(QSize(16, 16));
+	toolLine->setIcon( QIcon( loadIcon("Stift.xpm") ) );
 	buttonGroupToolsLayout->addWidget( toolLine );
 	toolZoom = new QToolButton( buttonGroupTools, "toolZoom" );
-	toolZoom->setToggleButton( true );
+	toolZoom->setCheckable( true );
+	toolZoom->setAutoExclusive(true);
 	toolZoom->setText( QString::null );
-	toolZoom->setIconSet( QIcon( loadIcon("16/zoom.png") ) );
+	toolZoom->setIconSize(QSize(16, 16));
+	toolZoom->setIcon( QIcon( loadIcon("16/zoom.png") ) );
 	buttonGroupToolsLayout->addWidget( toolZoom );
 	toolMisc = new QToolButton( buttonGroupTools, "toolMisc" );
-	toolMisc->setToggleButton( true );
+	toolMisc->setCheckable( true );
+	toolMisc->setAutoExclusive(true);
 	toolMisc->setText( QString::null );
-	toolMisc->setIconSet( QIcon( loadIcon("configure.png") ) );
+	toolMisc->setIconSize(QSize(16, 16));
+	toolMisc->setIcon( QIcon( loadIcon("configure.png") ) );
 	buttonGroupToolsLayout->addWidget( toolMisc );
 	tabToolsLayout->addWidget( buttonGroupTools );
-	subStackTools = new Q3WidgetStack( this, "subStackTools" );
-	subStackTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)5, 0, 0, subStackTools->sizePolicy().hasHeightForWidth() ) );
-	subStackTools->setFrameShape( Q3WidgetStack::GroupBoxPanel );
-	subStackTools->setFrameShadow( Q3WidgetStack::Sunken );
+
+	subStackTools = new QStackedWidget( this );
+	subStackTools->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	subStackTools->setFrameShape( QFrame::StyledPanel );
+	subStackTools->setFrameShadow( QFrame::Sunken );
 	QFont f(this->font());
 	f.setPointSize(f.pointSize()+3);
 	f.setBold(true);
 
 	subTabText = new QWidget( subStackTools, "subTabText" );
-	subTabTextLayout = new Q3GridLayout( subTabText, 1, 1, 11, 6, "subTabTextLayout");
+	subTabTextLayout = new QGridLayout( subTabText );
+	subTabTextLayout->setMargin(10);
+	subTabTextLayout->setSpacing(5);
 	subTabTextLayout->setAlignment( Qt::AlignTop );
 	textHeadLine = new QLabel( tr( "Text" ), subTabText, "textHeadLine" );
 	textHeadLine->setFont(f);
-	subTabTextLayout->addMultiCellWidget( textHeadLine, 0, 0, 0, 3, Qt::AlignHCenter | Qt::AlignTop );
+	subTabTextLayout->addWidget( textHeadLine, 0, 0, 1, 4, Qt::AlignHCenter | Qt::AlignTop );
 	fontComboText = new FontCombo(subTabText);
-	subTabTextLayout->addMultiCellWidget( fontComboText, 1, 1, 1, 3, Qt::AlignLeft );
+	subTabTextLayout->addWidget( fontComboText, 1, 1, 1, 2, Qt::AlignLeft );
 	textLabel1b = new QLabel( fontComboText, tr( "Font:" ), subTabText, "textLabel1b" );
 	subTabTextLayout->addWidget( textLabel1b, 1, 0 );
 	sizeComboText = new ScComboBox( false, subTabText, "SizeCombo" );
 
-	subTabTextLayout->addMultiCellWidget( sizeComboText, 2, 2, 1, 3, Qt::AlignLeft );
+	subTabTextLayout->addWidget( sizeComboText, 2, 1, 1, 2, Qt::AlignLeft );
 	textLabel2b = new QLabel(sizeComboText, tr( "Size:" ), subTabText, "textLabel2b" );
 	subTabTextLayout->addWidget( textLabel2b, 2, 0 );
 
@@ -191,17 +210,19 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	previewText = new QLabel( tr( "Woven silk pyjamas exchanged for blue quartz" ), subTabText, "previewText" );
 	previewText->setMinimumSize(QSize(400, 170));
 	previewText->setMaximumSize(QSize(400, 170));
-	previewText->setFrameShape(Q3Frame::Box);
+	previewText->setFrameShape(QFrame::Box);
 	previewText->setAlignment( Qt::AlignTop | Qt::AlignLeft );
-	subTabTextLayout->addMultiCellWidget( previewText, 9, 9, 0, 3 );
-	subStackTools->addWidget( subTabText, 0 );
+	subTabTextLayout->addWidget( previewText, 9, 0, 1, 4 );
+	subStackTools->addWidget( subTabText );
 
 	subTabShape = new QWidget( subStackTools, "subTabShape" );
-	subTabShapeLayout = new Q3GridLayout( subTabShape, 1, 1, 11, 6, "subTabShapeLayout");
+	subTabShapeLayout = new QGridLayout( subTabShape );
+	subTabShapeLayout->setMargin(10);
+	subTabShapeLayout->setSpacing(5);
 	subTabShapeLayout->setAlignment( Qt::AlignTop );
 	shapeHeadLine = new QLabel( tr( "Shapes" ), subTabShape, "shapeHeadLine" );
 	shapeHeadLine->setFont(f);
-	subTabShapeLayout->addMultiCellWidget( shapeHeadLine, 0, 0, 0, 1, Qt::AlignHCenter | Qt::AlignTop );
+	subTabShapeLayout->addWidget( shapeHeadLine, 0, 0, 1, 2, Qt::AlignHCenter | Qt::AlignTop );
 	colorComboLineShape = new ColorCombo( false, subTabShape, "colorComboLineShape" );
 
 	subTabShapeLayout->addWidget( colorComboLineShape, 1, 1, Qt::AlignLeft );
@@ -241,30 +262,32 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShapeLayout->addWidget( lineWidthShape, 6, 1, Qt::AlignLeft );
 	textLabel12b = new QLabel( lineWidthShape, tr( "Line &Width:" ), subTabShape, "TextLabel2_3_4" );
 	subTabShapeLayout->addWidget( textLabel12b, 6, 0 );
-	subStackTools->addWidget( subTabShape, 1 );
+	subStackTools->addWidget( subTabShape );
 
 	subTabLine = new QWidget( subStackTools, "subTabLine" );
-	subTabLineLayout = new Q3GridLayout( subTabLine, 1, 1, 11, 6, "subTabLineLayout");
+	subTabLineLayout = new QGridLayout( subTabLine );
+	subTabLineLayout->setMargin(10);
+	subTabLineLayout->setSpacing(5);
 	subTabLineLayout->setAlignment( Qt::AlignTop );
 	lineHeadLine = new QLabel( tr( "Lines" ), subTabLine, "lineHeadLine" );
 	lineHeadLine->setFont(f);
-	subTabLineLayout->addMultiCellWidget( lineHeadLine, 0, 0, 0, 2, Qt::AlignHCenter | Qt::AlignTop );
+	subTabLineLayout->addWidget( lineHeadLine, 0, 0, 1, 3, Qt::AlignHCenter | Qt::AlignTop );
 	colorComboLine = new ColorCombo( false, subTabLine, "colorComboLine" );
 
-	subTabLineLayout->addMultiCellWidget( colorComboLine, 1, 1, 1, 2, Qt::AlignLeft );
+	subTabLineLayout->addWidget( colorComboLine, 1, 1, Qt::AlignLeft );
 	textLabel13b = new QLabel(colorComboLine, tr("&Line Color:"), subTabLine, "textLabel13b" );
 	subTabLineLayout->addWidget( textLabel13b, 1, 0 );
 	shadingLine = new QSpinBox( subTabLine, "shadingLine" );
 	shadingLine->setMaxValue( 100 );
 
 	shadingLine->setSuffix( tr( " %" ) );
-	subTabLineLayout->addMultiCellWidget( shadingLine, 2, 2, 1, 2, Qt::AlignLeft );
+	subTabLineLayout->addWidget( shadingLine, 2, 1, Qt::AlignLeft );
 	textLabel14b = new QLabel(shadingLine, tr("&Shading:"), subTabLine, "textLabel14b" );
 	subTabLineLayout->addWidget( textLabel14b, 2, 0 );
 	comboStyleLine = new LineCombo(subTabLine);
 	comboStyleLine->setEditable(false);
 
-	subTabLineLayout->addMultiCellWidget( comboStyleLine, 3, 3, 1, 2, Qt::AlignLeft );
+	subTabLineLayout->addWidget( comboStyleLine, 3, 1, Qt::AlignLeft );
 	textLabel15b = new QLabel(subTabLine, tr("Line S&tyle:"), subTabLine, "textLabel15b" );
 	subTabLineLayout->addWidget( textLabel15b, 3, 0 );
 	startArrow = new ArrowChooser(subTabLine, true);
@@ -273,7 +296,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabLineLayout->addWidget( endArrow, 5, 2 );
 
 	arrowText = new QLabel( tr( "Arrows:" ), subTabLine, "arrowText" );
-	subTabLineLayout->addMultiCellWidget( arrowText, 4, 5, 0, 0 );
+	subTabLineLayout->addWidget( arrowText, 4, 0, 2, 1 );
 	startArrowText = new QLabel( startArrow, tr( "Start:" ), subTabLine, "startArrowText" );
 	subTabLineLayout->addWidget( startArrowText, 4, 1 );
 	endArrowText = new QLabel( endArrow, tr( "End:" ), subTabLine, "endArrowText" );
@@ -282,25 +305,26 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	lineWidthLine->setDecimals(1);
 	lineWidthLine->setSuffix( tr( " pt" ) );
 
-	subTabLineLayout->addMultiCellWidget( lineWidthLine, 6, 6, 1, 2, Qt::AlignLeft );
+	subTabLineLayout->addWidget( lineWidthLine, 6, 1, Qt::AlignLeft );
 	textLabel16b = new QLabel(lineWidthLine, tr("Line &Width:"), subTabLine, "textLabel16b" );
 	subTabLineLayout->addWidget( textLabel16b, 6, 0 );
-	subStackTools->addWidget( subTabLine, 2 );
+	subStackTools->addWidget( subTabLine );
 
 	subTabImage = new QWidget( subStackTools, "subTabImage" );
-	subTabImageLayout = new Q3GridLayout( subTabImage, 1, 1, 11, 6, "subTabImageLayout");
+	subTabImageLayout = new QGridLayout( subTabImage );
+	subTabImageLayout->setMargin(10);
+	subTabImageLayout->setSpacing(5);
 	subTabImageLayout->setAlignment( Qt::AlignTop );
 	imageHeadLine = new QLabel( tr( "Images" ), subTabImage, "imageHeadLine" );
 	imageHeadLine->setFont(f);
-	subTabImageLayout->addMultiCellWidget( imageHeadLine, 0, 0, 0, 1, Qt::AlignHCenter | Qt::AlignTop );
-	buttonGroup3 = new Q3ButtonGroup( subTabImage, "buttonGroup3" );
-	buttonGroup3->setCheckable( true );
+	subTabImageLayout->addWidget( imageHeadLine, 0, 0, 1, 2, Qt::AlignHCenter | Qt::AlignTop );
 
-	buttonGroup3->setColumnLayout(0, Qt::Vertical );
-	buttonGroup3->layout()->setSpacing( 6 );
-	buttonGroup3->layout()->setMargin( 11 );
+	buttonGroup3 = new QGroupBox( subTabImage );
+	buttonGroup3->setCheckable( true );
 	buttonGroup3->setTitle( tr( "&Free Scaling" ) );
-	buttonGroup3Layout = new Q3GridLayout( buttonGroup3->layout() );
+	buttonGroup3Layout = new QGridLayout( buttonGroup3 );
+	buttonGroup3Layout->setMargin(10);
+	buttonGroup3Layout->setSpacing(5);
 	buttonGroup3Layout->setAlignment( Qt::AlignTop );
 	scalingHorizontal = new QSpinBox( buttonGroup3, "scalingHorizontal" );
 	scalingHorizontal->setMaxValue( 1000 );
@@ -321,24 +345,22 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	chainButton = new LinkButton( buttonGroup3 );
 	chainButton->setToggleButton( true );
 	chainButton->setAutoRaise(true);
-	buttonGroup3Layout->addMultiCellWidget( chainButton, 0, 1, 2, 2, Qt::AlignLeft );
-	subTabImageLayout->addMultiCellWidget( buttonGroup3, 1, 1, 0, 1 );
-	buttonGroup5 = new Q3ButtonGroup( subTabImage, "buttonGroup5" );
-	buttonGroup5->setCheckable( true );
+	buttonGroup3Layout->addWidget( chainButton, 0, 2, 2, 1, Qt::AlignLeft );
+	subTabImageLayout->addWidget( buttonGroup3, 1, 0, 1, 2 );
 
-	buttonGroup5->setColumnLayout(0, Qt::Vertical );
-	buttonGroup5->layout()->setSpacing( 6 );
-	buttonGroup5->layout()->setMargin( 11 );
+	buttonGroup5 = new QGroupBox( subTabImage, "buttonGroup5" );
+	buttonGroup5->setCheckable( true );
 	buttonGroup5->setTitle( tr( "&Scale Picture to Frame Size" ) );
-	buttonGroup5Layout = new Q3HBoxLayout( buttonGroup5->layout() );
+	buttonGroup5Layout = new QHBoxLayout( buttonGroup5 );
+	buttonGroup5Layout->setMargin(10);
+	buttonGroup5Layout->setSpacing(5);
 	buttonGroup5Layout->setAlignment( Qt::AlignTop );
 	checkRatioImage = new QCheckBox( buttonGroup5, "checkRatioImage" );
 	checkRatioImage->setText( tr( "Keep Aspect &Ratio" ) );
-
 	buttonGroup5Layout->addWidget( checkRatioImage );
-	subTabImageLayout->addMultiCellWidget( buttonGroup5, 2, 2, 0, 1 );
+	subTabImageLayout->addWidget( buttonGroup5, 2, 0, 1, 2 );
+	
 	comboFillImage = new ColorCombo( false, subTabImage, "comboFillImage" );
-
 	subTabImageLayout->addWidget( comboFillImage, 3, 1, Qt::AlignLeft );
 	textLabel19b = new QLabel(comboFillImage, tr( "F&ill Color:" ), subTabImage, "textLabel19b" );
 	subTabImageLayout->addWidget( textLabel19b, 3, 0 );
@@ -352,14 +374,12 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	embeddedPath = new QCheckBox( subTabImage, "embeddedPath" );
 	embeddedPath->setText( tr( "Use embedded Clipping Path" ) );
 
-	subTabImageLayout->addMultiCellWidget( embeddedPath, 5, 5, 0, 1 );
-	buttonGroupRes = new Q3ButtonGroup( subTabImage, "buttonGroup3" );
-	buttonGroupRes->setColumnLayout(0, Qt::Vertical );
-	buttonGroupRes->layout()->setSpacing( 6 );
-	buttonGroupRes->layout()->setMargin( 11 );
-	buttonGroupRes->setExclusive( true );
+	subTabImageLayout->addWidget( embeddedPath, 5, 0, 1, 2 );
+	buttonGroupRes = new QGroupBox( subTabImage, "buttonGroup3" );
 	buttonGroupRes->setTitle( tr( "On Screen Preview" ) );
-	buttonGroupResLayout = new Q3VBoxLayout( buttonGroupRes->layout() );
+	buttonGroupResLayout = new QVBoxLayout( buttonGroupRes );
+	buttonGroupResLayout->setSpacing( 5 );
+	buttonGroupResLayout->setMargin( 10 );
 	buttonGroupResLayout->setAlignment( Qt::AlignTop );
 	checkFullRes = new QRadioButton( buttonGroupRes, "checkFullRes" );
 	checkFullRes->setText( tr( "Full Resolution Preview" ) );
@@ -371,25 +391,29 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	checkHalfRes->setText( tr( "Low Resolution Preview" ) );
 	buttonGroupResLayout->addWidget( checkHalfRes );
 
-	subTabImageLayout->addMultiCellWidget( buttonGroupRes, 6, 6, 0, 1 );
-	subStackTools->addWidget( subTabImage, 3 );
+	subTabImageLayout->addWidget( buttonGroupRes, 6, 0, 1, 2 );
+	subStackTools->addWidget( subTabImage );
 
 	subTabPolygon = new QWidget( subStackTools, "subTabPolygon" );
-	subTabPolygonLayout = new Q3GridLayout( subTabPolygon, 1, 1, 11, 6, "subTabZoomLayout");
+	subTabPolygonLayout = new QGridLayout( subTabPolygon );
+	subTabPolygonLayout->setSpacing( 5 );
+	subTabPolygonLayout->setMargin( 10 );
 	subTabPolygonLayout->setAlignment( Qt::AlignTop );
 	polygonHeadLine = new QLabel( tr( "Regular Polygons" ), subTabPolygon, "imageHeadLine" );
 	polygonHeadLine->setFont(f);
-	subTabPolygonLayout->addMultiCellWidget( polygonHeadLine, 0, 0, 0, 0, Qt::AlignHCenter | Qt::AlignTop );
+	subTabPolygonLayout->addWidget( polygonHeadLine, 0, 0, Qt::AlignHCenter | Qt::AlignTop );
 	polyWidget = new PolygonWidget(subTabPolygon, prefsData->polyC, prefsData->polyFd, prefsData->polyF, prefsData->polyS, prefsData->polyR);
 	subTabPolygonLayout->addWidget( polyWidget, 1, 0 );
-	subStackTools->addWidget( subTabPolygon, 4 );
+	subStackTools->addWidget( subTabPolygon );
 
 	subTabZoom = new QWidget( subStackTools, "subTabZoom" );
-	subTabZoomLayout = new Q3GridLayout( subTabZoom, 1, 1, 11, 6, "subTabZoomLayout");
+	subTabZoomLayout = new QGridLayout( subTabZoom );
+	subTabZoomLayout->setSpacing( 5 );
+	subTabZoomLayout->setMargin( 10 );
 	subTabZoomLayout->setAlignment( Qt::AlignTop );
 	zoomHeadLine = new QLabel( tr( "Zoom" ), subTabZoom, "zoomHeadLine" );
 	zoomHeadLine->setFont(f);
-	subTabZoomLayout->addMultiCellWidget( zoomHeadLine, 0, 0, 0, 1, Qt::AlignHCenter | Qt::AlignTop );
+	subTabZoomLayout->addWidget( zoomHeadLine, 0, 0, 1, 2, Qt::AlignHCenter | Qt::AlignTop );
 	minimumZoom = new QSpinBox( subTabZoom, "minimumZoom" );
 	minimumZoom->setMaxValue( 3200 );
 	minimumZoom->setMinValue( 10 );
@@ -411,21 +435,22 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabZoomLayout->addWidget( zoomStep, 3, 1, Qt::AlignLeft );
 	textLabel23b = new QLabel( zoomStep, tr( "&Stepping:" ), subTabZoom, "textLabel23b" );
 	subTabZoomLayout->addWidget( textLabel23b, 3, 0 );
-	subStackTools->addWidget( subTabZoom, 5 );
+	subStackTools->addWidget( subTabZoom );
 
 	subTabGeneral = new QWidget( subStackTools, "subTabGeneral" );
-	subTabGeneralLayout = new Q3GridLayout( subTabGeneral, 1, 1, 11, 6, "subTabGeneralLayout");
+	subTabGeneralLayout = new QGridLayout( subTabGeneral, 1, 1, 11, 6, "subTabGeneralLayout");
+	subTabGeneralLayout->setSpacing( 5 );
+	subTabGeneralLayout->setMargin( 10 );
 	subTabGeneralLayout->setAlignment( Qt::AlignTop );
 	generalHeadLine = new QLabel( tr( "Miscellaneous Settings" ), subTabGeneral, "generalHeadLine" );
 	generalHeadLine->setFont(f);
-	subTabGeneralLayout->addMultiCellWidget( generalHeadLine, 0, 0, 0, 1, Qt::AlignHCenter | Qt::AlignTop );
+	subTabGeneralLayout->addWidget( generalHeadLine, 0, 0, 1, 2, Qt::AlignHCenter | Qt::AlignTop );
 
-	genDispBox = new Q3GroupBox( subTabGeneral, "genDispBox" );
+	genDispBox = new QGroupBox( subTabGeneral, "genDispBox" );
 	genDispBox->setTitle( tr( "Item Duplicate" ) );
-	genDispBox->setColumnLayout(0, Qt::Vertical );
-	genDispBox->layout()->setSpacing( 5 );
-	genDispBox->layout()->setMargin( 10 );
-	subTabGeneralLayout2 = new Q3GridLayout( genDispBox->layout() );
+	subTabGeneralLayout2 = new QGridLayout( genDispBox );
+	subTabGeneralLayout2->setSpacing( 5 );
+	subTabGeneralLayout2->setMargin( 10 );
 
 	genDispX = new ScrSpinBox( -1000, 1000, genDispBox, unitIndex );
 //	genDispX->setSuffix( tr( " pt" ) );
@@ -440,12 +465,11 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabGeneralLayout2->addWidget( genText2, 1, 0);
 	subTabGeneralLayout->addWidget( genDispBox, 1, 0);
 
-	genRotBox = new Q3GroupBox( subTabGeneral, "genRotBox" );
+	genRotBox = new QGroupBox( subTabGeneral, "genRotBox" );
 	genRotBox->setTitle( tr( "Rotation Tool" ) );
-	genRotBox->setColumnLayout(0, Qt::Vertical );
-	genRotBox->layout()->setSpacing( 5 );
-	genRotBox->layout()->setMargin( 10 );
-	subTabGeneralLayout3 = new Q3GridLayout( genRotBox->layout() );
+	subTabGeneralLayout3 = new QGridLayout( genRotBox );
+	subTabGeneralLayout3->setSpacing( 5 );
+	subTabGeneralLayout3->setMargin( 10 );
 
 	genRot = new ScrSpinBox( 1, 90, genRotBox, 1 );
 	genRot->setDecimals(1);
@@ -457,10 +481,10 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabGeneralLayout3->addWidget( genText4, 0, 2);
 	subTabGeneralLayout->addWidget( genRotBox, 1, 1);
 
-	subStackTools->addWidget( subTabGeneral, 6 );
+	subStackTools->addWidget( subTabGeneral );
 
 	tabToolsLayout->addWidget( subStackTools );
-	toolText->setOn(true);
+	toolText->setChecked(true);
 
 	// Neccessary for document prefs
 	//restoreDefaults(prefsData, unitIndex);
@@ -950,19 +974,19 @@ void TabTools::setSample()
 void TabTools::setTool()
 {
 	if (toolText == sender())
-		subStackTools->raiseWidget(0);
+		subStackTools->setCurrentIndex(0);
 	if (toolShape == sender())
-		subStackTools->raiseWidget(1);
+		subStackTools->setCurrentIndex(1);
 	if (toolLine == sender())
-		subStackTools->raiseWidget(2);
+		subStackTools->setCurrentIndex(2);
 	if (toolImage == sender())
-		subStackTools->raiseWidget(3);
+		subStackTools->setCurrentIndex(3);
 	if (toolPoly == sender())
-		subStackTools->raiseWidget(4);
+		subStackTools->setCurrentIndex(4);
 	if (toolZoom == sender())
-		subStackTools->raiseWidget(5);
+		subStackTools->setCurrentIndex(5);
 	if (toolMisc == sender())
-		subStackTools->raiseWidget(6);
+		subStackTools->setCurrentIndex(6);
 }
 
 void TabTools::enableFontPreview(bool state)
