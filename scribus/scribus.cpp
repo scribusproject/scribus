@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDragEnterEvent>
 #include <QKeyEvent>
 #include <QByteArray>
+#include <QTableWidget>
 
 #include <cstdio>
 #include <cstdlib>
