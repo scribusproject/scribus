@@ -1502,8 +1502,7 @@ void ScribusDoc::deletePage(const int pageNumber)
 {
 	assert( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
 	//#5561: If we are going to delete the first page, do not set the current page to it
-	if (pageNumber!=0)
-		setCurrentPage(Pages->at(pageNumber!=0?0:1));
+	setCurrentPage(Pages->at(pageNumber!=0?0:1));
 	Page* page = Pages->at(pageNumber);
 	Pages->remove(pageNumber);
 	delete page;

@@ -102,8 +102,8 @@ public:
 
 	/*! \brief check the current page number to prevent drawing
 	marks on the others pages. See GuideManagerCore::drawPage.
-	\retval uint page no */
-	uint pageNr() const { return currentPage->pageNr(); }
+	\retval int page no */
+	int pageNr() const { return ((currentPage) ? currentPage->pageNr() : -1); }
 
 	int currentPageIndex() { return tabWidget->currentPageIndex(); };
 

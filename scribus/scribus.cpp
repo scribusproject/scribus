@@ -6428,6 +6428,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 									  Um::IDelete);
 	PageItem* ite;
 	doc->m_Selection->clear();
+	Selection tmpSelection(this, false);
 	for (int a = to - 1; a >= from - 1; a--)
 	{
 		for (uint d = 0; d < doc->Items->count(); ++d)
@@ -6440,7 +6441,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 				if (ite->isBookmark)
 					DelBookMark(ite);
 				ite->isBookmark = false;
-				doc->m_Selection->addItem(ite);
+				tmpSelection.addItem(ite);
 			}
 		}
 		Page *page = doc->Pages->at(a); // need to remove guides too to get their undo/redo actions working
@@ -6449,8 +6450,8 @@ void ScribusMainWindow::DeletePage(int from, int to)
 		page->guides.clearVerticals(GuideManagerCore::Standard);
 		page->guides.clearVerticals(GuideManagerCore::Auto);
 	}
-	if (doc->m_Selection->count() != 0)
-		doc->itemSelection_DeleteItem();
+	if (tmpSelection.count() != 0)
+		doc->itemSelection_DeleteItem(&tmpSelection);
 	for (int a = to - 1; a >= from - 1; a--)
 	{
 		if (UndoManager::undoEnabled())
