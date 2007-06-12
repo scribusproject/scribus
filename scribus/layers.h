@@ -7,54 +7,24 @@ for which a new license (GPL+exception) is in place.
 #ifndef LAYERPALETTE_H
 #define LAYERPALETTE_H
 
-#include <q3table.h>
-#include <q3ptrlist.h>
-#include <qcheckbox.h>
-//Added by qt3to4:
-#include <QCheckBox>
-#include <QToolButton>
-#include <QPixmap>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
-#include <QLabel>
 #include <QList>
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusstructs.h"
 
-class QLayout;
-class QToolTip;
-class QPixmap;
-class Q3Header;
+class QHBoxLayout;
+class QVBoxLayout;
 class QSpinBox;
 class QLabel;
+class CheckBox;
+class QToolButton;
+class QPushButton;
+class QTableWidget;
+class QTableWidgetItem;
+class QHeaderView;
 class ScComboBox;
 class ScribusDoc;
-// class DynamicTip;
-
-class SCRIBUS_API LayerLabel : public Q3TableItem
-{
-public:
-	LayerLabel(Q3Table* parent);
-	~LayerLabel() {};
-	virtual void paint(QPainter * p, const QColorGroup &cg, const QRect &cr, bool selected);
-};
-
-class SCRIBUS_API LayerTable : public Q3Table
-{
-	Q_OBJECT
-
-public:
-	LayerTable(QWidget* parent);
-	~LayerTable() {};
-
-protected:
-	virtual void endEdit ( int row, int col, bool accept, bool replace );
-
-signals:
-	void updtName(int);
-};
 
 class SCRIBUS_API LayerPalette : public ScrPaletteBase
 {
@@ -67,10 +37,9 @@ public:
 	void setDoc(ScribusDoc* doc);
 	void rebuildList();
 	
-	Q3Table* Table;	//public for the event filter in scribus.cpp.. TODO
+	QTableWidget* Table;	//public for the event filter in scribus.cpp.. TODO
 
 public slots:
-	void updateName(int r);
 	void addLayer();
 	void dupLayer();
 	void removeLayer();
@@ -96,27 +65,20 @@ signals:
 
 protected:
 	ScribusDoc* m_Doc;
-	Q3VBoxLayout* LayerPaletteLayout;
-	Q3HBoxLayout* Layout1;
-	Q3HBoxLayout* layout1;
+	QVBoxLayout* LayerPaletteLayout;
+	QHBoxLayout* Layout1;
+	QHBoxLayout* layout1;
 	QLabel* textLabel1;
 	ScComboBox* blendMode;
 	QLabel* textLabel2;
 	QSpinBox* opacitySpinBox;
-	Q3Header* Header;
+	QHeaderView* Header;
 	QPushButton* newLayerButton;
 	QPushButton* duplicateLayerButton;
 	QPushButton* deleteLayerButton;
 	QPushButton* raiseLayerButton;
 	QPushButton* lowerLayerButton;
-	Q3PtrList<QCheckBox> flagsPrintable;
-	Q3PtrList<QCheckBox> flagsVisible;
-	Q3PtrList<QCheckBox> flagsLocked;
-	Q3PtrList<QCheckBox> flagsFlow;
-	Q3PtrList<QCheckBox> flagsOutline;
-	Q3PtrList<QToolButton> flagsMarker;
 	QList<Layer> *layers;
-// 	DynamicTip* dynTip;
 };
 
 #endif // LAYERPALETTE_H
