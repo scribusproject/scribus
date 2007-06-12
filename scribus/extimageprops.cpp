@@ -127,6 +127,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		QHeaderView* headerH = layerTable->horizontalHeader();
 		headerH->setStretchLastSection(true);
 		headerH->setMovable(false);
+		headerH->setClickable(false);
 		headerH->setResizeMode(QHeaderView::Fixed);
 		if (info->layerInfo.count() == 1)
 		{
