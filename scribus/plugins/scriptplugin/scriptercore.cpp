@@ -46,9 +46,9 @@ ScripterCore::ScripterCore(QWidget* parent)
 	scrRecentScriptActions.clear();
 	returnString = "init";
 
-	scrScripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), this, "scripterExecuteScript"));
-	scrScripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), this, "scripterShowConsole"));
-	scrScripterActions.insert("scripterAboutScript", new ScrAction(QObject::tr("&About Script..."), QKeySequence(), this, "scripterAboutScript"));
+	scrScripterActions.insert("scripterExecuteScript", new ScrAction(QObject::tr("&Execute Script..."), QKeySequence(), this));
+	scrScripterActions.insert("scripterShowConsole", new ScrAction(QObject::tr("Show &Console"), QKeySequence(), this));
+	scrScripterActions.insert("scripterAboutScript", new ScrAction(QObject::tr("&About Script..."), QKeySequence(), this));
 
 	scrScripterActions["scripterShowConsole"]->setToggleAction(true);
 
@@ -96,7 +96,7 @@ void ScripterCore::buildScribusScriptsMenu()
 		{
 			QFileInfo fs(ds[dc]);
 			QString strippedName=fs.baseName(false);
-			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), strippedName, QKeySequence(), this, strippedName));
+			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), strippedName, QKeySequence(), this));
 			connect( scrScripterActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(StdScript(QString)) );
 			menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts");
 		}
@@ -116,7 +116,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 	{
 		QString strippedName=RecentScripts[m];
 		strippedName.remove(QDir::separator());
-		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), RecentScripts[m], QKeySequence(), this, strippedName));
+		scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), RecentScripts[m], QKeySequence(), this));
 		connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 		menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 	}
@@ -136,7 +136,7 @@ void ScripterCore::buildRecentScriptsMenu()
 			{
 				QString strippedName=SavedRecentScripts[m];
 				strippedName.remove(QDir::separator());
-				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), SavedRecentScripts[m], QKeySequence(), this, strippedName));
+				scrRecentScriptActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), SavedRecentScripts[m], QKeySequence(), this));
 				connect( scrRecentScriptActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(RecentScript(QString)) );
 				menuMgr->addMenuItem(scrRecentScriptActions[strippedName], "RecentScripts");
 			}

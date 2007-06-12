@@ -24,18 +24,20 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusdoc.h"
 
-ScrAction::ScrAction( QObject * parent, const char * name ) : QAction( parent, name )
+ScrAction::ScrAction( QObject * parent ) : QAction( parent )
 {
 	initScrAction();
 }
 
-ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( menuText, accel, parent, name )
+ScrAction::ScrAction( const QString & menuText, QKeySequence accel, QObject * parent ) : QAction( menuText, parent )
 {
+	setShortcut(accel);
 	initScrAction();
 }
 
-ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, const char * name, int extraInt, double extraDouble, QString extraQString ) : QAction( QIcon(icon16), menuText, accel, parent, name )
+ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, int extraInt, double extraDouble, QString extraQString ) : QAction( QIcon(icon16), menuText, parent )
 {
+	setShortcut(accel);
 	initScrAction();
 	setIconSizes();
 	_actionType=aType;
@@ -69,6 +71,7 @@ ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & 
 			break;
 		case UnicodeChar:
 			_dataInt=extraInt;
+			_dataQString=extraQString;
 			break;
 		case Layer:
 			layerID=extraInt;
@@ -79,8 +82,9 @@ ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & 
 	}
 }
 
-ScrAction::ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent, const char * name ) : QAction( QIcon(icon16), menuText, accel, parent, name )
+ScrAction::ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject * parent ) : QAction( QIcon(icon16), menuText, parent )
 {
+	setShortcut(accel);
 	initScrAction();
 	setIconSizes();
 }
@@ -130,7 +134,7 @@ void ScrAction::activatedToActivatedData()
 	if (_actionType==ScrAction::RecentScript)
 		emit activatedData(menuText());
 	if (_actionType==ScrAction::UnicodeChar)
-		activatedUnicodeShortcut(name(), _dataInt);
+		activatedUnicodeShortcut(_dataQString, _dataInt);
 	if (_actionType==ScrAction::Layer)
 		emit activatedData(layerID);
 	if (_actionType==ScrAction::ActionDLL)

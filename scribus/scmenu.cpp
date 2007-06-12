@@ -297,12 +297,13 @@ bool ScrPopupMenu::repopulateLocalMenu()
 		if (menuItemListClassName=="ScrAction")
 		{
 			//qDebug("ScrAction found");
-			if(QString(listObj->name())==QString("separator_action"))
-				localPopupMenu->insertSeparator();
-			else {
+			//if(QString(listObj->name())==QString("separator_action"))
+			//	localPopupMenu->insertSeparator();
+			//else {
 				ScrAction * act = dynamic_cast<ScrAction *>(listObj);
-				localPopupMenu->addAction(act);
-			}
+				if (act)
+					localPopupMenu->addAction(act);
+			//}
 		}
 		else 
 		{
@@ -336,14 +337,14 @@ bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 		QString menuItemListClassName=listObj->className();
 		if (menuItemListClassName=="ScrAction")
 		{
-			if(QString(listObj->name())==QString("separator_action"))
-				;
-			else
-			{
+			//if(QString(listObj->name())==QString("separator_action"))
+			//	;
+			//else
+			//{
 				ScrAction *sca=dynamic_cast<ScrAction *>(listObj);
 				if (sca)
 					actNames->append(sca->name());
-			}
+			//}
 		}
 		else 
 		if (menuItemListClassName=="ScrPopupMenu")
@@ -367,7 +368,8 @@ bool ScrPopupMenu::clear()
 
 bool ScrPopupMenu::insertMenuSeparator()
 {
-	ScrAction *sepAction = new ScrAction( NULL, "separator_action" );
+	ScrAction *sepAction = new ScrAction( NULL );
+	sepAction->setSeparator(true);
 	menuItemList.append(sepAction);
 	localPopupMenu->insertSeparator();
 	return true;

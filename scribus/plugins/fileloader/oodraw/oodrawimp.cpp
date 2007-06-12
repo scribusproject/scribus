@@ -68,7 +68,7 @@ void oodrawimp_freePlugin(ScPlugin* plugin)
 
 OODrawImportPlugin::OODrawImportPlugin() :
 	LoadSavePlugin(),
-	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this, "ImportOpenOfficeDraw"))
+	importAction(new ScrAction(ScrAction::DLL, QPixmap(), QPixmap(), "", QKeySequence(), this))
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place. This includes registering file formats.

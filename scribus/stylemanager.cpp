@@ -857,8 +857,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 				continue;
 
 			styleActions_[key] =
-				new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",
-							sitem->text(SHORTCUT_COL), doc_->view(), key, 0, 0.0, key);
+				new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",	sitem->text(SHORTCUT_COL), doc_->view(), 0, 0.0, key);
 			connect(styleActions_[key], SIGNAL(activatedData(QString)),
 					this, SLOT(slotApplyStyle(QString)));
 		}
@@ -1014,7 +1013,7 @@ void StyleManager::updateActionName(const QString &oldName, const QString &newNa
 		ScrAction *a = styleActions_[oldKey];
 		disconnect(a, SIGNAL(activatedData(QString)), this, SLOT(slotApplyStyle(QString)));
 		ScrAction *b = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",
-			               a->accel(), doc_->view(), newKey, 0, 0.0, newKey);
+			               a->accel(), doc_->view(), 0, 0.0, newKey);
 		styleActions_.remove(oldKey);
 		delete a;
 		styleActions_[newKey] = b;
@@ -1047,8 +1046,7 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 	else
 	{
 		styleActions_[key] =
-			new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",
-			              shortcut, doc_->view(), key, 0, 0.0, key);
+			new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", shortcut, doc_->view(), 0, 0.0, key);
 		connect(styleActions_[key], SIGNAL(activatedData(QString)),
 		        this, SLOT(slotApplyStyle(QString)));
 	}

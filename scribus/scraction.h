@@ -41,10 +41,9 @@ public:
 		\author Craig Bradney
 		\date Jan 2005
 		\brief Constructor from QAction, sets menuType to Normal
-		\param parent Parent object of this action.
-		\param name Name of the action
+		\param parent Parent object of this action
 	*/
-	ScrAction ( QObject *parent, const char *name = 0 ) ;
+	ScrAction ( QObject *parent ) ;
 		
 	/*!
 		\author Craig Bradney
@@ -53,9 +52,8 @@ public:
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent object of this action
-		\param name Name of the action
 	*/
-	ScrAction( const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0 );
+	ScrAction( const QString &menuText, QKeySequence accel, QObject *parent );
 		
 	/*!
 		\author Craig Bradney
@@ -66,12 +64,11 @@ public:
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
-		\param name Name of the action
 		\param extraInt extra int value
 		\param extraDouble extra double value
 		\param extraQString extra QString value
 	 */
-	ScrAction( ActionType mType, const QPixmap & icon16, const QPixmap & icon22, const QString &menuText, QKeySequence accel, QObject *parent, const char *name = 0, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
+	ScrAction( ActionType mType, const QPixmap & icon16, const QPixmap & icon22, const QString &menuText, QKeySequence accel, QObject *parent, int extraInt = 0, double extraDouble = 0.0, QString extraQString = QString::null );		
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
@@ -80,9 +77,8 @@ public:
 		\param menuText Text to be in the menus for this action
 		\param accel Accelerator QKeySequence
 		\param parent Parent of this action
-		\param name Name of the action
 	*/
-	ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject *parent, const char * name = 0 );
+	ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QString & menuText, QKeySequence accel, QObject *parent );
 	~ScrAction();
 	
 	/*!

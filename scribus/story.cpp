@@ -1346,13 +1346,13 @@ void StoryEditor::loadPrefs()
 void StoryEditor::initActions()
 {
 	//File Menu
-	seActions.insert("fileNew", new ScrAction(loadIcon("16/document-new.png"), loadIcon("22/document-new.png"), "", Qt::CTRL+Qt::Key_N, this, "fileNew"));
-	seActions.insert("fileRevert", new ScrAction(loadIcon("reload16.png"), loadIcon("reload.png"), "", QKeySequence(), this, "fileRevert"));
-	seActions.insert("fileSaveToFile", new ScrAction(loadIcon("16/document-save.png"), loadIcon("22/document-save.png"), "", QKeySequence(), this, "fileSaveToFile"));
-	seActions.insert("fileLoadFromFile", new ScrAction(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png"), "", QKeySequence(), this, "fileLoadFromFile"));
-	seActions.insert("fileSaveDocument", new ScrAction("", Qt::CTRL+Qt::Key_S, this, "fileSaveDocument"));
-	seActions.insert("fileUpdateAndExit", new ScrAction(loadIcon("ok.png"), loadIcon("ok22.png"), "", Qt::CTRL+Qt::Key_W,  this, "fileUpdateAndExit"));
-	seActions.insert("fileExit", new ScrAction(loadIcon("exit.png"), loadIcon("exit22.png"), "", QKeySequence(),  this, "fileExit"));
+	seActions.insert("fileNew", new ScrAction(loadIcon("16/document-new.png"), loadIcon("22/document-new.png"), "", Qt::CTRL+Qt::Key_N, this));
+	seActions.insert("fileRevert", new ScrAction(loadIcon("reload16.png"), loadIcon("reload.png"), "", QKeySequence(), this));
+	seActions.insert("fileSaveToFile", new ScrAction(loadIcon("16/document-save.png"), loadIcon("22/document-save.png"), "", QKeySequence(), this));
+	seActions.insert("fileLoadFromFile", new ScrAction(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png"), "", QKeySequence(), this));
+	seActions.insert("fileSaveDocument", new ScrAction("", Qt::CTRL+Qt::Key_S, this));
+	seActions.insert("fileUpdateAndExit", new ScrAction(loadIcon("ok.png"), loadIcon("ok22.png"), "", Qt::CTRL+Qt::Key_W,  this));
+	seActions.insert("fileExit", new ScrAction(loadIcon("exit.png"), loadIcon("exit22.png"), "", QKeySequence(),  this));
 
 	connect( seActions["fileNew"], SIGNAL(activated()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(activated()), this, SLOT(slotFileRevert()) );
@@ -1363,15 +1363,15 @@ void StoryEditor::initActions()
 	connect( seActions["fileExit"], SIGNAL(activated()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
-	seActions.insert("editSelectAll", new ScrAction(loadIcon("16/edit-select-all.png"), QPixmap(), "", Qt::CTRL+Qt::Key_A, this, "editSelectAll"));
-	seActions.insert("editCut", new ScrAction(loadIcon("16/edit-cut.png"), QPixmap(), "", Qt::CTRL+Qt::Key_X, this, "editCut"));
-	seActions.insert("editCopy", new ScrAction(loadIcon("16/edit-copy.png"), QPixmap(), "", Qt::CTRL+Qt::Key_C, this, "editCopy"));
-	seActions.insert("editPaste", new ScrAction(loadIcon("16/edit-paste.png"), QPixmap(), "", Qt::CTRL+Qt::Key_V, this, "editPaste"));
-	seActions.insert("editClear", new ScrAction(loadIcon("16/edit-delete.png"), QPixmap(), "", Qt::Key_Delete, this, "editClear"));
-	seActions.insert("editSearchReplace", new ScrAction(loadIcon("16/edit-find-replace.png"), QPixmap(), "", QKeySequence(), this, "editSearchReplace"));
-	seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this, "editEditStyle"));
-	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this, "editFontPreview"));
-	seActions.insert("editUpdateFrame", new ScrAction(loadIcon("compfile16.png"),loadIcon("compfile.png"), "", Qt::CTRL+Qt::Key_U, this, "editUpdateFrame"));
+	seActions.insert("editSelectAll", new ScrAction(loadIcon("16/edit-select-all.png"), QPixmap(), "", Qt::CTRL+Qt::Key_A, this));
+	seActions.insert("editCut", new ScrAction(loadIcon("16/edit-cut.png"), QPixmap(), "", Qt::CTRL+Qt::Key_X, this));
+	seActions.insert("editCopy", new ScrAction(loadIcon("16/edit-copy.png"), QPixmap(), "", Qt::CTRL+Qt::Key_C, this));
+	seActions.insert("editPaste", new ScrAction(loadIcon("16/edit-paste.png"), QPixmap(), "", Qt::CTRL+Qt::Key_V, this));
+	seActions.insert("editClear", new ScrAction(loadIcon("16/edit-delete.png"), QPixmap(), "", Qt::Key_Delete, this));
+	seActions.insert("editSearchReplace", new ScrAction(loadIcon("16/edit-find-replace.png"), QPixmap(), "", QKeySequence(), this));
+	seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this));
+	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this));
+	seActions.insert("editUpdateFrame", new ScrAction(loadIcon("compfile16.png"),loadIcon("compfile.png"), "", Qt::CTRL+Qt::Key_U, this));
 
 	connect( seActions["editSelectAll"], SIGNAL(activated()), this, SLOT(Do_selectAll()) );
 	connect( seActions["editCut"], SIGNAL(activated()), this, SLOT(Do_cut()) );
@@ -1384,13 +1384,13 @@ void StoryEditor::initActions()
 	connect( seActions["editUpdateFrame"], SIGNAL(activated()), this, SLOT(updateTextFrame()) );
 
 	//Insert Menu
-	seActions.insert("insertGlyph", new ScrAction(QPixmap(), QPixmap(), "", QKeySequence(), this, "insertGlyph"));
+	seActions.insert("insertGlyph", new ScrAction(QPixmap(), QPixmap(), "", QKeySequence(), this));
 	connect( seActions["insertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
 
 	//Settings Menu
-	seActions.insert("settingsBackground", new ScrAction("", QKeySequence(), this, "settingsBackground"));
-	seActions.insert("settingsDisplayFont", new ScrAction("", QKeySequence(), this, "settingsDisplayFont"));
-	seActions.insert("settingsSmartTextSelection", new ScrAction("", QKeySequence(), this, "settingsSmartTextSelection"));
+	seActions.insert("settingsBackground", new ScrAction("", QKeySequence(), this));
+	seActions.insert("settingsDisplayFont", new ScrAction("", QKeySequence(), this));
+	seActions.insert("settingsSmartTextSelection", new ScrAction("", QKeySequence(), this));
 	smartSelection = false;
 	seActions["settingsSmartTextSelection"]->setOn(false);
 	seActions["settingsSmartTextSelection"]->setToggleAction(true);

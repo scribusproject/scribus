@@ -2280,8 +2280,8 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 			scrMenuMgr->addMenuSeparator("Windows");
 		for ( int i = 0; i < windowCount; ++i )
 		{
-			QString docInWindow=windows.at(i)->caption();
-			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QPixmap(), QPixmap(), docInWindow, QKeySequence(), this, docInWindow, i));
+			QString docInWindow(windows.at(i)->caption());
+			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QPixmap(), QPixmap(), docInWindow, QKeySequence(), this, i));
 			scrWindowsActions[docInWindow]->setToggleAction(true);
 			connect( scrWindowsActions[docInWindow], SIGNAL(activatedData(int)), this, SLOT(windowsMenuActivated(int)) );
 			if (windowCount>1)
@@ -3263,7 +3263,7 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 		strippedName=RecentDocs[m];
 		strippedName.remove(QDir::separator());
 		localName=QDir::convertSeparators(RecentDocs[m]);
-		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("&%1 %2").arg(m+1).arg(localName), QKeySequence(), this, strippedName,0,0.0,RecentDocs[m]));
+		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QPixmap(), QPixmap(), QString("&%1 %2").arg(m+1).arg(localName), QKeySequence(), this, 0,0.0,RecentDocs[m]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], recentFileMenuName);
 	}
@@ -3286,7 +3286,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		{
 			strippedName = it.key();
 			QPixmap pm = it.data().Preview;
-			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QPixmap(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, strippedName,0,0.0,it.key()));
+			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QPixmap(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, 0,0.0,it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(pasteRecent(QString)) );
 			scrMenuMgr->addMenuItem(scrRecentPasteActions[strippedName], recentPasteMenuName);
 			it--;
@@ -3351,7 +3351,7 @@ void ScribusMainWindow::rebuildLayersList()
 		{
 			for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)
 			{
-				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QPixmap(), QPixmap(), (*it).Name, QKeySequence(), this, (*it).Name, (*it).LNr));
+				scrLayersActions.insert(QString("%1").arg((*it).LNr), new ScrAction( ScrAction::Layer, QPixmap(), QPixmap(), (*it).Name, QKeySequence(), this, (*it).LNr));
 				scrLayersActions[QString("%1").arg((*it).LNr)]->setToggleAction(true);
 			}
 		}

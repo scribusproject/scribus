@@ -64,7 +64,7 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 #include <QEvent>
 #include <QDropEvent>
-#include <Q3ActionGroup>
+#include <QActionGroup>
 
 // application specific includes
 #include "scribusapi.h"
@@ -245,7 +245,7 @@ public:
 	QMap<QString, QPointer<ScrAction> > scrWindowsActions;
 	QMap<QString, QPointer<ScrAction> > scrLayersActions;
 	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
-	Q3Dict<Q3ActionGroup> scrActionGroups;
+	Q3Dict<QActionGroup> scrActionGroups;
 	MenuManager* scrMenuMgr;
 	ActionManager* actionManager;
 	QStringList RecentDocs;

@@ -27,12 +27,12 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 #include <qmap.h>
 #include <qpair.h>
-#include <q3valuevector.h>
+#include <QVector>
 #include <qpointer.h>
 #include <q3dict.h>
 //Added by qt3to4:
 #include <QPixmap>
-#include <Q3ActionGroup>
+#include <QActionGroup>
 
 #include "scribusapi.h"
 #include "scraction.h"
@@ -58,8 +58,8 @@ class SCRIBUS_API ActionManager : public QObject
 		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
 		static void createDefaultMenus();
 		static void createDefaultNonMenuActions();
-		static Q3ValueVector< QPair<QString, QStringList> >* defaultMenus() {return &defMenus;};
-		static Q3ValueVector< QPair<QString, QStringList> >* defaultNonMenuActions() {return &defNonMenuActions;};
+		static QVector< QPair<QString, QStringList> >* defaultMenus() {return &defMenus;};
+		static QVector< QPair<QString, QStringList> >* defaultNonMenuActions() {return &defNonMenuActions;};
 		void createActions();
 		void disconnectModeActions();
 		void connectModeActions();
@@ -101,13 +101,13 @@ class SCRIBUS_API ActionManager : public QObject
 		ScribusQApp *ScQApp;
 		UndoManager *undoManager;
 		QMap<QString, QPointer<ScrAction> > *scrActions;
-		Q3Dict<Q3ActionGroup> *scrActionGroups;
+		Q3Dict<QActionGroup> *scrActionGroups;
 		QStringList *modeActionNames;
 		QStringList *nonEditActionNames;
 		QStringList *unicodeCharActionNames;
 		static QMap<QString, QKeySequence> defKeys;
-		static Q3ValueVector< QPair<QString, QStringList> > defMenus;
-		static Q3ValueVector< QPair<QString, QStringList> > defNonMenuActions;
+		static QVector< QPair<QString, QStringList> > defMenus;
+		static QVector< QPair<QString, QStringList> > defNonMenuActions;
 };
 
 #endif
