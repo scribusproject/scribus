@@ -104,6 +104,11 @@ class WerkToolBP;
 extern SCRIBUS_API ScribusQApp* ScQApp;
 extern SCRIBUS_API ScribusMainWindow* ScMW;
 
+#ifdef HAVE_CMS
+#include "cmsutil.h"
+#include "cmserrorhandling.h"
+#endif
+
 /**
   * \brief This Class is the base class for your application. It sets up the main
   * window and providing a menubar, toolbar
@@ -157,6 +162,12 @@ public:
 						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
 	void GetCMSProfiles();
 	void GetCMSProfilesDir(QString pfad);
+	void InitDefaultColorTransforms(void);
+	void TermDefaultColorTransforms(void);
+#ifdef HAVE_CMS
+	bool IsDefaultProfile(cmsHPROFILE prof);
+	bool IsDefaultTransform(cmsHTRANSFORM trans);
+#endif
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
 	\param dia optional progress widget */
@@ -192,6 +203,14 @@ public:
 	ProfilesL MonitorProfiles;
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;
+#ifdef HAVE_CMS
+	cmsHPROFILE   defaultRGBProfile;
+	cmsHPROFILE   defaultCMYKProfile;
+	cmsHTRANSFORM defaultRGBToScreenTrans;
+	cmsHTRANSFORM defaultRGBToScreenImgTrans;
+	cmsHTRANSFORM defaultRGBToCMYKTrans;
+	cmsHTRANSFORM defaultCMYKToRGBTrans;
+#endif
 	double DispX;
 	double DispY;
 	int HaveDoc;
@@ -627,4 +646,5 @@ private:
 };
 
 #endif
+
 

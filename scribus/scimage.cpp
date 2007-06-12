@@ -4353,7 +4353,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
 		}
 	}
-	if (CMSuse && useProf && inputProf)
+	else if (useProf && tiffProf)
+		inputProf = tiffProf;
+	else if (useProf && isCMYK)
+		inputProf = ScMW->defaultCMYKProfile;
+	else if (useProf)
+		inputProf = ScMW->defaultRGBProfile;
+	if (useProf && inputProf)
 	{
 		DWORD SC_TYPE_YMCK_8 = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
 		DWORD inputProfFormat = TYPE_BGRA_8;
@@ -4370,13 +4376,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			prnProfFormat = TYPE_BGRA_8;
 		else if ( prnProfColorSpace == icSigCmykData )
 			prnProfFormat = SC_TYPE_YMCK_8;
-		if (SoftProofing)
+		if (SoftProofing && CMSuse)
 		{
 			cmsProofFlags |= cmsFLAGS_SOFTPROOFING;
 			if (Gamut)
 				cmsProofFlags |= cmsFLAGS_GAMUTCHECK;
 		}
-		if (BlackPoint)
+		if (BlackPoint || !CMSuse)
 			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 
 		xform = 0;
@@ -4395,7 +4401,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			break;
 		case RGBProof: // RGB Proof
 			{
-				if (SoftProofing)
+				if (SoftProofing && CMSuse)
 				{
 					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
 					                       CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
@@ -4467,7 +4473,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			cmsDeleteTransform (xform);
 		}
 		
-		if (inputProf)
+		if (inputProf && !ScMW->IsDefaultProfile(inputProf))
 			cmsCloseProfile(inputProf);
 	}
 	else

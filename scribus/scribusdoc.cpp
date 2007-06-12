@@ -367,24 +367,10 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	IntentPrinter = CMSSettings.DefaultIntentPrinter;
 	IntentMonitor = CMSSettings.DefaultIntentMonitor;
 	BlackPoint = CMSSettings.BlackPoint;
-#endif
 	if ((CMSavail) && (CMSSettings.CMSinUse))
 	{
-#ifdef HAVE_CMS
 		if (OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles))
 		{
-			stdTransRGBDoc2CMYKG = stdTransRGBDoc2CMYK;
-			stdTransCMYK2RGBDocG = stdTransCMYK2RGBDoc;
-			stdTransRGBDoc2MonG = stdTransRGBDoc2Mon;
-			stdTransCMYK2MonG = stdTransCMYK2Mon;
-			stdProofRGBG = stdProofRGB;
-			stdProofRGBGCG = stdProofRGBGC;
-			stdProofCMYKG = stdProofCMYK;
-			stdProofCMYKGCG = stdProofCMYKGC;
-			stdProofImgG = stdProofImg;
-			stdTransImgG = stdTransImg;
-			CMSoutputProf = DocOutputProf;
-			CMSprinterProf = DocPrinterProf;
 			if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigRgbData)
 				CMSSettings.ComponentsInput2 = 3;
 			if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigCmykData)
@@ -400,9 +386,26 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 			PDF_Options.SComp = CMSSettings.ComponentsInput2;
 		}
 		else
+		{
+			SetDefaultCMSParams();
 			CMSSettings.CMSinUse = false;
-#endif
+		}
 	}
+	else
+		SetDefaultCMSParams();
+	stdTransRGBDoc2CMYKG = stdTransRGBDoc2CMYK;
+	stdTransCMYK2RGBDocG = stdTransCMYK2RGBDoc;
+	stdTransRGBDoc2MonG = stdTransRGBDoc2Mon;
+	stdTransCMYK2MonG = stdTransCMYK2Mon;
+	stdProofRGBG = stdProofRGB;
+	stdProofRGBGCG = stdProofRGBGC;
+	stdProofCMYKG = stdProofCMYK;
+	stdProofCMYKGCG = stdProofCMYKGC;
+	stdProofImgG = stdProofImg;
+	stdTransImgG = stdTransImg;
+	CMSoutputProf = DocOutputProf;
+	CMSprinterProf = DocPrinterProf;
+#endif
 }
 
 void ScribusDoc::setLoading(const bool docLoading)
@@ -425,47 +428,52 @@ void ScribusDoc::CloseCMSProfiles()
 #ifdef HAVE_CMS
 	if ((CMSavail) /*&& (CMSSettings.CMSinUse)*/)
 	{
-		if (DocInputProf)
+		if (DocInputProf && !ScMW->IsDefaultProfile(DocInputProf))
 			cmsCloseProfile(DocInputProf);	
-		if (DocOutputProf)
+		if (DocOutputProf && !ScMW->IsDefaultProfile(DocOutputProf))
 			cmsCloseProfile(DocOutputProf);
-		if (DocPrinterProf)
+		if (DocPrinterProf && !ScMW->IsDefaultProfile(DocPrinterProf))
 			cmsCloseProfile(DocPrinterProf);
-		if (stdTransRGBDoc2CMYK)
+		if (stdTransRGBDoc2CMYK && !ScMW->IsDefaultTransform(stdTransRGBDoc2CMYK))
 			cmsDeleteTransform(stdTransRGBDoc2CMYK);
-		if (stdTransCMYK2RGBDoc)
+		if (stdTransCMYK2RGBDoc && !ScMW->IsDefaultTransform(stdTransCMYK2RGBDoc))
 			cmsDeleteTransform(stdTransCMYK2RGBDoc);
-		if (stdTransRGBDoc2Mon)
+		if (stdTransRGBDoc2Mon && !ScMW->IsDefaultTransform(stdTransRGBDoc2Mon))
 			cmsDeleteTransform(stdTransRGBDoc2Mon);
-		if (stdTransCMYK2Mon)
+		if (stdTransCMYK2Mon && !ScMW->IsDefaultTransform(stdTransCMYK2Mon))
 			cmsDeleteTransform(stdTransCMYK2Mon);
-		if (stdProofRGB)
+		if (stdProofRGB && !ScMW->IsDefaultTransform(stdProofRGB))
 			cmsDeleteTransform(stdProofRGB);
-		if (stdProofRGBGC)
+		if (stdProofRGBGC && !ScMW->IsDefaultTransform(stdProofRGBGC))
 			cmsDeleteTransform(stdProofRGBGC);
-		if (stdProofCMYK)
+		if (stdProofCMYK && !ScMW->IsDefaultTransform(stdProofCMYK))
 			cmsDeleteTransform(stdProofCMYK);
-		if (stdProofCMYKGC)
+		if (stdProofCMYKGC && !ScMW->IsDefaultTransform(stdProofCMYKGC))
 			cmsDeleteTransform(stdProofCMYKGC);
-		if (stdTransImg)
+		if (stdTransImg && !ScMW->IsDefaultTransform(stdTransImg))
 			cmsDeleteTransform(stdTransImg);
-		if (stdProofImg)
+		if (stdProofImg && !ScMW->IsDefaultTransform(stdProofImg))
 			cmsDeleteTransform(stdProofImg);
-		DocInputProf = NULL;
-		DocOutputProf = NULL;
-		DocPrinterProf = NULL;
-		stdTransRGBDoc2CMYK = NULL;
-		stdTransCMYK2RGBDoc = NULL;
-		stdTransRGBDoc2Mon = NULL;
-		stdTransCMYK2Mon = NULL;
-		stdProofRGB = NULL;
-		stdProofRGBGC = NULL;
-		stdProofCMYK = NULL;
-		stdProofCMYKGC = NULL;
-		stdTransImg = NULL;
-		stdProofImg = NULL;
+		SetDefaultCMSParams();
 	}
 #endif
+}
+
+void ScribusDoc::SetDefaultCMSParams()
+{
+	DocInputProf   = ScMW->defaultRGBProfile;
+	DocOutputProf  = ScMW->defaultRGBProfile;
+	DocPrinterProf = ScMW->defaultCMYKProfile;
+	stdTransRGBDoc2CMYK = ScMW->defaultRGBToCMYKTrans;
+	stdTransCMYK2RGBDoc = ScMW->defaultCMYKToRGBTrans;
+	stdTransRGBDoc2Mon  = ScMW->defaultRGBToScreenTrans;
+	stdTransCMYK2Mon    = ScMW->defaultCMYKToRGBTrans;
+	stdProofRGB    = ScMW->defaultRGBToScreenTrans;
+	stdProofRGBGC  = ScMW->defaultRGBToScreenTrans;
+	stdProofCMYK   = ScMW->defaultCMYKToRGBTrans;
+	stdProofCMYKGC = ScMW->defaultCMYKToRGBTrans;
+	stdTransImg    = ScMW->defaultRGBToScreenImgTrans;
+	stdProofImg    = ScMW->defaultRGBToScreenImgTrans;
 }
 
 bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
@@ -566,6 +574,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	cmsSetErrorHandler(NULL);
 	return true;
 #endif
+	return false;
 }
 
 /*
@@ -5966,4 +5975,5 @@ void ScribusDoc::changed()
 	modified=true;
 	emit docChanged();
 }
+
 

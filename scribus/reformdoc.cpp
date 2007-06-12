@@ -983,7 +983,8 @@ void ReformDoc::updateDocumentSettings()
 			IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
-			bool newCM = currDoc->CMSSettings.CMSinUse;
+			bool newCM  = currDoc->CMSSettings.CMSinUse;
+			bool updCol = false;
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
@@ -993,24 +994,12 @@ void ReformDoc::updateDocumentSettings()
 				CMSuse = false;
 				if	(oldCM)
 				{
-					ScMW->recalcColors(ScMW->mainWindowProgressBar);
-					currDoc->RecalcPictures(&ScMW->InputProfiles, &ScMW->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+					currDoc->SetDefaultCMSParams();
+					updCol = true;
 				}
 			}
 			else if ( currDoc->OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles) )
 			{
-				stdTransCMYK2RGBDocG = currDoc->stdTransCMYK2RGBDoc;
-				stdTransRGBDoc2CMYKG = currDoc->stdTransRGBDoc2CMYK;
-				stdTransRGBDoc2MonG = currDoc->stdTransRGBDoc2Mon;
-				stdTransCMYK2MonG = currDoc->stdTransCMYK2Mon;
-				stdProofRGBG = currDoc->stdProofRGB;
-				stdProofRGBGCG = currDoc->stdProofRGBGC;
-				stdProofCMYKG = currDoc->stdProofCMYK;
-				stdProofCMYKGCG = currDoc->stdProofCMYKGC;
-				stdProofImgG = currDoc->stdProofImg;
-				stdTransImgG = currDoc->stdTransImg;
-				CMSoutputProf = currDoc->DocOutputProf;
-				CMSprinterProf = currDoc->DocPrinterProf;
 				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigRgbData)
 					currDoc->CMSSettings.ComponentsInput2 = 3;
 				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigCmykData)
@@ -1028,13 +1017,30 @@ void ReformDoc::updateDocumentSettings()
 				currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
 				currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
 				currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentMonitor;
-				ScMW->recalcColors(ScMW->mainWindowProgressBar);
-				currDoc->RecalcPictures(&ScMW->InputProfiles, &ScMW->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+				updCol = true;
 			}
 			else
 			{
+				currDoc->SetDefaultCMSParams();
 				currDoc->HasCMS = false;
 				CMSuse = false;
+			}
+			stdTransCMYK2RGBDocG = currDoc->stdTransCMYK2RGBDoc;
+			stdTransRGBDoc2CMYKG = currDoc->stdTransRGBDoc2CMYK;
+			stdTransRGBDoc2MonG = currDoc->stdTransRGBDoc2Mon;
+			stdTransCMYK2MonG = currDoc->stdTransCMYK2Mon;
+			stdProofRGBG = currDoc->stdProofRGB;
+			stdProofRGBGCG = currDoc->stdProofRGBGC;
+			stdProofCMYKG = currDoc->stdProofCMYK;
+			stdProofCMYKGCG = currDoc->stdProofCMYKGC;
+			stdProofImgG = currDoc->stdProofImg;
+			stdTransImgG = currDoc->stdTransImg;
+			CMSoutputProf = currDoc->DocOutputProf;
+			CMSprinterProf = currDoc->DocPrinterProf;
+			if (updCol)
+			{
+				ScMW->recalcColors(ScMW->mainWindowProgressBar);
+				currDoc->RecalcPictures(&ScMW->InputProfiles, &ScMW->InputProfilesCMYK, ScMW->mainWindowProgressBar);
 			}
 #endif
 			ScMW->mainWindowProgressBar->setProgress(cc);

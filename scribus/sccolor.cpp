@@ -178,7 +178,7 @@ QColor ScColor::getDisplayColor(int r, int g, int b) const
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
-	if (CMSuse && CMSavail)
+	if (CMSavail && stdTransRGBDoc2MonG)
 	{
 		inC[0] = r * 257;
 		inC[1] = g * 257;
@@ -198,7 +198,7 @@ QColor ScColor::getDisplayColor(int c, int m, int y, int k) const
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
-	if (CMSuse && CMSavail)
+	if (CMSavail && stdTransCMYK2MonG)
 	{
 		inC[0] = c * 257;
 		inC[1] = m * 257;
@@ -233,12 +233,13 @@ QColor ScColor::getColorProof(int r, int g, int b, bool gamutCkeck) const
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
-	if (CMSavail && CMSuse)
+	bool hasTransforms = (stdProofRGBGCG && stdProofRGBG && stdTransRGBDoc2MonG);
+	if (CMSavail && hasTransforms)
 	{
 		inC[0] = r * 257;
 		inC[1] = g * 257;
 		inC[2] = b * 257;
-		if (!Spot && SoftProofing)
+		if (CMSuse && !Spot && SoftProofing)
 		{
 			cmsHTRANSFORM xform = gamutCkeck ? stdProofRGBGCG : stdProofRGBG;
 			cmsDoTransform(xform, inC, outC, 1);
@@ -264,13 +265,14 @@ QColor ScColor::getColorProof(int c, int m, int y, int k, bool gamutCkeck) const
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
-	if (CMSavail && CMSuse)
+	bool hasTransforms = (stdProofCMYKGCG && stdProofCMYKG && stdTransCMYK2MonG);
+	if (CMSavail && hasTransforms)
 	{
 		inC[0] = c * 257;
 		inC[1] = m * 257;
 		inC[2] = y * 257;
 		inC[3] = k * 257;
-		if (!Spot && SoftProofing)
+		if (CMSuse && !Spot && SoftProofing)
 		{
 			cmsHTRANSFORM xform = gamutCkeck ? stdProofCMYKGCG : stdProofCMYKG;
 			cmsDoTransform(xform, inC, outC, 1);
@@ -573,7 +575,9 @@ void ScColor::RecalcRGB()
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
-	if (CMSuse && CMSavail)
+	bool rgbTransAvail  = (stdTransRGBDoc2CMYKG && stdProofRGBGCG  && stdProofRGBG);
+	bool cmykTransAvail = (stdTransCMYK2RGBDocG && stdProofCMYKGCG && stdProofCMYKG);
+	if (CMSuse && rgbTransAvail && cmykTransAvail)
 	{
 		if (Model == colorModelRGB)
 		{
@@ -594,7 +598,7 @@ void ScColor::RecalcRGB()
 				M = outC[1] / 257;
 				Y = outC[2] / 257;
 				K = outC[3] / 257;
-				if (!Spot && SoftProofing)
+				if (CMSuse && !Spot && SoftProofing)
 				{
 					if ((R == 0) && (B == 0) && (G == 255))
 						alert = false;
@@ -619,7 +623,7 @@ void ScColor::RecalcRGB()
 			G = outC[1] / 257;
 			B = outC[2] / 257;
 			RGB = QColor(R, G, B);
-			if (!Spot && SoftProofing)
+			if (CMSuse && !Spot && SoftProofing)
 			{
 				if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
 					alert = false;
