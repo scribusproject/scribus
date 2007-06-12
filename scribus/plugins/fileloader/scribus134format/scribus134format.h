@@ -77,7 +77,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void writePatterns(QDomDocument & docu);
 		void writeContent(QDomDocument & docu);
 		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master, Q3PtrList<PageItem> *items = 0);
+		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master, QList<PageItem*> *items = 0);
 		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;

@@ -437,16 +437,24 @@ ScribusDoc::~ScribusDoc()
 {
 	m_guardedObject.nullify();
 	CloseCMSProfiles();
-	DocItems.setAutoDelete(true);
+//	DocItems.setAutoDelete(true);
 //	FrameItems.setAutoDelete(true);
-	DocItems.clear();
+//	DocItems.clear();
+	while (!DocItems.isEmpty())
+	{
+		delete DocItems.takeFirst();
+	}
 	FrameItems.clear();
 	MasterPages.setAutoDelete(true);
 	DocPages.setAutoDelete(true);
 	MasterPages.clear();
 	DocPages.clear();
-	MasterItems.setAutoDelete(true);
-	MasterItems.clear();
+//	MasterItems.setAutoDelete(true);
+//	MasterItems.clear();
+	while (!MasterItems.isEmpty())
+	{
+		delete MasterItems.takeFirst();
+	}
 	QMap<QString,int>::Iterator it3;
 	for (it3 = UsedFonts.begin(); it3 != UsedFonts.end(); ++it3)
 	{
@@ -791,12 +799,12 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	lists.availableFonts = AllFonts;
 	lists.availableColors = const_cast<ColorList*>(& PageColors);
 
-	const Q3PtrList<PageItem> * itemlist = & MasterItems;
+	const QList<PageItem*> * itemlist = & MasterItems;
 	while (itemlist != NULL)
 	{
-		for (uint i=0; i < itemlist->count(); ++i)
+		for (int i=0; i < itemlist->count(); ++i)
 		{
-			const PageItem * currItem = const_cast<Q3PtrList<PageItem>*>(itemlist)->at(i);
+			const PageItem * currItem = const_cast<QList<PageItem*>*>(itemlist)->at(i);
 			if (currItem)
 				currItem->getNamedResources(lists);
 		}
@@ -818,7 +826,7 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	for (it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
 		ScPattern pa = *it;
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			pa.items.at(o)->getNamedResources(lists);
 		}
@@ -837,10 +845,10 @@ void ScribusDoc::replaceStyles(const QMap<QString,QString>& newNameForOld)
 void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 {
 	// replace names in items
-	Q3PtrList<PageItem> * itemlist = & MasterItems;
+	QList<PageItem*> * itemlist = & MasterItems;
 	while (itemlist != NULL)
 	{
-		for (uint i=0; i < itemlist->count(); ++i)
+		for (int i=0; i < itemlist->count(); ++i)
 		{
 			PageItem * currItem = itemlist->at(i);
 			if (currItem)
@@ -878,7 +886,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		else
 		{
 			ScPattern pa = *it;
-			for (uint o = 0; o < pa.items.count(); o++)
+			for (int o = 0; o < pa.items.count(); o++)
 			{
 				pa.items.at(o)->replaceNamedResources(newNames);
 			}
@@ -1632,7 +1640,7 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 {
 	int GrMax = GroupCounter;
 	QMap<int,int> TableID;
-	Q3PtrList<PageItem> TableItems;
+	QList<PageItem*> TableItems;
 	TableID.clear();
 	TableItems.clear();
 	uint oldItems = Items->count();
@@ -1700,7 +1708,7 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 	RePos = false;
 	if (TableItems.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -2341,14 +2349,14 @@ bool ScribusDoc::deleteTaggedItems()
 {
 	QString tooltip = Um::ItemsInvolved + "\n";
 	//Master Items
-	for (uint b = 0; b < MasterItems.count(); ++b)
+	for (int b = 0; b < MasterItems.count(); ++b)
 	{
 		if (MasterItems.at(b)->isTagged())
 		{
 		}
 	}
 	//Doc Items
-	for (uint b = 0; b < DocItems.count(); ++b)
+	for (int b = 0; b < DocItems.count(); ++b)
 	{
 		if (DocItems.at(b)->isTagged())
 		{
@@ -2461,7 +2469,7 @@ void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
 // 	{
 // 		docPatterns.insert(it.key(), it.data());
 // 	}
-	for (uint c=0; c<DocItems.count(); ++c)
+	for (int c=0; c<DocItems.count(); ++c)
 	{
 		PageItem *ite = DocItems.at(c);
 		if ((!docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
@@ -2470,7 +2478,7 @@ void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
 			ite->GrType = 0;
 		}
 	}
-	for (uint c=0; c<MasterItems.count(); ++c)
+	for (int c=0; c<MasterItems.count(); ++c)
 	{
 		PageItem *ite = MasterItems.at(c);
 		if ((!docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
@@ -2479,7 +2487,7 @@ void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
 			ite->GrType = 0;
 		}
 	}
-	for (uint c=0; c<FrameItems.count(); ++c)
+	for (int c=0; c<FrameItems.count(); ++c)
 	{
 		PageItem *ite = FrameItems.at(c);
 		if ((!docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
@@ -2493,17 +2501,17 @@ void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
 QStringList ScribusDoc::getUsedPatterns()
 {
 	QStringList results;
-	for (uint c = 0; c < MasterItems.count(); ++c)
+	for (int c = 0; c < MasterItems.count(); ++c)
 	{
 		if ((!results.contains(MasterItems.at(c)->pattern())) && (MasterItems.at(c)->GrType == 8))
 			results.append(MasterItems.at(c)->pattern());
 	}
-	for (uint c = 0; c < DocItems.count(); ++c)
+	for (int c = 0; c < DocItems.count(); ++c)
 	{
 		if ((!results.contains(DocItems.at(c)->pattern())) && (DocItems.at(c)->GrType == 8))
 			results.append(DocItems.at(c)->pattern());
 	}
-	for (uint c = 0; c < FrameItems.count(); ++c)
+	for (int c = 0; c < FrameItems.count(); ++c)
 	{
 		if ((!results.contains(FrameItems.at(c)->pattern())) && (FrameItems.at(c)->GrType == 8))
 			results.append(FrameItems.at(c)->pattern());
@@ -2550,7 +2558,7 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 	ScPattern *pat = &docPatterns[pattern];
 	QStringList pats;
 	pats.clear();
-	for (uint c = 0; c < pat->items.count(); ++c)
+	for (int c = 0; c < pat->items.count(); ++c)
 	{
 		if (pat->items.at(c)->GrType == 8)
 		{
@@ -2608,7 +2616,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			checkItemForFonts(pa.items.at(o), Really, 3);
 		}
@@ -2891,17 +2899,18 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 	const int MpNr = MasterNames[pageName];
 	Page* Mp = MasterPages.at(MpNr);
 	PageItem *currItem;
-	for (currItem = Ap->FromMaster.first(); currItem; currItem = Ap->FromMaster.next())
-	{
-		if (currItem->ChangedMasterItem)
-		{
-			Ap->FromMaster.remove(currItem);
-			delete currItem;
-		}
-	}
+//	for (currItem = Ap->FromMaster.first(); currItem; currItem = Ap->FromMaster.next())
+//	{
+//		if (currItem->ChangedMasterItem)
+//		{
+//			Ap->FromMaster.remove(currItem);
+//			delete currItem;
+//		}
+//	}
 	Ap->FromMaster.clear();
-	for (currItem = MasterItems.first(); currItem; currItem = MasterItems.next())
+	for (int itn = 0; itn < MasterItems.count(); ++itn)
 	{
+		currItem = MasterItems.at(itn);
 		if (currItem->OwnPage == MpNr)
 			Ap->FromMaster.append(currItem);
 	}
@@ -3086,7 +3095,7 @@ void ScribusDoc::recalculateColors()
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *ite = pa.items.at(o);
 			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
@@ -3495,7 +3504,7 @@ bool ScribusDoc::itemAddCommit(const int /*itemNumber*/)
 uint ScribusDoc::getItemNrfromUniqueID(uint unique)
 {
 	uint ret = 0;
-	for (uint a = 0; a < Items->count(); ++a)
+	for (int a = 0; a < Items->count(); ++a)
 	{
 		if (Items->at(a)->uniqueNr == unique)
 		{
@@ -3515,8 +3524,8 @@ void ScribusDoc::updateFrameItems()
 
 void ScribusDoc::renumberItemsInListOrder( )
 {
-	uint itemsCount=Items->count();
-	for (uint i = 0; i < itemsCount; ++i)
+	int itemsCount=Items->count();
+	for (int i = 0; i < itemsCount; ++i)
 		Items->at(i)->ItemNr = i;
 }
 
@@ -3697,7 +3706,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 
 void ScribusDoc::GroupOnPage(PageItem* currItem)
 {
-	Q3PtrList<PageItem> Objects;
+	QList<PageItem*> Objects;
 	PageItem* item;
 	if (currItem->Groups.count() == 0)
 		return;
@@ -4106,7 +4115,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	if (oldItem->Groups.count() != 0)
 	{
 		PageItem *currItem;
-		for (uint a = 0; a < Items->count(); ++a)
+		for (int a = 0; a < Items->count(); ++a)
 		{
 			currItem = Items->at(a);
 			if (currItem->isGroupControl)
@@ -4584,19 +4593,19 @@ PageLocation ScribusDoc::locationOfPage(int pageIndex)
 
 void ScribusDoc::updateAllItemQColors()
 {
-	for (uint c=0; c<DocItems.count(); ++c)
+	for (int c=0; c<DocItems.count(); ++c)
 	{
 		PageItem *ite = DocItems.at(c);
 		ite->setLineQColor();
 		ite->setFillQColor();
 	}
-	for (uint c=0; c<MasterItems.count(); ++c)
+	for (int c=0; c<MasterItems.count(); ++c)
 	{
 		PageItem *ite = MasterItems.at(c);
 		ite->setLineQColor();
 		ite->setFillQColor();
 	}
-	for (uint c=0; c<FrameItems.count(); ++c)
+	for (int c=0; c<FrameItems.count(); ++c)
 	{
 		PageItem *ite = FrameItems.at(c);
 		ite->setLineQColor();
@@ -4606,7 +4615,7 @@ void ScribusDoc::updateAllItemQColors()
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *ite = pa.items.at(o);
 			ite->setLineQColor();
@@ -4676,8 +4685,8 @@ bool ScribusDoc::sendItemSelectionToBack()
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return false;
 			ObjOrder.insert(currItem->ItemNr, c);
-			int d = Items->findRef(currItem);
-			Items->take(d);
+			int d = Items->indexOf(currItem);
+			Items->takeAt(d);
 		}
 		QList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
@@ -4703,8 +4712,8 @@ bool ScribusDoc::bringItemSelectionToFront()
 			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return false;
 			ObjOrder.insert(currItem->ItemNr, c);
-			int d = Items->findRef(currItem);
-			Items->take(d);
+			int d = Items->indexOf(currItem);
+			Items->takeAt(d);
 		}
 		QList<uint> Oindex = ObjOrder.values();
 		for (int c = 0; c <static_cast<int>(Oindex.count()); ++c)
@@ -5765,7 +5774,7 @@ void ScribusDoc::connectDocSignals()
 //CB Same as RecalcPicturesRes apart from the name checking, which should be able to be removed
 void ScribusDoc::updatePict(QString name)
 {
-	for (uint a = 0; a < DocItems.count(); ++a)
+	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
@@ -5778,7 +5787,7 @@ void ScribusDoc::updatePict(QString name)
 			currItem->AdjustPictScale();
 		}
 	}
-	for (uint a = 0; a < MasterItems.count(); ++a)
+	for (int a = 0; a < MasterItems.count(); ++a)
 	{
 		PageItem *currItem = MasterItems.at(a);
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
@@ -5791,7 +5800,7 @@ void ScribusDoc::updatePict(QString name)
 			currItem->AdjustPictScale();
 		}
 	}
-	for (uint a = 0; a <FrameItems.count(); ++a)
+	for (int a = 0; a <FrameItems.count(); ++a)
 	{
 		PageItem *currItem = FrameItems.at(a);
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
@@ -5808,7 +5817,7 @@ void ScribusDoc::updatePict(QString name)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
 			if ((currItem->PicAvail) && (currItem->Pfile == name))
@@ -5834,19 +5843,19 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	int cc = 0;
 	int ca = 0;
 	m_ScMW->mainWindowProgressBar->reset();
-	for (uint a = 0; a < DocItems.count(); ++a)
+	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
 		if (currItem->PicAvail)
 		  cc++;
 	}
-	for (uint a = 0; a < MasterItems.count(); ++a)
+	for (int a = 0; a < MasterItems.count(); ++a)
 	{
 		PageItem *currItem = MasterItems.at(a);
 		if (currItem->PicAvail)
 			cc++;
 	}
-	for (uint a = 0; a < FrameItems.count(); ++a)
+	for (int a = 0; a < FrameItems.count(); ++a)
 	{
 		PageItem *currItem = FrameItems.at(a);
 		if (currItem->PicAvail)
@@ -5856,7 +5865,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
 			if (currItem->PicAvail)
@@ -5864,7 +5873,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		}
 	}
 	m_ScMW->mainWindowProgressBar->setTotalSteps(cc);
-	for (uint a = 0; a < DocItems.count(); ++a)
+	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
 		if (currItem->PicAvail)
@@ -5882,7 +5891,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			qApp->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
-	for (uint a = 0; a < MasterItems.count(); ++a)
+	for (int a = 0; a < MasterItems.count(); ++a)
 	{
 		PageItem *currItem = MasterItems.at(a);
 		if (currItem->PicAvail)
@@ -5900,7 +5909,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			qApp->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
-	for (uint a = 0; a < FrameItems.count(); ++a)
+	for (int a = 0; a < FrameItems.count(); ++a)
 	{
 		PageItem *currItem = FrameItems.at(a);
 		if (currItem->PicAvail)
@@ -5921,7 +5930,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
 			if (currItem->PicAvail)
@@ -5949,7 +5958,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 
 void ScribusDoc::removePict(QString name)
 {
-	for (uint a = 0; a < DocItems.count(); ++a)
+	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
@@ -5958,7 +5967,7 @@ void ScribusDoc::removePict(QString name)
 			currItem->pixm = ScImage();
 		}
 	}
-	for (uint a = 0; a < MasterItems.count(); ++a)
+	for (int a = 0; a < MasterItems.count(); ++a)
 	{
 		PageItem *currItem = MasterItems.at(a);
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
@@ -5967,7 +5976,7 @@ void ScribusDoc::removePict(QString name)
 			currItem->pixm = ScImage();
 		}
 	}
-	for (uint a = 0; a < FrameItems.count(); ++a)
+	for (int a = 0; a < FrameItems.count(); ++a)
 	{
 		PageItem *currItem = FrameItems.at(a);
 		if ((currItem->PicAvail) && (currItem->Pfile == name))
@@ -5980,7 +5989,7 @@ void ScribusDoc::removePict(QString name)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
 			if ((currItem->PicAvail) && (currItem->Pfile == name))
@@ -6029,7 +6038,7 @@ void ScribusDoc::updatePic()
 void ScribusDoc::removeLayer(int l, bool dl)
 {
 	m_View->Deselect();
-	for (uint b = 0; b < MasterItems.count(); ++b)
+	for (int b = 0; b < MasterItems.count(); ++b)
 	{
 		if (MasterItems.at(b)->LayerNr == l)
 		{
@@ -6045,7 +6054,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 	if (m_Selection->count() != 0)
 		itemSelection_DeleteItem();
 	m_Selection->clear();
-	for (uint b = 0; b < DocItems.count(); ++b)
+	for (int b = 0; b < DocItems.count(); ++b)
 	{
 		if (DocItems.at(b)->LayerNr == l)
 		{
@@ -6365,7 +6374,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	uint selectedItemCount=itemSelection->count();
 	if (selectedItemCount == 0)
 		return;
-	Q3PtrList<PageItem> delItems;
+	QList<PageItem*> delItems;
 	PageItem *currItem;
 	uint offs = 0;
 	QString tooltip = Um::ItemsInvolved + "\n";
@@ -6808,7 +6817,7 @@ bool ScribusDoc::startAlign()
 		
 	bool oneLocked=false;
 	for (uint i = 0; i < alignObjectsCount && !oneLocked; ++i)
-		for (uint j = 0; j < AObjects[i].Objects.count() && !oneLocked; ++j)
+		for (int j = 0; j < AObjects[i].Objects.count() && !oneLocked; ++j)
 			if (AObjects[i].Objects.at(j)->locked())
 				oneLocked=true;
 	int t = 2;
@@ -6842,7 +6851,7 @@ bool ScribusDoc::startAlign()
 	if (oneLocked && (t == 0))
 	{
 		for (uint i = 0; i < alignObjectsCount; ++i)
-			for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+			for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 				if (AObjects[i].Objects.at(j)->locked())
 					AObjects[i].Objects.at(j)->setLocked(false);
 	}
@@ -6895,7 +6904,7 @@ void ScribusDoc::itemSelection_AlignLeftOut(AlignTo currAlignTo, double guidePos
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x2;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
@@ -6937,7 +6946,7 @@ void ScribusDoc::itemSelection_AlignLeftIn(AlignTo currAlignTo, double guidePosi
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x1;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
@@ -6989,7 +6998,7 @@ void ScribusDoc::itemSelection_AlignCenterHor(AlignTo currAlignTo, double guideP
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x1-(AObjects[i].width)/2;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
@@ -7033,7 +7042,7 @@ void ScribusDoc::itemSelection_AlignRightIn(AlignTo currAlignTo, double guidePos
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x2;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
@@ -7077,7 +7086,7 @@ void ScribusDoc::itemSelection_AlignRightOut(AlignTo currAlignTo, double guidePo
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newX-AObjects[i].x1;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(diff, 0.0);
 	}
@@ -7119,7 +7128,7 @@ void ScribusDoc::itemSelection_AlignTopOut(AlignTo currAlignTo, double guidePosi
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y2;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
@@ -7161,7 +7170,7 @@ void ScribusDoc::itemSelection_AlignTopIn(AlignTo currAlignTo, double guidePosit
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y1;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
@@ -7214,7 +7223,7 @@ void ScribusDoc::itemSelection_AlignCenterVer(AlignTo currAlignTo, double guideP
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y1-(AObjects[i].height)/2;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
@@ -7259,7 +7268,7 @@ void ScribusDoc::itemSelection_AlignBottomIn(AlignTo currAlignTo, double guidePo
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y2;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
@@ -7303,7 +7312,7 @@ void ScribusDoc::itemSelection_AlignBottomOut(AlignTo currAlignTo, double guideP
 	for (int i = loopStart; i <= loopEnd; ++i)
 	{
 		double diff=newY-AObjects[i].y1;
-		for (uint j = 0; j < AObjects[i].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[i].Objects.count(); ++j)
 			if (!AObjects[i].Objects.at(j)->locked())
 				AObjects[i].Objects.at(j)->moveBy(0.0, diff);
 	}
@@ -7340,7 +7349,7 @@ void ScribusDoc::itemSelection_DistributeLeft()
 	for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
 	{
 		double diff=minX + i*separation-AObjects[it.data()].x1;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
 		i++;
@@ -7377,7 +7386,7 @@ void ScribusDoc::itemSelection_DistributeCenterH()
 	for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
 	{
 		double diff=minX + i*separation-AObjects[it.data()].x1-(AObjects[it.data()].width)/2;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
 		i++;
@@ -7414,7 +7423,7 @@ void ScribusDoc::itemSelection_DistributeRight()
 	for ( QMap<double,uint>::Iterator it = Xsorted.begin(); it != Xsorted.end(); ++it )
 	{
 		double diff=minX + i*separation-AObjects[it.data()].x2;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
 		i++;
@@ -7468,7 +7477,7 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 		currX+=separation;
 
 		double diff=currX-AObjects[it.data()].x1;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
 		currX+=AObjects[it.data()].width;
@@ -7505,7 +7514,7 @@ void ScribusDoc::itemSelection_DistributeBottom()
 	for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
 	{
 		double diff=minY + i*separation-AObjects[it.data()].y2;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
 		i++;
@@ -7542,7 +7551,7 @@ void ScribusDoc::itemSelection_DistributeCenterV()
 	for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
 	{
 		double diff=minY + i*separation-AObjects[it.data()].y1-(AObjects[it.data()].height)/2;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
 		i++;
@@ -7579,7 +7588,7 @@ void ScribusDoc::itemSelection_DistributeTop()
 	for ( QMap<double,uint>::Iterator it = Ysorted.begin(); it != Ysorted.end(); ++it )
 	{
 		double diff=minY + i*separation-AObjects[it.data()].y1;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(0.0,diff);
 		i++;
@@ -7633,7 +7642,7 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 		currY+=separation;
 
 		double diff=currY-AObjects[it.data()].y1;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(0.0,diff);
 		currY+=AObjects[it.data()].height;
@@ -7684,7 +7693,7 @@ void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 	{
 		currX+=separation;
 		double diff=currX-AObjects[it.data()].x1;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
 		currX+=AObjects[it.data()].width;
@@ -7733,7 +7742,7 @@ void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 	{
 		currY+=separation;
 		double diff=currY-AObjects[it.data()].y1;
-		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+		for (int j = 0; j < AObjects[it.data()].Objects.count(); ++j)
 			if (!AObjects[it.data()].Objects.at(j)->locked())
 				AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
 		currY+=AObjects[it.data()].height;

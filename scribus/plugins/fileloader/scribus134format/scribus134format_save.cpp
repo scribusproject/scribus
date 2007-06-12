@@ -1008,10 +1008,10 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	}
 }
 
-void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master, Q3PtrList<PageItem> *some_items)
+void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master, QList<PageItem*> *some_items)
 {
 	uint ObCount = maxC;
-	Q3PtrList<PageItem> *items = NULL;
+	QList<PageItem*> *items = NULL;
 	PageItem *item = NULL;
 	QDomElement ob;
 	uint objects = 0;

@@ -856,10 +856,10 @@ public: // Public attributes
 	/** \brief Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
 	/** \brief List of Objects */
-	Q3PtrList<PageItem>* Items;
-	Q3PtrList<PageItem> MasterItems;
-	Q3PtrList<PageItem> DocItems;
-	Q3PtrList<PageItem> FrameItems;
+	QList<PageItem*>* Items;
+	QList<PageItem*> MasterItems;
+	QList<PageItem*> DocItems;
+	QList<PageItem*> FrameItems;
 	Selection* const m_Selection;
 	/** \brief Pagewidth  */
 	double pageWidth;

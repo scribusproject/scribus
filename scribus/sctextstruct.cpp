@@ -85,10 +85,10 @@ PageItem* InlineFrame::getItem()
 	return d->item;
 }
 
-Q3PtrList<PageItem> InlineFrame::getGroupedItems()
+QList<PageItem*> InlineFrame::getGroupedItems()
 {
-	Q3PtrList<PageItem> result;
-	result.setAutoDelete(false);
+	QList<PageItem*> result;
+//	result.setAutoDelete(false);
 	if (hasItem())
 	{
 		PageItem* dItem = d->item;
@@ -104,7 +104,7 @@ Q3PtrList<PageItem> InlineFrame::getGroupedItems()
 					{
 						if (doc.FrameItems.at(ga)->ItemNr != dItem->ItemNr)
 						{
-							if (result.find(doc.FrameItems.at(ga)) == -1)
+							if (!result.contains(doc.FrameItems.at(ga)))
 								result.append(doc.FrameItems.at(ga));
 						}
 					}

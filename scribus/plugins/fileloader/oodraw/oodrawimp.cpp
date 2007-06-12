@@ -14,7 +14,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QDrag>
 #include <QMimeData>
-#include <Q3PtrList>
 #include <cmath>
 
 #include "oodrawimp.h"
@@ -278,7 +277,7 @@ bool OODPlug::convert(int flags)
 	bool isOODraw2 = false;
 	QDomNode drawPagePNode;
 	int PageCounter = 0;
-	Q3PtrList<PageItem> Elements;
+	QList<PageItem*> Elements;
 	createStyleMap( inpStyles );
 	QDomElement docElem = inpContents.documentElement();
 	QDomNode automaticStyles = docElem.namedItem( "office:automatic-styles" );
@@ -394,8 +393,8 @@ bool OODPlug::convert(int flags)
 		PageCounter++;
 		m_styleStack.clear();
 		fillStyleStack( dpg );
-		Q3PtrList<PageItem> el = parseGroup( dpg );
-		for (uint ec = 0; ec < el.count(); ++ec)
+		QList<PageItem*> el = parseGroup( dpg );
+		for (int ec = 0; ec < el.count(); ++ec)
 			Elements.append(el.at(ec));
 		if ((interactive) && (PageCounter == 1))
 			break;
@@ -419,7 +418,7 @@ bool OODPlug::convert(int flags)
 		int firstElem = -1;
 		if (Elements.at(0)->Groups.count() != 0)
 			firstElem = Elements.at(0)->Groups.top();
-		for (uint bx = 0; bx < Elements.count(); ++bx)
+		for (int bx = 0; bx < Elements.count(); ++bx)
 		{
 			PageItem* bxi = Elements.at(bx);
 			if (bxi->Groups.count() != 0)
@@ -438,7 +437,7 @@ bool OODPlug::convert(int flags)
 			double maxy = -99999.9;
 			uint lowestItem = 999999;
 			uint highestItem = 0;
-			for (uint a = 0; a < Elements.count(); ++a)
+			for (int a = 0; a < Elements.count(); ++a)
 			{
 				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
 				PageItem* currItem = Elements.at(a);
@@ -475,14 +474,14 @@ bool OODPlug::convert(int flags)
 			double gh = maxy - miny;
 			PageItem *high = m_Doc->Items->at(highestItem);
 			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
-			PageItem *neu = m_Doc->Items->take(z);
+			PageItem *neu = m_Doc->Items->takeAt(z);
 			m_Doc->Items->insert(lowestItem, neu);
 			neu->Groups.push(m_Doc->GroupCounter);
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
 			neu->isGroupControl = true;
 			neu->groupsLastItem = high;
 			neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
-			for (uint a = 0; a < m_Doc->Items->count(); ++a)
+			for (int a = 0; a < m_Doc->Items->count(); ++a)
 			{
 				m_Doc->Items->at(a)->ItemNr = a;
 			}
@@ -503,7 +502,7 @@ bool OODPlug::convert(int flags)
 			m_Doc->setLoading(false);
 			m_Doc->changed();
 			m_Doc->setLoading(loadF);
-			for (uint dre=0; dre<Elements.count(); ++dre)
+			for (int dre=0; dre<Elements.count(); ++dre)
 			{
  				m_Doc->m_Selection->addItem(Elements.at(dre), true);
 			}
@@ -516,7 +515,7 @@ bool OODPlug::convert(int flags)
 			m_Doc->DragP = true;
 			m_Doc->DraggedElem = 0;
 			m_Doc->DragElements.clear();
-			for (uint dre=0; dre<Elements.count(); ++dre)
+			for (int dre=0; dre<Elements.count(); ++dre)
 			{
 				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 				tmpSel->addItem(Elements.at(dre), true);
@@ -574,11 +573,11 @@ bool OODPlug::convert(int flags)
 	return true;
 }
 
-Q3PtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
+QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 {
 	OODrawStyle oostyle;
 	FPointArray ImgClip;
-	Q3PtrList<PageItem> elements, cElements;
+	QList<PageItem*> elements, cElements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	storeObjectStyles(e);
@@ -591,19 +590,19 @@ Q3PtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		QDomElement b = n.toElement();
 		if( b.isNull() )
 			continue;
-		Q3PtrList<PageItem> el = parseElement(b);
-		for (uint ec = 0; ec < el.count(); ++ec)
+		QList<PageItem*> el = parseElement(b);
+		for (int ec = 0; ec < el.count(); ++ec)
 			cElements.append(el.at(ec));
 	}
 	if (cElements.count() < 2)
 	{
-		m_Doc->Items->take(zn);
+		m_Doc->Items->takeAt(zn);
 		delete neu;
-		for (uint a = 0; a < m_Doc->Items->count(); ++a)
+		for (int a = 0; a < m_Doc->Items->count(); ++a)
 		{
 			m_Doc->Items->at(a)->ItemNr = a;
 		}
-		for (uint gr = 0; gr < cElements.count(); ++gr)
+		for (int gr = 0; gr < cElements.count(); ++gr)
 		{
 			elements.append(cElements.at(gr));
 		}
@@ -615,7 +614,7 @@ Q3PtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		double maxx = -99999.9;
 		double maxy = -99999.9;
 		elements.append(neu);
-		for (uint gr = 0; gr < cElements.count(); ++gr)
+		for (int gr = 0; gr < cElements.count(); ++gr)
 		{
 			PageItem* currItem = cElements.at(gr);
 			double lw = currItem->lineWidth() / 2.0;
@@ -663,7 +662,7 @@ Q3PtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		else
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
 //		neu->setFillTransparency(1 - gc->Opacity);
-		for (uint gr = 0; gr < cElements.count(); ++gr)
+		for (int gr = 0; gr < cElements.count(); ++gr)
 		{
 			cElements.at(gr)->Groups.push(m_Doc->GroupCounter);
 			elements.append(cElements.at(gr));
@@ -674,9 +673,9 @@ Q3PtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 	return elements;
 }
 
-Q3PtrList<PageItem> OODPlug::parseElement(const QDomElement &e)
+QList<PageItem*> OODPlug::parseElement(const QDomElement &e)
 {
-	Q3PtrList<PageItem> GElements;
+	QList<PageItem*> GElements;
 	QString STag = e.tagName();
 	if ( STag == "draw:g" )
 	{
@@ -710,10 +709,10 @@ Q3PtrList<PageItem> OODPlug::parseElement(const QDomElement &e)
 	return GElements;
 }
 
-Q3PtrList<PageItem> OODPlug::parseRect(const QDomElement &e)
+QList<PageItem*> OODPlug::parseRect(const QDomElement &e)
 {
 	OODrawStyle style;
-	Q3PtrList<PageItem> elements;
+	QList<PageItem*> elements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	double x = parseUnit(e.attribute("svg:x"));
@@ -736,10 +735,10 @@ Q3PtrList<PageItem> OODPlug::parseRect(const QDomElement &e)
 	return elements;
 }
 
-Q3PtrList<PageItem> OODPlug::parseEllipse(const QDomElement &e)
+QList<PageItem*> OODPlug::parseEllipse(const QDomElement &e)
 {
 	OODrawStyle style;
-	Q3PtrList<PageItem> elements;
+	QList<PageItem*> elements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	double x = parseUnit(e.attribute("svg:x"));
@@ -755,10 +754,10 @@ Q3PtrList<PageItem> OODPlug::parseEllipse(const QDomElement &e)
 	return elements;
 }
 
-Q3PtrList<PageItem> OODPlug::parseLine(const QDomElement &e)
+QList<PageItem*> OODPlug::parseLine(const QDomElement &e)
 {
 	OODrawStyle style;
-	Q3PtrList<PageItem> elements;
+	QList<PageItem*> elements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	double x1 = e.attribute( "svg:x1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "svg:x1" ) );
@@ -788,10 +787,10 @@ Q3PtrList<PageItem> OODPlug::parseLine(const QDomElement &e)
 	return elements;
 }
 
-Q3PtrList<PageItem> OODPlug::parsePolygon(const QDomElement &e)
+QList<PageItem*> OODPlug::parsePolygon(const QDomElement &e)
 {
 	OODrawStyle style;
-	Q3PtrList<PageItem> elements;
+	QList<PageItem*> elements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	storeObjectStyles(e);
@@ -814,10 +813,10 @@ Q3PtrList<PageItem> OODPlug::parsePolygon(const QDomElement &e)
 	return elements;
 }
 
-Q3PtrList<PageItem> OODPlug::parsePolyline(const QDomElement &e)
+QList<PageItem*> OODPlug::parsePolyline(const QDomElement &e)
 {
 	OODrawStyle style;
-	Q3PtrList<PageItem> elements;
+	QList<PageItem*> elements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	storeObjectStyles(e);
@@ -840,11 +839,11 @@ Q3PtrList<PageItem> OODPlug::parsePolyline(const QDomElement &e)
 	return elements;
 }
 
-Q3PtrList<PageItem> OODPlug::parsePath(const QDomElement &e)
+QList<PageItem*> OODPlug::parsePath(const QDomElement &e)
 {
 	OODrawStyle style;
 	FPointArray pArray;
-	Q3PtrList<PageItem> elements;
+	QList<PageItem*> elements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	storeObjectStyles(e);
@@ -891,10 +890,10 @@ Q3PtrList<PageItem> OODPlug::parsePath(const QDomElement &e)
 	return elements;
 }
 
-Q3PtrList<PageItem> OODPlug::parseTextBox(const QDomElement &e)
+QList<PageItem*> OODPlug::parseTextBox(const QDomElement &e)
 {
 	OODrawStyle style;
-	Q3PtrList<PageItem> elements;
+	QList<PageItem*> elements;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	double x = parseUnit(e.attribute("svg:x"));
@@ -912,10 +911,10 @@ Q3PtrList<PageItem> OODPlug::parseTextBox(const QDomElement &e)
 	return elements;
 }
 
-Q3PtrList<PageItem> OODPlug::parseFrame(const QDomElement &e)
+QList<PageItem*> OODPlug::parseFrame(const QDomElement &e)
 {
 	OODrawStyle oostyle;
-	Q3PtrList<PageItem> elements;
+	QList<PageItem*> elements;
 	QString drawID = e.attribute("draw:name");
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
@@ -943,9 +942,9 @@ Q3PtrList<PageItem> OODPlug::parseFrame(const QDomElement &e)
 	return elements;
 }
 
-Q3PtrList<PageItem> OODPlug::parseConnector(const QDomElement &e)
+QList<PageItem*> OODPlug::parseConnector(const QDomElement &e)
 {
-	Q3PtrList<PageItem> elements;
+	QList<PageItem*> elements;
 	if (e.hasAttribute("svg:x1") && e.hasAttribute("svg:x2") && e.hasAttribute("svg:y1") && e.hasAttribute("svg:y2"))
 	{
 		elements = parseLine(e);

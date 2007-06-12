@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QList>
 #include <Q3PtrList>
+#include <QList>
 #include <cstdlib>
 #include <qregexp.h>
 #include <qbuffer.h>
@@ -407,7 +408,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = m_Doc->docPatterns[patterns[c]];
-		for (uint em = 0; em < pa.items.count(); ++em)
+		for (int em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* item = pa.items.at(em);
 			if ((item->asImageFrame()) && (item->PicAvail) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!sep) && (farb))
@@ -429,7 +430,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		b.open( QIODevice::WriteOnly );
 		spoolStream.setDevice(&b);
 		Q3PtrStack<PageItem> groupStack;
-		for (uint em = 0; em < pa.items.count(); ++em)
+		for (int em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* item = pa.items.at(em);
 			if (item->isGroupControl)
@@ -1761,7 +1762,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 				Level2Layer(Doc, &ll, Lnr);
 				if (ll.isPrintable)
 				{
-					for (uint api = 0; api < Doc->MasterItems.count(); ++api)
+					for (int api = 0; api < Doc->MasterItems.count(); ++api)
 					{
 						QString tmps;
 						PageItem *it = Doc->MasterItems.at(api);
@@ -1866,7 +1867,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 					Level2Layer(Doc, &ll, Lnr);
 					if (ll.isPrintable)
 					{
-						for (uint am = 0; am < Doc->Pages->at(a)->FromMaster.count(); ++am)
+						for (int am = 0; am < Doc->Pages->at(a)->FromMaster.count(); ++am)
 						{
 							QString tmps;
 							PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
@@ -2056,7 +2057,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							}
 						}
 					}
-					for (uint am = 0; am < Doc->Pages->at(a)->FromMaster.count(); ++am)
+					for (int am = 0; am < Doc->Pages->at(a)->FromMaster.count(); ++am)
 					{
 						PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
 						if (!ite->isTableItem)
@@ -2629,9 +2630,9 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						PS_translate(0, -c->BaseOffs);
 					if (style.scaleH() != 1000)
 						PS_scale(style.scaleH() / 1000.0, 1);
-					Q3PtrList<PageItem> emG = hl->embedded.getGroupedItems();
+					QList<PageItem*> emG = hl->embedded.getGroupedItems();
 					Q3PtrStack<PageItem> groupStack;
-					for (uint em = 0; em < emG.count(); ++em)
+					for (int em = 0; em < emG.count(); ++em)
 					{
 						PageItem* embedded = emG.at(em);
 						if (embedded->isGroupControl)
@@ -2819,12 +2820,12 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 
 void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb, bool ic, bool gcr)
 {
-	uint b;
+	int b;
 	int h, s, v, k;
 	QByteArray chstrc;
 	QString chstr, chglyph, tmp;
 	PageItem *c;
-	Q3PtrList<PageItem> PItems;
+	QList<PageItem*> PItems;
 	Q3PtrStack<PageItem> groupStack;
 	int Lnr = 0;
 	struct Layer ll;
@@ -3641,9 +3642,9 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	*/
 	if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 	{
-		Q3PtrList<PageItem> emG = hl->embedded.getGroupedItems();
+		QList<PageItem*> emG = hl->embedded.getGroupedItems();
 		Q3PtrStack<PageItem> groupStack;
-		for (uint em = 0; em < emG.count(); ++em)
+		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
 			if (embedded->isGroupControl)

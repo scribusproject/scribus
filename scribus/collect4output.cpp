@@ -176,7 +176,7 @@ bool CollectForOutput::collectItems()
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = m_Doc->docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			processItem(pa.items.at(o));
 		}

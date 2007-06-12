@@ -57,6 +57,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCloseEvent>
 #include <QWidgetAction>
 #include <QMenu>
+#include <QList>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -101,7 +102,7 @@ public:
 	void copyStyledText();
 
 	StoryText StyledText;
-	Q3PtrList<PageItem> FrameItems;
+	QList<PageItem*> FrameItems;
 	ScribusDoc* doc;
 	bool unicodeTextEditMode;
 	bool wasMod;

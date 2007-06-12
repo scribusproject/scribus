@@ -232,7 +232,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 			int firstElem = -1;
 			if (Elements.at(0)->Groups.count() != 0)
 				firstElem = Elements.at(0)->Groups.top();
-			for (uint bx = 0; bx < Elements.count(); ++bx)
+			for (int bx = 0; bx < Elements.count(); ++bx)
 			{
 				PageItem* bxi = Elements.at(bx);
 				if (bxi->Groups.count() != 0)
@@ -251,7 +251,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				double maxy = -99999.9;
 				uint lowestItem = 999999;
 				uint highestItem = 0;
-				for (uint a = 0; a < Elements.count(); ++a)
+				for (int a = 0; a < Elements.count(); ++a)
 				{
 					Elements.at(a)->Groups.push(m_Doc->GroupCounter);
 					PageItem* currItem = Elements.at(a);
@@ -288,14 +288,14 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				double gh = maxy - miny;
 				PageItem *high = m_Doc->Items->at(highestItem);
 				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
-				PageItem *neu = m_Doc->Items->take(z);
+				PageItem *neu = m_Doc->Items->takeAt(z);
 				m_Doc->Items->insert(lowestItem, neu);
 				neu->Groups.push(m_Doc->GroupCounter);
 				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
 				neu->isGroupControl = true;
 				neu->groupsLastItem = high;
 				neu->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
-				for (uint a = 0; a < m_Doc->Items->count(); ++a)
+				for (int a = 0; a < m_Doc->Items->count(); ++a)
 				{
 					m_Doc->Items->at(a)->ItemNr = a;
 				}
@@ -315,7 +315,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				m_Doc->setLoading(false);
 				m_Doc->changed();
 				m_Doc->setLoading(loadF);
-				for (uint dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<Elements.count(); ++dre)
 				{
 					m_Doc->m_Selection->addItem(Elements.at(dre), true);
 				}
@@ -327,7 +327,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				m_Doc->DragP = true;
 				m_Doc->DraggedElem = 0;
 				m_Doc->DragElements.clear();
-				for (uint dre=0; dre<Elements.count(); ++dre)
+				for (int dre=0; dre<Elements.count(); ++dre)
 				{
 					m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 					tmpSel->addItem(Elements.at(dre), true);
@@ -554,7 +554,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			tmp = ts.readLine();
 			if (progressDialog && (++line_cnt % 100 == 0)) {
 				int fPos = f.at();
-				int progress = ceil(fPos / (double) fSize * 100);
+				int progress = static_cast<int>(ceil(fPos / (double) fSize * 100));
 				if (progress > fProgress)
 				{
 					progressDialog->setProgress("GI", fPos);
@@ -748,7 +748,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					if (gsStack.count() < static_cast<int>(gsStackMarks.top()))
 					{
 						PageItem *ite = groupStack.pop();
-						uint count = elemCount.pop();
+						int count = elemCount.pop();
 						if (count == Elements.count())
 						{
 							m_Doc->Items->removeLast();
@@ -839,7 +839,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			while (!groupStack.isEmpty())
 			{
 				PageItem *ite = groupStack.pop();
-				uint count = elemCount.pop();
+				int count = elemCount.pop();
 				if (count == Elements.count())
 				{
 					m_Doc->Items->removeLast();

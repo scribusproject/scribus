@@ -164,11 +164,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
-	Q3PtrList<PageItem> TableItems;
+	QList<PageItem*> TableItems;
 	QMap<int,int> TableIDM;
-	Q3PtrList<PageItem> TableItemsM;
+	QList<PageItem*> TableItemsM;
 	QMap<int,int> TableIDF;
-	Q3PtrList<PageItem> TableItemsF;
+	QList<PageItem*> TableItemsF;
 	QMap<PageItem*, int> groupID;
 	QMap<PageItem*, int> groupIDM;
 	QMap<PageItem*, int> groupIDF;
@@ -1083,7 +1083,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
-						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
+						m_Doc->FrameItems.append(m_Doc->Items->takeAt(Neu->ItemNr));
 						Neu->ItemNr = m_Doc->FrameItems.count()-1;
 					}
 					if (Neu->isTableItem)
@@ -1133,7 +1133,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				uint elem = pg.attribute("Element").toInt();
+				int elem = pg.attribute("Element").toInt();
 				if (elem < m_Doc->Items->count())
 				{
 					bok.Title = pg.attribute("Title");
@@ -1153,7 +1153,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				QMap<PageItem*, int> groupID2;
 				QMap<int,int> TableID2;
-				Q3PtrList<PageItem> TableItems2;
+				QList<PageItem*> TableItems2;
 				ScPattern pat;
 				QDomNode pa = PAGE.firstChild();
 				uint ac = m_Doc->Items->count();
@@ -1289,7 +1289,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 				if (TableItems2.count() != 0)
 				{
-					for (uint ttc = 0; ttc < TableItems2.count(); ++ttc)
+					for (int ttc = 0; ttc < TableItems2.count(); ++ttc)
 					{
 						PageItem* ta = TableItems2.at(ttc);
 						if (ta->TopLinkID != -1)
@@ -1318,7 +1318,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				pat.pattern = currItem->DrawObj_toImage();
 				for (uint as = ac; as < ae; ++as)
 				{
-					Neu = m_Doc->Items->take(ac);
+					Neu = m_Doc->Items->takeAt(ac);
 					Neu->ItemNr = pat.items.count();
 					pat.items.append(Neu);
 				}
@@ -1334,7 +1334,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 	if (TableItemsF.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItemsF.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
 		{
 			PageItem* ta = TableItemsF.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -1357,7 +1357,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 	if (TableItemsM.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItemsM.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
 		{
 			PageItem* ta = TableItemsM.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -1380,7 +1380,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 	if (TableItems.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -2518,7 +2518,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
-	Q3PtrList<PageItem> TableItems;
+	QList<PageItem*> TableItems;
 	QMap<PageItem*, int> groupID;
 	int a, counter, baseobj;
 	double pageX = 0, pageY = 0;
@@ -2926,7 +2926,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
-						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
+						m_Doc->FrameItems.append(m_Doc->Items->takeAt(Neu->ItemNr));
 						Neu->ItemNr = m_Doc->FrameItems.count()-1;
 					}
 				}
@@ -2940,7 +2940,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				uint elem = pg.attribute("Element").toInt();
+				int elem = pg.attribute("Element").toInt();
 				if (elem < m_Doc->Items->count())
 				{
 					bok.Title = pg.attribute("Title");
@@ -3086,7 +3086,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				pat.pattern = currItem->DrawObj_toImage();
 				for (uint as = ac; as < ae; ++as)
 				{
-					Neu = m_Doc->Items->take(ac);
+					Neu = m_Doc->Items->takeAt(ac);
 					Neu->ItemNr = pat.items.count();
 					pat.items.append(Neu);
 				}
@@ -3102,7 +3102,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	}
 	if (TableItems.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -3140,7 +3140,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		{
 			if (itemRemap[lc.data()] >= 0)
 			{
-				if ((static_cast<uint>(lc.key()) < m_Doc->Items->count()) && (static_cast<uint>(itemRemap[lc.data()]) < m_Doc->Items->count()))
+				if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.data()] < m_Doc->Items->count()))
 				{
 					PageItem * Its = m_Doc->DocItems.at(lc.key());
 					PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.data()]);
@@ -3161,7 +3161,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		{
 			if (itemRemapM[lc.data()] >= 0)
 			{
-				if ((static_cast<uint>(lc.key()) < m_Doc->MasterItems.count()) && (static_cast<uint>(itemRemapM[lc.data()]) < m_Doc->MasterItems.count()))
+				if ((lc.key() < m_Doc->MasterItems.count()) && (itemRemapM[lc.data()] < m_Doc->MasterItems.count()))
 				{
 					PageItem * Its = m_Doc->MasterItems.at(lc.key());
 					PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.data()]);

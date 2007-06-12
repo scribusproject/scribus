@@ -94,7 +94,7 @@ private:
 	QString parseColor(QString vals, bool eps, colorModel model = colorModelCMYK);
 	bool Image(QString vals);
 	
-	Q3PtrList<PageItem> Elements;
+	QList<PageItem*> Elements;
 	ColorList CustColors;
 	double LineW, Opacity, DashOffset, baseX, baseY;
 	QList<double> DashPattern;

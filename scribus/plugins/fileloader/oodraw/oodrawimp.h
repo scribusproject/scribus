@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <qobject.h>
 #include <q3dict.h>
-#include <q3ptrlist.h>
 //Added by qt3to4:
 #include <QList>
 #include "pluginapi.h"
@@ -107,17 +106,17 @@ public:
 protected:
 
 	bool convert(int flags);
-	Q3PtrList<PageItem> parseGroup(const QDomElement &e);
-	Q3PtrList<PageItem> parseElement(const QDomElement &e);
-	Q3PtrList<PageItem> parseRect(const QDomElement &e);
-	Q3PtrList<PageItem> parseEllipse(const QDomElement &e);
-	Q3PtrList<PageItem> parseLine(const QDomElement &e);
-	Q3PtrList<PageItem> parsePolygon(const QDomElement &e);
-	Q3PtrList<PageItem> parsePolyline(const QDomElement &e);
-	Q3PtrList<PageItem> parsePath(const QDomElement &e);
-	Q3PtrList<PageItem> parseTextBox(const QDomElement &e);
-	Q3PtrList<PageItem> parseFrame(const QDomElement &e);
-	Q3PtrList<PageItem> parseConnector(const QDomElement &e);
+	QList<PageItem*> parseGroup(const QDomElement &e);
+	QList<PageItem*> parseElement(const QDomElement &e);
+	QList<PageItem*> parseRect(const QDomElement &e);
+	QList<PageItem*> parseEllipse(const QDomElement &e);
+	QList<PageItem*> parseLine(const QDomElement &e);
+	QList<PageItem*> parsePolygon(const QDomElement &e);
+	QList<PageItem*> parsePolyline(const QDomElement &e);
+	QList<PageItem*> parsePath(const QDomElement &e);
+	QList<PageItem*> parseTextBox(const QDomElement &e);
+	QList<PageItem*> parseFrame(const QDomElement &e);
+	QList<PageItem*> parseConnector(const QDomElement &e);
 	void parseStyle(OODrawStyle& style, const QDomElement &e);
 	void parseCharStyle(CharStyle& style, const QDomElement &e);
 	void parseParagraphStyle(ParagraphStyle& style, const QDomElement &e);

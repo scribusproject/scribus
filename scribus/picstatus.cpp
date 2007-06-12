@@ -112,8 +112,9 @@ void PicStatus::fillTable()
 	QPixmap pm(128, 128);
 	QPainter p;
 	imageViewArea->clear();
-	for (item = m_Doc->MasterItems.first(); item; item = m_Doc->MasterItems.next())
+	for (int it = 0; it < m_Doc->MasterItems.count(); ++it)
 	{
+		item = m_Doc->MasterItems.at(it);
 		QFileInfo fi = QFileInfo(item->Pfile);
 		if (item->itemType() == PageItem::ImageFrame)
 		{
@@ -121,8 +122,9 @@ void PicStatus::fillTable()
 			ite->setDragEnabled(false);
 		}
 	}
-	for (item = m_Doc->Items->first(); item; item = m_Doc->Items->next())
+	for (int it = 0; it < m_Doc->Items->count(); ++it)
 	{
+		item = m_Doc->Items->at(it);
 		QFileInfo fi = QFileInfo(item->Pfile);
 		if (item->itemType() == PageItem::ImageFrame)
 		{

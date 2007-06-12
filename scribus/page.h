@@ -87,7 +87,7 @@ public:
 	implementation, but in this case it at least lets us guarantee the rest
 	of the object is unchanged in (eg) pdflib. This should be replaced with
 	proper access methods later. */
-	mutable Q3PtrList<PageItem> FromMaster;
+	mutable QList<PageItem*> FromMaster;
 	//! \brief Guides lists and basic operations
 	GuideManagerCore guides;
 

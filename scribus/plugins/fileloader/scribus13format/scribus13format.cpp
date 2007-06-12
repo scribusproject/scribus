@@ -164,11 +164,11 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QFont fo;
 	QMap<int,int> TableID;
-	Q3PtrList<PageItem> TableItems;
+	QList<PageItem*> TableItems;
 	QMap<int,int> TableIDM;
-	Q3PtrList<PageItem> TableItemsM;
+	QList<PageItem*> TableItemsM;
 	QMap<int,int> TableIDF;
-	Q3PtrList<PageItem> TableItemsF;
+	QList<PageItem*> TableItemsF;
 	int a;
 	PageItem *Neu;
 	Page* Apage;
@@ -964,7 +964,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						m_Doc->LastAuto = Neu;
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
-						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
+						m_Doc->FrameItems.append(m_Doc->Items->takeAt(Neu->ItemNr));
 						Neu->ItemNr = m_Doc->FrameItems.count()-1;
 					}
 					if (Neu->isTableItem)
@@ -1009,7 +1009,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				uint elem = pg.attribute("Element").toInt();
+				int elem = pg.attribute("Element").toInt();
 				if (elem < m_Doc->Items->count())
 				{
 					bok.Title = pg.attribute("Title");
@@ -1031,7 +1031,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	}
 	if (TableItemsF.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItemsF.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItemsF.count(); ++ttc)
 		{
 			PageItem* ta = TableItemsF.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -1054,7 +1054,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	}
 	if (TableItemsM.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItemsM.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItemsM.count(); ++ttc)
 		{
 			PageItem* ta = TableItemsM.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -1077,7 +1077,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	}
 	if (TableItems.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -2512,7 +2512,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	ReplacedFonts.clear();
 	newReplacement = false;
 	QMap<int,int> TableID;
-	Q3PtrList<PageItem> TableItems;
+	QList<PageItem*> TableItems;
 	int a, counter, baseobj;
 	double pageX = 0, pageY = 0;
 	bool newVersion = false;
@@ -2854,7 +2854,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
-						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
+						m_Doc->FrameItems.append(m_Doc->Items->takeAt(Neu->ItemNr));
 						Neu->ItemNr = m_Doc->FrameItems.count()-1;
 					}
 				}
@@ -2868,7 +2868,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				uint elem = pg.attribute("Element").toInt();
+				int elem = pg.attribute("Element").toInt();
 				if (elem < m_Doc->Items->count())
 				{
 					bok.Title = pg.attribute("Title");
@@ -2890,7 +2890,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	}
 	if (TableItems.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -2919,7 +2919,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		{
 			if (itemRemap[lc.data()] >= 0)
 			{
-				if ((static_cast<uint>(lc.key()) < m_Doc->Items->count()) && (static_cast<uint>(itemRemap[lc.data()]) < m_Doc->Items->count()))
+				if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.data()] < m_Doc->Items->count()))
 				{
 					PageItem * Its = m_Doc->Items->at(lc.key());
 					PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);

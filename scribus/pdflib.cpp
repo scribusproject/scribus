@@ -689,7 +689,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	size_t ar = sizeof(tmpf) / sizeof(*tmpf);
 	for (uint ax = 0; ax < ar; ++ax)
 		ind2PDFabr[ax] = tmpf[ax];
-	for (uint c = 0; c < doc.FrameItems.count(); ++c)
+	for (int c = 0; c < doc.FrameItems.count(); ++c)
 	{
 		pgit = doc.FrameItems.at(c);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
@@ -707,7 +707,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			}
 		}
 	}
-	for (uint c = 0; c < doc.MasterItems.count(); ++c)
+	for (int c = 0; c < doc.MasterItems.count(); ++c)
 	{
 		pgit = doc.MasterItems.at(c);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
@@ -725,7 +725,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			}
 		}
 	}
-	for (uint d = 0; d < doc.Items->count(); ++d)
+	for (int d = 0; d < doc.Items->count(); ++d)
 	{
 		pgit = doc.Items->at(d);
 		if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
@@ -751,7 +751,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = doc.docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			pgit = pa.items.at(o);
 			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
@@ -1515,7 +1515,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 	QString tmp;
 	ActPageP = pag;
 	PageItem* ite;
-	Q3PtrList<PageItem> PItems;
+	QList<PageItem*> PItems;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -1530,7 +1530,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 		{
 			if ((Options.Version == 15) && (Options.useLayers))
 				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
-			for (uint a = 0; a < PItems.count(); ++a)
+			for (int a = 0; a < PItems.count(); ++a)
 			{
 				Inhalt = "";
 				ite =PItems.at(a);
@@ -2449,7 +2449,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	QString tmp;
 	ActPageP = pag;
 	PageItem* ite;
-	Q3PtrList<PageItem> PItems;
+	QList<PageItem*> PItems;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -2524,7 +2524,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				{
 					if ((Options.Version == 15) && (Options.useLayers))
 						PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
-					for (uint am = 0; am < pag->FromMaster.count(); ++am)
+					for (int am = 0; am < pag->FromMaster.count(); ++am)
 					{
 						ite = pag->FromMaster.at(am);
 						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
@@ -2574,7 +2574,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							}
 						}
 					}
-					for (uint am = 0; am < pag->FromMaster.count(); ++am)
+					for (int am = 0; am < pag->FromMaster.count(); ++am)
 					{
 						ite = pag->FromMaster.at(am);
 						if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
@@ -2621,7 +2621,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 			QString inh = "";
 			if ((Options.Version == 15) && (Options.useLayers))
 				PutPage("/OC /"+OCGEntries[ll.Name].Name+" BDC\n");
-			for (uint a = 0; a < PItems.count() && !abortExport; ++a)
+			for (int a = 0; a < PItems.count() && !abortExport; ++a)
 			{
 				if (usingGUI)
 				{
@@ -2697,7 +2697,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					}
 				}
 			}
-			for (uint a = 0; a < PItems.count() && !abortExport; ++a)
+			for (int a = 0; a < PItems.count() && !abortExport; ++a)
 			{
 				if (usingGUI)
 				{
@@ -4210,9 +4210,9 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			tmp += "ET\n"+tmp2;
 			tmp2 = "";
 		}
-		Q3PtrList<PageItem> emG = embedded.getGroupedItems();
+		QList<PageItem*> emG = embedded.getGroupedItems();
 		Q3PtrStack<PageItem> groupStack;
-		for (uint em = 0; em < emG.count(); ++em)
+		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
 			if (embedded->isGroupControl)
@@ -4933,7 +4933,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		Q3PtrStack<PageItem> groupStack;
 		QString tmp2 = "";
 		ScPattern *pat = &doc.docPatterns[currItem->pattern()];
-		for (uint em = 0; em < pat->items.count(); ++em)
+		for (int em = 0; em < pat->items.count(); ++em)
 		{
 			PageItem* item = pat->items.at(em);
 			if (item->isGroupControl)
@@ -6736,7 +6736,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 	Threads.clear();
 	if (Options.Articles)
 	{
-		for (uint ele = 0; ele < doc.Items->count(); ++ele)
+		for (int ele = 0; ele < doc.Items->count(); ++ele)
 		{
 			PageItem* tel = doc.Items->at(ele);
 			if ((tel->asTextFrame()) && (tel->prevInChain() == 0) && (tel->nextInChain() != 0) &&
@@ -6800,7 +6800,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 				}
 			}
 		}
-		for (uint ele = 0; ele < doc.Items->count(); ++ele)
+		for (int ele = 0; ele < doc.Items->count(); ++ele)
 			doc.Items->at(ele)->inPdfArticle = false;
 	}
 	XRef[7] = bytesWritten();

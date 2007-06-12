@@ -106,7 +106,7 @@ public:
 	bool hasItem();
 	bool isShared();
 	PageItem* getItem();
-	Q3PtrList<PageItem> getGroupedItems();
+	QList<PageItem*> getGroupedItems();
 private:
 	InlineFrameData* d;
 };

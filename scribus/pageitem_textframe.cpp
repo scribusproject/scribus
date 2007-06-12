@@ -128,7 +128,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				return result;
 			Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
 			Dp = m_Doc->Pages->at(savedOwnPage);
-			for (uint a = 0; a < m_Doc->MasterItems.count(); ++a)
+			for (int a = 0; a < m_Doc->MasterItems.count(); ++a)
 			{
 				docItem = m_Doc->MasterItems.at(a);
 				LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);

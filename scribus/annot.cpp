@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3VBoxLayout>
 #include <Q3Frame>
 #include <QTextEdit>
+#include <QList>
 #include "colorlistbox.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -1119,7 +1120,7 @@ void Annot::NewName()
 		return;
 	}
 	bool found = false;
-	for (uint b = 0; b < view->Doc->Items->count(); ++b)
+	for (int b = 0; b < view->Doc->Items->count(); ++b)
 	{
 		if ((NameNew == view->Doc->Items->at(b)->itemName()) && (view->Doc->Items->at(b) != item))
 		{

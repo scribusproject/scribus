@@ -1181,13 +1181,13 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 		return;
 	if (!m_Doc->DoDrawing)
 		return;
-	Q3PtrList<PageItem> emG;
+	QList<PageItem*> emG;
 	Q3PtrStack<PageItem> groupStack;
 	emG.clear();
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
 	{
-		for (uint ga=0; ga<m_Doc->FrameItems.count(); ++ga)
+		for (int ga=0; ga<m_Doc->FrameItems.count(); ++ga)
 		{
 			if (m_Doc->FrameItems.at(ga)->Groups.count() != 0)
 			{
@@ -1195,14 +1195,14 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 				{
 					if (m_Doc->FrameItems.at(ga)->ItemNr != cembedded->ItemNr)
 					{
-						if (emG.find(m_Doc->FrameItems.at(ga)) == -1)
+						if (!emG.contains(m_Doc->FrameItems.at(ga)))
 							emG.append(m_Doc->FrameItems.at(ga));
 					}
 				}
 			}
 		}
 	}
-	for (uint em = 0; em < emG.count(); ++em)
+	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
 		p->save();
@@ -1378,7 +1378,7 @@ void PageItem::paintObj(QPainter *p)
 
 QImage PageItem::DrawObj_toImage()
 {
-	Q3PtrList<PageItem> emG;
+	QList<PageItem*> emG;
 	emG.clear();
 	double minx = 99999.9;
 	double miny = 99999.9;
@@ -1386,13 +1386,13 @@ QImage PageItem::DrawObj_toImage()
 	double maxy = -99999.9;
 	if (Groups.count() != 0)
 	{
-		for (uint ga=0; ga<m_Doc->Items->count(); ++ga)
+		for (int ga=0; ga<m_Doc->Items->count(); ++ga)
 		{
 			if (m_Doc->Items->at(ga)->Groups.count() != 0)
 			{
 				if (m_Doc->Items->at(ga)->Groups.top() == Groups.top())
 				{
-					if (emG.find(m_Doc->Items->at(ga)) == -1)
+					if (!emG.contains(m_Doc->Items->at(ga)))
 					{
 						emG.append(m_Doc->Items->at(ga));
 						PageItem *currItem = m_Doc->Items->at(ga);
@@ -1422,7 +1422,7 @@ QImage PageItem::DrawObj_toImage()
 				}
 			}
 		}
-		for (uint em = 0; em < emG.count(); ++em)
+		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* currItem = emG.at(em);
 			currItem->gXpos = currItem->xPos() - minx;
@@ -1464,7 +1464,7 @@ QImage PageItem::DrawObj_toImage()
 	return DrawObj_toImage(emG);
 }
 
-QImage PageItem::DrawObj_toImage(Q3PtrList<PageItem> &emG)
+QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 {
 	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), QImage::Format_ARGB32);
 	retImg.fill( qRgba(255, 255, 255, 0) );

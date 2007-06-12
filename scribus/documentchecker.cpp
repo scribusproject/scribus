@@ -74,7 +74,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if (layerError.count() != 0)
 			currDoc->docLayerErrors.insert(ll.LNr, layerError);
 	}
-	for (uint d = 0; d < currDoc->MasterItems.count(); ++d)
+	for (int d = 0; d < currDoc->MasterItems.count(); ++d)
 	{
 		currItem = currDoc->MasterItems.at(d);
 		if (!currItem->printEnabled())
@@ -192,7 +192,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if (itemError.count() != 0)
 			currDoc->masterItemErrors.insert(currItem->ItemNr, itemError);
 	}
-	for (uint d = 0; d < currDoc->DocItems.count(); ++d)
+	for (int d = 0; d < currDoc->DocItems.count(); ++d)
 	{
 		currItem = currDoc->DocItems.at(d);
 		if (!currItem->printEnabled())

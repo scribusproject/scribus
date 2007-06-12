@@ -1268,7 +1268,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if (doc->SubMode != -1)
 					{
 						view->Deselect(false);
-						doc->Items->remove(currItem->ItemNr);
+						doc->Items->removeAt(currItem->ItemNr);
 					}
 					else
 						view->Deselect(false);
@@ -1288,7 +1288,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if (currItem->PoLine.size() < 4)
 					{
 						view->Deselect(false);
-						doc->Items->remove(currItem->ItemNr);
+						doc->Items->removeAt(currItem->ItemNr);
 					}
 					else
 					{
@@ -1304,7 +1304,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					break;
 				default:
 					view->Deselect(false);
-					doc->Items->remove(currItem->ItemNr);
+					doc->Items->removeAt(currItem->ItemNr);
 					break;
 			}
 		}
@@ -3329,7 +3329,7 @@ void ScribusMainWindow::pasteRecent(QString fn)
 	slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
-	for (uint as = ac; as < doc->Items->count(); ++as)
+	for (int as = ac; as < doc->Items->count(); ++as)
 	{
 		PageItem* currItem = doc->Items->at(as);
 		if (currItem->isBookmark)
@@ -3834,7 +3834,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->setMasterPageMode(true);
 		doc->reformPages();
 		doc->setLoading(false);
-		for (uint azz=0; azz<doc->MasterItems.count(); ++azz)
+		for (int azz=0; azz<doc->MasterItems.count(); ++azz)
 		{
 			PageItem *ite = doc->MasterItems.at(azz);
 			// TODO fix that for Groups on Masterpages
@@ -3845,8 +3845,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 //		RestoreBookMarks();
 		doc->setMasterPageMode(false);
-		uint docItemsCount=doc->Items->count();
-		for (uint azz=0; azz<docItemsCount; ++azz)
+		int docItemsCount=doc->Items->count();
+		for (int azz=0; azz<docItemsCount; ++azz)
 		{
 			PageItem *ite = doc->Items->at(azz);
 			//CB dont need this as we get it from the loading page in 1.2.x docs. 1.3.x items have this anyway.
@@ -3871,7 +3871,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 					bookmarkPalette->BView->ChangeItem(ite->BMnr, ite->ItemNr);
 			} */
 		}
-		for (uint azz=0; azz<doc->FrameItems.count(); ++azz)
+		for (int azz=0; azz<doc->FrameItems.count(); ++azz)
 		{
 			PageItem *ite = doc->FrameItems.at(azz);
 //			qDebug(QString("load F: %1 %2 %3").arg(azz).arg((uint)ite).arg(ite->itemType()));
@@ -3998,7 +3998,7 @@ void ScribusMainWindow::slotGetContent()
 			delete gt;
 			if (doc->docHyphenator->AutoCheck)
 				doc->docHyphenator->slotHyphenate(currItem);
-			for (uint a = 0; a < doc->Items->count(); ++a)
+			for (int a = 0; a < doc->Items->count(); ++a)
 			{
 				if (doc->Items->at(a)->isBookmark)
 					bookmarkPalette->BView->ChangeText(doc->Items->at(a));
@@ -4022,7 +4022,7 @@ void ScribusMainWindow::slotGetContent2() // kk2006
 	ScGTPluginManager::instance()->run();
 	if (doc->docHyphenator->AutoCheck)
 		doc->docHyphenator->slotHyphenate(currItem);
-	for (uint a = 0; a < doc->Items->count(); ++a)
+	for (int a = 0; a < doc->Items->count(); ++a)
 	{
 		if (doc->Items->at(a)->isBookmark)
 			bookmarkPalette->BView->ChangeText(doc->Items->at(a));
@@ -4219,19 +4219,19 @@ bool ScribusMainWindow::DoFileClose()
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
-	for (uint a = 0; a < doc->DocItems.count(); ++a)
+	for (int a = 0; a < doc->DocItems.count(); ++a)
 	{
 		PageItem *currItem = doc->DocItems.at(a);
 		if (currItem->PicAvail)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 	}
-	for (uint a = 0; a < doc->MasterItems.count(); ++a)
+	for (int a = 0; a < doc->MasterItems.count(); ++a)
 	{
 		PageItem *currItem = doc->MasterItems.at(a);
 		if (currItem->PicAvail)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 	}
-	for (uint a = 0; a < doc->FrameItems.count(); ++a)
+	for (int a = 0; a < doc->FrameItems.count(); ++a)
 	{
 		PageItem *currItem = doc->FrameItems.at(a);
 		if (currItem->PicAvail)
@@ -4241,7 +4241,7 @@ bool ScribusMainWindow::DoFileClose()
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern pa = doc->docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *currItem = pa.items.at(o);
 			if (currItem->PicAvail)
@@ -4985,7 +4985,7 @@ void ScribusMainWindow::slotEditPaste()
 			{
 				bool savedAlignGrid = doc->useRaster;
 				bool savedAlignGuides = doc->SnapGuides;
-				uint ac = doc->Items->count();
+				int ac = doc->Items->count();
 				bool isGroup = false;
 				double gx, gy, gh, gw;
 				FPoint minSize = doc->minCanvasCoordinate;
@@ -5009,7 +5009,7 @@ void ScribusMainWindow::slotEditPaste()
 				doc->m_Selection->clear();
 				if (doc->Items->count() - ac > 1)
 					isGroup = true;
-				for (uint as = ac; as < doc->Items->count(); ++as)
+				for (int as = ac; as < doc->Items->count(); ++as)
 				{
 					doc->m_Selection->addItem(doc->Items->at(as));
 					if (isGroup)
@@ -5020,7 +5020,7 @@ void ScribusMainWindow::slotEditPaste()
 				doc->m_Selection->setGroupRect();
 				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				PageItem* currItem3 = doc->Items->at(ac);
-				for (uint as = ac; as < doc->Items->count(); ++as)
+				for (int as = ac; as < doc->Items->count(); ++as)
 				{
 					PageItem* currItem2 = doc->Items->at(as);
 					currItem2->isEmbedded = true;
@@ -5033,10 +5033,10 @@ void ScribusMainWindow::slotEditPaste()
 					currItem2->ItemNr = doc->FrameItems.count();
 					doc->FrameItems.append(currItem2);
 				}
-				uint acc = doc->Items->count();
-				for (uint as = ac; as < acc; ++as)
+				int acc = doc->Items->count();
+				for (int as = ac; as < acc; ++as)
 				{
-					doc->Items->take(ac);
+					doc->Items->takeAt(ac);
 				}
 				doc->m_Selection->clear();
 				//doc->m_Selection->restoreFromTempList(0, tempList);
@@ -5099,7 +5099,7 @@ void ScribusMainWindow::slotEditPaste()
 								
 				doc->useRaster = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
-				for (uint as = ac; as < doc->Items->count(); ++as)
+				for (int as = ac; as < doc->Items->count(); ++as)
 				{
 					PageItem* currItem = doc->Items->at(as);
 					if (currItem->isBookmark)
@@ -5610,7 +5610,7 @@ void ScribusMainWindow::TogglePics()
 	if (doc)
 	{
 		doc->guidesSettings.showPic = !doc->guidesSettings.showPic;
-		for (uint b=0; b<doc->Items->count(); ++b)
+		for (int b=0; b<doc->Items->count(); ++b)
 		{
 			if (doc->Items->at(b)->asImageFrame())
 				doc->Items->at(b)->setImageShown(doc->guidesSettings.showPic);
@@ -6349,7 +6349,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 /*	if (!doc->masterPageMode)
 		disconnect(doc->currentPage, SIGNAL(DelObj(uint, uint)), outlinePalette, SLOT(slotRemoveElement(uint, uint))); */
 	doc->m_Selection->clear();
-	for (uint d = 0; d < doc->Items->count(); ++d)
+	for (int d = 0; d < doc->Items->count(); ++d)
 	{
 		ite = doc->Items->at(d);
 		if (ite->OwnPage == pg)
@@ -6431,7 +6431,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	Selection tmpSelection(this, false);
 	for (int a = to - 1; a >= from - 1; a--)
 	{
-		for (uint d = 0; d < doc->Items->count(); ++d)
+		for (int d = 0; d < doc->Items->count(); ++d)
 		{
 			ite = doc->Items->at(d);
 			if (ite->OwnPage == a)
@@ -7432,7 +7432,7 @@ void ScribusMainWindow::ObjektDupM()
 
 void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite)
 {
-	int d = doc->Items->findRef(ite);
+	int d = doc->Items->indexOf(ite);
 	selectItemsFromOutlines(ite->OwnPage, d, true);
 }
 
@@ -8381,7 +8381,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia, Selection* customSelection)
 		PageItem *high = doc->Items->at(highestItem);
 		undoManager->setUndoEnabled(false);
 		int z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, doc->toolSettings.dBrush, doc->toolSettings.dPen, true);
-		PageItem *neu = doc->Items->take(z);
+		PageItem *neu = doc->Items->takeAt(z);
 		doc->Items->insert(lowestItem, neu);
 		neu->setItemName( tr("Group%1").arg(doc->GroupCounter));
 		neu->AutoName = false;
@@ -8394,8 +8394,8 @@ void ScribusMainWindow::GroupObj(bool showLockDia, Selection* customSelection)
 		{
 			currItem = itemSelection->itemAt(c);
 			ObjOrder.insert(currItem->ItemNr, c);
-			int d = doc->Items->findRef(currItem);
-			doc->Items->take(d);
+			int d = doc->Items->indexOf(currItem);
+			doc->Items->takeAt(d);
 		}
 		QList<uint> Oindex = ObjOrder.values();
 		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
@@ -8447,7 +8447,7 @@ void ScribusMainWindow::UnGroupObj(Selection* customSelection)
 			if (doc->Items->at(lowestItem)->isGroupControl)
 			{
 				itemSelection->removeItem(doc->Items->at(lowestItem));
-				doc->Items->remove(lowestItem);
+				doc->Items->removeAt(lowestItem);
 				doc->renumberItemsInListOrder();
 			}
 			docSelectionCount = itemSelection->count();
@@ -9591,7 +9591,7 @@ void ScribusMainWindow::PutToPatterns()
 	patternName = patternName.stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	QString objectString = ss->WriteElem(doc, view, doc->m_Selection);
-	uint ac = doc->Items->count();
+	int ac = doc->Items->count();
 	uint oldNum = doc->TotalItems;
 	bool savedAlignGrid = doc->useRaster;
 	bool savedAlignGuides = doc->SnapGuides;
@@ -9600,16 +9600,16 @@ void ScribusMainWindow::PutToPatterns()
 	slotElemRead(objectString, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
-	uint ae = doc->Items->count();
+	int ae = doc->Items->count();
 	ScPattern pat = ScPattern();
 	pat.setDoc(doc);
 	PageItem* currItem = doc->Items->at(ac);
 	pat.pattern = currItem->DrawObj_toImage();
 	pat.width = currItem->gWidth;
 	pat.height = currItem->gHeight;
-	for (uint as = ac; as < ae; ++as)
+	for (int as = ac; as < ae; ++as)
 	{
-		pat.items.append(doc->Items->take(ac));
+		pat.items.append(doc->Items->takeAt(ac));
 	}
 	doc->addPattern(patternName, pat);
 	propertiesPalette->updateColorList();

@@ -212,7 +212,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	bool newVersion = false;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
-	Q3PtrList<PageItem> TableItems;
+	QList<PageItem*> TableItems;
 	int x, a;
 //	double xf, xf2;
 	PageItem *Neu;
@@ -651,7 +651,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				}
 				if (TableItems.count() != 0)
 				{
-					for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+					for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 					{
 						PageItem* ta = TableItems.at(ttc);
 						if (ta->TopLinkID != -1)
@@ -682,7 +682,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				uint elem = pg.attribute("Element").toInt();
+				int elem = pg.attribute("Element").toInt();
 				if (elem < m_Doc->Items->count())
 				{
 					bok.Title = pg.attribute("Title");
@@ -963,7 +963,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	itemNext.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
 	QMap<int,int> TableID;
-	Q3PtrList<PageItem> TableItems;
+	QList<PageItem*> TableItems;
 	int x, a, counter, baseobj;
 	bool newVersion = false;
 	bool VorLFound = false;
@@ -1259,7 +1259,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				}
 				if (TableItems.count() != 0)
 				{
-					for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+					for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 					{
 						PageItem* ta = TableItems.at(ttc);
 						if (ta->TopLinkID != -1)
@@ -1307,7 +1307,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					QDomElement pg=PAGE.toElement();
 					if(pg.tagName()=="Bookmark")
 					{
-						uint elem = pg.attribute("Element").toInt();
+						int elem = pg.attribute("Element").toInt();
 						if (elem < m_Doc->Items->count())
 						{
 							bok.Title = pg.attribute("Title");

@@ -277,7 +277,7 @@ void PatternDialog::loadVectors(QString data)
 	pat.height = currItem->gHeight;
 	for (uint as = ac; as < ae; ++as)
 	{
-		pat.items.append(m_doc->Items->take(ac));
+		pat.items.append(m_doc->Items->takeAt(ac));
 	}
 	if (!dialogPatterns.contains(patNam))
 	{
@@ -342,7 +342,7 @@ QStringList PatternDialog::getUsedPatternsHelper(QString pattern, QStringList &r
 	ScPattern *pat = &dialogPatterns[pattern];
 	QStringList pats;
 	pats.clear();
-	for (uint c = 0; c < pat->items.count(); ++c)
+	for (int c = 0; c < pat->items.count(); ++c)
 	{
 		if ((!results.contains(pat->items.at(c)->pattern())) && (pat->items.at(c)->GrType == 8))
 			pats.append(pat->items.at(c)->pattern());

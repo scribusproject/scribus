@@ -665,7 +665,7 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect&
 {
 	if (!cembedded)
 		return;
-	Q3PtrList<PageItem> emG;
+	QList<PageItem*> emG;
 	Q3PtrStack<PageItem> groupStack;
 	emG.clear();
 	emG.append(cembedded);
@@ -679,14 +679,14 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect&
 				{
 					if (m_doc->FrameItems.at(ga)->ItemNr != cembedded->ItemNr)
 					{
-						if (emG.find(m_doc->FrameItems.at(ga)) == -1)
+						if (!emG.contains(m_doc->FrameItems.at(ga)))
 							emG.append(m_doc->FrameItems.at(ga));
 					}
 				}
 			}
 		}
 	}
-	for (uint em = 0; em < emG.count(); ++em)
+	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
 		p->save();

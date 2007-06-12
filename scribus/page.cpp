@@ -57,14 +57,14 @@ Page::Page(const double x, const double y, const double b, const double h) :
 Page::~Page()
 {
 	// Clean up any modified template items (unused)
-	for (PageItem *currItem = FromMaster.first(); currItem; currItem = FromMaster.next())
-	{
-		if (currItem->ChangedMasterItem)
-		{
-			FromMaster.remove(currItem);
-			delete currItem;
-		}
-	}
+//	for (PageItem *currItem = FromMaster.first(); currItem; currItem = FromMaster.next())
+//	{
+//		if (currItem->ChangedMasterItem)
+//		{
+//			FromMaster.remove(currItem);
+//			delete currItem;
+//		}
+//	}
 	FromMaster.clear();
 }
 
@@ -294,7 +294,7 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 	m_Doc->setMasterPageMode(!oldItem->OnMasterPage.isEmpty());
 	if (isUndo)
 	{
-		m_Doc->Items->take(newItem->ItemNr);
+		m_Doc->Items->takeAt(newItem->ItemNr);
 		m_Doc->Items->append(oldItem);
 		oldItem->ItemNr = m_Doc->Items->count()-1;
 		oldItem->updatePolyClip();
@@ -302,7 +302,7 @@ void Page::restorePageItemConversion(ItemState<std::pair<PageItem*, PageItem*> >
 	}
 	else
 	{
-		m_Doc->Items->take(oldItem->ItemNr);
+		m_Doc->Items->takeAt(oldItem->ItemNr);
 		m_Doc->Items->append(newItem);
 		newItem->ItemNr = m_Doc->Items->count()-1;
 	}

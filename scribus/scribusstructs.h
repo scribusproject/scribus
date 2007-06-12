@@ -428,7 +428,7 @@ struct AlignObjs
 	double y2;
 	double width;
 	double height;
-	Q3PtrList<PageItem> Objects;
+	QList<PageItem*> Objects;
 };
 
 /*! \brief Human readable orientations */

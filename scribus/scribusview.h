@@ -177,7 +177,7 @@ public:
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.
 	Page* addPage(int nr, bool mov = true);
-	Q3PtrList<PageItem> linkedFramesToShow;
+	QList<PageItem*> linkedFramesToShow;
 	QList<int> SelNode;
 
 	

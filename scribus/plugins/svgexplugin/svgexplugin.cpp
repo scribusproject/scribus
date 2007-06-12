@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QByteArray>
 #include <Q3PtrList>
+#include <QList>
 
 #include "svgexplugin.h"
 
@@ -245,7 +246,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	PageItem *Item;
 	gradi = "Grad";
 	Clipi = "Clip";
-	Q3PtrList<PageItem> Items;
+	QList<PageItem*> Items;
 	Page* SavedAct = m_Doc->currentPage();
 	m_Doc->setCurrentPage(Seite);
 	if (Seite->pageName().isEmpty())

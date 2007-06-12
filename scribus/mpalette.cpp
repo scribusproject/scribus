@@ -4311,7 +4311,7 @@ void Mpalette::NewName()
 		return;
 	}
 	bool found = false;
-	for (uint b = 0; b < doc->Items->count(); ++b)
+	for (int b = 0; b < doc->Items->count(); ++b)
 	{
 		if ((NameNew == doc->Items->at(b)->itemName()) && (doc->Items->at(b) != CurItem))
 		{

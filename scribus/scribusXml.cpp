@@ -603,7 +603,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QMap<int,int> TableID;
 	QMap<int,int> arrowID;
 	QMap<PageItem*, int> groupID;
-	Q3PtrList<PageItem> TableItems;
+	QList<PageItem*> TableItems;
 	bool VorLFound = false;
 	bool newVersion = false;
 	int x;
@@ -916,7 +916,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				pat.pattern = currItem->DrawObj_toImage();
 				for (uint as = ac; as < ae; ++as)
 				{
-					PageItem* Neu = doc->Items->take(ac);
+					PageItem* Neu = doc->Items->takeAt(ac);
 					Neu->ItemNr = pat.items.count();
 					pat.items.append(Neu);
 				}
@@ -1084,7 +1084,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	}
 	if (TableItems.count() != 0)
 	{
-		for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+		for (int ttc = 0; ttc < TableItems.count(); ++ttc)
 		{
 			PageItem* ta = TableItems.at(ttc);
 			if (ta->TopLinkID != -1)
@@ -1367,7 +1367,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		pat.setAttribute("scaleY", pa.scaleY);
 		pat.setAttribute("width", pa.width);
 		pat.setAttribute("height", pa.height);
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			QDir::setCurrent(QDir::homeDirPath());
 			item = pa.items.at(o);

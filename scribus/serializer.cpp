@@ -46,7 +46,7 @@ using namespace desaxe;
 
 struct Collection
 {
-	Q3PtrList<PageItem> items;
+	QList<PageItem*> items;
 	ColorList colors;
 	StyleSet<ParagraphStyle> pstyles;
 	StyleSet<CharStyle> cstyles;
@@ -352,7 +352,7 @@ Selection Serializer::importCollection()
 
 		//TODO: patterns
 		
-		Q3PtrList<PageItem>* objects = &(coll->items);
+		QList<PageItem*>* objects = &(coll->items);
 		
 //		qDebug(QString("deserialize: objects %1").arg((ulong)objects));
 		
