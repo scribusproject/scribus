@@ -5632,7 +5632,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						if ((ite->width()/ite->imageXScale() - ite->pixm.width()) != 0)
 						{
 							if (ite->annotation().ScaleW() == 3)
-								PutDoc(FToStr(qMax(ite->imageXOffset() / (ite->width()/ite->imageXScale() - ite->pixm.width()), 0.01)));
+								PutDoc(FToStr(qMax(ite->imageXOffset() / (ite->width()/ite->imageXScale() - ite->pixm.width()), 0.01))+" ");
 							else
 								PutDoc("0.5 ");
 						}
@@ -5641,7 +5641,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						if ((ite->height()/ite->imageYScale() - ite->pixm.height()) != 0)
 						{
 							if (ite->annotation().ScaleW() == 3)
-								PutDoc(FToStr(qMax(ite->imageYOffset() / (ite->height()/ite->imageYScale() - ite->pixm.height()), 0.01)));
+								PutDoc(FToStr(1.0 - qMax(ite->imageYOffset() / (ite->height()/ite->imageYScale() - ite->pixm.height()), 0.01)));
 							else
 								PutDoc("0.5");
 						}
