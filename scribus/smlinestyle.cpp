@@ -105,6 +105,11 @@ void LineStyleWidget::slotEditNewLine(int i)
 {
 	lineStyles->setSelected(i, true);
 	//currentLine_ = i;
+
+	// JG #5876 protect against broken line styles
+	if (currentStyle.count() <= i)
+		return;
+
 	lineWidth->setValue(currentStyle[i].Width);
 	colorCombo->setCurrentText(currentStyle[i].Color);
 	shadeBox->setValue(currentStyle[i].Shade);
