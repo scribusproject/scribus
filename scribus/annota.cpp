@@ -12,19 +12,24 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- 
-#include <qstringlist.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3Frame>
-#include <QPixmap>
+
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QFrame>
 #include <QLabel>
-#include <Q3VBoxLayout>
+#include <QComboBox>
+#include <QStackedWidget>
+#include <QGroupBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QSpinBox>
+#include <QPixmap>
+#include <QStringList>
 
 #include "scfonts.h"
 #include "annota.h"
-//#include "annota.moc"
 #include "customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -35,11 +40,10 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie)
-		: QDialog( parent, "AN", true, 0 )
+Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie) : QDialog(parent)
 {
-	setCaption( tr( "Annotation Properties" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle( tr( "Annotation Properties" ) );
 	item = it;
 	Breite = b;
 	Hoehe = h;
@@ -59,47 +63,49 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 		tl.append("0");
 	}
 
-	AnnotLayout = new Q3VBoxLayout( this );
-	AnnotLayout->setSpacing( 6 );
-	AnnotLayout->setMargin( 11 );
+	AnnotLayout = new QVBoxLayout( this );
+	AnnotLayout->setSpacing( 5 );
+	AnnotLayout->setMargin( 10 );
 
-	Layout1 = new Q3HBoxLayout;
-	Layout1->setSpacing( 6 );
+	Layout1 = new QHBoxLayout;
+	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
 
-	ComboBox1 = new QComboBox( true, this, "ComboBox1" );
+	ComboBox1 = new QComboBox(this);
 	/* PFJ - 28/02/04 - Changed to QString/size_t/for style */
 	QString combo[] = { tr("Text"), tr("Link"), tr("External Link"),
 	                    tr("External Web-Link")};
 	size_t comboArray = sizeof(combo)/sizeof(*combo);
 	for (uint prop = 0; prop < comboArray; ++prop)
-		ComboBox1->insertItem(combo[prop]);
+		ComboBox1->addItem(combo[prop]);
 	ComboBox1->setEditable(false);
 	TextLabel1 = new QLabel( ComboBox1, tr("&Type:"), this, "TextLabel1" );
 	Layout1->addWidget( TextLabel1 );
 	Layout1->addWidget( ComboBox1 );
 	AnnotLayout->addLayout( Layout1 );
-	item->annotation().Type() < 2 ? ComboBox1->setCurrentItem(item->annotation().Type()):
-	ComboBox1->setCurrentItem(item->annotation().Type()-10);
+	item->annotation().Type() < 2 ? ComboBox1->setCurrentIndex(item->annotation().Type()):
+	ComboBox1->setCurrentIndex(item->annotation().Type()-10);
 	if ((item->annotation().ActionType() == 7) || (item->annotation().ActionType() == 8))
-		ComboBox1->setCurrentItem(item->annotation().ActionType() - 5);
-	Fram = new Q3WidgetStack(this);
+		ComboBox1->setCurrentIndex(item->annotation().ActionType() - 5);
+	Fram = new QStackedWidget(this);
 	AnnotLayout->addWidget( Fram );
 
-	GroupBox1 = new Q3GroupBox( this, "GroupBox1" );
+	Frame9 = new QFrame( this );
+	Frame9->setFrameShape( QFrame::NoFrame );
+	Frame9->setFrameShadow( QFrame::Plain );
+	Fram->addWidget(Frame9);
+
+	GroupBox1 = new QGroupBox( this );
 	GroupBox1->setTitle( tr( "Destination" ) );
-	GroupBox1->setColumnLayout(0, Qt::Vertical );
-	GroupBox1->layout()->setSpacing( 0 );
-	GroupBox1->layout()->setMargin( 0 );
-	GroupBox1Layout = new Q3GridLayout( GroupBox1->layout() );
+	GroupBox1Layout = new QGridLayout( GroupBox1 );
 	GroupBox1Layout->setAlignment( Qt::AlignTop );
-	GroupBox1Layout->setSpacing( 6 );
-	GroupBox1Layout->setMargin( 11 );
+	GroupBox1Layout->setSpacing( 5 );
+	GroupBox1Layout->setMargin( 10 );
 
 	Destfile = new QLineEdit(GroupBox1, "File");
 	Destfile->setText(item->annotation().Extern());
 	Destfile->setReadOnly(true);
-	GroupBox1Layout->addMultiCellWidget( Destfile, 0, 0, 0, 1 );
+	GroupBox1Layout->addWidget( Destfile, 0, 0, 1, 2 );
 	ChFile = new QPushButton(GroupBox1, "Change");
 	ChFile->setText( tr("C&hange..."));
 	GroupBox1Layout->addWidget( ChFile, 0, 2 );
@@ -129,7 +135,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	}
 	SpinBox1->setValue(item->annotation().Ziel()+1);
 	Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
-	GroupBox1Layout->addMultiCellWidget(Pg, 1, 3, 2, 2);
+	GroupBox1Layout->addWidget(Pg, 1, 2, 3, 1);
 
 	SpinBox2 = new QSpinBox( GroupBox1, "SpinBox2" );
 	SpinBox2->setSuffix( tr( " pt" ) );
@@ -145,18 +151,13 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	TextLabel5 = new QLabel( SpinBox3, tr("&Y-Pos:"), GroupBox1, "TextLabel5" );
 	GroupBox1Layout->addWidget( TextLabel5, 3, 0 );
 	GroupBox1Layout->addWidget( SpinBox3, 3, 1 );
-	Fram->addWidget(GroupBox1, 1);
+	Fram->addWidget(GroupBox1);
 
-	Frame9 = new Q3Frame( this, "Frame7" );
-	Frame9->setFrameShape( Q3Frame::NoFrame );
-	Frame9->setFrameShadow( Q3Frame::Plain );
-	Fram->addWidget(Frame9, 2);
-
-	Layout1_2 = new Q3HBoxLayout;
-	Layout1_2->setSpacing( 6 );
+	Layout1_2 = new QHBoxLayout;
+	Layout1_2->setSpacing( 5 );
 	Layout1_2->setMargin( 0 );
 
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1_2->addItem( spacer );
 	PushButton1 = new QPushButton( CommonStrings::tr_OK, this, "PushButton1" );
 	PushButton1->setDefault( true );
@@ -268,7 +269,7 @@ void Annota::SetZiel(int it)
 	switch (it)
 	{
 	case 1:
-		Fram->raiseWidget(1);
+		Fram->setCurrentIndex(1);
 		Destfile->setText("");
 		Destfile->hide();
 		ChFile->hide();
@@ -276,7 +277,7 @@ void Annota::SetZiel(int it)
 		SetPg(qMin(SpinBox1->value(), MaxSeite));
 		break;
 	case 2:
-		Fram->raiseWidget(1);
+		Fram->setCurrentIndex(1);
 		Destfile->show();
 		ChFile->show();
 		Destfile->setReadOnly(true);
@@ -291,14 +292,14 @@ void Annota::SetZiel(int it)
 			Destfile->setText("");
 			Destfile->hide();
 			ChFile->hide();
-			ComboBox1->setCurrentItem(1);
+			ComboBox1->setCurrentIndex(1);
 		}
 		else
 			item->annotation().setActionType(7);
 		SetPg(qMin(SpinBox1->value(), MaxSeite));
 		break;
 	case 3:
-		Fram->raiseWidget(1);
+		Fram->setCurrentIndex(1);
 		Destfile->show();
 		Destfile->setReadOnly(false);
 		ChFile->hide();
@@ -312,7 +313,7 @@ void Annota::SetZiel(int it)
 		item->annotation().setActionType(8);
 		break;
 	case 11:
-		Fram->raiseWidget(1);
+		Fram->setCurrentIndex(1);
 		if (item->annotation().ActionType() == 7)
 		{
 			Destfile->show();
@@ -336,7 +337,7 @@ void Annota::SetZiel(int it)
 			SetPg(qMin(SpinBox1->value(), MaxSeite));
 		break;
 	default:
-		Fram->raiseWidget(2);
+		Fram->setCurrentIndex(2);
 		break;
 	}
 	connect(ComboBox1, SIGNAL(activated(int)), this, SLOT(SetZiel(int)));
