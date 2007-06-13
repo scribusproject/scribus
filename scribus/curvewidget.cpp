@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "curvewidget.h"
-//#include "curvewidget.moc"
 
 #include <cmath>
 
@@ -19,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QToolTip>
 #include <QApplication>
+#include <QTextStream>
 #include "colorutil.h"
 #include "customfdialog.h"
 #include "util.h"
@@ -441,7 +441,7 @@ void CurveWidget::doLoad()
 		QFile f(fileName);
 		if (f.open(QIODevice::ReadOnly))
 		{
-			Q3TextStream fp(&f);
+			QTextStream fp(&f);
 			int numVals;
 			double xval, yval;
 			FPointArray curve;
@@ -494,7 +494,7 @@ void CurveWidget::doSave()
 			QFile fx(fileName);
 			if (fx.open(QIODevice::WriteOnly))
 			{
-				Q3TextStream tsx(&fx);
+				QTextStream tsx(&fx);
 				tsx << efval;
 				fx.close();
 			}
