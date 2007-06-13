@@ -579,18 +579,19 @@ void SMCStylePage::showColors(const QList<CharStyle*> &cstyles)
 	else
 		strokeShade_->setValue(d);
 
-	QString s(QString::null);
+	QString s;
+	QString emptyString;
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (!s.isNull() && s != cstyles[i]->fillColor())
 		{
-			s = QString::null;
+			s = emptyString;
 			break;
 		}
 		else
 			s = cstyles[i]->fillColor();
 	}
-	if (s.isNull())
+	if (s.isEmpty())
 	{
 		if (fillColor_->text(fillColor_->count() - 1) != "")
 			fillColor_->insertItem("");
@@ -599,18 +600,18 @@ void SMCStylePage::showColors(const QList<CharStyle*> &cstyles)
 	else
 		fillColor_->setCurrentText(s);
 
-	s = QString::null;
+	s = emptyString;
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (!s.isNull() && s != cstyles[i]->strokeColor())
 		{
-			s = QString::null;
+			s = emptyString;
 			break;
 		}
 		else
 			s = cstyles[i]->strokeColor();
 	}
-	if (s.isNull())
+	if (s.isEmpty())
 	{
 		if (strokeColor_->text(strokeColor_->count() - 1) != "")
 			strokeColor_->insertItem("");
@@ -622,19 +623,20 @@ void SMCStylePage::showColors(const QList<CharStyle*> &cstyles)
 
 void SMCStylePage::showLanguage(const QList<CharStyle*> &cstyles, const QString &defLang)
 {
+	QString emptyString;
 	QString s(cstyles[0]->language());
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (s != cstyles[i]->language())
 		{
-			s = QString::null;
+			s = emptyString;
 			break;
 		}
 		else
 			s = cstyles[i]->language();
 	}
 
-	if (s.isNull())
+	if (s.isEmpty())
 	{
 		if (language_->text(language_->count() - 1) != "")
 			language_->insertItem("");
