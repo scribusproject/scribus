@@ -8775,6 +8775,7 @@ void ScribusMainWindow::ModifyAnnot()
 				slotDocCh();
 			delete dia;
 		}
+		view->RefreshItem(currItem);
 	}
 }
 
