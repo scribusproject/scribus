@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
 
 //Added by qt3to4:
 #include <Q3PtrStack.h>
-#include <Q3PtrList>
 #include <QList>
 #include "pageitem.h"
 #include "cmsettings.h"
@@ -254,10 +253,9 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect& cl
 				pr = false;
 			if ((ll.isViewable) && (pr))
 			{
-				Q3PtrListIterator<PageItem> docItem(*m_doc->Items);
-				while ( (currItem = docItem.current()) != 0)
+				for (int it = 0; it < m_doc->Items->count(); ++it)
 				{
-					++docItem;
+					currItem = m_doc->Items->at(it);
 					if (currItem->LayerNr != ll.LNr)
 						continue;
 					if (!currItem->printEnabled())
@@ -311,10 +309,9 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect& cl
 						}
 					}
 				}
-				Q3PtrListIterator<PageItem> docItem2(*m_doc->Items);
-				while ( (currItem = docItem2.current()) != 0 )
+				for (int it = 0; it < m_doc->Items->count(); ++it)
 				{
-					++docItem2;
+					currItem = m_doc->Items->at(it);
 					if (currItem->LayerNr != ll.LNr)
 						continue;
 					if (!currItem->isTableItem)
@@ -671,7 +668,7 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect&
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
 	{
-		for (uint ga=0; ga < m_doc->FrameItems.count(); ++ga)
+		for (int ga=0; ga < m_doc->FrameItems.count(); ++ga)
 		{
 			if (m_doc->FrameItems.at(ga)->Groups.count() != 0)
 			{
@@ -787,7 +784,7 @@ void ScPageOutput::DrawPattern( PageItem* item, ScPainterExBase* painter, QRect&
 	}
 	painter->setupPolygon(&item->PoLine);
 	painter->setClipPath();
-	for (uint index = 0; index < pattern.items.count(); index++)
+	for (int index = 0; index < pattern.items.count(); index++)
 	{
 		QRect itRect;
 		PageItem* it = pattern.items.at(index);
