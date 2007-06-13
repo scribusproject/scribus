@@ -2248,6 +2248,9 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 {
 	m->accept();
 	m_MouseButtonPressed = false;
+	specialRendering = false;
+	firstSpecial = false;
+	dragTimer->stop();
 	PageItem *currItem = 0;
 	if (Doc->EditClip)
 	{
@@ -2288,7 +2291,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 		{
 			if ((currItem->locked()) || (!currItem->ScaleType))
 			{
-				contentsMousePressEvent(m);
+//				contentsMousePressEvent(m);
 				return;
 			}
 			//If we double click on an image frame and theres no image assigned, open the
@@ -2313,7 +2316,7 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 				if (currItem->isAnnotation())
 				{
 					emit AnnotProps();
-					contentsMousePressEvent(m);
+//					contentsMousePressEvent(m);
 				}
 				//else if not in mode edit, set mode edit
 				else if (Doc->appMode != modeEdit)
