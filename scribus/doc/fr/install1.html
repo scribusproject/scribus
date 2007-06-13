@@ -1,0 +1,44 @@
+<qt>
+<title>Comment obtenir la source de Scribus</title>
+<h2>Comment obtenir la source de Scribus</h2>
+<p>Vous pouvez obtenir la version la plus r&eacute;cente de Scribus &agrave; partir de:</p>
+<ul class="simple">
+<li>Site principal de Scribus - <a href="http://www.scribus.net">http://www.scribus.net</a></li>
+<li> <a href="http://sourceforge.net/project/showfiles.php?group_id=125235">T&eacute;l&eacute;chargements Scribus de Sourceforge:</a></li>
+<!--<li>ibiblio Mirror - US - http://www.ibiblio.org/pub/linux/apps/office/</li>
+<li>Scribus mirror at Planetmirror.com - http://scribus.planetmirror.com/</li>
+<li>Scribus mirror at National Technical University of Athens - http://mirrors.ntua.gr/Scribus/</li>-->
+
+</ul>
+<p>Il faut aussi remercier Anduin.net, un acc&egrave;s SVN anonyme mis &agrave; jour quotidiennement : recommand&eacute; seulement pour ceux qui veulent suivre les derniers d&eacute;veloppements. Instructions pour obtenir la source la plus r&eacute;cente via SVN : </p>
+<p><strong>Scribus 1.3.3.x - Stable</strong></p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+svn co svn://scribus.info/Scribus/branches/Version13x
+</td></tr></table></blockquote>
+
+<p><strong>Scribus 1.3.4 - D&eacute;veloppement</strong></p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+svn co svn://scribus.info/Scribus/branches/Version13x/Scribus
+</pre>
+</td></tr></table></blockquote>
+
+<p><strong>Scribus 1.3.5cvs - D&eacute;veloppement - Qt4 Port</strong></p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+svn co svn://scribus.info/Scribus/trunk
+</pre>
+</td></tr></table></blockquote>
+<p>N'importe lequel de ces choix t&eacute;l&eacute;chargera les sources dans votre r&eacute;pertoire courant. Ensuite :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+cd Scribus
+make -f Makefile.cvs
+</pre>
+</td></tr></table></blockquote>
+<p>ou en option, utilisez <a href="install4.html">cmake</a>. Cmake est obligatoire pour for 1.3.5svn, parce ce que les  &#171;autotools&#187; sont enlever apr&eacute;s 1.3.4 </p>
+<p>&Agrave; partir d'ici, suivez les instructions de <a href="install3.html">Compilation et installation</a>.</p>
+</qt>
+ 
