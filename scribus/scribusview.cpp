@@ -4406,11 +4406,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				setRulerPos(contentsX(), contentsY());
 			}
-			uint docItemCount=Doc->Items->count();
+			int docItemCount=Doc->Items->count();
 			if (docItemCount != 0)
 			{
 				Doc->m_Selection->setIsGUISelection(false);
-				for (uint a = 0; a < docItemCount; ++a)
+				for (int a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = Doc->Items->at(a);
 					QMatrix p;
@@ -4439,12 +4439,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					emit ItemPos(x, y);
 					emit ItemGeom(w, h);
 					getGroupRectScreen(&x, &y, &w, &h);
-					emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
 				}
+				if (Doc->m_Selection->count() > 0)
+					emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
 			}
 			HaveSelRect = false;
 			shiftSelItems = false;
 			redrawMarker->hide();
+			updateContents();
 		}
 		if (Doc->appMode != modeEdit)
 		{
@@ -8724,10 +8726,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	mpo = QRectF(m->x()-Doc->guidesSettings.grabRad, m->y()-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 	mpo.translate(Doc->minCanvasCoordinate.x() * Scale, Doc->minCanvasCoordinate.y() * Scale);
 	ClRe = -1;
-	if ((Doc->m_Selection->count() != 0) && (m->state() == Qt::ControlButton))
-		currItem = Doc->m_Selection->itemAt(0);
-	else
-		currItem = Doc->Items->last();
 	int a;
 	if (!Doc->masterPageMode())
 	{
@@ -8788,7 +8786,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	if ((m->state() == (Qt::ShiftButton | Qt::AltButton)) && (!Doc->masterPageMode()) && (Doc->currentPage()->FromMaster.count() != 0))
 	{
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[Doc->currentPage()->MPageNam]);
-		currItem = Doc->currentPage()->FromMaster.last();
+		currItem = Doc->currentPage()->FromMaster.at(Doc->currentPage()->FromMaster.count()-1);
 		int currNr = Doc->currentPage()->FromMaster.count()-1;
 		for (a = 0; a < Doc->currentPage()->FromMaster.count(); ++a)
 		{
@@ -8902,6 +8900,12 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			currItem = Doc->currentPage()->FromMaster.at(currNr);
 		}
 	}
+	if (Doc->Items->count() == 0)
+		return false;
+	if ((Doc->m_Selection->count() != 0) && (m->state() == Qt::ControlButton))
+		currItem = Doc->m_Selection->itemAt(0);
+	else
+		currItem = Doc->Items->at(Doc->Items->count()-1);
 	if ((m->state() == (Qt::ControlButton | Qt::ShiftButton)) && (Doc->m_Selection->count() != 0))
 	{
 		int currNr = Doc->Items->count();
@@ -8911,7 +8915,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			{
 				if (currItem->ItemNr == 0)
 				{
-					currItem = Doc->Items->last();
+					currItem = Doc->Items->at(Doc->Items->count()-1);
 					break;
 				}
 				currNr--;
@@ -8923,24 +8927,20 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		}
 	}
 	Doc->m_Selection->setIsGUISelection(false);
-	//Where all basic selection occurs having found the click location and the current page
-	int currNr = Doc->Items->count();
-	for (a = 0; a < Doc->Items->count(); ++a)
+	if (currItem == NULL)
 	{
-		if (currItem == NULL)
-		{
-			Doc->m_Selection->setIsGUISelection(true);
-			Doc->m_Selection->connectItemToGUI();
-			Deselect(true);
-			//Doc->m_Selection->clear();
-			return false;
-		}
+		Doc->m_Selection->setIsGUISelection(true);
+		Doc->m_Selection->connectItemToGUI();
+		Deselect(true);
+		return false;
+	}
+	//Where all basic selection occurs having found the click location and the current page
+	int currNr = Doc->Items->indexOf(currItem);
+	for (a = currNr; a > -1; a--)
+	{
+		currItem = Doc->Items->at(a);
 		if ((Doc->masterPageMode())  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(Doc->currentPage()->pageNr())))))
-		{
-			currNr--;
-			currItem = Doc->Items->at(currNr);
 			continue;
-		}
 		if ((currItem->LayerNr == Doc->activeLayer()) && (!Doc->layerLocked(currItem->LayerNr)))
 		{
 			p = QMatrix();
@@ -9049,8 +9049,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				return true;
 			}
 		}
-		currNr--;
-		currItem = Doc->Items->at(currNr);
 	}
 	if ((Doc->guidesSettings.guidesShown) && (Doc->appMode == modeNormal) && (!Doc->GuideLock) && (Doc->OnPage(MxpS, MypS) != -1) && (Doc->m_Selection->count() == 0))
 	{
