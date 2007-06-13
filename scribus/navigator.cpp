@@ -22,14 +22,12 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "navigator.h"
-//#include "navigator.moc"
 
-#include <qpainter.h>
-//Added by qt3to4:
 #include <QPixmap>
 #include <QMouseEvent>
 #include <QLabel>
 #include <QPaintEvent>
+#include <QPainter>
 #include "scribusview.h"
 #include "gsutil.h"
 
@@ -78,27 +76,23 @@ void Navigator::paintEvent(QPaintEvent *e)
 {
 	QPainter p;
 	p.begin(this);
-	p.setClipRect(e->rect());
-	drawMark(Xp, Yp);
-	p.end();
-}
-
-void Navigator::drawMark(int x, int y)
-{
-	QPainter p;
-	p.begin(this);
 	p.setBackgroundColor(QColor(255, 255, 255));
 	p.eraseRect(pmx.rect());
 	p.setClipRect(pmx.rect());
 	p.drawPixmap(0, 0, pmx);
 	p.setPen(QPen(QColor(Qt::black), 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	p.drawLine(x-5, y-5, x-1, y-1);
-	p.drawLine(x-5, y+5, x-1, y+1);
-	p.drawLine(x+2, y+2, x+6, y+6);
-	p.drawLine(x+2, y-2, x+6, y-6);
+	p.drawLine(Xp-5, Yp-5, Xp-1, Yp-1);
+	p.drawLine(Xp-5, Yp+5, Xp-1, Yp+1);
+	p.drawLine(Xp+2, Yp+2, Xp+6, Yp+6);
+	p.drawLine(Xp+2, Yp-2, Xp+6, Yp-6);
 	p.end();
+}
+
+void Navigator::drawMark(int x, int y)
+{
 	Xp = x;
 	Yp = y;
+	repaint();
 }
 
 bool Navigator::SetSeite(int Seite, int Size, QString fn)

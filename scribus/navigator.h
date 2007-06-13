@@ -24,11 +24,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef NAVIGATOR_H
 #define NAVIGATOR_H
 
-#include <qlabel.h>
-#include <qpixmap.h>
-//Added by qt3to4:
-#include <QPaintEvent>
-#include <QMouseEvent>
+#include <QLabel>
+
+class QPaintEvent;
+class QMouseEvent;
+class QPixmap;
 
 #include "scribusapi.h"
 class ScribusView;
@@ -37,7 +37,7 @@ class ScribusView;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API Navigator : public QLabel  
+class SCRIBUS_API Navigator : public QLabel
 {
 	Q_OBJECT
 
