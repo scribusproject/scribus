@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 #include <QDomDocument>
 #include <QDataStream>
 #include <QTextStream>
+#include <QListWidgetItem>
+#include <QAbstractItemView>
 #include <cstdlib>
 
 #include "scconfig.h"
@@ -184,8 +186,9 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	connect( duplicateColorButton, SIGNAL( clicked() ), this, SLOT( duplicateColor() ) );
 	connect( deleteColorButton, SIGNAL( clicked() ), this, SLOT( deleteColor() ) );
 	connect( importColorsButton, SIGNAL( clicked() ), this, SLOT( importColors() ) );
-	connect( colorListBox, SIGNAL( highlighted(Q3ListBoxItem*) ), this, SLOT( selColor(Q3ListBoxItem*) ) );
-	connect( colorListBox, SIGNAL( selected(Q3ListBoxItem*) ), this, SLOT( selEditColor(Q3ListBoxItem*) ) );
+	connect( colorListBox, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selColor(QListWidgetItem*) ) );
+	connect( colorListBox, SIGNAL( itemActivated(QListWidgetItem*) ), this, SLOT( selEditColor(QListWidgetItem*) ) );
+	resize(minimumSizeHint());
 }
 
 void ColorManager::saveDefaults()
@@ -648,7 +651,7 @@ void ColorManager::deleteColor()
 //		colorListBox->setTopItem(topIndex);
 }
 
-void ColorManager::selColor(Q3ListBoxItem *c)
+void ColorManager::selColor(QListWidgetItem *c)
 {
 	sColor = c->text();
 	bool enableEdit = (sColor != "Black" && sColor != "White");
@@ -658,7 +661,7 @@ void ColorManager::selColor(Q3ListBoxItem *c)
 	deleteColorButton->setEnabled(enableDel);
 }
 
-void ColorManager::selEditColor(Q3ListBoxItem *c)
+void ColorManager::selEditColor(QListWidgetItem *c)
 {
 	sColor = c->text();
 	bool enableEdit = (sColor != "Black" && sColor != "White");
@@ -676,12 +679,13 @@ void ColorManager::updateCList()
 	ScribusDoc* doc = EditColors.document();
 	colorListBox->clear();
 	colorListBox->cList = &EditColors;
-	for (it = EditColors.begin(); it != EditColors.end(); ++it)
-	{
-		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
-			continue;
-		colorListBox->addItem( new ColorPixmapItem(it.data(), doc, it.key()) );
-	}
+	colorListBox->insertFancyPixmapItems(EditColors);
+//	for (it = EditColors.begin(); it != EditColors.end(); ++it)
+//	{
+//		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
+//			continue;
+//		colorListBox->addItem( new ColorPixmapItem(it.data(), doc, it.key()) );
+//	}
 	if(colorListBox->currentItem())
 		colorListBox->currentItem()->setSelected(false);
 	ColorPixmapItem* currItem = dynamic_cast<ColorPixmapItem*>(colorListBox->currentItem());

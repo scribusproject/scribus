@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
 #define FARBMANAGER_H
 
 #include <QDialog>
-#include <q3listbox.h>
 class QHBoxLayout;
 class QVBoxLayout;
 class QLabel;
@@ -18,6 +17,7 @@ class QToolButton;
 class QColor;
 class QMenu;
 class QSignalMapper;
+class QListWidgetItem;
 
 #include "colorsetmanager.h"
 #include "scribusapi.h"
@@ -83,8 +83,8 @@ private slots:
 	void duplicateColor();
 	void newColor();
 	void editColor();
-	void selColor(Q3ListBoxItem*);
-	void selEditColor(Q3ListBoxItem*);
+	void selColor(QListWidgetItem*);
+	void selEditColor(QListWidgetItem*);
 	void updateCList();
 
 protected:
