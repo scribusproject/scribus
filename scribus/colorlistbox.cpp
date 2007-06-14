@@ -39,16 +39,8 @@ ColorPixmapValue& ColorPixmapValue::operator= (const ColorPixmapValue& other)
 
 ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString colName ) 
 {
-	if (doc) 
-	{
-		m_doc = doc->guardedPtr();
-		m_color = doc->PageColors.contains(colName)? doc->PageColors[colName] : col;
-	}
-	else
-	{
-		m_color = col;
-		m_doc = NULL;
-	}
+	m_doc = (doc) ? doc->guardedPtr() : NULL;
+	m_color = col;
 	m_name = colName;
 }
 
