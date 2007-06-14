@@ -5,29 +5,33 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "imageinfodialog.h"
-//#include "imageinfodialog.moc"
-#include "commonstrings.h"
-//Added by qt3to4:
+
 #include <QPixmap>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QSpacerItem>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QLabel>
+#include <QGroupBox>
+#include <QPushButton>
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
-ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QDialog( parent, "ImageInfo", true, 0 )
+ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QDialog( parent )
 {
-	setCaption( tr( "Image Info" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle( tr( "Image Info" ) );
+	setWindowIcon(loadIcon("AppIcon.png"));
 
-	ImageInfoDialogLayout = new Q3VBoxLayout( this, 10, 5, "InsertTableLayout");
-	GenGroup = new Q3GroupBox(this, "GenGroup");
+	ImageInfoDialogLayout = new QVBoxLayout( this );
+	ImageInfoDialogLayout->setMargin(10);
+	ImageInfoDialogLayout->setSpacing(5);
+	GenGroup = new QGroupBox(this, "GenGroup");
 	GenGroup->setTitle( tr("General Info"));
-	GenGroup->setColumnLayout(0, Qt::Vertical);
-	GenGroup->layout()->setSpacing(5);
-	GenGroup->layout()->setMargin(5);
-	layout3 = new Q3GridLayout(GenGroup->layout());
+	layout3 = new QGridLayout(GenGroup);
+	layout3->setMargin(5);
+	layout3->setSpacing(5);
 	Text0g = new QLabel( tr( "Date / Time:" ), GenGroup, "Text0g" );
 	layout3->addWidget( Text0g, 0, 0 );
 	timeInfo = new QLabel( info->exifInfo.dateTime, GenGroup, "timeInfo" );
@@ -62,12 +66,11 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 		emLayer->setText(CommonStrings::trNo);
 	ImageInfoDialogLayout->addWidget(GenGroup);
 
-	ExGroup = new Q3GroupBox(this, "ExGroup");
+	ExGroup = new QGroupBox(this, "ExGroup");
 	ExGroup->setTitle( tr("EXIF Info"));
-	ExGroup->setColumnLayout(0, Qt::Vertical);
-	ExGroup->layout()->setSpacing(5);
-	ExGroup->layout()->setMargin(5);
-	layout2 = new Q3GridLayout(ExGroup->layout());
+	layout2 = new QGridLayout(ExGroup);
+	layout2->setMargin(5);
+	layout2->setSpacing(5);
 	Text1 = new QLabel( "", ExGroup, "Text1" );
 	layout2->addWidget( Text1, 0, 0 );
 	Comment = new QLabel(info->exifInfo.comment, ExGroup, "Comment" );
@@ -139,8 +142,10 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 			ExGroup->hide();
 			break;
 	}
-	layout1 = new Q3HBoxLayout( 0, 0, 5, "layout1");
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout1 = new QHBoxLayout;
+	layout1->setMargin(5);
+	layout1->setSpacing(5);
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
 	okButton->setDefault( true );

@@ -7,18 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMAGEINFODIALOG_H
 #define IMAGEINFODIALOG_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <q3groupbox.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
+#include <QDialog>
+
+class QHBoxLayout;
+class QVBoxLayout;
+class QGridLayout;
+class QGroupBox;
+class QLabel;
+class QPushButton;
 
 #include "scribusapi.h"
 #include "scimage.h"
@@ -32,10 +28,10 @@ public:
 	~ImageInfoDialog() {};
 
 protected:
-	Q3VBoxLayout* ImageInfoDialogLayout;
-	Q3HBoxLayout* layout1;
-	Q3GroupBox *GenGroup;
-	Q3GridLayout* layout3;
+	QVBoxLayout* ImageInfoDialogLayout;
+	QHBoxLayout* layout1;
+	QGroupBox *GenGroup;
+	QGridLayout* layout3;
 	QLabel* Text0g;
 	QLabel* timeInfo;
 	QLabel* Text1g;
@@ -46,8 +42,8 @@ protected:
 	QLabel* emPath;
 	QLabel* Text4g;
 	QLabel* emLayer;
-	Q3GroupBox *ExGroup;
-	Q3GridLayout* layout2;
+	QGroupBox *ExGroup;
+	QGridLayout* layout2;
 	QLabel* Text1;
 	QLabel* Text2;
 	QLabel* Text3;
