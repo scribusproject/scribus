@@ -5,30 +5,24 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "pageselector.h"
-//#include "pageselector.moc"
 
-#include <qvariant.h>
-#include <qcombobox.h>
-#include <qlineedit.h>
-#include <q3popupmenu.h>
+#include <QLineEdit>
 #if OPTION_USE_QTOOLBUTTON
-    #include <qtoolbutton.h>
+    #include <QToolButton>
 #else
-    #include <qpushbutton.h>
+    #include <QPushButton>
 #endif
-#include <qlayout.h>
-#include <qtoolbutton.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qimage.h>
-#include <qpixmap.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QToolTip>
+#include <QRegExp>
+#include <QPixmap>
+#include <QHBoxLayout>
+#include <QValidator>
 #include "sccombobox.h"
 
 extern QPixmap loadIcon(QString nam);
 
-class PageValidator : public QValidator {
+class PageValidator : public QValidator
+{
 public:
 	PageValidator(int min, int max, QObject * parent);
 	void fixup(QString & input) const;
@@ -64,7 +58,9 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 {
 	LastPG = maxPg;
 	APage = 1;
-	PageSelectorLayout = new Q3HBoxLayout( this, 0, 1, "PageSelectorLayout");
+	PageSelectorLayout = new QHBoxLayout( this );
+	PageSelectorLayout->setMargin(0);
+	PageSelectorLayout->setSpacing(1);
 
 #if OPTION_USE_QTOOLBUTTON
 	Start = new QToolButton( this, "Start" );
@@ -93,11 +89,11 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	Last->setAutoDefault( false );
 	Last->setFlat(OPTION_FLAT_BUTTON);
 #endif
-	Start->setPixmap( loadIcon("16/go-first.png") );
+	Start->setIcon(QIcon(loadIcon("16/go-first.png")));
 	Start->setFocusPolicy(Qt::NoFocus);
 	PageSelectorLayout->addWidget( Start );
 
-	Back->setPixmap( loadIcon("16/go-previous.png") );
+	Back->setIcon(QIcon(loadIcon("16/go-previous.png")));
 	Back->setFocusPolicy(Qt::NoFocus);
 	Back->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Back );
@@ -109,19 +105,19 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	QString tmp;
 	for (int a = 0; a < LastPG; ++a)
 	{
-		PageCombo->insertItem(tmp.setNum(a+1));
+		PageCombo->addItem(tmp.setNum(a+1));
 	}
 	PageCombo->setValidator(v);
 	PageCombo->setMinimumSize(fontMetrics().width( "999 of 999" )+20, 20);
 	PageCombo->setFocusPolicy(Qt::ClickFocus);
 	PageSelectorLayout->addWidget( PageCombo );
 	
-	Forward->setPixmap( loadIcon("16/go-next.png") );
+	Forward->setIcon(QIcon(loadIcon("16/go-next.png")));
 	Forward->setFocusPolicy(Qt::NoFocus);
 	Forward->setAutoRepeat(true);
 	PageSelectorLayout->addWidget( Forward );
 
-	Last->setPixmap( loadIcon("16/go-last.png") );
+	Last->setIcon(QIcon(loadIcon("16/go-last.png")));
 	Last->setFocusPolicy(Qt::NoFocus);
 	PageSelectorLayout->addWidget( Last );
 	Forward->setEnabled(true);
@@ -157,6 +153,7 @@ void PageSelector::focusPolicy(Qt::FocusPolicy policy)
 
 void PageSelector::GotoPgE(int a)
 {
+	clearFocus();
 	GotoPg(a);
 	emit GotoPage(a+1);
 }

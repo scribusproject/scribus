@@ -7,28 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGESELECTOR_H
 #define PAGESELECTOR_H
 
+#include <QWidget>
 
-#include "styleoptions.h"
-
-#include <qvariant.h>
-#include <qpixmap.h>
-#include <qwidget.h>
-#include <qvalidator.h>
-//Added by qt3to4:
-#include <Q3PopupMenu>
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include "scribusapi.h"
-
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QComboBox;
+class QHBoxLayout;
 class QLineEdit;
-class Q3PopupMenu;
 class QPushButton;
 class QToolButton;
+class QValidator;
+
+#include "scribusapi.h"
+#include "styleoptions.h"
+
+class ScComboBox;
 
 class SCRIBUS_API PageSelector : public QWidget
 {
@@ -52,7 +42,7 @@ public:
 	QPushButton* Last;
 #endif
 	
-	QComboBox* PageCombo;
+	ScComboBox* PageCombo;
 	QValidator *v;
 	int LastPG;
 	int APage;
@@ -72,7 +62,7 @@ private slots:
 	virtual void goFw();
 
 protected:
-	Q3HBoxLayout* PageSelectorLayout;
+	QHBoxLayout* PageSelectorLayout;
 
 signals:
 	void GotoPage(int);
