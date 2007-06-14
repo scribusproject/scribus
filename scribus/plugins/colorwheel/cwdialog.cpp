@@ -74,7 +74,9 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	else if (colorspaceTab->currentPage() == tabDocument)
 	{
 		colorWheel->actualColor = color;
-		documentColorList->setCurrentItem(documentColorList->findItem(colorName));
+		QList<QListWidgetItem*> results = documentColorList->findItems(colorName, Qt::MatchFixedString|Qt::MatchCaseSensitive);
+		if (results.count() > 0)
+			documentColorList->setCurrentItem(results[0]);
 	}
 	else
 		colorWheel->actualColor = color;
@@ -90,10 +92,10 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	// signals and slots that cannot be in ui file
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)),
 			this, SLOT(colorWheel_clicked(int, const QPoint&)));
-	connect(documentColorList, SIGNAL(currentChanged(Q3ListBoxItem *)),
-			this, SLOT(documentColorList_currentChanged(Q3ListBoxItem *)));
-	connect(colorList, SIGNAL(currentChanged(Q3ListBoxItem *)),
-			this, SLOT(colorList_currentChanged(Q3ListBoxItem *)));
+	connect(documentColorList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
+			this, SLOT(documentColorList_currentChanged(QListWidgetItem *)));
+	connect(colorList, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
+			this, SLOT(colorList_currentChanged(QListWidgetItem *)));
 	connect(angleSpin, SIGNAL(valueChanged(int)),
 			this, SLOT(angleSpin_valueChanged(int)));
 	connect(colorspaceTab, SIGNAL(currentChanged(int)),
@@ -110,7 +112,7 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 CWDialog::~CWDialog()
 {
 	// preferences
-	QString colorName = (colorspaceTab->currentPage() == tabDocument) ? documentColorList->currentText() : "";
+	QString colorName = (colorspaceTab->currentPage() == tabDocument) ? documentColorList->currentColor() : "";
 	prefs->set("cw_type", typeCombo->currentItem());
 	prefs->set("cw_angle", angleSpin->value());
 	prefs->set("cw_baseangle", colorWheel->baseAngle);
@@ -154,11 +156,11 @@ void CWDialog::connectSlots(bool conn)
 	}
 }
 
-void CWDialog::documentColorList_currentChanged(Q3ListBoxItem *item)
+void CWDialog::documentColorList_currentChanged(QListWidgetItem *item)
 {
 	if (!item)
 		return;
-	ScColor c(m_Doc->PageColors[documentColorList->currentText()]);
+	ScColor c(m_Doc->PageColors[documentColorList->currentColor()]);
 	colorWheel->currentColorSpace = c.getColorModel();
 	setupColorComponents();
 }
@@ -172,9 +174,12 @@ void CWDialog::colorspaceTab_currentChanged(int index)
 		colorWheel->currentColorSpace = colorModelRGB;
 	if (tab == tabDocument)
 	{
-		if (documentColorList->currentItem() == -1)
-			documentColorList->setSelected(0, true);
-		documentColorList_currentChanged(documentColorList->item(documentColorList->currentItem()));
+		if (!documentColorList->currentItem())
+		{
+			documentColorList->setCurrentItem(documentColorList->item(0));
+			documentColorList->item(0)->setSelected(true);
+		}
+		documentColorList_currentChanged(documentColorList->currentItem());
 	}
 	processColors(typeCombo->currentItem(), true);
 }
@@ -222,7 +227,9 @@ void CWDialog::processColors(int index, bool updateSpins)
 		setupHSVComponent(colorWheel->actualColor);
 	}
 	updateNamedLabels();
-	colorList_currentChanged(colorList->findItem(colorWheel->trBaseColor));
+	QList<QListWidgetItem*> results = colorList->findItems(colorWheel->trBaseColor, Qt::MatchFixedString|Qt::MatchCaseSensitive);
+	if (results.count() > 0)
+		colorList_currentChanged(results[0]);
 	colorWheel->update(); // force paint event
 }
 
@@ -285,15 +292,20 @@ QColor CWDialog::computeDefect(QColor c)
 
 void CWDialog::fillColorList()
 {
-	uint ix = colorList->currentItem();
+	int ix = colorList->currentRow();
 	colorList->updateBox(colorWheel->colorList, ColorListBox::fancyPixmap);
-	Q3ListBoxItem *item = colorList->findItem(colorWheel->trBaseColor);
-	if (item->prev())
+	QList<QListWidgetItem*> results = colorList->findItems(colorWheel->trBaseColor, Qt::MatchFixedString|Qt::MatchCaseSensitive);
+	if (results.count() > 0)
 	{
-		colorList->takeItem(item);
-		colorList->insertItem(item, 0);
+		QListWidgetItem *item = results[0];
+		int row = colorList->row(item);
+		if (row > 0)
+		{
+			colorList->takeItem(row);
+			colorList->insertItem(0, item);
+		}
 	}
-	colorList->setCurrentItem(ix > colorList->count() ? 0 : ix);
+	colorList->setCurrentRow(ix > colorList->count() ? 0 : ix);
 }
 
 void CWDialog::defectCombo_activated(int)
@@ -458,7 +470,7 @@ void CWDialog::setupColorComponents()
 	}
 	if (colorspaceTab->currentPage() == tabDocument)
 	{
-		c = m_Doc->PageColors[documentColorList->currentText()];
+		c = m_Doc->PageColors[documentColorList->currentColor()];
 		setupRGBComponent(c);
 		setupCMYKComponent(c);
 		setupHSVComponent(c);
@@ -487,7 +499,7 @@ void CWDialog::updateNamedLabels()
 	hsvLabel2->setText(getHexHsv(colorWheel->actualColor));
 }
 
-void CWDialog::colorList_currentChanged(Q3ListBoxItem * item)
+void CWDialog::colorList_currentChanged(QListWidgetItem * item)
 {
 	if (!item)
 		return;

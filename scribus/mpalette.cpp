@@ -54,28 +54,42 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 
-LineFormateItem::LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text) : ScListBoxPixmap<37, 37>()
+LineFormatValue::LineFormatValue() : m_Line(), m_doc(NULL), m_name() {};
+
+LineFormatValue::LineFormatValue( const multiLine& line, ScribusDoc* doc, const QString name ) : m_Line(line), m_doc(doc), m_name(name) {};
+
+LineFormatValue::LineFormatValue(const LineFormatValue& other)
 {
-	setText(Text);
-	mLine = MultiLine;
-	doc = Doc;
+	m_name = other.m_name;
+	m_Line = other.m_Line;
+	m_doc = other.m_doc;
 }
 
-void LineFormateItem::redraw(void)
+LineFormatValue& LineFormatValue::operator= (const LineFormatValue& other)
 {
+	m_name = other.m_name;
+	m_Line = other.m_Line;
+	m_doc = other.m_doc;
+	return *this;
+}
+
+
+void LineFormatItemDelegate::redraw(const QVariant& data) const  
+{
+	const LineFormatValue& item(data.value<LineFormatValue>());
 	QColor tmpf;
 	pmap->fill(Qt::white);
 	QPainter p;
 	p.begin(pmap.get());
-	for (int its = mLine.size()-1; its > -1; its--)
+	for (int its = item.m_Line.size()-1; its > -1; its--)
 	{
-		const ScColor& col = doc->PageColors[mLine[its].Color];
-		tmpf = ScColorEngine::getDisplayColor(col, doc, mLine[its].Shade);
+		const ScColor& col = item.m_doc->PageColors[item.m_Line[its].Color];
+		tmpf = ScColorEngine::getDisplayColor(col, item.m_doc, item.m_Line[its].Shade);
 		p.setPen(QPen(tmpf,
-						qMax(static_cast<int>(mLine[its].Width), 1),
-						static_cast<Qt::PenStyle>(mLine[its].Dash),
-						static_cast<Qt::PenCapStyle>(mLine[its].LineEnd),
-						static_cast<Qt::PenJoinStyle>(mLine[its].LineJoin)));
+						qMax(static_cast<int>(item.m_Line[its].Width), 1),
+						static_cast<Qt::PenStyle>(item.m_Line[its].Dash),
+						static_cast<Qt::PenCapStyle>(item.m_Line[its].LineEnd),
+						static_cast<Qt::PenJoinStyle>(item.m_Line[its].LineJoin)));
 		p.drawLine(0, 18, 37, 18);
 	}
 	p.end();
@@ -919,8 +933,9 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	page_5a = new QWidget( TabStack3, "page" );
 	pageLayout_5a = new Q3VBoxLayout( page_5a, 0, 5, "pageLayout_5a");
-	StyledLine = new Q3ListBox(page_5a, "StyledL");
-	StyledLine->insertItem( "No Style", 0);
+	StyledLine = new QListWidget(page_5a);
+	StyledLine->setName("StyledL");
+	StyledLine->addItem( "No Style" );
 	pageLayout_5a->addWidget(StyledLine);
 	TabStack3->addWidget( page_5a, 0 );
 
@@ -1033,7 +1048,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(DRight, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	connect(DBottom, SIGNAL(valueChanged(double)), this, SLOT(NewTDist()));
 	connect(TabStack, SIGNAL(currentChanged(int)), this, SLOT(SelTab(int)));
-	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
+	connect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	connect(Fonts, SIGNAL(fontSelected(QString )), this, SLOT(NewTFont(QString)));
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newTxtFill()));
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newTxtStroke()));
@@ -1550,7 +1565,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	//FIXME: This wont work until when a canvas deselect happens, CurItem must be NULL.
 	//if (CurItem == i)
 	//	return;
-	disconnect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
+	disconnect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	disconnect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	disconnect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	disconnect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -1622,23 +1637,25 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
 //	langCombo->setCurrentText(m_ScMW->LangTransl[i->doc()->Language]);
+	if (StyledLine->currentItem())
+		StyledLine->currentItem()->setSelected(false);
 	bool setter;
 	if (CurItem->NamedLStyle.isEmpty())
 	{
-		StyledLine->setCurrentItem(0);
 		setter = true;
 	}
 	else
 	{
-		StyledLine->setCurrentItem(0);
-		StyledLine->setSelected(StyledLine->findItem(CurItem->NamedLStyle), Q3ListBox::ExactMatch);
+		QList<QListWidgetItem*> results (StyledLine->findItems(CurItem->NamedLStyle, Qt::MatchFixedString|Qt::MatchCaseSensitive));
+		if (results.count() > 0)
+			results[0]->setSelected(true); //Q3ListBox::ExactMatch));
 		setter = false;
 	}
 	LStyle->setEnabled(setter);
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
 	LEndStyle->setEnabled(setter);
-	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
+	connect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
@@ -3930,28 +3947,29 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	disconnect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
+	disconnect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 	StyledLine->clear();
 	if (dd != 0)
 	{
 		QMap<QString,multiLine>::Iterator it;
 		for (it = dd->MLineStyles.begin(); it != dd->MLineStyles.end(); ++it)
-			StyledLine->insertItem( new LineFormateItem(dd, it.data(), it.key()) );
-		StyledLine->sort( true );
-		StyledLine->insertItem( tr("No Style"), 0);
-		StyledLine->setSelected(StyledLine->currentItem(), false);
+			StyledLine->addItem( new LineFormatItem(dd, it.data(), it.key()) );
+		StyledLine->sortItems();
+		StyledLine->insertItem( 0, tr("No Style"));
+		if (StyledLine->currentItem())
+			StyledLine->currentItem()->setSelected(false);
 	}
-	connect(StyledLine, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SetSTline(Q3ListBoxItem*)));
+	connect(StyledLine, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(SetSTline(QListWidgetItem*)));
 }
 
-void Mpalette::SetSTline(Q3ListBoxItem *c)
+void Mpalette::SetSTline(QListWidgetItem *c)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	if (c == NULL)
 		return;
-	bool setter = c->listBox()->currentItem() == 0 ? true : false;
-	if (setter == true)
+	bool setter = (c->listWidget()->currentItem() == 0);
+	if (setter)
 		CurItem->setCustomLineStyle("");
 	else
 		CurItem->setCustomLineStyle(c->text());
@@ -3969,10 +3987,11 @@ void Mpalette::updateColorList()
 		return;
 	Cpal->SetColors(doc->PageColors);
 	Cpal->SetPatterns(&doc->docPatterns);
+	assert (doc->PageColors.document());
 	TxFill->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	TxStroke->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
-	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
-	TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
+	TxFill->view()->setMinimumWidth(TxFill->view()->maximumViewportSize().width() + 24);
+	TxStroke->view()->setMinimumWidth(TxStroke->view()->maximumViewportSize().width() + 24);
 }
 
 void Mpalette::updateCmsList()
@@ -4089,7 +4108,7 @@ void Mpalette::newTxtFill()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->itemSelection_SetFillColor(TxFill->currentText());
+		doc->itemSelection_SetFillColor(TxFill->currentColor());
 //		doc->currentStyle.charStyle().setFillColor(TxFill->currentText());
 // 		emit DocChanged();
 	}
@@ -4099,7 +4118,7 @@ void Mpalette::newTxtStroke()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->itemSelection_SetStrokeColor(TxStroke->currentText());
+		doc->itemSelection_SetStrokeColor(TxStroke->currentColor());
 //		doc->currentStyle.charStyle().setStrokeColor(TxStroke->currentText());
 // 		emit DocChanged();
 	}
@@ -4641,7 +4660,7 @@ void Mpalette::languageChange()
 	SeStyle->languageChange();
 	GroupAlign->languageChange();
 
-	StyledLine->changeItem( tr("No Style"), 0);
+	StyledLine->item(0)->setText( tr("No Style") );
 // 	updateCList();
 // 	updateCmsList();
 

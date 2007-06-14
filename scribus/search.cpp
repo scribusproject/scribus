@@ -129,7 +129,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SFillVal = new ColorCombo( true, Search, "SFillVal" );
 	SFillVal->setEditable(false);
 	SFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
-	SFillVal->setMinimumWidth(SFillVal->listBox()->maxItemWidth() + 24);
+	SFillVal->setMinimumWidth(SFillVal->view()->maximumViewportSize().width() + 24);
 	SFillVal->setCurrentText(doc->currentStyle.charStyle().fillColor());
 	SFillVal->setEnabled(false);
 	SearchLayout->addWidget( SFillVal, 5, 1 );
@@ -139,7 +139,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SStrokeVal = new ColorCombo( true, Search, "SStrokeVal" );
 	SStrokeVal->setEditable(false);
 	SStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
-	SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth() + 24);
+	SStrokeVal->view()->setMinimumWidth(SStrokeVal->view()->maximumViewportSize().width() + 24);
 	SStrokeVal->setCurrentText(doc->currentStyle.charStyle().strokeColor());
 	SStrokeVal->setEnabled(false);
 	SearchLayout->addWidget( SStrokeVal, 7, 1 );
@@ -217,7 +217,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RFillVal = new ColorCombo( true, Replace, "RFillVal" );
 	RFillVal->setEditable(false);
 	RFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
-	RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth() + 24);
+	RFillVal->view()->setMinimumWidth(RFillVal->view()->maximumViewportSize().width() + 24);
 	RFillVal->setCurrentText(doc->currentStyle.charStyle().fillColor());
 	RFillVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFillVal, 5, 1 );
@@ -227,7 +227,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RStrokeVal = new ColorCombo( true, Replace, "RStrokeVal" );
 	RStrokeVal->setEditable(false);
 	RStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
-	RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth() + 24);
+	RStrokeVal->view()->setMinimumWidth(RStrokeVal->view()->maximumViewportSize().width() + 24);
 	RStrokeVal->setCurrentText(doc->currentStyle.charStyle().strokeColor());
 	RStrokeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStrokeVal, 7, 1 );

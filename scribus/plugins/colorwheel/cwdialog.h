@@ -100,12 +100,12 @@ class CWDialog : public QDialog, Ui::CWDialog
 		void angleSpin_valueChanged(int);
 		void colorWheel_clicked(int, const QPoint &);
 		void typeCombo_activated(int);
-		void documentColorList_currentChanged(Q3ListBoxItem *);
+		void documentColorList_currentChanged(QListWidgetItem *);
 		void defectCombo_activated(int);
 		void addButton_clicked();
 		void replaceButton_clicked();
 		void cancelButton_clicked();
-		void colorList_currentChanged(Q3ListBoxItem *);
+		void colorList_currentChanged(QListWidgetItem *);
 
 		void cSpin_valueChanged( int );
 		void mSpin_valueChanged( int );

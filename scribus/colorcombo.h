@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORCOMBO_H
 #define COLORCOMBO_H
 
-#include <Q3ComboBox>
+#include <QComboBox>
 #include "colorlistbox.h"
 
 #ifdef QT_WS_MAC
@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
     \class ColorCombo colorcombo.h
     \brief The ColorCombo widget is a combo box for displaying list of colors.
 */
-class ColorCombo : public Q3ComboBox 
+class ColorCombo : public QComboBox 
 {
 	Q_OBJECT
 
@@ -58,6 +58,8 @@ public:
 	ColorCombo( QWidget* parent=0, const char* name=0 );
 	ColorCombo( bool rw, QWidget* parent=0, const char* name=0 );
 
+	QString currentColor() const; 
+	
 	void updateBox(ColorList& list, ColorCombo::PixmapType pixType, bool insertNone = true);
 
 	void insertItems(ColorList& list, ColorCombo::PixmapType type);

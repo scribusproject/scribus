@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QHelpEvent>
 
+#include "qdebug.h"
 #include "scconfig.h"
 #include "commonstrings.h"
 #include "scribusdoc.h"
@@ -21,18 +22,82 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "sccolorengine.h"
 
-ColorSmallPixmapItem::ColorSmallPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName ) 
-					: ScListBoxPixmap<15,15>()
+
+ColorPixmapValue::ColorPixmapValue() : m_color(), m_doc(NULL), m_name("invalid")
+{}
+
+ColorPixmapValue::ColorPixmapValue(const ColorPixmapValue& other) : m_color(other.m_color), m_doc(other.m_doc), m_name(other.m_name)
+{}
+
+ColorPixmapValue& ColorPixmapValue::operator= (const ColorPixmapValue& other)
 {
-	m_color = col;
-	m_doc = (doc) ? doc->guardedPtr() : NULL;
-	setText(colName);
+	m_color = other.m_color;
+	m_doc = other.m_doc;
+	m_name = other.m_name;
+	return *this;
 }
 
-void ColorSmallPixmapItem::redraw(void)
+ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString colName ) 
 {
+	if (doc) 
+	{
+		m_doc = doc->guardedPtr();
+		m_color = doc->PageColors.contains(colName)? doc->PageColors[colName] : col;
+	}
+	else
+	{
+		m_color = col;
+		m_doc = NULL;
+	}
+	m_name = colName;
+}
+
+
+
+class SCRIBUS_API ColorSmallItemDelegate : public ScListBoxPixmap<15,15>
+{
+public:
+	ColorSmallItemDelegate(): ScListBoxPixmap<15,15>() {};
+	~ColorSmallItemDelegate() {};
+	
+	virtual void redraw(const QVariant&) const;
+	virtual QString text(const QVariant&) const;
+	virtual int rtti() const { return 654873547; };
+};
+
+class SCRIBUS_API ColorWideItemDelegate : public ScListBoxPixmap<30,15>
+{
+public:
+	ColorWideItemDelegate(): ScListBoxPixmap<30,15>() {};
+	~ColorWideItemDelegate() {};
+	
+	virtual void redraw(const QVariant&) const;
+	virtual QString text(const QVariant&) const;
+	virtual int rtti() const { return 654873548; };
+};
+
+class SCRIBUS_API ColorFancyItemDelegate : public ScListBoxPixmap<60,15>
+{
+public:
+	ColorFancyItemDelegate(): ScListBoxPixmap<60,15>() {};
+	~ColorFancyItemDelegate() {};
+	
+	virtual void redraw(const QVariant&) const;
+	virtual QString text(const QVariant&) const;
+	virtual int rtti() const { return 654873549; };
+};
+
+
+void ColorSmallItemDelegate::redraw(const QVariant& data) const
+{
+	if (!data.canConvert<ColorPixmapValue>())
+		return;
+	ColorPixmapValue item(data.value<ColorPixmapValue>());
+
 	QPixmap* pPixmap = ScListBoxPixmap<15,15>::pmap.get();
-	QColor rgb = ScColorEngine::getDisplayColor(m_color, m_doc);
+	QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
+	ScColor varcol = item.m_color;
+//	qDebug() << "redraw:" << varcol.name() << (static_cast<ScribusDoc*>(item.m_doc) == NULL ) << rgb;
 	pPixmap->fill(rgb);
 	QPainter painter(pPixmap);
 	painter.setBrush(Qt::NoBrush);
@@ -42,29 +107,20 @@ void ColorSmallPixmapItem::redraw(void)
 	painter.end();
 }
 
-ColorWidePixmapItem::ColorWidePixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName ) 
-					: ScListBoxPixmap<30,15>()
+void ColorWideItemDelegate::redraw(const QVariant& data) const
 {
-	m_color = col;
-	m_doc = (doc) ? doc->guardedPtr() : NULL;
-	setText(colName);
-}
-
-void ColorWidePixmapItem::redraw(void)
-{
-	QColor rgb = ScColorEngine::getDisplayColor(m_color, m_doc);
+	if (!data.canConvert<ColorPixmapValue>())
+		return;
+	ColorPixmapValue item(data.value<ColorPixmapValue>());
+	
+	QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
+	ScColor varcol = item.m_color;
+//	qDebug() << "redraw:" << varcol.name() << (static_cast<ScribusDoc*>(item.m_doc) == NULL ) << rgb;
 	ScListBoxPixmap<30,15>::pmap->fill(rgb);
 }
 
-ColorFancyPixmapItem::ColorFancyPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName ) 
-					: ScListBoxPixmap<60,15>()
-{
-	m_color = col;
-	m_doc = (doc) ? doc->guardedPtr() : NULL;
-	setText(colName);
-}
 
-void ColorFancyPixmapItem::redraw(void)
+void ColorFancyItemDelegate::redraw(const QVariant& data) const
 {
 	static QPixmap smallPix(15, 15);
 	static QPixmap alertIcon;
@@ -83,31 +139,38 @@ void ColorFancyPixmapItem::redraw(void)
 		iconsInitialized = true;
 	}
 
-	QColor rgb = ScColorEngine::getDisplayColor(m_color, m_doc);
-	smallPix.fill(rgb);
-	QPainter painter(&smallPix);
-	painter.setBrush(Qt::NoBrush);
-	QPen b(Qt::black, 1);
-	painter.setPen(b);
-	painter.drawRect(0, 0, 15, 15);
-	painter.end();
-
 	QPixmap* pPixmap = ScListBoxPixmap<60,15>::pmap.get();
-	pPixmap->fill(Qt::color0);
-	paintAlert(smallPix, *pPixmap, 0, 0);
-	bool isOutOfGamut = ScColorEngine::isOutOfGamut(m_color, m_doc);
-	if (isOutOfGamut)
-		paintAlert(alertIcon, *pPixmap, 15, 0);
-	if ((m_color.getColorModel() == colorModelCMYK) || (m_color.isSpotColor()))
-		paintAlert(cmykIcon, *pPixmap, 30, 0);
-	else
-		paintAlert(rgbIcon, *pPixmap, 30, 0);
-	if (m_color.isSpotColor())
-		paintAlert(spotIcon, *pPixmap, 45, 0);
-	if (m_color.isRegistrationColor())
-		paintAlert(regIcon, *pPixmap, 46, 0);
-	if (!pPixmap->mask().isNull() && ((!m_color.isSpotColor() && !m_color.isRegistrationColor()) || !isOutOfGamut))
+	pPixmap->fill(Qt::transparent);
+
+	if (data.canConvert<ColorPixmapValue>())
 	{
+		ColorPixmapValue item(data.value<ColorPixmapValue>());
+		
+		QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
+		//  ScColor varcol = item.m_color;
+		//	qDebug() << "redraw:" << data.typeName() << varcol.name() << item.m_name << text(data) << rgb;
+		smallPix.fill(rgb);
+		QPainter painter(&smallPix);
+		painter.setBrush(Qt::NoBrush);
+		QPen b(Qt::black, 1);
+		painter.setPen(b);
+		painter.drawRect(0, 0, 15, 15);
+		painter.end();
+		
+		paintAlert(smallPix, *pPixmap, 0, 0);
+		bool isOutOfGamut = ScColorEngine::isOutOfGamut(item.m_color, item.m_doc);
+		if (isOutOfGamut)
+			paintAlert(alertIcon, *pPixmap, 15, 0);
+		if ((item.m_color.getColorModel() == colorModelCMYK) || (item.m_color.isSpotColor()))
+			paintAlert(cmykIcon, *pPixmap, 30, 0);
+		else
+			paintAlert(rgbIcon, *pPixmap, 30, 0);
+		if (item.m_color.isSpotColor())
+			paintAlert(spotIcon, *pPixmap, 45, 0);
+		if (item.m_color.isRegistrationColor())
+			paintAlert(regIcon, *pPixmap, 46, 0);
+		if (!pPixmap->mask().isNull() && ((!item.m_color.isSpotColor() && !item.m_color.isRegistrationColor()) || !isOutOfGamut))
+		{
 // Qt4 FIXME: Qt4 can use better alpha setting. see colorutil.cpp
 // 		QPainter alpha; // transparency handling
 // 		alpha.begin(pPixmap->mask()));
@@ -118,16 +181,63 @@ void ColorFancyPixmapItem::redraw(void)
 // 		if (!isOutOfGamut)
 // 			alpha.drawRect(15, 0, 15, 15);
 // 		alpha.end();
+		}
 	}
 }
 
-ColorListBox::ColorListBox(QWidget * parent, const char * name, Qt::WFlags f)
-	: Q3ListBox(parent, name, f)
+
+QString ColorSmallItemDelegate::text(const QVariant& data) const
+{
+	if (data.canConvert<ColorPixmapValue>())
+		return data.value<ColorPixmapValue>().m_name;
+	else
+		return data.toString();
+}
+
+QString ColorWideItemDelegate::text(const QVariant& data) const
+{
+	if (data.canConvert<ColorPixmapValue>())
+		return data.value<ColorPixmapValue>().m_name;
+	else
+		return data.toString();
+}
+
+QString ColorFancyItemDelegate::text(const QVariant& data) const
+{
+//	qDebug() << "ColorFancyItemDelegate::text" << data.typeName() << data.canConvert<ColorPixmapValue>() << data.toString();
+	if (data.canConvert<ColorPixmapValue>())
+		return data.value<ColorPixmapValue>().m_name;
+	else
+		return data.toString();
+}
+
+
+ColorListBox::ColorListBox(QWidget * parent, const char * name) //, Qt::WFlags f)
+	: QListWidget(parent)
 {
 	if (!name || strlen(name) == 0)
 		setName("ColorListBox");
+	else
+		setName(name);
+//	setWFlags(f);
 	cList = NULL;
+	setItemDelegate(new ColorWideItemDelegate());
 }
+
+
+QString ColorListBox::currentColor() const
+{
+	if (currentRow() >= 0)
+	{
+		qDebug() << "ColorListBox::currentColor" <<  "row" << currentRow() << item(currentRow())->data(Qt::DisplayRole).toString();
+		return item(currentRow())->data(Qt::DisplayRole).toString();
+	}
+	else {		
+		qDebug() << "ColorListBox::currentColor row" << currentRow() << "-->" << CommonStrings::tr_NoneColor;
+		return CommonStrings::tr_NoneColor;
+	}
+}
+
 
 void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type)
 {
@@ -154,8 +264,11 @@ void ColorListBox::insertSmallPixmapItems(ColorList& list)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
-		insertItem( new ColorSmallPixmapItem(it.data(), doc, it.key()) );
+		addItem( new ColorPixmapItem(it.data(), doc, it.key()) );
 	}
+	if (itemDelegate())
+		delete itemDelegate();
+	setItemDelegate(new ColorSmallItemDelegate());
 }
 
 void ColorListBox::insertWidePixmapItems(ColorList& list)
@@ -166,8 +279,11 @@ void ColorListBox::insertWidePixmapItems(ColorList& list)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
-		insertItem( new ColorWidePixmapItem(it.data(), doc, it.key()) );
+		addItem( new ColorPixmapItem(it.data(), doc, it.key()) );
 	}
+	if (itemDelegate())
+		delete itemDelegate();
+	setItemDelegate(new ColorWideItemDelegate());
 }
 
 void ColorListBox::insertFancyPixmapItems(ColorList& list)
@@ -178,18 +294,22 @@ void ColorListBox::insertFancyPixmapItems(ColorList& list)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
-		insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
+		addItem( new ColorPixmapItem(it.data(), doc, it.key()) );
 	}
+	if (itemDelegate())
+		delete itemDelegate();
+	setItemDelegate(new ColorFancyItemDelegate());
 }
 
 bool ColorListBox::event(QEvent *event)
 {
+/* FIXME Qt4
 	if (event->type() == QEvent::ToolTip)
 	{
 		if (cList != NULL)
 		{
 			QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-			Q3ListBoxItem* it = itemAt(helpEvent->pos());
+			QListWidget* it = itemAt(helpEvent->pos());
 			if (it != 0)
 			{
 				if (cList->contains(it->text()))
@@ -215,5 +335,6 @@ bool ColorListBox::event(QEvent *event)
 			}
 		}
 	}
-	return Q3ListBox::event(event);
+ */
+	return QListWidget::event(event);
 }

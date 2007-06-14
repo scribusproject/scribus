@@ -226,8 +226,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
-	connect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
-	connect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+//	connect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
+	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(slotTrans(int)));
@@ -441,21 +441,28 @@ void Cpalette::SetColors(ColorList newColorList)
 
 void Cpalette::updateCList()
 {
-	disconnect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
-	disconnect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+//	disconnect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
+	disconnect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	colorListQLBox->clear();
 	if ((!GradientMode) || (Mode == 1))
-		colorListQLBox->insertItem(CommonStrings::tr_NoneColor);
+		colorListQLBox->addItem(CommonStrings::tr_NoneColor);
 	colorListQLBox->insertItems(colorList, ColorListBox::fancyPixmap);
-	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);
-	connect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
-	connect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+	if (colorListQLBox->currentItem())
+		colorListQLBox->currentItem()->setSelected(false);
+//	connect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
+	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 }
 
-void Cpalette::selectColor(Q3ListBoxItem *c)
+void Cpalette::selectColor(QListWidgetItem *item)
 {
-	if (c == NULL) { return; }
-	sFarbe = c->text();
+	ColorPixmapItem* c = dynamic_cast<ColorPixmapItem*>(item);
+	if (c != NULL)	
+		sFarbe = c->colorName();
+	else if (! item->data(Qt::DisplayRole).toString().isEmpty()) 
+		sFarbe = item->data(Qt::DisplayRole).toString();
+	else
+		return;
+	
 	switch (Mode)
 	{
 	case 1:
@@ -485,8 +492,8 @@ QColor Cpalette::setColor(QString colorName, int shad)
 
 void Cpalette::updateBoxS(QString colorName)
 {
-	disconnect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
-	disconnect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+//	disconnect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
+	disconnect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	int c = 0;
 	if ((colorName != CommonStrings::None) && (!colorName.isEmpty()))
 	{
@@ -500,9 +507,9 @@ void Cpalette::updateBoxS(QString colorName)
 			++c;
 		}
 	}
-	colorListQLBox->setCurrentItem(c);
-	connect(colorListQLBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
-	connect(colorListQLBox, SIGNAL(selected(Q3ListBoxItem*)), this, SLOT(selectColor(Q3ListBoxItem*)));
+	colorListQLBox->setCurrentRow(c);
+//	connect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
+	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 }
 
 void Cpalette::setActFarben(QString p, QString b, int shp, int shb)

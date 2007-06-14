@@ -275,8 +275,8 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 		fillColor_->insertSmallItem(it.data(), doc, it.key());
 		strokeColor_->insertSmallItem(it.data(), doc, it.key());
 	}
-	fillColor_->listBox()->setMinimumWidth(fillColor_->listBox()->maxItemWidth()+24);
-	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
+	fillColor_->view()->setMinimumWidth(fillColor_->view()->maximumViewportSize().width()+24);
+	strokeColor_->view()->setMinimumWidth(strokeColor_->view()->maximumViewportSize().width()+24);
 }
 
 void SMCStylePage::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QString &defLang, int unitIndex)

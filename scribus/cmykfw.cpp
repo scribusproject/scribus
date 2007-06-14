@@ -724,15 +724,8 @@ void CMYKChoose::SelSwatch(int n)
 			}
 		}
 		ColorSwatch->clear();
-		ColorList::Iterator it;
-		QPixmap pm = QPixmap(30, 15);
-		for (it = CurrSwatch.begin(); it != CurrSwatch.end(); ++it)
-		{
-			ColorSwatch->insertItem( new ColorFancyPixmapItem(it.data(), m_doc, it.key()) );
-//			pm.fill( ScColorEngine::getDisplayColor(CurrSwatch[it.key()], m_doc) );
-//			ColorSwatch->insertItem(pm, it.key());
-		}
-		ColorSwatch->setSelected(ColorSwatch->currentItem(), false);
+		ColorSwatch->insertFancyPixmapItems(CurrSwatch);
+		ColorSwatch->setCurrentRow( 0 );
 		TabStack->raiseWidget(1);
 	}
 }
@@ -988,7 +981,7 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 
 void CMYKChoose::SelFromSwatch(int c)
 {
-	ScColor tmp = CurrSwatch[ColorSwatch->text(c)];
+	ScColor tmp = CurrSwatch[ColorSwatch->item(c)->text()];
 	if (tmp.getColorModel() == colorModelCMYK)
 		SelModel( tr("CMYK"));
 	else

@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <utility>
 #include <qeventloop.h>
 
+#include <qdebug.h>
 #include <qfile.h>
 #include <qpainter.h>
 #include <q3progressbar.h>
@@ -3236,7 +3237,7 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			break;
 		default:
 			qDebug("unknown item type");
-			break;
+			assert (false);
 	}
 	Q_CHECK_PTR(newItem);
 	if (newItem==NULL)

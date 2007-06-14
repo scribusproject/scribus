@@ -7,58 +7,56 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORLISTBOX_H
 #define COLORLISTBOX_H
 
-#include <q3listbox.h>
+#include <QListWidget>
 #include <qcolor.h>
 #include <qpointer.h>
 
 #include "colorsetmanager.h"
+#include "commonstrings.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "sclistboxpixmap.h"
-#include "query.h"
 #include "scguardedptr.h"
 
-class ScribusDoc;
-class ColorListBox;
 
-class SCRIBUS_API ColorSmallPixmapItem : public ScListBoxPixmap<15,15>
+struct SCRIBUS_API ColorPixmapValue
 {
-	protected:
-		ScColor m_color;
-		ScGuardedPtr<ScribusDoc> m_doc;
-	public:
-		ColorSmallPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName );
-		~ColorSmallPixmapItem() {};
+	ScColor m_color;
+	ScGuardedPtr<ScribusDoc> m_doc;
+	QString m_name;
 
-		virtual void redraw(void);
-		virtual int rtti() const { return 654873547; };
+	ColorPixmapValue();
+	ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString colName );
+	ColorPixmapValue(const ColorPixmapValue& other);
+	ColorPixmapValue& operator= (const ColorPixmapValue& other);
 };
 
-class SCRIBUS_API ColorWidePixmapItem : public ScListBoxPixmap<30,15>
-{
-	protected:
-		ScColor m_color;
-		ScGuardedPtr<ScribusDoc> m_doc;
-	public:
-		ColorWidePixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName );
-		~ColorWidePixmapItem() {};
 
-		virtual void redraw(void);
-		virtual int rtti() const { return 654873548; };
+Q_DECLARE_METATYPE(ColorPixmapValue)
+
+class ColorPixmapItem : public QListWidgetItem
+{
+	enum {
+		ColorPixmapUserType = UserType + 1
+	} usrtyp;
+public:	
+	ColorPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName) : QListWidgetItem(NULL, ColorPixmapUserType) { 
+		setText(colName);
+		setData(Qt::UserRole, QVariant::fromValue(ColorPixmapValue(col, doc, colName))); 
+	};
+	ColorPixmapItem( const ColorPixmapValue& col) : QListWidgetItem(NULL, ColorPixmapUserType) { 
+		setText(col.m_name);
+		setData(Qt::UserRole, QVariant::fromValue(col));
+	};
+	ColorPixmapItem( ) : QListWidgetItem(NULL, ColorPixmapUserType) { 
+		setText(CommonStrings::tr_NoneColor);
+		setData(Qt::UserRole, QVariant::fromValue(ColorPixmapValue(ScColor(0,0,0,0), NULL, CommonStrings::tr_NoneColor))); 
+	};
+	QListWidgetItem * clone () const { return new ColorPixmapItem(*this); }
+	QString colorName() const { return data(Qt::UserRole).value<ColorPixmapValue>().m_name; }
 };
 
-class SCRIBUS_API ColorFancyPixmapItem : public ScListBoxPixmap<60,15>
-{
-	protected:
-		ScColor m_color;
-		ScGuardedPtr<ScribusDoc> m_doc;
-	public:
-		ColorFancyPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName );
-		~ColorFancyPixmapItem() {};
 
-		virtual void redraw(void);
-		virtual int rtti() const { return 654873549; };
-};
 
 /*! \brief Very nice list box with color names and samples.
 It's inherited from QListBox with all its methods and properties.
@@ -67,7 +65,7 @@ and ColorWheel too. You can see it in Extras/Color Wheel or in
 Edit/Colors dialogs in action.
 \author Petr Vanek <petr@yarpen.cz>
 */
-class SCRIBUS_API ColorListBox : public Q3ListBox
+class SCRIBUS_API ColorListBox : public QListWidget
 {
 	Q_OBJECT
 
@@ -82,7 +80,9 @@ class SCRIBUS_API ColorListBox : public Q3ListBox
 
 		/*! \brief Standard QListBox like constructor.
 		Just there are initialized pixmaps for icon drawing. */
-		ColorListBox(QWidget * parent = 0, const char * name = 0, Qt::WFlags f = 0);
+		ColorListBox(QWidget * parent = 0, const char * name = 0); //, Qt::WFlags f = 0);
+
+		QString currentColor() const; 
 
 		/*! \brief Fill the list box with values taken from list.
 		The list is cleared itself. Then is rendered an icon with
@@ -108,11 +108,13 @@ class SCRIBUS_API ColorListBox : public Q3ListBox
 		/*! \brief Insert ColorFancyPixmapItems into the list
 		\param list a ColorList to present. */
 		void insertFancyPixmapItems(ColorList& list);
-		
+				
 		/*! \brief Pointer to the color list displayed by this box */
 		ColorList *cList;
 protected:
 		bool event(QEvent *event);
+		
+		int m_selectedRow;
 };
 
 #endif

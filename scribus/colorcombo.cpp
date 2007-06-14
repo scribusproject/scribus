@@ -13,36 +13,47 @@ for which a new license (GPL+exception) is in place.
  *
  */
 
-#include <q3listbox.h>
 #include "colorcombo.h"
 //#include "colorcombo.moc"
 #include "commonstrings.h"
+#include "qdebug.h"
 
-
-ColorCombo::ColorCombo( QWidget* parent, const char* name ) : Q3ComboBox(false, parent, name)
+ColorCombo::ColorCombo( QWidget* parent, const char* name ) : QComboBox(false, parent, name)
 {
 #ifdef QT_WS_MAC
 //	setStyle( new ColorCombo::ScMacStyle() );
 #endif
-	setListBox( new ColorListBox( this, "in-combo", Qt::WType_Popup ) );
+	ColorListBox* lb = new ColorListBox( this, "in-combo");
+	setModel( lb->model() );
+	setItemDelegate( lb->itemDelegate() );
+	setView( lb );
 }
 
-ColorCombo::ColorCombo( bool rw, QWidget* parent, const char* name ) : Q3ComboBox(rw, parent, name)
+ColorCombo::ColorCombo( bool rw, QWidget* parent, const char* name ) : QComboBox(rw, parent, name)
 {
 #ifdef QT_WS_MAC
 //	setStyle( new ColorCombo::ScMacStyle() );
 #endif
-	setListBox( new ColorListBox( this, "in-combo", Qt::WType_Popup ) );
+	ColorListBox* lb = new ColorListBox( this, "in-combo");
+	setModel( lb->model() );
+	setItemDelegate( lb->itemDelegate() );
+	setView( lb );
+}
+
+
+QString ColorCombo::currentColor() const
+{
+		return currentText();
 }
 
 void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , bool insertNone)
 {
-	ColorListBox* clb = (ColorListBox*) listBox();
+	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if ( clb )
 	{
 		clb->clear();
 		if ( insertNone )
-			clb->insertItem(CommonStrings::tr_NoneColor);
+			clb->addItem(CommonStrings::tr_NoneColor);
 		if ( pixType == ColorCombo::fancyPixmaps )
 			clb->insertItems(list, ColorListBox::fancyPixmap);
 		else if ( pixType == ColorCombo::widePixmaps )
@@ -54,7 +65,7 @@ void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , boo
 
 void ColorCombo::insertItems(ColorList& list, ColorCombo::PixmapType pixType)
 {
-	ColorListBox* clb = (ColorListBox*) listBox();
+	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if ( clb )
 	{
 		if ( pixType == ColorCombo::fancyPixmaps )
@@ -68,22 +79,22 @@ void ColorCombo::insertItems(ColorList& list, ColorCombo::PixmapType pixType)
 
 void ColorCombo::insertSmallItem( const ScColor& col, ScribusDoc* doc, const QString& colName )
 {
-	ColorListBox* clb = (ColorListBox*) listBox();
+	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if ( clb )
-		clb->insertItem( new ColorSmallPixmapItem(col, doc, colName) );
+		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)) );
 }
 
 void ColorCombo::insertWideItem ( const ScColor& col, ScribusDoc* doc, const QString& colName )
 {
-	ColorListBox* clb = (ColorListBox*) listBox();
+	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if ( clb )
-		clb->insertItem( new ColorWidePixmapItem(col, doc, colName) );
+		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)) );
 }
 
 void ColorCombo::insertFancyItem( const ScColor& col, ScribusDoc* doc, const QString& colName )
 {
-	ColorListBox* clb = (ColorListBox*) listBox();
+	ColorListBox* clb = dynamic_cast<ColorListBox*>(view());
 	if ( clb )
-		clb->insertItem( new ColorFancyPixmapItem(col, doc, colName) );
+		clb->addItem( new ColorPixmapItem(ColorPixmapValue(col, doc, colName)) );
 }
 

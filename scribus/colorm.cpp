@@ -63,7 +63,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	colorListBox = new ColorListBox( this, "colorListBox" );
 	colorListBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
 	colorListBox->setMinimumSize( QSize( 164, 228 ) );
-	colorListBox->setColumnMode( Q3ListBox::FixedNumber );
+//	colorListBox->setColumnMode( Q3ListBox::FixedNumber );
 	layout5->addWidget( colorListBox );
 
 	ColorsGroup = new QGroupBox( this, "ColorsGroup" );
@@ -584,14 +584,14 @@ void ColorManager::newColor()
 		updateCList();
 	}
 	delete dia;
-	colorListBox->setSelected(newItemIndex, true);
-	colorListBox->setTopItem(newItemIndex);
+	colorListBox->item(newItemIndex)->setSelected(true);
+//	colorListBox->setTopItem(newItemIndex);
 }
 
 void ColorManager::editColor()
 {
-	int selectedIndex=colorListBox->currentItem();
-	int topIndex=colorListBox->topItem();
+	int selectedIndex = colorListBox->row(colorListBox->currentItem());
+//	int topIndex=colorListBox->topItem();
 	ScColor tmpColor = EditColors[sColor];
 	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpColor, sColor, &EditColors, customColSet, false);
 	if (dia->exec())
@@ -613,14 +613,14 @@ void ColorManager::editColor()
 		updateCList();
 	}
 	delete dia;
-	colorListBox->setSelected(selectedIndex, true);
-	colorListBox->setTopItem(topIndex);
+	colorListBox->item(selectedIndex)->setSelected(true);
+//	colorListBox->setTopItem(topIndex);
 }
 
 void ColorManager::deleteColor()
 {
-	int selectedIndex=colorListBox->currentItem();
-	int topIndex=colorListBox->topItem();
+	int selectedIndex = colorListBox->row(colorListBox->currentItem());
+//	int topIndex=colorListBox->topItem();
 	DelColor *dia = new DelColor(this, EditColors, sColor, (m_Doc!=0));
 	if (dia->exec())
 	{
@@ -643,9 +643,9 @@ void ColorManager::deleteColor()
 	delete dia;
 	int listBoxCount=colorListBox->count();
 	if (listBoxCount>selectedIndex)
-		colorListBox->setSelected(selectedIndex, true);
-	if (listBoxCount>topIndex)
-		colorListBox->setTopItem(topIndex);
+		colorListBox->item(selectedIndex)->setSelected(true);
+//	if (listBoxCount>topIndex)
+//		colorListBox->setTopItem(topIndex);
 }
 
 void ColorManager::selColor(Q3ListBoxItem *c)
@@ -680,13 +680,18 @@ void ColorManager::updateCList()
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
-		colorListBox->insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
+		colorListBox->addItem( new ColorPixmapItem(it.data(), doc, it.key()) );
 	}
-	colorListBox->setSelected(colorListBox->currentItem(), false);
-	QString curCol = colorListBox->currentText();
-	bool enableDel = (curCol != "Black" && curCol != "White") && (EditColors.count() > 1);
-	deleteColorButton->setEnabled(enableDel);
-	if (colorListBox->currentItem() < 0)
+	if(colorListBox->currentItem())
+		colorListBox->currentItem()->setSelected(false);
+	ColorPixmapItem* currItem = dynamic_cast<ColorPixmapItem*>(colorListBox->currentItem());
+	if (currItem)
+	{
+		QString curCol = currItem->text();
+		bool enableDel = (curCol != "Black" && curCol != "White") && (EditColors.count() > 1);
+		deleteColorButton->setEnabled(enableDel);
+	}
+	else
 	{
 		duplicateColorButton->setEnabled(false);
 		editColorButton->setEnabled(false);

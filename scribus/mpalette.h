@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qimage.h>
 #include <qpixmap.h>
-#include <q3listbox.h>
+#include <QListWidgetItem>
 #include <qlineedit.h>
 #include <qtimer.h>
 #include <qtoolbox.h>
@@ -51,6 +51,8 @@ class StyleSelect;
 #include "alignselect.h"
 #include "shadebutton.h"
 #include "sclistboxpixmap.h"
+#include "scguardedptr.h"
+
 class Cpalette;
 class Autoforms;
 class ArrowChooser;
@@ -58,16 +60,54 @@ class ScComboBox;
 class ScribusMainWindow;
 class UserActionSniffer;
 
-class SCRIBUS_API LineFormateItem : public ScListBoxPixmap<37, 37>
+
+struct SCRIBUS_API LineFormatValue
+{
+	multiLine m_Line;
+	ScGuardedPtr<ScribusDoc> m_doc;
+	QString m_name;
+	
+	LineFormatValue();
+	LineFormatValue( const multiLine& line, ScribusDoc* doc, const QString name );
+	LineFormatValue(const LineFormatValue& other);
+	LineFormatValue& operator= (const LineFormatValue& other);
+};
+
+
+Q_DECLARE_METATYPE(LineFormatValue);
+
+
+class SCRIBUS_API LineFormatItem : public QListWidgetItem
+{	
+	enum {
+		LineFormatUserType = UserType + 2
+	} usrtyp;
+	
+public:	
+	LineFormatItem( ScribusDoc* doc, const multiLine& line, const QString& name ) : QListWidgetItem(NULL, LineFormatUserType)
+	{		
+		setText(name);
+		setData(Qt::UserRole, QVariant::fromValue(LineFormatValue(line, doc, name))); 
+	};
+	LineFormatItem( ) : QListWidgetItem(NULL, LineFormatUserType)
+	{		
+		setText("");
+		setData(Qt::UserRole, QVariant::fromValue(LineFormatValue())); 
+	};
+	LineFormatItem * clone () const { return new LineFormatItem(*this); }
+};
+
+
+
+class SCRIBUS_API LineFormatItemDelegate : public ScListBoxPixmap<37, 37>
 {
 public:
-	LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text);
+	LineFormatItemDelegate() : ScListBoxPixmap<37, 37>() {}
 	virtual int rtti() const { return 148523874; }
-protected:
-	multiLine mLine;
-	ScribusDoc* doc;
-	virtual void redraw(void);
+	virtual void redraw(const QVariant&) const;
 };
+
+
 
 class SCRIBUS_API NameWidget : public QLineEdit
 {
@@ -175,7 +215,7 @@ public slots:
 	void setTScaleV(int e);
 	void setTBase(int e);
 	void SetLineFormats(ScribusDoc *dd);
-	void SetSTline(Q3ListBoxItem *c);
+	void SetSTline(QListWidgetItem *c);
 	void NewTFont(QString);
 	void newTxtFill();
 	void newTxtStroke();
@@ -474,7 +514,7 @@ protected:
 	ScComboBox* blendMode;
 	QComboBox *optMarginCombo;
 
-	Q3ListBox* StyledLine;
+	QListWidget* StyledLine;
 
 	ScrSpinBox* Width;
 	ScrSpinBox* Xpos;

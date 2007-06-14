@@ -40,8 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpointer.h>
 
 class PageItem;
-class Q3ListBox;
-class Q3ListBoxItem;
+class QListWidgetItem;
 class Q3IconView;
 class Q3IconViewItem;
 class QPixmap;
@@ -92,7 +91,7 @@ public slots:
 	void VChange();
 	void updatePatternList();
 	void updateBoxS(QString Farbe);
-	void selectColor(Q3ListBoxItem *c);
+	void selectColor(QListWidgetItem *c);
 	QColor setColor(QString farbe, int shad);
 	void slotGrad(int nr);
 	void slotColor(QString n, int s);
