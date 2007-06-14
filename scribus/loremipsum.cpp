@@ -12,29 +12,23 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qdom.h>
-#include <qdir.h>
-#include <qfile.h>
-#include <qvariant.h>
-#include <qpushbutton.h>
-#include <q3header.h>
-#include <q3listview.h>
-#include <qlabel.h>
-#include <qspinbox.h>
-#include <qcheckbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
-
 #include "loremipsum.h"
-//#include "loremipsum.moc"
+
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QPushButton>
+#include <QLabel>
+#include <QSpinBox>
+#include <QDomDocument>
+#include <QFile>
+#include <QDir>
+#include <QString>
+#include <QStringList>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QHeaderView>
 
 #include "langmgr.h"
 #include "pageitem.h"
@@ -47,9 +41,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "hyphenator.h"
 #include "util.h"
-// #include "gtparagraphstyle.h"
-// #include "gtframestyle.h"
-// #include "gtwriter.h"
 
 QString getLoremLocation(QString fname)
 {
@@ -86,7 +77,7 @@ LoremParser::LoremParser(QString fname)
 			if (element.tagName() == "url")
 				url = element.text();
 			if (element.tagName() == "p")
-				loremIpsum.append(element.text().simplifyWhiteSpace());
+				loremIpsum.append(element.text().simplified());
 		}
 		node = node.nextSibling();
 	}
@@ -103,26 +94,36 @@ QString LoremParser::createLorem(uint parCount)
 	if (!loremIpsum.isEmpty())
 		for (uint i = 1; i < parCount + 1; ++i)
 			lorem += loremIpsum[rand()%loremIpsum.count()] + SpecialChars::PARSEP;
-	return lorem.stripWhiteSpace();
+	return lorem.simplified();
 }
 
 
-LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, bool modal, Qt::WFlags fl)
-	: QDialog( parent, name, modal, fl )
+LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 {
 	m_Doc=doc;
-	if ( !name )
-		setName( "LoremManager" );
-	LoremManagerLayout = new Q3GridLayout( this, 1, 1, 11, 6, "LoremManagerLayout");
+	setModal(true);
+	setWindowTitle( tr( "Lorem Ipsum" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	LoremManagerLayout = new QGridLayout(this) ;
+	LoremManagerLayout->setMargin(10);
+	LoremManagerLayout->setSpacing(5);
 
-	layout3 = new Q3VBoxLayout( 0, 0, 6, "layout3");
+	layout3 = new QVBoxLayout;
+	layout3->setMargin(0);
+	layout3->setSpacing(5);
 
-	loremList = new Q3ListView( this, "loremList" );
-	loremList->addColumn( tr( "Select Lorem Ipsum" ) );
+	loremList = new QTreeWidget( this );
 	loremList->setRootIsDecorated(true);
+	loremList->setColumnCount(1);
+	loremList->setHeaderLabel( tr("Select Lorem Ipsum"));
+	loremList->header()->setClickable( false );
+	loremList->header()->setResizeMode( QHeaderView::ResizeToContents );
+	loremList->setSelectionMode(QAbstractItemView::SingleSelection);
 	layout3->addWidget( loremList );
 
-	layout2 = new Q3HBoxLayout( 0, 0, 6, "layout2");
+	layout2 = new QHBoxLayout;
+	layout2->setMargin(0);
+	layout2->setSpacing(5);
 
 	paraLabel = new QLabel( this, "paraLabel" );
 	layout2->addWidget( paraLabel );
@@ -131,12 +132,14 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 	paraBox->setMinValue( 1 );
 	paraBox->setValue(PrefsManager::instance()->appPrefs.paragraphsLI);
 	layout2->addWidget( paraBox );
-	paraSpacer = new QSpacerItem( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	paraSpacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( paraSpacer );
 	layout3->addLayout( layout2 );
 
-	layout1 = new Q3HBoxLayout( 0, 0, 6, "layout1");
-	buttonSpacer = new QSpacerItem( 40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	layout1 = new QHBoxLayout;
+	layout1->setMargin(0);
+	layout1->setSpacing(5);
+	buttonSpacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( buttonSpacer );
 
 	okButton = new QPushButton( this, "okButton" );
@@ -148,7 +151,6 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 
 	LoremManagerLayout->addLayout( layout3, 0, 0 );
 	languageChange();
-	resize( QSize(439, 364).expandedTo(minimumSizeHint()) );
 
 	// reading lorems
 	QDir d(getLoremLocation(QString::null), "*.xml");
@@ -156,7 +158,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 	QFileInfoList list = d.entryInfoList();
 	QListIterator<QFileInfo> it(list);
 	QFileInfo fi;
-	langmgr=new LanguageManager();
+	langmgr = new LanguageManager();
 	langmgr->init(false);
 
 	while (it.hasNext())
@@ -171,22 +173,27 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 			continue;
 		}
 		availableLorems[parser->name] = fi.fileName();
-		Q3ListViewItem *item = new Q3ListViewItem(loremList);
+		QTreeWidgetItem *item = new QTreeWidgetItem(loremList);
 		if (parser->name=="la")
-			item->setText(0,standardloremtext);
+			item->setText(0, standardloremtext);
 		else
 			item->setText(0, langmgr->getLangFromAbbrev(parser->name, true));
-		new Q3ListViewItem(item, tr("Author:") + " " + parser->author);
-		new Q3ListViewItem(item, tr("Get More:") + " " + parser->url);
-		new Q3ListViewItem(item, tr("XML File:") + " " + fi.fileName());
-		loremList->insertItem(item);
+		QTreeWidgetItem *subItem;
+		subItem = new QTreeWidgetItem(item);
+		subItem->setText(0, tr("Author:") + " " + parser->author);
+		subItem = new QTreeWidgetItem(item);
+		subItem->setText(0, tr("Get More:") + " " + parser->url);
+		subItem = new QTreeWidgetItem(item);
+		subItem->setText(0, tr("XML File:") + " " + fi.fileName());
 		delete parser;
 	}
-
+	loremList->sortItems(0, Qt::AscendingOrder);
+	loremList->setSortingEnabled(false);
+	resize( QSize(320, 340).expandedTo(minimumSizeHint()) );
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
-	connect( loremList, SIGNAL(doubleClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(okButton_clicked()));
+	connect( loremList, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), this, SLOT(okButton_clicked()));
 }
 
 LoremManager::~LoremManager()
@@ -196,7 +203,7 @@ LoremManager::~LoremManager()
 
 void LoremManager::languageChange()
 {
-	setCaption( tr( "Lorem Ipsum" ) );
+	setWindowTitle( tr( "Lorem Ipsum" ) );
 	paraLabel->setText( tr( "Paragraphs:" ) );
 	okButton->setText( CommonStrings::tr_OK );
 	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
@@ -208,7 +215,7 @@ void LoremManager::languageChange()
 void LoremManager::okButton_clicked()
 {
 	// only top level items are taken
-	Q3ListViewItem *li;
+	QTreeWidgetItem *li;
 	if (loremList->currentItem()->parent() == 0)
 		li = loremList->currentItem();
 	else

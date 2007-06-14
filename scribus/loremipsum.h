@@ -16,25 +16,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef _LOREMIPSUM_H_
 #define _LOREMIPSUM_H_
 
-#include <qvariant.h>
-#include <qdialog.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <QLabel>
+#include <QDialog>
+#include <QMap>
 
 #include "scribusapi.h"
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
+class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
 class QSpacerItem;
-class Q3ListView;
-class Q3ListViewItem;
+class QTreeWidget;
 class QLabel;
 class QSpinBox;
-class QCheckBox;
 class QPushButton;
 class QString;
 class QStringList;
@@ -49,26 +42,26 @@ This helper class reads one file
  */
 class SCRIBUS_API LoremParser
 {
-	public:
-		/*! parse a XML file with given name
-		\param filename string fith the file name with full/relative path */
-		LoremParser(QString filename);
-		~LoremParser(){};
+public:
+	/*! parse a XML file with given name
+	\param filename string fith the file name with full/relative path */
+	LoremParser(QString filename);
+	~LoremParser(){};
 
-		//! Is the LI correct?
-		bool correct;
-		//! Name to display
-		QString name;
-		//! Author of the LI
-		QString author;
-		//! Website of the LI
-		QString url;
-		//! Paragraphs of the LI
-		QStringList loremIpsum;
+	//! Is the LI correct?
+	bool correct;
+	//! Name to display
+	QString name;
+	//! Author of the LI
+	QString author;
+	//! Website of the LI
+	QString url;
+	//! Paragraphs of the LI
+	QStringList loremIpsum;
 
-		/*! Construct a LI
-		\param parCount count of the paragraphs */
-		QString createLorem(uint parCount);
+	/*! Construct a LI
+	\param parCount count of the paragraphs */
+	QString createLorem(uint parCount);
 };
 
 /*! \brief This module provides simple interface to the various Lorem Ipsum variants.
@@ -89,43 +82,42 @@ class SCRIBUS_API LoremManager : public QDialog
 {
 	Q_OBJECT
 
-	public:
-		/*! Reads all XML files in cfg directory. */
-		LoremManager(ScribusDoc* doc, QWidget* parent = 0, const char* name = 0, bool modal = true, Qt::WFlags fl = 0);
-		~LoremManager();
+public:
+	/*! Reads all XML files in cfg directory. */
+	LoremManager(ScribusDoc* doc, QWidget* parent = 0);
+	~LoremManager();
 
-		//! all lorems with Public Name -> filename structure
-		QMap<QString,QString> availableLorems;
+	//! all lorems with Public Name -> filename structure
+	QMap<QString,QString> availableLorems;
 
-		/*! Apply created LI into a frame
-		\param name filename of the selected LI
-		\param paraCount count of the paragraphs
-		*/
-		void insertLoremIpsum(QString name, int paraCount);
+	/*! Apply created LI into a frame
+	\param name filename of the selected LI
+	\param paraCount count of the paragraphs
+	*/
+	void insertLoremIpsum(QString name, int paraCount);
 
-	public slots:
-		virtual void okButton_clicked();
-		virtual void cancelButton_clicked();
+public slots:
+	virtual void okButton_clicked();
+	virtual void cancelButton_clicked();
 
-	protected:
-		ScribusDoc* m_Doc;
-		Q3ListView* loremList;
-		QLabel* paraLabel;
-		QSpinBox* paraBox;
-		QPushButton* okButton;
-		QPushButton* cancelButton;
+protected:
+	ScribusDoc* m_Doc;
+	QTreeWidget* loremList;
+	QLabel* paraLabel;
+	QSpinBox* paraBox;
+	QPushButton* okButton;
+	QPushButton* cancelButton;
+	QGridLayout* LoremManagerLayout;
+	QVBoxLayout* layout3;
+	QHBoxLayout* layout2;
+	QSpacerItem* paraSpacer;
+	QHBoxLayout* layout1;
+	QSpacerItem* buttonSpacer;
+	LanguageManager* langmgr;
+	QString standardloremtext;
 
-		Q3GridLayout* LoremManagerLayout;
-		Q3VBoxLayout* layout3;
-		Q3HBoxLayout* layout2;
-		QSpacerItem* paraSpacer;
-		Q3HBoxLayout* layout1;
-		QSpacerItem* buttonSpacer;
-		LanguageManager* langmgr;
-		QString standardloremtext;
-
-	protected slots:
-		virtual void languageChange();
+protected slots:
+	virtual void languageChange();
 
 };
 
