@@ -303,13 +303,12 @@ void ColorListBox::insertFancyPixmapItems(ColorList& list)
 
 bool ColorListBox::event(QEvent *event)
 {
-/* FIXME Qt4
 	if (event->type() == QEvent::ToolTip)
 	{
 		if (cList != NULL)
 		{
 			QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
-			QListWidget* it = itemAt(helpEvent->pos());
+			QListWidgetItem* it = itemAt(helpEvent->pos());
 			if (it != 0)
 			{
 				if (cList->contains(it->text()))
@@ -335,6 +334,5 @@ bool ColorListBox::event(QEvent *event)
 			}
 		}
 	}
- */
 	return QListWidget::event(event);
 }
