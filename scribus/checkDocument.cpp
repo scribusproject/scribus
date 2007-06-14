@@ -5,21 +5,18 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "checkDocument.h"
-//#include "checkDocument.moc"
 
-#include <qvariant.h>
-#include <q3header.h>
-#include <q3listview.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qmap.h>
-#include <qlabel.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QLabel>
+#include <QPushButton>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QHeaderView>
+#include <QPixmap>
+#include <QImage>
+#include <QToolTip>
 
 #include "sccombobox.h"
 #include "scribuscore.h"
@@ -121,8 +118,7 @@ static const unsigned char image2_data[] =
         0x42, 0x60, 0x82
     };
 
-CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( parent, "checkDocument", modal, 0 ),
-m_Doc(0)
+CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( parent, "checkDocument", modal, 0 ), m_Doc(0)
 {
 	QImage img;
 	img.loadFromData( image0_data, sizeof( image0_data ), "PNG" );
@@ -131,24 +127,27 @@ m_Doc(0)
 	onlyWarning = img;
 	img.loadFromData( image2_data, sizeof( image2_data ), "PNG" );
 	noErrors = img;
-	checkDocumentLayout = new Q3VBoxLayout( this, 5, 5, "checkDocumentLayout");
+	checkDocumentLayout = new QVBoxLayout( this );
+	checkDocumentLayout->setMargin(5);
+	checkDocumentLayout->setSpacing(5);
 
-	layout1 = new Q3HBoxLayout( 0, 0, 5, "layout1");
+	layout1 = new QHBoxLayout;
+	layout1->setMargin(0);
+	layout1->setSpacing(5);
 	textLabel1 = new QLabel( this, "textLabel1" );
 	layout1->addWidget( textLabel1 );
 	curCheckProfile = new ScComboBox( false, this, "Profiles" );
 	layout1->addWidget( curCheckProfile );
 	checkDocumentLayout->addLayout( layout1 );
-	reportDisplay = new Q3ListView( this, "reportDisplay" );
-	reportDisplay->addColumn("Items");
-	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->addColumn("Problems");
-	reportDisplay->header()->setClickEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->header()->setResizeEnabled( false, reportDisplay->header()->count() - 1 );
-	reportDisplay->setSorting(-1);
+	reportDisplay = new QTreeWidget( this );
+	reportDisplay->setColumnCount(2);
+	reportDisplay->header()->setClickable( false );
+	reportDisplay->header()->setMovable( false );
+	reportDisplay->setSortingEnabled(false);
 	checkDocumentLayout->addWidget( reportDisplay );
-	layout2 = new Q3HBoxLayout( 0, 0, 5, "layou2");
+	layout2 = new QHBoxLayout;
+	layout2->setMargin(0);
+	layout2->setSpacing(5);
 	reScan = new QPushButton(this, "reScan" );
 	layout2->addWidget( reScan );
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -169,20 +168,8 @@ m_Doc(0)
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
 	connect(reScan, SIGNAL(clicked()), this, SLOT(doReScan()));
 }
-/*
-void CheckDocument::closeEvent(QCloseEvent *ce)
-{
-	emit closePal(false);
-	QDialog::closeEvent(ce);
-}
 
-void CheckDocument::keyPressEvent(QKeyEvent *ke)
-{
-	QDialog::keyPressEvent(ke);
-}
-*/
-
-void CheckDocument::slotSelect(Q3ListViewItem* ite)
+void CheckDocument::slotSelect(QTreeWidgetItem* ite)
 {
 	if (itemMap.contains(ite))
 	{
@@ -213,12 +200,6 @@ void CheckDocument::slotSelect(Q3ListViewItem* ite)
 void CheckDocument::doReScan()
 {
 	newScan(curCheckProfile->currentText());
-// 	clearErrorList();
-// 	if (m_Doc==0)
-// 		return;
-// 	m_Doc->curCheckProfile = curCheckProfile->currentText();
-// 	DocumentChecker::checkDocument(m_Doc);
-// 	buildErrorList(m_Doc);
 }
 
 void CheckDocument::newScan(const QString& name)
@@ -233,9 +214,9 @@ void CheckDocument::newScan(const QString& name)
 
 void CheckDocument::clearErrorList()
 {
-	disconnect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
+	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*)));
 	reportDisplay->clear();
-	reportDisplay->setSorting(-1);
+	reportDisplay->setSortingEnabled(false);
 	itemMap.clear();
 	pageMap.clear();
 	masterPageMap.clear();
@@ -263,11 +244,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	int maxRes = qRound(doc->checkerProfiles[doc->curCheckProfile].maxResolution);
 	int xres, yres;
 
-	Q3ListViewItem * item = new Q3ListViewItem( reportDisplay, 0 );
+	QTreeWidgetItem * item = new QTreeWidgetItem( reportDisplay );
 	item->setText( 0, tr( "Document" ) );
 	if ((doc->docItemErrors.count() == 0) && (doc->masterItemErrors.count() == 0) && (doc->docLayerErrors.count() == 0))
 	{
-		item->setPixmap( 0, noErrors );
+		item->setIcon( 0, noErrors );
 		item->setText( 1, tr( "No Problems found" ) );
 		ignoreErrors->setText( tr("OK"));
 	}
@@ -276,17 +257,17 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		resultError = true;
 		bool hasError = false;
 		bool hasGraveError = false;
-		Q3ListViewItem * pagep = 0;
+		QTreeWidgetItem * pagep = 0;
 		if (doc->docLayerErrors.count() != 0)
 		{
 			QMap<int, errorCodes>::Iterator it01;
 			for (it01 = doc->docLayerErrors.begin(); it01 != doc->docLayerErrors.end(); ++it01)
 			{
-				Q3ListViewItem * layer = new Q3ListViewItem( item, pagep );
+				QTreeWidgetItem * layer = new QTreeWidgetItem( item, pagep );
 				errorCodes::Iterator it03;
 				for (it03 = it01.data().begin(); it03 != it01.data().end(); ++it03)
 				{
-					Q3ListViewItem * errorText = new Q3ListViewItem( layer, 0 );
+					QTreeWidgetItem * errorText = new QTreeWidgetItem( layer, 0 );
 					switch (it03.key())
 					{
 						case Transparency:
@@ -298,10 +279,10 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 						default:
 							break;
 					}
-					errorText->setPixmap( 0, graveError );
+					errorText->setIcon( 0, graveError );
 				}
 				layer->setText(0, QString( tr("Layer \"%1\"")).arg(doc->layerName(it01.key())));
-				layer->setPixmap( 0, graveError );
+				layer->setIcon( 0, graveError );
 				pagep = layer;
 				hasGraveError = true;
 			}
@@ -311,7 +292,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			QString tmp;
 			hasError = false;
 			bool pageGraveError = false;
-			Q3ListViewItem * page = new Q3ListViewItem( item, pagep );
+			QTreeWidgetItem * page = new QTreeWidgetItem( item, pagep );
 			masterPageMap.insert(page, doc->MasterPages.at(a)->pageName());
 			pagep = page;
 			QMap<int, errorCodes>::Iterator it2;
@@ -321,7 +302,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				{
 					hasError = true;
 					bool itemError = false;
-					Q3ListViewItem * object = new Q3ListViewItem( page, 0 );
+					QTreeWidgetItem * object = new QTreeWidgetItem( page, 0 );
 					masterPageItemMap.insert(object, doc->MasterItems.at(it2.key())->ItemNr);
 					object->setText(0, doc->MasterItems.at(it2.key())->itemName());
 					errorCodes::Iterator it3;
@@ -388,27 +369,27 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
 						{
-							Q3ListViewItem * errorText = new Q3ListViewItem( object, 0 );
+							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
 							switch (it3.key())
 							{
 							case MissingGlyph:
 								errorText->setText(1, missingGlyph);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
 							case TextOverflow:
 								errorText->setText(1, textOverflow);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case ObjectNotOnPage:
 								errorText->setText(1, notOnPage);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case MissingImage:
 								errorText->setText(1, missingImg);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
@@ -417,37 +398,37 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
 								yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
 								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case ImageDPITooHigh:
 								xres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageXScale());
 								yres = qRound(72.0 / doc->MasterItems.at(it2.key())->imageYScale());
 								errorText->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case Transparency:
 								errorText->setText(1, transpar);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
 							case PDFAnnotField:
 								errorText->setText(1, annot);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case ImageIsGIF:
 								errorText->setText(1, isGIF);
-								errorText->setPixmap(0, onlyWarning);
+								errorText->setIcon(0, onlyWarning);
 								//QToolTip::add(errorText, isGIFtoolTip);
 								break;
 							case WrongFontInAnnotation:
 								errorText->setText(1, WrongFont);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
@@ -456,24 +437,24 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								break;
 							}
 						}
-						object->setOpen( true );
+						object->setExpanded( true );
 					}
 					if (itemError)
-						object->setPixmap( 0, graveError );
+						object->setIcon( 0, graveError );
 					else
-						object->setPixmap( 0, onlyWarning );
+						object->setIcon( 0, onlyWarning );
 				}
 			}
 			if (hasError)
 			{
 				if (pageGraveError)
-					page->setPixmap( 0, graveError );
+					page->setIcon( 0, graveError );
 				else
-					page->setPixmap( 0, onlyWarning );
-				page->setOpen( true );
+					page->setIcon( 0, onlyWarning );
+				page->setExpanded( true );
 			}
 			else
-				page->setPixmap( 0, noErrors );
+				page->setIcon( 0, noErrors );
 			page->setText(0, doc->MasterPages.at(a)->pageName());
 		}
 		for (int a = 0; a < static_cast<int>(doc->DocPages.count()); ++a)
@@ -481,7 +462,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			QString tmp;
 			hasError = false;
 			bool pageGraveError = false;
-			Q3ListViewItem * page = new Q3ListViewItem( item, pagep );
+			QTreeWidgetItem * page = new QTreeWidgetItem( item, pagep );
 			pageMap.insert(page, a);
 			pagep = page;
 			QMap<int, errorCodes>::Iterator it2;
@@ -491,7 +472,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 				{
 					hasError = true;
 					bool itemError = false;
-					Q3ListViewItem * object = new Q3ListViewItem( page, 0 );
+					QTreeWidgetItem * object = new QTreeWidgetItem( page, 0 );
 					object->setText(0, doc->DocItems.at(it2.key())->itemName());
 					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
@@ -558,27 +539,27 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
 						{
-							Q3ListViewItem * errorText = new Q3ListViewItem( object, 0 );
+							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
 							switch (it3.key())
 							{
 							case MissingGlyph:
 								errorText->setText(1, missingGlyph);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
 							case TextOverflow:
 								errorText->setText(1, textOverflow);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case ObjectNotOnPage:
 								errorText->setText(1, notOnPage);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case MissingImage:
 								errorText->setText(1, missingImg);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
@@ -587,37 +568,37 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
 								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
 								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case ImageDPITooHigh:
 								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
 								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
 								errorText->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case Transparency:
 								errorText->setText(1, transpar);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
 								break;
 							case PDFAnnotField:
 								errorText->setText(1, annot);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case ImageIsGIF:
 								errorText->setText(1, isGIF);
-								errorText->setPixmap(0, onlyWarning);
+								errorText->setIcon(0, onlyWarning);
 								//QToolTip::add(errorText, isGIFtoolTip);
 								break;
 							case WrongFontInAnnotation:
 								errorText->setText(1, WrongFont);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								itemError = true;
@@ -626,24 +607,24 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								break;
 							}
 						}
-						object->setOpen( true );
+						object->setExpanded( true );
 					}
 					if (itemError)
-						object->setPixmap( 0, graveError );
+						object->setIcon( 0, graveError );
 					else
-						object->setPixmap( 0, onlyWarning );
+						object->setIcon( 0, onlyWarning );
 				}
 			}
 			if (hasError)
 			{
 				if (pageGraveError)
-					page->setPixmap( 0, graveError );
+					page->setIcon( 0, graveError );
 				else
-					page->setPixmap( 0, onlyWarning );
-				page->setOpen( true );
+					page->setIcon( 0, onlyWarning );
+				page->setExpanded( true );
 			}
 			else
-				page->setPixmap( 0, noErrors );
+				page->setIcon( 0, noErrors );
 			page->setText(0, tr("Page ")+tmp.setNum(a+1));
 		}
 		QMap<int, errorCodes>::Iterator it2;
@@ -660,14 +641,14 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 		{
 			bool hasError = false;
 			bool pageGraveError = false;
-			Q3ListViewItem * page = new Q3ListViewItem( item, pagep );
+			QTreeWidgetItem * page = new QTreeWidgetItem( item, pagep );
 			pagep = page;
 			for (it2 = doc->docItemErrors.begin(); it2 != doc->docItemErrors.end(); ++it2)
 			{
 				if (doc->DocItems.at(it2.key())->OwnPage == -1)
 				{
 					hasError = true;
-					Q3ListViewItem * object = new Q3ListViewItem( page, 0 );
+					QTreeWidgetItem * object = new QTreeWidgetItem( page, 0 );
 					object->setText(0, doc->DocItems.at(it2.key())->itemName());
 					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
@@ -730,26 +711,26 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					{
 						for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
 						{
-							Q3ListViewItem * errorText = new Q3ListViewItem( object, 0 );
+							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
 							switch (it3.key())
 							{
 							case MissingGlyph:
 								errorText->setText(1, missingGlyph);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								break;
 							case TextOverflow:
 								errorText->setText(1, textOverflow);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case ObjectNotOnPage:
 								errorText->setText(1, notOnPage);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case MissingImage:
 								errorText->setText(1, missingImg);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								break;
@@ -757,36 +738,36 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
 								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
 								errorText->setText(1, lowDPI.arg(minRes).arg(xres).arg(yres));
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case ImageDPITooHigh:
 								xres = qRound(72.0 / doc->DocItems.at(it2.key())->imageXScale());
 								yres = qRound(72.0 / doc->DocItems.at(it2.key())->imageYScale());
 								errorText->setText(1, highDPI.arg(maxRes).arg(xres).arg(yres));
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case Transparency:
 								errorText->setText(1, transpar);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								break;
 							case PDFAnnotField:
 								errorText->setText(1, annot);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case PlacedPDF:
 								errorText->setText(1, rasterPDF);
-								errorText->setPixmap( 0, onlyWarning );
+								errorText->setIcon( 0, onlyWarning );
 								break;
 							case ImageIsGIF:
 								errorText->setText(1, isGIF);
-								errorText->setPixmap(0, onlyWarning);
+								errorText->setIcon(0, onlyWarning);
 								//QToolTip::add(errorText, isGIFtoolTip);
 								break;
 							case WrongFontInAnnotation:
 								errorText->setText(1, WrongFont);
-								errorText->setPixmap( 0, graveError );
+								errorText->setIcon( 0, graveError );
 								hasGraveError = true;
 								pageGraveError = true;
 								break;
@@ -794,36 +775,36 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 								break;
 							}
 						}
-						object->setOpen( true );
+						object->setExpanded( true );
 					}
 					if (pageGraveError)
-						object->setPixmap( 0, graveError );
+						object->setIcon( 0, graveError );
 					else
-						object->setPixmap( 0, onlyWarning );
+						object->setIcon( 0, onlyWarning );
 				}
 			}
 			if (hasError)
 			{
 				if (pageGraveError)
-					page->setPixmap( 0, graveError );
+					page->setIcon( 0, graveError );
 				else
-					page->setPixmap( 0, onlyWarning );
-				page->setOpen( true );
+					page->setIcon( 0, onlyWarning );
+				page->setExpanded( true );
 			}
 			else
-				page->setPixmap( 0, noErrors );
+				page->setIcon( 0, noErrors );
 			page->setText(0, tr("Free Objects"));
 		}
 		if (hasGraveError)
-			item->setPixmap( 0, graveError );
+			item->setIcon( 0, graveError );
 		else
-			item->setPixmap( 0, onlyWarning );
+			item->setIcon( 0, onlyWarning );
 		item->setText( 1, tr( "Problems found" ) );
-		item->setOpen( true );
+		item->setExpanded( true );
 		ignoreErrors->setText( tr("&Ignore Errors"));
 	}
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(newScan(const QString&)));
-	connect(reportDisplay, SIGNAL(selectionChanged(Q3ListViewItem*)), this, SLOT(slotSelect(Q3ListViewItem*)));
+	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*)));
 }
 
 /*
@@ -832,9 +813,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
  */
 void CheckDocument::languageChange()
 {
-	setCaption( tr( "Preflight Verifier" ) );
-	reportDisplay->header()->setLabel( 0, tr( "Items" ) );
-	reportDisplay->header()->setLabel( 1, tr( "Problems" ) );
+	setWindowTitle( tr( "Preflight Verifier" ) );
+	QStringList headerLabels;
+	headerLabels.append( tr("Items"));
+	headerLabels.append( tr("Problems"));
+	reportDisplay->setHeaderLabels(headerLabels);
 
 	textLabel1->setText( tr("Current Profile:"));
 	ignoreErrors->setText( tr("&Ignore Errors"));

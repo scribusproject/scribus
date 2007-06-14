@@ -7,29 +7,20 @@ for which a new license (GPL+exception) is in place.
 #ifndef CHECKDOCUMENT_H
 #define CHECKDOCUMENT_H
 
-#include <qvariant.h>
-#include <qpixmap.h>
-#include <qpushbutton.h>
-#include <qdialog.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
-#include <QLabel>
+#include <QMap>
+
+class QVBoxLayout;
+class QHBoxLayout;
+class QTreeWidget;
+class QTreeWidgetItem;
+class QLabel;
+class QPushButton;
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QSpacerItem;
-class Q3ListView;
-class Q3ListViewItem;
-class QComboBox;
-class QLabel;
-class QPushButton;
 class ScribusDoc;
+class ScComboBox;
 
 
 /*! \brief Preflight Verifier GUI (P.V.)
@@ -65,7 +56,7 @@ public:
 public slots:
 	/*! \brief Called when is selected a new item in error list.
 	\param ite and item */
-	void slotSelect(Q3ListViewItem* ite);
+	void slotSelect(QTreeWidgetItem* ite);
 	/*!\brief Do a manual rechecking. */
 	void doReScan();
 	/*! \brief Process error checking itself.
@@ -87,22 +78,22 @@ signals:
 	void ignoreAllErrors();
 
 protected:
-	Q3VBoxLayout* checkDocumentLayout;
-	Q3HBoxLayout* layout1;
-	Q3HBoxLayout* layout2;
+	QVBoxLayout* checkDocumentLayout;
+	QHBoxLayout* layout1;
+	QHBoxLayout* layout2;
 
 protected slots:
 	virtual void languageChange();
 
 private:
 	//! \brief Mappping Page Item - item nr.
-	QMap<Q3ListViewItem*, int> itemMap;
+	QMap<QTreeWidgetItem*, int> itemMap;
 	//! \brief Mappping Page - page nr.
-	QMap<Q3ListViewItem*, int> pageMap;
+	QMap<QTreeWidgetItem*, int> pageMap;
 	//! \brief Mappping Master Page - MP nr.
-	QMap<Q3ListViewItem*, QString> masterPageMap;
+	QMap<QTreeWidgetItem*, QString> masterPageMap;
 	//! \brief Mappping MP Item - MP item nr.
-	QMap<Q3ListViewItem*, int> masterPageItemMap;
+	QMap<QTreeWidgetItem*, int> masterPageItemMap;
 
 	//! \brief a reference to the current document
 	ScribusDoc* m_Doc;
@@ -129,9 +120,9 @@ private:
 
 	//! \brief Flag if is ignore button shown. true = hidden, false = shown.
 	bool noButton;
-	QComboBox* curCheckProfile;
+	ScComboBox* curCheckProfile;
 	QLabel* textLabel1;
-	Q3ListView* reportDisplay;
+	QTreeWidget* reportDisplay;
 	QPushButton* ignoreErrors;
 	QPushButton* reScan;
 };
