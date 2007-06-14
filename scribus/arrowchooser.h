@@ -7,13 +7,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef ARROWCHOOSER_H
 #define ARROWCHOOSER_H
 
-#include <Q3ComboBox>
-//Added by qt3to4:
+#include <QComboBox>
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include <QList>
 
-class SCRIBUS_API ArrowChooser : public Q3ComboBox
+class SCRIBUS_API ArrowChooser : public QComboBox
 {
     Q_OBJECT
 
