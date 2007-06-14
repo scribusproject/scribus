@@ -39,6 +39,7 @@ ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & 
 {
 	setShortcut(accel);
 	initScrAction();
+	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
 	setIconSizes();
 	_actionType=aType;
 
@@ -86,6 +87,7 @@ ScrAction::ScrAction( const QPixmap & icon16, const QPixmap & icon22, const QStr
 {
 	setShortcut(accel);
 	initScrAction();
+	icon().addPixmap(icon22, QIcon::Normal, QIcon::On);
 	setIconSizes();
 }
 

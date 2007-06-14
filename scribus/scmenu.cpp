@@ -296,21 +296,17 @@ bool ScrPopupMenu::repopulateLocalMenu()
 		QString menuItemListClassName=listObj->className();
 		if (menuItemListClassName=="ScrAction")
 		{
-			//qDebug("ScrAction found");
-			//if(QString(listObj->name())==QString("separator_action"))
-			//	localPopupMenu->insertSeparator();
-			//else {
-				ScrAction * act = dynamic_cast<ScrAction *>(listObj);
-				if (act)
-					localPopupMenu->addAction(act);
-			//}
+			ScrAction * act = dynamic_cast<ScrAction *>(listObj);
+			if (act!=NULL)
+				localPopupMenu->addAction(act);
 		}
 		else 
 		{
 			if (menuItemListClassName=="ScrPopupMenu")
 			{
 				ScrPopupMenu * men = dynamic_cast<ScrPopupMenu *>(listObj);
-				localPopupMenu->insertItem(men->getMenuIcon(), men->getMenuText(), men->getLocalPopupMenu());
+				if (men!=NULL)
+					localPopupMenu->insertItem(men->getMenuIcon(), men->getMenuText(), men->getLocalPopupMenu());
 			}
 			else
 				sDebug(QString("Alien found: %1").arg((*menuItemListIt)->className()));
@@ -337,20 +333,15 @@ bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 		QString menuItemListClassName=listObj->className();
 		if (menuItemListClassName=="ScrAction")
 		{
-			//if(QString(listObj->name())==QString("separator_action"))
-			//	;
-			//else
-			//{
-				ScrAction *sca=dynamic_cast<ScrAction *>(listObj);
-				if (sca)
-					actNames->append(sca->name());
-			//}
+			ScrAction *sca=dynamic_cast<ScrAction *>(listObj);
+			if (sca!=NULL)
+				actNames->append(sca->name());
 		}
 		else 
 		if (menuItemListClassName=="ScrPopupMenu")
 		{
 			ScrPopupMenu *scp=dynamic_cast<ScrPopupMenu *>(listObj);
-			if (scp)
+			if (scp!=NULL)
 				scp->generateEntryList(actNames);
 		}
 		++menuItemListIt;
