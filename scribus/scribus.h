@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3mainwindow.h>
 #include <qaction.h>
 #include <qmenubar.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 #include <q3toolbar.h>
 #include <qtoolbutton.h>
 #include <qstatusbar.h>
@@ -590,10 +590,8 @@ private:
 	QString layerMenuName;
 	QPixmap noIcon;
 	//qt4 ColorCombo *ColorMenC;
-	/** ShapeMenu enthaelt die Rahmenformen */
-	Q3PopupMenu *ShapeMenu;
 	/** FontMenu enthaelt die Fonts */
-	Q3PopupMenu *FontMenu;
+	QMenu *FontMenu;
 	FontCombo* FontSub;
 	ScToolBar *fileToolBar;
 	ScToolBar *editToolBar;

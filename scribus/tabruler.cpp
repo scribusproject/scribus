@@ -5,26 +5,21 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tabruler.h"
-//#include "tabruler.moc"
-#include <qvariant.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qpainter.h>
-#include <qcursor.h>
-#include <qcolor.h>
-//Added by qt3to4:
+#include <QVariant>
+#include <QComboBox>
+#include <QLabel>
+#include <QPushButton>
+#include <QToolButton>
+#include <QLayout>
+#include <QToolTip>
+#include <QPainter>
+#include <QCursor>
+#include <QColor>
 #include <QApplication>
-#include <Q3HBoxLayout>
-#include <Q3PointArray>
+#include <QPolygon>
 #include <QPixmap>
 #include <QMouseEvent>
 #include <QEvent>
-#include <Q3VBoxLayout>
 #include <QPaintEvent>
 #include "commonstrings.h"
 #include "units.h"
@@ -158,10 +153,10 @@ void RulerT::paintEvent(QPaintEvent *)
 	{
 		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.setBrush(Qt::blue);
-		Q3PointArray cr;
+		QPolygon cr;
 		cr.setPoints(3, qRound(firstLine+leftIndent), 12, qRound(firstLine+leftIndent-4), 0, qRound(firstLine+leftIndent+4), 0);
 		p.drawPolygon(cr);
-		Q3PointArray cr2;
+		QPolygon cr2;
 		cr2.setPoints(3, qRound(leftIndent), 12, qRound(leftIndent+4), 24, qRound(leftIndent-4), 24);
 		p.drawPolygon(cr2);
 	}
@@ -463,8 +458,8 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	double ww;
 	ww = (wid < 0) ? 4000 : wid;
 	setName( "tabruler" );
-	tabrulerLayout = new Q3VBoxLayout( this, 0, 6, "tabrulerLayout");
-	layout2 = new Q3HBoxLayout( 0, 0, 6, "layout2");
+	tabrulerLayout = new QVBoxLayout( this, 0, 6, "tabrulerLayout");
+	layout2 = new QHBoxLayout( 0, 0, 6, "layout2");
 
 	rulerScrollL = new QToolButton( Qt::LeftArrow, this, "rulerScrollL" );
 	rulerScrollL->setAutoRepeat( true );
@@ -476,7 +471,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	rulerScrollR->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollR );
 
-	layout1 = new Q3HBoxLayout( 0, 0, 6, "layout1" );
+	layout1 = new QHBoxLayout( 0, 0, 6, "layout1" );
 	layout1->setAlignment( Qt::AlignTop );
 	TypeCombo = new QComboBox( false, this, "TypeCombo" );
 	TypeCombo->clear();
@@ -502,9 +497,9 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	layout1->addWidget( tabFillComboT );
 	layout1->addWidget( tabFillCombo );
 
-	layout4 = new Q3HBoxLayout(0, 0, 6, "layout3");
+	layout4 = new QHBoxLayout(0, 0, 6, "layout3");
 
-	indentLayout = new Q3HBoxLayout(0, 0, 6, "indentLayout");
+	indentLayout = new QHBoxLayout(0, 0, 6, "indentLayout");
 	if (haveFirst)
 	{
 		firstLineData = new ScrSpinBox( -3000, ww / docUnitRatio, this, 1);

@@ -7,25 +7,20 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABRULER_H
 #define TABRULER_H
 
-#include <qvariant.h>
-#include <qwidget.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QVariant>
+#include <QWidget>
+#include <QHBoxLayout>
 #include <QPaintEvent>
-#include <Q3GridLayout>
+#include <QGridLayout>
 #include <QLabel>
 #include <QMouseEvent>
 #include <QEvent>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
 
 #include "scribusapi.h"
 #include "sctextstruct.h"
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
 class QComboBox;
-class QLabel;
 class QPushButton;
 class ScrSpinBox;
 class QToolButton;
@@ -140,12 +135,12 @@ signals:
 	void mouseReleased();
 
 protected:
-	Q3VBoxLayout* tabrulerLayout;
-	Q3HBoxLayout* layout2;
-	Q3HBoxLayout* layout1;
-	Q3HBoxLayout* indentLayout;
-	Q3VBoxLayout* layout3;
-	Q3HBoxLayout *layout4;
+	QVBoxLayout* tabrulerLayout;
+	QHBoxLayout* layout2;
+	QHBoxLayout* layout1;
+	QHBoxLayout* indentLayout;
+	QVBoxLayout* layout3;
+	QHBoxLayout *layout4;
 	QComboBox* TypeCombo;
 	QComboBox* tabFillCombo;
 	QLabel* tabFillComboT;
