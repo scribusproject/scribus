@@ -121,7 +121,6 @@ SET(SCRIBUS_MOC_CLASSES
   loremipsum.h
   margindialog.h
   marginWidget.h
-  mdup.h
   measurements.h
   menumanager.h
   mergedoc.h
@@ -274,7 +273,6 @@ SET(SCRIBUS_SOURCES
   documentchecker.cpp
   documentinformation.cpp
   druck.cpp
-  dynamictip.cpp
   editor.cpp
   effectsdialog.cpp
   exif.cpp
@@ -327,7 +325,6 @@ SET(SCRIBUS_SOURCES
   margindialog.cpp
   marginWidget.cpp
   md5.c
-  mdup.cpp
   measurements.cpp
   menumanager.cpp
   mergedoc.cpp

@@ -51,7 +51,6 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "pageitem.h"
 #include "util.h"
-#include "dynamictip.h"
 #include "commonstrings.h"
 #include "linkbutton.h"
 #include "sccolorengine.h"

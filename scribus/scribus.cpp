@@ -79,7 +79,6 @@ for which a new license (GPL+exception) is in place.
 #include "newfile.h"
 #include "page.h"
 #include "query.h"
-#include "mdup.h"
 #include "multipleduplicate.h"
 #include "docinfo.h"
 #include "reformdoc.h"
@@ -9324,7 +9323,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 
 void ScribusMainWindow::insertSampleText()
 {
-	LoremManager *m = new LoremManager(doc, this, "m", true, 0);
+	LoremManager *m = new LoremManager(doc, this);
 	if (prefsManager->appPrefs.useStandardLI)
 		m->insertLoremIpsum("la.xml", prefsManager->appPrefs.paragraphsLI);
 	else

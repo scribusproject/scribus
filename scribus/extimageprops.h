@@ -18,7 +18,6 @@ class QLabel;
 class QComboBox;
 class QCheckBox;
 class QSpinBox;
-class Q3Table;
 class QListWidget;
 class QListWidgetItem;
 class QPushButton;

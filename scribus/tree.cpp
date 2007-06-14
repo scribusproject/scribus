@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "selection.h"
 #include "undomanager.h"
-#include "dynamictip.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -951,7 +950,7 @@ void Tree::BuildTree(bool storeVals)
 	freeObjects = 0;
 	PageItem* pgItem;
 	QString tmp;
-	for (uint b = 0; b < currDoc->MasterItems.count(); ++b)
+	for (int b = 0; b < currDoc->MasterItems.count(); ++b)
 	{
 		currDoc->MasterItems.at(b)->Dirty = false;
 	}
@@ -962,7 +961,7 @@ void Tree::BuildTree(bool storeVals)
 		page->type = 0;
 		QString pageNam = currDoc->MasterPages.at(a)->pageName();
 		pagep = page;
-		for (uint b = 0; b < currDoc->MasterItems.count(); ++b)
+		for (int b = 0; b < currDoc->MasterItems.count(); ++b)
 		{
 			pgItem = currDoc->MasterItems.at(b);
 			if ((pgItem->OwnPage == a) || (pgItem->OnMasterPage == pageNam))
@@ -990,7 +989,7 @@ void Tree::BuildTree(bool storeVals)
 //					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 					subGroupList.clear();
-					for (uint ga = 0; ga < currDoc->MasterItems.count(); ++ga)
+					for (int ga = 0; ga < currDoc->MasterItems.count(); ++ga)
 					{
 						PageItem* pgItem2 = currDoc->MasterItems.at(ga);
 						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (pgItem2 != pgItem))
@@ -1002,7 +1001,7 @@ void Tree::BuildTree(bool storeVals)
 		}
 		page->setText(0, currDoc->MasterPages.at(a)->pageName());
 	}
-	for (uint b = 0; b < currDoc->DocItems.count(); ++b)
+	for (int b = 0; b < currDoc->DocItems.count(); ++b)
 	{
 		currDoc->DocItems.at(b)->Dirty = false;
 	}
@@ -1012,7 +1011,7 @@ void Tree::BuildTree(bool storeVals)
 		page->PageObject = currDoc->DocPages.at(a);
 		page->type = 2;
 		pagep = page;
-		for (uint b = 0; b < currDoc->DocItems.count(); ++b)
+		for (int b = 0; b < currDoc->DocItems.count(); ++b)
 		{
 			pgItem = currDoc->DocItems.at(b);
 			if ((pgItem->OwnPage == a) && (!pgItem->Dirty))
@@ -1040,7 +1039,7 @@ void Tree::BuildTree(bool storeVals)
 //					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 					subGroupList.clear();
-					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
+					for (int ga = 0; ga < currDoc->DocItems.count(); ++ga)
 					{
 						PageItem* pgItem2 = currDoc->DocItems.at(ga);
 						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (pgItem2 != pgItem))
@@ -1053,7 +1052,7 @@ void Tree::BuildTree(bool storeVals)
 		page->setText(0, tr("Page ")+tmp.setNum(a+1));
 	}
 	bool hasfreeItems = false;
-	for (uint b = 0; b < currDoc->DocItems.count(); ++b)
+	for (int b = 0; b < currDoc->DocItems.count(); ++b)
 	{
 		if (currDoc->DocItems.at(b)->OwnPage == -1)
 		{
@@ -1067,7 +1066,7 @@ void Tree::BuildTree(bool storeVals)
 		pagep = page;
 		freeObjects = page;
 		page->type = -3;
-		for (uint b = 0; b < currDoc->DocItems.count(); ++b)
+		for (int b = 0; b < currDoc->DocItems.count(); ++b)
 		{
 			pgItem = currDoc->DocItems.at(b);
 			if ((pgItem->OwnPage == -1) && (!pgItem->Dirty))
@@ -1095,7 +1094,7 @@ void Tree::BuildTree(bool storeVals)
 //					object->setRenameEnabled(0, true);
 					pgItem->Dirty = true;
 					subGroupList.clear();
-					for (uint ga = 0; ga < currDoc->DocItems.count(); ++ga)
+					for (int ga = 0; ga < currDoc->DocItems.count(); ++ga)
 					{
 						PageItem* pgItem2 = currDoc->DocItems.at(ga);
 						if ((pgItem2->Groups.count() != 0) && (pgItem2->Groups.top() == pgItem->Groups.top()) && (pgItem2 != pgItem))

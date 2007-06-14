@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribus.h"
 #include "scribusview.h"
-#include "dynamictip.h"
 #include "page.h"
 #include "pagelayout.h"
 #include "sccombobox.h"
@@ -555,7 +554,6 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	currView = 0;
 	Rebuild();
 	languageChange();
-// 	dynTip = new DynamicTip(pageView);
 	connect(masterPageList, SIGNAL(doubleClicked(Q3ListBoxItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 	connect(pageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
