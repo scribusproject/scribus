@@ -242,6 +242,7 @@ QString ColorListBox::currentColor() const
 void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type)
 {
 	clear();
+	reset();
 	insertItems(list, type);
 }
 

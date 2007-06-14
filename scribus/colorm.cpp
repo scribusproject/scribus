@@ -675,11 +675,13 @@ void ColorManager::selEditColor(QListWidgetItem *c)
 
 void ColorManager::updateCList()
 {
-	ColorList::Iterator it;
-	ScribusDoc* doc = EditColors.document();
-	colorListBox->clear();
-	colorListBox->cList = &EditColors;
-	colorListBox->insertFancyPixmapItems(EditColors);
+//	ColorList::Iterator it;
+//	ScribusDoc* doc = EditColors.document();
+//	colorListBox->clear();
+//	colorListBox->cList = &EditColors;
+// HACK temporary fix for wrong colors until ColorPixmapValue::ColorPixmapValue( const ScColor& col, ScribusDoc* doc, const QString colName ) is fixed
+	EditColors.setDocument(NULL);
+	colorListBox->updateBox(EditColors, ColorListBox::fancyPixmap);
 //	for (it = EditColors.begin(); it != EditColors.end(); ++it)
 //	{
 //		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
