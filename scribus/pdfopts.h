@@ -7,21 +7,16 @@ for which a new license (GPL+exception) is in place.
 #ifndef PDF_OPTS_H
 #define PDF_OPTS_H
 
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qmap.h>
-#include <q3groupbox.h>
-#include <qcheckbox.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
+#include <QDialog>
 #include <QList>
+class QHBoxLayout;
+class QGridLayout;
+class QVBoxLayout;
+class QGroupBox;
+class QLineEdit;
+class QToolButton;
+class QCheckBox;
+class QPushButton;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -68,10 +63,10 @@ protected slots:
 
 protected:
 	// Widgets
-	Q3VBoxLayout* PDFExportLayout;
-	Q3GridLayout* NameLayout;
-	Q3HBoxLayout* Layout7;
-	Q3GroupBox* Name;
+	QVBoxLayout* PDFExportLayout;
+	QGridLayout* NameLayout;
+	QHBoxLayout* Layout7;
+	QGroupBox* Name;
 	QCheckBox* multiFile;
 	QToolButton* FileC;
 	QPushButton* OK;

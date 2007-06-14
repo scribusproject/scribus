@@ -13,15 +13,18 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "pdfopts.h"
-//#include "pdfopts.moc"
 
-#include <qmessagebox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QList>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QGroupBox>
+#include <QLineEdit>
+#include <QToolButton>
+#include <QCheckBox>
+#include <QPushButton>
 #include <QByteArray>
+#include <QMessageBox>
+#include <QSpacerItem>
 
 #include "scconfig.h"
 #include "customfdialog.h"
@@ -40,7 +43,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const QList<PDFPresentationData> & Eff,
 								  const ProfilesL & PDFXProfiles, const SCFonts &AllFonts,
 								  double unitRatio, const ProfilesL & printerProfiles)
-	: QDialog( parent, "pdf", true, 0 ),
+	: QDialog( parent ),
 	doc(currView->Doc),
 	EffVal(Eff),
 	Opts(pdfOptions),
@@ -49,17 +52,17 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	components(3),
 	appPrinterProfiles(printerProfiles)
 {
-	setCaption( tr( "Save as PDF" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	PDFExportLayout = new Q3VBoxLayout( this );
+	setModal(true);
+	setWindowTitle( tr( "Save as PDF" ) );
+	setWindowIcon(loadIcon("AppIcon.png"));
+	PDFExportLayout = new QVBoxLayout( this );
 	PDFExportLayout->setSpacing( 5 );
 	PDFExportLayout->setMargin( 10 );
-	Name = new Q3GroupBox( this, "GroupBox" );
+	Name = new QGroupBox( this, "GroupBox" );
 	Name->setTitle( tr( "O&utput to File:" ) );
-	Name->setColumnLayout(0, Qt::Vertical );
-	Name->layout()->setSpacing( 5 );
-	Name->layout()->setMargin( 10 );
-	NameLayout = new Q3GridLayout( Name->layout() );
+	NameLayout = new Q3GridLayout( Name );
+	NameLayout->setSpacing( 5 );
+	NameLayout->setMargin( 10 );
 	NameLayout->setAlignment( Qt::AlignTop );
 	fileNameLineEdit = new QLineEdit( Name, "fileNameLineEdit" );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
@@ -96,10 +99,10 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight,
 								currView->Doc->pageWidth, currView->Doc, true );
 	PDFExportLayout->addWidget( Options );
-	Layout7 = new Q3HBoxLayout;
+	Layout7 = new QHBoxLayout;
 	Layout7->setSpacing( 5 );
 	Layout7->setMargin( 0 );
-	QSpacerItem* spacer_2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer_2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout7->addItem( spacer_2 );
 	OK = new QPushButton( tr( "&Save" ), this, "OK" );
 	OK->setAutoDefault( true );
