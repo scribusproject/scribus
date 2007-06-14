@@ -152,8 +152,7 @@ void ScColor::getCMYK(int *c, int *m, int *y, int *k) const
 
 QString ScColor::name()
 {
-	QString tmp, name = CommonStrings::None;
-	name="#";
+	QString tmp, name="#";
 	switch (Model) 
 	{
 	case colorModelCMYK:
@@ -188,6 +187,8 @@ QString ScColor::name()
 			tmp.insert(0, "0");
 		name += tmp;
 		break;
+	default:
+		name = CommonStrings::None;
 	}
 	return name;
 }
