@@ -622,13 +622,13 @@ void Hruler::paintEvent(QPaintEvent *e)
 			{
 				p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				double fpos = Pos+First+Indent;
-				Q3PointArray cr;
+				QPolygon cr;
 				cr.setPoints(3, qRound(fpos*sc), 9, qRound((fpos+3/sc)*sc), topline, qRound((fpos-3/sc)*sc), topline);
 				p.drawPolygon(cr);
-				Q3PointArray cr2;
+				QPolygon cr2;
 				cr2.setPoints(3, qRound((Pos+Indent)*sc), 9, qRound((Pos+Indent+3/sc)*sc), 15, qRound((Pos+Indent-3/sc)*sc), 15);
 				p.drawPolygon(cr2);
-				Q3PointArray cr3;
+				QPolygon cr3;
 				cr3.setPoints(3, qRound((Pos+RMargin)*sc), topline, qRound((Pos+RMargin)*sc), 15, qRound((Pos+RMargin-3/sc)*sc), 9);
 				p.drawPolygon(cr3);
 			}
