@@ -5,16 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "measurements.h"
-//#include "measurements.moc"
 
-#include <qvariant.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qpixmap.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
+#include <QGridLayout>
+#include <QLabel>
+#include <QString>
 #include <cmath>
 #include "units.h"
 
@@ -23,7 +17,9 @@ using namespace std;
 
 Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
-	measurementsLayout = new Q3GridLayout( this, 1, 1, 10, 6, "measurementsLayout");
+	measurementsLayout = new QGridLayout( this );
+	measurementsLayout->setMargin(10);
+	measurementsLayout->setSpacing(5);
 	x1Label = new QLabel( this, "x1Label" );
 	y1Label = new QLabel( this, "y1Label" );
 	x2Label = new QLabel( this, "x2Label" );
@@ -51,7 +47,7 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	lengthData = new QLabel( "", this, "lengthData" );
 	
 	const QString widthString="10000.00 " + tr( "pt" );
-	int textWidth=fontMetrics().width(widthString);
+	int textWidth = fontMetrics().width(widthString);
 	x1Data->setMinimumSize(textWidth, 12);
 	y1Data->setMinimumSize(textWidth, 12);
 	x2Data->setMinimumSize(textWidth, 12);
@@ -116,7 +112,7 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 
 void Measurements::languageChange()
 {
-	setCaption( tr( "Distances" ) );
+	setWindowTitle( tr( "Distances" ) );
 	
 	x1Label->setText( tr( "X1:" ) );
 	y1Label->setText( tr( "Y1:" ) );
