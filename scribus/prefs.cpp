@@ -167,7 +167,7 @@ void Preferences::enableSignals(bool on)
 			connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 		connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 		connect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
-		connect(prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
+		connect(this, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
 		connect(this, SIGNAL(accepted()), pluginManagerPrefsGui, SLOT(apply()));
 	}
 	else
@@ -179,7 +179,7 @@ void Preferences::enableSignals(bool on)
 			disconnect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 		disconnect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 		disconnect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
-		disconnect(prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
+		disconnect(this, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
 		disconnect(this, SIGNAL(accepted()), pluginManagerPrefsGui, SLOT(apply()));
 	}
 }

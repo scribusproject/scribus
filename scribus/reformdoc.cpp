@@ -125,7 +125,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	connect(tabPage->unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(restoreDefaults()));
 	connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
-	connect(prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
+	connect(this, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
 
 	if (ScCore->haveCMS())
 	{
