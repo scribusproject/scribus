@@ -56,7 +56,7 @@ public slots:
     virtual void nonPrintingFramesSelected( bool showNonPrinting );
 
 protected:
-    uint numSelected;
+    int numSelected;
     QString strPNNotShown;
     QString strPNEnd;
     QString strPNBeginning;
