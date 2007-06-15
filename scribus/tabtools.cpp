@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QVBoxLayout>
+#include <QSpacerItem>
 #include <QGroupBox>
 #include <QStackedWidget>
 #include <QLabel>
@@ -46,62 +47,54 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	tabToolsLayout = new QHBoxLayout(this);
 	tabToolsLayout->setMargin(0);
 	tabToolsLayout->setSpacing(5);
-	buttonGroupTools = new QGroupBox( this, "buttonGroupTools" );
-	buttonGroupTools->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::MinimumExpanding);
-	buttonGroupTools->setTitle( QString::null );
+	buttonGroupTools = new QGroupBox( this );
 	buttonGroupToolsLayout = new QVBoxLayout(buttonGroupTools);
 	buttonGroupToolsLayout->setMargin(5);
 	buttonGroupToolsLayout->setSpacing(5);
-	buttonGroupToolsLayout->setAlignment( Qt::AlignTop );
-	toolText = new QToolButton( buttonGroupTools, "toolText" );
+	toolText = new QToolButton( buttonGroupTools );
 	toolText->setCheckable( true );
 	toolText->setAutoExclusive(true);
-	toolText->setText( QString::null );
 	toolText->setIconSize(QSize(16, 16));
 	toolText->setIcon( QIcon( loadIcon("16/insert-text-frame.png") ) );
 	buttonGroupToolsLayout->addWidget( toolText );
-	toolImage = new QToolButton( buttonGroupTools, "toolImage" );
+	toolImage = new QToolButton( buttonGroupTools );
 	toolImage->setCheckable( true );
 	toolImage->setAutoExclusive(true);
-	toolImage->setText( QString::null );
 	toolImage->setIconSize(QSize(16, 16));
 	toolImage->setIcon( QIcon( loadIcon("16/insert-image.png") ) );
 	buttonGroupToolsLayout->addWidget( toolImage );
-	toolShape = new QToolButton( buttonGroupTools, "toolShape" );
+	toolShape = new QToolButton( buttonGroupTools );
 	toolShape->setCheckable( true );
 	toolShape->setAutoExclusive(true);
-	toolShape->setText( QString::null );
 	toolShape->setIconSize(QSize(16, 16));
 	toolShape->setIcon( QIcon( loadIcon("16/draw-rectangle.png") ) );
 	buttonGroupToolsLayout->addWidget( toolShape);
-	toolPoly = new QToolButton( buttonGroupTools, "toolPoly" );
+	toolPoly = new QToolButton( buttonGroupTools );
 	toolPoly->setCheckable( true );
 	toolPoly->setAutoExclusive(true);
-	toolPoly->setText( QString::null );
 	toolPoly->setIconSize(QSize(16, 16));
 	toolPoly->setIcon( QIcon( loadIcon("16/draw-polygon.png") ) );
 	buttonGroupToolsLayout->addWidget( toolPoly );
-	toolLine = new QToolButton( buttonGroupTools, "toolLine" );
+	toolLine = new QToolButton( buttonGroupTools );
 	toolLine->setCheckable( true );
 	toolLine->setAutoExclusive(true);
-	toolLine->setText( QString::null );
 	toolLine->setIconSize(QSize(16, 16));
 	toolLine->setIcon( QIcon( loadIcon("Stift.xpm") ) );
 	buttonGroupToolsLayout->addWidget( toolLine );
-	toolZoom = new QToolButton( buttonGroupTools, "toolZoom" );
+	toolZoom = new QToolButton( buttonGroupTools );
 	toolZoom->setCheckable( true );
 	toolZoom->setAutoExclusive(true);
-	toolZoom->setText( QString::null );
 	toolZoom->setIconSize(QSize(16, 16));
 	toolZoom->setIcon( QIcon( loadIcon("16/zoom.png") ) );
 	buttonGroupToolsLayout->addWidget( toolZoom );
-	toolMisc = new QToolButton( buttonGroupTools, "toolMisc" );
+	toolMisc = new QToolButton( buttonGroupTools );
 	toolMisc->setCheckable( true );
 	toolMisc->setAutoExclusive(true);
-	toolMisc->setText( QString::null );
 	toolMisc->setIconSize(QSize(16, 16));
 	toolMisc->setIcon( QIcon( loadIcon("configure.png") ) );
 	buttonGroupToolsLayout->addWidget( toolMisc );
+	QSpacerItem *spacer = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	buttonGroupToolsLayout->addItem( spacer );
 	tabToolsLayout->addWidget( buttonGroupTools );
 
 	subStackTools = new QStackedWidget( this );
