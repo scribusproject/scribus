@@ -52,6 +52,7 @@ public:
 	QString getColorSetName();
 
 private:
+	void updateButtons();
 	QToolButton* LoadColSet;
 	ColorListBox* colorListBox;
 	QGroupBox* ColorsGroup;

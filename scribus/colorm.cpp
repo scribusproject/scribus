@@ -552,6 +552,7 @@ void ColorManager::deleteUnusedColors()
 	EditColors = UsedC;
 	EditColors.ensureBlackAndWhite();
 	updateCList();
+	updateButtons();
 }
 
 void ColorManager::duplicateColor()
@@ -561,6 +562,7 @@ void ColorManager::duplicateColor()
 	sColor = nam;
 	editColor();
 	updateCList();
+	updateButtons();
 }
 
 void ColorManager::newColor()
@@ -588,6 +590,8 @@ void ColorManager::newColor()
 	}
 	delete dia;
 	colorListBox->item(newItemIndex)->setSelected(true);
+	colorListBox->setCurrentRow(newItemIndex);
+	updateButtons();
 //	colorListBox->setTopItem(newItemIndex);
 }
 
@@ -617,6 +621,8 @@ void ColorManager::editColor()
 	}
 	delete dia;
 	colorListBox->item(selectedIndex)->setSelected(true);
+	colorListBox->setCurrentRow(selectedIndex);
+	updateButtons();
 //	colorListBox->setTopItem(topIndex);
 }
 
@@ -644,9 +650,13 @@ void ColorManager::deleteColor()
 		updateCList();
 	}
 	delete dia;
-	int listBoxCount=colorListBox->count();
-	if (listBoxCount>selectedIndex)
+	int listBoxCount = colorListBox->count();
+	if (listBoxCount > selectedIndex)
+	{
 		colorListBox->item(selectedIndex)->setSelected(true);
+		colorListBox->setCurrentRow(selectedIndex);
+	}
+	updateButtons();
 //	if (listBoxCount>topIndex)
 //		colorListBox->setTopItem(topIndex);
 }
@@ -673,17 +683,17 @@ void ColorManager::selEditColor(QListWidgetItem *c)
 		editColor();
 }
 
-void ColorManager::updateCList()
+void ColorManager::updateButtons()
 {
-	colorListBox->updateBox(EditColors, ColorListBox::fancyPixmap);
-	if(colorListBox->currentItem())
-		colorListBox->currentItem()->setSelected(false);
 	ColorPixmapItem* currItem = dynamic_cast<ColorPixmapItem*>(colorListBox->currentItem());
 	if (currItem)
 	{
 		QString curCol = currItem->text();
-		bool enableDel = (curCol != "Black" && curCol != "White") && (EditColors.count() > 1);
+		bool enableDel  = (curCol != "Black" && curCol != "White") && (EditColors.count() > 1);
+		bool enableEdit = (curCol != "Black" && curCol != "White");
+		duplicateColorButton->setEnabled(true);
 		deleteColorButton->setEnabled(enableDel);
+		editColorButton->setEnabled(enableEdit);
 	}
 	else
 	{
@@ -691,6 +701,14 @@ void ColorManager::updateCList()
 		editColorButton->setEnabled(false);
 		deleteColorButton->setEnabled(false);
 	}
+}
+
+void ColorManager::updateCList()
+{
+	colorListBox->updateBox(EditColors, ColorListBox::fancyPixmap);
+	if(colorListBox->currentItem())
+		colorListBox->currentItem()->setSelected(false);
+	updateButtons();
 }
 
 QString ColorManager::getColorSetName()
