@@ -22,6 +22,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "scconfig.h"
+
+#ifdef HAVE_CAIRO
+#include <cairo.h>
+#endif
+
 #include "gsutil.h"
 #include "util.h"
 #include "helpbrowser.h" // due the TextBrowser (for html browsing)
@@ -58,7 +63,7 @@ About::About( QWidget* parent ) : QDialog( parent )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "10";
+	QString BUILD_DAY = "15";
 	QString BUILD_MONTH = CommonStrings::june;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";
@@ -95,6 +100,7 @@ About::About( QWidget* parent ) : QDialog( parent )
 	bu += "-";
 #ifdef HAVE_CAIRO
 	bu += "C";
+	bu += cairo_version_string();
 #else
 	bu += "Q";
 #endif
@@ -102,9 +108,6 @@ About::About( QWidget* parent ) : QDialog( parent )
 // Some more information if we are not on a 32bit little endian Unix machine
 #if defined(Q_OS_WIN)
 	bu += "-Windows";
-#elif defined(Q_OS_DARWIN)
-	// dunno if anyone uses this...
-	bu += "-Darwin";
 #elif defined(Q_OS_MAC)
 	bu += "-Mac/";
 #  if defined(Q_WS_MACX)
@@ -114,7 +117,10 @@ About::About( QWidget* parent ) : QDialog( parent )
 #  else
 	bu += "?";
 #  endif
-#else
+#elif defined(Q_OS_DARWIN)
+	// dunno if anyone uses this...
+	bu += "-Darwin";
+#endif
 	int wordSize;
 	bool bigEndian;
 	qSysInfo( & wordSize, & bigEndian );
@@ -122,7 +128,6 @@ About::About( QWidget* parent ) : QDialog( parent )
 		bu += QString("-%1bit").arg(wordSize);
 	if (bigEndian)
 		bu += "-Big";
-#endif
 
 	QString gsver(getGSVersion());
 	if (!gsver.isNull())
