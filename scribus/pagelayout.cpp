@@ -5,19 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "pagelayout.h"
-//#include "pagelayout.moc"
 
-#include <qvariant.h>
-#include <q3groupbox.h>
-#include <q3iconview.h>
-#include <qlabel.h>
-#include <qspinbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qpixmap.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
+#include <QListWidgetItem>
+#include <QLabel>
+#include <QPixmap>
 #include <QList>
 
 #include "sccombobox.h"
@@ -25,27 +17,59 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-PageLayouts::PageLayouts( QWidget* parent, QList<PageSet> pSets, bool mode )  : Q3GroupBox( parent )
+PageListWidget::PageListWidget(QWidget* parent) : QListWidget(parent)
+{
+	setDragEnabled(false);
+	setViewMode(QListView::IconMode);
+	setFlow(QListView::TopToBottom);
+	setSortingEnabled(false);
+	setWrapping(false);
+	setWordWrap(true);
+	setAcceptDrops(false);
+	setDropIndicatorShown(false);
+	setDragDropMode(QAbstractItemView::NoDragDrop);
+	setResizeMode(QListView::Adjust);
+	setSelectionMode(QAbstractItemView::SingleSelection);
+	setFocusPolicy(Qt::NoFocus);
+	setIconSize(QSize(32, 32));
+	setMaximumWidth(100);
+	clear();
+	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+}
+
+void PageListWidget::arrangeIcons()
+{
+	int maxWidth = 0;
+	QListWidgetItem* ic;
+	int startY = 5;
+	for (int cc = 0; cc < count(); ++cc)
+	{
+		ic = item(cc);
+		QRect ir = visualItemRect(ic);
+		maxWidth = qMax(ir.width(), maxWidth);
+	}
+	setResizeMode(QListView::Fixed);
+	int startX = (viewport()->width() - maxWidth) / 2;
+	for (int cc = 0; cc < count(); ++cc)
+	{
+		ic = item(cc);
+		QRect ir = visualItemRect(ic);
+		int moveW = (maxWidth - ir.width()) / 2;
+		setPositionForIndex(QPoint(moveW + startX, startY), indexFromItem(ic));
+		startY += ir.height()+5;
+	}
+}
+
+PageLayouts::PageLayouts( QWidget* parent, QList<PageSet> pSets, bool mode )  : QGroupBox( parent )
 {
 	pageSets = pSets;
 	modus = mode;
-	setColumnLayout(0, Qt::Vertical );
-	layout()->setSpacing( 5 );
-	layout()->setMargin( 10 );
-	layoutGroupLayout = new Q3VBoxLayout( layout() );
-	layoutGroupLayout->setAlignment( Qt::AlignTop );
+	layoutGroupLayout = new QVBoxLayout(this);
+	layoutGroupLayout->setSpacing( 5 );
+	layoutGroupLayout->setMargin( 10 );
 	if (modus)
 	{
-		layoutsView = new Q3IconView( this, "layoutsView" );
-		layoutsView->setHScrollBarMode( Q3IconView::AlwaysOff );
-		layoutsView->setVScrollBarMode( Q3IconView::Auto );
-		layoutsView->setArrangement(Q3IconView::LeftToRight);
-		layoutsView->setItemsMovable(false);
-		layoutsView->setAutoArrange( false );
-		layoutsView->setSorting( false );
-		layoutsView->setFocusPolicy(Qt::NoFocus);
-		layoutsView->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Expanding, 0, 0, layoutsView->sizePolicy().hasHeightForWidth() ) );
-		layoutsView->setSelectionMode(Q3IconView::Single);
+		layoutsView = new PageListWidget( this );
 		layoutGroupLayout->addWidget( layoutsView );
 	}
 	else
@@ -61,7 +85,7 @@ PageLayouts::PageLayouts( QWidget* parent, QList<PageSet> pSets, bool mode )  : 
 	setMaximumWidth(minimumSizeHint().width());
 
 	if (modus)
-		connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
+		connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 	else
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
@@ -98,56 +122,38 @@ void PageLayouts::selectFirstP(int nr)
 
 void PageLayouts::selectItem(uint nr)
 {
-	Q3IconViewItem* ic=0;
-	uint cce;
 	if (modus)
-	{
-		disconnect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
-		ic = layoutsView->firstItem();
-		cce = layoutsView->count();
-	}
+		disconnect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 	else
-	{
 		disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
-		cce = layoutsCombo->count();
-	}
 	disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
-	for (uint cc = 0; cc < cce; ++cc)
+	if (nr > 0)
 	{
-		if (cc == nr)
+		firstPage->setEnabled(true);
+		firstPage->clear();
+		QStringList::Iterator pNames;
+		for(pNames = pageSets[nr].pageNames.begin(); pNames != pageSets[nr].pageNames.end(); ++pNames )
 		{
-			if (cc > 0)
-			{
-				firstPage->setEnabled(true);
-				firstPage->clear();
-				QStringList::Iterator pNames;
-				for(pNames = pageSets[cc].pageNames.begin(); pNames != pageSets[cc].pageNames.end(); ++pNames )
-				{
-					firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
-				}
-			}
-			else
-			{
-				firstPage->clear();
-				firstPage->insertItem(" ");
-				firstPage->setEnabled(false);
-			}
-			if (modus)
-			{
-				layoutsView->setSelected(ic, true);
-				layoutsView->ensureVisible(0, ic->y(), 5, 5);
-			}
-			else
-				layoutsCombo->setCurrentItem(cc);
-			break;
+			firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
-		if (modus)
-			ic = ic->nextItem();
+	}
+	else
+	{
+		firstPage->clear();
+		firstPage->insertItem(" ");
+		firstPage->setEnabled(false);
 	}
 	if (modus)
-		connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
+	{
+		layoutsView->setCurrentRow(nr);
+		layoutsView->item(nr)->setSelected(true);
+		connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	}
 	else
+	{
+		layoutsCombo->setCurrentIndex(nr);
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
+	}
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 }
 
@@ -179,12 +185,12 @@ void PageLayouts::itemSelected(int ic)
 	emit selectedLayout(ic);
 }
 
-void PageLayouts::itemSelected(Q3IconViewItem* ic)
+void PageLayouts::itemSelected(QListWidgetItem* ic)
 {
 	if (ic == 0)
 		return;
-	itemSelectedPost(layoutsView->index(ic));
-	emit selectedLayout(layoutsView->index(ic));
+	itemSelectedPost(layoutsView->row(ic));
+	emit selectedLayout(layoutsView->row(ic));
 }
 
 void PageLayouts::languageChange()
@@ -196,37 +202,34 @@ void PageLayouts::languageChange()
 		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
 			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
+			QListWidgetItem *ic;
 			if (pg == 0)
-				(void) new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
+			{
+				ic = new QListWidgetItem( QIcon(loadIcon("32/page-simple.png")), psname, layoutsView );
+				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			}
 			else if (pg == 1)
-				(void) new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-doublesided.png") );
+			{
+				ic = new QListWidgetItem( QIcon(loadIcon("32/page-doublesided.png")), psname, layoutsView );
+				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			}
 			else if (pg == 2)
-				(void) new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-3fold.png") );
+			{
+				ic = new QListWidgetItem( QIcon(loadIcon("32/page-3fold.png")), psname, layoutsView );
+				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			}
 			else if (pg == 3)
-				(void) new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-4fold.png") );
+			{
+				ic = new QListWidgetItem( QIcon(loadIcon("32/page-4fold.png")), psname, layoutsView );
+				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			}
 			else
-				(void) new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
+			{
+				ic = new QListWidgetItem( QIcon(loadIcon("32/page-simple.png")), psname, layoutsView );
+				ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+			}
 		}
-		int maxWidth = 0;
-		Q3IconViewItem* ic = layoutsView->firstItem();
-		int startY = 5;
-		for (uint cc = 0; cc < layoutsView->count(); ++cc)
-		{
-			int w = ic->width();
-			maxWidth = qMax(w, maxWidth);
-			ic = ic->nextItem();
-		}
-		ic = layoutsView->firstItem();
-		layoutsView->setAutoArrange( false );
-		layoutsView->setResizeMode(Q3IconView::Fixed);
-		for (uint cc = 0; cc < layoutsView->count(); ++cc)
-		{
-			int w = ic->width();
-			int moveW = (maxWidth - w) / 2;
-			ic->move(moveW, startY);
-			startY += ic->height()+5;
-			ic = ic->nextItem();
-		}
+		layoutsView->arrangeIcons();
 	}
 	else
 	{

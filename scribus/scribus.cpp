@@ -1981,7 +1981,7 @@ void ScribusMainWindow::startUpDialog()
 			}
 			else
 			{
-				QString fileName(dia->recentDocListBox->currentText());
+				QString fileName(dia->recentDocListBox->currentItem()->text());
 				if (!fileName.isEmpty())
 					loadRecent(ScPaths::separatorsToSlashes(fileName));
 			}

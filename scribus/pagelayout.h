@@ -7,24 +7,28 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGELAYOUT_H
 #define PAGELAYOUT_H
 
-#include <qvariant.h>
-#include <q3groupbox.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3HBoxLayout>
-#include <QLabel>
+#include <QGroupBox>
+#include <QListWidget>
 #include <QList>
+class QVBoxLayout;
+class QListWidgetItem;
+class QLabel;
+
 #include "scribusapi.h"
 #include "scribusstructs.h"
-
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3IconView;
-class Q3IconViewItem;
-class QLabel;
 class ScComboBox;
 
-class SCRIBUS_API PageLayouts : public Q3GroupBox
+class SCRIBUS_API PageListWidget : public QListWidget
+{
+	Q_OBJECT
+
+public:
+	PageListWidget(QWidget* parent);
+	~PageListWidget() {};
+	void arrangeIcons();
+};
+
+class SCRIBUS_API PageLayouts : public QGroupBox
 {
 	Q_OBJECT
 
@@ -34,14 +38,14 @@ public:
 	void updateLayoutSelector(QList<PageSet> pSets);
 	void selectFirstP(int nr);
 	void selectItem(uint nr);
-	Q3IconView* layoutsView;
+	PageListWidget* layoutsView;
 	ScComboBox* layoutsCombo;
 	QLabel* layoutLabel1;
 	ScComboBox* firstPage;
 	QList<PageSet> pageSets;
 
 public slots:
-	void itemSelected(Q3IconViewItem* ic);
+	void itemSelected(QListWidgetItem* ic);
 	void itemSelected(int ic);
 
 signals:
@@ -53,7 +57,7 @@ private:
 	bool modus;
 
 protected:
-	Q3VBoxLayout* layoutGroupLayout;
+	QVBoxLayout* layoutGroupLayout;
 
 protected slots:
 	virtual void languageChange();
