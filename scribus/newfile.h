@@ -8,11 +8,11 @@ for which a new license (GPL+exception) is in place.
 #define NEWDOC_H
 
 #include <QDialog>
+#include <QListWidget>
 class QGridLayout;
 class QHBoxLayout;
 class QVBoxLayout;
 class QFrame;
-class QListWidget;
 class QListWidgetItem;
 class QGroupBox;
 class QSpinBox;
@@ -32,6 +32,19 @@ class ScrSpinBox;
 class CustomFDialog;
 class ScComboBox;
 
+class SCRIBUS_API PageLayoutsWidget : public QListWidget
+{
+	Q_OBJECT
+
+public:
+	PageLayoutsWidget(QWidget* parent);
+	~PageLayoutsWidget() {};
+	void arrangeIcons();
+	const QSize minimumSizeHint();
+	int maxX;
+	int maxY;
+};
+
 
 class SCRIBUS_API NewDoc : public QDialog
 {
@@ -47,7 +60,7 @@ public:
 
 	QTabWidget* tabWidget;
 	QFrame* newDocFrame;
-	QListWidget* layoutsView;
+	PageLayoutsWidget* layoutsView;
 	QLabel* layoutLabel1;
 	ScComboBox* firstPage;
 	QGroupBox* pageSizeGroupBox;

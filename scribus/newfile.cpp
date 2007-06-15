@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QSpacerItem>
-#include <QListWidget>
 #include <QListWidgetItem>
 #include <QFrame>
 #include <QGroupBox>
@@ -44,6 +43,48 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
+PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) : QListWidget(parent)
+{
+	setDragEnabled(false);
+	setViewMode(QListView::IconMode);
+	setFlow(QListView::LeftToRight);
+	setSortingEnabled(false);
+	setWrapping(false);
+	setWordWrap(true);
+	setAcceptDrops(false);
+	setDropIndicatorShown(false);
+	setDragDropMode(QAbstractItemView::NoDragDrop);
+	setResizeMode(QListView::Adjust);
+	setSelectionMode(QAbstractItemView::SingleSelection);
+	setFocusPolicy(Qt::NoFocus);
+	setIconSize(QSize(32, 32));
+	clear();
+	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+}
+
+void PageLayoutsWidget::arrangeIcons()
+{
+	QListWidgetItem* ic;
+	int startY = 5;
+	int startX = 5;
+	setResizeMode(QListView::Fixed);
+	int maxSizeY = 0;
+	for (int cc = 0; cc < count(); ++cc)
+	{
+		ic = item(cc);
+		QRect ir = visualItemRect(ic);
+		setPositionForIndex(QPoint(startX, startY), indexFromItem(ic));
+		startX += ir.width()+5;
+		maxSizeY = qMax(maxSizeY, ir.height());
+	}
+	maxX = startX;
+	maxY = maxSizeY+10;
+}
+
+const QSize PageLayoutsWidget::minimumSizeHint()
+{
+	return QSize(maxX, maxY);
+}
 
 NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) : QDialog( parent )
 {
@@ -136,22 +177,8 @@ void NewDoc::createNewDocPage()
 	pageSizeGroupBoxLayout->setSpacing(5);
 	pageSizeGroupBoxLayout->setAlignment( Qt::AlignTop );
 
-	layoutsView = new QListWidget( pageSizeGroupBox );
-	layoutsView->setDragEnabled(false);
-	layoutsView->setViewMode(QListView::IconMode);
-	layoutsView->setFlow(QListView::LeftToRight);
-	layoutsView->setMovement(QListView::Static);
-	layoutsView->setSortingEnabled(false);
-	layoutsView->setWrapping(true);
-	layoutsView->setWordWrap(true);
-	layoutsView->setAcceptDrops(false);
-	layoutsView->setDropIndicatorShown(false);
-	layoutsView->setDragDropMode(QAbstractItemView::NoDragDrop);
-	layoutsView->setResizeMode(QListView::Adjust);
-	layoutsView->setSelectionMode(QAbstractItemView::SingleSelection);
-	layoutsView->setFocusPolicy(Qt::NoFocus);
-	layoutsView->setIconSize(QSize(32, 32));
-	layoutsView->clear();
+	layoutsView = new PageLayoutsWidget( pageSizeGroupBox );
+	layoutsView->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
 	for (int pg = 0; pg < prefsManager->appPrefs.pageSets.count(); ++pg)
 	{
 		QListWidgetItem *ic;
@@ -182,7 +209,9 @@ void NewDoc::createNewDocPage()
 			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 	}
+	layoutsView->arrangeIcons();
 	pageSizeGroupBoxLayout->addWidget( layoutsView, 0, 0, 5, 1 );
+	layoutsView->arrangeIcons();
 
 
 	TextLabel1 = new QLabel( tr( "&Size:" ), pageSizeGroupBox, "TextLabel1" );
