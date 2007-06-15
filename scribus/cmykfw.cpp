@@ -5,39 +5,49 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "cmykfw.h"
-//#include "cmykfw.moc"
-#include <qpainter.h>
+
 #include <q3popupmenu.h>
-#include <qcursor.h>
-#include <qmessagebox.h>
-#include <qfileinfo.h>
-#include <qdir.h>
-#include <qdom.h>
-#include <QTextStream>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QGridLayout>
 #include <QLabel>
-#include <Q3GridLayout>
+#include <QFrame>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QPushButton>
+#include <QStackedWidget>
+#include <QSlider>
+#include <QMenu>
+#include <QPainter>
+#include <QCursor>
+#include <QDir>
+#include <QFileInfo>
+#include <QMessageBox>
+#include <QDomDocument>
+#include <QToolTip>
+#include <QTextStream>
+#include <QSpacerItem>
 #include <QByteArray>
 #include <QPixmap>
-#include <Q3Frame>
-#include <QMouseEvent>
-#include <Q3VBoxLayout>
+#include <QAction>
 #include <cstdlib>
 
 #include "commonstrings.h"
 #include "sccombobox.h"
+#include "scrspinbox.h"
 #include "scconfig.h"
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "colorutil.h"
 #include "colorlistbox.h"
+#include "colorchart.h"
 #include "util.h"
 #include "sccolorengine.h"
 
 CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol  )
-		: QDialog( parent, "fw", true, 0 ), CurrSwatch(doc)
+		: QDialog( parent ), CurrSwatch(doc)
 {
+	setModal(true);
 	m_doc = doc;
 	isNew = newCol;
 	if (orig.getColorModel () == colorModelCMYK)
@@ -76,13 +86,13 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	cgd = rgb.g / 2.55;
 	cbd = rgb.b / 2.55;
 	resize( 498, 306 );
-	setCaption( tr( "Edit Color" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	CMYKFarbenLayout = new Q3HBoxLayout( this );
-	CMYKFarbenLayout->setSpacing( 6 );
-	CMYKFarbenLayout->setMargin( 11 );
-	Layout23 = new Q3VBoxLayout;
-	Layout23->setSpacing( 7 );
+	setWindowTitle( tr( "Edit Color" ) );
+	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
+	CMYKFarbenLayout = new QHBoxLayout( this );
+	CMYKFarbenLayout->setSpacing( 5 );
+	CMYKFarbenLayout->setMargin( 10 );
+	Layout23 = new QVBoxLayout;
+	Layout23->setSpacing( 5 );
 	Layout23->setMargin( 0 );
 
 	TextLabel1 = new QLabel( tr( "&Name:" ), this, "TextLabel1" );
@@ -160,7 +170,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout2->addWidget( NewC, 1, 1 );
 	Layout23->addLayout( Layout2 );
 
-	Layout21 = new Q3HBoxLayout;
+	Layout21 = new QHBoxLayout;
 	Layout21->setSpacing( 20 );
 	Layout21->setMargin( 10 );
 
@@ -172,11 +182,11 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout23->addLayout( Layout21 );
 	CMYKFarbenLayout->addLayout( Layout23 );
 
-	Frame4 = new Q3Frame( this, "Frame4" );
-	Frame4->setFrameShape( Q3Frame::NoFrame );
-	Frame4->setFrameShadow( Q3Frame::Raised );
-	Frame4Layout = new Q3VBoxLayout( Frame4 );
-	Frame4Layout->setSpacing( 6 );
+	Frame4 = new QFrame( this, "Frame4" );
+	Frame4->setFrameShape( QFrame::NoFrame );
+	Frame4->setFrameShadow( QFrame::Raised );
+	Frame4Layout = new QVBoxLayout( Frame4 );
+	Frame4Layout->setSpacing( 5 );
 	Frame4Layout->setMargin( 0 );
 
 	Swatches = new ScComboBox( false, Frame4, "ComboBox1" );
@@ -215,21 +225,21 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	}
 	Frame4Layout->addWidget( Swatches );
 
-	TabStack = new Q3WidgetStack( Frame4, "TabStack" );
-	TabStack->setFrameShape( Q3WidgetStack::NoFrame );
+	TabStack = new QStackedWidget( Frame4 );
+	TabStack->setFrameShape( QFrame::NoFrame );
 
-	Frame5a = new Q3Frame( TabStack, "Frame4" );
-	Frame5a->setFrameShape( Q3Frame::NoFrame );
-	Frame5a->setFrameShadow( Q3Frame::Raised );
-	Frame5aLayout = new Q3HBoxLayout( Frame5a );
+	Frame5a = new QFrame( TabStack, "Frame4" );
+	Frame5a->setFrameShape( QFrame::NoFrame );
+	Frame5a->setFrameShadow( QFrame::Raised );
+	Frame5aLayout = new QHBoxLayout( Frame5a );
 	Frame5aLayout->setSpacing( 0 );
 	Frame5aLayout->setMargin( 0 );
-	Frame5 = new Q3Frame(Frame5a);
+	Frame5 = new QFrame(Frame5a);
 	Frame5->setFrameShape( QLabel::WinPanel );
 	Frame5->setFrameShadow( QLabel::Sunken );
 	Frame5->setMinimumSize( QSize( 182, 130 ) );
 	Frame5->setMaximumSize( QSize( 182, 130 ) );
-	Frame5Layout = new Q3HBoxLayout( Frame5 );
+	Frame5Layout = new QHBoxLayout( Frame5 );
 	Frame5Layout->setSpacing( 0 );
 	Frame5Layout->setMargin( 0 );
 	ColorMap = new ColorChart( Frame5, doc);
@@ -237,21 +247,21 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	ColorMap->setMaximumSize( QSize( 180, 128 ) );
 	Frame5Layout->addWidget( ColorMap );
 	Frame5aLayout->addWidget( Frame5, 0, Qt::AlignCenter);
-	TabStack->addWidget( Frame5a, 0 );
+	TabStack->addWidget( Frame5a );
 
 	ColorSwatch = new ColorListBox(TabStack, "StyledL");
-	TabStack->addWidget( ColorSwatch, 1 );
+	TabStack->addWidget( ColorSwatch );
 
 	Frame4Layout->addWidget( TabStack );
 
 	Layout2x = new QGridLayout();
-	Layout2x->setSpacing( 6 );
+	Layout2x->setSpacing( 5 );
 	Layout2x->setMargin( 0 );
 
 	CyanT = new QLabel( tr( "C:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(CyanT, 0, 0);
 
-	Layout1_2 = new Q3VBoxLayout;
+	Layout1_2 = new QVBoxLayout;
 	Layout1_2->setSpacing( 0 );
 	Layout1_2->setMargin( 0 );
 
@@ -280,7 +290,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	MagentaT = new QLabel( tr( "M:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(MagentaT, 1, 0);
 
-	Layout1_2_2 = new Q3VBoxLayout;
+	Layout1_2_2 = new QVBoxLayout;
 	Layout1_2_2->setSpacing( 0 );
 	Layout1_2_2->setMargin( 0 );
 
@@ -309,7 +319,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	YellowT = new QLabel( tr( "Y:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(YellowT, 2, 0);
 
-	Layout1_2_3 = new Q3VBoxLayout;
+	Layout1_2_3 = new QVBoxLayout;
 	Layout1_2_3->setSpacing( 0 );
 	Layout1_2_3->setMargin( 0 );
 
@@ -338,7 +348,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	BlackT = new QLabel( tr( "K:" ), Frame4, "Cyant" );
 	Layout2x->addWidget(BlackT, 3, 0);
 
-	Layout1_2_4 = new Q3VBoxLayout;
+	Layout1_2_4 = new QVBoxLayout;
 	Layout1_2_4->setSpacing( 0 );
 	Layout1_2_4->setMargin( 0 );
 
@@ -375,8 +385,9 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Fnam = name;
 	Farbname->selectAll();
 	Farbname->setFocus();
-	TabStack->raiseWidget(0);
+	TabStack->setCurrentIndex(0);
 	setFixedSize(minimumSizeHint());
+	setContextMenuPolicy(Qt::CustomContextMenu);
 	// signals and slots connections
 	QToolTip::add( Regist, "<qt>" + tr( "Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself." ) + "</qt>");
 	QToolTip::add( Separations, "<qt>" + tr( "Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks." ) + "</qt>");
@@ -397,9 +408,10 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	connect( ColorMap, SIGNAL( ColorVal(int, int, bool)), this, SLOT( setColor2(int, int, bool)));
 	connect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 	connect( Swatches, SIGNAL(activated(int)), this, SLOT(SelSwatch(int)));
-	connect(ColorSwatch, SIGNAL(highlighted(int)), this, SLOT(SelFromSwatch(int)));
+	connect(ColorSwatch, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( SelFromSwatch(QListWidgetItem*) ) );
 	connect(Separations, SIGNAL(clicked()), this, SLOT(setSpot()));
 	connect(Regist, SIGNAL(clicked()), this, SLOT(setRegist()));
+	connect(this, SIGNAL(customContextMenuRequested (const QPoint &)), this, SLOT(slotRightClick()));
 	layout()->activate();
 	if (!CMYKmode)
 		SelModel ( tr( "RGB" ));
@@ -418,18 +430,28 @@ void CMYKChoose::setValSLiders(double value)
 		BlackSL->setValue(val);
 }
 
-void CMYKChoose::mouseReleaseEvent(QMouseEvent *m)
+void CMYKChoose::slotRightClick()
 {
-	if (m->button() == Qt::RightButton)
+	QMenu *pmen = new QMenu();
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QAction* dynAct = pmen->addAction( tr("Dynamic Color Bars"));
+	dynAct->setCheckable(true);
+	connect(dynAct, SIGNAL(triggered()), this, SLOT(ToggleSL()));
+	QAction* statAct = pmen->addAction( tr("Static Color Bars"));
+	statAct->setCheckable(true);
+	connect(statAct, SIGNAL(triggered()), this, SLOT(ToggleSL()));
+	if (dynamic)
 	{
-		Q3PopupMenu *pmen = new Q3PopupMenu();
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		int px = pmen->insertItem( tr("Dynamic Color Bars"), this, SLOT(ToggleSL()));
-		int py = pmen->insertItem( tr("Static Color Bars"), this, SLOT(ToggleSL()));
-		pmen->setItemChecked((dynamic ? px : py) , true);
-		pmen->exec(QCursor::pos());
-		delete pmen;
+		dynAct->setChecked(true);
+		statAct->setChecked(false);
 	}
+	else
+	{
+		dynAct->setChecked(false);
+		statAct->setChecked(true);
+	}
+	pmen->exec(QCursor::pos());
+	delete pmen;
 }
 
 void CMYKChoose::SetValueS(int val)
@@ -582,7 +604,7 @@ QPixmap CMYKChoose::SliderBlack()
 void CMYKChoose::SelSwatch(int n)
 {
 	if (n == 0)
-		TabStack->raiseWidget(0);
+		TabStack->setCurrentIndex(0);
 	else
 	{
 		bool cus = false;
@@ -726,7 +748,7 @@ void CMYKChoose::SelSwatch(int n)
 		ColorSwatch->clear();
 		ColorSwatch->insertFancyPixmapItems(CurrSwatch);
 		ColorSwatch->setCurrentRow( 0 );
-		TabStack->raiseWidget(1);
+		TabStack->setCurrentIndex(1);
 	}
 }
 
@@ -735,7 +757,7 @@ void CMYKChoose::setRegist()
 	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 	if (Regist->isChecked())
 	{
-		ComboBox1->setCurrentItem( 0 );
+		ComboBox1->setCurrentIndex( 0 );
 		Separations->setChecked(false);
 		SelModel( tr("CMYK"));
 	}
@@ -747,7 +769,7 @@ void CMYKChoose::setSpot()
 	disconnect( ComboBox1, SIGNAL(activated(const QString&)), this, SLOT(SelModel(const QString&)));
 	if (Separations->isChecked())
 	{
-		ComboBox1->setCurrentItem( 0 );
+		ComboBox1->setCurrentIndex( 0 );
 		Regist->setChecked(false);
 		SelModel( tr("CMYK"));
 	}
@@ -979,9 +1001,9 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 		setValues();
 }
 
-void CMYKChoose::SelFromSwatch(int c)
+void CMYKChoose::SelFromSwatch(QListWidgetItem* c)
 {
-	ScColor tmp = CurrSwatch[ColorSwatch->item(c)->text()];
+	ScColor tmp = CurrSwatch[c->text()];
 	if (tmp.getColorModel() == colorModelCMYK)
 		SelModel( tr("CMYK"));
 	else

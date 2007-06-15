@@ -7,34 +7,30 @@ for which a new license (GPL+exception) is in place.
 #ifndef CMYKFARBEN_H
 #define CMYKFARBEN_H
 
-#include <qdialog.h>
-#include <qpixmap.h>
-#include <qcolor.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <q3frame.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qslider.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qlineedit.h>
-#include <q3widgetstack.h>
-#include <q3listbox.h>
-//Added by qt3to4:
-#include <QGridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
-#include <QMouseEvent>
+#include <QDialog>
+class QHBoxLayout;
+class QVBoxLayout;
+class QGridLayout;
+class QLabel;
+class QFrame;
+class QLineEdit;
+class QCheckBox;
+class QPushButton;
+class QStackedWidget;
+class QSlider;
+class QPixmap;
+class QListWidgetItem;
+
+#include "colorsetmanager.h"
+#include "scribusapi.h"
+#include "scribusstructs.h"
 
 class ScColor;
 class ScribusDoc;
+class ScrSpinBox;
+class ScComboBox;
 class ColorListBox;
-#include "colorchart.h"
-#include "colorsetmanager.h"
-#include "scrspinbox.h"
-#include "scribusapi.h"
-#include "scribusstructs.h"
+class ColorChart;
 
 class SCRIBUS_API CMYKChoose : public QDialog
 {
@@ -43,24 +39,23 @@ class SCRIBUS_API CMYKChoose : public QDialog
 public:
 	CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol );
 	~CMYKChoose() {};
-	virtual void mouseReleaseEvent(QMouseEvent *m);
 	QLabel* TextLabel1;
 	QLineEdit* Farbname;
 	QLabel* TextLabel3;
-	QComboBox* ComboBox1;
+	ScComboBox* ComboBox1;
 	QCheckBox* Separations;
 	QCheckBox* Regist;
-	QComboBox* Swatches;
+	ScComboBox* Swatches;
 	QLabel* TextLabel5_2;
 	QLabel* OldC;
 	QLabel* TextLabel5;
 	QLabel* NewC;
 	QPushButton* Cancel;
 	QPushButton* Cancel_2;
-	Q3Frame* Frame4;
-	Q3WidgetStack* TabStack;
-	Q3Frame* Frame5;
-	Q3Frame* Frame5a;
+	QFrame* Frame4;
+	QStackedWidget* TabStack;
+	QFrame* Frame5;
+	QFrame* Frame5a;
 	ColorListBox* ColorSwatch;
 	ColorChart* ColorMap;
 	QLabel* CyanP;
@@ -94,6 +89,7 @@ public:
 	QString Fnam;
 
 public slots:
+	void slotRightClick();
 	void setValSLiders(double value);
 	void SetValueS(int val);
 	void ToggleSL();
@@ -105,23 +101,23 @@ public slots:
 	void SelModel(const QString& mod);
 	void setColor();
 	void setColor2(int h, int s, bool ende);
-	void SelFromSwatch( int c);
+	void SelFromSwatch(QListWidgetItem* c);
 	void setValues();
 	void Verlassen();
 
 protected:
-	Q3HBoxLayout* CMYKFarbenLayout;
-	Q3VBoxLayout* Layout23;
+	QHBoxLayout* CMYKFarbenLayout;
+	QVBoxLayout* Layout23;
 	QGridLayout* Layout2;
 	QGridLayout* Layout2x;
-	Q3HBoxLayout* Layout21;
-	Q3VBoxLayout* Frame4Layout;
-	Q3HBoxLayout* Frame5Layout;
-	Q3HBoxLayout* Frame5aLayout;
-	Q3VBoxLayout* Layout1_2;
-	Q3VBoxLayout* Layout1_2_2;
-	Q3VBoxLayout* Layout1_2_3;
-	Q3VBoxLayout* Layout1_2_4;
+	QHBoxLayout* Layout21;
+	QVBoxLayout* Frame4Layout;
+	QHBoxLayout* Frame5Layout;
+	QHBoxLayout* Frame5aLayout;
+	QVBoxLayout* Layout1_2;
+	QVBoxLayout* Layout1_2_2;
+	QVBoxLayout* Layout1_2_3;
+	QVBoxLayout* Layout1_2_4;
 	
 	ColorSetManager csm;
 	int customSetStartIndex;
