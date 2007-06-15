@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3buttongroup.h>
 #include <qcheckbox.h>
 #include <qcombobox.h>
-#include <q3frame.h>
+#include <QFrame>
 #include <q3groupbox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlineedit.h>
 #include <qtimer.h>
 #include <qtoolbox.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 //Added by qt3to4:
 #include <QFocusEvent>
 #include <QCloseEvent>
@@ -561,13 +561,13 @@ protected:
 	QRadioButton* KnockOut;
 	QRadioButton* Overprint;
 
-	Q3Frame* Line1;
-	Q3Frame* Line2;
-	Q3Frame* Line4;
-	Q3Frame* Line5;
-	Q3Frame* Frame4;
+	QFrame* Line1;
+	QFrame* Line2;
+	QFrame* Line4;
+	QFrame* Line5;
+	QFrame* Frame4;
 
-	Q3PopupMenu* lineSpacingPop;
+	QMenu* lineSpacingPop;
 
 	QToolButton* linespacingButton;
 	QToolButton* DoGroup;

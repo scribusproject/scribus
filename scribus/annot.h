@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <q3widgetstack.h>
-#include <q3frame.h>
+#include <QFrame>
 #include <qlineedit.h>
 #include <q3textedit.h>
 #include <qtabwidget.h>
@@ -56,11 +56,11 @@ public:
     QLabel* TextLabel1;
     QComboBox* ComboBox1;
     QLabel* TextVa;
-    Q3Frame* Frame9;
+    QFrame* Frame9;
     QComboBox* ActionCombo;
     Q3GroupBox* GroupBox2;
-    Q3Frame* Frame3;
-    Q3Frame* Frame4;
+    QFrame* Frame3;
+    QFrame* Frame4;
     Q3GroupBox* Frame4a;
     QLabel* TextLabel4a;
 	QLineEdit *Name;
@@ -137,7 +137,7 @@ public:
     QLabel* TextForm3;
     QPushButton* EditKeystr;
     Q3TextEdit* KeyScript;
-    Q3Frame* FoFrameNone;
+    QFrame* FoFrameNone;
     Q3GroupBox* NumbGroup;
     QLabel* TextNu1;
     QSpinBox* Decim;
@@ -186,11 +186,11 @@ public:
     QPushButton* EditCalc;
     QPushButton* EditJ;
     QPushButton* SeField;
-    Q3Frame* Frame3b;
+    QFrame* Frame3b;
     QLabel* SubText1;
     QLineEdit* SubURL;
     QCheckBox* SubAsHtml;
-    Q3Frame* Frame3c;
+    QFrame* Frame3c;
     QLabel* SubText1a;
     QLineEdit* SubURLa;
     Q3GroupBox* OptIcons;

@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QTextEdit>
 #include <QList>
 #include "colorlistbox.h"
@@ -527,14 +527,14 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Fram2 = new Q3WidgetStack(tab_2);
 	tabLayout_2->addWidget( Fram2 );
 
-	Frame4 = new Q3Frame( tab_2, "Frame4" );
-	Frame4->setFrameShape( Q3Frame::NoFrame );
-	Frame4->setFrameShadow( Q3Frame::Raised );
+	Frame4 = new QFrame( tab_2, "Frame4" );
+	Frame4->setFrameShape( QFrame::NoFrame );
+	Frame4->setFrameShadow( QFrame::Raised );
 	Fram2->addWidget( Frame4 , 1);
 
-	Frame3 = new Q3Frame( tab_2, "Frame3" );
-	Frame3->setFrameShape( Q3Frame::Box );
-	Frame3->setFrameShadow( Q3Frame::Sunken );
+	Frame3 = new QFrame( tab_2, "Frame3" );
+	Frame3->setFrameShape( QFrame::Box );
+	Frame3->setFrameShadow( QFrame::Sunken );
 	Frame3Layout = new Q3VBoxLayout( Frame3, 11, 6, "Frame3Layout");
 	Layout7 = new Q3HBoxLayout( 0, 0, 6, "Layout7");
 	AcText1 = new QLabel( Frame3, "AcText1" );
@@ -571,9 +571,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3Layout->addLayout( Layout71 );
 	Fram2->addWidget( Frame3 , 2);
 
-	Frame3b = new Q3Frame( tab_2, "Frame3b" );
-	Frame3b->setFrameShape( Q3Frame::Box );
-	Frame3b->setFrameShadow( Q3Frame::Sunken );
+	Frame3b = new QFrame( tab_2, "Frame3b" );
+	Frame3b->setFrameShape( QFrame::Box );
+	Frame3b->setFrameShadow( QFrame::Sunken );
 	Frame3bLayout = new Q3VBoxLayout( Frame3b, 11, 6, "Frame3Layout");
 	SubText1 = new QLabel( Frame3b, "SubText1" );
 	SubText1->setText( tr( "Submit to URL:" ) );
@@ -590,9 +590,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Frame3bLayout->addItem( spacerSu);
 	Fram2->addWidget( Frame3b , 4);
 
-	Frame3c = new Q3Frame( tab_2, "Frame3b" );
-	Frame3c->setFrameShape( Q3Frame::Box );
-	Frame3c->setFrameShadow( Q3Frame::Sunken );
+	Frame3c = new QFrame( tab_2, "Frame3b" );
+	Frame3c->setFrameShape( QFrame::Box );
+	Frame3c->setFrameShadow( QFrame::Sunken );
 	Frame3cLayout = new Q3VBoxLayout( Frame3c, 11, 6, "Frame3Layout");
 	SubText1a = new QLabel( Frame3c, "SubText1" );
 	SubText1a->setText( tr( "Import Data from:" ) );
@@ -697,9 +697,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Layout->addLayout( FLayout );
 	FoFram = new Q3WidgetStack(tab4);
 
-	FoFrameNone = new Q3Frame( tab4, "Frame7" );
-	FoFrameNone->setFrameShape( Q3Frame::NoFrame );
-	FoFrameNone->setFrameShadow( Q3Frame::Plain );
+	FoFrameNone = new QFrame( tab4, "Frame7" );
+	FoFrameNone->setFrameShape( QFrame::NoFrame );
+	FoFrameNone->setFrameShadow( QFrame::Plain );
 	FoFram->addWidget(FoFrameNone, 0);
 
 	NumbGroup = new Q3GroupBox( tab4, "NumbGroup" );
@@ -1032,9 +1032,9 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox10Layout->addWidget( TabWidget2 );
 	Fram->addWidget(GroupBox10, 3);
 
-	Frame9 = new Q3Frame( this, "Frame7" );
-	Frame9->setFrameShape( Q3Frame::NoFrame );
-	Frame9->setFrameShadow( Q3Frame::Plain );
+	Frame9 = new QFrame( this, "Frame7" );
+	Frame9->setFrameShape( QFrame::NoFrame );
+	Frame9->setFrameShadow( QFrame::Plain );
 	Fram->addWidget(Frame9, 2);
 
 	SetZiel(item->annotation().Type()-2);

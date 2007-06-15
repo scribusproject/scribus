@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <qevent.h>
 //Added by qt3to4:
 #include <QResizeEvent>
-#include <Q3Frame>
+#include <QFrame>
 #include <prefscontext.h>
 #include "tffilter.h"
 
@@ -37,7 +37,7 @@ private:
 	QPushButton* cancelButton;
 	QString currentFilter;
 	Q3ScrollView* qsv;
-	Q3Frame* vbox;
+	QFrame* vbox;
 	int currentIndex;
 	void clear();
 	void createLayout();

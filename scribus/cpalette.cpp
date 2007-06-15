@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
-#include <Q3Frame>
 #include <Q3VBoxLayout>
 #include "colorlistbox.h"
 #include "sccombobox.h"
@@ -102,9 +101,9 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	gradEdit = new GradientEditor(this);
 	gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
 	GradLayout->addWidget(gradEdit, Qt::AlignHCenter);
-	freeGradientQFrame = new Q3Frame( this, "freeGradientQFrame" );
-	freeGradientQFrame->setFrameShape( Q3Frame::NoFrame );
-	freeGradientQFrame->setFrameShadow( Q3Frame::Plain );
+	freeGradientQFrame = new QFrame( this, "freeGradientQFrame" );
+	freeGradientQFrame->setFrameShape( QFrame::NoFrame );
+	freeGradientQFrame->setFrameShadow( QFrame::Plain );
 	freeGradientLayout = new Q3GridLayout( freeGradientQFrame, 1, 1, 5, 5, "freeGradientLayout");
 	GTextX1 = new QLabel("X1:", freeGradientQFrame, "GTextX1" );
 	freeGradientLayout->addWidget( GTextX1, 0, 0 );
@@ -132,8 +131,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
 
-	patternFrame = new Q3Frame( this, "frame3" );
-	patternFrame->setFrameShape( Q3Frame::NoFrame );
+	patternFrame = new QFrame( this, "frame3" );
+	patternFrame->setFrameShape( QFrame::NoFrame );
 	frame3Layout = new Q3VBoxLayout( patternFrame, 0, 2, "frame3Layout");
 	patternBox = new Q3IconView(patternFrame, "patternBox");
 	patternBox->setMinimumSize( QSize( 150, 30 ) );

@@ -24,13 +24,12 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QCloseEvent>
 #include <QMessageBox>
 #include "scribuswin.h"
 #include "pageselector.h"
 #include "scmessagebox.h"
-//#include "scribuswin.moc"
 #include "fileloader.h"
 #include "scribus.h"
 #include "story.h"
@@ -58,7 +57,7 @@ void ScribusWin::setView(ScribusView* newView)
 	++m_Doc->viewCount;
 	winIndex = ++m_Doc->viewID;
 	QPoint point(0,0);
-	statusFrame = new Q3Frame(this, "newDocFrame");
+	statusFrame = new QFrame(this, "newDocFrame");
 	statusFrameLayout = new Q3HBoxLayout( statusFrame, 0, 0, "statusFrame");
 	m_View->unitSwitcher->reparent(statusFrame, point);
 	m_View->layerMenu->reparent(statusFrame, point);

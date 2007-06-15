@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qcheckbox.h>
 #include <qlayout.h>
-#include <q3frame.h>
+#include <QFrame>
 #include <qtoolbutton.h>
 #include <qcombobox.h>
 #include <qstring.h>
@@ -122,9 +122,9 @@ public:
 	QCheckBox* SaveZip;
 	QCheckBox* WithFonts;
 	QCheckBox* WithProfiles;
-	Q3Frame* Layout;
+	QFrame* Layout;
 	QToolButton* HomeB;
-	Q3Frame* LayoutC;
+	QFrame* LayoutC;
 	QComboBox *TxCodeM;
 	QLabel *TxCodeT;
 private slots:

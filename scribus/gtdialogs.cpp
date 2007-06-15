@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "gtdialogs.h"
-//#include "gtdialogs.moc"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -33,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
-#include <Q3Frame>
 #include <QPixmap>
 #include <Q3VBoxLayout>
 #include "commonstrings.h"
@@ -56,7 +54,7 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 
 void gtFileDialog::createWidgets(const QStringList& importers)
 {
-	importerFrame = new Q3Frame(this);
+	importerFrame = new QFrame(this);
 	importerLayout = new Q3HBoxLayout(importerFrame);
 	importerLayout->setSpacing(10);
 	importerLayout->setMargin(0);
@@ -79,7 +77,7 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 
 	addWidgets(new QLabel( tr("Importer:"), this), importerFrame, 0);
 
-	encodingFrame = new Q3Frame(this);
+	encodingFrame = new QFrame(this);
 	encodingLayout = new Q3HBoxLayout(encodingFrame);
 	encodingLayout->setSpacing(10);
 	encodingLayout->setMargin(0);

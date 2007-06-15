@@ -7,7 +7,6 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "mpalette.h"
-//y#include "mpalette.moc"
 
 #include <cmath>
 #include <qpoint.h>
@@ -21,10 +20,9 @@ for which a new license (GPL+exception) is in place.
 #include <QFocusEvent>
 #include <Q3VBoxLayout>
 #include <QKeyEvent>
-#include <Q3Frame>
+#include <QFrame>
 #include <QEvent>
 #include <QLabel>
-#include <Q3PopupMenu>
 #include <Q3HBoxLayout>
 #include <QCloseEvent>
 #include <Q3GridLayout>
@@ -202,49 +200,49 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	TopLeft->setLayoutDirection(Qt::RightToLeft);
 	TopLeft->setMaximumSize( TopLeft->iconSize() );
 	Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
-	Line1 = new Q3Frame( RotationGroup, "Line1" );
+	Line1 = new QFrame( RotationGroup, "Line1" );
 	Line1->setMinimumSize( QSize( 20, 4 ) );
 	Line1->setMaximumSize( QSize( 20, 4 ) );
-	Line1->setFrameShape( Q3Frame::HLine );
-	Line1->setFrameShadow( Q3Frame::Plain );
+	Line1->setFrameShape( QFrame::HLine );
+	Line1->setFrameShadow( QFrame::Plain );
 	Line1->setLineWidth( 3 );
-	Line1->setFrameShape( Q3Frame::HLine );
+	Line1->setFrameShape( QFrame::HLine );
 	Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
 	TopRight = new QRadioButton( RotationGroup, "TopRight" );
 	TopRight->setText( "" );
 	TopRight->setMaximumSize( TopRight->iconSize() );
 	Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
-	Line2 = new Q3Frame( RotationGroup, "Line2" );
+	Line2 = new QFrame( RotationGroup, "Line2" );
 	Line2->setMinimumSize( QSize( 4, 20 ) );
 	Line2->setMaximumSize( QSize( 4, 20 ) );
-	Line2->setFrameShape( Q3Frame::VLine );
-	Line2->setFrameShadow( Q3Frame::Plain );
+	Line2->setFrameShape( QFrame::VLine );
+	Line2->setFrameShadow( QFrame::Plain );
 	Line2->setLineWidth( 3 );
-	Line2->setFrameShape( Q3Frame::VLine );
+	Line2->setFrameShape( QFrame::VLine );
 	Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
 	Center = new QRadioButton( RotationGroup, "Center" );
 	Center->setText( "" );
 	Center->setMaximumSize( Center->iconSize() );
 	Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
-	Line4 = new Q3Frame( RotationGroup, "Line4" );
+	Line4 = new QFrame( RotationGroup, "Line4" );
 	Line4->setMinimumSize( QSize( 4, 20 ) );
 	Line4->setMaximumSize( QSize( 4, 20 ) );
-	Line4->setFrameShadow( Q3Frame::Plain );
+	Line4->setFrameShadow( QFrame::Plain );
 	Line4->setLineWidth( 3 );
-	Line4->setFrameShape( Q3Frame::VLine );
+	Line4->setFrameShape( QFrame::VLine );
 	Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
 	BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
 	BottomLeft->setText( "" );
 	BottomLeft->setLayoutDirection(Qt::RightToLeft);
 	BottomLeft->setMaximumSize( BottomLeft->iconSize() );
 	Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
-	Line5 = new Q3Frame( RotationGroup, "Line5" );
+	Line5 = new QFrame( RotationGroup, "Line5" );
 	Line5->setMinimumSize( QSize( 20, 4 ) );
 	Line5->setMaximumSize( QSize( 20, 4 ) );
-	Line5->setFrameShape( Q3Frame::HLine );
-	Line5->setFrameShadow( Q3Frame::Plain );
+	Line5->setFrameShape( QFrame::HLine );
+	Line5->setFrameShadow( QFrame::Plain );
 	Line5->setLineWidth( 3 );
-	Line5->setFrameShape( Q3Frame::HLine );
+	Line5->setFrameShape( QFrame::HLine );
 	Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
 	BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
 	BottomRight->setText( "" );
@@ -638,7 +636,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout41->addWidget( ChBase, 1, 3 );
 	LineSp = new ScrSpinBox( page_3, 0 );
 	layout41->addWidget( LineSp, 2, 1 );
-	lineSpacingPop = new Q3PopupMenu();
+	lineSpacingPop = new QMenu();
 	lineSpacingPop->insertItem( tr("Fixed Linespacing"));
 	lineSpacingPop->insertItem( tr("Automatic Linespacing"));
 	lineSpacingPop->insertItem( tr("Align to Baseline Grid"));
@@ -843,11 +841,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	Layout18 = new Q3HBoxLayout( 0, 0, 6, "Layout18");
 
-	Frame4 = new Q3Frame( page_4, "Frame4" );
+	Frame4 = new QFrame( page_4, "Frame4" );
 	Frame4->setMinimumSize( QSize( 15, 2 ) );
 	Frame4->setMaximumSize( QSize( 15, 10 ) );
-	Frame4->setFrameShape( Q3Frame::NoFrame );
-	Frame4->setFrameShadow( Q3Frame::Plain );
+	Frame4->setFrameShape( QFrame::NoFrame );
+	Frame4->setFrameShadow( QFrame::Plain );
 	Layout18->addWidget( Frame4 );
 
 	Aspect = new QCheckBox( page_4, "Aspect" );

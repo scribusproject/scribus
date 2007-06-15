@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <q3mainwindow.h>
 //Added by qt3to4:
-#include <Q3Frame>
+#include <QFrame>
 #include <QCloseEvent>
 #include <Q3HBoxLayout>
 class ScribusDoc;
@@ -70,7 +70,7 @@ protected:
 	ScribusView* m_View;
 	ScribusDoc* m_Doc;
 	MasterPagesPalette* m_masterPagesPalette;
-	Q3Frame *statusFrame;
+	QFrame *statusFrame;
 	bool MenuStat[7];
 	int winIndex;
 };

@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 #include <qdir.h>
 #include <q3filedialog.h>
-#include <q3frame.h>
+#include <QFrame>
 #include <qinputdialog.h>
 #include <qlabel.h>
 #include <qlayout.h>
@@ -55,8 +55,8 @@ class SCRIBUS_API gtFileDialog : public Q3FileDialog
 	Q_OBJECT
 private:
 	QDir dir;
-	Q3Frame* importerFrame;
-	Q3Frame* encodingFrame;
+	QFrame* importerFrame;
+	QFrame* encodingFrame;
 	Q3HBoxLayout* importerLayout;
 	Q3HBoxLayout* encodingLayout;
 	QToolButton* HomeB;

@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QPixmap>
 #include <QLabel>
 #include <Q3PopupMenu>
@@ -140,7 +140,7 @@ protected:
 	QPixmap regIcon;
 
 	ColorListBox *colorListQLBox;
-	Q3Frame* patternFrame;
+	QFrame* patternFrame;
 	Q3IconView *patternBox;
 	Q3GroupBox* groupOffset;
 	QLabel* textLabel1;
@@ -166,7 +166,7 @@ protected:
 	QSpinBox *PM1;
 	QComboBox* gradientQCombo;
 	GradientEditor* gradEdit;
-	Q3Frame* freeGradientQFrame;
+	QFrame* freeGradientQFrame;
 	QLabel* GTextX1;
 	QLabel* GTextY1;
 	QLabel* GTextX2;

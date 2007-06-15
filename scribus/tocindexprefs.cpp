@@ -20,20 +20,18 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "tocindexprefs.h"
-//#include "tocindexprefs.moc"
 
-#include <qvariant.h>
-#include <qstringlist.h>
-#include <qpushbutton.h>
-#include <qtabwidget.h>
-#include <q3listbox.h>
-#include <qlineedit.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qcheckbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
+#include <QVariant>
+#include <QPushButton>
+#include <QTabWidget>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QLabel>
+#include <QCheckBox>
+#include <QLayout>
+#include <QToolTip>
 #include "page.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
@@ -54,7 +52,7 @@ TOCIndexPrefs::TOCIndexPrefs( QWidget* parent, const char* name, Qt::WFlags fl )
 	resize( QSize(444, 234).expandedTo(minimumSizeHint()) );
 
 	// signals and slots connections
-	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	connect( tocAddButton, SIGNAL( clicked() ), this, SLOT( addToC() ) );
 	connect( tocDeleteButton, SIGNAL( clicked() ), this, SLOT( deleteToC() ) );
 	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
@@ -101,7 +99,7 @@ void TOCIndexPrefs::languageChange()
 
 void TOCIndexPrefs::init()
 {
-	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	trStrNone=tr("None");
 	strNone=CommonStrings::None;
 	trStrPNBeginning=tr("At the beginning");
@@ -141,7 +139,7 @@ void TOCIndexPrefs::setup( ToCSetupVector* tocsetups, ScribusDoc *doc)
 	else
 		tocListBox->clear();
 	enableGUIWidgets();
-	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 }
 
 void TOCIndexPrefs::generatePageItemList()
@@ -150,7 +148,7 @@ void TOCIndexPrefs::generatePageItemList()
 	itemDestFrameComboBox->insertItem(trStrNone);
 	if (currDoc!=NULL)
 	{
-		for (uint d = 0; d < currDoc->DocItems.count(); ++d)
+		for (int d = 0; d < currDoc->DocItems.count(); ++d)
 		{
 			if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame)
 				itemDestFrameComboBox->insertItem(currDoc->DocItems.at(d)->itemName());
@@ -183,9 +181,9 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 	numSelected=numberSelected;
 	if (localToCSetupVector.isEmpty())
 		return;
-	if (static_cast<uint>(localToCSetupVector.count())<numSelected)
+	if (localToCSetupVector.count()<numSelected)
 		numSelected=0;
-	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	disconnect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
 	disconnect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
 	disconnect( itemParagraphStyleComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemParagraphStyleSelected(const QString&) ) );
@@ -221,10 +219,10 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 		}
 	}
 
-	//if (numSelected>=0)
-		tocNameLineEdit->setText(tocListBox->currentText());
+	if (tocListBox->currentItem())
+		tocNameLineEdit->setText(tocListBox->currentItem()->text());
 
-	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
 	connect( itemDestFrameComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemFrameSelected(const QString&) ) );
 	connect( itemParagraphStyleComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemParagraphStyleSelected(const QString&) ) );
@@ -253,22 +251,24 @@ void TOCIndexPrefs::addToC()
 	newToCEntry.pageLocation=End;
 	newToCEntry.listNonPrintingFrames=false;
 	localToCSetupVector.append(newToCEntry);
-	disconnect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	disconnect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 	updateToCListBox();
 	if (localToCSetupVector.count()==1) //reinit parastyles if we are adding the first TOC
 		updateParagraphStyleComboBox();
-	tocListBox->setCurrentItem(localToCSetupVector.count()-1);
+	tocListBox->setCurrentRow(localToCSetupVector.count()-1);
 	selectToC(localToCSetupVector.count()-1);
 	enableGUIWidgets();
-	connect( tocListBox, SIGNAL( highlighted(int) ), this, SLOT( selectToC(int) ) );
+	connect( tocListBox, SIGNAL( currentRowChanged(int) ), this, SLOT( selectToC(int) ) );
 }
 
 
 void TOCIndexPrefs::updateToCListBox()
 {
 	tocListBox->clear();
+	QStringList sl;
 	for(ToCSetupVector::Iterator it = localToCSetupVector.begin(); it!= localToCSetupVector.end(); ++it)
-		tocListBox->insertItem((*it).name);
+		sl << (*it).name;
+	tocListBox->insertItems(0, sl);
 }
 
 void TOCIndexPrefs::updateParagraphStyleComboBox()
@@ -301,7 +301,7 @@ void TOCIndexPrefs::enableGUIWidgets()
 
 void TOCIndexPrefs::deleteToC()
 {
-	int numberSelected=tocListBox->currentItem();
+	int numberSelected=tocListBox->currentRow();
 	if (numberSelected>=0)
 	{
 		int i=0;
@@ -320,7 +320,7 @@ void TOCIndexPrefs::deleteToC()
 
 void TOCIndexPrefs::itemAttributeSelected( const QString& itemAttributeName )
 {
-	int numberSelected=tocListBox->currentItem();
+	int numberSelected=tocListBox->currentRow();
 	if (numberSelected>=0)
 	{
 		int i=0;
@@ -340,7 +340,7 @@ void TOCIndexPrefs::itemAttributeSelected( const QString& itemAttributeName )
 
 void TOCIndexPrefs::itemFrameSelected( const QString& frameName )
 {
-	int numberSelected=tocListBox->currentItem();
+	int numberSelected=tocListBox->currentRow();
 	if (numberSelected>=0)
 	{
 		int i=0;
@@ -361,7 +361,7 @@ void TOCIndexPrefs::itemFrameSelected( const QString& frameName )
 
 void TOCIndexPrefs::itemPageNumberPlacedSelected( const QString& pageLocation )
 {
-	int numberSelected=tocListBox->currentItem();
+	int numberSelected=tocListBox->currentRow();
 	if (numberSelected>=0)
 	{
 		int i=0;
@@ -384,7 +384,7 @@ void TOCIndexPrefs::itemPageNumberPlacedSelected( const QString& pageLocation )
 
 void TOCIndexPrefs::itemParagraphStyleSelected( const QString& itemStyle )
 {
-	int numberSelected=tocListBox->currentItem();
+	int numberSelected=tocListBox->currentRow();
 	if (numberSelected>=0)
 	{
 		int i=0;
@@ -409,10 +409,10 @@ ToCSetupVector* TOCIndexPrefs::getNewToCs()
 
 void TOCIndexPrefs::setToCName( const QString &newName )
 {
-	int numberSelected=tocListBox->currentItem();
+	int numberSelected=tocListBox->currentRow();
 	if (numberSelected!=-1)
 	{
-		tocListBox->changeItem(newName, numberSelected);
+		tocListBox->item(numberSelected)->setText(newName);
 		int i=0;
 		ToCSetupVector::Iterator it=localToCSetupVector.begin();
 		while (it!= localToCSetupVector.end() && i<numberSelected)
@@ -427,7 +427,7 @@ void TOCIndexPrefs::setToCName( const QString &newName )
 
 void TOCIndexPrefs::nonPrintingFramesSelected( bool showNonPrinting )
 {
-	int numberSelected=tocListBox->currentItem();
+	int numberSelected=tocListBox->currentRow();
 	if (numberSelected>=0)
 	{
 		int i=0;

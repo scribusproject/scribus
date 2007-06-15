@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef TOCINDEXPREFS_H
 #define TOCINDEXPREFS_H
 
-#include <qstringlist.h>
+#include <QStringList>
 
 #include "ui_tocindexprefs.h"
 #include "page.h"

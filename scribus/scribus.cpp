@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <qkeysequence.h>
 //Added by qt3to4:
 #include <QMouseEvent>
-#include <Q3Frame>
+#include <QFrame>
 #include <QDesktopWidget>
 #include <QDropEvent>
 #include <QCloseEvent>
@@ -286,7 +286,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	resize(610, 600);
 //	Q3VBox* vb = new Q3VBox( this );
-//	vb->setFrameStyle( Q3Frame::StyledPanel | Q3Frame::Sunken );
+//	vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
 	wsp = new QWorkspace( this );
 	setCentralWidget( wsp );
 	connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));

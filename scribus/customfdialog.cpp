@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "customfdialog.h"
-//#include "customfdialog.moc"
 #include <qpixmap.h>
 #include <qpainter.h>
 #include <qfileinfo.h>
@@ -32,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QImageReader>
 //Added by qt3to4:
 #include <Q3HBoxLayout>
-#include <Q3Frame>
+#include <QFrame>
 #include <QLabel>
 
 #include "cmsettings.h"
@@ -262,7 +261,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 	FDialogPreview *pw;
 	if (flags & fdDirectoriesOnly)
 	{
-		Layout = new Q3Frame(this);
+		Layout = new QFrame(this);
 		Layout1 = new Q3HBoxLayout(Layout);
 		Layout1->setSpacing( 0 );
 		Layout1->setMargin( 0 );
@@ -271,7 +270,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1->addItem( spacer );
 		addWidgets(0, Layout, 0);
-		LayoutC = new Q3Frame(this);
+		LayoutC = new QFrame(this);
 		Layout1C = new Q3HBoxLayout(LayoutC);
 		Layout1C->setSpacing( 0 );
 		Layout1C->setMargin( 0 );
@@ -291,7 +290,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		setContentsPreview( pw, pw );
 		if (flags & fdCompressFile)
 		{
-			Layout = new Q3Frame(this);
+			Layout = new QFrame(this);
 			Layout1 = new Q3HBoxLayout(Layout);
 			Layout1->setSpacing( 6 );
 			Layout1->setMargin( 0 );
@@ -310,7 +309,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 		}
 		if (flags & fdShowCodecs)
 		{
-			LayoutC = new Q3Frame(this);
+			LayoutC = new QFrame(this);
 			Layout1C = new Q3HBoxLayout(LayoutC);
 			Layout1C->setSpacing( 0 );
 			Layout1C->setMargin( 4 );
