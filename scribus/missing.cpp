@@ -4,17 +4,14 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-
 #include "missing.h"
-//#include "missing.moc"
+
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QImage>
+#include <QPixmap>
 
 #include "fontcombo.h"
 #include "scribusdoc.h"
@@ -305,18 +302,20 @@ static const char* const image100_data[] =
     };
 
 
-MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc )
-		: QDialog( parent, "mfont", true, 0 )
+MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc ) : QDialog( parent )
 {
 	QPixmap image0( ( const char** ) image100_data );
-	setCaption( tr("Missing Font"));
-	setIcon(loadIcon("AppIcon.png"));
-	missingFontLayout = new Q3HBoxLayout( this, 10, 0 );
-	missingFontGridLayout = new Q3GridLayout(this);
-	missingFontGridLayout->setSpacing( 12 );
+	setModal(true);
+	setWindowTitle( tr("Missing Font"));
+	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
+	missingFontLayout = new QHBoxLayout( this );
+	missingFontLayout->setMargin(10);
+	missingFontLayout->setSpacing(0);
+	missingFontGridLayout = new QGridLayout;
+	missingFontGridLayout->setSpacing( 10 );
 	missingFontGridLayout->setMargin( 0 );
 	notInstalledLabel = new QLabel( tr("The Font %1 is not installed.").arg(fon), this, "notInstalledLabel" );
-	missingFontGridLayout->addMultiCellWidget( notInstalledLabel, 0, 0, 1, 2 );
+	missingFontGridLayout->addWidget( notInstalledLabel, 0, 0, 1, 4 );
 	pixmapLabel = new QLabel( this, "pixmapLabel" );
 	pixmapLabel->setPixmap( image0 );
 	missingFontGridLayout->addWidget( pixmapLabel, 1, 0 );

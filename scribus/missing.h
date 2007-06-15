@@ -7,14 +7,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef MISSINGFONT_H
 #define MISSINGFONT_H
 
-#include <qdialog.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <QLabel>
-#include <Q3HBoxLayout>
+#include <QDialog>
+
 class QLabel;
-class Q3HBoxLayout;
-class Q3GridLayout;
+class QHBoxLayout;
+class QGridLayout;
 class QPushButton;
 class FontCombo;
 class ScribusDoc;
@@ -26,24 +23,24 @@ class SCRIBUS_API MissingFont : public QDialog
     Q_OBJECT
 
 public:
-    MissingFont( QWidget* parent, QString fon, ScribusDoc* doc);
-    ~MissingFont() {};
+	MissingFont( QWidget* parent, QString fon, ScribusDoc* doc);
+	~MissingFont() {};
 	
 	const QString getReplacementFont();
 
 public slots:
-    virtual void newFont(const QString& replacement);
+	virtual void newFont(const QString& replacement);
 
 protected:
-    Q3HBoxLayout* missingFontLayout;
-    Q3GridLayout* missingFontGridLayout;
-    QPushButton* okButton;
-    QLabel* insteadLabel;
-    QLabel* pixmapLabel;
-    FontCombo* replaceFontCombo;
-    QLabel* notInstalledLabel;
-    QLabel* useLabel;
-    QString replacementFont;
+	QHBoxLayout* missingFontLayout;
+	QGridLayout* missingFontGridLayout;
+	QPushButton* okButton;
+	QLabel* insteadLabel;
+	QLabel* pixmapLabel;
+	FontCombo* replaceFontCombo;
+	QLabel* notInstalledLabel;
+	QLabel* useLabel;
+	QString replacementFont;
 };
 
 #endif // MISSINGFONT_H
