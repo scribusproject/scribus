@@ -7,27 +7,28 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFSDIALOGBASE_H
 #define PREFSDIALOGBASE_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-#include <q3iconview.h>
-#include <qmap.h>
-#include <q3widgetstack.h>
-#include <qwidget.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
-#include <QPixmap>
-#include <Q3HBoxLayout>
-#include <QLabel>
+#include <QDialog>
+#include <QListWidget>
+#include <QMap>
+class QVBoxLayout;
+class QHBoxLayout;
+class QLabel;
+class QPushButton;
+class QStackedWidget;
+class QListWidgetItem;
 
 #include "scribusapi.h"
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QSpacerItem;
-class QPushButton;
-class QLabel;
+
+class SCRIBUS_API OptionListWidget : public QListWidget
+{
+	Q_OBJECT
+
+public:
+	OptionListWidget(QWidget* parent);
+	~OptionListWidget() {};
+	void arrangeIcons();
+};
 
 class SCRIBUS_API PrefsDialogBase : public QDialog
 {
@@ -37,26 +38,29 @@ public:
 	PrefsDialogBase( QWidget* parent = 0 );
 	~PrefsDialogBase() {};
 	int addItem(QString name, QPixmap icon, QWidget *tab);
-	void arrangeIcons();
-	Q3WidgetStack* prefsWidgets;
+//	void arrangeIcons();
+	QStackedWidget* prefsWidgets;
 	QPushButton* backToDefaults;
 	//! \brief Apply changes but don't close the dialog.
 	QPushButton* applyChangesButton;
 	QPushButton* buttonOk;
 	QPushButton* buttonCancel;
 	QPushButton* saveButton;
-	Q3IconView* prefsSelection;
-	QMap<Q3IconViewItem*, int> itemMap;
+	OptionListWidget* prefsSelection;
+	QMap<QListWidgetItem*, int> itemMap;
 	int counter;
 
 public slots:
-	void itemSelected(Q3IconViewItem* ic);
+	void itemSelected(QListWidgetItem* ic);
+
+signals:
+	void aboutToShow(QWidget *);
 
 protected:
-	Q3VBoxLayout* prefsLayout;
-	Q3HBoxLayout* layout3;
-	Q3HBoxLayout* layout4;
-	Q3VBoxLayout* layout5;
+	QVBoxLayout* prefsLayout;
+	QHBoxLayout* layout3;
+	QHBoxLayout* layout4;
+	QVBoxLayout* layout5;
 	QLabel* tabNameLabel;
 
 protected slots:

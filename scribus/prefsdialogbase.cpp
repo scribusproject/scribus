@@ -5,19 +5,18 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "prefsdialogbase.h"
-//#include "prefsdialogbase.moc"
-#include <qvariant.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qlabel.h>
-#include <qfont.h>
-#include <q3filedialog.h>
-//Added by qt3to4:
-#include <QPixmap>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QLabel>
+#include <QPushButton>
+#include <QToolTip>
+#include <QFont>
+#include <QFileDialog>
+#include <QStackedWidget>
 
 #include "commonstrings.h"
 #include "prefsmanager.h"
@@ -25,27 +24,69 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-
-PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDialogBase", true, 0 )
+OptionListWidget::OptionListWidget(QWidget* parent) : QListWidget(parent)
 {
+	setDragEnabled(false);
+	setViewMode(QListView::IconMode);
+	setFlow(QListView::TopToBottom);
+	setSortingEnabled(false);
+	setWrapping(false);
+	setWordWrap(true);
+	setAcceptDrops(false);
+	setDropIndicatorShown(false);
+	setDragDropMode(QAbstractItemView::NoDragDrop);
+	setResizeMode(QListView::Adjust);
+	setSelectionMode(QAbstractItemView::SingleSelection);
+	setFocusPolicy(Qt::NoFocus);
+	setIconSize(QSize(32, 32));
+	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	clear();
+	setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+}
+
+void OptionListWidget::arrangeIcons()
+{
+	int maxWidth = 0;
+	setWrapping(false);
+	QListWidgetItem* ic;
+	int startY = 5;
+	for (int cc = 0; cc < count(); ++cc)
+	{
+		ic = item(cc);
+		QRect ir = visualItemRect(ic);
+		maxWidth = qMax(ir.width(), maxWidth);
+	}
+	setMaximumWidth(maxWidth+16);
+	setResizeMode(QListView::Fixed);
+	int startX = qMax((viewport()->width() - maxWidth) / 2, 0);
+	for (int cc = 0; cc < count(); ++cc)
+	{
+		ic = item(cc);
+		QRect ir = visualItemRect(ic);
+		int moveW = (maxWidth - ir.width()) / 2;
+		setPositionForIndex(QPoint(moveW + startX, startY), indexFromItem(ic));
+		startY += ir.height()+5;
+	}
+}
+
+
+PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent )
+{
+	setModal(true);
 	counter = 0;
-	setName( "PrefsDialogBase" );
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
 	setSizeGripEnabled( true );
-	prefsLayout = new Q3VBoxLayout( this, 11, 6, "prefsLayout");
-	layout3 = new Q3HBoxLayout( 0, 0, 6, "layout3");
-	prefsSelection = new Q3IconView( this, "prefsSelection" );
-	prefsSelection->setHScrollBarMode( Q3IconView::AlwaysOff );
-	prefsSelection->setVScrollBarMode( Q3IconView::Auto );
-	prefsSelection->setArrangement(Q3IconView::LeftToRight);
-	prefsSelection->setItemsMovable(false);
-	prefsSelection->setAutoArrange( false );
-	prefsSelection->setSorting( false );
-	prefsSelection->setWordWrapIconText(false);
-	prefsSelection->setFocusPolicy(Qt::NoFocus);
-	prefsSelection->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)7, 0, 0, prefsSelection->sizePolicy().hasHeightForWidth() ) );
+	prefsLayout = new QVBoxLayout( this );
+	prefsLayout->setMargin(10);
+	prefsLayout->setSpacing(5);
+	layout3 = new QHBoxLayout;
+	layout3->setMargin(0);
+	layout3->setSpacing(5);
+	prefsSelection = new OptionListWidget( this );
 	layout3->addWidget( prefsSelection );
-	layout5 = new Q3VBoxLayout( 0, 0, 6, "layout5");
+	layout5 = new QVBoxLayout;
+	layout5->setMargin(0);
+	layout5->setSpacing(5);
 	tabNameLabel = new QLabel( this, "tabNameLabel" );
 	QFont f(tabNameLabel->font());
 	f.setPointSize(f.pointSize()+4);
@@ -53,16 +94,18 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	tabNameLabel->setFont(f);
 	tabNameLabel->setText("");
 	layout5->addWidget( tabNameLabel );
-	prefsWidgets = new Q3WidgetStack( this, "prefsWidgets" );
+	prefsWidgets = new QStackedWidget( this);
 	layout5->addWidget( prefsWidgets );
 	layout3->addLayout(layout5);
 	prefsLayout->addLayout( layout3 );
-	layout4 = new Q3HBoxLayout( 0, 0, 6, "layout4");
+	layout4 = new QHBoxLayout;
+	layout4->setMargin(0);
+	layout4->setSpacing(5);
 	saveButton = new QPushButton(this, "saveButton");
 	saveButton->setAutoDefault( false );
 	saveButton->setDefault( false );
 	layout4->addWidget(saveButton);
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout4->addItem( spacer );
 	backToDefaults = new QPushButton( this, "backToDefaults" );
 	backToDefaults->setAutoDefault( false );
@@ -82,7 +125,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 	layout4->addWidget( buttonCancel );
 	prefsLayout->addLayout( layout4 );
 	languageChange();
-	connect(prefsSelection, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
+	connect(prefsSelection, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 	connect( buttonOk, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( buttonCancel, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(saveButton, SIGNAL(clicked()), this, SLOT(saveButton_clicked()));
@@ -90,45 +133,21 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent, "PrefsDia
 
 int PrefsDialogBase::addItem(QString name, QPixmap icon, QWidget *tab)
 {
-	Q3IconViewItem* icx = new Q3IconViewItem(prefsSelection, name, icon);
-	prefsWidgets->addWidget(tab, counter);
-	icx->setDragEnabled(false);
+	QListWidgetItem* icx = new QListWidgetItem(icon, name, prefsSelection);
+	prefsWidgets->addWidget(tab);
 	itemMap.insert(icx, counter);
 	counter++;
 	return counter-1;
 }
 
-void PrefsDialogBase::arrangeIcons()
-{
-	int maxWidth = 0;
-	Q3IconViewItem* ic = prefsSelection->firstItem();
-	int startY = 5;
-	for (uint cc = 0; cc < prefsSelection->count(); ++cc)
-	{
-		int w = ic->width();
-		maxWidth = qMax(w, maxWidth);
-		ic = ic->nextItem();
-	}
-	ic = prefsSelection->firstItem();
-	prefsSelection->setAutoArrange( false );
-	prefsSelection->setResizeMode(Q3IconView::Fixed);
-	for (uint cc = 0; cc < prefsSelection->count(); ++cc)
-	{
-		int w = ic->width();
-		int moveW = (maxWidth - w) / 2;
-		ic->move(moveW, startY);
-		startY += ic->height()+5;
-		ic = ic->nextItem();
-	}
-}
-
-void PrefsDialogBase::itemSelected(Q3IconViewItem* ic)
+void PrefsDialogBase::itemSelected(QListWidgetItem* ic)
 {
 	if (ic == 0)
 		return;
 	if (itemMap.contains(ic))
 	{
-		prefsWidgets->raiseWidget(itemMap[ic]);
+		emit aboutToShow(prefsWidgets->widget(itemMap[ic]));
+		prefsWidgets->setCurrentIndex(itemMap[ic]);
 		tabNameLabel->setText(ic->text());
 	}
 }
@@ -150,7 +169,7 @@ void PrefsDialogBase::languageChange()
 
 void PrefsDialogBase::saveButton_clicked()
 {
-	QString s = Q3FileDialog::getSaveFileName(
+	QString s = QFileDialog::getSaveFileName(
 			QDir::currentDirPath(),
 			"All Files (*)",
 			this,

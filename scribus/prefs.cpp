@@ -52,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QPixmap>
 #include <QList>
+#include <QStackedWidget>
 
 using namespace std;
 
@@ -77,7 +78,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabGuides = new TabGuides(prefsWidgets, &prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
-	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSettings);
+	tabTypo = new TabTypograpy(prefsWidgets, &prefsData->typographicSettings);
 	addItem( tr("Typography"), loadIcon("typography.png"), tabTypo);
 
 	tabTools = new TabTools(prefsWidgets, &prefsData->toolSettings, docUnitIndex, ap->doc);
@@ -92,7 +93,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabPrinter = new TabPrinter(prefsWidgets, "tabPrinter");
 	addItem( tr("Printer"), loadIcon("printer.png"), tabPrinter);
 
-	tabDocChecker = new TabCheckDoc(  prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
+	tabDocChecker = new TabCheckDoc(prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	if (ScCore->haveCMS())
@@ -115,12 +116,12 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 								0 );
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), tabPDF);
 
-	tabDefaultItemAttributes = new DocumentItemAttributes( prefsWidgets);
+	tabDefaultItemAttributes = new DocumentItemAttributes(prefsWidgets);
 	QStringList defaultAttributesList=tabDefaultItemAttributes->getDocAttributesNames();
 	tabDefaultItemAttributes->setup(&prefsData->defaultItemAttributes);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDefaultItemAttributes);
 
-	tabDefaultTOCIndexPrefs = new TOCIndexPrefs( prefsWidgets );
+	tabDefaultTOCIndexPrefs = new TOCIndexPrefs(prefsWidgets );
 	tabDefaultTOCIndexPrefs->setupItemAttrs( defaultAttributesList );
 	tabDefaultTOCIndexPrefs->setup(&prefsData->defaultToCSetups, NULL);
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabDefaultTOCIndexPrefs);
@@ -137,7 +138,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabExtTools = new TabExternalToolsWidget( prefsData, prefsWidgets );
 	addItem(  tr("External Tools"), loadIcon("externaltools.png"), tabExtTools);
 
-	tabMiscellaneous = new TabMiscellaneous( prefsWidgets, "tabMiscellaneous" );
+	tabMiscellaneous = new TabMiscellaneous(prefsWidgets, "tabMiscellaneous" );
 	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), tabMiscellaneous);
 
 	// plugin manager. pv.
@@ -150,9 +151,9 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	setDS(prefsData->FacingPages);
 
 	resize( minimumSizeHint() );
-	arrangeIcons();
-	prefsSelection->setSelected(prefsSelection->firstItem(), true);
-	itemSelected(prefsSelection->firstItem());
+	prefsSelection->arrangeIcons();
+	prefsSelection->item(0)->setSelected(true);
+	itemSelected(prefsSelection->item(0));
 }
 
 void Preferences::enableSignals(bool on)
@@ -166,7 +167,7 @@ void Preferences::enableSignals(bool on)
 			connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 		connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 		connect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
-		connect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
+		connect(prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
 		connect(this, SIGNAL(accepted()), pluginManagerPrefsGui, SLOT(apply()));
 	}
 	else
@@ -178,7 +179,7 @@ void Preferences::enableSignals(bool on)
 			disconnect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 		disconnect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 		disconnect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
-		disconnect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
+		disconnect(prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
 		disconnect(this, SIGNAL(accepted()), pluginManagerPrefsGui, SLOT(apply()));
 	}
 }
@@ -256,8 +257,7 @@ void Preferences::addPlugins()
 		if (plugin)
 		{
 			// Ask the plugin for a prefs widget
-			bool wantPanel = plugin->newPrefsPanelWidget(
-					prefsWidgets, panel, panelCaption, panelIcon);
+			bool wantPanel = plugin->newPrefsPanelWidget(prefsWidgets, panel, panelCaption, panelIcon);
 			// If it gave us one...
 			if (wantPanel)
 			{

@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 //Added by qt3to4:
 #include <QPixmap>
+#include <QStackedWidget>
 
 #include "docsections.h"
 #include "tabtypography.h"
@@ -76,10 +77,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabView->setDocSetupMode();
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
-	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSettings);
+	tabTypo = new TabTypograpy( prefsWidgets, &doc->typographicSettings);
 	addItem( tr("Typography"), loadIcon("typography.png"), tabTypo);
 
-	tabTools = new TabTools(  prefsWidgets, &doc->toolSettings, docUnitIndex, doc);
+	tabTools = new TabTools( prefsWidgets, &doc->toolSettings, docUnitIndex, doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets, &ScMW->LangTransl);
@@ -88,7 +89,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabFonts = new FontPrefs(prefsWidgets, true, PrefsManager::instance()->preferencesLocation(), doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
-	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
+	tabDocChecker = new TabCheckDoc(prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
 	tabPDF = new TabPDFOptions( prefsWidgets, doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
@@ -96,7 +97,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 								docUnitIndex, doc->pageHeight, doc->pageWidth, doc );
 	addItem( tr("PDF Export"), loadIcon("acroread32.png"), tabPDF);
 
-	tabDocItemAttributes = new DocumentItemAttributes( prefsWidgets);
+	tabDocItemAttributes = new DocumentItemAttributes(prefsWidgets);
 	docAttributesList=tabDocItemAttributes->getDocAttributesNames();
 	tabDocItemAttributes->setup(&doc->docItemAttributes);
 	addItem( tr("Document Item Attributes"), loadIcon("docattributes.png"), tabDocItemAttributes);
@@ -128,15 +129,13 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	if (ScCore->haveCMS())
 	{
-		prefsWidgets->raiseWidget(cmsTab);
+		prefsWidgets->setCurrentIndex(cmsTab);
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 	}
-
-	arrangeIcons();
 	resize( minimumSizeHint() );
-
-	prefsSelection->setSelected(prefsSelection->firstItem(), true);
-	itemSelected(prefsSelection->firstItem());
+	prefsSelection->arrangeIcons();
+	prefsSelection->item(0)->setSelected(true);
+	itemSelected(prefsSelection->item(0));
 	restoreDefaults();
 }
 
