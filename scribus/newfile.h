@@ -7,25 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef NEWDOC_H
 #define NEWDOC_H
 
-#include <qdialog.h>
-#include <q3buttongroup.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
-#include <qstringlist.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qtabwidget.h>
-#include <q3frame.h>
-#include <q3listbox.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDialog>
+class QGridLayout;
+class QHBoxLayout;
+class QVBoxLayout;
+class QFrame;
+class QListWidget;
+class QListWidgetItem;
+class QGroupBox;
+class QSpinBox;
+class QLabel;
+class QCheckBox;
+class QPushButton;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -38,8 +31,6 @@ class PageLayouts;
 class ScrSpinBox;
 class CustomFDialog;
 class ScComboBox;
-class Q3IconView;
-class Q3IconViewItem;
 
 
 class SCRIBUS_API NewDoc : public QDialog
@@ -55,13 +46,13 @@ public:
 	void setSize(QString gr);
 
 	QTabWidget* tabWidget;
-	Q3Frame* newDocFrame;
-	Q3IconView* layoutsView;
+	QFrame* newDocFrame;
+	QListWidget* layoutsView;
 	QLabel* layoutLabel1;
 	ScComboBox* firstPage;
-	Q3GroupBox* pageSizeGroupBox;
+	QGroupBox* pageSizeGroupBox;
 	MarginWidget* marginGroup;
-	Q3GroupBox* optionsGroupBox;
+	QGroupBox* optionsGroupBox;
 	QLabel* TextLabel1;
 	QLabel* TextLabel2;
 	QLabel* TextLabel3;
@@ -82,10 +73,10 @@ public:
 	QSpinBox* pageCountSpinBox;
 	ScrSpinBox* widthSpinBox;
 	ScrSpinBox* heightSpinBox;
-	Q3Frame* openDocFrame;
+	QFrame* openDocFrame;
 	CustomFDialog *fileDialog;
-	Q3Frame* recentDocFrame;
-	Q3ListBox* recentDocListBox;
+	QFrame* recentDocFrame;
+	QListWidget* recentDocListBox;
 	QPushButton* OKButton;
 	QPushButton* CancelB;
 	double unitRatio;
@@ -108,7 +99,7 @@ public slots:
 	void setHeight(double v);
 	void setWidth(double v);
 	void selectItem(uint nr);
-	void itemSelected(Q3IconViewItem* ic);
+	void itemSelected(QListWidgetItem* ic);
 	void handleAutoFrame();
 	void setDist(double v);
 	void setUnit(int u);
@@ -120,20 +111,17 @@ public slots:
 	\param index no of the item
 	\author Petr Vanek <petr@yarpen.cz
 	*/
-	void recentDocListBox_doubleClicked(int index);
+	void recentDocListBox_doubleClicked();
 	void openFile(const QString &);
 
 protected:
-	Q3VBoxLayout* TabbedNewDocLayout;
-	Q3GridLayout* Layout4;
-	Q3GridLayout* NewDocLayout;
-	Q3HBoxLayout* Layout9;
-	Q3GridLayout* pageSizeGroupBoxLayout;
-	Q3HBoxLayout* Layout5;
-	Q3HBoxLayout* Layout10;
-	Q3GridLayout* optionsGroupBoxLayout;
-	Q3HBoxLayout* Layout1;
-	Q3VBoxLayout* recentDocLayout;
+	QVBoxLayout* TabbedNewDocLayout;
+	QHBoxLayout* Layout1;
+	QGridLayout* NewDocLayout;
+	QGridLayout* pageSizeGroupBoxLayout;
+	QGridLayout* optionsGroupBoxLayout;
+	QVBoxLayout* openDocLayout;
+	QVBoxLayout* recentDocLayout;
 	PrefsManager* prefsManager;
 	QStringList recentDocList;
 };

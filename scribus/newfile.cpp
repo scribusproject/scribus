@@ -5,20 +5,26 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "newfile.h"
-//#include "newfile.moc"
 
-#include <qdir.h>
-#include <qtooltip.h>
-#include <qobject.h>
-#include <qpoint.h>
 #include <q3iconview.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QFrame>
+#include <QGroupBox>
 #include <QLabel>
-#include <Q3GridLayout>
+#include <QSpinBox>
+#include <QCheckBox>
+#include <QTabWidget>
+#include <QPushButton>
 #include <QPixmap>
-#include <Q3Frame>
-#include <Q3VBoxLayout>
+#include <QToolTip>
+#include <QDir>
+#include <QPoint>
 
 #include "fileloader.h"
 #include "prefsfile.h"
@@ -39,8 +45,9 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) : QDialog( parent, "newDoc", true, 0 )
+NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) : QDialog( parent )
 {
+	setModal(true);
 	prefsManager=PrefsManager::instance();
 	tabSelected = 0;
 	onStartup = startUp;
@@ -48,9 +55,11 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	unitRatio = unitGetRatioFromIndex(unitIndex);
 	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	Orient = 0;
-	setCaption( tr( "New Document" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	TabbedNewDocLayout = new Q3VBoxLayout( this, 10, 5, "Form1Layout");
+	setWindowTitle( tr( "New Document" ) );
+	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
+	TabbedNewDocLayout = new QVBoxLayout( this );
+	TabbedNewDocLayout->setMargin(10);
+	TabbedNewDocLayout->setSpacing(5);
 	if (startUp)
 		tabWidget = new QTabWidget( this, "tabWidget2" );
 	createNewDocPage();
@@ -67,8 +76,8 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	else
 		TabbedNewDocLayout->addWidget(newDocFrame);
 
-	Layout1 = new Q3HBoxLayout;
-	Layout1->setSpacing( 6 );
+	Layout1 = new QHBoxLayout;
+	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
 	if (startUp)
 	{
@@ -76,7 +85,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 		startUpDialog->setChecked(!prefsManager->appPrefs.showStartupDialog);
 		Layout1->addWidget( startUpDialog );
 	}
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 	OKButton = new QPushButton( CommonStrings::tr_OK, this, "OKButton" );
 	OKButton->setDefault( true );
@@ -104,9 +113,12 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(double)), this, SLOT(setDist(double)));
 	connect(autoTextFrame, SIGNAL(clicked()), this, SLOT(handleAutoFrame()));
-	connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
+	connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemActivated(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemPressed(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 	if (startUp)
-		connect(recentDocListBox, SIGNAL(selected(int)), this, SLOT(recentDocListBox_doubleClicked(int)));
+		connect(recentDocListBox, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(recentDocListBox_doubleClicked()));
 
 	setMinimumSize(minimumSizeHint());
  	setMaximumSize(minimumSizeHint());
@@ -115,56 +127,62 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 
 void NewDoc::createNewDocPage()
 {
-	newDocFrame = new Q3Frame(this, "newDocFrame");
+	newDocFrame = new QFrame(this);
 
-	pageSizeGroupBox = new Q3GroupBox(newDocFrame, "pageSizeGroupBox" );
+	pageSizeGroupBox = new QGroupBox(newDocFrame );
 	pageSizeGroupBox->setTitle( tr( "Document Layout" ) );
-	pageSizeGroupBox->setColumnLayout(0, Qt::Vertical );
-	pageSizeGroupBox->layout()->setSpacing( 5 );
-	pageSizeGroupBox->layout()->setMargin( 10 );
-	pageSizeGroupBoxLayout = new Q3GridLayout( pageSizeGroupBox->layout() );
+	pageSizeGroupBoxLayout = new QGridLayout( pageSizeGroupBox );
+	pageSizeGroupBoxLayout->setMargin(10);
+	pageSizeGroupBoxLayout->setSpacing(5);
 	pageSizeGroupBoxLayout->setAlignment( Qt::AlignTop );
 
-	layoutsView = new Q3IconView( pageSizeGroupBox, "layoutsView" );
-	layoutsView->setHScrollBarMode( Q3IconView::Auto );
-	layoutsView->setVScrollBarMode( Q3IconView::Auto );
-	layoutsView->setArrangement(Q3IconView::LeftToRight);
-	layoutsView->setItemsMovable(false);
-	layoutsView->setSorting( false );
+	layoutsView = new QListWidget( pageSizeGroupBox );
+	layoutsView->setDragEnabled(false);
+	layoutsView->setViewMode(QListView::IconMode);
+	layoutsView->setFlow(QListView::LeftToRight);
+	layoutsView->setMovement(QListView::Static);
+	layoutsView->setSortingEnabled(false);
+	layoutsView->setWrapping(true);
+	layoutsView->setWordWrap(true);
+	layoutsView->setAcceptDrops(false);
+	layoutsView->setDropIndicatorShown(false);
+	layoutsView->setDragDropMode(QAbstractItemView::NoDragDrop);
+	layoutsView->setResizeMode(QListView::Adjust);
+	layoutsView->setSelectionMode(QAbstractItemView::SingleSelection);
 	layoutsView->setFocusPolicy(Qt::NoFocus);
-	layoutsView->setSelectionMode(Q3IconView::Single);
+	layoutsView->setIconSize(QSize(32, 32));
 	layoutsView->clear();
 	for (int pg = 0; pg < prefsManager->appPrefs.pageSets.count(); ++pg)
 	{
-		Q3IconViewItem *ic;
+		QListWidgetItem *ic;
 		QString psname=CommonStrings::translatePageSetString(prefsManager->appPrefs.pageSets[pg].Name);
 		if (pg == 0)
 		{
-			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
-			ic->setDragEnabled(false);
+			ic = new QListWidgetItem( QIcon(loadIcon("32/page-simple.png")), psname, layoutsView );
+			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 		else if (pg == 1)
 		{
-			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-doublesided.png") );
-			ic->setDragEnabled(false);
+			ic = new QListWidgetItem( QIcon(loadIcon("32/page-doublesided.png")), psname, layoutsView );
+			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 		else if (pg == 2)
 		{
-			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-3fold.png") );
-			ic->setDragEnabled(false);
+			ic = new QListWidgetItem( QIcon(loadIcon("32/page-3fold.png")), psname, layoutsView );
+			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 		else if (pg == 3)
 		{
-			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-4fold.png") );
-			ic->setDragEnabled(false);
+			ic = new QListWidgetItem( QIcon(loadIcon("32/page-4fold.png")), psname, layoutsView );
+			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 		else
 		{
-			ic = new Q3IconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
-			ic->setDragEnabled(false);
+			ic = new QListWidgetItem( QIcon(loadIcon("32/page-simple.png")), psname, layoutsView );
+			ic->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		}
 	}
-	pageSizeGroupBoxLayout->addMultiCellWidget( layoutsView, 0, 4, 0, 0 );
+	pageSizeGroupBoxLayout->addWidget( layoutsView, 0, 0, 5, 1 );
 
 
 	TextLabel1 = new QLabel( tr( "&Size:" ), pageSizeGroupBox, "TextLabel1" );
@@ -223,16 +241,13 @@ void NewDoc::createNewDocPage()
 	setDS(prefsManager->appPrefs.FacingPages);
 	setSize(prefsManager->appPrefs.pageSize);
 	setOrien(prefsManager->appPrefs.pageOrientation);
-//	widthSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
-//	heightSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	marginGroup->setNewBleeds(prefsManager->appPrefs.bleeds);
 
-	optionsGroupBox = new Q3GroupBox( newDocFrame, "optionsGroupBox" );
+	optionsGroupBox = new QGroupBox( newDocFrame );
 	optionsGroupBox->setTitle( tr( "Options" ) );
-	optionsGroupBox->setColumnLayout(0, Qt::Vertical );
-	optionsGroupBox->layout()->setSpacing( 5 );
-	optionsGroupBox->layout()->setMargin( 10 );
-	optionsGroupBoxLayout = new Q3GridLayout( optionsGroupBox->layout() );
+	optionsGroupBoxLayout = new QGridLayout( optionsGroupBox );
+	optionsGroupBoxLayout->setSpacing( 5 );
+	optionsGroupBoxLayout->setMargin( 10 );
 	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
 	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox, "pageCountLabel" );
 
@@ -253,7 +268,7 @@ void NewDoc::createNewDocPage()
 
 	autoTextFrame = new QCheckBox( optionsGroupBox, "autoTextFrame" );
 	autoTextFrame->setText( tr( "&Automatic Text Frames" ) );
-	optionsGroupBoxLayout->addMultiCellWidget( autoTextFrame, 2, 2, 0, 1 );
+	optionsGroupBoxLayout->addWidget( autoTextFrame, 2, 0, 1, 2 );
 	TextLabel3 = new QLabel( tr( "Colu&mns:" ), optionsGroupBox, "TextLabel3" );
 	optionsGroupBoxLayout->addWidget( TextLabel3, 3, 0 );
 	numberOfCols = new QSpinBox( optionsGroupBox, "numberOfCols" );
@@ -278,12 +293,14 @@ void NewDoc::createNewDocPage()
 	startDocSetup = new QCheckBox( optionsGroupBox, "startDocSetup" );
 	startDocSetup->setText( tr( "Show Document Settings After Creation" ) );
 	startDocSetup->setChecked(false);
-	optionsGroupBoxLayout->addMultiCellWidget( startDocSetup, 5, 5, 0, 1 );
+	optionsGroupBoxLayout->addWidget( startDocSetup, 5, 0, 1, 2 );
 
-	NewDocLayout = new Q3GridLayout( newDocFrame, 2, 2, 10, 5, "NewDocLayout");
+	NewDocLayout = new QGridLayout( newDocFrame );
+	NewDocLayout->setMargin(10);
+	NewDocLayout->setSpacing(5);
 	NewDocLayout->addWidget( marginGroup, 1, 0 );
 	NewDocLayout->addWidget( optionsGroupBox, 1, 1 );
-	NewDocLayout->addMultiCellWidget( pageSizeGroupBox, 0, 0, 0, 1);
+	NewDocLayout->addWidget( pageSizeGroupBox, 0, 0, 1, 2);
 }
 
 void NewDoc::createOpenDocPage()
@@ -296,8 +313,10 @@ void NewDoc::createOpenDocPage()
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
-	openDocFrame = new Q3Frame(this, "openDocFrame");
-	Q3VBoxLayout* openDocLayout = new Q3VBoxLayout(openDocFrame, 5,5, "openDocLayout");
+	openDocFrame = new QFrame(this);
+	openDocLayout = new QVBoxLayout(openDocFrame);
+	openDocLayout->setMargin(5);
+	openDocLayout->setSpacing(5);
 	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, fdNone);
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
@@ -321,13 +340,15 @@ void NewDoc::openFile(const QString &)
 
 void NewDoc::createRecentDocPage()
 {
-	recentDocFrame = new Q3Frame(this, "recentDocFrame");
-	recentDocLayout = new Q3VBoxLayout(recentDocFrame, 5, 5, "recentDocLayout");
-	recentDocListBox = new Q3ListBox(recentDocFrame, "recentDocListBox");
+	recentDocFrame = new QFrame(this);
+	recentDocLayout = new QVBoxLayout(recentDocFrame);
+	recentDocLayout->setMargin(5);
+	recentDocLayout->setSpacing(5);
+	recentDocListBox = new QListWidget(recentDocFrame);
 	recentDocLayout->addWidget(recentDocListBox);
 	uint max = qMin(prefsManager->appPrefs.RecentDCount, recentDocList.count());
 	for (uint m = 0; m < max; ++m)
-		recentDocListBox->insertItem( QDir::convertSeparators(recentDocList[m]) );
+		recentDocListBox->addItem( QDir::convertSeparators(recentDocList[m]) );
 }
 
 void NewDoc::setWidth(double)
@@ -350,45 +371,40 @@ void NewDoc::setHeight(double)
 
 void NewDoc::selectItem(uint nr)
 {
-	Q3IconViewItem* ic=0;
-	uint cce;
-	disconnect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
-	ic = layoutsView->firstItem();
-	cce = layoutsView->count();
-	for (uint cc = 0; cc < cce; ++cc)
+	disconnect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	disconnect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	disconnect(layoutsView, SIGNAL(itemActivated(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	disconnect(layoutsView, SIGNAL(itemPressed(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	if (nr > 0)
 	{
-		if (cc == nr)
+		firstPage->setEnabled(true);
+		firstPage->clear();
+		QStringList::Iterator pNames;
+		for(pNames = prefsManager->appPrefs.pageSets[nr].pageNames.begin(); pNames != prefsManager->appPrefs.pageSets[nr].pageNames.end(); ++pNames )
 		{
-			if (cc > 0)
-			{
-				firstPage->setEnabled(true);
-				firstPage->clear();
-				QStringList::Iterator pNames;
-				for(pNames = prefsManager->appPrefs.pageSets[cc].pageNames.begin(); pNames != prefsManager->appPrefs.pageSets[cc].pageNames.end(); ++pNames )
-				{
-					firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
-				}
-			}
-			else
-			{
-				firstPage->clear();
-				firstPage->insertItem(" ");
-				firstPage->setEnabled(false);
-			}
-			layoutsView->setSelected(ic, true);
-			break;
+			firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
-		ic = ic->nextItem();
 	}
-	connect(layoutsView, SIGNAL(clicked(Q3IconViewItem *)), this, SLOT(itemSelected(Q3IconViewItem* )));
+	else
+	{
+		firstPage->clear();
+		firstPage->insertItem(" ");
+		firstPage->setEnabled(false);
+	}
+	layoutsView->setCurrentRow(nr);
+	layoutsView->item(nr)->setSelected(true);
+	connect(layoutsView, SIGNAL(itemClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemDoubleClicked(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemActivated(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
+	connect(layoutsView, SIGNAL(itemPressed(QListWidgetItem *)), this, SLOT(itemSelected(QListWidgetItem* )));
 }
 
-void NewDoc::itemSelected(Q3IconViewItem* ic)
+void NewDoc::itemSelected(QListWidgetItem* ic)
 {
 	if (ic == 0)
 		return;
-	selectItem(layoutsView->index(ic));
-	setDS(layoutsView->index(ic));
+	selectItem(layoutsView->row(ic));
+	setDS(layoutsView->row(ic));
 }
 
 void NewDoc::handleAutoFrame()
@@ -555,7 +571,7 @@ void NewDoc::setDS(int layout)
 	firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }
 
-void NewDoc::recentDocListBox_doubleClicked(int /*item*/)
+void NewDoc::recentDocListBox_doubleClicked()
 {
 	/* Yep. There is nothing to solve. ScribusMainWindow handles all
 	openings etc. It's Franz's programming style ;) */
