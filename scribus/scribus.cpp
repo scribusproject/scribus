@@ -237,7 +237,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	int retVal=0;
 
 	QByteArray stylesheet;
-	if (loadRawText(QDir::homePath() + "/.scribus/stylesheet.css", stylesheet))
+	if (loadRawText(ScPaths::getApplicationDataDir() + "/stylesheet.css", stylesheet))
 	{
 		qApp->setStyleSheet(QString(stylesheet));
 	}
@@ -8106,7 +8106,7 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 {
 	// Hack
 	QByteArray stylesheet;
-	if (loadRawText(QDir::homePath() + "/.scribus/stylesheet.css", stylesheet))
+	if (loadRawText(ScPaths::getApplicationDataDir() + "/stylesheet.css", stylesheet))
 	{
 		qApp->setStyleSheet(QString(stylesheet));
 	}
