@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <qpainter.h>
 #include <qmap.h>
-#include <q3dict.h>
+#include <QMultiHash>
 #include <qpointer.h>
 #include <qfont.h>
 #include <qtimer.h>
@@ -245,7 +245,7 @@ public:
 	QMap<QString, QPointer<ScrAction> > scrWindowsActions;
 	QMap<QString, QPointer<ScrAction> > scrLayersActions;
 	QMap<QString, QPointer<ScrAction> > scrRecentPasteActions;
-	Q3Dict<QActionGroup> scrActionGroups;
+	QMultiHash<QString, QActionGroup*> scrActionGroups;
 	MenuManager* scrMenuMgr;
 	ActionManager* actionManager;
 	QStringList RecentDocs;

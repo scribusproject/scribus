@@ -254,7 +254,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setKeyCompression(false);
 	setIcon(loadIcon("AppIcon.png"));
 	scrActionGroups.clear();
-	scrActionGroups.setAutoDelete(true);
 	scrActions.clear();
 	scrRecentFileActions.clear();
 	scrRecentPasteActions.clear();

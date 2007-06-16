@@ -28,8 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util.h"
 #include "text/storytext.h"
-#include <QPixmap>
-#include <QActionGroup>
 
 QMap<QString, QKeySequence> ActionManager::defKeys;
 QVector< QPair<QString, QStringList> > ActionManager::defMenus;
@@ -43,6 +41,13 @@ ActionManager::ActionManager ( QObject * parent, const char * name ) :
 
 ActionManager::~ActionManager()
 {
+	while (!scrActions->isEmpty())
+	{
+		ScrAction *value = (*scrActions->begin());
+		scrActions->erase(scrActions->begin());
+		delete value;
+ 	}
+	scrActions->clear();
 	delete modeActionNames;
 	delete nonEditActionNames;
 	delete unicodeCharActionNames;
@@ -231,7 +236,7 @@ void ActionManager::initStyleMenuActions()
 	//Text Size actions
 	(*scrActionGroups).insert("fontSize", new QActionGroup(mainWindow));
 	name="fontSizeOther";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["fontSize"], -1));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("fontSize"), -1));
 	connect( (*scrActions)["fontSizeOther"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemFSize(int)));
 
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
@@ -239,7 +244,7 @@ void ActionManager::initStyleMenuActions()
 	for (uint s = 0; s < f_size; ++s)
 	{
 		QString fontSizeName=QString("fontSize%1").arg(font_sizes[s]);
-		scrActions->insert(fontSizeName, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["fontSize"], font_sizes[s]));
+		scrActions->insert(fontSizeName, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("fontSize"), font_sizes[s]));
 		(*scrActions)[fontSizeName]->setToggleAction(true);
 		connect( (*scrActions)[fontSizeName], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemFSize(int)));
 	}
@@ -271,12 +276,12 @@ void ActionManager::initStyleMenuActions()
 	//Shade actions
 	scrActionGroups->insert("shade", new QActionGroup(mainWindow));
 	name="shadeOther";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["shade"], -1));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("shade"), -1));
 	connect( (*scrActions)["shadeOther"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemShade(int)));
 	for (uint i=0; i<=100 ; i+=10)
 	{
 		QString shadeName=QString("shade%1").arg(i);
-		scrActions->insert(shadeName, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["shade"], i));
+		scrActions->insert(shadeName, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("shade"), i));
 		(*scrActions)[shadeName]->setToggleAction(true);
 		connect( (*scrActions)[shadeName], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemShade(int)));
 	}
@@ -284,25 +289,25 @@ void ActionManager::initStyleMenuActions()
 	//Type Effects actions
 	scrActionGroups->insert("typeEffects", new QActionGroup(mainWindow));
 	name="typeEffectNormal";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 0));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 0));
 	name="typeEffectUnderline";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 1));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 1));
 	name="typeEffectUnderlineWords";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 8));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 8));
 	name="typeEffectStrikeThrough";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 2));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 2));
 	name="typeEffectAllCaps";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 7));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 7));
 	name="typeEffectSmallCaps";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 3));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 3));
 	name="typeEffectSuperscript";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 4));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 4));
 	name="typeEffectSubscript";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 5));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 5));
 	name="typeEffectOutline";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 6));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 6));
 	name="typeEffectShadow";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups)["typeEffects"], 9));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("typeEffects"), 9));
 	(*scrActions)["typeEffectNormal"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderline"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderlineWords"]->setToggleAction(true);

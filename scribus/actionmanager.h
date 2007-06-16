@@ -21,16 +21,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef ACTIONMANAGER_H
 #define ACTIONMANAGER_H
 
-#include <qkeysequence.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qmap.h>
-#include <qpair.h>
+#include <QKeySequence>
+#include <QObject>
+#include <QString>
+#include <QStringList>
+#include <QMap>
+#include <QPair>
 #include <QVector>
-#include <qpointer.h>
-#include <q3dict.h>
-//Added by qt3to4:
+#include <QPointer>
+#include <QMultiHash>
 #include <QPixmap>
 #include <QActionGroup>
 
@@ -101,7 +100,7 @@ class SCRIBUS_API ActionManager : public QObject
 		ScribusQApp *ScQApp;
 		UndoManager *undoManager;
 		QMap<QString, QPointer<ScrAction> > *scrActions;
-		Q3Dict<QActionGroup> *scrActionGroups;
+		QMultiHash<QString, QActionGroup*> *scrActionGroups;
 		QStringList *modeActionNames;
 		QStringList *nonEditActionNames;
 		QStringList *unicodeCharActionNames;
