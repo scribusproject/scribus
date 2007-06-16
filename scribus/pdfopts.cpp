@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <QMessageBox>
 #include <QSpacerItem>
+#include <QRadioButton>
 
 #include "scconfig.h"
 #include "customfdialog.h"
@@ -60,7 +61,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	PDFExportLayout->setMargin( 10 );
 	Name = new QGroupBox( this, "GroupBox" );
 	Name->setTitle( tr( "O&utput to File:" ) );
-	NameLayout = new Q3GridLayout( Name );
+	NameLayout = new QGridLayout( Name );
 	NameLayout->setSpacing( 5 );
 	NameLayout->setMargin( 10 );
 	NameLayout->setAlignment( Qt::AlignTop );
