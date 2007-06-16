@@ -5,33 +5,41 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "scfonts.h"
 #include "selfield.h"
-//#include "selfield.moc"
-#include <qstringlist.h>
-//Added by qt3to4:
+
 #include <QPixmap>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QPushButton>
 #include <QLabel>
 
 #include "commonstrings.h"
+#include "scfonts.h"
 
 extern QPixmap loadIcon(QString nam);
 
-SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art )
-		: QDialog( parent, "sef", true, 0 )
+SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art) : QDialog(parent)
 {
-	setCaption( tr( "Select Fields" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle( tr( "Select Fields" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	FTyp = Art;
-	SelectFieldsLayout = new Q3VBoxLayout( this, 11, 6, "SelectFieldsLayout");
-	Layout5 = new Q3HBoxLayout( 0, 0, 6, "Layout5");
-	Layout1 = new Q3VBoxLayout( 0, 0, 6, "Layout1");
+	SelectFieldsLayout = new QVBoxLayout( this );
+	SelectFieldsLayout->setMargin(10);
+	SelectFieldsLayout->setSpacing(5);
+	Layout5 = new QHBoxLayout;
+	Layout5->setMargin(0);
+	Layout5->setSpacing(5);
+	Layout1 = new QVBoxLayout;
+	Layout1->setMargin(0);
+	Layout1->setSpacing(5);
 
 	Text1 = new QLabel( tr( "Available Fields" ), this, "Text1" );
 	Layout1->addWidget( Text1 );
-	AvailFields = new Q3ListBox( this, "AvailFields" );
+	AvailFields = new QListWidget( this );
 	AvailFields->setMinimumSize( QSize( 130, 180 ) );
 	for (int se = 0; se < Doc->Items->count(); ++se)
 	{
@@ -39,12 +47,12 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 		if (Art < 2)
 		{
 			if ((item->isAnnotation()) && (item->annotation().Type() > 1))
-				AvailFields->insertItem(item->itemName());
+				AvailFields->addItem(item->itemName());
 		}
 		else
 		{
 			if ((item->isAnnotation()) && (item->annotation().Type() == Art) && (item->itemName() != Own))
-				AvailFields->insertItem(item->itemName());
+				AvailFields->addItem(item->itemName());
 		}
 	}
 	Layout1->addWidget( AvailFields );
@@ -52,7 +60,9 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 
 	if (Art > 1)
 	{
-		Layout2 = new Q3VBoxLayout( 0, 0, 6, "Layout2");
+		Layout2 = new QVBoxLayout;
+		Layout2->setMargin(0);
+		Layout2->setSpacing(5);
 		QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 		Layout2->addItem( spacer );
 		ToSel = new QPushButton( tr( "&>>" ), this, "ToSel" );
@@ -62,29 +72,33 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 		QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 		Layout2->addItem( spacer_2 );
 		Layout5->addLayout( Layout2 );
-		Layout3 = new Q3VBoxLayout( 0, 0, 6, "Layout3");
+		Layout3 = new QVBoxLayout;
+		Layout3->setMargin(0);
+		Layout3->setSpacing(5);
 		Text2 = new QLabel( tr( "Selected Fields" ), this, "Text2" );
 		Layout3->addWidget( Text2 );
-		SelFields = new Q3ListBox( this, "SelFields" );
+		SelFields = new QListWidget( this );
 		SelFields->setMinimumSize( QSize( 130, 180 ) );
 		QStringList pfol;
 		pfol = pfol.split(",", Felder);
 		if (pfol.count() > 0)
 		{
 			for (int cfx = 0; cfx < pfol.count(); ++cfx)
-				SelFields->insertItem(pfol[cfx].stripWhiteSpace());
+				SelFields->addItem(pfol[cfx].simplified());
 		}
 		FromSel->setEnabled(false);
 		ToSel->setEnabled(false);
 		Layout3->addWidget( SelFields );
 		Layout5->addLayout( Layout3 );
-		connect(SelFields, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelEField(Q3ListBoxItem*)));
+		connect(SelFields, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelEField(QListWidgetItem*)));
 		connect(ToSel, SIGNAL(clicked()), this, SLOT(PutToSel()));
 		connect(FromSel, SIGNAL(clicked()), this, SLOT(RemoveSel()));
 	}
 	SelectFieldsLayout->addLayout( Layout5 );
 	S_Fields = "";
-	Layout4 = new Q3HBoxLayout( 0, 0, 6, "Layout4");
+	Layout4 = new QHBoxLayout;
+	Layout4->setMargin(0);
+	Layout4->setSpacing(5);
 	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout4->addItem( spacer_3 );
 	OK = new QPushButton( CommonStrings::tr_OK, this, "OK" );
@@ -97,7 +111,7 @@ SelectFields::SelectFields( QWidget* parent, QString Felder, QString Own, Scribu
 	SelectFieldsLayout->addLayout( Layout4 );
 	connect(OK, SIGNAL(clicked()), this, SLOT(SetRetVal()));
 	connect(Cancel, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(AvailFields, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(SelAField(Q3ListBoxItem*)));
+	connect(AvailFields, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelAField(QListWidgetItem*)));
 }
 
 void SelectFields::SetRetVal()
@@ -106,18 +120,19 @@ void SelectFields::SetRetVal()
 	if (FTyp > 1)
 	{
 		if (SelFields->count() > 0)
-			S_Fields = SelFields->text(0);
-		for (uint r = 1; r < SelFields->count(); ++r)
-			S_Fields += ", "+SelFields->text(r);
+			S_Fields = SelFields->item(0)->text();
+		for (int r = 1; r < SelFields->count(); ++r)
+			S_Fields += ", "+SelFields->item(r)->text();
 	}
 	else
-		S_Fields = AvailFields->currentText();
+		S_Fields = AvailFields->currentItem()->text();
 	accept();
 }
 
 void SelectFields::RemoveSel()
 {
-	SelFields->removeItem(SelFields->currentItem());
+	QListWidgetItem *it = SelFields->takeItem(SelFields->currentRow());
+	delete it;
 	SelFields->clearSelection();
 	if (SelFields->count() == 0)
 		FromSel->setEnabled(false);
@@ -127,14 +142,14 @@ void SelectFields::PutToSel()
 {
 	if (SelFields->count() != 0)
 	{
-		if (SelFields->findItem(AvailFields->currentText()) == NULL)
-			SelFields->insertItem(AvailFields->currentText());
+		if (SelFields->findItems(AvailFields->currentItem()->text(), Qt::MatchExactly).count() == 0)
+			SelFields->addItem(AvailFields->currentItem()->text());
 	}
 	else
-		SelFields->insertItem(AvailFields->currentText());
+		SelFields->addItem(AvailFields->currentItem()->text());
 }
 
-void SelectFields::SelAField(Q3ListBoxItem *c)
+void SelectFields::SelAField(QListWidgetItem *c)
 {
 	if ((c != NULL) && (FTyp > 1))
 	{
@@ -144,7 +159,7 @@ void SelectFields::SelAField(Q3ListBoxItem *c)
 	}
 }
 
-void SelectFields::SelEField(Q3ListBoxItem *c)
+void SelectFields::SelEField(QListWidgetItem *c)
 {
 	if (c != NULL)
 	{
