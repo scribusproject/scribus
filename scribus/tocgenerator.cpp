@@ -52,7 +52,7 @@ PageItem* TOCGenerator::findTargetFrame(const QString &targetFrameName)
 	PageItem* targetFrame=NULL;
 	if (currDoc!=NULL)
 	{
-		for (uint d = 0; d < currDoc->DocItems.count(); ++d)
+		for (int d = 0; d < currDoc->DocItems.count(); ++d)
 		{
 			if (currDoc->DocItems.at(d) !=NULL )
 			{
@@ -87,7 +87,7 @@ void TOCGenerator::generateDefault()
 			for (uint i=0;i<currDoc->DocPages.count();++i)
 				pageCounter[i]=0;
 			int maxDataWidth=0;
-			for (uint d = 0; d < currDoc->DocItems.count(); ++d)
+			for (int d = 0; d < currDoc->DocItems.count(); ++d)
 			{
 				currentDocItem = currDoc->DocItems.at(d);
 				if (currentDocItem!=NULL)

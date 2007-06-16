@@ -1472,7 +1472,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 	painter->setZoomFactor(1.0);
 	Q3PtrStack<PageItem> groupStack;
 	Q3PtrStack<PageItem> groupClips;
-	for (uint em = 0; em < emG.count(); ++em)
+	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
 		if (embedded->isGroupControl)

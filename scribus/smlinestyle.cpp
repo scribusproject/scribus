@@ -411,7 +411,7 @@ void SMLineStyle::apply()
 
 	deleted_.clear();
 
-	for (uint d = 0; d < doc_->DocItems.count(); ++d)
+	for (int d = 0; d < doc_->DocItems.count(); ++d)
 	{
 		ite = doc_->DocItems.at(d);
 		if (!ite->NamedLStyle.isEmpty())
@@ -420,7 +420,7 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
-	for (uint d1 = 0; d1 < doc_->MasterItems.count(); ++d1)
+	for (int d1 = 0; d1 < doc_->MasterItems.count(); ++d1)
 	{
 		ite = doc_->MasterItems.at(d1);
 		if (!ite->NamedLStyle.isEmpty())
@@ -429,7 +429,7 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
-	for (uint d1 = 0; d1 < doc_->FrameItems.count(); ++d1)
+	for (int d1 = 0; d1 < doc_->FrameItems.count(); ++d1)
 	{
 		ite = doc_->FrameItems.at(d1);
 		if (!ite->NamedLStyle.isEmpty())

@@ -179,7 +179,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 		return Py_BuildValue((char*)"[]");
 	uint counter = 0;
 	int pageNr = ScCore->primaryMainWindow()->doc->currentPageNumber();
-	for (uint lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
+	for (int lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
 	{
 		if (pageNr == ScCore->primaryMainWindow()->doc->Items->at(lam2)->OwnPage)
 			counter++;
@@ -187,7 +187,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 	PyObject *l = PyList_New(counter);
 	PyObject *row;
 	counter = 0;
-	for (uint i = 0; i<ScCore->primaryMainWindow()->doc->Items->count(); ++i)
+	for (int i = 0; i<ScCore->primaryMainWindow()->doc->Items->count(); ++i)
 	{
 		if (pageNr == ScCore->primaryMainWindow()->doc->Items->at(i)->OwnPage)
 		{

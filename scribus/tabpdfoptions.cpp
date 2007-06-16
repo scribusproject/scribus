@@ -1041,19 +1041,19 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	{
 //	Build a list of all Fonts used in Annotations;
 		PageItem *pgit;
-		for (uint c = 0; c < doc->FrameItems.count(); ++c)
+		for (int c = 0; c < doc->FrameItems.count(); ++c)
 		{
 			pgit = doc->FrameItems.at(c);
 			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
 				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 		}
-		for (uint c = 0; c < doc->MasterItems.count(); ++c)
+		for (int c = 0; c < doc->MasterItems.count(); ++c)
 		{
 			pgit = doc->MasterItems.at(c);
 			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))
 				AnnotationFonts.insert(pgit->itemText.defaultStyle().charStyle().font().replacementName(), "");
 		}
-		for (uint c = 0; c < doc->DocItems.count(); ++c)
+		for (int c = 0; c < doc->DocItems.count(); ++c)
 		{
 			pgit = doc->DocItems.at(c);
 			if (((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText)) && (pgit->isAnnotation()))

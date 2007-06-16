@@ -56,7 +56,7 @@ int GetItem(QString Name)
 {
 	if (!Name.isEmpty())
 	{
-		for (uint a = 0; a < ScCore->primaryMainWindow()->doc->Items->count(); a++)
+		for (int a = 0; a < ScCore->primaryMainWindow()->doc->Items->count(); a++)
 		{
 			if (ScCore->primaryMainWindow()->doc->Items->at(a)->itemName() == Name)
 				return static_cast<int>(a);
@@ -73,7 +73,7 @@ int GetItem(QString Name)
 void ReplaceColor(QString col, QString rep)
 {
 	QColor tmpc;
-	for (uint c = 0; c < ScCore->primaryMainWindow()->doc->Items->count(); c++)
+	for (int c = 0; c < ScCore->primaryMainWindow()->doc->Items->count(); c++)
 	{
 		PageItem *ite = ScCore->primaryMainWindow()->doc->Items->at(c);
 		if (ite->itemType() == PageItem::TextFrame)
@@ -102,7 +102,7 @@ void ReplaceColor(QString col, QString rep)
 			}
 		}
 	}
-	for (uint c = 0; c < ScCore->primaryMainWindow()->doc->MasterItems.count(); c++)
+	for (int c = 0; c < ScCore->primaryMainWindow()->doc->MasterItems.count(); c++)
 	{
 		PageItem *ite = ScCore->primaryMainWindow()->doc->MasterItems.at(c);
 		if (ite->itemType() == PageItem::TextFrame)
@@ -155,7 +155,7 @@ PageItem* getPageItemByName(QString name)
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem"));
 		return NULL;
 	}
-	for (uint j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
+	for (int j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
 	{
 		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
 			return ScCore->primaryMainWindow()->doc->Items->at(j);
@@ -174,7 +174,7 @@ bool ItemExists(QString name)
 {
 	if (name.length() == 0)
 		return false;
-	for (uint j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
+	for (int j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
 	{
 		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
 			return true;
@@ -219,7 +219,7 @@ bool setSelectedItemsByName(QStringList& itemNames)
 	{
 		// Search for the named item
 		PageItem* item = 0;
-		for (uint j = 0; j < ScCore->primaryMainWindow()->doc->Items->count(); j++)
+		for (int j = 0; j < ScCore->primaryMainWindow()->doc->Items->count(); j++)
 			if (*it == ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
 				item = ScCore->primaryMainWindow()->doc->Items->at(j);
 		if (!item)

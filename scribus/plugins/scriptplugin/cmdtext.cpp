@@ -238,7 +238,7 @@ PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)
 	PyMem_Free(Text);
 	currItem->itemText.clear();
 	currItem->CPos = 0;
-	for (uint a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
+	for (int a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
 	{
 		ScCore->primaryMainWindow()->doc->FrameItems.at(a)->ItemNr = a;
 	}
@@ -549,7 +549,7 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 	{
 		it->itemText.clear();
 		it->CPos = 0;
-		for (uint a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
+		for (int a = 0; a < ScCore->primaryMainWindow()->doc->FrameItems.count(); ++a)
 		{
 			ScCore->primaryMainWindow()->doc->FrameItems.at(a)->ItemNr = a;
 		}

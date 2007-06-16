@@ -96,7 +96,7 @@ QList<PageItem*> InlineFrame::getGroupedItems()
 		result.append(d->item);
 		if (dItem->Groups.count() != 0)
 		{
-			for (uint ga=0; ga < doc.FrameItems.count(); ++ga)
+			for (int ga=0; ga < doc.FrameItems.count(); ++ga)
 			{
 				if (doc.FrameItems.at(ga)->Groups.count() != 0)
 				{

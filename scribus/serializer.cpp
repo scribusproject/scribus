@@ -197,7 +197,7 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 	}
 	
 	ResourceCollection lists;
-	for (uint i=0; i < doc->Items->count(); ++i)
+	for (int i=0; i < doc->Items->count(); ++i)
 		doc->Items->at(i)->getNamedResources(lists);
 	
 	QList<QString>::Iterator it;
@@ -237,7 +237,7 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 		doc->patterns[*it].saxx(handler);
 */
 	
-	for (uint i=0; i < doc->Items->count(); ++i)
+	for (int i=0; i < doc->Items->count(); ++i)
 	{
 		int k = selection.findItem(doc->Items->at(i));
 		if (k >=0)
@@ -356,7 +356,7 @@ Selection Serializer::importCollection()
 		
 //		qDebug(QString("deserialize: objects %1").arg((ulong)objects));
 		
-		for (uint i=0; i < objects->count(); ++i)
+		for (int i=0; i < objects->count(); ++i)
 		{
 //			qDebug(QString("deserialized item: %1,%2").arg(objects->at(i)->xPos()).arg(objects->at(i)->yPos()));
 			PageItem* currItem = objects->at(i);
@@ -454,7 +454,7 @@ void Serializer::updateGradientColors(const ColorList& colors)
 	for (int c = 0; c < patterns.count(); ++c)
 	{
 		ScPattern& pa = m_Doc.docPatterns[patterns[c]];
-		for (uint o = 0; o < pa.items.count(); o++)
+		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *ite = pa.items.at(o);
 			Q3PtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();

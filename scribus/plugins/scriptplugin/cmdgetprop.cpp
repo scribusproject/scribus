@@ -250,7 +250,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	// have doc already
 	if (typ != -1)
 	{
-		for (uint lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
+		for (int lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
 		{
 			if ((ScCore->primaryMainWindow()->doc->Items->at(lam2)->itemType() == typ) && (pageNr == static_cast<uint>(ScCore->primaryMainWindow()->doc->Items->at(lam2)->OwnPage)))
 				counter++;
@@ -258,7 +258,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		for (uint lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
+		for (int lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
 		{
 			if (pageNr == static_cast<uint>(ScCore->primaryMainWindow()->doc->Items->at(lam2)->OwnPage))
 				counter++;
@@ -266,7 +266,7 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	}
 
 	l = PyList_New(counter);
-	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Items->count(); ++lam)
+	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Items->count(); ++lam)
 	{
 		if  (pageNr == static_cast<uint>(ScCore->primaryMainWindow()->doc->Items->at(lam)->OwnPage))
 		{

@@ -740,13 +740,13 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 	QImage pgPix(10, 10, QImage::Format_ARGB32);
 	QRect rd = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-	for (uint azz=0; azz<currentDoc->MasterItems.count(); ++azz)
+	for (int azz=0; azz<currentDoc->MasterItems.count(); ++azz)
 	{
 		PageItem *currItem = currentDoc->MasterItems.at(azz);
 		if (currItem->itemType() == PageItem::PathText)
 			currItem->DrawObj(painter, rd);
 	}
-	for (uint azz=0; azz<currentDoc->Items->count(); ++azz)
+	for (int azz=0; azz<currentDoc->Items->count(); ++azz)
 	{
 		PageItem *currItem = currentDoc->Items->at(azz);
 		if (currItem->itemType() == PageItem::TextFrame)
