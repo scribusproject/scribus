@@ -5,10 +5,29 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "druck.h"
-//#include "druck.moc"
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QGridLayout>
+#include <QLabel>
+#include <QGroupBox>
+#include <QComboBox>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QLineEdit>
+#include <QCheckBox>
+#include <QTabWidget>
+#include <QWidget>
+#include <QSpinBox>
+#include <QToolButton>
+#include <QDir>
+#include <QMap>
+#include <QStringList>
+#include <QToolTip>
+#include <QSpacerItem>
+#include <QByteArray>
 
 #include "scconfig.h"
-
 #include "scpaths.h"
 #include "scribusdoc.h"
 #include "createrange.h"
@@ -18,33 +37,24 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "customfdialog.h"
 #include "cupsoptions.h"
-#include <q3textstream.h>
-#include <qstringlist.h>
-#include <qdir.h>
-#include <qfileinfo.h>
-#include <qmap.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QLabel>
-#include <Q3GridLayout>
-#include <QByteArray>
-#include <Q3VBoxLayout>
 #if defined( HAVE_CUPS )
-#include <cups/cups.h>
+	#include <cups/cups.h>
 #elif defined(_WIN32)
-#include <windows.h>
-#include <winspool.h>
+	#include <windows.h>
+	#include <winspool.h>
 #endif
 #include "printerutil.h"
 #include "util.h"
 #include "units.h"
 #include "usertaskstructs.h"
+#include "scrspinbox.h"
 
 extern bool previewDinUse;
 
 Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
-		: QDialog( parent, "Dr", true, 0)
+		: QDialog( parent )
 {
+	setModal(true);
 	cdia = 0;
 	m_doc = doc;
 	unit = doc->unitIndex();
@@ -53,26 +63,23 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	DevMode = PSettings;
 	ToSeparation = false;
 	PrinterOpts = "";
-	setCaption( tr( "Setup Printer" ) );
-	setIcon(loadIcon("AppIcon.png"));
-	DruckLayout = new Q3VBoxLayout( this );
+	setWindowTitle( tr( "Setup Printer" ) );
+	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
+	DruckLayout = new QVBoxLayout( this );
 	DruckLayout->setSpacing( 5 );
 	DruckLayout->setMargin( 10 );
 
-	Drucker = new Q3GroupBox( this, "Drucker" );
+	Drucker = new QGroupBox( this );
 	Drucker->setTitle( tr( "Print Destination" ) );
-	Drucker->setColumnLayout(0, Qt::Vertical );
-	Drucker->layout()->setSpacing( 0 );
-	Drucker->layout()->setMargin( 0 );
-	DruckerLayout = new Q3GridLayout( Drucker->layout() );
+	DruckerLayout = new QGridLayout( Drucker );
 	DruckerLayout->setAlignment( Qt::AlignTop );
 	DruckerLayout->setSpacing( 5 );
 	DruckerLayout->setMargin( 10 );
 
-	Layout1x = new Q3HBoxLayout;
+	Layout1x = new QHBoxLayout;
 	Layout1x->setSpacing( 5 );
 	Layout1x->setMargin( 0 );
-	PrintDest = new QComboBox( true, Drucker, "PrintDest" );
+	PrintDest = new QComboBox(Drucker);
 	PrintDest->setMinimumSize( QSize( 250, 22 ) );
 	PrintDest->setMaximumSize( QSize( 260, 30 ) );
 	PrintDest->setEditable(false);
@@ -83,19 +90,19 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	for( int i = 0; i < numPrinters; i++)
 	{
 		printerName = printerNames[i];
-		PrintDest->insertItem(printerName);
+		PrintDest->addItem(printerName);
 		if( printerName == PDev )
 		{
-			PrintDest->setCurrentItem(PrintDest->count()-1);
+			PrintDest->setCurrentIndex(PrintDest->count()-1);
 			prefs->set("CurrentPrn", PrintDest->currentText());
 			ToFile = false;
 		}
 	}
 
-	PrintDest->insertItem( tr("File"));
+	PrintDest->addItem( tr("File"));
 	if (PDev.isEmpty())
 	{
-		Geraet = PrintDest->text(0);
+		Geraet = PrintDest->itemText(0);
 		ToFile = false;
 	}
 	else
@@ -104,23 +111,23 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	Layout1x->addWidget( PrintDest );
 
 #if defined(HAVE_CUPS) || defined(_WIN32)
-	OptButton = new QPushButton( tr( "&Options..." ), Drucker, "Optionen" );
+	OptButton = new QPushButton( tr( "&Options..." ), Drucker );
 	Layout1x->addWidget( OptButton );
 #endif
-	QSpacerItem* spacerDR = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacerDR = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1x->addItem( spacerDR );
 	DruckerLayout->addLayout( Layout1x, 0, 0);
-	Layout1 = new Q3HBoxLayout;
+	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
-	LineEdit1 = new QLineEdit( QDir::convertSeparators(PDatei), Drucker, "LineEdit1" );
+	LineEdit1 = new QLineEdit( QDir::convertSeparators(PDatei), Drucker );
 	LineEdit1->setMinimumSize( QSize( 240, 22 ) );
 	LineEdit1->setEnabled(false);
-	DateiT = new QLabel( LineEdit1, tr( "&File:" ), Drucker, "DateiT" );
+	DateiT = new QLabel( LineEdit1, tr( "&File:" ), Drucker );
 	DateiT->setEnabled( false );
 	Layout1->addWidget( DateiT );
 	Layout1->addWidget( LineEdit1 );
-	ToolButton1 = new QToolButton( Drucker, "ToolButton1" );
+	ToolButton1 = new QToolButton( Drucker );
 	ToolButton1->setText( tr( "C&hange..." ) );
 	ToolButton1->setMinimumSize( QSize( 80, 22 ) );
 	ToolButton1->setEnabled(false);
@@ -128,69 +135,72 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	Layout1->addWidget( ToolButton1 );
 	DruckerLayout->addLayout( Layout1, 1, 0 );
 
-	OtherCom = new QCheckBox( tr("A&lternative Printer Command"), Drucker, "Dc");
+	OtherCom = new QCheckBox( tr("A&lternative Printer Command"), Drucker);
 	OtherCom->setChecked(false);
 	DruckerLayout->addWidget( OtherCom, 2, 0, Qt::AlignLeft);
-	LayoutCC = new Q3HBoxLayout;
+	LayoutCC = new QHBoxLayout;
 	LayoutCC->setSpacing( 5 );
 	LayoutCC->setMargin( 0 );
-	Command = new QLineEdit( PCom, Drucker, "LineEdit12" );
+	Command = new QLineEdit( PCom, Drucker );
 	Command->setMinimumSize( QSize( 240, 22 ) );
 	Command->setEnabled(false);
-	OthText = new QLabel( Command, tr( "Co&mmand:" ), Drucker, "DateiTc" );
+	OthText = new QLabel( Command, tr( "Co&mmand:" ), Drucker );
 	OthText->setEnabled( false );
 	LayoutCC->addWidget( OthText );
 	LayoutCC->addWidget( Command );
 	DruckerLayout->addLayout( LayoutCC, 3, 0 );
 	DruckLayout->addWidget( Drucker );
 
-	rangeGroup = new Q3ButtonGroup( tr( "Range" ), this, "rangeGroup" );
-	rangeGroup->setColumnLayout(0, Qt::Vertical );
-	rangeGroup->layout()->setSpacing( 5 );
-	rangeGroup->layout()->setMargin( 10 );
-	rangeGroupLayout = new Q3GridLayout( rangeGroup->layout() );
+	rangeGroup = new QGroupBox( tr( "Range" ), this );
+	rangeGroupLayout = new QGridLayout( rangeGroup );
+	rangeGroupLayout->setSpacing( 5 );
+	rangeGroupLayout->setMargin( 10 );
 	rangeGroupLayout->setAlignment( Qt::AlignTop );
-	RadioButton1 = new QRadioButton( tr( "Print &All" ), rangeGroup, "RadioButton1" );
-	rangeGroupLayout->addMultiCellWidget( RadioButton1, 0, 0, 0, 1 );
-	CurrentPage = new QRadioButton( tr( "Print Current Pa&ge" ), rangeGroup, "CurrentPage" );
-	rangeGroupLayout->addMultiCellWidget( CurrentPage, 1, 1, 0, 1 );
-	RadioButton2 = new QRadioButton( tr( "Print &Range" ), rangeGroup, "RadioButton2" );
+	RadioButton1 = new QRadioButton( tr( "Print &All" ), rangeGroup );
+	rangeGroupLayout->addWidget( RadioButton1, 0, 0, 1, 2 );
+	CurrentPage = new QRadioButton( tr( "Print Current Pa&ge" ), rangeGroup );
+	rangeGroupLayout->addWidget( CurrentPage, 1, 0, 1, 2 );
+	RadioButton2 = new QRadioButton( tr( "Print &Range" ), rangeGroup );
 	rangeGroupLayout->addWidget( RadioButton2, 2, 0 );
-	pageNumberSelectorLayout = new Q3HBoxLayout( 0, 0, 5, "pageNumberSelectorLayout" );
-	pageNr = new QLineEdit( rangeGroup, "pageNr" );
+	pageNumberSelectorLayout = new QHBoxLayout;
+	pageNumberSelectorLayout->setSpacing( 5 );
+	pageNumberSelectorLayout->setMargin( 0 );
+	pageNr = new QLineEdit( rangeGroup );
  	pageNumberSelectorLayout->addWidget( pageNr );
- 	pageNrButton = new QPushButton( QString::fromUtf8("…"), rangeGroup, "pageNrButton" );
- 	pageNrButton->setPixmap(loadIcon("ellipsis.png"));
+ 	pageNrButton = new QPushButton(rangeGroup);
+ 	pageNrButton->setIcon(QIcon(loadIcon("ellipsis.png")));
  	pageNumberSelectorLayout->addWidget( pageNrButton );
 	rangeGroupLayout->addLayout( pageNumberSelectorLayout, 2, 1 );
 	pageNr->setEnabled(false);
 	pageNrButton->setEnabled(false);
-	Copies = new QSpinBox( rangeGroup, "Copies" );
+	Copies = new QSpinBox( rangeGroup );
 	Copies->setEnabled( true );
 	Copies->setMinimumSize( QSize( 70, 22 ) );
 	Copies->setMinimum( 1 );
 	Copies->setMaximum(1000);
 	Copies->setValue(1);
 	rangeGroupLayout->addWidget( Copies, 0, 3 );
-	TextLabel3 = new QLabel( Copies, tr( "N&umber of Copies:" ), rangeGroup, "TextLabel3" );
+	TextLabel3 = new QLabel( Copies, tr( "N&umber of Copies:" ), rangeGroup );
 	rangeGroupLayout->addWidget( TextLabel3, 0, 2 );
 	DruckLayout->addWidget( rangeGroup );
 
-	printOptions = new QTabWidget( this, "printOptions" );
-	tab = new QWidget( printOptions, "tab" );
-	tabLayout = new Q3GridLayout( tab, 1, 1, 10, 5, "tabLayout");
-	PrintSep = new QComboBox( true, tab, "PrintSep" );
+	printOptions = new QTabWidget( this );
+	tab = new QWidget( printOptions );
+	tabLayout = new QGridLayout( tab );
+	tabLayout->setSpacing( 5 );
+	tabLayout->setMargin( 10 );
+	PrintSep = new QComboBox( tab );
 	PrintSep->setEditable(false);
-	PrintSep->insertItem( tr( "Print Normal" ) );
-	PrintSep->insertItem( tr( "Print Separations" ) );
+	PrintSep->addItem( tr( "Print Normal" ) );
+	PrintSep->addItem( tr( "Print Separations" ) );
 	tabLayout->addWidget( PrintSep, 0, 0 );
-	colorType = new QComboBox( true, tab, "colorType" );
+	colorType = new QComboBox(tab);
 	colorType->setEditable(false);
-	colorType->insertItem( tr( "Print in Color if Available" ) );
-	colorType->insertItem( tr( "Print in Grayscale" ) );
-	colorType->setCurrentItem(0);
+	colorType->addItem( tr( "Print in Color if Available" ) );
+	colorType->addItem( tr( "Print in Grayscale" ) );
+	colorType->setCurrentIndex(0);
 	tabLayout->addWidget( colorType, 0, 1 );
-	SepArt = new QComboBox( true, tab, "SepArt" );
+	SepArt = new QComboBox(tab);
 	QString sep[] =
 	    {
 	        tr("All"), tr("Cyan"), tr("Magenta"), tr("Yellow"),
@@ -198,123 +208,125 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	    };
 	size_t sepArray = sizeof(sep) / sizeof(*sep);
 	for (uint prop = 0; prop < sepArray; ++prop)
-		SepArt->insertItem(sep[prop]);
-	SepArt->insertStringList(spots);
+		SepArt->addItem(sep[prop]);
+	SepArt->addItems(spots);
 	SepArt->setEnabled( false );
 	SepArt->setEditable( false );
 	tabLayout->addWidget( SepArt, 1, 0 );
-	psLevel = new QComboBox( true, tab, "psLevel" );
-	psLevel->insertItem( tr( "PostScript Level 1" ) );
-	psLevel->insertItem( tr( "PostScript Level 2" ) );
-	psLevel->insertItem( tr( "PostScript Level 3" ) );
+	psLevel = new QComboBox(tab);
+	psLevel->addItem( tr( "PostScript Level 1" ) );
+	psLevel->addItem( tr( "PostScript Level 2" ) );
+	psLevel->addItem( tr( "PostScript Level 3" ) );
 	psLevel->setEditable( false );
 	tabLayout->addWidget( psLevel, 1, 1 );
-	printOptions->insertTab( tab, tr( "Options" ) );
-	tab_2 = new QWidget( printOptions, "tab_2" );
-	tabLayout_2 = new Q3HBoxLayout( tab_2, 10, 5, "tabLayout_2");
-	pageOpts = new Q3GroupBox( tab_2, "pageOpts" );
+	printOptions->addTab( tab, tr( "Options" ) );
+	tab_2 = new QWidget( printOptions );
+	tabLayout_2 = new QHBoxLayout(tab_2);
+	tabLayout_2->setSpacing( 5 );
+	tabLayout_2->setMargin( 10 );
+	pageOpts = new QGroupBox( tab_2 );
 	pageOpts->setTitle( tr( "Page" ) );
-	pageOpts->setColumnLayout(0, Qt::Vertical );
-	pageOpts->layout()->setSpacing( 5 );
-	pageOpts->layout()->setMargin( 10 );
-	pageOptsLayout = new Q3VBoxLayout( pageOpts->layout() );
+	pageOptsLayout = new QVBoxLayout( pageOpts );
+	pageOptsLayout->setSpacing( 5 );
+	pageOptsLayout->setMargin( 10 );
 	pageOptsLayout->setAlignment( Qt::AlignTop );
-	MirrorHor = new QCheckBox( pageOpts, "MirrorH" );
+	MirrorHor = new QCheckBox( pageOpts );
 	MirrorHor->setText( tr( "Mirror Page(s) Horizontal" ) );
 	pageOptsLayout->addWidget( MirrorHor );
-	MirrorVert = new QCheckBox( pageOpts, "MirrorV" );
+	MirrorVert = new QCheckBox( pageOpts );
 	MirrorVert->setText( tr( "Mirror Page(s) Vertical" ) );
 	pageOptsLayout->addWidget( MirrorVert );
-	devPar = new QCheckBox( pageOpts, "devPar" );
+	devPar = new QCheckBox( pageOpts );
 	devPar->setText( tr( "Set Media Size" ) );
 	pageOptsLayout->addWidget( devPar );
-	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), pageOpts, "ClipMarg" );
+	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), pageOpts );
 	pageOptsLayout->addWidget( ClipMarg );
 	tabLayout_2->addWidget( pageOpts );
-	colorOpts = new Q3ButtonGroup( tab_2, "colorOpts" );
+	colorOpts = new QGroupBox( tab_2, "colorOpts" );
 	colorOpts->setTitle( tr( "Color" ) );
-	colorOpts->setColumnLayout(0, Qt::Vertical );
-	colorOpts->layout()->setSpacing( 5 );
-	colorOpts->layout()->setMargin( 10 );
-	colorOptsLayout = new Q3VBoxLayout( colorOpts->layout() );
+	colorOptsLayout = new QVBoxLayout( colorOpts );
+	colorOptsLayout->setSpacing( 5 );
+	colorOptsLayout->setMargin( 10 );
 	colorOptsLayout->setAlignment( Qt::AlignTop );
-	GcR = new QCheckBox( colorOpts, "GcR" );
+	GcR = new QCheckBox( colorOpts );
 	GcR->setText( tr( "Apply Under Color Removal" ) );
 	colorOptsLayout->addWidget( GcR );
-	spotColors = new QCheckBox( colorOpts, "spotColors" );
+	spotColors = new QCheckBox( colorOpts );
 	spotColors->setText( tr( "Convert Spot Colors to Process Colors" ) );
 	colorOptsLayout->addWidget( spotColors );
-	overprintMode = new QCheckBox( colorOpts, "overprintMode" );
+	overprintMode = new QCheckBox( colorOpts );
 	overprintMode->setText( tr( "Force Overprint Mode" ) );
 	colorOptsLayout->addWidget( overprintMode );
 	if (m_doc->HasCMS)
 	{
-		UseICC = new QCheckBox( colorOpts, "UseICC" );
+		UseICC = new QCheckBox( colorOpts );
 		UseICC->setText( tr( "Apply ICC Profiles" ) );
 		colorOptsLayout->addWidget( UseICC );
 	}
 	tabLayout_2->addWidget( colorOpts );
-	printOptions->insertTab( tab_2, tr( "Advanced Options" ) );
+	printOptions->addTab( tab_2, tr( "Advanced Options" ) );
 
-	tab_3 = new QWidget( printOptions, "tab_3" );
-	tabLayout_3 = new Q3GridLayout( tab_3, 1, 1, 10, 5, "tabLayout_3");
-	MarkGroup = new Q3GroupBox( tab_3, "MarkGroup" );
+	tab_3 = new QWidget( printOptions );
+	tabLayout_3 = new QGridLayout( tab_3 );
+	tabLayout_3->setSpacing( 5 );
+	tabLayout_3->setMargin( 10 );
+	MarkGroup = new QGroupBox( tab_3 );
 	MarkGroup->setTitle( tr( "Printer Marks" ) );
-	MarkGroup->setColumnLayout(0, Qt::Vertical );
-	MarkGroup->layout()->setSpacing( 5 );
-	MarkGroup->layout()->setMargin( 10 );
-	MarkGroupLayout = new Q3GridLayout( MarkGroup->layout() );
+	MarkGroupLayout = new QGridLayout( MarkGroup );
+	MarkGroupLayout->setSpacing( 5 );
+	MarkGroupLayout->setMargin( 10 );
 	MarkGroupLayout->setAlignment( Qt::AlignTop );
-	cropMarks = new QCheckBox( tr( "Crop Marks" ), MarkGroup, "cropMarks" );
+	cropMarks = new QCheckBox( tr( "Crop Marks" ), MarkGroup );
 	MarkGroupLayout->addWidget( cropMarks, 0, 0 );
-	bleedMarks = new QCheckBox( tr( "Bleed Marks" ), MarkGroup, "bleedMarks" );
+	bleedMarks = new QCheckBox( tr( "Bleed Marks" ), MarkGroup );
 	MarkGroupLayout->addWidget( bleedMarks, 1, 0 );
-	registrationMarks = new QCheckBox( tr( "Registration Marks" ), MarkGroup, "registrationMarks" );
+	registrationMarks = new QCheckBox( tr( "Registration Marks" ), MarkGroup );
 	MarkGroupLayout->addWidget( registrationMarks, 2, 0 );
-	colorMarks = new QCheckBox( tr( "Color Bars" ), MarkGroup, "colorMarks" );
-	MarkGroupLayout->addMultiCellWidget( colorMarks, 0, 0, 1, 2 );
-	MarkTxt1 = new QLabel( MarkGroup, "MarkTxt1" );
+	colorMarks = new QCheckBox( tr( "Color Bars" ), MarkGroup );
+	MarkGroupLayout->addWidget( colorMarks, 0, 1, 1, 2 );
+	MarkTxt1 = new QLabel( MarkGroup );
 	MarkTxt1->setText( tr( "Offset:" ) );
 	MarkGroupLayout->addWidget( MarkTxt1, 1, 1 );
 	markOffset = new ScrSpinBox( 0, 3000*unitRatio, MarkGroup, unit );
 	MarkGroupLayout->addWidget( markOffset, 1, 2 );
 	tabLayout_3->addWidget( MarkGroup, 0, 0 );
-	printOptions->insertTab( tab_3, tr( "Marks" ) );
+	printOptions->addTab( tab_3, tr( "Marks" ) );
 
-	tab_4 = new QWidget( printOptions, "tab_4" );
-	tabLayout_4 = new Q3GridLayout( tab_4, 1, 1, 10, 5, "tabLayout_4");
-	BleedGroup = new Q3GroupBox( tab_4, "BleedGroup" );
+	tab_4 = new QWidget( printOptions );
+	tabLayout_4 = new QGridLayout( tab_4 );
+	tabLayout_4->setSpacing( 5 );
+	tabLayout_4->setMargin( 10 );
+	BleedGroup = new QGroupBox( tab_4 );
 	BleedGroup->setTitle( tr( "Bleed Settings" ) );
-	BleedGroup->setColumnLayout(0, Qt::Vertical );
-	BleedGroup->layout()->setSpacing( 5 );
-	BleedGroup->layout()->setMargin( 10 );
-	BleedGroupLayout = new Q3GridLayout( BleedGroup->layout() );
+	BleedGroupLayout = new QGridLayout( BleedGroup );
+	BleedGroupLayout->setSpacing( 5 );
+	BleedGroupLayout->setMargin( 10 );
 	BleedGroupLayout->setAlignment( Qt::AlignTop );
-	BleedTxt1 = new QLabel( BleedGroup, "BleedTxt1" );
+	BleedTxt1 = new QLabel( BleedGroup );
 	BleedTxt1->setText( tr( "Top:" ) );
 	BleedGroupLayout->addWidget( BleedTxt1, 0, 0 );
 	BleedTop = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
 	BleedGroupLayout->addWidget( BleedTop, 0, 1 );
-	BleedTxt2 = new QLabel( BleedGroup, "BleedTxt2" );
+	BleedTxt2 = new QLabel( BleedGroup );
 	BleedTxt2->setText( tr( "Bottom:" ) );
 	BleedGroupLayout->addWidget( BleedTxt2, 1, 0 );
 	BleedBottom = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
 	BleedGroupLayout->addWidget( BleedBottom, 1, 1 );
-	BleedTxt3 = new QLabel( BleedGroup, "BleedTxt3" );
+	BleedTxt3 = new QLabel( BleedGroup );
 	BleedTxt3->setText( tr( "Left:" ) );
 	BleedGroupLayout->addWidget( BleedTxt3, 0, 2 );
 	BleedRight = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
 	BleedGroupLayout->addWidget( BleedRight, 0, 3 );
-	BleedTxt4 = new QLabel( BleedGroup, "BleedTxt4" );
+	BleedTxt4 = new QLabel( BleedGroup );
 	BleedTxt4->setText( tr( "Right:" ) );
 	BleedGroupLayout->addWidget( BleedTxt4, 1, 2 );
 	BleedLeft = new ScrSpinBox( 0, 3000*unitRatio, BleedGroup, unit );
 	BleedGroupLayout->addWidget( BleedLeft, 1, 3 );
-	docBleeds = new QCheckBox( tr( "Use Document Bleeds" ), BleedGroup, "docBleeds" );
+	docBleeds = new QCheckBox( tr( "Use Document Bleeds" ), BleedGroup );
 	docBleeds->setChecked(false);
-	BleedGroupLayout->addMultiCellWidget( docBleeds, 2, 2, 0, 3 );
+	BleedGroupLayout->addWidget( docBleeds, 2, 0, 1, 4 );
 	tabLayout_4->addWidget( BleedGroup, 0, 0 );
-	printOptions->insertTab( tab_4, tr( "Bleeds" ) );
+	printOptions->addTab( tab_4, tr( "Bleeds" ) );
 	if (m_doc->currentPageLayout != 0)
 	{
 		BleedTxt3->setText( tr( "Inside:" ) );
@@ -323,28 +335,28 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 
 	DruckLayout->addWidget( printOptions );
 
-	Layout2 = new Q3HBoxLayout;
+	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 5 );
 	Layout2->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
 	
-	previewButton = new QPushButton( tr( "Preview..." ), this, "previewButton" );
+	previewButton = new QPushButton( tr( "Preview..." ), this );
 	previewButton->setDefault( false );
 	previewButton->setEnabled(!previewDinUse);
 	Layout2->addWidget( previewButton );
 
-	OKButton = new QPushButton( tr( "&Print" ), this, "OKButton" );
+	OKButton = new QPushButton( tr( "&Print" ), this );
 	OKButton->setDefault( true );
 	Layout2->addWidget( OKButton );
-	OKButton_2 = new QPushButton( CommonStrings::tr_Cancel, this, "OKButton_2" );
+	OKButton_2 = new QPushButton( CommonStrings::tr_Cancel, this );
 	OKButton_2->setDefault( false );
 	Layout2->addWidget( OKButton_2 );
 
 	DruckLayout->addLayout( Layout2 );
 	if ((PDev== tr("File")) || (PrintDest->count() == 1))
 	{
-		PrintDest->setCurrentItem(PrintDest->count()-1);
+		PrintDest->setCurrentIndex(PrintDest->count()-1);
 		prefs->set("CurrentPrn", PrintDest->currentText());
 		DateiT->setEnabled(true);
 		LineEdit1->setEnabled(true);
@@ -410,7 +422,9 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 
 Druck::~Druck()
 {
+#ifdef HAVE_CUPS
 	delete cdia;
+#endif
 	cdia = 0;
 }
 

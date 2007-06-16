@@ -9,30 +9,27 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-#include <qdialog.h>
-#include <q3buttongroup.h>
-#include <qcombobox.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
-#include <qtoolbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qcheckbox.h>
-#include <qtabwidget.h>
-#include <qwidget.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
-#include "scrspinbox.h"
+#include <QDialog>
+
+class QHBoxLayout;
+class QVBoxLayout;
+class QGridLayout;
+class QLabel;
+class QGroupBox;
+class QComboBox;
+class QPushButton;
+class QRadioButton;
+class QLineEdit;
+class QCheckBox;
+class QTabWidget;
+class QSpinBox;
+class QWidget;
+class QToolButton;
 
 class PrefsContext;
 class ScribusDoc;
 class CupsOptions;
+class ScrSpinBox;
 
 class SCRIBUS_API Druck : public QDialog
 {
@@ -95,24 +92,24 @@ protected slots:
 	void previewButtonClicked();
 
 protected:
-	Q3VBoxLayout* DruckLayout;
-	Q3GridLayout* DruckerLayout;
-	Q3HBoxLayout* Layout1x;
-	Q3HBoxLayout* Layout1;
-	Q3GridLayout* rangeGroupLayout;
-	Q3HBoxLayout* Layout2;
-	Q3HBoxLayout* LayoutCC;
-	Q3GridLayout* tabLayout;
-	Q3HBoxLayout* tabLayout_2;
-	Q3VBoxLayout* pageOptsLayout;
-	Q3VBoxLayout* colorOptsLayout;
-	Q3HBoxLayout *pageNumberSelectorLayout;
-	Q3GroupBox* Drucker;
+	QVBoxLayout* DruckLayout;
+	QGridLayout* DruckerLayout;
+	QHBoxLayout* Layout1x;
+	QHBoxLayout* Layout1;
+	QGridLayout* rangeGroupLayout;
+	QHBoxLayout* Layout2;
+	QHBoxLayout* LayoutCC;
+	QGridLayout* tabLayout;
+	QHBoxLayout* tabLayout_2;
+	QVBoxLayout* pageOptsLayout;
+	QVBoxLayout* colorOptsLayout;
+	QHBoxLayout *pageNumberSelectorLayout;
+	QGroupBox* Drucker;
 	QComboBox* PrintDest;
 	QLabel* DateiT;
 	QLineEdit* LineEdit1;
 	QToolButton* ToolButton1;
-	Q3ButtonGroup* rangeGroup;
+	QGroupBox* rangeGroup;
 	QRadioButton* RadioButton2;
 	QLabel* TextLabel3;
 	QSpinBox* Copies;
@@ -123,25 +120,25 @@ protected:
 	QComboBox* SepArt;
 	QComboBox* psLevel;
 	QWidget* tab_2;
-	Q3GroupBox* pageOpts;
+	QGroupBox* pageOpts;
 	QCheckBox* MirrorHor;
 	QCheckBox* MirrorVert;
 	QCheckBox* devPar;
-	Q3ButtonGroup* colorOpts;
+	QGroupBox* colorOpts;
 	QCheckBox* ClipMarg;
 	QCheckBox* GcR;
 	QCheckBox* spotColors;
 	QCheckBox* overprintMode;
 	QCheckBox* UseICC;
 	QWidget* tab_3;
-	Q3GridLayout* tabLayout_3;
-	Q3GroupBox* MarkGroup;
-	Q3GridLayout* MarkGroupLayout;
+	QGridLayout* tabLayout_3;
+	QGroupBox* MarkGroup;
+	QGridLayout* MarkGroupLayout;
 	QLabel* MarkTxt1;
 	QWidget* tab_4;
-	Q3GridLayout* tabLayout_4;
-	Q3GroupBox* BleedGroup;
-	Q3GridLayout* BleedGroupLayout;
+	QGridLayout* tabLayout_4;
+	QGroupBox* BleedGroup;
+	QGridLayout* BleedGroupLayout;
 	QLabel* BleedTxt1;
 	QLabel* BleedTxt2;
 	QLabel* BleedTxt3;
