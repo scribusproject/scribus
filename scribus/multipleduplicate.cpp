@@ -46,7 +46,7 @@ MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char
 	rotationSpinBox->setDecimals(1);
 	rotationSpinBox->setNewUnit(6);
 	
-	copiesCreateButtonGroup->setButton(0);
+	createGapRadioButton->setChecked(true);
 	// signals and slots connections
 	connect(copiesCreateButtonGroup, SIGNAL(clicked(int)), this, SLOT(setCopiesShiftGap(int)));
 }
@@ -73,7 +73,7 @@ void MultipleDuplicate::getMultiplyData(ItemMultipleDuplicateData& mdData)
 {
 	mdData.type = tabWidget->currentPageIndex();
 	mdData.copyCount = numberOfCopiesSpinBox->value();
-	mdData.copyShiftOrGap = copiesCreateButtonGroup->selectedId();
+	mdData.copyShiftOrGap = createGapRadioButton->isChecked() ? 1 : 0;
 	mdData.copyShiftGapH = horizShiftSpinBox->value();
 	mdData.copyShiftGapV = vertShiftSpinBox->value();
 	mdData.copyRotation = rotationSpinBox->value();
