@@ -140,15 +140,16 @@ void MultiProgressDialog::setCancelButtonText(const QString & cancelButtonText)
 
 void MultiProgressDialog::setOverallTotalSteps(int totalSteps)
 {
-	overallProgressBar->setTotalSteps(totalSteps);
+	overallProgressBar->setMaximum(totalSteps);
 }
 
 void MultiProgressDialog::setOverallProgress(int progress)
 {
-	overallProgressBar->setProgress(progress);
+	overallProgressBar->setValue(progress);
 }
 
 void MultiProgressDialog::setOverallProgress(int progress, int totalSteps)
 {
-	overallProgressBar->setProgress(progress, totalSteps);
+	overallProgressBar->setMaximum(totalSteps);
+	overallProgressBar->setValue(progress);
 }

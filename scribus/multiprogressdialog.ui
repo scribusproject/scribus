@@ -6,7 +6,7 @@
     <x>0</x>
     <y>0</y>
     <width>230</width>
-    <height>83</height>
+    <height>84</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -16,23 +16,8 @@
    <bool>false</bool>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>11</number>
-   </property>
-   <property name="spacing" >
-    <number>6</number>
-   </property>
    <item>
     <layout class="QGridLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
-      <number>6</number>
-     </property>
-     <item row="0" column="1" >
-      <widget class="Q3ProgressBar" name="overallProgressBar" />
-     </item>
      <item row="0" column="0" >
       <widget class="QLabel" name="overallProgressLabel" >
        <property name="text" >
@@ -43,15 +28,31 @@
        </property>
       </widget>
      </item>
+     <item row="0" column="1" >
+      <widget class="QProgressBar" name="overallProgressBar" >
+       <property name="value" >
+        <number>0</number>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
      </property>
      <item>
       <spacer>
@@ -88,13 +89,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3ProgressBar</class>
-   <extends>QFrame</extends>
-   <header>Qt3Support/Q3ProgressBar</header>
-  </customwidget>
- </customwidgets>
  <includes>
   <include location="local" >scribusapi.h</include>
  </includes>
