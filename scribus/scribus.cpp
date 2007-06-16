@@ -236,6 +236,12 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 {
 	int retVal=0;
 
+	QByteArray stylesheet;
+	if (loadRawText(QDir::homePath() + "/.scribus/stylesheet.css", stylesheet))
+	{
+		qApp->setStyleSheet(QString(stylesheet));
+	}
+	
 //	CommonStrings::languageChange();
 	previewDinUse = false;
 	printDinUse = false;
@@ -8098,6 +8104,13 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 
 void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 {
+	// Hack
+	QByteArray stylesheet;
+	if (loadRawText(QDir::homePath() + "/.scribus/stylesheet.css", stylesheet))
+	{
+		qApp->setStyleSheet(QString(stylesheet));
+	}
+	
 	doc->setUnitIndex(unitIndex);
 	view->unitSwitcher->setCurrentText(unitGetStrFromIndex(doc->unitIndex()));
 	propertiesPalette->unitChange();
