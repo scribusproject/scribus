@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <cstdlib>
 #include <cmath>
-#include <q3ptrstack.h>
+#include <QStack>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
@@ -2443,8 +2443,8 @@ void PDFlib::PDF_End_Page()
 
 void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 {
-	Q3PtrStack<PageItem> groupStack;
-	Q3PtrStack<PageItem> groupStackS;
+	QStack<PageItem*> groupStack;
+	QStack<PageItem*> groupStackS;
 	QStack<QString>      groupDataStack;
 	QString tmp;
 	ActPageP = pag;
@@ -4211,7 +4211,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			tmp2 = "";
 		}
 		QList<PageItem*> emG = embedded.getGroupedItems();
-		Q3PtrStack<PageItem> groupStack;
+		QStack<PageItem*> groupStack;
 		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
@@ -4930,7 +4930,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 {
 	if (currItem->GrType == 8)
 	{
-		Q3PtrStack<PageItem> groupStack;
+		QStack<PageItem*> groupStack;
 		QString tmp2 = "";
 		ScPattern *pat = &doc.docPatterns[currItem->pattern()];
 		for (int em = 0; em < pat->items.count(); ++em)

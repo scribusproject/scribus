@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3cstring.h>
 #include <qfileinfo.h>
 #include <qfile.h>
-#include <q3ptrstack.h>
+#include <QStack>
 //Added by qt3to4:
 #include <QWheelEvent>
 #include <Q3PtrList>
@@ -1201,8 +1201,8 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
 	QRect oldR;
-	Q3PtrStack<PageItem> groupStack;
-	Q3PtrStack<PageItem> groupStack2;
+	QStack<PageItem*> groupStack;
+	QStack<PageItem*> groupStack2;
 	if (!page->MPageNam.isEmpty())
 	{
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
@@ -1400,8 +1400,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 {
 	linkedFramesToShow.clear();
 	QRect oldR;
-	Q3PtrStack<PageItem> groupStack;
-	Q3PtrStack<PageItem> groupStack2;
+	QStack<PageItem*> groupStack;
+	QStack<PageItem*> groupStack2;
 	if (Doc->Items->count() != 0)
 	{
 		int Lnr=0;

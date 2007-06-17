@@ -198,7 +198,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, int flags ) :
 	docTitle = "";
 	groupLevel = 0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	m_gc.setAutoDelete( true );
+//	m_gc.setAutoDelete( true );
 }
 
 bool SVGPlug::import(QString fname, int flags)
@@ -309,7 +309,7 @@ void SVGPlug::convert(int flags)
 		viewScaleY = h2 / points[3].toDouble();
 		matrix.translate(viewTransformX, viewTransformY);
 		matrix.scale(viewScaleX, viewScaleY);
-		m_gc.current()->matrix = matrix;
+		m_gc.top()->matrix = matrix;
 	}
 	QList<PageItem*> Elements = parseGroup( docElem );
 	if (flags & LoadSavePlugin::lfCreateDoc)
@@ -492,8 +492,8 @@ void SVGPlug::convert(int flags)
 void SVGPlug::addGraphicContext()
 {
 	SvgStyle *gc = new SvgStyle;
-	if ( m_gc.current() )
-		*gc = *( m_gc.current() );
+	if ( m_gc.top() )
+		*gc = *( m_gc.top() );
 	m_gc.push( gc );
 }
 
@@ -501,12 +501,12 @@ void SVGPlug::setupNode( const QDomElement &e )
 {
 	addGraphicContext();
 	setupTransform( e );
-	parseStyle(m_gc.current(), e);
+	parseStyle(m_gc.top(), e);
 }
 
 void SVGPlug::setupTransform( const QDomElement &e )
 {
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	QMatrix mat = parseTransform( e.attribute( "transform" ) );
 	if (!e.attribute("transform").isEmpty())
 		gc->matrix = mat * gc->matrix;
@@ -514,7 +514,7 @@ void SVGPlug::setupTransform( const QDomElement &e )
 
 void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 {
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	QMatrix gcm = gc->matrix;
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
@@ -811,7 +811,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			gElements.append(el.at(ec));
 	}
 	groupLevel--;
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	if (gElements.count() < 2 && (clipPath.size() == 0) && (gc->Opacity == 1.0))
 	{
 		m_Doc->Items->takeAt(z);
@@ -971,7 +971,7 @@ QList<PageItem*> SVGPlug::parseCircle(const QDomElement &e)
 	double x = parseUnit( e.attribute( "cx" ) ) - r;
 	double y = parseUnit( e.attribute( "cy" ) ) - r;
 	setupNode(e);
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	QMatrix mm = QMatrix();
@@ -995,7 +995,7 @@ QList<PageItem*> SVGPlug::parseEllipse(const QDomElement &e)
 	double x = parseUnit( e.attribute( "cx" ) ) - rx;
 	double y = parseUnit( e.attribute( "cy" ) ) - ry;
 	setupNode(e);
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	QMatrix mm = QMatrix();
@@ -1046,7 +1046,7 @@ QList<PageItem*> SVGPlug::parseLine(const QDomElement &e)
 	double x2 = e.attribute( "x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x2" ) );
 	double y2 = e.attribute( "y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y2" ) );
 	setupNode(e);
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(4);
@@ -1067,7 +1067,7 @@ QList<PageItem*> SVGPlug::parsePath(const QDomElement &e)
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	setupNode(e);
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	PageItem::ItemType itype = parseSVG(e.attribute("d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon; 
 	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 	PageItem* ite = m_Doc->Items->at(z);
@@ -1097,7 +1097,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	setupNode(e);
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	QString points = e.attribute( "points" );
 	if (!points.isEmpty())
 	{
@@ -1154,7 +1154,7 @@ QList<PageItem*> SVGPlug::parseRect(const QDomElement &e)
 	double rx = e.attribute( "rx" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "rx" ) );
 	double ry = e.attribute( "ry" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "ry" ) );
 	setupNode(e);
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	if ((rx != 0) || (ry != 0))
@@ -1189,7 +1189,7 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 		{
 			QDomElement tspan = n.toElement();
 			addGraphicContext();
-			SvgStyle *gc = m_gc.current();
+			SvgStyle *gc = m_gc.top();
 			parseStyle(gc, tspan);
 			if (!gc->Display)
 				continue;
@@ -1214,8 +1214,8 @@ QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement
 {
 	QList<PageItem*> GElements;
 //	QFont ff(m_Doc->UsedFonts[m_gc.current()->Family]);
-	QFont ff(m_gc.current()->Family);
-	ff.setPointSize(qMax(qRound(m_gc.current()->FontSize / 10.0), 1));
+	QFont ff(m_gc.top()->Family);
+	ff.setPointSize(qMax(qRound(m_gc.top()->FontSize / 10.0), 1));
 	QFontMetrics fontMetrics(ff);
 	int desc = fontMetrics.descent();
 	double BaseX = m_Doc->currentPage()->xOffset();
@@ -1227,7 +1227,7 @@ QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement
 
 	double maxWidth = 0, maxHeight = 0;
 	double tempW = 0, tempH = 0;
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	double ity = (e.tagName() == "tspan") ? y : (y - qRound(gc->FontSize / 10.0));
 	int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, ity, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
 	PageItem* ite = m_Doc->Items->at(z);
@@ -1925,7 +1925,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 
 void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 {
-	SvgStyle *gc = m_gc.current();
+	SvgStyle *gc = m_gc.top();
 	if (!gc)
 		return;
 	if( !e.attribute( "display" ).isEmpty() )

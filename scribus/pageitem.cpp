@@ -33,12 +33,12 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
-#include <q3ptrstack.h>
 //Added by qt3to4:
 #include <Q3PtrList>
 #include <Q3PointArray>
 #include <QKeyEvent>
 #include <QList>
+#include <QStack>
 #include <QPixmap>
 #include <cmath>
 #include <cassert>
@@ -1182,7 +1182,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 	if (!m_Doc->DoDrawing)
 		return;
 	QList<PageItem*> emG;
-	Q3PtrStack<PageItem> groupStack;
+	QStack<PageItem*> groupStack;
 	emG.clear();
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
@@ -1470,8 +1470,8 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 	retImg.fill( qRgba(255, 255, 255, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1, 0);
 	painter->setZoomFactor(1.0);
-	Q3PtrStack<PageItem> groupStack;
-	Q3PtrStack<PageItem> groupClips;
+	QStack<PageItem*> groupStack;
+	QStack<PageItem*> groupClips;
 	for (int em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);

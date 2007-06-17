@@ -21,12 +21,12 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qcursor.h>
 #include <qregexp.h>
-#include <q3ptrstack.h>
 #include <QStack>
 //Added by qt3to4:
 #include <QDrag>
 #include <QMimeData>
 #include <QList>
+#include <QStack>
 #include <QByteArray>
 #include <QTextStream>
 #include <cmath>
@@ -523,7 +523,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	double dcp;
 	bool fillRuleEvenOdd = true;
 	PageItem* ite;
-	Q3PtrStack<PageItem> groupStack;
+	QStack<PageItem*> groupStack;
 	QStack<int>  gsStack;
 	QStack<uint> elemCount;
 	QStack<uint> gsStackMarks;

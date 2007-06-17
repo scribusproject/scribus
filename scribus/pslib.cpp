@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 #include <qregexp.h>
 #include <qbuffer.h>
-#include <q3ptrstack.h>
+#include <QStack>
 
 #include "commonstrings.h"
 #include "scconfig.h"
@@ -429,7 +429,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		QBuffer b(&buf);
 		b.open( QIODevice::WriteOnly );
 		spoolStream.setDevice(&b);
-		Q3PtrStack<PageItem> groupStack;
+		QStack<PageItem*> groupStack;
 		for (int em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* item = pa.items.at(em);
@@ -1636,7 +1636,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 	bool doDev = options.setDevParam;
 	bool doClip = options.doClip;
 	bool over = options.doOverprint;
-	Q3PtrStack<PageItem> groupStack;
+	QStack<PageItem*> groupStack;
 	int sepac;
 	int pagemult;
 	doOverprint = over;
@@ -2632,7 +2632,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if (style.scaleH() != 1000)
 						PS_scale(style.scaleH() / 1000.0, 1);
 					QList<PageItem*> emG = hl->embedded.getGroupedItems();
-					Q3PtrStack<PageItem> groupStack;
+					QStack<PageItem*> groupStack;
 					for (int em = 0; em < emG.count(); ++em)
 					{
 						PageItem* embedded = emG.at(em);
@@ -2827,7 +2827,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 	QString chstr, chglyph, tmp;
 	PageItem *c;
 	QList<PageItem*> PItems;
-	Q3PtrStack<PageItem> groupStack;
+	QStack<PageItem*> groupStack;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -3645,7 +3645,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	if ((hl->ch == SpecialChars::OBJECT) && (hl->embedded.hasItem()))
 	{
 		QList<PageItem*> emG = hl->embedded.getGroupedItems();
-		Q3PtrStack<PageItem> groupStack;
+		QStack<PageItem*> groupStack;
 		for (int em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);

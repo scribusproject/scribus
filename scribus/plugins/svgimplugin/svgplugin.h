@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3PtrList>
 #include <QList>
+#include <QStack>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "../formatidlist.h"
@@ -235,7 +236,7 @@ public:
 	QString docDesc;
 	QString docTitle;
 	int groupLevel;
-	Q3PtrStack<SvgStyle>	m_gc;
+	QStack<SvgStyle*>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
 	QMap<QString, QDomElement>		m_nodeMap;
 	QMap<QString, FPointArray>		m_clipPaths;

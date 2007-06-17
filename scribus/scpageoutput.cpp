@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpageoutput.h"
 
 //Added by qt3to4:
-#include <Q3PtrStack.h>
+#include <QStack>
 #include <QList>
 #include "pageitem.h"
 #include "cmsettings.h"
@@ -88,8 +88,8 @@ void ScPageOutput::DrawPage( Page* page, ScPainterExBase* painter)
 
 void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, QRect& clip)
 {
-	Q3PtrStack<PageItem> groupStack;
-	Q3PtrStack<PageItem> groupClips;
+	QStack<PageItem*> groupStack;
+	QStack<PageItem*> groupClips;
 	if (!page->MPageNam.isEmpty())
 	{
 		Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->MPageNam]);
@@ -233,8 +233,8 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, QRect& 
 void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, QRect& clip)
 {
 	//linkedFramesToShow.clear();
-	Q3PtrStack<PageItem> groupStack;
-	Q3PtrStack<PageItem> groupClips;
+	QStack<PageItem*> groupStack;
+	QStack<PageItem*> groupClips;
 	if (m_doc->Items->count() != 0)
 	{
 		int Lnr=0;
@@ -663,7 +663,7 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect&
 	if (!cembedded)
 		return;
 	QList<PageItem*> emG;
-	Q3PtrStack<PageItem> groupStack;
+	QStack<PageItem*> groupStack;
 	emG.clear();
 	emG.append(cembedded);
 	if (cembedded->Groups.count() != 0)
