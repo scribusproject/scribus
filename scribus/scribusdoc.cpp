@@ -8571,6 +8571,187 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem)
 	currItem->Sizing = siz;
 }
 
+void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selection* customSelection)
+{
+		Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+		if (itemSelection->count() < 2)
+			return;
+		PageItem *currItem;
+		PageItem* bb;
+		double x, y, w, h;
+		QString tooltip = Um::ItemsInvolved + "\n";
+		uint selectedItemCount=itemSelection->count();
+		if (changeLock)
+		{
+			uint lockedCount=0;
+			for (uint a=0; a<selectedItemCount; ++a)
+			{
+				if (itemSelection->itemAt(a)->locked())
+					++lockedCount;
+			}
+			int t=-1;
+			if (lockedCount!=0 && lockedCount!=selectedItemCount)
+			{
+				for (uint a=0; a<selectedItemCount; ++a)
+				{
+					currItem = itemSelection->itemAt(a);
+					if (currItem->locked())
+					{
+						for (uint c=0; c<selectedItemCount; ++c)
+						{
+							bb = itemSelection->itemAt(c);
+							bb->setLocked(lock);
+							if (m_ScMW && ScCore->usingGUI())
+								m_ScMW->scrActions["itemLock"]->setOn(lock);
+							tooltip += "\t" + currItem->getUName() + "\n";
+						}
+					}
+				}
+			}
+		}
+		itemSelection->getGroupRect(&x, &y, &w, &h);
+		uint lowestItem = 999999;
+		uint highestItem = 0;
+		for (uint a=0; a<selectedItemCount; ++a)
+		{
+			currItem = itemSelection->itemAt(a);
+			currItem->gXpos = currItem->xPos() - x;
+			currItem->gYpos = currItem->yPos() - y;
+			currItem->gWidth = w;
+			currItem->gHeight = h;
+			lowestItem = qMin(lowestItem, currItem->ItemNr);
+			highestItem = qMax(highestItem, currItem->ItemNr);
+		}
+		double minx = 99999.9;
+		double miny = 99999.9;
+		double maxx = -99999.9;
+		double maxy = -99999.9;
+		for (uint ep = 0; ep < selectedItemCount; ++ep)
+		{
+			PageItem* currItem = itemSelection->itemAt(ep);
+			double lw = currItem->lineWidth() / 2.0;
+			if (currItem->rotation() != 0)
+			{
+				FPointArray pb;
+				pb.resize(0);
+				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				for (uint pc = 0; pc < 4; ++pc)
+				{
+					minx = qMin(minx, pb.point(pc).x());
+					miny = qMin(miny, pb.point(pc).y());
+					maxx = qMax(maxx, pb.point(pc).x());
+					maxy = qMax(maxy, pb.point(pc).y());
+				}
+			}
+			else
+			{
+				minx = qMin(minx, currItem->xPos()-lw);
+				miny = qMin(miny, currItem->yPos()-lw);
+				maxx = qMax(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+				maxy = qMax(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+			}
+		}
+		double gx = minx;
+		double gy = miny;
+		double gw = maxx - minx;
+		double gh = maxy - miny;
+		PageItem *high = Items->at(highestItem);
+		undoManager->setUndoEnabled(false);
+		int z = itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, toolSettings.dBrush, toolSettings.dPen, true);
+		PageItem *neu = Items->takeAt(z);
+		Items->insert(lowestItem, neu);
+		neu->setItemName( tr("Group%1").arg(GroupCounter));
+		neu->AutoName = false;
+		neu->isGroupControl = true;
+		neu->groupsLastItem = high;
+		undoManager->setUndoEnabled(true);
+
+		QMap<int, uint> ObjOrder;
+		for (uint c = 0; c < selectedItemCount; ++c)
+		{
+			currItem = itemSelection->itemAt(c);
+			ObjOrder.insert(currItem->ItemNr, c);
+			int d = Items->indexOf(currItem);
+			Items->takeAt(d);
+		}
+		QList<uint> Oindex = ObjOrder.values();
+		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
+		{
+			Items->insert(lowestItem+1, itemSelection->itemAt(Oindex[c]));
+		}
+
+		renumberItemsInListOrder();
+		itemSelection->prependItem(neu);
+		selectedItemCount=itemSelection->count();
+		SimpleState *ss = new SimpleState(Um::Group, tooltip);
+		ss->set("GROUP", "group");
+		ss->set("itemcount", selectedItemCount);
+
+		for (uint a=0; a<selectedItemCount; ++a)
+		{
+			currItem = itemSelection->itemAt(a);
+			currItem->Groups.push(GroupCounter);
+			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
+		}
+		GroupCounter++;
+		emit updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+		emit docChanged();
+		if (m_ScMW && ScCore->usingGUI())
+		{
+			m_ScMW->scrActions["itemAttachTextToPath"]->setEnabled(false);
+			m_ScMW->scrActions["itemGroup"]->setEnabled(false);
+			m_ScMW->scrActions["itemUngroup"]->setEnabled(true);
+		}
+		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
+}
+
+void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	if (itemSelection->count() != 0)
+	{
+		uint docSelectionCount = itemSelection->count();
+		PageItem *currItem;
+		uint lowestItem = 999999;
+		for (uint a=0; a < docSelectionCount; ++a)
+		{
+			currItem = itemSelection->itemAt(a);
+			if (currItem->Groups.count() != 0)
+				currItem->Groups.pop();
+			lowestItem = qMin(lowestItem, currItem->ItemNr);
+		}
+		if (Items->at(lowestItem)->isGroupControl)
+		{
+			itemSelection->removeItem(Items->at(lowestItem));
+			Items->removeAt(lowestItem);
+			renumberItemsInListOrder();
+		}
+		docSelectionCount = itemSelection->count();
+		SimpleState *ss = new SimpleState(Um::Ungroup);
+		ss->set("UNGROUP", "ungroup");
+		ss->set("itemcount", docSelectionCount);
+		QString tooltip = Um::ItemsInvolved + "\n";
+		emit docChanged();
+		m_ScMW->HaveNewSel(itemSelection->itemAt(0)->itemType());
+		itemSelection->connectItemToGUI();
+//			itemSelection->itemAt(0)->emitAllToGUI();
+		for (uint a=0; a<docSelectionCount; ++a)
+		{
+			currItem = itemSelection->itemAt(a);
+			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
+			ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
+			tooltip += "\t" + currItem->getUName() + "\n";
+			currItem->isTableItem = false;
+			currItem->setSelected(true);
+//				currItem->paintObj();
+		}
+		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
+	}
+}
+
 void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 {
 	PageItem *currItem;

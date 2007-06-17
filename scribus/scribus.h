@@ -506,8 +506,8 @@ public slots:
 	*/
 	void ApplyMasterPage();
 	void Apply_MasterPage(QString pageName, int pageNumber, bool reb = true);
-	void GroupObj(bool showLockDia = true, Selection* customSelection=0);
-	void UnGroupObj(Selection* customSelection=0);
+	void GroupObj(bool showLockDia = true);
+	void UnGroupObj();
 	void StatusPic();
 	void ModifyAnnot();
 	void ToggleGuides();

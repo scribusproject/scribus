@@ -11443,7 +11443,7 @@ void ScribusView::TextToPath()
 				tmpSelection.addItem(newGroupedItems.at(ag));
 			}
 			Doc->renumberItemsInListOrder();
-			m_ScMW->GroupObj(true, &tmpSelection);
+			Doc->itemSelection_GroupObjects(true, false, &tmpSelection);
 		}
 		else
 		{
