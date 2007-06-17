@@ -146,7 +146,7 @@ void ScColorEngine::getCMYKValues(const ScColor& color, const ScribusDoc* doc, C
 }
 
 void ScColorEngine::getShadeColorCMYK(const ScColor& color, const ScribusDoc* doc, 
-										  CMYKColor& cmyk, int level)
+										  CMYKColor& cmyk, double level)
 {
 	if (color.getColorModel() == colorModelRGB)
 	{
@@ -157,14 +157,14 @@ void ScColorEngine::getShadeColorCMYK(const ScColor& color, const ScribusDoc* do
 	}
 	else
 	{
-		cmyk.c = color.CR * level / 100;
-		cmyk.m = color.MG * level / 100;
-		cmyk.y = color.YB * level / 100;
-		cmyk.k = color.K * level / 100;
+		cmyk.c = qRound(color.CR * level / 100.0);
+		cmyk.m = qRound(color.MG * level / 100.0);
+		cmyk.y = qRound(color.YB * level / 100.0);
+		cmyk.k = qRound(color.K * level / 100.0);
 	}
 }
 
-void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc, RGBColor& rgb, int level)
+void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc, RGBColor& rgb, double level)
 {
 	if (color.getColorModel() == colorModelCMYK)
 	{
@@ -178,8 +178,8 @@ void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc
 		int h, s, v, snew, vnew;
 		QColor tmpR(color.CR, color.MG, color.YB);
 		tmpR.hsv(&h, &s, &v);
-		snew = s * level / 100;
-		vnew = 255 - ((255 - v) * level / 100);
+		snew = qRound(s * level / 100.0);
+		vnew = 255 - qRound(((255 - v) * level / 100.0));
 		tmpR.setHsv(h, snew, vnew);
 		tmpR.getRgb(&rgb.r, &rgb.g, &rgb.b);
 		//We could also compute rgb shade using rgb directly
@@ -212,7 +212,7 @@ QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* do
 	return tmp;
 }
 
-QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* doc, int level)
+QColor ScColorEngine::getDisplayColor(const ScColor& color, const ScribusDoc* doc, double level)
 {
 	QColor tmp;
 	if (color.getColorModel() == colorModelRGB)
@@ -280,7 +280,7 @@ QColor ScColorEngine::getColorProof(const ScColor& color, const ScribusDoc* doc,
 	return tmp;
 }
 
-QColor ScColorEngine::getShadeColor(const ScColor& color, const ScribusDoc* doc, int level)
+QColor ScColorEngine::getShadeColor(const ScColor& color, const ScribusDoc* doc, double level)
 {
 	RGBColor rgb;
 	rgb.r = color.CR;
@@ -290,7 +290,7 @@ QColor ScColorEngine::getShadeColor(const ScColor& color, const ScribusDoc* doc,
 	return QColor(rgb.r, rgb.g, rgb.b);
 }
 
-QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc* doc, int level)
+QColor ScColorEngine::getShadeColorProof(const ScColor& color, const ScribusDoc* doc, double level)
 {
 	QColor tmp;
 	bool doGC = false;

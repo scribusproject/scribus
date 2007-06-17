@@ -72,8 +72,8 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO
 	Q_PROPERTY(QString itemName READ itemName WRITE setItemName DESIGNABLE false)
 	Q_PROPERTY(QString fillColor READ fillColor WRITE setFillColor DESIGNABLE false)
 	Q_PROPERTY(QString lineColor READ lineColor WRITE setLineColor DESIGNABLE false)
-	Q_PROPERTY(int fillShade READ fillShade WRITE setFillShade DESIGNABLE false)
-	Q_PROPERTY(int lineShade READ lineShade WRITE setLineShade DESIGNABLE false)
+	Q_PROPERTY(double fillShade READ fillShade WRITE setFillShade DESIGNABLE false)
+	Q_PROPERTY(double lineShade READ lineShade WRITE setLineShade DESIGNABLE false)
 	Q_PROPERTY(double fillTransparency READ fillTransparency WRITE setFillTransparency DESIGNABLE false)
 	Q_PROPERTY(double lineTransparency READ lineTransparency WRITE setLineTransparency DESIGNABLE false)
 	Q_PROPERTY(bool m_Locked READ locked WRITE setLocked DESIGNABLE false)
@@ -296,7 +296,7 @@ public:
 	const CharStyle& currentCharStyle() const;
 	// deprecated:
 	double layoutGlyphs(const CharStyle& style, const QString chars, GlyphLayout& layout);
-	void SetFarbe(QColor *tmp, QString farbe, int shad);
+	void SetFarbe(QColor *tmp, QString farbe, double shad);
 	void drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs );
 	void DrawPolyL(QPainter *p, Q3PointArray pts);
 	QString ExpandToken(uint base);
@@ -638,12 +638,12 @@ public:
 	void setFillColor(const QString &newColor);
 
 	/** @brief Get the shade of the fill color */
-	int fillShade() const { return fillShadeVal; }
+	double fillShade() const { return fillShadeVal; }
 	/**
 	 * @brief Set the fill color shade.
 	 * @param newShade shade for the fill color
 	 */
-	void setFillShade(int newShade);
+	void setFillShade(double newShade);
 
 	/** @brief Get the transparency of the fill color */
 	double fillTransparency() const { return fillTransparencyVal; }
@@ -678,12 +678,12 @@ public:
 	void setLineColor(const QString &newColor);
 
 	/** @brief Get the line color shade */
-	int lineShade() const { return lineShadeVal; }
+	double lineShade() const { return lineShadeVal; }
 	/**
 	 * @brief Set the line color shade.
 	 * @param newShade shade for the line color
 	 */
-	void setLineShade(int newShade);
+	void setLineShade(double newShade);
 
 	/** @brief Get the line transparency */
 	double lineTransparency() const { return lineTransparencyVal; }
@@ -1059,13 +1059,13 @@ protected:
 	 * @brief Line shade
 	 * @sa PageItem::lineShade, PageItem::setLineShade()
 	 */
-	int lineShadeVal;
+	double lineShadeVal;
 
 	/**
 	 * @brief Fill shade
 	 * @sa PageItem::fillShade, PageItem::setFillShade()
 	 */
-	int fillShadeVal;
+	double fillShadeVal;
 
 	/**
 	 * @brief Fill transparency
@@ -1222,7 +1222,7 @@ signals:
 	void position(double, double); //X,Y
 	void widthAndHeight(double, double); //W,H
 	void rotation(double); //Degrees rotation	
-	void colors(QString, QString, int, int); //lineColor, fillColor, lineShade, fillShade
+	void colors(QString, QString, double, double); //lineColor, fillColor, lineShade, fillShade
 	void gradientType(int); //Normal, horizontal, vertical, etc.
 	void patternFill(QString, double, double, double, double, double);
 	void gradientColorUpdate(double, double, double, double, double, double); //Cpal updatespecialgradient
@@ -1241,18 +1241,18 @@ signals:
 	void lineStyleCapJoin(Qt::PenStyle, Qt::PenCapStyle, Qt::PenJoinStyle);
 	//Frame text signals
 	void lineSpacing(double);
-	void textKerning(int);
+	void textKerning(double);
 	void textStyle(int);
 	void textFont(const QString&);
-	void textSize(int);
-	void textWidthScale(int);
-	void textHeightScale(int);
-	void textBaseLineOffset(int);
-	void textOutline(int);
-	void textShadow(int, int);
-	void textUnderline(int, int);
-	void textStrike(int, int);
-	void textColor(QString, QString, int, int);
+	void textSize(double);
+	void textWidthScale(double);
+	void textHeightScale(double);
+	void textBaseLineOffset(double);
+	void textOutline(double);
+	void textShadow(double, double);
+	void textUnderline(double, double);
+	void textStrike(double, double);
+	void textColor(QString, QString, double, double);
 	void textFormatting(int);
 	void textToFrameDistances(double, double, double, double); //left, top, bottom, right: Extra, TExtra, BExtra, RExtra
 	//FIXME: columns, grid ?

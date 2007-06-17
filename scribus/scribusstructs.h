@@ -62,8 +62,8 @@ struct CopyPasteBuffer
 	double Pwidth;
 	QString Pcolor;
 	QString Pcolor2;
-	int Shade;
-	int Shade2;
+	double Shade;
+	double Shade2;
 	int FillRule;
 	QString GrColor;
 	QString GrColor2;

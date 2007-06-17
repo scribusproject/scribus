@@ -330,18 +330,18 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	//Qt4 connect(this, SIGNAL(TextIFont(const QString&)), this, SLOT(AdjustFontMenu(const QString&)));
 	connect(this, SIGNAL(TextStyle(const ParagraphStyle&)), propertiesPalette, SLOT(updateStyle(const ParagraphStyle&)));
 	connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
-	connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
-	connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
-	connect(this, SIGNAL(TextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
+//	connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
+	connect(this, SIGNAL(TextISize(double)), propertiesPalette, SLOT(setSize(double)));
+	connect(this, SIGNAL(TextUSval(double)), propertiesPalette, SLOT(setExtra(double)));
 	connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));
-	connect(this, SIGNAL(TextScale(int)), propertiesPalette, SLOT(setTScale(int)));
-	connect(this, SIGNAL(TextScaleV(int)), propertiesPalette, SLOT(setTScaleV(int)));
-	connect(this, SIGNAL(TextBase(int)), propertiesPalette, SLOT(setTBase(int)));
-	connect(this, SIGNAL(TextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
-	connect(this, SIGNAL(TextOutline(int)), propertiesPalette, SLOT(setOutlineW(int)));
-	connect(this, SIGNAL(TextUnderline(int, int)), propertiesPalette, SLOT(setUnderline(int, int)));
-	connect(this, SIGNAL(TextStrike(int, int)), propertiesPalette, SLOT(setStrike(int, int)));
-	connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
+	connect(this, SIGNAL(TextScale(double)), propertiesPalette, SLOT(setTScale(double)));
+	connect(this, SIGNAL(TextScaleV(double)), propertiesPalette, SLOT(setTScaleV(double)));
+	connect(this, SIGNAL(TextBase(double)), propertiesPalette, SLOT(setTBase(double)));
+	connect(this, SIGNAL(TextShadow(double, double )), propertiesPalette, SLOT(setShadowOffs(double, double )));
+	connect(this, SIGNAL(TextOutline(double)), propertiesPalette, SLOT(setOutlineW(double)));
+	connect(this, SIGNAL(TextUnderline(double, double)), propertiesPalette, SLOT(setUnderline(double, double)));
+	connect(this, SIGNAL(TextStrike(double, double)), propertiesPalette, SLOT(setStrike(double, double)));
+	connect(this, SIGNAL(TextFarben(QString, QString, double, double)), propertiesPalette, SLOT(setActFarben(QString, QString, double, double)));
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 //	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
@@ -2663,13 +2663,13 @@ void ScribusMainWindow::HaveNewDoc()
 //	connect(view, SIGNAL(ItemTrans(double, double)), propertiesPalette->Cpal, SLOT(setActTrans(double, double)));
 //	connect(view, SIGNAL(ItemBlend(int, int)), propertiesPalette->Cpal, SLOT(setActBlend(int, int)));
 	connect(view, SIGNAL(ItemTextAttr(double)), propertiesPalette, SLOT(setLsp(double)));
-	connect(view, SIGNAL(ItemTextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
+	connect(view, SIGNAL(ItemTextUSval(double)), propertiesPalette, SLOT(setExtra(double)));
 //	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
 	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setDvals(double, double, double, double)));
 	connect(view, SIGNAL(ItemTextAbs(int)), propertiesPalette, SLOT(setAli(int)));
 	//Qt4 connect(view, SIGNAL(ItemTextFont(const QString&)), this, SLOT(AdjustFontMenu(const QString&)));
 	connect(view, SIGNAL(ItemTextFont(const QString&)), propertiesPalette, SLOT(setFontFace(const QString&)));
-	connect(view, SIGNAL(ItemTextSize(int)), propertiesPalette, SLOT(setSize(int)));
+	connect(view, SIGNAL(ItemTextSize(double)), propertiesPalette, SLOT(setSize(double)));
 	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
 	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
 	connect(view, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
@@ -2678,17 +2678,17 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(MousePos(double, double)), this, SLOT(setStatusBarMousePosition(double, double)));
 	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
 	connect(view, SIGNAL(ItemTextStil(int)), propertiesPalette, SLOT(setStil(int)));
-	connect(view, SIGNAL(ItemTextSca(int)), propertiesPalette, SLOT(setTScale(int)));
-	connect(view, SIGNAL(ItemTextScaV(int)), propertiesPalette, SLOT(setTScaleV(int)));
-	connect(view, SIGNAL(ItemTextBase(int)), propertiesPalette, SLOT(setTBase(int)));
-	connect(view, SIGNAL(ItemTextShadow(int, int )), propertiesPalette, SLOT(setShadowOffs(int, int )));
-	connect(view, SIGNAL(ItemTextUnderline(int, int)), propertiesPalette, SLOT(setUnderline(int, int)));
-	connect(view, SIGNAL(ItemTextStrike(int, int)), propertiesPalette, SLOT(setStrike(int, int)));
-	connect(view, SIGNAL(ItemTextOutline(int)), propertiesPalette, SLOT(setOutlineW(int)));
-	connect(view, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
+	connect(view, SIGNAL(ItemTextSca(double)), propertiesPalette, SLOT(setTScale(double)));
+	connect(view, SIGNAL(ItemTextScaV(double)), propertiesPalette, SLOT(setTScaleV(double)));
+	connect(view, SIGNAL(ItemTextBase(double)), propertiesPalette, SLOT(setTBase(double)));
+	connect(view, SIGNAL(ItemTextShadow(double, double )), propertiesPalette, SLOT(setShadowOffs(double, double )));
+	connect(view, SIGNAL(ItemTextUnderline(double, double)), propertiesPalette, SLOT(setUnderline(double, double)));
+	connect(view, SIGNAL(ItemTextStrike(double, double)), propertiesPalette, SLOT(setStrike(double, double)));
+	connect(view, SIGNAL(ItemTextOutline(double)), propertiesPalette, SLOT(setOutlineW(double)));
+//	connect(view, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(view, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
 	connect(view, SIGNAL(ItemTextAbs(int)), this, SLOT(setAbsValue(int)));
-	connect(view, SIGNAL(ItemTextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
+	connect(view, SIGNAL(ItemTextFarben(QString, QString, double, double)), propertiesPalette, SLOT(setActFarben(QString, QString, double, double)));
 	connect(view, SIGNAL(HasTextSel()), this, SLOT(EnableTxEdit()));
 	connect(view, SIGNAL(HasNoTextSel()), this, SLOT(DisableTxEdit()));
 	connect(view, SIGNAL(CopyItem()), this, SLOT(slotEditCopy()));
@@ -6737,18 +6737,18 @@ void ScribusMainWindow::setCSMenu()
 			if ((doc->appMode == modeEdit) && (currItem->itemText.length() != 0))
 			{
 				la = currItem->itemText.charStyle(qMin(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillColor();
-				lb = currItem->itemText.charStyle(qMin(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillShade();
+				lb = qRound(currItem->itemText.charStyle(qMin(currItem->CPos, static_cast<int>(currItem->itemText.length()-1))).fillShade());
 			}
 			else
 			{
 				la = currItem->itemText.defaultStyle().charStyle().fillColor();
-				lb = currItem->itemText.defaultStyle().charStyle().fillShade();
+				lb = qRound(currItem->itemText.defaultStyle().charStyle().fillShade());
 			}
 		}
 		else
 		{
 			la = currItem->fillColor();
-			lb = currItem->fillShade();
+			lb = qRound(currItem->fillShade());
 		}
 	}
 	if (la == CommonStrings::None)

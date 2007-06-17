@@ -1390,7 +1390,8 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 
 void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &ob, QMap<int, int> &UsedMapped2Saved, PageItem *item)
 {
-	int te, te2, tsh, tsh2, tst, tst2, tshs, tshs2;
+	int tst, tst2;
+	double te, tsh, tshs, te2, tsh2, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
 	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
 	QString CurDirP = QDir::currentDirPath();

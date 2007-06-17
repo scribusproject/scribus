@@ -305,11 +305,11 @@ void SMCStylePage::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QStr
 		effects_->setStyle(static_cast<int>(cstyle->effects()), cstyle->isInhFeatures());
 		effects_->setParentItem(static_cast<int>(parent->effects())); // FIXME
 
-		fillShade_->setValue(cstyle->fillShade(), cstyle->isInhFillShade());
-		fillShade_->setParentValue(parent->fillShade());
+		fillShade_->setValue(qRound(cstyle->fillShade()), cstyle->isInhFillShade());
+		fillShade_->setParentValue(qRound(parent->fillShade()));
 
-		strokeShade_->setValue(cstyle->strokeShade(), cstyle->isInhStrokeShade());
-		strokeShade_->setParentValue(parent->strokeShade());
+		strokeShade_->setValue(qRound(cstyle->strokeShade()), cstyle->isInhStrokeShade());
+		strokeShade_->setParentValue(qRound(parent->strokeShade()));
 
 		fillColor_->setCurrentText(cstyle->fillColor(), cstyle->isInhFillColor());
 		fillColor_->setParentText(parent->fillColor());
@@ -328,8 +328,8 @@ void SMCStylePage::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QStr
 		baselineOffset_->setValue(cstyle->baselineOffset() / 10.0);
 		tracking_->setValue(cstyle->tracking() / 10.0);
 		effects_->setStyle(static_cast<int>(cstyle->effects()));
-		fillShade_->setValue(cstyle->fillShade());
-		strokeShade_->setValue(cstyle->strokeShade());
+		fillShade_->setValue(qRound(cstyle->fillShade()));
+		strokeShade_->setValue(qRound(cstyle->strokeShade()));
 		fillColor_->setCurrentText(cstyle->fillColor());
 		strokeColor_->setCurrentText(cstyle->strokeColor());
 		fontFace_->setCurrentFont(cstyle->font().scName());
@@ -430,7 +430,7 @@ void SMCStylePage::show(QList<CharStyle*> &cstyles, QList<CharStyle> &cstylesAll
 
 void SMCStylePage::showSizeAndPosition(const QList<CharStyle*> &cstyles)
 {
-	int d = -30000;
+	double d = -30000;
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && cstyles[i]->fontSize() != d)
@@ -544,7 +544,7 @@ void SMCStylePage::showColors(const QList<CharStyle*> &cstyles)
 	strokeShade_->setEnabled(true);
 	strokeColor_->setEnabled(true);
 
-	int d = -30000;
+	double d = -30000;
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (d != -30000 && cstyles[i]->fillShade() != d)
@@ -558,7 +558,7 @@ void SMCStylePage::showColors(const QList<CharStyle*> &cstyles)
 	if (d == -30000)
 		fillShade_->setText( tr("Shade"));
 	else
-		fillShade_->setValue(d);
+		fillShade_->setValue(qRound(d));
 
 	d = -30000;
 	for (int i = 0; i < cstyles.count(); ++i)
@@ -577,7 +577,7 @@ void SMCStylePage::showColors(const QList<CharStyle*> &cstyles)
 		strokeShade_->setText( tr("Shade"));
 	}
 	else
-		strokeShade_->setValue(d);
+		strokeShade_->setValue(qRound(d));
 
 	QString s;
 	QString emptyString;

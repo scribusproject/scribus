@@ -3680,7 +3680,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	return tmp;
 }
 
-QString PDFlib::putColor(const QString& color, int shade, bool fill)
+QString PDFlib::putColor(const QString& color, double shade, bool fill)
 {
 	QString tmp = "";
 	QString colString = SetFarbe(color, shade);
@@ -4182,7 +4182,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		if (hl->ch != SpecialChars::OBJECT)
 			tmp += "BT\n";
 	}
-	int tsz = hl->fontSize();
+	double tsz = hl->fontSize();
 	QString chstr = hl->ch;
 	const CharStyle& style(*hl);
 	
@@ -4522,13 +4522,13 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 #endif
 }
 
-QString PDFlib::SetFarbe(const QString& farbe, int Shade)
+QString PDFlib::SetFarbe(const QString& farbe, double Shade)
 {
 	const ScColor& col = doc.PageColors[farbe];
 	return SetFarbe(col, Shade);
 }
 
-QString PDFlib::SetFarbe(const ScColor& farbe, int Shade)
+QString PDFlib::SetFarbe(const ScColor& farbe, double Shade)
 {
 	QString tmp;
 	RGBColor rgb;
@@ -4585,7 +4585,7 @@ QString PDFlib::SetFarbe(const ScColor& farbe, int Shade)
 	return tmp;
 }
 
-QString PDFlib::SetFarbeGrad(const QString& farbe, int Shade)
+QString PDFlib::SetFarbeGrad(const QString& farbe, double Shade)
 {
 	QString tmp;
 	RGBColor rgb;
@@ -5826,7 +5826,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nf\n";
 		cc += QString::number(ite->annotation().Bwid())+" w\n";
 		if (ite->annotation().borderColor() != CommonStrings::None)
-			cc += putColor(ite->annotation().borderColor(), 100l, false);
+			cc += putColor(ite->annotation().borderColor(), 100.0, false);
 		else
 			cc += "0 G\n";
 		cc += "0 0 "+FToStr(x2-x)+" "+FToStr(y-y2)+" re\nS\n";

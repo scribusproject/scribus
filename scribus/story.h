@@ -111,20 +111,20 @@ public:
 	StyleFlag CurrentStyle;
 	QString currentParaStyle;
 	int CurrAlign;
-	int CurrFontSize;
-	int CurrTextFillSh;
-	int CurrTextStrokeSh;
-	int CurrTextScale;
-	int CurrTextScaleV;
-	int CurrTextBase;
-	int CurrTextShadowX;
-	int CurrTextShadowY;
-	int CurrTextOutline;
-	int CurrTextUnderPos;
-	int CurrTextUnderWidth;
-	int CurrTextStrikePos;
-	int CurrTextStrikeWidth;
-	int CurrTextKern;
+	double CurrFontSize;
+	double CurrTextFillSh;
+	double CurrTextStrokeSh;
+	double CurrTextScale;
+	double CurrTextScaleV;
+	double CurrTextBase;
+	double CurrTextShadowX;
+	double CurrTextShadowY;
+	double CurrTextOutline;
+	double CurrTextUnderPos;
+	double CurrTextUnderWidth;
+	double CurrTextStrikePos;
+	double CurrTextStrikeWidth;
+	double CurrTextKern;
 	QString CurrTextStroke;
 	QString CurrTextFill;
 	QString prevFont;
@@ -208,7 +208,7 @@ public:
 
 public slots:
 	void SetColor(int c);
-	void SetShade(int s);
+	void SetShade(double s);
 	void newShadeHandler();
 	void languageChange();
 
@@ -230,7 +230,7 @@ public:
 
 public slots:
 	void SetColor(int c);
-	void SetShade(int s);
+	void SetShade(double s);
 	void newShadeHandler();
 	void languageChange();
 
@@ -255,20 +255,20 @@ public slots:
 	void newOutlineHandler();
 	void newShadowHandler();
 	void newKernHandler();
-	void SetShadow(int x, int y);
-	void setStrike(int p, int w);
-	void setUnderline(int p, int w);
-	void setOutline(int o);
+	void SetShadow(double x, double y);
+	void setStrike(double p, double w);
+	void setUnderline(double p, double w);
+	void setOutline(double o);
 	void SetStyle(int s);
-	void SetKern(int k);
+	void SetKern(double k);
 	void languageChange();
 
 signals:
-	void NewKern(int);
-	void NewShadow(int, int);
-	void newOutline(int);
-	void newStrike(int, int);
-	void newUnderline(int, int);
+	void NewKern(double);
+	void NewShadow(double, double);
+	void newOutline(double);
+	void newStrike(double, double);
+	void newUnderline(double, double);
 	void newStyle(int);
 };
 
@@ -306,8 +306,8 @@ public:
 public slots:
 	void SetFont(QString f);
 	void SetSize(double s);
-	void SetScale(int s);
-	void SetScaleV(int s);
+	void SetScale(double s);
+	void SetScaleV(double s);
 	void newSizeHandler();
 
 signals:
@@ -379,11 +379,11 @@ protected slots:
 	void setFontPref();
 	void newTxScale();
 	void newTxScaleV();
-	void newTxKern(int s);
-	void newShadowOffs(int x, int y);
-	void newTxtOutline(int o);
-	void newTxtUnderline(int p, int w);
-	void newTxtStrike(int p, int w);
+	void newTxKern(double s);
+	void newShadowOffs(double x, double y);
+	void newTxtOutline(double o);
+	void newTxtUnderline(double p, double w);
+	void newTxtStrike(double p, double w);
 	void updateProps(int p, int ch);
 
 	void newStyle(const QString&);

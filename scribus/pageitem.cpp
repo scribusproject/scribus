@@ -1545,7 +1545,7 @@ QString PageItem::ExpandToken(uint base)
 	return chstr;
 }
 
-void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
+void PageItem::SetFarbe(QColor *tmp, QString farbe, double shad)
 {
 	const ScColor& col = m_Doc->PageColors[farbe];
 	*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
@@ -2083,7 +2083,7 @@ void PageItem::setFillColor(const QString &newColor)
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
-void PageItem::setFillShade(int newShade)
+void PageItem::setFillShade(double newShade)
 {
 	if (fillShadeVal == newShade)
 	{
@@ -2151,7 +2151,7 @@ void PageItem::setLineColor(const QString &newColor)
 	emit colors(lineColorVal, fillColorVal, lineShadeVal, fillShadeVal);
 }
 
-void PageItem::setLineShade(int newShade)
+void PageItem::setLineShade(double newShade)
 {
 	if (lineShadeVal == newShade)
 	{
@@ -4199,8 +4199,8 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(printEnabled(bool)), pp, SLOT(setPrintingEnabled(bool)));
 	connect(this, SIGNAL(position(double, double)), pp, SLOT(setXY(double, double)));
 	connect(this, SIGNAL(widthAndHeight(double, double)), pp, SLOT(setBH(double, double)));
-	connect(this, SIGNAL(colors(QString, QString, int, int)), m_Doc->scMW(), SLOT(setCSMenu()));
-//	connect(this, SIGNAL(colors(QString, QString, int, int)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
+	connect(this, SIGNAL(colors(QString, QString, double, double)), m_Doc->scMW(), SLOT(setCSMenu()));
+//	connect(this, SIGNAL(colors(QString, QString, double, double)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 //	connect(this, SIGNAL(gradientType(int)), pp->Cpal, SLOT(setActGradient(int)));
 	connect(this, SIGNAL(patternFill(QString, double, double, double, double, double)), pp->Cpal, SLOT(setActPattern(QString, double, double, double, double, double)));
 //	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), pp->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
@@ -4218,21 +4218,21 @@ bool PageItem::connectToGUI()
 	//Frame text signals
 	connect(this, SIGNAL(lineSpacing(double)), pp, SLOT(setLsp(double)));
 	connect(this, SIGNAL(textToFrameDistances(double, double, double, double)), pp, SLOT(setDvals(double, double, double, double)));
-	connect(this, SIGNAL(textKerning(int)), pp, SLOT(setExtra(int)));
+	connect(this, SIGNAL(textKerning(double)), pp, SLOT(setExtra(double)));
 	connect(this, SIGNAL(textStyle(int)), pp, SLOT(setStil(int)));
 	connect(this, SIGNAL(textStyle(int)), m_Doc->scMW(), SLOT(setStilvalue(int)));
 	//Qt4 connect(this, SIGNAL(textFont(const QString&)), m_Doc->scMW(), SLOT(AdjustFontMenu(const QString&)));
 	connect(this, SIGNAL(textFont(const QString&)), pp, SLOT(setFontFace(const QString&)));
-	connect(this, SIGNAL(textSize(int)), pp, SLOT(setSize(int)));
-	connect(this, SIGNAL(textSize(int)), m_Doc->scMW(), SLOT(setFSizeMenu(int)));
-	connect(this, SIGNAL(textWidthScale(int)), pp, SLOT(setTScale(int)));
-	connect(this, SIGNAL(textHeightScale(int)), pp, SLOT(setTScaleV(int)));
-	connect(this, SIGNAL(textBaseLineOffset(int)), pp, SLOT(setTBase(int)));
-	connect(this, SIGNAL(textOutline(int)), pp, SLOT(setOutlineW(int)));
-	connect(this, SIGNAL(textShadow(int, int )), pp, SLOT(setShadowOffs(int, int )));
-	connect(this, SIGNAL(textUnderline(int, int)), pp, SLOT(setUnderline(int, int)));
-	connect(this, SIGNAL(textStrike(int, int)), pp, SLOT(setStrike(int, int)));
-	connect(this, SIGNAL(textColor(QString, QString, int, int)), pp, SLOT(setActFarben(QString, QString, int, int)));
+	connect(this, SIGNAL(textSize(double)), pp, SLOT(setSize(double)));
+//	connect(this, SIGNAL(textSize(int)), m_Doc->scMW(), SLOT(setFSizeMenu(int)));
+	connect(this, SIGNAL(textWidthScale(double)), pp, SLOT(setTScale(double)));
+	connect(this, SIGNAL(textHeightScale(double)), pp, SLOT(setTScaleV(double)));
+	connect(this, SIGNAL(textBaseLineOffset(double)), pp, SLOT(setTBase(double)));
+	connect(this, SIGNAL(textOutline(double)), pp, SLOT(setOutlineW(double)));
+	connect(this, SIGNAL(textShadow(double, double )), pp, SLOT(setShadowOffs(double, double )));
+	connect(this, SIGNAL(textUnderline(double, double)), pp, SLOT(setUnderline(double, double)));
+	connect(this, SIGNAL(textStrike(double, double)), pp, SLOT(setStrike(double, double)));
+	connect(this, SIGNAL(textColor(QString, QString, double, double)), pp, SLOT(setActFarben(QString, QString, double, double)));
 //	connect(this, SIGNAL(textFormatting(int)), pp, SLOT(setAli(int)));
 //	connect(this, SIGNAL(textFormatting(int)), ScMW, SLOT(setAbsValue(int)));
 

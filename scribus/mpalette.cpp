@@ -2383,7 +2383,7 @@ void Mpalette::setFontFace(const QString& newFont)
 }
 
 
-void Mpalette::setSize(int s)
+void Mpalette::setSize(double s)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2393,7 +2393,7 @@ void Mpalette::setSize(int s)
 	HaveItem = tmp;
 }
 
-void Mpalette::setExtra(int e)
+void Mpalette::setExtra(double e)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2668,7 +2668,7 @@ void Mpalette::setMaxGlyphExtension()
 }
 
 
-void Mpalette::setTScaleV(int e)
+void Mpalette::setTScaleV(double e)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2698,7 +2698,7 @@ void Mpalette::NewTBase()
 	}
 }
 
-void Mpalette::setTScale(int e)
+void Mpalette::setTScale(double e)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -2708,7 +2708,7 @@ void Mpalette::setTScale(int e)
 	HaveItem = tmp;
 }
 
-void Mpalette::setTBase(int e)
+void Mpalette::setTBase(double e)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3534,7 +3534,7 @@ void Mpalette::newShadowOffs()
 	}
 }
 
-void Mpalette::setShadowOffs(int x, int y)
+void Mpalette::setShadowOffs(double x, double y)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3559,7 +3559,7 @@ void Mpalette::newUnderline()
 	}
 }
 
-void Mpalette::setUnderline(int p, int w)
+void Mpalette::setUnderline(double p, double w)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3584,7 +3584,7 @@ void Mpalette::newStrike()
 	}
 }
 
-void Mpalette::setStrike(int p, int w)
+void Mpalette::setStrike(double p, double w)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -3596,7 +3596,7 @@ void Mpalette::setStrike(int p, int w)
 	connect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrike()));
 }
 
-void Mpalette::setOutlineW(int x)
+void Mpalette::setOutlineW(double x)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
@@ -4142,14 +4142,14 @@ void Mpalette::setActShade()
 // 	emit DocChanged();
 }
 
-void Mpalette::setActFarben(QString p, QString b, int shp, int shb)
+void Mpalette::setActFarben(QString p, QString b, double shp, double shb)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	ColorList::Iterator it;
 	int c = 0;
-	PM2->setValue(shb);
-	PM1->setValue(shp);
+	PM2->setValue(qRound(shb));
+	PM1->setValue(qRound(shp));
 	if ((b != CommonStrings::None) && (!b.isEmpty()))
 	{
 		c++;

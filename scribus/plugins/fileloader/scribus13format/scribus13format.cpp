@@ -1766,7 +1766,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		newStyle.setFillShade(it->attribute("CSHADE").toInt());
 
 	QString fColor = newStyle.fillColor();
-	int fShade = newStyle.fillShade();
+	int fShade = qRound(newStyle.fillShade());
 	handleOldColorShade(doc, fColor, fShade);
 	newStyle.setFillColor(fColor);
 	newStyle.setFillShade(fShade);
@@ -1799,7 +1799,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		newStyle.setStrokeShade(it->attribute("CSHADE2", "100").toInt());
 
 	QString sColor = newStyle.strokeColor();
-	int sShade = newStyle.strokeShade();
+	int sShade = qRound(newStyle.strokeShade());
 	handleOldColorShade(doc, sColor, sShade);
 	newStyle.setStrokeColor(sColor);
 	newStyle.setStrokeShade(sShade);
@@ -1994,7 +1994,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	QString Pcolor = obj->attribute("PCOLOR");
 	QString Pcolor2 = obj->attribute("PCOLOR2");
 	int Pshade = obj->attribute("SHADE").toInt();
-	int Pshade2= obj->attribute("SHADE2").toInt();
+	int Pshade2 = obj->attribute("SHADE2").toInt();
 	handleOldColorShade(doc, Pcolor, Pshade);
 	handleOldColorShade(doc, Pcolor2, Pshade2);
 	QColor tmpc;
@@ -3258,9 +3258,10 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 
 void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master)
 {
-	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tobj, tobj2;
+	int tst, tst2, tsb, tsb2, tobj, tobj2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
 	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
+	double te, te2, tsh, tsh2, tshs, tshs2;
 	uint ObCount = maxC;
 	PageItem *item = NULL;
 	QDomElement ob;

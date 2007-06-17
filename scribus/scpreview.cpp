@@ -60,9 +60,9 @@ QPixmap ScPreview::createPreview(QString data)
 	QMap<int,int> arrowID;
 	QString tmpf, tmpx, tmp2, tmp3;
 	int x, y, zae;
-	double xf, yf, asce;
+	double xf, yf, asce, chs;
 	FPoint gv;
-	int chs, currItem, fillBlendmode, strokeBlendmode;
+	int currItem, fillBlendmode, strokeBlendmode;
 	Q3PointArray cl;
 	QColor tmpfa;
 	QString chstr;
@@ -967,12 +967,12 @@ QPixmap ScPreview::createPreview(QString data)
 	return ret;
 }
 
-void ScPreview::SetFarbe(QColor *tmp, const QString& farbe, int shad)
+void ScPreview::SetFarbe(QColor *tmp, const QString& farbe, double shad)
 {
 	*tmp = ScColorEngine::getShadeColorProof(Farben[farbe], NULL, shad);
 }
 
-void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mod, int Siz)
+void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mod, double Siz)
 {
 	if (mod == 0)
 		return;
@@ -980,7 +980,7 @@ void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, Q
 	if (ccx == QChar(29))
 		ccx = " ";
 	double wide;
-	double csi = static_cast<double>(Siz) / 100.0;
+	double csi = Siz / 100.0;
 //	uint chr = ccx[0].unicode();
 	if (prefsManager->appPrefs.AvailFonts[ZFo].canRender(ccx[0]))
 	{

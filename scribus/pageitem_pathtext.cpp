@@ -84,7 +84,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	firstChar = 0;
 	MaxChars = 0;
 	int a;
-	int chs;
+	double chs;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	double dx;
@@ -105,12 +105,12 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	CurX = Extra;
 	QString cachedStroke = "";
 	QString cachedFill = "";
-	int cachedFillShade = -1;
-	int cachedStrokeShade = -1;
+	double cachedFillShade = -1;
+	double cachedStrokeShade = -1;
 	QString actStroke = "";
 	QString actFill = "";
-	int actFillShade = -1;
-	int actStrokeShade = -1;
+	double actFillShade = -1;
+	double actStrokeShade = -1;
 	QColor cachedFillQ;
 	QColor cachedStrokeQ;
 	if (!m_Doc->layerOutline(LayerNr))

@@ -11103,7 +11103,7 @@ void ScribusView::TextToPath()
 							continue;
 						}
 					}
-					int chs = charStyle.fontSize();
+					double chs = charStyle.fontSize();
 					if (hl->effects() & ScStyle_SmallCaps)
 					{
 						if (chstr.upper() != chstr)
@@ -11212,7 +11212,7 @@ void ScribusView::TextToPath()
 								continue;
 							}
 						}
-						int chs = charStyle.fontSize();
+						double chs = charStyle.fontSize();
 						if (hl->effects() & ScStyle_SmallCaps)
 						{
 							if (chstr.upper() != chstr)

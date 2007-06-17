@@ -2161,12 +2161,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	ScText *hl;
 	QString cachedStroke = "";
 	QString cachedFill = "";
-	int cachedFillShade = -1;
-	int cachedStrokeShade = -1;
+	double cachedFillShade = -1;
+	double cachedStrokeShade = -1;
 	QString actStroke = "";
 	QString actFill = "";
-	int actFillShade = -1;
-	int actStrokeShade = -1;
+	double actFillShade = -1;
+	double actStrokeShade = -1;
 	QColor cachedFillQ;
 	QColor cachedStrokeQ;
 //	QValueList<ParagraphStyle::TabRecord> tTabValues;

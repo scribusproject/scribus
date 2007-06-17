@@ -931,7 +931,7 @@ void PSLib::PS_fill()
 		PutSeite(FillColor + " cmyk fill\n");
 }
 
-void PSLib::PS_fillspot(QString color, int shade)
+void PSLib::PS_fillspot(QString color, double shade)
 {
 	if (fillRule)
 		PutSeite(ToStr(shade / 100.0)+" "+spotMap[color]+" eofill\n");
@@ -939,7 +939,7 @@ void PSLib::PS_fillspot(QString color, int shade)
 		PutSeite(ToStr(shade / 100.0)+" "+spotMap[color]+" fill\n");
 }
 
-void PSLib::PS_strokespot(QString color, int shade)
+void PSLib::PS_strokespot(QString color, double shade)
 {
 	PutSeite(ToStr(shade / 100.0)+" "+spotMap[color]+" st\n");
 }
@@ -2151,7 +2151,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 
 void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded, bool useTemplate)
 {
-	int h, s, v, k, tsz;
+	double tsz;
+	int h, s, v, k;
 	int d;
 	ScText *hl;
 	QList<double> dum;
@@ -3114,13 +3115,13 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	}
 }
 
-void PSLib::SetFarbe(const QString& farb, int shade, int *h, int *s, int *v, int *k, bool gcr)
+void PSLib::SetFarbe(const QString& farb, double shade, int *h, int *s, int *v, int *k, bool gcr)
 {
 	ScColor& col = m_Doc->PageColors[farb];
 	SetFarbe(col, shade, h, s, v, k, gcr);
 }
 
-void PSLib::SetFarbe(const ScColor& farb, int shade, int *h, int *s, int *v, int *k, bool gcr)
+void PSLib::SetFarbe(const ScColor& farb, double shade, int *h, int *s, int *v, int *k, bool gcr)
 {
 	int h1, s1, v1, k1;
 	h1 = *h;
@@ -3135,10 +3136,10 @@ void PSLib::SetFarbe(const ScColor& farb, int shade, int *h, int *s, int *v, int
 	tmp.getCMYK(&h1, &s1, &v1, &k1);
 	if ((m_Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
 	{
-		h1 = h1 * shade / 100;
-		s1 = s1 * shade / 100;
-		v1 = v1 * shade / 100;
-		k1 = k1 * shade / 100;
+		h1 = qRound(h1 * shade / 100.0);
+		s1 = qRound(s1 * shade / 100.0);
+		v1 = qRound(v1 * shade / 100.0);
+		k1 = qRound(k1 * shade / 100.0);
 		WORD inC[4];
 		WORD outC[4];
 		inC[0] = h1 * 257;
@@ -3153,10 +3154,10 @@ void PSLib::SetFarbe(const ScColor& farb, int shade, int *h, int *s, int *v, int
 	}
 	else
 	{
-		*h = h1 * shade / 100;
-		*s = s1 * shade / 100;
-		*v = v1 * shade / 100;
-		*k = k1 * shade / 100;
+		*h = qRound(h1 * shade / 100.0);
+		*s = qRound(s1 * shade / 100.0);
+		*v = qRound(v1 * shade / 100.0);
+		*k = qRound(k1 * shade / 100.0);
 	}
 }
 
@@ -3614,7 +3615,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	const GlyphLayout & glyphs(hl->glyph);
 	uint glyph = glyphs.glyph;
 
-	int h, s, v, k, tsz;
+	int h, s, v, k;
+	double tsz;
 	double wideR = 0.0;
 	QList<double> dum;
 	dum.clear();
@@ -3932,7 +3934,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 #endif
 }
 
-void PSLib::putColor(const QString& color, int shade, bool fill)
+void PSLib::putColor(const QString& color, double shade, bool fill)
 {
 	if (fill)
 	{

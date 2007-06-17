@@ -490,7 +490,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 //	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setYPos, "yorigin", &parseDouble ));  // also in createPageItem()
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setRotation, "rotation", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>( & PageItem::setFillColor, "fill-color", dummy ));  // also in createPageItem()
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setFillShade, "fill-shade", &parseInt ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setFillShade, "fill-shade", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setFillTransparency, "fill-transparency", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setFillBlendmode, "fill-blendmode", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setGradientType, "fill-gradient-type", &parseInt ));
@@ -499,7 +499,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setOverprint, "do-overprint", &parseBool ));
 	
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,const QString&>( & PageItem::setLineColor, "line-color", dummy ));  // also in createPageItem()
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setLineShade, "line-shade", &parseInt ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setLineShade, "line-shade", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setLineTransparency, "line-transparency", &parseDouble ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,int>( & PageItem::setLineBlendmode, "line-blendmode", &parseInt ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setLineWidth, "line-width", &parseDouble ));  // also in createPageItem()

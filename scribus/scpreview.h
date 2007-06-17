@@ -24,8 +24,8 @@ public:
 	ScPreview();
 	~ScPreview() {};
 	QPixmap createPreview(QString data);
-	void SetFarbe(QColor *tmp, const QString& farbe, int shad);
-	void DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mode, int Siz);
+	void SetFarbe(QColor *tmp, const QString& farbe, double shad);
+	void DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mode, double Siz);
 	QMap<QString,ScColor> Farben;
 	QMap<QString,multiLine> MLineStyles;
 	QList<uint> Segments;

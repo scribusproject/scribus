@@ -80,9 +80,9 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_setdash(Qt::PenStyle st, double offset, QList<double> dash);
 		virtual void PS_selectfont(QString f, double s);
 		virtual void PS_fill();
-		virtual void PS_fillspot(QString color, int shade);
+		virtual void PS_fillspot(QString color, double shade);
 		virtual void PS_stroke();
-		virtual void PS_strokespot(QString color, int shade);
+		virtual void PS_strokespot(QString color, double shade);
 		virtual void PS_fill_stroke();
 		virtual void PS_newpath();
 		virtual void PS_MultiRadGradient(double w, double h, double x, double y, QList<double> Stops, QStringList Colors, QStringList colorNames, QList<int> colorShades);
@@ -104,11 +104,11 @@ class SCRIBUS_API PSLib : public QObject
 		virtual int CreatePS(ScribusDoc* Doc, PrintOptions &options);
 		virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false, bool useTemplate = false);
 		virtual void ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
-		virtual void putColor(const QString& color, int shade, bool fill);
+		virtual void putColor(const QString& color, double shade, bool fill);
 		virtual void SetClipPath(FPointArray *c, bool poly = true);
 		virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
-		virtual void SetFarbe(const QString& color, int shade, int *h, int *s, int *v, int *k, bool gcr);
-		virtual void SetFarbe(const ScColor& color, int shade, int *h, int *s, int *v, int *k, bool gcr);
+		virtual void SetFarbe(const QString& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
+		virtual void SetFarbe(const ScColor& color, double shade, int *h, int *s, int *v, int *k, bool gcr);
 		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master);
 		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint a, uint d, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool ic, bool master);
 		bool Art;

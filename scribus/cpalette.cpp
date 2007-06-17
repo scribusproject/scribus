@@ -268,9 +268,9 @@ void Cpalette::updateFromItem()
 	if (!currentDoc)
 		return;
 	Color = currentItem->lineColor();
-	Shade = currentItem->lineShade();
+	Shade = qRound(currentItem->lineShade());
 	Color3 = currentItem->fillColor();
-	Shade3 = currentItem->fillShade();
+	Shade3 = qRound(currentItem->fillShade());
 	setActTrans(currentItem->fillTransparency(), currentItem->lineTransparency());
 	setActBlend(currentItem->fillBlendmode(), currentItem->lineBlendmode());
 	if (Mode == 1)

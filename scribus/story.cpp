@@ -904,9 +904,6 @@ void SToolBColorF::languageChange()
 	QToolTip::remove(PM2);
 	QToolTip::add(TxFill, tr( "Color of text fill" ));
 	QToolTip::add(PM2, tr( "Saturation of color of text fill" ));
-
-
-
 }
 
 void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
@@ -925,10 +922,10 @@ void SToolBColorF::SetColor(int c)
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 }
 
-void SToolBColorF::SetShade(int s)
+void SToolBColorF::SetShade(double s)
 {
 	disconnect(PM2, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
-	PM2->setValue(s);
+	PM2->setValue(qRound(s));
 	connect(PM2, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
 }
 
@@ -977,10 +974,10 @@ void SToolBColorS::SetColor(int c)
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 }
 
-void SToolBColorS::SetShade(int s)
+void SToolBColorS::SetShade(double s)
 {
 	disconnect(PM1, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
-	PM1->setValue(s);
+	PM1->setValue(qRound(s));
 	connect(PM1, SIGNAL(clicked()), this, SLOT(newShadeHandler()));
 }
 
@@ -1021,45 +1018,45 @@ void SToolBStyle::languageChange()
 
 void SToolBStyle::newStrikeHandler()
 {
-	int x = qRound(SeStyle->StrikeVal->LPos->value() * 10.0);
-	int y = qRound(SeStyle->StrikeVal->LWidth->value() * 10.0);
+	double x = SeStyle->StrikeVal->LPos->value() * 10.0;
+	double y = SeStyle->StrikeVal->LWidth->value() * 10.0;
 // 	emit newUnderline(x, y);
 	emit newStrike(x, y);
 }
 
 void SToolBStyle::newUnderlineHandler()
 {
-	int x = qRound(SeStyle->UnderlineVal->LPos->value() * 10.0);
-	int y = qRound(SeStyle->UnderlineVal->LWidth->value() * 10.0);
+	double x = SeStyle->UnderlineVal->LPos->value() * 10.0;
+	double y = SeStyle->UnderlineVal->LWidth->value() * 10.0;
 	emit newUnderline(x, y);
 }
 
 void SToolBStyle::newOutlineHandler()
 {
-	int x = qRound(SeStyle->OutlineVal->LWidth->value() * 10.0);
+	double x = SeStyle->OutlineVal->LWidth->value() * 10.0;
 	emit newOutline(x);
 }
 
 void SToolBStyle::newShadowHandler()
 {
-	int x = qRound(SeStyle->ShadowVal->Xoffset->value() * 10.0);
-	int y = qRound(SeStyle->ShadowVal->Yoffset->value() * 10.0);
+	double x = SeStyle->ShadowVal->Xoffset->value() * 10.0;
+	double y = SeStyle->ShadowVal->Yoffset->value() * 10.0;
 	emit NewShadow(x, y);
 }
 
 void SToolBStyle::newKernHandler()
 {
-	emit NewKern(qRound(Extra->value() * 10.0));
+	emit NewKern(Extra->value() * 10.0);
 }
 
-void SToolBStyle::setOutline(int x)
+void SToolBStyle::setOutline(double x)
 {
 	disconnect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineHandler()));
 	SeStyle->OutlineVal->LWidth->setValue(x / 10.0);
 	connect(SeStyle->OutlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newOutlineHandler()));
 }
 
-void SToolBStyle::setStrike(int p, int w)
+void SToolBStyle::setStrike(double p, double w)
 {
 	disconnect(SeStyle->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
 	disconnect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
@@ -1069,7 +1066,7 @@ void SToolBStyle::setStrike(int p, int w)
 	connect(SeStyle->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newStrikeHandler()));
 }
 
-void SToolBStyle::setUnderline(int p, int w)
+void SToolBStyle::setUnderline(double p, double w)
 {
 	disconnect(SeStyle->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
 	disconnect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
@@ -1079,7 +1076,7 @@ void SToolBStyle::setUnderline(int p, int w)
 	connect(SeStyle->UnderlineVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(newUnderlineHandler()));
 }
 
-void SToolBStyle::SetShadow(int x, int y)
+void SToolBStyle::SetShadow(double x, double y)
 {
 	disconnect(SeStyle->ShadowVal->Xoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
 	disconnect(SeStyle->ShadowVal->Yoffset, SIGNAL(valueChanged(double)), this, SLOT(newShadowHandler()));
@@ -1096,7 +1093,7 @@ void SToolBStyle::SetStyle(int s)
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 }
 
-void SToolBStyle::SetKern(int k)
+void SToolBStyle::SetKern(double k)
 {
 	disconnect(Extra, SIGNAL(valueChanged(double)), this, SLOT(newKernHandler()));
 	Extra->setValue(k / 10.0);
@@ -1189,14 +1186,14 @@ void SToolBFont::SetSize(double s)
 	connect(Size, SIGNAL(valueChanged(double)), this, SLOT(newSizeHandler()));
 }
 
-void SToolBFont::SetScale(int s)
+void SToolBFont::SetScale(double s)
 {
 	disconnect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
 	ChScale->setValue(s / 10.0);
 	connect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
 }
 
-void SToolBFont::SetScaleV(int s)
+void SToolBFont::SetScaleV(double s)
 {
 	disconnect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
 	ChScaleV->setValue(s / 10.0);
@@ -1721,12 +1718,12 @@ void StoryEditor::connectSignals()
 	connect(FontTools, SIGNAL(NewFont(const QString& )), this, SLOT(newTxFont(const QString& )));
 	connect(FontTools, SIGNAL(newScale(double )), this, SLOT(newTxScale()));
 	connect(FontTools, SIGNAL(newScaleV(double )), this, SLOT(newTxScaleV()));
-	connect(StyleTools, SIGNAL(NewKern(int )), this, SLOT(newTxKern(int )));
+	connect(StyleTools, SIGNAL(NewKern(double )), this, SLOT(newTxKern(double )));
 	connect(StyleTools, SIGNAL(newStyle(int )), this, SLOT(newTxStyle(int )));
-	connect(StyleTools, SIGNAL(NewShadow(int, int)), this, SLOT(newShadowOffs(int, int)));
-	connect(StyleTools, SIGNAL(newOutline(int )), this, SLOT(newTxtOutline(int )));
-	connect(StyleTools, SIGNAL(newUnderline(int, int)), this, SLOT(newTxtUnderline(int, int)));
-	connect(StyleTools, SIGNAL(newStrike(int, int )), this, SLOT(newTxtStrike(int, int)));
+	connect(StyleTools, SIGNAL(NewShadow(double, double)), this, SLOT(newShadowOffs(double, double)));
+	connect(StyleTools, SIGNAL(newOutline(double )), this, SLOT(newTxtOutline(double )));
+	connect(StyleTools, SIGNAL(newUnderline(double, double)), this, SLOT(newTxtUnderline(double, double)));
+	connect(StyleTools, SIGNAL(newStrike(double, double )), this, SLOT(newTxtStrike(double, double)));
 }
 
 void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
@@ -1998,7 +1995,7 @@ void StoryEditor::newTxScaleV()
 	Editor->setFocus();
 }
 
-void StoryEditor::newTxKern(int s)
+void StoryEditor::newTxKern(double s)
 {
 	Editor->CurrTextKern = s;
 	CharStyle charStyle;
@@ -2008,7 +2005,7 @@ void StoryEditor::newTxKern(int s)
 	Editor->setFocus();
 }
 
-void StoryEditor::newShadowOffs(int x, int y)
+void StoryEditor::newShadowOffs(double x, double y)
 {
 	CharStyle charStyle;
 	charStyle.setShadowXOffset(x);
@@ -2020,7 +2017,7 @@ void StoryEditor::newShadowOffs(int x, int y)
 	Editor->setFocus();
 }
 
-void StoryEditor::newTxtOutline(int o)
+void StoryEditor::newTxtOutline(double o)
 {
 	Editor->CurrTextOutline = o;
 	CharStyle charStyle;
@@ -2030,7 +2027,7 @@ void StoryEditor::newTxtOutline(int o)
 	Editor->setFocus();
 }
 
-void StoryEditor::newTxtUnderline(int p, int w)
+void StoryEditor::newTxtUnderline(double p, double w)
 {
 	CharStyle charStyle;
 	charStyle.setUnderlineOffset(p);
@@ -2042,7 +2039,7 @@ void StoryEditor::newTxtUnderline(int p, int w)
 	Editor->setFocus();
 }
 
-void StoryEditor::newTxtStrike(int p, int w)
+void StoryEditor::newTxtStrike(double p, double w)
 {
 	CharStyle charStyle;
 	charStyle.setStrikethruOffset(p);

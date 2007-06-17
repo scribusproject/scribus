@@ -82,10 +82,10 @@ private:
 	QString SetClipPathArray(FPointArray *ite, bool poly = true);
 	QString SetClipPathImage(PageItem *ite);
 	QString SetClipPath(PageItem *ite, bool poly = true);
-	QString SetFarbeGrad(const QString& farbe, int Shade);
-	QString SetFarbe(const QString& farbe, int Shade);
-	QString SetFarbe(const ScColor& farbe, int Shade);
-	QString putColor(const QString& color, int Shade, bool fill);
+	QString SetFarbeGrad(const QString& farbe, double Shade);
+	QString SetFarbe(const QString& farbe, double Shade);
+	QString SetFarbe(const ScColor& farbe, double Shade);
+	QString putColor(const QString& color, double Shade, bool fill);
 	QString putColorUncached(const QString& color, int Shade, bool fill);
 	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
 	QString PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);

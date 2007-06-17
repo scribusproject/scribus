@@ -45,17 +45,17 @@ public:
 	static void getCMYKValues(const ScColor& color, const ScribusDoc* doc, CMYKColor& cmyk);
 
 	/** \brief get RGB values of a specified shade */
-	static void getShadeColorRGB(const ScColor& color, const ScribusDoc* doc, RGBColor&, int level);
+	static void getShadeColorRGB(const ScColor& color, const ScribusDoc* doc, RGBColor&, double level);
 	
 	/** \brief get CMYK values of a specified shade */
-	static void getShadeColorCMYK(const ScColor& color, const ScribusDoc* doc, CMYKColor& cmyk, int level);
+	static void getShadeColorCMYK(const ScColor& color, const ScribusDoc* doc, CMYKColor& cmyk, double level);
 
 	/** \brief Return a color converted to monitor color space. No soft-proofing is done. */
 	static QColor getDisplayColor(const ScColor& color, const ScribusDoc* doc);
 
 	/** \brief Return a color with the specified shade converted to monitor color space. 
 	* No soft-proofing is done. */
-	static QColor getDisplayColor(const ScColor& color, const ScribusDoc* doc, int level);
+	static QColor getDisplayColor(const ScColor& color, const ScribusDoc* doc, double level);
 
 	/** \brief Return a color converted to monitor color space. No soft-proofing is done
 	* If gamut check is valid, the return value may be an gamut warning . */
@@ -67,11 +67,11 @@ public:
 
 	/** \brief Return a QColor with the specified shade.
 	* If color management is enabled, returned value use the rgb solid colors space. */
-	static QColor getShadeColor(const ScColor& color, const ScribusDoc* doc, int level);
+	static QColor getShadeColor(const ScColor& color, const ScribusDoc* doc, double level);
 
 	/** \brief Return a proofed QColor with the specified shade.
 	* If color management is enabled, returned value use the monitor color space. */
-	static QColor getShadeColorProof(const ScColor& color, const ScribusDoc* doc, int level);
+	static QColor getShadeColorProof(const ScColor& color, const ScribusDoc* doc, double level);
 
 	/** \brief Return a proofed QColor from a rgb color.
 	* If color management is enabled, returned value use the monitor color space. */

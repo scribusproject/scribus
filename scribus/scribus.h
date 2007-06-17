@@ -547,18 +547,18 @@ public slots:
 signals:
 	void TextStyle(const ParagraphStyle&);
 //deprecated: (av)
-	void TextISize(int);
+	void TextISize(double);
 	void TextIFont(const QString&);
-	void TextUSval(int);
+	void TextUSval(double);
 	void TextStil(int);
-	void TextFarben(QString, QString, int, int);
-	void TextScale(int);
-	void TextScaleV(int);
-	void TextBase(int);
-	void TextShadow(int, int);
-	void TextOutline(int);
-	void TextUnderline(int, int);
-	void TextStrike(int, int);
+	void TextFarben(QString, QString, double, double);
+	void TextScale(double);
+	void TextScaleV(double);
+	void TextBase(double);
+	void TextShadow(double, double);
+	void TextOutline(double);
+	void TextUnderline(double, double);
+	void TextStrike(double, double);
 
 protected:
 	/*!
