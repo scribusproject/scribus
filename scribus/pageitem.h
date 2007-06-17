@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3pointarray.h>
 #include <q3ptrlist.h>
 #include <qpixmap.h>
-#include <q3valuestack.h>
+#include <QStack>
 #include <QList>
 //Added by qt3to4:
 #include <QKeyEvent>
@@ -445,10 +445,10 @@ public:
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;
-	Q3ValueStack<int> Groups;
-	const Q3ValueStack<int>& groups() const { return Groups; }
-	Q3ValueStack<int>& groups() { return Groups; }
-	void setGroups( Q3ValueStack<int> val) { Groups = val; }
+	QStack<int> Groups;
+	const QStack<int>& groups() const { return Groups; }
+	QStack<int>& groups() { return Groups; }
+	void setGroups( QStack<int> val) { Groups = val; }
 	
 	bool controlsGroup() const { return isGroupControl; }
 	void setControlsGroup(bool val) { isGroupControl = val; }

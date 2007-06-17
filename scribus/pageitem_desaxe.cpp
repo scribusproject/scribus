@@ -122,7 +122,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	if (item->groups().count() > 0)
 	{
 		QString grouplist = "";
-		Q3ValueStack<int>::const_iterator it;
+		QStack<int>::const_iterator it;
 		for (it = item->groups().begin(); it != item->groups().end(); ++it)
 			grouplist += toXMLString( *it ) + " ";	
 		result.insert("groups", toXMLString(grouplist));
@@ -433,7 +433,7 @@ class AdjustGroupIds_body : public Action_body
 		}
 		else {
 			PageItem* item = this->dig->top<PageItem>();
-			Q3ValueStack<int> groups;
+			QStack<int> groups;
 			for (int i=0; i < item->groups().count(); ++i)
 			{
 				int newGroup = minGroup + item->groups()[i];
@@ -548,7 +548,7 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setControlsGroup, "isGroupControl", &parseBool ));
 	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setGroupsLastItem, "groupsLastItem" ));
-	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,Q3ValueStack<int> >( & PageItem::setGroups, "groups", &parseIntStack ));
+	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QStack<int> >( & PageItem::setGroups, "groups", &parseIntStack ));
 
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,bool>( & PageItem::setIsTableItem, "isTableItem", &parseBool ));
 	ruleset.addRule(itemPrefix, PatchIdRefAttribute<PageItem, PageItem>( & PageItem::setTopLink, "TopLink" ));

@@ -24,10 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qobject.h>
 #include <qwidget.h>
-#include <q3pointarray.h>
-#include <q3ptrlist.h>
 #include <qpixmap.h>
-#include <q3valuestack.h>
 #include <QList>
 
 #include <qstring.h>

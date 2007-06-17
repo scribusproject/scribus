@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "deferredtask.h"
 #include <qstringlist.h>
-#include <q3valuestack.h>
+#include <QStack>
 #include <qdir.h>
 
 class QTimer;
@@ -101,12 +101,12 @@ protected:
 	to the level we're currently searching. We use iterators into the values
 	of this stack to keep the search position.
 	*/
-	Q3ValueStack<QStringList> m_tree;
+	QStack<QStringList> m_tree;
 
 	/*! \brief A matching stack of iterators into the lists in m_tree. We use this stack
 	to iterate directory by directory as we search.
 	*/
-	Q3ValueStack<QStringList::const_iterator> m_iter;
+	QStack<QStringList::const_iterator> m_iter;
 
 	/*! \brief A QDir set to the current directory, used for listing files and
 	directories. */

@@ -1406,7 +1406,7 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("COCOOR", colp);
 	ob->setAttribute("NUMGROUP", static_cast<int>(item->Groups.count()));
 	QString glp = "";
-	Q3ValueStack<int>::Iterator nx;
+	QStack<int>::Iterator nx;
 	for (nx = item->Groups.begin(); nx != item->Groups.end(); ++nx)
 		glp += tmp.setNum((*nx)) + " ";
 	ob->setAttribute("GROUPS", glp);

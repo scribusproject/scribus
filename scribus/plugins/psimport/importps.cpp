@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qregexp.h>
 #include <q3ptrstack.h>
-#include <q3valuestack.h>
+#include <QStack>
 //Added by qt3to4:
 #include <QDrag>
 #include <QMimeData>
@@ -524,9 +524,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	bool fillRuleEvenOdd = true;
 	PageItem* ite;
 	Q3PtrStack<PageItem> groupStack;
-	Q3ValueStack<int> gsStack;
-	Q3ValueStack<uint> elemCount;
-	Q3ValueStack<uint> gsStackMarks;
+	QStack<int>  gsStack;
+	QStack<uint> elemCount;
+	QStack<uint> gsStackMarks;
 	QFile f(fn);
 	lasttoken = "";
 	pagecount = 1;
@@ -629,7 +629,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						m_Doc->AdjustItemSize(ite);
 						if (groupStack.count() != 0)
 						{
-							Q3ValueStack<int> groupOld = groupStack.top()->Groups;
+							QStack<int> groupOld = groupStack.top()->Groups;
 							for (int gg = 0; gg < groupOld.count(); gg++)
 							{
 								ite->Groups.push(groupOld[gg]);
@@ -680,7 +680,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 						if (groupStack.count() != 0)
 						{
-							Q3ValueStack<int> groupOld = groupStack.top()->Groups;
+							QStack<int> groupOld = groupStack.top()->Groups;
 							for (int gg = 0; gg < groupOld.count(); gg++)
 							{
 								ite->Groups.push(groupOld[gg]);
@@ -716,7 +716,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					ite->Groups.push(m_Doc->GroupCounter);
 					if (groupStack.count() != 0)
 					{
-						Q3ValueStack<int> groupOld = groupStack.top()->Groups;
+						QStack<int> groupOld = groupStack.top()->Groups;
 						for (int gg = 0; gg < groupOld.count(); gg++)
 						{
 							ite->Groups.push(groupOld[gg]);

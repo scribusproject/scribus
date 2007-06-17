@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <qglobal.h>
 #include <qmatrix.h>
 #include <QList>
-#include <q3valuestack.h>
+#include <QStack>
 #include <qcolor.h>
 #include <qfont.h>
 #include <qpixmap.h>

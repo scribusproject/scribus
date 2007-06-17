@@ -2,9 +2,9 @@
 #define SAXHELPER_H
 
 #include "desaxe_conf.h"
-#include <qlist.h>
-#include <q3valuestack.h>
-#include <qstringlist.h>
+#include <QList>
+#include <QStack>
+#include <QStringList>
 
 class ScFace;
 class FPointArray;
@@ -35,7 +35,7 @@ bool parseBool(const Xml_string& str);
 QStringList parseStringList(const Xml_string& str);
 QList<double> parseDoubleList(const Xml_string& str);
 QList<int> parseIntList(const Xml_string& str);
-Q3ValueStack<int> parseIntStack(const Xml_string& str);
+QStack<int> parseIntStack(const Xml_string& str);
 
 
 Xml_string mkXMLName(const QString& any);

@@ -174,10 +174,10 @@ QList<int> parseIntList(const Xml_string& str)
 }
 
 
-Q3ValueStack<int> parseIntStack(const Xml_string& str)
+QStack<int> parseIntStack(const Xml_string& str)
 {
 	QStringList strlist = QStringList::split(' ', str);
-	Q3ValueStack<int> result;
+	QStack<int> result;
 	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseInt(*it));
 	return result;

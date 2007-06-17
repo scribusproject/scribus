@@ -1659,8 +1659,8 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 			if (itemToCopy->Groups.count() != 0)
 			{
 				Buffer.Groups.clear();
-				Q3ValueStack<int>::Iterator nx;
-				Q3ValueStack<int> tmpGroup;
+				QStack<int>::Iterator nx;
+				QStack<int> tmpGroup;
 				for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
 				{
 					tmpGroup.push((*nx)+GroupCounter);

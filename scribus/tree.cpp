@@ -1141,7 +1141,7 @@ void Tree::parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroup
 				if (pgItem->isGroupControl)
 					grp->setText(0, pgItem->itemName());
 				else
-				grp->setText(0, tr("Group ")+tmp.setNum(*pgItem->Groups.at(pgItem->Groups.count()-level-1)));
+				grp->setText(0, tr("Group ")+tmp.setNum(pgItem->Groups.at(pgItem->Groups.count()-level-1)));
 				grp->setIcon( 0, groupIcon );
 //				grp->setRenameEnabled(0, true);
 				pgItem->Dirty = true;
@@ -1151,7 +1151,7 @@ void Tree::parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroup
 				{
 					PageItem* pgItem2 = subGroupList->at(ga);
 					if ((static_cast<int>(pgItem2->Groups.count()) > level) && 
-						(*(pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (*pgItem->Groups.at(pgItem->Groups.count()-level-1))) && (pgItem2 != pgItem))
+						((pgItem2->Groups.at(pgItem2->Groups.count()-level-1)) == (pgItem->Groups.at(pgItem->Groups.count()-level-1))) && (pgItem2 != pgItem))
 						subGroup->append(pgItem2);
 				}
 				parseSubGroup(level+1, grp, subGroup, itemType);

@@ -32,11 +32,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <qglobal.h>
 #include <qmatrix.h>
-#include <q3valuestack.h>
 #include <qcolor.h>
 #include <qfont.h>
 #include <qpixmap.h>
 #include <QList>
+#include <QStack>
 #include "scribusapi.h"
 #include "scconfig.h"
 #include "fpoint.h"
@@ -173,7 +173,7 @@ private:
 	QList<double> m_array;
 	double m_offset;
 /* Transformation Stack */
-	Q3ValueStack<QMatrix> m_stack;
+	QStack<QMatrix> m_stack;
 
 /* Some data to describe state of drawing */	
 	bool m_pathIsClosed;
@@ -200,7 +200,7 @@ private:
 
 #ifdef SC_USE_GDIPLUS
 /* GDI+ needed data */
-	Q3ValueStack<int> m_gStates;
+	QStack<int> m_gStates;
 	Gdiplus::Graphics* m_graphics;
 	Gdiplus::GraphicsPath* m_graphicsPath;
 	double m_positionX;

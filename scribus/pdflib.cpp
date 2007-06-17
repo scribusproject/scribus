@@ -2445,7 +2445,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 {
 	Q3PtrStack<PageItem> groupStack;
 	Q3PtrStack<PageItem> groupStackS;
-	Q3ValueStack<QString> groupDataStack;
+	QStack<QString>      groupDataStack;
 	QString tmp;
 	ActPageP = pag;
 	PageItem* ite;

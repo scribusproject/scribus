@@ -68,7 +68,7 @@ QPixmap ScPreview::createPreview(QString data)
 	QString chstr;
 	double CurY, EndX, CurX, wide, rota, wid;
 	QList<ArrowDesc> arrowStyles;
-	Q3ValueStack<int> groupStack;
+	QStack<int> groupStack;
 	arrowStyles = prefsManager->appPrefs.arrowStyles;
 	QDomDocument docu("scridoc");
 	docu.setContent(data);

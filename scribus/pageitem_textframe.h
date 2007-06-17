@@ -25,13 +25,10 @@ for which a new license (GPL+exception) is in place.
 #include <qevent.h>
 #include <qobject.h>
 
-#include <q3pointarray.h>
-#include <q3ptrlist.h>
 #include <qmap.h>
 #include <qpixmap.h>
 #include <qrect.h>
 #include <qstring.h>
-#include <q3valuestack.h>
 #include <qwidget.h>
 //Added by qt3to4:
 #include <QKeyEvent>

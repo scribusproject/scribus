@@ -11,8 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #endif
 
-#include <q3valuestack.h>
 #include <QList>
+#include <QStack>
 #include <q3valuevector.h>
 #include <qstring.h>
 #include <qaction.h>
@@ -138,7 +138,7 @@ struct CopyPasteBuffer
 	int textAlignment;
 	QString IFont;
 	int ISize;
-	Q3ValueStack<int> Groups;
+	QStack<int> Groups;
 	int LayerNr;
 	bool ScaleType;
 	bool AspectRatio;

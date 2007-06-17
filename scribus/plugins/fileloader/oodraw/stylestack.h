@@ -28,9 +28,9 @@ for which a new license (GPL+exception) is in place.
 #define STYLESTACK_H
 
 #include <qdom.h>
-#include <q3valuestack.h>
 #include <qstringlist.h>
 #include <QList>
+#include <QStack>
 
 
 /**
@@ -150,7 +150,7 @@ private:
 	QStringList m_nodeNames;
 
     // For save/restore: stack of "marks". Each mark is an index in m_stack.
-    Q3ValueStack<int> m_marks;
+    QStack<int> m_marks;
 
     // We use QValueList instead of QValueStack because we need access to all styles
     // not only the top one.
