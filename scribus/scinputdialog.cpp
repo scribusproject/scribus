@@ -5,56 +5,56 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scinputdialog.h"
-//#include "scinputdialog.moc"
 
-#include <qvariant.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QLabel>
+#include <QPushButton>
 #include "scrspinbox.h"
+#include "util.h"
 
 
 ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
-	: QDialog( parent, name, modal, fl )
+	: QDialog( parent )
 {
 	if ( !name )
-		setName( "ScInputDialog" );
+		setObjectName( "ScInputDialog" );
+	setModal(modal);
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	setSizeGripEnabled( TRUE );
-	ScInputDialogLayout = new Q3GridLayout( this, 1, 1, 11, 6, "ScInputDialogLayout");
+	ScInputDialogLayout = new QVBoxLayout( this );
+	ScInputDialogLayout->setMargin(10);
+	ScInputDialogLayout->setSpacing(5);
 
-	labelEntryLayout = new Q3HBoxLayout( 0, 0, 6, "labelEntryLayout");
+	labelEntryLayout = new QHBoxLayout;
+	labelEntryLayout->setMargin(0);
+	labelEntryLayout->setSpacing(5);
 
-	entryLabel = new QLabel( this, "entryLabel" );
+	entryLabel = new QLabel( this );
 	labelEntryLayout->addWidget( entryLabel );
 
 	entrySpin = new ScrSpinBox( this, 0 );
 	entrySpin->setMinimumSize( QSize( 0, 10 ) );
 	labelEntryLayout->addWidget( entrySpin );
 
-	buttonLayout = new Q3HBoxLayout(0, 0, 6, "buttonLayout");
+	buttonLayout = new QHBoxLayout;
+	buttonLayout->setMargin(0);
+	buttonLayout->setSpacing(5);
 	QSpacerItem* hspacing = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	buttonLayout->addItem(hspacing);
 
-	buttonOk = new QPushButton( this, "buttonOk" );
+	buttonOk = new QPushButton( this );
 	buttonOk->setAutoDefault( TRUE );
 	buttonOk->setDefault( TRUE );
 	buttonLayout->addWidget( buttonOk );
 
-	buttonCancel = new QPushButton( this, "buttonCancel" );
+	buttonCancel = new QPushButton( this );
 	buttonCancel->setAutoDefault( TRUE );
 	buttonLayout->addWidget( buttonCancel );
 
-	mainLayout = new Q3VBoxLayout(0, 0, 6, "mainLayout");
-	mainLayout->addLayout(labelEntryLayout);
-	mainLayout->addLayout(buttonLayout);
-
-	ScInputDialogLayout->addLayout( mainLayout, 0, 0 );
+	ScInputDialogLayout->addLayout(labelEntryLayout);
+	ScInputDialogLayout->addLayout(buttonLayout);
 	languageChange();
 
 	// signals and slots connections
@@ -64,7 +64,7 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt:
 
 void ScInputDialog::languageChange()
 {
-	setCaption( tr( "Input Dialog" ) );
+	setWindowTitle( tr( "Input Dialog" ) );
 	entryLabel->setText( tr( "InputDialog" ) );
 	buttonOk->setText( tr( "&OK" ) );
 	buttonOk->setAccel( QKeySequence( QString::null ) );
