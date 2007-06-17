@@ -7,15 +7,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef QUERY2_H
 #define QUERY2_H
 
-#include <qdialog.h>
-#include <qlayout.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qcombobox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDialog>
+class QHBoxLayout;
+class QVBoxLayout;
+class QLineEdit;
+class QComboBox;
+class QLabel;
+class QPushButton;
 
 #include "scribusapi.h"
 class ScribusDoc;
@@ -35,10 +33,10 @@ public:
 	QComboBox* Links;
 
 protected:
-	Q3VBoxLayout* QueryLayout;
-	Q3HBoxLayout* Layout3;
-	Q3HBoxLayout* Layout2;
-	Q3HBoxLayout* Layout1;
+	QVBoxLayout* QueryLayout;
+	QHBoxLayout* Layout3;
+	QHBoxLayout* Layout2;
+	QHBoxLayout* Layout1;
 };
 
 #endif // QUERY_H
