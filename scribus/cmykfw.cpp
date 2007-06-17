@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmykfw.h"
 
-#include <q3popupmenu.h>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QGridLayout>

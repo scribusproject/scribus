@@ -65,7 +65,6 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	colorListBox = new ColorListBox( this, "colorListBox" );
 	colorListBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
 	colorListBox->setMinimumSize( QSize( 164, 228 ) );
-//	colorListBox->setColumnMode( Q3ListBox::FixedNumber );
 	layout5->addWidget( colorListBox );
 
 	ColorsGroup = new QGroupBox( this, "ColorsGroup" );
@@ -312,7 +311,7 @@ void ColorManager::loadDefaults(const QString &txt)
 		{
 			QString ColorEn, Cname;
 			int Rval, Gval, Bval, Kval;
-			Q3TextStream tsC(&fiC);
+			QTextStream tsC(&fiC);
 			ColorEn = tsC.readLine();
 			if (ColorEn.startsWith("<?xml version="))
 			{
