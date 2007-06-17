@@ -16,124 +16,126 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>11</number>
-   </property>
-   <property name="spacing" >
-    <number>6</number>
-   </property>
    <item>
-    <layout class="QVBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
-     <property name="spacing" >
-      <number>6</number>
-     </property>
+    <widget class="QTableWidget" name="attributesTable" >
+     <column>
+      <property name="text" >
+       <string>Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Type</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Value</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Parameter</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Relationship</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Relationship To</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
      <item>
-      <widget class="Q3Table" name="attributesTable" >
-       <property name="numRows" >
-        <number>0</number>
+      <widget class="QPushButton" name="addButton" >
+       <property name="text" >
+        <string>&amp;Add</string>
        </property>
-       <property name="numCols" >
-        <number>6</number>
+       <property name="shortcut" >
+        <string>Alt+A</string>
        </property>
       </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" >
-       <property name="margin" >
-        <number>0</number>
+      <widget class="QPushButton" name="copyButton" >
+       <property name="text" >
+        <string>&amp;Copy</string>
        </property>
-       <property name="spacing" >
-        <number>6</number>
+       <property name="shortcut" >
+        <string>Alt+C</string>
        </property>
-       <item>
-        <widget class="QPushButton" name="addButton" >
-         <property name="text" >
-          <string>&amp;Add</string>
-         </property>
-         <property name="shortcut" >
-          <string>Alt+A</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="copyButton" >
-         <property name="text" >
-          <string>&amp;Copy</string>
-         </property>
-         <property name="shortcut" >
-          <string>Alt+C</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="deleteButton" >
-         <property name="text" >
-          <string>&amp;Delete</string>
-         </property>
-         <property name="shortcut" >
-          <string>Alt+D</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="clearButton" >
-         <property name="text" >
-          <string>C&amp;lear</string>
-         </property>
-         <property name="shortcut" >
-          <string>Alt+L</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer>
-         <property name="orientation" >
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeType" >
-          <enum>QSizePolicy::Expanding</enum>
-         </property>
-         <property name="sizeHint" >
-          <size>
-           <width>90</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="okButton" >
-         <property name="text" >
-          <string>&amp;OK</string>
-         </property>
-         <property name="shortcut" >
-          <string/>
-         </property>
-         <property name="autoDefault" >
-          <bool>true</bool>
-         </property>
-         <property name="default" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="cancelButton" >
-         <property name="text" >
-          <string>&amp;Cancel</string>
-         </property>
-         <property name="shortcut" >
-          <string/>
-         </property>
-         <property name="autoDefault" >
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="deleteButton" >
+       <property name="text" >
+        <string>&amp;Delete</string>
+       </property>
+       <property name="shortcut" >
+        <string>Alt+D</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clearButton" >
+       <property name="text" >
+        <string>C&amp;lear</string>
+       </property>
+       <property name="shortcut" >
+        <string>Alt+L</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType" >
+        <enum>QSizePolicy::Expanding</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>90</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="okButton" >
+       <property name="text" >
+        <string>&amp;OK</string>
+       </property>
+       <property name="shortcut" >
+        <string/>
+       </property>
+       <property name="autoDefault" >
+        <bool>true</bool>
+       </property>
+       <property name="default" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancelButton" >
+       <property name="text" >
+        <string>&amp;Cancel</string>
+       </property>
+       <property name="shortcut" >
+        <string/>
+       </property>
+       <property name="autoDefault" >
+        <bool>true</bool>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -141,129 +143,9 @@
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3Table</class>
-   <extends>Q3Frame</extends>
-   <header>q3table.h</header>
-  </customwidget>
- </customwidgets>
  <includes>
   <include location="local" >pagestructs.h</include>
  </includes>
  <resources/>
- <connections>
-  <connection>
-   <sender>cancelButton</sender>
-   <signal>clicked()</signal>
-   <receiver>PageItemAttributes</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>okButton</sender>
-   <signal>clicked()</signal>
-   <receiver>PageItemAttributes</receiver>
-   <slot>okClicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>attributesTable</sender>
-   <signal>valueChanged(int,int)</signal>
-   <receiver>PageItemAttributes</receiver>
-   <slot>tableItemChanged(int,int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>addButton</sender>
-   <signal>clicked()</signal>
-   <receiver>PageItemAttributes</receiver>
-   <slot>addEntry()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>deleteButton</sender>
-   <signal>clicked()</signal>
-   <receiver>PageItemAttributes</receiver>
-   <slot>deleteEntry()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>clearButton</sender>
-   <signal>clicked()</signal>
-   <receiver>PageItemAttributes</receiver>
-   <slot>clearEntries()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>copyButton</sender>
-   <signal>clicked()</signal>
-   <receiver>PageItemAttributes</receiver>
-   <slot>copyEntry()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
