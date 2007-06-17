@@ -63,7 +63,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 	QFile f(pfad);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		Q3TextStream st(&f);
+		QTextStream st(&f);
     	QString line;
     	line = st.readLine();
 		codec = QTextCodec::codecForName(line);
@@ -105,7 +105,7 @@ void Hyphenator::NewDict(const QString& name)
 		QFile f(pfad);
 		if (f.open(QIODevice::ReadOnly))
 		{
-			Q3TextStream st(&f);
+			QTextStream st(&f);
 			QString line;
 			line = st.readLine();
 			codec = QTextCodec::codecForName(line);
