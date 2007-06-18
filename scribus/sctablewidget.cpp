@@ -37,6 +37,7 @@ bool ScTableWidget::eventFilter(QObject *obj, QEvent *event)
 			}
 		}
 	}
+	//emulation of cellChanged event from QTableWidget
 	if (event->type() == QEvent::FocusOut && obj->isWidgetType())
 	{
 		int r=-1, c=-1;
