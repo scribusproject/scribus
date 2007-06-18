@@ -7,52 +7,47 @@ for which a new license (GPL+exception) is in place.
 #ifndef MPALETTE_H
 #define MPALETTE_H
 
-#include <q3buttongroup.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <QFrame>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
-#include <qwidget.h>
-#include <q3widgetstack.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qimage.h>
-#include <qpixmap.h>
 #include <QListWidgetItem>
-#include <qlineedit.h>
-#include <qtimer.h>
-#include <qtoolbox.h>
-#include <QMenu>
-//Added by qt3to4:
-#include <QFocusEvent>
-#include <QCloseEvent>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <QEvent>
-#include <Q3VBoxLayout>
-#include <QToolButton>
+#include <QLineEdit>
+
+class QToolBox;
+class QMenu;
+class QStackedWidget;
+class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
+class QFrame;
+class QLabel;
+class QStackedWidget;
+class QRadioButton;
+class QCheckBox;
+class QComboBox;
+class QGroupBox;
+class QButtonGroup;
+class QPushButton;
+class QSpinBox;
+class QWidget;
+class QFocusEvent;
+class QCloseEvent;
+class QEvent;
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scrspinbox.h"
 #include "pageitem.h"
 #include "page.h"
-class ScribusDoc;
 #include "linkbutton.h"
 #include "linecombo.h"
 #include "spalette.h"
 #include "fontcombo.h"
 #include "colorcombo.h"
-class StyleSelect;
 #include "alignselect.h"
 #include "shadebutton.h"
 #include "sclistboxpixmap.h"
 #include "scguardedptr.h"
 
+class StyleSelect;
+class ScribusDoc;
 class Cpalette;
 class Autoforms;
 class ArrowChooser;
@@ -159,9 +154,16 @@ public:
 	FontComboH* Fonts;
 	ArrowChooser* startArrow;
 	ArrowChooser* endArrow;
-	Q3ButtonGroup* RotationGroup;
-	Q3ButtonGroup* textFlowOptions;
-	Q3ButtonGroup* textFlowOptions2;
+	QButtonGroup* RotationGroup;
+	QRadioButton* TopLeft;
+	QRadioButton* TopRight;
+	QRadioButton* Center;
+	QRadioButton* BottomLeft;
+	QRadioButton* BottomRight;
+	QGroupBox* textFlowOptions;
+	QGroupBox* textFlowOptions2;
+	QButtonGroup* textFlowOptionsB;
+	QButtonGroup* textFlowOptionsB2;
 	
 public slots:
 	void setMainWindow(ScribusMainWindow *mw);
@@ -268,7 +270,7 @@ private slots:
 	void DoFront();
 	void DoBack();
 	void NewRotMode(int m);
-	void DoFlow(int id);
+	void DoFlow();
 	void MakeIrre(int f, int c, double *vals);
 	void EditSh();
 	void EditSh2();
@@ -316,54 +318,52 @@ signals:
 
 protected:
 	ScribusMainWindow *m_ScMW;
-	
-	Q3VBoxLayout* MpalLayout;
-	Q3VBoxLayout* pageLayout;
-	Q3VBoxLayout* pageLayout_2;
-	Q3VBoxLayout* pageLayout_2a;
-	Q3VBoxLayout* pageLayout_2b;
-	Q3VBoxLayout* pageLayout_2c;
-	Q3VBoxLayout* pageLayout_3;
-	Q3VBoxLayout* pageLayout_4;
-	Q3VBoxLayout* pageLayout_5;
-	Q3VBoxLayout* pageLayout_5a;
-	Q3VBoxLayout* pageLayout_5b;
-	Q3VBoxLayout* pageLayout_6;
-	Q3VBoxLayout* OverPLayout;
-	Q3VBoxLayout* TLineLayout;
-	Q3HBoxLayout* layout60;
-	Q3GridLayout* Layout44;
-	Q3HBoxLayout* Layout13;
-	Q3GridLayout* Layout12;
-	Q3HBoxLayout* layout47;
-	Q3VBoxLayout* layout46;
-	Q3GridLayout* layout41;
-	Q3HBoxLayout* Layout1;
-	Q3HBoxLayout* Layout1AL;
-	Q3GridLayout* layout43;
-	Q3VBoxLayout* Layout24;
-	Q3HBoxLayout* Layout18;
-	Q3HBoxLayout* Layout13_2;
-	Q3GridLayout* Layout12_2;
-	Q3HBoxLayout* NameGroupLayout;
-	Q3GridLayout* GeoGroupLayout;
-	Q3GridLayout* LayerGroupLayout;
-	Q3HBoxLayout* RotationGroupLayout;
-	Q3HBoxLayout* ShapeGroupLayout;
-	Q3GridLayout* DistanceLayout;
-	Q3GridLayout* DistanceLayout2;
-	Q3VBoxLayout* DistanceLayout3;
-	Q3GridLayout* GroupBox3aLayout;
-	Q3VBoxLayout* GroupBoxCMLayout;
-	Q3VBoxLayout* textFlowOptionsLayout;
-	Q3VBoxLayout* textFlowOptionsLayout2;
-	Q3HBoxLayout* layout23;
-	Q3HBoxLayout* layout24;
-	Q3VBoxLayout* page_group_layout;
-	Q3HBoxLayout* ShapeGroupLayout2;
-	Q3GridLayout* Layout1t;
-	Q3HBoxLayout* wordTrackingHLayout;
-	Q3HBoxLayout* glyphExtensionHLayout;
+
+	QVBoxLayout* MpalLayout;
+	QVBoxLayout* pageLayout;
+	QVBoxLayout* pageLayout_2;
+	QVBoxLayout* pageLayout_2a;
+	QVBoxLayout* pageLayout_2b;
+	QVBoxLayout* pageLayout_2c;
+	QVBoxLayout* pageLayout_3;
+	QVBoxLayout* pageLayout_4;
+	QVBoxLayout* pageLayout_5;
+	QVBoxLayout* pageLayout_5a;
+	QVBoxLayout* pageLayout_5b;
+	QVBoxLayout* pageLayout_6;
+	QVBoxLayout* OverPLayout;
+	QVBoxLayout* TLineLayout;
+	QHBoxLayout* layout60;
+	QGridLayout* Layout44;
+	QHBoxLayout* Layout13;
+	QGridLayout* Layout12;
+	QHBoxLayout* layout47;
+	QVBoxLayout* layout46;
+	QGridLayout* layout41;
+	QHBoxLayout* Layout1;
+	QHBoxLayout* Layout1AL;
+	QGridLayout* layout43;
+	QVBoxLayout* Layout24;
+	QHBoxLayout* Layout18;
+	QGridLayout* Layout12_2;
+	QHBoxLayout* NameGroupLayout;
+	QGridLayout* GeoGroupLayout;
+	QGridLayout* LayerGroupLayout;
+	QHBoxLayout* ShapeGroupLayout;
+	QGridLayout* DistanceLayout;
+	QGridLayout* DistanceLayout2;
+	QVBoxLayout* DistanceLayout3;
+	QGridLayout* GroupBox3aLayout;
+	QVBoxLayout* GroupBoxCMLayout;
+	QVBoxLayout* textFlowOptionsLayout;
+	QVBoxLayout* textFlowOptionsLayout2;
+	QHBoxLayout* layout23;
+	QHBoxLayout* layout24;
+	QVBoxLayout* page_group_layout;
+	QHBoxLayout* ShapeGroupLayout2;
+	QGridLayout* Layout1t;
+	QHBoxLayout* wordTrackingHLayout;
+	QHBoxLayout* glyphExtensionHLayout;
 	
 	NameWidget* NameEdit;
 	
@@ -457,10 +457,10 @@ protected:
 	double RoVal;
 
 
-	Q3ButtonGroup* ShapeGroup;
-	Q3ButtonGroup* ShapeGroup2;
-	Q3ButtonGroup* Distance3;
-	Q3ButtonGroup* OverP;
+	QGroupBox* ShapeGroup;
+	QGroupBox* ShapeGroup2;
+	QGroupBox* Distance3;
+	QGroupBox* OverP;
 
 	QToolButton* TabsButton;
 
@@ -470,19 +470,19 @@ protected:
 	QToolButton* ZBottom;
 
 	QToolBox* TabStack;
-	Q3WidgetStack* TabStack2;
-	Q3WidgetStack* TabStack3;
+	QStackedWidget* TabStack2;
+	QStackedWidget* TabStack3;
 
 
-	Q3GroupBox* NameGroup;
-	Q3GroupBox* GeoGroup;
-	Q3GroupBox* LayerGroup;
-	Q3GroupBox* Distance;
-	Q3GroupBox* Distance2;
-	Q3GroupBox* GroupBoxCM;
-	Q3GroupBox* TLines;
-	Q3GroupBox* GroupBox3a;
-	Q3GroupBox* TransGroup;
+	QGroupBox* NameGroup;
+	QGroupBox* GeoGroup;
+	QGroupBox* LayerGroup;
+	QGroupBox* Distance;
+	QGroupBox* Distance2;
+	QFrame* GroupBoxCM;
+	QGroupBox* TLines;
+	QGroupBox* GroupBox3a;
+	QGroupBox* TransGroup;
 
 	QToolButton* textFlowDisabled;
 	QToolButton* textFlowUsesFrameShape;
@@ -549,11 +549,6 @@ protected:
 	QSpinBox* DCol;
 	QSpinBox* TransSpin;
 
-	QRadioButton* TopLeft;
-	QRadioButton* TopRight;
-	QRadioButton* Center;
-	QRadioButton* BottomLeft;
-	QRadioButton* BottomRight;
 	QRadioButton* FreeScale;
 	QRadioButton* FrameScale;
 	QRadioButton* EvenOdd;

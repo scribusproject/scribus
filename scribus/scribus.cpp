@@ -3028,7 +3028,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	}
 	doc->CurrentSel = SelectedType;
 	rebuildStyleMenu(SelectedType);
-	propertiesPalette->RotationGroup->setButton(doc->RotMode);
+	propertiesPalette->RotationGroup->button(doc->RotMode)->setChecked(true);
 	if (docSelectionCount > 1)
 	{
 		scrActions["itemConvertToBezierCurve"]->setEnabled(false);
