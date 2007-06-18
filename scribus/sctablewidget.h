@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <QTableWidget>
 #include <QEvent>
 #include <QHash>
+#include <QPair>
+
 
 class ScTableWidget : public QTableWidget
 {

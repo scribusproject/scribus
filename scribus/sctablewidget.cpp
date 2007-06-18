@@ -6,9 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 #include "sctablewidget.h"
 
+//Widgets supported
 #include <QComboBox>
-#include <QMap>
-#include <QPair>
+#include <QCheckBox>
+//Other includes
 
 ScTableWidget::ScTableWidget(QWidget *parent) : QTableWidget(parent)
 {
@@ -38,18 +39,30 @@ bool ScTableWidget::eventFilter(QObject *obj, QEvent *event)
 	}
 	if (event->type() == QEvent::FocusOut && obj->isWidgetType())
 	{
+		int r=-1, c=-1;
 		QComboBox* combobox = qobject_cast<QComboBox*>(obj);
 		if (combobox)
 		{
-			int r=0, c=0;
 			if (widgetPositions.contains(combobox))
 			{
 				r=widgetPositions.value(combobox).first;
 				c=widgetPositions.value(combobox).second;
 			}
-// 			qDebug(QString("- %1 %2 %3").arg(combobox->currentText()).arg(r).arg(c));
-			emit cellChanged(r,c);
 		}
+		else
+			{
+				QCheckBox* checkbox = qobject_cast<QCheckBox*>(obj);
+				if (checkbox)
+				{
+					if (widgetPositions.contains(checkbox))
+					{
+						r=widgetPositions.value(checkbox).first;
+						c=widgetPositions.value(checkbox).second;
+					}
+				}
+			}
+		if (r!=-1 && c!=-1)
+			emit cellChanged(r,c);
 	}
 	return QTableWidget::eventFilter(obj, event);
 }
