@@ -5874,7 +5874,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				cc++;
 		}
 	}
-	m_ScMW->mainWindowProgressBar->setTotalSteps(cc);
+	m_ScMW->mainWindowProgressBar->setTotalSteps((cc > 0) ? cc : 1);
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
