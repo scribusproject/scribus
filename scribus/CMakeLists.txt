@@ -181,6 +181,7 @@ SET(SCRIBUS_MOC_CLASSES
   scribuswin.h
   scrpalettebase.h
   scrspinbox.h
+  sctablewidget.h
   sctoolbar.h
   search.h
   seiten.h
@@ -418,6 +419,7 @@ SET(SCRIBUS_SOURCES
   scmenu.cpp
   scmessagebox.cpp
   sctextstruct.cpp
+  sctablewidget.cpp
   sctoolbar.cpp
   search.cpp
   seiten.cpp

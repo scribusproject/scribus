@@ -8,9 +8,10 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 
 #include <QString>
-#include <QTableWidget>
 #include <QPushButton>
 #include <QComboBox>
+
+#include "sctablewidget.h"
 
 PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
 	: QDialog(parent, name, modal, fl)
@@ -26,7 +27,7 @@ PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool 
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteEntry()));
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearEntries()));
 	connect(copyButton, SIGNAL(clicked()), this, SLOT(copyEntry()));
-
+	connect(attributesTable, SIGNAL(cellClicked(int,int)), this, SLOT(cellClick(int,int)));
 }
 
 PageItemAttributes::~PageItemAttributes()
@@ -54,7 +55,6 @@ ObjAttrVector* PageItemAttributes::getNewAttributes()
 
 void PageItemAttributes::tableItemChanged( int row, int col )
 {
-// 	qDebug(QString("%1 %2").arg(row).arg(col));
 	switch (col)
 	{
 		case 0:
@@ -69,7 +69,6 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 			break;
 		case 2:
 			localAttributes[row].value=attributesTable->item(row, col)->text();
-// 			qDebug(QString("%1").arg(attributesTable->item(row, col)->text()));
 			break;
 		case 3:
 			localAttributes[row].parameter=attributesTable->item(row, col)->text();
@@ -186,8 +185,12 @@ void PageItemAttributes::updateTable()
 		if (listIndex!=-1)
 			item1->setCurrentIndex(listIndex);
 		else
+		{
 			item1->setCurrentIndex(0);
+			item1->setItemText(0,(*it).name);
+		}
 		item1->setEditable(true);
+		
 		attributesTable->setCellWidget(row, i++, item1);
 		//Type
 		QTableWidgetItem *item2 = new QTableWidgetItem((*it).type);
@@ -257,3 +260,8 @@ void PageItemAttributes::okClicked()
 void PageItemAttributes::languageChange()
 {
 }
+
+// void PageItemAttributes::cellClick(int row, int col)
+// {
+// 	qDebug(QString("%1 %2").arg(row).arg(col));
+// }

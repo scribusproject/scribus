@@ -5,8 +5,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
-    <height>151</height>
+    <width>576</width>
+    <height>188</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -17,7 +17,7 @@
   </property>
   <layout class="QVBoxLayout" >
    <item>
-    <widget class="QTableWidget" name="attributesTable" >
+    <widget class="ScTableWidget" name="attributesTable" >
      <column>
       <property name="text" >
        <string>Name</string>
@@ -143,6 +143,13 @@
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>ScTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>sctablewidget.h</header>
+  </customwidget>
+ </customwidgets>
  <includes>
   <include location="local" >pagestructs.h</include>
  </includes>
