@@ -4,20 +4,18 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qlabel.h>
-#include <q3buttongroup.h>
-#include <qcombobox.h>
-#include <qtooltip.h>
-#include <qspinbox.h>
-#include <qstring.h>
-#include <qcheckbox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
-
 #include "tabdocument.h"
-//#include "tabdocument.moc"
+
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QGroupBox>
+#include <QComboBox>
+#include <QSpinBox>
+#include <QCheckBox>
+#include <QString>
+#include <QToolTip>
 
 #include "commonstrings.h"
 #include "prefsmanager.h"
@@ -39,82 +37,91 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	unitRatio = unitGetRatioFromIndex(prefsData->docUnitIndex);
 	int decimals = unitGetPrecisionFromIndex(prefsData->docUnitIndex);
 
-	tabLayout_7 = new Q3HBoxLayout( this, 0, 5, "tabLayout_7");
-	Layout21 = new Q3VBoxLayout( 0, 0, 5, "Layout21");
-	dsLayout4p = new Q3HBoxLayout;
+	tabLayout_7 = new QHBoxLayout( this );
+	tabLayout_7->setSpacing( 5 );
+	tabLayout_7->setMargin( 0 );
+	Layout21 = new QVBoxLayout;
+	Layout21->setSpacing( 5 );
+	Layout21->setMargin( 0 );
+	dsLayout4p = new QHBoxLayout;
 	dsLayout4p->setSpacing( 5 );
 	dsLayout4p->setMargin( 0 );
 	dsLayout4p->setAlignment( Qt::AlignLeft );
 	docLayout = new PageLayouts(this, prefsData->pageSets);
 	dsLayout4p->addWidget( docLayout );
-	dsLayout4pv = new Q3VBoxLayout;
+	dsLayout4pv = new QVBoxLayout;
 	dsLayout4pv->setSpacing( 5 );
 	dsLayout4pv->setMargin( 0 );
 
-	GroupSize = new Q3ButtonGroup( tr( "Page Size" ), this, "GroupSize" );
+	GroupSize = new QGroupBox( tr( "Page Size" ), this );
 	GroupSize->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred));
-	GroupSize->setColumnLayout(0, Qt::Vertical );
-	GroupSize->layout()->setSpacing( 5 );
-	GroupSize->layout()->setMargin( 10 );
-	GroupSizeLayout = new Q3VBoxLayout( GroupSize->layout() );
+	GroupSizeLayout = new QVBoxLayout( GroupSize );
+	GroupSizeLayout->setSpacing( 5 );
+	GroupSizeLayout->setMargin( 10 );
 	GroupSizeLayout->setAlignment( Qt::AlignTop );
-	Layout6 = new Q3GridLayout( 0, 1, 1, 0, 5, "Layout6");
+	Layout6 = new QGridLayout;
+	Layout6->setSpacing( 5 );
+	Layout6->setMargin( 0 );
 
-	pageSizeComboBox = new QComboBox( true, GroupSize, "pageSizeComboBox" );
+	pageSizeComboBox = new QComboBox(GroupSize);
 
 	PageSize *ps=new PageSize(prefsData->pageSize);
-	pageSizeComboBox->insertStringList(ps->sizeTRList());
-	pageSizeComboBox->insertItem( CommonStrings::trCustomPageSize );
+	pageSizeComboBox->addItems(ps->sizeTRList());
+	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
 	pageSizeComboBox->setEditable(false);
 
 	QStringList pageSizes=ps->sizeList();
 	int sizeIndex=pageSizes.findIndex(ps->nameTR());
 	if (sizeIndex!=-1)
-		pageSizeComboBox->setCurrentItem(sizeIndex);
+		pageSizeComboBox->setCurrentIndex(sizeIndex);
 	else
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
-	GZText1 = new QLabel( pageSizeComboBox, tr( "&Size:" ), GroupSize, "GZText1" );
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
+	GZText1 = new QLabel( pageSizeComboBox, tr( "&Size:" ), GroupSize );
 	Layout6->addWidget( GZText1, 0, 0 );
 	Layout6->addWidget( pageSizeComboBox, 0, 1 );
 
-	pageOrientationComboBox = new QComboBox( true, GroupSize, "pageOrientationComboBox" );
-	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
-	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
+	pageOrientationComboBox = new QComboBox(GroupSize);
+	pageOrientationComboBox->addItem( tr( "Portrait" ) );
+	pageOrientationComboBox->addItem( tr( "Landscape" ) );
 	pageOrientationComboBox->setEditable(false);
-	GZText2 = new QLabel( pageOrientationComboBox, tr( "Orie&ntation:" ), GroupSize, "GZText2" );
+	GZText2 = new QLabel( pageOrientationComboBox, tr( "Orie&ntation:" ), GroupSize );
 	Layout6->addWidget( GZText2, 1, 0 );
 	Layout6->addWidget( pageOrientationComboBox, 1, 1 );
-	unitCombo = new QComboBox( true, GroupSize, "unitCombo" );
-	unitCombo->insertStringList(unitGetTextUnitList());
+	unitCombo = new QComboBox( GroupSize );
+	unitCombo->addItems(unitGetTextUnitList());
 	unitCombo->setEditable(false);
-	unitComboText = new QLabel( unitCombo, tr( "Units:" ), GroupSize, "unitComboText" );
+	unitComboText = new QLabel( unitCombo, tr( "Units:" ), GroupSize );
 	Layout6->addWidget( unitComboText, 2, 0 );
 	Layout6->addWidget( unitCombo, 2, 1 );
 	GroupSizeLayout->addLayout( Layout6 );
 
-	Layout5_2 = new Q3HBoxLayout( 0, 0, 6, "Layout5_2");
+	Layout5_2 = new QHBoxLayout;
+	Layout5_2->setSpacing( 5 );
+	Layout5_2->setMargin( 0 );
 
 	pageWidth = new ScrSpinBox( 1, 100000, GroupSize, decimals );
 	pageWidth->setMinimumSize( QSize( 90, 20 ) );
-	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize, "GZText3" );
+	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize );
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
 
 	pageHeight = new ScrSpinBox( 1, 100000, GroupSize, decimals );
 	pageHeight->setMinimumSize( QSize( 90, 20 ) );
-	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize, "GZText4" );
+	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize );
 	Layout5_2->addWidget( GZText4 );
 	Layout5_2->addWidget( pageHeight );
 	GroupSizeLayout->addLayout( Layout5_2 );
 	
-	Q3BoxLayout *sizePagesLayout = new Q3HBoxLayout( 0, 0, 5, "sizePagesLayout");
-	sizePages = new QLabel( tr( "Apply settings to:" ), GroupSize, "sizePages" );
+	QHBoxLayout *sizePagesLayout = new QHBoxLayout;
+	sizePagesLayout->setSpacing( 5 );
+	sizePagesLayout->setMargin( 0 );
+	sizePages = new QLabel( tr( "Apply settings to:" ), GroupSize );
 	sizePagesLayout->addWidget(sizePages);
-	sizeAllPages = new QCheckBox( GroupSize, "sizeAllPages" );
+	sizeAllPages = new QCheckBox( GroupSize );
 	sizeAllPages->setText( tr( "All Document Pages" ) );
 	sizeAllPages->setChecked( false );
 	sizePagesLayout->addWidget(sizeAllPages);
-	sizeAllMasterPages = new QCheckBox( GroupSize, "sizeAllMasterPages" );
+	sizeAllMasterPages = new QCheckBox( GroupSize );
 	sizeAllMasterPages->setText( tr( "All Master Pages" ) );
 	sizeAllMasterPages->setChecked( false );
 	sizePagesLayout->addWidget(sizeAllMasterPages);
@@ -131,32 +138,32 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 
 	dsLayout4p->addLayout( dsLayout4pv );
 	Layout21->addLayout( dsLayout4p );
-	Q3HBoxLayout *asurLayout = new Q3HBoxLayout( 0, 0, 5, "asurLayout");
+	QHBoxLayout *asurLayout = new QHBoxLayout;
+	asurLayout->setSpacing( 5 );
+	asurLayout->setMargin( 0 );
 
-	GroupAS = new Q3GroupBox( tr( "Autosave" ), this, "GroupAS" );
+	GroupAS = new QGroupBox( tr( "Autosave" ), this );
 	GroupAS->setCheckable( true );
-	GroupAS->setColumnLayout(0, Qt::Vertical );
-	GroupAS->layout()->setSpacing( 5 );
-	GroupAS->layout()->setMargin( 10 );
-	GroupASLayout = new Q3HBoxLayout( GroupAS->layout() );
+	GroupASLayout = new QHBoxLayout( GroupAS );
+	GroupASLayout->setSpacing( 5 );
+	GroupASLayout->setMargin( 10 );
 	GroupASLayout->setAlignment( Qt::AlignTop );
-	ASTime = new QSpinBox( GroupAS, "Time" );
+	ASTime = new QSpinBox( GroupAS );
 	ASTime->setMaxValue( 60 );
 	ASTime->setMinValue( 1 );
 	ASTime->setSuffix( " " + tr("min") );
-	ASText = new QLabel( ASTime, tr( "&Interval:" ), GroupAS, "ASText" );
+	ASText = new QLabel( ASTime, tr( "&Interval:" ), GroupAS);
 	GroupASLayout->addWidget( ASText);
 	GroupASLayout->addWidget( ASTime );
 	asurLayout->addWidget(GroupAS);
 
-	urGroup = new Q3GroupBox( tr("Undo/Redo"), this, "urGroup");
+	urGroup = new QGroupBox( tr("Undo/Redo"), this);
 	urGroup->setCheckable(true);
-	urGroup->setColumnLayout(0, Qt::Vertical);
-	urGroup->layout()->setSpacing(5);
-	urGroup->layout()->setMargin(10);
-	Q3GridLayout *urGroupLayout = new Q3GridLayout(urGroup->layout());
+	QGridLayout *urGroupLayout = new QGridLayout(urGroup);
+	urGroupLayout->setSpacing( 5 );
+	urGroupLayout->setMargin( 10 );
 	urGroupLayout->setAlignment(Qt::AlignTop);
-	urSpinBox = new QSpinBox(urGroup, "urSpinBox");
+	urSpinBox = new QSpinBox(urGroup);
 	urSpinBox->setMinValue(0);
 	urSpinBox->setMaxValue(1000);
 	int urSBValue = UndoManager::instance()->getHistoryLength();
@@ -164,7 +171,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 		urSpinBox->setEnabled(false);
 	else
 		urSpinBox->setValue(urSBValue);
-	urLabel = new QLabel(urSpinBox, tr("Action history length"), urGroup, "urLabel");
+	urLabel = new QLabel(urSpinBox, tr("Action history length"), urGroup);
 	urGroupLayout->addWidget(urLabel, 0, 0);
 	urGroupLayout->addWidget(urSpinBox, 0, 1);
 	asurLayout->addWidget(urGroup);
