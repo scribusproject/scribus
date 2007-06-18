@@ -7,31 +7,24 @@ for which a new license (GPL+exception) is in place.
 #ifndef SEARCHREPLACE_H
 #define SEARCHREPLACE_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
-#include <QLabel>
+#include <QDialog>
+class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
+class QCheckBox;
+class QComboBox;
+class QGroupBox;
+class QLineEdit;
+class QPushButton;
+class QLabel;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QCheckBox;
-class QComboBox;
-class Q3GroupBox;
-class QLineEdit;
-class QPushButton;
 class ScrSpinBox;
 class FontCombo;
 class StyleSelect;
 class ShadeButton;
 class PrefsContext;
-class QLabel;
-
 class ColorCombo;
 class ScribusDoc;
 class PageItem;
@@ -48,7 +41,7 @@ public:
 
 	QLabel* SText1;
 	QLabel* RText1;
-	Q3GroupBox* Search;
+	QGroupBox* Search;
 	QCheckBox* SStroke;
 	QCheckBox* SFill;
 	QCheckBox* SStrokeS;
@@ -67,7 +60,7 @@ public:
 	ShadeButton *SFillSVal;
 	ColorCombo* SStrokeVal;
 	ShadeButton *SStrokeSVal;
-	Q3GroupBox* Replace;
+	QGroupBox* Replace;
 	QCheckBox* RStroke;
 	QCheckBox* RStrokeS;
 	QCheckBox* RFill;
@@ -130,12 +123,12 @@ signals:
 	void NewAbs(int);
 
 protected:
-	Q3VBoxLayout* SearchReplaceLayout;
-	Q3HBoxLayout* SelLayout;
-	Q3GridLayout* SearchLayout;
-	Q3GridLayout* ReplaceLayout;
-	Q3HBoxLayout* OptsLayout;
-	Q3HBoxLayout* ButtonsLayout;
+	QVBoxLayout* SearchReplaceLayout;
+	QHBoxLayout* SelLayout;
+	QGridLayout* SearchLayout;
+	QGridLayout* ReplaceLayout;
+	QHBoxLayout* OptsLayout;
+	QHBoxLayout* ButtonsLayout;
 	virtual void readPrefs();
 
 	/// Number of matches found thus far in a search

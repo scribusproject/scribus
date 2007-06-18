@@ -5,26 +5,19 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "search.h"
-//#include "search.moc"
 
-#include <qvariant.h>
-#include <qregexp.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <q3groupbox.h>
-#include <qlineedit.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qmessagebox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <QPixmap>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
 #include <QListView>
+#include <QGroupBox>
+#include <QCheckBox>
+#include <QLineEdit>
+#include <QComboBox>
+#include <QPushButton>
+#include <QLabel>
+#include <QPixmap>
+#include <QMessageBox>
 
 #include "colorlistbox.h"
 #include "commonstrings.h"
@@ -42,75 +35,76 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "text/nlsconfig.h"
 
-
-extern QPixmap loadIcon(QString nam);
-
 SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, bool mode )
-	: QDialog( parent, "SearchReplace", true, 0 ),
+	: QDialog( parent ),
 	matchesFound(0)
 {
-	setCaption( tr( "Search/Replace" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle( tr( "Search/Replace" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	ColorList::Iterator it;
 	Item = ite;
 	Doc = doc;
 	NotFound = false;
 	SMode = mode;
-	SearchReplaceLayout = new Q3VBoxLayout( this, 10, 5, "SearchReplaceLayout");
-	SelLayout = new Q3HBoxLayout( 0, 0, 6, "SelLayout");
-	Search = new Q3GroupBox( this, "Search" );
+	SearchReplaceLayout = new QVBoxLayout( this );
+	SearchReplaceLayout->setMargin(10);
+	SearchReplaceLayout->setSpacing(5);
+	SelLayout = new QHBoxLayout;
+	SelLayout->setMargin(0);
+	SelLayout->setSpacing(5);
+	Search = new QGroupBox( this );
 	Search->setTitle( tr( "Search for:" ) );
-	Search->setColumnLayout(0, Qt::Vertical );
-	Search->layout()->setSpacing( 2 );
-	Search->layout()->setMargin( 5 );
-	SearchLayout = new Q3GridLayout( Search->layout() );
+	SearchLayout = new QGridLayout( Search );
+	SearchLayout->setMargin(5);
+	SearchLayout->setSpacing(2);
 	SearchLayout->setAlignment( Qt::AlignTop );
-	SText = new QCheckBox( Search, "SText" );
+	SText = new QCheckBox( Search );
 	SText->setText( tr( "Text" ) );
 	SearchLayout->addWidget( SText, 0, 0 );
-	SStyle = new QCheckBox( Search, "SStyle" );
+	SStyle = new QCheckBox( Search );
 	SStyle->setText( tr( "Paragraph Style" ) );
 	SearchLayout->addWidget( SStyle, 1, 0 );
-	SFont = new QCheckBox( Search, "SFont" );
+	SFont = new QCheckBox( Search );
 	SFont->setText( tr( "Font" ) );
 	SearchLayout->addWidget( SFont, 2, 0 );
-	SSize = new QCheckBox( Search, "SSize" );
+	SSize = new QCheckBox( Search );
 	SSize->setText( tr( "Font Size" ) );
 	SearchLayout->addWidget( SSize, 3, 0 );
-	SEffect = new QCheckBox( Search, "SEffect" );
+	SEffect = new QCheckBox( Search );
 	SEffect->setText( tr( "Font Effects" ) );
-	SearchLayout->addWidget( SEffect, 4, 0 );
+	SearchLayout->addWidget( SEffect );
 	SFill = new QCheckBox( Search, "SFill" );
 	SFill->setText( tr( "Fill Color" ) );
-	SearchLayout->addWidget( SFill, 5, 0 );
+	SearchLayout->addWidget( SFill );
 	SFillS = new QCheckBox( Search, "SFillS" );
 	SFillS->setText( tr( "Fill Shade" ) );
-	SearchLayout->addWidget( SFillS, 6, 0 );
-	SStroke = new QCheckBox( Search, "SStroke" );
+	SearchLayout->addWidget( SFillS );
+	SStroke = new QCheckBox( Search );
 	SStroke->setText( tr( "Stroke Color" ) );
-	SearchLayout->addWidget( SStroke, 7, 0 );
-	SStrokeS = new QCheckBox( Search, "SStrokeS" );
+	SearchLayout->addWidget( SStroke );
+	SStrokeS = new QCheckBox( Search );
 	SStrokeS->setText( tr( "Stroke Shade" ) );
 	SearchLayout->addWidget( SStrokeS, 8, 0 );
-	STextVal = new QLineEdit( Search, "STextVal" );
+	STextVal = new QLineEdit( Search );
 	STextVal->setEnabled(false);
 	SearchLayout->addWidget( STextVal, 0, 1 );
-	SStyleVal = new QComboBox( true, Search, "SStyleVal" );
+	SStyleVal = new QComboBox( Search );
 	SStyleVal->setEditable(false);
 	QString tmp_sty[] = { tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced")};
 	size_t ar_sty = sizeof(tmp_sty) / sizeof(*tmp_sty);
 	for (uint a = 0; a < ar_sty; ++a)
-		SStyleVal->insertItem(tmp_sty[a]);
+		SStyleVal->addItem(tmp_sty[a]);
 //	if (doc->docParagraphStyles.count() >5)
 	{
 		for (uint x = 0; x < doc->paragraphStyles().count(); ++x)
-			SStyleVal->insertItem(doc->paragraphStyles()[x].name());
+			SStyleVal->addItem(doc->paragraphStyles()[x].name());
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(SStyleVal->view()); Q_ASSERT(tmpView);
 	int tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
-	SStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
+	SStyleVal->setCurrentIndex(findParagraphStyle(doc, doc->currentStyle));
 	SStyleVal->setEnabled(false);
 	SearchLayout->addWidget( SStyleVal, 1, 1 );
 	SFontVal = new FontCombo(Search);
@@ -126,7 +120,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SEffVal->setStyle(0);
 	SEffVal->setEnabled(false);
 	SearchLayout->addWidget( SEffVal, 4, 1, Qt::AlignLeft );
-	SFillVal = new ColorCombo( true, Search, "SFillVal" );
+	SFillVal = new ColorCombo( Search );
 	SFillVal->setEditable(false);
 	SFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	SFillVal->setMinimumWidth(SFillVal->view()->maximumViewportSize().width() + 24);
@@ -136,7 +130,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SFillSVal = new ShadeButton(Search);
 	SFillSVal->setEnabled(false);
 	SearchLayout->addWidget( SFillSVal, 6, 1, Qt::AlignLeft );
-	SStrokeVal = new ColorCombo( true, Search, "SStrokeVal" );
+	SStrokeVal = new ColorCombo( Search );
 	SStrokeVal->setEditable(false);
 	SStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	SStrokeVal->view()->setMinimumWidth(SStrokeVal->view()->maximumViewportSize().width() + 24);
@@ -148,57 +142,56 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SStrokeSVal, 8, 1, Qt::AlignLeft );
 	SelLayout->addWidget( Search );
 
-	Replace = new Q3GroupBox( this, "Replace" );
+	Replace = new QGroupBox( this );
 	Replace->setTitle( tr( "Replace with:" ) );
-	Replace->setColumnLayout(0, Qt::Vertical );
-	Replace->layout()->setSpacing( 2 );
-	Replace->layout()->setMargin( 5 );
-	ReplaceLayout = new Q3GridLayout( Replace->layout() );
+	ReplaceLayout = new QGridLayout( Replace );
+	ReplaceLayout->setSpacing( 2 );
+	ReplaceLayout->setMargin( 5 );
 	ReplaceLayout->setAlignment( Qt::AlignTop );
-	RText = new QCheckBox( Replace, "RText" );
+	RText = new QCheckBox( Replace );
 	RText->setText( tr( "Text" ) );
 	ReplaceLayout->addWidget( RText, 0, 0 );
-	RStyle = new QCheckBox( Replace, "RStyle" );
+	RStyle = new QCheckBox( Replace );
 	RStyle->setText( tr( "Paragraph Style" ) );
 	ReplaceLayout->addWidget( RStyle, 1, 0 );
-	RFont = new QCheckBox( Replace, "RFont" );
+	RFont = new QCheckBox( Replace );
 	RFont->setText( tr( "Font" ) );
 	ReplaceLayout->addWidget( RFont, 2, 0 );
-	RSize = new QCheckBox( Replace, "RSize" );
+	RSize = new QCheckBox( Replace );
 	RSize->setText( tr( "Font Size" ) );
 	ReplaceLayout->addWidget( RSize, 3, 0 );
-	REffect = new QCheckBox( Replace, "REffect" );
+	REffect = new QCheckBox( Replace );
 	REffect->setText( tr( "Font Effects" ) );
 	ReplaceLayout->addWidget( REffect, 4, 0 );
-	RFill = new QCheckBox( Replace, "RFill" );
+	RFill = new QCheckBox( Replace );
 	RFill->setText( tr( "Fill Color" ) );
 	ReplaceLayout->addWidget( RFill, 5, 0 );
-	RFillS = new QCheckBox( Replace, "RFillS" );
+	RFillS = new QCheckBox( Replace );
 	RFillS->setText( tr( "Fill Shade" ) );
 	ReplaceLayout->addWidget( RFillS, 6, 0 );
-	RStroke = new QCheckBox( Replace, "RStroke" );
+	RStroke = new QCheckBox( Replace );
 	RStroke->setText( tr( "Stroke Color" ) );
 	ReplaceLayout->addWidget( RStroke, 7, 0 );
-	RStrokeS = new QCheckBox( Replace, "RStrokeS" );
+	RStrokeS = new QCheckBox( Replace );
 	RStrokeS->setText( tr( "Stroke Shade" ) );
 	ReplaceLayout->addWidget( RStrokeS, 8, 0 );
-	RTextVal = new QLineEdit( Replace, "RTextVal" );
+	RTextVal = new QLineEdit( Replace );
 	RTextVal->setEnabled(false);
 	ReplaceLayout->addWidget( RTextVal, 0, 1 );
-	RStyleVal = new QComboBox( true, Replace, "RStyleVal" );
+	RStyleVal = new QComboBox( Replace );
 	RStyleVal->setEditable(false);
 	for (uint a = 0; a < ar_sty; ++a)
-		RStyleVal->insertItem(tmp_sty[a]);
+		RStyleVal->addItem(tmp_sty[a]);
 //	if (doc->docParagraphStyles.count() > 5)
 	{
-		for (uint x = 5; x < doc->paragraphStyles().count(); ++x)
-			RStyleVal->insertItem(doc->paragraphStyles()[x].name());
+		for (uint x = 0; x < doc->paragraphStyles().count(); ++x)
+			RStyleVal->addItem(doc->paragraphStyles()[x].name());
 	}
 	tmpView = dynamic_cast<QListView*>(RStyleVal->view()); Q_ASSERT(tmpView);
 	tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
 		tmpView->setMinimumWidth(tmpWidth + 24);
-	RStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
+	RStyleVal->setCurrentIndex(findParagraphStyle(doc, doc->currentStyle));
 	RStyleVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStyleVal, 1, 1 );
 	RFontVal = new FontCombo(Replace);
@@ -237,30 +230,34 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SelLayout->addWidget( Replace );
 	SearchReplaceLayout->addLayout( SelLayout );
 
-	OptsLayout = new Q3HBoxLayout( 0, 0, 6, "OptsLayout");
-	Word = new QCheckBox( tr( "&Whole Word" ), this, "Word" );
+	OptsLayout = new QHBoxLayout;
+	OptsLayout->setSpacing( 5 );
+	OptsLayout->setMargin( 0 );
+	Word = new QCheckBox( tr( "&Whole Word" ), this );
 	if (mode)
 		Word->setEnabled(false);
 	OptsLayout->addWidget( Word );
-	CaseIgnore = new QCheckBox( tr( "&Ignore Case" ), this, "CaseIgnore" );
+	CaseIgnore = new QCheckBox( tr( "&Ignore Case" ), this );
 	if (mode)
 		CaseIgnore->setEnabled(false);
 	OptsLayout->addWidget( CaseIgnore );
 	SearchReplaceLayout->addLayout( OptsLayout );
 
-	ButtonsLayout = new Q3HBoxLayout( 0, 0, 4, "ButtonsLayout");
-	DoSearch = new QPushButton( tr( "&Search" ), this, "DoSearch" );
+	ButtonsLayout = new QHBoxLayout;
+	ButtonsLayout->setSpacing( 5 );
+	ButtonsLayout->setMargin( 0 );
+	DoSearch = new QPushButton( tr( "&Search" ), this );
 	DoSearch->setDefault( true );
 	ButtonsLayout->addWidget( DoSearch );
-	DoReplace = new QPushButton( tr( "&Replace" ), this, "DoReplace" );
+	DoReplace = new QPushButton( tr( "&Replace" ), this );
 	DoReplace->setEnabled(false);
 	ButtonsLayout->addWidget( DoReplace );
-	AllReplace = new QPushButton( tr( "Replace &All" ), this, "DoReplace" );
+	AllReplace = new QPushButton( tr( "Replace &All" ), this );
 	AllReplace->setEnabled(false);
 	ButtonsLayout->addWidget( AllReplace );
-	clearButton = new QPushButton( tr("C&lear"), this, "clearButton");
+	clearButton = new QPushButton( tr("C&lear"), this);
 	ButtonsLayout->addWidget(clearButton);
-	Leave = new QPushButton( tr( "&Close" ), this, "Leave" );
+	Leave = new QPushButton( tr( "&Close" ), this );
 	ButtonsLayout->addWidget( Leave );
 	SearchReplaceLayout->addLayout( ButtonsLayout );
 
