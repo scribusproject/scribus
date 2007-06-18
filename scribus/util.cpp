@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <q3textstream.h>
 // #include <qdatastream.h>
 // #include <qregexp.h>
 #include <qdir.h>
@@ -38,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <Q3PointArray>
 #include <QImageReader>
+#include <QTextStream>
 
 // #include <algorithm>
 // #include <cstdlib>
@@ -141,7 +141,7 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 		if ( ferr.open(QIODevice::WriteOnly) )
 		{
 			pEnd = stdErrData.end();
-			Q3TextStream errStream(&ferr);
+			QTextStream errStream(&ferr);
 			for ( pIterator = stdErrData.begin(); pIterator != pEnd; pIterator++ )
 				errStream << *pIterator << endl;
 			ferr.close();
@@ -154,7 +154,7 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 		if ( fout.open(QIODevice::WriteOnly) )
 		{
 			pEnd = stdOutData.end();
-			Q3TextStream outStream(&fout);
+			QTextStream outStream(&fout);
 			for ( pIterator = stdOutData.begin(); pIterator != pEnd; pIterator++ )
 				outStream << *pIterator << endl;
 			fout.close();
@@ -974,7 +974,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		OB->Clip.resize(obj->attribute("NUMCLIP").toUInt());
 		tmp = obj->attribute("CLIPCOOR");
-		Q3TextStream fc(&tmp, QIODevice::ReadOnly);
+		QTextStream fc(&tmp, QIODevice::ReadOnly);
 		for (uint c=0; c<obj->attribute("NUMCLIP").toUInt(); ++c)
 		{
 			fc >> x;
@@ -989,7 +989,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		OB->PoLine.resize(obj->attribute("NUMPO").toUInt());
 		tmp = obj->attribute("POCOOR");
-		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -1004,7 +1004,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		OB->ContourLine.resize(obj->attribute("NUMCO").toUInt());
 		tmp = obj->attribute("COCOOR");
-		Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
 		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
 		{
 			fp >> xf;
@@ -1019,7 +1019,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	{
 		ParagraphStyle::TabRecord tb;
 		tmp = obj->attribute("TABS");
-		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		OB->TabValues.clear();
 		for (int cxv = 0; cxv < obj->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
@@ -1037,7 +1037,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	if ((obj->hasAttribute("NUMDASH")) && (obj->attribute("NUMDASH", "0").toInt() != 0))
 	{
 		tmp = obj->attribute("DASHS");
-		Q3TextStream dgv(&tmp, QIODevice::ReadOnly);
+		QTextStream dgv(&tmp, QIODevice::ReadOnly);
 		OB->DashValues.clear();
 		for (int cxv = 0; cxv < obj->attribute("NUMDASH", "0").toInt(); ++cxv)
 		{
