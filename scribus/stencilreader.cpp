@@ -5,10 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "stencilreader.h"
-#include <q3textstream.h>
-#include <qregexp.h>
-//Added by qt3to4:
+
 #include <QPixmap>
+#include <QRegExp>
 #include "sccolor.h"
 #include "scribus.h"
 #include "splash.h"

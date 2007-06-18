@@ -23,8 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include <qpointer.h>
 #include <qobject.h>
 #include <qmap.h>
-#include <q3valuevector.h>
-//Added by qt3to4:
 #include <QList>
 
 #include "pageitem.h"
