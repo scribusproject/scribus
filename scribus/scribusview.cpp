@@ -2880,15 +2880,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			setObjectUndoMode();
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 			{
-				Q3ButtonGroup *InfoGroup = new Q3ButtonGroup( this, "InfoGroup" );
-				InfoGroup->setFrameShape( Q3ButtonGroup::NoFrame );
-				InfoGroup->setFrameShadow( Q3ButtonGroup::Plain );
-				InfoGroup->setTitle("");
-				InfoGroup->setExclusive( true );
-				InfoGroup->setColumnLayout(0, Qt::Vertical );
-				InfoGroup->layout()->setSpacing( 0 );
-				InfoGroup->layout()->setMargin( 0 );
-				Q3GridLayout *InfoGroupLayout = new Q3GridLayout( InfoGroup->layout() );
+				QFrame *InfoGroup = new QFrame( this );
+				InfoGroup->setFrameShape( QFrame::NoFrame );
+				QGridLayout *InfoGroupLayout = new QGridLayout( InfoGroup );
 				InfoGroupLayout->setAlignment( Qt::AlignTop );
 				InfoGroupLayout->setSpacing( 2 );
 				InfoGroupLayout->setMargin( 0 );
@@ -2914,7 +2908,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					{
 						QFileInfo fi = QFileInfo(currItem->Pfile);
 						InfoT->setText( tr("Picture"));
-						InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
+						InfoGroupLayout->addWidget( InfoT, 0, 0, 1, 2, Qt::AlignHCenter );
 						ParCT->setText( tr("File: "));
 						InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
 						ParC->setText(fi.fileName());
@@ -2957,9 +2951,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					else
 					{
 						InfoT->setText( tr("Picture"));
-						InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
+						InfoGroupLayout->addWidget( InfoT, 0, 0, 1, 2, Qt::AlignHCenter );
 						ParCT->setText( tr("No Image Loaded"));
-						InfoGroupLayout->addMultiCellWidget( ParCT, 1, 1, 0, 1, Qt::AlignHCenter );
+						InfoGroupLayout->addWidget( ParCT, 1, 0, 1, 2, Qt::AlignHCenter );
 						ParC->hide();
 						WordCT->hide();
 						WordC->hide();
@@ -2988,7 +2982,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					}
 					else
 						InfoT->setText( tr("Text on a Path"));
-					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignCenter );
+					InfoGroupLayout->addWidget( InfoT, 0, 0, 1, 2, Qt::AlignCenter );
 					WordAndPara(currItem, &Words, &Parag, &Chara, &WordsN, &ParagN, &CharaN);
 					ParCT->setText( tr("Paragraphs: "));
 					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
@@ -3017,7 +3011,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					InfoGroupLayout->addWidget( CharC, 4, 1 );
 				}
 
-				int row = InfoGroupLayout->numRows(); // <a.l.e>
+				int row = InfoGroupLayout->rowCount(); // <a.l.e>
 
 				PrintCT->setText( tr("Print: "));
 				InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
