@@ -22,7 +22,9 @@ class ScTableWidget : public QTableWidget
 		ScTableWidget ( int rows, int columns, QWidget * parent = 0 );
 		~ScTableWidget ();
 		void setCellWidget ( int row, int column, QWidget * widget );
+#if QT_VERSION  >= 0x040300
 		void removeCellWidget ( int row, int column );
+#endif
 	protected:
 		bool eventFilter(QObject *obj, QEvent *event);
 
