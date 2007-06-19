@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "tabkeyboardshortcutswidget.h"
 
 #include <QComboBox>
+#include <QDataStream>
 #include <QDir>
 #include <QDomDocument>
 #include <QFile>
@@ -38,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QPushButton>
 #include <QRadioButton>
+#include <QTextStream>
 #include <QList>
 #include <QEvent>
 
@@ -149,21 +151,21 @@ void TabKeyboardShortcutsWidget::importKeySet(QString filename)
 	{
 		//import the file into qdomdoc
 		QDomDocument doc( "keymapentries" );
-		QFile file( filename );
-		if ( !file.open( QIODevice::ReadOnly ) )
+		QFile file1( filename );
+		if ( !file1.open( QIODevice::ReadOnly ) )
 			return;
-		Q3TextStream ts(&file);
-		ts.setEncoding(Q3TextStream::UnicodeUTF8);
+		QTextStream ts(&file1);
+		ts.setEncoding(QTextStream::UnicodeUTF8);
 		QString errorMsg;
 		int eline;
 		int ecol;
 		if ( !doc.setContent( ts.read(), &errorMsg, &eline, &ecol )) 
 		{
 			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol).ascii());
-			file.close();
+			file1.close();
 			return;
 		}
-		file.close();
+		file1.close();
 		//load the file now
 		QDomElement docElem = doc.documentElement();
 		if (docElem.tagName()=="shortcutset" && docElem.hasAttribute("name"))
@@ -228,8 +230,8 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 		QFile f(filename);
 		if(!f.open(QIODevice::WriteOnly))
 			return false;
-		Q3TextStream s(&f);
-		s.setEncoding(Q3TextStream::UnicodeUTF8);
+		QDataStream s(&f);
+// 		s.setEncoding(QTextStream::UnicodeUTF8);
 		QString xmltag("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		s.writeRawBytes(xmltag, xmltag.length());
 		QString xmldoc = doc.toString(4);
@@ -337,7 +339,7 @@ void TabKeyboardShortcutsWidget::insertActions()
 	QTreeWidgetItem *currMenuLVI = NULL;
 	QTreeWidgetItem *prevLVI = NULL;
 	QTreeWidgetItem *prevMenuLVI = NULL;
-	for (Q3ValueVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus->begin(); itmenu != defMenus->end(); ++itmenu )
+	for (QVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus->begin(); itmenu != defMenus->end(); ++itmenu )
 	{
 		if (firstMenu)
 		{
