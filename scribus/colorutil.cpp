@@ -132,7 +132,7 @@ QColor getOldColorShade(const QColor& color, int shade)
 QColor getOldColorShade(uchar red, uchar green, uchar blue, int shade)
 {
 	int h, s, v, snew;
-	QColor color(Qt::red, Qt::green, Qt::blue);
+	QColor color(red, green, blue);
 	color.hsv(&h, &s, &v);
 	if (red == green && green == blue)
 	{
