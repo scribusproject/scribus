@@ -192,7 +192,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.framesShown = true;
 	appPrefs.guidesSettings.layerMarkersShown = false;
 	appPrefs.guidesSettings.gridShown = false;
-	appPrefs.guidesSettings.guidesShown = false;
+	appPrefs.guidesSettings.guidesShown = true;
 	appPrefs.guidesSettings.colBordersShown = false;
 	appPrefs.guidesSettings.baseShown = false;
 	appPrefs.guidesSettings.showPic = true;
@@ -211,9 +211,9 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.guideColor = QColor(Qt::darkBlue);
 	appPrefs.guidesSettings.baseColor = QColor(Qt::lightGray);
 	appPrefs.typographicSettings.valueSuperScript = 33;
-	appPrefs.typographicSettings.scalingSuperScript = 100;
+	appPrefs.typographicSettings.scalingSuperScript = 66;
 	appPrefs.typographicSettings.valueSubScript = 33;
-	appPrefs.typographicSettings.scalingSubScript = 100;
+	appPrefs.typographicSettings.scalingSubScript = 66;
 	appPrefs.typographicSettings.valueSmallCaps = 75;
 	appPrefs.typographicSettings.autoLineSpacing = 20;
 	appPrefs.typographicSettings.valueUnderlinePos = -1;
@@ -1834,7 +1834,7 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkPictures = static_cast<bool>(dc.attribute("checkPictures", "1").toInt());
 			checkerSettings.checkResolution = static_cast<bool>(dc.attribute("checkResolution", "1").toInt());
 			checkerSettings.checkTransparency = static_cast<bool>(dc.attribute("checkTransparency", "1").toInt());
-			checkerSettings.minResolution = dc.attribute("minResolution", "72").toDouble();
+			checkerSettings.minResolution = dc.attribute("minResolution", "144").toDouble();
 			checkerSettings.maxResolution = dc.attribute("maxResolution", "4800").toDouble();
 			checkerSettings.checkAnnotations = static_cast<bool>(dc.attribute("checkAnnotations", "0").toInt());
 			checkerSettings.checkRasterPDF = static_cast<bool>(dc.attribute("checkRasterPDF", "1").toInt());
@@ -2092,7 +2092,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkRasterPDF = true;
 		checkerSettings.checkForGIF = true;
 		checkerSettings.ignoreOffLayers = false;
-		checkerSettings.minResolution = 72.0;
+		checkerSettings.minResolution = 144.0;
 		checkerSettings.maxResolution = 2400.0;
 		//TODO Stop translating these into settings!!!!!!!!!
 		cp->insert( QT_TR_NOOP("PostScript"), checkerSettings);
