@@ -69,7 +69,9 @@ bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, cons
 		if(progressBarTitles.contains(barName))
 			continue;
 		progressBarTitles.append(barName);
-		progressBars.insert(barName, new ScProgressBar(barsNumerical[i], this, barName));
+		progressBars.insert(barName, new QProgressBar(this));
+		if (barsNumerical[i])
+			progressBars[barName]->setFormat(tr("%v of %m"));
 		progressLabels.insert(barName, new QLabel(barsTexts[i], this, barName));
 		gridLayout->addWidget(progressLabels[barName], gridLayoutRow, 0);
 		gridLayout->addWidget(progressBars[barName], gridLayoutRow, 1);
@@ -92,7 +94,7 @@ bool MultiProgressDialog::setTotalSteps(const QString &barName, int totalSteps)
 {
 	if (progressBars.contains(barName))
 	{
-		progressBars[barName]->setTotalSteps(totalSteps);
+		progressBars[barName]->setMaximum(totalSteps);
 		return true;
 	}
 	return false;
@@ -102,7 +104,7 @@ bool MultiProgressDialog::setProgress(const QString &barName, int progress)
 {
 	if (progressBars.contains(barName))
 	{
-		progressBars[barName]->setProgress(progress);
+		progressBars[barName]->setValue(progress);
 		return true;
 	}
 	return false;
@@ -112,7 +114,8 @@ bool MultiProgressDialog::setProgress(const QString &barName, int progress, int 
 {
 	if (progressBars.contains(barName))
 	{
-		progressBars[barName]->setProgress(progress, totalSteps);
+		progressBars[barName]->setMaximum(totalSteps);
+		progressBars[barName]->setValue(progress);
 		return true;
 	}
 	return false;
@@ -126,7 +129,8 @@ bool MultiProgressDialog::setupBar(const QString &barName, const QString & barTe
 		return false;
 	if (progressBars.contains(barName))
 	{
-		progressBars[barName]->setProgress(progress, totalSteps);
+		progressBars[barName]->setMaximum(totalSteps);
+		progressBars[barName]->setValue(progress);
 		return true;
 	}
 	return false;

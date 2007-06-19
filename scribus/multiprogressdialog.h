@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "ui_multiprogressdialog.h"
 
-#include "scprogressbar.h"
+#include <QProgressBar>
 #include <QDialog>
 #include <QLabel>
 #include <QLayout>
@@ -142,7 +142,7 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 
 	protected:
 		QStringList progressBarTitles;
-		QMap<QString, ScProgressBar*> progressBars;
+		QMap<QString, QProgressBar*> progressBars;
 		QMap<QString, QLabel*> progressLabels;
 
 	private slots:

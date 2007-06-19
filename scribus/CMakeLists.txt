@@ -169,7 +169,6 @@ SET(SCRIBUS_MOC_CLASSES
   scmessagebox.h
   scgtplugin.h
   scplugin.h
-  scprogressbar.h
   scraction.h
   scrap.h
   scribus.h
@@ -404,7 +403,6 @@ SET(SCRIBUS_SOURCES
   scpattern.cpp
   scplugin.cpp
   scpreview.cpp
-  scprogressbar.cpp
   scraction.cpp
   scrap.cpp
   scribus.cpp

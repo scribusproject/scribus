@@ -22,18 +22,18 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
  
 #include "scprogressbar.h"
-//#include "scprogressbar.moc"
 
-ScProgressBar::ScProgressBar( bool showNumbers, QWidget *parent, const char *name, Qt::WFlags f ) :
-	Q3ProgressBar( parent, name, f ),
+ScProgressBar::ScProgressBar(bool showNumbers, QWidget *parent) :
+	QProgressBar(parent),
 	m_useNumeric(showNumbers)
 {
 }
 
-ScProgressBar::ScProgressBar( bool showNumbers, int totalSteps, QWidget* parent, const char* name, Qt::WFlags f ) :
-	Q3ProgressBar( totalSteps, parent, name, f ),
+ScProgressBar::ScProgressBar(bool showNumbers, int totalSteps, QWidget* parent) :
+	QProgressBar(parent),
 	m_useNumeric(showNumbers)
 {
+	setMaximum(totalSteps);
 }
 
 
@@ -41,7 +41,7 @@ ScProgressBar::~ScProgressBar()
 {
 }
 
-bool ScProgressBar::setIndicator( QString & indicator, int progress, int totalSteps )
+bool ScProgressBar::setIndicator(QString & indicator, int progress, int totalSteps)
 {
 	if ( !totalSteps )
 		return FALSE;
@@ -50,7 +50,7 @@ bool ScProgressBar::setIndicator( QString & indicator, int progress, int totalSt
 		return TRUE;
 	} else {
 		if (!m_useNumeric)
-			return Q3ProgressBar::setIndicator(indicator, progress, totalSteps);
+			return QProgressBar::setIndicator(indicator, progress, totalSteps);
 		else
 		{
 			indicator = tr("%1 of %2").arg(progress).arg(totalSteps);
