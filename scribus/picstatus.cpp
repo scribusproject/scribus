@@ -20,21 +20,19 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <q3table.h>
-#include <qfileinfo.h>
-#include <qmessagebox.h>
-#include <qtoolbutton.h>
-#include <qstringlist.h>
-#include <q3textstream.h>
-#include <qtooltip.h>
-#include <qcursor.h>
-#include <qpainter.h>
-//Added by qt3to4:
+#include "picstatus.h"
+
+#include <QListWidget>
+#include <QPushButton>
+#include <QToolButton>
+#include <QLabel>
+#include <QCheckBox>
+#include <QMessageBox>
 #include <QPixmap>
+#include <QFileInfo>
+#include <QPainter>
 #include <cstdio>
 
-#include "picstatus.h"
-//#include "picstatus.moc"
 #include "picsearch.h"
 #include "picsearchoptions.h"
 #include "scribusdoc.h"
@@ -47,23 +45,24 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-PicItem::PicItem(Q3IconView* parent, QString text, QPixmap pix, PageItem* pgItem)
-	: Q3IconViewItem(parent, text, pix)
+PicItem::PicItem(QListWidget* parent, QString text, QPixmap pix, PageItem* pgItem)
+	: QListWidgetItem(pix, text, parent)
 {
 	PageItemObject = pgItem;
 }
 
-PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu)
-	: QDialog( parent, "PicStatus", true, 0 )
+PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 {
 	setupUi(this);
+	setModal(true);
+	imageViewArea->setIconSize(QSize(128, 128));
 	m_Doc = docu;
 	currItem = NULL;
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	fillTable();
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-	connect(imageViewArea, SIGNAL(currentChanged(Q3IconViewItem *)), this, SLOT(imageSelected(Q3IconViewItem *)));
-	connect(imageViewArea, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(imageSelected(Q3IconViewItem*)));
+//	connect(imageViewArea, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), this, SLOT(imageSelected(QListWidgetItem *)));
+	connect(imageViewArea, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(imageSelected(QListWidgetItem*)));
 	connect(isPrinting, SIGNAL(clicked()), this, SLOT(PrintPic()));
 	connect(isVisibleCheck, SIGNAL(clicked()), this, SLOT(visiblePic()));
 	connect(goPageButton, SIGNAL(clicked()), this, SLOT(GotoPic()));
@@ -80,7 +79,7 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	QPixmap pm(128, 128);
 	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
 	p.begin(&pm);
-	p.fillRect(0, 0, 128, 128, imageViewArea->paletteBackgroundColor());
+	p.fillRect(0, 0, 128, 128, imageViewArea->palette().window());
 	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	p.setBrush(paletteBackgroundColor());
 	p.drawRoundRect(0, 0, 127, 127, 10, 10);
@@ -109,32 +108,24 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 void PicStatus::fillTable()
 {
 	PageItem *item;
-	QPixmap pm(128, 128);
-	QPainter p;
 	imageViewArea->clear();
 	for (int it = 0; it < m_Doc->MasterItems.count(); ++it)
 	{
 		item = m_Doc->MasterItems.at(it);
 		QFileInfo fi = QFileInfo(item->Pfile);
 		if (item->itemType() == PageItem::ImageFrame)
-		{
-			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
-			ite->setDragEnabled(false);
-		}
+			new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
 	}
 	for (int it = 0; it < m_Doc->Items->count(); ++it)
 	{
 		item = m_Doc->Items->at(it);
 		QFileInfo fi = QFileInfo(item->Pfile);
 		if (item->itemType() == PageItem::ImageFrame)
-		{
-			PicItem *ite =  new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
-			ite->setDragEnabled(false);
-		}
+			new PicItem(imageViewArea, fi.fileName(), createImgIcon(item), item);
 	}
 }
 
-void PicStatus::imageSelected(Q3IconViewItem *ite)
+void PicStatus::imageSelected(QListWidgetItem *ite)
 {
 	if (ite != NULL)
 	{
@@ -323,7 +314,7 @@ void PicStatus::SearchPic()
 				refreshItem(currItem);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				imageViewArea->currentItem()->setText(fi.fileName());
-				imageViewArea->currentItem()->setPixmap(createImgIcon(currItem));
+				imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
 				imageSelected(imageViewArea->currentItem());
 			}
 			delete dia2;
@@ -342,7 +333,7 @@ void PicStatus::doImageEffects()
 			currItem->effectsInUse = dia->effectsList;
 			loadPict(currItem->Pfile);
 			refreshItem(currItem);
-			imageViewArea->currentItem()->setPixmap(createImgIcon(currItem));
+			imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
 		}
 		delete dia;
 	}
@@ -356,7 +347,7 @@ void PicStatus::doImageExtProp()
 		dia->exec();
 		loadPict(currItem->Pfile);
 		refreshItem(currItem);
-		imageViewArea->currentItem()->setPixmap(createImgIcon(currItem));
+		imageViewArea->currentItem()->setIcon(createImgIcon(currItem));
 		delete dia;
 	}
 }

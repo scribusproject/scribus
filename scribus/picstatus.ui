@@ -1,12 +1,15 @@
 <ui version="4.0" >
  <class>PicStatus</class>
  <widget class="QDialog" name="PicStatus" >
+  <property name="windowModality" >
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry" >
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>650</width>
-    <height>462</height>
+    <width>697</width>
+    <height>439</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -20,21 +23,36 @@
     <number>5</number>
    </property>
    <item>
-    <widget class="Q3IconView" name="imageViewArea" >
+    <widget class="QListWidget" name="imageViewArea" >
      <property name="minimumSize" >
       <size>
-       <width>550</width>
-       <height>170</height>
+       <width>0</width>
+       <height>150</height>
       </size>
      </property>
-     <property name="acceptDrops" >
-      <bool>false</bool>
+     <property name="dragDropMode" >
+      <enum>QAbstractItemView::NoDragDrop</enum>
      </property>
-     <property name="maxItemWidth" >
-      <number>130</number>
+     <property name="movement" >
+      <enum>QListView::Static</enum>
      </property>
-     <property name="itemsMovable" >
-      <bool>false</bool>
+     <property name="flow" >
+      <enum>QListView::LeftToRight</enum>
+     </property>
+     <property name="isWrapping" stdset="0" >
+      <bool>true</bool>
+     </property>
+     <property name="resizeMode" >
+      <enum>QListView::Adjust</enum>
+     </property>
+     <property name="spacing" >
+      <number>5</number>
+     </property>
+     <property name="viewMode" >
+      <enum>QListView::IconMode</enum>
+     </property>
+     <property name="wordWrap" >
+      <bool>true</bool>
      </property>
     </widget>
    </item>
@@ -47,6 +65,9 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="currentIndex" >
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tabInfo" >
       <attribute name="title" >
@@ -67,6 +88,33 @@
          <property name="spacing" >
           <number>5</number>
          </property>
+         <item row="1" column="1" >
+          <widget class="QLabel" name="displayPath" >
+           <property name="sizePolicy" >
+            <sizepolicy>
+             <hsizetype>7</hsizetype>
+             <vsizetype>5</vsizetype>
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize" >
+            <size>
+             <width>220</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text" >
+            <string/>
+           </property>
+           <property name="alignment" >
+            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+           </property>
+           <property name="wordWrap" >
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
          <item row="1" column="0" >
           <widget class="QLabel" name="textLabel3" >
            <property name="sizePolicy" >
@@ -131,33 +179,6 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="1" >
-          <widget class="QLabel" name="displayPath" >
-           <property name="sizePolicy" >
-            <sizepolicy>
-             <hsizetype>7</hsizetype>
-             <vsizetype>5</vsizetype>
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize" >
-            <size>
-             <width>220</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text" >
-            <string/>
-           </property>
-           <property name="alignment" >
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-           <property name="wordWrap" >
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="0" >
           <widget class="QLabel" name="textLabel1" >
            <property name="sizePolicy" >
@@ -193,12 +214,9 @@
           <number>5</number>
          </property>
          <item>
-          <widget class="Q3GroupBox" name="groupImage" >
+          <widget class="QGroupBox" name="groupImage" >
            <property name="title" >
             <string>Image</string>
-           </property>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
            </property>
            <layout class="QGridLayout" >
             <property name="margin" >
@@ -207,47 +225,8 @@
             <property name="spacing" >
              <number>5</number>
             </property>
-            <item row="2" column="0" >
-             <widget class="QLabel" name="textLabel1_2" >
-              <property name="text" >
-               <string>DPI:</string>
-              </property>
-              <property name="alignment" >
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="0" >
-             <widget class="QLabel" name="textLabel6" >
-              <property name="text" >
-               <string>Format:</string>
-              </property>
-              <property name="alignment" >
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" >
-             <widget class="QLabel" name="textLabel5_2" >
-              <property name="text" >
-               <string>Colorspace:</string>
-              </property>
-              <property name="alignment" >
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1" >
-             <widget class="QLabel" name="displayFormat" >
+            <item row="1" column="1" >
+             <widget class="QLabel" name="displayColorspace" >
               <property name="minimumSize" >
                <size>
                 <width>70</width>
@@ -278,8 +257,8 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1" >
-             <widget class="QLabel" name="displayColorspace" >
+            <item row="0" column="1" >
+             <widget class="QLabel" name="displayFormat" >
               <property name="minimumSize" >
                <size>
                 <width>70</width>
@@ -294,16 +273,52 @@
               </property>
              </widget>
             </item>
+            <item row="1" column="0" >
+             <widget class="QLabel" name="textLabel5_2" >
+              <property name="text" >
+               <string>Colorspace:</string>
+              </property>
+              <property name="alignment" >
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" >
+             <widget class="QLabel" name="textLabel6" >
+              <property name="text" >
+               <string>Format:</string>
+              </property>
+              <property name="alignment" >
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <widget class="QLabel" name="textLabel1_2" >
+              <property name="text" >
+               <string>DPI:</string>
+              </property>
+              <property name="alignment" >
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>
          <item>
-          <widget class="Q3GroupBox" name="groupSize" >
+          <widget class="QGroupBox" name="groupSize" >
            <property name="title" >
             <string>Size</string>
-           </property>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
            </property>
            <layout class="QGridLayout" >
             <property name="margin" >
@@ -312,28 +327,24 @@
             <property name="spacing" >
              <number>5</number>
             </property>
-            <item row="0" column="0" >
-             <widget class="QLabel" name="textLabel9" >
+            <item row="2" column="1" >
+             <widget class="QLabel" name="displayPrintSize" >
+              <property name="minimumSize" >
+               <size>
+                <width>120</width>
+                <height>0</height>
+               </size>
+              </property>
               <property name="text" >
-               <string>Pixels:</string>
+               <string/>
               </property>
               <property name="wordWrap" >
                <bool>false</bool>
               </property>
              </widget>
             </item>
-            <item row="1" column="0" >
-             <widget class="QLabel" name="textLabel10" >
-              <property name="text" >
-               <string>Scale:</string>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1" >
-             <widget class="QLabel" name="displaySizePixel" >
+            <item row="1" column="1" >
+             <widget class="QLabel" name="displayScale" >
               <property name="minimumSize" >
                <size>
                 <width>120</width>
@@ -358,8 +369,8 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="1" >
-             <widget class="QLabel" name="displayScale" >
+            <item row="0" column="1" >
+             <widget class="QLabel" name="displaySizePixel" >
               <property name="minimumSize" >
                <size>
                 <width>120</width>
@@ -374,16 +385,20 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1" >
-             <widget class="QLabel" name="displayPrintSize" >
-              <property name="minimumSize" >
-               <size>
-                <width>120</width>
-                <height>0</height>
-               </size>
-              </property>
+            <item row="1" column="0" >
+             <widget class="QLabel" name="textLabel10" >
               <property name="text" >
-               <string/>
+               <string>Scale:</string>
+              </property>
+              <property name="wordWrap" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" >
+             <widget class="QLabel" name="textLabel9" >
+              <property name="text" >
+               <string>Pixels:</string>
               </property>
               <property name="wordWrap" >
                <bool>false</bool>
@@ -394,12 +409,9 @@
           </widget>
          </item>
          <item>
-          <widget class="Q3GroupBox" name="groupLayout" >
+          <widget class="QGroupBox" name="groupLayout" >
            <property name="title" >
             <string>Layout</string>
-           </property>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
            </property>
            <layout class="QGridLayout" >
             <property name="margin" >
@@ -408,67 +420,8 @@
             <property name="spacing" >
              <number>5</number>
             </property>
-            <item row="0" column="0" >
-             <widget class="QLabel" name="textLabel5" >
-              <property name="text" >
-               <string>On Page:</string>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2" >
-             <widget class="QPushButton" name="goPageButton" >
-              <property name="text" >
-               <string>Goto</string>
-              </property>
-              <property name="autoDefault" >
-               <bool>false</bool>
-              </property>
-              <property name="flat" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0" >
-             <widget class="QLabel" name="textLabel2" >
-              <property name="text" >
-               <string>eff. DPI:</string>
-              </property>
-              <property name="alignment" >
-               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" >
-             <widget class="QLabel" name="textLabel1_3" >
-              <property name="text" >
-               <string>Object:</string>
-              </property>
-              <property name="wordWrap" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2" >
-             <widget class="QPushButton" name="selectButton" >
-              <property name="text" >
-               <string>Select</string>
-              </property>
-              <property name="autoDefault" >
-               <bool>false</bool>
-              </property>
-              <property name="flat" >
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1" >
-             <widget class="QLabel" name="displayPage" >
+            <item row="2" column="1" >
+             <widget class="QLabel" name="displayEffDPI" >
               <property name="minimumSize" >
                <size>
                 <width>70</width>
@@ -499,8 +452,8 @@
               </property>
              </widget>
             </item>
-            <item row="2" column="1" >
-             <widget class="QLabel" name="displayEffDPI" >
+            <item row="0" column="1" >
+             <widget class="QLabel" name="displayPage" >
               <property name="minimumSize" >
                <size>
                 <width>70</width>
@@ -509,6 +462,65 @@
               </property>
               <property name="text" >
                <string/>
+              </property>
+              <property name="wordWrap" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2" >
+             <widget class="QPushButton" name="selectButton" >
+              <property name="text" >
+               <string>Select</string>
+              </property>
+              <property name="autoDefault" >
+               <bool>false</bool>
+              </property>
+              <property name="flat" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" >
+             <widget class="QLabel" name="textLabel1_3" >
+              <property name="text" >
+               <string>Object:</string>
+              </property>
+              <property name="wordWrap" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" >
+             <widget class="QLabel" name="textLabel2" >
+              <property name="text" >
+               <string>eff. DPI:</string>
+              </property>
+              <property name="alignment" >
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+              </property>
+              <property name="wordWrap" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2" >
+             <widget class="QPushButton" name="goPageButton" >
+              <property name="text" >
+               <string>Goto</string>
+              </property>
+              <property name="autoDefault" >
+               <bool>false</bool>
+              </property>
+              <property name="flat" >
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0" >
+             <widget class="QLabel" name="textLabel5" >
+              <property name="text" >
+               <string>On Page:</string>
               </property>
               <property name="wordWrap" >
                <bool>false</bool>
@@ -526,62 +538,52 @@
       <attribute name="title" >
        <string>Image Tools</string>
       </attribute>
-      <layout class="QVBoxLayout" >
+      <layout class="QGridLayout" >
        <property name="margin" >
         <number>10</number>
        </property>
        <property name="spacing" >
         <number>5</number>
        </property>
-       <item>
-        <layout class="QGridLayout" >
-         <property name="margin" >
-          <number>0</number>
+       <item row="0" column="0" >
+        <widget class="QCheckBox" name="isPrinting" >
+         <property name="text" >
+          <string>Print Image</string>
          </property>
-         <property name="spacing" >
-          <number>5</number>
-         </property>
-         <item row="1" column="1" >
-          <widget class="QPushButton" name="buttonLayers" >
-           <property name="text" >
-            <string>Layers &amp;&amp; Paths...</string>
-           </property>
-           <property name="shortcut" >
-            <string/>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0" >
-          <widget class="QCheckBox" name="isVisibleCheck" >
-           <property name="text" >
-            <string>Image Visible</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2" >
-          <widget class="QPushButton" name="effectsButton" >
-           <property name="text" >
-            <string>Image Effects...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1" >
-          <widget class="QPushButton" name="buttonEdit" >
-           <property name="text" >
-            <string>Edit Image...</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" >
-          <widget class="QCheckBox" name="isPrinting" >
-           <property name="text" >
-            <string>Print Image</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        </widget>
        </item>
-       <item>
+       <item row="1" column="1" >
+        <widget class="QPushButton" name="buttonLayers" >
+         <property name="text" >
+          <string>Layers &amp;&amp; Paths...</string>
+         </property>
+         <property name="shortcut" >
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" >
+        <widget class="QPushButton" name="buttonEdit" >
+         <property name="text" >
+          <string>Edit Image...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" >
+        <widget class="QCheckBox" name="isVisibleCheck" >
+         <property name="text" >
+          <string>Image Visible</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2" >
+        <widget class="QPushButton" name="effectsButton" >
+         <property name="text" >
+          <string>Image Effects...</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" >
         <spacer>
          <property name="orientation" >
           <enum>Qt::Vertical</enum>
@@ -607,7 +609,7 @@
       <number>0</number>
      </property>
      <property name="spacing" >
-      <number>0</number>
+      <number>5</number>
      </property>
      <item>
       <spacer>
@@ -639,21 +641,8 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
+ <layoutdefault spacing="5" margin="10" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Q3IconView</class>
-   <extends>Q3Frame</extends>
-   <header>q3iconview.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
