@@ -5,21 +5,19 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "arrowchooser.h"
+#include <QPixmap>
+#include <QImage>
 #include "fpointarray.h"
-#include <qpixmap.h>
-#include <q3listbox.h>
-#include <QList>
-#include <QListView>
 #include "scpainter.h"
-#include <qimage.h>
 #include "util.h"
 #include "commonstrings.h"
 
-ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(true, pa)
+ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(pa)
 {
 	setEditable(false);
 	clear();
-	insertItem(CommonStrings::tr_None);
+	setIconSize(QSize(22, 22));
+	addItem(CommonStrings::tr_None);
 	arrowDirection = direction;
 }
 
@@ -28,7 +26,7 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 	clear();
 	FPointArray Path;
 	Path.resize(0);
-	insertItem(CommonStrings::tr_None);
+	addItem(CommonStrings::tr_None);
 	for (int a = 0; a < arrowStyles->count(); ++a)
 	{
 		QImage image(22, 22, QImage::Format_ARGB32);
@@ -72,6 +70,6 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
     	}
     	QPixmap Ico;
 		Ico.convertFromImage(image);
-		insertItem(Ico, arrowStyles->at(a).name);
+		addItem(Ico, arrowStyles->at(a).name);
 	}
 }
