@@ -25,24 +25,20 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 #include "tabkeyboardshortcutswidget.h"
 
-#include <qcombobox.h>
-#include <qdir.h>
-#include <qdom.h>
-#include <qfile.h>
-#include <qfileinfo.h>
-#include <q3filedialog.h>
-#include <qinputdialog.h>
-#include <qkeysequence.h>
-#include <qlabel.h>
-#include <q3listview.h>
-#include <qmessagebox.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qstring.h>
-#include <qstringlist.h>
-//Added by qt3to4:
-#include <QKeyEvent>
-#include <Q3PtrList>
+#include <QComboBox>
+#include <QDir>
+#include <QDomDocument>
+#include <QFile>
+#include <QFileInfo>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QKeySequence>
+#include <QLabel>
+#include <QListWidget>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QList>
 #include <QEvent>
 
 #include "actionmanager.h"
@@ -132,7 +128,7 @@ void TabKeyboardShortcutsWidget::importKeySetFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath = dirs->get("keymapprefs_import", ".");
-	QString s = Q3FileDialog::getOpenFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "load open file dialog", "Choose a file to open" );
+	QString s = QFileDialog::getOpenFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "load open file dialog", "Choose a file to open" );
 	if (!s.isEmpty())
 		importKeySet(s);
 }
@@ -140,7 +136,7 @@ void TabKeyboardShortcutsWidget::exportKeySetFile()
 {   
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath= dirs->get("keymapprefs_export", ".");
-	QString s = Q3FileDialog::getSaveFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "save open file dialog", "Choose a file to save" );
+	QString s = QFileDialog::getSaveFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "save open file dialog", "Choose a file to save" );
 	if (!s.isEmpty())
 		exportKeySet(s);
 }

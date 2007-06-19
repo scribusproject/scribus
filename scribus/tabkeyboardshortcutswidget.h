@@ -30,10 +30,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
-#include <qmap.h>
-#include <qpair.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QMap>
+#include <QPair>
+#include <QString>
+#include <QStringList>
 #include <QKeyEvent>
 #include <QEvent>
 
