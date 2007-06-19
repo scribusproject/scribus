@@ -831,14 +831,9 @@ void Biblio::HandleMouse(QPoint p)
 		QSignalMapper *signalMapper = new QSignalMapper(this);
 		connect(signalMapper, SIGNAL(mapped(int)), this, SLOT(copyObj(int)));
 		QMenu *pmenu2 = new QMenu( tr("Copy To:"));
-		QMenu *pmenu3;
-		QSignalMapper *signalMapper2;
-		if (activeBView->canWrite)
-		{
-			pmenu3 = new QMenu( tr("Move To:"));
-			signalMapper2 = new QSignalMapper(this);
-			connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(moveObj(int)));
-		}
+		QMenu *pmenu3 = new QMenu( tr("Move To:"));
+		QSignalMapper *signalMapper2 = new QSignalMapper(this);
+		connect(signalMapper2, SIGNAL(mapped(int)), this, SLOT(moveObj(int)));
 		for (int a = 0; a < Frame3->count(); a++)
 		{
 			BibView* bv = (BibView*)Frame3->item(a);
