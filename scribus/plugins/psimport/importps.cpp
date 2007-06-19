@@ -338,7 +338,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				md->setText(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));
 				QDrag* dr = new QDrag(m_Doc->view()->viewport());
 				dr->setMimeData(md);
-#ifndef QT_WS_MAC
+#ifndef Q_WS_MAC
 // see #2196
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 #else
