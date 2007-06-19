@@ -812,8 +812,8 @@ void Scribus134Format::writeContent(QDomDocument & docu)
 
 	if (m_mwProgressBar != 0)
 	{
-		m_mwProgressBar->setTotalSteps(m_Doc->DocPages.count()+m_Doc->MasterPages.count()+m_Doc->DocItems.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count());
-		m_mwProgressBar->setProgress(0);
+		m_mwProgressBar->setMaximum(m_Doc->DocPages.count()+m_Doc->MasterPages.count()+m_Doc->DocItems.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count());
+		m_mwProgressBar->setValue(0);
 	}
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, 0, true);
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count(), false);
@@ -822,7 +822,7 @@ void Scribus134Format::writeContent(QDomDocument & docu)
 	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), 1);
 }
 
-void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master)
+void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
 {
 	uint ObCount = maxC;
 	Page *page;
@@ -837,7 +837,7 @@ void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomEleme
 	{
 		ObCount++;
 		if (dia2 != 0)
-			dia2->setProgress(ObCount);
+			dia2->setValue(ObCount);
 		if (master)
 		{
 			pg = docu->createElement("MASTERPAGE");
@@ -1008,7 +1008,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	}
 }
 
-void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master, QList<PageItem*> *some_items)
+void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QList<PageItem*> *some_items)
 {
 	uint ObCount = maxC;
 	QList<PageItem*> *items = NULL;
@@ -1037,7 +1037,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 	{
 		ObCount++;
 		if (dia2 != 0)
-			dia2->setProgress(ObCount);
+			dia2->setValue(ObCount);
 		item = items->at(j);
 		switch (master)
 		{

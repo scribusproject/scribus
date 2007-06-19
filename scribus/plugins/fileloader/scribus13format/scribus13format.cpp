@@ -202,8 +202,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QDomNode DOC=elem.firstChild();
 	if (m_mwProgressBar!=0)
 	{
-		m_mwProgressBar->setTotalSteps(DOC.childNodes().count());
-		m_mwProgressBar->setProgress(0);
+		m_mwProgressBar->setMaximum(DOC.childNodes().count());
+		m_mwProgressBar->setValue(0);
 	}
 	int ObCount = 0;
 	TableItems.clear();
@@ -421,7 +421,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		{
 			ObCount++;
 			if (m_mwProgressBar!=0)
-				m_mwProgressBar->setProgress(ObCount);
+				m_mwProgressBar->setValue(ObCount);
 			QDomElement pg=PAGE.toElement();
 			if (pg.tagName()=="PageSets")
 			{
@@ -1149,7 +1149,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	}
 	
 	if (m_mwProgressBar!=0)
-		m_mwProgressBar->setProgress(DOC.childNodes().count());
+		m_mwProgressBar->setValue(DOC.childNodes().count());
 	return true;
 // 	return false;
 }
@@ -1657,8 +1657,8 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	dc.appendChild(pageSetAttr);
 	if (m_mwProgressBar != 0)
 	{
-		m_mwProgressBar->setTotalSteps(m_Doc->DocPages.count()+m_Doc->MasterPages.count()+m_Doc->DocItems.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count());
-		m_mwProgressBar->setProgress(0);
+		m_mwProgressBar->setMaximum(m_Doc->DocPages.count()+m_Doc->MasterPages.count()+m_Doc->DocItems.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count());
+		m_mwProgressBar->setValue(0);
 	}
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, 0, true);
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count(), false);
@@ -3208,7 +3208,7 @@ bool Scribus13Format::readPageCount(const QString& fileName, int *num1, int *num
 	return true;
 }
 
-void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master)
+void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
 {
 	uint ObCount = maxC;
 	Page *page;
@@ -3223,7 +3223,7 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 	{
 		ObCount++;
 		if (dia2 != 0)
-			dia2->setProgress(ObCount);
+			dia2->setValue(ObCount);
 		if (master)
 		{
 			pg = docu->createElement("MASTERPAGE");
@@ -3256,7 +3256,7 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 	}
 }
 
-void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master)
+void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
 {
 	int tst, tst2, tsb, tsb2, tobj, tobj2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
@@ -3282,7 +3282,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	{
 		ObCount++;
 		if (dia2 != 0)
-			dia2->setProgress(ObCount);
+			dia2->setValue(ObCount);
 		switch (master)
 		{
 			case 0:

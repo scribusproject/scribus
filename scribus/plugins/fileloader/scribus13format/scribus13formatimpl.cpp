@@ -5,11 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scribus13formatimpl.h"
-//#include "scribus13formatimpl.moc"
 #include "scribuscore.h"
 
-#include <qstring.h>
-#include <qmessagebox.h>
+#include <QString>
+#include <QMessageBox>
 
 // Initialize members here, if any
 Scribus13FormatImpl::Scribus13FormatImpl() : QObject(0, "Scribus13FormatImpl")

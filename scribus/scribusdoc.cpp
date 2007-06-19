@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdebug.h>
 #include <qfile.h>
 #include <qpainter.h>
-#include <q3progressbar.h>
+#include <QProgressBar>
 //Added by qt3to4:
 #include <Q3PtrList>
 #include <QList>
@@ -755,7 +755,7 @@ void ScribusDoc::enableCMS(bool enable)
 	m_ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
 	m_ScMW->mainWindowProgressBar->reset();
 	int cc = PageColors.count() + Items->count();
-	m_ScMW->mainWindowProgressBar->setTotalSteps(cc);
+	m_ScMW->mainWindowProgressBar->setMaximum(cc);
 	HasCMS = CMSSettings.CMSinUse;
 	SoftProofing = CMSSettings.SoftProofOn;
 	Gamut = CMSSettings.GamutCheck;
@@ -788,7 +788,7 @@ void ScribusDoc::enableCMS(bool enable)
 	}
 	else
 		HasCMS = false;
-	m_ScMW->mainWindowProgressBar->setProgress(cc);
+	m_ScMW->mainWindowProgressBar->setValue(cc);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_ScMW->setStatusBarInfoText("");
 	m_ScMW->mainWindowProgressBar->reset();
@@ -3016,7 +3016,7 @@ bool ScribusDoc::save(const QString& fileName)
 {
 	QFileInfo fi(fileName);
 	QDir::setCurrent(fi.dirPath(true));
-	Q3ProgressBar* mainWindowProgressBar=NULL;
+	QProgressBar* mainWindowProgressBar=NULL;
 	if (ScCore->usingGUI())
 	{
 		mainWindowProgressBar=m_ScMW->mainWindowProgressBar;
@@ -4627,7 +4627,7 @@ void ScribusDoc::updateAllItemQColors()
 }
 
 //CB Moved from view
-void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, Q3ProgressBar *dia)
+void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
 {
 	uint docItemCount=Items->count();
 	if ( docItemCount!= 0)
@@ -4635,7 +4635,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, Q3ProgressBar 
 		bool usingGUI=ScCore->usingGUI();
 		int counter = 0;
 		if (usingGUI && dia != NULL)
-			counter = dia->progress();
+			counter = dia->value();
 		PageItem* it;
 		for (uint i=0; i < docItemCount; ++i)
 		{
@@ -4658,7 +4658,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, Q3ProgressBar 
 			{
 				++counter;
 				if (dia != NULL)
-					dia->setProgress(counter);
+					dia->setValue(counter);
 			}
 		}
 	}
@@ -5874,7 +5874,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				cc++;
 		}
 	}
-	m_ScMW->mainWindowProgressBar->setTotalSteps((cc > 0) ? cc : 1);
+	m_ScMW->mainWindowProgressBar->setMaximum((cc > 0) ? cc : 1);
 	for (int a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
@@ -5889,7 +5889,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
 			ca++;
-			m_ScMW->mainWindowProgressBar->setProgress(ca);
+			m_ScMW->mainWindowProgressBar->setValue(ca);
 			qApp->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
@@ -5907,7 +5907,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
 			ca++;
-			m_ScMW->mainWindowProgressBar->setProgress(ca);
+			m_ScMW->mainWindowProgressBar->setValue(ca);
 			qApp->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
@@ -5925,7 +5925,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
 			ca++;
-			m_ScMW->mainWindowProgressBar->setProgress(ca);
+			m_ScMW->mainWindowProgressBar->setValue(ca);
 			qApp->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
@@ -5946,7 +5946,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				currItem->setImageFlippedV(fvo);
 				currItem->AdjustPictScale();
 				ca++;
-				m_ScMW->mainWindowProgressBar->setProgress(ca);
+				m_ScMW->mainWindowProgressBar->setValue(ca);
 				qApp->processEvents(QEventLoop::ExcludeUserInput);
 			}
 		}

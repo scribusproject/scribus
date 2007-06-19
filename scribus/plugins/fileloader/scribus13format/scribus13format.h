@@ -14,9 +14,10 @@ for which a new license (GPL+exception) is in place.
 #include "styles/styleset.h"
 
 #include <qdom.h>
-#include <qmap.h>
-#include <qstring.h>
+#include <QMap>
+#include <QString>
 #include <QList>
+#include <QProgressBar>
 
 class PLUGIN_API Scribus13Format : public LoadSavePlugin
 {
@@ -54,8 +55,8 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(QString fStr, ScribusDoc *doc);
-		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master);
+		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
+		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
 		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 		const ScFace& findFont(ScribusDoc *doc, const QString& fontname);
 		

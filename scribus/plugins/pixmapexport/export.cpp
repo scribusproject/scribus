@@ -200,10 +200,10 @@ bool ExportBitmap::exportCurrent(ScribusDoc* doc)
 
 bool ExportBitmap::exportInterval(ScribusDoc* doc, std::vector<int> &pageNs)
 {
-	doc->scMW()->mainWindowProgressBar->setTotalSteps(pageNs.size());
+	doc->scMW()->mainWindowProgressBar->setMaximum(pageNs.size());
 	for (uint a = 0; a < pageNs.size(); ++a)
 	{
-		doc->scMW()->mainWindowProgressBar->setProgress(a);
+		doc->scMW()->mainWindowProgressBar->setValue(a);
 		if (!exportPage(doc, pageNs[a]-1, false))
 			return false;
 	}

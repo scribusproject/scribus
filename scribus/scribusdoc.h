@@ -70,7 +70,7 @@ class ScribusView;
 class ScribusMainWindow;
 class ResourceCollection;
 
-class Q3ProgressBar;
+class QProgressBar;
 
 
 /**! \brief the Document Class
@@ -610,7 +610,7 @@ public:
 	   @param PrCMYK cmyk profile
 	   @param dia optional progress widget
 	 */
-	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, Q3ProgressBar *dia = 0);
+	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
 	/**
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc
 	 */

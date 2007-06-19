@@ -35,8 +35,8 @@ PyObject *scribus_progresssettotalsteps(PyObject* /* self */, PyObject* args)
 	int steps;
 	if (!PyArg_ParseTuple(args, "i", &steps))
 		return NULL;
-	ScCore->primaryMainWindow()->mainWindowProgressBar->setTotalSteps(steps);
-	ScCore->primaryMainWindow()->mainWindowProgressBar->setProgress(0);
+	ScCore->primaryMainWindow()->mainWindowProgressBar->setMaximum(steps);
+	ScCore->primaryMainWindow()->mainWindowProgressBar->setValue(0);
 	qApp->processEvents();
 //	Py_INCREF(Py_None);
 //	return Py_None;
@@ -48,12 +48,12 @@ PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
 	int position;
 	if (!PyArg_ParseTuple(args, "i", &position))
 		return NULL;
-	if (position > ScCore->primaryMainWindow()->mainWindowProgressBar->totalSteps())
+	if (position > ScCore->primaryMainWindow()->mainWindowProgressBar->maximum())
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Tried to set progress > maximum progress"));
 		return NULL;
 	}
-	ScCore->primaryMainWindow()->mainWindowProgressBar->setProgress(position);
+	ScCore->primaryMainWindow()->mainWindowProgressBar->setValue(position);
 	qApp->processEvents();
 //	Py_INCREF(Py_None);
 //	return Py_None;

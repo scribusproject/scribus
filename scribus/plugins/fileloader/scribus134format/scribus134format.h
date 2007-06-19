@@ -14,11 +14,11 @@ for which a new license (GPL+exception) is in place.
 #include "styles/styleset.h"
 
 #include <qdom.h>
-#include <qmap.h>
-#include <qstring.h>
-//Added by qt3to4:
+#include <QMap>
+#include <QString>
 #include <Q3PtrList>
 #include <QList>
+#include <QProgressBar>
 
 class PLUGIN_API Scribus134Format : public LoadSavePlugin
 {
@@ -76,8 +76,8 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void writeSections(QDomDocument & docu);
 		void writePatterns(QDomDocument & docu);
 		void writeContent(QDomDocument & docu);
-		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, Q3ProgressBar *dia2, uint maxC, int master, QList<PageItem*> *items = 0);
+		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
+		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QList<PageItem*> *items = 0);
 		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;

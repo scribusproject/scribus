@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "patterndialog.h"
-//#include "patterndialog.moc"
 #include "customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -115,12 +114,12 @@ void PatternDialog::loadPatternDir()
 		{
 			mainWin->setStatusBarInfoText( tr("Loading Patterns"));
 			mainWin->mainWindowProgressBar->reset();
-			mainWin->mainWindowProgressBar->setTotalSteps(d.count() * 2);
+			mainWin->mainWindowProgressBar->setMaximum(d.count() * 2);
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			qApp->processEvents(QEventLoop::ExcludeUserInput);
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
-				mainWin->mainWindowProgressBar->setProgress(dc);
+				mainWin->mainWindowProgressBar->setValue(dc);
 				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.extension(true).lower();
@@ -129,7 +128,7 @@ void PatternDialog::loadPatternDir()
 			}
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
-				mainWin->mainWindowProgressBar->setProgress(d.count() + dc);
+				mainWin->mainWindowProgressBar->setValue(d.count() + dc);
 				qApp->processEvents(QEventLoop::ExcludeUserInput);
 				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.extension(true).lower();

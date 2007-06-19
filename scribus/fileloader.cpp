@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtextcodec.h>
 #include <qcheckbox.h>
 #include <qmessagebox.h>
-#include <q3progressbar.h>
+#include <QProgressBar>
 //Added by qt3to4:
 #include <QList>
 #include <cstdlib>
@@ -300,7 +300,7 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	return ret;
 }
 
-bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, Q3ProgressBar */*dia2*/)
+bool FileLoader::SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar */*dia2*/)
 {
 	bool ret = false;
 	QList<FileFormat>::const_iterator it;

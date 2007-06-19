@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenu>
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <q3progressdialog.h>
+#include <QProgressDialog>
 #include <qspinbox.h>
 #include <qcursor.h>
 //Added by qt3to4:

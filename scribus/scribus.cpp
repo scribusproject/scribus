@@ -994,8 +994,8 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 void ScribusMainWindow::initStatusBar()
 {
 	mainWindowStatusLabel = new QLabel( "           ", statusBar(), "ft");
-	mainWindowProgressBar = new Q3ProgressBar(statusBar(), "p");
-	mainWindowProgressBar->setCenterIndicator(true);
+	mainWindowProgressBar = new QProgressBar(statusBar());
+	mainWindowProgressBar->setAlignment(Qt::AlignHCenter);
 	mainWindowProgressBar->setFixedWidth( 100 );
 	mainWindowProgressBar->reset();
 	mainWindowXPosLabel = new QLabel( "X-Pos:", statusBar(), "xt");
@@ -3483,14 +3483,14 @@ bool ScribusMainWindow::slotPageImport()
 			if (nrToImport > 0)
 			{
 				mainWindowProgressBar->reset();
-				mainWindowProgressBar->setTotalSteps(nrToImport);
+				mainWindowProgressBar->setMaximum(nrToImport);
 				int counter = startPage;
 				for (int i = 0; i < nrToImport; ++i)
 				{
 					view->GotoPa(counter);
 					loadPage(dia->getFromDoc(), pageNs[i] - 1, false);
 					counter++;
-					mainWindowProgressBar->setProgress(i + 1);
+					mainWindowProgressBar->setValue(i + 1);
 				}
 				view->GotoPa(startPage);
 				mainWindowProgressBar->reset();
@@ -8588,7 +8588,7 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 
 
 
-void ScribusMainWindow::recalcColors(Q3ProgressBar *dia)
+void ScribusMainWindow::recalcColors(QProgressBar *dia)
 {
 	if (HaveDoc)
 	{
@@ -9263,7 +9263,7 @@ void ScribusMainWindow::getDefaultPrinter(QString *name, QString *file, QString 
 }
 
 /*qt4
-void ScribusMainWindow::updateColorMenu(Q3ProgressBar* progressBar)
+void ScribusMainWindow::updateColorMenu(QProgressBar* progressBar)
 {
 	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
 	ColorMenC->clear();

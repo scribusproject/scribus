@@ -49,8 +49,8 @@ for which a new license (GPL+exception) is in place.
 #include <qfont.h>
 #include <qtimer.h>
 #include <q3intdict.h>
-#include <q3progressdialog.h>
-#include <q3progressbar.h>
+#include <QProgressDialog>
+#include <QProgressBar>
 #include <qworkspace.h>
 #include <q3ptrlist.h>
 #include <qclipboard.h>
@@ -164,7 +164,7 @@ public:
 	/*! \brief Recalculate the colors after changing CMS settings.
 	Call the appropriate document function and then update the GUI elements.
 	\param dia optional progress widget */
-	void recalcColors(Q3ProgressBar *dia = 0);
+	void recalcColors(QProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
 // 	void ReorgFonts();
@@ -206,7 +206,7 @@ public:
 	ScribusDoc *doc;
 
 
-	Q3ProgressBar* mainWindowProgressBar;
+	QProgressBar* mainWindowProgressBar;
 	QLabel* mainWindowXPosLabel;
 	QLabel* mainWindowXPosDataLabel;
 	QLabel* mainWindowYPosLabel;
@@ -582,7 +582,7 @@ private:
 	void initPalettes();
 	void initScrapbook();
 
-	void updateColorMenu(Q3ProgressBar* progressBar=NULL);
+	void updateColorMenu(QProgressBar* progressBar=NULL);
 
 	QLabel* mainWindowStatusLabel;
 	QString recentFileMenuName;

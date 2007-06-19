@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scribus134format.h"
-//#include "scribus134format.moc"
 #include "scribus134formatimpl.h"
 
 #include "../../formatidlist.h"
@@ -204,8 +203,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QDomNode DOC=elem.firstChild();
 	if (m_mwProgressBar!=0)
 	{
-		m_mwProgressBar->setTotalSteps(DOC.childNodes().count());
-		m_mwProgressBar->setProgress(0);
+		m_mwProgressBar->setMaximum(DOC.childNodes().count());
+		m_mwProgressBar->setValue(0);
 	}
 	int ObCount = 0;
 	TableItems.clear();
@@ -429,7 +428,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		{
 			ObCount++;
 			if (m_mwProgressBar!=0)
-				m_mwProgressBar->setProgress(ObCount);
+				m_mwProgressBar->setValue(ObCount);
 			QDomElement pg=PAGE.toElement();
 			if (pg.tagName()=="PageSets")
 			{
@@ -1495,7 +1494,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	}
 	
 	if (m_mwProgressBar!=0)
-		m_mwProgressBar->setProgress(DOC.childNodes().count());
+		m_mwProgressBar->setValue(DOC.childNodes().count());
 	return true;
 // 	return false;
 }

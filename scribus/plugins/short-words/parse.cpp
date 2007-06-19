@@ -16,11 +16,10 @@ This program is free software - see LICENSE file in the distribution
 or documentation
 */
 
-#include <qregexp.h>
+#include <QRegExp>
 
 #include "shortwords.h"
 #include "parse.h"
-//#include "parse.moc"
 #include "version.h"
 #include "configuration.h"
 
@@ -119,13 +118,13 @@ void SWParse::parseItem(PageItem *aFrame)
 void SWParse::parseSelection(ScribusDoc* doc)
 {
 	uint docSelectionCount = doc->m_Selection->count();
-	doc->scMW()->mainWindowProgressBar->setTotalSteps(docSelectionCount);
+	doc->scMW()->mainWindowProgressBar->setMaximum(docSelectionCount);
 	for (uint i=0; i < docSelectionCount; ++i)
 	{
-	doc->scMW()->mainWindowProgressBar->setProgress(i);
+	doc->scMW()->mainWindowProgressBar->setValue(i);
 		parseItem(doc->m_Selection->itemAt(i));
 	} // for items
-	doc->scMW()->mainWindowProgressBar->setProgress(docSelectionCount);
+	doc->scMW()->mainWindowProgressBar->setValue(docSelectionCount);
 }
 
 
@@ -144,7 +143,7 @@ void SWParse::parsePage(ScribusDoc* doc, int page)
 		if (b->OwnPage == page)
 			++cnt;
 	}
-	doc->scMW()->mainWindowProgressBar->setTotalSteps(cnt);
+	doc->scMW()->mainWindowProgressBar->setMaximum(cnt);
 	doc->view()->GotoPage(page);
 	uint i = 0;
 	for (uint a = 0; a < docItemsCount; ++a)
@@ -152,11 +151,11 @@ void SWParse::parsePage(ScribusDoc* doc, int page)
 		PageItem* b = doc->Items->at(a);
 		if (b->OwnPage == page)
 		{
-			doc->scMW()->mainWindowProgressBar->setProgress(++i);
+			doc->scMW()->mainWindowProgressBar->setValue(++i);
 			parseItem(b);
 		}
 	}
-	doc->scMW()->mainWindowProgressBar->setProgress(cnt);
+	doc->scMW()->mainWindowProgressBar->setValue(cnt);
 }
 
 void SWParse::parseAll(ScribusDoc* doc)

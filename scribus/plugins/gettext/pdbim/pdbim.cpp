@@ -105,7 +105,7 @@ void PdbIm::loadFile(QString fname)
 
 	// progressbar
 	int num_records = swap_Word( m_header.numRecords ) - 1;
-	ScCore->primaryMainWindow()->mainWindowProgressBar->setTotalSteps(num_records);
+	ScCore->primaryMainWindow()->mainWindowProgressBar->setMaximum(num_records);
 	fseek(m_pdfp, PDB_HEADER_SIZE, SEEK_SET);
 	GET_DWord(m_pdfp, offset);
 	fseek(m_pdfp, offset, SEEK_SET);
@@ -120,7 +120,7 @@ void PdbIm::loadFile(QString fname)
 	{
 		DWord next_offset;
 
-		ScCore->primaryMainWindow()->mainWindowProgressBar->setProgress(rec_num);
+		ScCore->primaryMainWindow()->mainWindowProgressBar->setValue(rec_num);
 		fseek( m_pdfp, PDB_HEADER_SIZE + PDB_RECORD_HEADER_SIZE * rec_num, SEEK_SET);
 		GET_DWord( m_pdfp, offset );
 		if( rec_num < num_records )

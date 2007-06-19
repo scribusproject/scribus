@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include <QList>
 #include <qdom.h>
-#include <q3progressbar.h>
+#include <QProgressBar>
 
 #include "pageitem.h"
 // #include "multiline.h"

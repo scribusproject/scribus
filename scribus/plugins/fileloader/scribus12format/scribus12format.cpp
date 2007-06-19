@@ -239,8 +239,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QDomNode DOC=elem.firstChild();
 	if (m_mwProgressBar!=0)
 	{
-		m_mwProgressBar->setTotalSteps(DOC.childNodes().count());
-		m_mwProgressBar->setProgress(0);
+		m_mwProgressBar->setMaximum(DOC.childNodes().count());
+		m_mwProgressBar->setValue(0);
 	}
 	int ObCount = 0;
 	int activeLayer = 0;
@@ -354,7 +354,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		{
 			ObCount++;
 			if (m_mwProgressBar!=0)
-				m_mwProgressBar->setProgress(ObCount);
+				m_mwProgressBar->setValue(ObCount);
 			QDomElement pg=PAGE.toElement();
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
@@ -843,7 +843,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	
 	m_View->unitSwitcher->setCurrentText(unitGetStrFromIndex(m_Doc->unitIndex()));
 	if (m_mwProgressBar!=0)
-		m_mwProgressBar->setProgress(DOC.childNodes().count());
+		m_mwProgressBar->setValue(DOC.childNodes().count());
 	return true;
 //end old ReadDoc
 	

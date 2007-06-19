@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "reformdoc.h"
-//#include "reformdoc.moc"
 
 #include <qcolordialog.h>
 #include <qcursor.h>
@@ -472,7 +471,7 @@ void ReformDoc::updateDocumentSettings()
 			ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
 			ScMW->mainWindowProgressBar->reset();
 			int cc = currDoc->PageColors.count() + currDoc->Items->count();
-			ScMW->mainWindowProgressBar->setTotalSteps(cc);
+			ScMW->mainWindowProgressBar->setMaximum(cc);
 			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
 			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
 			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
@@ -505,7 +504,7 @@ void ReformDoc::updateDocumentSettings()
 			}
 			else
 				currDoc->HasCMS = false;
-			ScMW->mainWindowProgressBar->setProgress(cc);
+			ScMW->mainWindowProgressBar->setValue(cc);
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			ScMW->setStatusBarInfoText("");
 			ScMW->mainWindowProgressBar->reset();

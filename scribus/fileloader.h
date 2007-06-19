@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/styleset.h"
 
 class QDomElement;
-class Q3ProgressBar;
+class QProgressBar;
 class ScribusDoc;
 class ScribusView;
 class SCFonts;
@@ -34,7 +34,7 @@ public:
 // 	int CheckScribus();
 	bool LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
 	bool LoadFile(ScribusDoc* currDoc);
-	bool SaveFile(const QString& fileName, ScribusDoc *doc, Q3ProgressBar *dia2);
+	bool SaveFile(const QString& fileName, ScribusDoc *doc, QProgressBar *dia2);
 	bool ReadStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 	bool ReadCharStyles(const QString& fileName, ScribusDoc* doc, StyleSet<CharStyle> &docCharStyles);
 	bool ReadPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);

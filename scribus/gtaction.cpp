@@ -75,7 +75,7 @@ void gtAction::setProgressInfo()
 {
 	m_ScMW->setStatusBarInfoText(QObject::tr("Importing text"));
 	m_ScMW->mainWindowProgressBar->reset();
-	m_ScMW->mainWindowProgressBar->setTotalSteps(0);
+	m_ScMW->mainWindowProgressBar->setMaximum(0);
 }
 
 void gtAction::setProgressInfoDone()
