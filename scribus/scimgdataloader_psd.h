@@ -7,8 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCIMGDATALOADER_PSD_H
 #define SCIMGDATALOADER_PSD_H
 
-//Added by qt3to4:
-#include <Q3MemArray>
+#include <QVector>
 #include <QList>
 #include "scimgdataloader.h"
 #include "sccolor.h"
@@ -56,10 +55,10 @@ protected:
 	QString getLayerString(QDataStream & s);
 	void putDuotone(uchar *ptr, uchar cbyte);
 	int maxChannels;
-	Q3MemArray<int> curveTable1;
-	Q3MemArray<int> curveTable2;
-	Q3MemArray<int> curveTable3;
-	Q3MemArray<int> curveTable4;
+	QVector<int> curveTable1;
+	QVector<int> curveTable2;
+	QVector<int> curveTable3;
+	QVector<int> curveTable4;
 };
 
 #endif

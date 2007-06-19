@@ -17,10 +17,8 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_qt.h"
 #include "scimgdataloader_tiff.h"
 #include <qmessagebox.h>
-#include <q3textstream.h>
-//Added by qt3to4:
+#include <QTextStream>
 #include <QList>
-#include <Q3MemArray>
 #include <QByteArray>
 #include <memory>
 #include <cassert>
@@ -135,7 +133,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 				QString tmpstr = effectsList.at(a).effectParameters;
 				QString col = CommonStrings::None;
 				int shading = 100;
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> col;
 				fp >> shading;
 				colorize(doc, colors[col], shading, cmyk);
@@ -144,7 +142,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				int brightnessValue = 0;
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> brightnessValue;
 				brightness(brightnessValue, cmyk);
 			}
@@ -152,7 +150,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				int contrastValue = 0;
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> contrastValue;
 				contrast(contrastValue, cmyk);
 			}
@@ -160,7 +158,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				double radius, sigma;
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> radius;
 				fp >> sigma;
 				sharpen(radius, sigma);
@@ -169,7 +167,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				double radius, sigma;
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> radius;
 				fp >> sigma;
 				blur(static_cast<int>(radius));
@@ -178,7 +176,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 			{
 				QString tmpstr = effectsList.at(a).effectParameters;
 				double sigma;
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> sigma;
 				solarize(sigma, cmyk);
 			}
@@ -189,7 +187,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 				int shading1 = 100;
 				QString col2 = CommonStrings::None;
 				int shading2 = 100;
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				col1 = fp.readLine();
 				col2 = fp.readLine();
 				fp >> shading1;
@@ -229,7 +227,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 				int shading1 = 100;
 				int shading2 = 100;
 				int shading3 = 100;
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				col1 = fp.readLine();
 				col2 = fp.readLine();
 				col3 = fp.readLine();
@@ -284,7 +282,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 				int shading2 = 100;
 				int shading3 = 100;
 				int shading4 = 100;
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				col1 = fp.readLine();
 				col2 = fp.readLine();
 				col3 = fp.readLine();
@@ -348,7 +346,7 @@ void ScImage::applyEffect(QList<imageEffect> effectsList, ColorList& colors, boo
 				double xval, yval;
 				FPointArray curve;
 				curve.resize(0);
-				Q3TextStream fp(&tmpstr, QIODevice::ReadOnly);
+				QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 				fp >> numVals;
 				for (int nv = 0; nv < numVals; nv++)
 				{
@@ -891,8 +889,8 @@ void ScImage::duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	int c, c1, m, m1, y, y1, k, k1;
 	int cn, c1n, mn, m1n, yn, y1n, kn, k1n;
 	uchar cb;
-	Q3MemArray<int> curveTable1;
-	Q3MemArray<int> curveTable2;
+	QVector<int> curveTable1;
+	QVector<int> curveTable2;
 	CMYKColor cmykCol;
 	ScColorEngine::getShadeColorCMYK(color1, doc, cmykCol, shade1);
 	cmykCol.getValues(c, m, y, k);
@@ -948,9 +946,9 @@ void ScImage::tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray c
 	int cn, c1n, c2n, mn, m1n, m2n, yn, y1n, y2n, kn, k1n, k2n;
 	uchar cb;
 	CMYKColor cmykCol;
-	Q3MemArray<int> curveTable1;
-	Q3MemArray<int> curveTable2;
-	Q3MemArray<int> curveTable3;
+	QVector<int> curveTable1;
+	QVector<int> curveTable2;
+	QVector<int> curveTable3;
 	ScColorEngine::getShadeColorCMYK(color1, doc, cmykCol, shade1);
 	cmykCol.getValues(c, m, y, k);
 	ScColorEngine::getShadeColorCMYK(color2, doc, cmykCol, shade2);
@@ -1016,10 +1014,10 @@ void ScImage::quadtone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray 
 	int cn, c1n, c2n, c3n, mn, m1n, m2n, m3n, yn, y1n, y2n, y3n, kn, k1n, k2n, k3n;
 	uchar cb;
 	CMYKColor cmykCol;
-	Q3MemArray<int> curveTable1;
-	Q3MemArray<int> curveTable2;
-	Q3MemArray<int> curveTable3;
-	Q3MemArray<int> curveTable4;
+	QVector<int> curveTable1;
+	QVector<int> curveTable2;
+	QVector<int> curveTable3;
+	QVector<int> curveTable4;
 	ScColorEngine::getShadeColorCMYK(color1, doc, cmykCol, shade1);
 	cmykCol.getValues(c, m, y, k);
 	ScColorEngine::getShadeColorCMYK(color2, doc, cmykCol, shade2);

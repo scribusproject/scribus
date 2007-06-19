@@ -17,16 +17,15 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-//#include <valarray>
-#include <q3memarray.h>
-#include <qimage.h>
-#include <qstring.h>
-#include <qdatastream.h>
-#include <qmap.h>
+#include <QImage>
+#include <QString>
+#include <QDataStream>
+#include <QMap>
 #include <QList>
-#include <qfile.h>
-#include <qdir.h>
-#include <qstringlist.h>
+#include <QVector>
+#include <QFile>
+#include <QDir>
+#include <QStringList>
 
 #include "cmsettings.h"
 #include "fpointarray.h"
@@ -126,7 +125,6 @@ public:
 private:
 	// Image effects
 	void solarize(double factor, bool cmyk);
-//	void blur(double radius= 0.0, double sigma = 1.0);
 	void blur(int radius = 0);
 	void sharpen(double radius= 0.0, double sigma = 1.0);
 	void contrast(int contrastValue, bool cmyk);
@@ -139,18 +137,12 @@ private:
 	void toGrayscale(bool cmyk);
 	void doGraduate(FPointArray curve, bool cmyk, bool linear);
 	void swapRGBA();
-
-	// Misc implementation
-//	void liberateMemory(void **memory);
-//	void blurScanLine(double *kernel, int width, unsigned int *src, unsigned int *dest, int columns);
-//	int getBlurKernel(int width, double sigma, double **kernel);
 	bool convolveImage(QImage *dest, const unsigned int order, const double *kernel);
 	int getOptimalKernelWidth(double radius, double sigma);
 	void applyCurve(bool cmyk);
 	char* iccbuf;
 	uint icclen;
-	//std::valarray<int> curveTable;
-	Q3MemArray<int> curveTable;
+	QVector<int> curveTable;
 	QList<unsigned int> colorTable;
 	int random_table[4096];
 	

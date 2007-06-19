@@ -9,9 +9,8 @@ for which a new license (GPL+exception) is in place.
 #include "colorutil.h"
 #include "sccolorengine.h"
 
-#include <qfile.h>
-#include <qfileinfo.h>
-//Added by qt3to4:
+#include <QFile>
+#include <QFileInfo>
 #include <QList>
 
 #include CMS_INC

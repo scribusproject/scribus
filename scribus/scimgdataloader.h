@@ -8,9 +8,9 @@ for which a new license (GPL+exception) is in place.
 #define SCIMGDATALOADER_H
 
 #include "scribusapi.h"
-#include <q3cstring.h>
-#include <qimage.h>
-#include <qstringlist.h>
+#include <QByteArray>
+#include <QImage>
+#include <QStringList>
 
 #include "scimagestructs.h"
 #include "rawimage.h"
