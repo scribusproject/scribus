@@ -7,26 +7,26 @@ for which a new license (GPL+exception) is in place.
 #ifndef FONTPREFS_H
 #define FONTPREFS_H
 
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <q3table.h>
-#include <qcheckbox.h>
-#include <q3header.h>
-#include <q3ptrlist.h>
-#include <qtabwidget.h>
-#include <qwidget.h>
-#include <qcombobox.h>
-#include <q3listbox.h>
-#include <q3listview.h>
-//Added by qt3to4:
-#include <QPixmap>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QTabWidget>
+#include <QList>
+#include <QMap>
+class QHBoxLayout;
+class QVBoxLayout;
+class QPushButton;
+class QListWidget;
+class QListWidgetItem;
+class QTreeWidget;
+class QTreeWidgetItem;
+class QTableWidget;
+class QWidget;
+class QPixmap;
+
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "prefsmanager.h"
 
 class ScribusDoc;
+class ScComboBox;
 
 /*! \brief A configuration Widget for Font Preferences */
 class SCRIBUS_API FontPrefs : public QTabWidget
@@ -48,17 +48,15 @@ public:
 	};
 	QMap<QString, fontSet> fontFlags;
 	QMap<QString,QString> RList;
-	Q3PtrList<QComboBox> FlagsRepl;
+	QList<ScComboBox*> FlagsRepl;
 
 private:
 	QWidget* tab1;
 	QWidget* tab;
 	QWidget* tab3;
-	Q3ListBox* PathList;
-	Q3ListView* fontList;
-	Q3Table* Table3;
-	Q3Header *Header;
-	Q3Header *Header2;
+	QListWidget* PathList;
+	QTreeWidget* fontList;
+	QTableWidget* Table3;
 	QPushButton* DelB;
 	QPushButton* ChangeB;
 	QPushButton* AddB;
@@ -73,17 +71,15 @@ private:
 	QPixmap otfFont;
 	QPixmap psFont;
 	QPixmap substFont;
-	//QPixmap okIcon;
-	//QPixmap empty;
 	QPixmap checkOn;
 	QPixmap checkOff;
 
 public slots:
-	void slotClick(Q3ListViewItem* ite, const QPoint &, int col);
+	void slotClick(QTreeWidgetItem* ite, int col);
 	void ReplaceSel(int r, int c);
 	void UpdateFliste();
 	void DelEntry();
-	void SelectPath(Q3ListBoxItem *c);
+	void SelectPath(QListWidgetItem *c);
 	void AddPath();
 	void ChangePath();
 	void DelPath();
@@ -93,11 +89,11 @@ protected:
 	void writePaths();
 	void rebuildDialog();
 
-	Q3VBoxLayout* tab1Layout;
-	Q3VBoxLayout* tabLayout;
-	Q3HBoxLayout* Layout2a;
-	Q3HBoxLayout* tab3Layout;
-	Q3VBoxLayout* LayoutR;
+	QVBoxLayout* tab1Layout;
+	QVBoxLayout* tabLayout;
+	QHBoxLayout* Layout2a;
+	QHBoxLayout* tab3Layout;
+	QVBoxLayout* LayoutR;
 };
 
 #endif // FONTPREFS_H

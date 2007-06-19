@@ -5,17 +5,22 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "fontprefs.h"
-//#include "fontprefs.moc"
-#include <q3hbox.h>
-#include <qfile.h>
-#include <qfileinfo.h>
-#include <q3filedialog.h>
-#include <qlabel.h>
-#include <qcursor.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QPushButton>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
+#include <QTableWidget>
+#include <QHeaderView>
+#include <QLabel>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QFile>
+#include <QSpacerItem>
 #include <QPixmap>
-#include <Q3VBoxLayout>
 
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -40,19 +45,29 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	CurrentPath = "";
 	docc = doc;
 	setMinimumSize(fontMetrics().width( tr( "Available Fonts" )+ tr( "Font Substitutions" )+ tr( "Additional Paths" ))+180, 200);
-	tab1 = new QWidget( this, "tab1" );
-	tab1Layout = new Q3VBoxLayout( tab1, 0, 5, "tab1Layout");
-	fontList = new Q3ListView(tab1, "fontList" );
+	tab1 = new QWidget( this );
+	tab1Layout = new QVBoxLayout( tab1 );
+	tab1Layout->setMargin(10);
+	tab1Layout->setSpacing(5);
+
+	fontList = new QTreeWidget(tab1);
+	fontList->setRootIsDecorated( false );
+	fontList->setColumnCount(5);
+	QStringList HLabels;
+	HLabels.append( tr("Font Name"));
+	HLabels.append( tr("Use Font"));
+	HLabels.append( tr("Embed in PostScript"));
+	HLabels.append( tr("Subset"));
+	HLabels.append( tr("Path to Font File"));
+	fontList->setHeaderLabels(HLabels);
 	fontList->setAllColumnsShowFocus(true);
-	fontList->setShowSortIndicator(true);
-	fontList->addColumn( tr("Font Name", "font preview"));
-	fontList->addColumn( tr("Use Font", "font preview"));
-	fontList->setColumnAlignment(1, Qt::AlignCenter);
-	fontList->addColumn( tr("Embed in PostScript", "font preview"));
-	fontList->setColumnAlignment(2, Qt::AlignCenter);
-	fontList->addColumn( tr("Subset", "font preview"));
-	fontList->setColumnAlignment(3, Qt::AlignCenter);
-	fontList->addColumn( tr("Path to Font File", "font preview"));
+	fontList->setSortingEnabled(true);
+	fontList->header()->setSortIndicatorShown(true);
+	fontList->header()->setResizeMode( QHeaderView::Interactive );
+	fontList->setSelectionMode(QAbstractItemView::SingleSelection);
+	fontList->setSelectionBehavior(QAbstractItemView::SelectRows);
+	fontList->setIconSize(QSize(16,16));
+
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
 	psFont = loadIcon("font_type1_16.png");
@@ -62,73 +77,67 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	checkOff = getQCheckBoxPixmap(false, fontList->paletteBackgroundColor());
 
 	tab1Layout->addWidget( fontList );
-	insertTab( tab1, tr( "&Available Fonts" ) );
+	addTab( tab1, tr( "&Available Fonts" ) );
 
 	tab = new QWidget( this, "tab" );
-	tabLayout = new Q3VBoxLayout( tab, 10, 5, "tabLayout");
-	Table3 = new Q3Table( tab, "Repl" );
-	Table3->setSorting(false);
-	Table3->setSelectionMode(Q3Table::SingleRow);
-	Table3->setLeftMargin(0);
+	tabLayout = new QVBoxLayout( tab );
+	tabLayout->setMargin(10);
+	tabLayout->setSpacing(5);
+	
+	Table3 = new QTableWidget(0, 2, tab );
+	Table3->setHorizontalHeaderItem(0, new QTableWidgetItem( tr("Font Name")));
+	Table3->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Replacement")));
+	Table3->setSortingEnabled(false);
+	Table3->setSelectionBehavior( QAbstractItemView::SelectRows );
+	QHeaderView *header = Table3->horizontalHeader();
+	header->setMovable(false);
+	header->setClickable(false);
+	header->setResizeMode(QHeaderView::Stretch);
 	Table3->verticalHeader()->hide();
-	Table3->setNumCols( 2 );
-	Table3->setNumRows(PrefsManager::instance()->appPrefs.GFontSub.count());
-	Header2 = Table3->horizontalHeader();
-	Header2->setLabel(0, tr("Font Name"));
-	Header2->setLabel(1, tr("Replacement"));
-// 	int a = 0;
-// 	QMap<QString,QString>::Iterator itfsu;
-// 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
-// 	{
-// 		Table3->setText(a, 0, itfsu.key());
-// 		ScComboBox *item = new ScComboBox( true, this, "Replace" );
-// 		item->setEditable(false);
-// 		item->insertStringList(UsedFonts);
-// 		item->setCurrentText(itfsu.data());
-// 		Table3->setCellWidget(a, 1, item);
-// 		FlagsRepl.append(item);
-// 		a++;
-// 	}
-	Table3->setColumnStretchable(0, true);
-	Table3->setColumnStretchable(1, true);
 	Table3->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	tabLayout->addWidget( Table3 );
-	Layout2a = new Q3HBoxLayout( 0, 0, 5, "Layout2");
+	Layout2a = new QHBoxLayout;
+	Layout2a->setMargin(0);
+	Layout2a->setSpacing(5);
 	QSpacerItem* spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2a->addItem( spacer1 );
-	DelB = new QPushButton( tr( "&Delete" ), tab, "DelB" );
+	DelB = new QPushButton( tr( "&Delete" ), tab );
 	DelB->setEnabled(false);
 	Layout2a->addWidget( DelB );
 	QSpacerItem* spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2a->addItem( spacer2 );
 	tabLayout->addLayout( Layout2a );
-	insertTab( tab, tr( "Font &Substitutions" ) );
+	addTab( tab, tr( "Font &Substitutions" ) );
 
-	tab3 = new QWidget( this, "tab3" );
-	tab3Layout = new Q3HBoxLayout( tab3, 10, 5, "tab3Layout");
+	tab3 = new QWidget( this );
+	tab3Layout = new QHBoxLayout( tab3 );
+	tab3Layout->setMargin(10);
+	tab3Layout->setSpacing(5);
 	// If we're being called for global application preferences, not document
 	// preferences, we let the user customize font search paths. Because things
 	// go rather badly if paths are changed/removed while a doc is open, the
 	// control is also not displayed if there is a document open.
 	if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
 	{
-		PathList = new Q3ListBox( tab3, "PathList" );
+		PathList = new QListWidget( tab3 );
 		readPaths();
 		PathList->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 		tab3Layout->addWidget( PathList );
-		LayoutR = new Q3VBoxLayout( 0, 0, 5, "LayoutR");
-		ChangeB = new QPushButton( tr( "C&hange..." ), tab3, "ChangeB" );
+		LayoutR = new QVBoxLayout;
+		LayoutR->setMargin(0);
+		LayoutR->setSpacing(5);
+		ChangeB = new QPushButton( tr( "C&hange..." ), tab3 );
 		LayoutR->addWidget( ChangeB );
-		AddB = new QPushButton( tr( "A&dd..." ), tab3, "AddB" );
+		AddB = new QPushButton( tr( "A&dd..." ), tab3 );
 		LayoutR->addWidget( AddB );
-		RemoveB = new QPushButton( tr( "&Remove" ), tab3, "RemoveB" );
+		RemoveB = new QPushButton( tr( "&Remove" ), tab3 );
 		LayoutR->addWidget( RemoveB );
 		QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 		LayoutR->addItem( spacer_2 );
 		tab3Layout->addLayout( LayoutR );
 		ChangeB->setEnabled(false);
 		RemoveB->setEnabled(false);
-		connect(PathList, SIGNAL(highlighted(Q3ListBoxItem*)), this, SLOT(SelectPath(Q3ListBoxItem*)));
+		connect(PathList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(SelectPath(QListWidgetItem*)));
 		connect(AddB, SIGNAL(clicked()), this, SLOT(AddPath()));
 		connect(ChangeB, SIGNAL(clicked()), this, SLOT(ChangePath()));
 		connect(RemoveB, SIGNAL(clicked()), this, SLOT(DelPath()));
@@ -145,13 +154,12 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 		whyBlankLabel->setWordWrap(true);
 		tab3Layout->addWidget( whyBlankLabel );
 	}
-	insertTab( tab3, tr( "Additional &Paths" ) );
+	addTab( tab3, tr( "Additional &Paths" ) );
 
 	// signals and slots connections
-	connect(Table3, SIGNAL(currentChanged(int, int)), this, SLOT(ReplaceSel(int, int)));
+	connect(Table3, SIGNAL(cellClicked(int, int)), this, SLOT(ReplaceSel(int, int)));
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
-	connect(fontList, SIGNAL(clicked(Q3ListViewItem *, const QPoint &, int)),
-			this, SLOT(slotClick(Q3ListViewItem*, const QPoint &, int)));
+	connect(fontList, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, SLOT(slotClick(QTreeWidgetItem*, int)));
 }
 
 void FontPrefs::restoreDefaults()
@@ -159,7 +167,7 @@ void FontPrefs::restoreDefaults()
 	rebuildDialog();
 }
 
-void FontPrefs::slotClick(Q3ListViewItem* ite, const QPoint &, int col)
+void FontPrefs::slotClick(QTreeWidgetItem* ite, int col)
 {
 	if (ite == NULL || ite == 0)
 		return;
@@ -168,25 +176,25 @@ void FontPrefs::slotClick(Q3ListViewItem* ite, const QPoint &, int col)
 	{
 		fontFlags[tmp].FlagUse = !fontFlags[tmp].FlagUse;
 		if (fontFlags[tmp].FlagUse)
-			ite->setPixmap(1, checkOn);
+			ite->setIcon(1, checkOn);
 		else
-			ite->setPixmap(1, checkOff);
+			ite->setIcon(1, checkOff);
 	}
 	if (col == 2)
 	{
 		fontFlags[tmp].FlagPS = !fontFlags[tmp].FlagPS;
 		if (fontFlags[tmp].FlagPS)
-			ite->setPixmap(2, checkOn);
+			ite->setIcon(2, checkOn);
 		else
-			ite->setPixmap(2, checkOff);
+			ite->setIcon(2, checkOff);
 	}
 	if ((col == 3) && (!fontFlags[tmp].FlagOTF) && (fontFlags[tmp].FlagNames))
 	{
 		fontFlags[tmp].FlagSub = !fontFlags[tmp].FlagSub;
 		if (fontFlags[tmp].FlagSub)
-			ite->setPixmap(3, checkOn);
+			ite->setIcon(3, checkOn);
 		else
-			ite->setPixmap(3, checkOff);
+			ite->setIcon(3, checkOff);
 	}
 	UpdateFliste();
 }
@@ -207,7 +215,7 @@ void FontPrefs::UpdateFliste()
 			UsedFonts.append(it.currentKey());
 	}
 	UsedFonts.sort();
-	for (uint b = 0; b < FlagsRepl.count(); ++b)
+	for (int b = 0; b < FlagsRepl.count(); ++b)
 	{
 		tmp = FlagsRepl.at(b)->currentText();
 		FlagsRepl.at(b)->clear();
@@ -222,10 +230,11 @@ void FontPrefs::UpdateFliste()
 void FontPrefs::DelEntry()
 {
 	int r = Table3->currentRow();
-	QString tmp = Table3->text(r, 0);
+	QString tmp = Table3->item(r, 0)->text();
 	Table3->removeRow(r);
-	FlagsRepl.remove(r);
+	delete FlagsRepl.takeAt(r);
 	RList.remove(tmp);
+	DelB->setEnabled(false);
 }
 
 void FontPrefs::readPaths()
@@ -235,7 +244,7 @@ void FontPrefs::readPaths()
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	PathList->clear();
 	for (int i = 0; i < fontPathTable->getRowCount(); ++i)
-		PathList->insertItem( QDir::convertSeparators(fontPathTable->get(i,0)) );
+		PathList->addItem( QDir::convertSeparators(fontPathTable->get(i,0)) );
 }
 
 void FontPrefs::writePaths()
@@ -244,11 +253,11 @@ void FontPrefs::writePaths()
 	PrefsContext *fontPrefsContext = PrefsManager::instance()->prefsFile->getContext("Fonts");
 	PrefsTable *fontPathTable = fontPrefsContext->getTable("ExtraFontDirs");
 	fontPathTable->clear();
-	for (uint i = 0; i < PathList->count(); ++i)
-		fontPathTable->set(i, 0, ScPaths::separatorsToSlashes(PathList->text(i)));
+	for (int i = 0; i < PathList->count(); ++i)
+		fontPathTable->set(i, 0, ScPaths::separatorsToSlashes(PathList->item(i)->text()));
 }
 
-void FontPrefs::SelectPath(Q3ListBoxItem *c)
+void FontPrefs::SelectPath(QListWidgetItem *c)
 {
 	if (!DocAvail)
 	{
@@ -263,20 +272,24 @@ void FontPrefs::AddPath()
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	CurrentPath = dirs->get("fontprefs", ".");
-	QString s = Q3FileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 	{
 		dirs->set("fontprefs", s.left(s.findRev("/", -2)));
 		if( s.endsWith("/") )
 			s = s.left(s.length()-1);
 		QString s2 = QDir::convertSeparators(s);
-		if (PathList->findItem(s2))
+		if (PathList->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
-		PathList->insertItem(s2);
+		PathList->addItem(s2);
 		writePaths();
-		ChangeB->setEnabled(true);
-		RemoveB->setEnabled(true);
+		ChangeB->setEnabled(false);
+		RemoveB->setEnabled(false);
 		CurrentPath = s;
+		SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
+		QString dir = ScPaths::separatorsToSlashes(s2);
+		availFonts->AddScalableFonts(dir +"/");
+		availFonts->updateFontMap();
 		rebuildDialog();
 	}
 }
@@ -284,20 +297,34 @@ void FontPrefs::AddPath()
 void FontPrefs::ChangePath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
-	QString s = Q3FileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 	{
 		if( s.endsWith("/") )
 			s = s.left(s.length()-1);
 		QString s2 = QDir::convertSeparators(s2);
-		if (PathList->findItem(s2))
+		if (PathList->findItems(s2, Qt::MatchExactly).count() != 0)
 			return;
-		PathList->changeItem(s2, PathList->currentItem());
+		QString path = PathList->currentItem()->text();
+		SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
+		SCFontsIterator it(*availFonts);
+		for ( ; it.hasNext(); it.next())
+		{
+			if (it.current().isNone())
+				continue;
+			QFileInfo fi(it.current().fontFilePath());
+			if (fi.absolutePath() == path)
+				availFonts->remove(it.currentKey());
+		}
+		PathList->currentItem()->setText(s2);
 		writePaths();
 		CurrentPath = s;
+		QString dir = ScPaths::separatorsToSlashes(s2);
+		availFonts->AddScalableFonts(dir +"/");
+		availFonts->updateFontMap();
 		rebuildDialog();
-		ChangeB->setEnabled(true);
-		RemoveB->setEnabled(true);
+		ChangeB->setEnabled(false);
+		RemoveB->setEnabled(false);
 	}
 }
 
@@ -305,21 +332,32 @@ void FontPrefs::DelPath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	QFile fx(HomeP+"/scribusfont13.rc");
+	QString path = PathList->currentItem()->text();
 	if (fx.open(QIODevice::WriteOnly))
 	{
 		if (PathList->count() == 1)
 			PathList->clear();
 		else
-			PathList->removeItem(PathList->currentItem());
+			delete PathList->takeItem(PathList->currentRow());
 		writePaths();
 	}
 	else
 		return;
+	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
+	SCFontsIterator it(*availFonts);
+	for ( ; it.hasNext(); it.next())
+	{
+		if (it.current().isNone())
+			continue;
+		QFileInfo fi(it.current().fontFilePath());
+		if (fi.absolutePath() == path)
+			availFonts->remove(it.currentKey());
+	}
+	availFonts->updateFontMap();
 	CurrentPath = "";
 	rebuildDialog();
-	bool setter = PathList->count() > 0 ? true : false;
-	ChangeB->setEnabled(setter);
-	RemoveB->setEnabled(setter);
+	ChangeB->setEnabled(false);
+	RemoveB->setEnabled(false);
 }
 
 void FontPrefs::rebuildDialog()
@@ -335,7 +373,7 @@ void FontPrefs::rebuildDialog()
 	/* Are you wondering why this condition? See the comment at
 	line #102 (or somewhere near) as reference. Hint: PathList
 	is not initialized for example... - PV */
-	if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
+/*	if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
 	{
 		for (uint a = 0; a < PathList->count(); ++a)
 		{
@@ -343,7 +381,7 @@ void FontPrefs::rebuildDialog()
 			availFonts->AddScalableFonts(dir +"/"); //, docc->DocName);
 			availFonts->updateFontMap();
 		}
-	}
+	} */
 	UsedFonts.clear();
 	fontFlags.clear();
 	fontList->clear();
@@ -353,43 +391,50 @@ void FontPrefs::rebuildDialog()
 		if (it.current().isNone())
 			continue;
 		fontSet foS;
-		Q3ListViewItem *row = new Q3ListViewItem(fontList);
+		QTreeWidgetItem *row = new QTreeWidgetItem(fontList);
 		row->setText(0, it.currentKey());
 
 		foS.FlagUse = it.current().usable();
-		row->setPixmap(1, foS.FlagUse ? checkOn : checkOff);
+		row->setIcon(1, foS.FlagUse ? checkOn : checkOff);
 		if (foS.FlagUse)
 			UsedFonts.append(it.currentKey());
 
 		foS.FlagPS = it.current().embedPs();
-		row->setPixmap(2, foS.FlagPS ? checkOn : checkOff);
+		row->setIcon(2, foS.FlagPS ? checkOn : checkOff);
 
 		foS.FlagSub = it.current().subset();
-		row->setPixmap(3, foS.FlagSub ? checkOn : checkOff);
+		row->setIcon(3, foS.FlagSub ? checkOn : checkOff);
 
 		ScFace::FontType type = it.current().type();
 		foS.FlagOTF = (type == ScFace::OTF) ? true : false;
 		if (it.current().isReplacement())
-			row->setPixmap(0, substFont);
+			row->setIcon(0, substFont);
 		else if (type == ScFace::TYPE1)
-			row->setPixmap(0, psFont);
+			row->setIcon(0, psFont);
 		else if (type == ScFace::TTF)
-			row->setPixmap(0, ttfFont);
+			row->setIcon(0, ttfFont);
 		else if (type == ScFace::OTF)
-			row->setPixmap(0, otfFont);
+			row->setIcon(0, otfFont);
 
 		foS.FlagNames = it.current().hasNames();
 		row->setText(4, it.current().fontPath());
 		fontFlags.insert(it.currentKey(), foS);
 	}
-	fontList->sort();
+	fontList->sortByColumn(0, Qt::AscendingOrder);
+	fontList->resizeColumnToContents(0);
+	fontList->resizeColumnToContents(4);
 	UsedFonts.sort();
-	FlagsRepl.clear();
+	while (!FlagsRepl.isEmpty())
+	{
+		delete FlagsRepl.takeFirst();
+	}
+	Table3->clearContents();
+	Table3->setRowCount(PrefsManager::instance()->appPrefs.GFontSub.count());
 	int a = 0;
 	QMap<QString,QString>::Iterator itfsu;
 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 	{
-		Table3->setText(a, 0, itfsu.key());
+		Table3->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
 		ScComboBox *item = new ScComboBox( true, this, "Replace" );
 		item->setEditable(false);
 		item->insertStringList(UsedFonts);
