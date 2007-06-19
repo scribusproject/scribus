@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SCRIBUS_DOCITEMATTRPREFS
 
 #include "ui_docitemattrprefs.h"
+#include "pagestructs.h"
 
 class DocumentItemAttributes : public QWidget, Ui::DocumentItemAttributes
 {
@@ -34,7 +35,6 @@ class DocumentItemAttributes : public QWidget, Ui::DocumentItemAttributes
 		QStringList autoAddToData;
 		QStringList types;
 		QStringList typesData;
-
 };
 
 #endif

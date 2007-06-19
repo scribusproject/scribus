@@ -27,7 +27,6 @@ PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool 
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteEntry()));
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearEntries()));
 	connect(copyButton, SIGNAL(clicked()), this, SLOT(copyEntry()));
-	connect(attributesTable, SIGNAL(cellClicked(int,int)), this, SLOT(cellClick(int,int)));
 }
 
 PageItemAttributes::~PageItemAttributes()
@@ -190,7 +189,6 @@ void PageItemAttributes::updateTable()
 			item1->setItemText(0,(*it).name);
 		}
 		item1->setEditable(true);
-		
 		attributesTable->setCellWidget(row, i++, item1);
 		//Type
 		QTableWidgetItem *item2 = new QTableWidgetItem((*it).type);
@@ -217,15 +215,16 @@ void PageItemAttributes::updateTable()
 		attributesTable->setItem(row, i++, item6);
 		//Auto Add to not used here
 		/*
-		QComboTableItem *item7 = new QComboTableItem(attributesTable, autoAddTo);
-		attributesTable->setItem(row, i++, item7);
-		index=autoAddToData.findIndex((*it).autoaddto);
-		if (index==-1)
+		QComboBox *item7 = new QComboBox();
+		item7->addItems(autoAddTo);
+		attributesTable->setCellWidget(row, i++, item7);
+		int index2=autoAddToData.indexOf((*it).autoaddto);
+		if (index2==-1)
 		{
-			(*it).autoaddto="none";
-			index=0;
+			(*it).relationship="none";
+			index2=0;
 		}
-		item7->setCurrentItem(index);
+		item7->setCurrentItem(index2);
 		*/
 		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
  		if (t!=NULL)
@@ -260,8 +259,3 @@ void PageItemAttributes::okClicked()
 void PageItemAttributes::languageChange()
 {
 }
-
-// void PageItemAttributes::cellClick(int row, int col)
-// {
-// 	qDebug(QString("%1 %2").arg(row).arg(col));
-// }

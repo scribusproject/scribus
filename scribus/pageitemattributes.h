@@ -32,7 +32,6 @@ class PageItemAttributes : public QDialog, Ui::PageItemAttributes
 		virtual void clearEntries();
 		virtual void copyEntry();
 		virtual void okClicked();
-// 		virtual void cellClick(int row, int col);
 
 	private:
 		ObjAttrVector localAttributes;

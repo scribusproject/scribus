@@ -5,11 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "docitemattrprefs.h"
-//#include "docitemattrprefs.moc"
 
-#include <qstring.h>
-#include <q3table.h>
-#include <qpushbutton.h>
+#include <QString>
+#include <QPushButton>
+#include <QComboBox>
 
 DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* name, Qt::WFlags fl  )
 	: QWidget(parent, name, fl)
@@ -21,6 +20,13 @@ DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* na
 	autoAddToData << "none" << "textframes" << "imageframes";
 	types << tr("None", "types") << tr("Boolean") << tr("Integer") << tr("Real Number") << tr("String");
 	typesData << "none" << "boolean" << "integer" << "double" << "string";
+
+	connect(attributesTable, SIGNAL(cellChanged(int,int)), this, SLOT(tableItemChanged(int,int)));
+	connect(addButton, SIGNAL(clicked()), this, SLOT(addEntry()));
+	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteEntry()));
+	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearEntries()));
+	connect(copyButton, SIGNAL(clicked()), this, SLOT(copyEntry()));
+	connect(attributesTable, SIGNAL(cellClicked(int,int)), this, SLOT(cellClick(int,int)));
 }
 
 DocumentItemAttributes::~DocumentItemAttributes()
@@ -44,45 +50,45 @@ void DocumentItemAttributes::tableItemChanged( int row, int col )
 	switch (col)
 	{
 	case 0:
-		localAttributes[row].name=attributesTable->text(row, col);
+		localAttributes[row].name=attributesTable->item(row, col)->text();
 		break;
 	case 1:
 		{
-			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
+			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
 			if (qcti!=NULL)
 			{
-				int index=qcti->currentItem();
+				int index=qcti->currentIndex();
 				if (index<typesData.count())
 					localAttributes[row].type=typesData[index];
 			}
 		}
 		break;
 	case 2:
-		localAttributes[row].value=attributesTable->text(row, col);
+		localAttributes[row].value=attributesTable->item(row, col)->text();
 		break;
 	case 3:
-		localAttributes[row].parameter=attributesTable->text(row, col);
+		localAttributes[row].parameter=attributesTable->item(row, col)->text();
 		break;
 	case 4:
 		{
-			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
+			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
 			if (qcti!=NULL)
 			{
-				int index=qcti->currentItem();
+				int index=qcti->currentIndex();
 				if (index<relationshipsData.count())
 					localAttributes[row].relationship=relationshipsData[index];
 			}
 		}
 		break;
 	case 5:
-		localAttributes[row].relationshipto=attributesTable->text(row, col);
+		localAttributes[row].relationshipto=attributesTable->item(row, col)->text();
 		break;
 	case 6:
 		{
-			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(attributesTable->item(row,col));
+			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
 			if (qcti!=NULL)
 			{
-				int index=qcti->currentItem();
+				int index=qcti->currentIndex();
 				if (index<autoAddToData.count())
 					localAttributes[row].autoaddto=autoAddToData[index];
 			}
@@ -107,34 +113,38 @@ void DocumentItemAttributes::addEntry()
 
 void DocumentItemAttributes::updateTable()
 {
-	attributesTable->setNumRows(localAttributes.count());
+	attributesTable->setRowCount(localAttributes.count());
 	int row=0;
 	for(ObjAttrVector::Iterator it = localAttributes.begin(); it!= localAttributes.end(); ++it)
 	{
 		uint i=0;
 		//Name
-		Q3TableItem *item1 = new Q3TableItem(attributesTable, Q3TableItem::WhenCurrent, (*it).name);
+		QTableWidgetItem *item1 = new QTableWidgetItem((*it).name);
 		attributesTable->setItem(row, i++, item1);
 		//Type
-		Q3ComboTableItem *item2 = new Q3ComboTableItem(attributesTable, types);
-		attributesTable->setItem(row, i++, item2);
-		int index=typesData.findIndex((*it).type);
-		if (index==-1)
+		QComboBox *item2 = new QComboBox();
+		item2->addItems(types);
+		int listIndex=types.indexOf((*it).type);
+		if (listIndex!=-1)
+			item2->setCurrentIndex(listIndex);
+		else
 		{
-			(*it).type="none";
-			index=0;
+			item2->setCurrentIndex(0);
+			item2->setItemText(0,(*it).type);
 		}
-		item2->setCurrentItem(index);
+		item2->setEditable(true);
+		attributesTable->setCellWidget(row, i++, item2);
 		//Default Value
-		Q3TableItem *item3 = new Q3TableItem(attributesTable, Q3TableItem::WhenCurrent, (*it).value);
+		QTableWidgetItem *item3 = new QTableWidgetItem((*it).value);
 		attributesTable->setItem(row, i++, item3);
 		//Default Parameter
-		Q3TableItem *item4 = new Q3TableItem(attributesTable, Q3TableItem::WhenCurrent, (*it).parameter);
+		QTableWidgetItem *item4 = new QTableWidgetItem((*it).parameter);
 		attributesTable->setItem(row, i++, item4);
 		//Relationship
-		Q3ComboTableItem *item5 = new Q3ComboTableItem(attributesTable, relationships);
-		attributesTable->setItem(row, i++, item5);
-		index=relationshipsData.findIndex((*it).relationship);
+		QComboBox *item5 = new QComboBox();
+		item5->addItems(relationships);
+		attributesTable->setCellWidget(row, i++, item5);
+		int index=relationshipsData.findIndex((*it).relationship);
 		if (index==-1)
 		{
 			(*it).relationship="none";
@@ -142,20 +152,23 @@ void DocumentItemAttributes::updateTable()
 		}
 		item5->setCurrentItem(index);
 		//Relationship to
-		Q3TableItem *item6 = new Q3TableItem(attributesTable, Q3TableItem::WhenCurrent, (*it).relationshipto);
+		QTableWidgetItem *item6 = new QTableWidgetItem((*it).relationshipto);
 		attributesTable->setItem(row, i++, item6);
 		//Auto Add to
-		Q3ComboTableItem *item7 = new Q3ComboTableItem(attributesTable, autoAddTo);
-		attributesTable->setItem(row, i++, item7);
-		index=autoAddToData.findIndex((*it).autoaddto);
-		if (index==-1)
+		QComboBox *item7 = new QComboBox();
+		item7->addItems(autoAddTo);
+		attributesTable->setCellWidget(row, i++, item7);
+		int index2=autoAddToData.indexOf((*it).autoaddto);
+		if (index2==-1)
 		{
-			(*it).autoaddto="none";
-			index=0;
+			(*it).relationship="none";
+			index2=0;
 		}
-		item7->setCurrentItem(index);
+		item7->setCurrentItem(index2);
 
-		attributesTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
+		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
+ 		if (t!=NULL)
+			t->setText(QString("%1").arg(row));
 		row++;
 	}
 	deleteButton->setEnabled(localAttributes.count()!=0);
