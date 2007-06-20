@@ -288,6 +288,7 @@ public:
 	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
 	void SetDefaultCMSParams();
+	void SetGlobalCMSParams();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 	/**
 	 * @brief Should guides be locked or not

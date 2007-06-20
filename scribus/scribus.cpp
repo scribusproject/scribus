@@ -3507,18 +3507,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				doc->SetDefaultCMSParams();
 				CMSuse = false;
 			}
-			stdTransRGBDoc2CMYKG = doc->stdTransRGBDoc2CMYK;
-			stdTransCMYK2RGBDocG = doc->stdTransCMYK2RGBDoc;
-			stdTransRGBDoc2MonG = doc->stdTransRGBDoc2Mon;
-			stdTransCMYK2MonG = doc->stdTransCMYK2Mon;
-			stdProofRGBG = doc->stdProofRGB;
-			stdProofRGBGCG = doc->stdProofRGBGC;
-			stdProofCMYKG = doc->stdProofCMYK;
-			stdProofCMYKGCG = doc->stdProofCMYKGC;
-			stdProofImgG = doc->stdProofImg;
-			stdTransImgG = doc->stdTransImg;
-			CMSoutputProf = doc->DocOutputProf;
-			CMSprinterProf = doc->DocPrinterProf;
+			doc->SetGlobalCMSParams();
 #endif
 			if (doc->CMSSettings.CMSinUse)
 			{
@@ -3532,23 +3521,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->CMSSettings.CMSinUse = false;
 #ifdef HAVE_CMS
 			CMSuse = doc->CMSSettings.CMSinUse;
-			BlackPoint   = true;
-			SoftProofing = false;
-			Gamut        = false;
-			IntentPrinter = INTENT_RELATIVE_COLORIMETRIC;
-			IntentMonitor = INTENT_RELATIVE_COLORIMETRIC;
-			stdTransRGBDoc2CMYKG = doc->stdTransRGBDoc2CMYK;
-			stdTransCMYK2RGBDocG = doc->stdTransCMYK2RGBDoc;
-			stdTransRGBDoc2MonG = doc->stdTransRGBDoc2Mon;
-			stdTransCMYK2MonG = doc->stdTransCMYK2Mon;
-			stdProofRGBG = doc->stdProofRGB;
-			stdProofRGBGCG = doc->stdProofRGBGC;
-			stdProofCMYKG = doc->stdProofCMYK;
-			stdProofCMYKGCG = doc->stdProofCMYKGC;
-			stdProofImgG = doc->stdProofImg;
-			stdTransImgG = doc->stdTransImg;
-			CMSoutputProf = doc->DocOutputProf;
-			CMSprinterProf = doc->DocPrinterProf;
+			doc->SetGlobalCMSParams();
 #endif
 		}
 		propertiesPalette->updateColorList();

@@ -1025,18 +1025,7 @@ void ReformDoc::updateDocumentSettings()
 				currDoc->HasCMS = false;
 				CMSuse = false;
 			}
-			stdTransCMYK2RGBDocG = currDoc->stdTransCMYK2RGBDoc;
-			stdTransRGBDoc2CMYKG = currDoc->stdTransRGBDoc2CMYK;
-			stdTransRGBDoc2MonG = currDoc->stdTransRGBDoc2Mon;
-			stdTransCMYK2MonG = currDoc->stdTransCMYK2Mon;
-			stdProofRGBG = currDoc->stdProofRGB;
-			stdProofRGBGCG = currDoc->stdProofRGBGC;
-			stdProofCMYKG = currDoc->stdProofCMYK;
-			stdProofCMYKGCG = currDoc->stdProofCMYKGC;
-			stdProofImgG = currDoc->stdProofImg;
-			stdTransImgG = currDoc->stdTransImg;
-			CMSoutputProf = currDoc->DocOutputProf;
-			CMSprinterProf = currDoc->DocPrinterProf;
+			currDoc->SetGlobalCMSParams();
 			if (updCol)
 			{
 				ScMW->recalcColors(ScMW->mainWindowProgressBar);
