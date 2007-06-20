@@ -129,12 +129,12 @@ public:
 	QMenu *CurveQ2Pop;
 	QWidgetAction* CurveQ2Act;
 	QLabel* textLabel3q;
-	ColorCombo* colDataq3;
-	ShadeButton *shadeq3;
-	CurveWidget *CurveQ3;
-	QToolButton *CurveQ3Button;
-	QMenu *CurveQ3Pop;
-	QWidgetAction* CurveQ3Act;
+	ColorCombo* colDataqc3;
+	ShadeButton *shadeqc3;
+	CurveWidget *CurveQc3;
+	QToolButton *CurveQc3Button;
+	QMenu *CurveQc3Pop;
+	QWidgetAction* CurveQc3Act;
 	QLabel* textLabel4q;
 	ColorCombo* colDataq4;
 	ShadeButton *shadeq4;

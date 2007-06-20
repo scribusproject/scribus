@@ -387,24 +387,24 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( CurveQ2Button, 3, 2 );
 	textLabel3q = new QLabel( tr( "Color 3:" ), WStackPage_10, "textLabel3q" );
 	WStackPage10Layout->addWidget( textLabel3q, 4, 0 );
-	colDataq3 = new ColorCombo(false, WStackPage_10, "colDataq3");
-	colDataq3->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
-	WStackPage10Layout->addWidget( colDataq3, 4, 1, 1, 2 );
-	shadeq3 = new ShadeButton(WStackPage_10);
-	shadeq3->setValue(100);
-	WStackPage10Layout->addWidget( shadeq3, 5, 1 );
-	CurveQ3 = new CurveWidget( NULL );
-	CurveQ3Pop = new QMenu();
-	CurveQ3Act = new QWidgetAction(this);
-	CurveQ3Act->setDefaultWidget(CurveQ3);
-	CurveQ3Pop->addAction(CurveQ3Act);
-	CurveQ3Button = new QToolButton( WStackPage_10, "CurveQ3Button" );
-	CurveQ3Button->setText( "" );
-	CurveQ3Button->setMaximumSize( QSize( 22, 22 ) );
-	CurveQ3Button->setPixmap(loadIcon("curve.png"));
-	CurveQ3Button->setMenu(CurveQ3Pop);
-	CurveQ3Button->setPopupMode(QToolButton::InstantPopup);
-	WStackPage10Layout->addWidget( CurveQ3Button, 5, 2 );
+	colDataqc3 = new ColorCombo(false, WStackPage_10, "colDataqc3");
+	colDataqc3->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+	WStackPage10Layout->addWidget( colDataqc3, 4, 1, 1, 2 );
+	shadeqc3 = new ShadeButton(WStackPage_10);
+	shadeqc3->setValue(100);
+	WStackPage10Layout->addWidget( shadeqc3, 5, 1 );
+	CurveQc3 = new CurveWidget( NULL );
+	CurveQc3Pop = new QMenu();
+	CurveQc3Act = new QWidgetAction(this);
+	CurveQc3Act->setDefaultWidget(CurveQc3);
+	CurveQc3Pop->addAction(CurveQc3Act);
+	CurveQc3Button = new QToolButton( WStackPage_10, "CurveQc3Button" );
+	CurveQc3Button->setText( "" );
+	CurveQc3Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveQc3Button->setPixmap(loadIcon("curve.png"));
+	CurveQc3Button->setMenu(CurveQc3Pop);
+	CurveQc3Button->setPopupMode(QToolButton::InstantPopup);
+	WStackPage10Layout->addWidget( CurveQc3Button, 5, 2 );
 	textLabel4q = new QLabel( tr( "Color 4:" ), WStackPage_10, "textLabel4q" );
 	WStackPage10Layout->addWidget( textLabel4q, 6, 0 );
 	colDataq4 = new ColorCombo(false, WStackPage_10, "colDataq4");
@@ -646,8 +646,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
 	connect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
 	connect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
-	connect( colDataq3, SIGNAL(activated(int)), this, SLOT( createPreview()));
-	connect( shadeq3, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colDataqc3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shadeqc3, SIGNAL(clicked()), this, SLOT(createPreview()));
 	connect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
 	connect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
 	connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
@@ -667,7 +667,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( CurveT3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	connect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	connect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-	connect( CurveQ3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveQc3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	connect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	tim.start();
 }
@@ -1122,13 +1122,13 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			disconnect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
 			disconnect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			disconnect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
-			disconnect( colDataq3, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			disconnect( shadeq3, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( colDataqc3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shadeqc3, SIGNAL(clicked()), this, SLOT(createPreview()));
 			disconnect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			disconnect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
 			disconnect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			disconnect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			disconnect( CurveQ3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			disconnect( CurveQc3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			disconnect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			QString col1, col2, col3, col4;
@@ -1146,8 +1146,8 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			shadeq1->setValue(shading1);
 			colDataq2->setCurrentText(col2);
 			shadeq2->setValue(shading2);
-			colDataq3->setCurrentText(col3);
-			shadeq3->setValue(shading3);
+			colDataqc3->setCurrentText(col3);
+			shadeqc3->setValue(shading3);
 			colDataq4->setCurrentText(col4);
 			shadeq4->setValue(shading4);
 			int numVals;
@@ -1184,9 +1184,9 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 				fp >> yval;
 				curve.addPoint(xval, yval);
 			}
-			CurveQ3->cDisplay->setCurve(curve);
+			CurveQc3->cDisplay->setCurve(curve);
 			fp >> lin;
-			CurveQ3->setLinear(lin);
+			CurveQc3->setLinear(lin);
 			curve.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
@@ -1203,13 +1203,13 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
 			connect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
-			connect( colDataq3, SIGNAL(activated(int)), this, SLOT( createPreview()));
-			connect( shadeq3, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( colDataqc3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shadeqc3, SIGNAL(clicked()), this, SLOT(createPreview()));
 			connect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
 			connect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			connect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
-			connect( CurveQ3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			connect( CurveQc3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			connect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Brightness"))
@@ -1491,14 +1491,14 @@ void EffectsDialog::selectEffectHelper(bool final)
 			QString efval = "";
 			efval = colDataq1->currentText()+"\n";
 			efval += colDataq2->currentText()+"\n";
-			efval += colDataq3->currentText()+"\n";
+			efval += colDataqc3->currentText()+"\n";
 			efval += colDataq4->currentText()+"\n";
 			QString tmp;
 			tmp.setNum(shadeq1->getValue());
 			efval += tmp;
 			tmp.setNum(shadeq2->getValue());
 			efval += " "+tmp;
-			tmp.setNum(shadeq3->getValue());
+			tmp.setNum(shadeqc3->getValue());
 			efval += " "+tmp;
 			tmp.setNum(shadeq4->getValue());
 			efval += " "+tmp;
@@ -1526,7 +1526,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 				efval += " 1";
 			else
 				efval += " 0";
-			Vals = CurveQ3->cDisplay->getCurve();
+			Vals = CurveQc3->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
 			for (uint p = 0; p < Vals.size(); p++)
@@ -1534,7 +1534,7 @@ void EffectsDialog::selectEffectHelper(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
-			if (CurveQ3->cDisplay->isLinear())
+			if (CurveQc3->cDisplay->isLinear())
 				efval += " 1";
 			else
 				efval += " 0";
