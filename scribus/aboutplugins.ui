@@ -5,15 +5,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>514</width>
-    <height>508</height>
+    <width>562</width>
+    <height>401</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Scribus: About Plug-ins</string>
   </property>
-  <layout class="QGridLayout" >
-   <item row="0" column="0" >
+  <layout class="QVBoxLayout" >
+   <property name="margin" >
+    <number>10</number>
+   </property>
+   <property name="spacing" >
+    <number>5</number>
+   </property>
+   <item>
     <widget class="QSplitter" name="splitter" >
      <property name="orientation" >
       <enum>Qt::Horizontal</enum>
@@ -24,25 +30,20 @@
      <property name="childrenCollapsible" >
       <bool>false</bool>
      </property>
-     <widget class="Q3ListBox" name="pluginList" >
+     <widget class="QListWidget" name="pluginList" >
       <property name="sizePolicy" >
-       <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
-        <horstretch>1</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-     </widget>
-     <widget class="Q3TextBrowser" name="infoBrowser" >
-      <property name="sizePolicy" >
-       <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+       <sizepolicy>
+        <hsizetype>7</hsizetype>
+        <vsizetype>7</vsizetype>
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
      </widget>
+     <widget class="QTextBrowser" name="infoBrowser" />
     </widget>
    </item>
-   <item row="1" column="0" >
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox" >
      <property name="orientation" >
       <enum>Qt::Horizontal</enum>
@@ -54,18 +55,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>Q3ListBox</class>
-   <extends>Q3Frame</extends>
-   <header>q3listbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>Q3TextBrowser</class>
-   <extends>Q3TextEdit</extends>
-   <header>Qt3Support/Q3TextBrowser</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>

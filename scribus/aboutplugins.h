@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define ABOUTPLUGINS_H
 
 #include "ui_aboutplugins.h"
+class QListWidgetItem;
 
 /*! \brief Displays info about pligins.
 This class implements only the non-GUI parts of the
@@ -25,7 +26,7 @@ class AboutPlugins : public QDialog, Ui::AboutPlugins
 
 	private slots:
 		//! \brief Update the info on a new selection
-		void displayPlugin(int sel);
+		void displayPlugin(QListWidgetItem* item);
 
 	private:
 		//! \brief Map list entry IDs to plugin names

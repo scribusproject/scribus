@@ -10,14 +10,11 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 #include "commonstrings.h"
 
-#include <q3listbox.h>
+#include <QListWidget>
+#include <QListWidgetItem>
 #include <qstring.h>
-#include <q3cstring.h>
-//#include <qlabel.h>
-//#include <qtextedit.h>
 #include <q3textbrowser.h>
 #include <qfileinfo.h>
-//Added by qt3to4:
 #include <QList>
 
 
@@ -34,23 +31,26 @@ AboutPlugins::AboutPlugins( QWidget* parent )
 	{
 		ScPlugin* plugin = PluginManager::instance().getPlugin(*it, true);
 		Q_ASSERT(plugin);
-		pluginList->insertItem(plugin->fullTrName());
+		pluginList->addItem(plugin->fullTrName());
 	}
 	// Hook up a connection to update the plugin info when
 	// the selection changes
-	connect(pluginList, SIGNAL(highlighted(int)),
-			SLOT(displayPlugin(int)));
+	connect(pluginList, SIGNAL(itemClicked(QListWidgetItem*)), SLOT(displayPlugin(QListWidgetItem*)));
 	// and select the first plugin, if any
 	if (pluginList->count())
-		pluginList->setCurrentItem(0);
+	{
+		pluginList->setCurrentRow(0);
+		displayPlugin(pluginList->currentItem());
+	}
 }
 
 AboutPlugins::~AboutPlugins()
 {
 }
 
-void AboutPlugins::displayPlugin(int sel)
+void AboutPlugins::displayPlugin(QListWidgetItem* item)
 {
+	int sel = pluginList->row(item);
 	// Look up the list entry to get the plugin name and use
 	// it to grab the plugin instance and get its about data.
 	PluginManager& pluginManager = PluginManager::instance();
@@ -82,7 +82,7 @@ void AboutPlugins::displayPlugin(int sel)
 	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Copyright:")).arg(htmlize(about->copyright));
 	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("License:")).arg(htmlize(about->license));
 	html += "</html>";
-	infoBrowser->setText(html);
+	infoBrowser->setHtml(html);
 	// Use the plugin to delete the about info, so we don't
 	// confuse win32's segmented memory.
 	plugin->deleteAboutData(about);
