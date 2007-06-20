@@ -6,8 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "newfile.h"
 
-#include <q3iconview.h>
-
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
