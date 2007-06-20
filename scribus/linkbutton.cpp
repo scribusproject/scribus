@@ -23,8 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "linkbutton.h"
 #include "icons6.h"
-#include <qicon.h>
-//Added by qt3to4:
+#include <QIcon>
 #include <QPixmap>
 
 

@@ -24,14 +24,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef LINKBUTTON_H
 #define LINKBUTTON_H
 
-#include <qtoolbutton.h>
+#include <QToolButton>
 #include "scribusapi.h"
 
 /**
   *@author Franz Schmid
   */
 
-class SCRIBUS_API LinkButton : public QToolButton  
+class SCRIBUS_API LinkButton : public QToolButton
 {
 public: 
 	/*!
