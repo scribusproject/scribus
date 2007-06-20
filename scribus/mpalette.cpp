@@ -3963,14 +3963,14 @@ void Mpalette::setActShade()
 	if (PM1 == sender())
 	{
 		b = PM1->getValue();
-		doc->itemSelection_SetFillShade(b);
-//		doc->currentStyle.charStyle().setFillShade(b);
+		doc->itemSelection_SetStrokeShade(b);
+//		doc->currentStyle.charStyle().setStrokeShade(b);
 	}
 	else
 	{
 		b = PM2->getValue();
-		doc->itemSelection_SetStrokeShade(b);
-//		doc->currentStyle.charStyle().setStrokeShade(b);
+		doc->itemSelection_SetFillShade(b);
+//		doc->currentStyle.charStyle().setFillShade(b);
 	}
 // 	emit DocChanged();
 }
