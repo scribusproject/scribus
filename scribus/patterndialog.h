@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmap.h>
 #include <qstring.h>
 #include <qdialog.h>
-#include <q3iconview.h>
+#include <QListWidgetItem>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include "ui_patterndialog.h"
@@ -55,7 +55,7 @@ class SCRIBUS_API PatternDialog : public QDialog, Ui::PatternDialog
 	public slots:
 		void loadPatternDir();
 		void loadPattern();
-		void patternSelected(Q3IconViewItem* it);
+		void patternSelected(QListWidgetItem* it);
 		void removeAllPatterns();
 		void removePattern();
 };

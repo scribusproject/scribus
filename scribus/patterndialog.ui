@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>342</width>
-    <height>314</height>
+    <width>316</width>
+    <height>291</height>
    </rect>
   </property>
   <property name="windowTitle" >
@@ -21,24 +21,18 @@
     <number>5</number>
    </property>
    <item>
-    <widget class="Q3IconView" name="patternView" >
-     <property name="minimumSize" >
-      <size>
-       <width>175</width>
-       <height>0</height>
-      </size>
+    <widget class="QListWidget" name="patternView" >
+     <property name="flow" >
+      <enum>QListView::LeftToRight</enum>
      </property>
-     <property name="acceptDrops" >
-      <bool>false</bool>
+     <property name="isWrapping" stdset="0" >
+      <bool>true</bool>
      </property>
      <property name="resizeMode" >
-      <enum>Q3IconView::Adjust</enum>
+      <enum>QListView::Adjust</enum>
      </property>
-     <property name="maxItemWidth" >
-      <number>48</number>
-     </property>
-     <property name="itemsMovable" >
-      <bool>false</bool>
+     <property name="viewMode" >
+      <enum>QListView::IconMode</enum>
      </property>
     </widget>
    </item>
@@ -114,13 +108,6 @@
  </widget>
  <layoutdefault spacing="5" margin="10" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3IconView</class>
-   <extends>Q3Frame</extends>
-   <header>q3iconview.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

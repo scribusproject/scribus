@@ -34,15 +34,17 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qimage.h>
 #include <qdir.h>
-#include <q3filedialog.h>
+#include <qfiledialog.h>
 #include <qapplication.h>
 #include <qeventloop.h>
-#include <qcursor.h>
+#include <QCursor>
 #include <QImageReader>
+#include <QPainter>
 
 PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : QDialog(parent)
 {
 	setupUi(this);
+	setModal(true);
 	m_doc = doc;
 	mainWin = scMW;
 	patternView->clear();
@@ -60,23 +62,29 @@ PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatte
 	connect(buttonLoadDir, SIGNAL(clicked()), this, SLOT(loadPatternDir()));
 	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removePattern()));
 	connect(buttonRemoveAll, SIGNAL(clicked()), this, SLOT(removeAllPatterns()));
-	connect(patternView, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(patternSelected(Q3IconViewItem*)));
+	connect(patternView, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(patternSelected(QListWidgetItem*)));
 }
 
 void PatternDialog::updatePatternList()
 {
 	patternView->clear();
-	patternView->setMaxItemWidth(48);
-	patternView->setWordWrapIconText(true);
+	patternView->setIconSize(QSize(48, 48));
+	patternView->setWordWrap(true);
 	for (QMap<QString, ScPattern>::Iterator it = dialogPatterns.begin(); it != dialogPatterns.end(); ++it)
 	{
 		QPixmap pm;
 		if (it.data().getPattern()->width() >= it.data().getPattern()->height())
-			pm.convertFromImage(it.data().getPattern()->scaleWidth(48));
+			pm.convertFromImage(it.data().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm.convertFromImage(it.data().getPattern()->scaleHeight(48));
-		Q3IconViewItem *item = new Q3IconViewItem(patternView, it.key(), pm);
-		item->setDragEnabled(false);
+			pm.convertFromImage(it.data().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+		QPixmap pm2(48, 48);
+		pm2.fill(palette().base());
+		QPainter p;
+		p.begin(&pm2);
+		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
+		p.end();
+		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), patternView);
+		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	}
 }
 
@@ -84,7 +92,7 @@ void PatternDialog::loadPatternDir()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterns", ".");
-	QString fileName = Q3FileDialog::getExistingDirectory(wdir, this, "d", tr("Choose a Directory"), true);
+	QString fileName = QFileDialog::getExistingDirectory(wdir, this, "d", tr("Choose a Directory"), true);
 	if (!fileName.isEmpty())
 	{
 		QStringList formats;
@@ -289,7 +297,7 @@ void PatternDialog::loadVectors(QString data)
 	}
 }
 
-void PatternDialog::patternSelected(Q3IconViewItem* it)
+void PatternDialog::patternSelected(QListWidgetItem* it)
 {
 	if (it)
 		buttonRemove->setEnabled(true);
@@ -308,7 +316,7 @@ void PatternDialog::removeAllPatterns()
 
 void PatternDialog::removePattern()
 {
-	Q3IconViewItem *it = patternView->currentItem();
+	QListWidgetItem *it = patternView->currentItem();
 	if (it)
 	{
 		QStringList patterns2Del;
