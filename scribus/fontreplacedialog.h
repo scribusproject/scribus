@@ -7,23 +7,17 @@ for which a new license (GPL+exception) is in place.
 #ifndef FONTREPLACEDIALOG_H
 #define FONTREPLACEDIALOG_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-//Added by qt3to4:
-#include <QCloseEvent>
-#include <Q3GridLayout>
-#include <QLabel>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDialog>
+#include <QMap>
 
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QSpacerItem;
+class QVBoxLayout;
+class QHBoxLayout;
 class QLabel;
-class Q3Table;
+class QTableWidget;
 class QCheckBox;
 class QPushButton;
+class QCloseEvent;
+
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -36,7 +30,7 @@ public:
 	~FontReplaceDialog() {};
 
 	QLabel* textLabel1;
-	Q3Table* replacementTable;
+	QTableWidget* replacementTable;
 	QCheckBox* stickyReplacements;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
@@ -47,9 +41,8 @@ private slots:
 
 protected:
 	void closeEvent(QCloseEvent *closeEvent);
-	Q3VBoxLayout* FontReplaceDialogLayout;
-	Q3HBoxLayout* layout1;
-	QSpacerItem* spacer1;
+	QVBoxLayout* FontReplaceDialogLayout;
+	QHBoxLayout* layout1;
 
 };
 

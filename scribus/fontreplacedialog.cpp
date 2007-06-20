@@ -6,20 +6,16 @@ for which a new license (GPL+exception) is in place.
 */
 #include "fontreplacedialog.h"
 
-//#include "fontreplacedialog.moc"
-#include <qvariant.h>
-#include <qlabel.h>
-#include <q3table.h>
-#include <qcheckbox.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qcombobox.h>
-//Added by qt3to4:
 #include <QPixmap>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QTableWidget>
+#include <QCheckBox>
+#include <QPushButton>
+#include <QHeaderView>
+#include <QSpacerItem>
+#include <QToolTip>
 #include <QCloseEvent>
 
 #include "fontcombo.h"
@@ -27,53 +23,61 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *RList) : QDialog( parent, "FontReplaceDialog", true, 0 )
+FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *RList) : QDialog( parent )
 {
-	setCaption( tr( "Font Substitution" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle( tr( "Font Substitution" ) );
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	ReplaceList = RList;
-	FontReplaceDialogLayout = new Q3VBoxLayout( this, 10, 5, "FontReplaceDialogLayout");
+	FontReplaceDialogLayout = new QVBoxLayout( this );
+	FontReplaceDialogLayout->setMargin(10);
+	FontReplaceDialogLayout->setSpacing(5);
 
 	textLabel1 = new QLabel( this, "textLabel1" );
 	textLabel1->setAlignment(Qt::AlignVCenter);
+	textLabel1->setWordWrap(true);
 	textLabel1->setText( "<qt>" + tr("This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.") + "</qt>" );
 	FontReplaceDialogLayout->addWidget( textLabel1 );
-
-	replacementTable = new Q3Table( this, "replacementTable" );
-	replacementTable->setNumCols( 2 );
-	replacementTable->horizontalHeader()->setLabel( 0, tr( "Original Font" ) );
-	replacementTable->horizontalHeader()->setLabel( 1, tr( "Substitution Font" ) );
-	replacementTable->setSorting(false);
-	replacementTable->setSelectionMode(Q3Table::NoSelection);
-	replacementTable->setLeftMargin(0);
+	
+	
+	replacementTable = new QTableWidget(0, 2, this );
+	replacementTable->setHorizontalHeaderItem(0, new QTableWidgetItem( tr("Original Font")));
+	replacementTable->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Substitution Font")));
+	replacementTable->setSortingEnabled(false);
+	replacementTable->setSelectionBehavior( QAbstractItemView::SelectRows );
+	QHeaderView *header = replacementTable->horizontalHeader();
+	header->setMovable(false);
+	header->setClickable(false);
+	header->setResizeMode(QHeaderView::Stretch);
 	replacementTable->verticalHeader()->hide();
-	replacementTable->setNumRows(RList->count());
+	replacementTable->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+	replacementTable->setRowCount(RList->count());
 	int a = 0;
 	QMap<QString,QString>::Iterator itfsu;
 	for (itfsu = RList->begin(); itfsu != RList->end(); ++itfsu)
 	{
-		replacementTable->setText(a, 0, itfsu.key());
+		replacementTable->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
 		FontCombo* item = new FontCombo(this);
 		item->setCurrentText(itfsu.data());
 		replacementTable->setCellWidget(a, 1, item);
 		a++;
 	}
-	replacementTable->setColumnStretchable(0, true);
-	replacementTable->setColumnStretchable(1, true);
 	FontReplaceDialogLayout->addWidget( replacementTable );
 
-	layout1 = new Q3HBoxLayout( 0, 0, 5, "layout1");
-	stickyReplacements = new QCheckBox( this, "stickyReplacements" );
+	layout1 = new QHBoxLayout;
+	layout1->setMargin(0);
+	layout1->setSpacing(5);
+	stickyReplacements = new QCheckBox( this );
 	stickyReplacements->setText( tr( "Make these substitutions permanent" ) );
 	layout1->addWidget( stickyReplacements );
-	spacer1 = new QSpacerItem( 71, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer1 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer1 );
-	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this );
 	layout1->addWidget( okButton );
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
 	layout1->addWidget( cancelButton );
 	FontReplaceDialogLayout->addLayout( layout1 );
-	resize( QSize(474, 247).expandedTo(minimumSizeHint()) );
+	resize( QSize(450, 250) );
 
 	QToolTip::add( cancelButton, "<qt>" + tr( "Cancels these font substitutions and stops loading the document.") + "</qt>" );
 	QToolTip::add( stickyReplacements, "<qt>" + tr( "Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit > Preferences > Fonts.") + "</qt>" );
@@ -90,10 +94,10 @@ void FontReplaceDialog::closeEvent(QCloseEvent *closeEvent)
 
 void FontReplaceDialog::leaveOK()
 {
-	for (int a = 0; a < replacementTable->numRows(); ++a)
+	for (int a = 0; a < replacementTable->rowCount(); ++a)
 	{
 		FontCombo* item = (FontCombo*)replacementTable->cellWidget(a, 1);
-		ReplaceList->replace(replacementTable->text(a, 0), item->currentText());
+		ReplaceList->replace(replacementTable->item(a, 0)->text(), item->currentText());
 	}
 	if (okButton == sender())
 		accept();
