@@ -26,7 +26,6 @@ DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* na
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(deleteEntry()));
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearEntries()));
 	connect(copyButton, SIGNAL(clicked()), this, SLOT(copyEntry()));
-	connect(attributesTable, SIGNAL(cellClicked(int,int)), this, SLOT(cellClick(int,int)));
 }
 
 DocumentItemAttributes::~DocumentItemAttributes()
