@@ -446,7 +446,7 @@ void ColorManager::importColors()
 				QTextStream ts(&f);
 				while (!ts.atEnd())
 				{
-					tmp = ts.readLine();
+					tmp = readLinefromStream(ts);
 					if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
 					{
 						if (tmp.startsWith("%%CMYKCustomColor"))
@@ -466,11 +466,11 @@ void ColorManager::importColors()
 							EditColors.insert(FarNam, cc);
 						while (!ts.atEnd())
 						{
-							uint oldPos = ts.device()->at();
-							tmp = ts.readLine();
+							uint oldPos = ts.pos();
+							tmp = readLinefromStream(ts);
 							if (!tmp.startsWith("%%+"))
 							{
-								ts.device()->at(oldPos);
+								ts.seek(oldPos);
 								break;
 							}
 							tmp = tmp.remove(0,3);
@@ -493,7 +493,7 @@ void ColorManager::importColors()
 						{
 							while (!ts.atEnd())
 							{
-								tmp = ts.readLine();
+								tmp = readLinefromStream(ts);
 								if ((tmp.endsWith("Xa") || tmp.endsWith(" k")) && (tmp.length() > 4))
 								{
 									QTextStream ts2(&tmp, QIODevice::ReadOnly);

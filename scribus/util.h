@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QByteArray>
 #include <QList>
+#include <QTextStream>
 
 #include "fpoint.h"
 #include "fpointarray.h"
@@ -166,5 +167,6 @@ void tDebug(QString message);
 
 QString SCRIBUS_API setupImageFormats();
 QString SCRIBUS_API getImageType(QString filename);
+QString SCRIBUS_API readLinefromStream(QTextStream &s);
 
 #endif

@@ -37,7 +37,6 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <Q3PointArray>
 #include <QImageReader>
-#include <QTextStream>
 
 // #include <algorithm>
 // #include <cstdlib>
@@ -1517,5 +1516,29 @@ QString getImageType(QString filename)
 	if (f.isOpen())
 		f.close();
 	return ret;
-	
+}
+
+QString readLinefromStream(QTextStream &s)
+{
+	QString ret = "";
+	QChar c;
+	while (!s.atEnd())
+	{
+		s >> c;
+		ret += c;
+		if (c == QChar(13))
+		{
+			if (s.atEnd())
+				break;
+			QByteArray b = s.device()->peek(1);
+			if (b.isEmpty())
+				break;
+			if (b.at(0) == QChar(10))
+				s >> c;
+			break;
+		}
+		if (c == QChar(10))
+			break;
+	}
+	return ret.trimmed();
 }

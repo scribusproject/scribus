@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QByteArray>
 #include <QTextStream>
-#include <Q3TextStream>
 #include <cmath>
 #include <cstdlib>
 
@@ -99,10 +98,10 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		if (f.open(QIODevice::ReadOnly))
 		{
 /* Try to find Bounding Box */
-			Q3TextStream ts(&f);
+			QTextStream ts(&f);
 			while (!ts.atEnd())
 			{
-				tmp = ts.readLine();
+				tmp = readLinefromStream(ts);
 				if (tmp.startsWith("%%BoundingBox:"))
 				{
 					found = true;
@@ -134,11 +133,11 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 					importedColors.append(FarNam);
 					while (!ts.atEnd())
 					{
-						uint oldPos = ts.device()->at();
-						tmp = ts.readLine();
+						uint oldPos = ts.pos();
+						tmp = readLinefromStream(ts);
 						if (!tmp.startsWith("%%+"))
 						{
-							ts.device()->at(oldPos);
+							ts.seek(oldPos);
 							break;
 						}
 						tmp = tmp.remove(0,3);
