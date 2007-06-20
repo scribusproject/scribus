@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QByteArray>
 #include <QTextStream>
+#include <Q3TextStream>
 #include <cmath>
 #include <cstdlib>
 
@@ -98,7 +99,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		if (f.open(QIODevice::ReadOnly))
 		{
 /* Try to find Bounding Box */
-			QTextStream ts(&f);
+			Q3TextStream ts(&f);
 			while (!ts.atEnd())
 			{
 				tmp = ts.readLine();
