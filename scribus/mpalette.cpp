@@ -1098,8 +1098,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(ZTop, SIGNAL(clicked()), this, SLOT(DoFront()));
 	connect(ZBottom, SIGNAL(clicked()), this, SLOT(DoBack()));
 	connect(RotationGroup, SIGNAL(buttonClicked(int)), this, SLOT(NewRotMode(int)));
-	connect(textFlowOptions, SIGNAL(clicked(int)), this, SLOT(DoFlow()));
-	connect(textFlowOptions2, SIGNAL(clicked(int)), this, SLOT(DoFlow()));
+	connect(textFlowOptionsB , SIGNAL(buttonClicked(int)), this, SLOT(DoFlow()));
+	connect(textFlowOptionsB2, SIGNAL(buttonClicked(int)), this, SLOT(DoFlow()));
 
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
