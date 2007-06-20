@@ -424,10 +424,7 @@ void FontPrefs::rebuildDialog()
 	fontList->resizeColumnToContents(0);
 	fontList->resizeColumnToContents(4);
 	UsedFonts.sort();
-	while (!FlagsRepl.isEmpty())
-	{
-		delete FlagsRepl.takeFirst();
-	}
+	FlagsRepl.clear();
 	Table3->clearContents();
 	Table3->setRowCount(PrefsManager::instance()->appPrefs.GFontSub.count());
 	int a = 0;
@@ -435,7 +432,7 @@ void FontPrefs::rebuildDialog()
 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 	{
 		Table3->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
-		ScComboBox *item = new ScComboBox( true, this, "Replace" );
+		ScComboBox *item = new ScComboBox( true, Table3, "Replace" );
 		item->setEditable(false);
 		item->insertStringList(UsedFonts);
 		item->setCurrentText(itfsu.data());
