@@ -7,10 +7,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef PICSEARCH_H
 #define PICSEARCH_H
 
-#include <qdialog.h>
+#include <QDialog>
+#include <QListWidgetItem>
 #include <qcheckbox.h>
 #include <qlabel.h>
-#include <q3listbox.h>
 #include <qpushbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
@@ -52,7 +52,7 @@ private slots:
 	\brief When image is selected from the ListBox then the image preview may be shown and the Use button is enabled.
 	\param c QListBoxItem
 	*/
-	void foundFilesBox_clicked(Q3ListBoxItem *c);
+	void foundFilesBox_clicked(QListWidgetItem *c);
 	/*!
 	\author Franz Schmid
 	\brief Generates image preview for the found Picture

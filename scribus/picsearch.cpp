@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "picsearch.h"
-//#include "picsearch.moc"
 #include <qpixmap.h>
 #include <qpainter.h>
 #include "scribusstructs.h"
@@ -14,27 +13,23 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "util.h"
 
-extern QPixmap loadIcon(QString nam);
-
-
 PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles)
 	: QDialog( parent, "PicSearch", true, 0 ),
 	currentImage(QString())
 {
 	setupUi(this);
-	setIcon(loadIcon("AppIcon.png"));
 	cancelButton->setText(CommonStrings::tr_Cancel);
 	previewLabel->hide();
 	fileNameLabel->setText(fileName);
 
 	for (int i = 0; i < avalableFiles.count(); ++i)
-		foundFilesBox->insertItem( QDir::convertSeparators(avalableFiles[i]) );
+		foundFilesBox->addItem( QDir::convertSeparators(avalableFiles[i]) );
 
 	// signals and slots connections
 	connect(cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect(useButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect(previewCheckBox, SIGNAL( clicked() ), this, SLOT( previewCheckBox_clicked() ) );
-	connect(foundFilesBox, SIGNAL(clicked(Q3ListBoxItem*)), this, SLOT(foundFilesBox_clicked(Q3ListBoxItem*)));
+	connect(foundFilesBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(foundFilesBox_clicked(QListWidgetItem*)));
 }
 
 void PicSearch::previewCheckBox_clicked()
@@ -49,7 +44,7 @@ void PicSearch::previewCheckBox_clicked()
 		previewLabel->hide();
 }
 
-void PicSearch::foundFilesBox_clicked(Q3ListBoxItem *c)
+void PicSearch::foundFilesBox_clicked(QListWidgetItem *c)
 {
 	if (c == NULL)
 		return;
