@@ -75,13 +75,14 @@ void gtAction::setProgressInfo()
 {
 	m_ScMW->setStatusBarInfoText(QObject::tr("Importing text"));
 	m_ScMW->mainWindowProgressBar->reset();
-	m_ScMW->mainWindowProgressBar->setMaximum(0);
+	m_ScMW->mainWindowProgressBar->setMaximum(0); // 0 shows a busy progressbar
 }
 
 void gtAction::setProgressInfoDone()
 {
 	m_ScMW->setStatusBarInfoText("");
 	m_ScMW->mainWindowProgressBar->reset();
+	m_ScMW->mainWindowProgressBar->setMaximum(1);
 }
 
 void gtAction::setInfo(QString infoText)
