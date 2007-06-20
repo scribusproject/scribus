@@ -242,6 +242,7 @@ void MasterPagesPalette::duplicateMasterPage()
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			ss->ReadElem(ss->WriteElem(currentDoc, currentView, currentDoc->m_Selection), prefsManager->appPrefs.AvailFonts, currentDoc, destination->xOffset(), destination->yOffset(), false, true, prefsManager->appPrefs.GFontSub, currentView);
 			currentDoc->m_Selection->clear();
+			delete ss;
 		}
 		uint end3 = currentDoc->MasterItems.count();
 		for (uint a = end2; a < end3; ++a)
