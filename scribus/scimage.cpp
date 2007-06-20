@@ -4359,7 +4359,9 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		inputProf = ScMW->defaultCMYKProfile;
 	else if (useProf)
 		inputProf = ScMW->defaultRGBProfile;
-	if (useProf && inputProf)
+	cmsHPROFILE screenProf  = CMSoutputProf  ? CMSoutputProf  : ScMW->defaultRGBProfile;
+	cmsHPROFILE printerProf = CMSprinterProf ? CMSprinterProf : ScMW->defaultCMYKProfile;
+	if (useProf && inputProf && screenProf && printerProf)
 	{
 		DWORD SC_TYPE_YMCK_8 = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
 		DWORD inputProfFormat = TYPE_BGRA_8;
@@ -4371,7 +4373,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			inputProfFormat = SC_TYPE_YMCK_8;
 		else if ( inputProfColorSpace == icSigGrayData )
 			inputProfFormat = TYPE_GRAY_8;
-		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(CMSprinterProf));
+		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(printerProf));
 		if ( prnProfColorSpace == icSigRgbData )
 			prnProfFormat = TYPE_BGRA_8;
 		else if ( prnProfColorSpace == icSigCmykData )
@@ -4390,13 +4392,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 		case CMYKData: // CMYK
 			if (!isCMYK)
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, cmsFlags);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, printerProf, prnProfFormat, IntentPrinter, cmsFlags);
 			break;
 		case RGBData: // RGB
 			if (isCMYK) {
 				if (systemBigEndian)
 					swapByteOrder(3, 2, 1, 0);
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, screenProf, TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;
 		case RGBProof: // RGB Proof
@@ -4404,12 +4406,12 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				if (SoftProofing && CMSuse)
 				{
 					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
-					                       CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
+					                       screenProf, TYPE_BGRA_8, printerProf,
 					                       IntentPrinter, rend, cmsFlags | cmsProofFlags);
 				}
 				else
 					xform = scCmsCreateTransform(inputProf, inputProfFormat,
-					                           CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
+					                       screenProf, TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;
 		case RawData: // no Conversion just raw Data

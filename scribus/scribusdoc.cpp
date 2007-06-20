@@ -298,6 +298,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	stdProofCMYKGC = NULL;
 	stdTransImg = NULL;
 	stdProofImg = NULL;
+	SetDefaultCMSParams();
 #endif
 }
 
@@ -461,6 +462,11 @@ void ScribusDoc::CloseCMSProfiles()
 
 void ScribusDoc::SetDefaultCMSParams()
 {
+	BlackPoint     = true;
+	SoftProofing   = false;
+	Gamut          = false;
+	IntentPrinter  = 1; // INTENT_RELATIVE_COLORIMETRIC
+	IntentMonitor  = 1; // INTENT_RELATIVE_COLORIMETRIC
 	DocInputProf   = ScMW->defaultRGBProfile;
 	DocOutputProf  = ScMW->defaultRGBProfile;
 	DocPrinterProf = ScMW->defaultCMYKProfile;

@@ -192,12 +192,12 @@ cmsHTRANSFORM stdProofCMYKG   = NULL;
 cmsHTRANSFORM stdProofCMYKGCG = NULL;
 cmsHTRANSFORM stdTransImgG = NULL;
 cmsHTRANSFORM stdProofImgG = NULL;
-bool BlackPoint;
-bool SoftProofing;
-bool Gamut;
-bool SCRIBUS_API CMSuse;
-int IntentMonitor;
-int IntentPrinter;
+bool BlackPoint = true;
+bool SoftProofing = false;
+bool Gamut = false;
+bool SCRIBUS_API CMSuse = false;
+int IntentMonitor = INTENT_RELATIVE_COLORIMETRIC;
+int IntentPrinter = INTENT_RELATIVE_COLORIMETRIC;
 #endif
 bool CMSavail;
 bool previewDinUse;
@@ -3528,9 +3528,27 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 		else
 		{
+			doc->SetDefaultCMSParams();
 			doc->CMSSettings.CMSinUse = false;
 #ifdef HAVE_CMS
 			CMSuse = doc->CMSSettings.CMSinUse;
+			BlackPoint   = true;
+			SoftProofing = false;
+			Gamut        = false;
+			IntentPrinter = INTENT_RELATIVE_COLORIMETRIC;
+			IntentMonitor = INTENT_RELATIVE_COLORIMETRIC;
+			stdTransRGBDoc2CMYKG = doc->stdTransRGBDoc2CMYK;
+			stdTransCMYK2RGBDocG = doc->stdTransCMYK2RGBDoc;
+			stdTransRGBDoc2MonG = doc->stdTransRGBDoc2Mon;
+			stdTransCMYK2MonG = doc->stdTransCMYK2Mon;
+			stdProofRGBG = doc->stdProofRGB;
+			stdProofRGBGCG = doc->stdProofRGBGC;
+			stdProofCMYKG = doc->stdProofCMYK;
+			stdProofCMYKGCG = doc->stdProofCMYKGC;
+			stdProofImgG = doc->stdProofImg;
+			stdTransImgG = doc->stdTransImg;
+			CMSoutputProf = doc->DocOutputProf;
+			CMSprinterProf = doc->DocPrinterProf;
 #endif
 		}
 		propertiesPalette->updateColorList();
