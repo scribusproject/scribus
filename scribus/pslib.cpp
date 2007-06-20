@@ -27,11 +27,10 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <qimage.h>
 #include <qcolor.h>
-#include <q3cstring.h>
 #include <qfontinfo.h>
 //Added by qt3to4:
 #include <QList>
-#include <Q3PtrList>
+#include <QByteArray>
 #include <QList>
 #include <cstdlib>
 #include <qregexp.h>

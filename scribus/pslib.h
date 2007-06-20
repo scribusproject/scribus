@@ -24,11 +24,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef PSLIB_H
 #define PSLIB_H
 #include <qstring.h>
-#include <q3cstring.h>
 #include <qpen.h>
 #include <qfile.h>
-#include <q3textstream.h>
 #include <QList>
+#include <Q3TextStream>
 //Added by qt3to4:
 #include <vector>
 #include <utility>
