@@ -6,9 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <zlib.h>
-#include <qfileinfo.h>
-//Added by qt3to4:
-#include <QByteArray>
+#include <QFileInfo>
 
 #include "scconfig.h"
 #include "scgzfile.h"

@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCGZFILE_H
 #define SCGZFILE_H
 
-#include <qstring.h>
-#include <q3cstring.h>
+#include <QString>
+#include <QByteArray>
 
 #include "scribusapi.h"
 
