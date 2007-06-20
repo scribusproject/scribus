@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1">
+<!DOCTYPE TS><TS version="1.1" language="en_US">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -8808,7 +8809,7 @@ a range of pages or a single page number.</source>
     <message>
         <location filename="../druck.cpp" line="185"/>
         <source>Print Separations</source>
-        <translation>Elválasztó oldal nyomtatása</translation>
+        <translation type="unfinished">Nyomtatás színrebontással</translation>
     </message>
     <message>
         <location filename="../druck.cpp" line="189"/>
