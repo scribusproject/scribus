@@ -126,7 +126,9 @@ pageType(0)
 		BleedBottom = new ScrSpinBox( 0, 3000*m_unitRatio, bleedPage, unitIndex );
 		BleedGroupLayout->addWidget( BleedBottom, 3, 1 );
 		linkBleeds = new LinkButton( bleedPage );
-		linkBleeds->setToggleButton( true );
+/** Fix Me to move this to the prefsmanager.cpp someday */		
+		linkBleeds->setCheckable( true );
+		linkBleeds->setChecked(true);
 		linkBleeds->setAutoRaise( true );
 		linkBleeds->setMaximumSize( QSize( 15, 32767 ) );
 		BleedGroupLayout->addWidget( linkBleeds, 0, 2, 4, 1 );
