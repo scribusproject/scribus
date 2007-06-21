@@ -3311,7 +3311,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		ob.setAttribute("gHeight", item->gHeight);
 		if (item->GrType != 0)
 		{
-			Q3PtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+			QVector<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				QDomElement itcl = docu->createElement("CSTOP");

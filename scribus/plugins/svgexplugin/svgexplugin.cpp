@@ -328,8 +328,8 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 								grad.setAttribute("cy", FToStr(Item->GrStartY));
 								break;
 						}
-						Q3PtrVector<VColorStop> cstops = Item->fill_gradient.colorStops();
-						for (uint cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
+						QVector<VColorStop*> cstops = Item->fill_gradient.colorStops();
+						for (int cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
 						{
 							QDomElement itcl = docu->createElement("stop");
 							itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100)+"%");

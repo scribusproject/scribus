@@ -33,30 +33,28 @@ bool compareStopsEx( const VColorStopEx* item1, const VColorStopEx* item2 )
 	return ( r1 < r2 ? true : false );
 }
 
-int VGradientEx::VColorStopExList::compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 )
+int VGradientEx::VColorStopExList::compareItems( VColorStopEx* item1, VColorStopEx* item2 )
 {
-	double r1 = ( (VColorStopEx*)item1 )->rampPoint;
-	double r2 = ( (VColorStopEx*)item2 )->rampPoint;
+	double r1 = item1->rampPoint;
+	double r2 = item2->rampPoint;
 
 	return ( r1 == r2 ? 0 : r1 < r2 ? -1 : 1 );
 } // VGradientEx::VColorStopList::compareItems
 
-void VGradientEx::VColorStopExList::inSort( Q3PtrCollection::Item d )
+void VGradientEx::VColorStopExList::inSort( VColorStopEx* d )
 {
 	int index = 0;
-	first();
-	register VColorStopEx *n = first();
-	while ( n && compareItems((Q3PtrCollection::Item) n,d) <= 0 ){ // find position in list
-		n = next();
+	register VColorStopEx *n = value(index);
+	while (n && compareItems(n,d) <= 0)
+	{
+		n = value(index);
 		index++;
 	}
-	insertAt( index, d );
+	insert( index, d );
 }
 
 VGradientEx::VGradientEx( VGradientEx::Type type ) : m_type( type )
 {
-	m_colorStops.setAutoDelete( true );
-
 	// set up dummy gradient
 	addStop( ScColor(255,0,0) , 0.0, 0.5, 1.0 );
 	addStop( ScColor(255,255,0) , 1.0, 0.5, 1.0 );
@@ -68,35 +66,33 @@ VGradientEx::VGradientEx( VGradientEx::Type type ) : m_type( type )
 
 VGradientEx::VGradientEx( const VGradientEx& gradient )
 {
-	m_colorStops.setAutoDelete( true );
-
 	m_origin		= gradient.m_origin;
 	m_focalPoint	= gradient.m_focalPoint;
 	m_vector		= gradient.m_vector;
 	m_type			= gradient.m_type;
 	m_repeatMethod	= gradient.m_repeatMethod;
 
-	m_colorStops.clear();
-	Q3PtrVector<VColorStopEx> cs = gradient.colorStops();
+	while (!m_colorStops.isEmpty())
+		delete m_colorStops.takeFirst();
+	QVector<VColorStopEx*> cs = gradient.colorStops();
 	std::stable_sort( cs.data(), cs.data() + cs.count(), compareStopsEx);
-	for( uint i = 0; i < cs.count(); ++i)
+	for( int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
 }
 
 VGradientEx::VGradientEx( const VGradient& gradient, ScribusDoc& doc )
 {
-	m_colorStops.setAutoDelete( true );
-
 	m_origin		= gradient.origin();
 	m_focalPoint	= gradient.focalPoint();
 	m_vector		= gradient.vector();
 	m_type			= (VGradientEx::Type) gradient.type();
 	m_repeatMethod	= (VGradientEx::RepeatMethod) gradient.repeatMethod();
 
-	m_colorStops.clear();
-	Q3PtrVector<VColorStop> stops = gradient.colorStops();
+	while (!m_colorStops.isEmpty())
+		delete m_colorStops.takeFirst();
+	QVector<VColorStop*> stops = gradient.colorStops();
 	std::stable_sort( stops.data(), stops.data() + stops.count(), compareStops);
-	for( uint i = 0; i < stops.count(); ++i)
+	for( int i = 0; i < stops.count(); ++i)
 	{
 		VColorStop stop( *stops[i] );
 		ScColor color = doc.PageColors[stop.name];
@@ -111,8 +107,6 @@ VGradientEx::VGradientEx( const VGradient& gradient, ScribusDoc& doc )
 
 VGradientEx& VGradientEx::operator=( const VGradientEx& gradient )
 {
-	m_colorStops.setAutoDelete( true );
-
 	if ( this == &gradient )
 		return *this;
 
@@ -122,26 +116,28 @@ VGradientEx& VGradientEx::operator=( const VGradientEx& gradient )
 	m_type			= gradient.m_type;
 	m_repeatMethod	= gradient.m_repeatMethod;
 
-	m_colorStops.clear();
-	Q3PtrVector<VColorStopEx> cs = gradient.colorStops();
+	while (!m_colorStops.isEmpty())
+		delete m_colorStops.takeFirst();
+	QVector<VColorStopEx*> cs = gradient.colorStops();
 	std::stable_sort( cs.data(), cs.data() + cs.count(), compareStopsEx);
-	for( uint i = 0; i < cs.count(); ++i )
+	for( int i = 0; i < cs.count(); ++i )
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
 	return *this;
 } // VGradientEx::operator=
 
-const Q3PtrVector<VColorStopEx> VGradientEx::colorStops() const
+const QVector<VColorStopEx*> VGradientEx::colorStops() const
 {
-	Q3PtrVector<VColorStopEx> v;
-	m_colorStops.toVector( &v );
-	v.setAutoDelete( false );
+	QVector<VColorStopEx*> v;
+	v.resize(m_colorStops.size());
+	qCopy(m_colorStops.begin(), m_colorStops.end(), v.begin());
 	return v;
 } // VGradientEx::colorStops()
 
 void
 VGradientEx::clearStops()
 {
-	m_colorStops.clear();
+	while (!m_colorStops.isEmpty())
+		delete m_colorStops.takeFirst();
 }
 
 void
@@ -163,14 +159,15 @@ VGradientEx::addStop( const ScColor &color, double rampPoint, double midPoint, d
 	m_colorStops.inSort( new VColorStopEx( rampPoint, midPoint, color, opa, name, shade ) );
 }
 
-void VGradientEx::removeStop( const VColorStopEx& colorstop )
+void VGradientEx::removeStop( VColorStopEx& colorstop )
 {
-	m_colorStops.remove( &colorstop );
+	int n = m_colorStops.indexOf(&colorstop);
+	delete m_colorStops.takeAt(n);
 }
 
 void VGradientEx::removeStop( uint n )
 {
-	m_colorStops.remove( n );
+	delete m_colorStops.takeAt(n);
 }
 
 void VGradientEx::transform( const QMatrix &m )

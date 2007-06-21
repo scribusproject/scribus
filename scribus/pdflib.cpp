@@ -5078,7 +5078,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	QStringList Gcolors;
 	QStringList colorNames;
 	QList<int> colorShades;
-	Q3PtrVector<VColorStop> cstops = currItem->fill_gradient.colorStops();
+	QVector<VColorStop*> cstops = currItem->fill_gradient.colorStops();
 	StopVec.clear();
 	TransVec.clear();
 	Gcolors.clear();

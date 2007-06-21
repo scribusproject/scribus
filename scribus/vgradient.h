@@ -26,8 +26,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef __VGRADIENT_H__
 #define __VGRADIENT_H__
 
-#include <q3ptrlist.h>
-#include <q3ptrvector.h>
+#include <QList>
+#include <QVector>
 #include "scribusapi.h"
 #include "fpoint.h"
 #include <qcolor.h>
@@ -94,14 +94,14 @@ public:
 	    repeat  = 2
 	};
 
-	class SCRIBUS_API VColorStopList : public Q3PtrList<VColorStop>
+	class SCRIBUS_API VColorStopList : public QList<VColorStop*>
 	{
 	protected:
-		virtual int compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 ) const;
+		int compareItems(VColorStop* item1, VColorStop* item2 ) const;
 	public:
 		// Reimplement inSort so that two color stop with same offset can be found
 		// in the same order they are inserted
-		void inSort( Q3PtrCollection::Item d );
+		void inSort( VColorStop* d );
 	}; // VColorStopList
 
 	VGradient( VGradientType type = linear );
@@ -115,10 +115,10 @@ public:
 	VGradientRepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod( VGradientRepeatMethod repeatMethod ) { m_repeatMethod = repeatMethod; }
 
-	const Q3PtrVector<VColorStop> colorStops() const;
+	const QVector<VColorStop*> colorStops() const;
 	void addStop( const VColorStop& colorStop );
 	void addStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name = "", int shade = 100 );
-	void removeStop( const VColorStop& colorStop );
+	void removeStop( VColorStop& colorStop );
 	void removeStop( uint n );
 	void clearStops();
 	uint Stops()  const { return m_colorStops.count(); }

@@ -2985,7 +2985,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	ScPattern *pat;
 	QMatrix patternMatrix;
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-	Q3PtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
+	QVector<VColorStop*> cstops = c->fill_gradient.colorStops();
 	switch (c->GrType)
 	{
 /*		case 1:

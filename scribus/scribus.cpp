@@ -8298,7 +8298,6 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 				if (itemSelection->itemAt(a)->locked())
 					++lockedCount;
 			}
-			int t=-1;
 			if (lockedCount!=0 && lockedCount!=selectedItemCount)
 			{
 				QMessageBox msgBox;

@@ -627,7 +627,7 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 		else
 		{
 			item->GrType = 0;
-			Q3PtrVector<VColorStop> cstops = gc->GradCo.colorStops();
+			QVector<VColorStop*> cstops = gc->GradCo.colorStops();
 			item->setFillColor(cstops.at(0)->name);
 			item->setFillShade(cstops.at(0)->shade);
 		}

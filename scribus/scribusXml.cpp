@@ -1459,7 +1459,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		}
 		else
 		{
-			Q3PtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+			QVector<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				QDomElement itcl = docu.createElement("CSTOP");

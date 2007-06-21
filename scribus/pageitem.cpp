@@ -3394,7 +3394,7 @@ void PageItem::replaceNamedResources(ResourceCollection& newNames)
 	if (it != newNames.colors().end())
 		setFillColor(*it);
 
-	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	QVector<VColorStop*> cstops = fill_gradient.colorStops();
 	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
 	{
 		it = newNames.colors().find(cstops.at(cst)->name);
@@ -3419,7 +3419,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 {
 	lists.collectColor(fillColor());
 	lists.collectColor(lineColor());
-	Q3PtrVector<VColorStop> cstops = fill_gradient.colorStops();
+	QVector<VColorStop*> cstops = fill_gradient.colorStops();
 	for (uint cst = 0; cst < fill_gradient.Stops(); ++cst)
 	{
 		lists.collectColor(cstops.at(cst)->name);

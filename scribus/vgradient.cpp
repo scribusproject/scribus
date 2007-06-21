@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
    Boston, MA 02111-1307, USA.
 */
 #include "vgradient.h"
+#include <QMutableListIterator>
 #include <algorithm>
 
 // colorStop comparison function for stable_sort function
@@ -33,32 +34,29 @@ bool compareStops( const VColorStop* item1, const VColorStop* item2 )
 	return ( r1 < r2 ? true : false );
 }
 
-int VGradient::VColorStopList::compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 ) const
+int VGradient::VColorStopList::compareItems(VColorStop* item1, VColorStop* item2 ) const
 {
-	double r1 = ( (VColorStop*)item1 )->rampPoint;
-	double r2 = ( (VColorStop*)item2 )->rampPoint;
+	double r1 = item1->rampPoint;
+	double r2 = item2->rampPoint;
 
 	return ( r1 == r2 ? 0 : r1 < r2 ? -1 : 1 );
 } // VGradient::VColorStopList::compareItems
 
 
-void VGradient::VColorStopList::inSort( Q3PtrCollection::Item d )
+void VGradient::VColorStopList::inSort( VColorStop* d )
 {
 	int index = 0;
-	first();
-	register VColorStop *n = first();
-	while ( n && compareItems((Q3PtrCollection::Item) n,d) <= 0 ){ // find position in list
-		n = next();
+	register VColorStop *n = value(index);
+	while (n && compareItems(n,d) <= 0)
+	{
+		n = value(index);
 		index++;
 	}
-	insertAt( index, d );
+	insert( index, d );
 }
 
-VGradient::VGradient( VGradientType type )
-		: m_type( type )
+VGradient::VGradient( VGradientType type ) : m_type( type )
 {
-	m_colorStops.setAutoDelete( true );
-
 	// set up dummy gradient
 	QColor color;
 
@@ -75,25 +73,21 @@ VGradient::VGradient( VGradientType type )
 
 VGradient::VGradient( const VGradient& gradient )
 {
-	m_colorStops.setAutoDelete( true );
-
 	m_origin		= gradient.m_origin;
 	m_focalPoint	= gradient.m_focalPoint;
 	m_vector		= gradient.m_vector;
 	m_type			= gradient.m_type;
 	m_repeatMethod	= gradient.m_repeatMethod;
-
-	m_colorStops.clear();
-	Q3PtrVector<VColorStop> cs = gradient.colorStops();
+	while (!m_colorStops.isEmpty())
+		delete m_colorStops.takeFirst();
+	QVector<VColorStop*> cs = gradient.colorStops();
 	std::stable_sort(cs.data(), cs.data() + cs.count(), compareStops);
-	for( uint i = 0; i < cs.count(); ++i)
+	for( int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 } // VGradient::VGradient
 
 VGradient& VGradient::operator=( const VGradient& gradient )
 {
-	m_colorStops.setAutoDelete( true );
-
 	if ( this == &gradient )
 		return *this;
 
@@ -103,26 +97,28 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 	m_type			= gradient.m_type;
 	m_repeatMethod	= gradient.m_repeatMethod;
 
-	m_colorStops.clear();
-	Q3PtrVector<VColorStop> cs = gradient.colorStops();
+	while (!m_colorStops.isEmpty())
+		delete m_colorStops.takeFirst();
+	QVector<VColorStop*> cs = gradient.colorStops();
 	std::stable_sort(cs.data(), cs.data() + cs.count(), compareStops);
-	for( uint i = 0; i < cs.count(); ++i )
+	for( int i = 0; i < cs.count(); ++i )
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 	return *this;
 } // VGradient::operator=
 
-const Q3PtrVector<VColorStop> VGradient::colorStops() const
+const QVector<VColorStop*> VGradient::colorStops() const
 {
-	Q3PtrVector<VColorStop> v;
-	m_colorStops.toVector( &v );
-	v.setAutoDelete( false );
+	QVector<VColorStop*> v;
+	v.resize(m_colorStops.size());
+	qCopy(m_colorStops.begin(), m_colorStops.end(), v.begin());
 	return v;
 } // VGradient::colorStops()
 
 void
 VGradient::clearStops()
 {
-	m_colorStops.clear();
+	while (!m_colorStops.isEmpty())
+		delete m_colorStops.takeFirst();
 }
 
 void
@@ -144,48 +140,45 @@ VGradient::addStop( const QColor &color, double rampPoint, double midPoint, doub
 	m_colorStops.inSort( new VColorStop( rampPoint, midPoint, color, opa, name, shade ) );
 }
 
-void VGradient::removeStop( const VColorStop& colorstop )
+void VGradient::removeStop( VColorStop& colorstop )
 {
-	m_colorStops.remove( &colorstop );
+	int n = m_colorStops.indexOf(&colorstop);
+	delete m_colorStops.takeAt(n);
 }
 
 void VGradient::removeStop( uint n )
 {
-	m_colorStops.remove( n );
+	delete m_colorStops.takeAt(n);
 }
 
 void VGradient::filterStops(void)
 {
 	VColorStop* colorStop = NULL;
 	bool zeroFound = false;
-	colorStop = m_colorStops.last();
-	while(colorStop != NULL)
+	QMutableListIterator<VColorStop*> i(m_colorStops);
+	i.toBack();
+	while (i.hasPrevious())
 	{
+		colorStop = i.previous();
 		if (colorStop->rampPoint == 0.0 && zeroFound)
-			m_colorStops.remove();
+		{
+			delete i.value();
+			i.remove();
+		}
 		else if (colorStop->rampPoint == 0.0)
 			zeroFound = true;
-		colorStop = m_colorStops.prev();
 	}
-	bool oneFound = false;
-	colorStop = m_colorStops.first();
-	while(colorStop != NULL)
+	i.toFront();
+	while (i.hasNext())
 	{
-		if (colorStop->rampPoint == 1.0 && oneFound)
+		colorStop = i.next();
+		if (colorStop->rampPoint == 0.0 && zeroFound)
 		{
-			bool isLast = (colorStop == m_colorStops.getLast());
-			m_colorStops.remove();
-			if (isLast)
-				colorStop = m_colorStops.next();
-			colorStop = m_colorStops.current();
+			delete i.value();
+			i.remove();
 		}
-		else if (colorStop->rampPoint == 1.0)
-		{
-			oneFound = true;
-			colorStop = m_colorStops.next();
-		}
-		else
-			colorStop = m_colorStops.next();
+		else if (colorStop->rampPoint == 0.0)
+			zeroFound = true;
 	}
 }
 
