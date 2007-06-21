@@ -156,6 +156,9 @@ There is no allowed to have more than 1 checkbox in a common QListViewItem
 (QCheckListItem or how is it named...). Using a QTable is 12-13x times slower
 than using a QListView. So I choose painting 2 checkboxes as 2 QPixmaps
 and using a setPixmap method for their changing.
+
+FIXME: to be removed in full Qt4 port!
+
 \author Petr Vanek */
 QPixmap SCRIBUS_API getQCheckBoxPixmap(const bool checked, const QColor background);
 

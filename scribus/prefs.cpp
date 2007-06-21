@@ -89,7 +89,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	tabFonts = new FontPrefs(prefsWidgets, false, prefsManager->preferencesLocation(), ap->doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
-	
+
 	tabPrinter = new TabPrinter(prefsWidgets, "tabPrinter");
 	addItem( tr("Printer"), loadIcon("printer.png"), tabPrinter);
 

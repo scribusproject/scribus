@@ -1422,7 +1422,7 @@ int findParagraphStyle(ScribusDoc* doc, const QString &name)
 	return -1;
 }
 
-
+// FIXME: to be removed in full Qt4 port!
 QPixmap getQCheckBoxPixmap(const bool checked, const QColor background)
 {
 	QCheckBox *tmpItem = new QCheckBox("", 0, "tmpItem");

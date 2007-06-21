@@ -237,7 +237,7 @@ void ScrSpinBox::fixup ( QString & input ) const
 
 void ScrSpinBox::textChanged()
 {
-	qDebug() << "v:" << value() << "t:" << text() << "ct:" << cleanText();
+// 	qDebug() << "v:" << value() << "t:" << text() << "ct:" << cleanText();
 }
 
 bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )

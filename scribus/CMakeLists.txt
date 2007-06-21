@@ -36,6 +36,7 @@ SET(SCRIBUS_UI_SRC
   picsearch.ui
   picsearchoptions.ui
   picstatus.ui
+  pluginmanagerprefsgui.ui
   smlinestylew.ui
   smreplacedia.ui
   smpstylew.ui
