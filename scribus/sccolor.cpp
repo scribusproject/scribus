@@ -577,7 +577,7 @@ void ScColor::RecalcRGB()
 	WORD outC[4];
 	bool rgbTransAvail  = (stdTransRGBDoc2CMYKG && stdProofRGBGCG  && stdProofRGBG);
 	bool cmykTransAvail = (stdTransCMYK2RGBDocG && stdProofCMYKGCG && stdProofCMYKG);
-	if (CMSuse && rgbTransAvail && cmykTransAvail)
+	if (CMSavail && rgbTransAvail && cmykTransAvail)
 	{
 		if (Model == colorModelRGB)
 		{
