@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QImageWriter>
-
+#include <QFileDialog>
 #include "dialog.h"
 #include "scribusdoc.h"
 #include "createrange.h"
@@ -65,7 +65,7 @@ void ExportForm::computeSize()
 void ExportForm::OutputDirectoryButton_pressed()
 {
 	QString lastDir = prefs->get("wdir", ".");
-	QString d = Q3FileDialog::getExistingDirectory(lastDir, this, "d", tr("Choose a Export Directory"), true);
+	QString d = QFileDialog::getExistingDirectory(lastDir, this, "d", tr("Choose a Export Directory"), true);
 	if (d.length()>0)
 	{
 		d = QDir::convertSeparators(d);
