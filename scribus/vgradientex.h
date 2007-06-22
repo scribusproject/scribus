@@ -106,6 +106,7 @@ public:
 	VGradientEx( VGradientEx::Type type = linear );
 	VGradientEx( const VGradientEx& gradient );
 	VGradientEx( const VGradient& gradient, ScribusDoc& doc );
+	~VGradientEx();
 
 	VGradientEx& operator=(const VGradientEx& gradient);
 

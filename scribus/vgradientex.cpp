@@ -125,6 +125,11 @@ VGradientEx& VGradientEx::operator=( const VGradientEx& gradient )
 	return *this;
 } // VGradientEx::operator=
 
+VGradientEx::~VGradientEx()
+{
+	clearStops();
+}
+
 const QVector<VColorStopEx*> VGradientEx::colorStops() const
 {
 	QVector<VColorStopEx*> v;

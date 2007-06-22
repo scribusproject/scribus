@@ -106,6 +106,7 @@ public:
 
 	VGradient( VGradientType type = linear );
 	VGradient( const VGradient& gradient );
+	~VGradient();
 
 	VGradient& operator=(const VGradient& gradient);
 

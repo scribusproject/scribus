@@ -86,6 +86,11 @@ VGradient::VGradient( const VGradient& gradient )
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 } // VGradient::VGradient
 
+VGradient::~VGradient()
+{
+	clearStops();
+}
+
 VGradient& VGradient::operator=( const VGradient& gradient )
 {
 	if ( this == &gradient )
