@@ -1853,6 +1853,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	QString ext = fi.extension(false).lower();
 	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
 	QChar tc;
+	QString profileName = "";
 //	bool found = false;
 
 	if (ext.isEmpty())
@@ -2019,6 +2020,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(false);
+					profileName = imgInfo.profileName;
+					imgInfo = pDataLoader->imageInfoRecord();
+					imgInfo.profileName = profileName;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2052,6 +2056,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 			{
 				*this = pDataLoader->r_image.convertToQImage(true, true);
+				profileName = imgInfo.profileName;
+				imgInfo = pDataLoader->imageInfoRecord();
+				imgInfo.profileName = profileName;
 				// JG : this line overwrite image profile info and should not be needed here!!!!
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
@@ -2063,6 +2070,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			{
 				create(pDataLoader->r_image.width(), pDataLoader->r_image.height(), 32);
 				setAlphaBuffer( true );
+				profileName = imgInfo.profileName;
+				imgInfo = pDataLoader->imageInfoRecord();
+				imgInfo.profileName = profileName;
 				// JG : this line overwrite image profile info and should not be needed here!!!!
 				// imgInfo = pDataLoader->imageInfoRecord();
 			}
@@ -2166,6 +2176,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(false);
+					profileName = imgInfo.profileName;
+					imgInfo = pDataLoader->imageInfoRecord();
+					imgInfo.profileName = profileName;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2189,6 +2202,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(true, true);
+					profileName = imgInfo.profileName;
+					imgInfo = pDataLoader->imageInfoRecord();
+					imgInfo.profileName = profileName;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2202,6 +2218,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(true);
+					profileName = imgInfo.profileName;
+					imgInfo = pDataLoader->imageInfoRecord();
+					imgInfo.profileName = profileName;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2228,6 +2247,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(false);
+					profileName = imgInfo.profileName;
+					imgInfo = pDataLoader->imageInfoRecord();
+					imgInfo.profileName = profileName;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
@@ -2237,6 +2259,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 				{
 					*this = pDataLoader->r_image.convertToQImage(true, true);
+					profileName = imgInfo.profileName;
+					imgInfo = pDataLoader->imageInfoRecord();
+					imgInfo.profileName = profileName;
 					// JG : this line overwrite image profile info and should not be needed here!!!!
 					// imgInfo = pDataLoader->imageInfoRecord();
 				}
