@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef CHARTABLE_H
 #define CHARTABLE_H
 
+#include <QList>
 #include <QAbstractTableModel>
 #include <QTableView>
 #include "scribusapi.h"

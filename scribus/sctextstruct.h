@@ -93,7 +93,7 @@ struct SCRIBUS_API GlyphLayout {
 	
 };
 
-class InlineFrameData;
+struct InlineFrameData;
 
 class SCRIBUS_API InlineFrame
 {
