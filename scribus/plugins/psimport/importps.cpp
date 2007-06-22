@@ -98,10 +98,10 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 		if (f.open(QIODevice::ReadOnly))
 		{
 /* Try to find Bounding Box */
-			QTextStream ts(&f);
+			QDataStream ts(&f);
 			while (!ts.atEnd())
 			{
-				tmp = readLinefromStream(ts);
+				tmp = readLinefromDataStream(ts);
 				if (tmp.startsWith("%%BoundingBox:"))
 				{
 					found = true;
@@ -133,11 +133,11 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 					importedColors.append(FarNam);
 					while (!ts.atEnd())
 					{
-						uint oldPos = ts.pos();
-						tmp = readLinefromStream(ts);
+						uint oldPos = ts.device()->pos();
+						tmp = readLinefromDataStream(ts);
 						if (!tmp.startsWith("%%+"))
 						{
-							ts.seek(oldPos);
+							ts.device()->seek(oldPos);
 							break;
 						}
 						tmp = tmp.remove(0,3);

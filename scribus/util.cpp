@@ -1518,27 +1518,24 @@ QString getImageType(QString filename)
 	return ret;
 }
 
-QString readLinefromStream(QTextStream &s)
+QString readLinefromDataStream(QDataStream &s)
 {
 	QString ret = "";
-	QChar c;
+	uchar charData;
 	while (!s.atEnd())
 	{
-		s >> c;
-		ret += c;
-		if (c == QChar(13))
+		s >> charData;
+		if (charData == '\x0A')
+			break;
+		if (charData == '\x0D')
 		{
-			if (s.atEnd())
-				break;
-			QByteArray b = s.device()->peek(1);
-			if (b.isEmpty())
-				break;
-			if (b.at(0) == QChar(10))
-				s >> c;
+			quint64 oldPos = s.device()->pos();
+			s >> charData;
+			if (charData != '\x0A')
+				s.device()->seek(oldPos);
 			break;
 		}
-		if (c == QChar(10))
-			break;
+		ret += QChar(charData);
 	}
 	return ret.trimmed();
 }

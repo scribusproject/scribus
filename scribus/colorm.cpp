@@ -443,10 +443,10 @@ void ColorManager::importColors()
 			QFile f(fileName);
 			if (f.open(QIODevice::ReadOnly))
 			{
-				QTextStream ts(&f);
+				QDataStream ts(&f);
 				while (!ts.atEnd())
 				{
-					tmp = readLinefromStream(ts);
+					tmp = readLinefromDataStream(ts);
 					if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
 					{
 						if (tmp.startsWith("%%CMYKCustomColor"))
@@ -466,18 +466,18 @@ void ColorManager::importColors()
 							EditColors.insert(FarNam, cc);
 						while (!ts.atEnd())
 						{
-							uint oldPos = ts.pos();
-							tmp = readLinefromStream(ts);
+							quint64 oldPos = ts.device()->pos();
+							tmp = readLinefromDataStream(ts);
 							if (!tmp.startsWith("%%+"))
 							{
-								ts.seek(oldPos);
+								ts.device()->seek(oldPos);
 								break;
 							}
 							tmp = tmp.remove(0,3);
 							QTextStream ts2(&tmp, QIODevice::ReadOnly);
 							ts2 >> c >> m >> y >> k;
 							FarNam = ts2.read();
-							FarNam = FarNam.stripWhiteSpace();
+							FarNam = FarNam.trimmed();
 							FarNam = FarNam.remove(0,1);
 							FarNam = FarNam.remove(FarNam.length()-1,1);
 							FarNam = FarNam.simplifyWhiteSpace();
@@ -493,19 +493,19 @@ void ColorManager::importColors()
 						{
 							while (!ts.atEnd())
 							{
-								tmp = readLinefromStream(ts);
+								tmp = readLinefromDataStream(ts);
 								if ((tmp.endsWith("Xa") || tmp.endsWith(" k")) && (tmp.length() > 4))
 								{
 									QTextStream ts2(&tmp, QIODevice::ReadOnly);
 									ts2 >> c >> m >> y >> k;
-									tmp = ts.readLine();
+									tmp = readLinefromDataStream(ts);
 									if (tmp.endsWith("Pc"))
 									{
-										tmp = tmp.stripWhiteSpace();
+										tmp = tmp.trimmed();
 										tmp = tmp.remove(0,1);
 										int en = tmp.find(")");
 										FarNam = tmp.mid(0, en);
-										FarNam = FarNam.simplifyWhiteSpace();
+										FarNam = FarNam.simplified();
 										cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 										cc.setSpotColor(true);
 										if (!EditColors.contains(FarNam))

@@ -170,6 +170,6 @@ void tDebug(QString message);
 
 QString SCRIBUS_API setupImageFormats();
 QString SCRIBUS_API getImageType(QString filename);
-QString SCRIBUS_API readLinefromStream(QTextStream &s);
+QString SCRIBUS_API readLinefromDataStream(QDataStream &s);
 
 #endif
