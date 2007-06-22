@@ -17,83 +17,81 @@ or documentation
 
 #include "version.h"
 #include "vlnadialog.h"
-//#include "vlnadialog.moc"
+
 #include "scribus.h"
 #include "scpaths.h"
 #include "configuration.h"
 #include "helpbrowser.h"
 
-#include <qvariant.h>
-#include <qpushbutton.h>
-#include <q3buttongroup.h>
-#include <qradiobutton.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <q3whatsthis.h>
-#include <qmessagebox.h>
-#include <qdir.h>
-#include <qstringlist.h>
-#include <qlayout.h>
-#include <qcheckbox.h>
-#include <qinputdialog.h>
-#include <q3process.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QLabel>
+#include <QPushButton>
+#include <QGroupBox>
+#include <QRadioButton>
+#include <QToolTip>
 
 #include "commonstrings.h"
 
-SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, Qt::WFlags fl)
-	: QDialog(parent, name, modal, fl)
+SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
 {
-	if (!name)
-		setName("SWDialog");
+	setModal(true);
 	cfg = new SWConfig();
 
-	SWDialogLayout = new Q3GridLayout(this, 1, 1, 11, 6, "SWDialogLayout");
+	SWDialogLayout = new QGridLayout(this);
+	SWDialogLayout->setMargin(10);
+	SWDialogLayout->setSpacing(5);
 
-	layout4 = new Q3VBoxLayout(0, 0, 6, "layout4");
+	layout4 = new QVBoxLayout;
+	layout4->setMargin(0);
+	layout4->setSpacing(5);
 
-	layout3 = new Q3HBoxLayout(0, 0, 6, "layout3");
+	layout3 = new QHBoxLayout;
+	layout3->setMargin(0);
+	layout3->setSpacing(5);
 
-	buttonGroup = new Q3ButtonGroup(this, "buttonGroup");
+	buttonGroup = new QGroupBox(this);
 
-	Q3GridLayout *gridLayout = new Q3GridLayout(buttonGroup);
-	gridLayout->setSpacing(6);
-	gridLayout->setMargin(9);
+	QGridLayout *gridLayout = new QGridLayout(buttonGroup);
+	gridLayout->setSpacing(5);
+	gridLayout->setMargin(10);
 	
-	Q3VBoxLayout *vboxLayout = new Q3VBoxLayout();
-	vboxLayout->setSpacing(6);
+	QVBoxLayout *vboxLayout = new QVBoxLayout;
+	vboxLayout->setSpacing(5);
 	vboxLayout->setMargin(0);
 
-	frameRadio = new QRadioButton(buttonGroup, "frameRadio");
+	frameRadio = new QRadioButton(buttonGroup);
 	vboxLayout->addWidget(frameRadio);
 
-	pageRadio = new QRadioButton(buttonGroup, "pageRadio");
+	pageRadio = new QRadioButton(buttonGroup);
 	vboxLayout->addWidget(pageRadio);
 
-	allRadio = new QRadioButton(buttonGroup, "allRadio");
+	allRadio = new QRadioButton(buttonGroup);
 	vboxLayout->addWidget(allRadio);
 
 	gridLayout->addLayout(vboxLayout, 0, 0);
-	buttonGroup->setMinimumWidth(250); // these Germans withe their long words...
+//	buttonGroup->setMinimumWidth(250); // these Germans withe their long words...
 	buttonGroup->adjustSize();
 
 	layout3->addWidget(buttonGroup);
 
-	layout2 = new Q3VBoxLayout(0, 0, 6, "layout2");
-	QSpacerItem* spacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	layout2 = new QVBoxLayout;
+	layout2->setMargin(0);
+	layout2->setSpacing(5);
+	QSpacerItem* spacer = new QSpacerItem(2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	layout2->addItem(spacer);
 
-	layout1 = new Q3VBoxLayout(0, 0, 6, "layout1");
+	layout1 = new QVBoxLayout;
+	layout1->setMargin(0);
+	layout1->setSpacing(5);
 
-	okButton = new QPushButton(this, "okButton");
+	okButton = new QPushButton(this);
 	okButton->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)0, 0, 0, okButton->sizePolicy().hasHeightForWidth()));
 	layout1->addWidget(okButton);
 
-	cancelButton = new QPushButton(this, "cancelButton");
+	cancelButton = new QPushButton(this);
 	cancelButton->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)0, 0, 0, cancelButton->sizePolicy().hasHeightForWidth()));
 	layout1->addWidget(cancelButton);
 
@@ -104,14 +102,13 @@ SWDialog::SWDialog(QWidget* parent, const char* name, bool modal, Qt::WFlags fl)
 	SWDialogLayout->addLayout(layout4, 0, 0);
 
 	languageChange();
-	resize(QSize(306, 193).expandedTo(minimumSizeHint()));
+	resize(minimumSizeHint());
 
 	selectAction(cfg->action);
 
 	// signals and slots connections
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_pressed()));
-	connect(buttonGroup, SIGNAL(clicked(int)), this, SLOT(buttonGroup_clicked(int)));
 }
 
 /*
@@ -129,7 +126,7 @@ SWDialog::~SWDialog()
  */
 void SWDialog::languageChange()
 {
-	setCaption( tr("Short Words", "short words plugin"));
+	setWindowTitle( tr("Short Words", "short words plugin"));
 	buttonGroup->setTitle( tr("Apply unbreakable space on:", "short words plugin"));
 	frameRadio->setText( tr("&Selected frames", "short words plugin"));
 	pageRadio->setText( tr("Active &page", "short words plugin"));
@@ -143,7 +140,12 @@ void SWDialog::languageChange()
 
 void SWDialog::okButton_pressed()
 {
-	actionSelected = buttonGroup->id(buttonGroup->selected());
+	if (frameRadio->isChecked())
+		actionSelected = 0;
+	else if (pageRadio->isChecked())
+		actionSelected = 1;
+	else if (allRadio->isChecked())
+		actionSelected = 2;
 	accept();
 }
 
@@ -154,13 +156,12 @@ void SWDialog::cancelButton_pressed()
 
 void SWDialog::selectAction(int aAction)
 {
-	if (aAction!=0 && aAction!=1 && aAction!=2) {
-			aAction = 0;
-	}
-	buttonGroup->setButton(aAction);
-}
-
-void SWDialog::buttonGroup_clicked(int key)
-{
-	buttonGroup->find(key)->setFocus();
+	if (aAction!=0 && aAction!=1 && aAction!=2)
+		aAction = 0;
+	if (aAction == 0)
+		frameRadio->setChecked(true);
+	else if (aAction == 1)
+		pageRadio->setChecked(true);
+	else if (aAction == 2)
+		allRadio->setChecked(true);
 }

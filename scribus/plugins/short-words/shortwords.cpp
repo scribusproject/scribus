@@ -114,7 +114,7 @@ bool ShortWordsPlugin::run(ScribusDoc* doc, QString target)
 	Q_ASSERT(target.isEmpty());
 
 	uint originalPage = doc->currentPage()->pageNr();
-	SWDialog *dlg = new SWDialog(doc->scMW(), "dlg", true, 0);
+	SWDialog *dlg = new SWDialog(doc->scMW());
 	if (dlg->exec() == QDialog::Accepted) {
 		SWParse *parse = new SWParse();
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
