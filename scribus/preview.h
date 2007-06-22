@@ -7,19 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef PRVIEW_H
 #define PRVIEW_H
 
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qpixmap.h>
-#include <q3scrollview.h>
-#include <qlayout.h>
-#include <qtoolbutton.h>
-#include <qcombobox.h>
-#include <qcheckbox.h>
-#include <qpushbutton.h>
-#include <q3groupbox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QDialog>
+#include <QCheckBox>
+#include <QMap>
+
+class QHBoxLayout;
+class QVBoxLayout;
+class QGroupBox;
+class QTableWidget;
+class QScrollArea;
+class QLabel;
+class QPushButton;
+class QComboBox;
 #include "scribusapi.h"
 
 class PageSelector;
@@ -27,11 +26,7 @@ class ScribusDoc;
 class ScribusView;
 class ScImage;
 class ScColor;
-class QSpinBox;
 class PrefsManager;
-
-class QImage;
-class Q3Table;
 
 
 //! \brief Print Preview dialog
@@ -87,10 +82,10 @@ public:
 	QCheckBox* spotColors;
 	QCheckBox* useGray;
 	QCheckBox* UseICC;
-	Q3ScrollView* Anzeige;
+	QScrollArea* Anzeige;
 	QLabel* Anz;
-	Q3GroupBox* devTitle;
-	Q3GroupBox* jobTitle;
+	QGroupBox* devTitle;
+	QGroupBox* jobTitle;
 	QPushButton *closeButton;
 	QPushButton *printButton;
 	/*! scaling GUI */
@@ -119,7 +114,7 @@ public:
 	bool postscriptPreview;
 	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
-	Q3Table* Table;
+	QTableWidget* Table;
 
 public slots:
 	/*!
@@ -157,12 +152,12 @@ signals:
 protected:
 	/*! \brief Percentage value of the scaling widget */
 	double scaleFactor;
-	Q3VBoxLayout* PLayout;
-	Q3VBoxLayout* Layout1;
-	Q3VBoxLayout* Layout2;
-	Q3HBoxLayout* Layout5;
-	Q3HBoxLayout* Layout6;
-	Q3VBoxLayout* settingsBarLayout;
+	QVBoxLayout* PLayout;
+	QVBoxLayout* Layout1;
+	QVBoxLayout* Layout2;
+	QHBoxLayout* Layout5;
+	QHBoxLayout* Layout6;
+	QVBoxLayout* settingsBarLayout;
 	PrefsManager *prefsManager;
 
 	void setValues();

@@ -21,23 +21,30 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "preview.h"
-//#include "preview.moc"
-#include <qimage.h>
-//Added by qt3to4:
+
+#include <QImage>
 #include <QApplication>
 #include <QDesktopWidget>
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QGroupBox>
+#include <QHeaderView>
+#include <QTableWidget>
+#include <QTableWidgetItem>
 #include <QLabel>
+#include <QScrollArea>
+#include <QPushButton>
+#include <QComboBox>
 #include <QPixmap>
-#include <Q3VBoxLayout>
+#include <QCursor>
+#include <QPainter>
+#include <QColor>
+#include <QToolTip>
+#include <QFile>
+#include <QTextStream>
+
 #include <cstdlib>
-#include <qcursor.h>
-#include <qpainter.h>
-#include <qcolor.h>
-#include <qtooltip.h>
-#include <qfile.h>
-#include <qspinbox.h>
-#include <q3table.h>
 #include "pslib.h"
 #include "checkDocument.h"
 #include "cmsettings.h"
@@ -61,8 +68,10 @@ for which a new license (GPL+exception) is in place.
 
 extern bool printDinUse;
 
-PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep, QString printer ) : QDialog( parent, "Preview", true, 0 )
+PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int pngAlpha, int tiffSep, QString printer ) : QDialog( parent )
 {
+	setModal(true);
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	Q_ASSERT(!docu->masterPageMode());
 	prefsManager=PrefsManager::instance();
 	QString tmp;
@@ -74,7 +83,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	else
 		caption += " (GDI)";
 #endif
-	setCaption( caption );
+	setWindowTitle( caption );
 	doc = docu;
 	view = vin;
 	HavePngAlpha = pngAlpha;
@@ -94,58 +103,59 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	scaleFactor = 1.0;
 	SMode = 1;
 	getNumericGSVersion(GsMajor, GsMinor);
-	setIcon(loadIcon("AppIcon.png"));
-	PLayout = new Q3VBoxLayout(this, 0, 0, "PLayout");
+	PLayout = new QVBoxLayout(this);
+	PLayout->setMargin(0);
+	PLayout->setSpacing(0);
 	int tbWidth = 0;
-	Layout5 = new Q3HBoxLayout();
+	Layout5 = new QHBoxLayout;
 	Layout5->setSpacing(3);
 	Layout5->setMargin(0);
-	Anzeige = new Q3ScrollView(this);
-	Anzeige->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, Anzeige->sizePolicy().hasHeightForWidth() ) );
+	Anzeige = new QScrollArea(this);
+	Anzeige->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	Layout5->addWidget(Anzeige);
-	settingsBarLayout = new Q3VBoxLayout();
+	settingsBarLayout = new QVBoxLayout;
 	settingsBarLayout->setSpacing(3);
 	settingsBarLayout->setMargin(0);
-	devTitle = new Q3GroupBox( this, "devTitle" );
+	devTitle = new QGroupBox( this );
+	devTitle->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 	devTitle->setTitle( tr( "Display Settings" ) );
-	devTitle->setColumnLayout(0, Qt::Vertical );
-	devTitle->layout()->setSpacing( 5 );
-	devTitle->layout()->setMargin( 5 );
-	Layout2 = new Q3VBoxLayout( devTitle->layout() );
+	Layout2 = new QVBoxLayout( devTitle );
+	Layout2->setSpacing(5);
+	Layout2->setMargin(5);
 	Layout2->setAlignment( Qt::AlignTop );
-	AntiAlias = new QCheckBox(devTitle, "AntiAlias");
+	AntiAlias = new QCheckBox(devTitle);
 	AntiAlias->setText( tr("Enable &Antialiasing"));
 	AntiAlias->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_AntiAliasing : false);
 	AntiAlias->setEnabled( postscriptPreview );
 	Layout2->addWidget(AntiAlias);
-	AliasTr = new QCheckBox(devTitle, "DisplayTransparency");
+	AliasTr = new QCheckBox(devTitle);
 	AliasTr->setText( tr("Display Trans&parency"));
 	AliasTr->setChecked(prefsManager->appPrefs.PrPr_Transparency);
 	AliasTr->setEnabled( postscriptPreview );
 	Layout2->addWidget(AliasTr);
-	EnableCMYK = new QCheckBox(devTitle, "DisplayCMYK");
+	EnableCMYK = new QCheckBox(devTitle);
 	EnableCMYK->setText( tr("&Display CMYK"));
 	EnableCMYK->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_Mode : false);
 	EnableCMYK->setEnabled( postscriptPreview );
 	Layout2->addWidget(EnableCMYK);
 	if (HaveTiffSep != 0)
 	{
-		EnableCMYK_C = new QCheckBox(devTitle, "DisplayCMYK_C");
+		EnableCMYK_C = new QCheckBox(devTitle);
 		EnableCMYK_C->setText( tr("&C"));
 		EnableCMYK_C->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_C : true);
 		EnableCMYK_C->setEnabled(postscriptPreview);
 		Layout2->addWidget(EnableCMYK_C);
-		EnableCMYK_M = new QCheckBox(devTitle, "DisplayCMYK_M");
+		EnableCMYK_M = new QCheckBox(devTitle);
 		EnableCMYK_M->setText( tr("&M"));
 		EnableCMYK_M->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_M : true);
 		EnableCMYK_M->setEnabled(postscriptPreview);
 		Layout2->addWidget(EnableCMYK_M);
-		EnableCMYK_Y = new QCheckBox(devTitle, "DisplayCMYK_Y");
+		EnableCMYK_Y = new QCheckBox(devTitle);
 		EnableCMYK_Y->setText( tr("&Y"));
 		EnableCMYK_Y->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_Y : true);
 		EnableCMYK_Y->setEnabled(postscriptPreview);
 		Layout2->addWidget(EnableCMYK_Y);
-		EnableCMYK_K = new QCheckBox(devTitle, "DisplayCMYK_K");
+		EnableCMYK_K = new QCheckBox(devTitle);
 		EnableCMYK_K->setText( tr("&K"));
 		EnableCMYK_K->setChecked(postscriptPreview ? prefsManager->appPrefs.PrPr_K : true);
 		EnableCMYK_K->setEnabled(postscriptPreview);
@@ -156,91 +166,93 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 		ColorList usedSpots;
 		doc->getUsedColors(usedSpots, true);
 		QStringList spots = usedSpots.keys();
-		Table = new Q3Table( devTitle );
-		Table->setNumRows( spots.count()+4 );
-		Table->setNumCols( 2 );
-		Table->horizontalHeader()->setLabel(0, loadIcon("16/show-object.png"), "");
-		Table->horizontalHeader()->setLabel(1, tr("Separation Name"));
-		Table->setColumnReadOnly(0, true);
-		Table->setColumnReadOnly(1, true);
+
+		Table = new QTableWidget(spots.count()+4, 2, devTitle );
+		Table->setHorizontalHeaderItem(0, new QTableWidgetItem(QIcon(loadIcon("16/show-object.png")), ""));
+		Table->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
+		QHeaderView *header = Table->horizontalHeader();
+		header->setStretchLastSection(true);
+		header->setMovable(false);
+		header->setClickable(false);
+		header->setResizeMode(QHeaderView::Fixed);
 		Table->setColumnWidth(0, 24);
-		Table->setRowMovingEnabled(false);
-		Table->setSorting(false);
-		Table->setSelectionMode( Q3Table::NoSelection );
-		Table->setFocusStyle( Q3Table::FollowStyle );
-		Table->setLeftMargin(0);
 		Table->verticalHeader()->hide();
+		Table->setSelectionMode( QAbstractItemView::NoSelection );
+		Table->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		Table->setFocusPolicy(Qt::NoFocus);
 		flagsVisible.clear();
-		QCheckBox *cp;
-		Table->setText(0, 1, tr("Cyan"));
-		cp = new QCheckBox(this, "");
+		Table->setItem(0, 1, new QTableWidgetItem( tr("Cyan")));
+		QCheckBox *cp = new QCheckBox(this);
+		cp->setFocusPolicy(Qt::NoFocus);
 		cp->setChecked(prefsManager->appPrefs.PrPr_C);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(0, 0, cp);
 		flagsVisible.insert("Cyan", cp);
-		Table->setText(1, 1, tr("Magenta"));
-		cp = new QCheckBox(this, "");
+		Table->setItem(1, 1, new QTableWidgetItem( tr("Magenta")));
+		cp = new QCheckBox(this);
+		cp->setFocusPolicy(Qt::NoFocus);
 		cp->setChecked(prefsManager->appPrefs.PrPr_M);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(1, 0, cp);
 		flagsVisible.insert("Magenta", cp);
-		Table->setText(2, 1, tr("Yellow"));
-		cp = new QCheckBox(this, "");
+		Table->setItem(2, 1, new QTableWidgetItem( tr("Yellow")));
+		cp = new QCheckBox(this);
+		cp->setFocusPolicy(Qt::NoFocus);
 		cp->setChecked(prefsManager->appPrefs.PrPr_Y);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(2, 0, cp);
 		flagsVisible.insert("Yellow", cp);
-		Table->setText(3, 1, tr("Black"));
-		cp = new QCheckBox(this, "");
+		Table->setItem(3, 1, new QTableWidgetItem( tr("Black")));
+		cp = new QCheckBox(this);
+		cp->setFocusPolicy(Qt::NoFocus);
 		cp->setChecked(prefsManager->appPrefs.PrPr_K);
 		connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 		Table->setCellWidget(3, 0, cp);
 		flagsVisible.insert("Black", cp);
 		for (int sp = 0; sp < spots.count(); ++sp)
 		{
-			Table->setText(sp+4, 1, spots[sp]);
-			cp = new QCheckBox(this, "");
+			Table->setItem(sp+4, 1, new QTableWidgetItem(spots[sp]));
+			cp = new QCheckBox(this);
+			cp->setFocusPolicy(Qt::NoFocus);
 			cp->setChecked(true);
 			connect(cp, SIGNAL(clicked()), this, SLOT(ToggleCMYK_Colour()));
 			Table->setCellWidget(sp+4, 0, cp);
 			flagsVisible.insert(spots[sp], cp);
 		}
-		Table->adjustColumn(1);
-		Table->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, Table->sizePolicy().hasHeightForWidth() ) );
 		Layout2->addWidget(Table);
 		tbWidth = Table->columnWidth(1);
 	}
 	settingsBarLayout->addWidget(devTitle);
-	jobTitle = new Q3GroupBox( this, "jobTitle" );
+	jobTitle = new QGroupBox( this );
+	jobTitle->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 	jobTitle->setTitle( tr( "Print Settings" ) );
-	jobTitle->setColumnLayout(0, Qt::Vertical );
-	jobTitle->layout()->setSpacing( 5 );
-	jobTitle->layout()->setMargin( 5 );
-	Layout1 = new Q3VBoxLayout( jobTitle->layout() );
+	Layout1 = new QVBoxLayout( jobTitle );
+	Layout1->setSpacing( 5 );
+	Layout1->setMargin( 5 );
 	Layout1->setAlignment( Qt::AlignTop );
 
-	MirrorHor = new QCheckBox( tr( "Mirror Page(s) Horizontal" ), jobTitle, "MirrorH" );
+	MirrorHor = new QCheckBox( tr( "Mirror Page(s) Horizontal" ), jobTitle );
 	Layout1->addWidget( MirrorHor );
 
-	MirrorVert = new QCheckBox( tr( "Mirror Page(s) Vertical" ), jobTitle, "MirrorV" );
+	MirrorVert = new QCheckBox( tr( "Mirror Page(s) Vertical" ), jobTitle );
 	Layout1->addWidget( MirrorVert );
 
-	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), jobTitle, "ClipMarg" );
+	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), jobTitle );
 	Layout1->addWidget( ClipMarg );
 
-	useGray = new QCheckBox( tr("Print in Grayscale"), jobTitle, "useGray");
+	useGray = new QCheckBox( tr("Print in Grayscale"), jobTitle);
 	Layout1->addWidget(useGray);
 
-	EnableGCR = new QCheckBox( tr("&Under Color Removal"), jobTitle, "DisplayGCR");
+	EnableGCR = new QCheckBox( tr("&Under Color Removal"), jobTitle);
 	Layout1->addWidget(EnableGCR);
 
-	EnableOverprint = new QCheckBox( tr("Force Overprint Mode"), jobTitle, "EnableOverprint");
+	EnableOverprint = new QCheckBox( tr("Force Overprint Mode"), jobTitle);
 	Layout1->addWidget(EnableOverprint);
 
-	spotColors = new QCheckBox( tr( "Convert Spot Colors" ), jobTitle, "spotColors" );
+	spotColors = new QCheckBox( tr( "Convert Spot Colors" ), jobTitle );
 	Layout1->addWidget( spotColors );
 
-	UseICC = new QCheckBox( tr( "Apply ICC Profiles" ), jobTitle, "UseICC" );
+	UseICC = new QCheckBox( tr( "Apply ICC Profiles" ), jobTitle );
 	Layout1->addWidget( UseICC );
 	if (!doc->HasCMS)
 		UseICC->setEnabled(false);
@@ -251,12 +263,12 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout5->addLayout(settingsBarLayout);
 	PLayout->addLayout(Layout5);
 
-	Layout6 = new Q3HBoxLayout();
+	Layout6 = new QHBoxLayout;
 	Layout6->setSpacing(0);
 	Layout6->setMargin(0);
 	/* scaling */
-	scaleLabel = new QLabel( tr("Scaling:"), this, "scaleLabel");
-	scaleBox = new QComboBox( true, this, "unitSwitcher" );
+	scaleLabel = new QLabel( tr("Scaling:"), this);
+	scaleBox = new QComboBox(this);
 	scaleBox->setEditable(false);
 	scaleBox->setFocusPolicy(Qt::NoFocus);
 	scaleBox->insertItem("50%");
@@ -269,25 +281,26 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	scaleBox->setCurrentItem(1);
 	Layout6->addWidget(scaleLabel);
 	Layout6->addWidget(scaleBox);
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
 	PGSel = new PageSelector(this, doc->DocPages.count());
 	PGSel->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, PGSel->sizePolicy().hasHeightForWidth() ) );
 	Layout6->addWidget(PGSel);
-	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer2 );
-	closeButton = new QPushButton( tr("Close"), this, "closeButton" );
+	closeButton = new QPushButton( tr("Close"), this);
 	closeButton->setAutoDefault(false);
 	Layout6->addWidget( closeButton );
-	printButton = new QPushButton( tr("Print..."), this, "printButton" );
+	printButton = new QPushButton( tr("Print..."), this );
 	printButton->setAutoDefault(false);	
 	printButton->setEnabled(!printDinUse);
 	Layout6->addWidget( printButton );
 	PLayout->addLayout(Layout6);
 	setValues();
-	Anz = new QLabel(Anzeige->viewport());
+	Anz = new QLabel(this);
+	Anz->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
 	Anz->setPixmap(CreatePreview(0, 72));
-	Anzeige->addChild(Anz, 0, 0);
+	Anzeige->setWidget(Anz);
 	int w = Anz->width() + tbWidth + 50;
 	resize(qMin(QApplication::desktop()->width()-30,w), 500);
 	if (!PrefsManager::instance()->appPrefs.PrPr_Mode)
@@ -681,7 +694,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	if (sepInfo.open(QIODevice::ReadOnly))
 	{
 		QString Sname;
-		Q3TextStream tsC(&sepInfo);
+		QTextStream tsC(&sepInfo);
 		int counter = 0;
 		while (!tsC.atEnd())
 		{
