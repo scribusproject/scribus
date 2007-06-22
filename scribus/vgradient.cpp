@@ -50,9 +50,9 @@ void VGradient::VColorStopList::inSort( VColorStop* d )
 	while (n && compareItems(n,d) <= 0)
 	{
 		n = value(index);
-		index++;
+		++index;
 	}
-	insert( index, d );
+	insert( qMin(index, this->size()), d );
 }
 
 VGradient::VGradient( VGradientType type ) : m_type( type )
