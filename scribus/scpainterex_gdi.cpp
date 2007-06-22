@@ -901,7 +901,7 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	QVector<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop( *colorStops[0] );
 	FPoint p1, p1a, p2, p2a;
 	QColor color;
@@ -982,7 +982,7 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	QVector<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[0] );
 	VColorStopEx stop2( *colorStops[0] );
 	FPoint p1, p1a, p2, p2a;
@@ -1082,7 +1082,7 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	QVector<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[0] );
 	VColorStopEx stop2( *colorStops[0] );
 	FPoint p1, p2;
@@ -1208,7 +1208,7 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	int numElements;
 	int r, g, b, a;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	QVector<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop( *colorStops[0] );
 	QColor color;
 
@@ -1279,7 +1279,7 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	double ramp1, ramp2;
 	double scale1, scale2;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	Q3PtrVector<VColorStopEx> colorStops = gradient.colorStops();
+	QVector<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[gradient.Stops() - 1] );
 	VColorStopEx stop2( *colorStops[gradient.Stops() - 1] );
 	QColor color;

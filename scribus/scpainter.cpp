@@ -1095,7 +1095,7 @@ void ScPainter::drawVPath(int mode)
 				pat = QLinearGradient(x1, y1,  x2, y2);
 			else
 				pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
-			Q3PtrVector<VColorStop> colorStops = fill_gradient.colorStops();
+			QVector<VColorStop*> colorStops = fill_gradient.colorStops();
 			QColor qStopColor;
 			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
