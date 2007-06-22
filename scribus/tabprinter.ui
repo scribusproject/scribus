@@ -14,10 +14,10 @@
   </property>
   <layout class="QGridLayout" >
    <property name="margin" >
-    <number>9</number>
+    <number>10</number>
    </property>
    <property name="spacing" >
-    <number>6</number>
+    <number>5</number>
    </property>
    <item row="2" column="0" >
     <spacer>
@@ -46,10 +46,10 @@
       </attribute>
       <layout class="QGridLayout" >
        <property name="margin" >
-        <number>9</number>
+        <number>10</number>
        </property>
        <property name="spacing" >
-        <number>6</number>
+        <number>5</number>
        </property>
        <item row="1" column="0" >
         <widget class="QGroupBox" name="groupPage" >
@@ -58,10 +58,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="0" column="0" >
            <widget class="QCheckBox" name="mirrorH" >
@@ -101,10 +101,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="2" column="0" colspan="2" >
            <widget class="QRadioButton" name="printGray" >
@@ -152,10 +152,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="1" column="0" >
            <widget class="QRadioButton" name="buttonSeparations" >
@@ -184,10 +184,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="0" column="0" >
            <widget class="QCheckBox" name="doGCR" >
@@ -228,10 +228,10 @@
       </attribute>
       <layout class="QGridLayout" >
        <property name="margin" >
-        <number>9</number>
+        <number>10</number>
        </property>
        <property name="spacing" >
-        <number>6</number>
+        <number>5</number>
        </property>
        <item row="1" column="0" >
         <widget class="QGroupBox" name="groupBox_3" >
@@ -307,10 +307,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="0" column="1" colspan="2" >
            <widget class="QCheckBox" name="colorMarks" >
@@ -379,10 +379,10 @@
      </property>
      <layout class="QGridLayout" >
       <property name="margin" >
-       <number>9</number>
+       <number>10</number>
       </property>
       <property name="spacing" >
-       <number>6</number>
+       <number>5</number>
       </property>
       <item row="1" column="0" colspan="2" >
        <widget class="QCheckBox" name="useAltPrintCommand" >
@@ -441,7 +441,7 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
+ <layoutdefault spacing="5" margin="10" />
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
