@@ -22,25 +22,25 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "cpalette.h"
-//#include "cpalette.moc"
 
-#include <qtooltip.h>
-#include <q3listbox.h>
-#include <qpixmap.h>
-#include <qrect.h>
-#include <q3popupmenu.h>
-#include <qfont.h>
-#include <qlayout.h>
-#include <qtoolbutton.h>
-#include <q3buttongroup.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <qspinbox.h>
-#include <q3iconview.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QGridLayout>
+#include <QVBoxLayout>
+#include <QSpacerItem>
+#include <QStandardItem>
+#include <QAbstractItemView>
+#include <QGroupBox>
+#include <QToolButton>
+#include <QSpinBox>
+#include <QLabel>
+#include <QListWidget>
+#include <QListWidgetItem>
+#include <QFrame>
+#include <QPixmap>
+#include <QRect>
+#include <QFont>
+#include <QToolTip>
+
 #include "colorlistbox.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
@@ -63,36 +63,36 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Shade3 = 100;
 	currentGradient = 0;
 	currentItem = 0;
-	Form1Layout = new Q3VBoxLayout( this, 0, 0, "Form1Layout");
-	Layout1 = new Q3HBoxLayout;
+	Form1Layout = new QVBoxLayout(this);
+	Form1Layout->setMargin(0);
+	Form1Layout->setSpacing(0);
+	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 1 );
-	Inhalt = new QToolButton(this, "t1");
-	Inhalt->setPixmap(loadIcon("16/color-stroke.png"));
-	Inhalt->setToggleButton(true);
-// 	Inhalt->setAutoRaise(true);
-	Inhalt->setBackgroundMode(Qt::PaletteBackground);
+	Inhalt = new QToolButton(this);
+	Inhalt->setIcon(QIcon(loadIcon("16/color-stroke.png")));
+	Inhalt->setCheckable(true);
 	Layout1->addWidget(Inhalt);
-	Innen = new QToolButton(this, "t2");
-	Innen->setPixmap(loadIcon("16/color-fill.png"));
-	Innen->setToggleButton(true);
-// 	Innen->setAutoRaise(true);
-	Innen->setBackgroundMode(Qt::PaletteBackground);
+	Innen = new QToolButton(this);
+	Innen->setIcon(QIcon(loadIcon("16/color-fill.png")));
+	Innen->setCheckable(true);
 	Innen->setOn(true);
 	Layout1->addWidget(Innen);
 	selectorQSpacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( selectorQSpacer );
 	Mode = 2;
-	ShadeTxt = new QLabel( this, "ShadeTxt" );
+	ShadeTxt = new QLabel( this);
 	Layout1->addWidget( ShadeTxt);
-	PM1 = new QSpinBox( this, "shspin" );
+	PM1 = new QSpinBox( this );
 	PM1->setMinValue(0);
 	PM1->setMaxValue(100);
 	PM1->setLineStep(10);
 	PM1->setValue(100);
 	Layout1->addWidget(PM1);
 	Form1Layout->addLayout(Layout1);
-	GradLayout = new Q3VBoxLayout( 0, 0, 6, "GradLayout");
+	GradLayout = new QVBoxLayout;
+	GradLayout->setMargin(0);
+	GradLayout->setSpacing(5);
 	QFont fo = QFont(font());
 	fo.setPointSize(fo.pointSize()-1);
 	gradientQCombo = new ScComboBox( false, this, "gradientQCombo" );
@@ -101,74 +101,81 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	gradEdit = new GradientEditor(this);
 	gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding));
 	GradLayout->addWidget(gradEdit, Qt::AlignHCenter);
-	freeGradientQFrame = new QFrame( this, "freeGradientQFrame" );
+	freeGradientQFrame = new QFrame( this );
 	freeGradientQFrame->setFrameShape( QFrame::NoFrame );
 	freeGradientQFrame->setFrameShadow( QFrame::Plain );
-	freeGradientLayout = new Q3GridLayout( freeGradientQFrame, 1, 1, 5, 5, "freeGradientLayout");
-	GTextX1 = new QLabel("X1:", freeGradientQFrame, "GTextX1" );
+	freeGradientLayout = new QGridLayout( freeGradientQFrame);
+	Form1Layout->setMargin(5);
+	Form1Layout->setSpacing(5);
+	GTextX1 = new QLabel("X1:", freeGradientQFrame );
 	freeGradientLayout->addWidget( GTextX1, 0, 0 );
-	GTextY1 = new QLabel("Y1:", freeGradientQFrame, "GTextY1" );
+	GTextY1 = new QLabel("Y1:", freeGradientQFrame );
 	freeGradientLayout->addWidget( GTextY1, 1, 0 );
 	gX1 = new ScrSpinBox( -3000, 3000, freeGradientQFrame, 0);
 	freeGradientLayout->addWidget( gX1, 0, 1 );
 	gY1 = new ScrSpinBox( -3000, 3000, freeGradientQFrame, 0);
 	freeGradientLayout->addWidget( gY1, 1, 1 );
-	GTextX2 = new QLabel("X2:", freeGradientQFrame, "GTextX2" );
+	GTextX2 = new QLabel("X2:", freeGradientQFrame );
 	freeGradientLayout->addWidget( GTextX2, 0, 2 );
-	GTextY2 = new QLabel("Y2:", freeGradientQFrame, "GTextY2" );
+	GTextY2 = new QLabel("Y2:", freeGradientQFrame );
 	freeGradientLayout->addWidget( GTextY2, 1, 2 );
 	gX2 = new ScrSpinBox( -3000, 3000, freeGradientQFrame, 0);
 	freeGradientLayout->addWidget( gX2, 0, 3 );
 	gY2 = new ScrSpinBox( -3000, 3000, freeGradientQFrame, 0);
 	freeGradientLayout->addWidget( gY2, 1, 3 );
 	gradEditButton = new QToolButton(freeGradientQFrame, "t1");
-	gradEditButton->setToggleButton(true);
-	freeGradientLayout->addMultiCellWidget(gradEditButton, 2, 2, 0, 3);
+	gradEditButton->setCheckable(true);
+	freeGradientLayout->addWidget(gradEditButton, 2, 0, 1, 4);
 	GradLayout->addWidget( freeGradientQFrame );
 	Form1Layout->addLayout(GradLayout);
-	colorListQLBox = new ColorListBox(this, "colorListQLBox");
+	colorListQLBox = new ColorListBox(this);
 	colorListQLBox->setMinimumSize( QSize( 150, 30 ) );
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
 
-	patternFrame = new QFrame( this, "frame3" );
+	patternFrame = new QFrame( this );
 	patternFrame->setFrameShape( QFrame::NoFrame );
-	frame3Layout = new Q3VBoxLayout( patternFrame, 0, 2, "frame3Layout");
-	patternBox = new Q3IconView(patternFrame, "patternBox");
+	frame3Layout = new QVBoxLayout( patternFrame );
+	frame3Layout->setMargin(0);
+	frame3Layout->setSpacing(2);
+    patternBox = new QListWidget(patternFrame);
+    patternBox->setFlow(QListView::LeftToRight);
+    patternBox->setWrapping(true);
+	patternBox->setWordWrap(true);
+    patternBox->setResizeMode(QListView::Adjust);
+    patternBox->setViewMode(QListView::IconMode);
 	patternBox->setMinimumSize( QSize( 150, 30 ) );
+	patternBox->setSelectionMode(QAbstractItemView::SingleSelection);
+	patternBox->setDragDropMode(QAbstractItemView::NoDragDrop);
 	patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-	patternBox->setResizeMode( Q3IconView::Adjust );
-	patternBox->setItemsMovable( false );
 	frame3Layout->addWidget( patternBox );
 
-	groupOffset = new Q3GroupBox( patternFrame, "groupOffset" );
-	groupOffset->setColumnLayout(0, Qt::Vertical );
-	groupOffset->layout()->setSpacing( 2 );
-	groupOffset->layout()->setMargin( 3 );
-	groupOffsetLayout = new Q3HBoxLayout( groupOffset->layout() );
+	groupOffset = new QGroupBox( patternFrame );
+	groupOffsetLayout = new QHBoxLayout( groupOffset );
+	groupOffsetLayout->setSpacing( 2 );
+	groupOffsetLayout->setMargin( 3 );
 	groupOffsetLayout->setAlignment( Qt::AlignTop );
-	textLabel1 = new QLabel( groupOffset, "textLabel1" );
+	textLabel1 = new QLabel( groupOffset );
 	groupOffsetLayout->addWidget( textLabel1 );
 	spinXoffset = new ScrSpinBox( -3000, 3000, groupOffset, 0);
 	groupOffsetLayout->addWidget( spinXoffset );
-	textLabel2 = new QLabel( groupOffset, "textLabel2" );
+	textLabel2 = new QLabel( groupOffset );
 	groupOffsetLayout->addWidget( textLabel2 );
 	spinYoffset = new ScrSpinBox( -3000, 3000, groupOffset, 0);
 	groupOffsetLayout->addWidget( spinYoffset );
 	frame3Layout->addWidget( groupOffset );
 
-	groupScale = new Q3GroupBox( patternFrame, "groupScale" );
-	groupScale->setColumnLayout(0, Qt::Vertical );
-	groupScale->layout()->setSpacing( 2 );
-	groupScale->layout()->setMargin( 3 );
-	groupScaleLayout = new Q3GridLayout( groupScale->layout() );
+	groupScale = new QGroupBox( patternFrame );
+	groupScaleLayout = new QGridLayout( groupScale );
+	groupScaleLayout->setSpacing( 2 );
+	groupScaleLayout->setMargin( 3 );
 	groupScaleLayout->setAlignment( Qt::AlignTop );
-	textLabel5 = new QLabel( groupScale, "textLabel5" );
+	textLabel5 = new QLabel( groupScale );
 	groupScaleLayout->addWidget( textLabel5, 0, 0 );
 	spinXscaling = new ScrSpinBox( 1, 500, groupScale, 0);
 	spinXscaling->setValue( 100 );
 	groupScaleLayout->addWidget( spinXscaling, 0, 1 );
-	textLabel6 = new QLabel( groupScale, "textLabel6" );
+	textLabel6 = new QLabel( groupScale );
 	groupScaleLayout->addWidget( textLabel6, 1, 0 );
 	spinYscaling = new ScrSpinBox( 1, 500, groupScale, 0 );
 	groupScaleLayout->addWidget( spinYscaling, 1, 1 );
@@ -176,40 +183,36 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	keepScaleRatio->setToggleButton( true );
 	keepScaleRatio->setAutoRaise( true );
 	keepScaleRatio->setMaximumSize( QSize( 15, 32767 ) );
-	groupScaleLayout->addMultiCellWidget( keepScaleRatio, 0, 1, 2, 2 );
+	groupScaleLayout->addWidget( keepScaleRatio, 0, 2, 2, 1 );
 	frame3Layout->addWidget( groupScale );
 
-	groupRotation = new Q3GroupBox( patternFrame, "groupRotation" );
-	groupRotation->setColumnLayout(0, Qt::Vertical );
-	groupRotation->layout()->setSpacing( 2 );
-	groupRotation->layout()->setMargin( 3 );
-	groupRotationLayout = new Q3HBoxLayout( groupRotation->layout() );
+	groupRotation = new QGroupBox( patternFrame );
+	groupRotationLayout = new QHBoxLayout( groupRotation );
+	groupRotationLayout->setSpacing( 2 );
+	groupRotationLayout->setMargin( 3 );
 	groupRotationLayout->setAlignment( Qt::AlignTop );
-	textLabel7 = new QLabel( groupRotation, "textLabel7" );
+	textLabel7 = new QLabel( groupRotation );
 	groupRotationLayout->addWidget( textLabel7 );
-	spinAngle = new ScrSpinBox( -100, 180, groupRotation, 0 );
+	spinAngle = new ScrSpinBox( -180, 180, groupRotation, 0 );
 	groupRotationLayout->addWidget( spinAngle );
 	frame3Layout->addWidget( groupRotation );
 	Form1Layout->addWidget(patternFrame);
 	patternFrame->hide();
 
-	TransGroup = new Q3GroupBox( tr( "Transparency Settings" ), this, "TransGroup" );
-	TransGroup->setColumnLayout(0, Qt::Vertical );
-	TransGroup->layout()->setSpacing( 0 );
-	TransGroup->layout()->setMargin( 0 );
-	Layout1t = new Q3GridLayout( TransGroup->layout() );
+	TransGroup = new QGroupBox(this);
+	Layout1t = new QGridLayout( TransGroup );
 	Layout1t->setAlignment( Qt::AlignTop );
 	Layout1t->setSpacing( 5 );
 	Layout1t->setMargin( 5 );
-	TransTxt = new QLabel( TransGroup, "Transtxt" );
+	TransTxt = new QLabel( TransGroup );
 	Layout1t->addWidget( TransTxt, 0, 0 );
-	TransSpin = new QSpinBox( TransGroup, "traspin" );
+	TransSpin = new QSpinBox( TransGroup );
 	TransSpin->setMinValue(0);
 	TransSpin->setMaxValue(100);
 	TransSpin->setLineStep(10);
 	TransSpin->setValue(100);
 	Layout1t->addWidget(TransSpin, 0, 1);
-	TransTxt2 = new QLabel( TransGroup, "textLabel1" );
+	TransTxt2 = new QLabel( TransGroup );
 	Layout1t->addWidget( TransTxt2, 1, 0 );
 	blendMode = new ScComboBox( false, TransGroup, "blendMode" );
 	Layout1t->addWidget( blendMode, 1, 1 );
@@ -224,7 +227,6 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 
 	connect(Inhalt, SIGNAL(clicked()), this, SLOT(InhaltButton()));
 	connect(Innen, SIGNAL(clicked()), this, SLOT(InnenButton()));
-//	connect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	connect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
@@ -245,6 +247,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEdit->Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(gradEditButton, SIGNAL(clicked()), this, SIGNAL(editGradient()));
+	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
 void Cpalette::setCurrentItem(PageItem* item)
@@ -348,21 +351,27 @@ void Cpalette::InnenButton()
 	updateFromItem();
 	emit modeChanged();
 }
-#include <QStandardItem>
-#include <QAbstractItemView>
+
 void Cpalette::updatePatternList()
 {
-	disconnect(patternBox, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(selectPattern(Q3IconViewItem*)));
+	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	patternBox->clear();
-	QMap<QString, ScPattern>::Iterator it;
-	for (it = patternList->begin(); it != patternList->end(); ++it)
+	patternBox->setIconSize(QSize(48, 48));
+	for (QMap<QString, ScPattern>::Iterator it = patternList->begin(); it != patternList->end(); ++it)
 	{
 		QPixmap pm;
-		if (it.data().getPattern()->width() > it.data().getPattern()->height())
-			pm.convertFromImage(it.data().getPattern()->scaleWidth(48));
+		if (it.data().getPattern()->width() >= it.data().getPattern()->height())
+			pm.convertFromImage(it.data().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm.convertFromImage(it.data().getPattern()->scaleHeight(48));
-		(void) new Q3IconViewItem(patternBox, it.key(), pm);
+			pm.convertFromImage(it.data().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+		QPixmap pm2(48, 48);
+		pm2.fill(palette().base());
+		QPainter p;
+		p.begin(&pm2);
+		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
+		p.end();
+		QListWidgetItem *item = new QListWidgetItem(pm2, it.key(), patternBox);
+		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 	}
 	// Qt4 gradientQCombo->listBox()->item(8)->setSelectable(patternList->count() != 0);
 	/* qt4 FIXME
@@ -370,8 +379,8 @@ void Cpalette::updatePatternList()
 	if (si)
 		si->setSelectable(patternList->count() != 0);
 	*/
-	patternBox->setSelected(patternBox->currentItem(), false);
-	connect(patternBox, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(selectPattern(Q3IconViewItem*)));
+	patternBox->clearSelection();
+	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 }
 
 void Cpalette::SetPatterns(QMap<QString, ScPattern> *docPatterns)
@@ -380,7 +389,7 @@ void Cpalette::SetPatterns(QMap<QString, ScPattern> *docPatterns)
 	updatePatternList();
 }
 
-void Cpalette::selectPattern(Q3IconViewItem *c)
+void Cpalette::selectPattern(QListWidgetItem *c)
 {
 	if (c == NULL)
 		return;
@@ -439,7 +448,6 @@ void Cpalette::SetColors(ColorList newColorList)
 
 void Cpalette::updateCList()
 {
-//	disconnect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	disconnect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	colorListQLBox->clear();
 	if ((!GradientMode) || (Mode == 1))
@@ -447,7 +455,6 @@ void Cpalette::updateCList()
 	colorListQLBox->insertItems(colorList, ColorListBox::fancyPixmap);
 	if (colorListQLBox->currentItem())
 		colorListQLBox->currentItem()->setSelected(false);
-//	connect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 }
 
@@ -490,7 +497,6 @@ QColor Cpalette::setColor(QString colorName, int shad)
 
 void Cpalette::updateBoxS(QString colorName)
 {
-//	disconnect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	disconnect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	int c = 0;
 	if ((colorName != CommonStrings::None) && (!colorName.isEmpty()))
@@ -506,7 +512,6 @@ void Cpalette::updateBoxS(QString colorName)
 		}
 	}
 	colorListQLBox->setCurrentRow(c);
-//	connect(colorListQLBox, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 	connect(colorListQLBox, SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)), this, SLOT(selectColor(QListWidgetItem*)));
 }
 
@@ -749,15 +754,20 @@ void Cpalette::setActShade()
 
 void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
 {
-	disconnect(patternBox, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(selectPattern(Q3IconViewItem*)));
+	disconnect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	disconnect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	disconnect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 	disconnect(spinAngle, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
-	Q3IconViewItem *it = patternBox->findItem(pattern);
-	if (it)
+	QList<QListWidgetItem*> itl = patternBox->findItems(pattern, Qt::MatchExactly);
+	if (itl.count() != 0)
+	{
+		QListWidgetItem *it = itl[0];
 		patternBox->setCurrentItem(it);
+	}
+	else
+		patternBox->clearSelection();
 	spinXoffset->setValue(offsetX);
 	spinYoffset->setValue(offsetY);
 	spinXscaling->setValue(scaleX);
@@ -767,7 +777,7 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 		keepScaleRatio->setOn(true);
 	else
 		keepScaleRatio->setOn(false);
-	connect(patternBox, SIGNAL(clicked(Q3IconViewItem*)), this, SLOT(selectPattern(Q3IconViewItem*)));
+	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
