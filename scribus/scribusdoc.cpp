@@ -1497,9 +1497,8 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	assert(masterPageMode());
 	assert( Pages->count() > 1 && Pages->count() > pageNumber );
 	setCurrentPage(Pages->at(0));
-	Page* page = Pages->at(pageNumber);
+	Page* page = Pages->takeAt(pageNumber);
 	QString oldPageName(page->pageName());
-	Pages->removeAt(pageNumber);
 	delete page;
 	// remove the master page from the master page name list
 	//MasterNames.remove(page->PageNam);
@@ -1523,8 +1522,7 @@ void ScribusDoc::deletePage(const int pageNumber)
 	assert( Pages->count() > 1 && Pages->count() > pageNumber );
 	//#5561: If we are going to delete the first page, do not set the current page to it
 	setCurrentPage(Pages->at(pageNumber!=0?0:1));
-	Page* page = Pages->at(pageNumber);
-	Pages->removeAt(pageNumber);
+	Page* page = Pages->takeAt(pageNumber);
 	delete page;
 	changed();
 }
@@ -1536,8 +1534,7 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 	Buf.clear();
 	for (int a = from; a < to; ++a)
 	{
-		Buf.append(Pages->at(from));
-		Pages->removeAt(from);
+		Buf.append(Pages->takeAt(from));
 		if (a <= zz)
 			--zz;
 	}
