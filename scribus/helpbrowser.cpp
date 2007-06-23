@@ -67,7 +67,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
-
+#include <QTextStream>
 #include "scpaths.h"
 #include "util.h"
 #include "scconfig.h"
@@ -423,8 +423,8 @@ HelpBrowser::~HelpBrowser()
 	QFile bookFile(bookmarkFile());
 	if (bookFile.open(QIODevice::WriteOnly))
 	{
-		Q3TextStream stream(&bookFile);
-		stream.setEncoding(Q3TextStream::UnicodeUTF8);
+		QTextStream stream(&bookFile);
+		stream.setCodec("UTF-8");
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<bookmarks>\n";
 		Q3ListViewItemIterator it(bookmarksView);
@@ -437,8 +437,8 @@ HelpBrowser::~HelpBrowser()
   	QFile histFile(historyFile());
 	if (histFile.open(QIODevice::WriteOnly))
 	{
-		Q3TextStream stream(&histFile);
-		stream.setEncoding(Q3TextStream::UnicodeUTF8);
+		QTextStream stream(&histFile);
+		stream.setCodec("UTF-8");
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<history>\n";
 		for (QMap<int,histd>::Iterator it = mHistory.begin() ; it != mHistory.end(); ++it)
@@ -798,8 +798,8 @@ void HelpBrowser::searchingInDirectory(QString aDir)
 		QFile f(fname);
 		if (f.open(QIODevice::ReadOnly))
 		{
-			Q3TextStream stream(&f);
-			QString str = stream.read();
+			QTextStream stream(&f);
+			QString str = stream.readAll();
 			int cnt = str.count(searchingEdit->text(), Qt::CaseInsensitive);
 			if (cnt > 0)
 			{

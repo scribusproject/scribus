@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qdir.h>
 #include <qtextcodec.h>
+#include <QTextStream>
 
 #include "scribusapp.h"
 //#include "scribusapp.moc"
@@ -370,7 +371,7 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 
 /*! \brief Format an arguments line for printing
 Helper procedure */
-static void printArgLine(Q3TextStream & ts, const char * smallArg,
+static void printArgLine(QTextStream & ts, const char * smallArg,
 						  const char* fullArg, const QString desc)
 {
 	const char* lineformat = "  %1, %2 %3";
@@ -388,7 +389,7 @@ void ScribusQApp::showUsage()
 {
 	QFile f;
 	f.open(QIODevice::WriteOnly, stderr);
-	Q3TextStream ts(&f);
+	QTextStream ts(&f);
 	ts << tr("Usage: scribus [option ... ] [file]") ; endl(ts);
 	ts << tr("Options:") ; endl(ts);
 	printArgLine(ts, ARG_FONTINFO_SHORT, ARG_FONTINFO, tr("Show information on the console when fonts are being loaded") );
@@ -419,7 +420,7 @@ void ScribusQApp::showAvailLangs()
 {
 	QFile f;
 	f.open(QIODevice::WriteOnly, stderr);
-	Q3TextStream ts(&f);
+	QTextStream ts(&f);
 	ts << tr("Installed interface languages for Scribus are as follows:"); endl(ts);
 	endl(ts);
 
@@ -441,7 +442,7 @@ void ScribusQApp::showHeader()
 {
 	QFile f;
 	f.open(QIODevice::WriteOnly, stderr);
-	Q3TextStream ts(&f);
+	QTextStream ts(&f);
 	endl(ts);
 	QString heading( tr("Scribus, Open Source Desktop Publishing") );
 	// Build a separator of ----s the same width as the heading

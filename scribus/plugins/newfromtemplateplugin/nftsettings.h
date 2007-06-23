@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qdir.h>
 #include <qfile.h>
-#include <q3textstream.h>
 #include "nfttemplate.h"
 #include "nftrcreader.h"
  

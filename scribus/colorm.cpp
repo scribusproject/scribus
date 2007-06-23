@@ -363,12 +363,12 @@ void ColorManager::loadDefaults(const QString &txt)
 						if (cus)
 						{
 							CoE >> Kval;
-							Cname = CoE.read().stripWhiteSpace();
+							Cname = CoE.readAll().stripWhiteSpace();
 							tmp.setColor(Rval, Gval, Bval, Kval);
 						}
 						else
 						{
-							Cname = CoE.read().stripWhiteSpace();
+							Cname = CoE.readAll().stripWhiteSpace();
 							tmp.setColorRGB(Rval, Gval, Bval);
 						}
 					}
@@ -455,7 +455,7 @@ void ColorManager::importColors()
 							tmp = tmp.remove(0,19);
 						QTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> y >> k;
-						FarNam = ts2.read();
+						FarNam = ts2.readAll();
 						FarNam = FarNam.stripWhiteSpace();
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
@@ -476,7 +476,7 @@ void ColorManager::importColors()
 							tmp = tmp.remove(0,3);
 							QTextStream ts2(&tmp, QIODevice::ReadOnly);
 							ts2 >> c >> m >> y >> k;
-							FarNam = ts2.read();
+							FarNam = ts2.readAll();
 							FarNam = FarNam.trimmed();
 							FarNam = FarNam.remove(0,1);
 							FarNam = FarNam.remove(FarNam.length()-1,1);

@@ -63,7 +63,6 @@ for which a new license (GPL+exception) is in place.
 #include <qtextcodec.h>
 #include <qdom.h>
 #include <qregexp.h>
-#include <q3textstream.h>
 #include <qpixmap.h>
 #include <qwidget.h>
 #include <qstring.h>

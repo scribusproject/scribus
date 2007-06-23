@@ -291,7 +291,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				tmp = tmp.remove(0,18);
 				QTextStream ts2(&tmp, QIODevice::ReadOnly);
 				ts2 >> c >> m >> y >> k;
-				FarNam = ts2.read();
+				FarNam = ts2.readAll();
 				FarNam = FarNam.stripWhiteSpace();
 				FarNam = FarNam.remove(0,1);
 				FarNam = FarNam.remove(FarNam.length()-1,1);
@@ -310,7 +310,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					tmp = tmp.remove(0,3);
 					QTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> y >> k;
-					FarNam = ts2.read();
+					FarNam = ts2.readAll();
 					FarNam = FarNam.stripWhiteSpace();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);

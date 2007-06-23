@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <qstringlist.h>
-//Added by qt3to4:
+#include <QDataStream>
 #include <QByteArray>
 #include "util.h"
 #include "scribus.h"
@@ -56,10 +56,10 @@ QStringList PrinterUtil::getPrinterNames()
 	QStringList wt;
 	if (loadText("/etc/printcap", &Pcap))
 	{
-		Q3TextStream ts(&Pcap, QIODevice::ReadOnly);
+		QDataStream ts(&Pcap, QIODevice::ReadOnly);
 		while(!ts.atEnd())
 		{
-			tmp = ts.readLine();
+			tmp = readLinefromDataStream(ts);
 			if (tmp.isEmpty())
 				continue;
 			if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))

@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QByteArray>
 #include <Q3PtrList>
-#include <Q3TextStream>
+#include <QTextStream>
 #include <QApplication>
 
 
@@ -371,69 +371,6 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 			{
 				vg.erase();
 				GetStyle(&pg, &vg, NULL, m_Doc, true);
-#if 0
-				vg.setName(pg.attribute("NAME"));
-				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
-				vg.setLineSpacing(pg.attribute("LINESP").toDouble());
-				vg.setLeftMargin(pg.attribute("INDENT", "0").toDouble());
-				vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
-				vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
-				vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
-				vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
-				tmpf = pg.attribute("FONT", m_Doc->toolSettings.defFont);
-				
-				m_AvailableFonts->findFont(tmpf, m_Doc));
-				vg.charStyle().setFont((*m_AvailableFonts)[tmpf]);
-				vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
-				vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
-				vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
-				vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
-				vg.charStyle().setFeatures(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()).featureList());
-				QString fColor = pg.attribute("FCOLOR", m_Doc->toolSettings.dBrush);
-				int fShade = pg.attribute("FSHADE", "100").toInt();
-				handleOldColorShade(m_Doc, fColor, fShade);
-				QString sColor = pg.attribute("SCOLOR", m_Doc->toolSettings.dPen);
-				int sShade = pg.attribute("SSHADE", "100").toInt();
-				handleOldColorShade(m_Doc, sColor, sShade);
-				vg.charStyle().setFillColor(fColor);
-				vg.charStyle().setFillShade(fShade);
-				vg.charStyle().setStrokeColor(sColor);
-				vg.charStyle().setStrokeShade(sShade);
-				if (static_cast<bool>(pg.attribute("BASE", "0").toInt()))
-					vg.setLineSpacingMode(ParagraphStyle::BaselineGridLineSpacing);
-				vg.charStyle().setShadowXOffset(50);
-				vg.charStyle().setShadowYOffset(-50);
-				vg.charStyle().setOutlineWidth(10);
-				vg.charStyle().setUnderlineOffset(m_Doc->typographicSettings.valueUnderlinePos);
-				vg.charStyle().setUnderlineWidth(m_Doc->typographicSettings.valueUnderlineWidth);
-				vg.charStyle().setStrikethruOffset(m_Doc->typographicSettings.valueStrikeThruPos);
-				vg.charStyle().setStrikethruWidth(m_Doc->typographicSettings.valueStrikeThruPos);
-				vg.charStyle().setScaleH(1000);
-				vg.charStyle().setScaleV(1000);
-				vg.charStyle().setBaselineOffset(0);
-				vg.charStyle().setTracking(0);
-				if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
-				{
-					tmp = pg.attribute("TABS");
-					Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
-//					vg.tabValues().clear();
-					QList<ParagraphStyle::TabRecord> tbs;
-					ParagraphStyle::TabRecord tb;
-					for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
-					{
-						tgv >> xf;
-						tgv >> xf2;
-						tb.tabPosition = xf2;
-						tb.tabType = static_cast<int>(xf);
-						tb.tabFillChar = QChar();
-						tbs.append(tb);
-					}
-					vg.setTabValues(tbs);
-					tmp = "";
-				}
-//				else
-//					vg.tabValues().clear();
-#endif
 				StyleSet<ParagraphStyle> temp;
 				temp.create(vg);
 				m_Doc->redefineStyles(temp, false);
@@ -587,7 +524,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
 						tmp = obj.attribute("GROUPS");
-						Q3TextStream fg(&tmp, QIODevice::ReadOnly);
+						QTextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
@@ -1200,7 +1137,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					if ((obj.hasAttribute("GROUPS")) && (obj.attribute("NUMGROUP", "0").toInt() != 0))
 					{
 						tmp = obj.attribute("GROUPS");
-						Q3TextStream fg(&tmp, QIODevice::ReadOnly);
+						QTextStream fg(&tmp, QIODevice::ReadOnly);
 						OB.Groups.clear();
 						for (int cx = 0; cx < obj.attribute("NUMGROUP", "0").toInt(); ++cx)
 						{
@@ -1391,7 +1328,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 		QList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
-		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		for (int cxv = 0; cxv < pg->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;

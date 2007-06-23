@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "pageitem.h"
 #include <qfile.h>
-#include <q3textstream.h>
 #include <qtextcodec.h>
 //Added by qt3to4:
 #include <QByteArray>

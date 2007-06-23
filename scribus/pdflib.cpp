@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <qregexp.h>
 #include <qdatetime.h>
 #include <qfileinfo.h>
-#include <q3textstream.h>
+#include <QDataStream>
 #include <qdir.h>
 //Added by qt3to4:
 #include <Q3PtrList>
@@ -6084,17 +6084,10 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				QFile f(fn);
 				if (f.open(QIODevice::ReadOnly))
 				{
-					Q3TextStream ts(&f);
+					QDataStream ts(&f);
 					while (!ts.atEnd())
 					{
-						tc = ' ';
-						tmp = "";
-						while ((tc != '\n') && (tc != '\r'))
-						{
-							ts >> tc;
-							if ((tc != '\n') && (tc != '\r'))
-								tmp += QChar(tc);
-						}
+						tmp = readLinefromDataStream(ts);
 						if (tmp.startsWith("%%BoundingBox:"))
 						{
 							found = true;

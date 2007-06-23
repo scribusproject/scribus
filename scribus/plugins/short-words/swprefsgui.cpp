@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
-#include <Q3TextStream>
+#include <QTextStream>
 
 #include "scmessagebox.h"
 
@@ -121,8 +121,8 @@ void SWPrefsGui::okButton_pressed()
 			 "<qt>" + tr("Cannot write file %1.").arg(RC_PATH_USR) + "</qt>",
 			 CommonStrings::tr_OK);
 	}
-	Q3TextStream stream(&f);
-	stream.setCodec(QTextCodec::codecForName("utf8"));
+	QTextStream stream(&f);
+	stream.setCodec("UTF-8");
 	stream << cfgEdit->text();
 	f.close();
 	titleLabel->setText( tr("User settings saved"));
@@ -154,8 +154,8 @@ bool SWPrefsGui::loadCfgFile(QString filename)
 		return false;
 	}
 	cfgEdit->clear();
-	Q3TextStream stream(&f);
-	stream.setCodec(QTextCodec::codecForName("utf8"));
+	QTextStream stream(&f);
+	stream.setCodec("UTF-8");
 	while (!stream.atEnd())
 		cfgEdit->append(stream.readLine());
 	f.close();

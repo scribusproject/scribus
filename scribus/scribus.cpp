@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcolordialog.h>
 #include <qcolor.h>
 #include <qicon.h>
-#include <q3textstream.h>
 #include <qstylefactory.h>
 #include <qregexp.h>
 #include <qtextcodec.h>

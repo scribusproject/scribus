@@ -121,7 +121,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 					tmp = tmp.remove(0,18);
 					QTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> y >> k;
-					FarNam = ts2.read();
+					FarNam = ts2.readAll();
 					FarNam = FarNam.stripWhiteSpace();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
@@ -143,7 +143,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 						tmp = tmp.remove(0,3);
 						QTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> y >> k;
-						FarNam = ts2.read();
+						FarNam = ts2.readAll();
 						FarNam = FarNam.stripWhiteSpace();
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
@@ -871,7 +871,7 @@ bool EPSPlug::Image(QString vals)
 	Code >> horpix;
 	Code >> verpix;
 	Code >> device;
-	filename = Code.read().stripWhiteSpace();
+	filename = Code.readAll().stripWhiteSpace();
 	if (device.startsWith("psd")) {
 		filename = filename.mid(0, filename.length()-3) + "psd";
 	}

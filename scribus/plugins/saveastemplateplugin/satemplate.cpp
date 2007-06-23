@@ -197,8 +197,7 @@ void sat::createTmplXml()
 	if ( tmplXml.open( QIODevice::WriteOnly ) )
 	{
 		QTextStream stream(&tmplXml);
-// 		stream.setEncoding(Q3TextStream::UnicodeUTF8);
-		stream.setCodec(QTextCodec::codecForName("UTF-8"));
+		stream.setCodec("UTF-8");
 		stream << xml;
 		tmplXml.close();
 	}
@@ -247,8 +246,7 @@ void sat::appendTmplXml()
 		if ( tmplXml.open( QIODevice::WriteOnly ) )
 		{
 			QTextStream stream2(&tmplXml);
-// 			stream2.setEncoding(Q3TextStream::UnicodeUTF8);
-			stream2.setCodec(QTextCodec::codecForName("UTF-8"));
+			stream2.setCodec("UTF-8");
 			stream2 << file;
 			tmplXml.close();
 		}

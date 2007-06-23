@@ -703,12 +703,12 @@ void CMYKChoose::SelSwatch(int n)
 						if (cus)
 						{
 							CoE >> Kval;
-							Cname = CoE.read().stripWhiteSpace();
+							Cname = CoE.readAll().stripWhiteSpace();
 							tmp.setColor(Rval, Gval, Bval, Kval);
 						}
 						else
 						{
-							Cname = CoE.read().stripWhiteSpace();
+							Cname = CoE.readAll().stripWhiteSpace();
 							tmp.setColorRGB(Rval, Gval, Bval);
 						}
 	

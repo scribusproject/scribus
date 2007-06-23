@@ -66,8 +66,8 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 	}
 	if (f.open(QIODevice::ReadOnly))
 	{
-		Q3TextStream t(&f);
-		while (!t.eof())
+		QTextStream t(&f);
+		while (!t.atEnd())
 		{
 			aRow = t.readLine();
 			if (aRow.left(2) == lang)
@@ -105,8 +105,8 @@ QString SWConfig::getAvailableLanguagesFromFile(QString filename)
 	QFile f(filename);
 	if (f.open(QIODevice::ReadOnly))
 	{
-		Q3TextStream t(&f);
-		while (!t.eof())
+		QTextStream t(&f);
+		while (!t.atEnd())
 		{
 			aRow = t.readLine();
 			if (aRow.left(1) != "#" && aRow.length() != 0 && aRow.left(1) != " " && !langs.contains(aRow.left(2)))

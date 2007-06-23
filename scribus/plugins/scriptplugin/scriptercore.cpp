@@ -13,8 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include <qmessagebox.h>
 #include <qtextcodec.h>
 #include <qdom.h>
-#include <q3textstream.h>
-//Added by qt3to4:
 #include <QByteArray>
 #include <QPixmap>
 #include <cstdlib>
@@ -503,8 +501,8 @@ void ScripterCore::aboutScript()
 	QFile input(fname);
 	if(!input.open(QIODevice::ReadOnly))
 		return;
-	Q3TextStream intputstream(&input);
-	QString content = intputstream.read();
+	QTextStream intputstream(&input);
+	QString content = intputstream.readAll();
 	QString docstring = content.section("\"\"\"", 1, 1);
 	if (!docstring.isEmpty())
 	{

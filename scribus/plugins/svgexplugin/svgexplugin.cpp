@@ -22,8 +22,8 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <qfile.h>
-#include <q3textstream.h>
-//Added by qt3to4:
+#include <QTextStream>
+#include <QDataStream>
 #include <QList>
 #include <QByteArray>
 #include <Q3PtrList>
@@ -220,11 +220,11 @@ bool SVGExPlug::doExport( QString fName )
 		QFile f(fName);
 		if(!f.open(QIODevice::WriteOnly))
 			return false;
-		Q3TextStream s(&f);
+		QDataStream s(&f);
 		QString wr = vo;
 		wr += docu.toString();
 		QByteArray utf8wr = wr.toUtf8();
-		s.writeRawBytes(utf8wr.data(), utf8wr.length());
+		s.writeRawData(utf8wr.data(), utf8wr.length());
 		f.close();
 	}
 #endif

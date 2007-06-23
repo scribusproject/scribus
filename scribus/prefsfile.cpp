@@ -82,8 +82,8 @@ void PrefsFile::write()
 	QFile* prefsXML = new QFile(prefsFilePath);
 	if (prefsXML->open(QIODevice::WriteOnly))
 	{
-		Q3TextStream stream(prefsXML);
-		stream.setEncoding(Q3TextStream::UnicodeUTF8);
+		QTextStream stream(prefsXML);
+		stream.setCodec("UTF-8");
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<preferences>\n";
 		if (contexts.size() > 0)
@@ -105,7 +105,7 @@ void PrefsFile::write()
 	delete prefsXML;
 }
 
-void PrefsFile::writeContexts(ContextMap* contextMap, Q3TextStream& stream)
+void PrefsFile::writeContexts(ContextMap* contextMap, QTextStream& stream)
 {
 	ContextMap::Iterator it;
 	for (it = contextMap->begin(); it != contextMap->end(); ++it)

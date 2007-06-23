@@ -704,8 +704,8 @@ void PrefsManager::convert12Preferences()
 	{
 		PrefsContext *pc = prefsFile->getContext("Fonts");
 		PrefsTable *fontPrefs = pc->getTable("ExtraFontDirs");
-		Q3TextStream tsx(&fontPrefsFile12);
-		QString extraPath = tsx.read();
+		QTextStream tsx(&fontPrefsFile12);
+		QString extraPath = tsx.readAll();
 		fontPrefsFile12.close();
 		QStringList extraFonts = QStringList::split("\n",extraPath);
 		for (int i = 0; i < extraFonts.count(); ++i)
@@ -1472,8 +1472,8 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	else
 	{
-		Q3TextStream s(&f);
-		s.setEncoding(Q3TextStream::UnicodeUTF8);
+		QTextStream s(&f);
+		s.setCodec("UTF-8");
 		s<<docu.toString();
 		//Qt4 if (f.status() == IO_Ok)
 		if (f.error()==QFile::NoError)
@@ -1498,11 +1498,11 @@ bool PrefsManager::ReadPref(QString ho)
 			.arg(ho).arg( qApp->translate("QFile",f.errorString()) );
 		return false;
 	}
-	Q3TextStream ts(&f);
-	ts.setEncoding(Q3TextStream::UnicodeUTF8);
+	QTextStream ts(&f);
+	ts.setCodec("UTF-8");
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
-	if( !docu.setContent(ts.read(), &errorMsg, &errorLine, &errorColumn) )
+	if( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
 	{
 		m_lastError = tr("Failed to read prefs XML from \"%1\": %2 at line %3, col %4")
 			.arg(ho).arg(errorMsg).arg(errorLine).arg(errorColumn);

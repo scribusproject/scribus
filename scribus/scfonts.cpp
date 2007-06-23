@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include <qglobal.h>
 #include <q3strlist.h>
 #include <qstring.h>
-#include <q3textstream.h>
 #include <qfont.h>
 #include <q3dict.h>
 #include <qmap.h>
@@ -691,8 +690,8 @@ void SCFonts::AddXFontServerPath()
 	if (fs.open(QIODevice::ReadOnly))
 	{
 		QString fsconfig,paths,tmp;
-		Q3TextStream tsx(&fs);
-		fsconfig = tsx.read();
+		QTextStream tsx(&fs);
+		fsconfig = tsx.readAll();
 		fs.close();
 
 		int pos = fsconfig.find("catalogue");
@@ -751,11 +750,11 @@ void SCFonts::ReadCacheList(QString pf)
 	if(!f.open(QIODevice::ReadOnly))
 		return;
 	ScCore->setSplashStatus( QObject::tr("Reading Font Cache") );
-	Q3TextStream ts(&f);
-	ts.setEncoding(Q3TextStream::UnicodeUTF8);
+	QTextStream ts(&f);
+	ts.setCodec("UTF-8");
 	QString errorMsg;
 	int errorLine = 0, errorColumn = 0;
-	if( !docu.setContent(ts.read(), &errorMsg, &errorLine, &errorColumn) )
+	if( !docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
 	{
 		f.close();
 		return;
@@ -801,8 +800,8 @@ void SCFonts::WriteCacheList(QString pf)
 	QFile f(pf + "/checkfonts.xml");
 	if(f.open(QIODevice::WriteOnly))
 	{
-		Q3TextStream s(&f);
-		s.setEncoding(Q3TextStream::UnicodeUTF8);
+		QTextStream s(&f);
+		s.setCodec("UTF-8");
 		s<<docu.toString();
 		f.close();
 	}

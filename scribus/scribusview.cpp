@@ -10582,7 +10582,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 		if (!Buffer->itemText.isEmpty())
 		{
-			Q3TextStream t(&Buffer->itemText, QIODevice::ReadOnly);
+			QTextStream t(&Buffer->itemText, QIODevice::ReadOnly);
 			QString cc;
 			while (!t.atEnd())
 			{
