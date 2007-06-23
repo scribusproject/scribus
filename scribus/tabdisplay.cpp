@@ -9,15 +9,15 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qslider.h>
 #include <qtooltip.h>
-#include <q3groupbox.h>
+#include <qgroupbox.h>
 #include <qcolordialog.h>
 #include <qpainter.h>
-//Added by qt3to4:
+
 #include <QList>
 #include <QPixmap>
 
 #include "tabdisplay.h"
-//#include "tabdisplay.moc"
+
 #include "scrspinbox.h"
 #include "prefsmanager.h"
 #include "units.h"

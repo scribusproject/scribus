@@ -16,10 +16,10 @@
   </property>
   <layout class="QGridLayout" >
    <property name="margin" >
-    <number>9</number>
+    <number>10</number>
    </property>
    <property name="spacing" >
-    <number>6</number>
+    <number>5</number>
    </property>
    <item row="0" column="0" >
     <widget class="QTabWidget" name="displayTabWidget" >
@@ -32,10 +32,10 @@
       </attribute>
       <layout class="QGridLayout" >
        <property name="margin" >
-        <number>9</number>
+        <number>10</number>
        </property>
        <property name="spacing" >
-        <number>6</number>
+        <number>5</number>
        </property>
        <item row="2" column="0" colspan="2" >
         <widget class="QGroupBox" name="CaliGroup" >
@@ -44,10 +44,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="2" column="0" >
            <layout class="QHBoxLayout" >
@@ -55,7 +55,7 @@
              <number>0</number>
             </property>
             <property name="spacing" >
-             <number>6</number>
+             <number>5</number>
             </property>
             <item>
              <widget class="QSlider" name="CaliSlider" >
@@ -124,10 +124,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="1" column="1" >
            <widget class="ScrSpinBox" name="gapVertical" />
@@ -165,10 +165,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="3" column="1" >
            <widget class="ScrSpinBox" name="bottomScratch" />
@@ -251,10 +251,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="7" column="0" >
            <widget class="QCheckBox" name="checkBleed" >
@@ -351,10 +351,10 @@
       </attribute>
       <layout class="QGridLayout" >
        <property name="margin" >
-        <number>9</number>
+        <number>10</number>
        </property>
        <property name="spacing" >
-        <number>6</number>
+        <number>5</number>
        </property>
        <item row="3" column="0" >
         <spacer>
@@ -379,10 +379,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="0" column="2" >
            <layout class="QHBoxLayout" >
@@ -390,7 +390,7 @@
              <number>0</number>
             </property>
             <property name="spacing" >
-             <number>6</number>
+             <number>5</number>
             </property>
             <item>
              <widget class="QLabel" name="selectedPageBorderLabel" >
@@ -445,7 +445,7 @@
              <number>0</number>
             </property>
             <property name="spacing" >
-             <number>6</number>
+             <number>5</number>
             </property>
             <item>
              <widget class="QLabel" name="textLabel11" >
@@ -488,10 +488,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="0" column="4" >
            <layout class="QGridLayout" >
@@ -499,7 +499,7 @@
              <number>0</number>
             </property>
             <property name="spacing" >
-             <number>6</number>
+             <number>5</number>
             </property>
             <item row="0" column="0" >
              <widget class="QLabel" name="textLabel3" >
@@ -583,7 +583,7 @@
              <number>0</number>
             </property>
             <property name="spacing" >
-             <number>6</number>
+             <number>5</number>
             </property>
             <item row="0" column="1" >
              <widget class="QPushButton" name="buttonFrameSelected" >
@@ -667,7 +667,7 @@
              <number>0</number>
             </property>
             <property name="spacing" >
-             <number>6</number>
+             <number>5</number>
             </property>
             <item row="1" column="0" >
              <widget class="QLabel" name="textLabel4" >
@@ -739,10 +739,10 @@
          </property>
          <layout class="QGridLayout" >
           <property name="margin" >
-           <number>9</number>
+           <number>10</number>
           </property>
           <property name="spacing" >
-           <number>6</number>
+           <number>5</number>
           </property>
           <item row="0" column="2" >
            <spacer>
@@ -798,7 +798,7 @@
    </item>
   </layout>
  </widget>
- <layoutdefault spacing="6" margin="11" />
+ <layoutdefault spacing="5" margin="10" />
  <customwidgets>
   <customwidget>
    <class>ScrSpinBox</class>
