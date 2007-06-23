@@ -500,20 +500,39 @@ QString CompressStr(QString *in)
 {
 	QString out = "";
 	QByteArray bb(in->length());
-	for (int ax = 0; ax < in->length(); ++ax)
-		// Qt4 bb[ax] = uchar(QChar(in->at(ax)));
-		bb.insert(ax, in->at(ax));
-	uLong exlen = uint(bb.size() * 0.001 + 16) + bb.size();
-	QByteArray bc(exlen);
-	int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
-	if (errcode != Z_OK)
+	if (bb.size() == in->length())
 	{
-		qDebug("compress2 failed with code %i", errcode);
-		out = *in;
+		for (int ax = 0; ax < in->length(); ++ax)
+		{
+			// bb.insert(ax, in->at(ax)); JG monstruously inefficient due to frequent memory reallocation
+			bb[ax] = in->at(ax).cell();
+			assert(in->at(ax).row() == 0);
+		}
+		uLong exlen = uint(bb.size() * 0.001 + 16) + bb.size();
+		QByteArray bc(exlen);
+		if( bc.size() == exlen )
+		{
+			int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
+			if (errcode != Z_OK)
+			{
+				qDebug("compress2 failed with code %i", errcode);
+				out = *in;
+			}
+			else {
+				for (uint cl = 0; cl < exlen; ++cl)
+					out += QChar(bc[cl]);
+			}
+		}
+		else
+		{
+			qDebug("insufficient memory to allocate %i bytes", in->length());
+			out = *in;
+		}
 	}
-	else {
-		for (uint cl = 0; cl < exlen; ++cl)
-			out += QChar(bc[cl]);
+	else
+	{
+		qDebug("insufficient memory to allocate %i bytes", in->length());
+		out = *in;
 	}
 	return out;
 }
