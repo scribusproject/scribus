@@ -54,7 +54,6 @@ public:
  	QList<int> LFrames;
 	QMap<uint,QString> DoVorl;
 	uint VorlC;
-// 	Q3ValueList<ScFace> dummyScFaces;
 
 	static const QString getLoadFilterString();
 private:

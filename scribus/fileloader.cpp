@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdom.h>
 #include <qfile.h>
 #include <qfileinfo.h>
-#include <q3tl.h>
+#include <QtAlgorithms>
 #include <qcursor.h>
 #include <qregexp.h>
 #include <qdir.h>
@@ -15,11 +15,11 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qmessagebox.h>
 #include <QProgressBar>
-//Added by qt3to4:
+
 #include <QList>
 #include <cstdlib>
 #include <cmath>
-#include <q3textstream.h>
+#include <QTextStream>
 
 #include "commonstrings.h"
 #include "fileloader.h"
@@ -410,7 +410,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 			QList<ParagraphStyle::TabRecord> tbs;
 			ParagraphStyle::TabRecord tb;
 			QString tmp = pg.attribute("TABS");
-			Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
+			QTextStream tgv(&tmp, QIODevice::ReadOnly);
 			double xf, xf2;
 			for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 			{

@@ -15,16 +15,15 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 //#include "scribusXml.moc"
 #include <qfile.h>
-#include <q3textstream.h>
-#include <q3tl.h>
 #include <qcursor.h>
 #include <qregexp.h>
 #include <qdir.h>
 #include <qtextcodec.h>
 //Added by qt3to4:
+#include <QtAlgorithms>
 #include <QApplication>
-#include <Q3PtrList>
 #include <QByteArray>
+#include <QTextStream>
 #include <cstdlib>
 #include <cmath>
 #include "missing.h"
@@ -469,7 +468,7 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 		QList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg.attribute("TABS");
-		Q3TextStream tgv(&tmp, QIODevice::ReadOnly);
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
 		tbs.clear();
 		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
@@ -670,7 +669,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				arrow.name = pg.attribute("Name");
 				arrow.userArrow = true;
 				QString tmp = pg.attribute("Points");
-				Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+				QTextStream fp(&tmp, QIODevice::ReadOnly);
 				for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 				{
 					fp >> xa;
@@ -783,7 +782,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				if ((pite.hasAttribute("GROUPS")) && (pite.attribute("NUMGROUP", "0").toInt() != 0))
 				{
 					tmp = pite.attribute("GROUPS");
-					Q3TextStream fg(&tmp, QIODevice::ReadOnly);
+					QTextStream fg(&tmp, QIODevice::ReadOnly);
 					OB.Groups.clear();
 					for (int cx = 0; cx < pite.attribute("NUMGROUP", "0").toInt(); ++cx)
 					{
@@ -959,7 +958,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			if ((pg.hasAttribute("GROUPS")) && (pg.attribute("NUMGROUP", "0").toInt() != 0))
 			{
 				tmp = pg.attribute("GROUPS");
-				Q3TextStream fg(&tmp, QIODevice::ReadOnly);
+				QTextStream fg(&tmp, QIODevice::ReadOnly);
 				OB.Groups.clear();
 				for (int cx = 0; cx < pg.attribute("NUMGROUP", "0").toInt(); ++cx)
 				{
