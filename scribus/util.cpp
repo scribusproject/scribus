@@ -65,7 +65,8 @@ for which a new license (GPL+exception) is in place.
 // #include "prefscontext.h"
 // #include "prefstable.h"
 // #include "prefsmanager.h"
-// #include "qprocess.h"
+#include <QProcess>
+#include <q3process.h>
 #include "scmessagebox.h"
 #include "scpixmapcache.h"
 #include "scpaths.h"
@@ -104,11 +105,13 @@ void sDebug(QString message)
 	qDebug("%s", message.ascii());
 }
 
-int System(const QStringList & args, const QString fileStdErr, const QString fileStdOut)
+int System(const QString exename, const QStringList & args, const QString fileStdErr, const QString fileStdOut)
 {
 	QStringList stdErrData;
 	QStringList stdOutData;
-	Q3Process proc(args);
+	QStringList exeArgs;
+	exeArgs<<exename<<args;
+	Q3Process proc(exeArgs);
 	if ( !proc.start() )
 		return 1;
 	/* start was OK */
@@ -117,18 +120,18 @@ int System(const QStringList & args, const QString fileStdErr, const QString fil
 	{
 		// Otherwise Scribus will sleep a *lot* when proc has huge std output
 		if ( !proc.canReadLineStdout() && !proc.canReadLineStderr()) {
-#ifndef _WIN32
+		#ifndef _WIN32
 			usleep(5000);
-#else
+		#else
 			Sleep(5);
-#endif
+		#endif
 		}
 		// Some configurations needs stdout and stderr to be read
 		// if needed before the created process can exit
-		if ( proc.canReadLineStdout() )
-			stdOutData.append( proc.readLineStdout() );
-		if ( proc.canReadLineStderr() )
-			stdErrData.append( proc.readLineStderr() );
+		if ( proc.canReadLineStdout() ) 
+			stdOutData.append( proc.readLineStdout() ); 
+		if ( proc.canReadLineStderr() ) 
+			stdErrData.append( proc.readLineStderr() ); 
 	}
 	// TODO: What about proc.normalExit() ?
 	int ex = proc.exitStatus();

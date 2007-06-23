@@ -28,9 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qfileinfo.h>
 #include <qpainter.h>
-#include <q3process.h>
-//Added by qt3to4:
+#include <QProcess>
 #include <QPixmap>
+#include <QDebug>
 
 #include "scconfig.h"
 
@@ -52,9 +52,8 @@ using namespace std;
 int callGS(const QStringList& args_in, const QString device)
 {
 	QString cmd;
-	QStringList args;
+ 	QStringList args;
 	PrefsManager* prefsManager = PrefsManager::instance();
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-dQUIET" );
@@ -88,7 +87,7 @@ int callGS(const QStringList& args_in, const QString device)
 	args.append("-c");
 	args.append("showpage");
 //	qDebug(args.join(" "));
-	return System( args );
+	return System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
 }
 
 int callGS(const QString& args_in, const QString device)
@@ -135,7 +134,6 @@ int convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 {
 	PrefsManager* prefsManager=PrefsManager::instance();
 	QStringList args;
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
 	args.append( "-q" );
 	args.append( "-dQUIET" );
 	args.append( "-dNOPAUSE" );
@@ -165,61 +163,53 @@ int convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 	args += opts;
 	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(out)) );
 	args.append( QDir::convertSeparators(in) );
-	int ret = System( args );
+	int ret = System( getShortPathName(prefsManager->ghostscriptExecutable()), args );
 	return ret;
 }
 
-int testGSAvailability( void )
+bool testGSAvailability( void )
 {
 	QStringList args;
 	PrefsManager* prefsManager = PrefsManager::instance();
-	int ret = testGSAvailability(prefsManager->ghostscriptExecutable());
-	return ret;
+	return testGSAvailability(prefsManager->ghostscriptExecutable());
 }
 
-int testGSAvailability( QString gsPath )
+bool testGSAvailability( const QString& gsPath )
 {
 	QStringList args;
-	args.append( getShortPathName(gsPath) );
 	args.append( "-h" );
-	int ret = System( args );
-	return ret;
+	QProcess proc;
+	proc.start(getShortPathName(gsPath), args);
+	proc.waitForFinished(5000);
+	return (proc.exitCode()==0);
 }
 
-int testGSDeviceAvailability( QString device )
+bool testGSDeviceAvailability( const QString& device )
 {
 	QStringList args;
 	PrefsManager* prefsManager = PrefsManager::instance();
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
 	args.append( QString("-sDEVICE=%1").arg( device ) );
 	args.append( "-c" );
 	args.append( "quit" );
-	int ret = System( args );
-	return ret;
+	QProcess proc;
+	proc.start(getShortPathName(prefsManager->ghostscriptExecutable()), args);
+	proc.waitForFinished(5000);
+	return (proc.exitCode()==0);
 }
 
 // Return the GhostScript version string, or QString::null if it couldn't be retrived.
 QString getGSVersion()
 {
-	QString gsVer;
 	QStringList args;
-	QString gsExe = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
-	args.append(gsExe.local8Bit());
 	args.append(QString("--version").local8Bit());
-	Q3Process proc(args);
-	proc.setCommunication(Q3Process::Stdout);
-	proc.start();
-	while(proc.isRunning())
-	{
-#ifndef _WIN32
-		usleep(5000);
-#else
-		Sleep(5);
-#endif
+	QString gsExe = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
+	QProcess proc;
+	proc.start(gsExe.local8Bit(), args);
+	while (!proc.waitForFinished(5000))
 		qApp->processEvents();
-	}
-	if(!proc.exitStatus())
-		gsVer = proc.readLineStdout();
+	QString gsVer;
+	if (proc.exitStatus()==QProcess::NormalExit)
+		gsVer = proc.readAllStandardOutput();
 	return gsVer;
 }
 

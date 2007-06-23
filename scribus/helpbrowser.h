@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qdialog.h>
-#include <qstring.h>
+#include <QString>
 #include <q3listview.h>
 #include <q3textbrowser.h>
 //Added by qt3to4:
@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 #include <QLabel>
-#include <Q3PopupMenu>
+#include <QMenu>
 #include "scribusapi.h"
 
 class Q3VBoxLayout;
@@ -49,7 +49,6 @@ class QSpacerItem;
 class QTabWidget;
 class QWidget;
 class QToolButton;
-class Q3PopupMenu;
 class QSplitter;
 class QLabel;
 class QLineEdit;
@@ -115,7 +114,7 @@ public:
 	~HelpBrowser();
 
 	/*! \brief History menu. It's public because of history reader - separate class */
-	Q3PopupMenu* histMenu;
+	QMenu* histMenu;
 	/*! \brief Mapping the documents for history. */
 	QMap<int, histd> mHistory;
 	/*! \brief Set text to the browser

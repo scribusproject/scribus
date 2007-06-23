@@ -12,11 +12,11 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "smwidgets.h"
 
-#include <q3groupbox.h>
+#include <QGroupBox>
 #include <qlayout.h>
 #include <qtoolbutton.h>
 #include <qlabel.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 #include <qcombobox.h>
 #include <qspinbox.h>
 #include <q3frame.h>
@@ -692,7 +692,7 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 
 void SMPStyleWidget::setupDistances()
 {
-	distancesBox->setColumnLayout(0, Qt::Vertical );
+//qt4	distancesBox->setColumnLayout(0, Qt::Vertical );
 	distancesBox->layout()->setSpacing( 0 );
 	distancesBox->layout()->setMargin( 0 );
 	distancesBoxLayout = new Q3GridLayout( distancesBox->layout() );
@@ -797,7 +797,7 @@ void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
 void SMPStyleWidget::setupDropCaps()
 {
 	dropCapsBox->setCheckable( true );
-	dropCapsBox->setColumnLayout(0, Qt::Vertical );
+//qt4	dropCapsBox->setColumnLayout(0, Qt::Vertical );
 	dropCapsBox->layout()->setSpacing( 5 );
 	dropCapsBox->layout()->setMargin( 10 );
 
@@ -820,7 +820,7 @@ void SMPStyleWidget::setupDropCaps()
 
 void SMPStyleWidget::setupTabs()
 {
-	tabsBox->setColumnLayout(0, Qt::Vertical );
+//qt4	tabsBox->setColumnLayout(0, Qt::Vertical );
 	tabsBox->layout()->setSpacing( 0 );
 	tabsBox->layout()->setMargin( 0 );
 

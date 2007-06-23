@@ -89,10 +89,10 @@ public:
 	* @retval bool if we are swapping
 	*/
 	bool reverseDialogButtons() const;
-	bool haveCMS() const { return m_HaveCMS; }
-	int haveGS() const {return m_HaveGS;};
-	int havePNGAlpha() const {return m_HavePngAlpha;}
-	int haveTIFFSep() const {return m_HaveTiffSep;}
+	bool haveCMS() const {return m_HaveCMS;}
+	bool haveGS() const {return m_HaveGS;};
+	bool havePNGAlpha() const {return m_HavePngAlpha;}
+	bool haveTIFFSep() const {return m_HaveTiffSep;}
 	void getCMSProfiles(bool showInfo);
 	void getCMSProfilesDir(QString pfad, bool showInfo, bool recursive);
 	bool fileWatcherActive() const;
@@ -127,9 +127,9 @@ protected:
 	bool m_SwapDialogButtonOrder;
 	QString m_File;
 	bool m_HaveCMS;
-	int m_HaveGS;
-	int m_HavePngAlpha;
-	int m_HaveTiffSep;
+	bool m_HaveGS;
+	bool m_HavePngAlpha;
+	bool m_HaveTiffSep;
 	
 	
 signals:

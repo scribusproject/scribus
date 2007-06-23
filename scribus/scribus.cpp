@@ -2565,7 +2565,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["pageImport"]->setEnabled(true);
 	//scrActions["toolsPreflightVerifier"]->setEnabled(true);
 
-	if ( ScCore->haveGS()==0 || ScCore->isWinGUI() )
+	if ( ScCore->haveGS() || ScCore->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);
 
 	if (scrActions["SaveAsDocumentTemplate"])
@@ -7575,7 +7575,7 @@ void ScribusMainWindow::slotPrefsOrg()
 void ScribusMainWindow::ShowSubs()
 {
 	QString mess;
-	if (ScCore->haveGS() != 0)
+	if (!ScCore->haveGS())
 	{
 		mess = tr("The following programs are missing:")+"\n\n";
 #ifndef _WIN32
@@ -7624,7 +7624,7 @@ void ScribusMainWindow::doPrintPreview()
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 		QString currentPrinter = prefs->get("CurrentPrn");
-		if ( PPreview::usePostscriptPreview(currentPrinter) && ( ScCore->haveGS() != 0 ) )
+		if ( PPreview::usePostscriptPreview(currentPrinter) && ( !ScCore->haveGS() ) )
 		{
 			QString mess = tr("Ghostscript is missing : Postscript Print Preview is not available")+"\n\n";
 			QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
@@ -8191,7 +8191,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 	scrActions["fileRevert"]->setEnabled(true);
 	scrActions["fileDocSetup"]->setEnabled(true);
 	scrActions["filePrint"]->setEnabled(true);
-	if ( ScCore->haveGS()==0 || ScCore->isWinGUI() )
+	if ( ScCore->haveGS() || ScCore->isWinGUI() )
 		scrActions["PrintPreview"]->setEnabled(true);
 	scrActions["pageInsert"]->setEnabled(true);
 	scrActions["pageCopy"]->setEnabled(true);
@@ -8951,12 +8951,10 @@ void ScribusMainWindow::SearchText()
 	slotSelect();
 }
 
-void ScribusMainWindow::imageEditorExited()
+void ScribusMainWindow::imageEditorExited(int /*exitCode*/, QProcess::ExitStatus /*exitStatus*/)
 {
-	int ex = 0;
 	if ( ExternalApp != 0 )
 	{
-		ex = ExternalApp->exitStatus();
 		delete ExternalApp;
 		ExternalApp = 0;
 	}
@@ -8979,14 +8977,13 @@ void ScribusMainWindow::callImageEditor()
 		{
 			int index;
 			QString imEditor;
-			ExternalApp = new Q3Process(NULL);
+			ExternalApp = new QProcess(NULL);
 			QStringList cmd;
 		#if defined(_WIN32)
 			index = imageEditorExecutable.find( ".exe" );
 			if ( index >= 0 )
 				imEditor = imageEditorExecutable.left( index + 4 );
 			imEditor.replace( "\\", "/" );
-			cmd.append(imEditor);
 			if ( imEditor.length() < imageEditorExecutable.length() )
 			{
 				int diffLength = imageEditorExecutable.length() - imEditor.length();
@@ -9006,15 +9003,15 @@ void ScribusMainWindow::callImageEditor()
 				ExternalApp->setWorkingDirectory( imEditorDir );
 			}
 			cmd.append(QDir::convertSeparators(currItem->Pfile));
-			ExternalApp->setArguments(cmd);
-			if ( !ExternalApp->start() )
+			ExternalApp->start(imEditor, cmd);
+			if (!ExternalApp->waitForStarted())
 			{
 				delete ExternalApp;
 				ExternalApp = 0;
 				QMessageBox::critical(this, CommonStrings::trWarning, "<qt>" + tr("The program %1 is missing!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
 				return;
 			}
-			connect(ExternalApp, SIGNAL(processExited()), this, SLOT(imageEditorExited()));
+			connect(ExternalApp, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(imageEditorExited()));
 		}
 	}
 }

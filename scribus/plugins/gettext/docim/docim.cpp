@@ -6,14 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "docim.h"
-//#include "docim.moc"
 #include "gtwriter.h"
 #include "scpaths.h"
 #include "scribusstructs.h"
 #include <qobject.h>
 #include <q3cstring.h>
 #include <qmessagebox.h>
-#include <q3process.h>
+#include <QProcess>
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qtextcodec.h>
@@ -28,16 +27,16 @@ bool hasAntiword()
 	if (searched) // searched already in this run
 		return found;
 
-	Q3Process *test = new Q3Process();
+	QProcess *test = new QProcess();
+	QString exename("antiword");
 #if defined(_WIN32)
-	test->addArgument( ScPaths::instance().libDir() + "tools/antiword/antiword.exe" );
-#else
-	test->addArgument("antiword");
+	exename = ScPaths::instance().libDir() + "tools/antiword/antiword.exe";
 #endif
-	if (test->start())
+	test->start(exename);
+	if (test->waitForStarted())
 	{
 		found = true;
-		test->tryTerminate();
+		test->terminate();
 #ifndef _WIN32
 		usleep(5000);
 #else
@@ -98,60 +97,59 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	QTextCodec::setCodecForCStrings(codec);
 	text = "";
 	error = "";
-	proc = new Q3Process();
+	proc = new QProcess();
+	QString exename("antiword");
 #if defined(_WIN32)
-	proc->addArgument( ScPaths::instance().libDir() + "tools/antiword/antiword.exe" );
+	exename = ScPaths::instance().libDir() + "tools/antiword/antiword.exe";
 	proc->setWorkingDirectory( ScPaths::instance().libDir() + "tools/antiword/" ); 
-#else
-	proc->addArgument("antiword");
 #endif
-	proc->addArgument("-t");
-	proc->addArgument("-w 0");
-	proc->addArgument(filename);
+	QStringList args;
+	args << "-t" << "-w 0" << filename;
 	//connect(proc, SIGNAL(readyReadStdout()), this, SLOT(slotReadOutput()));
 	//connect(proc, SIGNAL(readyReadStderr()), this, SLOT(slotReadErr()));
 #if defined(_WIN32)
 	QStringList envVar;
 	QString homeDir =  QDir::convertSeparators(ScPaths::instance().libDir() + "tools");
 	envVar.append( QString("HOME=%1").arg(homeDir) );
-	if (!proc->start(&envVar))
-	{
-		failed = true;
-		return;
-	}	
-#else
-	if (!proc->start())
+	proc->setEnvironment(envVar);
+#endif
+	proc->start(exename, args);
+	if (!proc->waitForStarted())
 	{
 		failed = true;
 		return;
 	}
-#endif
 
-	while(proc->isRunning() || proc->canReadLineStdout() || proc->canReadLineStderr())
+	while(proc->state()==QProcess::Running)
 	{
-		if ( proc->canReadLineStdout() )
+		proc->setReadChannel(QProcess::StandardOutput);
+		if ( proc->canReadLine() )
 		{
-			QByteArray bo = proc->readStdout();
+			QByteArray bo = proc->readAllStandardOutput();
 			if (bo.size() > 0)
 				text += QString(bo);
 		}
-		else if (proc->canReadLineStderr())
-		{
-			QByteArray be = proc->readStderr();
-			if (be.size() > 0)
-				error += QString(be);
-		}
 		else
 		{
-		#ifndef _WIN32
-			usleep(5000);
-		#else
-			Sleep(5);
-		#endif
+			proc->setReadChannel(QProcess::StandardError);
+			if ( proc->canReadLine() )
+			{
+				QByteArray be = proc->readAllStandardError();
+				if (be.size() > 0)
+					error += QString(be);
+			}
+			else
+				{
+				#ifndef _WIN32
+					usleep(5000);
+				#else
+					Sleep(5);
+				#endif
+				}
 		}
 	}
 
-	if (proc->normalExit()) 
+	if (proc->exitStatus()==QProcess::NormalExit)
 	{
 		toUnicode();
 		write();
@@ -162,7 +160,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 
 bool DocIm::isRunning()
 {
-	return proc->isRunning();
+	return proc->state()==QProcess::Running;
 }
 
 void DocIm::write()

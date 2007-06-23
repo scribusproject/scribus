@@ -40,9 +40,9 @@ QPixmap SCRIBUS_API LoadPDF(QString fn, int Page, int Size, int *w, int *h);
 int SCRIBUS_API callGS(const QStringList& args_in, const QString device="");
 int SCRIBUS_API callGS(const QString& args_in, const QString device="");
 int SCRIBUS_API convertPS2PS(QString in, QString out, const QStringList& opts, int level);
-int SCRIBUS_API testGSAvailability( void );
-int SCRIBUS_API testGSAvailability( QString gsPath );
-int SCRIBUS_API testGSDeviceAvailability( QString device );
+bool SCRIBUS_API testGSAvailability( void );
+bool SCRIBUS_API testGSAvailability( const QString& gsPath );
+bool SCRIBUS_API testGSDeviceAvailability( const QString& device );
 /*! \brief Return gs version. If gs couldn't be found or there was a problem parsing output, return false
  (in which case minor and major have undefined values).
  \retval QString version or false on error */

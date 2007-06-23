@@ -539,7 +539,6 @@ int PPreview::RenderPreview(int Seite, int Res)
 	QString tmp, tmp2, tmp3;
 	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
@@ -587,7 +586,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	args.append( "showpage" );
 	args.append( "-c" );
 	args.append( "quit" );
-	ret = System( args );
+	ret = System(getShortPathName(prefsManager->ghostscriptExecutable()), args);
 	return ret;
 }
 
@@ -643,7 +642,6 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
 
-	args1.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
 	args1.append( "-q" );
 	args1.append( "-dNOPAUSE" );
 	args1.append( "-dPARANOIDSAFER" );
@@ -687,7 +685,8 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	args3.append(cmd);
 
 	args3.append("-f");
-	ret = System(args1 + args3 + args2, ScPaths::getTempFileDir()+"/sc.tif.txt" );
+	QString gsExe(getShortPathName(prefsManager->ghostscriptExecutable()));
+	ret = System(gsExe, args1 + args3 + args2, ScPaths::getTempFileDir()+"/sc.tif.txt" );
 
 	QFile sepInfo(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.tif.txt"));
 	sepsToFileNum.clear();
@@ -718,7 +717,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 			args3.append("-c");
 			args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
 			args3.append("-f");
-			ret = System(args1 + args3 + args2);
+			ret = System(gsExe, args1 + args3 + args2);
 			currSeps = "";
 			spc = 0;
 		}
@@ -730,7 +729,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		args3.append("-c");
 		args3.append("<< /SeparationColorNames "+allSeps+" /SeparationOrder [ "+currSeps+" ] >> setpagedevice");
 		args3.append("-f");
-		ret = System(args1 + args3 + args2);
+		ret = System(gsExe, args1 + args3 + args2);
 	}
 	return ret;
 }

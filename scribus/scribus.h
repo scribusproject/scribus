@@ -54,7 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include <qworkspace.h>
 #include <q3ptrlist.h>
 #include <qclipboard.h>
-#include <q3process.h>
+#include <QProcess>
 //Added by qt3to4:
 #include <QLabel>
 #include <QWheelEvent>
@@ -238,7 +238,7 @@ public:
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
 
-	Q3Process *ExternalApp;
+	QProcess *ExternalApp;
 
 	QMap<QString, QPointer<ScrAction> > scrActions;
 	QMap<QString, QPointer<ScrAction> > scrRecentFileActions;
@@ -516,7 +516,7 @@ public slots:
 	void HaveRaster(bool art);
 	void EditTabs();
 	void SearchText();
-	void imageEditorExited();
+	void imageEditorExited(int, QProcess::ExitStatus);
 	/*! \brief call gimp and wait upon completion */
 	void callImageEditor();
 	void docCheckToggle(bool visible);

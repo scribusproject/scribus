@@ -27,10 +27,9 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "helpbrowser.h"
-//#include "helpbrowser.moc"
 
 #include <qvariant.h>
-#include <qstring.h>
+#include <QStringList>
 #include <qpushbutton.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
@@ -42,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include <q3whatsthis.h>
 #include <qimage.h>
 #include <qfileinfo.h>
-#include <q3filedialog.h>
+#include <QFileDialog>
 #include <qtextcodec.h>
 #include <qdom.h>
 #include <qdir.h>
@@ -55,8 +54,8 @@ for which a new license (GPL+exception) is in place.
 #include <qinputdialog.h>
 #include <qmenubar.h>
 #include <qpixmap.h>
-#include <q3process.h>
-#include <q3popupmenu.h>
+#include <QProcess>
+#include <QMenu>
 #include <qprinter.h>
 #include <qpainter.h>
 #include <q3paintdevicemetrics.h>
@@ -220,11 +219,11 @@ void TextBrowser::setSource(const QString &name)
 #if !defined(QT_OS_MAC) && !defined(_WIN32)
 	if (name.left(7)=="http://")
 	{
-		QString extBrowser=PrefsManager::instance()->extBrowserExecutable();
+		QString extBrowser(PrefsManager::instance()->extBrowserExecutable());
 		QFileInfo fi(extBrowser);
 		if (extBrowser.isEmpty() || !fi.exists())
 		{
-			extBrowser = Q3FileDialog::getOpenFileName(QString::null, QString::null, this, "changeExtBrowser", tr("Locate your web browser"));
+			extBrowser = QFileDialog::getOpenFileName(QString::null, QString::null, this, "changeExtBrowser", tr("Locate your web browser"));
 			if (!QFileInfo(extBrowser).exists())
 				extBrowser="";
 			PrefsManager::instance()->setExtBrowserExecutable(extBrowser);
@@ -232,10 +231,10 @@ void TextBrowser::setSource(const QString &name)
 		if (!extBrowser.isEmpty())
 		{
 			QStringList args;
-			args.append(extBrowser);
 			args.append(name);
-			Q3Process webProc(args);
-			if (!webProc.start())
+			QProcess webProc;
+			webProc.start(extBrowser, args);
+			if (!webProc.waitForStarted())
 				QMessageBox::critical(this, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok, QMessageBox::NoButton);
 		}
 	}
@@ -272,7 +271,7 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	homeButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, homeButton->sizePolicy().hasHeightForWidth() ) );
 	buttonLayout->addWidget( homeButton );
 
-	histMenu = new Q3PopupMenu( this );
+	histMenu = new QMenu( this );
 	backButton = new QToolButton( this, "backButton" );
 	backButton->setPixmap(loadIcon("16/go-previous.png"));
 	backButton->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed, backButton->sizePolicy().hasHeightForWidth() ) );
@@ -368,17 +367,17 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 
 	// menus
 	menuBar = new QMenuBar(this);
-	Q3PopupMenu *fileMenu = new Q3PopupMenu(this);
+	QMenu *fileMenu = new QMenu(this);
 	fileMenu->insertItem(loadIcon("16/document-print.png"), tr("&Print..."), this, SLOT(print()), Qt::CTRL+Qt::Key_P);
 	fileMenu->insertSeparator();
 	fileMenu->insertItem(loadIcon("exit.png"), tr("E&xit"), this, SLOT(close()));
 	menuBar->insertItem( tr("&File"), fileMenu);
-	Q3PopupMenu *editMenu = new Q3PopupMenu(this);
+	QMenu *editMenu = new QMenu(this);
 	editMenu->insertItem(loadIcon("find.png"), tr("&Find..."), this, SLOT(find()), Qt::CTRL+Qt::Key_F);
 	editMenu->insertItem( tr("Find &Next"), this, SLOT(findNext()), Qt::Key_F3);
 	editMenu->insertItem( tr("Find &Previous"), this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
 	menuBar->insertItem( tr("&Edit"), editMenu);
-	Q3PopupMenu *bookmarkMenu = new Q3PopupMenu(this);
+	QMenu *bookmarkMenu = new QMenu(this);
 	bookmarkMenu->insertItem( tr("&Add Bookmark"), this, SLOT(bookmarkButton_clicked()), Qt::CTRL+Qt::Key_D);
 	bookmarkMenu->insertItem( tr("&Delete"), this, SLOT(deleteBookmarkButton_clicked()));
 	bookmarkMenu->insertItem( tr("D&elete All"), this, SLOT(deleteAllBookmarkButton_clicked()));

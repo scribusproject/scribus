@@ -429,7 +429,6 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
-	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( "-sDEVICE=nullpage" );
@@ -479,7 +478,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "closefile" );
 	args.append( "quit" );
 	QByteArray finalCmd = args.join(" ").local8Bit();
-	int ret = System(args, errFile, errFile);
+	int ret = System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile);
 	if (ret != 0)
 	{
 		qDebug("PostScript import failed when calling gs as: \n%s\n", finalCmd.data());
@@ -879,7 +878,6 @@ bool EPSPlug::Image(QString vals)
 	qDebug(QString("import %7 image %1: %2x%3 @ (%4,%5) °%6").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device));
 	QString rawfile = filename.mid(0, filename.length()-3) + "dat";
 	QStringList args;
-	args.append( getShortPathName(PrefsManager::instance()->ghostscriptExecutable()) );
 	args.append( "-q" );
 	args.append( "-dNOPAUSE" );
 	args.append( QString("-sDEVICE=%1").arg(device) );    
@@ -891,7 +889,7 @@ bool EPSPlug::Image(QString vals)
 	args.append( "showpage" );
 	args.append( "quit" );
 	QByteArray finalCmd = args.join(" ").local8Bit();
-	int ret = System(args);
+	int ret = System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args);
 	if (ret != 0)
 	{
 		qDebug("PostScript image conversion failed when calling gs as: \n%s\n", finalCmd.data());
