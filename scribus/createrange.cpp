@@ -5,16 +5,15 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "createrange.h"
-//#include "createrange.moc"
 
-#include <q3buttongroup.h>
-#include <qlabel.h>
-#include <q3listbox.h>
-#include <qpushbutton.h>
-#include <qradiobutton.h>
-#include <qspinbox.h>
-#include <qstring.h>
-#include <qtabwidget.h>
+#include <QGroupBox>
+#include <QLabel>
+#include <QListWidget>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSpinBox>
+#include <QString>
+#include <QTabWidget>
 
 CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, const char* name, Qt::WFlags fl )
 	: QDialog(parent, name, fl),

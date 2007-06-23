@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <q3ptrlist.h>
 #include <QObject>
 #include <QMetaObject>
 #include <QMenu>

@@ -11,8 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "ui_createrange.h"
 #include "usertaskstructs.h"
 
-#include <qstring.h>
-#include <qwidget.h>
+#include <QString>
+#include <QWidget>
 
 class SCRIBUS_API CreateRange : public QDialog, Ui::CreateRange
 {
