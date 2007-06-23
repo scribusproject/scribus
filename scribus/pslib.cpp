@@ -3195,7 +3195,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 				tabCc = 0;
 			if ((hl->ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 			{
-				if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
+				if ((tabCc < tTabValues.count()) &&  (!tTabValues[tabCc].tabFillChar.isNull()))
 				{
 					ScText hl2;
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
