@@ -89,7 +89,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
 		{
 			QVector<VColorStop*> colorStops = currItem->fill_gradient.colorStops();
-			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
+			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				if (colorStops[offset]->opacity != 1.0)
 				{
