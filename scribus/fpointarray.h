@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
   *@author Franz Schmid
   */
 
-class SVGState;
+struct SVGState;
 
 class SCRIBUS_API FPointArray : private QVector<FPoint>
 {
