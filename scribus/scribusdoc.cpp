@@ -36,8 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qpainter.h>
 #include <QProgressBar>
-//Added by qt3to4:
-#include <Q3PtrList>
+
 #include <QList>
 #include <QPixmap>
 #include <QByteArray>
@@ -1521,7 +1520,7 @@ void ScribusDoc::deletePage(const int pageNumber)
 
 void ScribusDoc::movePage(const int from, const int to, const int ziel, const int art)
 {
-	Q3PtrList<Page> Buf;
+	QList<Page*> Buf;
 	int zz = ziel;
 	Buf.clear();
 	for (int a = from; a < to; ++a)
@@ -1531,7 +1530,7 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 		if (a <= zz)
 			--zz;
 	}
-	uint bufCount=Buf.count();
+	int bufCount=Buf.count();
 	switch (art)
 	{
 		case 0:
