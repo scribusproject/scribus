@@ -7,14 +7,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef CSVDIA_H
 #define CSVDIA_H
 
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QDialog>
+class QComboBox;
+class QCheckBox;
+class QPushButton;
+class QString;
 
 class CsvDialog : public QDialog
 {

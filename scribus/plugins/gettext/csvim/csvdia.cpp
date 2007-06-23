@@ -5,55 +5,73 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "csvdia.h"
-//#include "csvdia.moc"
 
 #include "scribusapi.h"
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <QPixmap>
-#include <Q3HBoxLayout>
+
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QBoxLayout>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QPushButton>
 #include <QLabel>
+#include <QPixmap>
+#include <QString>
+#include <QStringList>
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
-CsvDialog::CsvDialog() : QDialog(0, "csvdia", true, 0)
+CsvDialog::CsvDialog() : QDialog(0)
 {
-	setCaption( tr("CSV Importer Options"));
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowTitle( tr("CSV Importer Options"));
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 
-	Q3BoxLayout* layout = new Q3VBoxLayout(this);
+	QBoxLayout* layout = new QVBoxLayout(this);
+	layout->setMargin(0);
+	layout->setSpacing(0);
 
-	Q3BoxLayout* flayout = new Q3HBoxLayout(0, 5, 5, "flayout");
+	QBoxLayout* flayout = new QHBoxLayout;
+	flayout->setMargin(5);
+	flayout->setSpacing(5);
 	QLabel* fdlabel = new QLabel( tr("Field delimiter:"), this, "fdlabel", 0);
 	fdlabel->setMinimumWidth(120);
 	flayout->addWidget(fdlabel,1);
-	fdelimCombo = new QComboBox(true, this, "fdelimCombo");
+	fdelimCombo = new QComboBox(this);
+	fdelimCombo->setEditable(false);
 	QStringList fdList(",");
 	fdList << ";";
 	fdList << tr("(TAB)");
-	fdelimCombo->insertStringList(fdList);
+	fdelimCombo->addItems(fdList);
 	fdelimCombo->setMinimumWidth(120);
 	flayout->addWidget(fdelimCombo,5);
 	layout->addLayout(flayout);
 
-	Q3BoxLayout* vlayout = new Q3HBoxLayout(0, 5, 5, "vlayout");
+	QBoxLayout* vlayout = new QHBoxLayout;
+	vlayout->setMargin(5);
+	vlayout->setSpacing(5);
 	QLabel* vdlabel = new QLabel( tr("Value delimiter:"), this, "fdlabel", 0);
 	vdlabel->setMinimumWidth(120);
 	vlayout->addWidget(vdlabel,1);
-	vdelimCombo = new QComboBox(true, this, "vdelimCombo");
+	vdelimCombo = new QComboBox(this);
+	vdelimCombo->setEditable(false);
 	QStringList vdList("\"");
 	vdList << "'" << tr("None", "delimiter");
-	vdelimCombo->insertStringList(vdList);
+	vdelimCombo->addItems(vdList);
 	vdelimCombo->setMinimumWidth(120);
 	vlayout->addWidget(vdelimCombo,5);
 	layout->addLayout(vlayout);
 
-	Q3BoxLayout* hlayout = new Q3HBoxLayout(0, 5, 5, "hlayout");
+	QBoxLayout* hlayout = new QHBoxLayout;
+	hlayout->setMargin(5);
+	hlayout->setSpacing(5);
 	headerCheck = new QCheckBox( tr("First row is a header"), this, "headerCheck");
 	hlayout->addWidget(headerCheck);
 	layout->addLayout(hlayout);
 
-	Q3BoxLayout* blayout = new Q3HBoxLayout(0, 5, 5, "blayout");
+	QBoxLayout* blayout = new QHBoxLayout;
+	blayout->setMargin(5);
+	blayout->setSpacing(5);
 	blayout->addStretch(10);
 	okButton = new QPushButton( tr("OK"), this, "okButton");
 	blayout->addWidget(okButton);
@@ -85,7 +103,7 @@ bool CsvDialog::hasHeader()
 
 bool CsvDialog::useVDelim()
 {
-	return vdelimCombo->currentItem() != 2;
+	return vdelimCombo->currentIndex() != 2;
 }
 
 CsvDialog::~CsvDialog()
