@@ -228,7 +228,7 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 			gradient.insert("GRENDX", toXMLString(GrEndX));
 			gradient.insert("GRENDY", toXMLString(GrEndY));
 			handler.begin("Gradient", gradient);
-			QVector<VColorStop*> cstops = fill_gradient.colorStops();
+			QList<VColorStop*> cstops = fill_gradient.colorStops();
 			for (uint cst = 0; cst < const_cast<VGradient&>(fill_gradient).Stops(); ++cst) //FIXME make const
 			{
 				Xml_attr itcl;

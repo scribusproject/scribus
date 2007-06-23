@@ -2985,7 +2985,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	ScPattern *pat;
 	QMatrix patternMatrix;
 	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
-	QVector<VColorStop*> cstops = c->fill_gradient.colorStops();
+	QList<VColorStop*> cstops = c->fill_gradient.colorStops();
 	switch (c->GrType)
 	{
 /*		case 1:
@@ -3195,7 +3195,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 				tabCc = 0;
 			if ((hl->ch == SpecialChars::TAB) && (tTabValues.count() != 0))
 			{
-				if ((tabCc < tTabValues.count()) &&  (!tTabValues[tabCc].tabFillChar.isNull()))
+				if ((tabCc < tTabValues.count()) && (!tTabValues[tabCc].tabFillChar.isNull()))
 				{
 					ScText hl2;
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);

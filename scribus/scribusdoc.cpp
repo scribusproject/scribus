@@ -3073,7 +3073,7 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<itemsCount; ++c)
 	{
 		PageItem *ite = Items->at(c);
-		QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			ite->SetFarbe(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 	}
@@ -3081,7 +3081,7 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<masterItemsCount; ++c)
 	{
 		PageItem *ite = MasterItems.at(c);
-		QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			ite->SetFarbe(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 	}
@@ -3089,7 +3089,7 @@ void ScribusDoc::recalculateColors()
 	for (uint c=0; c<frameItemsCount; ++c)
 	{
 		PageItem *ite = FrameItems.at(c);
-		QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			ite->SetFarbe(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 	}
@@ -3100,7 +3100,7 @@ void ScribusDoc::recalculateColors()
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *ite = pa.items.at(o);
-			QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 				ite->SetFarbe(&cstops.at(cst)->color, cstops.at(cst)->name, cstops.at(cst)->shade);
 			if (ite->asImageFrame())

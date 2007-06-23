@@ -24,9 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <QTextStream>
 #include <QDataStream>
-#include <QList>
 #include <QByteArray>
-#include <Q3PtrList>
 #include <QList>
 
 #include "svgexplugin.h"
@@ -328,7 +326,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 								grad.setAttribute("cy", FToStr(Item->GrStartY));
 								break;
 						}
-						QVector<VColorStop*> cstops = Item->fill_gradient.colorStops();
+						QList<VColorStop*> cstops = Item->fill_gradient.colorStops();
 						for (int cst = 0; cst < Item->fill_gradient.Stops(); ++cst)
 						{
 							QDomElement itcl = docu->createElement("stop");

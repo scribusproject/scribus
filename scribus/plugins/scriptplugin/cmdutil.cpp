@@ -91,7 +91,7 @@ void ReplaceColor(QString col, QString rep)
 			ite->setFillColor(rep);
 		if (col == ite->lineColor())
 			ite->setLineColor(rep);
-		QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
 			if (col == cstops.at(cst)->name)
@@ -120,7 +120,7 @@ void ReplaceColor(QString col, QString rep)
 			ite->setFillColor(rep);
 		if (col == ite->lineColor())
 			ite->setLineColor(rep);
-		QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (int cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
 			if (col == cstops.at(cst)->name)

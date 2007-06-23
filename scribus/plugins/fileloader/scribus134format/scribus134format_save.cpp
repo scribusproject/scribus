@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qfileinfo.h>
 #include <QList>
-#include <QVector>
 //Added by qt3to4:
 #include <Q3PtrList>
 #include <QDataStream>
@@ -1084,7 +1083,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			}
 			else
 			{
-				QVector<VColorStop*> cstops = item->fill_gradient.colorStops();
+				QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 				for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 				{
 					QDomElement itcl = docu->createElement("CSTOP");

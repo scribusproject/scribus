@@ -24,17 +24,17 @@ for which a new license (GPL+exception) is in place.
 */
 #include "vgradient.h"
 #include <QMutableListIterator>
-#include <algorithm>
+#include <QtAlgorithms>
 
 // colorStop comparison function for stable_sort function
-bool compareStops( const VColorStop* item1, const VColorStop* item2 ) 
+bool compareStops(const VColorStop* item1, const VColorStop* item2 ) 
 {
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
 	return ( r1 < r2 ? true : false );
 }
 
-int VGradient::VColorStopList::compareItems(VColorStop* item1, VColorStop* item2 ) const
+int VGradient::compareItems(const VColorStop* item1, const VColorStop* item2 ) const
 {
 	double r1 = item1->rampPoint;
 	double r2 = item2->rampPoint;
@@ -43,16 +43,16 @@ int VGradient::VColorStopList::compareItems(VColorStop* item1, VColorStop* item2
 } // VGradient::VColorStopList::compareItems
 
 
-void VGradient::VColorStopList::inSort( VColorStop* d )
+void VGradient::inSort( VColorStop* d )
 {
 	int index = 0;
-	register VColorStop *n = value(index);
+	register VColorStop *n = m_colorStops.value(index);
 	while (n && compareItems(n,d) <= 0)
 	{
-		n = value(index);
+		n = m_colorStops.value(index);
 		++index;
 	}
-	insert( qMin(index, this->size()), d );
+	m_colorStops.insert( qMin(index, m_colorStops.size()), d );
 }
 
 VGradient::VGradient( VGradientType type ) : m_type( type )
@@ -78,10 +78,9 @@ VGradient::VGradient( const VGradient& gradient )
 	m_vector		= gradient.m_vector;
 	m_type			= gradient.m_type;
 	m_repeatMethod	= gradient.m_repeatMethod;
-	while (!m_colorStops.isEmpty())
-		delete m_colorStops.takeFirst();
-	QVector<VColorStop*> cs = gradient.colorStops();
-	std::stable_sort(cs.data(), cs.data() + cs.count(), compareStops);
+	clearStops();
+	QList<VColorStop*> cs = gradient.colorStops();
+	qStableSort(cs.begin(), cs.end(), compareStops);
 	for( int i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 } // VGradient::VGradient
@@ -102,21 +101,17 @@ VGradient& VGradient::operator=( const VGradient& gradient )
 	m_type			= gradient.m_type;
 	m_repeatMethod	= gradient.m_repeatMethod;
 
-	while (!m_colorStops.isEmpty())
-		delete m_colorStops.takeFirst();
-	QVector<VColorStop*> cs = gradient.colorStops();
-	std::stable_sort(cs.data(), cs.data() + cs.count(), compareStops);
+	clearStops();
+	QList<VColorStop*> cs = gradient.colorStops();
+	qStableSort(cs.begin(), cs.end(), compareStops);
 	for( int i = 0; i < cs.count(); ++i )
 		m_colorStops.append( new VColorStop( *cs[i] ) );
 	return *this;
 } // VGradient::operator=
 
-const QVector<VColorStop*> VGradient::colorStops() const
+const QList<VColorStop*>& VGradient::colorStops() const
 {
-	QVector<VColorStop*> v;
-	v.resize(m_colorStops.size());
-	qCopy(m_colorStops.begin(), m_colorStops.end(), v.begin());
-	return v;
+	return m_colorStops;
 } // VGradient::colorStops()
 
 void
@@ -129,7 +124,7 @@ VGradient::clearStops()
 void
 VGradient::addStop( const VColorStop& colorStop )
 {
-	m_colorStops.inSort( new VColorStop( colorStop ) );
+	inSort( new VColorStop( colorStop ) );
 } // VGradient::addStop
 
 void
@@ -142,7 +137,7 @@ VGradient::addStop( const QColor &color, double rampPoint, double midPoint, doub
 	midPoint = qMax( 0.0, midPoint );
 	midPoint = qMin( 1.0, midPoint );
 
-	m_colorStops.inSort( new VColorStop( rampPoint, midPoint, color, opa, name, shade ) );
+	inSort( new VColorStop( rampPoint, midPoint, color, opa, name, shade ) );
 }
 
 void VGradient::removeStop( VColorStop& colorstop )

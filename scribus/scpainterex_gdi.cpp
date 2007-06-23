@@ -901,7 +901,7 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	QVector<VColorStopEx*> colorStops = gradient.colorStops();
+	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop( *colorStops[0] );
 	FPoint p1, p1a, p2, p2a;
 	QColor color;
@@ -1082,7 +1082,7 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 	double length, scale;
 	double x1, y1, x2, y2, dx, dy;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	QVector<VColorStopEx*> colorStops = gradient.colorStops();
+	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop1( *colorStops[0] );
 	VColorStopEx stop2( *colorStops[0] );
 	FPoint p1, p2;
@@ -1208,7 +1208,7 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	int numElements;
 	int r, g, b, a;
 	int clipBoxWidth, clipBoxHeight, maxDim;
-	QVector<VColorStopEx*> colorStops = gradient.colorStops();
+	QList<VColorStopEx*> colorStops = gradient.colorStops();
 	VColorStopEx stop( *colorStops[0] );
 	QColor color;
 

@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 //Added by qt3to4:
 #include <QByteArray>
-#include <Q3PtrList>
 #include <QDataStream>
 #include <QTextStream>
 #include <QApplication>
@@ -3312,7 +3311,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 		ob.setAttribute("gHeight", item->gHeight);
 		if (item->GrType != 0)
 		{
-			QVector<VColorStop*> cstops = item->fill_gradient.colorStops();
+			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				QDomElement itcl = docu->createElement("CSTOP");

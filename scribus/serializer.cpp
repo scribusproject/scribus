@@ -417,7 +417,7 @@ void Serializer::updateGradientColors(const ColorList& colors)
 	for (uint c=0; c < itemsCount; ++c)
 	{
 		PageItem *ite = m_Doc.Items->at(c);
-		QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
 			grStop = cstops.at(cst);
@@ -429,7 +429,7 @@ void Serializer::updateGradientColors(const ColorList& colors)
 	for (uint c=0; c < masterItemsCount; ++c)
 	{
 		PageItem *ite = m_Doc.MasterItems.at(c);
-		QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
 			grStop = cstops.at(cst);
@@ -441,7 +441,7 @@ void Serializer::updateGradientColors(const ColorList& colors)
 	for (uint c=0; c < frameItemsCount; ++c)
 	{
 		PageItem *ite = m_Doc.FrameItems.at(c);
-		QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+		QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
 			grStop = cstops.at(cst);
@@ -456,7 +456,7 @@ void Serializer::updateGradientColors(const ColorList& colors)
 		for (int o = 0; o < pa.items.count(); o++)
 		{
 			PageItem *ite = pa.items.at(o);
-			QVector<VColorStop*> cstops = ite->fill_gradient.colorStops();
+			QList<VColorStop*> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
 				grStop = cstops.at(cst);

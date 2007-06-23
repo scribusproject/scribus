@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #define __VGRADIENTEX_H__
 
 #include <QList>
-#include <QVector>
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "fpoint.h"
@@ -95,14 +94,6 @@ public:
 	    repeat  = 2
 	};
 
-	class SCRIBUS_API VColorStopExList : public QList<VColorStopEx*>
-	{
-	protected:
-		int compareItems( VColorStopEx* item1, VColorStopEx* item2 );
-	public:
-		void inSort( VColorStopEx* d );
-	}; // VColorStopExList
-
 	VGradientEx( VGradientEx::Type type = linear );
 	VGradientEx( const VGradientEx& gradient );
 	VGradientEx( const VGradient& gradient, ScribusDoc& doc );
@@ -116,7 +107,7 @@ public:
 	VGradientEx::RepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod( VGradientEx::RepeatMethod repeatMethod ) { m_repeatMethod = repeatMethod; }
 
-	const QVector<VColorStopEx*> colorStops() const;
+	const QList<VColorStopEx*> colorStops() const;
 	void addStop( const VColorStopEx& colorStop );
 	void addStop( const ScColor &color, double rampPoint, double midPoint, double opa, QString name = "", int shade = 100 );
 	void removeStop( VColorStopEx& colorStop );
@@ -136,7 +127,10 @@ public:
 	void transform( const QMatrix& m );
 
 protected:
-	VColorStopExList        m_colorStops;
+	QList<VColorStopEx*>        m_colorStops;
+
+	int  compareItems( const VColorStopEx* item1, const VColorStopEx* item2 ) const;
+	void inSort( VColorStopEx* d );
 
 private:
 	VGradientEx::Type         m_type			: 2;

@@ -1285,7 +1285,7 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 		}
 		else
 		{
-			QVector<VColorStop*> cstops = oostyle.gradient.colorStops();
+			QList<VColorStop*> cstops = oostyle.gradient.colorStops();
 			item->setFillColor(cstops.at(0)->name);
 			item->setFillShade(cstops.at(0)->shade);
 		}

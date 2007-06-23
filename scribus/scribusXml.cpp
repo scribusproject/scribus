@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QByteArray>
 #include <QTextStream>
+#include <QXmlDefaultHandler>
+#include <QXmlSimpleReader>
 #include <cstdlib>
 #include <cmath>
 #include "missing.h"
@@ -45,6 +47,43 @@ for which a new license (GPL+exception) is in place.
 #include "scpattern.h"
 
 using namespace std;
+
+class ScriXmlDocGetHeader : public QXmlDefaultHandler
+{
+protected:
+	bool    m_gotDocElement;
+	QString m_documentTag;
+	double  m_x, m_y, m_w, m_h;
+public:
+	ScriXmlDocGetHeader(void)
+	{
+		m_gotDocElement = false;
+		m_x = m_y = m_w = m_h = 0;
+	}
+	double x(void) { return m_x; }
+	double y(void) { return m_y; }
+	double w(void) { return m_w; }
+	double h(void) { return m_h; }
+	const QString& documentTag(void) { return m_documentTag; }
+	virtual bool startElement( const QString& nsURI, const QString& locName, const QString& qName,
+                       const QXmlAttributes& qattr)
+	{
+		if (m_gotDocElement)
+			return true;
+		if ((locName == "SCRIBUSELEM") || (locName == "SCRIBUSELEMUTF8"))
+		{
+			m_documentTag = locName;
+			m_x = qattr.value("XP").toDouble();
+			m_y = qattr.value("YP").toDouble();
+			QString wstr(qattr.value("W"));
+			m_w = (wstr.isEmpty()) ? 0.0 : wstr.toDouble();
+			QString hstr(qattr.value("H"));
+			m_h = (hstr.isEmpty()) ? 0.0 : hstr.toDouble();
+			m_gotDocElement = true;
+		}
+		return true;
+	}
+};
 
 ScriXmlDoc::ScriXmlDoc()
 {
@@ -559,7 +598,6 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h)
 {
 	QString ff = "";
-	QDomDocument docu("scridoc");
 	if (isFile)
 	{
 		QByteArray f;
@@ -580,15 +618,19 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 			ff = file;*/
 		ff  = file;
 	}
-	if(!docu.setContent(ff))
+	QXmlSimpleReader reader;
+	QXmlInputSource source;
+	ScriXmlDocGetHeader handler;
+	source.setData(ff);
+	reader.setContentHandler( &handler );
+	reader.parse( source );
+	QString docTag = handler.documentTag();
+	if ((docTag != "SCRIBUSELEM") && (docTag != "SCRIBUSELEMUTF8"))
 		return false;
-	QDomElement elem=docu.documentElement();
-	if ((elem.tagName() != "SCRIBUSELEM") && (elem.tagName() != "SCRIBUSELEMUTF8"))
-		return false;
-	*x = elem.attribute("XP").toDouble();
-	*y = elem.attribute("YP").toDouble();
-	*w = elem.attribute("W", "0").toDouble();
-	*h = elem.attribute("H", "0").toDouble();
+	*x = handler.x();
+	*y = handler.y();
+	*w = handler.w();
+	*h = handler.h();
 	return true;
 }
 
@@ -1458,7 +1500,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		}
 		else
 		{
-			QVector<VColorStop*> cstops = item->fill_gradient.colorStops();
+			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
 				QDomElement itcl = docu.createElement("CSTOP");

@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #define __VGRADIENT_H__
 
 #include <QList>
-#include <QVector>
 #include "scribusapi.h"
 #include "fpoint.h"
 #include <qcolor.h>
@@ -94,16 +93,6 @@ public:
 	    repeat  = 2
 	};
 
-	class SCRIBUS_API VColorStopList : public QList<VColorStop*>
-	{
-	protected:
-		int compareItems(VColorStop* item1, VColorStop* item2 ) const;
-	public:
-		// Reimplement inSort so that two color stop with same offset can be found
-		// in the same order they are inserted
-		void inSort( VColorStop* d );
-	}; // VColorStopList
-
 	VGradient( VGradientType type = linear );
 	VGradient( const VGradient& gradient );
 	~VGradient();
@@ -116,7 +105,7 @@ public:
 	VGradientRepeatMethod repeatMethod() const { return m_repeatMethod; }
 	void setRepeatMethod( VGradientRepeatMethod repeatMethod ) { m_repeatMethod = repeatMethod; }
 
-	const QVector<VColorStop*> colorStops() const;
+	const QList<VColorStop*>& colorStops() const;
 	void addStop( const VColorStop& colorStop );
 	void addStop( const QColor &color, double rampPoint, double midPoint, double opa, QString name = "", int shade = 100 );
 	void removeStop( VColorStop& colorStop );
@@ -140,11 +129,14 @@ public:
 	void transform( const QMatrix& m );
 
 protected:
-	VColorStopList        m_colorStops;
+	QList<VColorStop*>        m_colorStops;
+
+	int  compareItems(const VColorStop* item1, const VColorStop* item2 ) const;
+	void inSort( VColorStop* d );
 
 private:
-VGradientType         m_type			: 2;
-VGradientRepeatMethod m_repeatMethod	: 2;
+	VGradientType         m_type			: 2;
+	VGradientRepeatMethod m_repeatMethod	: 2;
 
 	// coordinates:
 	FPoint m_origin;

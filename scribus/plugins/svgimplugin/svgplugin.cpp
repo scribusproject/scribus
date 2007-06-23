@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDrag>
 #include <QMimeData>
 #include <QList>
-#include <Q3PtrList>
 #include <cmath>
 #include <zlib.h>
 #include "commonstrings.h"
@@ -627,7 +626,7 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 		else
 		{
 			item->GrType = 0;
-			QVector<VColorStop*> cstops = gc->GradCo.colorStops();
+			QList<VColorStop*> cstops = gc->GradCo.colorStops();
 			item->setFillColor(cstops.at(0)->name);
 			item->setFillShade(cstops.at(0)->shade);
 		}
