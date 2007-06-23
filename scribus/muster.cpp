@@ -114,13 +114,17 @@ void MasterPagesPalette::deleteMasterPage()
 		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
 		//This must happen after the pages have been reformed (view/doc)
 		currentDoc->MasterNames.clear();
-		for (uint a = 0; a < currentDoc->Pages->count(); ++a)
+		for (int a = 0; a < currentDoc->Pages->count(); ++a)
 			currentDoc->MasterNames[currentDoc->Pages->at(a)->pageName()] = currentDoc->Pages->at(a)->pageNr();
 		// and fix up any pages that refer to the deleted master page
 		uint pageIndex = 0;
 		QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin();
-		for (Page* docPage = currentDoc->DocPages.first(); docPage; docPage = currentDoc->DocPages.next() )
+		QListIterator<Page *> dpIt(currentDoc->DocPages);
+		Page* docPage=NULL;
+		while(dpIt.hasNext())
+		//for (Page* docPage = currentDoc->DocPages.first(); docPage; docPage = currentDoc->DocPages.next() )
 		{
+			docPage=dpIt.next();
 			if (docPage->MPageNam == sMuster)
 			{
 				PageLocation pageLoc = currentDoc->locationOfPage(pageIndex);

@@ -851,11 +851,11 @@ public: // Public attributes
 	double rulerXoffset;
 	double rulerYoffset;
 	/** \brief List of Pages */
-	Q3PtrList<Page>* Pages;
+	QList<Page*>* Pages;
 	/** \brief List of Master Pages */
-	Q3PtrList<Page> MasterPages;
+	QList<Page*> MasterPages;
 	/** \brief List of Document Pages */
-	Q3PtrList<Page> DocPages;
+	QList<Page*> DocPages;
 	/** \brief Mapping Master Page Name to Master Page numbers */
 	QMap<QString,int> MasterNames;
 	/** \brief List of Objects */

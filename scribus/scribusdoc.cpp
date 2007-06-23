@@ -445,10 +445,19 @@ ScribusDoc::~ScribusDoc()
 		delete DocItems.takeFirst();
 	}
 	FrameItems.clear();
-	MasterPages.setAutoDelete(true);
-	DocPages.setAutoDelete(true);
-	MasterPages.clear();
-	DocPages.clear();
+
+	while (!MasterPages.isEmpty())
+	{
+		delete MasterPages.takeFirst();
+	}
+	while (!DocPages.isEmpty())
+	{
+		delete DocPages.takeFirst();
+	}
+// 	MasterPages.setAutoDelete(true);
+// 	DocPages.setAutoDelete(true);
+// 	MasterPages.clear();
+// 	DocPages.clear();
 //	MasterItems.setAutoDelete(true);
 //	MasterItems.clear();
 	while (!MasterItems.isEmpty())
@@ -1409,8 +1418,8 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	addedPage->setPageNr(pageIndex);
 	addedPage->m_pageSize = m_pageSize;
 	addedPage->PageOri = PageOri;
-	bool insertsuccess=DocPages.insert(pageIndex, addedPage);
-	assert(insertsuccess==true && DocPages.at(pageIndex)!=NULL);
+	DocPages.insert(pageIndex, addedPage);
+	assert(DocPages.at(pageIndex)!=NULL);
 	setCurrentPage(addedPage);
 	//if (!masterPageMode())
 	if (!masterPageName.isEmpty())
@@ -1444,8 +1453,8 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	addedPage->setPageName(pageName);
 	addedPage->setPageNr(pageNumber);
 	MasterNames.insert(pageName, pageNumber);
-	bool insertsuccess=MasterPages.insert(pageNumber, addedPage);
-	assert(insertsuccess==true && MasterPages.at(pageNumber)!=NULL);
+	MasterPages.insert(pageNumber, addedPage);
+	assert(MasterPages.at(pageNumber)!=NULL);
 	if  (!isLoading())
 		changed();
 	return addedPage;
@@ -1463,8 +1472,10 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 		Q_ASSERT(MasterPages.at(number)->pageName()==oldPageName);
 		MasterPages.at(number)->setPageName(newPageName);
 		//Update any pages that were linking to our old name
-		for (Page* docPage = DocPages.first(); docPage; docPage = DocPages.next() )
+		Page* docPage=NULL;
+		for (int i=0; i < DocPages.count(); ++i )
 		{
+			docPage=DocPages[i];
 			if (docPage->MPageNam == oldPageName)
 				docPage->MPageNam = newPageName;
 		}
@@ -1484,11 +1495,11 @@ bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& new
 void ScribusDoc::deleteMasterPage(const int pageNumber)
 {
 	assert(masterPageMode());
-	assert( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
+	assert( Pages->count() > 1 && Pages->count() > pageNumber );
 	setCurrentPage(Pages->at(0));
 	Page* page = Pages->at(pageNumber);
 	QString oldPageName(page->pageName());
-	Pages->remove(pageNumber);
+	Pages->removeAt(pageNumber);
 	delete page;
 	// remove the master page from the master page name list
 	//MasterNames.remove(page->PageNam);
@@ -1509,11 +1520,11 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 
 void ScribusDoc::deletePage(const int pageNumber)
 {
-	assert( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
+	assert( Pages->count() > 1 && Pages->count() > pageNumber );
 	//#5561: If we are going to delete the first page, do not set the current page to it
 	setCurrentPage(Pages->at(pageNumber!=0?0:1));
 	Page* page = Pages->at(pageNumber);
-	Pages->remove(pageNumber);
+	Pages->removeAt(pageNumber);
 	delete page;
 	changed();
 }
@@ -1526,7 +1537,7 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 	for (int a = from; a < to; ++a)
 	{
 		Buf.append(Pages->at(from));
-		Pages->remove(from);
+		Pages->removeAt(from);
 		if (a <= zz)
 			--zz;
 	}
@@ -1534,15 +1545,15 @@ void ScribusDoc::movePage(const int from, const int to, const int ziel, const in
 	switch (art)
 	{
 		case 0:
-			for (uint b = 0; b < bufCount; ++b)
+			for (int b = 0; b < bufCount; ++b)
 				Pages->insert(zz++, Buf.at(b));
 			break;
 		case 1:
-			for (uint b = 0; b < bufCount; ++b)
+			for (int b = 0; b < bufCount; ++b)
 				Pages->insert(++zz, Buf.at(b));
 			break;
 		case 2:
-			for (uint b = 0; b < bufCount; ++b)
+			for (int b = 0; b < bufCount; ++b)
 				Pages->append(Buf.at(b));
 			break;
 	}

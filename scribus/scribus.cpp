@@ -3889,7 +3889,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		mainWindowStatusLabel->setText( tr("Ready"));
 		ret = true;
 		doc->setLoading(true);
-		for (uint p = 0; p < doc->DocPages.count(); ++p)
+		for (int p = 0; p < doc->DocPages.count(); ++p)
 		{
 			Apply_MasterPage(doc->DocPages.at(p)->MPageNam, p, false);
 		}
@@ -6345,7 +6345,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 	NoFrameEdit();
 	if (doc->Pages->count() == 1)
 		return;
-	uint oldPg = doc->currentPageNumber();
+	int oldPg = doc->currentPageNumber();
 	guidePalette->setDoc(NULL);
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(doc->DocName, Um::IDocument, Um::DeletePage, "", Um::IDelete);
@@ -6423,7 +6423,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	assert( from > 0 );
 	assert( from <= to );
 	assert( to <= static_cast<int>(doc->Pages->count()) );
-	uint oldPg = doc->currentPageNumber();
+	int oldPg = doc->currentPageNumber();
 	guidePalette->setDoc(NULL);
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(doc->DocName, Um::IDocument,
@@ -8344,7 +8344,7 @@ void ScribusMainWindow::restore(UndoState* state, bool isUndo)
 
 void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 {
-	uint pagenr   = state->getUInt("PAGENR");
+	int pagenr = state->getUInt("PAGENR");
 	QStringList tmpl;
 	tmpl << state->get("MASTERPAGE");
 	int where, wo;

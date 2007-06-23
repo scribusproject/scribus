@@ -576,11 +576,11 @@ void PagePalette::DelMPage(QString tmp)
 	if (tmp == CommonStrings::trMasterPageNormal)
 		return;
 	int Nr = currView->Doc->MasterNames[tmp];
-	Page* Seite = currView->Doc->MasterPages.at(Nr);
-	currView->Doc->MasterPages.remove(Nr);
+	Page* Seite = currView->Doc->MasterPages.takeAt(Nr);
 	delete Seite;
 	currView->Doc->MasterNames.clear();
-	for (uint aa=0; aa < currView->Doc->MasterPages.count(); ++aa)
+	
+	for (int aa=0; aa < currView->Doc->MasterPages.count(); ++aa)
 	{
 		Seite = currView->Doc->MasterPages.at(aa);
 		Seite->setPageNr(aa);
@@ -598,7 +598,7 @@ void PagePalette::DelMPage(QString tmp)
 		Seite->Margins.Bottom = currView->Doc->pageMargins.Bottom;
 		currView->Doc->MasterNames[Seite->pageName()] = aa;
 	}
-	for (uint b=0; b<currView->Doc->DocPages.count(); ++b)
+	for (int b=0; b<currView->Doc->DocPages.count(); ++b)
 	{
 		if (currView->Doc->DocPages.at(b)->MPageNam == tmp)
 			currView->Doc->DocPages.at(b)->MPageNam = CommonStrings::masterPageNormal;
@@ -741,7 +741,7 @@ void PagePalette::RebuildPage()
 	pageView->firstP = counter;
 	pageView->cols = currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
 	pageList.clear();
-	for (uint a = 0; a < currView->Doc->Pages->count(); ++a)
+	for (int a = 0; a < currView->Doc->Pages->count(); ++a)
 	{
 		str = currView->Doc->Pages->at(a)->MPageNam;
 		SeItem *it = new SeItem(pageView, str, a, CreateIcon(a, pix));

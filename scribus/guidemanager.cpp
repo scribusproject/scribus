@@ -323,11 +323,11 @@ void GuideManager::lockCheck_stateChanged( int )
 
 void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
 {
-	Q3PtrListIterator<Page> it(*m_Doc->Pages);
+	QListIterator<Page*> it(*m_Doc->Pages);
 	Page *tmpPage;
-	while ((tmpPage = it.current()) != 0 )
+	while (it.hasNext())
 	{
-		++it;
+		tmpPage=it.next();
 		if (tmpPage->pageNr() == currentPage->pageNr())
 			continue;
 		tmpPage->guides.clearHorizontals(t);
