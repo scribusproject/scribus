@@ -17,11 +17,10 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
 #include <QLabel>
-#include <Q3PopupMenu>
+#include <QMenu>
 #include <Q3VBoxLayout>
 
 class Q3GridLayout;
-class Q3PopupMenu;
 class QToolButton;
 class SMScrSpinBox;
 class QLabel;

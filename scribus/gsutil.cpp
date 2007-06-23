@@ -205,8 +205,9 @@ QString getGSVersion()
 	QString gsExe = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
 	QProcess proc;
 	proc.start(gsExe.local8Bit(), args);
-	while (!proc.waitForFinished(5000))
-		qApp->processEvents();
+	if (proc.waitForStarted(5000))
+		while (!proc.waitForFinished(5000))
+			qApp->processEvents();
 	QString gsVer;
 	if (proc.exitStatus()==QProcess::NormalExit)
 		gsVer = proc.readAllStandardOutput();

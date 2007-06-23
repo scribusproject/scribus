@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
-#include <Q3PopupMenu>
+#include <QMenu>
 #include <QMouseEvent>
 #include <Q3VBoxLayout>
 #include "commonstrings.h"
@@ -84,7 +84,7 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 	Mpressed = false;
 	if (m->button() == Qt::RightButton)
 	{
-		Q3PopupMenu *pmen = new Q3PopupMenu();
+		QMenu *pmen = new QMenu();
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		int px = pmen->insertItem( tr("Show Page Previews"), this, SLOT(ToggleTh()));
 		if (Thumb)

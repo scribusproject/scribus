@@ -22,10 +22,10 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "bookmwin.h"
-//#include "bookmwin.moc"
+#include <QAction>
 #include <qpixmap.h>
 #include <q3dragobject.h>
-#include <q3popupmenu.h>
+#include <QMenu>
 #include <qcursor.h>
 #include <q3header.h>
 //Added by qt3to4:
@@ -196,7 +196,7 @@ void BookMView::contentsDropEvent(QDropEvent *e)
 		e->ignore();
 		return;
     }
-	int ins, mov, mret, can;
+	QAction *ins, *mov, *mret, *can;
 	Q3ListViewItem *pp;
 	Q3ListViewItem *lv;
 	BookMItem *ip;
@@ -215,10 +215,10 @@ void BookMView::contentsDropEvent(QDropEvent *e)
   					return;
   				pp = pp->parent();
   			}
-			Q3PopupMenu *pmenu = new Q3PopupMenu();
-			mov = pmenu->insertItem( tr("Move Bookmark"));
-			ins = pmenu->insertItem( tr("Insert Bookmark"));
-			can = pmenu->insertItem( tr("Cancel"));
+			QMenu *pmenu = new QMenu();
+			mov = pmenu->addAction( tr("Move Bookmark"));
+			ins = pmenu->addAction( tr("Insert Bookmark"));
+			can = pmenu->addAction( tr("Cancel"));
 			mret = pmenu->exec(QCursor::pos());
 			if (mret != can)
 			{

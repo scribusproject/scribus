@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "scfonts.h"
 #include "story.h"
-//#include "story.moc"
 #include <qtooltip.h>
 #include <qpixmap.h>
 #include <qcombobox.h>
@@ -48,7 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QHideEvent>
 #include <QPaintEvent>
-#include <Q3PopupMenu>
+#include <QMenu>
 #include <Q3PtrList>
 #include <QPalette>
 

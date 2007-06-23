@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "stylemanager.h"
-//#include "stylemanager.moc"
 #include "styleitem.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
