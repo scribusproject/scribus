@@ -7,14 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef TFFILTER_H
 #define TFFILTER_H
 
-#include <qwidget.h>
-#include <qcombobox.h>
-#include <qpushbutton.h>
-#include <qcheckbox.h>
-#include <q3frame.h>
-#include <q3boxlayout.h>
-#include <qlayout.h>
-#include <qlabel.h>
+#include <QWidget>
+class QCheckBox;
+class QBoxLayout;
+class QFrame;
+class QLabel;
+class QCheckBox;
+class QPushButton;
+class QComboBox;
 #include <prefstable.h>
 #include <prefscontext.h>
 
@@ -41,9 +41,9 @@ class tfFilter : public QWidget
 	Q_OBJECT
 private:
 	QCheckBox* enableCheck;
-	Q3BoxLayout* alayout;
-	Q3BoxLayout* blayout;
-	Q3Frame* actionFrame;
+	QBoxLayout* alayout;
+	QBoxLayout* blayout;
+	QFrame* actionFrame;
 	QComboBox* firstCombo;
 	QLabel* firstLabel;
 	QComboBox* secondCombo;

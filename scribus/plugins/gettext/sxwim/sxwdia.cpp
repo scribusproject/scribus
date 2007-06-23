@@ -8,59 +8,73 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_XML
 
-#include "scribusapi.h"
-//#include "sxwdia.moc"
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
+#include <QToolTip>
+#include <QBoxLayout>
+#include <QVBoxLayout>
 #include <QPixmap>
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
+#include <QCheckBox>
+#include <QPushButton>
+
+#include "scribusapi.h"
+#include <qtooltip.h>
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
-SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0, "sxwdia", true, 0)
+SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)
 {
-	setCaption( tr("OpenOffice.org Writer Importer Options"));
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowTitle( tr("OpenOffice.org Writer Importer Options"));
 
-	Q3BoxLayout* layout = new Q3VBoxLayout(this);
+	QBoxLayout* layout = new QVBoxLayout(this);
+	layout->setMargin(0);
+	layout->setSpacing(0);
 
-	Q3BoxLayout* hlayout = new Q3HBoxLayout(0, 5, 5, "hlayout");
-	updateCheck = new QCheckBox( tr("Overwrite Paragraph Styles"), this,
-"updateCheck");
+	QBoxLayout* hlayout = new QHBoxLayout;
+	hlayout->setMargin(5);
+	hlayout->setSpacing(5);
+	updateCheck = new QCheckBox( tr("Overwrite Paragraph Styles"), this);
 	updateCheck->setChecked(update);
 	QToolTip::add(updateCheck, "<qt>" + tr("Enabling this will overwrite existing styles in the current Scribus document") + "</qt>");
 	hlayout->addWidget(updateCheck);
 	layout->addLayout(hlayout);
 	
-	Q3BoxLayout* palayout = new Q3HBoxLayout(0,5,5, "palayout");
-	packCheck = new QCheckBox( tr("Merge Paragraph Styles"), this, "packCheck");
+	QBoxLayout* palayout = new QHBoxLayout;
+	palayout->setMargin(5);
+	palayout->setSpacing(5);
+	packCheck = new QCheckBox( tr("Merge Paragraph Styles"), this);
 	packCheck->setChecked(pack);
 	QToolTip::add(packCheck, "<qt>" + tr("Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.") +"</qt>");
 	palayout->addWidget(packCheck);
 	layout->addLayout(palayout);
 
-	Q3BoxLayout* playout = new Q3HBoxLayout(0, 5, 5, "playout");
-	prefixCheck = new QCheckBox( tr("Use document name as a prefix for paragraph styles"), this, "prefixCheck");
+	QBoxLayout* playout = new QHBoxLayout;
+	playout->setMargin(5);
+	playout->setSpacing(5);
+	prefixCheck = new QCheckBox( tr("Use document name as a prefix for paragraph styles"), this);
 	prefixCheck->setChecked(prefix);
 	QToolTip::add(prefixCheck, "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus.") +"</qt>");
 	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 
-	Q3BoxLayout* dlayout = new Q3HBoxLayout(0, 5, 5, "dlayout");
-	doNotAskCheck = new QCheckBox( tr("Do not ask again"), this,
-"doNotAskCheck");
+	QBoxLayout* dlayout = new QHBoxLayout;
+	dlayout->setMargin(5);
+	dlayout->setSpacing(5);
+	doNotAskCheck = new QCheckBox( tr("Do not ask again"), this);
 	doNotAskCheck->setChecked(false);
 	QToolTip::add(doNotAskCheck, "<qt>" + tr("Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.") +"</qt>");
 	//dlayout->addStretch(10);
 	dlayout->addWidget(doNotAskCheck);
 	layout->addLayout(dlayout);
 
-	Q3BoxLayout* blayout = new Q3HBoxLayout(0, 5, 5, "blayout");
+	QBoxLayout* blayout = new QHBoxLayout;
+	blayout->setMargin(5);
+	blayout->setSpacing(5);
 	blayout->addStretch(10);
-	okButton = new QPushButton( tr("OK"), this, "okButton");
+	okButton = new QPushButton( tr("OK"), this);
 	blayout->addWidget(okButton);
-	cancelButton = new QPushButton( tr("Cancel"), this, "cancelButton");
+	cancelButton = new QPushButton( tr("Cancel"), this);
 	blayout->addWidget(cancelButton);
 	layout->addLayout(blayout);
 
@@ -85,7 +99,7 @@ bool SxwDialog::askAgain()
 
 bool SxwDialog::packStyles()
 {
-	return packCheck->isChecked();	
+	return packCheck->isChecked();
 }
 
 SxwDialog::~SxwDialog()

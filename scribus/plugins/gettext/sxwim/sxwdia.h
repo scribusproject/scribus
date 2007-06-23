@@ -11,14 +11,9 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_XML
 
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qdialog.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QDialog>
+class QCheckBox;
+class QPushButton;
 
 class SxwDialog : public QDialog
 {

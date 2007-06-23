@@ -8,17 +8,16 @@ for which a new license (GPL+exception) is in place.
 #define TFDIA_H
 
 #include <vector>
-#include <qdialog.h>
-#include <qcombobox.h>
-#include <qpushbutton.h>
-#include <qlineedit.h>
-#include <qlayout.h>
-#include <q3scrollview.h>
-#include <q3vbox.h>
-#include <qevent.h>
-//Added by qt3to4:
+#include <QDialog>
 #include <QResizeEvent>
-#include <QFrame>
+class QFrame;
+class QComboBox;
+class QLineEdit;
+class QPushButton;
+class QScrollArea;
+class QBoxLayout;
+class QHBoxLayout;
+class QVBoxLayout;
 #include <prefscontext.h>
 #include "tffilter.h"
 
@@ -27,8 +26,8 @@ class tfDia : public QDialog
 	Q_OBJECT
 private:
 	PrefsContext* prefs;
-	Q3BoxLayout* layout;
-	Q3BoxLayout* alayout;
+	QBoxLayout* layout;
+	QBoxLayout* alayout;
 	QComboBox* filtersCombo;
 	QLineEdit* saveEdit;
 	QPushButton* clearButton;
@@ -36,7 +35,7 @@ private:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QString currentFilter;
-	Q3ScrollView* qsv;
+	QScrollArea* qsv;
 	QFrame* vbox;
 	int currentIndex;
 	void clear();

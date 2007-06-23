@@ -5,20 +5,22 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tfdia.h"
-//#include "tfdia.moc"
+
+#include <QFrame>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QScrollArea>
+#include <QBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QToolTip>
+#include <QPixmap>
+#include <QRect>
+
 #include "prefsmanager.h"
 #include "prefsfile.h"
-#include <qpixmap.h>
-#include <qtooltip.h>
-#include <qlabel.h>
-#include <QFrame>
-#include <qrect.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QResizeEvent>
-#include <Q3VBoxLayout>
 #include <prefstable.h>
-#include <qsizepolicy.h>
 
 #include "commonstrings.h"
 
@@ -26,8 +28,9 @@ extern QPixmap loadIcon(QString nam);
 
 tfDia::tfDia() : QDialog()
 {
-	setCaption( tr("Create filter"));
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
+	setWindowTitle( tr("Create filter"));
 	setMinimumWidth(524);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
 	setGeometry(prefs->getInt("x", 0),
@@ -43,16 +46,20 @@ void tfDia::createLayout()
 	currentFilter = "tf_lastUsed";
 	currentIndex = 0;
 	
-	layout = new Q3VBoxLayout(this);
+	layout = new QVBoxLayout(this);
+	layout->setMargin(0);
+	layout->setSpacing(0);
 
-	Q3BoxLayout* layout1 = new Q3HBoxLayout(0, 5, 5, "layout1");
-	clearButton = new QPushButton( tr("C&lear"), this, "clearButton");
+	QBoxLayout* layout1 = new QHBoxLayout;
+	layout1->setMargin(5);
+	layout1->setSpacing(5);
+	clearButton = new QPushButton( tr("C&lear"), this);
 	layout1->addWidget(clearButton);
 	layout1->addStretch(10);
-	deleteButton = new QPushButton( tr("&Delete"), this, "deleteButton");
+	deleteButton = new QPushButton( tr("&Delete"), this);
 	deleteButton->setEnabled(false);
 	layout1->addWidget(deleteButton);
-	filtersCombo = new QComboBox(0, this, "filtersCombo");
+	filtersCombo = new QComboBox(this);
 	filtersCombo->setMinimumSize(QSize(150, 0));
 	filtersCombo->setEditable(false);
 	filtersCombo->setDuplicatesEnabled(false);
@@ -63,39 +70,49 @@ void tfDia::createLayout()
 	{
 		QString fname = filterNames->get(i, 0, "");
 		fname = fname.right(fname.length() - 3);
-		filtersCombo->insertItem(fname);	
+		filtersCombo->addItem(fname);	
 	}
 	layout1->addWidget(filtersCombo);
 	layout->addLayout(layout1);
 
-	Q3BoxLayout* flayout = new Q3HBoxLayout(0,0,0, "flayout");
+	QBoxLayout* flayout = new QHBoxLayout;
+	flayout->setMargin(0);
+	flayout->setSpacing(0);
 	QFrame* f = new QFrame(this, "f");
 	f->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 	flayout->addWidget(f);
 	layout->addLayout(flayout);
 
 	
-	qsv = new Q3ScrollView(this, "qsv");
-	Q3VBoxLayout *a1layout = new Q3VBoxLayout(0, 5, 12, "a1layout");
+	qsv = new QScrollArea(this);
+	QVBoxLayout *a1layout = new QVBoxLayout;
+	a1layout->setMargin(5);
+	a1layout->setSpacing(12);
 	vbox = new QFrame(this);
 	vbox->setFixedWidth(qsv->viewport()->width());
 	qsv->viewport()->resize(width() - 12, vbox->height());
 	a1layout->addWidget(qsv);
-	qsv->addChild(vbox);
+	qsv->setWidget(vbox);
 	layout->addLayout(a1layout);
 	
-	alayout = new Q3VBoxLayout(vbox, 5,12, "alayout");
+	alayout = new QVBoxLayout(vbox);
+	alayout->setMargin(5);
+	alayout->setSpacing(12);
 	
 	createFilter(prefs->getTable("tf_lastUsed"));
 	filters[0]->setRemovable((filters.size() >= 2));
 	
-	Q3BoxLayout* flayout2 = new Q3HBoxLayout(0,0,0, "flayout2");
+	QBoxLayout* flayout2 = new QHBoxLayout;
+	flayout2->setMargin(0);
+	flayout2->setSpacing(0);
 	QFrame* f2 = new QFrame(this, "f2");
 	f2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 	flayout2->addWidget(f2);
 	layout->addLayout(flayout2);
 
-	Q3BoxLayout* layout2 = new Q3HBoxLayout(0, 5, 5, "layout2");
+	QBoxLayout* layout2 = new QHBoxLayout;
+	layout2->setMargin(5);
+	layout2->setSpacing(5);
 	saveEdit = new QLineEdit(this, "saveEdit");
 	QToolTip::add(saveEdit, tr("Give a name to this filter for saving"));
 	layout2->addWidget(saveEdit, 10);
@@ -105,9 +122,9 @@ void tfDia::createLayout()
 		prefs->set("save_hint", false);
 	}
 	layout2->addSpacing(20);
-	okButton = new QPushButton(CommonStrings::tr_OK, this, "okButton");
+	okButton = new QPushButton(CommonStrings::tr_OK, this);
 	layout2->addWidget(okButton, 0);
-	cancelButton = new QPushButton(CommonStrings::tr_Cancel, this, "cancelButton");
+	cancelButton = new QPushButton(CommonStrings::tr_Cancel, this);
 	layout2->addWidget(cancelButton, 0);
 	layout->addLayout(layout2);
 	

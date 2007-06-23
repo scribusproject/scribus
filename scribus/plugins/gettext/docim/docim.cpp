@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribusstructs.h"
 #include <qobject.h>
-#include <q3cstring.h>
+#include <QByteArray>
 #include <qmessagebox.h>
 #include <QProcess>
 #include <qstring.h>

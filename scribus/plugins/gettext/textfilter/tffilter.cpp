@@ -5,16 +5,16 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "tffilter.h"
-//#include "tffilter.moc"
 
-#include <qlayout.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3Frame>
+#include <QHBoxLayout>
+#include <QFrame>
 #include <QPixmap>
 #include <QLabel>
-#include <Q3VBoxLayout>
+#include <QVBoxLayout>
+#include <QBoxLayout>
+#include <QComboBox>
+#include <QPushButton>
+#include <QToolTip>
 #include "scribusapi.h"
 #include "scribuscore.h"
 #include "prefsmanager.h"
@@ -36,15 +36,15 @@ tfFilter::tfFilter(QWidget *parent, const char *name,
 	{
 		thirdCombo->setCurrentText(pstyleName);
 		fourthChanged(style);
-		fourthCombo->setCurrentItem(style);
+		fourthCombo->setCurrentIndex(style);
 		if (style == STARTS_WITH)
 		{
 			fifthCombo->setCurrentText(regExp);
 			fifthRegexpCheck->setChecked(regexp);
 			if (match)
-				sixthCombo->setCurrentItem(0);
+				sixthCombo->setCurrentIndex(0);
 			else
-				sixthCombo->setCurrentItem(1);
+				sixthCombo->setCurrentIndex(1);
 		}
 		else if (style == LESS_THAN)
 		{
@@ -97,25 +97,30 @@ void tfFilter::createWidget()
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
 	history = prefs->getTable("history");
 
-	Q3HBoxLayout *layout = new Q3HBoxLayout(this);
+	QHBoxLayout *layout = new QHBoxLayout(this);
 	layout->setMargin(0);
+	layout->setSpacing(0);
 
-	enableCheck = new QCheckBox(this, "enableCheck");
+	enableCheck = new QCheckBox(this);
 	enableCheck->setMaximumSize(QSize(25,25));
 	enableCheck->setMinimumSize(QSize(25,25));
 	enableCheck->setChecked(true);
 	QToolTip::add(enableCheck, tr("Disable or enable this filter row"));
 	layout->addWidget(enableCheck);
 
-	actionFrame = new Q3Frame(this, "actionFrame");
+	actionFrame = new QFrame(this);
 	layout->addWidget(actionFrame);
 
-	Q3BoxLayout* layout2 = new Q3VBoxLayout(actionFrame);
+	QBoxLayout* layout2 = new QVBoxLayout(actionFrame);
+	layout2->setMargin(0);
+	layout2->setSpacing(0);
 	alayout = new Q3HBoxLayout();
 	alayout->setMargin(0);
+	alayout->setSpacing(0);
 	layout2->addLayout(alayout);
 	layout2->addSpacing(4);
 	blayout = new Q3HBoxLayout();
+	blayout->setSpacing(0);
 	blayout->setMargin(0);
 	layout2->addLayout(blayout);
 
@@ -204,8 +209,8 @@ void tfFilter::fourthChanged(int index)
 					fifthLabel->show();
 					sixthCombo->clear();
 					sixthCombo->setEditable(false);
-					sixthCombo->insertItem( tr("remove match"));
-					sixthCombo->insertItem( tr("do not remove match"));
+					sixthCombo->addItem( tr("remove match"));
+					sixthCombo->addItem( tr("do not remove match"));
 					sixthCombo->show();
 					break;
 				case LESS_THAN:
@@ -239,8 +244,8 @@ void tfFilter::getFirstCombo()
 	resetBRow();
 	if (!firstCombo)
 	{
-		firstCombo = new QComboBox(0, actionFrame, "firstCombo");
-		firstCombo->insertItem("");
+		firstCombo = new QComboBox(actionFrame);
+		firstCombo->addItem("");
 		firstCombo->show();
 		alayout->addWidget(firstCombo, -1);
 		alayout->setSpacing(5);
@@ -248,15 +253,15 @@ void tfFilter::getFirstCombo()
 	}
 	if (!firstLabel)
 	{
-		firstLabel = new QLabel(actionFrame, "secondLabel");
+		firstLabel = new QLabel(actionFrame);
 		alayout->addWidget(firstLabel, -1);
 		firstLabel->hide();
 	}
 	firstCombo->clear();
 	firstCombo->setMinimumSize(QSize(120, 0));
-	firstCombo->insertItem( tr("Remove"));
-	firstCombo->insertItem( tr("Replace"));
-	firstCombo->insertItem( tr("Apply"));
+	firstCombo->addItem( tr("Remove"));
+	firstCombo->addItem( tr("Replace"));
+	firstCombo->addItem( tr("Apply"));
 	firstCombo->show();
 	getSecondCombo();
 }
@@ -266,22 +271,22 @@ void tfFilter::getSecondCombo()
 	resetBRow();
 	if (!secondCombo)
 	{
-		secondCombo = new QComboBox(0, actionFrame, "secondCombo");
-		secondCombo->insertItem("");
+		secondCombo = new QComboBox(actionFrame);
+		secondCombo->addItem("");
 		secondCombo->show();
 		alayout->addWidget(secondCombo, 8);
 		connect(secondCombo, SIGNAL(activated(int)), this, SLOT(secondChanged(int)));
 	}
 	if (!secondRegexpCheck)
 	{
-		secondRegexpCheck = new QCheckBox(actionFrame, "secondRegexpCheck");
+		secondRegexpCheck = new QCheckBox(actionFrame);
 		QToolTip::add(secondRegexpCheck, tr("Value at the left is a regular expression"));
 		secondRegexpCheck->show();
 		alayout->addWidget(secondRegexpCheck, -1);
 	}
 	if (!secondLabel)
 	{
-		secondLabel = new QLabel(actionFrame, "secondLabel");
+		secondLabel = new QLabel(actionFrame);
 		secondLabel->hide();
 		alayout->addWidget(secondLabel, -1);
 	}
@@ -301,7 +306,7 @@ void tfFilter::getSecondCombo()
 			secondLabel->hide();
 			secondCombo->setEditable(false);
 			secondCombo->clear();
-			secondCombo->insertItem( tr("paragraph style"));
+			secondCombo->addItem( tr("paragraph style"));
 			secondRegexpCheck->hide();
 			break;
 		case REMOVE:
@@ -321,8 +326,8 @@ void tfFilter::getThirdCombo(int)
 {
 	if (!thirdCombo)
 	{
-		thirdCombo = new QComboBox(0, actionFrame, "thirdCombo");
-		thirdCombo->insertItem("");
+		thirdCombo = new QComboBox(actionFrame);
+		thirdCombo->addItem("");
 		thirdCombo->hide();
 		alayout->addWidget(thirdCombo, 8);
 		connect(thirdCombo, SIGNAL(activated(int)), this, SLOT(thirdChanged(int)));
@@ -336,7 +341,7 @@ void tfFilter::getThirdCombo(int)
 // 	}
 	if (!thirdLabel)
 	{
-		thirdLabel = new QLabel(actionFrame, "thirdLabel");
+		thirdLabel = new QLabel(actionFrame);
 		thirdLabel->hide();
 		blayout->addWidget(thirdLabel, -1);
 		blayout->addSpacing(5);
@@ -368,15 +373,15 @@ void tfFilter::getFourthCombo()
 {
 	if (!fourthCombo)
 	{
-		fourthCombo = new QComboBox(0, actionFrame, "fourthCombo");
-		fourthCombo->insertItem("");
+		fourthCombo = new QComboBox(actionFrame);
+		fourthCombo->addItem("");
 		fourthCombo->hide();
 		blayout->addWidget(fourthCombo, 8);
 		connect(fourthCombo, SIGNAL(activated(int)), this, SLOT(fourthChanged(int)));
 	}
 	if (!fourthLabel)
 	{
-		fourthLabel = new QLabel(actionFrame, "fourthLabel");
+		fourthLabel = new QLabel(actionFrame);
 		fourthLabel->hide();
 		blayout->addWidget(fourthLabel, -1);
 		blayout->addSpacing(5);
@@ -387,10 +392,10 @@ void tfFilter::getFourthCombo()
 			thirdLabel->setText( tr("to"));
 			thirdLabel->show();
 			fourthCombo->clear();
-			fourthCombo->insertItem( tr("all paragraphs"));
-			fourthCombo->insertItem( tr("paragraphs starting with"));
-			fourthCombo->insertItem( tr("paragraphs with less than"));
-			fourthCombo->insertItem( tr("paragraphs with more than"));
+			fourthCombo->addItem( tr("all paragraphs"));
+			fourthCombo->addItem( tr("paragraphs starting with"));
+			fourthCombo->addItem( tr("paragraphs with less than"));
+			fourthCombo->addItem( tr("paragraphs with more than"));
 			fourthCombo->setEditable(false);
 			fourthCombo->show();
 			fourthLabel->hide();
@@ -403,8 +408,8 @@ void tfFilter::getFifthCombo()
 {
 	if (!fifthCombo)
 	{
-		fifthCombo = new QComboBox(0, actionFrame, "fifthCombo");
-		fifthCombo->insertItem("");
+		fifthCombo = new QComboBox(actionFrame);
+		fifthCombo->addItem("");
 		fifthCombo->hide();
 		blayout->addWidget(fifthCombo, 8);
 		blayout->addSpacing(5);
@@ -412,7 +417,7 @@ void tfFilter::getFifthCombo()
 	}
 	if (!fifthRegexpCheck)
 	{
-		fifthRegexpCheck = new QCheckBox(actionFrame, "secondRegexpCheck");
+		fifthRegexpCheck = new QCheckBox(actionFrame);
 		QToolTip::add(fifthRegexpCheck, tr("Value at the left is a regular expression"));
 		fifthRegexpCheck->hide();
 		blayout->addWidget(fifthRegexpCheck, -1);
@@ -420,7 +425,7 @@ void tfFilter::getFifthCombo()
 	}
 	if (!fifthLabel)
 	{
-		fifthLabel = new QLabel(actionFrame, "fifthLabel");
+		fifthLabel = new QLabel(actionFrame);
 		fifthLabel->hide();
 		blayout->addWidget(fifthLabel, -1);
 		blayout->addSpacing(5);
@@ -432,8 +437,8 @@ void tfFilter::getSixthCombo()
 {
 	if (!sixthCombo)
 	{
-		sixthCombo = new QComboBox(0, actionFrame, "sixthCombo");
-		sixthCombo->insertItem("");
+		sixthCombo = new QComboBox(actionFrame);
+		sixthCombo->addItem("");
 		sixthCombo->hide();
 		blayout->addWidget(sixthCombo, 7);
 		connect(sixthCombo, SIGNAL(activated(int)), this, SLOT(sixthChanged(int)));
@@ -483,7 +488,7 @@ void tfFilter::getParagraphStyles()
 	thirdCombo->insertItem("");
 	for (uint i = 0; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
 	{
-		thirdCombo->insertItem(ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name());
+		thirdCombo->addItem(ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name());
 	}
 }
 
