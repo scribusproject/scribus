@@ -18,8 +18,8 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 //Added by qt3to4:
 #include <QList>
-#include <Q3PointArray>
-#include <Q3PtrList>
+#include <QPolygon>
+#include <QTextStream>
 #include <QPixmap>
 #include <cmath>
 #include <cstdlib>
@@ -49,11 +49,11 @@ ScPreview::ScPreview()
 
 QPixmap ScPreview::createPreview(QString data)
 {
-	uint a;
+	int a;
 	struct CopyPasteBuffer OB;
 	ScText *hg;
 	ScText *hl;
-	Q3PtrList<ScText> Ptexti;
+	QList<ScText*> Ptexti;
 	ScColor lf = ScColor();
 	QFont fo;
 	QMap<QString,QString> DoFonts;
@@ -63,7 +63,7 @@ QPixmap ScPreview::createPreview(QString data)
 	double xf, yf, asce, chs;
 	FPoint gv;
 	int currItem, fillBlendmode, strokeBlendmode;
-	Q3PointArray cl;
+	QPolygon cl;
 	QColor tmpfa;
 	QString chstr;
 	double CurY, EndX, CurX, wide, rota, wid;
@@ -99,7 +99,7 @@ QPixmap ScPreview::createPreview(QString data)
 			double xa, ya;
 			arrow.name = pg.attribute("Name");
 			QString tmp = pg.attribute("Points");
-			Q3TextStream fp(&tmp, QIODevice::ReadOnly);
+			QTextStream fp(&tmp, QIODevice::ReadOnly);
 			for (uint cx = 0; cx < pg.attribute("NumPoints").toUInt(); ++cx)
 			{
 				fp >> xa;
@@ -297,7 +297,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				OB.Clip.resize(pg.attribute("NUMCLIP").toUInt());
 				tmpx = pg.attribute("CLIPCOOR");
-				Q3TextStream f(&tmpx, QIODevice::ReadOnly);
+				QTextStream f(&tmpx, QIODevice::ReadOnly);
 				for (uint c=0; c<pg.attribute("NUMCLIP").toUInt(); ++c)
 				{
 					f >> x;
@@ -311,7 +311,7 @@ QPixmap ScPreview::createPreview(QString data)
 			{
 				OB.PoLine.resize(pg.attribute("NUMPO").toUInt());
 				tmpx = pg.attribute("POCOOR");
-				Q3TextStream fp(&tmpx, QIODevice::ReadOnly);
+				QTextStream fp(&tmpx, QIODevice::ReadOnly);
 				for (uint cx=0; cx<pg.attribute("NUMPO").toUInt(); ++cx)
 				{
 					fp >> xf;
@@ -363,7 +363,7 @@ QPixmap ScPreview::createPreview(QString data)
 			OB.itemText = tmpx;
 			if (!OB.itemText.isEmpty())
 			{
-				Q3TextStream t(&OB.itemText, QIODevice::ReadOnly);
+				QTextStream t(&OB.itemText, QIODevice::ReadOnly);
 				QString cc;
 #ifndef NLS_PROTO
 				while (!t.atEnd())
@@ -421,7 +421,7 @@ QPixmap ScPreview::createPreview(QString data)
 #endif
 			}
 			tmpx = GetAttr(&pg, "TEXTCOOR","0 0");
-			Q3TextStream ft(&tmpx, QIODevice::ReadOnly);
+			QTextStream ft(&tmpx, QIODevice::ReadOnly);
 			for (uint ct=0; ct<GetAttr(&pg, "NUMTEXT","0").toUInt(); ct++)
 			{
 #ifndef NLS_PROTO
@@ -607,7 +607,7 @@ QPixmap ScPreview::createPreview(QString data)
 					}
 					if ((OB.Width < 4) || (OB.Height < 4))
 						break;
-					for (uint a = 0; a < Ptexti.count(); a++)
+					for (int a = 0; a < Ptexti.count(); a++)
 					{
 						hl = Ptexti.at(a);
 						if (hl->ch == QChar(13))
