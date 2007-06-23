@@ -25,17 +25,18 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "docsections.h"
-//#include "docsections.moc"
 
 // This class implements only the non-GUI parts of the
 // Document Sections dialog. Please use Qt Designer on
-// ui/docsectionsbase.ui if you need to modify the layout,
+// ui/docsections.ui if you need to modify the layout,
 // widget properties, etc.
 
-#include <qmessagebox.h>
-#include <qpushbutton.h>
-#include <q3table.h>
-#include <qtooltip.h>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QMessageBox>
+#include <QPushButton>
+#include <QTableWidget>
+#include <QToolTip>
 
 #include "commonstrings.h"
 #include "pagestructs.h"
@@ -46,7 +47,7 @@ DocSections::DocSections( QWidget* parent )
 {
 	setupUi(this);
 	languageChange();
-	connect( sectionsTable, SIGNAL(valueChanged(int, int)), this, SLOT(tableItemChanged(int, int)));
+	connect (sectionsTable, SIGNAL(cellChanged(int,int)), this, SLOT(tableItemChanged(int,int)));
 	connect( addButton, SIGNAL(clicked()), this, SLOT(addEntry()));
 	connect( deleteButton, SIGNAL(clicked()), this, SLOT(deleteEntry()));
 }
@@ -79,33 +80,34 @@ void DocSections::setup(const DocumentSectionMap docSections, int maxPageIndex)
 
 void DocSections::updateTable()
 {
-	sectionsTable->setNumRows(localSections.count());
+	sectionsTable->setRowCount(localSections.count());
 	int row=0;
 	for(DocumentSectionMap::Iterator it = localSections.begin(); it!= localSections.end(); ++it)
 	{
 		uint i=0;
 		//Name
-		Q3TableItem *item1 = new Q3TableItem(sectionsTable, Q3TableItem::WhenCurrent, (*it).name);
+		QTableWidgetItem *item1 = new QTableWidgetItem((*it).name);
 		sectionsTable->setItem(row, i++, item1);
 		//Active
-		Q3CheckTableItem *item2 = new Q3CheckTableItem(sectionsTable,"");
+		QCheckBox *item2 = new QCheckBox();
 		item2->setChecked((*it).active);
-		sectionsTable->setItem(row, i++, item2);
+		sectionsTable->setCellWidget(row, i++, item2);
 		//FromIndex
-		Q3TableItem *item3 = new Q3TableItem(sectionsTable, Q3TableItem::WhenCurrent, QString::number((*it).fromindex+1));
+		QTableWidgetItem *item3 = new QTableWidgetItem(QString::number((*it).fromindex+1));
 		sectionsTable->setItem(row, i++, item3);
 		//ToIndex
-		Q3TableItem *item4 = new Q3TableItem(sectionsTable, Q3TableItem::WhenCurrent, QString::number((*it).toindex+1));
+		QTableWidgetItem *item4 = new QTableWidgetItem(QString::number((*it).toindex+1));
 		sectionsTable->setItem(row, i++, item4);
 		//Style
-		Q3ComboTableItem *item5 = new Q3ComboTableItem(sectionsTable, styles);
-		sectionsTable->setItem(row, i++, item5);
+		QComboBox *item5 = new QComboBox();
+		item5->addItems(styles);
+		sectionsTable->setCellWidget(row, i++, item5);
 		if ((*it).type==Type_None)
 			item5->setCurrentItem(styles.count()-1);
 		else
 			item5->setCurrentItem((*it).type);
 		//Start Page Number
-		Q3TableItem *item6 = new Q3TableItem(sectionsTable, Q3TableItem::WhenCurrent, QString::number((*it).sectionstartindex));
+		QTableWidgetItem *item6 = new QTableWidgetItem(QString::number((*it).sectionstartindex));
 		sectionsTable->setItem(row, i++, item6);
 		//End Page Number
 		/*
@@ -113,11 +115,11 @@ void DocSections::updateTable()
 		item7->setEnabled(false);
 		sectionsTable->setItem(row, i++, item7);
 		*/
-		sectionsTable->verticalHeader()->setLabel(row, QString("%1").arg(row));
+		QTableWidgetItem *t=sectionsTable->verticalHeaderItem(row);
+ 		if (t!=NULL)
+			t->setText(QString("%1").arg(row));
 		row++;
 	}
-	for (int i=0;i<6;++i)
-		sectionsTable->adjustColumn(i);
 	deleteButton->setEnabled(localSections.count()>1);
 }
 
@@ -129,16 +131,20 @@ void DocSections::tableItemChanged( int row, int col )
 	switch (col)
 	{
 	case 0:
-		localSections[row].name=sectionsTable->text(row, col);
+		localSections[row].name=sectionsTable->item(row, col)->text();
 		break;
 	case 1:
-		localSections[row].active=static_cast<Q3CheckTableItem*>(sectionsTable->item(row, col))->isChecked();
+		{
+			QCheckBox* qcti=dynamic_cast<QCheckBox*>(sectionsTable->cellWidget(row,col));
+			if (qcti!=NULL)
+				localSections[row].active=qcti->isChecked();
+		}
 		break;
 	case 2:
 	case 3:
 		// Validate to/from page specification before conversion to an index
 		//!!!	There is still a problem here if m_maxpageindex == MAX_UINT ;)
-		newDocPageSpec=sectionsTable->text(row, col).toUInt();
+		newDocPageSpec=sectionsTable->item(row, col)->text().toUInt();
 		if (newDocPageSpec==0)
 		{
 			newDocPageSpec=1;
@@ -159,10 +165,10 @@ void DocSections::tableItemChanged( int row, int col )
 		break;
 	case 4:
 		{
-			Q3ComboTableItem* qcti=dynamic_cast<Q3ComboTableItem*>(sectionsTable->item(row,col));
+			QComboBox* qcti=dynamic_cast<QComboBox*>(sectionsTable->cellWidget(row,col));
 			if (qcti!=NULL)
 			{
-				int index=qcti->currentItem();
+				int index=qcti->currentIndex();
 				if (index<styles.count()-1)
 					localSections[row].type=(DocumentSectionType)index;
 				else 
@@ -172,7 +178,7 @@ void DocSections::tableItemChanged( int row, int col )
 		}
 		break;
 	case 5:
-		localSections[row].sectionstartindex=sectionsTable->text(row, col).toUInt();
+		localSections[row].sectionstartindex=sectionsTable->item(row, col)->text().toUInt();
 		break;
 	default:
 		break;

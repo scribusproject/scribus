@@ -13,45 +13,54 @@
    <string>Document Sections</string>
   </property>
   <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>0</number>
-   </property>
-   <property name="spacing" >
-    <number>6</number>
-   </property>
    <item>
-    <widget class="Q3GroupBox" name="sectionsGroupBox" >
+    <widget class="QGroupBox" name="sectionsGroupBox" >
      <property name="title" >
       <string/>
      </property>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
      <layout class="QVBoxLayout" >
-      <property name="margin" >
-       <number>0</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
       <item>
-       <widget class="Q3Table" name="sectionsTable" >
-        <property name="numRows" >
+       <widget class="ScTableWidget" name="sectionsTable" >
+        <property name="numRows" stdset="0" >
          <number>0</number>
         </property>
-        <property name="numCols" >
+        <property name="numCols" stdset="0" >
          <number>6</number>
         </property>
+        <column>
+         <property name="text" >
+          <string>Name</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>Shown</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>From</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>To</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>Style</string>
+         </property>
+        </column>
+        <column>
+         <property name="text" >
+          <string>Start</string>
+         </property>
+        </column>
        </widget>
       </item>
       <item>
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
-        <property name="spacing" >
-         <number>6</number>
-        </property>
         <item>
          <spacer>
           <property name="orientation" >
@@ -99,20 +108,11 @@
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <customwidgets>
   <customwidget>
-   <class>Q3Table</class>
-   <extends>Q3Frame</extends>
-   <header>q3table.h</header>
-  </customwidget>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
+   <class>ScTableWidget</class>
+   <extends>QTableWidget</extends>
+   <header>sctablewidget.h</header>
   </customwidget>
  </customwidgets>
- <includes>
-  <include location="local" >pagestructs.h</include>
- </includes>
  <resources/>
  <connections/>
 </ui>

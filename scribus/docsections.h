@@ -27,8 +27,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef DOCSECTIONS_H
 #define DOCSECTIONS_H
 
-#include <qmap.h>
-#include <qstringlist.h>
+#include <QMap>
+#include <QStringList>
 #include "ui_docsections.h"
 #include "pagestructs.h"
 
