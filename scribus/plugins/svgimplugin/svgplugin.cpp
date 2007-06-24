@@ -366,7 +366,12 @@ void SVGPlug::setupTransform( const QDomElement &e )
 bool SVGPlug::isIgnorableNode( const QDomElement &e )
 {
 	QString nodeName(e.tagName());
-	if (nodeName == "metadata" || nodeName.contains("sodipodi") || nodeName.contains("inkscape"))
+	return isIgnorableNodeName(nodeName);
+}
+
+bool SVGPlug::isIgnorableNodeName( const QString &n )
+{
+	if (n.startsWith("sodipodi") || n.startsWith("inkscape") || n == "metadata")
 		return true;
 	return false;
 }
@@ -749,7 +754,7 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		ImgClip.resize(0);
 		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	}
-	else
+	else if( !isIgnorableNodeName(STag) )
 	{
 		// warn if unsupported SVG feature
 		qDebug("%s", QString("Unsupported SVG Feature: %1").arg(STag).ascii());
@@ -2026,7 +2031,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		obj->FontSize = static_cast<int>(parseUnit(params) * 10.0);
 	else if( command == "text-anchor" )
 		obj->textAnchor = params;
-	else
+	else if( !isIgnorableNodeName(command) )
 		unsupported = true;
 }
 

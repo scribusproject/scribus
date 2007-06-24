@@ -189,6 +189,7 @@ public:
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
 	bool isIgnorableNode( const QDomElement &e );
+	bool isIgnorableNodeName( const QString &n );
 	FPoint parseTextPosition(const QDomElement &e);
 	QSize  parseWidthHeight(const QDomElement &e, double conv);
 	QRect  parseViewBox(const QDomElement &e);
