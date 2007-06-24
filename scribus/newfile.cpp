@@ -340,6 +340,7 @@ void NewDoc::createOpenDocPage()
 	else
 		docDir = docContext->get("docsopen", ".");
 	QString formats(FileLoader::getLoadFilterString());
+	formats.remove("PDF (*.pdf *.PDF);;");
 	openDocFrame = new QFrame(this);
 	openDocLayout = new QVBoxLayout(openDocFrame);
 	openDocLayout->setMargin(5);
