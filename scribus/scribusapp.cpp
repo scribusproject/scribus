@@ -363,10 +363,14 @@ void ScribusQApp::changeGUILanguage(const QString & newGUILang)
 {
 	QStringList newLangs;
 	if (newGUILang.isEmpty())
+	{
+		newLangs = getLang(QString());
 		newLangs.append("en");
+	}
 	else
 		newLangs.append(newGUILang);
-	installTranslators(newLangs);
+	if (newLangs[0] != GUILang)
+		installTranslators(newLangs);
 }
 
 /*! \brief Format an arguments line for printing
