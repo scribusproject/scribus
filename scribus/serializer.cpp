@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QByteArray>
 #include <QList>
-#include <Q3PtrList>
 #include "sccolor.h"
 #include "util.h"
 #include "colorutil.h"

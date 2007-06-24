@@ -33,8 +33,6 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
-//Added by qt3to4:
-#include <Q3PtrList>
 #include <Q3PointArray>
 #include <QKeyEvent>
 #include <QList>

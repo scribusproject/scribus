@@ -35,8 +35,6 @@ for which a new license (GPL+exception) is in place.
 #include <qfileinfo.h>
 #include <QDataStream>
 #include <qdir.h>
-//Added by qt3to4:
-#include <Q3PtrList>
 #include <QList>
 #include <QByteArray>
 #include <QPixmap>
