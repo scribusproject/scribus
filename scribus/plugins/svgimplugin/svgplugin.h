@@ -189,6 +189,7 @@ public:
 	void setupTransform( const QDomElement &e );
 	void finishNode( const QDomElement &e, PageItem* item);
 	bool isIgnorableNode( const QDomElement &e );
+	bool isIgnorableNodeName( const QString &n );
 	FPoint parseTextPosition(const QDomElement &e);
 	QSize  parseWidthHeight(const QDomElement &e);
 	QRect  parseViewBox(const QDomElement &e);
