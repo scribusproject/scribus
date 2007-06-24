@@ -24,9 +24,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SERIALIZER_H
 #define SERIALIZER_H
 
-#include <qstring.h>
-#include <qfile.h>
-//Added by qt3to4:
+#include <QString>
+#include <QFile>
 #include <QByteArray>
 #include "scribusapi.h"
 #include "selection.h"

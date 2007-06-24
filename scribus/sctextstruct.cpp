@@ -5,8 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <qobject.h>
-//Added by qt3to4:
+#include <QObject>
 #include <QList>
 #include "sctextstruct.h"
 #include "scfonts.h"

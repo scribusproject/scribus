@@ -4,16 +4,16 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qdom.h>
-#include <qfile.h>
-#include <qfileinfo.h>
+#include <QDomElement>
+#include <QFile>
+#include <QFileInfo>
 #include <QtAlgorithms>
-#include <qcursor.h>
-#include <qregexp.h>
-#include <qdir.h>
-#include <qtextcodec.h>
-#include <qcheckbox.h>
-#include <qmessagebox.h>
+#include <QCursor>
+#include <QRegExp>
+#include <QDir>
+#include <QTextCodec>
+#include <QCheckBox>
+#include <QMessageBox>
 #include <QProgressBar>
 
 #include <QList>
@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fileloader.h"
-//#include "fileloader.moc"
 #include "fontreplacedialog.h"
 #include "hyphenator.h"
 #include "missing.h"
@@ -552,7 +551,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 //					((*currDoc->AllFonts)[ReplacedFonts[currDoc->paragraphStyles()[a].charStyle().font().scName()]]);
 			}
 		}
-		Q3ValueList<QString> tmpList;
+		QList<QString> tmpList;
 		tmpList.clear();
 		for (int fe = 0; fe < currDoc->PDF_Options.EmbedList.count(); ++fe)
 		{

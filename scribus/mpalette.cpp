@@ -3799,7 +3799,7 @@ void Mpalette::SetSTline(QListWidgetItem *c)
 		return;
 	if (c == NULL)
 		return;
-	bool setter = (c->listWidget()->currentItem() == 0);
+	bool setter = (c->listWidget()->currentRow() == 0);
 	if (setter)
 		CurItem->setCustomLineStyle("");
 	else

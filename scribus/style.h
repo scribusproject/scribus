@@ -18,8 +18,7 @@
 #define STYLE_H
 
 #include <cassert>
-#include <q3signal.h>
-#include <qstring.h>
+#include <QString>
 #include "scfonts.h"
 #include "scribusapi.h"
 #include "sccolor.h"

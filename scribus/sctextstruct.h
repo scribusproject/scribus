@@ -20,9 +20,7 @@ for which a new license (GPL+exception) is in place.
 #define NLS_PRIVATE public
 #endif
 
-#include <qstring.h>
-//Added by qt3to4:
-#include <Q3PtrList>
+#include <QString>
 
 #include "scfonts.h"
 #include "style.h"

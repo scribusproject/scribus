@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGESTRUCTS_H
 #define PAGESTRUCTS_H
 
-#include <qmap.h>
+#include <QMap>
 #include <q3valuevector.h>
-#include <qstring.h>
+#include <QString>
 
 struct ObjectAttribute 
 {

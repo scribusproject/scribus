@@ -13,13 +13,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <QList>
 #include <QStack>
-#include <q3valuevector.h>
-#include <qstring.h>
-#include <qaction.h>
-#include <qkeysequence.h>
-//Added by qt3to4:
+#include <QString>
+#include <QAction>
+#include <QKeySequence>
 #include <Q3PointArray>
-#include <Q3PtrList>
 #include <vector>
 
 #include "scribusapi.h"
@@ -361,7 +358,7 @@ struct PrintOptions
 typedef QMap<QString,QString> ProfilesL;
 // typedef QValueVector<SingleLine> multiLine;
 
-class multiLine : public Q3ValueVector<SingleLine> {
+class multiLine : public QList<SingleLine> {
 public:
 	QString shortcut;
 	bool operator!=(const multiLine& other) const
@@ -462,3 +459,4 @@ public:
 };
 
 #endif
+

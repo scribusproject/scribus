@@ -27,15 +27,11 @@ for which a new license (GPL+exception) is in place.
 #endif
 // include files for QT
 #include <qobject.h>
-#include <q3dict.h>
 #include <qcolor.h>
 #include <QList>
-#include <q3valuevector.h>
 #include <qpixmap.h>
-#include <q3ptrlist.h>
 #include <qfont.h>
 #include <qmap.h>
-#include <q3pointarray.h>
 #include <qstringlist.h>
 #include <qtimer.h>
 

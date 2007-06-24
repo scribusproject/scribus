@@ -23,11 +23,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "serializer.h"
 #include "scribusdoc.h"
+#include "scribusstructs.h"
 #include "pageitem.h"
-#include <qfile.h>
-#include <qtextcodec.h>
-//Added by qt3to4:
-#include <QByteArray>
+#include <QTextCodec>
 #include <QList>
 #include "sccolor.h"
 #include "util.h"
@@ -215,7 +213,7 @@ void Serializer::serializeObjects(const Selection& selection, SaxHandler& output
 		handler.begin("MultiLine", multiattr);		
 		multiLine ml = doc->MLineStyles[*it];
 		
-		Q3ValueVector<SingleLine>::Iterator itMU2;
+		multiLine::Iterator itMU2;
 		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
 		{
 			Xml_attr lineattr;
