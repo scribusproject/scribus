@@ -340,8 +340,7 @@ void gtFont::setSize(int newSize)
 
 void gtFont::setSize(double newSize)
 {
-	double tmp = newSize * 10;
-	size = static_cast<int>(tmp);
+	size = static_cast<int>(newSize);
 }
 
 void gtFont::setColor(QString newColor)
