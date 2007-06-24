@@ -1117,10 +1117,10 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		EffVal.clear();
 		if (EffVal.count() != 0)
 		{
-			for (uint pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
+			for (int pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
 			{
 				Pages->addItem( tr("Page")+" "+tmp.setNum(pg2+1));
-				if (static_cast<uint>(EffVal.count()-1) < pg2)
+				if (EffVal.count()-1 < pg2)
 				{
 					ef.pageEffectDuration = 1;
 					ef.pageViewDuration = 1;
@@ -1134,7 +1134,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		}
 		else
 		{
-			for (uint pg = 0; pg < doc->Pages->count(); ++pg)
+			for (int pg = 0; pg < doc->Pages->count(); ++pg)
 			{
 				Pages->addItem( tr("Page")+" "+tmp.setNum(pg+1));
 				ef.pageEffectDuration = 1;
@@ -1609,7 +1609,7 @@ void TabPDFOptions::SelRange(bool e)
 
 void TabPDFOptions::EffectOnAll()
 {
-	for (uint pg = 0; pg < doc->Pages->count(); ++pg)
+	for (int pg = 0; pg < doc->Pages->count(); ++pg)
 	{
 		EffVal[pg].pageViewDuration = PageTime->value();
 		EffVal[pg].pageEffectDuration = EffectTime->value();
@@ -1740,7 +1740,7 @@ void TabPDFOptions::PagePr()
 	Pages->clear();
 	if (PagePrev->isChecked())
 	{
-		for (uint pg = 0; pg < doc->Pages->count(); ++pg)
+		for (int pg = 0; pg < doc->Pages->count(); ++pg)
 		{
 			pm.convertFromImage(doc->view()->PageToPixmap(pg, 70));
 			pgMaxX = qMax(pgMaxX, pm.width());
@@ -1751,7 +1751,7 @@ void TabPDFOptions::PagePr()
 	}
 	else
 	{
-		for (uint pg = 0; pg < doc->Pages->count(); ++pg)
+		for (int pg = 0; pg < doc->Pages->count(); ++pg)
 		{
 			new QListWidgetItem( tr("Page")+" "+tmp.setNum(pg+1), Pages);
 		}

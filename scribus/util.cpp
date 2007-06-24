@@ -511,9 +511,9 @@ QString CompressStr(QString *in)
 			bb[ax] = in->at(ax).cell();
 			assert(in->at(ax).row() == 0);
 		}
-		uLong exlen = uint(bb.size() * 0.001 + 16) + bb.size();
+		uLong exlen = (uLong)(bb.size() * 0.001 + 16) + bb.size();
 		QByteArray bc(exlen);
-		if( bc.size() == exlen )
+		if( bc.size() == static_cast<qint32>(exlen) )
 		{
 			int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
 			if (errcode != Z_OK)

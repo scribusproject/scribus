@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "frameedit.h"
 #include "guidemanager.h"
-//Added by qt3to4:
+
 #include <QPixmap>
 
 extern QPixmap loadIcon(QString nam);

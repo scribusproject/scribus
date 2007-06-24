@@ -84,7 +84,7 @@ void TOCGenerator::generateDefault()
 			if (pageCounter==NULL)
 				return;
 			uint pageNumberWidth=QString("%1").arg(currDoc->DocPages.count()).length();
-			for (uint i=0;i<currDoc->DocPages.count();++i)
+			for (int i=0;i<currDoc->DocPages.count();++i)
 				pageCounter[i]=0;
 			int maxDataWidth=0;
 			for (int d = 0; d < currDoc->DocItems.count(); ++d)

@@ -241,7 +241,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->bleeds.Top = tabPage->marginGroup->topBleed();
 	currDoc->bleeds.Left = tabPage->marginGroup->leftBleed();
 	currDoc->bleeds.Right = tabPage->marginGroup->rightBleed();
-	for (uint p = 0; p < currDoc->Pages->count(); ++p)
+	for (int p = 0; p < currDoc->Pages->count(); ++p)
 	{
 		Page *pp = currDoc->Pages->at(p);
 		if (tabPage->sizeAllPages->isChecked())
@@ -261,7 +261,7 @@ void ReformDoc::updateDocumentSettings()
 			pp->initialMargins.Bottom = br2;
 		}
 	}
-	for (uint p = 0; p < currDoc->MasterPages.count(); ++p)
+	for (int p = 0; p < currDoc->MasterPages.count(); ++p)
 	{
 		Page *pp = currDoc->MasterPages.at(p);
 		if (tabPage->sizeAllMasterPages->isChecked())

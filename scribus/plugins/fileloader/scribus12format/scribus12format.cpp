@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 //Added by qt3to4:
 #include <QByteArray>
-#include <Q3PtrList>
 #include <QTextStream>
 #include <QApplication>
 

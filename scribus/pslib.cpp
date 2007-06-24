@@ -1744,7 +1744,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		}
 		PS_begin_doc(Doc, 0.0, 0.0, maxWidth, maxHeight, pageNs.size()*pagemult, doDev, sep, farb, Ic, gcr, over);
 	}
-	uint ap=0;
+	int ap=0;
 	for (; ap < Doc->MasterPages.count() && !abortExport; ++ap)
 	{
 		progressDialog->setOverallProgress(ap);

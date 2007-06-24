@@ -500,7 +500,7 @@ void ScribusCore::initCMS()
 
 ScribusMainWindow * ScribusCore::primaryMainWindow( )
 {
-	if (ScMWList.count()==0 || m_currScMW>ScMWList.count())
+	if (ScMWList.count() == 0 || m_currScMW > ScMWList.count())
 		return 0;
 	ScribusMainWindow* mw=ScMWList.at(m_currScMW);
 	if (!mw)

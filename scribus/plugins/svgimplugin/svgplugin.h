@@ -8,10 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SVGPLUG_H
 
 #include <qdom.h>
-#include <q3ptrstack.h>
 #include <qsize.h>
-//Added by qt3to4:
-#include <Q3PtrList>
 #include <QList>
 #include <QStack>
 #include "pluginapi.h"

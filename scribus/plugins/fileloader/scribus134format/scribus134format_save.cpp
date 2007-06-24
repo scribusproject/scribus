@@ -22,8 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qfileinfo.h>
 #include <QList>
-//Added by qt3to4:
-#include <Q3PtrList>
 #include <QDataStream>
 
 

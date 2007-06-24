@@ -166,7 +166,7 @@ bool PDFlib::doExport(const QString& fn, const QString& nam, int Components,
 			progressDialog->setProgress("EMP", 0);
 			progressDialog->setProgress("EP", 0);
 		}
-		for (uint ap = 0; ap < doc.MasterPages.count() && !abortExport; ++ap)
+		for (int ap = 0; ap < doc.MasterPages.count() && !abortExport; ++ap)
 		{
 			if (doc.MasterItems.count() != 0)
 			{

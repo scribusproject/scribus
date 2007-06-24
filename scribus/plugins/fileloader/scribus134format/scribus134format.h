@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <qdom.h>
 #include <QMap>
 #include <QString>
-#include <Q3PtrList>
 #include <QList>
 #include <QProgressBar>
 

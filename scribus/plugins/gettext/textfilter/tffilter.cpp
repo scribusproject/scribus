@@ -114,12 +114,12 @@ void tfFilter::createWidget()
 	QBoxLayout* layout2 = new QVBoxLayout(actionFrame);
 	layout2->setMargin(0);
 	layout2->setSpacing(0);
-	alayout = new Q3HBoxLayout();
+	alayout = new QHBoxLayout();
 	alayout->setMargin(0);
 	alayout->setSpacing(0);
 	layout2->addLayout(alayout);
 	layout2->addSpacing(4);
-	blayout = new Q3HBoxLayout();
+	blayout = new QHBoxLayout();
 	blayout->setSpacing(0);
 	blayout->setMargin(0);
 	layout2->addLayout(blayout);

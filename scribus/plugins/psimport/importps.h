@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include "qglobal.h"
 #include "qobject.h"
 #include "qstring.h"
-#include "q3ptrlist.h"
 
 #include "pluginapi.h"
 #include "pageitem.h"

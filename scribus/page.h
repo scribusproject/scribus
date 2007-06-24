@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <utility>
 
-#include "q3ptrlist.h"
 #include <QList>
 
 #include "scribusapi.h"

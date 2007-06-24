@@ -115,7 +115,7 @@ protected:
 	void initCMS();
 	
 	QList<ScribusMainWindow*> ScMWList;
-	uint m_currScMW;
+	int m_currScMW;
 	
 	SplashScreen *m_SplashScreen;
 	UndoManager *undoManager;

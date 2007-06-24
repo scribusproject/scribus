@@ -125,7 +125,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 		Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel()+1, view, item->annotation().Extern());
 	else
 	{
-		if (static_cast<uint>(item->annotation().Ziel()) < view->Doc->Pages->count())
+		if (item->annotation().Ziel() < view->Doc->Pages->count())
 			Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel(), view);
 		else
 		{
