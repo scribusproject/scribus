@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "svgplugin.h"
-//#include "svgplugin.moc"
 
 #include "scconfig.h"
 
@@ -545,7 +544,7 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 			item->PoLine.map(mm);
 			/*if (haveViewBox)
 			{
-				QWMatrix mv;
+				QMatrix mv;
 				mv.translate(viewTransformX, viewTransformY);
 				mv.scale(viewScaleX, viewScaleY);
 				ite->PoLine.map(mv);

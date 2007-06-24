@@ -115,7 +115,6 @@ void ModeToolBar::SelShape(int s, int c, double *vals)
 	//const QPixmap* newIcon = Rechteck->find(s)->pixmap();
 	//QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
 	//newShapeIcon.smoothScale(16,16);
-	//m_ScMW->scrActions["toolsInsertShape"]->setIconSet(QIconSet(newShapeIcon, *newIcon));
 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(s,16)));
 //qt4 fixme ,Rechteck->getIconPixmap(s)));
 	insertShapeButtonMenu->hide();

@@ -3910,10 +3910,10 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 //		if (cstyle.font().canRender(chstr[0]))
 		{
 			FPointArray gly = cstyle.font().glyphOutline(glyph);
-			QWMatrix chma;
+			QMatrix chma;
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			gly.map(chma);
-			chma = QWMatrix();
+			chma = QMatrix();
 			chma.scale(glyphs.scaleH, glyphs.scaleV);
 			gly.map(chma);
 			if (cstyle.fillColor() != CommonStrings::None)

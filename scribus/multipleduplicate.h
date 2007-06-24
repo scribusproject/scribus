@@ -21,7 +21,8 @@ class MultipleDuplicate : public QDialog, Ui::MultipleDuplicate
 		int m_unitIndex;
 		double m_unitRatio;
 	protected slots:
-		void setCopiesShiftGap(int);
+		void setCopiesShift();
+		void setCopiesGap();
 };
 
 #endif

@@ -179,12 +179,12 @@ void AlignDistributePalette::init()
 	distributeDistVToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-equal.png")));
  	
 	
-	distributeAcrossPageToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-page.png")));
-	distributeDownPageToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-page.png")));
-	distributeAcrossMarginsToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-margin.png")));
-	distributeDownMarginsToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-margin.png")));
-	distributeDistValueHToolButton->setIconSet(QIconSet(loadIcon("22/distribute-horizontal-x.png")));
-	distributeDistValueVToolButton->setIconSet(QIconSet(loadIcon("22/distribute-vertical-y.png")));
+	distributeAcrossPageToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-page.png")));
+	distributeDownPageToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-page.png")));
+	distributeAcrossMarginsToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-margin.png")));
+	distributeDownMarginsToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-margin.png")));
+	distributeDistValueHToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-x.png")));
+	distributeDistValueVToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-y.png")));
 
 	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
 	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));

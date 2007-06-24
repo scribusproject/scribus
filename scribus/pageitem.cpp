@@ -1504,7 +1504,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 			{
 //				PageItem *tmpItem = groupClips.pop();
 //				FPointArray cl = tmpItem->PoLine.copy();
-//				QWMatrix mm;
+//				QMatrix mm;
 //				mm.translate(tmpItem->gXpos, tmpItem->gYpos);
 //				mm.rotate(tmpItem->rotation());
 //				cl.map( mm );

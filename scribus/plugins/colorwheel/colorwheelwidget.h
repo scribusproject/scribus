@@ -105,7 +105,7 @@ class ColorWheel : public QLabel
 		ColorMap colorMap;
 
 		/** \brief Angle diff between colorMap and painted wheel itself.
-		QWMatrix wheel and colorMap have different start points.
+		QMatrix wheel and colorMap have different start points.
 		It's taken from Qt. */
 		int angleShift;
 

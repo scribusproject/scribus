@@ -3448,7 +3448,7 @@ bool ScribusMainWindow::slotPageImport()
 		else
 		{
 			startPage = doc->currentPage()->pageNr() + 1;
-			if (static_cast<uint>(nrToImport) > (doc->DocPages.count() - doc->currentPage()->pageNr()))
+			if (nrToImport > (doc->DocPages.count() - doc->currentPage()->pageNr()))
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				int scmReturn=ScMessageBox::information(this, tr("Import Page(s)"), "<qt>" +

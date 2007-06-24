@@ -47,26 +47,26 @@ MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char
 	rotationSpinBox->setNewUnit(6);
 	
 	createGapRadioButton->setChecked(true);
+	setCopiesGap();
 	// signals and slots connections
-	connect(copiesCreateButtonGroup, SIGNAL(clicked(int)), this, SLOT(setCopiesShiftGap(int)));
+	connect(createGapRadioButton, SIGNAL(clicked()), this, SLOT(setCopiesGap()));
+	connect(shiftCreatedItemsRadioButton, SIGNAL(clicked()), this, SLOT(setCopiesShift()));
 }
 
 MultipleDuplicate::~MultipleDuplicate()
 {
 }
 
-void MultipleDuplicate::setCopiesShiftGap(int sel)
+void MultipleDuplicate::setCopiesShift()
 {
-	if (sel==0)
-	{
-		horizShiftLabel->setText( tr("&Horizontal Shift:"));
-		vertShiftLabel->setText( tr("&Vertical Shift:"));
-	}
-	else
-	{
-		horizShiftLabel->setText( tr("&Horizontal Gap:"));
-		vertShiftLabel->setText( tr("&Vertical Gap:"));
-	}
+	horizShiftLabel->setText( tr("&Horizontal Shift:"));
+	vertShiftLabel->setText( tr("&Vertical Shift:"));
+}
+
+void MultipleDuplicate::setCopiesGap()
+{
+	horizShiftLabel->setText( tr("&Horizontal Gap:"));
+	vertShiftLabel->setText( tr("&Vertical Gap:"));
 }
 
 void MultipleDuplicate::getMultiplyData(ItemMultipleDuplicateData& mdData)

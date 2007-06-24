@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 /*
-A replacement for QGuardedPtr
+A replacement for QPointer
 Does not rely on QObject, and provides faster destructor
 */ 
 

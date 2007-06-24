@@ -72,7 +72,7 @@ public:
 	int PageOri;
 	ScribusDoc* doc() const { return m_Doc; }
 	void setDocument(ScribusDoc* doc);
-	uint pageNr() const { return m_pageNr; }
+	int pageNr() const { return m_pageNr; }
 	void setPageNr(int pageNr);
 	const QString& pageSectionNumber() const { return m_pageSectionNumber; }
 	void setPageSectionNumber(const QString&);
@@ -102,7 +102,7 @@ protected:
 	double m_height;
 	double m_initialWidth;
 	double m_initialHeight;
-	uint m_pageNr;
+	int m_pageNr;
 	//! Name of this page, currently only allowed to be used by a master page
 	QString m_PageName;
 	ScribusDoc* m_Doc;	
