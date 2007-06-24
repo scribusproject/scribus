@@ -160,6 +160,6 @@ void SWParse::parsePage(ScribusDoc* doc, int page)
 
 void SWParse::parseAll(ScribusDoc* doc)
 {
-	for (uint i=0; i < doc->Pages->count(); ++i)
+	for (int i=0; i < doc->Pages->count(); ++i)
 		parsePage(doc, i);
 }

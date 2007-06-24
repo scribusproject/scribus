@@ -8,24 +8,15 @@ for which a new license (GPL+exception) is in place.
 #define SWPREFSGUI_H
 
 #include "prefspanel.h"
+#include <QSyntaxHighlighter>
 
-#include <q3textedit.h>
-#include <q3syntaxhighlighter.h>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <QLabel>
-
-class QWidget;
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class Q3GridLayout;
-class QSpacerItem;
+class QVBoxLayout;
+class QHBoxLayout;
+class QGridLayout;
 class QPushButton;
 class QLabel;
-class QString;
-class PrefsPanel;
+class QTextEdit;
+class QSpacerItem;
 
 
 /*! \brief This is the Scribus Short Words plugin configuration widget.
@@ -41,7 +32,7 @@ class SWPrefsGui : public PrefsPanel
 		~SWPrefsGui();
 
 		QLabel* titleLabel;
-		Q3TextEdit* cfgEdit;
+		QTextEdit* cfgEdit;
 		QPushButton* okButton;
 		QPushButton* resetButton;
 
@@ -60,9 +51,9 @@ class SWPrefsGui : public PrefsPanel
 		\param filename string with full path and name.*/
 		bool loadCfgFile(QString filename);
 
-		Q3GridLayout* SWPrefsGuiLayout;
-		Q3VBoxLayout* editLayout;
-		Q3HBoxLayout* buttonLayout;
+		QGridLayout* SWPrefsGuiLayout;
+		QVBoxLayout* editLayout;
+		QHBoxLayout* buttonLayout;
 		QSpacerItem* buttonSpacer;
 
 	protected slots:
@@ -72,16 +63,16 @@ class SWPrefsGui : public PrefsPanel
 /*! Simple syntax highlighting for configuration editor (QTextEdit).
 \author Petr Vanek, <petr@yarpen.cz>
  */
-class SWSyntaxHighlighter : public Q3SyntaxHighlighter
+class SWSyntaxHighlighter : public QSyntaxHighlighter
 {
 	public:
-		SWSyntaxHighlighter(Q3TextEdit *textEdit);
+		SWSyntaxHighlighter(QTextEdit *textEdit);
 
 		/*! Reimplementation of the Qt highligtion for simple cfg file
 		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.
 		\param endStateOfLastPara how is the syntax left for next paragraph
 		 */
-		int highlightParagraph(const QString &text, int endStateOfLastPara);
+		void highlightBlock(const QString &text);
 };
 
 #endif

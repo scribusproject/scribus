@@ -20,7 +20,7 @@ or documentation
 #include <qdir.h>
 #include <qfile.h>
 #include <qmessagebox.h>
-#include <q3progressdialog.h>
+#include <QProgressBar>
 #include <qtextcodec.h>
 //Added by qt3to4:
 #include <QPixmap>

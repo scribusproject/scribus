@@ -9,43 +9,46 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "commonstrings.h"
 
-#include <qvariant.h>
-#include <qwidget.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qlabel.h>
-#include <qfile.h>
-#include <qdir.h>
-#include <qtooltip.h>
-#include <qtextcodec.h>
-//Added by qt3to4:
-#include <Q3GridLayout>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QGridLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QTextStream>
+#include <QTextEdit>
+#include <QLabel>
+#include <QPushButton>
+#include <QToolTip>
+#include <QSpacerItem>
+#include <QFile>
+#include <QTextCodec>
+#include <QDir>
 
 #include "scmessagebox.h"
 
-SWPrefsGui::SWPrefsGui(QWidget* parent )
-	: PrefsPanel(parent, "SWPrefsGui")
+SWPrefsGui::SWPrefsGui(QWidget* parent ) : PrefsPanel(parent, "SWPrefsGui")
 {
-	SWPrefsGuiLayout = new Q3GridLayout(this, 1, 1, 11, 6, "SWPrefsGuiLayout");
+	SWPrefsGuiLayout = new QGridLayout(this);
+	SWPrefsGuiLayout->setMargin(10);
+	SWPrefsGuiLayout->setSpacing(5);
 
-	editLayout = new Q3VBoxLayout(0, 0, 6, "editLayout");
+	editLayout = new QVBoxLayout;
+	editLayout->setMargin(0);
+	editLayout->setSpacing(5);
 
-	titleLabel = new QLabel(this, "titleLabel");
+	titleLabel = new QLabel(this);
 	editLayout->addWidget(titleLabel);
-	cfgEdit = new Q3TextEdit(this, "cfgEdit");
+	cfgEdit = new QTextEdit(this);
 	editLayout->addWidget(cfgEdit);
 
-	buttonLayout = new Q3HBoxLayout(0, 0, 6, "buttonLayout");
-	buttonSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	buttonLayout = new QHBoxLayout;
+	buttonLayout->setMargin(0);
+	buttonLayout->setSpacing(5);
+	buttonSpacer = new QSpacerItem(4, 2, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	buttonLayout->addItem(buttonSpacer);
 
-	okButton = new QPushButton(this, "okButton");
+	okButton = new QPushButton(this);
 	buttonLayout->addWidget(okButton);
 
-	resetButton = new QPushButton(this, "resetButton");
+	resetButton = new QPushButton(this);
 	buttonLayout->addWidget(resetButton);
 	editLayout->addLayout(buttonLayout);
 
@@ -66,9 +69,7 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
 		loadCfgFile(RC_PATH);
 	}
 	okButton->setEnabled(false);
-	SWSyntaxHighlighter *sxHigh = new SWSyntaxHighlighter(cfgEdit);
-	//remove that unused warning!
-	sxHigh->currentParagraph();
+	new SWSyntaxHighlighter(cfgEdit);
 
 	// signals
 	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_pressed()));
@@ -79,7 +80,7 @@ SWPrefsGui::SWPrefsGui(QWidget* parent )
 SWPrefsGui::~SWPrefsGui()
 {
 	//delete the highlighter
-	delete cfgEdit->syntaxHighlighter();
+//	delete cfgEdit->syntaxHighlighter();
 }
 
 /*
@@ -166,21 +167,26 @@ bool SWPrefsGui::loadCfgFile(QString filename)
 /*
  * Syntax highlighting
  */
-SWSyntaxHighlighter::SWSyntaxHighlighter(Q3TextEdit *textEdit)
-	: Q3SyntaxHighlighter(textEdit)
+SWSyntaxHighlighter::SWSyntaxHighlighter(QTextEdit *textEdit)
+	: QSyntaxHighlighter(textEdit)
 {
 }
 
-int SWSyntaxHighlighter::highlightParagraph(const QString &text, int)
+void SWSyntaxHighlighter::highlightBlock(const QString &text)
 {
 	// position in the text
+	if (text.isEmpty())
+		return;
 	if (text[0] == '#')
 	{
-		QFont f(textEdit()->currentFont());
+		QFont f(document()->defaultFont());
 		f.setItalic(true);
-		setFormat(0, text.length(), f, QColor(Qt::gray));
+		QTextCharFormat myClassFormat;
+		myClassFormat.setFont(f);
+		myClassFormat.setForeground(Qt::gray);
+		setFormat(0, text.length(), myClassFormat);
 	}
-	return 0;
+	return;
 }
 
 //#include "swprefsgui.moc"
