@@ -8,12 +8,10 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "scgtplugin.h"
-//#include "scgtplugin.moc"
 
 #include <qcheckbox.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include <q3ptrlist.h>
 #include <qdir.h>
 #include <qobject.h>
 #include <q3hbox.h>
@@ -25,7 +23,7 @@ ScGTPluginManager* ScGTPluginManager::instance_ = 0; // init static variables
 
 ScGTPluginManager::ScGTPluginManager()
 {
-	plugins_.setAutoDelete(false);
+//qt4 not supported and no longer needed with qlist 	plugins_.setAutoDelete(false);
 }
 
 ScGTPluginManager* ScGTPluginManager::instance()
@@ -68,7 +66,7 @@ QString ScGTPluginManager::fileFilter()
 {
 	QString filters = "";
 	QString allSupported = QObject::tr("All Supported Formats") + " (";
-	for (uint i = 0; i < plugins_.count(); ++i)
+	for (int i = 0; i < plugins_.count(); ++i)
 	{
 		if (plugins_.at(i)->fileExtensions().count() != 0)
 		{

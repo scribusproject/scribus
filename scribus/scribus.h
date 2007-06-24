@@ -52,10 +52,8 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressDialog>
 #include <QProgressBar>
 #include <qworkspace.h>
-#include <q3ptrlist.h>
 #include <qclipboard.h>
 #include <QProcess>
-//Added by qt3to4:
 #include <QLabel>
 #include <QWheelEvent>
 #include <QMouseEvent>

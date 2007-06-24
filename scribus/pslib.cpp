@@ -3294,7 +3294,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	}
 	if ((hl->ch == QChar(25)) && (hl->embedded.hasItem()))
 	{
-		Q3PtrList<PageItem> emG = hl->embedded.getGroupedItems();
+		QList<PageItem*> emG = hl->embedded.getGroupedItems();
 
 		for (uint em = 0; em < emG.count(); ++em)
 		{

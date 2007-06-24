@@ -24,14 +24,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGEITEM_H
 #define PAGEITEM_H
 
-#include <qobject.h>
-#include <qwidget.h>
+#include <QObject>
+#include <QWidget>
 #include <q3pointarray.h>
-#include <q3ptrlist.h>
-#include <qpixmap.h>
+#include <QPixmap>
 #include <QStack>
 #include <QList>
-//Added by qt3to4:
 #include <QKeyEvent>
 
 #include "scribusapi.h"

@@ -6,13 +6,11 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smreplacedia.h"
-//#include "smreplacedia.moc"
 
 #include <qstring.h>
 #include <qstringlist.h>
 #include <qlabel.h>
 #include <qcombobox.h>
-#include <q3ptrlist.h>
 #include <qlayout.h>
 //Added by qt3to4:
 #include <Q3VBoxLayout>
@@ -53,7 +51,7 @@ SMRowWidget::~SMRowWidget()
 SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions, QWidget *parent) : QDialog(parent)
 {
 	setupUi(this);
-	rowWidgets.setAutoDelete(true);
+//qt4 replaced by manual delete in ~ 	rowWidgets.setAutoDelete(true);
 
 	QStringList options;
 
@@ -94,6 +92,8 @@ QList<RemoveItem> SMReplaceDia::items()
 
 SMReplaceDia::~SMReplaceDia()
 {
+	while(!rowWidgets.isEmpty())
+		delete rowWidgets.takeFirst();
 	delete optionsHeader;
 	delete deleteHeader;
 	delete headerLayout;

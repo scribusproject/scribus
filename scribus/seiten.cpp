@@ -794,7 +794,7 @@ void PagePalette::markPage(uint nr)
 	if (currView != 0)
 	{
 		SeItem *it;
-		for (uint a = 0; a < pageList.count(); a++)
+		for (int a = 0; a < pageList.count(); a++)
 		{
 			it = pageList.at(a);
 			if (it->pageNumber == nr)

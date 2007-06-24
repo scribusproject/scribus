@@ -39,7 +39,6 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 //Added by qt3to4:
 #include <QWheelEvent>
-#include <Q3PtrList>
 #include <QPaintEvent>
 #include <QDrag>
 #include <QDragMoveEvent>
@@ -1423,7 +1422,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 			{
 				if ((layerCount > 1) || (ll.transparency != 1.0))
 					painter->beginLayer(ll.transparency, ll.blendMode);
-//				Q3PtrListIterator<PageItem> docItem(*Doc->Items);
+//				QListIterator<PageItem*> docItem(*Doc->Items);
 //				while ( (currItem = docItem.current()) != 0)
 //				{
 //					++docItem;
@@ -1524,7 +1523,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 					}
 				}
-//				Q3PtrListIterator<PageItem> docItem2(*Doc->Items);
+//				QListIterator<PageItem*> docItem2(*Doc->Items);
 //				while ( (currItem = docItem2.current()) != 0 )
 //				{
 //					++docItem2;

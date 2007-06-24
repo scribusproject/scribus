@@ -10,8 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_smreplacedia.h"
 #include "styleitem.h"
-//Added by qt3to4:
-#include <Q3PtrList>
+#include <QList>
 #include <QLabel>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
@@ -51,7 +50,7 @@ private:
 	Q3HBoxLayout *headerLayout;
 	QLabel      *deleteHeader;
 	QLabel      *optionsHeader;
-	Q3PtrList<SMRowWidget>  rowWidgets;
+	QList<SMRowWidget*>  rowWidgets;
 };
 
 #endif

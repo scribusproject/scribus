@@ -11,8 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scplugin.h"
 #include "customfdialog.h"
-//Added by qt3to4:
-#include <Q3PtrList>
 
 class QString;
 class QCheckBox;
@@ -98,7 +96,7 @@ public:
 private:
 	static ScGTPluginManager *instance_;
 
-	Q3PtrList<ScGTPlugin> plugins_;
+	QList<ScGTPlugin*> plugins_;
 
 	ScGTPluginManager();
 	~ScGTPluginManager();

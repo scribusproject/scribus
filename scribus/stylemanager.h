@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include <Q3GridLayout>
 #include <QLabel>
 #include <QMouseEvent>
-#include <Q3PtrList>
 #include <Q3PopupMenu>
 #include <QHideEvent>
 #include <QKeyEvent>

@@ -11,16 +11,15 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "pageitem.h"
-//Added by qt3to4:
-#include <Q3PtrList>
+#include <QList>
 
 using boost::python::list;
 using boost::python::throw_error_already_set;
 
-PageItem & findItemByName(Q3PtrList<PageItem> & items, const QString name)
+PageItem & findItemByName(QList<PageItem*> & items, const QString name)
 {
 	for (
-		Q3PtrList<PageItem>::iterator it(items.begin()) ;
+		QList<PageItem*>::iterator it(items.begin()) ;
 		it != items.end() ;
 		++it)
 	{
@@ -39,9 +38,9 @@ PageItem & getItem(const QString name)
 list getItemNames()
 {
 	list l;
-	Q3PtrList<PageItem>& items( ScCore->primaryMainWindow()->doc->DocItems );
+	QList<PageItem*>& items( ScCore->primaryMainWindow()->doc->DocItems );
 	for (
-		Q3PtrList<PageItem>::iterator it(items.begin()) ;
+		QList<PageItem*>::iterator it(items.begin()) ;
 		it != items.end() ;
 		++it)
 	{

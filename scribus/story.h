@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <qpointer.h>
 #include <qvariant.h>
 #include <q3mainwindow.h>
-#include <q3ptrlist.h>
 #include <q3table.h>
 #include <q3textedit.h>
 #include <q3popupmenu.h>

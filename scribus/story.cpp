@@ -48,7 +48,6 @@ for which a new license (GPL+exception) is in place.
 #include <QHideEvent>
 #include <QPaintEvent>
 #include <QMenu>
-#include <Q3PtrList>
 #include <QPalette>
 
 #include "actionmanager.h"
@@ -2516,7 +2515,7 @@ void StoryEditor::updateTextFrame()
 		{
 			if ((nb2->itemText.text(j) == SpecialChars::OBJECT) && (nb2->itemText.item(j)->cembedded != 0))
 			{
-				Q3PtrList<PageItem> emG;
+				QList<PageItem*> emG;
 				emG.clear();
 				emG.append(nb2->itemText.item(j)->cembedded);
 				if (nb2->itemText.item(j)->cembedded->Groups.count() != 0)
@@ -2551,7 +2550,7 @@ void StoryEditor::updateTextFrame()
 #endif
 	Editor->saveItemText(nextItem);
 #if 0
-	Q3PtrList<PageItem> FrameItemsDel;
+	QList<PageItem*> FrameItemsDel;
 	FrameItemsDel.setAutoDelete(true);
 	for (uint a = 0; a < Editor->FrameItems.count(); ++a)
 	{

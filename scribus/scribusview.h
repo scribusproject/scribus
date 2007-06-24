@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 // include files for QT
 #include <q3scrollview.h>
-#include <q3ptrlist.h>
 #include <qlineedit.h>
 #include <qscrollbar.h>
 #if OPTION_USE_QTOOLBUTTON

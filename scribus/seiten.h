@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDropEvent>
 #include <QDragLeaveEvent>
 #include <QMouseEvent>
-#include <Q3PtrList>
 #include <Q3VBoxLayout>
 #include <QDragEnterEvent>
 
@@ -199,7 +198,7 @@ protected:
 	QLabel* TextLabel1;
 	QLabel* TextLabel2;
 	TrashBin* Trash;
-	Q3PtrList<SeItem> pageList;
+	QList<SeItem*> pageList;
 	SeList* masterPageList;
 	SeView* pageView;
 	ScribusView *currView;
