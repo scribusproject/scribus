@@ -6047,13 +6047,14 @@ void ScribusDoc::updatePic()
 void ScribusDoc::removeLayer(int l, bool dl)
 {
 	m_View->Deselect();
+	Selection tmpSelection(this, false);
 	for (int b = 0; b < MasterItems.count(); ++b)
 	{
 		if (MasterItems.at(b)->LayerNr == l)
 		{
 			if (dl)
 			{
-				m_Selection->addItem(MasterItems.at(b));
+				tmpSelection.addItem(MasterItems.at(b));
 				DocItems.at(b)->setLocked(false);
 			}
 			else
@@ -6061,15 +6062,15 @@ void ScribusDoc::removeLayer(int l, bool dl)
 		}
 	}
 	if (m_Selection->count() != 0)
-		itemSelection_DeleteItem();
-	m_Selection->clear();
+		itemSelection_DeleteItem(&tmpSelection);
+	tmpSelection.clear();
 	for (int b = 0; b < DocItems.count(); ++b)
 	{
 		if (DocItems.at(b)->LayerNr == l)
 		{
 			if (dl)
 			{
-				m_Selection->addItem(DocItems.at(b));
+				tmpSelection.addItem(DocItems.at(b));
 				DocItems.at(b)->setLocked(false);
 			}
 			else
@@ -6077,7 +6078,8 @@ void ScribusDoc::removeLayer(int l, bool dl)
 		}
 	}
 	if (m_Selection->count() != 0)
-		itemSelection_DeleteItem();
+		itemSelection_DeleteItem(&tmpSelection);
+	tmpSelection.clear();
 	//FIXME signal these
 	m_ScMW->rebuildLayersList();
 	m_View->updateLayerMenu();
