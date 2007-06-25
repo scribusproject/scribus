@@ -19,7 +19,6 @@ class QSpinBox;
 class QLabel;
 class QCheckBox;
 class QPushButton;
-
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
@@ -29,8 +28,12 @@ class PrefsManager;
 class MarginWidget;
 class PageLayouts;
 class ScrSpinBox;
-class CustomFDialog;
 class ScComboBox;
+#if QT_VERSION  >= 0x040300
+	class QFileDialog;
+#else
+	class CustomFDialog;
+#endif
 
 class SCRIBUS_API PageLayoutsWidget : public QListWidget
 {
@@ -87,7 +90,11 @@ public:
 	ScrSpinBox* widthSpinBox;
 	ScrSpinBox* heightSpinBox;
 	QFrame* openDocFrame;
+#if QT_VERSION  >= 0x040300
+	QFileDialog *fileDialog;
+#else
 	CustomFDialog *fileDialog;
+#endif
 	QFrame* recentDocFrame;
 	QListWidget* recentDocListBox;
 	QPushButton* OKButton;
@@ -100,6 +107,7 @@ public:
 	double pageHeight;
 	double Dist;
 	QString unitSuffix;
+	QString selectedFile;
 	int unitIndex;
 	int tabSelected;
 	bool onStartup;
@@ -125,7 +133,7 @@ public slots:
 	\author Petr Vanek <petr@yarpen.cz
 	*/
 	void recentDocListBox_doubleClicked();
-	void openFile(const QString &);
+	void openFile();
 
 protected:
 	QVBoxLayout* TabbedNewDocLayout;

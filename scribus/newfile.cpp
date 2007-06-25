@@ -22,6 +22,11 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QDir>
 #include <QPoint>
+#if QT_VERSION  >= 0x040300
+	#include <QFileDialog>
+#else
+	#include "customfdialog.h"
+#endif
 
 #include "fileloader.h"
 #include "prefsfile.h"
@@ -35,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "commonstrings.h"
 #include "scrspinbox.h"
-#include "customfdialog.h"
 #include "sccombobox.h"
 
 
@@ -345,7 +349,15 @@ void NewDoc::createOpenDocPage()
 	openDocLayout = new QVBoxLayout(openDocFrame);
 	openDocLayout->setMargin(5);
 	openDocLayout->setSpacing(5);
+	selectedFile = "";
+#if QT_VERSION  >= 0x040300
+	fileDialog = new QFileDialog(openDocFrame, tr("Open"), docDir, formats);
+	fileDialog->setFileMode(QFileDialog::ExistingFile);
+	fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
+	fileDialog->setReadOnly(true);
+#else
 	fileDialog = new CustomFDialog(openDocFrame, docDir, tr("Open"), formats, fdNone);
+#endif
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
 	QList<QObject*> l = fileDialog->queryList("QPushButton");
@@ -358,10 +370,14 @@ void NewDoc::createOpenDocPage()
 	}
 	fileDialog->setWindowFlags(Qt::Widget);
 	openDocLayout->addWidget(fileDialog);
-	connect(fileDialog, SIGNAL(fileSelected ( const QString & )), this, SLOT(openFile(const QString& )));
+#if QT_VERSION  >= 0x040300
+	connect(fileDialog, SIGNAL(filesSelected(const QStringList &)), this, SLOT(openFile()));
+#else
+	connect(fileDialog, SIGNAL(fileSelected (const QString &)), this, SLOT(openFile()));
+#endif
 }
 
-void NewDoc::openFile(const QString &)
+void NewDoc::openFile()
 {
 	ExitOK();
 }
@@ -514,7 +530,16 @@ void NewDoc::ExitOK()
 	bleedLeft = marginGroup->leftBleed();
 	bleedRight = marginGroup->rightBleed();
 	if (onStartup)
+	{
 		tabSelected = tabWidget->currentPageIndex();
+#if QT_VERSION  >= 0x040300
+		QStringList files = fileDialog->selectedFiles();
+		if (files.count() != 0)
+			selectedFile = files[0];
+#else
+		selectedFile = fileDialog->selectedFile();
+#endif
+	}
 	else
 		tabSelected = 0;
 	accept();

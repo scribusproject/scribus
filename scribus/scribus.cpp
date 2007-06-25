@@ -1976,7 +1976,7 @@ void ScribusMainWindow::startUpDialog()
 		{
 			if (dia->tabSelected == 1)
 			{
-				QString fileName(dia->fileDialog->selectedFile());
+				QString fileName(dia->selectedFile);
 				if (!fileName.isEmpty())
 				{
 					docContext->set("docsopen", fileName.left(fileName.findRev("/")));
@@ -7630,7 +7630,7 @@ void ScribusMainWindow::doPrintPreview()
 			QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			return;
 		}
-		PPreview *dia = new PPreview(this, view, doc, ScCore->havePNGAlpha(), ScCore->haveTIFFSep(), currentPrinter);
+		PPreview *dia = new PPreview(this, view, doc, !ScCore->havePNGAlpha(), !ScCore->haveTIFFSep(), currentPrinter);
 		previewDinUse = true;
 		connect(dia, SIGNAL(doPrint()), this, SLOT(slotReallyPrint()));
 		dia->exec();
@@ -7638,7 +7638,7 @@ void ScribusMainWindow::doPrintPreview()
 		prefsManager->appPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
 		prefsManager->appPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
 		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
-		if ( ScCore->haveTIFFSep() != 0 || !dia->postscriptPreview )
+		if ( !ScCore->haveTIFFSep() || !dia->postscriptPreview )
 		{
 			prefsManager->appPrefs.PrPr_C = dia->EnableCMYK_C->isChecked();
 			prefsManager->appPrefs.PrPr_M = dia->EnableCMYK_M->isChecked();
