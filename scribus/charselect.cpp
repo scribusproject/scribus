@@ -105,7 +105,7 @@ CharSelect::CharSelect(QWidget* parent)
 	quickLayout->addWidget(hideCheck, 0, 0, 1, 2);
 
 	unicodeButton = new UnicodeChooseButton(m_quickPalette, "unicodeButton");
-	quickLayout->addWidget(unicodeButton, 2, 0, 1, 1);
+	quickLayout->addWidget(unicodeButton, 1, 0, 1, 1);
 
 	uniLoadButton = new QPushButton(m_quickPalette, "uniLoadButton");
 	uniLoadButton->setPixmap(loadIcon("22/document-open.png"));

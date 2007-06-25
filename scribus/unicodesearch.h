@@ -7,10 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef UNICODESEARCH_H
 #define UNICODESEARCH_H
 
-#include <qvariant.h>
-#include <qdialog.h>
-#include <qpushbutton.h>
-//Added by qt3to4:
+#include <QVariant>
+#include <QDialog>
+#include <QPushButton>
 #include <QHideEvent>
 
 #include "ui_unicodesearch.h"
@@ -68,12 +67,14 @@ private:
 	void readUnicodeMap();
 	//! \brief Overriden hide event. Just emit the setVisibleState(false) here.
 	void hideEvent(QHideEvent * e);
+	//! \brief filter mouse clicks so we can get our glyph zoom view
+// 	bool eventFilter(QObject *obj, QEvent *event);
 
 private slots:
 	//! \brief Start search with user input.
 	void searchEdit_returnPressed();
 	//! \brief Handle the m_zoom dialog
-	void unicodeList_mouseButtonPressed(int button, Q3ListViewItem* item, const QPoint& point, int);
+	void unicodeList_mouseButtonPressed(QTableWidgetItem* item);
 };
 
 
@@ -114,7 +115,7 @@ private slots:
 	//! \brief Handle toggle state (show/hide) search dialog.
 	void self_toggled(bool);
 	//! \brief Handle various signals - user inputs (clicked, return pressed etc.)
-	void unicodeList_chosen(Q3ListViewItem *);
+	void unicodeList_chosen(QTableWidgetItem *);
 
 };
 

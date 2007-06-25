@@ -4,19 +4,17 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qfile.h>
-#include <q3listview.h>
-#include <qlineedit.h>
-#include <qlayout.h>
-#include <qcursor.h>
-//Added by qt3to4:
+#include <QFile>
+#include <QTableWidget>
+#include <QLineEdit>
+#include <QLayout>
+#include <QCursor>
 #include <QPixmap>
 #include <QHideEvent>
+#include <QMouseEvent>
 
 #include "unicodesearch.h"
-//#include "unicodesearch.moc"
 #include "scpaths.h"
-// #include "fonts/scfontmetrics.h"
 #include "charzoom.h"
 
 
@@ -28,7 +26,7 @@ UnicodeChooseButton::UnicodeChooseButton(QWidget * parent, const char * name)
 	m_searchDialog(0)
 {
 	languageChange();
-	setToggleButton(true);
+	setCheckable(true);
 
 	m_searchDialog = new UnicodeSearch(this, "m_searchDialog", false);
 	Q_CHECK_PTR(m_searchDialog);
@@ -37,9 +35,9 @@ UnicodeChooseButton::UnicodeChooseButton(QWidget * parent, const char * name)
 	connect(m_searchDialog, SIGNAL(setVisibleState(bool)), this, SLOT(setOn(bool)));
 	//
 	// listview user inputs
-	connect(m_searchDialog->unicodeList, SIGNAL(doubleClicked(Q3ListViewItem *, const QPoint &, int)), this, SLOT(unicodeList_chosen(Q3ListViewItem *)));
-	connect(m_searchDialog->unicodeList, SIGNAL(returnPressed(Q3ListViewItem *)), this, SLOT(unicodeList_chosen(Q3ListViewItem *)));
-	connect(m_searchDialog->unicodeList, SIGNAL(spacePressed(Q3ListViewItem *)), this, SLOT(unicodeList_chosen(Q3ListViewItem *)));
+	connect(m_searchDialog->unicodeList, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), this, SLOT(unicodeList_chosen(QTableWidgetItem *)));
+// 	connect(m_searchDialog->unicodeList, SIGNAL(itemActivated(QTableWidgetItem *)), this, SLOT(unicodeList_chosen(QTableWidgetItem *)));
+// 	connect(m_searchDialog->unicodeList, SIGNAL(itemPressed(QTableWidgetItem *)), this, SLOT(unicodeList_chosen(QTableWidgetItem *)));
 }
 
 void UnicodeChooseButton::languageChange()
@@ -48,9 +46,11 @@ void UnicodeChooseButton::languageChange()
 }
 
 
-void UnicodeChooseButton::unicodeList_chosen(Q3ListViewItem *item)
+void UnicodeChooseButton::unicodeList_chosen(QTableWidgetItem *item)
 {
-	emit chosenUnicode(item->text(0));
+	int r=item->row();
+	QTableWidgetItem *item2=m_searchDialog->unicodeList->item(r,0);
+	emit chosenUnicode(item2->text());
 	emit toggled(false);
 }
 
@@ -74,8 +74,10 @@ UnicodeSearch::UnicodeSearch( QWidget* parent, const char* name, bool modal)
 	if (!name)
 		setName("UnicodeSearch");
 
+// 	unicodeList->installEventFilter(this);
+
 	connect(searchEdit, SIGNAL(returnPressed()), this, SLOT(searchEdit_returnPressed()));
-	connect(unicodeList, SIGNAL(mouseButtonPressed(int, Q3ListViewItem*, const QPoint&, int)), this, SLOT(unicodeList_mouseButtonPressed(int, Q3ListViewItem*, const QPoint&, int)));
+// 	connect(unicodeList, SIGNAL(itemClicked(QTableWidgetItem*)), this, SLOT(unicodeList_mouseButtonPressed(QTableWidgetItem*)));
 }
 
 void UnicodeSearch::checkForUpdate()
@@ -113,11 +115,22 @@ void UnicodeSearch::readUnicodeMap()
 void UnicodeSearch::query()
 {
 	unicodeList->clear();
+	unicodeList->setColumnCount(2);
+	unicodeList->setRowCount(m_unicodeMap.count());
+	delete unicodeList->takeHorizontalHeaderItem(0);
+	delete unicodeList->takeHorizontalHeaderItem(1);
 	QMap<QString,QString>::Iterator it;
+	int r=0;
 	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
 	{
-		Q3ListViewItem *item = new Q3ListViewItem(unicodeList, it.key(), it.data());
-		unicodeList->insertItem(item);
+		QTableWidgetItem *item = new QTableWidgetItem(it.key());
+		QTableWidgetItem *item2 = new QTableWidgetItem(it.data());
+		item->setFlags(Qt::ItemIsSelectable);
+		item2->setFlags(Qt::ItemIsSelectable);
+		unicodeList->setItem(r,0,item);
+		unicodeList->setItem(r,1,item2);
+		delete unicodeList->takeVerticalHeaderItem(r);
+		++r;
 	}
 }
 
@@ -127,14 +140,24 @@ void UnicodeSearch::query(QString filter)
 		return;
 
 	unicodeList->clear();
-
+	unicodeList->setColumnCount(2);
+	unicodeList->setRowCount(m_unicodeMap.count());
+	delete unicodeList->takeHorizontalHeaderItem(0);
+	delete unicodeList->takeHorizontalHeaderItem(1);
 	QMap<QString,QString>::Iterator it;
+	int r=0;
 	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
 	{
 		if (!it.key().contains(filter, false) && !it.data().contains(filter, false))
 			continue;
-		Q3ListViewItem *item = new Q3ListViewItem(unicodeList, it.key(), it.data());
-		unicodeList->insertItem(item);
+		QTableWidgetItem *item = new QTableWidgetItem(it.key());
+		QTableWidgetItem *item2 = new QTableWidgetItem(it.data());
+		unicodeList->setItem(r,0,item);
+		unicodeList->setItem(r,1,item2);
+		item->setFlags(Qt::ItemIsSelectable);
+		item2->setFlags(Qt::ItemIsSelectable);
+		delete unicodeList->takeVerticalHeaderItem(r);
+		++r;
 	}
 }
 
@@ -151,24 +174,63 @@ void UnicodeSearch::hideEvent(QHideEvent * e)
 	emit setVisibleState(false);
 }
 
-void UnicodeSearch::unicodeList_mouseButtonPressed(int button, Q3ListViewItem* item, const QPoint& point, int)
+void UnicodeSearch::unicodeList_mouseButtonPressed(QTableWidgetItem* item)
 {
 	if (!item)
 		return;
-	// It must go 1st to delete the existing dialog on click
-	if (m_zoom)
-	{
-		delete m_zoom;
-		m_zoom = 0;
-	}
-	if (button == Qt::RightButton && !m_zoom)
-	{
-		bool ok;
-		int val = item->text(0).toInt(&ok, 16);
-		if (!ok)
-			return;
-		m_zoom = new CharZoom(this, val, m_font);
-		m_zoom->move(point.x()-2, point.y()-2);
-		m_zoom->show();
-	}
+//qt4 	// It must go 1st to delete the existing dialog on click
+// 	if (m_zoom)
+// 	{
+// 		delete m_zoom;
+// 		m_zoom = 0;
+// 	}
+// 	if (button == Qt::RightButton && !m_zoom)
+// 	{
+// 		bool ok;
+// 		int r=item->row();
+// 		int val = unicodeList->item(r,0)->text().toInt(&ok, 16);
+// 		if (!ok)
+// 			return;
+// 		m_zoom = new CharZoom(this, val, m_font);
+// 		m_zoom->move(point.x()-2, point.y()-2);
+// 		m_zoom->show();
+// 	}
 }
+/*
+bool UnicodeSearch::eventFilter(QObject * obj, QEvent * event)
+{
+	if (!isVisible())
+		return QDialog::eventFilter(obj, event);
+// 	qDebug(QString("a %1 %2").arg(event->type()).arg(obj->isWidgetType()));
+	if ((event->type() == QEvent::MouseButtonPress || event->type() == QEvent::ContextMenu) && obj->isWidgetType())
+	{
+		QMouseEvent* m = (QMouseEvent*)event;
+		if (m!=NULL)
+		{
+// 	qDebug(QString("b %1").arg(m->button()));
+			if (m_zoom)
+			{
+				delete m_zoom;
+				m_zoom = 0;
+			}
+			if (m->button() == Qt::RightButton && !m_zoom)
+			{
+				QTableWidgetItem *item=unicodeList->itemAt(m->pos());
+				if (!item)
+					return false;
+				bool ok;
+				int r=item->row();
+				int val = unicodeList->item(r,0)->text().toInt(&ok, 16);
+				if (!ok)
+					return false;
+				m_zoom = new CharZoom(this, val, m_font);
+				m_zoom->move(m->pos().x()-2, m->pos().y()-2);
+				m_zoom->show();
+				return true;
+			}
+		}
+	}
+	return false;
+
+}
+*/

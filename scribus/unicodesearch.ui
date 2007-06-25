@@ -7,34 +7,64 @@
     <x>0</x>
     <y>0</y>
     <width>369</width>
-    <height>225</height>
+    <height>149</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>Unicode Search</string>
   </property>
   <layout class="QGridLayout" >
-   <property name="margin" >
+   <property name="leftMargin" >
     <number>11</number>
    </property>
-   <property name="spacing" >
+   <property name="topMargin" >
+    <number>11</number>
+   </property>
+   <property name="rightMargin" >
+    <number>11</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>11</number>
+   </property>
+   <property name="horizontalSpacing" >
+    <number>6</number>
+   </property>
+   <property name="verticalSpacing" >
     <number>6</number>
    </property>
    <item row="0" column="0" >
     <layout class="QVBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
      </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
+     </property>
      <item>
       <layout class="QHBoxLayout" >
-       <property name="margin" >
-        <number>0</number>
-       </property>
        <property name="spacing" >
         <number>6</number>
+       </property>
+       <property name="leftMargin" >
+        <number>0</number>
+       </property>
+       <property name="topMargin" >
+        <number>0</number>
+       </property>
+       <property name="rightMargin" >
+        <number>0</number>
+       </property>
+       <property name="bottomMargin" >
+        <number>0</number>
        </property>
        <item>
         <widget class="QLabel" name="textLabel1" >
@@ -55,23 +85,13 @@
       </layout>
      </item>
      <item>
-      <widget class="Q3ListView" name="unicodeList" >
-       <property name="allColumnsShowFocus" >
+      <widget class="QTableWidget" name="unicodeList" >
+       <property name="allColumnsShowFocus" stdset="0" >
         <bool>true</bool>
        </property>
-       <property name="showSortIndicator" >
+       <property name="showSortIndicator" stdset="0" >
         <bool>true</bool>
        </property>
-       <column>
-        <property name="text" >
-         <string>Hex</string>
-        </property>
-       </column>
-       <column>
-        <property name="text" >
-         <string>Meaning</string>
-        </property>
-       </column>
       </widget>
      </item>
     </layout>
@@ -80,13 +100,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3ListView</class>
-   <extends>Q3Frame</extends>
-   <header>q3listview.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
