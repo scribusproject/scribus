@@ -168,17 +168,18 @@ void VGradient::filterStops(void)
 		else if (colorStop->rampPoint == 0.0)
 			zeroFound = true;
 	}
+	bool oneFound = false;
 	i.toFront();
 	while (i.hasNext())
 	{
 		colorStop = i.next();
-		if (colorStop->rampPoint == 0.0 && zeroFound)
+		if (colorStop->rampPoint == 1.0 && oneFound)
 		{
 			delete i.value();
 			i.remove();
 		}
-		else if (colorStop->rampPoint == 0.0)
-			zeroFound = true;
+		else if (colorStop->rampPoint == 1.0)
+			oneFound = true;
 	}
 }
 
