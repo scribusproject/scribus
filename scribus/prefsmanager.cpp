@@ -1864,9 +1864,9 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="EXTERNAL")
 		{
-			int gsa1 = testGSAvailability(dc.attribute("GS", "gs"));
-			int gsa2 = testGSAvailability(ghostscriptExecutable());
-			if( (gsa1 == 0) || (gsa2 != 0) )
+			bool gsa1 = testGSAvailability(dc.attribute("GS", "gs"));
+			bool gsa2 = testGSAvailability(ghostscriptExecutable());
+			if( (gsa1 == true) || (gsa2 == false) )
 				setGhostscriptExecutable(dc.attribute("GS", "gs"));
 			appPrefs.gs_AntiAliasText = static_cast<bool>(dc.attribute("AlphaText", "0").toInt());
 			appPrefs.gs_AntiAliasGraphics = static_cast<bool>(dc.attribute("AlphaGraphics", "0").toInt());

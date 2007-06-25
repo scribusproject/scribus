@@ -180,6 +180,8 @@ bool testGSAvailability( const QString& gsPath )
 	args.append( "-h" );
 	QProcess proc;
 	proc.start(getShortPathName(gsPath), args);
+	if (!proc.waitForStarted(5000))
+		return false;
 	proc.waitForFinished(5000);
 	return (proc.exitCode()==0);
 }
@@ -193,6 +195,8 @@ bool testGSDeviceAvailability( const QString& device )
 	args.append( "quit" );
 	QProcess proc;
 	proc.start(getShortPathName(prefsManager->ghostscriptExecutable()), args);
+	if (!proc.waitForStarted(5000))
+		return false;
 	proc.waitForFinished(5000);
 	return (proc.exitCode()==0);
 }
@@ -218,13 +222,18 @@ QString getGSVersion()
 bool getNumericGSVersion(int & major, int & minor)
 {
 	QString gs_ver_string(getGSVersion());
+	return getNumericGSVersion(gs_ver_string, major, minor);
+}
+
+bool getNumericGSVersion(const QString& ver, int& major, int& minor)
+{
 	// gs's version string is of the form MAJOR.MINOR, so look for the .
 	// then convert to numbers. 7.07 will become (7,7) for example.
 	bool success = false;
-	major = gs_ver_string.section('.', 0, 0).toInt(&success);
+	major = ver.section('.', 0, 0).toInt(&success);
 	if (!success)
 		return false;
-	minor = gs_ver_string.section('.', 1, 1).toInt(&success);
+	minor = ver.section('.', 1, 1).toInt(&success);
 	if (!success)
 		return false;
 	return true;
@@ -234,65 +243,99 @@ QString getGSDefaultExeName(void)
 {
 	QString gsName;
 #if defined _WIN32
-	// Try to locate GhostScript thanks to the registry
-	DWORD size;
-	HKEY hKey;
-	LONG retValue;
-	DWORD regType = REG_SZ;
-	char regVersion[MAX_PATH];
-	char regPath[MAX_PATH];
-	char gsPath[MAX_PATH];
-
 	// Set gsName to its default value
 	gsName = "gswin32c.exe";
 
-	// Search AFPL Ghostscript first as it has more chance to be up to date
-	if( RegOpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\\AFPL Ghostscript", &hKey) == ERROR_SUCCESS )
-		strcpy(regPath, "SOFTWARE\\AFPL Ghostscript");
-	else if( RegOpenKey(HKEY_LOCAL_MACHINE, "SOFTWARE\\GPL Ghostscript", &hKey) == ERROR_SUCCESS )
-		strcpy(regPath, "SOFTWARE\\GPL Ghostscript");
-	else
+	QMap<int, QString> gplGS  = getGSExePaths("SOFTWARE\\GPL Ghostscript");
+	QMap<int, QString> afplGS = getGSExePaths("SOFTWARE\\AFPL Ghostscript");
+	QMap<int, QString> gsVersions = gplGS.unite(afplGS);
+
+	if (gsVersions.isEmpty())
 		return gsName;
 
-	// Search the first SubKey corresponding to the version key
-	size = sizeof(regVersion) - 1;
-	retValue = RegEnumKeyEx(hKey, 0, regVersion, &size, NULL, NULL, NULL, NULL);
-	RegCloseKey(hKey);
-	if( retValue != ERROR_SUCCESS )
-		return gsName;
-
-	strcat(regPath, "\\");
-	strcat(regPath, regVersion);
-
-	// Get the GS_DLL Value
-	if (RegOpenKey(HKEY_LOCAL_MACHINE, regPath, &hKey) != ERROR_SUCCESS)
-          return gsName;
-	size = sizeof(gsPath) - 1;
-	retValue = RegQueryValueEx(hKey, "GS_DLL", 0, &regType, (LPBYTE) gsPath, &size);
-	RegCloseKey(hKey);
-	if( retValue != ERROR_SUCCESS )
-		return gsName;
-
-	// We now have GhostScript dll path, but we want gswin32c.exe
-	// Normally gswin32c.exe and gsdll.dll are in the same directory
-	gsName = gsPath;
-	size = gsName.findRev("\\");
-	if(size <= 0)
-		return QString("gswin32c.exe");
-	gsName = gsName.left(size + 1);
-	gsName += "gswin32c.exe";
-
-	// Check GhostScript executable existence.
-	QFileInfo fInfo(gsName);
-	if( fInfo.exists() )
-		gsName.replace("\\", "/"); // Return a qt-styled path
-	else
-		gsName = "gswin32c.exe";
-
+	int currentVer = 0;
+	QString gsPath;
+	QMap<int, QString>::ConstIterator it, itEnd = gsVersions.constEnd();
+	for (it = gsVersions.constBegin(); it != itEnd; ++it)
+	{
+		int version = it.key();
+		if (version > currentVer)
+		{
+			gsPath = it.data();
+			QFileInfo fInfo(gsPath);
+			if (fInfo.exists())
+			{
+				gsName = gsPath;
+				currentVer = version;
+			}
+		}
+	}
 #else
 	gsName = "gs";
 #endif
 	return gsName;
+}
+
+QMap<int, QString> SCRIBUS_API getGSExePaths(const char* regKey)
+{
+	QMap<int, QString> gsVersions;
+#if defined _WIN32
+	// Try to locate GhostScript thanks to the registry
+	DWORD size;
+	HKEY hKey1, hKey2;
+	DWORD regType = REG_SZ;
+	char regVersion[MAX_PATH];
+	char regPath[MAX_PATH];
+	char gsPath[MAX_PATH];
+	QString gsVersion, gsName;
+
+	if( RegOpenKey(HKEY_LOCAL_MACHINE, regKey, &hKey1) == ERROR_SUCCESS )
+	{
+		size = sizeof(regVersion) - 1;
+		DWORD keyIndex = 0;
+		while ( RegEnumKeyEx(hKey1, keyIndex, regVersion, &size, NULL, NULL, NULL, NULL) == ERROR_SUCCESS )
+		{
+			int gsNumericVer, gsMajor, gsMinor;
+			strcpy(regPath, regKey);
+			strcat(regPath, "\\");
+			strcat(regPath, regVersion);
+			if (RegOpenKey(HKEY_LOCAL_MACHINE, regPath, &hKey2) == ERROR_SUCCESS)
+			{
+				size = sizeof(gsPath) - 1;
+				if (RegQueryValueEx(hKey2, "GS_DLL", 0, &regType, (LPBYTE) gsPath, &size) == ERROR_SUCCESS)
+				{
+					// We now have GhostScript dll path, but we want gswin32c.exe
+					// Normally gswin32c.exe and gsdll.dll are in the same directory
+					if ( getNumericGSVersion(QString(regVersion), gsMajor, gsMinor) )
+					{
+						gsNumericVer = gsMajor * 1000 + gsMinor;
+						gsName = gsPath;
+						size   = gsName.findRev("\\");
+						if (size > 0)
+						{
+							gsName  = gsName.left(size + 1);
+							gsName += "gswin32c.exe";
+							gsName.replace("\\", "/");
+							gsVersions.insert(gsNumericVer, gsName);
+						}	
+					}	
+				}
+				RegCloseKey(hKey2);
+			}
+			keyIndex++;
+		}
+		RegCloseKey(hKey1);
+	}
+#else
+	int gsNumericVer, gsMajor, gsMinor;
+	PrefsManager* prefsManager=PrefsManager::instance();
+	if (getNumericGSVersion(gsMajor, gsMinor))
+	{
+		gsNumericVer = gsMajor * 1000 + gsMinor;
+		gsVersions.insert(gsNumericVer, prefsManager->ghostscriptExecutable());
+	}
+#endif
+	return gsVersions;
 }
 
 QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
@@ -335,4 +378,5 @@ QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 	}
 	return pm;
 }
+
 
