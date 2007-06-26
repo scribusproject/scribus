@@ -53,7 +53,7 @@ public:
 	void setDoc(ScribusDoc *);
 	void unsetDoc();
 	void reopenTree();
-	QTreeWidgetItem* getListItem(uint SNr, int Nr);
+	QTreeWidgetItem* getListItem(int SNr, int Nr);
 	void setItemIcon(QTreeWidgetItem *item, PageItem *pgItem);
 	void parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroupList, int itemType);
 	void buildReopenVals();

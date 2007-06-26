@@ -625,7 +625,7 @@ void Tree::slotDoRename(QTreeWidgetItem *ite , int col)
 {
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
-/*	disconnect(reportDisplay, SIGNAL(itemRenamed(Q3ListViewItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int)));
+/*	disconnect(reportDisplay, SIGNAL(itemRenamed(QListWidgetItem*, int)), this, SLOT(slotDoRename(QListWidgetItem*, int)));
 	TreeItem *item = (TreeItem*)ite;
 	if (item != NULL)
 	{
@@ -665,10 +665,10 @@ void Tree::slotDoRename(QTreeWidgetItem *ite , int col)
 			}
 		}
 	}
-	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(Q3ListViewItem*, int))); */
+	connect(reportDisplay, SIGNAL(itemRenamed(QTreeWidgetItem*, int)), this, SLOT(slotDoRename(QListWidgetItem*, int))); */
 }
 
-QTreeWidgetItem* Tree::getListItem(uint SNr, int Nr)
+QTreeWidgetItem* Tree::getListItem(int SNr, int Nr)
 {
 	TreeItem *item = 0;
 	QTreeWidgetItem *retVal = 0;
