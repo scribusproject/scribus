@@ -1971,6 +1971,7 @@ void ScribusMainWindow::startUpDialog()
 			doc->bleeds.Left = dia->bleedLeft;
 			doc->bleeds.Right = dia->bleedRight;
 			HaveNewDoc();
+			doc->reformPages(true);
 		}
 		else
 		{
@@ -2038,6 +2039,7 @@ bool ScribusMainWindow::slotFileNew()
 			doc->bleeds.Right = dia->bleedRight;
 			mainWindowStatusLabel->setText( tr("Ready"));
 			HaveNewDoc();
+			doc->reformPages(true);
 			retVal = true;
 		}
 	}

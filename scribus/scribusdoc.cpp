@@ -3586,34 +3586,55 @@ void ScribusDoc::canvasMinMax(FPoint& minPoint, FPoint& maxPoint)
 	double maxx = -99999.9;
 	double maxy = -99999.9;
 	uint docItemsCount=Items->count();
-	for (uint ic = 0; ic < docItemsCount; ++ic)
+	if (docItemsCount != 0)
 	{
-		currItem = Items->at(ic);
-		if (currItem->rotation() != 0)
+		for (uint ic = 0; ic < docItemsCount; ++ic)
 		{
-			FPointArray pb;
-			pb.resize(0);
-			pb.addPoint(FPoint(currItem->xPos(), currItem->yPos()));
-			FPoint p1(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0);
-			pb.addPoint(p1);
-			FPoint p2(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0);
-			pb.addPoint(p2);
-			FPoint p3(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0);
-			pb.addPoint(p3);
-			for (uint pc = 0; pc < 4; ++pc)
+			currItem = Items->at(ic);
+			if (currItem->rotation() != 0)
 			{
-				minx = qMin(minx, pb.point(pc).x());
-				miny = qMin(miny, pb.point(pc).y());
-				maxx = qMax(maxx, pb.point(pc).x());
-				maxy = qMax(maxy, pb.point(pc).y());
+				FPointArray pb;
+				pb.resize(0);
+				pb.addPoint(FPoint(currItem->xPos(), currItem->yPos()));
+				FPoint p1(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0);
+				pb.addPoint(p1);
+				FPoint p2(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0);
+				pb.addPoint(p2);
+				FPoint p3(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0);
+				pb.addPoint(p3);
+				for (uint pc = 0; pc < 4; ++pc)
+				{
+					minx = qMin(minx, pb.point(pc).x());
+					miny = qMin(miny, pb.point(pc).y());
+					maxx = qMax(maxx, pb.point(pc).x());
+					maxy = qMax(maxy, pb.point(pc).y());
+				}
+			}
+			else
+			{
+				minx = qMin(minx, currItem->xPos());
+				miny = qMin(miny, currItem->yPos());
+				maxx = qMax(maxx, currItem->xPos() + currItem->width());
+				maxy = qMax(maxy, currItem->yPos() + currItem->height());
 			}
 		}
-		else
+	}
+	else
+	{
+		Page* Seite;
+		uint docPageCount=Pages->count();
+		for (uint a = 0; a < docPageCount; ++a)
 		{
-			minx = qMin(minx, currItem->xPos());
-			miny = qMin(miny, currItem->yPos());
-			maxx = qMax(maxx, currItem->xPos() + currItem->width());
-			maxy = qMax(maxy, currItem->yPos() + currItem->height());
+			double bleedTop = 0.0;
+			double bleedBottom = 0.0;
+			double bleedLeft = 0.0;
+			double bleedRight = 0.0;
+			Seite = Pages->at(a);
+			getBleeds(Seite, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
+			minx = qMin(minx, Seite->xOffset() - bleedLeft);
+			miny = qMin(miny, Seite->yOffset() - bleedTop);
+			maxx = qMax(maxx, Seite->xOffset() + Seite->width() + bleedLeft + bleedRight);
+			maxy = qMax(maxy, Seite->yOffset() + Seite->height() + bleedTop + bleedBottom);
 		}
 	}
 	minPoint.setX(minx);
