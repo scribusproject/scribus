@@ -187,7 +187,7 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.marginsShown = true;
 	appPrefs.guidesSettings.framesShown = true;
 	appPrefs.guidesSettings.gridShown = false;
-	appPrefs.guidesSettings.guidesShown = false;
+	appPrefs.guidesSettings.guidesShown = true;
 	appPrefs.guidesSettings.colBordersShown = false;
 	appPrefs.guidesSettings.baseShown = false;
 	appPrefs.guidesSettings.showPic = true;
@@ -205,9 +205,9 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesSettings.guideColor = QColor(darkBlue);
 	appPrefs.guidesSettings.baseColor = QColor(lightGray);
 	appPrefs.typographicSettings.valueSuperScript = 33;
-	appPrefs.typographicSettings.scalingSuperScript = 100;
+	appPrefs.typographicSettings.scalingSuperScript = 66;
 	appPrefs.typographicSettings.valueSubScript = 33;
-	appPrefs.typographicSettings.scalingSubScript = 100;
+	appPrefs.typographicSettings.scalingSubScript = 66;
 	appPrefs.typographicSettings.valueSmallCaps = 75;
 	appPrefs.typographicSettings.autoLineSpacing = 20;
 	appPrefs.typographicSettings.valueUnderlinePos = -1;
@@ -240,7 +240,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dTabWidth = 36.0;
 	appPrefs.DpapColor = QColor(white);
 	appPrefs.toolSettings.dCols = 1;
-	appPrefs.toolSettings.dGap = 0.0;
+	appPrefs.toolSettings.dGap = 14.4;
 	appPrefs.toolSettings.dShadeLine = 100;
 	appPrefs.toolSettings.dLstyleLine = SolidLine;
 	appPrefs.toolSettings.dWidthLine = 1;
