@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLayout>
 #include <QCursor>
 #include <QPixmap>
+#include <QHeaderView>
 #include <QHideEvent>
 #include <QMouseEvent>
 
@@ -74,6 +75,8 @@ UnicodeSearch::UnicodeSearch( QWidget* parent, const char* name, bool modal)
 	if (!name)
 		setName("UnicodeSearch");
 
+	unicodeList->horizontalHeader()->hide();
+	unicodeList->verticalHeader()->hide();
 // 	unicodeList->installEventFilter(this);
 
 	connect(searchEdit, SIGNAL(returnPressed()), this, SLOT(searchEdit_returnPressed()));
@@ -117,8 +120,6 @@ void UnicodeSearch::query()
 	unicodeList->clear();
 	unicodeList->setColumnCount(2);
 	unicodeList->setRowCount(m_unicodeMap.count());
-	delete unicodeList->takeHorizontalHeaderItem(0);
-	delete unicodeList->takeHorizontalHeaderItem(1);
 	QMap<QString,QString>::Iterator it;
 	int r=0;
 	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
@@ -142,8 +143,6 @@ void UnicodeSearch::query(QString filter)
 	unicodeList->clear();
 	unicodeList->setColumnCount(2);
 	unicodeList->setRowCount(m_unicodeMap.count());
-	delete unicodeList->takeHorizontalHeaderItem(0);
-	delete unicodeList->takeHorizontalHeaderItem(1);
 	QMap<QString,QString>::Iterator it;
 	int r=0;
 	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
