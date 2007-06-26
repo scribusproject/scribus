@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define PAGESTRUCTS_H
 
 #include <QMap>
-#include <q3valuevector.h>
+#include <QList>
 #include <QString>
 
 struct ObjectAttribute 
@@ -22,7 +22,7 @@ struct ObjectAttribute
 	QString autoaddto;
 };
 
-typedef Q3ValueVector<ObjectAttribute> ObjAttrVector;
+typedef QList<ObjectAttribute> ObjAttrVector;
 
 typedef enum {Beginning, End, NotShown} TOCPageLocation;
 
@@ -38,7 +38,7 @@ struct ToCSetup
 	//QString pageNumberParaStyle; //Paragraph style for page numbers
 };
 
-typedef Q3ValueVector<ToCSetup> ToCSetupVector;
+typedef QList<ToCSetup> ToCSetupVector;
 
 
 typedef enum 
