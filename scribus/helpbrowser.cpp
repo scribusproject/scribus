@@ -67,7 +67,6 @@ for which a new license (GPL+exception) is in place.
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 #include <QTextStream>
-#include "scpaths.h"
 #include "util.h"
 #include "scconfig.h"
 #include "scpaths.h"

@@ -356,6 +356,7 @@ public slots:
 	void slotHelpAboutPlugins();
     void slotHelpAboutQt();
 	void slotOnlineHelp();
+	void slotOnlineHelp2();
 	void ToggleTips();
 	/** \brief Erzeugt eine neue Seite */
 	void slotNewPageP(int wo, QString templ);

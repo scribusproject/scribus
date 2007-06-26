@@ -94,6 +94,7 @@ for which a new license (GPL+exception) is in place.
 #include "delpages.h"
 #include "movepage.h"
 #include "helpbrowser.h"
+#include "helpbrowser2.h"
 #include "scribusXml.h"
 #include "about.h"
 #include "aboutplugins.h"
@@ -928,6 +929,7 @@ void ScribusMainWindow::initMenuBar()
 	//Help menu
 	scrMenuMgr->createMenu("Help", tr("&Help"));
 	scrMenuMgr->addMenuItem(scrActions["helpManual"], "Help");
+	scrMenuMgr->addMenuItem(scrActions["helpManual2"], "Help");
 	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpTooltips"], "Help");
 	scrMenuMgr->addMenuSeparator("Help");
@@ -5251,6 +5253,12 @@ void ScribusMainWindow::slotHelpAboutQt()
 void ScribusMainWindow::slotOnlineHelp()
 {
 	HelpBrowser *dia = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage());
+	dia->show();
+}
+
+void ScribusMainWindow::slotOnlineHelp2()
+{
+	HelpBrowser2 *dia = new HelpBrowser2(0, tr("Scribus Manual 2"), ScCore->getGuiLanguage());
 	dia->show();
 }
 

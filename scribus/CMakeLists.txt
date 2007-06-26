@@ -28,6 +28,7 @@ SET(SCRIBUS_UI_SRC
   docitemattrprefs.ui
   docsections.ui
   guidemanager.ui
+  ui/helpbrowser2.ui
   insertaframe.ui
   multipleduplicate.ui
   multiprogressdialog.ui
@@ -108,6 +109,7 @@ SET(SCRIBUS_MOC_CLASSES
   gtdialogs.h
   guidemanager.h
   helpbrowser.h
+  helpbrowser2.h
   hruler.h
   hyask.h
   hyphenator.h
@@ -304,6 +306,7 @@ SET(SCRIBUS_SOURCES
   guidemanager.cpp
   guidemanagercore.cpp
   helpbrowser.cpp
+  helpbrowser2.cpp
   hnjalloc.c
   hruler.cpp
   hyask.cpp

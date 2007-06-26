@@ -799,6 +799,8 @@ void ActionManager::initHelpMenuActions()
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 	name="helpManual";
 	scrActions->insert(name, new ScrAction(loadIcon("16/help-browser.png"), QPixmap(), "", defKeys[name], mainWindow));
+	name="helpManual2";
+	scrActions->insert(name, new ScrAction(loadIcon("16/help-browser.png"), QPixmap(), "", defKeys[name], mainWindow));
 
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
 	(*scrActions)["helpTooltips"]->setOn(true);
@@ -808,6 +810,7 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpAboutQt"], SIGNAL(activated()), mainWindow, SLOT(slotHelpAboutQt()) );
 	connect( (*scrActions)["helpTooltips"], SIGNAL(activated()), mainWindow, SLOT(ToggleTips()) );
 	connect( (*scrActions)["helpManual"], SIGNAL(activated()), mainWindow, SLOT(slotOnlineHelp()) );
+	connect( (*scrActions)["helpManual2"], SIGNAL(activated()), mainWindow, SLOT(slotOnlineHelp2()) );
 }
 
 void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList)
@@ -1401,6 +1404,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpAboutQt"]->setTexts( tr("About &Qt"));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
 	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
+	(*scrActions)["helpManual2"]->setTexts( tr("Scribus &Manual v2..."));
 
 	//GUI
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
@@ -1699,6 +1703,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("helpAboutQt", QKeySequence());
 	defKeys.insert("helpTooltips", QKeySequence());
 	defKeys.insert("helpManual", Qt::Key_F1);
+	defKeys.insert("helpManual2", QKeySequence());
 
 	//GUI
 	defKeys.insert("specialToggleAllPalettes", Qt::Key_F10);
@@ -1906,7 +1911,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second  << "windowsCascade" << "windowsTile" << "toolsProperties" << "toolsOutline" << "toolsScrapbook" << "toolsLayers" << "toolsPages" << "toolsBookmarks" << "toolsMeasurements" << "toolsActionHistory" << "toolsPreflightVerifier" << "toolsAlignDistribute" << "toolsToolbarTools" << "toolsToolbarPDF";
 	//Help
 	++itmenu;
-	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual";
+	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual" << "helpManual2";
 	//Other
 // 	++itmenu;
 // 	itmenu->second << "";
