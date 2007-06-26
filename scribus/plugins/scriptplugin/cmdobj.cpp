@@ -20,19 +20,24 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (ItemExists(QString::fromUtf8(Name)))
-	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
-		return NULL;
-	}
+//	if (ItemExists(QString::fromUtf8(Name)))
+//	{
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		return NULL;
+//	}
 	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Polygon, PageItem::Rectangle,
 								pageUnitXToDocX(x), pageUnitYToDocY(y),
 								ValueToPoint(w), ValueToPoint(h),
 								ScCore->primaryMainWindow()->doc->toolSettings.dWidth,
 								ScCore->primaryMainWindow()->doc->toolSettings.dBrush, ScCore->primaryMainWindow()->doc->toolSettings.dPen, true);
-	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
+//	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
 	if (Name != "")
-		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
+	{
+		if (!ItemExists(QString::fromUtf8(Name)))
+			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
+	}
+//	if (Name != "")
+//		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().utf8());
 }
 
@@ -54,14 +59,19 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 										ScCore->primaryMainWindow()->doc->toolSettings.dBrush,
 										ScCore->primaryMainWindow()->doc->toolSettings.dPen,
 										true);
-	if (ItemExists(QString::fromUtf8(Name)))
-	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
-		return NULL;
-	}
-	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
+//	if (ItemExists(QString::fromUtf8(Name)))
+//	{
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		return NULL;
+//	}
+//	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
+//	if (Name != "")
+//		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	if (Name != "")
-		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
+	{
+		if (!ItemExists(QString::fromUtf8(Name)))
+			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
+	}
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().utf8());
 }
 
@@ -81,14 +91,19 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 									ValueToPoint(h),
 									1, ScCore->primaryMainWindow()->doc->toolSettings.dBrushPict,
 									CommonStrings::None, true);
-	if (ItemExists(QString::fromUtf8(Name)))
-	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
-		return NULL;
-	}
-	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
+//	if (ItemExists(QString::fromUtf8(Name)))
+//	{
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		return NULL;
+//	}
+//	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
+//	if (Name != "")
+//		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	if (Name != "")
-		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
+	{
+		if (!ItemExists(QString::fromUtf8(Name)))
+			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
+	}
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().utf8());
 }
 
@@ -108,14 +123,17 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 								ValueToPoint(h),
 								ScCore->primaryMainWindow()->doc->toolSettings.dWidth, CommonStrings::None,
 								ScCore->primaryMainWindow()->doc->toolSettings.dPenText, true);
-	if (ItemExists(QString::fromUtf8(Name)))
-	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
-		return NULL;
-	}
-	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
+//	if (ItemExists(QString::fromUtf8(Name)))
+//	{
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		return NULL;
+//	}
+//	ScCore->primaryMainWindow()->doc->setRedrawBounding(ScCore->primaryMainWindow()->doc->Items->at(i));
 	if (Name != "")
-		ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
+	{
+		if (!ItemExists(QString::fromUtf8(Name)))
+			ScCore->primaryMainWindow()->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
+	}
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().utf8());
 }
 
@@ -131,13 +149,13 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	y = pageUnitYToDocY(y);
 	w = pageUnitXToDocX(w);
 	h = pageUnitYToDocY(h);
-	if (ItemExists(QString::fromUtf8(Name)))
-	{
-		PyErr_SetString(NameExistsError,
-						QObject::tr("An object with the requested name already exists.",
-									"python error"));
-		return NULL;
-	}
+//	if (ItemExists(QString::fromUtf8(Name)))
+//	{
+//		PyErr_SetString(NameExistsError,
+//						QObject::tr("An object with the requested name already exists.",
+//									"python error"));
+//		return NULL;
+//	}
 	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Line, PageItem::Unspecified,
 							   x, y, w, h,
 							   ScCore->primaryMainWindow()->doc->toolSettings.dWidth,
@@ -148,7 +166,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	it->setWidthHeight(sqrt(pow(x-w, 2.0) + pow(y-h, 2.0)), 1.0);
 	it->Sizing = false;
 	it->updateClip();
-	ScCore->primaryMainWindow()->doc->setRedrawBounding(it);
+//	ScCore->primaryMainWindow()->doc->setRedrawBounding(it);
 /* WTF? maybe I'll examine who's author later. Or maybe I'll remove it later ;)
 	it->PoLine.resize(4);
 	it->PoLine.setPoint(0, 0, 0);
@@ -169,8 +187,13 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->view->SizeItem(it->PoLine.WidthHeight().x(),
 						 it->PoLine.WidthHeight().y(), i, false, false, false);
 	ScCore->primaryMainWindow()->view->AdjustItemSize(it);*/
+//	if (Name != "")
+//		it->setItemName(QString::fromUtf8(Name));
 	if (Name != "")
-		it->setItemName(QString::fromUtf8(Name));
+	{
+		if (!ItemExists(QString::fromUtf8(Name)))
+			it->setItemName(QString::fromUtf8(Name));
+	}
 	return PyString_FromString(it->itemName().utf8());
 }
 
@@ -195,11 +218,11 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error"));
 		return NULL;
 	}
-	if (ItemExists(QString::fromUtf8(Name)))
-	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
-		return NULL;
-	}
+//	if (ItemExists(QString::fromUtf8(Name)))
+//	{
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		return NULL;
+//	}
 	double x, y, w, h;
 	int i = 0;
 	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -242,9 +265,14 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
+//	if (Name != "")
+//	{
+//		it->setItemName(QString::fromUtf8(Name));
+//	}
 	if (Name != "")
 	{
-		it->setItemName(QString::fromUtf8(Name));
+		if (!ItemExists(QString::fromUtf8(Name)))
+			it->setItemName(QString::fromUtf8(Name));
 	}
 	return PyString_FromString(it->itemName().utf8());
 }
@@ -270,11 +298,11 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error"));
 		return NULL;
 	}
-	if (ItemExists(QString::fromUtf8(Name)))
-	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
-		return NULL;
-	}
+//	if (ItemExists(QString::fromUtf8(Name)))
+//	{
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		return NULL;
+//	}
 	double x, y, w, h;
 	int i = 0;
 	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -322,8 +350,13 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
+//	if (Name != "")
+//		it->setItemName(QString::fromUtf8(Name));
 	if (Name != "")
-		it->setItemName(QString::fromUtf8(Name));
+	{
+		if (!ItemExists(QString::fromUtf8(Name)))
+			it->setItemName(QString::fromUtf8(Name));
+	}
 	return PyString_FromString(it->itemName().utf8());
 }
 
@@ -347,11 +380,11 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must have a multiple of six values.","python error"));
 		return NULL;
 	}
-	if (ItemExists(QString::fromUtf8(Name)))
-	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
-		return NULL;
-	}
+//	if (ItemExists(QString::fromUtf8(Name)))
+//	{
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		return NULL;
+//	}
 	double x, y, w, h, kx, ky, kx2, ky2;
 	int i = 0;
 	x = pageUnitXToDocX(static_cast<double>(PyFloat_AsDouble(PyList_GetItem(il, i))));
@@ -409,8 +442,13 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	}
 	ScCore->primaryMainWindow()->doc->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScCore->primaryMainWindow()->doc->AdjustItemSize(it);
+//	if (Name != "")
+//		it->setItemName(QString::fromUtf8(Name));
 	if (Name != "")
-		it->setItemName(QString::fromUtf8(Name));
+	{
+		if (!ItemExists(QString::fromUtf8(Name)))
+			it->setItemName(QString::fromUtf8(Name));
+	}
 	return PyString_FromString(it->itemName().utf8());
 }
 
@@ -427,11 +465,11 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (ItemExists(QString::fromUtf8(Name)))
-	{
-		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
-		return NULL;
-	}
+//	if (ItemExists(QString::fromUtf8(Name)))
+//	{
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		return NULL;
+//	}
 	//FIXME: Why use GetItem not GetUniqueItem? Maybe use GetUniqueItem and use the exceptions
 	// its sets for us?
 	int i = GetItem(QString::fromUtf8(TextB));
@@ -447,8 +485,13 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	PageItem *it = ScCore->primaryMainWindow()->doc->Items->at(i);
 	ScCore->primaryMainWindow()->view->ToPathText();
 	ScCore->primaryMainWindow()->doc->MoveItem(pageUnitXToDocX(x) - it->xPos(), pageUnitYToDocY(y) - it->yPos(), it);
+//	if (Name != "")
+//		it->setItemName(QString::fromUtf8(Name));
 	if (Name != "")
-		it->setItemName(QString::fromUtf8(Name));
+	{
+		if (!ItemExists(QString::fromUtf8(Name)))
+			it->setItemName(QString::fromUtf8(Name));
+	}
 	return PyString_FromString(it->itemName().utf8());
 }
 
