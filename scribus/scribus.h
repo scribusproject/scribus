@@ -132,7 +132,7 @@ public:
 	bool splashShowing() const;
 	void closeSplash();
 	void setSplashStatus(const QString&);
-	const QString getGuiLanguage();
+	const QString& getGuiLanguage();
 	bool warningVersion(QWidget *parent);
 	void SetShortCut();
 	void startUpDialog();
@@ -582,7 +582,6 @@ private:
 	void initCMS();
 	void updateColorMenu(QProgressBar* progressBar=NULL);
 
-	QString guiLanguage;
 	QString recentFileMenuName;
 	QString layerMenuName;
 	QPixmap noIcon;
@@ -646,5 +645,6 @@ private:
 };
 
 #endif
+
 
 

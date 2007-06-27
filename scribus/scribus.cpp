@@ -229,14 +229,13 @@ ScribusMainWindow::ScribusMainWindow()
 /*
  * retval 0 - ok, 1 - no fonts, ...
  */
-int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile)
+int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QString /*newGuiLanguage*/, const QString prefsUserFile)
 {
 	CommonStrings::languageChange();
 	int retVal=0;
 	ExternalApp = 0;
 	previewDinUse = false;
 	printDinUse = false;
-	guiLanguage = newGuiLanguage;
 	initSplash(showSplash);
 	setUsesBigPixmaps(true);
 	CurrStED = NULL;
@@ -593,9 +592,9 @@ void ScribusMainWindow::initScrapbook()
 	scrapbookPalette->setOpenScrapbooks(prefsManager->appPrefs.RecentScrapbooks);
 }
 
-const QString ScribusMainWindow::getGuiLanguage()
+const QString& ScribusMainWindow::getGuiLanguage()
 {
-	return guiLanguage;
+	return ScQApp->currGUILanguage();
 }
 
 bool ScribusMainWindow::warningVersion(QWidget *parent)
@@ -4882,7 +4881,7 @@ void ScribusMainWindow::slotHelpAboutQt()
 
 void ScribusMainWindow::slotOnlineHelp()
 {
-	HelpBrowser *dia = new HelpBrowser(0, tr("Scribus Manual"), ScMW->guiLanguage);
+	HelpBrowser *dia = new HelpBrowser(0, tr("Scribus Manual"), ScQApp->currGUILanguage());
 	dia->show();
 }
 
