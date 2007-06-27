@@ -28,19 +28,21 @@ for which a new license (GPL+exception) is in place.
 
 #include "helpbrowser2.h"
 
+#include <QAction>
 #include <QDir>
 #include <QDomDocument>
 #include <QFileInfo>
 #include <QHeaderView>
+#include <QList>
 
 HelpBrowser2::HelpBrowser2(QWidget* parent)
-	: QDialog( parent )
+	: QMainWindow( parent )
 {
 	setupUi(this);
 }
 
 HelpBrowser2::HelpBrowser2( QWidget* parent, const QString& /*caption*/, const QString& guiLanguage, const QString& jumpToSection, const QString& jumpToFile)
-	: QDialog( parent )
+	: QMainWindow( parent )
 {
 	setupUi(this);
 	setupLocalUI();
@@ -56,26 +58,28 @@ HelpBrowser2::~HelpBrowser2()
 
 void HelpBrowser2::setupLocalUI()
 {
-	//Add Menubar
-	menuBar=new QMenuBar(this);
-
 	//Add Menus
-	fileMenu=menuBar->addMenu(tr("&File"));
-	editMenu=menuBar->addMenu(tr("&Edit"));
-	bookMenu=menuBar->addMenu(tr("&Bookmarks"));
+	fileMenu=menuBar()->addMenu(tr("&File"));
+	editMenu=menuBar()->addMenu(tr("&Edit"));
+	bookMenu=menuBar()->addMenu(tr("&Bookmarks"));
 
 	//Add Menu items
-	fileMenu->addAction(loadIcon("16/document-print.png"), tr("&Print..."), this, SLOT(print()), Qt::CTRL+Qt::Key_P);
+	filePrint=fileMenu->addAction(loadIcon("16/document-print.png"), tr("&Print..."), this, SLOT(print()), Qt::CTRL+Qt::Key_P);
 	fileMenu->insertSeparator();
-	fileMenu->addAction(loadIcon("exit.png"), tr("E&xit"), this, SLOT(close()));
-	editMenu->addAction(loadIcon("find.png"), tr("&Find..."), this, SLOT(find()), Qt::CTRL+Qt::Key_F);
-	editMenu->addAction( tr("Find &Next"), this, SLOT(findNext()), Qt::Key_F3);
-	editMenu->addAction( tr("Find &Previous"), this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
-	bookMenu->addAction( tr("&Add Bookmark"), this, SLOT(bookmarkButton_clicked()), Qt::CTRL+Qt::Key_D);
-	bookMenu->addAction( tr("&Delete"), this, SLOT(deleteBookmarkButton_clicked()));
-	bookMenu->addAction( tr("D&elete All"), this, SLOT(deleteAllBookmarkButton_clicked()));
+	fileExit=fileMenu->addAction(loadIcon("exit.png"), tr("E&xit"), this, SLOT(close()));
+	editFind=editMenu->addAction(loadIcon("find.png"), tr("&Find..."), this, SLOT(find()), Qt::CTRL+Qt::Key_F);
+	editFindNext=editMenu->addAction( tr("Find &Next"), this, SLOT(findNext()), Qt::Key_F3);
+	editFindPrev=editMenu->addAction( tr("Find &Previous"), this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
+	bookAdd=bookMenu->addAction( tr("&Add Bookmark"), this, SLOT(bookmarkButton_clicked()), Qt::CTRL+Qt::Key_D);
+	bookDel=bookMenu->addAction( tr("&Delete"), this, SLOT(deleteBookmarkButton_clicked()));
+	bookDelAll=bookMenu->addAction( tr("D&elete All"), this, SLOT(deleteAllBookmarkButton_clicked()));
 
-	layout()->setMenuBar(menuBar);
+	//Add Toolbar items
+	goHome=toolBar->addAction(loadIcon("16/go-home.png"), "");//, textBrowser, SLOT(home()));
+	goBack=toolBar->addAction(loadIcon("16/go-previous.png"), "");//, textBrowser, SLOT(forward()));
+	goFwd=toolBar->addAction(loadIcon("16/go-next.png"), "");//, textBrowser, SLOT(backward()));
+	
+
 	listView->header()->hide();
 	searchingView->header()->hide();
 	bookmarksView->header()->hide();

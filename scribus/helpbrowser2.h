@@ -29,10 +29,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef HELPBROWSER2_H
 #define HELPBROWSER2_H
 
-#include <QDialog>
+#include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
 #include <QString>
+#include <QToolBar>
 #include <QWidget>
 
 #include "ui_helpbrowser2.h"
@@ -44,7 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 
 
-class SCRIBUS_API HelpBrowser2 : public QDialog, Ui::HelpBrowser2
+class SCRIBUS_API HelpBrowser2 : public QMainWindow, Ui::HelpBrowser2
 {
     Q_OBJECT
 
@@ -56,11 +57,20 @@ public:
 protected:
 	void setupLocalUI();
 
-
-	QMenuBar* menuBar;
 	QMenu* fileMenu;
 	QMenu* editMenu;
 	QMenu* bookMenu;
+	QAction* filePrint;
+	QAction* fileExit;
+	QAction* editFind;
+	QAction* editFindNext;
+	QAction* editFindPrev;
+	QAction* bookAdd;
+	QAction* bookDel;
+	QAction* bookDelAll;
+	QAction* goHome;
+	QAction* goBack;
+	QAction* goFwd;
 
 	//! \brief Selected language is here. If there is no docs for this language, "en" is used.
 	QString language;
