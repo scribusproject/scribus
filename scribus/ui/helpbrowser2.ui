@@ -24,7 +24,7 @@
       </property>
       <widget class="QTabWidget" name="tabWidget" >
        <property name="currentIndex" >
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="tabContents" >
         <attribute name="title" >
@@ -87,10 +87,35 @@
            </column>
           </widget>
          </item>
+         <item>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="QPushButton" name="bookmarkButton" >
+             <property name="text" >
+              <string>&amp;New</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="deleteBookmarkButton" >
+             <property name="text" >
+              <string>&amp;Delete</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="deleteAllBookmarkButton" >
+             <property name="text" >
+              <string>D&amp;elete All</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
         </layout>
        </widget>
       </widget>
-      <widget class="QTextEdit" name="textBrowser" />
+      <widget class="QTextBrowser" name="textBrowser" />
      </widget>
     </item>
    </layout>

@@ -44,6 +44,12 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefsfile.h"
 
+//! \brief A structure holding title/file url reference.
+struct histd2 {
+	QString url;
+	QString title;
+};
+
 
 class SCRIBUS_API HelpBrowser2 : public QMainWindow, Ui::HelpBrowser2
 {
@@ -54,8 +60,21 @@ public:
 	HelpBrowser2(QWidget* parent, const QString& caption, const QString& guiLangage="en", const QString& jumpToSection="", const QString& jumpToFile="");
 	~HelpBrowser2();
 
+	/*! \brief History menu. It's public because of history reader - separate class */
+	QMenu* histMenu;
+	/*! \brief Mapping the documents for history. */
+	QMap<int, histd2> mHistory;
+	/*! \brief Set text to the browser
+	\param str a QString with text (html) */
+	void setText(const QString& str);
+
 protected:
 	void setupLocalUI();
+	/*! \brief Reads saved bookmarks from external file */
+	void readBookmarks();
+
+	/*! \brief Reads saved history of browsing. */
+	void readHistory();
 
 	QMenu* fileMenu;
 	QMenu* editMenu;
@@ -74,10 +93,20 @@ protected:
 
 	//! \brief Selected language is here. If there is no docs for this language, "en" is used.
 	QString language;
+	/*! \brief Text to be found in document */
+	QString findText;
+	/** \brief Configuration structure */
+	PrefsContext* prefs;
 
 protected slots:
 	virtual void languageChange();
+	void loadHelp(const QString& filename);
 	void loadMenu();
+
+	/*! \brief Performs searching in documentation.
+	It walks through installed documentation and searching in all text files
+	\author Petr Vanek <petr@yarpen.cz> */
+	void searchingButton_clicked();
 
 	/*! \brief Find text in one document.
 	Classical ctrl+f searching.

@@ -33,7 +33,13 @@ for which a new license (GPL+exception) is in place.
 #include <QDomDocument>
 #include <QFileInfo>
 #include <QHeaderView>
+#include <QInputDialog>
 #include <QList>
+#include <QPushButton>
+#include <QTextEdit>
+
+
+#include "prefsmanager.h"
 
 HelpBrowser2::HelpBrowser2(QWidget* parent)
 	: QMainWindow( parent )
@@ -62,6 +68,7 @@ void HelpBrowser2::setupLocalUI()
 	fileMenu=menuBar()->addMenu(tr("&File"));
 	editMenu=menuBar()->addMenu(tr("&Edit"));
 	bookMenu=menuBar()->addMenu(tr("&Bookmarks"));
+	histMenu=new QMenu(this);
 
 	//Add Menu items
 	filePrint=fileMenu->addAction(loadIcon("16/document-print.png"), tr("&Print..."), this, SLOT(print()), Qt::CTRL+Qt::Key_P);
@@ -78,11 +85,29 @@ void HelpBrowser2::setupLocalUI()
 	goHome=toolBar->addAction(loadIcon("16/go-home.png"), "");//, textBrowser, SLOT(home()));
 	goBack=toolBar->addAction(loadIcon("16/go-previous.png"), "");//, textBrowser, SLOT(forward()));
 	goFwd=toolBar->addAction(loadIcon("16/go-next.png"), "");//, textBrowser, SLOT(backward()));
+	goBack->setMenu(histMenu);
+	
 	
 
 	listView->header()->hide();
 	searchingView->header()->hide();
 	bookmarksView->header()->hide();
+
+	splitter->setResizeMode( tabWidget, QSplitter::KeepSize );
+	splitter->setResizeMode( textBrowser, QSplitter::Stretch );
+	// reset previous size
+	prefs = PrefsManager::instance()->prefsFile->getPluginContext("helpbrowser");
+	int xsize = prefs->getUInt("xsize", 640);
+	int ysize = prefs->getUInt("ysize", 480);
+	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()) );
+
+	// searching
+	connect(searchingEdit, SIGNAL(returnPressed()), this, SLOT(searchingButton_clicked()));
+	connect(searchingButton, SIGNAL(clicked()), this, SLOT(searchingButton_clicked()));
+	// bookmarks
+	connect(bookmarkButton, SIGNAL(clicked()), this, SLOT(bookmarkButton_clicked()));
+	connect(deleteBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteBookmarkButton_clicked()));
+	connect(deleteAllBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteAllBookmarkButton_clicked()));
 }
 
 void HelpBrowser2::languageChange()
@@ -97,28 +122,103 @@ void HelpBrowser2::print()
 {
 }
 
+void HelpBrowser2::searchingButton_clicked()
+{
+}
+
 void HelpBrowser2::find()
 {
+	findText = QInputDialog::getText( tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, 0, this);
+	if (findText.isNull())
+		return;
+	findNext();
 }
 
 void HelpBrowser2::findNext()
 {
+	if (findText.isNull())
+	{
+		find();
+		return;
+	}
+	// find it. finally
+	textBrowser->find(findText, 0);
 }
 
 void HelpBrowser2::findPrevious()
 {
+	if (findText.isNull())
+	{
+		find();
+		return;
+	}
+	// find it. finally
+	textBrowser->find(findText);
 }
 
 void HelpBrowser2::bookmarkButton_clicked()
 {
+	QString title = textBrowser->documentTitle();
+	QString fname(QDir::cleanDirPath(textBrowser->source()));
+	title = QInputDialog::getText( tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0, this);
+	// user cancel
+	if (title.isNull())
+		return;
+// 	Q3ListViewItem *item = new Q3ListViewItem(bookmarksView, title, fname);
+// 	bookmarksView->insertItem(item);
 }
 
 void HelpBrowser2::deleteBookmarkButton_clicked()
 {
+	delete(bookmarksView->currentItem());
 }
 
 void HelpBrowser2::deleteAllBookmarkButton_clicked()
 {
+	bookmarksView->clear();
+}
+
+
+void HelpBrowser2::loadHelp(const QString& filename)
+{
+	struct histd2 his;
+	bool Avail = true;
+	QString toLoad;
+	QFileInfo fi;
+	fi = QFileInfo(filename);
+	if (fi.fileName().length()>0)
+	{
+		if (fi.exists())
+			toLoad=filename;
+		else
+		{
+			toLoad = QDir::convertSeparators(ScPaths::instance().docDir() + "en/index.html");
+			language="en";
+			fi = QFileInfo(toLoad);
+			if (!fi.exists())
+			{
+				textBrowser->setText("<h2>"+ tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.")+"</h2>");
+				Avail = false;
+			}
+		}
+	}
+	else
+		Avail=false;
+	if (Avail)
+	{
+		textBrowser->setSource(toLoad);
+		his.title = textBrowser->documentTitle();
+		if (his.title.isEmpty())
+			his.title = toLoad;
+		his.url = toLoad;
+		mHistory[histMenu->insertItem(his.title)] = his;
+	}
+	if (mHistory.count() > 15)
+	{
+		int itk = histMenu->idAt(0);
+		mHistory.remove(itk);
+		histMenu->removeItem(itk);
+	}
 }
 
 void HelpBrowser2::loadMenu()
@@ -333,4 +433,31 @@ void HelpBrowser2::loadMenu()
 		}
 		*/
 	}
+}
+
+void HelpBrowser2::readBookmarks()
+{
+// 	BookmarkParser handler;
+// 	handler.view = bookmarksView;
+// 	QFile xmlFile(bookmarkFile());
+// 	QXmlInputSource source(xmlFile);
+// 	QXmlSimpleReader reader;
+// 	reader.setContentHandler(&handler);
+// 	reader.parse(source);
+}
+
+void HelpBrowser2::readHistory()
+{
+// 	HistoryParser handler;
+// 	handler.helpBrowser = this;
+// 	QFile xmlFile(historyFile());
+// 	QXmlInputSource source(xmlFile);
+// 	QXmlSimpleReader reader;
+// 	reader.setContentHandler(&handler);
+// 	reader.parse(source);
+}
+
+void HelpBrowser2::setText(const QString& str)
+{
+	textBrowser->setText(str);
 }
