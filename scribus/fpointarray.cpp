@@ -573,6 +573,66 @@ QString FPointArray::svgPath() const
 	return result;	*/
 }
 
+QPainterPath FPointArray::toQPainterPath(bool closed)
+{
+	QPainterPath m_path = QPainterPath();
+	bool nPath = true;
+	FPoint np, np1, np2, np3;
+	if (size() > 3)
+	{
+		for (uint poi = 0; poi < size()-3; poi += 4)
+		{
+			if (point(poi).x() > 900000)
+			{
+				nPath = true;
+				continue;
+			}
+			if (nPath)
+			{
+				np = point(poi);
+    			m_path.moveTo(np.x(), np.y());
+				nPath = false;
+			}
+			np = point(poi);
+			np1 = point(poi+1);
+			np2 = point(poi+3);
+			np3 = point(poi+2);
+			if ((np == np1) && (np2 == np3))
+				m_path.lineTo(np3.x(), np3.y());
+			else
+				m_path.cubicTo(np1.x(), np1.y(), np2.x(), np2.y(), np3.x(), np3.y());
+		}
+		if (closed)
+			m_path.closeSubpath();
+	}
+	return m_path;
+}
+
+void FPointArray::fromQPainterPath(QPainterPath &path)
+{
+	resize(0);
+	svgInit();
+	for (int i = 0; i < path.elementCount(); ++i)
+	{
+		const QPainterPath::Element &elm = path.elementAt(i);
+		switch (elm.type)
+		{
+			case QPainterPath::MoveToElement:
+				svgState->WasM = true;
+				svgMoveTo(elm.x, elm.y);
+				break;
+			case QPainterPath::LineToElement:
+				svgLineTo(elm.x, elm.y);
+				break;
+			case QPainterPath::CurveToElement:
+				svgCurveToCubic(elm.x, elm.y, path.elementAt(i+1).x, path.elementAt(i+1).y, path.elementAt(i+2).x, path.elementAt(i+2).y );
+				i += 2;
+				break;
+			default:
+				break;
+		}
+	}
+}
 
 FPointArray::~FPointArray()
 {
