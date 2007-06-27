@@ -149,6 +149,7 @@ SET(SCRIBUS_MOC_CLASSES
   pageselector.h
   patterndialog.h
   pdflib.h
+  pdflib_core.h
   pdfopts.h
   picsearch.h
   picsearchoptions.h
@@ -357,6 +358,7 @@ SET(SCRIBUS_SOURCES
   pagesize.cpp
   patterndialog.cpp
   pdflib.cpp
+  pdflib_core.cpp
   pdfoptions.cpp
   pdfoptionsio.cpp
   pdfopts.cpp
