@@ -2459,6 +2459,7 @@ void ScribusMainWindow::HaveNewDoc()
 
 void ScribusMainWindow::HaveNewSel(int Nr)
 {
+	bool isRaster = false;
 	PageItem *currItem = NULL;
 	if (Nr != -1)
 	{
@@ -2467,6 +2468,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			currItem = doc->m_Selection->itemAt(0);
 			if (!currItem)
 				Nr=-1;
+			if (currItem && currItem->asImageFrame())
+				isRaster = currItem->isRaster;
 		}
 		else
 			Nr = -1;
@@ -2482,7 +2485,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	scrActions["itemPreviewLow"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewNormal"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(Nr==PageItem::ImageFrame);
-	scrActions["styleImageEffects"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["styleImageEffects"]->setEnabled((Nr==PageItem::ImageFrame) && isRaster );
 	scrActions["editCopyContents"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["editPasteContents"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["editPasteContentsAbs"]->setEnabled(Nr==PageItem::ImageFrame);
