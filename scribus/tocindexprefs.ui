@@ -199,7 +199,6 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="0" />
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <resources/>
  <connections/>
 </ui>

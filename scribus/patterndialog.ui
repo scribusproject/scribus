@@ -107,7 +107,6 @@
   </layout>
  </widget>
  <layoutdefault spacing="5" margin="10" />
- <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
  <resources/>
  <connections/>
 </ui>
