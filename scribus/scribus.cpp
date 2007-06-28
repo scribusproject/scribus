@@ -2712,6 +2712,7 @@ void ScribusMainWindow::HaveNewDoc()
 
 void ScribusMainWindow::HaveNewSel(int SelectedType)
 {
+	bool isRaster = false;
 	PageItem *currItem = NULL;
 	const uint docSelectionCount=doc->m_Selection->count();
 	if (SelectedType != -1)
@@ -2725,6 +2726,8 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 				lowestItem = qMin(lowestItem, currItem->ItemNr);
 			}
 			currItem = doc->Items->at(lowestItem);
+			if ((docSelectionCount == 1) && currItem && currItem->asImageFrame())
+				isRaster = currItem->isRaster;
 //			doc->m_Selection->removeItem(currItem);
 //			doc->m_Selection->prependItem(currItem);
 //			currItem = doc->m_Selection->itemAt(0);
@@ -2754,7 +2757,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["itemPreviewLow"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["itemPreviewNormal"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(SelectedType==PageItem::ImageFrame);
-	scrActions["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame);
+	scrActions["styleImageEffects"]->setEnabled(SelectedType==PageItem::ImageFrame && isRaster);
 	scrActions["editCopyContents"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail);
 	scrActions["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
