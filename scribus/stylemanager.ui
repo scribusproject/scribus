@@ -124,7 +124,7 @@
     </layout>
    </item>
    <item row="0" column="0" >
-    <widget class="Q3Frame" name="frame9" >
+    <widget class="QFrame" name="frame9" >
      <property name="frameShape" >
       <enum>QFrame::Box</enum>
      </property>
@@ -158,7 +158,7 @@
         <property name="orientation" >
          <enum>Qt::Horizontal</enum>
         </property>
-        <widget class="Q3Frame" name="leftFrame" >
+        <widget class="QFrame" name="leftFrame" >
          <property name="sizePolicy" >
           <sizepolicy>
            <hsizetype>1</hsizetype>
@@ -196,7 +196,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="Q3Frame" name="styleViewFrame" >
+           <widget class="QFrame" name="styleViewFrame" >
             <property name="sizePolicy" >
              <sizepolicy>
               <hsizetype>5</hsizetype>
@@ -366,7 +366,7 @@
           </item>
          </layout>
         </widget>
-        <widget class="Q3Frame" name="rightFrame" >
+        <widget class="QFrame" name="rightFrame" >
          <property name="minimumSize" >
           <size>
            <width>472</width>
@@ -390,7 +390,7 @@
            <number>0</number>
           </property>
           <item>
-           <widget class="Q3Frame" name="editFrame" >
+           <widget class="QFrame" name="editFrame" >
             <property name="sizePolicy" >
              <sizepolicy>
               <hsizetype>7</hsizetype>
@@ -484,7 +484,7 @@
               </spacer>
              </item>
              <item>
-              <widget class="Q3Frame" name="mainFrame" >
+              <widget class="QFrame" name="mainFrame" >
                <property name="sizePolicy" >
                 <sizepolicy>
                  <hsizetype>7</hsizetype>
@@ -522,12 +522,6 @@
    <class>ScrPaletteBase</class>
    <extends>QWidget</extends>
    <header>scrpalettebase.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Q3Frame</class>
-   <extends>QFrame</extends>
-   <header>Qt3Support/Q3Frame</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
