@@ -5682,13 +5682,13 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 	PutDoc(">>\nendobj\n");
 	XRef[5] = bytesWritten();
 	PutDoc("6 0 obj\n<<\n");
+	PutDoc("/Fields [ ");
 	if (Seite.FormObjects.count() != 0)
 	{
-		PutDoc("/Fields [ ");
 		for (uint fo = 0; fo < Seite.FormObjects.count(); ++fo)
 			PutDoc(QString::number(Seite.FormObjects[fo])+" 0 R ");
-		PutDoc(" ]\n");
 	}
+	PutDoc(" ]\n");
 	if (CalcFields.count() != 0)
 	{
 		PutDoc("/CO [ ");
