@@ -721,7 +721,7 @@ public:
 	 * @param pageIndex Index of page to find location for
 	 * @return LeftPage, MiddlePage, RightPage, enum from pagestructs.h
 	 */
-	PageLocation locationOfPage(int pageIndex);
+	PageLocation locationOfPage(int pageIndex) const;
 	
 	bool sendItemSelectionToBack();
 	bool bringItemSelectionToFront();
