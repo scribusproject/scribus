@@ -29,7 +29,6 @@
 */
 
 #include <QtGui>
-#include <qdebug.h>
 #include <QDomDocument>
 #include <QFile>
 
@@ -77,7 +76,6 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent)
 				QDomAttr fileAttr = e.attributeNode( "file" );
 				columnData.clear();
 				columnData << textAttr.value() <<  fileAttr.value();
-									qDebug() << position << textAttr.value() <<  fileAttr.value();
 				if (position > indentations.last()) 
 				{
 					// The last child of the current parent is now the new parent
@@ -117,7 +115,6 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent)
 							QDomAttr fileAttr = ec.attributeNode( "file" );
 							columnData.clear();
 							columnData << textAttr.value() <<  fileAttr.value();
-									qDebug() << position << textAttr.value() <<  fileAttr.value();
 							if (position > indentations.last()) 
 							{
 								// The last child of the current parent is now the new parent
@@ -155,7 +152,6 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent)
 									QDomAttr fileAttr = ecc.attributeNode( "file" );
 									columnData.clear();
 									columnData << textAttr.value() <<  fileAttr.value();
-									qDebug() << position << textAttr.value() <<  fileAttr.value();
 									if (position > indentations.last()) 
 									{
 										// The last child of the current parent is now the new parent
