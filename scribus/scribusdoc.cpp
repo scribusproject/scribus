@@ -4606,7 +4606,7 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 	*/
 }
 
-PageLocation ScribusDoc::locationOfPage(int pageIndex)
+PageLocation ScribusDoc::locationOfPage(int pageIndex) const
 {
 	int setcol=pageSets[currentPageLayout].Columns;
 	if (setcol==1)
