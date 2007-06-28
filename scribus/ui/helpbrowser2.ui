@@ -24,7 +24,7 @@
       </property>
       <widget class="QTabWidget" name="tabWidget" >
        <property name="currentIndex" >
-        <number>2</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="tabContents" >
         <attribute name="title" >
@@ -32,15 +32,10 @@
         </attribute>
         <layout class="QVBoxLayout" >
          <item>
-          <widget class="QTreeWidget" name="listView" >
+          <widget class="QTreeView" name="listView" >
            <property name="verticalScrollBarPolicy" >
             <enum>Qt::ScrollBarAsNeeded</enum>
            </property>
-           <column>
-            <property name="text" >
-             <string>1</string>
-            </property>
-           </column>
           </widget>
          </item>
         </layout>
@@ -79,13 +74,7 @@
         </attribute>
         <layout class="QVBoxLayout" >
          <item>
-          <widget class="QTreeWidget" name="bookmarksView" >
-           <column>
-            <property name="text" >
-             <string>1</string>
-            </property>
-           </column>
-          </widget>
+          <widget class="QTreeView" name="bookmarksView" />
          </item>
          <item>
           <layout class="QHBoxLayout" >

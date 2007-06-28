@@ -29,11 +29,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef HELPBROWSER2_H
 #define HELPBROWSER2_H
 
+#include <QList>
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
 #include <QString>
 #include <QToolBar>
+#include <QVariant>
 #include <QWidget>
 
 #include "ui_helpbrowser2.h"
@@ -43,13 +45,13 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
+#include "schelptreemodel.h"
 
 //! \brief A structure holding title/file url reference.
 struct histd2 {
 	QString url;
 	QString title;
 };
-
 
 class SCRIBUS_API HelpBrowser2 : public QMainWindow, Ui::HelpBrowser2
 {
@@ -97,6 +99,7 @@ protected:
 	QString findText;
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
+	TreeModel* menuModel;
 
 protected slots:
 	virtual void languageChange();

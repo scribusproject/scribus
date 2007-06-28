@@ -31,14 +31,14 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-TreeItem::TreeItem(TreeItem* parent, TreeItem* after) : QTreeWidgetItem(parent, after)
+OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
 {
 	PageObject = NULL;
 	PageItemObject = NULL;
 	type = -1;
 }
 
-TreeItem::TreeItem(QTreeWidget* parent, TreeItem* after) : QTreeWidgetItem(parent, after)
+OutlineTreeItem::OutlineTreeItem(QTreeWidget* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
 {
 	PageObject = NULL;
 	PageItemObject = NULL;
@@ -57,7 +57,7 @@ bool TreeWidget::viewportEvent(QEvent *event)
 		QTreeWidgetItem* it = itemAt(helpEvent->pos());
  		if (it != 0)
  		{
- 			TreeItem *item = (TreeItem*)it;
+ 			OutlineTreeItem *item = (OutlineTreeItem*)it;
  			if (item != NULL)
  			{
  				QString tipText = "";
@@ -203,7 +203,7 @@ void Tree::slotRightClick(QPoint point)
 	if (ite == NULL)
 		return;
 	slotSelect(ite, 0);
-	TreeItem *item = (TreeItem*)ite;
+	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	if (item != NULL)
 	{
 		if ((item->type == 0) || (item->type == 2))
@@ -626,7 +626,7 @@ void Tree::slotDoRename(QTreeWidgetItem *ite , int col)
 	if (!m_MainWindow || m_MainWindow->ScriptRunning)
 		return;
 /*	disconnect(reportDisplay, SIGNAL(itemRenamed(QListWidgetItem*, int)), this, SLOT(slotDoRename(QListWidgetItem*, int)));
-	TreeItem *item = (TreeItem*)ite;
+	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	if (item != NULL)
 	{
 		if ((item->type == 1) || (item->type == 3) || (item->type == 4))
@@ -670,7 +670,7 @@ void Tree::slotDoRename(QTreeWidgetItem *ite , int col)
 
 QTreeWidgetItem* Tree::getListItem(int SNr, int Nr)
 {
-	TreeItem *item = 0;
+	OutlineTreeItem *item = 0;
 	QTreeWidgetItem *retVal = 0;
 	if (currDoc->masterPageMode())
 	{
@@ -679,7 +679,7 @@ QTreeWidgetItem* Tree::getListItem(int SNr, int Nr)
 			QTreeWidgetItemIterator it( reportDisplay );
 			while ( (*it) )
 			{
-				item = (TreeItem*)(*it);
+				item = (OutlineTreeItem*)(*it);
 				if ((item->type == 0) && (item->PageObject->pageNr() == SNr))
 				{
 					retVal = (*it);
@@ -693,7 +693,7 @@ QTreeWidgetItem* Tree::getListItem(int SNr, int Nr)
 			QTreeWidgetItemIterator it( reportDisplay );
 			while ( (*it) )
 			{
-				item = (TreeItem*)(*it);
+				item = (OutlineTreeItem*)(*it);
 				if ((item->type == 1) && (static_cast<int>(item->PageItemObject->ItemNr) == Nr))
 				{
 					retVal = (*it);
@@ -710,7 +710,7 @@ QTreeWidgetItem* Tree::getListItem(int SNr, int Nr)
 			QTreeWidgetItemIterator it( reportDisplay );
 			while ( (*it) )
 			{
-				item = (TreeItem*)(*it);
+				item = (OutlineTreeItem*)(*it);
 				if ((item->type == 2) && (item->PageObject->pageNr() == SNr))
 				{
 					retVal = (*it);
@@ -724,7 +724,7 @@ QTreeWidgetItem* Tree::getListItem(int SNr, int Nr)
 			QTreeWidgetItemIterator it( reportDisplay );
 			while ( (*it) )
 			{
-				item = (TreeItem*)(*it);
+				item = (OutlineTreeItem*)(*it);
 				if (((item->type == 3) || (item->type == 4)) && (static_cast<int>(item->PageItemObject->ItemNr) == Nr))
 				{
 					retVal = (*it);
@@ -814,11 +814,11 @@ void Tree::reopenTree()
 		return;
 	if (currDoc->OpenNodes.count() == 0)
 		return;
-	TreeItem *item = 0;
+	OutlineTreeItem *item = 0;
 	QTreeWidgetItemIterator it( reportDisplay );
 	while ( (*it) )
 	{
-		item = (TreeItem*)(*it);
+		item = (OutlineTreeItem*)(*it);
 		for (int olc = 0; olc < currDoc->OpenNodes.count(); olc++)
 		{
 			if (item->type == currDoc->OpenNodes[olc].type)
@@ -847,11 +847,11 @@ void Tree::buildReopenVals()
 	if (reportDisplay->model()->rowCount() == 0)
 		return;
 	currDoc->OpenNodes.clear();
-	TreeItem *item = 0;
+	OutlineTreeItem *item = 0;
 	QTreeWidgetItemIterator it( reportDisplay );
 	while ( (*it) )
 	{
-		item = (TreeItem*)(*it);
+		item = (OutlineTreeItem*)(*it);
 		if (item->isExpanded())
 		{
 			ol.type = item->type;
@@ -869,7 +869,7 @@ void Tree::slotSelect(QTreeWidgetItem* ite, int col)
 		return;
 	disconnect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 	selectionTriggered = true;
-	TreeItem *item = (TreeItem*)ite;
+	OutlineTreeItem *item = (OutlineTreeItem*)ite;
 	uint pg = 0;
 	PageItem *pgItem = NULL;
 	switch (item->type)
@@ -935,11 +935,11 @@ void Tree::BuildTree(bool storeVals)
 		buildReopenVals();
 	clearPalette();
 	QList<PageItem*> subGroupList;
-	TreeItem * item = new TreeItem( reportDisplay, 0 );
+	OutlineTreeItem * item = new OutlineTreeItem( reportDisplay, 0 );
 	rootObject = item;
 	item->setText( 0, currDoc->DocName.section( '/', -1 ) );
 	item->type = -2;
-	TreeItem * pagep = 0;
+	OutlineTreeItem * pagep = 0;
 	freeObjects = 0;
 	PageItem* pgItem;
 	QString tmp;
@@ -949,7 +949,7 @@ void Tree::BuildTree(bool storeVals)
 	}
 	for (int a = 0; a < static_cast<int>(currDoc->MasterPages.count()); ++a)
 	{
-		TreeItem *page = new TreeItem( item, pagep );
+		OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
 		page->PageObject = currDoc->MasterPages.at(a);
 		page->type = 0;
 		QString pageNam = currDoc->MasterPages.at(a)->pageName();
@@ -961,7 +961,7 @@ void Tree::BuildTree(bool storeVals)
 			{
 				if (pgItem->Groups.count() == 0)
 				{
-					TreeItem *object = new TreeItem( page, 0 );
+					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
 					object->type = 1;
 					object->setText(0, pgItem->itemName());
@@ -971,7 +971,7 @@ void Tree::BuildTree(bool storeVals)
 				}
 				else
 				{
-					TreeItem * object = new TreeItem( page, 0 );
+					OutlineTreeItem * object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
 					object->type = 1;
 					if (pgItem->isGroupControl)
@@ -1000,7 +1000,7 @@ void Tree::BuildTree(bool storeVals)
 	}
 	for (int a = 0; a < static_cast<int>(currDoc->DocPages.count()); ++a)
 	{
-		TreeItem *page = new TreeItem( item, pagep );
+		OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
 		page->PageObject = currDoc->DocPages.at(a);
 		page->type = 2;
 		pagep = page;
@@ -1011,7 +1011,7 @@ void Tree::BuildTree(bool storeVals)
 			{
 				if (pgItem->Groups.count() == 0)
 				{
-					TreeItem *object = new TreeItem( page, 0 );
+					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
 					object->type = 3;
 					object->setText(0, pgItem->itemName());
@@ -1021,7 +1021,7 @@ void Tree::BuildTree(bool storeVals)
 				}
 				else
 				{
-					TreeItem *object = new TreeItem( page, 0 );
+					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
 					object->type = 3;
 					if (pgItem->isGroupControl)
@@ -1055,7 +1055,7 @@ void Tree::BuildTree(bool storeVals)
 	}
 	if (hasfreeItems)
 	{
-		TreeItem *page = new TreeItem( item, pagep );
+		OutlineTreeItem *page = new OutlineTreeItem( item, pagep );
 		pagep = page;
 		freeObjects = page;
 		page->type = -3;
@@ -1066,7 +1066,7 @@ void Tree::BuildTree(bool storeVals)
 			{
 				if (pgItem->Groups.count() == 0)
 				{
-					TreeItem *object = new TreeItem( page, 0 );
+					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
 					object->type = 4;
 					object->setText(0, pgItem->itemName());
@@ -1076,7 +1076,7 @@ void Tree::BuildTree(bool storeVals)
 				}
 				else
 				{
-					TreeItem *object = new TreeItem( page, 0 );
+					OutlineTreeItem *object = new OutlineTreeItem( page, 0 );
 					object->PageItemObject = pgItem;
 					object->type = 4;
 					if (pgItem->isGroupControl)
@@ -1106,7 +1106,7 @@ void Tree::BuildTree(bool storeVals)
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
 }
 
-void Tree::parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroupList, int itemType)
+void Tree::parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType)
 {
 	QList<PageItem*> *subGroup;
 	PageItem *pgItem;
@@ -1118,7 +1118,7 @@ void Tree::parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroup
 		{
 			if (static_cast<int>(pgItem->Groups.count()) <= level)
 			{
-				TreeItem *grp = new TreeItem( object, 0 );
+				OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
 				grp->PageItemObject = pgItem;
 				grp->type = itemType;
 				grp->setText(0, pgItem->itemName());
@@ -1128,7 +1128,7 @@ void Tree::parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroup
 			}
 			else
 			{
-				TreeItem *grp = new TreeItem( object, 0 );
+				OutlineTreeItem *grp = new OutlineTreeItem( object, 0 );
 				grp->PageItemObject = pgItem;
 				grp->type = itemType;
 				if (pgItem->isGroupControl)

@@ -220,6 +220,8 @@ SET(SCRIBUS_MOC_CLASSES
   tocgenerator.h
   tocindexprefs.h
   tree.h
+  tt/simpletreemodel/treemodel.h
+  schelptreemodel.h
   undogui.h
   undomanager.h
   unicodesearch.h
@@ -462,6 +464,9 @@ SET(SCRIBUS_SOURCES
   tocgenerator.cpp
   tocindexprefs.cpp
   tree.cpp
+  tt/simpletreemodel/treeitem.cpp
+  tt/simpletreemodel/treemodel.cpp
+  schelptreemodel.cpp
   undogui.cpp
   undomanager.cpp
   undoobject.cpp

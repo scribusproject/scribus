@@ -36,7 +36,9 @@ for which a new license (GPL+exception) is in place.
 #include <QInputDialog>
 #include <QList>
 #include <QPushButton>
+#include <QStandardItem>
 #include <QTextEdit>
+#include <QTreeView>
 
 
 #include "prefsmanager.h"
@@ -54,7 +56,7 @@ HelpBrowser2::HelpBrowser2( QWidget* parent, const QString& /*caption*/, const Q
 	setupLocalUI();
 
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
-
+	menuModel=NULL;
 	loadMenu();
 }
 
@@ -164,18 +166,18 @@ void HelpBrowser2::bookmarkButton_clicked()
 	// user cancel
 	if (title.isNull())
 		return;
-// 	Q3ListViewItem *item = new Q3ListViewItem(bookmarksView, title, fname);
-// 	bookmarksView->insertItem(item);
+//  	QTreeWidgetItem *item = new QTreeWidgetItem(bookmarksView, QStringList() << title << fname);
+//  	bookmarksView->insertItem(item);
 }
 
 void HelpBrowser2::deleteBookmarkButton_clicked()
 {
-	delete(bookmarksView->currentItem());
+// 	delete(bookmarksView->currentItem());
 }
 
 void HelpBrowser2::deleteAllBookmarkButton_clicked()
 {
-	bookmarksView->clear();
+// 	bookmarksView->clear();
 }
 
 
@@ -240,199 +242,12 @@ void HelpBrowser2::loadMenu()
 
 	if (fi.exists())
 	{
-		QDomDocument doc( "menuentries" );
-		QFile file( toLoad );
-		if ( !file.open( QIODevice::ReadOnly ) )
-			return;
-		if ( !doc.setContent( &file ) )
-		{
-			file.close();
-			return;
-		}
-		file.close();
-
-		QDomElement docElem = doc.documentElement();
-		QDomNode n = docElem.firstChild();
-/*
-		Q3ListViewItem *qlvi=NULL, *qlvi2=NULL, *qlvi3=NULL, *qlvi4=NULL, *qlvi5=NULL, *qlvi6=NULL;
-		Q3ListViewItem *tutorialsMenuItem=NULL;
-		bool haveTutorials=false;
-
-		while( !n.isNull() )
-		{
-			QDomElement e = n.toElement(); // try to convert the node to an element.
-			if( !e.isNull() )
-			{
-				if (e.hasAttribute( "text" ) && e.hasAttribute( "file" ))
-				{
-					QDomAttr textAttr = e.attributeNode( "text" );
-					QDomAttr fileAttr = e.attributeNode( "file" );
-					if (qlvi2==NULL)
-						qlvi=new Q3ListViewItem(listView, textAttr.value(), fileAttr.value());
-					else
-						qlvi=new Q3ListViewItem(listView, qlvi2, textAttr.value(), fileAttr.value());
-					if (qlvi!=NULL && e.hasAttribute( "section" ))
-					{
-						QDomAttr sectionAttr = e.attributeNode( "section" );
-						if (sectionAttr.value()=="tutorials" && !haveTutorials)
-						{
-							haveTutorials=true;
-							tutorialsMenuItem=qlvi;
-						}
-					}
-
-					if (qlvi!=NULL)
-						qlvi2=qlvi;
-				}
-
-				QDomNodeList nl=n.childNodes();
-				for(int i=0 ; i<= nl.count() ; i++)
-				{
-					QDomNode child=nl.item(i);
-					if (child.isElement())
-					{
-						QDomElement ec = child.toElement();
-						if (!ec.isNull())
-						{
-							if (ec.hasAttribute( "text" ) && ec.hasAttribute( "file" ))
-							{
-								QDomAttr textAttr = ec.attributeNode( "text" );
-								QDomAttr fileAttr = ec.attributeNode( "file" );
-								if (qlvi4==NULL)
-									qlvi3=new Q3ListViewItem(qlvi, textAttr.value(), fileAttr.value());
-								else
-									qlvi3=new Q3ListViewItem(qlvi, qlvi4, textAttr.value(), fileAttr.value());
-								if (qlvi3!=NULL && ec.hasAttribute( "section" ))
-								{
-									QDomAttr sectionAttr = e.attributeNode( "section" );
-									if (sectionAttr.value()=="tutorials" && !haveTutorials)
-									{
-										haveTutorials=true;
-										tutorialsMenuItem=qlvi3;
-									}
-								}
-								if (qlvi3!=NULL)
-									qlvi4=qlvi3;
-							}
-							//3rd level
-							QDomNodeList nl2=child.childNodes();
-							for(int i=0 ; i<= nl2.count() ; i++)
-							{
-								QDomNode childchild=nl2.item(i);
-								if (childchild.isElement())
-								{
-									QDomElement ecc = childchild.toElement();
-									if (!ecc.isNull())
-									{
-										if (ecc.hasAttribute( "text" ) && ecc.hasAttribute( "file" ))
-										{
-											QDomAttr textAttr = ecc.attributeNode( "text" );
-											QDomAttr fileAttr = ecc.attributeNode( "file" );
-											if (qlvi6==NULL)
-												qlvi5=new Q3ListViewItem(qlvi3, textAttr.value(), fileAttr.value());
-											else
-												qlvi5=new Q3ListViewItem(qlvi3, qlvi6, textAttr.value(), fileAttr.value());
-											if (qlvi5!=NULL && ecc.hasAttribute( "section" ))
-											{
-												QDomAttr sectionAttr = e.attributeNode( "section" );
-												if (sectionAttr.value()=="tutorials" && !haveTutorials)
-												{
-													haveTutorials=true;
-													tutorialsMenuItem=qlvi5;
-												}
-											}
-										}
-										if (qlvi5!=NULL)
-											qlvi6=qlvi5;
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			n = n.nextSibling();
-		}
-		*/
-		/*
-		//scan for installed tutorials
-		if (haveTutorials)
-		{
-			QString path = ScPaths::instance().docDir();
-			path += language + "/tutorials/";
-			QDir dir(path, "*", QDir::Name, QDir::Dirs | QDir::NoSymLinks);
-
-			if (dir.exists() && (dir.count() != 0))
-			{
-				for (uint i = 0; i < dir.count(); ++i)
-				{
-					if (dir[i]!="." && dir[i]!="..")
-					{
-						QString tutorialdir = QDir::convertSeparators("tutorials/" + dir[i] + "/");
-						QFileInfo file(QDir::convertSeparators(path + dir[i] + "/menu.xml"));
-						if (file.exists())  // menu.xml exists for tutorial
-						{
-							QDomDocument docTutorial( "tutorialmenuentries" );
-							QFile fileTutorialMenu( file.filePath() );
-							if ( !fileTutorialMenu.open( QIODevice::ReadOnly ) )
-								break;
-							if ( !docTutorial.setContent( &fileTutorialMenu ) )
-							{
-								fileTutorialMenu.close();
-								break;
-							}
-							fileTutorialMenu.close();
-
-							QDomElement docElemTutorial = docTutorial.documentElement();
-							QDomNode nTutorial = docElemTutorial.firstChild();
-							Q3ListViewItem *tutorialQLVI=NULL;
-
-							while( !nTutorial.isNull() )
-							{
-								QDomElement eTutorial = nTutorial.toElement(); // try to convert the node to an element.
-								if( !eTutorial.isNull() )
-								{
-									if (tutorialsMenuItem!=NULL && eTutorial.hasAttribute( "text" ) && eTutorial.hasAttribute( "file" ))
-									{
-										QDomAttr textAttr = eTutorial.attributeNode( "text" );
-										QDomAttr fileAttr = eTutorial.attributeNode( "file" );
-										tutorialQLVI=new Q3ListViewItem(tutorialsMenuItem, textAttr.value(), tutorialdir + fileAttr.value());
-									}
-									QDomNodeList nl=nTutorial.childNodes();
-									Q3ListViewItem *tutorialSubMenuItem, *tutorialSubMenuItemLast=NULL;
-									for(int j=0 ; j<= nl.count() ; j++)
-									{
-										QDomNode child=nl.item(j);
-										if (child.isElement())
-										{
-											QDomElement ec = child.toElement();
-											if (!ec.isNull())
-											{
-												if (ec.hasAttribute( "text" ) && ec.hasAttribute( "file" ))
-												{
-													QDomAttr textAttr = ec.attributeNode( "text" );
-													QDomAttr fileAttr = ec.attributeNode( "file" );
-													if (tutorialSubMenuItemLast==NULL)
-														tutorialSubMenuItem=new Q3ListViewItem(tutorialQLVI, textAttr.value(), tutorialdir + fileAttr.value());
-													else
-														tutorialSubMenuItem=new Q3ListViewItem(tutorialQLVI, tutorialSubMenuItemLast, textAttr.value(), tutorialdir + fileAttr.value());
-													if (tutorialSubMenuItem!=NULL)
-														tutorialSubMenuItemLast=tutorialSubMenuItem;
-												}
-											}
-										}
-									}
-								}
-								nTutorial = nTutorial.nextSibling();
-							}
-						}
-					}
-				}
-			}
-
-		}
-		*/
+		if (menuModel!=NULL)
+			delete menuModel;
+		menuModel=new ScHelpTreeModel(toLoad, "Topic", "Location");
 	}
+	listView->setModel(menuModel);
+	listView->setColumnHidden(1,true);
 }
 
 void HelpBrowser2::readBookmarks()

@@ -22,12 +22,12 @@ class ScribusDoc;
 class PageItem;
 class Page;
 
-class SCRIBUS_API TreeItem : public QTreeWidgetItem
+class SCRIBUS_API OutlineTreeItem : public QTreeWidgetItem
 {
 public:
-	TreeItem(TreeItem* parent, TreeItem* after);
-	TreeItem(QTreeWidget* parent, TreeItem* after);
-	~TreeItem() {};
+	OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after);
+	OutlineTreeItem(QTreeWidget* parent, OutlineTreeItem* after);
+	~OutlineTreeItem() {};
 	PageItem *PageItemObject;
 	Page *PageObject;
 	int type;
@@ -55,7 +55,7 @@ public:
 	void reopenTree();
 	QTreeWidgetItem* getListItem(int SNr, int Nr);
 	void setItemIcon(QTreeWidgetItem *item, PageItem *pgItem);
-	void parseSubGroup(int level, TreeItem* object, QList<PageItem*> *subGroupList, int itemType);
+	void parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *subGroupList, int itemType);
 	void buildReopenVals();
 
 public slots:
