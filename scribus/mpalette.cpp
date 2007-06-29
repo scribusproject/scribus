@@ -123,6 +123,13 @@ void NameWidget::focusOutEvent(QFocusEvent *e)
 
 Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalette", false, 0)
 {
+	setStyleSheet("	QToolButton { margin: 0px; padding: 0px; font-size: 10px; } \
+					QToolButton:pressed { padding-top: 2px; padding-left: 2px } \
+					QPushButton { margin: 0px; padding: 0px; font-size: 10px; } \
+					QPushButton:pressed { padding-top: 2px; padding-left: 2px } \
+					QComboBox, QLineEdit, QListView, QLabel { margin:0px; padding: 0px; font-size: 10px; } \
+					QSpinBox, QDoubleSpinBox { margin:0px; padding: 0px; font-size: 10px; padding-right: 13px;} \
+				  ");
 	m_ScMW=0;
 	doc=0;
 	HaveDoc = false;
