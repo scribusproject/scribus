@@ -4498,8 +4498,7 @@ void Mpalette::languageChange()
 	SeStyle->languageChange();
 	GroupAlign->languageChange();
 
-	if (StyledLine->item(0))
-		StyledLine->item(0)->setText( tr("No Style") );
+	StyledLine->item(0)->setText( tr("No Style") );
 // 	updateCList();
 // 	updateCmsList();
 
