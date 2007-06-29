@@ -2697,6 +2697,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(CopyItem()), this, SLOT(slotEditCopy()));
 	connect(view, SIGNAL(CutItem()), this, SLOT(slotEditCut()));
 	connect(view, SIGNAL(LoadPic()), this, SLOT(slotGetContent()));
+	connect(view, SIGNAL(StatusPic()), this, SLOT(StatusPic()));
 	connect(view, SIGNAL(AppendText()), this, SLOT(slotFileAppend()));
 	connect(view, SIGNAL(AnnotProps()), this, SLOT(ModifyAnnot()));
 	//connect(view, SIGNAL(EditGuides()), this, SLOT(ManageGuides()));

@@ -2299,6 +2299,8 @@ void ScribusView::contentsMouseDoubleClickEvent(QMouseEvent *m)
 			{
 				if (currItem->Pfile.isEmpty())
 					emit LoadPic();
+				else if (!currItem->PicAvail)
+					emit StatusPic();
 				else if (currItem->imageShown())
 					emit Amode(modeEdit);
  			}

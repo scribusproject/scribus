@@ -270,6 +270,12 @@ QString getGSDefaultExeName(void)
 			}
 		}
 	}
+#elif defined(Q_OS_MAC)
+	QFileInfo bundleExe("/Library/Frameworks/Ghostscript/bin/gsc");
+	if (bundleExe.exists())
+		gsName = bundleExe.absFilePath();
+	else
+		gsName = "gs";
 #else
 	gsName = "gs";
 #endif

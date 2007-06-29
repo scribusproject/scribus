@@ -423,6 +423,7 @@ signals:
 	void MVals(double, double, double, double, double, double, int);
 	void PaintingDone();
 	void LoadPic();
+	void StatusPic();
 	void AppendText();
 	void DoGroup();
 	//void DoUnGroup();
