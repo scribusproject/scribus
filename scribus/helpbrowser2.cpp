@@ -34,8 +34,12 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QHeaderView>
 #include <QInputDialog>
+#include <QItemSelectionModel>
 #include <QList>
+#include <QModelIndex>
+#include <QModelIndexList>
 #include <QPushButton>
+#include <QString>
 #include <QStandardItem>
 #include <QTextEdit>
 #include <QTreeView>
@@ -62,6 +66,7 @@ HelpBrowser2::HelpBrowser2( QWidget* parent, const QString& /*caption*/, const Q
 
 HelpBrowser2::~HelpBrowser2()
 {
+	delete menuModel;
 }
 
 void HelpBrowser2::setupLocalUI()
@@ -89,8 +94,6 @@ void HelpBrowser2::setupLocalUI()
 	goFwd=toolBar->addAction(loadIcon("16/go-next.png"), "");//, textBrowser, SLOT(backward()));
 	goBack->setMenu(histMenu);
 	
-	
-
 	listView->header()->hide();
 	searchingView->header()->hide();
 	bookmarksView->header()->hide();
@@ -102,6 +105,8 @@ void HelpBrowser2::setupLocalUI()
 	int xsize = prefs->getUInt("xsize", 640);
 	int ysize = prefs->getUInt("ysize", 480);
 	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()) );
+
+	//basic ui
 
 	// searching
 	connect(searchingEdit, SIGNAL(returnPressed()), this, SLOT(searchingButton_clicked()));
@@ -115,7 +120,6 @@ void HelpBrowser2::setupLocalUI()
 void HelpBrowser2::languageChange()
 {
 	setCaption( tr( "Scribus Online Help" ) );
-// 	listView->header()->setLabel( 0, tr( "Contents" ) );
 // 	listView->clear();
 
 }
@@ -247,7 +251,13 @@ void HelpBrowser2::loadMenu()
 		menuModel=new ScHelpTreeModel(toLoad, "Topic", "Location");
 	}
 	listView->setModel(menuModel);
+ 	listView->setSelectionMode(QAbstractItemView::SingleSelection);
+ 	QItemSelectionModel *selectionModel = new QItemSelectionModel(menuModel);
+ 	listView->setSelectionModel(selectionModel);
+ 	connect(listView->selectionModel(), SIGNAL(selectionChanged( const QItemSelection &, const QItemSelection &)), this, SLOT(itemSelected( const QItemSelection &, const QItemSelection &)));
+
 	listView->setColumnHidden(1,true);
+
 }
 
 void HelpBrowser2::readBookmarks()
@@ -275,4 +285,20 @@ void HelpBrowser2::readHistory()
 void HelpBrowser2::setText(const QString& str)
 {
 	textBrowser->setText(str);
+}
+
+void HelpBrowser2::itemSelected(const QItemSelection & selected, const QItemSelection & deselected)
+{
+	Q_UNUSED(deselected);
+
+	QModelIndex index;
+	QModelIndexList items = selected.indexes();
+
+	foreach (index, items) {
+		QString filename(menuModel->data(index, Qt::DisplayRole).toString());
+		if (!filename.isEmpty())
+		{
+			loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
+		}
+	}
 }

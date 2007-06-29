@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef HELPBROWSER2_H
 #define HELPBROWSER2_H
 
+#include <QItemSelection>
 #include <QList>
 #include <QMainWindow>
 #include <QMenu>
@@ -99,12 +100,15 @@ protected:
 	QString findText;
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
-	TreeModel* menuModel;
+	ScHelpTreeModel* menuModel;
 
 protected slots:
 	virtual void languageChange();
 	void loadHelp(const QString& filename);
 	void loadMenu();
+
+	/*! \brief Load doc file when user select filename in content view. */
+	void itemSelected(const QItemSelection & selected, const QItemSelection & deselected);
 
 	/*! \brief Performs searching in documentation.
 	It walks through installed documentation and searching in all text files

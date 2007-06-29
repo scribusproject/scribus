@@ -45,10 +45,10 @@ ScHelpTreeModel::ScHelpTreeModel(const QString &dataFile, const QString &col1nam
 
 void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent)
 {
-	QDomDocument doc( "menuentries" );
 	QFile file( dataFile );
 	if ( !file.open( QIODevice::ReadOnly ) )
 		return;
+	QDomDocument doc( "menuentries" );
 	if ( !doc.setContent( &file ) )
 	{
 		file.close();
