@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "qpainter.h"
 #include "pageitem.h"
 #include "commonstrings.h"
-#include "scfontmetrics.h"
+#include "fonts/scfontmetrics.h"
 #include "scribus.h"
 #include "scimage.h"
 #include "util.h"

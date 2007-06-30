@@ -103,7 +103,7 @@ ScPainterExBase::ImageMode ScPainterEx_Ps2::imageMode()
 	ImageMode imageMode;
 	if (m_options.hProfile && m_options.rgbToOutputImageTransform && m_options.cmykToOutputImageTransform)
 		imageMode = rawImages;
-	else if (m_colorMode = cmykMode)
+	else if (m_colorMode == cmykMode)
 		imageMode = cmykImages;
 	else
 		imageMode = rgbImages;
