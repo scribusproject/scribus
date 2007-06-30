@@ -19,10 +19,6 @@ for which a new license (GPL+exception) is in place.
 
 class QVariant;
 
-
-using namespace std;
-
-
 class ScListBoxDelegate
 {
 public:
@@ -40,13 +36,13 @@ public:
 	virtual QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 	virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 protected:
-	static auto_ptr<QPixmap> pmap;
+	static std::auto_ptr<QPixmap> pmap;
 	// The drawPixmap function must not modify pixmap size
 	virtual void redraw(const QVariant&) const = 0;
 };
 
 template<unsigned int pixWidth, unsigned int pixHeight> 
-auto_ptr<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
+std::auto_ptr<QPixmap> ScListBoxPixmap<pixWidth, pixHeight>::pmap;
 
 
 template<unsigned int pixWidth, unsigned int pixHeight>
