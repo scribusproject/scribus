@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "scdocoutput.h"
+using namespace std;
 
 bool ScDocOutput::makeOutput(ScribusDoc* doc, vector<int>& pageNumbers)
 {

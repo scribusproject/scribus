@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
 #define SCDOCOUTPUT_H
 
 #include <vector>
-using namespace std;
 
 #include "scribusapi.h"
 #include "scribusdoc.h"
@@ -29,7 +28,7 @@ protected:
 public:
 	virtual ~ScDocOutput() {}
 
-	virtual bool makeOutput(ScribusDoc* doc, vector<int>& pageNumbers);
+	virtual bool makeOutput(ScribusDoc* doc, std::vector<int>& pageNumbers);
 };
 
 #endif
