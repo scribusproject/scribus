@@ -1288,10 +1288,10 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 
 void ScPainterEx_Ps2::getPathBoundingBox( FPointArray* points, QRect& r )
 {
- FPoint point;
- double bottom = std::numeric_limits<double>::min(),
+	FPoint point;
+	double bottom = std::numeric_limits<double>::max(),
 		top = std::numeric_limits<double>::min(),
-		left = std::numeric_limits<double>::min(),
+		left = std::numeric_limits<double>::max(),
 		right = std::numeric_limits<double>::min();
 
 	r.setCoords(0, 0, 0, 0);
