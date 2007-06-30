@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include "scpainterex_ps2.h"
 
 #include <limits>
-#include <Q3PtrVector>
 #include <QPaintDevice>
 #include <QPixmap>
 //#include <qpointarray.h>
@@ -38,9 +37,14 @@ for which a new license (GPL+exception) is in place.
 #include <memory>
 using namespace std;
  
-#include <math.h>
+#include <cmath>
 #include "util.h"
 #include "sccolorengine.h"
+
+#if defined(_MSC_VER)
+#undef min
+#undef max
+#endif
 
 ScPs2OutputParams::ScPs2OutputParams(ScribusDoc* doc)
 {
@@ -441,7 +445,8 @@ void ScPainterEx_Ps2::setClipPath()
 void ScPainterEx_Ps2::putColor( ScColorShade& colorShade, bool doFill )
 {
 	ColorMode colorMode = m_colorMode;
-	int r, g, b, c, m, y, k, gray;
+	int r = 0, g = 0, b = 0, gray = 0;
+	int c = 0, m = 0, y = 0, k = 0;
 	if ( m_options.toGray )
 	{
 		RGBColor rgb;
