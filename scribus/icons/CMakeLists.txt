@@ -77,6 +77,7 @@ font_type1.png
 framenoresize.png
 frameresize.png
 goto.png
+goto16.png
 group.png
 guides.png
 HandC.xpm
@@ -236,6 +237,8 @@ INSTALL(FILES
 16/align-vertical-center.png
 16/align-vertical-top-out.png
 16/align-vertical-top.png
+16/checkbox.png
+16/combobox.png
 16/close.png
 16/color-fill.png
 16/color-picker.png
@@ -306,10 +309,12 @@ INSTALL(FILES
 16/help-browser.png
 16/information.png
 16/image-x-generic.png
+16/insert-button.png
 16/insert-image.png
 16/insert-text-frame.png
 16/insert-table.png
 16/list-add.png
+16/list-box.png
 16/list-remove.png
 16/lock.png
 16/lock-unlocked.png
@@ -318,6 +323,7 @@ INSTALL(FILES
 16/page-4fold.png
 16/page-doublesided.png
 16/page-simple.png
+16/pdf-annotations.png
 16/pointer.png
 16/preflight-verifier.png
 16/show-object.png
@@ -328,6 +334,7 @@ INSTALL(FILES
 16/stroke-join-bevel.png
 16/stroke-join-miter.png
 16/stroke-join-round.png
+16/text-field.png
 16/text-frame-link.png
 16/text-frame-unlink.png
 16/transform-rotate.png

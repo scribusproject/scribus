@@ -685,19 +685,19 @@ void ActionManager::initToolsMenuActions()
 
 	//PDF toolbar
 	name="toolsPDFPushButton";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/insert-button.png"), QPixmap(), "", defKeys[name], mainWindow, modeInsertPDFButton));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/insert-button.png"), loadIcon("22/insert-button.png"), "", defKeys[name], mainWindow, modeInsertPDFButton));
 	name="toolsPDFTextField";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/text-field.png"), QPixmap(), "", defKeys[name], mainWindow, modeInsertPDFTextfield));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/text-field.png"), loadIcon("22/text-field.png"), "", defKeys[name], mainWindow, modeInsertPDFTextfield));
 	name="toolsPDFCheckBox";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/checkbox.png"), QPixmap(), "", defKeys[name], mainWindow, modeInsertPDFCheckbox));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/checkbox.png"), loadIcon("22/checkbox.png"), "", defKeys[name], mainWindow, modeInsertPDFCheckbox));
 	name="toolsPDFComboBox";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/combobox.png"), QPixmap(), "", defKeys[name], mainWindow, modeInsertPDFCombobox));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/combobox.png"), loadIcon("22/combobox.png"), "", defKeys[name], mainWindow, modeInsertPDFCombobox));
 	name="toolsPDFListBox";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/list-box.png"), QPixmap(), "", defKeys[name], mainWindow, modeInsertPDFListbox));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/list-box.png"), loadIcon("22/list-box.png"), "", defKeys[name], mainWindow, modeInsertPDFListbox));
 	name="toolsPDFAnnotText";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("22/pdf-annotations.png"), QPixmap(), "", defKeys[name], mainWindow, modeInsertPDFTextAnnotation));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("16/pdf-annotations.png"), loadIcon("22/pdf-annotations.png"), "", defKeys[name], mainWindow, modeInsertPDFTextAnnotation));
 	name="toolsPDFAnnotLink";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("goto.png"), QPixmap(), "", defKeys[name], mainWindow, modeInsertPDFLinkAnnotation));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("goto16.png"), loadIcon("goto.png"), "", defKeys[name], mainWindow, modeInsertPDFLinkAnnotation));
 
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
 	(*scrActions)["toolsOutline"]->setToggleAction(true);
