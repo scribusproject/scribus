@@ -889,7 +889,12 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 				if (channel_num == 5)
 					components[channel] = channel_num-2;
 				else
-					components[channel] = channel_num-1;
+				{
+					if (header.color_mode == CM_GRAYSCALE)
+						components[channel] = 3;
+					else
+						components[channel] = channel_num-1;
+				}
 			}
 			hasAlpha = true;
 			break;
@@ -1045,7 +1050,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 					d[0] = s[0];
 					d[1] = s[1];
 					d[2] = s[2];
-					if (header.color_mode == CM_RGB)
+					if (header.color_mode != CM_CMYK)
 					{
 						if (hasAlpha)
 							d[3] = s[3];
@@ -1105,7 +1110,12 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 								src_alpha = s[channel_num - 2];
 						}
 						else
-							src_alpha = s[channel_num - 1];
+						{
+							if (header.color_mode == CM_GRAYSCALE)
+								src_alpha = s[3];
+							else
+								src_alpha = s[channel_num - 1];
+						}
 					}
 					else
 						src_alpha = 255;
