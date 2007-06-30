@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scpainterex_ps2.h"
 
-#include <limits>
+#include <cfloat>
 #include <QPaintDevice>
 #include <QPixmap>
 //#include <qpointarray.h>
@@ -40,12 +40,6 @@ using namespace std;
 #include <cmath>
 #include "util.h"
 #include "sccolorengine.h"
-
-#if defined(_MSC_VER)
-// VC++ defines `min' and `max' macros that break std::numeric_limits<T>::min() and ::max()
-#undef min
-#undef max
-#endif
 
 ScPs2OutputParams::ScPs2OutputParams(ScribusDoc* doc)
 {
@@ -1295,10 +1289,8 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 void ScPainterEx_Ps2::getPathBoundingBox( FPointArray* points, QRect& r )
 {
 	FPoint point;
-	double bottom = std::numeric_limits<double>::max(),
-		top = std::numeric_limits<double>::min(),
-		left = std::numeric_limits<double>::max(),
-		right = std::numeric_limits<double>::min();
+	double bottom = DBL_MAX, top   = DBL_MIN;
+	double left   = DBL_MAX, right = DBL_MIN;
 
 	r.setCoords(0, 0, 0, 0);
 
