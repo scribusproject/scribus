@@ -7,23 +7,24 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCPAGEOUTPUTPS2_H
 #define SCPAGEOUTPUTPS2_H
 
-#include <qiodevice.h>
 #include <qdatastream.h>
+#include <QRect>
 
 #include "scconfig.h"
 #include "scribusapi.h"
-#include "scribusdoc.h"
-#include "page.h"
-#include "sccolor.h"
 #include "scpageoutput.h"
 #include "scpainterex_ps2.h"
+
+class ScribusDoc;
+class Page;
+class QIODevice;
 
 class SCRIBUS_API ScPageOutput_Ps2 : public ScPageOutput
 {
 protected:
 
 	QRect m_clip;
-	QIODevice*	m_device;
+	QIODevice* m_device;
 	QTextStream m_stream;
 	ScPs2OutputParams m_options;
 
@@ -34,7 +35,7 @@ protected:
 public:
 
 	ScPageOutput_Ps2(QIODevice* dev, ScribusDoc* doc, int pageIndex, ScPs2OutputParams& options);
-	~ScPageOutput_Ps2();
+	virtual ~ScPageOutput_Ps2();
 
 	virtual void begin(void);
 	virtual void DrawPage(Page* page);

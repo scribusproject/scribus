@@ -30,9 +30,9 @@ for which a new license (GPL+exception) is in place.
 #include <limits>
 #include <Q3PtrVector>
 #include <QPaintDevice>
-#include <QPixmap.h>
+#include <QPixmap>
 //#include <qpointarray.h>
-#include <QImage.h>
+#include <QImage>
 
 #include <iostream>
 #include <memory>
@@ -1289,8 +1289,10 @@ void ScPainterEx_Ps2::drawCircularGradient_CMYK( VGradientEx& gradient, const QR
 void ScPainterEx_Ps2::getPathBoundingBox( FPointArray* points, QRect& r )
 {
  FPoint point;
- double bottom = DBL_MAX, top = DBL_MIN;
- double left = DBL_MAX, right = DBL_MIN;
+ double bottom = std::numeric_limits<double>::min(),
+		top = std::numeric_limits<double>::min(),
+		left = std::numeric_limits<double>::min(),
+		right = std::numeric_limits<double>::min();
 
 	r.setCoords(0, 0, 0, 0);
 

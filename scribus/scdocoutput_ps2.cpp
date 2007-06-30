@@ -5,12 +5,15 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-
 #include "scdocoutput_ps2.h"
 #include "scpageoutput_ps2.h"
 #include "scribuscore.h"
 #include "cmserrorhandling.h"
 #include "commonstrings.h"
+#include "scribusdoc.h"
+#include "page.h"
+
+using namespace std;
 
 #include CMS_INC
 

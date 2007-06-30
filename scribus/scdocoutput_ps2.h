@@ -8,16 +8,17 @@ for which a new license (GPL+exception) is in place.
 #define SCDOCOUTPUT_PS2_H
 
 #include <vector>
-using namespace std;
 
-#include <qfile.h>
+#include <QFile>
+#include <QTextStream>
 
 #include "scribusapi.h"
-#include "scribusdoc.h"
-#include "page.h"
 #include "scpainterexbase.h"
 #include "scpageoutput_ps2.h"
 #include "scdocoutput.h"
+
+class ScribusDoc;
+class Page;
 
 class SCRIBUS_API ScDocOutput_Ps2 : public ScDocOutput
 {
@@ -27,7 +28,7 @@ protected:
 	QIODevice* m_device;
 	QTextStream m_stream;
 	ScribusDoc* m_doc;
-	vector<int> m_pageNumbers;
+	std::vector<int> m_pageNumbers;
 	ScPs2OutputParams m_options;
 
 	int m_status;

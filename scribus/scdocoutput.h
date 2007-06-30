@@ -19,14 +19,15 @@ using namespace std;
 class SCRIBUS_API ScDocOutput
 {
 protected:
-	ScDocOutput() {};
+	ScDocOutput() {}
 
-	virtual void begin(void) {};
-	virtual void end(void) {};
+	virtual void begin(void) {}
+	virtual void end(void) {}
 
 	virtual ScPageOutput* createPageOutputComponent(int pageIndex) { return NULL; }
 
 public:
+	virtual ~ScDocOutput() {}
 
 	virtual bool makeOutput(ScribusDoc* doc, vector<int>& pageNumbers);
 };
