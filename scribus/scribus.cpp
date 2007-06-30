@@ -5262,8 +5262,14 @@ void ScribusMainWindow::slotOnlineHelp()
 
 void ScribusMainWindow::slotOnlineHelp2()
 {
-	HelpBrowser2 *dia = new HelpBrowser2(0, tr("Scribus Manual 2"), ScCore->getGuiLanguage());
-	dia->show();
+	helpBrowser = new HelpBrowser2(0, tr("Scribus Manual 2"), ScCore->getGuiLanguage());
+	connect(helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelp2Closed()));
+	helpBrowser->show();
+}
+
+void ScribusMainWindow::slotOnlineHelp2Closed()
+{
+	delete helpBrowser;
 }
 
 void ScribusMainWindow::ToggleTips()

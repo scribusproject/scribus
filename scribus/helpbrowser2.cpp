@@ -31,21 +31,61 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QDir>
 #include <QDomDocument>
+#include <QFileDialog>
 #include <QFileInfo>
 #include <QHeaderView>
 #include <QInputDialog>
 #include <QItemSelectionModel>
 #include <QList>
+#include <QMessageBox>
 #include <QModelIndex>
 #include <QModelIndexList>
+#include <QProcess>
 #include <QPushButton>
 #include <QString>
 #include <QStandardItem>
+#include <QTextBrowser>
 #include <QTextEdit>
 #include <QTreeView>
+#include <QXmlDefaultHandler>
 
 
 #include "prefsmanager.h"
+
+/*! \brief XML parsef for documantation history.
+This is small helper class which reads saved bookmarks configuration
+from ~/.scribus/doc/history.xml file.
+The reference to historyBrowser is a reference to the dialog.
+\author Petr Vanek <petr@yarpen.cz>
+*/
+class HistoryParser2 : public QXmlDefaultHandler
+{
+	public:
+		HelpBrowser2 *helpBrowser;
+
+		bool startDocument()
+		{
+			return true;
+		}
+
+		bool startElement(const QString&, const QString&, const QString& qName, const QXmlAttributes& attrs)
+		{
+			if (qName == "item")
+			{
+				struct histd2 his;
+				his.title = attrs.value(0);
+				his.url = attrs.value(1);
+				helpBrowser->mHistory[helpBrowser->histMenu->addAction(his.title)] = his;
+			}
+			return true;
+		}
+
+		bool endElement(const QString&, const QString&, const QString&)
+		{
+			return true;
+		}
+};
+
 
 HelpBrowser2::HelpBrowser2(QWidget* parent)
 	: QMainWindow( parent )
@@ -62,11 +102,53 @@ HelpBrowser2::HelpBrowser2( QWidget* parent, const QString& /*caption*/, const Q
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
 	menuModel=NULL;
 	loadMenu();
+	readBookmarks();
+	readHistory();
+	jumpToHelpSection(jumpToSection, jumpToFile );
 }
 
 HelpBrowser2::~HelpBrowser2()
 {
+
+}
+
+void HelpBrowser2::closeEvent(QCloseEvent * event)
+{
 	delete menuModel;
+
+// 	// no need to delete child widgets, Qt does it all for us
+// 	// bookmarks
+// 	QFile bookFile(bookmarkFile());
+// 	if (bookFile.open(QIODevice::WriteOnly))
+// 	{
+// 		QTextStream stream(&bookFile);
+// 		stream.setCodec("UTF-8");
+// 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+// 		stream << "<bookmarks>\n";
+// 		Q3ListViewItemIterator it(bookmarksView);
+// 		for ( ; it.current(); ++it)
+// 			stream << "\t<item title=\"" << it.current()->text(0) << "\" url=\"" << it.current()->text(1) << "\" />\n";
+// 		stream << "</bookmarks>\n";
+// 		bookFile.close();
+// 	}
+	// history
+  	QFile histFile(historyFile());
+	if (histFile.open(QIODevice::WriteOnly))
+	{
+		QTextStream stream(&histFile);
+		stream.setCodec("UTF-8");
+		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+		stream << "<history>\n";
+		for (QMap<QAction*,histd2>::Iterator it = mHistory.begin() ; it != mHistory.end(); ++it)
+			stream << "\t<item title=\"" << it.data().title << "\" url=\"" << it.data().url << "\" />\n";
+		stream << "</history>\n";
+		histFile.close();
+	}
+	// size
+	prefs->set("xsize", width());
+	prefs->set("ysize", height());
+
+	emit closed();
 }
 
 void HelpBrowser2::setupLocalUI()
@@ -89,9 +171,9 @@ void HelpBrowser2::setupLocalUI()
 	bookDelAll=bookMenu->addAction( tr("D&elete All"), this, SLOT(deleteAllBookmarkButton_clicked()));
 
 	//Add Toolbar items
-	goHome=toolBar->addAction(loadIcon("16/go-home.png"), "");//, textBrowser, SLOT(home()));
-	goBack=toolBar->addAction(loadIcon("16/go-previous.png"), "");//, textBrowser, SLOT(forward()));
-	goFwd=toolBar->addAction(loadIcon("16/go-next.png"), "");//, textBrowser, SLOT(backward()));
+	goHome=toolBar->addAction(loadIcon("16/go-home.png"), "", textBrowser, SLOT(home()));
+	goBack=toolBar->addAction(loadIcon("16/go-previous.png"), "", textBrowser, SLOT(backward()));
+	goFwd=toolBar->addAction(loadIcon("16/go-next.png"), "", textBrowser, SLOT(forward()));
 	goBack->setMenu(histMenu);
 	
 	listView->header()->hide();
@@ -107,7 +189,7 @@ void HelpBrowser2::setupLocalUI()
 	resize(QSize(xsize, ysize).expandedTo(minimumSizeHint()) );
 
 	//basic ui
-
+	connect(histMenu, SIGNAL(triggered(QAction*)), this, SLOT(histChosen(QAction*)));
 	// searching
 	connect(searchingEdit, SIGNAL(returnPressed()), this, SLOT(searchingButton_clicked()));
 	connect(searchingButton, SIGNAL(clicked()), this, SLOT(searchingButton_clicked()));
@@ -115,6 +197,11 @@ void HelpBrowser2::setupLocalUI()
 	connect(bookmarkButton, SIGNAL(clicked()), this, SLOT(bookmarkButton_clicked()));
 	connect(deleteBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteBookmarkButton_clicked()));
 	connect(deleteAllBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteAllBookmarkButton_clicked()));
+
+	//textbrowser connections
+	connect(textBrowser, SIGNAL(highlighted(const QString &)), this, SLOT(hoverMouse(const QString &)));
+	connect(textBrowser, SIGNAL(anchorClicked(const QUrl &)), this, SLOT(navigateOverride(const QUrl &)));
+	textBrowser->setOpenLinks(false);
 }
 
 void HelpBrowser2::languageChange()
@@ -122,6 +209,57 @@ void HelpBrowser2::languageChange()
 	setCaption( tr( "Scribus Online Help" ) );
 // 	listView->clear();
 
+}
+
+void HelpBrowser2::hoverMouse(const QString &link)
+{
+	if (link.isEmpty())
+		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	else
+		qApp->changeOverrideCursor(QCursor(Qt::PointingHandCursor));
+}
+
+void HelpBrowser2::navigateOverride(const QUrl & link)
+{
+#if defined(_WIN32)
+	if (link.scheme()=="http")
+	if ( index >=0 )
+	{
+		QString url(link.authority());
+		QT_WA( {
+		ShellExecute( winId(), 0, (TCHAR*)url.ucs2(), 0, 0, SW_SHOWNORMAL );
+	    } , {
+		ShellExecuteA( winId(), 0, url.local8Bit(), 0, 0, SW_SHOWNORMAL );
+	    } );
+		return;
+	}
+#endif
+#if !defined(QT_OS_MAC) && !defined(_WIN32)
+	if (link.scheme()=="http")
+	{
+		QString extBrowser(PrefsManager::instance()->extBrowserExecutable());
+		QFileInfo fi(extBrowser);
+		if (extBrowser.isEmpty() || !fi.exists())
+		{
+			extBrowser = QFileDialog::getOpenFileName(QString::null, QString::null, this, "changeExtBrowser", tr("Locate your web browser"));
+			if (!QFileInfo(extBrowser).exists())
+				extBrowser="";
+			PrefsManager::instance()->setExtBrowserExecutable(extBrowser);
+		}		
+		if (!extBrowser.isEmpty())
+		{
+			QStringList args;
+			args << link;
+			QProcess webProc;
+			if (!webProc.startDetached(extBrowser, args))
+				QMessageBox::critical(this, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok, QMessageBox::NoButton);
+		}
+	}
+	else
+		textBrowser->setSource(link);
+#else
+	textBrowser->setSource(link);
+#endif
 }
 
 void HelpBrowser2::print()
@@ -184,6 +322,54 @@ void HelpBrowser2::deleteAllBookmarkButton_clicked()
 // 	bookmarksView->clear();
 }
 
+void HelpBrowser2::histChosen(QAction* i)
+{
+	if (mHistory.contains(i))
+		textBrowser->setSource(mHistory[i].url);
+}
+
+void HelpBrowser2::jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile)
+{
+	QString toLoad;
+	bool noDocs=false;
+
+	if (jumpToFile.isEmpty())
+	{
+		toLoad = ScPaths::instance().docDir() + language + "/"; //clean this later to handle 5 char locales
+		if (jumpToSection.isEmpty())
+		{
+		
+			QModelIndex index=menuModel->index(0,0);
+			if (index.isValid())
+			{
+				listView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
+				toLoad=menuModel->data(index, Qt::DisplayRole).toString();
+			}
+			else
+				noDocs=true;
+		}
+		else if (jumpToSection=="scripter")
+		{
+// 			toLoad+="scripter1.html";
+// 			Q3ListViewItemIterator it(listView);
+// 			while (it.current())
+// 			{
+// 				if (it.current()->text(1)=="scripter1.html")
+// 					listView->setSelected( it.current(), true );
+// 				if (it.current()->text(1)=="developers.html")
+// 					it.current()->setOpen( true );
+// 				++it;
+// 			}
+		}
+	}
+	else
+		toLoad=jumpToFile;
+
+	if (!noDocs)
+		loadHelp(toLoad);
+	else
+		textBrowser->setText("<h2>"+ tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.")+"</h2>");
+}
 
 void HelpBrowser2::loadHelp(const QString& filename)
 {
@@ -217,13 +403,13 @@ void HelpBrowser2::loadHelp(const QString& filename)
 		if (his.title.isEmpty())
 			his.title = toLoad;
 		his.url = toLoad;
-		mHistory[histMenu->insertItem(his.title)] = his;
+		mHistory[histMenu->addAction(his.title)] = his;
 	}
 	if (mHistory.count() > 15)
 	{
-		int itk = histMenu->idAt(0);
-		mHistory.remove(itk);
-		histMenu->removeItem(itk);
+		QAction* first=histMenu->actions().first();
+		mHistory.remove(first);
+		histMenu->removeAction(first);
 	}
 }
 
@@ -273,13 +459,13 @@ void HelpBrowser2::readBookmarks()
 
 void HelpBrowser2::readHistory()
 {
-// 	HistoryParser handler;
-// 	handler.helpBrowser = this;
-// 	QFile xmlFile(historyFile());
-// 	QXmlInputSource source(xmlFile);
-// 	QXmlSimpleReader reader;
-// 	reader.setContentHandler(&handler);
-// 	reader.parse(source);
+ 	HistoryParser2 handler;
+ 	handler.helpBrowser = this;
+ 	QFile xmlFile(historyFile());
+ 	QXmlInputSource source(xmlFile);
+ 	QXmlSimpleReader reader;
+ 	reader.setContentHandler(&handler);
+ 	reader.parse(source);
 }
 
 void HelpBrowser2::setText(const QString& str)
@@ -301,4 +487,37 @@ void HelpBrowser2::itemSelected(const QItemSelection & selected, const QItemSele
 			loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
 		}
 	}
+}
+
+/*! \brief Returns the name of the cfg file for bookmarks.
+A helper function.
+\author Petr Vanek <petr@yarpen.cz>
+*/
+QString HelpBrowser2::bookmarkFile()
+{
+	QString appDataDir(ScPaths::getApplicationDataDir());
+	QString fname(appDataDir + "doc/bookmarks.xml");
+	if (!QFile::exists(fname))
+	{
+		QDir d(QDir::convertSeparators(appDataDir));
+		d.mkdir("doc");
+	}
+	return fname;
+}
+
+
+/*! \brief Returns the name of the cfg file for persistent history.
+A helper function.
+\author Petr Vanek <petr@yarpen.cz>
+*/
+QString HelpBrowser2::historyFile()
+{
+	QString appDataDir(ScPaths::getApplicationDataDir());
+	QString fname(appDataDir + "doc/history.xml");
+	if (!QFile::exists(fname))
+	{
+		QDir d(QDir::convertSeparators(appDataDir));
+		d.mkdir("doc");
+	}
+	return fname;
 }

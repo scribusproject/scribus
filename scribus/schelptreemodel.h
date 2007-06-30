@@ -37,7 +37,7 @@ class ScHelpTreeModel : public TreeModel
 
 public:
 	ScHelpTreeModel(const QString &dataFile, const QString &col1name, const QString &col2name, QObject *parent = 0);
-	~ScHelpTreeModel() {delete rootItem;};
+	~ScHelpTreeModel() {};
 
 private:
 	void setupModelData(const QString &dataFile, TreeItem *parent);

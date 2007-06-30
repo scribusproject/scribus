@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef HELPBROWSER2_H
 #define HELPBROWSER2_H
 
+#include <QAction>
 #include <QItemSelection>
 #include <QList>
 #include <QMainWindow>
@@ -36,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenuBar>
 #include <QString>
 #include <QToolBar>
+#include <QUrl>
 #include <QVariant>
 #include <QWidget>
 
@@ -66,12 +68,14 @@ public:
 	/*! \brief History menu. It's public because of history reader - separate class */
 	QMenu* histMenu;
 	/*! \brief Mapping the documents for history. */
-	QMap<int, histd2> mHistory;
+	QMap<QAction*, histd2> mHistory;
 	/*! \brief Set text to the browser
 	\param str a QString with text (html) */
 	void setText(const QString& str);
 
 protected:
+	void closeEvent(QCloseEvent * event);
+
 	void setupLocalUI();
 	/*! \brief Reads saved bookmarks from external file */
 	void readBookmarks();
@@ -104,11 +108,21 @@ protected:
 
 protected slots:
 	virtual void languageChange();
+	void histChosen(QAction* i);
+	void jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile="");
 	void loadHelp(const QString& filename);
 	void loadMenu();
+	QString bookmarkFile();
+	QString historyFile();
 
 	/*! \brief Load doc file when user select filename in content view. */
 	void itemSelected(const QItemSelection & selected, const QItemSelection & deselected);
+
+	/*! \brief Show the hover mouse pointer in the textBrowser*/
+	void hoverMouse(const QString &link);
+
+	/*! \brief Show the hover mouse pointer in the textBrowser*/
+	void navigateOverride(const QUrl & link);
 
 	/*! \brief Performs searching in documentation.
 	It walks through installed documentation and searching in all text files
@@ -141,6 +155,9 @@ protected slots:
 
 	/*! \brief Delete all bookmarks */
 	void deleteAllBookmarkButton_clicked();
+
+signals:
+	void closed();
 
 };
 
