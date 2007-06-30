@@ -11440,7 +11440,7 @@ void ScribusView::TextToPath()
 			Doc->renumberItemsInListOrder();
 			Doc->itemSelection_GroupObjects(true, false, &tmpSelection);
 		}
-		else
+		else if (newGroupedItems.count() > 0)
 		{
 			Doc->Items->insert(currItem->ItemNr+1, newGroupedItems.at(0));
 			Doc->renumberItemsInListOrder();
