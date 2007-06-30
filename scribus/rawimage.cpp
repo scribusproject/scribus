@@ -55,11 +55,11 @@ void RawImage::setAlpha(int x, int y, int alpha)
 QImage RawImage::convertToQImage(bool cmyk, bool raw)
 {
 	int chans = channels();
-	QImage img;
+	QImage img = QImage(width(), height(), QImage::Format_ARGB32);
 	QRgb *ptr;
 	uchar *src;
 	uchar cr, cg, cb, ck, ca;
-	img.create(width(), height(), 32);
+//	img.create(width(), height(), 32);
 	if (raw)
 	{
 		for (int i = 0; i < height(); i++)
@@ -75,7 +75,7 @@ QImage RawImage::convertToQImage(bool cmyk, bool raw)
 	}
 	else
 	{
-		img.setAlphaBuffer( true );
+//		img.setAlphaBuffer( true );
 		for (int i = 0; i < height(); i++)
 		{
 			ptr = (QRgb *)img.scanLine(i);
