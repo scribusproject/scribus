@@ -128,7 +128,6 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		headerH->setStretchLastSection(true);
 		headerH->setMovable(false);
 		headerH->setClickable(false);
-		headerH->setResizeMode(QHeaderView::Fixed);
 		if (info->layerInfo.count() == 1)
 		{
 			layerTable->setColumnWidth(1, 40);
@@ -202,8 +201,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		}
 		tabLayout->addWidget( layerTable );
 		layerTable->setColumnWidth(1, 24 + col2Width);
-		layerTable->setColumnWidth(0, 24 + col2Width);
+		layerTable->setColumnWidth(0, 24 + col1Width);
 		blendMode->setCurrentItem(0);
+		headerH->setResizeMode(QHeaderView::Fixed);
 		propsTab->insertTab( tab,  tr( "Layers" ) );
 	}
 	tab_2 = new QWidget( propsTab, "tab_2" );
