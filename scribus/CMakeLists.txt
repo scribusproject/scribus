@@ -392,6 +392,8 @@ SET(SCRIBUS_SOURCES
   sccolorengine.cpp
   sccolorshade.cpp
   sccombobox.cpp
+  scdocoutput.cpp
+  scdocoutput_ps2.cpp
   scinputdialog.cpp
   scfonts.cpp
   scgtplugin.cpp
@@ -406,7 +408,11 @@ SET(SCRIBUS_SOURCES
   scimgdataloader_psd.cpp
   scimgdataloader_qt.cpp
   scimgdataloader_tiff.cpp
+  scpageoutput.cpp
+  scpageoutput_ps2.cpp
   scpainter.cpp
+  scpainterexbase.cpp
+  scpainterex_ps2.cpp
   scpaths.cpp
   scpattern.cpp
   scplugin.cpp
