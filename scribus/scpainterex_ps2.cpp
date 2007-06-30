@@ -42,6 +42,7 @@ using namespace std;
 #include "sccolorengine.h"
 
 #if defined(_MSC_VER)
+// VC++ defines `min' and `max' macros that break std::numeric_limits<T>::min() and ::max()
 #undef min
 #undef max
 #endif
