@@ -1688,7 +1688,7 @@ bool PrefsManager::ReadPref(QString ho)
 			checkerSettings.checkPictures = static_cast<bool>(dc.attribute("checkPictures", "1").toInt());
 			checkerSettings.checkResolution = static_cast<bool>(dc.attribute("checkResolution", "1").toInt());
 			checkerSettings.checkTransparency = static_cast<bool>(dc.attribute("checkTransparency", "1").toInt());
-			checkerSettings.minResolution = dc.attribute("minResolution", "72").toDouble();
+			checkerSettings.minResolution = dc.attribute("minResolution", "144").toDouble();
 			checkerSettings.checkAnnotations = static_cast<bool>(dc.attribute("checkAnnotations", "0").toInt());
 			checkerSettings.checkRasterPDF = static_cast<bool>(dc.attribute("checkRasterPDF", "1").toInt());
 			appPrefs.checkerProfiles[name] = checkerSettings;
