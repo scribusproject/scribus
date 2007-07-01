@@ -36,11 +36,13 @@ class ScHelpTreeModel : public TreeModel
 	Q_OBJECT
 
 public:
-	ScHelpTreeModel(const QString &dataFile, const QString &col1name, const QString &col2name, QObject *parent = 0);
+	ScHelpTreeModel(const QString &dataFile, const QString &col1name, const QString &col2name, QMap<QString, QString>* indexToBuild, QObject *parent = 0);
 	~ScHelpTreeModel() {};
 
+	void addRow(const QString&, const QString&, int i);
+
 private:
-	void setupModelData(const QString &dataFile, TreeItem *parent);
+	void setupModelData(const QString &dataFile, TreeItem *parent, QMap<QString, QString>* indexToBuild);
 
 };
 

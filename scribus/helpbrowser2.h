@@ -79,6 +79,11 @@ protected:
 	void setupLocalUI();
 	/*! \brief Reads saved bookmarks from external file */
 	void readBookmarks();
+	/*! \brief Search in doc files in spec. dir.
+	It uses directory-recursion. I hope that the documentation will have
+	only 2-3 level dir structure so it doesn't matter.
+	\author Petr Vanek <petr@yarpen.cz> */
+	void searchingInDirectory(const QString&);
 
 	/*! \brief Reads saved history of browsing. */
 	void readHistory();
@@ -105,6 +110,8 @@ protected:
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
 	ScHelpTreeModel* menuModel;
+	ScHelpTreeModel* bookmarkModel;
+	QMap<QString, QString> quickHelpIndex;
 
 protected slots:
 	virtual void languageChange();
@@ -117,6 +124,12 @@ protected slots:
 
 	/*! \brief Load doc file when user select filename in content view. */
 	void itemSelected(const QItemSelection & selected, const QItemSelection & deselected);
+
+	/*! \brief Load doc file when user select filename in search view. */
+	void itemSearchSelected(QTreeWidgetItem *, int);
+
+	/*! \brief Load doc file when user select filename in bookmark view. */
+	void itemBookmarkSelected(QTreeWidgetItem *, int);
 
 	/*! \brief Show the hover mouse pointer in the textBrowser*/
 	void hoverMouse(const QString &link);

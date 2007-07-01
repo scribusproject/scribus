@@ -34,16 +34,17 @@
 
 #include "schelptreemodel.h"
 
-ScHelpTreeModel::ScHelpTreeModel(const QString &dataFile, const QString &col1name, const QString &col2name, QObject *parent)
+ScHelpTreeModel::ScHelpTreeModel(const QString &dataFile, const QString &col1name, const QString &col2name, QMap<QString, QString>* indexToBuild, QObject *parent)
     : TreeModel(parent)
 {
-    QList<QVariant> rootData;
-    rootData << col1name << col2name;
-    rootItem = new TreeItem(rootData);
-    setupModelData(dataFile, rootItem);
+	QList<QVariant> rootData;
+	rootData << col1name << col2name;
+	rootItem = new TreeItem(rootData);
+	if (!dataFile.isEmpty())
+		setupModelData(dataFile, rootItem, indexToBuild);
 }
 
-void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent)
+void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent, QMap<QString, QString>* indexToBuild)
 {
 	QFile file( dataFile );
 	if ( !file.open( QIODevice::ReadOnly ) )
@@ -96,6 +97,8 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent)
 				}
 				// Append a new item to the current parent's list of children.
 				parents.last()->appendChild(new TreeItem(columnData, parents.last()));
+				if (indexToBuild)
+					indexToBuild->insert(textAttr.value(), fileAttr.value());
 			}
 
 			QDomNodeList nl=n.childNodes();
@@ -135,6 +138,8 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent)
 							}
 							// Append a new item to the current parent's list of children.
 							parents.last()->appendChild(new TreeItem(columnData, parents.last()));
+							if (indexToBuild)
+								indexToBuild->insert(textAttr.value(), fileAttr.value());
 						}
 						//3rd level
 						QDomNodeList nl2=child.childNodes();
@@ -172,6 +177,8 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent)
 									}
 									// Append a new item to the current parent's list of children.
 									parents.last()->appendChild(new TreeItem(columnData, parents.last()));
+									if (indexToBuild)
+										indexToBuild->insert(textAttr.value(), fileAttr.value());
 								}
 							}
 						}
@@ -183,4 +190,16 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent)
 		}
 		n = n.nextSibling();
 	}
+}
+
+void ScHelpTreeModel::addRow(const QString& s1, const QString& s2, int i)
+{
+	QList<TreeItem*> parents;
+	QList<int> indentations;
+	parents << rootItem;
+	if (parents.last()->childCount() > 0) 
+		parents << parents.last()->child(parents.last()->childCount()-1);
+	QList<QVariant> columnData;
+	columnData << s1 << s2;// << i;
+	parents.last()->appendChild(new TreeItem(columnData, parents.last()));
 }

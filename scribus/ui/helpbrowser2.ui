@@ -64,7 +64,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QTreeView" name="searchingView" />
+          <widget class="QTreeWidget" name="searchingView" />
          </item>
         </layout>
        </widget>
@@ -74,7 +74,7 @@
         </attribute>
         <layout class="QVBoxLayout" >
          <item>
-          <widget class="QTreeView" name="bookmarksView" />
+          <widget class="QTreeWidget" name="bookmarksView" />
          </item>
          <item>
           <layout class="QHBoxLayout" >
