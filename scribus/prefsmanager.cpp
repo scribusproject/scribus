@@ -394,7 +394,7 @@ void PrefsManager::initDefaults()
 	appPrefs.paragraphsLI = 10;
 	appPrefs.showStartupDialog = true;
 	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
-	appPrefs.curCheckProfile = tr("PostScript");
+	appPrefs.curCheckProfile = QT_TR_NOOP("PostScript");
 	appPrefs.PDF_Options.Thumbnails = false;
 	appPrefs.PDF_Options.Articles = false;
 	appPrefs.PDF_Options.useLayers = false;
@@ -754,7 +754,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
 		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
-		appPrefs.curCheckProfile = tr("PostScript");
+		appPrefs.curCheckProfile = QT_TR_NOOP("PostScript");
 	}
 }
 
@@ -1817,14 +1817,17 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.curCheckProfile = dc.attribute("currentProfile", tr("PostScript"));
 			//#2516 work around old values until people wont have them anymore, not that these
 			//translated strings should be going into prefs anyway!
-			if ((appPrefs.curCheckProfile == tr("Postscript")) || (appPrefs.curCheckProfile == "Postscript"))
-				appPrefs.curCheckProfile = tr("PostScript");
+			if ((appPrefs.curCheckProfile == tr("PostScript")) || ((appPrefs.curCheckProfile == tr("Postscript")) || 
+				(appPrefs.curCheckProfile == "Postscript")))
+			{
+				appPrefs.curCheckProfile = QT_TR_NOOP("PostScript");
+			}
 		}
 		if (dc.tagName()=="CheckProfile")
 		{
 			QString name=dc.attribute("Name");
-			if ((name == tr("Postscript")) || (name == "Postscript"))
-				name = tr("PostScript");
+			if ((name == tr("PostScript")) ||  (name == tr("Postscript")) || (name == "Postscript"))
+				name = QT_TR_NOOP("PostScript");
 			struct checkerPrefs checkerSettings;
 			checkerSettings.ignoreErrors = static_cast<bool>(dc.attribute("ignoreErrors", "0").toInt());
 			checkerSettings.autoCheck = static_cast<bool>(dc.attribute("autoCheck", "1").toInt());
