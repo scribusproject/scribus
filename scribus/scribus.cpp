@@ -3701,7 +3701,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		if (doc->checkerProfiles.count() == 0)
 		{
 			prefsManager->initDefaultCheckerPrefs(&doc->checkerProfiles);
-			doc->curCheckProfile = tr("PostScript");
+			doc->curCheckProfile = CommonStrings::PostScript;
 		}
 		if (doc->PDF_Options.LPISettings.count() == 0)
 		{

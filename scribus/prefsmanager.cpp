@@ -394,7 +394,7 @@ void PrefsManager::initDefaults()
 	appPrefs.paragraphsLI = 10;
 	appPrefs.showStartupDialog = true;
 	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
-	appPrefs.curCheckProfile = QT_TR_NOOP("PostScript");
+	appPrefs.curCheckProfile = CommonStrings::PostScript;
 	appPrefs.PDF_Options.Thumbnails = false;
 	appPrefs.PDF_Options.Articles = false;
 	appPrefs.PDF_Options.useLayers = false;
@@ -754,7 +754,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	if (appPrefs.checkerProfiles.count() == 0)
 	{
 		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
-		appPrefs.curCheckProfile = QT_TR_NOOP("PostScript");
+		appPrefs.curCheckProfile = CommonStrings::PostScript;
 	}
 }
 
@@ -1814,20 +1814,20 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.RecentDocs.append(dc.attribute("NAME"));
 		if (dc.tagName()=="Checker")
 		{
-			appPrefs.curCheckProfile = dc.attribute("currentProfile", tr("PostScript"));
+			appPrefs.curCheckProfile = dc.attribute("currentProfile", CommonStrings::PostScript);
 			//#2516 work around old values until people wont have them anymore, not that these
 			//translated strings should be going into prefs anyway!
 			if ((appPrefs.curCheckProfile == tr("PostScript")) || ((appPrefs.curCheckProfile == tr("Postscript")) || 
 				(appPrefs.curCheckProfile == "Postscript")))
 			{
-				appPrefs.curCheckProfile = QT_TR_NOOP("PostScript");
+				appPrefs.curCheckProfile = CommonStrings::PostScript;
 			}
 		}
 		if (dc.tagName()=="CheckProfile")
 		{
 			QString name=dc.attribute("Name");
 			if ((name == tr("PostScript")) ||  (name == tr("Postscript")) || (name == "Postscript"))
-				name = QT_TR_NOOP("PostScript");
+				name = CommonStrings::PostScript;
 			struct checkerPrefs checkerSettings;
 			checkerSettings.ignoreErrors = static_cast<bool>(dc.attribute("ignoreErrors", "0").toInt());
 			checkerSettings.autoCheck = static_cast<bool>(dc.attribute("autoCheck", "1").toInt());
@@ -2098,15 +2098,15 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.minResolution = 144.0;
 		checkerSettings.maxResolution = 2400.0;
 		//TODO Stop translating these into settings!!!!!!!!!
-		cp->insert( QT_TR_NOOP("PostScript"), checkerSettings);
-		cp->insert( QT_TR_NOOP("PDF 1.3"), checkerSettings);
+		cp->insert( CommonStrings::PostScript, checkerSettings);
+		cp->insert( CommonStrings::PDF_1_3   , checkerSettings);
 		checkerSettings.checkTransparency = false;
-		cp->insert( QT_TR_NOOP("PDF 1.4"), checkerSettings);
-		cp->insert( QT_TR_NOOP("PDF 1.5"), checkerSettings);
+		cp->insert( CommonStrings::PDF_1_4   , checkerSettings);
+		cp->insert( CommonStrings::PDF_1_5   , checkerSettings);
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = true;
 		checkerSettings.minResolution = 144.0;
-		cp->insert( QT_TR_NOOP("PDF/X-3"), checkerSettings);
+		cp->insert( CommonStrings::PDF_X3    , checkerSettings);
 	}
 }
 

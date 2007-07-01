@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "scraction.h"
 #include "menumanager.h"
+#include "commonstrings.h"
 
 int importps_getPluginAPIVersion()
 {
@@ -89,7 +90,7 @@ void ImportPSPlugin::deleteAboutData(const AboutData* about) const
 
 void ImportPSPlugin::registerFormats()
 {
-	QString psName = tr("PostScript");
+	QString psName = CommonStrings::trPostScript;
 	FileFormat fmt(this);
 	fmt.trName = psName; // Human readable name
 	fmt.formatId = FORMATID_PSIMPORT;
