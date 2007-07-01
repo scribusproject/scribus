@@ -52,6 +52,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefsmanager.h"
 
+#if defined(_WIN32)
+#include <windows.h>
+#include <shellapi.h>
+#endif
+
 /*! \brief XML parsef for documantation history.
 This is small helper class which reads saved bookmarks configuration
 from ~/.scribus/doc/history.xml file.
@@ -223,14 +228,9 @@ void HelpBrowser2::navigateOverride(const QUrl & link)
 {
 #if defined(_WIN32)
 	if (link.scheme()=="http")
-	if ( index >=0 )
 	{
 		QString url(link.authority());
-		QT_WA( {
-		ShellExecute( winId(), 0, (TCHAR*)url.ucs2(), 0, 0, SW_SHOWNORMAL );
-	    } , {
-		ShellExecuteA( winId(), 0, url.local8Bit(), 0, 0, SW_SHOWNORMAL );
-	    } );
+		ShellExecuteW( winId(), 0, (LPCWSTR)url.utf16(), 0, 0, SW_SHOWNORMAL );
 		return;
 	}
 #endif
