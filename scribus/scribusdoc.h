@@ -289,6 +289,7 @@ public:
 	void CloseCMSProfiles();
 	void SetDefaultCMSParams();
 	void SetGlobalCMSParams();
+	bool UseColorManagement();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 	/**
 	 * @brief Should guides be locked or not

@@ -80,6 +80,13 @@ QString CommonStrings::april="", CommonStrings::may="", CommonStrings::june="";
 QString CommonStrings::july="", CommonStrings::august="", CommonStrings::september="";
 QString CommonStrings::october="", CommonStrings::november="", CommonStrings::december="";
 
+QString CommonStrings::PostScript   = "";
+QString CommonStrings::trPostScript = "";
+QString CommonStrings::PDF_1_3      = "";
+QString CommonStrings::PDF_1_4      = "";
+QString CommonStrings::PDF_1_5      = "";
+QString CommonStrings::PDF_X3       = "";
+
 CommonStrings::CommonStrings()
 {
 	languageChange();
@@ -218,6 +225,13 @@ void CommonStrings::languageChange()
 	CommonStrings::october   = tr("October");
 	CommonStrings::november  = tr("November");
 	CommonStrings::december  = tr("December");
+
+	CommonStrings::PostScript   = "PostScript";
+	CommonStrings::trPostScript = tr("PostScript");
+	CommonStrings::PDF_1_3      = "PDF 1.3";
+	CommonStrings::PDF_1_4      = "PDF 1.4";
+	CommonStrings::PDF_1_5      = "PDF 1.5";
+	CommonStrings::PDF_X3       = "PDF/X-3";
 }
 
 const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )

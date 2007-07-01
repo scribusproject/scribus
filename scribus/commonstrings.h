@@ -154,6 +154,14 @@ public:
 	static QString october;
 	static QString november;
 	static QString december;
+
+	//PostScript or other PDL strings
+	static QString PostScript;
+	static QString trPostScript;
+	static QString PDF_1_3;
+	static QString PDF_1_4;
+	static QString PDF_1_5;
+	static QString PDF_X3;
 };
 
 #endif

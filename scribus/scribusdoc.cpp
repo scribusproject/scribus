@@ -494,6 +494,23 @@ void ScribusDoc::SetGlobalCMSParams()
 #endif
 }
 
+bool ScribusDoc::UseColorManagement()
+{
+#ifdef HAVE_CMS
+	if ( !DocInputProf || !DocOutputProf || !DocPrinterProf)
+		return false;
+	if ( !stdTransRGBDoc2CMYK || !stdTransCMYK2RGBDoc || !stdTransRGBDoc2Mon  || !stdTransCMYK2Mon )
+		return false;
+	if ( !stdProofRGB || !stdProofRGBGC || !stdProofCMYK || !stdProofCMYK || !stdProofCMYKGC )
+		return false;
+	if ( !stdTransImg || !stdProofImg )
+		return false;
+	return true;
+#else
+	return false;
+#endif
+}
+
 bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 {
 #ifdef HAVE_CMS

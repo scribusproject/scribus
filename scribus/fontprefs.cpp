@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -65,7 +66,7 @@ FontPrefs::FontPrefs( QWidget* parent,  SCFonts &flist, bool Hdoc, QString PPath
 			foS.FlagUse = false;
 			row->setPixmap(1, empty);
 		}
-		row->setText(2, tr("PostScript"));
+		row->setText(2, CommonStrings::trPostScript);
 		if (it.current()->EmbedPS)
 		{
 			foS.FlagPS = true;
@@ -394,7 +395,7 @@ void FontPrefs::RebuildDialog()
 			foS.FlagUse = false;
 			row->setPixmap(1, empty);
 		}
-		row->setText(2, tr("PostScript"));
+		row->setText(2, CommonStrings::trPostScript);
 		if (it.current()->EmbedPS)
 		{
 			foS.FlagPS = true;
