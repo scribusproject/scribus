@@ -110,7 +110,6 @@ protected:
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
 	ScHelpTreeModel* menuModel;
-	ScHelpTreeModel* bookmarkModel;
 	QMap<QString, QString> quickHelpIndex;
 
 protected slots:

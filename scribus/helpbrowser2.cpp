@@ -40,6 +40,8 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QModelIndex>
 #include <QModelIndexList>
+#include <QPainter>
+#include <QPrinter>
 #include <QProcess>
 #include <QPushButton>
 #include <QString>
@@ -49,6 +51,8 @@ for which a new license (GPL+exception) is in place.
 #include <QTreeView>
 #include <QXmlDefaultHandler>
 
+#include <Q3PaintDeviceMetrics>
+#include <Q3SimpleRichText>
 
 #include "prefsmanager.h"
 
@@ -301,6 +305,35 @@ void HelpBrowser2::navigateOverride(const QUrl & link)
 
 void HelpBrowser2::print()
 {
+	QPrinter printer;
+	printer.setFullPage(true);
+	if (!printer.setup(this))
+		return;
+
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	QPainter p(&printer);
+	Q3PaintDeviceMetrics metrics(p.device());
+	int dpix = metrics.logicalDpiX();
+	int dpiy = metrics.logicalDpiY();
+	const int margin = 72; // pt
+	QRect body(margin*dpix/72, margin*dpiy/72, metrics.width()-margin*dpix/72*2, metrics.height()-margin*dpiy/72*2);
+	QFont font("Helvetica");
+	Q3SimpleRichText richText( textBrowser->text(), font); //qt4, textBrowser->context(), textBrowser->styleSheet(), textBrowser->mimeSourceFactory(), body.height());
+	richText.setWidth( &p, body.width());
+	QRect view(body);
+	int page = 1;
+	do {
+		richText.draw(&p, body.left(), body.top(), view, colorGroup());
+		view.moveBy(0, body.height());
+		p.translate(0 , -body.height());
+		p.setFont(font);
+		p.drawText(view.right() - p.fontMetrics().width(QString::number(page)), view.bottom() + p.fontMetrics().ascent() + 5, QString::number(page));
+		if (view.top()  >= body.top() + richText.height())
+			break;
+		printer.newPage();
+		page++;
+	} while (true);
+	QApplication::restoreOverrideCursor();
 }
 
 void HelpBrowser2::searchingButton_clicked()
