@@ -613,13 +613,18 @@ void HelpBrowser2::itemSelected(const QItemSelection & selected, const QItemSele
 
 	QModelIndex index;
 	QModelIndexList items = selected.indexes();
-
-	foreach (index, items) {
-		QString filename(menuModel->data(index, Qt::DisplayRole).toString());
-		if (!filename.isEmpty())
+	int i=0;
+	foreach (index, items)
+	{
+		if (i==1) // skip 0, as this is always the rootitem, even if we are selecting the rootitem. hmm
 		{
-			loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
+			QString filename(menuModel->data(index, Qt::DisplayRole).toString());
+			if (!filename.isEmpty())
+			{
+				loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
+			}
 		}
+		++i;
 	}
 }
 
