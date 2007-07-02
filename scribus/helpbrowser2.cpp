@@ -105,6 +105,8 @@ class BookmarkParser2 : public QXmlDefaultHandler
 {
 	public:
 		QTreeWidget* view;
+		QMap<QString, QString>* quickHelpIndex;
+		QMap<QString, QPair<QString, QString> >* bookmarkIndex;
 
 		bool startDocument()
 		{
@@ -114,7 +116,13 @@ class BookmarkParser2 : public QXmlDefaultHandler
 		bool startElement(const QString&, const QString&, const QString& qName, const QXmlAttributes& attrs)
 		{
 			if (qName == "item")
-				view->addTopLevelItem(new QTreeWidgetItem(view, QStringList() << attrs.value(0)));
+			{
+				if (quickHelpIndex->contains(attrs.value(1)))
+				{
+					bookmarkIndex->insert(attrs.value(0), qMakePair(attrs.value(1), attrs.value(2)));
+					view->addTopLevelItem(new QTreeWidgetItem(view, QStringList() << attrs.value(0)));
+				}
+			}
 			return true;
 		}
 
@@ -165,10 +173,11 @@ void HelpBrowser2::closeEvent(QCloseEvent * event)
 		QTreeWidgetItemIterator it(bookmarksView);
 		while (*it) 
 		{
-			if (quickHelpIndex.contains((*it)->text(0)))
+			if (bookmarkIndex.contains((*it)->text(0)))
 			{
-				QString filename(quickHelpIndex.value((*it)->text(0)));
-				stream << "\t<item title=\"" << (*it)->text(0) << "\" url=\"" << filename << "\" />\n";
+				QString pagetitle(bookmarkIndex.value((*it)->text(0)).first);
+				QString filename(bookmarkIndex.value((*it)->text(0)).second);
+				stream << "\t<item title=\"" << (*it)->text(0) << "\" pagetitle=\"" << pagetitle << "\" url=\"" << filename << "\" />\n";
 			}
 			++it;
 		}
@@ -414,27 +423,34 @@ void HelpBrowser2::bookmarkButton_clicked()
 {
 	QString title = textBrowser->documentTitle();
 	QString fname(QDir::cleanDirPath(textBrowser->source()));
-// 	title = QInputDialog::getText( tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0, this);
+ 	title = QInputDialog::getText( tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0, this);
 	// user cancel
-// 	if (title.isNull())
-// 		return;
+ 	if (title.isNull())
+ 		return;
 	QString toFind(fname.remove(QDir::convertSeparators(ScPaths::instance().docDir()+language + "/")));
 	QMapIterator<QString, QString> i(quickHelpIndex);
 	while (i.hasNext()) 
 	{
 		i.next();
 		if (i.value()==toFind)
-			bookmarksView->addTopLevelItem(new QTreeWidgetItem(bookmarksView, QStringList() << i.key()));
+		{
+			bookmarkIndex.insert(title, qMakePair(i.key(), i.value()));
+			bookmarksView->addTopLevelItem(new QTreeWidgetItem(bookmarksView, QStringList() << title));
+		}
 	}
 }
 
 void HelpBrowser2::deleteBookmarkButton_clicked()
 {
-	delete bookmarksView->currentItem();
+	QTreeWidgetItem *twi=bookmarksView->currentItem();
+	if (bookmarkIndex.contains(twi->text(0)))
+		bookmarkIndex.remove(twi->text(0));
+	delete twi;
 }
 
 void HelpBrowser2::deleteAllBookmarkButton_clicked()
 {
+	bookmarkIndex.clear();
  	bookmarksView->clear();
 }
 
@@ -566,6 +582,8 @@ void HelpBrowser2::readBookmarks()
 {
 	BookmarkParser2 handler;
 	handler.view = bookmarksView;
+	handler.quickHelpIndex=&quickHelpIndex;
+	handler.bookmarkIndex=&bookmarkIndex;
 	QFile xmlFile(bookmarkFile());
 	QXmlInputSource source(xmlFile);
 	QXmlSimpleReader reader;
@@ -627,9 +645,9 @@ void HelpBrowser2::itemBookmarkSelected(QTreeWidgetItem *twi, int i)
 	Q_UNUSED(i);
 	if (!twi)
 		return;
-	if (quickHelpIndex.contains(twi->text(0)))
+	if (bookmarkIndex.contains(twi->text(0)))
 	{
-		QString filename(quickHelpIndex.value(twi->text(0)));
+		QString filename(bookmarkIndex.value(twi->text(0)).second);
 		if (!filename.isEmpty())
 			loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
 	}

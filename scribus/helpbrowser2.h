@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMainWindow>
 #include <QMenu>
 #include <QMenuBar>
+#include <QPair>
 #include <QString>
 #include <QToolBar>
 #include <QUrl>
@@ -111,6 +112,7 @@ protected:
 	PrefsContext* prefs;
 	ScHelpTreeModel* menuModel;
 	QMap<QString, QString> quickHelpIndex;
+	QMap<QString, QPair<QString, QString> > bookmarkIndex;
 
 protected slots:
 	virtual void languageChange();
