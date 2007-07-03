@@ -108,6 +108,7 @@ protected:
 	QString language;
 	/*! \brief Text to be found in document */
 	QString findText;
+	QString noHelpMsg;
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
 	ScHelpTreeModel* menuModel;

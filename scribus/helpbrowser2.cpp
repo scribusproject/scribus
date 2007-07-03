@@ -55,6 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include <Q3SimpleRichText>
 
 #include "prefsmanager.h"
+#include "util.h"
 
 #if defined(_WIN32)
 #include <windows.h>
@@ -145,6 +146,7 @@ HelpBrowser2::HelpBrowser2( QWidget* parent, const QString& /*caption*/, const Q
 	setupLocalUI();
 
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
+	languageChange();
 	menuModel=NULL;
 	loadMenu();
 	readBookmarks();
@@ -206,6 +208,7 @@ void HelpBrowser2::closeEvent(QCloseEvent * event)
 
 void HelpBrowser2::setupLocalUI()
 {
+	setIcon(loadIcon("AppIcon.png"));
 	//Add Menus
 	fileMenu=menuBar()->addMenu(tr("&File"));
 	editMenu=menuBar()->addMenu(tr("&Edit"));
@@ -262,6 +265,7 @@ void HelpBrowser2::setupLocalUI()
 void HelpBrowser2::languageChange()
 {
 	setCaption( tr( "Scribus Online Help" ) );
+	noHelpMsg=tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.");
 // 	listView->clear();
 
 }
@@ -318,31 +322,7 @@ void HelpBrowser2::print()
 	printer.setFullPage(true);
 	if (!printer.setup(this))
 		return;
-
-	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	QPainter p(&printer);
-	Q3PaintDeviceMetrics metrics(p.device());
-	int dpix = metrics.logicalDpiX();
-	int dpiy = metrics.logicalDpiY();
-	const int margin = 72; // pt
-	QRect body(margin*dpix/72, margin*dpiy/72, metrics.width()-margin*dpix/72*2, metrics.height()-margin*dpiy/72*2);
-	QFont font("Helvetica");
-	Q3SimpleRichText richText( textBrowser->text(), font); //qt4, textBrowser->context(), textBrowser->styleSheet(), textBrowser->mimeSourceFactory(), body.height());
-	richText.setWidth( &p, body.width());
-	QRect view(body);
-	int page = 1;
-	do {
-		richText.draw(&p, body.left(), body.top(), view, colorGroup());
-		view.moveBy(0, body.height());
-		p.translate(0 , -body.height());
-		p.setFont(font);
-		p.drawText(view.right() - p.fontMetrics().width(QString::number(page)), view.bottom() + p.fontMetrics().ascent() + 5, QString::number(page));
-		if (view.top()  >= body.top() + richText.height())
-			break;
-		printer.newPage();
-		page++;
-	} while (true);
-	QApplication::restoreOverrideCursor();
+ 	textBrowser->print(&printer);
 }
 
 void HelpBrowser2::searchingButton_clicked()
@@ -500,7 +480,7 @@ void HelpBrowser2::jumpToHelpSection(const QString& jumpToSection, const QString
 	if (!noDocs)
 		loadHelp(toLoad);
 	else
-		textBrowser->setText("<h2>"+ tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.")+"</h2>");
+		textBrowser->setText("<h2>"+ noHelpMsg +"</h2>");
 }
 
 void HelpBrowser2::loadHelp(const QString& filename)
@@ -521,7 +501,7 @@ void HelpBrowser2::loadHelp(const QString& filename)
 			fi = QFileInfo(toLoad);
 			if (!fi.exists())
 			{
-				textBrowser->setText("<h2>"+ tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.")+"</h2>");
+				textBrowser->setText("<h2>"+ noHelpMsg +"</h2>");
 				Avail = false;
 			}
 		}
