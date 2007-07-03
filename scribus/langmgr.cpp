@@ -79,7 +79,9 @@ void LanguageManager::generateLangList()
 	langList.insert("id",       langPair("Indonesian",          QObject::tr( "Indonesian" )) );
 	langList.insert("it",       langPair("Italian",             QObject::tr( "Italian" )) );
 	langList.insert("ja",       langPair("Japanese",            QObject::tr( "Japanese" )) );
+	langList.insert("km",       langPair("Khmer",               QObject::tr( "Khmer" )) );
 	langList.insert("ko",       langPair("Korean",              QObject::tr( "Korean" )) );
+	langList.insert("lo",       langPair("Lao",                 QObject::tr( "Lao" )) );
 	langList.insert("la",       langPair("Latin",               QObject::tr( "Latin" )) );
 	langList.insert("lt",       langPair("Lithuanian",          QObject::tr( "Lithuanian" )) );
 	langList.insert("lt_LT",    langPair("Lithuanian",          QObject::tr( "Lithuanian" )) );
@@ -110,6 +112,7 @@ void LanguageManager::generateLangList()
 	langList.insert("tr",       langPair("Turkish",             QObject::tr( "Turkish" )) );
 	langList.insert("tr_TR",    langPair("Turkish",             QObject::tr( "Turkish" )) );
 	langList.insert("uk",       langPair("Ukranian",            QObject::tr( "Ukranian" )) );
+	langList.insert("vi",       langPair("Vietnamese",          QObject::tr( "Vietnamese" )) );
 	langList.insert("cy",       langPair("Welsh",               QObject::tr( "Welsh" )) );
 }
 
