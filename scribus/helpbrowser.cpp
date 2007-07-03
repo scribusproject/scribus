@@ -46,7 +46,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QString>
 #include <QStandardItem>
-#include <QTextBrowser>
 #include <QTextEdit>
 #include <QTreeView>
 #include <QXmlDefaultHandler>
@@ -255,11 +254,6 @@ void HelpBrowser::setupLocalUI()
 	connect(deleteBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteBookmarkButton_clicked()));
 	connect(deleteAllBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteAllBookmarkButton_clicked()));
 	connect(bookmarksView, SIGNAL(itemClicked( QTreeWidgetItem *, int)), this, SLOT(itemBookmarkSelected(QTreeWidgetItem *, int)));
-
-	//textbrowser connections
-	connect(textBrowser, SIGNAL(highlighted(const QString &)), this, SLOT(hoverMouse(const QString &)));
-	connect(textBrowser, SIGNAL(anchorClicked(const QUrl &)), this, SLOT(navigateOverride(const QUrl &)));
-	textBrowser->setOpenLinks(false);
 }
 
 void HelpBrowser::languageChange()
@@ -267,53 +261,6 @@ void HelpBrowser::languageChange()
 	setCaption( tr( "Scribus Online Help" ) );
 	noHelpMsg=tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.");
 // 	listView->clear();
-
-}
-
-void HelpBrowser::hoverMouse(const QString &link)
-{
-	if (link.isEmpty())
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	else
-		qApp->changeOverrideCursor(QCursor(Qt::PointingHandCursor));
-}
-
-void HelpBrowser::navigateOverride(const QUrl & link)
-{
-#if defined(_WIN32)
-	if (link.scheme()=="http")
-	{
-		QString url(link.authority());
-		ShellExecuteW( winId(), 0, (LPCWSTR)url.utf16(), 0, 0, SW_SHOWNORMAL );
-		return;
-	}
-#endif
-#if !defined(QT_OS_MAC) && !defined(_WIN32)
-	if (link.scheme()=="http")
-	{
-		QString extBrowser(PrefsManager::instance()->extBrowserExecutable());
-		QFileInfo fi(extBrowser);
-		if (extBrowser.isEmpty() || !fi.exists())
-		{
-			extBrowser = QFileDialog::getOpenFileName(QString::null, QString::null, this, "changeExtBrowser", tr("Locate your web browser"));
-			if (!QFileInfo(extBrowser).exists())
-				extBrowser="";
-			PrefsManager::instance()->setExtBrowserExecutable(extBrowser);
-		}		
-		if (!extBrowser.isEmpty())
-		{
-			QStringList args;
-			args << link;
-			QProcess webProc;
-			if (!webProc.startDetached(extBrowser, args))
-				QMessageBox::critical(this, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok, QMessageBox::NoButton);
-		}
-	}
-	else
-		textBrowser->setSource(link);
-#else
-	textBrowser->setSource(link);
-#endif
 }
 
 void HelpBrowser::print()

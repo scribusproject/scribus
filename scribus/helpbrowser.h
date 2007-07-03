@@ -133,12 +133,6 @@ protected slots:
 	/*! \brief Load doc file when user select filename in bookmark view. */
 	void itemBookmarkSelected(QTreeWidgetItem *, int);
 
-	/*! \brief Show the hover mouse pointer in the textBrowser*/
-	void hoverMouse(const QString &link);
-
-	/*! \brief Show the hover mouse pointer in the textBrowser*/
-	void navigateOverride(const QUrl & link);
-
 	/*! \brief Performs searching in documentation.
 	It walks through installed documentation and searching in all text files
 	\author Petr Vanek <petr@yarpen.cz> */

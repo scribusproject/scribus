@@ -116,7 +116,7 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QTextBrowser" name="textBrowser" />
+      <widget class="ScTextBrowser" name="textBrowser" />
      </widget>
     </item>
    </layout>
