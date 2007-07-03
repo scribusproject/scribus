@@ -53,6 +53,7 @@ class SCRIBUS_API gtParagraphStyle : public gtStyle
 private:
 	void init();
 protected:
+	bool   defaultStyle;
 	double lineSpacing;
 	int    alignment;
 	double indent;
@@ -66,6 +67,8 @@ protected:
 	bool autoLineSpacing;
 	bool isVisible;
 public:
+	bool   isDefaultStyle();
+	void   setDefaultStyle(bool defStyle);
 	double getLineSpacing();
 	void   setLineSpacing(double newLineSpacing);
 	bool   getAutoLineSpacing();
