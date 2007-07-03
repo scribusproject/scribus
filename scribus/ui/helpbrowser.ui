@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>HelpBrowser2</class>
- <widget class="QMainWindow" name="HelpBrowser2" >
+ <class>HelpBrowser</class>
+ <widget class="QMainWindow" name="HelpBrowser" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -64,7 +64,13 @@
           </layout>
          </item>
          <item>
-          <widget class="QTreeWidget" name="searchingView" />
+          <widget class="QTreeWidget" name="searchingView" >
+           <column>
+            <property name="text" >
+             <string>1</string>
+            </property>
+           </column>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -74,7 +80,13 @@
         </attribute>
         <layout class="QVBoxLayout" >
          <item>
-          <widget class="QTreeWidget" name="bookmarksView" />
+          <widget class="QTreeWidget" name="bookmarksView" >
+           <column>
+            <property name="text" >
+             <string>1</string>
+            </property>
+           </column>
+          </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" >

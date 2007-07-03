@@ -80,9 +80,9 @@ class CheckDocument;
 
 class FontCombo;
 class GuideManager;
+class HelpBrowser;
 class CharSelect;
 class ColorCombo;
-class HelpBrowser2;
 class LayerPalette;
 // class LineFormate;
 class Mpalette;
@@ -357,8 +357,7 @@ public slots:
 	void slotHelpAboutPlugins();
     void slotHelpAboutQt();
 	void slotOnlineHelp();
-	void slotOnlineHelp2();
-	void slotOnlineHelp2Closed();
+	void slotOnlineHelpClosed();
 	void ToggleTips();
 	/** \brief Erzeugt eine neue Seite */
 	void slotNewPageP(int wo, QString templ);
@@ -646,7 +645,7 @@ private:
 	PrefsManager *prefsManager;
 	QString currentFontForFontMenu;
 
-	HelpBrowser2* helpBrowser;
+	HelpBrowser* helpBrowser;
 };
 
 #endif

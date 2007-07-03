@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
-class TextBrowser; // taken from helpbrowser.h
+class ScTextBrowser;
 class QLabel;
 class QWidget;
 class QTabWidget;
@@ -39,10 +39,10 @@ protected:
 	QWidget* tab_3;
 	QWidget* tab_4;
 	QWidget* tab_5;
-	TextBrowser* textView1;
-	TextBrowser* textView2;
-	TextBrowser* textView4;
-	TextBrowser* textView5;
+	ScTextBrowser* textView1;
+	ScTextBrowser* textView2;
+	ScTextBrowser* textView4;
+	ScTextBrowser* textView5;
 	QVBoxLayout* aboutLayout;
 	QVBoxLayout* updateLayout;
 	QHBoxLayout* tabLayout;

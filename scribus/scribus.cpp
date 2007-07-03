@@ -94,7 +94,6 @@ for which a new license (GPL+exception) is in place.
 #include "delpages.h"
 #include "movepage.h"
 #include "helpbrowser.h"
-#include "helpbrowser2.h"
 #include "scribusXml.h"
 #include "about.h"
 #include "aboutplugins.h"
@@ -5256,18 +5255,12 @@ void ScribusMainWindow::slotHelpAboutQt()
 
 void ScribusMainWindow::slotOnlineHelp()
 {
-	HelpBrowser *dia = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage());
-	dia->show();
-}
-
-void ScribusMainWindow::slotOnlineHelp2()
-{
-	helpBrowser = new HelpBrowser2(0, tr("Scribus Manual 2"), ScCore->getGuiLanguage());
-	connect(helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelp2Closed()));
+	helpBrowser = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage());
+	connect(helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelpClosed()));
 	helpBrowser->show();
 }
 
-void ScribusMainWindow::slotOnlineHelp2Closed()
+void ScribusMainWindow::slotOnlineHelpClosed()
 {
 	delete helpBrowser;
 }

@@ -5,18 +5,19 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <qdir.h>
+#include <QDir>
 #include <qdom.h>
 #include <QTextStream>
 #include <QWidget>
 #include <iostream>
 #include <cstdlib>
 
-#include "helpbrowser.h"
-#include "scpaths.h"
-#include "upgradechecker.h"
 #include "prefsmanager.h"
+#include "scpaths.h"
 #include "scribuscore.h"
+#include "sctextbrowser.h"
+#include "upgradechecker.h"
+
 
 #ifdef _WIN32
 #include <windows.h>
@@ -258,9 +259,9 @@ void UpgradeChecker::outputText(QString text)
 	qDebug("%s", outText.local8Bit().data());
 }
 
-UpgradeCheckerGUI::UpgradeCheckerGUI(QWidget *widget)
- : UpgradeChecker(),
- outputWidget(widget)
+UpgradeCheckerGUI::UpgradeCheckerGUI(ScTextBrowser *tb) :
+	UpgradeChecker(),
+	outputWidget(tb)
 {
 	writeToConsole=false;
 }
@@ -271,7 +272,7 @@ UpgradeCheckerGUI::~UpgradeCheckerGUI()
 
 void UpgradeCheckerGUI::outputText(QString text)
 {
-	TextBrowser* w=dynamic_cast<TextBrowser*>(outputWidget);
+	ScTextBrowser* w=outputWidget;
 	if (w)
 	{
 		QString wText(w->text());

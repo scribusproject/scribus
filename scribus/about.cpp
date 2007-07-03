@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "scconfig.h"
+#include "sctextbrowser.h"
 
 #ifdef HAVE_CAIRO
 #include <cairo.h>
@@ -29,7 +30,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "gsutil.h"
 #include "util.h"
-#include "helpbrowser.h" // due the TextBrowser (for html browsing)
 #include "upgradechecker.h"
 #include "langmgr.h"
 
@@ -142,7 +142,7 @@ About::About( QWidget* parent ) : QDialog( parent )
 	tabLayout = new QHBoxLayout( tab_2 );
 	tabLayout->setSpacing( 6 );
 	tabLayout->setMargin( 10 );
-	textView1 = new TextBrowser( tab_2, "TextView1" );
+	textView1 = new ScTextBrowser( tab_2 );
 	textView1->setText(QString::fromUtf8("<table><tr><td><b>" + tr("Development Team:").utf8() + "</b></td><td> </td></tr>" +
 											"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
 											"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" +
@@ -213,7 +213,7 @@ About::About( QWidget* parent ) : QDialog( parent )
 	tabLayout_2 = new QHBoxLayout( tab_3 );
 	tabLayout_2->setSpacing( 6 );
 	tabLayout_2->setMargin( 10 );
-	textView2 = new TextBrowser( tab_3, "TextView1_2" );
+	textView2 = new ScTextBrowser( tab_3);
 	LanguageManager langmgr;
 	langmgr.init(false);
 	textView2->setText(QString::fromUtf8( "<table><tr><td><b><i>" + tr("Official Translations and Translators:").utf8() + "</i></b></td><td></td></tr>" +
@@ -388,7 +388,7 @@ About::About( QWidget* parent ) : QDialog( parent )
 
 	// online tab (03/04/2004 petr vanek)
 	tab_4 = new QWidget( tabWidget2, "tab_4" );
-	textView4 = new TextBrowser( tab_4, "TextView4" );
+	textView4 = new ScTextBrowser( tab_4 );
 	textView4->setText(QString::fromUtf8(
 		"<table><tr><td><b>" + tr("Homepage").utf8() + "</b></td><td></td></tr>" +
 		"<tr><td colspan=\"2\"><p><a href=\"http://www.scribus.net\">http://www.scribus.net</a></p></td></tr>" +
@@ -413,7 +413,7 @@ About::About( QWidget* parent ) : QDialog( parent )
 	updateLayout->setSpacing( 6 );
 	updateLayout->setMargin( 10 );
 	checkForUpdateButton = new QPushButton( tr( "Check for &Updates" ), tab_5, "checkForUpdateButton" );
-	textView5 = new TextBrowser( tab_5, "TextView5" );
+	textView5 = new ScTextBrowser( tab_5);
 	updateLayout->addWidget( checkForUpdateButton );
 	updateLayout->addWidget( textView5 );
 
