@@ -68,7 +68,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	{
 		if (!defaultStyleCreated)
 		{
-			currentStyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+			gtParagraphStyle* pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+			pstyle->setDefaultStyle(true);
+			currentStyle = dynamic_cast<gtStyle*>(pstyle);
 			currentStyle->setName("default-style");
 			defaultStyleCreated = true;
 		}
@@ -219,7 +221,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		if (attrs.localName(i) == "style:family")
  			if (attrs.value(i) == "paragraph")
  			{
- 				currentStyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+				gtParagraphStyle* pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
+				pstyle->setDefaultStyle(true);
+				currentStyle = dynamic_cast<gtStyle*>(pstyle);
 				currentStyle->setName("default-style");
  				readProperties = true;
 				defaultStyleCreated = true;
@@ -498,6 +502,22 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
 #endif
  	xmlSAXParseFile(sSAXHandler, fn.data(), 1);
  }
+
+ gtStyle* StyleReader::getDefaultStyle(void)
+ {
+	 gtStyle* defStyle = writer->getDefaultStyle();
+	 StyleMap::Iterator it, itEnd = styles.end();
+	 for (it = styles.begin(); it != itEnd; ++it)
+	 {
+		 gtParagraphStyle *pStyle = dynamic_cast<gtParagraphStyle*> (it.data());
+		 if (pStyle && pStyle->isDefaultStyle())
+		 {
+			 defStyle = pStyle;
+			 break;
+		 }
+	 }
+	 return defStyle;
+ }
  
  gtStyle* StyleReader::getStyle(const QString& name)
  {
@@ -511,8 +531,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		return tmp;
  	}
  	else
-		return styles["default-style"];
-
+		return getDefaultStyle();
  }
  
  void StyleReader::setStyle(const QString& name, gtStyle* style)

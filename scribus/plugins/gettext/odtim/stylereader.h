@@ -156,6 +156,7 @@ public:
 	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
 	bool endElement(const QString&, const QString&, const QString &name);
 	void parse(QString fileName);
+	gtStyle* getDefaultStyle(void);
 	gtStyle* getStyle(const QString& name);
 	void setStyle(const QString& name, gtStyle* style);
 	QString getFont(const QString& key);

@@ -34,6 +34,7 @@ gtParagraphStyle::gtParagraphStyle(QString name) : gtStyle(name)
 
 gtParagraphStyle::gtParagraphStyle(const gtParagraphStyle& p) : gtStyle(p)
 {
+	defaultStyle    = false;
 	lineSpacing     = p.lineSpacing;
 	alignment       = p.alignment;
 	indent          = p.indent;
@@ -54,6 +55,7 @@ gtParagraphStyle::gtParagraphStyle(const gtStyle& s) : gtStyle(s)
 
 void gtParagraphStyle::init()
 {
+	defaultStyle    = false;
 	lineSpacing     = 15;
 	alignment       = LEFT;
 	indent          = 0;
@@ -70,6 +72,16 @@ void gtParagraphStyle::init()
 QString gtParagraphStyle::target()
 {
 	return QString("paragraph");
+}
+
+bool gtParagraphStyle::isDefaultStyle()
+{
+	return defaultStyle;
+}
+
+void gtParagraphStyle::setDefaultStyle(bool defStyle)
+{
+	defaultStyle = defStyle;
 }
 
 double gtParagraphStyle::getLineSpacing()
