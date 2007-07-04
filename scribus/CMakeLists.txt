@@ -292,6 +292,7 @@ SET(SCRIBUS_SOURCES
   fontcombo.cpp
   fontprefs.cpp
   fontreplacedialog.cpp
+  formatutils.cpp
   fparser.cpp
   fpointarray.cpp
   fpoint.cpp

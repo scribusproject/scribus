@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmsettings.h"
 #include "colorutil.h"
+#include "formatutils.h"
 #include "sccombobox.h"
 #include "scribusstructs.h"
 #include "scimage.h"
@@ -190,7 +191,7 @@ void FDialogPreview::GenPreview(QString name)
 			p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
 			p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
 			QString cSpace;
-			if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (im.imgInfo.type != 7))
+			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPS(ext)) && (im.imgInfo.type != 7))
 				cSpace = tr("Unknown");
 			else
 				cSpace=colorSpaceText(im.imgInfo.colorspace);
