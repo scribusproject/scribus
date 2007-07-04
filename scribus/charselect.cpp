@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "fonts/scfontmetrics.h"
 #include "util.h"
 #include "scpaths.h"
+#include "chartableview.h"
 
 #include "charselect.h"
 

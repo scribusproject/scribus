@@ -8,20 +8,21 @@ for which a new license (GPL+exception) is in place.
 #define CHARSELECT_H
 
 #include "scribusapi.h"
-#include "chartable.h"
 #include "scrpalettebase.h"
+#include "chartablemodel.h"
 
 class QLabel;
 class QPushbutton;
 class QComboBox;
 class QGroupBox;
 class QCheckBox;
+class QTableView;
 
 class FontCombo;
 class PageItem;
 class UnicodeChooseButton;
-class CharTableModel;
-class QTableView;
+class ScribusDoc;
+class CharTableView;
 
 
 /*! \brief Character Palette for direct chars inserting. */

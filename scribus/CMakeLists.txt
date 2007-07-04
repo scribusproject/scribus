@@ -71,7 +71,8 @@ SET(SCRIBUS_MOC_CLASSES
   bookpalette.h
   buttonicon.h
   charselect.h
-  chartable.h
+  chartablemodel.h
+  chartableview.h
   charzoom.h
   checkDocument.h
   cmsprefs.h
@@ -248,7 +249,8 @@ SET(SCRIBUS_SOURCES
   bookpalette.cpp
   buttonicon.cpp
   charselect.cpp
-  chartable.cpp
+  chartablemodel.cpp
+  chartableview.cpp
   charzoom.cpp
   checkDocument.cpp
   cmserrorhandling.cpp
