@@ -22,78 +22,88 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "customfdialog.h"
-#include <qpixmap.h>
-#include <qpainter.h>
-#include <qfileinfo.h>
-#include <qdir.h>
-#include <qdom.h>
-#include <qtextcodec.h>
+#include <QFileInfo>
+#include <QDomDocument>
+#include <QTextCodec>
 #include <QImageReader>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QFrame>
+#include <QPushButton>
+#include <QPainter>
+#include <QDir>
+#include <QPixmap>
+#include <QPushButton>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include <QFrame>
 #include <QLabel>
+#include <QFileDialog>
+#include <QIcon>
 
 #include "cmsettings.h"
 #include "sccombobox.h"
 #include "scribusstructs.h"
 #include "scimage.h"
 #include "util.h"
+#include "commonstrings.h"
 
 extern QString DocDir;
 
-ImIconProvider::ImIconProvider(QWidget *pa) : Q3FileIconProvider(pa)
+ImIconProvider::ImIconProvider() : QFileIconProvider()
 {
 	fmts.clear();
 	QString tmp[] = {"eps", "epsi", "gif", "png", "jpg", "jpeg", "xpm", "tif", "tiff", "bmp", "pbm", "pgm", "ppm", "xbm", "xpm", "psd", "pat"};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	for (uint a = 0; a < array; ++a)
-		fmts += tmp[a];
-	imagepm = loadIcon("16/image-x-generic.png");
-	pspm = loadIcon("postscript.png");
-	txtpm = loadIcon("txt.png");
-	docpm = loadIcon("doc.png");
-	pdfpm = loadIcon("pdf.png");
-	oosxdpm = loadIcon("ooo_draw.png");
-	oosxwpm = loadIcon("ooo_writer.png");
-	vectorpm = loadIcon("vectorgfx.png");
+		fmts.append(tmp[a]);
+	imagepm = QIcon(loadIcon("16/image-x-generic.png"));
+	pspm = QIcon(loadIcon("postscript.png"));
+	txtpm = QIcon(loadIcon("txt.png"));
+	docpm = QIcon(loadIcon("doc.png"));
+	pdfpm = QIcon(loadIcon("pdf.png"));
+	oosxdpm = QIcon(loadIcon("ooo_draw.png"));
+	oosxwpm = QIcon(loadIcon("ooo_writer.png"));
+	vectorpm = QIcon(loadIcon("vectorgfx.png"));
 }
 
-const QPixmap * ImIconProvider::pixmap(const QFileInfo &fi)
+QIcon ImIconProvider::icon(const QFileInfo &fi) const
 {
-	QString ext = fi.extension(false).lower();
-	if (fmts.contains(ext))
-		return &imagepm;
+	QString ext = fi.suffix().toLower();
+	if (ext.isEmpty())
+		return QFileIconProvider::icon(fi);
+	if (fmts.contains(ext, Qt::CaseInsensitive))
+		return imagepm;
 	else
 	{
-		ext = fi.extension(true).lower();
-		if (ext.endsWith("ps"))
-			return &pspm;
-		if (ext.endsWith("txt"))
-			return &txtpm;
-		if (ext.endsWith("scd") || ext.endsWith("scd.gz"))
-			return &docpm;
-		if (ext.endsWith("sla") || ext.endsWith("sla.gz"))
-			return &docpm;
-		if (ext.endsWith("pdf"))
-			return &pdfpm;
-		if (ext.endsWith("sxd"))
-			return &oosxdpm;
-		if (ext.endsWith("sxw"))
-			return &oosxwpm;
-		if (ext.endsWith("svg") || ext.endsWith("svgz"))
-			return &vectorpm;
-		return Q3FileIconProvider::pixmap(fi);
+		ext = fi.completeSuffix().toLower();
+		if (ext.endsWith("ps", Qt::CaseInsensitive))
+			return pspm;
+		else if (ext.endsWith("txt", Qt::CaseInsensitive))
+			return txtpm;
+		else if (ext.endsWith("scd", Qt::CaseInsensitive) || ext.endsWith("scd.gz", Qt::CaseInsensitive))
+			return docpm;
+		else if (ext.endsWith("sla", Qt::CaseInsensitive) || ext.endsWith("sla.gz", Qt::CaseInsensitive))
+			return docpm;
+		else if (ext.endsWith("pdf", Qt::CaseInsensitive))
+			return pdfpm;
+		else if (ext.endsWith("sxd", Qt::CaseInsensitive))
+			return oosxdpm;
+		else if (ext.endsWith("sxw", Qt::CaseInsensitive))
+			return oosxwpm;
+		else if (ext.endsWith("svg", Qt::CaseInsensitive) || ext.endsWith("svgz", Qt::CaseInsensitive))
+			return vectorpm;
+		else
+			return QFileIconProvider::icon(fi);
 	}
+	return QIcon();
 }
 
 FDialogPreview::FDialogPreview(QWidget *pa) : QLabel(pa)
 {
 	setAlignment(Qt::AlignLeft | Qt::AlignTop);
-	setMinimumSize( QSize( 100, 100 ) );
-	setMaximumSize( QSize( 300, 300 ) );
+	setFixedSize( QSize( 200, 200 ) );
 	setScaledContents( false );
-	setEraseColor( Qt::white );
 	setFrameShape( QLabel::WinPanel );
 	setFrameShadow( QLabel::Sunken );
 	updtPix();
@@ -237,84 +247,124 @@ void FDialogPreview::GenPreview(QString name)
 	}
 }
 
-void FDialogPreview::previewUrl( const Q3Url &url )
-{
-	if (url.isLocalFile())
-	{
-		QFileInfo finfo(url.path());
-		if (filePath != finfo.filePath())
-		{
-			filePath = finfo.filePath();
-			GenPreview(url.path());
-		}
-	}
-}
-
 CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QString filter, int flags)
-			: Q3FileDialog(QString::null, filter, parent, 0, true), optionFlags(flags)
+			: QDialog(parent), optionFlags(flags)
 {
- 	setIcon(loadIcon("AppIcon.png"));
- 	setCaption(caption);
-	cDir = QDir(wDir);
-	setDir(cDir);
-	setIconProvider(new ImIconProvider(this));
-	FDialogPreview *pw;
+	setModal(true);
+	setWindowTitle(caption);
+	setWindowIcon(QIcon(loadIcon("AppIcon.png")));
+	vboxLayout = new QVBoxLayout(this);
+	vboxLayout->setSpacing(5);
+	vboxLayout->setMargin(10);
+    hboxLayout = new QHBoxLayout;
+	hboxLayout->setSpacing(5);
+	hboxLayout->setMargin(0);
+	fileDialog = new QFileDialog(this);
+	fileDialog->setSizeGripEnabled(false);
+	fileDialog->setModal(false);
+	fileDialog->setWindowFlags(Qt::Widget);
+	QList<QObject*> l = fileDialog->queryList("QPushButton");
+	QListIterator<QObject*> it(l);
+	QObject *obj;
+	while (it.hasNext())
+	{
+		obj = it.next();
+		((QPushButton*)obj)->setVisible(false);
+	}
+	fileDialog->setMinimumSize(QSize(480, 310));
+	fileDialog->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+	hboxLayout->addWidget(fileDialog);
+	fileDialog->setIconProvider(new ImIconProvider());
+	fileDialog->setViewMode(QFileDialog::List);
+	fileDialog->setFilter(filter);
+	fileDialog->selectFilter(filter);
+	fileDialog->setDirectory(wDir);
+	vboxLayout1 = new QVBoxLayout;
+	vboxLayout1->setSpacing(0);
+	vboxLayout1->setMargin(0);
+	vboxLayout1->setContentsMargins(0, 37, 0, 0);
+	vboxLayout1->setAlignment( Qt::AlignTop );
+	pw = new FDialogPreview( this );
+	pw->setMinimumSize(QSize(200, 200));
+	pw->setMaximumSize(QSize(200, 200));
+	vboxLayout1->addWidget(pw);
+	hboxLayout->addLayout(vboxLayout1);
+	vboxLayout->addLayout(hboxLayout);
+    QHBoxLayout *hboxLayout1 = new QHBoxLayout;
+	hboxLayout1->setSpacing(5);
+	hboxLayout1->setContentsMargins(9, 0, 0, 0);
+	showPreview = new QCheckBox(this);
+	showPreview->setText( tr("Show Preview"));
+	showPreview->setChecked(true);
+	previewIsShown = true;
+	hboxLayout1->addWidget(showPreview);
+	QSpacerItem *spacerItem = new QSpacerItem(2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	hboxLayout1->addItem(spacerItem);
+	OKButton = new QPushButton( CommonStrings::tr_OK, this);
+	OKButton->setDefault( true );
+	hboxLayout1->addWidget( OKButton );
+	CancelB = new QPushButton( CommonStrings::tr_Cancel, this);
+	CancelB->setAutoDefault( false );
+	hboxLayout1->addWidget( CancelB );
+	vboxLayout->addLayout(hboxLayout1);
 	if (flags & fdDirectoriesOnly)
 	{
 		Layout = new QFrame(this);
-		Layout1 = new Q3HBoxLayout(Layout);
+		Layout1 = new QHBoxLayout(Layout);
 		Layout1->setSpacing( 0 );
-		Layout1->setMargin( 0 );
-		SaveZip = new QCheckBox( tr( "&Compress File" ), Layout, "test");
+		Layout1->setContentsMargins(9, 0, 0, 0);
+		SaveZip = new QCheckBox( tr( "&Compress File" ), Layout);
 		Layout1->addWidget(SaveZip, Qt::AlignLeft);
-		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+		QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1->addItem( spacer );
-		addWidgets(0, Layout, 0);
+		vboxLayout->addWidget(Layout);
 		LayoutC = new QFrame(this);
-		Layout1C = new Q3HBoxLayout(LayoutC);
+		Layout1C = new QHBoxLayout(LayoutC);
 		Layout1C->setSpacing( 0 );
-		Layout1C->setMargin( 0 );
-		WithFonts = new QCheckBox( tr( "&Include Fonts" ), LayoutC, "WithFonts");
+		Layout1C->setContentsMargins(9, 0, 0, 0);
+		WithFonts = new QCheckBox( tr( "&Include Fonts" ), LayoutC);
 		Layout1C->addWidget(WithFonts, Qt::AlignLeft);
-		WithProfiles = new QCheckBox( tr( "&Include ICC Profiles" ), LayoutC, "WithProfiles");
+		WithProfiles = new QCheckBox( tr( "&Include ICC Profiles" ), LayoutC);
 		Layout1C->addWidget(WithProfiles, Qt::AlignLeft);
-		QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+		QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1C->addItem( spacer2 );
-		addWidgets(0, LayoutC, 0);
-		setMode(Q3FileDialog::DirectoryOnly);
+		vboxLayout->addWidget(LayoutC);
+		fileDialog->setFileMode(QFileDialog::DirectoryOnly);
+		pw->hide();
+		showPreview->setVisible(false);
+		showPreview->setChecked(false);
+		previewIsShown = false;
 	}
 	else
 	{
-		setContentsPreviewEnabled( true );
-		pw = new FDialogPreview( this );
-		setContentsPreview( pw, pw );
 		if (flags & fdCompressFile)
 		{
 			Layout = new QFrame(this);
-			Layout1 = new Q3HBoxLayout(Layout);
-			Layout1->setSpacing( 6 );
-			Layout1->setMargin( 0 );
-			SaveZip = new QCheckBox( tr( "&Compress File" ), Layout, "test");
+			Layout1 = new QHBoxLayout(Layout);
+			Layout1->setSpacing( 5 );
+			Layout1->setContentsMargins(9, 0, 0, 0);
+			SaveZip = new QCheckBox( tr( "&Compress File" ), Layout);
 			Layout1->addWidget(SaveZip);
-			QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+			QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 			Layout1->addItem( spacer );
 		}
 		if (flags & fdExistingFiles)
-			setMode(Q3FileDialog::ExistingFile);
+			fileDialog->setFileMode(QFileDialog::ExistingFile);
 		else
 		{
-			setMode(Q3FileDialog::AnyFile);
+			fileDialog->setFileMode(QFileDialog::AnyFile);
 			if (flags & fdCompressFile)
-				addWidgets(0, Layout, 0);
+				vboxLayout->addWidget(Layout);
 		}
 		if (flags & fdShowCodecs)
 		{
 			LayoutC = new QFrame(this);
-			Layout1C = new Q3HBoxLayout(LayoutC);
+			Layout1C = new QHBoxLayout(LayoutC);
 			Layout1C->setSpacing( 0 );
-			Layout1C->setMargin( 4 );
+			Layout1C->setContentsMargins(9, 0, 0, 0);
 			TxCodeT = new QLabel(this);
 			TxCodeT->setText( tr("Encoding:"));
+			Layout1C->addWidget(TxCodeT);
 			TxCodeM = new ScComboBox(true, LayoutC, "Cod");
 			TxCodeM->setEditable(false);
 			QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3",
@@ -348,38 +398,61 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 			}
 			TxCodeM->setMinimumSize(QSize(200, 0));
 			Layout1C->addWidget(TxCodeM);
-			QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+			QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 			Layout1C->addItem( spacer2 );
-			addWidgets(TxCodeT, LayoutC, 0);
+			vboxLayout->addWidget(LayoutC);
 		}
-		setPreviewMode((flags & fdShowPreview) ? Q3FileDialog::Contents : Q3FileDialog::NoPreview );
-		setViewMode( Q3FileDialog::List );
+		bool setter = flags & fdShowPreview;
+		showPreview->setChecked(setter);
+		previewIsShown = setter;
+		pw->setVisible(setter);
 		if (flags & fdCompressFile)
 			connect(SaveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
 	}
-	HomeB = new QToolButton(this);
-	HomeB->setIconSet(loadIcon("16/go-home.png"));
-	#ifdef _WIN32
-	HomeB->setAutoRaise(true);
-	#endif
-	HomeB->setTextLabel( tr("Moves to your Document Directory.\nThis can be set in the Preferences."));
-	connect(HomeB, SIGNAL(clicked()), this, SLOT(slotHome()));
-	addToolButton(HomeB);
-	// default init
 	extZip = "gz";
+	connect(OKButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(CancelB, SIGNAL(clicked()), this, SLOT(reject()));
+	connect(showPreview, SIGNAL(clicked()), this, SLOT(togglePreview()));
+	connect(fileDialog, SIGNAL(currentChanged(const QString &)), this, SLOT(fileClicked(const QString &)));
+	connect(fileDialog, SIGNAL(filesSelected(const QStringList &)), this, SLOT(accept()));
+	resize(minimumSizeHint());
+}
+
+
+void CustomFDialog::fileClicked(const QString &path)
+{
+	if (previewIsShown)
+		pw->GenPreview(path);
+}
+
+void CustomFDialog::togglePreview()
+{
+	previewIsShown = !previewIsShown;
+	pw->setVisible(previewIsShown);
+}
+
+void CustomFDialog::setSelection(QString sel)
+{
+	fileDialog->selectFile(sel);
+	if (previewIsShown)
+		pw->GenPreview(sel);
+}
+
+QString CustomFDialog::selectedFile()
+{
+	QStringList sel = fileDialog->selectedFiles();
+	if (!sel.isEmpty())
+		return sel[0];
+	return QString();
+}
+
+void CustomFDialog::addWidgets(QWidget *widgets)
+{
+	vboxLayout->addWidget(widgets);
 }
 
 CustomFDialog::~CustomFDialog()
 {
-	setIconProvider(0);
-	const QDir* d(dir());
-	cDir.setCurrent(d->path());
-	delete d;
-}
-
-void CustomFDialog::slotHome()
-{
-	setDir(QDir(DocDir));
 }
 
 void CustomFDialog::handleCompress()

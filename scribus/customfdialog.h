@@ -24,55 +24,48 @@ for which a new license (GPL+exception) is in place.
 #ifndef CUSTOMFDIALOG_H
 #define CUSTOMFDIALOG_H
 
-#include <q3filedialog.h>
-#include <q3url.h>
-#include <qlabel.h>
-#include <qdir.h>
-#include <qpixmap.h>
-#include <qcheckbox.h>
-#include <qlayout.h>
-#include <QFrame>
-#include <qtoolbutton.h>
-#include <qcombobox.h>
-#include <qstring.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QDialog>
+#include <QFileIconProvider>
+#include <QLabel>
+class QPushButton;
+class QComboBox;
+class QCheckBox;
+class QHBoxLayout;
+class QVBoxLayout;
+class QFrame;
+class QFileDialog;
+class QIcon;
 
 #include "scribusapi.h"
 
 /**
   *@author Franz Schmid
   */
-class SCRIBUS_API ImIconProvider : public Q3FileIconProvider
+class SCRIBUS_API ImIconProvider : public QFileIconProvider
 {
-    Q_OBJECT
-    QStringList fmts;
-    QPixmap imagepm;
-    QPixmap docpm;
-    QPixmap pspm;
-    QPixmap pdfpm;
-    QPixmap txtpm;
-    QPixmap oosxdpm;
-    QPixmap oosxwpm;
-    QPixmap vectorpm;
 public:
-    ImIconProvider(QWidget *pa);
-    ~ImIconProvider() {};
-
-    const QPixmap * pixmap(const QFileInfo &fi);
+	ImIconProvider();
+	~ImIconProvider() {};
+	QIcon icon(const QFileInfo &fi) const;
+	QStringList fmts;
+	QIcon imagepm;
+	QIcon docpm;
+	QIcon pspm;
+	QIcon pdfpm;
+	QIcon txtpm;
+	QIcon oosxdpm;
+	QIcon oosxwpm;
+	QIcon vectorpm;
 };
 
-class SCRIBUS_API FDialogPreview : public QLabel, public Q3FilePreview
+class SCRIBUS_API FDialogPreview : public QLabel
 {
     Q_OBJECT
-protected:
-	QString filePath;
 public:
 	FDialogPreview(QWidget *pa);
 	~FDialogPreview() {};
 	void updtPix();
 	void GenPreview(QString name);
-	virtual void previewUrl(const Q3Url &url);
 };
 
 typedef enum {
@@ -88,7 +81,7 @@ typedef enum {
 Used almost everywhere. You can see extension handling
 in e.g. bool SVGExportPlugin::run(QString filename).
 */
-class SCRIBUS_API CustomFDialog : public Q3FileDialog
+class SCRIBUS_API CustomFDialog : public QDialog
 {
     Q_OBJECT
 public:
@@ -99,8 +92,7 @@ public:
 	\param filter a mask/filter. E.g.: *.txt
 	\param flags combination of fdFlags, default to fdExistingFiles
 	*/
-	CustomFDialog(QWidget *parent, QString wDir, QString caption = "",  QString filter = "",
-				int flags = fdExistingFiles);
+	CustomFDialog(QWidget *parent, QString wDir, QString caption = "",  QString filter = "", int flags = fdExistingFiles);
 	~CustomFDialog();
 
 	/*! \brief Set the default extension of the resulting file name.
@@ -118,30 +110,41 @@ public:
 	\retval QString see setZipExtension(QString e) */
 	QString zipExtension();
 
-	QDir cDir;
 	QCheckBox* SaveZip;
 	QCheckBox* WithFonts;
 	QCheckBox* WithProfiles;
 	QFrame* Layout;
-	QToolButton* HomeB;
 	QFrame* LayoutC;
 	QComboBox *TxCodeM;
 	QLabel *TxCodeT;
+	QFileDialog *fileDialog;
+	FDialogPreview *pw;
+	QCheckBox *showPreview;
+	QPushButton* OKButton;
+	QPushButton* CancelB;
+	void setSelection(QString );
+	QString selectedFile();
+	void addWidgets(QWidget *widgets);
 private slots:
 	//! \brief Go to the document home dir.
-	void slotHome();
+	void fileClicked(const QString &path);
+	void togglePreview();
 public slots:
 	//! \brief Switch the filename extensions by compress checkbox state.
 	void handleCompress();
 protected:
-	Q3HBoxLayout* Layout1;
-	Q3HBoxLayout* Layout1C;
+	QVBoxLayout *vboxLayout;
+	QVBoxLayout *vboxLayout1;
+	QHBoxLayout *hboxLayout;
+	QHBoxLayout* Layout1;
+	QHBoxLayout* Layout1C;
 	//! \brief Property with default extension
 	QString ext;
 	//! \brief Property with default compress extension
 	QString extZip;
 	//! \brief Option flags given by user in ctore
 	int optionFlags;
+	bool previewIsShown;
 };
 
 #endif
