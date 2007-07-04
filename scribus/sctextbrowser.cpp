@@ -41,7 +41,8 @@ void ScTextBrowser::hoverMouse(const QString &link)
 	else
 	{
 		qApp->changeOverrideCursor(QCursor(Qt::PointingHandCursor));
-		QToolTip::showText(QCursor::pos(), link);
+//		Add this back in if we want links to show in tooltips
+// 		QToolTip::showText(QCursor::pos(), link);
 	}
 }
 
