@@ -17,6 +17,9 @@ class SCRIBUS_API ScTextBrowser : public QTextBrowser
 	
 	public:
 		ScTextBrowser( QWidget * parent = 0 );
+		
+	signals:
+		void overLink(const QString &link);
 
 	protected slots:
 		/*! \brief Show the hover mouse pointer in the textBrowser*/

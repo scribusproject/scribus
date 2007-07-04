@@ -254,6 +254,13 @@ void HelpBrowser::setupLocalUI()
 	connect(deleteBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteBookmarkButton_clicked()));
 	connect(deleteAllBookmarkButton, SIGNAL(clicked()), this, SLOT(deleteAllBookmarkButton_clicked()));
 	connect(bookmarksView, SIGNAL(itemClicked( QTreeWidgetItem *, int)), this, SLOT(itemBookmarkSelected(QTreeWidgetItem *, int)));
+	// links hoover
+	connect(textBrowser, SIGNAL(overLink(const QString &)), this, SLOT(showLinkContents(const QString &)));
+}
+
+void HelpBrowser::showLinkContents(const QString &link)
+{
+	statusBar()->showMessage(link);
 }
 
 void HelpBrowser::languageChange()

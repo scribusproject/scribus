@@ -121,6 +121,7 @@ protected slots:
 	void jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile="");
 	void loadHelp(const QString& filename);
 	void loadMenu();
+	void showLinkContents(const QString &link);
 	QString bookmarkFile();
 	QString historyFile();
 

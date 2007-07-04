@@ -44,6 +44,7 @@ void ScTextBrowser::hoverMouse(const QString &link)
 //		Add this back in if we want links to show in tooltips
 // 		QToolTip::showText(QCursor::pos(), link);
 	}
+	emit overLink(link);
 }
 
 void ScTextBrowser::navigateOverride(const QUrl & link)
