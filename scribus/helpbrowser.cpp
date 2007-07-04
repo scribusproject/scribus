@@ -391,7 +391,7 @@ void HelpBrowser::deleteAllBookmarkButton_clicked()
 void HelpBrowser::histChosen(QAction* i)
 {
 	if (mHistory.contains(i))
-		textBrowser->setSource(mHistory[i].url);
+		textBrowser->setSource( QUrl::fromLocalFile(mHistory[i].url) );
 }
 
 void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString& jumpToFile)
@@ -464,7 +464,7 @@ void HelpBrowser::loadHelp(const QString& filename)
 		Avail=false;
 	if (Avail)
 	{
-		textBrowser->setSource(toLoad);
+		textBrowser->setSource( QUrl::fromLocalFile(toLoad) );
 		his.title = textBrowser->documentTitle();
 		if (his.title.isEmpty())
 			his.title = toLoad;
