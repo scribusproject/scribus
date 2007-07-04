@@ -6,12 +6,14 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QApplication>
+#include <QCursor>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
 #include <QProcess>
 #include <QString>
 #include <QStringList>
+#include <QToolTip>
 #include <QUrl>
 
 #if defined(_WIN32)
@@ -37,7 +39,10 @@ void ScTextBrowser::hoverMouse(const QString &link)
 	if (link.isEmpty())
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	else
+	{
 		qApp->changeOverrideCursor(QCursor(Qt::PointingHandCursor));
+		QToolTip::showText(QCursor::pos(), link);
+	}
 }
 
 void ScTextBrowser::navigateOverride(const QUrl & link)
