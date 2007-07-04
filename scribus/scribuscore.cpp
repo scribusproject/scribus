@@ -82,6 +82,11 @@ int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QString fil
 	return 0;
 }
 
+const QString& ScribusCore::getGuiLanguage() const
+{
+	return ScQApp->currGUILanguage();
+}
+
 int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile)
 {
 // 	m_PaletteParent=new QWidget(0);
@@ -131,7 +136,6 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	CommonStrings::languageChange();
 	int retVal=0;
 //FIXME	ExternalApp = 0;
-	m_GuiLanguage = newGuiLanguage;
 	initSplash(showSplash);
 	prefsManager = PrefsManager::instance();
 	prefsManager->setup();

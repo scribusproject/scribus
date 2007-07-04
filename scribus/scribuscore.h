@@ -64,7 +64,7 @@ public:
 	int init(bool useGUI, bool swapDialogButtonOrder, const QString fileToUse);
 	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	bool initialized() const {return m_ScribusInitialized;};
-	const QString getGuiLanguage() const {return m_GuiLanguage;};
+	const QString& getGuiLanguage() const;
 	void initSplash(bool showSplash);
 	bool initFonts(bool showFontInfo);
 	void showSplash(bool);
@@ -120,7 +120,6 @@ protected:
 	SplashScreen *m_SplashScreen;
 	UndoManager *undoManager;
 	PrefsManager *prefsManager;
-	QString m_GuiLanguage;
 	bool m_ScribusInitialized;
 	bool m_UseGUI;
 	bool m_SwapDialogButtonOrder;
