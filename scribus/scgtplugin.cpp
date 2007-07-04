@@ -128,7 +128,7 @@ void ScGTFileDialog::customize()
 	appendBox_      = new QCheckBox( tr("Append"), diaExtension_, "appendBox_");
 	showOptionsBox_ = new QCheckBox( tr("Show options"), diaExtension_, "showOptionsBox_");
 
-	addWidgets(0, diaExtension_, 0);
+	addWidgets(diaExtension_);
 }
 
 ScGTFileDialog::~ScGTFileDialog()
