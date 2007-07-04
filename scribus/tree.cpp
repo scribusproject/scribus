@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QHelpEvent>
 
+#include "colorutil.h"
 #include "commonstrings.h"
 #include "page.h"
 #include "scribus.h"
@@ -305,23 +306,7 @@ void Tree::slotRightClick(QPoint point)
 						if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
 							cSpace = tr("Unknown");
 						else
-						{
-							switch (currItem->pixm.imgInfo.colorspace)
-							{
-								case 0:
-									cSpace = tr("RGB");
-									break;
-								case 1:
-									cSpace = tr("CMYK");
-									break;
-								case 2:
-									cSpace = tr("Grayscale");
-									break;
-								case 3:
-									cSpace = tr("Duotone");
-									break;
-							}
-						}
+							cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);
 						ColC->setText(cSpace);
 						InfoGroupLayout->addWidget( ColC, 4, 1 );
 					}

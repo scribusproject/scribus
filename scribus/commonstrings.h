@@ -164,6 +164,13 @@ public:
 	static QString november;
 	static QString december;
 	
+	//Color Related
+	static QString trRGB;
+	static QString trCMYK;
+	static QString trGrayscale;
+	static QString trDuotone;
+	static QString trUnknownCS;
+
 	//Color Blindness
 	static QString trVisionNormal;
 	static QString trVisionProtanopia;

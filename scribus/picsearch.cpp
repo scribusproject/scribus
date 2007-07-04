@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "picsearch.h"
 #include <qpixmap.h>
 #include <qpainter.h>
+
+#include "colorutil.h"
 #include "scribusstructs.h"
 #include "scimage.h"
 #include "commonstrings.h"
@@ -106,23 +108,7 @@ void PicSearch::createPreview()
 		if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (im.imgInfo.type != 7))
 			cSpace = tr("Unknown");
 		else
-		{
-			switch (im.imgInfo.colorspace)
-			{
-				case 0:
-					cSpace = tr("RGB");
-					break;
-				case 1:
-					cSpace = tr("CMYK");
-					break;
-				case 2:
-					cSpace = tr("Grayscale");
-					break;
-				case 3:
-					cSpace = tr("Duotone");
-					break;
-			}
-		}
+			cSpace=colorSpaceText(im.imgInfo.colorspace);
 		p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
 		p.end();
 		repaint();

@@ -86,6 +86,11 @@ QString CommonStrings::april="", CommonStrings::may="", CommonStrings::june="";
 QString CommonStrings::july="", CommonStrings::august="", CommonStrings::september="";
 QString CommonStrings::october="", CommonStrings::november="", CommonStrings::december="";
 
+QString CommonStrings::trRGB       = "";
+QString CommonStrings::trCMYK      = "";
+QString CommonStrings::trGrayscale = "";
+QString CommonStrings::trDuotone   = "";
+QString CommonStrings::trUnknownCS = "";
 
 QString CommonStrings::trVisionNormal         = "";
 QString CommonStrings::trVisionProtanopia     = "";
@@ -258,6 +263,12 @@ void CommonStrings::languageChange()
 	CommonStrings::october   = tr("October");
 	CommonStrings::november  = tr("November");
 	CommonStrings::december  = tr("December");
+
+	CommonStrings::trRGB       = tr("RGB", "Colorspace");
+	CommonStrings::trCMYK      = tr("CMYK", "Colorspace");
+	CommonStrings::trGrayscale = tr("Grayscale", "Colorspace");
+	CommonStrings::trDuotone   = tr("Duotone", "Colorspace");
+	CommonStrings::trUnknownCS = tr("Unknown", "Colorspace (Unknown)");
 	
 	CommonStrings::trVisionNormal         = tr("Normal Vision", "Color Blindness - Normal Vision");
 	CommonStrings::trVisionProtanopia     = tr("Protanopia (Red)", "Color Blindness - Red Color Blind");

@@ -610,3 +610,16 @@ void clipColor(double& red, double& green, double& blue)
 		blue = l + (((blue - l) * (1.0 - l)) / (x - l));
 	}
 }
+
+QString colorSpaceText(int cs)
+{
+	if (cs==0)
+		return CommonStrings::trRGB;
+	if (cs==1)
+		return CommonStrings::trCMYK;
+	if (cs==2)
+		return CommonStrings::trGrayscale;
+	if (cs==3)
+		return CommonStrings::trDuotone;
+	return CommonStrings::trUnknownCS;
+}

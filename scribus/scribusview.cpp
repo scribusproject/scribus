@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "scribusview.h"
-//#include "scribusview.moc"
 
 #include "scconfig.h"
 
@@ -75,7 +74,8 @@ for which a new license (GPL+exception) is in place.
 	#define SPLITHC Qt::SplitHCursor
 #endif
 #include "scribus.h"
-//#include "tree.h"
+
+#include "colorutil.h"
 #include "mpalette.h"
 #include "scribusXml.h"
 #include "selection.h"
@@ -2929,23 +2929,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
 							cSpace = tr("Unknown");
 						else
-						{
-							switch (currItem->pixm.imgInfo.colorspace)
-							{
-								case 0:
-									cSpace = tr("RGB");
-									break;
-								case 1:
-									cSpace = tr("CMYK");
-									break;
-								case 2:
-									cSpace = tr("Grayscale");
-									break;
-								case 3:
-									cSpace = tr("Duotone");
-									break;
-							}
-						}
+							cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);
 						ColC->setText(cSpace);
 						InfoGroupLayout->addWidget( ColC, 4, 1 );
 					}

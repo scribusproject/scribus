@@ -99,5 +99,7 @@ double SCRIBUS_API Lum(uchar red, uchar green, uchar blue);
 double SCRIBUS_API LumD(double red, double green, double blue);
 void SCRIBUS_API setLum(uchar& red, uchar& green, uchar& blue, double lum);
 void SCRIBUS_API clipColor(double& red, double& green, double& blue);
+/*! \brief return the translated colorspace name */
+QString SCRIBUS_API colorSpaceText(int cs);
 
 #endif

@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <cstdio>
 
+#include "colorutil.h"
 #include "picsearch.h"
 #include "picsearchoptions.h"
 #include "scribusdoc.h"
@@ -180,23 +181,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
 				cSpace = tr("Unknown");
 			else
-			{
-				switch (currItem->pixm.imgInfo.colorspace)
-				{
-					case 0:
-						cSpace = tr("RGB");
-						break;
-					case 1:
-						cSpace = tr("CMYK");
-						break;
-					case 2:
-						cSpace = tr("Grayscale");
-						break;
-					case 3:
-						cSpace = tr("Duotone");
-						break;
-				}
-			}
+				cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);
 			displayColorspace->setText(cSpace);
 			displayDPI->setText(QString("%1 x %2").arg(qRound(currItem->pixm.imgInfo.xres)).arg(qRound(currItem->pixm.imgInfo.yres)));
 			displayEffDPI->setText(QString("%1 x %2").arg(qRound(72.0 / currItem->imageXScale())).arg(qRound(72.0 / currItem->imageYScale())));
