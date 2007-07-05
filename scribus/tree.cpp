@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorutil.h"
 #include "commonstrings.h"
+#include "formatutils.h"
 #include "page.h"
 #include "scribus.h"
 #include "mpalette.h"
@@ -303,7 +304,7 @@ void Tree::slotRightClick(QPoint point)
 						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 						QString cSpace;
 						QString ext = fi.extension(false).lower();
-						if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
+						if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != 7))
 							cSpace = tr("Unknown");
 						else
 							cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);

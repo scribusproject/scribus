@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdio>
 
 #include "colorutil.h"
+#include "formatutils.h"
 #include "picsearch.h"
 #include "picsearchoptions.h"
 #include "scribusdoc.h"
@@ -178,7 +179,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			}
 			displayFormat->setText(format);
 			QString cSpace;
-			if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
+			if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != 7))
 				cSpace = tr("Unknown");
 			else
 				cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);

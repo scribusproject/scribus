@@ -22,13 +22,11 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pslib.h"
-//#include "pslib.moc"
 
 #include <qfileinfo.h>
 #include <qimage.h>
 #include <qcolor.h>
 #include <qfontinfo.h>
-//Added by qt3to4:
 #include <QList>
 #include <QByteArray>
 #include <QList>
@@ -38,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 
 #include "commonstrings.h"
+#include "formatutils.h"
 #include "scconfig.h"
 #include "pluginapi.h"
 #include "prefsmanager.h"
@@ -1308,7 +1307,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	QString ext = fi.extension(false).lower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
-	if (((ext == "eps") || (ext == "epsi")) && (c->pixm.imgInfo.type != 7))
+	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != 7))
 	{
 		if (loadRawText(fn, tmp))
 		{
@@ -1377,7 +1376,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 	QString ext = fi.extension(false).lower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
-	if (((ext == "eps") || (ext == "epsi")) && (c->pixm.imgInfo.type != 7))
+	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != 7))
 	{
 		if (loadRawText(fn, tmp))
 		{

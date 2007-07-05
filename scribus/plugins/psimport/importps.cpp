@@ -5,8 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "importps.h"
-//#include "importps.moc"
 
+#include "formatutils.h"
 #include "scconfig.h"
 #include "scribus.h"
 #include "scribuscore.h"
@@ -90,7 +90,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	y = 0.0;
 	b = PrefsManager::instance()->appPrefs.PageWidth;
 	h = PrefsManager::instance()->appPrefs.PageHeight;
-	if ((ext == "eps") || (ext == "epsi") || (ext == "ps"))
+	if (extensionIndicatesEPSorPS(ext))
 	{
 		QString tmp, BBox, tmp2, FarNam;
 		ScColor cc;
@@ -506,7 +506,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		qApp->processEvents();
 	}
 	if (!cancel) {
-		parseOutput(tmpFile, ((ext == "eps") || (ext == "epsi")));
+		parseOutput(tmpFile, extensionIndicatesEPSorPS(ext));
 	}
 	QFile::remove(tmpFile);
 	if (progressDialog)

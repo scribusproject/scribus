@@ -76,6 +76,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 
 #include "colorutil.h"
+#include "formatutils.h"
 #include "mpalette.h"
 #include "scribusXml.h"
 #include "selection.h"
@@ -1908,7 +1909,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		if (ext == "JPG")
 			ext = "JPEG";
 		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
-		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="PDF")||(ext=="TIF")||(ext=="TIFF")||(ext=="PSD"));
+		img = ((imfo.contains(ext)) || extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext) || extensionIndicatesTIFF(ext) || extensionIndicatesPSD(ext));
 		bool selectedItemByDrag=false;
 		int pscx=qRound(e->pos().x()/Scale), pscy=qRound(e->pos().y()/Scale);
 		//Loop through all items and see which one(s) were under the drop point on the current layer
@@ -2926,7 +2927,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 						QString cSpace;
 						QString ext = fi.extension(false).lower();
-						if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
+						if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != 7))
 							cSpace = tr("Unknown");
 						else
 							cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);

@@ -16,5 +16,9 @@ for which a new license (GPL+exception) is in place.
 
 bool extensionIndicatesPDF(const QString &ext);
 bool extensionIndicatesEPS(const QString &ext);
+bool extensionIndicatesEPSorPS(const QString &ext);
+bool extensionIndicatesTIFF(const QString &ext);
+bool extensionIndicatesPSD(const QString &ext);
+bool extensionIndicatesJPEG(const QString &ext);
 
 #endif

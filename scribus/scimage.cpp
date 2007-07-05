@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsutil.h"
 #include "gsutil.h"
 #include "exif.h"
+#include "formatutils.h"
 #include "commonstrings.h"
 #include "colorutil.h"
 #include "util.h"
@@ -1687,19 +1688,19 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 		return retArray;
 	QString tmp, BBox, tmp2;
 	QString ext = fi.extension(false).lower();
-	if ((ext == "jpg") || (ext == "jpeg"))
+	if (extensionIndicatesJPEG(ext))
 		return retArray;
-	if (ext == "pdf")
+	if (extensionIndicatesPDF(ext))
 		pDataLoader = new ScImgDataLoader_PDF();
-	else if ((ext == "eps") || (ext == "epsi") || (ext == "ps"))
+	else if (extensionIndicatesEPSorPS(ext))
 		pDataLoader = new ScImgDataLoader_PS();
-	else if ((ext == "tif") || (ext == "tiff"))
+	else if (extensionIndicatesTIFF(ext))
 	{
 		pDataLoader = new ScImgDataLoader_TIFF();
 		if	(pDataLoader)
 			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
-	else if (ext == "psd")
+	else if (extensionIndicatesPSD(ext))
 	{
 		pDataLoader = new ScImgDataLoader_PSD();
 		if	(pDataLoader)
@@ -1712,7 +1713,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 	{
 		pDataLoader->preloadAlphaChannel(fn, gsRes);
 		QImage rImage;
-		if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+		if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 		{
 			if (pDataLoader->imageInfoRecord().valid)
 			{
@@ -1797,13 +1798,13 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 		return;
 	QString ext = fi.extension(false).lower();
 
-	if (ext == "psd")
+	if (extensionIndicatesPSD(ext))
 		pDataLoader = new ScImgDataLoader_PSD();
-	else if ((ext == "eps") || (ext == "epsi"))
+	else if (extensionIndicatesEPSorPS(ext))
 		pDataLoader = new ScImgDataLoader_PS();
-	else if ((ext == "tif") || (ext == "tiff"))
+	else if (extensionIndicatesTIFF(ext))
 		pDataLoader = new ScImgDataLoader_TIFF();
-	else if ((ext == "jpg") || (ext == "jpeg"))
+	else if (extensionIndicatesJPEG(ext))
 		pDataLoader = new ScImgDataLoader_JPEG();
 
 	if	(pDataLoader)
@@ -1859,21 +1860,21 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 
-	if (ext == "pdf")
+	if (extensionIndicatesPDF(ext))
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
-	else if ((ext == "eps") || (ext == "epsi") || (ext == "ps"))
+	else if (extensionIndicatesEPSorPS(ext))
 		pDataLoader.reset( new ScImgDataLoader_PS() );
-	else if ((ext == "tif") || (ext == "tiff"))
+	else if (extensionIndicatesTIFF(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_TIFF() );
 		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
-	else if (ext == "psd")
+	else if (extensionIndicatesPSD(ext))
 	{
 		pDataLoader.reset( new ScImgDataLoader_PSD() );
 		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
 	}
-	else if ((ext == "jpg") || (ext == "jpeg"))
+	else if (extensionIndicatesJPEG(ext))
 		pDataLoader.reset( new ScImgDataLoader_JPEG() );
 	else if (ext == "pat")
 		pDataLoader.reset( new ScImgDataLoader_GIMP() );
@@ -1915,7 +1916,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		return false;
 	}
 
-	if (!((ext == "psd") || (ext == "tif") || (ext == "tiff")))
+	if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext)))
 	{
 		if (isNull())
 			return  ret;
@@ -1970,7 +1971,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	}
 	if (cmSettings.useColorManagement() && useProf && inputProf)
 	{
-		bool  isPsdTiff = ((ext == "psd") || (ext == "tif") || (ext == "tiff"));
+		bool  isPsdTiff = (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext));
 		DWORD SC_TYPE_YMCK_8 = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));
 		DWORD inputProfFormat = TYPE_BGRA_8;
 		DWORD outputProfFormat = SC_TYPE_YMCK_8;
@@ -2017,7 +2018,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
 			else
 			{
-				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
 					*this = pDataLoader->r_image.convertToQImage(false);
 					profileName = imgInfo.profileName;
@@ -2053,7 +2054,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			break;
 		case RawData: // no Conversion just raw Data
 			xform = 0;
-			if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 			{
 				*this = pDataLoader->r_image.convertToQImage(true, true);
 				profileName = imgInfo.profileName;
@@ -2066,7 +2067,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		}
 		if (xform)
 		{
-			if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 			{
 				create(pDataLoader->r_image.width(), pDataLoader->r_image.height(), 32);
 				setAlphaBuffer( true );
@@ -2080,7 +2081,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);
-				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 					ptr2 = pDataLoader->r_image.scanLine(i);
 				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != CMYKData) )
 				{
@@ -2108,7 +2109,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				}
 				else
 				{
-					if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+					if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 					{
 						cmsDoTransform(xform, ptr2, ptr, width());
 					}
@@ -2117,7 +2118,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				}
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
-				if (!((ext == "psd") || (ext == "tif") || (ext == "tiff")))
+				if (!(extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext)))
 				{
 					QRgb alphaFF = qRgba(0,0,0,255);
 					QRgb *p;
@@ -2173,7 +2174,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		case CMYKData:
 			if (!isCMYK)
 			{
-				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
 					*this = pDataLoader->r_image.convertToQImage(false);
 					profileName = imgInfo.profileName;
@@ -2199,7 +2200,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			}
 			else
 			{
-				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
 					*this = pDataLoader->r_image.convertToQImage(true, true);
 					profileName = imgInfo.profileName;
@@ -2215,7 +2216,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		case Thumbnail:
 			if (isCMYK)
 			{
-				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
 					*this = pDataLoader->r_image.convertToQImage(true);
 					profileName = imgInfo.profileName;
@@ -2244,7 +2245,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			}
 			else
 			{
-				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
 					*this = pDataLoader->r_image.convertToQImage(false);
 					profileName = imgInfo.profileName;
@@ -2256,7 +2257,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			}
 			break;
 		case RawData:
-				if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
+				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
 					*this = pDataLoader->r_image.convertToQImage(true, true);
 					profileName = imgInfo.profileName;

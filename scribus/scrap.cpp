@@ -140,7 +140,7 @@ void BibView::dropEvent(QDropEvent *e)
 		Q3Url ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		QString ext = fi.extension(false).lower();
-		img = ((ext=="eps")||(ext=="epsi")||(ext=="ps")||(ext=="png")||(ext=="gif")||(ext=="jpg")||(ext=="xpm"));
+		img = (extensionIndicatesEPSorPS(ext)||(ext=="png")||(ext=="gif")||(ext=="jpg")||(ext=="xpm"));
 		if ((fi.exists()) && (!img))
 		{
 			QByteArray rawText;

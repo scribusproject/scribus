@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "rc4.h"
 
 #include "commonstrings.h"
+#include "formatutils.h"
 #include "page.h"
 #include "pageitem.h"
 #include "bookmwin.h"
@@ -5987,7 +5988,7 @@ QString PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double 
 		}
 		else
 		{ */
-		if (((ext == "eps") || (ext == "epsi") || (ext == "pdf")) && (c->pixm.imgInfo.type != 7))
+		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (c->pixm.imgInfo.type != 7))
 		{
 			QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 			if (Options.RecalcPic)
@@ -6414,7 +6415,7 @@ QString PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double 
 		sxn = SharedImages[fn].sxa * sx / SharedImages[fn].xa;
 		syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
 	}
-	if ((ext == "eps") || (ext == "epsi") || (ext == "pdf"))// compensate gsResolution setting
+	if (extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext))// compensate gsResolution setting
 	{
 		sxn = PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * sxn;
 		syn = PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * syn;

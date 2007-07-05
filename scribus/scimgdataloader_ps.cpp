@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 #include <QDataStream>
 #include <QByteArray>
+
+#include "formatutils.h"
 #include "gsutil.h"
 #include "scpaths.h"
 #include "scribuscore.h"
@@ -519,7 +521,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 			QStringList args;
 			xres = gsRes;
 			yres = gsRes;
-			if ((ext == "eps") || (ext == "epsi"))
+			if (extensionIndicatesEPS(ext))
 				args.append("-dEPSCrop");
 			args.append("-r"+QString::number(gsRes));
 			args.append("-sOutputFile="+tmpFile);
@@ -548,7 +550,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 					}
 				}
 				unlink(tmpFile);
-				if ((ext == "eps") || (ext == "epsi"))
+				if (extensionIndicatesEPS(ext))
 				{
 					m_imageInfoRecord.BBoxX = static_cast<int>(x);
 					m_imageInfoRecord.BBoxH = static_cast<int>(h);
@@ -575,7 +577,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 			QStringList args;
 			xres = gsRes;
 			yres = gsRes;
-			if ((ext == "eps") || (ext == "epsi"))
+			if (extensionIndicatesEPS(ext))
 				args.append("-dEPSCrop");
 			args.append("-dGrayValues=256");
 			args.append("-r"+QString::number(gsRes));
@@ -612,7 +614,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 					f.close();
 				}
 				unlink(tmpFile);
-				if ((ext == "eps") || (ext == "epsi"))
+				if (extensionIndicatesEPS(ext))
 				{
 					m_imageInfoRecord.BBoxX = static_cast<int>(x);
 					m_imageInfoRecord.BBoxH = static_cast<int>(h);
@@ -654,7 +656,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	QTextStream ts2(&BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	h = h * gsRes / 72.0;
-	if ((ext == "eps") || (ext == "epsi"))
+	if (extensionIndicatesEPS(ext))
 		args.append("-dEPSCrop");
 	if (psMode == 4)
 		args.append("-dGrayValues=256");
@@ -727,7 +729,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 			m_imageInfoRecord.colorspace = 0;
 		}
 		unlink(tmpFile);
-		if ((ext == "eps") || (ext == "epsi"))
+		if (extensionIndicatesEPS(ext))
 		{
 			m_imageInfoRecord.BBoxX = static_cast<int>(x);
 			m_imageInfoRecord.BBoxH = static_cast<int>(h);
@@ -1386,7 +1388,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 			}
 		}
 	}
-	if ((ext == "eps") || (ext == "epsi"))
+	if (extensionIndicatesEPS(ext))
 	{
 		m_imageInfoRecord.BBoxX = static_cast<int>(x);
 		m_imageInfoRecord.BBoxH = static_cast<int>(h);
@@ -1421,7 +1423,8 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	yres = gsRes;
 	m_image.create( qRound(b * gsRes / 72.0), qRound(h * gsRes / 72.0), 32 );
 	m_image.fill(qRgba(0, 0, 0, 0));
-	if ((ext == "eps") || (ext == "epsi"))
+	bool isEncapPS=extensionIndicatesEPS(ext);
+	if (isEncapPS)
 		args.append("-dEPSCrop");
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
@@ -1437,7 +1440,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	}
 	args.clear();
 
-	if ((ext == "eps") || (ext == "epsi"))
+	if (isEncapPS)
 		args.append("-dEPSCrop");
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
@@ -1453,7 +1456,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	}
 	args.clear();
 
-	if ((ext == "eps") || (ext == "epsi"))
+	if (isEncapPS)
 		args.append("-dEPSCrop");
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
@@ -1469,7 +1472,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	}
 	args.clear();
 
-	if ((ext == "eps") || (ext == "epsi"))
+	if (isEncapPS)
 		args.append("-dEPSCrop");
 	args.append("-r"+QString::number(gsRes));
 	args.append("-sOutputFile="+tmpFile);
@@ -1485,7 +1488,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	}
 	args.clear();
 
-	if ((ext == "eps") || (ext == "epsi"))
+	if (isEncapPS)
 	{
 		m_imageInfoRecord.BBoxX = static_cast<int>(x);
 		m_imageInfoRecord.BBoxH = static_cast<int>(h);
@@ -1582,7 +1585,7 @@ void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 		QStringList args;
 		xres = gsRes;
 		yres = gsRes;
-		if ((ext == "eps") || (ext == "epsi"))
+		if (extensionIndicatesEPS(ext))
 			args.append("-dEPSCrop");
 		args.append("-r"+QString::number(gsRes));
 		args.append("-sOutputFile="+tmpFile);

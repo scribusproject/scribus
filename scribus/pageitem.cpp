@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
+#include "formatutils.h"
 #include "scpaths.h"
 #include "page.h"
 #include "scpainter.h"
@@ -3796,7 +3797,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		OrigW = pixm.width();
 		OrigH = pixm.height();
 		QString ext = fi.extension(false).lower();
-		isRaster = !(ext == "pdf" || ext == "ps" || ext == "eps" || ext == "epsi");
+		isRaster = !(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext));
 		UseEmbedded=pixm.imgInfo.isEmbedded;
 		if (pixm.imgInfo.isEmbedded)
 		{

@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "dcolor.h"
 #include "fileloader.h"
+#include "formatutils.h"
 #include "cmykfw.h"
 #include "scribusdoc.h"
 #include "prefsmanager.h"
@@ -435,7 +436,7 @@ void ColorManager::importColors()
 		dirs->set("colors", fileName.left(fileName.findRev("/")));
 		QFileInfo fi = QFileInfo(fileName);
 		QString ext = fi.extension(false).lower();
-		if ((ext == "ps") || (ext == "eps") || (ext == "epsi") || (ext == "ai"))
+		if (extensionIndicatesEPSorPS(ext) || (ext == "ai"))
 		{
 			QString tmp, tmp2, FarNam;
 			double c, m, y, k;
