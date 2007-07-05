@@ -9024,7 +9024,7 @@ void ScribusMainWindow::callImageEditor()
 				QMessageBox::critical(this, CommonStrings::trWarning, "<qt>" + tr("The program %1 is missing!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
 				return;
 			}
-			connect(ExternalApp, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(imageEditorExited()));
+			connect(ExternalApp, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(imageEditorExited(int, QProcess::ExitStatus)));
 		}
 	}
 }
