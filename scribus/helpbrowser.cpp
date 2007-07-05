@@ -143,7 +143,6 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 {
 	setupUi(this);
 	setupLocalUI();
-
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
 	languageChange();
 	menuModel=NULL;
@@ -404,12 +403,11 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 		toLoad = ScPaths::instance().docDir() + language + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection.isEmpty())
 		{
-		
-			QModelIndex index=menuModel->index(0,0);
+			QModelIndex index=menuModel->index(0,1);
 			if (index.isValid())
 			{
 				listView->selectionModel()->select(index, QItemSelectionModel::ClearAndSelect);
-				toLoad=menuModel->data(index, Qt::DisplayRole).toString();
+				toLoad += menuModel->data(index, Qt::DisplayRole).toString();
 			}
 			else
 				noDocs=true;
