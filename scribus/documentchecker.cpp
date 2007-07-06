@@ -115,7 +115,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					itemError.insert(ImageDPITooHigh, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				QString ext = fi.extension(false).lower();
-				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
+				if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
 					itemError.insert(PlacedPDF, 0);
 				if ((ext == "gif") && (checkerSettings.checkForGIF))
 					itemError.insert(ImageIsGIF, 0);
@@ -233,7 +233,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 					itemError.insert(ImageDPITooHigh, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				QString ext = fi.extension(false).lower();
-				if ((ext == "pdf") && (checkerSettings.checkRasterPDF))
+				if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
 					itemError.insert(PlacedPDF, 0);
 				if ((ext == "gif") && (checkerSettings.checkForGIF))
 					itemError.insert(ImageIsGIF, 0);

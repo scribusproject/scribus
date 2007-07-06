@@ -1423,7 +1423,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.applyEffect(c->effectsInUse, colorsToUse, true);
 		int w = image.width();
 		int h = image.height();
-		if (ext == "pdf")
+		if (extensionIndicatesPDF(ext))
 		{
 			scalex *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
 			scaley *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;

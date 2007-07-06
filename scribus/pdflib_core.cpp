@@ -6289,7 +6289,7 @@ QString PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double 
 		}
 		int cm = Options.CompressMethod;
 		bool specialCMYK = false;
-		if (((ext == "jpg") || (ext == "jpeg")) && (cm != 3))
+		if (extensionIndicatesJPEG(ext) && (cm != 3))
 		{
 			if (((Options.UseRGB || Options.UseProfiles2) && (cm == 0) && (c->effectsInUse.count() == 0) && (img.imgInfo.colorspace == 0)) && (!img.imgInfo.progressive) && (!((Options.RecalcPic) && (Options.PicRes < (qMax(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))))
 			{
