@@ -410,6 +410,7 @@ SET(SCRIBUS_SOURCES
   scimgdataloader_psd.cpp
   scimgdataloader_qt.cpp
   scimgdataloader_tiff.cpp
+  sclayer.cpp
   scpageoutput.cpp
   scpageoutput_ps2.cpp
   scpainter.cpp

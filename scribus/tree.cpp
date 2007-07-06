@@ -460,7 +460,7 @@ void Tree::slotRightClick(QPoint point)
 				if (currDoc->layerCount() > 1)
 				{
 					QMap<int,int> layerMap;
-					for (QList<Layer>::iterator it = currDoc->Layers.begin(); it != currDoc->Layers.end(); ++it)
+					for (ScLayers::iterator it = currDoc->Layers.begin(); it != currDoc->Layers.end(); ++it)
 						layerMap.insert((*it).Level, (*it).LNr);
 					int i=layerMap.count()-1;
 					while (i>=0)

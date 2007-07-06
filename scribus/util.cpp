@@ -505,25 +505,6 @@ void BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
 	return;
 }
 
-void Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level)
-{
-	uint layerCount=currentDoc->layerCount();
-	for (uint la2 = 0; la2 < layerCount; ++la2)
-	{
-		if (currentDoc->Layers[la2].Level == Level)
-		{
-			ll->isViewable = currentDoc->Layers[la2].isViewable;
-			ll->isPrintable = currentDoc->Layers[la2].isPrintable;
-			ll->LNr = currentDoc->Layers[la2].LNr;
-			ll->Name = currentDoc->Layers[la2].Name;
-			ll->flowControl = currentDoc->Layers[la2].flowControl;
-			ll->transparency = currentDoc->Layers[la2].transparency;
-			ll->blendMode = currentDoc->Layers[la2].blendMode;
-			break;
-		}
-	}
-}
-
 /* CB Replaced by ScribusDoc::layerLevelFromNumber
 int Layer2Level(ScribusDoc *currentDoc, int LayerNr)
 {

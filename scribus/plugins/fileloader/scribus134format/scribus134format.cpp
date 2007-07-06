@@ -154,7 +154,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		return false;
 	}
 	ParagraphStyle vg;
-	struct Layer la;
+	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	int counter;//, Pgc;
 	//bool AtFl;
@@ -2500,7 +2500,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		return false;
 	}
 	ParagraphStyle vg;
-	struct Layer la;
+	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	Page* Apage = NULL;
@@ -3454,4 +3454,5 @@ bool Scribus134Format::readPageCount(const QString& fileName, int *num1, int *nu
 	*num2 = counter2;
 	return true;
 }
+
 

@@ -191,7 +191,7 @@ void LayerPalette::rebuildList()
 	disconnect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	disconnect(Table, SIGNAL(cellClicked(int, int)), this, SLOT(setActiveLayer(int)));
 	QString tmp;
-	QList<Layer>::iterator it;
+	ScLayers::iterator it;
 	int layerCount = m_Doc->layerCount();
 	Table->setRowCount(layerCount);
 	for (it = layers->begin(); it != layers->end(); ++it)
@@ -522,4 +522,5 @@ void LayerPalette::languageChange()
 	Table->horizontalHeaderItem(5)->setToolTip("<qt>" + tr("Outline Mode - Toggles the 'wireframe' display of objects to speed the display of very complex objects.") + "</qt>" ) ;
 	Table->horizontalHeaderItem(6)->setToolTip("<qt>" + tr("Name of the Layer - Double clicking on the name of a layer enabled editing") + "</qt>" );
 }
+
 

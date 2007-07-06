@@ -1479,7 +1479,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 	}
 	if ((Options.Version == 15) && (Options.useLayers))
 	{
-		struct Layer ll;
+		ScLayer ll;
 		struct OCGInfo ocg;
 		ll.isPrintable = false;
 		ll.LNr = 0;
@@ -1489,7 +1489,7 @@ bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QStrin
 		for (uint la = 0; la < docLayersCount; ++la)
 		{
 			QString tmp("");
-			Level2Layer(&doc, &ll, Lnr);
+			doc.Layers.levelToLayer(ll, Lnr);
 			ocg.Name = ocgNam+tmp.setNum(ll.LNr);
 			ocg.ObjNum = ObjCounter;
 			ocg.visible = ll.isViewable;
@@ -1515,14 +1515,14 @@ void PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 	PageItem* ite;
 	QList<PageItem*> PItems;
 	int Lnr = 0;
-	struct Layer ll;
+	ScLayer ll;
 	ll.isPrintable = false;
 	ll.LNr = 0;
 	Inhalt = "";
 	Seite.AObjects.clear();
 	for (int la = 0; la < doc.Layers.count(); ++la)
 	{
-		Level2Layer(&doc, &ll, Lnr);
+		doc.Layers.levelToLayer(ll, Lnr);
 		PItems = doc.MasterItems;
 		if (ll.isPrintable)
 		{
@@ -2449,7 +2449,7 @@ void PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	PageItem* ite;
 	QList<PageItem*> PItems;
 	int Lnr = 0;
-	struct Layer ll;
+	ScLayer ll;
 	ll.isPrintable = false;
 	ll.LNr = 0;
 	if (Options.UseLPI)
@@ -2516,7 +2516,7 @@ void PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				PutPage("1 0 0 1 0 0 cm\n");
 			for (int lam = 0; lam < doc.Layers.count(); ++lam)
 			{
-				Level2Layer(&doc, &ll, Lnr);
+				doc.Layers.levelToLayer(ll, Lnr);
 				Lnr++;
 				if (ll.isPrintable)
 				{
@@ -2609,7 +2609,7 @@ void PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	int pc_exportpagesitems=0;
 	for (int la = 0; la < doc.Layers.count() && !abortExport; ++la)
 	{
-		Level2Layer(&doc, &ll, Lnr);
+		doc.Layers.levelToLayer(ll, Lnr);
 		if (!pag->pageName().isEmpty())
 			PItems = doc.MasterItems;
 		else
@@ -6569,13 +6569,13 @@ void PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	if ((Options.Version == 15) && (Options.useLayers))
 	{
 		PutDoc("/Properties <<\n");
-		struct Layer ll;
+		ScLayer ll;
 		ll.isPrintable = false;
 		ll.LNr = 0;
 		int Lnr = 0;
 		for (int la = 0; la < doc.Layers.count(); ++la)
 		{
-			Level2Layer(&doc, &ll, la);
+			doc.Layers.levelToLayer(ll, la);
 			PutDoc("/"+OCGEntries[ll.Name].Name+" "+QString::number(OCGEntries[ll.Name].ObjNum)+" 0 R\n");
 			Lnr++;
 		}

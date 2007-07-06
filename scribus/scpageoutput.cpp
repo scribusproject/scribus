@@ -98,7 +98,7 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, const Q
 		if (page->FromMaster.count() != 0)
 		{
 			int Lnr;
-			struct Layer ll;
+			ScLayer ll;
 			PageItem *currItem;
 			ll.isViewable = false;
 			ll.LNr = 0;
@@ -106,7 +106,7 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, const Q
 			uint layerCount = m_doc->layerCount();
 			for (uint la = 0; la < layerCount; ++la)
 			{
-				Level2Layer(m_doc, &ll, Lnr);
+				m_doc->Layers.levelToLayer(ll, Lnr);
 				bool pr = true;
 				if ( !ll.isPrintable )
 					pr = false;
@@ -240,7 +240,7 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, const QRe
 	if (m_doc->Items->count() != 0)
 	{
 		int Lnr=0;
-		struct Layer ll;
+		ScLayer ll;
 		PageItem *currItem;
 		ll.isViewable = false;
 		ll.LNr = 0;
@@ -249,7 +249,7 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, const QRe
 		int docCurrPageNo=static_cast<int>(page->pageNr());
 		for (uint la2 = 0; la2 < layerCount; ++la2)
 		{
-			Level2Layer(m_doc, &ll, Lnr);
+			m_doc->Layers.levelToLayer(ll, Lnr);
 			bool pr = true;
 			if (!ll.isPrintable)
 				pr = false;
@@ -1593,4 +1593,5 @@ void ScPageOutput::StrokePath( PageItem* item, ScPainterExBase* painter, const Q
 {
 	painter->strokePath();
 }
+
 

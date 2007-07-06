@@ -3356,7 +3356,7 @@ void ScribusMainWindow::rebuildLayersList()
 		for( QMap<QString, QPointer<ScrAction> >::Iterator it0 = scrLayersActions.begin(); it0 != scrLayersActions.end(); ++it0 )
 			scrMenuMgr->removeMenuItem((*it0), layerMenuName);
 		scrLayersActions.clear();
-		QList<Layer>::iterator it;
+		ScLayers::iterator it;
 		if (doc->Layers.count()!= 0)
 		{
 			for (it = doc->Layers.begin(); it != doc->Layers.end(); ++it)

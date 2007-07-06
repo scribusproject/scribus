@@ -205,7 +205,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	//Scribus 1.2 docs, see fileloader.cpp for 1.3 docs
 	struct CopyPasteBuffer OB;
 	ParagraphStyle vg;
-	struct Layer la;
+	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	int counter;
 	bool newVersion = false;
@@ -892,7 +892,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 
 	struct CopyPasteBuffer OB;
 	ParagraphStyle vg;
-	struct Layer la;
+	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	itemRemap.clear();

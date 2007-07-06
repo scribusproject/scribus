@@ -236,7 +236,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 	int d;
 	ScText *hl;
 	int Lnr = 0;
-	struct Layer ll;
+	ScLayer ll;
 	ll.isPrintable = false;
 	ll.LNr = 0;
 	QDomElement ob, gr, tp, tp2, defi, grad;

@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
+#include "sclayer.h"
 #include "page.h"
 #include "text/nlsconfig.h"
 #include "util.h"
@@ -54,14 +55,14 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	errorCodes itemError;
 	errorCodes layerError;
 	int Lnr;
-	struct Layer ll;
+	ScLayer ll;
 	ll.LNr = 0;
 	Lnr = 0;
 	uint layerCount= currDoc->layerCount();
 	for (uint la = 0; la < layerCount; ++la)
 	{
 		layerError.clear();
-		Level2Layer(currDoc, &ll, Lnr);
+		currDoc->Layers.levelToLayer(ll, Lnr);
 		if ((!ll.isViewable) && (checkerSettings.ignoreOffLayers))
 			continue;
 		if ((!ll.isPrintable) && (checkerSettings.ignoreOffLayers))

@@ -699,7 +699,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
 		{
-			Layer it2 = ScCore->primaryMainWindow()->doc->Layers.at(lam);
+			ScLayer it2 = ScCore->primaryMainWindow()->doc->Layers.at(lam);
 			int num2 = it2.LNr;
 			if (!num2)
 			{
@@ -709,7 +709,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 			}
 			int num = it2.Level;
 			ScCore->primaryMainWindow()->doc->Layers.removeAt(lam);
-			Layer it;
+			ScLayer it;
 			for (int l = 0; l < ScCore->primaryMainWindow()->doc->Layers.count(); l++)
 			{
 				it = ScCore->primaryMainWindow()->doc->Layers.at(l);

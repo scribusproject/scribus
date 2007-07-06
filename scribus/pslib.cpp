@@ -1752,12 +1752,12 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		if (Doc->MasterItems.count() != 0)
 		{
 			int Lnr = 0;
-			struct Layer ll;
+			ScLayer ll;
 			ll.isPrintable = false;
 			ll.LNr = 0;
 			for (int lam = 0; lam < Doc->Layers.count(); ++lam)
 			{
-				Level2Layer(Doc, &ll, Lnr);
+				Doc->Layers.levelToLayer(ll, Lnr);
 				if (ll.isPrintable)
 				{
 					for (int api = 0; api < Doc->MasterItems.count(); ++api)
@@ -1854,7 +1854,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			QByteArray chstrc;
 			QString chstr;
 			int Lnr = 0;
-			struct Layer ll;
+			ScLayer ll;
 			ll.isPrintable = false;
 			ll.LNr = 0;
 			Page* mPage = Doc->MasterPages.at(Doc->MasterNames[Doc->Pages->at(a)->MPageNam]);
@@ -1862,7 +1862,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 			{
 				for (int lam = 0; lam < Doc->Layers.count(); ++lam)
 				{
-					Level2Layer(Doc, &ll, Lnr);
+					Doc->Layers.levelToLayer(ll, Lnr);
 					if (ll.isPrintable)
 					{
 						for (int am = 0; am < Doc->Pages->at(a)->FromMaster.count(); ++am)
@@ -2827,12 +2827,12 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 	QList<PageItem*> PItems;
 	QStack<PageItem*> groupStack;
 	int Lnr = 0;
-	struct Layer ll;
+	ScLayer ll;
 	ll.isPrintable = false;
 	ll.LNr = 0;
 	for (int la = 0; la < Doc->Layers.count(); ++la)
 	{
-		Level2Layer(Doc, &ll, Lnr);
+		Doc->Layers.levelToLayer(ll, Lnr);
 		if (!a->pageName().isEmpty())
 			PItems = Doc->MasterItems;
 		else

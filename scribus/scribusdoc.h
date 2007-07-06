@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/styleset.h"
 #include "scpattern.h"
 #include "scguardedptr.h"
+#include "sclayer.h"
 
 #include CMS_INC
 
@@ -582,6 +583,13 @@ public:
 	 */
 	void renumberItemsInListOrder();
 	/**
+	 * @brief Rebuild item lists taking into account layer order.
+	 * Utility function used in various places, basically handles keeping items numbered in the way
+	 * they are layered. When layer is a property and not a fuction of storage, this should be removed.
+	 * @sa updateFrameItems();
+	 */
+	void rebuildItemLists();
+	/**
 	 * @brief Doc uses automatic text frames?
 	 */
 	bool usesAutomaticTextFrames() const;
@@ -923,7 +931,7 @@ private:
 	StyleSet<ParagraphStyle> docParagraphStyles;
 	StyleSet<CharStyle> docCharStyles;
 public:
-	QList<Layer> Layers;
+	ScLayers Layers;
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;

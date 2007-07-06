@@ -36,7 +36,6 @@ class QWidget;
 class ScribusView;
 struct CopyPasteBuffer;
 class PageItem;
-struct Layer;
 // class Foi;
 
 /*! \brief Compare double values by pre-multiplying by 10000 and converting to long if possible.
@@ -63,8 +62,6 @@ char SCRIBUS_API *toHex( uchar u );
 QString SCRIBUS_API String2Hex(QString *in, bool lang = true);
 QString SCRIBUS_API CompressStr(QString *in);
 QByteArray SCRIBUS_API CompressArray(QByteArray *in);
-void SCRIBUS_API Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level);
-//int Layer2Level(ScribusDoc *currentDoc, int LayerNr);
 void SCRIBUS_API BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 double SCRIBUS_API xy2Deg(double x, double y);
 Q3PointArray SCRIBUS_API FlattenPath(FPointArray ina, QList<uint> &Segs);

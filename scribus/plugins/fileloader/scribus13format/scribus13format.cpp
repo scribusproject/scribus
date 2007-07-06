@@ -156,7 +156,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	ReplacedFonts.clear();
 	newReplacement = false;
 	ParagraphStyle vg;
-	struct Layer la;
+	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	int counter;//, Pgc;
 	//bool AtFl;
@@ -2500,7 +2500,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		return false;
 	}
 	ParagraphStyle vg;
-	struct Layer la;
+	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	Page* Apage = NULL;

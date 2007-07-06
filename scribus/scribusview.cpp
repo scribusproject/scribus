@@ -1209,7 +1209,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 		if (page->FromMaster.count() != 0)
 		{
 			int Lnr;
-			struct Layer ll;
+			ScLayer ll;
 			PageItem *currItem;
 			ll.isViewable = false;
 			ll.LNr = 0;
@@ -1217,7 +1217,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 			uint layerCount=Doc->layerCount();
 			for (uint la = 0; la < layerCount; ++la)
 			{
-				Level2Layer(Doc, &ll, Lnr);
+				Doc->Layers.levelToLayer(ll, Lnr);
 				bool pr = true;
 				if ((previewMode) && (!ll.isPrintable))
 					pr = false;
@@ -1405,7 +1405,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	if (Doc->Items->count() != 0)
 	{
 		int Lnr=0;
-		struct Layer ll;
+		ScLayer ll;
 		PageItem *currItem;
 		ll.isViewable = false;
 		ll.LNr = 0;
@@ -1413,7 +1413,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 		int docCurrPageNo=static_cast<int>(Doc->currentPageNumber());
 		for (uint la2 = 0; la2 < layerCount; ++la2)
 		{
-			Level2Layer(Doc, &ll, Lnr);
+			Doc->Layers.levelToLayer(ll, Lnr);
 			bool pr = true;
 			if ((previewMode) && (!ll.isPrintable))
 				pr = false;
@@ -3087,7 +3087,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (Doc->layerCount() > 1)
 				{
 					QMap<int,int> layerMap;
-					for (QList<Layer>::iterator it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
+					for (ScLayers::iterator it = Doc->Layers.begin(); it != Doc->Layers.end(); ++it)
 						layerMap.insert((*it).Level, (*it).LNr);
 					int i=layerMap.count()-1;
 					while (i>=0)

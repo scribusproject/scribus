@@ -281,21 +281,6 @@ struct ArrowDesc
 	FPointArray points;
 };
 
-struct Layer
-{
-	int LNr;
-	int Level;
-	int blendMode;
-	bool isPrintable;
-	bool isViewable;
-	bool isEditable;
-	bool flowControl;
-	bool outlineMode;
-	double transparency;
-	QColor markerColor;
-	QString Name;
-};
-
 struct PDFPresentationData
 {
 	int pageEffectDuration;
@@ -459,4 +444,5 @@ public:
 };
 
 #endif
+
 

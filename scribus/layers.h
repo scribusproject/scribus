@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "scribusstructs.h"
+#include "sclayer.h"
 
 class QHBoxLayout;
 class QVBoxLayout;
@@ -78,7 +79,7 @@ protected:
 	QPushButton* deleteLayerButton;
 	QPushButton* raiseLayerButton;
 	QPushButton* lowerLayerButton;
-	QList<Layer> *layers;
+	ScLayers *layers;
 };
 
 #endif // LAYERPALETTE_H
