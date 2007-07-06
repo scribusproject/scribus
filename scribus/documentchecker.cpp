@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "documentchecker.h"
+#include "formatutils.h"
 #include "pageitem.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
