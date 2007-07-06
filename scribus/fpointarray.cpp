@@ -577,6 +577,7 @@ QPainterPath FPointArray::toQPainterPath(bool closed)
 {
 	QPainterPath m_path = QPainterPath();
 	bool nPath = true;
+	bool first = true;
 	FPoint np, np1, np2, np3;
 	if (size() > 3)
 	{
@@ -590,8 +591,11 @@ QPainterPath FPointArray::toQPainterPath(bool closed)
 			if (nPath)
 			{
 				np = point(poi);
-    			m_path.moveTo(np.x(), np.y());
+				if ((!first) && (closed))
+					m_path.closeSubpath();
+				m_path.moveTo(np.x(), np.y());
 				nPath = false;
+				first = false;
 			}
 			np = point(poi);
 			np1 = point(poi+1);
@@ -618,6 +622,8 @@ void FPointArray::fromQPainterPath(QPainterPath &path)
 		switch (elm.type)
 		{
 			case QPainterPath::MoveToElement:
+				if (svgState->WasM)
+					svgClosePath();
 				svgState->WasM = true;
 				svgMoveTo(elm.x, elm.y);
 				break;
@@ -626,7 +632,6 @@ void FPointArray::fromQPainterPath(QPainterPath &path)
 				break;
 			case QPainterPath::CurveToElement:
 				svgCurveToCubic(elm.x, elm.y, path.elementAt(i+1).x, path.elementAt(i+1).y, path.elementAt(i+2).x, path.elementAt(i+2).y );
-				i += 2;
 				break;
 			default:
 				break;
