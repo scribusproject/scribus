@@ -21,7 +21,8 @@ You must install the libraries listed below BEFORE running configure or
 compiling Scribus:
 
 Requirements:
-	Qt >= 3.3 (3.3.7+ recommended)
+	Qt >= 3.3 (3.3.7+ recommended) and not Qt4.x Scribus 1.3.3.x will not
+	compile with Qt 4.x 
 	Freetype >= 2.1.3 (2.2.1+ strongly recommended)
 	libart >= 2.3.10+ (2.3.17+ recommended)
 	libtiff >= 3.6.0
