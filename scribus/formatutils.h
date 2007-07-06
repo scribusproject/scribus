@@ -13,12 +13,13 @@ for which a new license (GPL+exception) is in place.
 #define FORMAT_UTILS_H
 
 #include <QString>
+#include "scribusapi.h"
 
-bool extensionIndicatesPDF(const QString &ext);
-bool extensionIndicatesEPS(const QString &ext);
-bool extensionIndicatesEPSorPS(const QString &ext);
-bool extensionIndicatesTIFF(const QString &ext);
-bool extensionIndicatesPSD(const QString &ext);
-bool extensionIndicatesJPEG(const QString &ext);
+bool SCRIBUS_API extensionIndicatesPDF(const QString &ext);
+bool SCRIBUS_API extensionIndicatesEPS(const QString &ext);
+bool SCRIBUS_API extensionIndicatesEPSorPS(const QString &ext);
+bool SCRIBUS_API extensionIndicatesTIFF(const QString &ext);
+bool SCRIBUS_API extensionIndicatesPSD(const QString &ext);
+bool SCRIBUS_API extensionIndicatesJPEG(const QString &ext);
 
 #endif
