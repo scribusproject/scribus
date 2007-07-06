@@ -1702,8 +1702,10 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction("Layer", Um::IDocument, Um::DeleteLayer, "", Um::IDelete);
 
+	rebuildItemLists();
 	if (ScCore->usingGUI())
 		removeLayer(layerNumber, deleteItems);
+
 	/*
 	//Layer found, do we want to delete its items too?
 	if (masterPageMode)
@@ -1717,7 +1719,7 @@ bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 			if (deleteItems)
 			{
 				MasterItems.at(b)->setTagged(true);
-				DocItems.at(b)->setLocked(false);
+				MasterItems.at(b)->setLocked(false);
 			}
 			else
 				MasterItems.at(b)->setTagged(false);
@@ -2114,7 +2116,6 @@ bool ScribusDoc::lowerLayerByLevel(const int layerLevel)
 	}
 	(*it2).Level -= 1;
 	(*it).Level += 1;
-	rebuildItemLists();
 	return true;
 }
 
@@ -2151,7 +2152,6 @@ bool ScribusDoc::raiseLayerByLevel(const int layerLevel)
 	}
 	(*it2).Level += 1;
 	(*it).Level -= 1;
-	rebuildItemLists();
 	return true;
 }
 
@@ -6004,6 +6004,24 @@ void ScribusDoc::removeLayer(int l, bool dl)
 {
 	m_View->Deselect();
 	Selection tmpSelection(this, false);
+	int newLayerNr = 0;
+	if (!dl)
+	{
+		// Find the new layer identifier
+		const ScLayer* lcurr = Layers.layerByNumber(l);
+		if (lcurr)
+		{
+			const ScLayer* lbelow = Layers.layerBelow(lcurr->Level);
+			if (lcurr == lbelow)
+			{
+				const ScLayer* labove = Layers.layerAbove(lcurr->Level);
+				if (labove)
+					newLayerNr = labove->LNr;
+			}
+			else if (lbelow)
+				newLayerNr = lbelow->LNr;
+		}
+	}
 	for (int b = 0; b < MasterItems.count(); ++b)
 	{
 		if (MasterItems.at(b)->LayerNr == l)
@@ -6014,7 +6032,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 				MasterItems.at(b)->setLocked(false);
 			}
 			else
-				MasterItems.at(b)->setLayer(0);
+				MasterItems.at(b)->setLayer(newLayerNr);
 		}
 	}
 	if (m_Selection->count() != 0)
@@ -6030,7 +6048,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 				DocItems.at(b)->setLocked(false);
 			}
 			else
-				DocItems.at(b)->setLayer(0);
+				DocItems.at(b)->setLayer(newLayerNr);
 		}
 	}
 	if (m_Selection->count() != 0)
