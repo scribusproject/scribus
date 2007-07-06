@@ -427,6 +427,44 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 	return pts;
 }
 
+QList<QPainterPath> decomposePath(QPainterPath &path)
+{
+	QList<QPainterPath> ret;
+	ret.clear();
+	QPainterPath part;
+	part = QPainterPath();
+	bool first = true;
+	for (int i = 0; i < path.elementCount(); ++i)
+	{
+		const QPainterPath::Element &elm = path.elementAt(i);
+		if ((first) && (elm.type != QPainterPath::MoveToElement))
+			part.moveTo(elm.x, elm.y);
+		switch (elm.type)
+		{
+			case QPainterPath::MoveToElement:
+				if (!first)
+				{
+					ret.append(part);
+					part = QPainterPath();
+				}
+				first = false;
+				part.moveTo(elm.x, elm.y);
+				break;
+			case QPainterPath::LineToElement:
+				part.lineTo(elm.x, elm.y);
+				break;
+			case QPainterPath::CurveToElement:
+				part.cubicTo(elm.x, elm.y, path.elementAt(i+1).x, path.elementAt(i+1).y, path.elementAt(i+2).x, path.elementAt(i+2).y );
+				break;
+			default:
+				break;
+		}
+	}
+	if (!part.isEmpty())
+		ret.append(part);
+	return ret;
+}
+
 Q3PointArray FlattenPath(FPointArray ina, QList<uint> &Segs)
 {
 	Q3PointArray Bez(4);

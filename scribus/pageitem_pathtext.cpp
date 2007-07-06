@@ -88,19 +88,19 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	double dx;
-	double sp = 0;
-	double oldSp = 0;
-	double oCurX = 0;
+//	double sp = 0;
+//	double oldSp = 0;
+//	double oCurX = 0;
 	FPoint point = FPoint(0, 0);
-	FPoint normal = FPoint(0, 0);
+//	FPoint normal = FPoint(0, 0);
 	FPoint tangent = FPoint(0, 0);
-	FPoint extPoint = FPoint(0, 0);
-	bool ext = false;
-	bool first = true;
-	double fsx = 0;
+//	FPoint extPoint = FPoint(0, 0);
+//	bool ext = false;
+//	bool first = true;
+//	double fsx = 0;
 	uint seg = 0;
 	double segLen = 0;
-	double distCurX;
+//	double distCurX;
 	QColor tmp;
 	CurX = Extra;
 	QString cachedStroke = "";
@@ -185,6 +185,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			extraOffset = (totalCurveLen - Extra  - totalTextLen) / static_cast<double>(itemText.length());
 	}
 #ifndef NLS_PROTO
+	QPainterPath guidePath = PoLine.toQPainterPath(false);
+	QList<QPainterPath> pathList = decomposePath(guidePath);
+	QPainterPath currPath = pathList[0];
+	int currPathIndex = 0;
 	for (a = firstChar; a < itemText.length(); ++a)
 	{
 		CurY = 0;
@@ -207,6 +211,23 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 //		qDebug(QString("pathtext-draw: co %1 %2 %3 %4").arg(itemText.charStyle(a).fillColor()).arg(itemText.charStyle(a).fillShade()).arg(itemText.charStyle(a).strokeColor()).arg(itemText.charStyle(a).strokeShade()));
 //		qDebug(QString("pathtext-draw: fo %1 %2").arg(itemText.charStyle(a).font().scName()).arg(hl->glyph.glyph));
 		CurX += dx;
+
+		double currPerc = currPath.percentAtLength(CurX);
+		if (currPerc >= 0.9999999)
+		{
+			currPathIndex++;
+			if (currPathIndex == pathList.count())
+				break;
+			currPath = pathList[currPathIndex];
+			CurX = dx;
+			currPerc = currPath.percentAtLength(CurX);
+		}
+		double currAngle = currPath.angleAtPercent(currPerc);
+		QPointF currPoint = currPath.pointAtPercent(currPerc);
+		tangent = FPoint(cos(currAngle * M_PI / 180.0), sin(currAngle * M_PI / 180.0));
+		point = FPoint(currPoint.x(), currPoint.y());
+
+/*
 		ext = false;
 		while ( (seg < PoLine.size()-3) && (CurX > fsx + segLen))
 		{
@@ -259,6 +280,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			else
 				break;
 		}
+*/
 		hl->glyph.xoffset = 0;
 		hl->glyph.yoffset = BaseOffs;
 		hl->PtransX = tangent.x();
@@ -331,13 +353,13 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		p->setWorldMatrix(savWM);
 		p->restore();
 		MaxChars = a+1;
-		oCurX = CurX;
+//		oCurX = CurX;
 		CurX -= dx;
 		if (hl->ch == SpecialChars::OBJECT)
 			CurX += (hl->embedded.getItem()->gWidth + hl->embedded.getItem()->lineWidth());
 		else
 			CurX += hl->glyph.wide()+hl->fontSize() * hl->tracking() / 10000.0 + extraOffset;
-		first = false;
+//		first = false;
 	}
 	MaxChars++;  // ugly Hack
 #endif

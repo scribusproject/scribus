@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QByteArray>
 #include <QList>
+#include <QPainterPath>
 #include <QTextStream>
 
 #include "fpoint.h"
@@ -67,6 +68,7 @@ void SCRIBUS_API Level2Layer(ScribusDoc *currentDoc, struct Layer *ll, int Level
 void SCRIBUS_API BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 double SCRIBUS_API xy2Deg(double x, double y);
 Q3PointArray SCRIBUS_API FlattenPath(FPointArray ina, QList<uint> &Segs);
+QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
 Q3PointArray SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 FPointArray SCRIBUS_API RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
 QPixmap SCRIBUS_API loadIcon(QString nam);
