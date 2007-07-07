@@ -406,8 +406,7 @@ void ScribusDoc::init()
 
 	currentStyle = pstyle;
 	
-	ScLayer ll( tr("Background"), 0, 0);
-	Layers.append(ll);
+	Layers.addLayer( tr("Background") );
 	// Fixme: Check PDF version input
 	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData.PDF_Options.Version;
 

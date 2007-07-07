@@ -221,7 +221,7 @@ public:
 	 * @param isViewable true = layer is locked
 	 * @return Success or failure
 	 */
-	bool setLayerLocked(const int layerNumber, const bool isViewable);
+	bool setLayerLocked(const int layerNumber, const bool isLocked);
 	/**
 	 * @brief Is the layer locked
 	 * @param layerNumber Number of the layer

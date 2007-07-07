@@ -11,17 +11,17 @@ for which a new license (GPL+exception) is in place.
 
 ScLayer::ScLayer(void)
 {
+	Name         = "New Layer";
 	LNr          = 0;
 	Level        = 0;
-	blendMode    = 0;
 	isPrintable  = true;
 	isViewable   = true;
 	isEditable   = true;
 	flowControl  = true;
 	outlineMode  = false;
 	transparency = 1.0;
+	blendMode    = 0;
 	markerColor  = QColor(0, 0, 0);
-	Name         = "New Layer";
 }
 
 ScLayer::ScLayer(const QString& name, int level, int nr)
@@ -29,13 +29,13 @@ ScLayer::ScLayer(const QString& name, int level, int nr)
 	Name         = name;
 	LNr          = nr;
 	Level        = level;
-	blendMode    = 0;
 	isPrintable  = true;
 	isViewable   = true;
 	isEditable   = true;
 	flowControl  = true;
 	outlineMode  = false;
 	transparency = 1.0;
+	blendMode    = 0;
 	markerColor  = QColor(0, 0, 0);
 	switch (LNr % 7)
 	{
@@ -66,6 +66,18 @@ ScLayer::ScLayer(const QString& name, int level, int nr)
 bool ScLayer::operator< (const ScLayer& other) const
 {
 	return (Level < other.Level);
+}
+
+int ScLayers::getMaxNumber(void)
+{
+	int nr, maxNr = -1;
+	for (int i = 0; i < this->count(); ++i)
+	{
+		nr = this->at(i).LNr;;
+		if (nr > maxNr)
+			maxNr = nr;
+	}
+	return maxNr;
 }
 
 const ScLayer*  ScLayers::bottomLayer (void) const
@@ -110,6 +122,28 @@ void ScLayers::levelToLayer (ScLayer& layer, int level) const
 			break;
 		}
 	}
+}
+
+ScLayer* ScLayers::byLevel(const int level)
+{
+	ScLayers::Iterator itend = end();
+	for (ScLayers::Iterator it = 0; it != itend; ++it)
+	{
+		if( it->Level == level)
+			return &(*it);
+	}
+	return NULL;
+}
+
+ScLayer* ScLayers::byNumber(const int nr)
+{
+	ScLayers::Iterator itend = end();
+	for (ScLayers::Iterator it = 0; it != itend; ++it)
+	{
+		if( it->LNr == nr)
+			return &(*it);
+	}
+	return NULL;
 }
 
 const ScLayer* ScLayers::layerByLevel (int level) const
@@ -237,7 +271,7 @@ const ScLayer* ScLayers::layerBelow (const ScLayer& layer) const
 int ScLayers::addLayer(const QString& layerName)
 {
 	QString lname;
-	int     lnr    = (count() > 0) ? (last().LNr + 1) : 1;
+	int     lnr    = getMaxNumber() + 1;
 	int     llevel = count();
 	if (layerName.isEmpty())
 	{
@@ -305,4 +339,156 @@ bool ScLayers::removeLayerByLevel(int level)
 void ScLayers::sort(void)
 {
 	qStableSort(begin(), end());
+}
+
+bool ScLayers::layerPrintable(const int layerNumber) const
+{
+	const ScLayer* layer = layerByNumber(layerNumber);
+	if (layer)
+		return layer->isPrintable;
+	return false;
+}
+
+bool ScLayers::setLayerPrintable(const int layerNumber, const bool isPrintable)
+{
+	ScLayer* layer = byNumber(layerNumber);
+	if (layer)
+	{
+		layer->isPrintable = isPrintable;
+		return true;
+	}
+	return false;
+}
+
+bool ScLayers::layerVisible(const int layerNumber) const
+{
+	const ScLayer* layer = layerByNumber(layerNumber);
+	if (layer)
+		return layer->isViewable;
+	return false;
+}
+
+bool ScLayers::setLayerVisible(const int layerNumber, const bool isViewable)
+{
+	ScLayer* layer = byNumber(layerNumber);
+	if (layer)
+	{
+		layer->isViewable = isViewable;
+		return true;
+	}
+	return false;
+}
+
+bool ScLayers::layerLocked(const int layerNumber) const
+{
+	const ScLayer* layer = layerByNumber(layerNumber);
+	if (layer)
+		return !(layer->isEditable);
+	return false;
+}
+
+bool ScLayers::setLayerLocked(const int layerNumber, const bool isLocked)
+{
+	ScLayer* layer = byNumber(layerNumber);
+	if (layer)
+	{
+		layer->isEditable = !isLocked;
+		return true;
+	}
+	return false;
+}
+
+bool ScLayers::layerFlow(const int layerNumber) const
+{
+	const ScLayer* layer = layerByNumber(layerNumber);
+	if (layer)
+		return layer->flowControl;
+	return false;
+}
+
+bool ScLayers::setLayerFlow(const int layerNumber, const bool flow)
+{
+	ScLayer* layer = byNumber(layerNumber);
+	if (layer)
+	{
+		layer->flowControl = flow;
+		return true;
+	}
+	return false;
+}
+
+bool ScLayers::layerOutline(const int layerNumber) const
+{
+	const ScLayer* layer = layerByNumber(layerNumber);
+	if (layer)
+		return layer->outlineMode;
+	return false;
+}
+
+bool ScLayers::setLayerOutline(const int layerNumber, const bool outline)
+{
+	ScLayer* layer = byNumber(layerNumber);
+	if (layer)
+	{
+		layer->outlineMode = outline;
+		return true;
+	}
+	return false;
+}
+
+double ScLayers::layerTransparency(const int layerNumber) const
+{
+	const ScLayer* layer = layerByNumber(layerNumber);
+	if (layer)
+		return layer->transparency;
+	return 1.0;
+}
+
+bool ScLayers::setLayerTransparency(const int layerNumber, double trans)
+{
+	ScLayer* layer = byNumber(layerNumber);
+	if (layer)
+	{
+		layer->transparency = trans;
+		return true;
+	}
+	return false;
+}
+
+int ScLayers::layerBlendMode(const int layerNumber) const
+{
+	const ScLayer* layer = layerByNumber(layerNumber);
+	if (layer)
+		return layer->blendMode;
+	return 0;
+}
+
+bool ScLayers::setLayerBlendMode(const int layerNumber, int blend)
+{
+	ScLayer* layer = byNumber(layerNumber);
+	if (layer)
+	{
+		layer->blendMode = blend;
+		return true;
+	}
+	return false;
+}
+
+QColor ScLayers::layerMarker(const int layerNumber) const
+{
+	const ScLayer* layer = layerByNumber(layerNumber);
+	if (layer)
+		return layer->markerColor;
+	return Qt::black;
+}
+
+bool ScLayers::setLayerMarker(const int layerNumber, QColor color)
+{
+	ScLayer* layer = byNumber(layerNumber);
+	if (layer)
+	{
+		layer->markerColor = color;
+		return true;
+	}
+	return false;
 }
