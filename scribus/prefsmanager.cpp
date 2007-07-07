@@ -2071,7 +2071,10 @@ bool PrefsManager::ReadPref(QString ho)
 	}
 	appPrefs.DColors.ensureBlackAndWhite();
 	if (appPrefs.GUI != "Default")
+	{
 		qApp->setStyle(QStyleFactory::create(appPrefs.GUI));
+		qApp->setPalette(qApp->style()->standardPalette());
+	}
 	QFont apf = qApp->font();
 	apf.setPointSize(appPrefs.AppFontSize);
 	qApp->setFont(apf,true);

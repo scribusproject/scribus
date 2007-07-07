@@ -7557,7 +7557,10 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 		ScQApp->changeGUILanguage(newGUILanguage);
 	QString newGUIStyle = prefsManager->guiStyle();
 	if (oldGUIStyle != newGUIStyle)
+	{
 		qApp->setStyle(QStyleFactory::create(newGUIStyle));
+		qApp->setPalette(qApp->style()->standardPalette());
+	}
 	int newGUIFontSize = prefsManager->guiFontSize();
 	if (oldGUIFontSize != newGUIFontSize)
 	{
