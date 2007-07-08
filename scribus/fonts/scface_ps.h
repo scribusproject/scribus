@@ -7,12 +7,10 @@
 #ifndef SCFACE_PS_H
 #define SCFACE_PS_H
 
-#include <qstring.h>
-#include <q3strlist.h>
-#include <qstringlist.h>
-#include <q3dict.h>
-#include <qfont.h>
-#include <qmap.h>
+#include <QString>
+#include <QStringList>
+#include <QFont>
+#include <QMap>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
