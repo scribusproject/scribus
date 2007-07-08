@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "sclayer.h"
 
+#include <QHash>   //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instanciation of templates
+#include <QVector> //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instanciation of templates
 #include <QtAlgorithms>
 
 ScLayer::ScLayer(void)
@@ -66,6 +68,19 @@ ScLayer::ScLayer(const QString& name, int level, int nr)
 bool ScLayer::operator< (const ScLayer& other) const
 {
 	return (Level < other.Level);
+}
+
+bool ScLayer::operator== (const ScLayer& other) const
+{
+	// ignore markerColor?
+	if (Name == other.Name && LNr == other.LNr && Level == other.Level      &&
+		isPrintable  == other.isPrintable  && isViewable  == other.isViewable  &&
+		flowControl  == other.flowControl  && outlineMode == other.outlineMode && 
+		transparency == other.transparency && blendMode   == other.blendMode)
+	{
+		return true;
+	}
+	return false;
 }
 
 int ScLayers::getMaxNumber(void)
@@ -270,6 +285,14 @@ const ScLayer* ScLayers::layerBelow (const ScLayer& layer) const
 
 int ScLayers::addLayer(const QString& layerName)
 {
+	ScLayer* nl = newLayer(layerName);
+	if (nl)
+		return nl->LNr;
+	return -1;
+}
+
+ScLayer* ScLayers::newLayer(const QString& layerName)
+{
 	QString lname;
 	int     lnr    = getMaxNumber() + 1;
 	int     llevel = count();
@@ -281,8 +304,8 @@ int ScLayers::addLayer(const QString& layerName)
 	else
 		lname = layerName;
 	ScLayer ll(lname, llevel, lnr);
-	append(ll);
-	return lnr;
+	ScLayers::Iterator it = insert(end(), ll);
+	return &(*it);
 }
 
 bool ScLayers::removeLayerByNumber(int nr)
@@ -491,4 +514,9 @@ bool ScLayers::setLayerMarker(const int layerNumber, QColor color)
 		return true;
 	}
 	return false;
+}
+
+uint qHash(const ScLayer& layer)
+{ 
+	return qHash(&layer); 
 }

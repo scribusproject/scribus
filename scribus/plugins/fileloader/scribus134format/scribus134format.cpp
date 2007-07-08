@@ -154,7 +154,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		return false;
 	}
 	ParagraphStyle vg;
-	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	int counter;//, Pgc;
 	//bool AtFl;
@@ -514,47 +513,18 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
 			if(pg.tagName()=="LAYERS")
 			{
-				la.LNr = pg.attribute("NUMMER").toInt();
-				la.Level = pg.attribute("LEVEL").toInt();
-				la.Name = pg.attribute("NAME");
-				la.isViewable = pg.attribute("SICHTBAR").toInt();
-				la.isPrintable = pg.attribute("DRUCKEN").toInt();
-				la.isEditable = pg.attribute("EDIT", "1").toInt();
-				la.flowControl = pg.attribute("FLOW", "1").toInt();
+				int lnr   = pg.attribute("NUMMER").toInt();
+				int level = pg.attribute("LEVEL").toInt();
+				ScLayer la( pg.attribute("NAME"), level, lnr);
+				la.isViewable   = pg.attribute("SICHTBAR").toInt();
+				la.isPrintable  = pg.attribute("DRUCKEN").toInt();
+				la.isEditable   = pg.attribute("EDIT", "1").toInt();
+				la.flowControl  = pg.attribute("FLOW", "1").toInt();
 				la.transparency = pg.attribute("TRANS", "1").toDouble();
-				la.blendMode = pg.attribute("BLEND", "0").toInt();
-				la.outlineMode = pg.attribute("OUTL", "0").toInt();
+				la.blendMode    = pg.attribute("BLEND", "0").toInt();
+				la.outlineMode  = pg.attribute("OUTL", "0").toInt();
 				if (pg.hasAttribute("LAYERC"))
 					la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
-				else
-				{
-					QColor marker;
-					switch (la.LNr % 7)
-					{
-						case 0:
-							marker = Qt::black;
-							break;
-						case 1:
-							marker = Qt::red;
-							break;
-						case 2:
-							marker = Qt::green;
-							break;
-						case 3:
-							marker = Qt::blue;
-							break;
-						case 4:
-							marker = Qt::cyan;
-							break;
-						case 5:
-							marker = Qt::magenta;
-							break;
-						case 6:
-							marker = Qt::yellow;;
-							break;
-					}
-					la.markerColor = marker;
-				}
 				m_Doc->Layers.append(la);
 			}
 /*			if(pg.tagName()=="Bookmark")
@@ -1428,20 +1398,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->reformPages();
 
 	if (m_Doc->Layers.count() == 0)
-	{
-		la.LNr = 0;
-		la.Level = 0;
-		la.Name = QObject::tr("Background");
-		la.isViewable = true;
-		la.isPrintable = true;
-		la.isEditable = true;
-		la.flowControl = true;
-		la.transparency = 1.0;
-		la.blendMode = 0;
-		la.markerColor = QColor(0, 0, 0);
-		la.outlineMode = false;
-		m_Doc->Layers.append(la);
-	}
+		m_Doc->Layers.newLayer( QObject::tr("Background") );
 
 	// reestablish textframe links
 	if (itemNext.count() != 0)
@@ -2500,7 +2457,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		return false;
 	}
 	ParagraphStyle vg;
-	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	Page* Apage = NULL;
@@ -2587,58 +2543,21 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
 			if(pg.tagName()=="LAYERS")
 			{
-				la.LNr = pg.attribute("NUMMER").toInt();
-				la.Level = pg.attribute("LEVEL").toInt();
-				la.Name = pg.attribute("NAME");
-				la.isViewable = pg.attribute("SICHTBAR").toInt();
-				la.isPrintable = pg.attribute("DRUCKEN").toInt();
-				la.isEditable = pg.attribute("EDIT", "1").toInt();
-				la.flowControl = pg.attribute("FLOW", "1").toInt();
+				int lnr   = pg.attribute("NUMMER").toInt();
+				int level = pg.attribute("LEVEL").toInt();
+				ScLayer la( pg.attribute("NAME"), level, lnr );
+				la.isViewable   = pg.attribute("SICHTBAR").toInt();
+				la.isPrintable  = pg.attribute("DRUCKEN").toInt();
+				la.isEditable   = pg.attribute("EDIT", "1").toInt();
+				la.flowControl  = pg.attribute("FLOW", "1").toInt();
 				la.transparency = pg.attribute("TRANS", "1").toDouble();
-				la.blendMode = pg.attribute("BLEND", "0").toInt();
-				la.outlineMode = pg.attribute("OUTL", "0").toInt();
+				la.blendMode    = pg.attribute("BLEND", "0").toInt();
+				la.outlineMode  = pg.attribute("OUTL", "0").toInt();
 				if (pg.hasAttribute("LAYERC"))
 					la.markerColor =  QColor(pg.attribute("LAYERC","#000000"));
-				else
-				{
-					QColor marker;
-					switch (la.LNr % 7)
-					{
-						case 0:
-							marker = Qt::black;
-							break;
-						case 1:
-							marker = Qt::red;
-							break;
-						case 2:
-							marker = Qt::green;
-							break;
-						case 3:
-							marker = Qt::blue;
-							break;
-						case 4:
-							marker = Qt::cyan;
-							break;
-						case 5:
-							marker = Qt::magenta;
-							break;
-						case 6:
-							marker = Qt::yellow;;
-							break;
-					}
-					la.markerColor = marker;
-				}
-				bool laex = false;
-				uint layerCount=m_Doc->layerCount();
-				for (uint la2 = 0; la2 < layerCount; ++la2)
-				{
-					if (m_Doc->Layers[la2].Name == la.Name)
-					{
-						laex = true;
-						layerTrans.insert(la.LNr, m_Doc->Layers[la2].LNr);
-					}
-				}
-				if (!laex)
+				const ScLayer* la2 = m_Doc->Layers.layerByName(la.Name);
+				if (la2)
+					layerTrans.insert(la.LNr, la2->LNr);
 				{
 					maxLayer++;
 					maxLevel++;

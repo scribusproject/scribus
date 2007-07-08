@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QColor>
 #include <QString>
 #include <QList>
-#include <QObject>
+#include <QSet>    //necessary to avoid msvc warnings induced by SCRIBUS_API on ScLayers + early instanciation of templates
 
 #include "scribusapi.h"
 
@@ -31,9 +31,10 @@ public:
 	int     blendMode;
 	QColor  markerColor;
 	bool operator< (const ScLayer& other) const;
+	bool operator== (const ScLayer& other) const;
 };
 
-class ScLayers : public QList<ScLayer>
+class SCRIBUS_API ScLayers : public QList<ScLayer>
 {
 protected:
 	/**
@@ -42,6 +43,7 @@ protected:
 	 */
 	int getMaxNumber(void);
 public:
+
 	/**
 	 * @brief  Get layer at a specific level
 	 * @param  level the layer level
@@ -129,8 +131,16 @@ public:
 	/**
 	 * @brief  Add a layer to the layer list
 	 * @param  layerName the layer name (may be empty)
+	 * @return the new layer id on success, -1 on failure
 	 */
 	int addLayer(const QString& layerName);
+
+	/**
+	 * @brief  Add a layer to the layer list
+	 * @param  layerName the layer name (may be empty)
+	 * @return the new layer on success, NULL on failure
+	 */
+	ScLayer* newLayer(const QString& layerName);
 
 	/**
 	 * @brief  remove a layer from the layer list
@@ -269,5 +279,7 @@ public:
 	 */
 	 bool setLayerMarker(const int layerNumber, QColor color);
 };
+
+uint qHash(const ScLayer& layer);
 
 #endif

@@ -205,7 +205,6 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	//Scribus 1.2 docs, see fileloader.cpp for 1.3 docs
 	struct CopyPasteBuffer OB;
 	ParagraphStyle vg;
-	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	int counter;
 	bool newVersion = false;
@@ -378,43 +377,11 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
 			if(pg.tagName()=="LAYERS")
 			{
-				la.LNr = pg.attribute("NUMMER").toInt();
-				la.Level = pg.attribute("LEVEL").toInt();
-				la.Name = pg.attribute("NAME");
+				int lnr   = pg.attribute("NUMMER").toInt();
+				int level = pg.attribute("LEVEL").toInt();
+				ScLayer la( pg.attribute("NAME"), level, lnr);
 				la.isViewable = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
-				la.isEditable = true;
-				la.flowControl = true;
-				la.outlineMode = false;
-				la.blendMode = 0;
-				la.transparency = 1.0;
-				QColor marker;
-				switch (la.LNr % 7)
-				{
-					case 0:
-						marker = Qt::black;
-						break;
-					case 1:
-						marker = Qt::red;
-						break;
-					case 2:
-						marker = Qt::green;
-						break;
-					case 3:
-						marker = Qt::blue;
-						break;
-					case 4:
-						marker = Qt::cyan;
-						break;
-					case 5:
-						marker = Qt::magenta;
-						break;
-					case 6:
-						marker = Qt::yellow;;
-						break;
-				}
-				la.markerColor = marker;
-				la.outlineMode = false;
 				m_Doc->Layers.append(la);
 			}
 			if(pg.tagName()=="MultiLine")
@@ -732,18 +699,9 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	m_View->reformPages();
 	if (m_Doc->layerCount() == 0)
 	{
-		la.LNr = 0;
-		la.Level = 0;
-		la.Name = tr("Background");
-		la.isViewable = true;
-		la.isPrintable = true;
-		la.isEditable = true;
-		la.blendMode = 0;
-		la.transparency = 1.0;
-		la.flowControl = false;
-		la.outlineMode = false;
-		la.markerColor = QColor(Qt::black);
-		m_Doc->Layers.append(la);
+		ScLayer* nl = m_Doc->Layers.newLayer( QObject::tr("Background") );
+		nl->flowControl = false;
+		activeLayer = nl->LNr;
 	}
 	m_Doc->setActiveLayer(activeLayer);
 	
@@ -892,7 +850,6 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 
 	struct CopyPasteBuffer OB;
 	ParagraphStyle vg;
-	ScLayer la;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
 	itemRemap.clear();
@@ -963,53 +920,16 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
 			if(pg.tagName()=="LAYERS")
 			{
-				la.LNr = pg.attribute("NUMMER").toInt();
-				la.Level = pg.attribute("LEVEL").toInt();
-				la.Name = pg.attribute("NAME");
+				int lnr   = pg.attribute("NUMMER").toInt();
+				int level = pg.attribute("LEVEL").toInt();
+				ScLayer la( pg.attribute("NAME"), level, lnr );
 				la.isViewable = pg.attribute("SICHTBAR").toInt();
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
-				la.isEditable = true;
 				la.flowControl = true;
-				la.transparency = 1.0;
-				la.blendMode = 0;
-				QColor marker;
-				switch (la.LNr % 7)
-				{
-					case 0:
-						marker = Qt::black;
-						break;
-					case 1:
-						marker = Qt::red;
-						break;
-					case 2:
-						marker = Qt::green;
-						break;
-					case 3:
-						marker = Qt::blue;
-						break;
-					case 4:
-						marker = Qt::cyan;
-						break;
-					case 5:
-						marker = Qt::magenta;
-						break;
-					case 6:
-						marker = Qt::yellow;;
-						break;
-				}
-				la.markerColor = marker;
-				la.outlineMode = false;
-				bool laex = false;
-				uint layerCount=m_Doc->layerCount();
-				for (uint la2 = 0; la2 < layerCount; ++la2)
-				{
-					if (m_Doc->Layers[la2].Name == la.Name)
-					{
-						laex = true;
-						layerTrans.insert(la.LNr, m_Doc->Layers[la2].LNr);
-					}
-				}
-				if (!laex)
+				const ScLayer* la2 = m_Doc->Layers.layerByName(la.Name);
+				if (la2)
+					layerTrans.insert(la.LNr, la2->LNr);
+				else
 				{
 					maxLayer++;
 					maxLevel++;
