@@ -109,6 +109,10 @@ public:
 	//! @brief Add a master page with this function, do not use addPage
 	Page* addMasterPage(const int, const QString&);
 	void deleteMasterPage(const int);
+	//! @brief Rebuild master name list
+	void rebuildMasterNames(void);
+	//! @brief Replace a master page by default one
+	void replaceMasterPage(const QString& oldMasterPage);
 	//! @brief Rename a master page
 	bool renameMasterPage(const QString& oldPageName, const QString& newPageName);
 	//! @brief Create the default master pages based on the layout selected by the user, ie, Normal, Normal Left, etc.

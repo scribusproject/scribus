@@ -1505,6 +1505,58 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	changed();
 }
 
+void ScribusDoc::rebuildMasterNames(void)
+{
+	MasterNames.clear();
+	for (uint a = 0; a < MasterPages.count(); ++a)
+		MasterNames[MasterPages.at(a)->pageName()] = MasterPages.at(a)->pageNr();
+}
+
+void ScribusDoc::replaceMasterPage(const QString& oldMasterPage)
+{
+	uint pageIndex = 0;
+	QMap<QString,int>::Iterator it = MasterNames.begin();
+	QListIterator<Page *> dpIt(DocPages);
+	Page* docPage=NULL;
+	while(dpIt.hasNext())
+	//for (Page* docPage = currentDoc->DocPages.first(); docPage; docPage = currentDoc->DocPages.next() )
+	{
+		docPage=dpIt.next();
+		if (docPage->MPageNam == oldMasterPage)
+		{
+			PageLocation pageLoc = locationOfPage(pageIndex);
+			if (pageLoc == LeftPage)
+			{
+				if (MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
+					docPage->MPageNam = CommonStrings::trMasterPageNormalLeft;
+				else if (MasterNames.contains( CommonStrings::trMasterPageNormal))
+					docPage->MPageNam = CommonStrings::trMasterPageNormal;
+				else
+					docPage->MPageNam = it.key();
+			}
+			else if (pageLoc == RightPage)
+			{
+				if (MasterNames.contains( CommonStrings::trMasterPageNormalRight))
+					docPage->MPageNam = CommonStrings::trMasterPageNormalRight;
+				else if (MasterNames.contains( CommonStrings::trMasterPageNormal))
+					docPage->MPageNam = CommonStrings::trMasterPageNormal;
+				else
+					docPage->MPageNam = it.key();
+			}
+			else
+			{
+				if (MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
+					docPage->MPageNam = CommonStrings::trMasterPageNormalMiddle;
+				else if (MasterNames.contains( CommonStrings::trMasterPageNormal))
+					docPage->MPageNam = CommonStrings::trMasterPageNormal;
+				else
+					docPage->MPageNam = it.key();
+			}
+		}
+		pageIndex++;
+	}
+}
+
 void ScribusDoc::deletePage(const int pageNumber)
 {
 	assert( Pages->count() > 1 && Pages->count() > pageNumber );

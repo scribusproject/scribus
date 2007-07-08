@@ -113,53 +113,11 @@ void MasterPagesPalette::deleteMasterPage()
 		currentDoc->scMW()->DeletePage2(currentDoc->MasterNames[sMuster]);
 		//<<CB TODO Move back into ScribusDoc::deleteMasterPage();
 		//This must happen after the pages have been reformed (view/doc)
-		currentDoc->MasterNames.clear();
-		for (int a = 0; a < currentDoc->Pages->count(); ++a)
-			currentDoc->MasterNames[currentDoc->Pages->at(a)->pageName()] = currentDoc->Pages->at(a)->pageNr();
-		// and fix up any pages that refer to the deleted master page
-		uint pageIndex = 0;
+		currentDoc->rebuildMasterNames();
+		// Fix up any pages that refer to the deleted master page
+		currentDoc->replaceMasterPage(muster);
+
 		QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin();
-		QListIterator<Page *> dpIt(currentDoc->DocPages);
-		Page* docPage=NULL;
-		while(dpIt.hasNext())
-		//for (Page* docPage = currentDoc->DocPages.first(); docPage; docPage = currentDoc->DocPages.next() )
-		{
-			docPage=dpIt.next();
-			if (docPage->MPageNam == sMuster)
-			{
-				PageLocation pageLoc = currentDoc->locationOfPage(pageIndex);
-				if (pageLoc == LeftPage)
-				{
-					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
-						docPage->MPageNam = CommonStrings::trMasterPageNormalLeft;
-					else if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormal))
-						docPage->MPageNam = CommonStrings::trMasterPageNormal;
-					else
-						docPage->MPageNam = it.key();
-				}
-				else if (pageLoc == RightPage)
-				{
-					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
-						docPage->MPageNam = CommonStrings::trMasterPageNormalRight;
-					else if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormal))
-						docPage->MPageNam = CommonStrings::trMasterPageNormal;
-					else
-						docPage->MPageNam = it.key();
-				}
-				else
-				{
-					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
-						docPage->MPageNam = CommonStrings::trMasterPageNormalMiddle;
-					else if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormal))
-						docPage->MPageNam = CommonStrings::trMasterPageNormal;
-					else
-						docPage->MPageNam = it.key();
-				}
-			}
-			pageIndex++;
-		}
-		//>>
-		
 		sMuster = it.key();
 		updateMasterPageList(sMuster);
 		//currentDoc->MasterPages = currentDoc->Pages;
