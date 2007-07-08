@@ -115,7 +115,7 @@ void MasterPagesPalette::deleteMasterPage()
 		//This must happen after the pages have been reformed (view/doc)
 		currentDoc->rebuildMasterNames();
 		// Fix up any pages that refer to the deleted master page
-		currentDoc->replaceMasterPage(muster);
+		currentDoc->replaceMasterPage(sMuster);
 
 		QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin();
 		sMuster = it.key();
