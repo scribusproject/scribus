@@ -253,7 +253,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 		Items = m_Doc->MasterItems;
 	for (int la = 0; la < m_Doc->Layers.count(); la++)
 		{
-		Level2Layer(m_Doc, &ll, Lnr);
+		m_Doc->Layers.levelToLayer(ll, Lnr);
 		if (ll.isPrintable)
 			{
 			for(uint j = 0; j < Items.count(); ++j)
