@@ -15,39 +15,20 @@
 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
-export CVSROOT=:pserver:anoncvs&#64;scribus.info:/cvs
-</pre>
-</td></tr></table></blockquote>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-cvs login
-</pre>
-</td></tr></table></blockquote>
-<!--<p>when it asks for a password, press return</p>-->
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-cvs -z3 co Scribus
-</pre>
-</td></tr></table></blockquote>
+svn co svn://scribus.info/Scribus/branches/Version133x/Scribus
 
-<p><strong>Scribus 1.3.x - D&eacute;veloppement</strong></p>
+</pre>
+</td></tr></table>
+</blockquote>
+<p><strong>Scribus 1.3.5 - D&eacute;veloppement</strong></p>
 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
-export CVSROOT=:pserver:anoncvs&#64;scribus.info:/cvs
+svn co svn://scribus.info/Scribus/trunk/Scribus
 </pre>
-</td></tr></table></blockquote>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-cvs login
-</pre>
-</td></tr></table></blockquote>
-<!--<p>when it asks for a password, press return</p>-->
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-cvs -z3 co -r Version13x Scribus
-</pre>
-</td></tr></table></blockquote>
+</td></tr></table>
+</blockquote>
+
 <p>N'importe lequel de ces choix t&eacute;l&eacute;chargera les sources dans votre r&eacute;pertoire courant. Ensuite :</p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
@@ -57,4 +38,3 @@ make -f Makefile.cvs
 </td></tr></table></blockquote>
 <p>&Agrave; partir d'ici, suivez les instructions de <a href="install3.html">Compilation et installation</a>.</p>
 </qt>
- 
