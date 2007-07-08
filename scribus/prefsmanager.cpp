@@ -1927,7 +1927,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList* cp)
 		checkerSettings.checkTransparency = true;
 		checkerSettings.checkAnnotations = false;
 		checkerSettings.checkRasterPDF = true;
-		checkerSettings.minResolution = 72.0;
+		checkerSettings.minResolution = 144.0;
 		//TODO Stop translating these into settings!!!!!!!!!
 		cp->insert( CommonStrings::PostScript, checkerSettings);
 		cp->insert( CommonStrings::PDF_1_3   , checkerSettings);
