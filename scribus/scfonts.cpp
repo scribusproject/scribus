@@ -15,18 +15,16 @@ for which a new license (GPL+exception) is in place.
 	version, at your discretion.
 */
 
-#include <qapplication.h>
-#include <qdom.h>
-#include <qfile.h>
-#include <qfileinfo.h>
-#include <qglobal.h>
-#include <q3strlist.h>
-#include <qstring.h>
-#include <qfont.h>
-#include <q3dict.h>
-#include <qmap.h>
-#include <qdir.h>
-#include <qregexp.h>
+#include <QApplication>
+#include <QDomDocument>
+#include <QFile>
+#include <QFileInfo>
+#include <QGlobalStatic>
+#include <QString>
+#include <QFont>
+#include <QMap>
+#include <QDir>
+#include <QRegExp>
 
 #include <cstdlib>
 #include "scfonts.h"
