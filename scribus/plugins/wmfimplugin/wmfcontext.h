@@ -8,13 +8,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef WMFCONTEXT_H
 #define WMFCONTEXT_H
 
-#include <QPen>
 #include <QBrush>
 #include <QMatrix>
+#include <QPen>
 #include <QPoint>
 #include <QSize>
 #include <QStack>
-#include "FPointArray.h"
+#include "fpointarray.h"
 
 class WMFGraphicsState
 {
