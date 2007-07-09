@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include <QPixmap>
 #include <cstdlib>
-#include <q3textedit.h>
 
 #include "runscriptdialog.h"
 #include "helpbrowser.h"

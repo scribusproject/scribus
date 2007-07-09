@@ -10,8 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "stylemanager.h"
 
-#include <qmessagebox.h>
-#include <qcursor.h>
+#include <QMessageBox>
+#include <QCursor>
 
 PyObject *scribus_newdocdia(PyObject* /* self */)
 {

@@ -39,7 +39,7 @@ opional parameters is False.\n\
 The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.\n\
 For example 'Images (*.png *.xpm *.jpg)'.\n\
 \n\
-Refer to the Qt-Documentation for Q3FileDialog for details on filters.\n\
+Refer to the Qt-Documentation for QFileDialog for details on filters.\n\
 \n\
 Example: fileDialog('Open input', 'CSV files (*.csv)')\n\
 Example: fileDialog('Save report', defaultname='report.txt', issave=True)\n\
