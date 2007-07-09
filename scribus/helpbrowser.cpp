@@ -50,9 +50,6 @@ for which a new license (GPL+exception) is in place.
 #include <QTreeView>
 #include <QXmlDefaultHandler>
 
-#include <Q3PaintDeviceMetrics>
-#include <Q3SimpleRichText>
-
 #include "prefsmanager.h"
 #include "util.h"
 
@@ -414,16 +411,7 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 		}
 		else if (jumpToSection=="scripter")
 		{
-// 			toLoad+="scripter1.html";
-// 			Q3ListViewItemIterator it(listView);
-// 			while (it.current())
-// 			{
-// 				if (it.current()->text(1)=="scripter1.html")
-// 					listView->setSelected( it.current(), true );
-// 				if (it.current()->text(1)=="developers.html")
-// 					it.current()->setOpen( true );
-// 				++it;
-// 			}
+ 			toLoad+="scripter1.html";
 		}
 	}
 	else
