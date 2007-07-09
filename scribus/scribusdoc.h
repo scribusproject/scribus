@@ -95,6 +95,10 @@ public:
 	
 	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
 	void deleteMasterPage(const int);
+	//! @brief Rebuild master name list
+	void rebuildMasterNames(void);
+	//! @brief Replace a master page by default one
+	void replaceMasterPage(const QString& oldMasterPage);
 	//! @brief Rename a master page
 	bool renameMasterPage(const QString& oldPageName, const QString& newPageName);
 	void deletePage(const int);

@@ -5886,6 +5886,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 		SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
 		ss->set("DELETE_PAGE", "delete_page");
 		ss->set("PAGENR", pg + 1);
+		ss->set("PAGENAME", doc->Pages->at(pg)->pageName());
 		ss->set("MASTERPAGE", doc->Pages->at(pg)->MPageNam);
 		// replace the deleted page in the undostack by a dummy object that will
 		// replaced with the "undone" page if user choose to undo the action
@@ -5913,6 +5914,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
+	doc->rebuildMasterNames();
 	pagePalette->RebuildPage();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
@@ -5975,6 +5977,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 			ss->set("DUMMY_ID", id);
 			undoManager->action(this, ss);
 		}
+		bool isMasterPage = !(doc->Pages->at(a)->pageName().isEmpty());
 		if (doc->masterPageMode())
 			doc->deleteMasterPage(a);
 		else
@@ -5983,7 +5986,8 @@ void ScribusMainWindow::DeletePage(int from, int to)
 		view->pageSelector->setMaxValue(doc->Pages->count());
 		view->pageSelector->GotoPg(0);
 		connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
-		doc->removePageFromSection(a);
+		if (!isMasterPage) // Master pages are not added to sections when created
+			doc->removePageFromSection(a);
 	}
 	undoManager->setUndoEnabled(false); // ugly hack to disable object moving when undoing page deletion
 	view->reformPages();
@@ -5995,6 +5999,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 	slotDocCh();
+	doc->rebuildMasterNames();
 	pagePalette->RebuildPage();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
@@ -7825,7 +7830,9 @@ void ScribusMainWindow::restore(UndoState* state, bool isUndo)
 void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 {
 	uint pagenr   = state->getUInt("PAGENR");
-	QStringList tmpl = state->get("MASTERPAGE");
+	QStringList tmpl;
+	tmpl << state->get("MASTERPAGE");
+	tmpl << state->get("PAGENAME");
 	int where, wo;
 	if (pagenr == 1)
 	{
@@ -7844,7 +7851,14 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 	}
 	if (isUndo)
 	{
-		addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true, &tmpl);
+		if (doc->masterPageMode())
+		{
+			slotNewMasterPage(wo, tmpl[1]);
+		}
+		else
+		{
+			addNewPages(wo, where, 1, doc->pageHeight, doc->pageWidth, doc->PageOri, doc->PageSize, true, &tmpl);
+		}
 		UndoObject *tmp =
 			undoManager->replaceObject(state->getUInt("DUMMY_ID"), doc->Pages->at(pagenr - 1));
 		delete tmp;
@@ -7857,6 +7871,7 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 		state->set("DUMMY_ID", id);
 		DeletePage(pagenr, pagenr);
 	}
+	pagePalette->RebuildPage();
 }
 
 void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)

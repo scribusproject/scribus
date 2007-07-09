@@ -1100,6 +1100,22 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	currentPage = Pages->at(0);
 }
 
+void ScribusDoc::rebuildMasterNames(void)
+{
+	MasterNames.clear();
+	for (uint a = 0; a < MasterPages.count(); ++a)
+		MasterNames[MasterPages.at(a)->pageName()] = MasterPages.at(a)->pageNr();
+}
+
+void ScribusDoc::replaceMasterPage(const QString& oldMasterPage)
+{
+	for (Page* docPage = DocPages.first(); docPage; docPage = DocPages.next() )
+	{
+		if (docPage->MPageNam == oldMasterPage)
+			docPage->MPageNam = "Normal";
+	}
+}
+
 void ScribusDoc::deletePage(const int pageNumber)
 {
 	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
