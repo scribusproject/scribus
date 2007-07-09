@@ -1508,7 +1508,7 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 void ScribusDoc::rebuildMasterNames(void)
 {
 	MasterNames.clear();
-	for (uint a = 0; a < MasterPages.count(); ++a)
+	for (int a = 0; a < MasterPages.count(); ++a)
 		MasterNames[MasterPages.at(a)->pageName()] = MasterPages.at(a)->pageNr();
 }
 
