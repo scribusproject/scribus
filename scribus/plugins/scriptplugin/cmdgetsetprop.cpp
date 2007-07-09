@@ -7,9 +7,11 @@ for which a new license (GPL+exception) is in place.
 #include "cmdgetsetprop.h"
 #include "cmdutil.h"
 
-#include <qmetaobject.h>
-#include <q3strlist.h>
-#include <qobject.h>
+#include <QMetaObject>
+#include <QMetaProperty>
+#include <QList>
+#include <QObject>
+#include <QObjectList>
 
 QObject* getQObjectFromPyArg(PyObject* arg)
 {
@@ -50,14 +52,12 @@ PyObject* wrapQObject(QObject* obj)
 const char* getpropertytype(QObject* obj, const char* propname, bool includesuper)
 {
 	const QMetaObject* objmeta = obj->metaObject();
-/*qt4 FIXME
-	int i = objmeta->findProperty(propname, includesuper);
+	int i = objmeta->indexOfProperty(propname);
 	if (i == -1)
 		return NULL;
-	const QMetaProperty* propmeta = objmeta->property(i, includesuper);
-	if (propmeta == NULL)
+	QMetaProperty propmeta = objmeta->property(i);
+	if (!propmeta.isValid())
 		return NULL;
-*/
 	const char* type = "";
 //type=propmeta->type();
 	assert(type);
@@ -94,27 +94,6 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 	return PyString_FromString(type);
 }
 
-
-PyObject* convert_QStrList_to_PyListObject(Q3StrList& origlist)
-{
-/* qt4 FIXME
-	QStrListIterator it (origlist);
-	char* item = NULL;
-*/
-	PyObject* resultList = PyList_New(0);
-/*qt4 FIXME	if (!resultList)
-		return NULL;
-
-	while ( (item = it.current()) != 0 ) {
-		++it;
-		if (PyList_Append(resultList, PyString_FromString(item)) == -1)
-			return NULL;
-	}
-*/
-	return resultList;
-}
-
-
 PyObject* convert_QStringList_to_PyListObject(QStringList& origlist)
 {
 	PyObject* resultList = PyList_New(0);
@@ -138,11 +117,10 @@ PyObject* convert_QObjectList_to_PyListObject(QObjectList* origlist)
 	PyObject* objPtr = NULL;
 	// Loop over the objects in the list and add them to the python
 	// list wrapped in PyCObjects .
-/*qt4 FIXME
-	for ( origlist->first(); origlist->current(); origlist->next() )
+	for (int i = 0; i < origlist->count(); ++i)
 	{
 		// Wrap up the object pointer
-		objPtr = wrapQObject(origlist->current());
+		objPtr = wrapQObject(origlist->at(i));
 		if (!objPtr)
 		{
 			// Failed to wrap the object. An exception is already set.
@@ -153,7 +131,6 @@ PyObject* convert_QObjectList_to_PyListObject(QObjectList* origlist)
 		if (PyList_Append(resultList, (PyObject*)objPtr) == -1)
 			return NULL;
 	}
-*/
 	return resultList;
 }
 
@@ -252,9 +229,9 @@ PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject*
 	assert(objmeta);
 
 	// Return the list of properties
-	Q3StrList propertyNames;
+	QStringList propertyNames;
 //qt4 FIXME	propertNames = objmeta->propertyNames(includesuper);
-	return convert_QStrList_to_PyListObject(propertyNames);
+	return convert_QStringList_to_PyListObject(propertyNames);
 }
 
 

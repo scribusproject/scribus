@@ -9,8 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 // Pulls in Python.h first
 #include "cmdvar.h"
-//Added by qt3to4:
-#include <Q3StrList>
+#include <QStringList>
 
 
 /**
@@ -47,7 +46,7 @@ PyObject* wrapQObject(QObject* obj);
  * @brief Convert a QStringList to a Python list of str objects
  * @attention may return NULL with an exception set
  */
-PyObject* convert_QStringList_to_PyListObject(Q3StrList origlist);
+PyObject* convert_QStringList_to_PyListObject(QStringList& origlist);
 
 /**
  * @brief Convert a QObjectList to a Python list of PyCObjects
