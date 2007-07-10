@@ -45,14 +45,14 @@ protected:
 public:
 
 	/**
-	 * @brief  Get layer at a specific level
+	 * @brief  Get bottom layer
 	 * @param  level the layer level
 	 * @return bottom layer or NULL if list is empty
 	 */
 	const ScLayer* bottomLayer (void) const;
 
 	/**
-	 * @brief  Get layer at a specific level
+	 * @brief  Get top layer
 	 * @param  level the layer level
 	 * @return top layer or NULL if list is empty
 	 */
@@ -64,6 +64,20 @@ public:
 	 * @return the desired layer or NULL if not found
 	 */
 	void levelToLayer (ScLayer& layer, int level) const;
+
+	/**
+	 * @brief  Get bottom layer
+	 * @param  level the layer level
+	 * @return bottom layer or NULL if list is empty
+	 */
+	ScLayer* bottom(void);
+
+	/**
+	 * @brief  Get top layer
+	 * @param  level the layer level
+	 * @return top layer or NULL if list is empty
+	 */
+	ScLayer* top(void);
 
 	/**
 	 * @brief  Get layer at a specific level
@@ -78,6 +92,20 @@ public:
 	 * @return layer with the specified number or NULL if not found
 	 */
 	ScLayer* byNumber(const int nr);
+
+	/**
+	 * @brief  Get layer above the layer with the specified ID
+	 * @param  layer the layer
+	 * @return layer above the specific layer or top layer if no layer above specified level was found
+	 */
+	ScLayer* above (int nr);
+
+	/**
+	 * @brief  Get layer below the layer with the specified ID
+	 * @param  level the layer level
+	 * @return layer below the specific layer or bottom layer if no layer below specified level was found
+	 */
+	ScLayer* below (int nr);
 
 	/**
 	 * @brief  Get layer at a specific level
@@ -138,21 +166,40 @@ public:
 	/**
 	 * @brief  Add a layer to the layer list
 	 * @param  layerName the layer name (may be empty)
+	 * @return the new layer id on success, -1 on failure
+	 */
+	int addLayer(const ScLayer& layer);
+
+	/**
+	 * @brief  Add a layer to the layer list
+	 * @param  layerName the layer name (may be empty)
 	 * @return the new layer on success, NULL on failure
 	 */
 	ScLayer* newLayer(const QString& layerName);
 
 	/**
-	 * @brief  remove a layer from the layer list
+	 * @brief  Remove a layer from the layer list
 	 * @param  the layer number to remove
 	 */
 	bool removeLayerByNumber(int nr);
 
 	/**
-	 * @brief  remove a layer from the layer list
+	 * @brief  Remove a layer from the layer list
 	 * @param  the layer level to remove
 	 */
 	bool removeLayerByLevel(int level);
+
+	/**
+	 * @brief  Raise the layer with the specified ID
+	 * @return success or failure
+	 */
+	bool raiseLayer(int nr);
+
+	/**
+	 * @brief  Lower the layer with the specified ID
+	 * @return success or failure
+	 */
+	bool lowerLayer(int nr);
 
 	/**
 	 * @brief  sort layers by level order

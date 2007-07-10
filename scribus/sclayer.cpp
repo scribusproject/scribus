@@ -161,6 +161,74 @@ ScLayer* ScLayers::byNumber(const int nr)
 	return NULL;
 }
 
+ScLayer* ScLayers::bottom(void)
+{
+	ScLayer* bLayer = NULL;
+	ScLayers::Iterator it, itEnd = end();
+	for (it = begin(); it != itEnd; ++it)
+	{
+		if (!bLayer || (it->Level < bLayer->Level))
+			bLayer = &(*it);
+	}
+	return bLayer;
+}
+
+ScLayer* ScLayers::top(void)
+{
+	ScLayer *tLayer = NULL;
+	ScLayers::Iterator it, itEnd = end();
+	for (it = begin(); it != itEnd; ++it)
+	{
+		if (!tLayer || (it->Level > tLayer->Level))
+			tLayer = &(*it);
+	}
+	return tLayer;
+}
+
+ScLayer* ScLayers::above (int nr)
+{
+	ScLayer* lyr = byNumber(nr);
+	if (lyr)
+	{
+		ScLayer *rlyr = top();
+		int level     = lyr->Level;
+		int maxLevel  = rlyr->Level;
+		ScLayers::Iterator it, itEnd = end();
+		for (it = begin(); it != itEnd; ++it)
+		{
+			if (it->Level > level && it->Level < maxLevel)
+			{
+				maxLevel = it->Level;
+				rlyr     = &(*it);
+			}
+		}
+		return rlyr;
+	}
+	return NULL;
+}
+
+ScLayer* ScLayers::below (int nr)
+{
+	ScLayer* lyr = byNumber(nr);
+	if (lyr)
+	{
+		ScLayer *rlyr = bottom();
+		int level     = lyr->Level;
+		int minLevel  = lyr->Level;
+		ScLayers::Iterator it, itEnd = end();
+		for (it = begin(); it != itEnd; ++it)
+		{
+			if (it->Level < level && it->Level > minLevel)
+			{
+				minLevel = it->Level;
+				rlyr     = &(*it);
+			}
+		}
+		return rlyr;
+	}
+	return NULL;
+}
+
 const ScLayer* ScLayers::layerByLevel (int level) const
 {
 	const ScLayer *layer = NULL;
@@ -206,7 +274,7 @@ const ScLayer* ScLayers::layerAbove (int level) const
 		int   maxLevel = top->Level;
 		for (int i = 0; i < this->count(); ++i)
 		{
-			layer = &this->at(i);;
+			layer = &this->at(i);
 			if (layer->Level > level && layer->Level < maxLevel)
 			{
 				retlay = layer;
@@ -228,7 +296,7 @@ const ScLayer* ScLayers::layerAbove (const ScLayer& layer) const
 		int   maxLevel = top->Level;
 		for (int i = 0; i < this->count(); ++i)
 		{
-			curlay = &this->at(i);;
+			curlay = &this->at(i);
 			if (curlay->Level > level && curlay->Level < maxLevel)
 			{
 				maxLevel = curlay->Level;
@@ -249,7 +317,7 @@ const ScLayer* ScLayers::layerBelow (int level) const
 		int   minLevel = bottom->Level;
 		for (int i = 0; i < this->count(); ++i)
 		{
-			layer = &this->at(i);;
+			layer = &this->at(i);
 			if (layer->Level < level && layer->Level > minLevel)
 			{
 				minLevel = layer->Level;
@@ -271,7 +339,7 @@ const ScLayer* ScLayers::layerBelow (const ScLayer& layer) const
 		int   minLevel = bottom->Level;
 		for (int i = 0; i < this->count(); ++i)
 		{
-			curlay = &this->at(i);;
+			curlay = &this->at(i);
 			if (curlay->Level < level && curlay->Level > minLevel)
 			{
 				minLevel = curlay->Level;
@@ -289,6 +357,22 @@ int ScLayers::addLayer(const QString& layerName)
 	if (nl)
 		return nl->LNr;
 	return -1;
+}
+
+int ScLayers::addLayer(const ScLayer& layer)
+{
+	int   newID = layer.LNr;
+	const ScLayer* lid = layerByNumber(newID);
+	if (lid)
+	{
+		ScLayer newLyr(layer);
+		newLyr.LNr = newID = getMaxNumber() + 1;
+		append(newLyr);
+	}
+	else
+		append(layer);
+	sort();
+	return newID;
 }
 
 ScLayer* ScLayers::newLayer(const QString& layerName)
@@ -359,9 +443,39 @@ bool ScLayers::removeLayerByLevel(int level)
 	return false;
 }
 
+bool ScLayers::raiseLayer(int nr)
+{
+	ScLayer* clyr = byNumber(nr);
+	ScLayer* alyr = above(clyr->LNr);
+	if (clyr && (clyr != alyr))
+	{
+		clyr->LNr += 1;
+		alyr->LNr -= 1;
+		return true;
+	}
+	return false;
+}
+
+bool ScLayers::lowerLayer(int nr)
+{
+	ScLayer* clyr = byNumber(nr);
+	ScLayer* blyr = below(clyr->LNr);
+	if (clyr && (clyr != blyr))
+	{
+		clyr->LNr -= 1;
+		blyr->LNr += 1;
+		return true;
+	}
+	return false;
+}
+
 void ScLayers::sort(void)
 {
+	int level = 0;
+	ScLayers::Iterator it, itend = end();
 	qStableSort(begin(), end());
+	for(it = begin(); it != itend; ++it, ++level)
+		it->Level = level;
 }
 
 bool ScLayers::layerPrintable(const int layerNumber) const
