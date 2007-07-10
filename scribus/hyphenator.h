@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QObject>
 #include <QTextCodec>
 #include <QHash>
+#include <QSet>
 
 #include "scribusapi.h"
 #include "hyphen.h"
@@ -75,6 +76,8 @@ public:
 	/*! Flag - obsolete? */
 	bool AutoCheck;
 	QHash<QString, QString> rememberedWords;
+	QHash<QString, QString> specialWords;
+	QSet<QString> ignoredWords;
 	
 public slots:
 	/*!

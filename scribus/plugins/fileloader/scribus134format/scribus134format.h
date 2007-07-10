@@ -61,6 +61,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void writeJavascripts(QDomDocument & docu);
 		void writeBookmarks(QDomDocument & docu);
 		void writeColors(QDomDocument & docu);
+		void writeHyphenatorLists(QDomDocument &docu);
 		void writePStyles(QDomDocument & docu);
 		void writeCStyles(QDomDocument & docu);
 		void putPStyle(QDomDocument & docu, QDomElement & fo, const ParagraphStyle & style);

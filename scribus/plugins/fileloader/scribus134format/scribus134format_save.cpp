@@ -14,13 +14,14 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "hyphenator.h"
 
 #include "units.h"
 #include "util.h"
 #include "colorutil.h"
 #include "scgzfile.h"
-#include <qcursor.h>
-#include <qfileinfo.h>
+#include <QCursor>
+#include <QFileInfo>
 #include <QList>
 #include <QDataStream>
 
@@ -191,6 +192,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeJavascripts(docu);
 	writeBookmarks(docu);
 	writeColors(docu);
+	writeHyphenatorLists(docu);
 	writePStyles(docu);
 	writeCStyles(docu);
 	writeLayers(docu);
@@ -365,6 +367,26 @@ void Scribus134Format::writeColors(QDomDocument & docu)
 		dc.appendChild(co);
 	}
 	
+}
+
+void Scribus134Format::writeHyphenatorLists(QDomDocument &docu)
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+	QDomElement rde = docu.createElement("HYPHEN");
+	for (QHash<QString, QString>::Iterator hyit = m_Doc->docHyphenator->specialWords.begin(); hyit != m_Doc->docHyphenator->specialWords.end(); ++hyit)
+	{
+		QDomElement hyelm = docu.createElement("EXCEPTION");
+		hyelm.setAttribute("WORD", hyit.key());
+		hyelm.setAttribute("HYPHENATED", hyit.value());
+		rde.appendChild(hyelm);
+	}
+	for (QSet<QString>::Iterator hyit2 = m_Doc->docHyphenator->ignoredWords.begin(); hyit2 != m_Doc->docHyphenator->ignoredWords.end(); ++hyit2)
+	{
+		QDomElement hyelm2 = docu.createElement("IGNORE");
+		hyelm2.setAttribute("WORD", (*hyit2));
+		rde.appendChild(hyelm2);
+	}
+	dc.appendChild(rde);
 }
 
 void Scribus134Format::writePStyles(QDomDocument & docu) 

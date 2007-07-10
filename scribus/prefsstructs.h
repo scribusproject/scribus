@@ -11,10 +11,11 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #endif
 
-#include <qcolor.h>
-#include <qstring.h>
-//Added by qt3to4:
+#include <QColor>
+#include <QString>
 #include <QList>
+#include <QSet>
+#include <QHash>
 #include "scribusstructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
@@ -207,6 +208,8 @@ struct ApplicationPrefs
 	int MinWordLen;
 	int HyCount;
 	QString Language;
+	QHash<QString, QString> specialWords;
+	QSet<QString> ignoredWords;
 	QString guiLanguage;
 	bool Automatic;
 	bool AutoCheck;

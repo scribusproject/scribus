@@ -29,6 +29,7 @@ SET(SCRIBUS_UI_SRC
   docsections.ui
   guidemanager.ui
   ui/helpbrowser.ui
+  hysettingsBase.ui
   insertaframe.ui
   multipleduplicate.ui
   multiprogressdialog.ui

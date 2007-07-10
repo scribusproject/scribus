@@ -2184,6 +2184,8 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		view = tempView;
 	tempDoc->setCurrentPage(tempDoc->Pages->at(0));
 	tempDoc->setGUI(requiresGUI, this, tempView);
+	tempDoc->docHyphenator->ignoredWords = prefsManager->appPrefs.ignoredWords;
+	tempDoc->docHyphenator->specialWords = prefsManager->appPrefs.specialWords;
 	tempDoc->setLoading(false);
 	//run after setGUI to set up guidepalette ok
 

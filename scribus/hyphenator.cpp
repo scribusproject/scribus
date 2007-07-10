@@ -79,6 +79,10 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 	const char * filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
 	useAble = hdict == NULL ? false : true;
+	rememberedWords.clear();
+/* Add reading these special lists from prefs or doc here */
+	ignoredWords.clear();
+	specialWords.clear();
 }
 
 Hyphenator::~Hyphenator()
@@ -233,13 +237,6 @@ void Hyphenator::slotHyphenate(PageItem* it)
 
   			te = codec->fromUnicode( found );
 			word = te.data();
-			/*
-			qDebug(QString("hyphenate %1: len %2 and %3 in codec %4")
-				   .arg(Language)
-				   .arg(found2.length())
-				   .arg(strlen(word))
-				   .arg(codec->name()));
-			 */
 			buffer = static_cast<char*>(malloc(strlen(word)+BORDER+3));
 			if (buffer == NULL)
 				break;
@@ -256,70 +253,28 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						break;
 					}
 				}
-				/*
-				QString dump(""), dump2("");
-				for (i=0; i < strlen(word); ++i) 
+				QString outs = "";
+				QString input = "";
+				outs += found2[0];
+				for (i = 1; i < found.length()-1; ++i)
 				{
-					dump += QChar(word[i]);
-					if ( i < found.length() )
-						dump2 += found[i];
-					if (buffer[i] & 1)
-					{
-						dump += "-";
-						dump2 += "-";
-					}
+					outs += found2[i];
+					if(buffer[i] & 1)
+						outs += "-";
 				}
-				qDebug(QString("hy %3+%4: %1 / %2")
-					   .arg(dump)
-					   .arg(dump2)
-					   .arg(startC)
-					   .arg(firstC));
-				 */
-				if ( ! hasHyphen ) {
-					it->itemText.hyphenateWord(startC + firstC, found.length(), NULL);
-				}
-				else if (Automatic) {
-					it->itemText.hyphenateWord(startC + firstC, found.length(), buffer);
-				}
-				else {
-					QString outs = "";
-					QString input = "";
-					outs += found2[0];
-					for (i = 1; i < found.length()-1; ++i)
-					{
-						outs += found2[i];
-						if(buffer[i] & 1)
-							outs += "-";
-					}
-					outs += found2.right(1);
-					input = outs;
-					if (rememberedWords.contains(input))
-					{
-						outs = rememberedWords.value(input);
-						uint ii = 0;
-						for (i = 1; i < outs.length()-1; ++i)
-						{
-							QChar cht = outs[i];
-							if (cht == '-')
-								buffer[ii] = 1;
-							else
-								ii++;
-						}
-						it->itemText.hyphenateWord(firstC, found.length(), buffer);
-					}
+				outs += found2.right(1);
+				input = outs;
+				if (!ignoredWords.contains(found2))
+				{
+					if (!hasHyphen)
+						it->itemText.hyphenateWord(startC + firstC, found.length(), NULL);
+					else if (Automatic)
+						it->itemText.hyphenateWord(startC + firstC, found.length(), buffer);
 					else
 					{
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
-						int xpos = prefs->getInt("Xposition", -9999);
-						int ypos = prefs->getInt("Yposition", -9999);
-						HyAsk *dia = new HyAsk((QWidget*)parent(), outs);
-						if ((xpos != -9999) && (ypos != -9999))
-							dia->move(xpos, ypos);
-						qApp->processEvents();
-						if (dia->exec())
+						if (specialWords.contains(found2))
 						{
-							outs = dia->Wort->text();
+							outs = specialWords.value(found2);
 							uint ii = 0;
 							for (i = 1; i < outs.length()-1; ++i)
 							{
@@ -327,25 +282,77 @@ void Hyphenator::slotHyphenate(PageItem* it)
 								if (cht == '-')
 									buffer[ii] = 1;
 								else
-									ii++;
+									buffer[ii] = 0;
+								ii++;
 							}
-							if (!rememberedWords.contains(input))
-								rememberedWords.insert(input, outs);
+							it->itemText.hyphenateWord(firstC, found.length(), buffer);
+						}
+						else if (rememberedWords.contains(input))
+						{
+							outs = rememberedWords.value(input);
+							uint ii = 0;
+							for (i = 1; i < outs.length()-1; ++i)
+							{
+								QChar cht = outs[i];
+								if (cht == '-')
+									buffer[ii] = 1;
+								else
+									buffer[ii] = 0;
+								ii++;
+							}
 							it->itemText.hyphenateWord(firstC, found.length(), buffer);
 						}
 						else
 						{
-							free(buffer);
-							buffer = NULL;
+							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+							PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("hyhpen_options");
+							int xpos = prefs->getInt("Xposition", -9999);
+							int ypos = prefs->getInt("Yposition", -9999);
+							HyAsk *dia = new HyAsk((QWidget*)parent(), outs);
+							if ((xpos != -9999) && (ypos != -9999))
+								dia->move(xpos, ypos);
+							qApp->processEvents();
+							if (dia->exec())
+							{
+								outs = dia->Wort->text();
+								uint ii = 0;
+								for (i = 1; i < outs.length()-1; ++i)
+								{
+									QChar cht = outs[i];
+									if (cht == '-')
+										buffer[ii] = 1;
+									else
+										buffer[ii] = 0;
+									ii++;
+								}
+								if (!rememberedWords.contains(input))
+									rememberedWords.insert(input, outs);
+								if (dia->addToIgnoreList->isChecked())
+								{
+									if (!ignoredWords.contains(found2))
+										ignoredWords.insert(found2);
+								}
+								if (dia->addToExceptionList->isChecked())
+								{
+									if (!specialWords.contains(found2))
+										specialWords.insert(found2, outs);
+								}
+								it->itemText.hyphenateWord(firstC, found.length(), buffer);
+							}
+							else
+							{
+								free(buffer);
+								buffer = NULL;
+								prefs->set("Xposition", dia->xpos);
+								prefs->set("Yposition", dia->ypos);
+								delete dia;
+								break;
+							}
 							prefs->set("Xposition", dia->xpos);
 							prefs->set("Yposition", dia->ypos);
 							delete dia;
-							break;
+							qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 						}
-						prefs->set("Xposition", dia->xpos);
-						prefs->set("Yposition", dia->ypos);
-						delete dia;
-						qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 					}
 				}
 			}

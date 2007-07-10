@@ -310,6 +310,8 @@ void PrefsManager::initDefaults()
 	appPrefs.MinWordLen = 3;
 	appPrefs.HyCount = 2;
 	appPrefs.Language = "";
+	appPrefs.specialWords.clear();
+	appPrefs.ignoredWords.clear();
 	appPrefs.Automatic = true;
 	appPrefs.AutoCheck = false;
 	appPrefs.AutoSave = true;
@@ -1310,6 +1312,19 @@ bool PrefsManager::WritePref(QString ho)
 	rde.setAttribute("HYCOUNT", appPrefs.HyCount);
 	rde.setAttribute("MODE", static_cast<int>(appPrefs.Automatic));
 	rde.setAttribute("INMODE", static_cast<int>(appPrefs.AutoCheck));
+	for (QHash<QString, QString>::Iterator hyit = appPrefs.specialWords.begin(); hyit != appPrefs.specialWords.end(); ++hyit)
+	{
+		QDomElement hyelm = docu.createElement("EXCEPTION");
+		hyelm.setAttribute("WORD", hyit.key());
+		hyelm.setAttribute("HYPHENATED", hyit.value());
+		rde.appendChild(hyelm);
+	}
+	for (QSet<QString>::Iterator hyit2 = appPrefs.ignoredWords.begin(); hyit2 != appPrefs.ignoredWords.end(); ++hyit2)
+	{
+		QDomElement hyelm2 = docu.createElement("IGNORE");
+		hyelm2.setAttribute("WORD", (*hyit2));
+		rde.appendChild(hyelm2);
+	}
 	elem.appendChild(rde);
 	ColorList::Iterator itc;
 	for (itc = appPrefs.DColors.begin(); itc != appPrefs.DColors.end(); ++itc)
@@ -1885,6 +1900,23 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.HyCount = dc.attribute("HYCOUNT", "2").toInt();
 			appPrefs.Automatic = static_cast<bool>(dc.attribute("MODE", "1").toInt());
 			appPrefs.AutoCheck = static_cast<bool>(dc.attribute("INMODE", "1").toInt());
+			QDomNode hyelm = dc.firstChild();
+			while(!hyelm.isNull())
+			{
+				QDomElement hyElem = hyelm.toElement();
+				if (hyElem.tagName()=="EXCEPTION")
+				{
+					QString word = hyElem.attribute("WORD");
+					QString hyph = hyElem.attribute("HYPHENATED");
+					appPrefs.specialWords.insert(word, hyph);
+				}
+				else if (hyElem.tagName()=="IGNORE")
+				{
+					QString word = hyElem.attribute("WORD");
+					appPrefs.ignoredWords.insert(word);
+				}
+				hyelm = hyelm.nextSibling();
+			}
 		}
 		if (dc.tagName()=="FONTS")
 		{

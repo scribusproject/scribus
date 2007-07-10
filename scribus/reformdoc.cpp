@@ -458,10 +458,12 @@ void ReformDoc::updateDocumentSettings()
 /*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
 		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
 */
-	currDoc->docHyphenator->slotNewSettings(tabHyphenator->wordLen->value(),
-																!tabHyphenator->verbose->isChecked(),
-																tabHyphenator->input->isChecked(),
-																tabHyphenator->maxCount->value());
+	currDoc->docHyphenator->slotNewSettings(tabHyphenator->getWordLen(),
+											!tabHyphenator->getVerbose(),
+											tabHyphenator->getInput(),
+											tabHyphenator->getMaxCount());
+	currDoc->docHyphenator->ignoredWords = tabHyphenator->getIgnoreList();
+	currDoc->docHyphenator->specialWords = tabHyphenator->getExceptionList();
 	if (ScCore->haveCMS())
 	{
 		bool oldCM = currDoc->CMSSettings.CMSinUse;

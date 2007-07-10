@@ -7,18 +7,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef HYSETTINGS_H
 #define HYSETTINGS_H
 
-#include <QWidget>
-#include <QComboBox>
-#include <QLabel>
-#include <QSpinBox>
-#include <QCheckBox>
-#include <QGridLayout>
+#include "ui_hysettingsBase.h"
+#include <QSet>
+#include <QHash>
 
 #include "scribusapi.h"
 #include "prefsstructs.h"
 class ScribusDoc;
 
-class SCRIBUS_API HySettings : public QWidget
+class SCRIBUS_API HySettings : public QWidget, Ui::hysettingsBase
 { 
 	Q_OBJECT
 
@@ -27,19 +24,26 @@ public:
 	~HySettings() {};
 	void restoreDefaults(struct ApplicationPrefs *prefsData);
 	void restoreDefaults(ScribusDoc *prefsData);
+	int getWordLen();
+	int getMaxCount();
+	bool getVerbose();
+	bool getInput();
+	QString getLanguage();
+	QSet<QString> getIgnoreList();
+	QHash<QString, QString> getExceptionList();
 
-	QCheckBox* verbose;
-	QCheckBox* input;
-	QComboBox* language;
-	QLabel* text1;
-	QLabel* text2;
-	QLabel* text3;
-	QSpinBox* wordLen;
-	QSpinBox* maxCount;
+private slots:
+	void addToIgnoreList();
+	void editIgnoreListEntry();
+	void removeIgnoreListEntry();
+	void enableIgnoreButtons();
+	void addToExceptList();
+	void editExceptListEntry();
+	void removeExceptListEntry();
+	void enableExceptButtons();
 
 protected:
 	QMap<QString,QString> langsMap;
-	QGridLayout* layout3;
 };
 
 #endif // HYSETTINGS_H

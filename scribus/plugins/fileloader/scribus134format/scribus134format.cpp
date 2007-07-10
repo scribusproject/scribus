@@ -15,15 +15,15 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "sccolorengine.h"
+#include "hyphenator.h"
 
 #include "units.h"
 #include "util.h"
 #include "colorutil.h"
 #include "scgzfile.h"
-#include <qcursor.h>
-#include <qfileinfo.h>
+#include <QCursor>
+#include <QFileInfo>
 #include <QList>
-//Added by qt3to4:
 #include <QByteArray>
 #include <QTextStream>
 #include <QApplication>
@@ -809,6 +809,26 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						m_Doc->sections.insert(newSection.number, newSection);
 					}
 					Section = Section.nextSibling();
+				}
+			}
+			if (pg.tagName()=="HYPHEN")
+			{
+				QDomNode hyelm = pg.firstChild();
+				while(!hyelm.isNull())
+				{
+					QDomElement hyElem = hyelm.toElement();
+					if (hyElem.tagName()=="EXCEPTION")
+					{
+						QString word = hyElem.attribute("WORD");
+						QString hyph = hyElem.attribute("HYPHENATED");
+						m_Doc->docHyphenator->specialWords.insert(word, hyph);
+					}
+					else if (hyElem.tagName()=="IGNORE")
+					{
+						QString word = hyElem.attribute("WORD");
+						m_Doc->docHyphenator->ignoredWords.insert(word);
+					}
+					hyelm = hyelm.nextSibling();
 				}
 			}
 			if ((pg.tagName()=="PAGE") || (pg.tagName()=="MASTERPAGE"))

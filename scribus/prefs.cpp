@@ -561,11 +561,13 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.toolSettings.constrain = tabTools->genRot->value();
 	prefsManager->appPrefs.AutoSave = tabDocument->GroupAS->isChecked();
 	prefsManager->appPrefs.AutoSaveTime = tabDocument->ASTime->value() * 60 * 1000;
-	prefsManager->appPrefs.MinWordLen = tabHyphenator->wordLen->value();
-	prefsManager->appPrefs.Language = ScCore->primaryMainWindow()->GetLang(tabHyphenator->language->currentText());
-	prefsManager->appPrefs.Automatic = !tabHyphenator->verbose->isChecked();
-	prefsManager->appPrefs.AutoCheck = tabHyphenator->input->isChecked();
-	prefsManager->appPrefs.HyCount = tabHyphenator->maxCount->value();
+	prefsManager->appPrefs.MinWordLen = tabHyphenator->getWordLen();
+	prefsManager->appPrefs.Language = ScCore->primaryMainWindow()->GetLang(tabHyphenator->getLanguage());
+	prefsManager->appPrefs.Automatic = !tabHyphenator->getVerbose();
+	prefsManager->appPrefs.AutoCheck = tabHyphenator->getInput();
+	prefsManager->appPrefs.HyCount = tabHyphenator->getMaxCount();
+	prefsManager->appPrefs.ignoredWords = tabHyphenator->getIgnoreList();
+	prefsManager->appPrefs.specialWords = tabHyphenator->getExceptionList();
 	if (ScCore->haveCMS())
 		tabColorManagement->setValues();
 	uint a = 0;
