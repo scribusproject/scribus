@@ -22,7 +22,7 @@ exact package names for the distro, are provided below.
 Install the below packages BEFORE running CMake or compiling Scribus:
 
 Requirements:
-	Qt >= 4.2.x (we may require Qt 4.3.x at the time of release)
+	Qt >= 4.3.0 (Scribus has specific code requiring Qt 4.3, not Qt 4.2.x)
 	Freetype >= 2.1.7 (2.3.x strongly recommended)
 	cairo >= 1.4.x 
 	libtiff >= 3.6.0
@@ -87,12 +87,12 @@ search path is the PATH environment variable.
 REQUIREMENTS - DETAILS
 ======================
 
-We strongly recommend having Qt 4.3.+. Qt 4.2 is now the *minimum*. Older
-versions of Qt are *not* supported. If you build Qt from sources, the
-recommended ./configure switches are the same as used by KDE. Use of other
-switches aside from those used by distro packages can make trouble shooting
+Qt 4.3 is now the *minimum*. Older versions of Qt are *not* supported. 
+If you build Qt from sources, the recommended ./configure switches are the
+ same as used by KDE. Use of other switches aside from those used by distro
+packages can make trouble shooting
 issues very difficult at times.
-See: http://developer.kde.org/build/compile_kde3_3.html
+See: http://developer.kde.orgb/uild/compile_kde3_3.html
 
 Scribus requires Freetype. If you are compiling from source, you will need to
 have the freetype headers installed - these can usually be found in a -devel
@@ -235,7 +235,7 @@ More info can be found in the README.
 Suse/Opensuse
 ====
 
-Recommended packages for compiling from source on SuSE 9.x/10.x:
+Recommended packages for compiling from source on SuSE 10.x:
 	qt4-devel (required)
 	cairo-devel (required)
 	freetype2-devel (required)
