@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdvar.h"
 
-#include <qwidget.h>
+#include <QWidget>
 
 
 

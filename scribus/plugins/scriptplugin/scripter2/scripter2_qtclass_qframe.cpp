@@ -6,13 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdvar.h"
 
-#include <q3frame.h>
+#include <QFrame>
 
 void export_QFrame()
 {
 	using namespace boost::python;
 
-	class_<Q3Frame,bases<QWidget>,boost::noncopyable>(
+	class_<QFrame,bases<QWidget>,boost::noncopyable>(
 			"QFrame",
 			"A generic Qt frame widget");
 }

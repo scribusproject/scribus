@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdvar.h"
 
-#include <qapplication.h>
+#include <QSpplication>
 
 //BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(QApplication_processEvents_overloads, QApplication::processEvents, 0, 1)
 

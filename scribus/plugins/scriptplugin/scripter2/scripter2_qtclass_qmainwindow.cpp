@@ -6,13 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdvar.h"
 
-#include <q3mainwindow.h>
+#include <QMainWindow>
 
 void export_QMainWindow()
 {
 	using namespace boost::python;
 
-	class_<Q3MainWindow,bases<QWidget>,boost::noncopyable>(
+	class_<QMainWindow,bases<QWidget>,boost::noncopyable>(
 			"QMainWindow",
 			"A Qt main window widget");
 }
