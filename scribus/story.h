@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qpointer.h>
 #include <qvariant.h>
-#include <q3mainwindow.h>
+#include <QMainWindow>
 #include <q3table.h>
 #include <q3textedit.h>
 #include <q3popupmenu.h>
@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include <qspinbox.h>
 #include <qstringlist.h>
 #include <qtoolbutton.h>
-#include <q3toolbar.h>
+#include <QToolBar>
 #include <qlayout.h>
 #include <qsplitter.h>
 #include <qcheckbox.h>
@@ -55,6 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPaintEvent>
 #include <QCloseEvent>
 #include <QWidgetAction>
+#include <QAction>
 #include <QMenu>
 #include <QList>
 
@@ -193,17 +194,20 @@ public slots:
 	void editStyles();
 };
 
-class SCRIBUS_API SToolBColorF : public Q3ToolBar
+class SCRIBUS_API SToolBColorF : public QToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBColorF(Q3MainWindow* parent, ScribusDoc *doc);
+	SToolBColorF(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorF() {};
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* FillIcon;
 	ColorCombo* TxFill;
 	ShadeButton *PM2;
+	QAction* pm2Action;
+	QAction* txFillAction;
+	QAction* fillIconAction;
 
 public slots:
 	void SetColor(int c);
@@ -215,17 +219,21 @@ signals:
 	void NewColor(int, int);
 };
 
-class SCRIBUS_API SToolBColorS : public Q3ToolBar
+class SCRIBUS_API SToolBColorS : public QToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBColorS(Q3MainWindow* parent, ScribusDoc *doc);
+	SToolBColorS(QMainWindow* parent, ScribusDoc *doc);
 	~SToolBColorS() {};
 	void setCurrentDocument(ScribusDoc *doc);
 	QLabel* StrokeIcon;
 	ColorCombo* TxStroke;
 	ShadeButton *PM1;
+	QAction* strokeIconAction;
+	QAction* txStrokeAction;
+	QAction* pm1Action;
+
 
 public slots:
 	void SetColor(int c);
@@ -237,16 +245,19 @@ signals:
 	void NewColor(int, int);
 };
 
-class SCRIBUS_API SToolBStyle : public Q3ToolBar
+class SCRIBUS_API SToolBStyle : public QToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBStyle(Q3MainWindow* parent);
+	SToolBStyle(QMainWindow* parent);
 	~SToolBStyle() {};
 	StyleSelect* SeStyle;
 	QLabel* trackingLabel;
 	ScrSpinBox* Extra;
+	QAction* seStyleAction;
+	QAction* trackingLabelAction;
+	QAction* extraAction;
 
 public slots:
 	void newStrikeHandler();
@@ -271,15 +282,17 @@ signals:
 	void newStyle(int);
 };
 
-class SCRIBUS_API SToolBAlign : public Q3ToolBar
+class SCRIBUS_API SToolBAlign : public QToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBAlign(Q3MainWindow* parent);
+	SToolBAlign(QMainWindow* parent);
 	~SToolBAlign() {};
 	AlignSelect* GroupAlign;
 	ParaStyleComboBox *paraStyleCombo;
+	QAction* groupAlignAction;
+	QAction* paraStyleComboAction;
 
 public slots:
 	void SetAlign(int s);
@@ -291,16 +304,19 @@ signals:
 	void newParaStyle(const QString&);
 };
 
-class SCRIBUS_API SToolBFont : public Q3ToolBar
+class SCRIBUS_API SToolBFont : public QToolBar
 {
 	Q_OBJECT
 
 public:
-	SToolBFont(Q3MainWindow* parent);
+	SToolBFont(QMainWindow* parent);
 	~SToolBFont() {};
 	FontCombo* Fonts;
 	ScrSpinBox* ChScale;
 	ScrSpinBox* ChScaleV;
+	QAction* fontsAction;
+	QAction* chScaleAction;
+	QAction* chScaleVAction;
 
 public slots:
 	void SetFont(QString f);
@@ -319,12 +335,15 @@ private:
 	ScrSpinBox* Size;
 	QLabel* ScaleTxt;
 	QLabel* ScaleTxtV;
+	QAction* sizeAction;
+	QAction* scaleTxtAction;
+	QAction* scaleTxtVAction;
 
 private slots:
 	void languageChange();
 };
 
-class SCRIBUS_API StoryEditor : public Q3MainWindow
+class SCRIBUS_API StoryEditor : public QMainWindow
 {
 	Q_OBJECT
 	friend class SEditor;
@@ -463,7 +482,7 @@ protected:
 	MenuManager* seMenuMgr;
 	QPixmap noIcon;
 
-	Q3ToolBar* FileTools;
+	QToolBar* FileTools;
 	SToolBFont* FontTools;
 	SToolBAlign* AlignTools;
 	SToolBColorF* FillTools;

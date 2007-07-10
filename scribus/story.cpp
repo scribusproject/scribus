@@ -47,7 +47,6 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QHideEvent>
 #include <QPaintEvent>
-#include <QMenu>
 #include <QPalette>
 
 #include "actionmanager.h"
@@ -881,13 +880,20 @@ void SEditor::ClipChange()
 }
 
 /* Toolbar for Fill Colour */
-SToolBColorF::SToolBColorF(Q3MainWindow* parent, ScribusDoc *doc) : Q3ToolBar( tr("Fill Color Settings"), parent)
+SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Fill Color Settings"), parent)
 {
-	FillIcon = new QLabel( "", this, "FillIcon" );
+	FillIcon = new QLabel(this);
 	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
 	FillIcon->setScaledContents( false );
-	TxFill = new ColorCombo( false, this, "TxFill" );
+	fillIconAction=addWidget(FillIcon);
+	fillIconAction->setVisible(true);
+	TxFill = new ColorCombo(false, this);
+	txFillAction=addWidget(TxFill);
+	txFillAction->setVisible(true);
 	PM2 = new ShadeButton(this);
+	pm2Action=addWidget(PM2);
+	pm2Action->setVisible(true);
+	
 	setCurrentDocument(doc);
 	//TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
@@ -933,13 +939,19 @@ void SToolBColorF::newShadeHandler()
 }
 
 /* Toolbar for Stroke Colour */
-SToolBColorS::SToolBColorS(Q3MainWindow* parent, ScribusDoc *doc) : Q3ToolBar( tr("Stroke Color Settings"), parent)
+SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Stroke Color Settings"), parent)
 {
-	StrokeIcon = new QLabel( "", this, "StrokeIcon" );
+	StrokeIcon = new QLabel( "", this );
 	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
 	StrokeIcon->setScaledContents( false );
+	strokeIconAction=addWidget(StrokeIcon);
+	strokeIconAction->setVisible(true);
 	TxStroke = new ColorCombo( false, this, "TxStroke" );
+	txStrokeAction=addWidget(TxStroke);
+	txStrokeAction->setVisible(true);
 	PM1 = new ShadeButton(this);
+	pm1Action=addWidget(PM1);
+	pm1Action->setVisible(true);
 	setCurrentDocument(doc);
 	//TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
@@ -985,15 +997,21 @@ void SToolBColorS::newShadeHandler()
 }
 
 /* Toolbar for Character Style Settings */
-SToolBStyle::SToolBStyle(Q3MainWindow* parent) : Q3ToolBar( tr("Character Settings"), parent)
+SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings"), parent)
 {
 	SeStyle = new StyleSelect(this);
-	trackingLabel = new QLabel( this, "trackingLabel" );
+	seStyleAction=addWidget(SeStyle);
+	seStyleAction->setVisible(true);
+	trackingLabel = new QLabel( this );
 	trackingLabel->setText("");
 	trackingLabel->setPixmap(loadIcon("textkern.png"));
+	trackingLabelAction=addWidget(trackingLabel);
+	trackingLabelAction->setVisible(true);
 	Extra = new ScrSpinBox( this, 1 );
 	Extra->setValues( -300, 300, 2, 0);
 	Extra->setSuffix( tr( " %" ) );
+	extraAction=addWidget(Extra);
+	extraAction->setVisible(true);
 
 	connect(SeStyle, SIGNAL(State(int)), this, SIGNAL(newStyle(int)));
 	connect(Extra, SIGNAL(valueChanged(double)), this, SLOT(newKernHandler()));
@@ -1099,10 +1117,14 @@ void SToolBStyle::SetKern(double k)
 }
 
 /* Toolbar for alignment of Paragraphs */
-SToolBAlign::SToolBAlign(Q3MainWindow* parent) : Q3ToolBar( tr("Style Settings"), parent)
+SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), parent)
 {
 	GroupAlign = new AlignSelect(this);
+	groupAlignAction=addWidget(GroupAlign);
+	groupAlignAction->setVisible(true);
 	paraStyleCombo = new ParaStyleComboBox(this);
+	paraStyleComboAction=addWidget(paraStyleCombo);
+	paraStyleComboAction->setVisible(true);
 	connect(paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SIGNAL(newParaStyle(const QString& )));
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
 
@@ -1132,25 +1154,37 @@ void SToolBAlign::SetParaStyle(int s)
 
 
 /* Toolbar for Font related Settings */
-SToolBFont::SToolBFont(Q3MainWindow* parent) : Q3ToolBar( tr("Font Settings"), parent)
+SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), parent)
 {
 	Fonts = new FontCombo(this);
 	Fonts->setMaximumSize(190, 30);
+	fontsAction=addWidget(Fonts);
+	fontsAction->setVisible(true);
 	Size = new ScrSpinBox( 0.5, 2048, this, 1 );
 	PrefsManager* prefsManager = PrefsManager::instance();
 	Size->setPrefix( "" );
 	Size->setSuffix( tr( " pt" ) );
 	Size->setValue(prefsManager->appPrefs.toolSettings.defSize / 10.0);
+	sizeAction=addWidget(Size);
+	sizeAction->setVisible(true);
 	ScaleTxt = new QLabel("", this, "ScaleTxt" );
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
+	scaleTxtAction=addWidget(ScaleTxt);
+	scaleTxtAction->setVisible(true);
 	ChScale = new ScrSpinBox( 10, 400,  this, 1 );
 	ChScale->setValue( 100 );
 	ChScale->setSuffix( tr( " %" ) );
+	chScaleAction=addWidget(ChScale);
+	chScaleAction->setVisible(true);
 	ScaleTxtV = new QLabel("", this, "ScaleTxtV" );
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
+	scaleTxtVAction=addWidget(ScaleTxtV);
+	scaleTxtVAction->setVisible(true);
 	ChScaleV = new ScrSpinBox( 10, 400, this, 1 );
 	ChScaleV->setValue( 100 );
 	ChScaleV->setSuffix( tr( " %" ) );
+	chScaleVAction=addWidget(ChScaleV);
+	chScaleVAction->setVisible(true);
 
 	connect(ChScale, SIGNAL(valueChanged(double)), this, SIGNAL(newScale(double)));
 	connect(ChScaleV, SIGNAL(valueChanged(double)), this, SIGNAL(newScaleV(double)));
@@ -1233,7 +1267,7 @@ void SToolBFont::newSizeHandler()
 // }
 
 /* Main Story Editor Class, no current document */
-StoryEditor::StoryEditor(QWidget* parent) : Q3MainWindow(parent, "StoryEditor", Qt::WType_TopLevel), // WType_Dialog) //WShowModal |
+StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", Qt::WType_TopLevel), // WType_Dialog) //WShowModal |
 	activFromApp(true),
 	currDoc(NULL),
 	currItem(NULL),
@@ -1516,7 +1550,7 @@ void StoryEditor::buildGUI()
 	StoryEd2Layout = new Q3HBoxLayout( 0, 5, 5, "StoryEd2Layout");
 
 /* Setting up Toolbars */
-	FileTools = new Q3ToolBar(this);
+	FileTools = new QToolBar(this);
 	FileTools->addAction(seActions["fileNew"]);
 	FileTools->addAction(seActions["fileLoadFromFile"]);
 	FileTools->addAction(seActions["fileSaveToFile"]);
@@ -1526,32 +1560,39 @@ void StoryEditor::buildGUI()
 	FileTools->addAction(seActions["editUpdateFrame"]);
 	FileTools->addAction(seActions["editSearchReplace"]);
 
-	setDockEnabled(FileTools, Qt::DockLeft, false);
-	setDockEnabled(FileTools, Qt::DockRight, false);
-	setDockEnabled(FileTools, Qt::DockBottom, false);
+	FileTools->setAllowedAreas(Qt::LeftToolBarArea);
+	FileTools->setAllowedAreas(Qt::RightToolBarArea);
+	FileTools->setAllowedAreas(Qt::BottomToolBarArea);
 	FontTools = new SToolBFont(this);
-	setDockEnabled(FontTools, Qt::DockLeft, false);
-	setDockEnabled(FontTools, Qt::DockRight, false);
-	setDockEnabled(FontTools, Qt::DockBottom, false);
+	FontTools->setAllowedAreas(Qt::LeftToolBarArea);
+	FontTools->setAllowedAreas(Qt::RightToolBarArea);
+	FontTools->setAllowedAreas(Qt::BottomToolBarArea);
 	AlignTools = new SToolBAlign(this);
-	setDockEnabled(AlignTools, Qt::DockLeft, false);
-	setDockEnabled(AlignTools, Qt::DockRight, false);
-	setDockEnabled(AlignTools, Qt::DockBottom, false);
+	AlignTools->setAllowedAreas(Qt::LeftToolBarArea);
+	AlignTools->setAllowedAreas(Qt::RightToolBarArea);
+	AlignTools->setAllowedAreas(Qt::BottomToolBarArea);
 	AlignTools->paraStyleCombo->setDoc(currDoc);
 	StyleTools = new SToolBStyle(this);
-	setDockEnabled(StyleTools, Qt::DockLeft, false);
-	setDockEnabled(StyleTools, Qt::DockRight, false);
-	setDockEnabled(StyleTools, Qt::DockBottom, false);
+	StyleTools->setAllowedAreas(Qt::LeftToolBarArea);
+	StyleTools->setAllowedAreas(Qt::RightToolBarArea);
+	StyleTools->setAllowedAreas(Qt::BottomToolBarArea);
 	StrokeTools = new SToolBColorS(this, currDoc);
-	setDockEnabled(StrokeTools, Qt::DockLeft, false);
-	setDockEnabled(StrokeTools, Qt::DockRight, false);
-	setDockEnabled(StrokeTools, Qt::DockBottom, false);
+	StrokeTools->setAllowedAreas(Qt::LeftToolBarArea);
+	StrokeTools->setAllowedAreas(Qt::RightToolBarArea);
+	StrokeTools->setAllowedAreas(Qt::BottomToolBarArea);
 	StrokeTools->TxStroke->setEnabled(false);
 	StrokeTools->PM1->setEnabled(false);
 	FillTools = new SToolBColorF(this, currDoc);
-	setDockEnabled(FillTools, Qt::DockLeft, false);
-	setDockEnabled(FillTools, Qt::DockRight, false);
-	setDockEnabled(FillTools, Qt::DockBottom, false);
+	FillTools->setAllowedAreas(Qt::LeftToolBarArea);
+	FillTools->setAllowedAreas(Qt::RightToolBarArea);
+	FillTools->setAllowedAreas(Qt::BottomToolBarArea);
+	
+	addToolBar(FileTools);
+	addToolBar(FontTools);
+	addToolBar(AlignTools);
+	addToolBar(StyleTools);
+	addToolBar(StrokeTools);
+	addToolBar(FillTools);
 
 	EdSplit = new QSplitter(vb);
 /* SideBar Widget */
@@ -1825,7 +1866,7 @@ void StoryEditor::keyPressEvent (QKeyEvent * e)
 	else
 	{
 		activFromApp = false;
-		return Q3MainWindow::keyReleaseEvent(e);
+		return QMainWindow::keyReleaseEvent(e);
 	}
 }
 
@@ -1868,7 +1909,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 			}
 		}
 	}
-	return Q3MainWindow::eventFilter(ob, ev);
+	return QMainWindow::eventFilter(ob, ev);
 }
 
 void StoryEditor::setBackPref()
