@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmdvar.h"
 
-#include "qstring.h"
+#include <QString>
 #include <wchar.h>
 
 
