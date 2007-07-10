@@ -418,6 +418,7 @@ void ScribusDoc::CloseCMSProfiles()
 #ifdef HAVE_CMS
 	if ((CMSavail) /*&& (CMSSettings.CMSinUse)*/)
 	{
+		ResetGlobalCMSParams();
 		if (DocInputProf && !ScMW->IsDefaultProfile(DocInputProf))
 			cmsCloseProfile(DocInputProf);	
 		if (DocOutputProf && !ScMW->IsDefaultProfile(DocOutputProf))
@@ -491,6 +492,36 @@ void ScribusDoc::SetGlobalCMSParams()
 	stdProofCMYKGCG      = stdProofCMYKGC;
 	stdTransImgG         = stdTransImg;
 	stdProofImgG         = stdProofImg;
+#endif
+}
+
+void ScribusDoc::ResetGlobalCMSParams()
+{
+#ifdef HAVE_CMS
+	if (CMSoutputProf == DocOutputProf)
+		CMSoutputProf = NULL;
+	if (CMSprinterProf == DocPrinterProf)
+		CMSprinterProf = NULL;
+	if (stdTransRGBDoc2CMYKG == stdTransRGBDoc2CMYK)
+		stdTransRGBDoc2CMYKG = NULL;
+	if (stdTransCMYK2RGBDocG == stdTransCMYK2RGBDoc)
+		stdTransCMYK2RGBDocG = NULL;
+	if (stdTransRGBDoc2MonG == stdTransRGBDoc2Mon)
+		stdTransRGBDoc2MonG = NULL;
+	if (stdTransCMYK2MonG == stdTransCMYK2Mon)
+		stdTransCMYK2MonG = NULL;
+	if (stdProofRGBG == stdProofRGB)
+		stdProofRGBG = NULL;
+	if (stdProofRGBGCG == stdProofRGBGC)
+		stdProofRGBGCG = NULL;
+	if (stdProofCMYKG == stdProofCMYK)
+		stdProofCMYKG = NULL;
+	if (stdProofCMYKGCG == stdProofCMYKGC)
+		stdProofCMYKGCG = NULL;
+	if (stdTransImgG == stdTransImg)
+		stdTransImgG = NULL;
+	if (stdProofImgG == stdProofImg)
+		stdProofImgG = NULL;
 #endif
 }
 

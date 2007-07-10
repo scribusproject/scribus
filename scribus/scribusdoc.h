@@ -293,6 +293,7 @@ public:
 	void CloseCMSProfiles();
 	void SetDefaultCMSParams();
 	void SetGlobalCMSParams();
+	void ResetGlobalCMSParams();
 	bool UseColorManagement();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 	/**
