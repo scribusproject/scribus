@@ -74,7 +74,7 @@ HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
 	addToExceptionList = new QCheckBox(this);
 	hboxLayout1->addWidget(addToExceptionList);
 	addToExceptionListText = new QLabel(this);
-    addToExceptionListText->setText( tr("Add to the\nException List"));
+	addToExceptionListText->setText( tr("Add to the\nException List"));
 	hboxLayout1->addWidget(addToExceptionListText);
 	vboxLayout1->addLayout(hboxLayout1);
 	Layout1->addLayout(vboxLayout1);
@@ -94,7 +94,7 @@ HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
 	addToIgnoreList = new QCheckBox(this);
 	hboxLayout2->addWidget(addToIgnoreList);
 	addToIgnoreListText = new QLabel(this);
-    addToIgnoreListText->setText( tr("Add to the\nIgnore List"));
+	addToIgnoreListText->setText( tr("Add to the\nIgnore List"));
 	hboxLayout2->addWidget(addToIgnoreListText);
 	vboxLayout2->addLayout(hboxLayout2);
 	Layout1->addLayout(vboxLayout2);
@@ -109,31 +109,8 @@ HyAsk::HyAsk ( QWidget* parent, QString HWort ) : QDialog ( parent )
 	QSpacerItem* spacer = new QSpacerItem(2, 2, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	vboxLayout3->addItem(spacer);
 	Layout1->addLayout(vboxLayout3);
-
 	HyAskLayout->addLayout ( Layout1 );
 
-
-/*
-	QSpacerItem* spacer = new QSpacerItem ( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem ( spacer );
-
-	OK = new QPushButton ( this, "OK" );
-	OK->setText ( tr ( "Accept" ) );
-	OK->setDefault ( true );
-	Layout1->addWidget ( OK );
-	QSpacerItem* spacer_2 = new QSpacerItem ( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem ( spacer_2 );
-	Skip = new QPushButton ( this, "cancel2" );
-	Skip->setText ( tr ( "Skip" ) );
-	Layout1->addWidget ( Skip );
-	QSpacerItem* spacer_3 = new QSpacerItem ( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem ( spacer_3 );
-	Cancel = new QPushButton ( this, "cancel" );
-	Cancel->setText ( tr ( "Cancel" ) );
-	Layout1->addWidget ( Cancel );
-	QSpacerItem* spacer_4 = new QSpacerItem ( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem ( spacer_4 );
-	HyAskLayout->addLayout ( Layout1 ); */
 	connect ( OK, SIGNAL ( clicked() ), this, SLOT ( accept() ) );
 	connect ( Cancel, SIGNAL ( clicked() ), this, SLOT ( reject() ) );
 	connect ( Skip, SIGNAL ( clicked() ), this, SLOT ( DoSkip() ) );
