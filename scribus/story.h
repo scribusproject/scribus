@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include <qmenubar.h>
 #include <qstatusbar.h>
 #include <qlabel.h>
-#include <q3buttongroup.h>
 #include <qspinbox.h>
 #include <qstringlist.h>
 #include <qtoolbutton.h>
@@ -43,9 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include <qsplitter.h>
 #include <qcheckbox.h>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
 #include <QKeyEvent>
-#include <Q3GridLayout>
 #include <QPixmap>
 #include <QHideEvent>
 #include <QFocusEvent>
@@ -58,6 +55,9 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QMenu>
 #include <QList>
+class QGridLayout;
+class QHBoxLayout;
+class QFrame;
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -470,9 +470,9 @@ protected:
 	void keyPressEvent (QKeyEvent * e);
 	bool eventFilter( QObject* ob, QEvent* ev );
 
-    Q3HBoxLayout* StoryEd2Layout;
-	Q3GridLayout* ButtonGroup1Layout;
-	Q3GridLayout* ButtonGroup2Layout;
+	QHBoxLayout* StoryEd2Layout;
+	QGridLayout* ButtonGroup1Layout;
+	QGridLayout* ButtonGroup2Layout;
 
 	PrefsManager* prefsManager;
 	PrefsContext* prefs;
@@ -490,8 +490,8 @@ protected:
 	SToolBStyle* StyleTools;
 	QSplitter* EdSplit;
 	SideBar* EditorBar;
-	Q3ButtonGroup* ButtonGroup1;
-	Q3ButtonGroup* ButtonGroup2;
+	QFrame* ButtonGroup1;
+	QFrame* ButtonGroup2;
 	QLabel* WordCT1;
 	QLabel* WordCT3;
 	QLabel* ParCT;

@@ -39,15 +39,16 @@ for which a new license (GPL+exception) is in place.
 #include <QFocusEvent>
 #include <QMouseEvent>
 #include <QCloseEvent>
-#include <Q3GridLayout>
 #include <QShowEvent>
 #include <QList>
 #include <QKeyEvent>
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
 #include <QEvent>
 #include <QHideEvent>
 #include <QPaintEvent>
 #include <QPalette>
+#include <QGridLayout>
+#include <QFrame>
 
 #include "actionmanager.h"
 #include "alignselect.h"
@@ -1547,7 +1548,9 @@ void StoryEditor::buildGUI()
 
 	setIcon(loadIcon("AppIcon.png"));
 	Q3HBox* vb = new Q3HBox( this );
-	StoryEd2Layout = new Q3HBoxLayout( 0, 5, 5, "StoryEd2Layout");
+	StoryEd2Layout = new QHBoxLayout;
+	StoryEd2Layout->setSpacing( 5 );
+	StoryEd2Layout->setMargin( 5 );
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar(this);
@@ -1563,29 +1566,35 @@ void StoryEditor::buildGUI()
 	FileTools->setAllowedAreas(Qt::LeftToolBarArea);
 	FileTools->setAllowedAreas(Qt::RightToolBarArea);
 	FileTools->setAllowedAreas(Qt::BottomToolBarArea);
+	FileTools->setAllowedAreas(Qt::TopToolBarArea);
 	FontTools = new SToolBFont(this);
 	FontTools->setAllowedAreas(Qt::LeftToolBarArea);
 	FontTools->setAllowedAreas(Qt::RightToolBarArea);
 	FontTools->setAllowedAreas(Qt::BottomToolBarArea);
+	FontTools->setAllowedAreas(Qt::TopToolBarArea);
 	AlignTools = new SToolBAlign(this);
 	AlignTools->setAllowedAreas(Qt::LeftToolBarArea);
 	AlignTools->setAllowedAreas(Qt::RightToolBarArea);
 	AlignTools->setAllowedAreas(Qt::BottomToolBarArea);
+	AlignTools->setAllowedAreas(Qt::TopToolBarArea);
 	AlignTools->paraStyleCombo->setDoc(currDoc);
 	StyleTools = new SToolBStyle(this);
 	StyleTools->setAllowedAreas(Qt::LeftToolBarArea);
 	StyleTools->setAllowedAreas(Qt::RightToolBarArea);
 	StyleTools->setAllowedAreas(Qt::BottomToolBarArea);
+	StyleTools->setAllowedAreas(Qt::TopToolBarArea);
 	StrokeTools = new SToolBColorS(this, currDoc);
 	StrokeTools->setAllowedAreas(Qt::LeftToolBarArea);
 	StrokeTools->setAllowedAreas(Qt::RightToolBarArea);
 	StrokeTools->setAllowedAreas(Qt::BottomToolBarArea);
+	StrokeTools->setAllowedAreas(Qt::TopToolBarArea);
 	StrokeTools->TxStroke->setEnabled(false);
 	StrokeTools->PM1->setEnabled(false);
 	FillTools = new SToolBColorF(this, currDoc);
 	FillTools->setAllowedAreas(Qt::LeftToolBarArea);
 	FillTools->setAllowedAreas(Qt::RightToolBarArea);
 	FillTools->setAllowedAreas(Qt::BottomToolBarArea);
+	FillTools->setAllowedAreas(Qt::TopToolBarArea);
 	
 	addToolBar(FileTools);
 	addToolBar(FontTools);
@@ -1602,20 +1611,15 @@ void StoryEditor::buildGUI()
 	StoryEd2Layout->addWidget( EdSplit );
 
 /* Setting up Status Bar */
-	ButtonGroup1 = new Q3ButtonGroup( statusBar(), "ButtonGroup1" );
-	ButtonGroup1->setFrameShape( Q3ButtonGroup::NoFrame );
-	ButtonGroup1->setFrameShadow( Q3ButtonGroup::Plain );
-	ButtonGroup1->setTitle("");
-	ButtonGroup1->setExclusive( true );
-	ButtonGroup1->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup1->layout()->setSpacing( 0 );
-	ButtonGroup1->layout()->setMargin( 0 );
-	ButtonGroup1Layout = new Q3GridLayout( ButtonGroup1->layout() );
+	ButtonGroup1 = new QFrame( statusBar() );
+	ButtonGroup1->setFrameShape( QFrame::NoFrame );
+	ButtonGroup1->setFrameShadow( QFrame::Plain );
+	ButtonGroup1Layout = new QGridLayout( ButtonGroup1 );
 	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup1Layout->setSpacing( 2 );
 	ButtonGroup1Layout->setMargin( 0 );
 	WordCT1 = new QLabel(ButtonGroup1, "wt");
-	ButtonGroup1Layout->addMultiCellWidget( WordCT1, 0, 0, 0, 3 );
+	ButtonGroup1Layout->addWidget( WordCT1, 0, 0, 1, 3 );
 	WordCT = new QLabel(ButtonGroup1, "wt");
 	ButtonGroup1Layout->addWidget( WordCT, 1, 0 );
 	WordC = new QLabel(ButtonGroup1, "wc");
@@ -1625,20 +1629,15 @@ void StoryEditor::buildGUI()
 	CharC = new QLabel(ButtonGroup1, "cc");
 	ButtonGroup1Layout->addWidget( CharC, 1, 3 );
 	statusBar()->addWidget(ButtonGroup1, 1, true);
-	ButtonGroup2 = new Q3ButtonGroup( statusBar(), "ButtonGroup2" );
-	ButtonGroup2->setFrameShape( Q3ButtonGroup::NoFrame );
-	ButtonGroup2->setFrameShadow( Q3ButtonGroup::Plain );
-	ButtonGroup2->setTitle("");
-	ButtonGroup2->setExclusive( true );
-	ButtonGroup2->setColumnLayout(0, Qt::Vertical );
-	ButtonGroup2->layout()->setSpacing( 0 );
-	ButtonGroup2->layout()->setMargin( 0 );
-	ButtonGroup2Layout = new Q3GridLayout( ButtonGroup2->layout() );
+	ButtonGroup2 = new QFrame( statusBar(), "ButtonGroup2" );
+	ButtonGroup2->setFrameShape( QFrame::NoFrame );
+	ButtonGroup2->setFrameShadow( QFrame::Plain );
+	ButtonGroup2Layout = new QGridLayout( ButtonGroup2 );
 	ButtonGroup2Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup2Layout->setSpacing( 2 );
 	ButtonGroup2Layout->setMargin( 0 );
 	WordCT3 = new QLabel(ButtonGroup2, "wt");
-	ButtonGroup2Layout->addMultiCellWidget( WordCT3, 0, 0, 0, 5 );
+	ButtonGroup2Layout->addWidget( WordCT3, 0, 0, 1, 5 );
 	ParCT = new QLabel(ButtonGroup2, "pt");
 	ButtonGroup2Layout->addWidget( ParCT, 1, 0 );
 	ParC = new QLabel(ButtonGroup2, "pc");
@@ -1671,7 +1670,7 @@ void StoryEditor::buildGUI()
 
 void StoryEditor::languageChange()
 {
-	setCaption( tr( "Story Editor" ) );
+	setWindowTitle( tr( "Story Editor" ) );
 	//File Menu
 	seMenuMgr->setMenuText("File", tr("&File"));
 	seActions["fileNew"]->setMenuText( tr("&New"));
@@ -1777,7 +1776,7 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 	currItem = item;
 	if (currItem!=NULL)
 	{
-		setCaption( tr("Story Editor - %1").arg(currItem->itemName()));
+		setWindowTitle( tr("Story Editor - %1").arg(currItem->itemName()));
 		firstSet = false;
 		FontTools->Fonts->RebuildList(currDoc, currItem->isAnnotation());
 		Editor->loadItemText(currItem);
@@ -1794,7 +1793,7 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 	{
 		Editor->StyledText.clear();
 		Editor->clear();
-		setCaption( tr( "Story Editor" ));
+		setWindowTitle( tr( "Story Editor" ));
 	}
 	QString data = QApplication::clipboard()->text(QClipboard::Clipboard);
 	if (!data.isNull())
