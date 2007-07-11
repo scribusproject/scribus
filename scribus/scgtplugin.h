@@ -16,7 +16,7 @@ class QString;
 class QCheckBox;
 class QStringList;
 class QDir;
-class Q3HBox;
+class QWidget;
 
 /**
   @brief Super class for all text importer plugins.
@@ -122,7 +122,7 @@ public:
 	bool append() const;
 
 private:
-	Q3HBox *diaExtension_;
+	QWidget   *diaExtension_;
 	QCheckBox *showOptionsBox_;
 	QCheckBox *appendBox_;
 	void customize();

@@ -9,12 +9,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "scgtplugin.h"
 
-#include <qcheckbox.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qdir.h>
-#include <qobject.h>
-#include <q3hbox.h>
+#include <QCheckBox>
+#include <QDir>
+#include <QObject>
+#include <QHBoxLayout>
+#include <QString>
+#include <QStringList>
+#include <QWidget>
 
 /***************************************************************************************/
 /***************************************************************************************/
@@ -122,11 +123,21 @@ bool ScGTFileDialog::append() const
 
 void ScGTFileDialog::customize()
 {
-	diaExtension_ = new Q3HBox(this, "diaExtension_");
-	diaExtension_->setSpacing(5);
+	//diaExtension_ = new Q3HBox(this, "diaExtension_");
+	diaExtension_ = new QWidget(this);
+	diaExtension_->setObjectName("diaExtension_");
 
-	appendBox_      = new QCheckBox( tr("Append"), diaExtension_, "appendBox_");
-	showOptionsBox_ = new QCheckBox( tr("Show options"), diaExtension_, "showOptionsBox_");
+	appendBox_      = new QCheckBox( tr("Append"), diaExtension_);
+	appendBox_->setObjectName("appendBox_"); 
+	showOptionsBox_ = new QCheckBox( tr("Show options"), diaExtension_);
+	showOptionsBox_->setObjectName("showOptionsBox_"); 
+
+	QHBoxLayout *layout = new QHBoxLayout;
+	layout->setSpacing(5);
+	layout->add(appendBox_);
+	layout->add(showOptionsBox_);
+
+	diaExtension_->setLayout(layout);
 
 	addWidgets(diaExtension_);
 }
