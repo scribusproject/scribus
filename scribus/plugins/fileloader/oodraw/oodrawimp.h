@@ -7,9 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef OODPLUG_H
 #define OODPLUG_H
 
-#include <qobject.h>
+#include <QObject>
 #include <q3dict.h>
-//Added by qt3to4:
 #include <QList>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"

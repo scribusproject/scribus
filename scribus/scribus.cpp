@@ -74,7 +74,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribus.h"
-//#include "scribus.moc"
+#include "formatutils.h"
 #include "newfile.h"
 #include "page.h"
 #include "query.h"
@@ -221,6 +221,7 @@ ScribusMainWindow::ScribusMainWindow()
 	actionManager=0;
 	scrMenuMgr=0;
 	prefsManager=0;
+	formatsManager=0;
 	mainWindowStatusLabel=0;
 	ExternalApp=0;
 #ifdef Q_WS_MAC
@@ -260,6 +261,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	scrLayersActions.clear();
 	scrMenuMgr = new MenuManager(menuBar());
 	prefsManager = PrefsManager::instance();
+	formatsManager = FormatsManager::instance();
 	objectSpecificUndo = false;
 
 	undoManager = UndoManager::instance();
@@ -1167,33 +1169,33 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->accel())
 			scrActions["specialToggleAllPalettes"]->activate(QAction::Trigger);
 		else
-		if (currKeySeq == scrActions["toolsProperties"]->accel())
-			scrActions["toolsProperties"]->toggle();
-		else
-		if (currKeySeq == scrActions["toolsOutline"]->accel())
-			scrActions["toolsOutline"]->toggle();
-		else
-		if (currKeySeq == scrActions["toolsScrapbook"]->accel())
-			scrActions["toolsScrapbook"]->toggle();
-		else
-		if (currKeySeq == scrActions["toolsLayers"]->accel())
-			scrActions["toolsLayers"]->toggle();
-		else
-		if (currKeySeq == scrActions["toolsPages"]->accel())
-			scrActions["toolsPages"]->toggle();
-		else
-		if (currKeySeq == scrActions["toolsBookmarks"]->accel())
-			scrActions["toolsBookmarks"]->toggle();
-		else
-		if (currKeySeq == scrActions["toolsActionHistory"]->accel())
-			scrActions["toolsActionHistory"]->toggle();
-		else
-		if (currKeySeq == scrActions["toolsPreflightVerifier"]->accel())
-			scrActions["toolsPreflightVerifier"]->toggle();
-		else
-		if (currKeySeq == scrActions["toolsAlignDistribute"]->accel())
-			scrActions["toolsAlignDistribute"]->toggle();
-		else
+// 		if (currKeySeq == scrActions["toolsProperties"]->accel())
+// 			scrActions["toolsProperties"]->toggle();
+// 		else
+// 		if (currKeySeq == scrActions["toolsOutline"]->accel())
+// 			scrActions["toolsOutline"]->toggle();
+// 		else
+// 		if (currKeySeq == scrActions["toolsScrapbook"]->accel())
+// 			scrActions["toolsScrapbook"]->toggle();
+// 		else
+// 		if (currKeySeq == scrActions["toolsLayers"]->accel())
+// 			scrActions["toolsLayers"]->toggle();
+// 		else
+// 		if (currKeySeq == scrActions["toolsPages"]->accel())
+// 			scrActions["toolsPages"]->toggle();
+// 		else
+// 		if (currKeySeq == scrActions["toolsBookmarks"]->accel())
+// 			scrActions["toolsBookmarks"]->toggle();
+// 		else
+// 		if (currKeySeq == scrActions["toolsActionHistory"]->accel())
+// 			scrActions["toolsActionHistory"]->toggle();
+// 		else
+// 		if (currKeySeq == scrActions["toolsPreflightVerifier"]->accel())
+// 			scrActions["toolsPreflightVerifier"]->toggle();
+// 		else
+// 		if (currKeySeq == scrActions["toolsAlignDistribute"]->accel())
+// 			scrActions["toolsAlignDistribute"]->toggle();
+// 		else
 		//Edit actions
 		if (currKeySeq == scrActions["editStyles"]->accel())
 			scrActions["editStyles"]->toggle();
@@ -1920,6 +1922,8 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	if (!emergencyActivated)
 		prefsManager->SavePrefs();
 	UndoManager::deleteInstance();
+	PrefsManager::deleteInstance();
+	FormatsManager::deleteInstance();
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	exit(0);
 }
@@ -5255,8 +5259,14 @@ void ScribusMainWindow::slotHelpAboutQt()
 	QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
+#include "formatutils.h"
+
 void ScribusMainWindow::slotOnlineHelp()
 {
+	QString a, b;
+	formatsManager->fileTypeStrings(FormatsManager::TIFF|FormatsManager::EPS, a, b);
+	qDebug(QString("%1\n%2").arg(a).arg(b));
+	
 	helpBrowser = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage());
 	connect(helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelpClosed()));
 	helpBrowser->show();

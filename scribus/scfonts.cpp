@@ -16,15 +16,16 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QApplication>
+#include <QDir>
 #include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
-#include <QGlobalStatic>
-#include <QString>
 #include <QFont>
+#include <QGlobalStatic>
 #include <QMap>
-#include <QDir>
 #include <QRegExp>
+#include <QString>
+
 
 #include <cstdlib>
 #include "scfonts.h"

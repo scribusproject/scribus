@@ -11,13 +11,11 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <qstring.h>
 #include <qdom.h>
-//Added by qt3to4:
 #include <QDrag>
 #include <QMimeData>
 #include <cmath>
 
 #include "oodrawimp.h"
-//#include "oodrawimp.moc"
 
 #include "scconfig.h"
 
@@ -522,6 +520,7 @@ bool OODPlug::convert(int flags)
 			}
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			tmpSel->setGroupRect();
+			//CB keep for reference conversion for now
 			//Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view()->viewport());
 			QMimeData* md = new QMimeData();
 			md->setText(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel));

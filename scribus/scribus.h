@@ -77,7 +77,7 @@ class Autoforms;
 class Biblio;
 class BookPalette;
 class CheckDocument;
-
+class FormatsManager;
 class FontCombo;
 class GuideManager;
 class HelpBrowser;
@@ -643,6 +643,7 @@ private:
 	StyleManager *styleManager;
 	UndoManager *undoManager;
 	PrefsManager *prefsManager;
+	FormatsManager *formatsManager;
 	QString currentFontForFontMenu;
 
 	HelpBrowser* helpBrowser;

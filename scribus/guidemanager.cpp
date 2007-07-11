@@ -22,32 +22,32 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <qradiobutton.h>
-#include <qlayout.h>
-#include <qcursor.h>
-#include <q3listview.h>
-#include <qdialog.h>
-#include <q3groupbox.h>
-#include <qlabel.h>
-#include <q3listview.h>
-#include <qpushbutton.h>
-#include <qcheckbox.h>
-#include <qtooltip.h>
-#include <qbuttongroup.h>
-#include <qtabwidget.h>
+#include <QButtonGroup>
+#include <QCheckBox>
+#include <QCursor>
+#include <QDialog>
+#include <QLabel>
+#include <QLayout>
 #include <QList>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QTabWidget>
+#include <QToolTip>
+#include <q3groupbox.h>
+#include <q3listview.h>
 
 #include "guidemanager.h"
-//#include "guidemanager.moc"
+
+#include "commonstrings.h"
+#include "page.h"
+#include "scinputdialog.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "page.h"
-#include "units.h"
-#include "util.h"
-#include "commonstrings.h"
-#include "scinputdialog.h"
 #include "selection.h"
 #include "undomanager.h"
+#include "units.h"
+#include "util.h"
+
 
 
 int GuideListItem::compare(Q3ListViewItem *i, int col, bool asc) const

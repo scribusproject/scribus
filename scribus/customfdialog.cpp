@@ -21,34 +21,36 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "customfdialog.h"
-#include <QFileInfo>
-#include <QDomDocument>
-#include <QTextCodec>
-#include <QImageReader>
-#include <QFrame>
-#include <QPushButton>
-#include <QPainter>
+#include <QCheckBox>
+#include <QComboBox>
 #include <QDir>
+#include <QDomDocument>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QFrame>
+#include <QFrame>
+#include <QHBoxLayout>
+#include <QIcon>
+#include <QImageReader>
+#include <QLabel>
+#include <QPainter>
 #include <QPixmap>
 #include <QPushButton>
-#include <QComboBox>
-#include <QCheckBox>
-#include <QHBoxLayout>
+#include <QPushButton>
+#include <QTextCodec>
 #include <QVBoxLayout>
-#include <QFrame>
-#include <QLabel>
-#include <QFileDialog>
-#include <QIcon>
+
+#include "customfdialog.h"
 
 #include "cmsettings.h"
 #include "colorutil.h"
+#include "commonstrings.h"
 #include "formatutils.h"
 #include "sccombobox.h"
-#include "scribusstructs.h"
 #include "scimage.h"
+#include "scribusstructs.h"
 #include "util.h"
-#include "commonstrings.h"
+
 
 extern QString DocDir;
 
@@ -133,6 +135,7 @@ void FDialogPreview::GenPreview(QString name)
 	bool mode = false;
 	QString ext = fi.extension(false).lower();
 	QList<QByteArray> formats(QImageReader::supportedImageFormats());
+// 	FormatsManager::instance()->imageFormatSupported(ext);
 	formats.append("jpg");
 	formats.append("tif");
 	formats.append("tiff");

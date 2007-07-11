@@ -25,9 +25,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "text/storytext.h"
 #include "undomanager.h"
 #include "util.h"
-#include "text/storytext.h"
+
 
 QMap<QString, QKeySequence> ActionManager::defKeys;
 QVector< QPair<QString, QStringList> > ActionManager::defMenus;
@@ -699,6 +700,17 @@ void ActionManager::initToolsMenuActions()
 	name="toolsPDFAnnotLink";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, loadIcon("goto16.png"), loadIcon("goto.png"), "", defKeys[name], mainWindow, modeInsertPDFLinkAnnotation));
 
+	//Set the applicaton wide palette shortcuts
+	(*scrActions)["toolsProperties"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsScrapbook"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsLayers"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsPages"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsBookmarks"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsActionHistory"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsPreflightVerifier"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsAlignDistribute"]->setShortcutContext(Qt::ApplicationShortcut);
+	
+	
 	(*scrActions)["toolsProperties"]->setToggleAction(true);
 	(*scrActions)["toolsOutline"]->setToggleAction(true);
 	(*scrActions)["toolsScrapbook"]->setToggleAction(true);
