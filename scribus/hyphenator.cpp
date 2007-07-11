@@ -285,9 +285,8 @@ void Hyphenator::slotHyphenate(PageItem* it)
 									buffer[ii] = 0;
 								ii++;
 							}
-							it->itemText.hyphenateWord(firstC, found.length(), buffer);
 						}
-						else if (rememberedWords.contains(input))
+						if (rememberedWords.contains(input))
 						{
 							outs = rememberedWords.value(input);
 							uint ii = 0;
