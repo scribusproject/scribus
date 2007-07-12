@@ -21,17 +21,18 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "bookmwin.h"
 #include <QAction>
-#include <qpixmap.h>
-#include <q3dragobject.h>
-#include <QMenu>
-#include <qcursor.h>
-#include <q3header.h>
-//Added by qt3to4:
+#include <QCursor>
+#include <QDrag>
 #include <QDragMoveEvent>
 #include <QDropEvent>
+#include <QMenu>
+#include <QMimeData>
 #include <QMouseEvent>
+#include <QPixmap>
+#include <q3header.h>
+
+#include "bookmwin.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -182,8 +183,13 @@ void BookMView::contentsMouseMoveEvent(QMouseEvent* e)
 		if (i)
 		{
 			DraggedI = (BookMItem*)i;
-			Q3DragObject *dr = new Q3TextDrag(i->text(0), this, "BMD");
-			dr->drag();
+// 			Q3DragObject *dr = new Q3TextDrag(i->text(0), this, "BMD");
+// 			dr->drag();
+			QMimeData* md = new QMimeData();
+			md->setText(i->text(0));
+			QDrag* dr = new QDrag(this);
+			dr->setMimeData(md);
+			dr->exec();
 		}
 	}
 }
@@ -191,11 +197,18 @@ void BookMView::contentsMouseMoveEvent(QMouseEvent* e)
 void BookMView::contentsDropEvent(QDropEvent *e)
 {
 	QString text;
-	if (!Q3TextDrag::decode(e, text))
+// 	if (!Q3TextDrag::decode(e, text))
+// 	{
+// 		e->ignore();
+// 		return;
+//     }
+	if (e->mimeData()->hasText())
+		text=e->mimeData()->text();
+	else
 	{
 		e->ignore();
 		return;
-    }
+	}
 	QAction *ins, *mov, *mret, *can;
 	Q3ListViewItem *pp;
 	Q3ListViewItem *lv;
@@ -383,11 +396,18 @@ void BookMView::contentsDropEvent(QDropEvent *e)
 void BookMView::contentsDragMoveEvent(QDragMoveEvent *e)
 {
 	QString text;
-	if (!Q3TextDrag::decode(e, text))
+// 	if (!Q3TextDrag::decode(e, text))
+// 	{
+// 		e->ignore();
+// 		return;
+//     }
+	if (e->mimeData()->hasText())
+		text=e->mimeData()->text();
+	else
 	{
 		e->ignore();
 		return;
-    }
+	}
 	Q3ListViewItem *item = itemAt(contentsToViewport(e->pos()));
 	if (item)
   	{
