@@ -28,60 +28,60 @@ for which a new license (GPL+exception) is in place.
 #define SCTOOLBAR_H
 
 #include "scribusapi.h"
-#include <q3toolbar.h>
+#include <QToolBar>
+#include <QMainWindow>
 #include <QMenu>
 #include <QCloseEvent>
 
-class Q3MainWindow;
 class QString;
 class PrefsContext;
 class QCloseEvent;
 class QToolButton;
 
-class SCRIBUS_API ScToolBar : public Q3ToolBar
+class SCRIBUS_API ScToolBar : public QToolBar
 {
 	Q_OBJECT
 public:
 	// prefName is the name without tr() that will be used in the preferences for this toolbar
 	// if using name settings depend on the language
-	ScToolBar(const QString& name, const QString &prefName, Q3MainWindow *parent, Qt::Orientation o = Qt::Horizontal);
+	ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, Qt::Orientation o = Qt::Horizontal);
 	virtual ~ScToolBar();
 
-	int position();
-	void storeDockPosition();
-	void moveDock();
-	void initVisibility();
+// 	int position();
+// 	void storeDockPosition();
+// 	void moveDock();
+// 	void initVisibility();
 
 public slots:
 	void languageChange();
 
 protected slots:
-	void slotPlaceChanged(Q3DockWindow::Place p);
-	void slotVisibilityChanged(bool visible);
-	void slotTop();
-	void slotRight();
-	void slotBottom();
-	void slotLeft();
-	void slotVert();
-	void slotHor();
+// 	void slotPlaceChanged(Q3DockWindow::Place p);
+// 	void slotVisibilityChanged(bool visible);
+// 	void slotTop();
+// 	void slotRight();
+// 	void slotBottom();
+// 	void slotLeft();
+// 	void slotVert();
+// 	void slotHor();
 
 private:
 	QString m_name;
 	PrefsContext *m_prefs;
 	Qt::Orientation floatOrientation;
 	QToolButton *prefsButton;
-	QMenu  *popup;
-	QMenu  *dockMenu;
-	QMenu  *orientationMenu;
-
+// 	QMenu  *popup;
+// 	QMenu  *dockMenu;
+// 	QMenu  *orientationMenu;
+	QMainWindow* parentMW;
 	bool dockTop;
 	bool dockRight;
 	bool dockBottom;
 	bool dockLeft;
 
-	void initPrefsButton();
-	void storeDockPositions();
-	void moveDocks();
+// 	void initPrefsButton();
+// 	void storeDockPositions();
+// 	void moveDocks();
 
 	enum Orientation { Vert, Hor };
 };

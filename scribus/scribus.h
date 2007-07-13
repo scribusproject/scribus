@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 // include files for QT
 #include <qapplication.h>
-#include <q3mainwindow.h>
+#include <qmainwindow.h>
 #include <qaction.h>
 #include <qmenubar.h>
 #include <QMenu>
@@ -122,7 +122,7 @@ extern SCRIBUS_API ScribusQApp* ScQApp;
   * and statusbar. For the main view, an instance of class ScribusView is
   * created which creates your view.
   */
-class SCRIBUS_API ScribusMainWindow : public Q3MainWindow, public UndoObject
+class SCRIBUS_API ScribusMainWindow : public QMainWindow, public UndoObject
 {
 	Q_OBJECT
 

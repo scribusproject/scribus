@@ -203,7 +203,10 @@ void BookMView::contentsDropEvent(QDropEvent *e)
 // 		return;
 //     }
 	if (e->mimeData()->hasText())
+	{
+		e->acceptProposedAction();
 		text=e->mimeData()->text();
+	}
 	else
 	{
 		e->ignore();
@@ -402,7 +405,10 @@ void BookMView::contentsDragMoveEvent(QDragMoveEvent *e)
 // 		return;
 //     }
 	if (e->mimeData()->hasText())
+	{
+		e->acceptProposedAction();
 		text=e->mimeData()->text();
+	}
 	else
 	{
 		e->ignore();

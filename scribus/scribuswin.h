@@ -24,10 +24,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUSWIN_H
 #define SCRIBUSWIN_H
 
-#include <q3mainwindow.h>
+#include <qmainwindow.h>
 //Added by qt3to4:
 #include <QFrame>
 #include <QCloseEvent>
+#include <QResizeEvent>
 #include <Q3HBoxLayout>
 class ScribusDoc;
 class ScribusMainWindow;
@@ -38,7 +39,7 @@ class ScribusView;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API ScribusWin : public Q3MainWindow
+class SCRIBUS_API ScribusWin : public QMainWindow
 {
 	Q_OBJECT
 
@@ -46,6 +47,7 @@ public:
 	ScribusWin(QWidget* parent, ScribusDoc* doc);
 	~ScribusWin() {};
 	void closeEvent(QCloseEvent *ce);
+	void resizeEvent(QResizeEvent *re);
 	void setView(ScribusView* newView);
 	void setMainWindow(ScribusMainWindow *);
 	ScribusView* view() const { return m_View;}

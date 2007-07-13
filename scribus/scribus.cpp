@@ -248,7 +248,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	internalCopy = false;
 //	guiLanguage = newGuiLanguage;
 //	initSplash(showSplash);
-	setUsesBigPixmaps(true);
+//qt4 	setUsesBigPixmaps(true);
 	CurrStED = NULL;
 	setCaption( tr("Scribus " VERSION));
 	setKeyCompression(false);
@@ -373,10 +373,15 @@ void ScribusMainWindow::initToolBars()
 
 	mainToolBar = new ModeToolBar(this);
 	pdfToolBar = new PDFToolBar(this);
+	
+	addToolBar(fileToolBar);
+	addToolBar(editToolBar);
+	addToolBar(mainToolBar);
+	addToolBar(pdfToolBar);
 
-	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setOn(bool)));
+// 	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setOn(bool)));
 	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setShown(bool)));
-	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setOn(bool)));
+// 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setOn(bool)));
 	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), mainToolBar, SLOT(setShown(bool)) );
 }
 
@@ -7635,10 +7640,10 @@ void ScribusMainWindow::ShowSubs()
 	styleManager->startup();
 
 	// init the toolbars
-	fileToolBar->initVisibility();
-	editToolBar->initVisibility();
-	mainToolBar->initVisibility();
-	pdfToolBar->initVisibility();
+// 	fileToolBar->initVisibility();
+// 	editToolBar->initVisibility();
+// 	mainToolBar->initVisibility();
+// 	pdfToolBar->initVisibility();
 
 	setActiveWindow();
 	raise();
@@ -9203,7 +9208,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 		}
 	}
 	if (sendToSuper)
-		Q3MainWindow::mouseReleaseEvent(m);
+		QMainWindow::mouseReleaseEvent(m);
 
 }
 

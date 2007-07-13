@@ -24,27 +24,32 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <QEvent>
+#include <QMenu>
+#include <QPixmap>
+#include <QString>
+#include <QToolButton>
+
 #include "sctoolbar.h"
+
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
-#include <qevent.h>
-#include <q3dockarea.h>
-#include <q3dockwindow.h>
-#include <q3mainwindow.h>
-#include <qstring.h>
-#include <qtoolbutton.h>
-#include <QMenu>
-#include <QPixmap>
+
 
 extern QPixmap loadIcon(QString nam);
 
-ScToolBar::ScToolBar(const QString& name, const QString &prefName, Q3MainWindow *parent, Qt::Orientation o)
-: Q3ToolBar(name, parent),
+ScToolBar::ScToolBar(const QString& name, const QString &prefName, QMainWindow *parent, Qt::Orientation o)
+: QToolBar(name, parent),
   m_name(QString("ToolBar-%1").arg(prefName)),
   m_prefs(PrefsManager::instance()->prefsFile->getContext(m_name))
 {
-	hide();
+	setObjectName(name);
+// 	hide();
+	parentMW=parent;
+	
+	setAllowedAreas(Qt::AllToolBarAreas);
+	/*
 	setCloseMode(Q3DockWindow::Undocked);
 
 	if (m_prefs->contains("IsDocked")) // set docking
@@ -96,12 +101,12 @@ ScToolBar::ScToolBar(const QString& name, const QString &prefName, Q3MainWindow 
 		setOrientation(floatOrientation);
 
 	initPrefsButton();
+	*/
 	languageChange();
 
-	connect(this, SIGNAL(placeChanged(Q3DockWindow::Place)),
-	        this, SLOT(slotPlaceChanged(Q3DockWindow::Place)));
+// 	connect(this, SIGNAL(placeChanged(Q3DockWindow::Place)), this, SLOT(slotPlaceChanged(Q3DockWindow::Place)));
 }
-
+/*
 void ScToolBar::initVisibility()
 {
 	if (m_prefs->getBool("IsVisible", true))
@@ -252,41 +257,41 @@ void ScToolBar::slotHor()
 	if (place() != InDock)
 		setOrientation(floatOrientation);
 }
-
+*/
 void ScToolBar::languageChange()
 {
-	popup->clear();
+// 	popup->clear();
 
-	dockMenu = new QMenu(0);
-	dockMenu->setCheckable(true);
-	dockMenu->insertItem( tr("Top"), this, SLOT(slotTop()));
-	dockMenu->insertItem( tr("Right"), this, SLOT(slotRight()));
-	dockMenu->insertItem( tr("Bottom"), this, SLOT(slotBottom()));
-	dockMenu->insertItem( tr("Left"), this, SLOT(slotLeft()));
-	popup->insertItem( tr("Allow Docking To..."), dockMenu);
-	dockMenu->setItemChecked(dockMenu->idAt(0), dockTop);
-	dockMenu->setItemChecked(dockMenu->idAt(1), dockRight);
-	dockMenu->setItemChecked(dockMenu->idAt(2), dockBottom);
-	dockMenu->setItemChecked(dockMenu->idAt(3), dockLeft);
-
-	orientationMenu = new QMenu(0);
-	orientationMenu->setCheckable(true);
-	orientationMenu->insertItem( tr("Horizontal"), this, SLOT(slotHor()));
-	orientationMenu->insertItem( tr("Vertical"), this, SLOT(slotVert()));
-	popup->insertItem( tr("Floating Orientation..."), orientationMenu);
-	bool b=(floatOrientation == Qt::Horizontal);
-	orientationMenu->setItemChecked(orientationMenu->idAt(0), b);
-	orientationMenu->setItemChecked(orientationMenu->idAt(1), !b);
+// 	dockMenu = new QMenu(0);
+// 	dockMenu->setCheckable(true);
+// 	dockMenu->insertItem( tr("Top"), this, SLOT(slotTop()));
+// 	dockMenu->insertItem( tr("Right"), this, SLOT(slotRight()));
+// 	dockMenu->insertItem( tr("Bottom"), this, SLOT(slotBottom()));
+// 	dockMenu->insertItem( tr("Left"), this, SLOT(slotLeft()));
+// 	popup->insertItem( tr("Allow Docking To..."), dockMenu);
+// 	dockMenu->setItemChecked(dockMenu->idAt(0), dockTop);
+// 	dockMenu->setItemChecked(dockMenu->idAt(1), dockRight);
+// 	dockMenu->setItemChecked(dockMenu->idAt(2), dockBottom);
+// 	dockMenu->setItemChecked(dockMenu->idAt(3), dockLeft);
+// 
+// 	orientationMenu = new QMenu(0);
+// 	orientationMenu->setCheckable(true);
+// 	orientationMenu->insertItem( tr("Horizontal"), this, SLOT(slotHor()));
+// 	orientationMenu->insertItem( tr("Vertical"), this, SLOT(slotVert()));
+// 	popup->insertItem( tr("Floating Orientation..."), orientationMenu);
+// 	bool b=(floatOrientation == Qt::Horizontal);
+// 	orientationMenu->setItemChecked(orientationMenu->idAt(0), b);
+// 	orientationMenu->setItemChecked(orientationMenu->idAt(1), !b);
 }
 
-void ScToolBar::initPrefsButton()
-{
-	prefsButton = new QToolButton(Qt::DownArrow, this, "tbprefsbutton");
-	prefsButton->setAutoRaise(true);
-	popup = new QMenu(0);
-	prefsButton->setPopup(popup);
-	prefsButton->setPopupDelay(1);
-}
+// void ScToolBar::initPrefsButton()
+// {
+// 	prefsButton = new QToolButton(Qt::DownArrow, this, "tbprefsbutton");
+// 	prefsButton->setAutoRaise(true);
+// 	popup = new QMenu(0);
+// 	prefsButton->setPopup(popup);
+// 	prefsButton->setPopupDelay(1);
+// }
 
 ScToolBar::~ScToolBar()
 {

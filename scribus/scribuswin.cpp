@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 
 
-ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : Q3MainWindow(parent, "", Qt::WDestructiveClose)
+ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent, "", Qt::WDestructiveClose)
 {
 	setIcon(loadIcon("AppIcon2.png"));
 	m_Doc = doc;
@@ -136,6 +136,11 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 	ce->accept();
 }
 
+void ScribusWin::resizeEvent(QResizeEvent *re)
+{
+	statusBar()->setSizeGripEnabled(!isMaximized());
+}
+
 void ScribusWin::setMasterPagesPaletteShown(bool isShown) const
 {
 	if (m_masterPagesPalette==NULL)
@@ -152,5 +157,5 @@ void ScribusWin::windowActivationChange ( bool oldActive )
 		QDir::setCurrent( currentDir );
 	else
 		currentDir = QDir::currentDirPath();
-	Q3MainWindow::windowActivationChange( oldActive );
+	QMainWindow::windowActivationChange( oldActive );
 }
