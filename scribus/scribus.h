@@ -30,39 +30,39 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 
 // include files for QT
-#include <qapplication.h>
-#include <qmainwindow.h>
-#include <qaction.h>
-#include <qmenubar.h>
-#include <QMenu>
-#include <q3toolbar.h>
-#include <qtoolbutton.h>
-#include <qstatusbar.h>
-#include <qtooltip.h>
-#include <qstring.h>
-#include <qpixmap.h>
-#include <qmessagebox.h>
-#include <qpainter.h>
-#include <qmap.h>
-#include <QMultiHash>
-#include <qpointer.h>
-#include <qfont.h>
-#include <qtimer.h>
-#include <q3intdict.h>
-#include <QProgressDialog>
-#include <QProgressBar>
-#include <qworkspace.h>
-#include <qclipboard.h>
-#include <QProcess>
-#include <QLabel>
-#include <QWheelEvent>
-#include <QMouseEvent>
+#include <QAction>
+#include <QActionGroup>
+#include <QApplication>
+#include <QClipBoard>
 #include <QCloseEvent>
 #include <QDragEnterEvent>
-#include <QKeyEvent>
-#include <QEvent>
 #include <QDropEvent>
-#include <QActionGroup>
+#include <QEvent>
+#include <QFont>
+#include <QKeyEvent>
+#include <QLabel>
+#include <QMainWindow>
+#include <QMap>
+#include <QMenu>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QMouseEvent>
+#include <QMultiHash>
+#include <QPainter>
+#include <QPixmap>
+#include <QPointer>
+#include <QProcess>
+#include <QProgressBar>
+#include <QProgressDialog>
+#include <QStatusBar>
+#include <QString>
+#include <QTimer>
+#include <QToolButton>
+#include <QToolTip>
+#include <QWheelEvent>
+#include <QWorkspace>
+#include <q3intdict.h>
+
 
 // application specific includes
 #include "scribusapi.h"
@@ -71,39 +71,41 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "customfdialog.h"
 
+// class LineFormate;
+// class StilFormate;
 class ActionManager;
 class AlignDistributePalette;
 class Autoforms;
 class Biblio;
 class BookPalette;
+class CharSelect;
 class CheckDocument;
-class FormatsManager;
+class ColorCombo;
 class FontCombo;
+class FormatsManager;
 class GuideManager;
 class HelpBrowser;
-class CharSelect;
-class ColorCombo;
 class LayerPalette;
-// class LineFormate;
-class Mpalette;
 class Measurements;
 class MenuManager;
+class ModeToolBar;
+class Mpalette;
 class NodePalette;
+class PDFToolBar;
+class PSLib;
 class PageItem;
 class PagePalette;
 class Preferences;
-class PrefsManager;
 class PrefsContext;
-class PSLib;
+class PrefsManager;
 class ReformDoc;
+class ScToolBar;
 class ScrAction;
 class ScribusCore;
 class ScribusMainWindow;
 class ScribusQApp;
 class ScribusWin;
-class ScToolBar;
 class SimpleState;
-// class StilFormate;
 class StoryEditor;
 class StyleManager;
 class TOCGenerator;
@@ -111,8 +113,6 @@ class Tree;
 class UndoManager;
 class UndoPalette;
 class UndoState;
-class ModeToolBar;
-class PDFToolBar;
 
 extern SCRIBUS_API ScribusQApp* ScQApp;
 
