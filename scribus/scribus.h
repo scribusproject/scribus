@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <QActionGroup>
 #include <QApplication>
-#include <QClipBoard>
+#include <QClipboard>
 #include <QCloseEvent>
 #include <QDragEnterEvent>
 #include <QDropEvent>
