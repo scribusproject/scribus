@@ -1725,6 +1725,7 @@ void PageItem_TextFrame::layout()
 								if (current.isEndOfCol(desc) && (current.column+1 == Cols))
 								{
 									goNoRoom = true;
+									MaxChars = a + 1;
 //									qDebug(QString("go no room 1: %1").arg(a));
 									break;
 								}
@@ -1763,6 +1764,7 @@ void PageItem_TextFrame::layout()
 							if (current.isEndOfCol(desc) && (current.column+1 == Cols))
 							{
 								goNoRoom = true;
+								MaxChars = a + 1;
 //								qDebug(QString("go no room 2: %1").arg(a));
 								break;
 							}
@@ -1975,6 +1977,11 @@ void PageItem_TextFrame::layout()
 					}
 				}
 			}
+		}
+		if (goNoRoom)
+		{
+			goNoRoom = false;
+			goto NoRoom;
 		}
 // end of itemText
 		int a = itemText.length()-1;
