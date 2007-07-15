@@ -24,15 +24,16 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUSWIN_H
 #define SCRIBUSWIN_H
 
-#include <qmainwindow.h>
-//Added by qt3to4:
+#include <QMainWindow>
 #include <QFrame>
 #include <QCloseEvent>
 #include <QResizeEvent>
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
+
 class ScribusDoc;
 class ScribusMainWindow;
 class ScribusView;
+
 #include "scribusapi.h"
 #include "muster.h"
 /**
@@ -67,7 +68,7 @@ signals:
 protected:
 	virtual void windowActivationChange ( bool oldActive );
 	QString currentDir;
-	Q3HBoxLayout* statusFrameLayout;
+	QHBoxLayout* statusFrameLayout;
 	ScribusMainWindow* m_MainWindow;
 	ScribusView* m_View;
 	ScribusDoc* m_Doc;

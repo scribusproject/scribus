@@ -20,23 +20,18 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-#include <qfileinfo.h>
-#include <qdir.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QFrame>
 #include <QCloseEvent>
+#include <QDir>
+#include <QFileInfo>
 #include <QMessageBox>
-#include "scribuswin.h"
-#include "pageselector.h"
-#include "scmessagebox.h"
+
+#include "commonstrings.h"
 #include "fileloader.h"
+#include "pageselector.h"
 #include "scribus.h"
+#include "scribuswin.h"
 #include "story.h"
 #include "util.h"
-#include "commonstrings.h"
-
-
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent, "", Qt::WDestructiveClose)
 {
@@ -58,7 +53,7 @@ void ScribusWin::setView(ScribusView* newView)
 	winIndex = ++m_Doc->viewID;
 	QPoint point(0,0);
 	statusFrame = new QFrame(this, "newDocFrame");
-	statusFrameLayout = new Q3HBoxLayout( statusFrame, 0, 0, "statusFrame");
+	statusFrameLayout = new QHBoxLayout( statusFrame, 0, 0, "statusFrame");
 	m_View->unitSwitcher->reparent(statusFrame, point);
 	m_View->layerMenu->reparent(statusFrame, point);
 	m_View->zoomOutToolbarButton->reparent(statusFrame, point);
