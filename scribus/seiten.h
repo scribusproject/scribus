@@ -7,30 +7,31 @@ for which a new license (GPL+exception) is in place.
 #ifndef SEITENPAL_H
 #define SEITENPAL_H
 
-#include <qdialog.h>
-#include <q3table.h>
-#include <qlabel.h>
-#include <q3listbox.h>
-#include <qcheckbox.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qimage.h>
-#include <qpixmap.h>
-#include <q3dragobject.h>
-#include <qevent.h>
-#include <qsplitter.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QCheckBox>
+#include <QDialog>
+#include <QDragEnterEvent>
+#include <QDragLeaveEvent>
 #include <QDragMoveEvent>
 #include <QDropEvent>
-#include <QDragLeaveEvent>
+#include <QEvent>
+#include <QHBoxLayout>
+#include <QImage>
+#include <QLabel>
+#include <QLayout>
 #include <QMouseEvent>
-#include <Q3VBoxLayout>
-#include <QDragEnterEvent>
+#include <QPixmap>
+#include <QPushButton>
+#include <QSplitter>
+#include <QToolTip>
+#include <QVBoxLayout>
+#include <q3dragobject.h>
+#include <q3listbox.h>
+#include <q3table.h>
+
 
 #include "scribusapi.h"
 #include "scrpalettebase.h"
+
 class ScribusView;
 class ScribusMainWindow;
 class PageLayouts;
@@ -188,10 +189,10 @@ signals:
 	void GotoSeite(int);
 
 protected:
-	Q3VBoxLayout* PagePaletteLayout;
-	Q3HBoxLayout* Layout1;
-	Q3VBoxLayout* Layout2;
-	Q3VBoxLayout* Layout3;
+	QVBoxLayout* PagePaletteLayout;
+	QHBoxLayout* Layout1;
+	QVBoxLayout* Layout2;
+	QVBoxLayout* Layout3;
 	
 	PageLayouts* pageLayout;
 	QSplitter* Splitter1;

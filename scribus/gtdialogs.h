@@ -27,24 +27,24 @@ for which a new license (GPL+exception) is in place.
 #ifndef GTDIALOGS_H
 #define GTDIALOGS_H
 
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qdialog.h>
-#include <qdir.h>
-#include <q3filedialog.h>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QDialog>
+#include <QDir>
 #include <QFrame>
-#include <qinputdialog.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qobject.h>
-#include <qpushbutton.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qtextcodec.h>
-#include <qtoolbutton.h>
-#include <qtooltip.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
+#include <QHBoxLayout>
+#include <QInputDialog>
+#include <QLabel>
+#include <QLayout>
+#include <QObject>
+#include <QPushButton>
+#include <QString>
+#include <QStringList>
+#include <QTextCodec>
+#include <QToolButton>
+#include <QToolTip>
+#include <q3filedialog.h>
+
 
 #include "scribusapi.h"
 
@@ -57,8 +57,8 @@ private:
 	QDir dir;
 	QFrame* importerFrame;
 	QFrame* encodingFrame;
-	Q3HBoxLayout* importerLayout;
-	Q3HBoxLayout* encodingLayout;
+	QHBoxLayout* importerLayout;
+	QHBoxLayout* encodingLayout;
 	QToolButton* HomeB;
 	void createWidgets(const QStringList& importers);
 public:

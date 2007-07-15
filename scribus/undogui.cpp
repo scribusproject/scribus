@@ -34,8 +34,8 @@ for which a new license (GPL+exception) is in place.
 #include <qfont.h>
 #include <qfontmetrics.h>
 //Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
  
 #include "undogui.h"
 #include "prefsmanager.h"
@@ -241,7 +241,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 {
 	currentSelection = 0;
 	redoItems = 0;
-	Q3VBoxLayout* layout = new Q3VBoxLayout(this, 5, 5, "layout");
+	QVBoxLayout* layout = new QVBoxLayout(this, 5, 5, "layout");
 
 	objectBox = new QCheckBox(this, "objectBox");
 	layout->addWidget(objectBox);
@@ -252,7 +252,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	undoList->setSelectionMode(Q3ListBox::Single);
 	layout->addWidget(undoList);
 	
-	Q3HBoxLayout* buttonLayout = new Q3HBoxLayout(0, 0, 5, "buttonLayout"); 
+	QHBoxLayout* buttonLayout = new QHBoxLayout(0, 0, 5, "buttonLayout"); 
 	undoButton = new QPushButton(loadIcon("16/edit-undo.png"), "", this, "undoButton");
 	buttonLayout->addWidget(undoButton);
 	redoButton = new QPushButton(loadIcon("16/edit-redo.png"), "", this, "redoButton");

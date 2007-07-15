@@ -4,29 +4,23 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "seiten.h"
-//#include "seiten.moc"
-#include <qcursor.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QDragLeaveEvent>
+
+#include <QCursor>
 #include <QList>
 #include <QLabel>
-#include <QPixmap>
 //QPixmap doesnt seem to include this for its mask() code
 #include <QBitmap>
-#include <QDragEnterEvent>
-#include <QDragMoveEvent>
-#include <QDropEvent>
 #include <QMenu>
-#include <QMouseEvent>
-#include <Q3VBoxLayout>
+
+#include "seiten.h"
+
 #include "commonstrings.h"
 #include "scribus.h"
 #include "scribusview.h"
 #include "page.h"
 #include "pagelayout.h"
 #include "sccombobox.h"
+
 extern QPixmap loadIcon(QString nam);
 
 
@@ -492,13 +486,13 @@ void TrashBin::dropEvent(QDropEvent * e)
 PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 {
 	m_scMW=(ScribusMainWindow*)parent;
-	PagePaletteLayout = new Q3VBoxLayout( this );
+	PagePaletteLayout = new QVBoxLayout( this );
 	PagePaletteLayout->setSpacing( 5 );
 	PagePaletteLayout->setMargin( 5 );
 	Splitter1 = new QSplitter( this, "Splitter1" );
 	Splitter1->setOrientation( Qt::Vertical );
 	QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
-	Layout2 = new Q3VBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
+	Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
 	TextLabel1 = new QLabel( privateLayoutWidget, "TextLabel1" );
 	Layout2->addWidget( TextLabel1 );
 	masterPageList = new SeList(privateLayoutWidget);
@@ -506,7 +500,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	masterPageList->Thumb = false;
 	Layout2->addWidget( masterPageList );
 	QWidget* privateLayoutWidget_2 = new QWidget( Splitter1, "Layout3" );
-	Layout3 = new Q3VBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
+	Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
 	TextLabel2 = new QLabel( privateLayoutWidget_2, "TextLabel2" );
 	Layout3->addWidget( TextLabel2 );
 	pageView = new SeView(privateLayoutWidget_2);
@@ -524,7 +518,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	Layout3->addWidget( pageView );
 	PagePaletteLayout->addWidget( Splitter1 );
 
-	Layout1 = new Q3HBoxLayout;
+	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
 	QList<PageSet> dummy;
