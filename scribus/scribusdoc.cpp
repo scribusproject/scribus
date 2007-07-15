@@ -5386,7 +5386,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
-		if (currItem->asTextFrame());
+		if (currItem->asTextFrame())
 			currItem->asTextFrame()->invalidateLayout();
 	}
 	if (selectedItemCount > 1)
@@ -5438,7 +5438,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
-		if (currItem->asTextFrame());
+		if (currItem->asTextFrame())
 			currItem->asTextFrame()->invalidateLayout();
 	}
 	if (selectedItemCount > 1)
