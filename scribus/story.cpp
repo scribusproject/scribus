@@ -2544,6 +2544,8 @@ void StoryEditor::updateTextFrame()
 		}
 	}
 #endif
+	if (currItem->asTextFrame())
+		currItem->asTextFrame()->invalidateLayout();
 	PageItem* nb2 = nextItem;
 	nb2->itemText.clear();
 #if 0

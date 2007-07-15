@@ -80,6 +80,8 @@ public:
 	void deselectAll();
 	
 	void layout();
+	void invalidateLayout(bool wholeChain = true);
+
 	double columnWidth();
 #ifdef NLS_PROTO
 	int firstTextItem() const { return itemText.firstFrameItem; }

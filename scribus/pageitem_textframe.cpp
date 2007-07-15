@@ -2154,6 +2154,25 @@ NoRoom:
 //	qDebug("textframe: len=%d, done relayout (no room %d)", itemText.length(), MaxChars);
 }
 
+void PageItem_TextFrame::invalidateLayout(bool wholeChain)
+{
+	this->invalid = true;
+	if (wholeChain)
+	{
+		PageItem *prevFrame = this->prevInChain();
+		while (prevFrame != 0)
+		{
+			prevFrame->invalid = true;
+			prevFrame = prevFrame->prevInChain();
+		}
+		PageItem *nextFrame = this->nextInChain();
+		while (nextFrame != 0)
+		{
+			nextFrame->invalid = true;
+			nextFrame = nextFrame->nextInChain();
+		}
+	}
+}
 
 void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 {
