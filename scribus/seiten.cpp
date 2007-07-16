@@ -524,7 +524,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	QList<PageSet> dummy;
 	dummy.clear();
 	struct PageSet pageS;
-	pageS.Name = tr( "Double sided" );
+	pageS.Name = CommonStrings::trPageSet2;
 	pageS.FirstPage = 0;
 	pageS.Rows = 1;
 	pageS.Columns = 1;
@@ -532,7 +532,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	pageS.GapVertical = 0.0;
 	pageS.GapBelow = 40.0;
 	pageS.pageNames.clear();
-	pageS.pageNames.append( tr("Middle Right"));
+	pageS.pageNames.append(CommonStrings::trPageLocMiddleRight);
 	dummy.append(pageS);
 	pageLayout = new PageLayouts(this, dummy, false);
 	Layout1->addWidget( pageLayout );
