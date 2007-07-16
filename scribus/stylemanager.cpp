@@ -5,6 +5,14 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+// tmp
+#include <Q3Header>
+#include <Q3PopupMenu>
+#include <Q3ButtonGroup>
+
+#include <QMessageBox>
+#include <QRadioButton>
+
 #include "stylemanager.h"
 #include "styleitem.h"
 #include "scribusdoc.h"
@@ -21,34 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "fileloader.h"
 #include "smstyleimport.h"
-#include <q3header.h>
-#include <qlabel.h>
-#include <q3listview.h>
-#include <qtabwidget.h>
-#include <qtoolbutton.h>
-#include <qevent.h>
-#include <qlineedit.h>
-#include <qlayout.h>
-#include <q3buttongroup.h>
-#include <qradiobutton.h>
-#include <qpushbutton.h>
-#include <qsplitter.h>
-#include <qsize.h>
-#include <qfont.h>
-#include <qpainter.h>
-#include <qtooltip.h>
-#include <qpair.h>
-#include <qmessagebox.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QKeyEvent>
-#include <Q3GridLayout>
-#include <QHideEvent>
-#include <Q3PopupMenu>
-#include <QMouseEvent>
-#include <Q3VBoxLayout>
-#include <QShowEvent>
-#include <QCloseEvent>
+
 
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
@@ -60,7 +41,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(p
 	splitter->setResizeMode(rightFrame, QSplitter::Stretch);
 	uniqueLabel->hide();
 	rightFrame->hide();
-	svLayout = new Q3HBoxLayout(styleViewFrame);
+	svLayout = new QHBoxLayout(styleViewFrame);
 	styleView = new StyleView(styleViewFrame);
 	svLayout->addWidget(styleView);
 	styleView->addColumn( tr("Name"));
@@ -72,7 +53,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(p
 	styleView->header()->hide();
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
-	layout_ = new Q3GridLayout(mainFrame);
+	layout_ = new QGridLayout(mainFrame);
 	newPopup_ = new Q3PopupMenu(newButton, "newPopup_");
 	rightClickPopup_ = new Q3PopupMenu(styleView, "rightClickPopup_");
 	newButton->setPopup(newPopup_);
@@ -1440,7 +1421,7 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 	Part2 = "";
 	Part3 = "";
 	keyCode = 0;
-	keyManagerLayout = new Q3VBoxLayout( this, 0, 6); 
+	keyManagerLayout = new QVBoxLayout( this, 0, 6);
 	keyManagerLayout->setAlignment( Qt::AlignHCenter );
 
 	keyGroup = new Q3ButtonGroup( this, "keyGroup" );
@@ -1448,7 +1429,7 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 	keyGroup->setColumnLayout(0, Qt::Vertical );
 	keyGroup->layout()->setSpacing( 0 );
 	keyGroup->layout()->setMargin( 0 );
-	keyGroupLayout = new Q3GridLayout( keyGroup->layout() );
+	keyGroupLayout = new QGridLayout( keyGroup->layout() );
 	keyGroupLayout->setAlignment( Qt::AlignTop );
 	keyGroupLayout->setSpacing( 6 );
 	keyGroupLayout->setMargin( 11 );

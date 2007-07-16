@@ -8,33 +8,22 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLEMANAGER_H
 #define STYLEMANAGER_H
 
+// tmp
+#include <Q3ListViewItem>
+
 #include "scribusapi.h"
 #include "scraction.h"
 #include "ui_stylemanager.h"
 #include "scribusstructs.h"
-#include <q3listview.h>
-#include <qmap.h>
-#include <qpointer.h>
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <QCloseEvent>
-#include <QShowEvent>
-#include <Q3GridLayout>
-#include <QLabel>
-#include <QMouseEvent>
-#include <Q3PopupMenu>
-#include <QHideEvent>
-#include <QKeyEvent>
-#include <QEvent>
-#include <Q3VBoxLayout>
 #include "styleitem.h"
+
 
 class ScribusDoc;
 class QHideEvent;
-class Q3GridLayout;
+class QGridLayout;
 class QTabWidget;
-class Q3VBoxLayout;
-class Q3HBoxLayout;
+class QVBoxLayout;
+class QHBoxLayout;
 class Q3ButtonGroup;
 class QRadioButton;
 class QLabel;
@@ -72,14 +61,14 @@ protected:
 private:
 	QList<StyleItem*> items_;
 	StyleItem          *item_;
-	Q3GridLayout        *layout_;
+	QGridLayout        *layout_;
 	QTabWidget         *widget_;
 	ShortcutWidget     *shortcutWidget_;
 	QString             currentType_;
 	Q3PopupMenu         *newPopup_;
 	Q3PopupMenu         *rightClickPopup_;
 	StyleView          *styleView;
-	Q3HBoxLayout        *svLayout;
+	QHBoxLayout        *svLayout;
 
 	int                 rcpNewId_;
 	int                 rcpDeleteId_;
@@ -218,9 +207,9 @@ signals:
 	void newKey(const QString&);
 
 protected:
-	Q3VBoxLayout* keyManagerLayout;
-	Q3GridLayout* keyGroupLayout;
-	Q3HBoxLayout* okCancelLayout;
+	QVBoxLayout* keyManagerLayout;
+	QGridLayout* keyGroupLayout;
+	QHBoxLayout* okCancelLayout;
 
 	Q3ButtonGroup* keyGroup;
 	QRadioButton* noKey;
