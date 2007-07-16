@@ -5264,14 +5264,8 @@ void ScribusMainWindow::slotHelpAboutQt()
 	QMessageBox::aboutQt(this, tr("About Qt"));
 }
 
-#include "formatutils.h"
-
 void ScribusMainWindow::slotOnlineHelp()
 {
-	QString a, b;
-	formatsManager->fileTypeStrings(FormatsManager::TIFF|FormatsManager::EPS, a, b);
-	qDebug(QString("%1\n%2").arg(a).arg(b));
-	
 	helpBrowser = new HelpBrowser(0, tr("Scribus Manual"), ScCore->getGuiLanguage());
 	connect(helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelpClosed()));
 	helpBrowser->show();
