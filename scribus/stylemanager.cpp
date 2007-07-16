@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 // tmp
 #include <Q3Header>
-#include <Q3PopupMenu>
+#include <QMenu>
 #include <Q3ButtonGroup>
 
 #include <QMessageBox>
@@ -54,8 +54,8 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(p
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
 	layout_ = new QGridLayout(mainFrame);
-	newPopup_ = new Q3PopupMenu(newButton, "newPopup_");
-	rightClickPopup_ = new Q3PopupMenu(styleView, "rightClickPopup_");
+	newPopup_ = new QMenu(newButton);
+	rightClickPopup_ = new QMenu(styleView);
 	newButton->setPopup(newPopup_);
 	QString pname(name);
 	if (pname.isEmpty())

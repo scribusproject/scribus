@@ -30,7 +30,7 @@ class QLabel;
 class QPushButton;
 class QSize;
 class ShortcutWidget;
-class Q3PopupMenu;
+class QMenu;
 class PrefsContext;
 class StyleView;
 
@@ -65,8 +65,8 @@ private:
 	QTabWidget         *widget_;
 	ShortcutWidget     *shortcutWidget_;
 	QString             currentType_;
-	Q3PopupMenu         *newPopup_;
-	Q3PopupMenu         *rightClickPopup_;
+	QMenu              *newPopup_;
+	QMenu              *rightClickPopup_;
 	StyleView          *styleView;
 	QHBoxLayout        *svLayout;
 
