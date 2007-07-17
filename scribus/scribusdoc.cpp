@@ -5492,6 +5492,8 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 		}
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
+		if (currItem->asTextFrame())
+			currItem->asTextFrame()->invalidateLayout();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
@@ -5562,9 +5564,10 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 			defStyle.charStyle() = newStyle;
 			currItem->itemText.setDefaultStyle(defStyle);
 		}
-		currItem->invalid = true;
 		if (currItem->asPathText())
 			currItem->updatePolyClip();
+		if (currItem->asTextFrame())
+			currItem->asTextFrame()->invalidateLayout();
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
@@ -8481,7 +8484,8 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	}
 	if (DoUpdateClip)
 	{
-		double nX=0.0, nY=0.0;
+		// (JG) #5988 : break image position when resizing frame especially on undo
+		/*double nX=0.0, nY=0.0;
 		if (fromMP)
 		{
 			if (currItem->imageFlippedH())
@@ -8497,7 +8501,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 				nY=(currItem->height() - currItem->OldH2)/currItem->imageYScale();
 		}
 		if (nX!=0.0 || nY!=0.0)
-			currItem->moveImageInFrame(dX,dY);
+			currItem->moveImageInFrame(dX,dY);*/
 		currItem->updateClip();
 	}
 //	currItem->updateGradientVectors();
