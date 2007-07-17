@@ -422,7 +422,7 @@ void CustomFDialog::togglePreview()
 
 void CustomFDialog::setSelection(QString sel)
 {
-	fileDialog->selectFile(sel);
+	fileDialog->selectFile( QFileInfo(sel).fileName() );
 	if (previewIsShown)
 		pw->GenPreview(sel);
 }
