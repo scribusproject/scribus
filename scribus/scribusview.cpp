@@ -6642,7 +6642,8 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 	}
 	if (DoUpdateClip)
 	{
-		double nX=0.0, nY=0.0;
+		// (JG) #5988 : break image position when resizing frame especially on undo
+		/*double nX=0.0, nY=0.0;
 		if (fromMP)
 		{
 			if (currItem->imageFlippedH())
@@ -6658,7 +6659,7 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 				nY=(currItem->height() - currItem->OldH2)/currItem->imageYScale();
 		}
 		if (nX!=0.0 || nY!=0.0)
-			currItem->moveImageInFrame(dX,dY);
+			currItem->moveImageInFrame(dX,dY);*/
 		currItem->updateClip();
 	}
 	currItem->updateGradientVectors();
