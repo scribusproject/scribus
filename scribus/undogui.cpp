@@ -33,7 +33,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qfont.h>
 #include <qfontmetrics.h>
-//Added by qt3to4:
 #include <QHBoxLayout>
 #include <QVBoxLayout>
  
@@ -44,9 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "menumanager.h"
 #include "scraction.h"
-
-extern QPixmap loadIcon(QString nam);
-
+#include "util_icon.h"
 
 UndoGui::UndoGui(QWidget* parent, const char* name, Qt::WFlags f) : ScrPaletteBase(parent, name, f)
 {

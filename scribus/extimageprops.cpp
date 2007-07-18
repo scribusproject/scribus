@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "util_icon.h"
 #include "util.h"
 
 ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent )

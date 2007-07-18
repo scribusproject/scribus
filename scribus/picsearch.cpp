@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scpaths.h"
 #include "util.h"
+#include "util_icon.h"
 
 PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles)
 	: QDialog( parent, "PicSearch", true, 0 ),

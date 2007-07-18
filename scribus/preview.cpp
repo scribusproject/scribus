@@ -53,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "util.h"
+#include "util_icon.h"
 #include "sccolor.h"
 #include "scribusview.h"
 #include "scribusdoc.h"

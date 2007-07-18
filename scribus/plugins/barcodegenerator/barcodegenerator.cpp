@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "barcodegenerator.h"
 //#include "barcodegenerator.moc"
 #include "gsutil.h"
-#include "util.h"
+#include "util_icon.h"
 #include "scribus.h"
 #include "scpaths.h"
 #include "commonstrings.h"

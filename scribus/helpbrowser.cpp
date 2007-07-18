@@ -51,7 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include <QXmlDefaultHandler>
 
 #include "prefsmanager.h"
-#include "util.h"
+#include "util_icon.h"
 
 #if defined(_WIN32)
 #include <windows.h>

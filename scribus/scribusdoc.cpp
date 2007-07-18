@@ -77,8 +77,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmsutil.h"
 #include "cmserrorhandling.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 static const bool FRAMESELECTION_EDITS_DEFAULTSTYLE = false;
 

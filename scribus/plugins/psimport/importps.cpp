@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "loadsaveplugin.h"
 #include "util.h"
+#include "util_icon.h"
 
 extern SCRIBUS_API ScribusQApp * ScQApp;
 

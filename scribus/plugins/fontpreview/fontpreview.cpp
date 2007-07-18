@@ -16,9 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "selection.h"
 #include "sampleitem.h"
-
-
-extern QPixmap SCRIBUS_API loadIcon(QString nam);
+#include "util_icon.h"
 
 
 FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)

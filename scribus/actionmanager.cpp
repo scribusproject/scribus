@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "text/storytext.h"
 #include "undomanager.h"
-#include "util.h"
+#include "util_icon.h"
 
 
 QMap<QString, QKeySequence> ActionManager::defKeys;

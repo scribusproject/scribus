@@ -19,8 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, const QString& answerText)
 		: QDialog( parent )

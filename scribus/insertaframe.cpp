@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "util.h"
+#include "util_icon.h"
 #include "scpaths.h"
 
 #include <QGroupBox>

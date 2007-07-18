@@ -19,8 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
-
-extern QPixmap SCRIBUS_API loadIcon(QString nam);
+#include "util_icon.h"
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
                    int action, QString regExp, QString replace, QString pstyleName,

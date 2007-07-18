@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "story.h"
 #include "util.h"
+#include "util_icon.h"
 
 ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent, "", Qt::WDestructiveClose)
 {

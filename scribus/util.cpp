@@ -72,7 +72,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 // #include "text/nlsconfig.h"
 
-extern "C"
+				 extern "C"
 {
 #define XMD_H           // shut JPEGlib up
 #if defined(Q_OS_UNIXWARE)
@@ -98,9 +98,9 @@ extern "C"
 #include <zlib.h>
 
 
-using namespace std;
+				 using namespace std;
 
-void sDebug(QString message)
+		 void sDebug(QString message)
 {
 	qDebug("%s", message.ascii());
 }
@@ -120,11 +120,11 @@ int System(const QString exename, const QStringList & args, const QString fileSt
 	{
 		// Otherwise Scribus will sleep a *lot* when proc has huge std output
 		if ( !proc.canReadLineStdout() && !proc.canReadLineStderr()) {
-		#ifndef _WIN32
+#ifndef _WIN32
 			usleep(5000);
-		#else
+#else
 			Sleep(5);
-		#endif
+#endif
 		}
 		// Some configurations needs stdout and stderr to be read
 		// if needed before the created process can exit
@@ -229,27 +229,6 @@ QString GetAttr(QDomElement *el, QString at, QString def)
 	return el->attribute(at, def);
 }
 
-QPixmap loadIcon(QString nam)
-{
-	static ScPixmapCache<QString> pxCache;
-	if (pxCache.contains(nam))
-		return *pxCache[nam];
-
-	QString iconFilePath(QString("%1%2").arg(ScPaths::instance().iconDir()).arg(nam));
-	QPixmap *pm = new QPixmap();
-	
-	if (!QFile::exists(iconFilePath))
-		qWarning("Unable to load icon %s: File not found", iconFilePath.ascii());
-	else
-	{
-		pm->load(iconFilePath);
-		if (pm->isNull())
-			qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.ascii());
-	}
-	pxCache.insert(nam, pm);
-	return *pm;
-}
-
 uint getDouble(QString in, bool raw)
 {
 	QByteArray bb(4);
@@ -312,9 +291,9 @@ bool loadText(QString filename, QString *Buffer)
 		unsigned short * ucsString = const_cast<unsigned short *>(Buffer->ucs2()) + oldLen;
 		char * data = bb.data();
 		for (uint posi = 0; posi < len; ++posi)
-			*ucsString++ = *data++;
+		*ucsString++ = *data++;
 		*ucsString = 0;
-		 */
+		*/
 		ret = true;
 	}
 	else
@@ -511,10 +490,10 @@ int Layer2Level(ScribusDoc *currentDoc, int LayerNr)
 	int retVal=currentDoc->layerLevelFromNumber(LayerNr);
 	int layerCount=currentDoc->layerCount();
 	for (uint la2 = 0; la2 < layerCount; ++la2)
-	{
+{
 		if (currentDoc->Layers[la2].LNr == LayerNr)
 			return currentDoc->Layers[la2].Level;
-	}
+}
 	return 0;
 }
 */
@@ -643,22 +622,22 @@ QString Path2Relative(QString Path)
 	// We must check that both path are located on same drive
 	if( Pdir.size() > 0 && Bdir.size() > 0 )
 	{
-		QString drive = Bdir.front();
-		QString currentDrive = Pdir.front();
-		if( drive != currentDrive )
-			return Path;
-	}
+	QString drive = Bdir.front();
+	QString currentDrive = Pdir.front();
+	if( drive != currentDrive )
+	return Path;
+}
 #endif
 
 	while (end)
 	{
-		if (Pdir[dcoun] == Bdir[dcoun])
-			dcoun++;
-		else
-			break;
-		if (dcoun > Pdir.count())
-			break;
-	}
+	if (Pdir[dcoun] == Bdir[dcoun])
+	dcoun++;
+	else
+	break;
+	if (dcoun > Pdir.count())
+	break;
+}
 	dcoun2 = dcoun;
 
 #ifdef _WIN32
@@ -666,9 +645,9 @@ QString Path2Relative(QString Path)
 #endif
 
 	for (int ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
-		Ndir += "../";
+	Ndir += "../";
 	for (int ddx = dcoun2; ddx < Bdir.count(); ddx++)
-		Ndir += Bdir[ddx]+"/";
+	Ndir += Bdir[ddx]+"/";
 	Ndir += Bfi.fileName();
 	return Ndir; */
 }
@@ -689,8 +668,8 @@ bool overwrite(QWidget *parent, QString filename)
 	{
 		QString fn = QDir::convertSeparators(filename);
 		int t = QMessageBox::warning(parent, QObject::tr("File exists"),
-									"<qt>"+ QObject::tr("A file named '%1' already exists.<br/>Do you want to replace it with the file you are saving?").arg(fn) +"</qt>",
-									QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel);
+									 "<qt>"+ QObject::tr("A file named '%1' already exists.<br/>Do you want to replace it with the file you are saving?").arg(fn) +"</qt>",
+											 QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel);
 		if (t == QMessageBox::Cancel)
 			retval = false;
 	}
@@ -1270,104 +1249,104 @@ const QString arabicToRoman(uint i)
 	QString roman("");
 	int arabic = i;
 	while (arabic - 1000000 >= 0){
-	roman += "m";
-	arabic -= 1000000;
+		roman += "m";
+		arabic -= 1000000;
 	}
 	while (arabic - 900000 >= 0){
-	roman += "cm";
-	arabic -= 900000;
+		roman += "cm";
+		arabic -= 900000;
 	}
 	while (arabic - 500000 >= 0){
-	roman += "d";
-	arabic -= 500000;
+		roman += "d";
+		arabic -= 500000;
 	}
 	while (arabic - 400000 >= 0){
-	roman += "cd";
-	arabic -= 400000;
+		roman += "cd";
+		arabic -= 400000;
 	}
 	while (arabic - 100000 >= 0){
-	roman += "c";
-	arabic -= 100000;
+		roman += "c";
+		arabic -= 100000;
 	}
 	while (arabic - 90000 >= 0){
-	roman += "xc";
-	arabic -= 90000;
+		roman += "xc";
+		arabic -= 90000;
 	}
 	while (arabic - 50000 >= 0){
-	roman += "l";
-	arabic -= 50000;
+		roman += "l";
+		arabic -= 50000;
 	}
 	while (arabic - 40000 >= 0){
-	roman += "xl";
-	arabic -= 40000;
+		roman += "xl";
+		arabic -= 40000;
 	}
 	while (arabic - 10000 >= 0){
-	roman += "x";
-	arabic -= 10000;
+		roman += "x";
+		arabic -= 10000;
 	}
 	while (arabic - 9000 >= 0){
-	roman += "Mx";
-	arabic -= 9000;
+		roman += "Mx";
+		arabic -= 9000;
 	}
 	while (arabic - 5000 >= 0){
-	roman += "v";
-	arabic -= 5000;
+		roman += "v";
+		arabic -= 5000;
 	}
 	while (arabic - 4000 >= 0){
-	roman += "Mv";
-	arabic -= 4000;
+		roman += "Mv";
+		arabic -= 4000;
 	}
 	while (arabic - 1000 >= 0){
-	roman += "M";
-	arabic -= 1000;
+		roman += "M";
+		arabic -= 1000;
 	}
 	while (arabic - 900 >= 0){
-	roman += "CM";
-	arabic -= 900;
+		roman += "CM";
+		arabic -= 900;
 	}
 	while (arabic - 500 >= 0){
-	roman += "D";
-	arabic -= 500;
+		roman += "D";
+		arabic -= 500;
 	}
 	while (arabic - 400 >= 0){
-	roman += "CD";
-	arabic -= 400;
+		roman += "CD";
+		arabic -= 400;
 	}
 	while (arabic - 100 >= 0){
-	roman += "C";
-	arabic -= 100;
+		roman += "C";
+		arabic -= 100;
 	}
 	while (arabic - 90 >= 0){
-	roman += "XC";
-	arabic -= 90;
+		roman += "XC";
+		arabic -= 90;
 	}
 	while (arabic - 50 >= 0){
-	roman += "L";
-	arabic -= 50;
+		roman += "L";
+		arabic -= 50;
 	}
 	while (arabic - 40 >= 0){
-	roman += "XL";
-	arabic -= 40;
+		roman += "XL";
+		arabic -= 40;
 	}
 	while (arabic - 10 >= 0){
-	roman += "X";
-	arabic -= 10;
+		roman += "X";
+		arabic -= 10;
 	}
 	while (arabic - 9 >= 0){
-	roman += "IX";
-	arabic -= 9;
+		roman += "IX";
+		arabic -= 9;
 	}
 	while (arabic - 5 >= 0){
-	roman += "V";
-	arabic -= 5;
+		roman += "V";
+		arabic -= 5;
 	}
 	while (arabic - 4 >= 0){
-	roman += "IV";
-	arabic -= 4;
+		roman += "IV";
+		arabic -= 4;
 	}
 	while (arabic - 1 >= 0){
-	roman += "I";
-	arabic -= 1;
+		roman += "I";
+		arabic -= 1;
 	}
 	return roman;
 }

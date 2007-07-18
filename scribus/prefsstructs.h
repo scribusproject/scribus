@@ -255,6 +255,7 @@ struct ApplicationPrefs
 	int paragraphsLI;
 	bool showStartupDialog;
 	bool stickyTools;
+	bool grayscaleIcons;
 };
 
 #endif

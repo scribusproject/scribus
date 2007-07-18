@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "stencilreader.h"
 #include "query.h"
+#include "util_icon.h"
 //CB TODO bring in the prefsManager instance locally here too
 
 /* The Scrapbook View Class

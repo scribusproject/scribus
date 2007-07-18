@@ -7,8 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "alignselect.h"
 #include <QPixmap>
 #include <QToolTip>
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent, "AlignSelect")
 {

@@ -63,6 +63,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 // #include "scpaths.h"
 // #include "text/nlsconfig.h"
+#include "util_icon.h"
 #include "util.h"
 #include "sccolorengine.h"
 

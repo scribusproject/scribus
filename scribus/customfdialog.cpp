@@ -50,6 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "scribusstructs.h"
 #include "util.h"
+#include "util_icon.h"
 
 
 extern QString DocDir;

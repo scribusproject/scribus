@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribusdoc.h"
 #include "page.h"
-#include "util.h"
+#include "util_icon.h"
 
 enum {
     CurrentPage,

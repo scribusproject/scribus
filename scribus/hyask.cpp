@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QLabel>
 
-extern QPixmap loadIcon ( QString nam );
+#include "util_icon.h"
 
 WortEdit::WortEdit ( QWidget* parent ) : QLineEdit ( parent )
 {}

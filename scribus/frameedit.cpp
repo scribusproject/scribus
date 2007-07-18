@@ -12,8 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "undomanager.h"
 #include "undostate.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
 {

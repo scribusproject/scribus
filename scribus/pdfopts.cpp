@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "pdfoptions.h"
 #include "util.h"
+#include "util_icon.h"
 #include "commonstrings.h"
 #include "scpaths.h"
 

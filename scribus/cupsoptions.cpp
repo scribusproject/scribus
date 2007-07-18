@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
 #endif
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
 {

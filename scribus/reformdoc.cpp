@@ -47,8 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "tabdisplay.h"
 #include "tabdocument.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( parent )

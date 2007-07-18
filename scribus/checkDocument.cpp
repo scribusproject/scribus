@@ -23,8 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "page.h"
 #include "documentchecker.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 
 static const unsigned char image0_data[] =

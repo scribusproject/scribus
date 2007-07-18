@@ -22,15 +22,13 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "rulermover.h"
-//#include "rulermover.moc"
 #include "scribusview.h"
 #include "scribusdoc.h"
 #include <qcursor.h>
 #include <qapplication.h>
-//Added by qt3to4:
 #include <QMouseEvent>
 #include <QPixmap>
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
 {

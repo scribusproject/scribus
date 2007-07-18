@@ -19,8 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "commonstrings.h"
 #include "query.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog( parent )
 {

@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "fontcombo.h"
 #include "page.h"
 #include "prefsmanager.h"
-#include "util.h"
+#include "util_icon.h"
 
 FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
 {

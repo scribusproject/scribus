@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smlinestyle.h"
-//#include "smlinestyle.moc"
 #include "scribusdoc.h"
 #include "linecombo.h"
 #include "scrspinbox.h"
@@ -28,7 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <q3listbox.h>
 
-extern QPixmap loadIcon(QString nam);
+#include "util.h"
+#include "util_icon.h"
 
 /*** LineStyleWidget *******************************************************/
 

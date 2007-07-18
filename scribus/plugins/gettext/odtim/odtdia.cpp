@@ -36,8 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <QPushButton>
 #include "scribusapi.h"
-
-extern QPixmap SCRIBUS_API loadIcon(QString nam);
+#include "util_icon.h"
 
 OdtDialog::OdtDialog(bool update, bool prefix, bool pack) : QDialog(0)
 {

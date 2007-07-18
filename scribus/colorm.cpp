@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 
 #include "util.h"
+#include "util_icon.h"
 #include "sccolorengine.h"
 
 ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QString docColSet, QStringList custColSet)

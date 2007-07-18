@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 //#include "smtextstylewidgets.moc"
 #include "units.h"
 #include "util.h"
+#include "util_icon.h"
 #include "commonstrings.h"
 #include "smwidgets.h"
 

@@ -18,8 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include <qtooltip.h>
-
-extern QPixmap SCRIBUS_API loadIcon(QString nam);
+#include "util_icon.h"
 
 SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)
 {

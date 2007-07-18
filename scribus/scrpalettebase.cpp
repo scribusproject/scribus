@@ -33,12 +33,12 @@ for which a new license (GPL+exception) is in place.
 #include <QCloseEvent>
 
 #include "scrpalettebase.h"
-//#include "scrpalettebase.moc"
 #include "scribus.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
 #include "util.h"
+#include "util_icon.h"
 
 
 ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, Qt::WFlags f) : QDialog ( parent, name, modal, f | Qt::WStyle_Customize | Qt::WStyle_Tool | Qt::WStyle_Title | Qt::WStyle_MinMax | Qt::WStyle_SysMenu | Qt::WStyle_NormalBorder),

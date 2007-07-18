@@ -15,8 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "scribusstructs.h"
 #include "commonstrings.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 TabManager::TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabRecord> inTab, double) : QDialog( parent )
 {

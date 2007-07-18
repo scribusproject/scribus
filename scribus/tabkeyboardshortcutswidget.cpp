@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scraction.h"
 #include "util.h"
+#include "util_icon.h"
 
 TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKeyMap, QWidget *parent, const char *name)
     :QWidget(parent, name)

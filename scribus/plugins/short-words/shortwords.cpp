@@ -35,7 +35,7 @@ or documentation
 #include "swprefsgui.h"
 #include "scpaths.h"
 #include "scribus.h"
-#include "util.h"
+#include "util_icon.h"
 
 int scribusshortwords_getPluginAPIVersion()
 {

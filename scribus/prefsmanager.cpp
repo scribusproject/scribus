@@ -26,11 +26,9 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qstylefactory.h>
 #include <qmatrix.h>
-//Added by qt3to4:
 #include <QList>
 
 #include "prefsmanager.h"
-//#include "prefsmanager.moc"
 
 #include "actionmanager.h"
 #include "colorsetmanager.h"
@@ -223,6 +221,7 @@ void PrefsManager::initDefaults()
 	appPrefs.typographicSettings.valueBaseGrid = 14.4;
 	appPrefs.typographicSettings.offsetBaseGrid = 0.0;
 	appPrefs.GUI = "Default";
+	appPrefs.grayscaleIcons = false; // can be a little slower on startup.. but its a nice effect to play with
 	appPrefs.showToolTips = true;
 	appPrefs.moveTimeout = 150;
 	appPrefs.stickyTools = false;

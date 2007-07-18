@@ -15,8 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGroupBox>
 #include <QPushButton>
 #include "commonstrings.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QDialog( parent )
 {

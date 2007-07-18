@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMenuBar>
 #include <QAction>
 
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 Editor::Editor( QWidget* parent, QString daten, ScribusView* vie) : QDialog( parent )
 {

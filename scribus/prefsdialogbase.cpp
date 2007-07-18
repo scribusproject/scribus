@@ -21,8 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "prefsmanager.h"
 
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 OptionListWidget::OptionListWidget(QWidget* parent) : QListWidget(parent)
 {

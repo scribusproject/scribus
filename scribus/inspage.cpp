@@ -19,8 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "pagesize.h"
 #include "commonstrings.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages)
 		: QDialog( parent, "InsPage", true, 0 )

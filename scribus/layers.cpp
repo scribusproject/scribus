@@ -33,8 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccombobox.h"
 #include "scribus.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", false, 0 ), m_Doc(0)
 {

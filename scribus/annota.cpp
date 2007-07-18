@@ -37,8 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "navigator.h"
 #include "scribusview.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie) : QDialog(parent)
 {

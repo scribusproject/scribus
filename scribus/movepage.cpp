@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 
 #include "commonstrings.h"
-#include "util.h"
+#include "util_icon.h"
 
 /*
  *  Constructs a MovePages which is a child of 'parent', with the 

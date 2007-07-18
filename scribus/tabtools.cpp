@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "linkbutton.h"
 #include "scribusstructs.h"
 #include "scribus.h"
-#include "util.h"
+#include "util_icon.h"
 #include "prefsmanager.h"
 #include "scfonts.h"
 #include "sampleitem.h"

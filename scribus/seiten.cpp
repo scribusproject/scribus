@@ -20,8 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "pagelayout.h"
 #include "sccombobox.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 
 /* Code fuer DragObjekt */

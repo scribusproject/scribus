@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "undomanager.h"
-//#include "undomanager.moc"
 #include "undogui.h"
 #include "scconfig.h"
 #include "prefsmanager.h"
@@ -39,8 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 
 #include "scpaths.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 UndoManager* UndoManager::instance_          = 0;
 bool         UndoManager::undoEnabled_       = true;

@@ -41,8 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "usertaskstructs.h"
 #include "scrspinbox.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 #include "scribuscore.h"
 
 TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,

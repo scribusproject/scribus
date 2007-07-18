@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "navigator.h"
 #include "scribusview.h"
-#include "util.h"
+#include "util_icon.h"
 #include "prefscontext.h"
 #include "scribusstructs.h"
 #include "commonstrings.h"

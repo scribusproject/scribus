@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribusdoc.h"
 #include "colorutil.h"
-#include "util.h"
+#include "util_icon.h"
 #include "sccolorengine.h"
 
 
@@ -123,11 +123,11 @@ void ColorFancyItemDelegate::redraw(const QVariant& data) const
 	static bool iconsInitialized = false;
 
 	if ( !iconsInitialized ) {
-		alertIcon = loadIcon("alert.png");
-		cmykIcon = loadIcon("cmyk.png");
-		rgbIcon = loadIcon("rgb.png");
-		spotIcon = loadIcon("spot.png");
-		regIcon = loadIcon("register.png");
+		alertIcon = loadIcon("alert.png", true);
+		cmykIcon = loadIcon("cmyk.png", true);
+		rgbIcon = loadIcon("rgb.png", true);
+		spotIcon = loadIcon("spot.png", true);
+		regIcon = loadIcon("register.png", true);
 		iconsInitialized = true;
 	}
 

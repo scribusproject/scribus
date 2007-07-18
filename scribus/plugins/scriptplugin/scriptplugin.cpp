@@ -58,6 +58,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scripterprefsgui.h"
 
+#include "util_icon.h"
+
 #include <qapplication.h>
 #include <qmessagebox.h>
 #include <qtextcodec.h>
@@ -71,7 +73,6 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 #include <iostream>
 
-extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 #ifdef HAVE_SCRIPTER2
 extern void scripter2_init();

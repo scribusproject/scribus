@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "util.h"
+#include "util_icon.h"
 #include "commonstrings.h"
 #include "scribus.h"
 #include "scribusXml.h"

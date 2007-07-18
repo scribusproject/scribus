@@ -68,7 +68,6 @@ Q3PointArray SCRIBUS_API FlattenPath(FPointArray ina, QList<uint> &Segs);
 QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
 Q3PointArray SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 FPointArray SCRIBUS_API RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
-QPixmap SCRIBUS_API loadIcon(QString nam);
 uint SCRIBUS_API getDouble(QString in, bool raw);
 //! \brief WARNING: loadText is INCORRECT - use loadRawText instead!
 bool SCRIBUS_API loadText(QString nam, QString *Buffer);

@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include <qfontdialog.h>
 #include <qcursor.h>
 #include <qtextcodec.h>
-//Added by qt3to4:
 #include <QApplication>
 #include <QDesktopWidget>
 #include <QLabel>
@@ -75,11 +74,9 @@ for which a new license (GPL+exception) is in place.
 #include "styleselect.h"
 #include "stylemanager.h"
 #include "util.h"
+#include "util_icon.h"
 #include "scplugin.h"
 #include "text/nlsconfig.h"
-
-extern QPixmap loadIcon(QString nam);
-
 
 SideBar::SideBar(QWidget *pa) : QLabel(pa)
 {

@@ -8,39 +8,40 @@ for which a new license (GPL+exception) is in place.
 
 #include "mpalette.h"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QFrame>
-#include <QLabel>
-#include <QStackedWidget>
-#include <QRadioButton>
-#include <QMenu>
-#include <QToolBox>
-#include <QCheckBox>
-#include <QComboBox>
-#include <QGroupBox>
-#include <QPushButton>
-#include <QSpinBox>
-#include <QWidget>
-#include <QButtonGroup>
 
-#include <QKeyEvent>
-#include <QEvent>
+#include <QButtonGroup>
+#include <QCheckBox>
 #include <QCloseEvent>
-#include <QListView>
-#include <QSpacerItem>
+#include <QComboBox>
+#include <QEvent>
 #include <QFocusEvent>
-#include <QMessageBox>
-#include <QToolTip>
-#include <QPoint>
-#include <QMatrix>
-#include <QObject>
-#include <QValidator>
-#include <QRegExp>
+#include <QFrame>
+#include <QGridLayout>
+#include <QGroupBox>
+#include <QHBoxLayout>
 #include <QImage>
+#include <QKeyEvent>
+#include <QLabel>
+#include <QListView>
+#include <QMatrix>
+#include <QMenu>
+#include <QMessageBox>
+#include <QObject>
 #include <QPixmap>
+#include <QPoint>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QRegExp>
+#include <QSpacerItem>
+#include <QSpinBox>
+#include <QStackedWidget>
 #include <QTimer>
+#include <QToolBox>
+#include <QToolTip>
+#include <QVBoxLayout>
+#include <QValidator>
+#include <QWidget>
+
 
 #include <cmath>
 #include "arrowchooser.h"
@@ -62,6 +63,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_icon.h"
 #include "text/nlsconfig.h"
 
 using namespace std;

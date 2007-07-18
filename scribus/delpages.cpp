@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSpinBox>
 
 #include "delpages.h"
-#include "util.h"
+#include "util_icon.h"
 #include "commonstrings.h"
 
 DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )

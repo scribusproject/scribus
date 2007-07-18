@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include "scpainter.h"
 #include "fpoint.h"
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 GradientPreview::GradientPreview(QWidget *pa) : QLabel(pa)
 {

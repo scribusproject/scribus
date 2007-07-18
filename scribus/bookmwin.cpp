@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "bookmwin.h"
 
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 BookMItem::BookMItem(Q3ListViewItem* parent, struct ScribusDoc::BookMa *Bm) : Q3ListViewItem(parent)
 {

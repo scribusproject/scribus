@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "colorutil.h"
 #include "curvewidget.h"
-#include "util.h"
+#include "util_icon.h"
 
 EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent )
 {

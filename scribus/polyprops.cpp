@@ -12,8 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include "polygonwidget.h"
 #include "commonstrings.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR) : QDialog( parent )
 {

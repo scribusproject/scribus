@@ -53,10 +53,10 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QList>
 #include <QStackedWidget>
+#include "util_icon.h"
 
 using namespace std;
 
-extern QPixmap loadIcon(QString nam);
 extern ScribusQApp* ScQApp;
 
 Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )

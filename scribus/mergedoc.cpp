@@ -28,8 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "sccombobox.h"
 #include "scpaths.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCount, int currentPage) : QDialog(parent)
 {

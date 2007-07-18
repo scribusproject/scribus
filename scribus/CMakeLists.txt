@@ -489,6 +489,7 @@ SET(SCRIBUS_SOURCES
   upgradechecker.cpp
   useprintermarginsdialog.cpp
   util.cpp
+  util_icon.cpp
   vgradient.cpp
   vgradientex.cpp
   vruler.cpp

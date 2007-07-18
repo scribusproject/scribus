@@ -11,9 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
-
-
-extern QPixmap SCRIBUS_API loadIcon(QString nam);
+#include "util_icon.h"
 
 satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent, "satdialog", true)
 {

@@ -18,8 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "scfonts.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, ScribusDoc *Doc, int Art) : QDialog(parent)
 {

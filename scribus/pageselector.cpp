@@ -18,8 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHBoxLayout>
 #include <QValidator>
 #include "sccombobox.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 class PageValidator : public QValidator
 {

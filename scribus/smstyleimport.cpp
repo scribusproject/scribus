@@ -19,8 +19,7 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 ImportDialog::ImportDialog( QWidget* parent, StyleSet<ParagraphStyle> *pstyleList,
 	                                         StyleSet<CharStyle> *cstyleList,

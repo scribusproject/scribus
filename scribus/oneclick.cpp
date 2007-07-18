@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFrame>
 #include <QToolTip>
 #include <QSpacerItem>
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 #include "scrspinbox.h"
 #include "linkbutton.h"

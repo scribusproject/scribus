@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include "scrspinbox.h"
 #include "util.h"
-
+#include "util_icon.h"
 
 ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
 	: QDialog( parent )

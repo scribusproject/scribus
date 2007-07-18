@@ -4,34 +4,34 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "tree.h"
-#include <QHeaderView>
-#include <qlayout.h>
-#include <qvariant.h>
-#include <qtooltip.h>
-#include <qimage.h>
-#include <qmessagebox.h>
-//Added by qt3to4:
-#include <QLabel>
-#include <QList>
-#include <QResizeEvent>
-#include <QMenu>
-#include <QWidgetAction>
-#include <QToolTip>
-#include <QHelpEvent>
 
+#include <QHeaderView>
+#include <QHelpEvent>
+#include <QImage>
+#include <QLabel>
+#include <QLayout>
+#include <QList>
+#include <QMenu>
+#include <QMessageBox>
+#include <QResizeEvent>
+#include <QToolTip>
+#include <QToolTip>
+#include <QVariant>
+#include <QWidgetAction>
+
+#include "tree.h"
+
+#include "actionmanager.h"
 #include "colorutil.h"
 #include "commonstrings.h"
 #include "formatutils.h"
+#include "mpalette.h"
 #include "page.h"
 #include "scribus.h"
-#include "mpalette.h"
-#include "actionmanager.h"
-#include "util.h"
 #include "selection.h"
 #include "undomanager.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util.h"
+#include "util_icon.h"
 
 OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)
 {

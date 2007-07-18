@@ -41,9 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scrspinbox.h"
 #include "sccombobox.h"
-
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 PageLayoutsWidget::PageLayoutsWidget(QWidget* parent) : QListWidget(parent)
 {

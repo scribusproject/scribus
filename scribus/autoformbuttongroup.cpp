@@ -10,10 +10,9 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 
 #include "autoformbuttongroup.h"
-//#include "autoformbuttongroup.moc"
 #include "fpointarray.h"
 #include "scpainter.h"
-#include "util.h"
+#include "util_icon.h"
 
 AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QFrame( parent, "autoformbuttongroup" )
 {

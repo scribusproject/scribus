@@ -30,8 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "guidemanager.h"
 
 #include <QPixmap>
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 
 Page::Page(const double x, const double y, const double b, const double h) :

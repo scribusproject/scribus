@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLineEdit>
 #include <QPushButton>
 #include "commonstrings.h"
-#include "util.h"
+#include "util_icon.h"
 
 Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QString text, QString titel )
 		: QDialog( parent, name, modal, fl )

@@ -29,11 +29,9 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include "gsutil.h"
-#include "util.h"
+#include "util_icon.h"
 #include "upgradechecker.h"
 #include "langmgr.h"
-
-extern QPixmap loadIcon(QString nam);
 
 /*!
  \fn About::About( QWidget* parent )
@@ -46,7 +44,7 @@ extern QPixmap loadIcon(QString nam);
 About::About( QWidget* parent ) : QDialog( parent )
 {
 	setCaption( tr("About Scribus %1").arg(VERSION) );
-	setIcon(loadIcon("AppIcon.png"));
+	setIcon(loadIcon("AppIcon.png", true));
 	setModal(true);
 	aboutLayout = new QVBoxLayout( this );
 	aboutLayout->setSpacing( 6 );
@@ -58,13 +56,13 @@ About::About( QWidget* parent ) : QDialog( parent )
 	tabLayout1->setSpacing( 6 );
 	tabLayout1->setMargin( 15 );
 	pixmapLabel1 = new QLabel( tab, "PixmapLabel1" );
-	pixmapLabel1->setPixmap(loadIcon("scribus_logo.png"));
+	pixmapLabel1->setPixmap(loadIcon("scribus_logo.png", true));
 	pixmapLabel1->setFixedSize(QSize(pixmapLabel1->pixmap()->width(), pixmapLabel1->pixmap()->height()));
 	pixmapLabel1->setAlignment(Qt::AlignCenter);
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "14";
+	QString BUILD_DAY = "18";
 	QString BUILD_MONTH = CommonStrings::july;
 	QString BUILD_YEAR = "2007";
 	QString BUILD_TIME = "";

@@ -37,7 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "selection.h"
 #include "commonstrings.h"
-#include "util.h"
+#include "util_icon.h"
 #include "sccolorengine.h"
 
 // gtAction::gtAction(bool append)

@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fonts/scfontmetrics.h"
 #include "util.h"
+#include "util_icon.h"
 #include "scpaths.h"
 #include "chartableview.h"
 

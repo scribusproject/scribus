@@ -187,6 +187,7 @@ for which a new license (GPL+exception) is in place.
 #include "stylemanager.h"
 #include "smlinestyle.h"
 #include "util.h"
+#include "util_icon.h"
 #include "text/nlsconfig.h"
 #include "plugins/formatidlist.h"
 #include "scgtplugin.h"

@@ -25,8 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "scribusstructs.h"
 #include "scrspinbox.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
 {

@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "colorchart.h"
 #include "util.h"
+#include "util_icon.h"
 #include "sccolorengine.h"
 
 CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol  )

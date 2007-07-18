@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 	#include <winspool.h>
 #endif
 #include "printerutil.h"
-#include "util.h"
+#include "util_icon.h"
 #include "units.h"
 #include "usertaskstructs.h"
 #include "scrspinbox.h"

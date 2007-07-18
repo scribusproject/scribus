@@ -18,8 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "prefsmanager.h"
 #include "commonstrings.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 static const char* const image100_data[] =
     {

@@ -20,9 +20,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include "prefscontext.h"
 #include "scmessagebox.h"
 #include "commonstrings.h"
-
-
-extern QPixmap SCRIBUS_API loadIcon(QString nam);
+#include "util_icon.h"
 
 
 PythonConsole::PythonConsole( QWidget* parent)

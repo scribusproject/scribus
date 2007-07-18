@@ -49,7 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "page.h"
 #include "pageitem.h"
-#include "util.h"
+#include "util_icon.h"
 #include "commonstrings.h"
 #include "linkbutton.h"
 #include "sccolorengine.h"

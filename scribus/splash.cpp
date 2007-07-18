@@ -6,13 +6,15 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QApplication>
 #include <QDesktopWidget>
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qregexp.h>
-//Added by qt3to4:
 #include <QMouseEvent>
+#include <QPainter>
+#include <QPixmap>
+#include <QRegExp>
+
 #include "splash.h"
-extern QPixmap loadIcon(QString nam);
+
+#include "util.h"
+#include "util_icon.h"
 
 
 SplashScreen::SplashScreen() 
@@ -20,7 +22,7 @@ SplashScreen::SplashScreen()
 	Qt::WStyle_Splash)
 	 //WX11BypassWM )
 {
-	pix = loadIcon("Splash.png");
+	pix = loadIcon("Splash.png", true);
 	Q_ASSERT(!pix.isNull());
 	if (pix.isNull()) {
 		pix = QPixmap(360, 200);

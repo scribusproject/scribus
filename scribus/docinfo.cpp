@@ -14,8 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "docinfo.h"
 #include "documentinformation.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 /*
  *  Constructs a DocInfos which is a child of 'parent', with the

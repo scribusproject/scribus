@@ -17,9 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "unicodesearch.h"
 #include "scpaths.h"
 #include "charzoom.h"
-
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 
 UnicodeChooseButton::UnicodeChooseButton(QWidget * parent, const char * name)

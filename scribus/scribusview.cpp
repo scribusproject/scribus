@@ -116,6 +116,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 #include "scrap.h"
 #include "stencilreader.h"
+#include "util_icon.h"
 
 using namespace std;
 

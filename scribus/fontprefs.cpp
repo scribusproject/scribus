@@ -31,9 +31,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "colorutil.h"
 #include "util.h"
+#include "util_icon.h"
 #include "scpaths.h"
-
-extern QPixmap loadIcon(QString nam);
 
 
 FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )

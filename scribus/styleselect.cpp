@@ -7,8 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "styleselect.h"
 
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 
 StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent, "StrikeValues" )

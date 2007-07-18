@@ -44,8 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "effectsdialog.h"
 #include "extimageprops.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 PicItem::PicItem(QListWidget* parent, QString text, QPixmap pix, PageItem* pgItem)
 	: QListWidgetItem(pix, text, parent)

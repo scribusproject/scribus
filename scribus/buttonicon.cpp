@@ -20,8 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "scribusstructs.h"
 #include "pageitem.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite) : QDialog( parent )
 {

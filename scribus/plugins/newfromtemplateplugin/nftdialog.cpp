@@ -15,8 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QAction>
 
-
-extern QPixmap SCRIBUS_API loadIcon(QString nam);
+#include "util_icon.h"
 
 
 nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDialog(parent, "nftdialog", true)

@@ -20,9 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 
 #include "dcolor.h"
-
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, bool haveDoc) : QDialog( parent )
 {

@@ -21,28 +21,28 @@ for which a new license (GPL+exception) is in place.
 
 #include "aligndistribute.h"
 
-#include <QVariant>
-#include <QPushButton>
-#include <QLabel>
 #include <QComboBox>
-#include <QToolButton>
-#include <QLayout>
-#include <QToolTip>
 #include <QImage>
-#include <QPixmap>
+#include <QLabel>
+#include <QLayout>
 #include <QLineEdit>
+#include <QPixmap>
+#include <QPushButton>
 #include <QTabWidget>
+#include <QToolButton>
+#include <QToolTip>
+#include <QVariant>
 
+#include "commonstrings.h"
 #include "page.h"
 #include "scmessagebox.h"
 #include "scribusdoc.h"
+#include "scrspinbox.h"
 #include "selection.h"
 #include "undomanager.h"
-#include "scrspinbox.h"
 #include "units.h"
-#include "commonstrings.h"
+#include "util_icon.h"
 
-extern QPixmap loadIcon(QString nam);
 
 //TODO Distribute with 
 

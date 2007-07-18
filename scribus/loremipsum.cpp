@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "commonstrings.h"
 #include "hyphenator.h"
-#include "util.h"
+#include "util_icon.h"
 
 QString getLoremLocation(QString fname)
 {

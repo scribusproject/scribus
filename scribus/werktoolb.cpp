@@ -33,8 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util.h"
 
 ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, Qt::Vertical)
 {

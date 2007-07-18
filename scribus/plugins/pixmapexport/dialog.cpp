@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "scrspinbox.h"
 #include "usertaskstructs.h"
-#include "util.h"
+#include "util_icon.h"
 #include "commonstrings.h"
 
 ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, QString type)

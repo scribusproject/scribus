@@ -7,8 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "insertTable.h"
 
 #include "commonstrings.h"
-
-extern QPixmap loadIcon(QString nam);
+#include "util_icon.h"
 
 InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( parent )
 
