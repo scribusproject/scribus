@@ -27,7 +27,6 @@ If premultiplication does not allow to store result in a long value, perform a s
 bool SCRIBUS_API compareDouble(double a, double b);
 FPoint SCRIBUS_API getMaxClipF(FPointArray* Clip);
 FPoint SCRIBUS_API getMinClipF(FPointArray* Clip);
-QString SCRIBUS_API Path2Relative(QString Path);
 void SCRIBUS_API BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
 double SCRIBUS_API xy2Deg(double x, double y);
 Q3PointArray SCRIBUS_API FlattenPath(FPointArray ina, QList<uint> &Segs);

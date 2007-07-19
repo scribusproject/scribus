@@ -13,7 +13,7 @@
 #include "scribusdoc.h"
 #include "util_color.h"
 #include "util_math.h"
-
+#include "util.h"
 
 
 using namespace desaxe;

@@ -50,6 +50,7 @@ void SCRIBUS_API ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
 void SCRIBUS_API WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 bool SCRIBUS_API overwrite(QWidget *parent, QString filename);
 QByteArray SCRIBUS_API ComputeMD5Sum(QByteArray *in);
+QString SCRIBUS_API Path2Relative(QString Path);
 char SCRIBUS_API *toHex( uchar u );
 QString SCRIBUS_API String2Hex(QString *in, bool lang = true);
 QString SCRIBUS_API CompressStr(QString *in);
