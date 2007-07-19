@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "scpainter.h"
-#include "colorutil.h"
+#include "util_color.h"
 
 #ifdef HAVE_CAIRO
 	#include <cairo.h>

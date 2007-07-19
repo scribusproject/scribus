@@ -31,18 +31,19 @@ for which a new license (GPL+exception) is in place.
 #include <QAction>
 #include <cstdlib>
 
+#include "colorchart.h"
+#include "colorlistbox.h"
 #include "commonstrings.h"
+#include "sccolorengine.h"
 #include "sccombobox.h"
-#include "scrspinbox.h"
 #include "scconfig.h"
 #include "scpaths.h"
 #include "scribusdoc.h"
-#include "colorutil.h"
-#include "colorlistbox.h"
-#include "colorchart.h"
+#include "scrspinbox.h"
 #include "util.h"
+#include "util_color.h"
 #include "util_icon.h"
-#include "sccolorengine.h"
+
 
 CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol  )
 		: QDialog( parent ), CurrSwatch(doc)

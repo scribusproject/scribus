@@ -64,6 +64,7 @@ for which a new license (GPL+exception) is in place.
 #include "resourcecollection.h"
 
 #include "util.h"
+#include "util_math.h"
 #include "scpattern.h"
 #include "colorblind.h"
 

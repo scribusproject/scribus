@@ -266,7 +266,6 @@ SET(SCRIBUS_SOURCES
   colorlistbox.cpp
   colorm.cpp
   colorsetmanager.cpp
-  colorutil.cpp
   commonstrings.cpp
   cpalette.cpp
   createrange.cpp
@@ -489,7 +488,9 @@ SET(SCRIBUS_SOURCES
   upgradechecker.cpp
   useprintermarginsdialog.cpp
   util.cpp
+  util_color.cpp
   util_icon.cpp
+  util_math.cpp
   vgradient.cpp
   vgradientex.cpp
   vruler.cpp

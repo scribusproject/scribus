@@ -1,18 +1,19 @@
 
 
 
-#include "pageitem.h"
-#include "util.h"
-#include "desaxe/simple_actions.h"
 #include "desaxe/saxiohelper.h"
+#include "desaxe/simple_actions.h"
+#include "pageitem.h"
 #include "pageitem_imageframe.h"
-#include "pageitem_textframe.h"
-#include "pageitem_pathtext.h"
-#include "pageitem_polyline.h"
-#include "pageitem_polygon.h"
 #include "pageitem_line.h"
+#include "pageitem_pathtext.h"
+#include "pageitem_polygon.h"
+#include "pageitem_polyline.h"
+#include "pageitem_textframe.h"
 #include "scribusdoc.h"
-#include "colorutil.h"
+#include "util_color.h"
+#include "util_math.h"
+
 
 
 using namespace desaxe;

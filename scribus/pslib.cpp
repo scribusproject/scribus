@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include <cmath>
 #include "util.h"
+#include "util_math.h"
 #include "multiprogressdialog.h"
 #include "scribusapp.h"
 #include "scpattern.h"

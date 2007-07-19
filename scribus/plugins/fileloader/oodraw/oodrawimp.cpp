@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanager.h"
 #include "util.h"
 #include "util_icon.h"
+#include "util_math.h"
 #include "stylestack.h"
 #include "scraction.h"
 #include "menumanager.h"

@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSlider>
 #include <QCheckBox>
 #include <cmath>
-#include "util.h"
+#include "util_math.h"
 
 using namespace std;
 

@@ -6,7 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scconfig.h"
 #include "scimgdataloader_psd.h"
-#include "colorutil.h"
+#include "util_color.h"
 #include "sccolorengine.h"
 
 #include <QFile>

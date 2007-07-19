@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdobj.h"
 #include "cmdutil.h"
 #include "selection.h"
-#include "util.h"
+#include "util_math.h"
 #include "commonstrings.h"
 #include "scribuscore.h"
 

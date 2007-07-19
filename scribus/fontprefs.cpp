@@ -29,8 +29,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
-#include "colorutil.h"
 #include "util.h"
+#include "util_color.h"
 #include "util_icon.h"
 #include "scpaths.h"
 

@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "mpalette.h"
 #include "colorblind.h"
-#include "colorutil.h"
+#include "util_color.h"
 #include "colorlistbox.h"
 #include "sccolorengine.h"
 

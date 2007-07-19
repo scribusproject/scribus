@@ -75,7 +75,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "scribus.h"
 
-#include "colorutil.h"
+#include "util_color.h"
 #include "formatutils.h"
 #include "mpalette.h"
 #include "scribusXml.h"
@@ -117,6 +117,7 @@ for which a new license (GPL+exception) is in place.
 #include "scrap.h"
 #include "stencilreader.h"
 #include "util_icon.h"
+#include "util_math.h"
 
 using namespace std;
 

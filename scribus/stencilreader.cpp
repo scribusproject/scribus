@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolor.h"
 #include "scribus.h"
 #include "splash.h"
-#include "util.h"
+#include "util_math.h"
 #include "prefsmanager.h"
 #include "scpainter.h"
 #include "commonstrings.h"

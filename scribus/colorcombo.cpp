@@ -14,7 +14,6 @@ for which a new license (GPL+exception) is in place.
  */
 
 #include "colorcombo.h"
-//#include "colorcombo.moc"
 #include "commonstrings.h"
 #include "qdebug.h"
 

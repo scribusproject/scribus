@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "tree.h"
 
 #include "actionmanager.h"
-#include "colorutil.h"
+#include "util_color.h"
 #include "commonstrings.h"
 #include "formatutils.h"
 #include "mpalette.h"

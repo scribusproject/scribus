@@ -5,30 +5,31 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "smlinestyle.h"
-#include "scribusdoc.h"
-#include "linecombo.h"
-#include "scrspinbox.h"
+
 #include "colorcombo.h"
 #include "colorlistbox.h"
-#include "colorutil.h"
 #include "commonstrings.h"
-#include "selection.h"
-#include "scribusview.h"
-#include "scribus.h"
-#include "sccolorengine.h"
+#include "linecombo.h"
 #include "mpalette.h"
-#include <q3header.h>
-#include <qlineedit.h>
-#include <q3listview.h>
-#include <qpushbutton.h>
-#include <qpixmap.h>
-#include <qtabwidget.h>
-#include <qlayout.h>
-#include <q3listbox.h>
-
+#include "sccolorengine.h"
+#include "scribus.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "scrspinbox.h"
+#include "selection.h"
+#include "smlinestyle.h"
 #include "util.h"
+#include "util_color.h"
 #include "util_icon.h"
+#include <q3header.h>
+#include <q3listbox.h>
+#include <q3listview.h>
+#include <qlayout.h>
+#include <qlineedit.h>
+#include <qpixmap.h>
+#include <qpushbutton.h>
+#include <qtabwidget.h>
+
 
 /*** LineStyleWidget *******************************************************/
 

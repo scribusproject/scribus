@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include "scconfig.h"
 #include "scimgdataloader_tiff.h"
-#include "colorutil.h"
+#include "util_color.h"
 #include CMS_INC
 
 static void TagExtender(TIFF *tiff)

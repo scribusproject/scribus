@@ -8,14 +8,15 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qpainter.h>
 
-#include "colorutil.h"
-#include "formatutils.h"
-#include "scribusstructs.h"
-#include "scimage.h"
 #include "commonstrings.h"
+#include "formatutils.h"
+#include "scimage.h"
 #include "scpaths.h"
+#include "scribusstructs.h"
 #include "util.h"
+#include "util_color.h"
 #include "util_icon.h"
+
 
 PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles)
 	: QDialog( parent, "PicSearch", true, 0 ),

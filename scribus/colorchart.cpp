@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorchart.h"
 #include <QPainter>
-#include "colorutil.h"
+#include "util_color.h"
 #include "scribusdoc.h"
 
 ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QWidget(parent), m_doc(doc)

@@ -18,7 +18,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "units.h"
 #include "util.h"
-#include "colorutil.h"
+#include "util_math.h"
+#include "util_color.h"
 #include "scgzfile.h"
 #include <QCursor>
 #include <QFileInfo>

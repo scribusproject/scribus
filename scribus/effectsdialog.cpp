@@ -24,16 +24,18 @@ for which a new license (GPL+exception) is in place.
 #include <QTime>
 #include <QStackedWidget>
 #include <QTextStream>
-#include "colorcombo.h"
+
 #include "cmsettings.h"
+#include "colorcombo.h"
+#include "curvewidget.h"
+#include "page.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
-#include "shadebutton.h"
 #include "scrspinbox.h"
-#include "page.h"
-#include "colorutil.h"
-#include "curvewidget.h"
+#include "shadebutton.h"
+#include "util_color.h"
 #include "util_icon.h"
+
 
 EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent )
 {

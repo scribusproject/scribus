@@ -29,7 +29,8 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include "sccolor.h"
 #include "util.h"
-#include "colorutil.h"
+#include "util_math.h"
+#include "util_color.h"
 #include "resourcecollection.h"
 
 #include "desaxe/simple_actions.h"

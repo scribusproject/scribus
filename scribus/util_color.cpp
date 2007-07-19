@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "colorutil.h"
+#include "util_color.h"
 
 #include <qbitmap.h>
 #include <qdatetime.h> 

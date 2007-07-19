@@ -4,13 +4,13 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#ifndef COLORUTIL_H
-#define COLORUTIL_H
+#ifndef _UTIL_COLOR_H
+#define _UTIL_COLOR_H
 
-#include <qcolor.h>
-#include <qimage.h>
-#include <qpixmap.h>
-#include <qstring.h>
+#include <QColor>
+#include <QImage>
+#include <QPixmap>
+#include <QString>
 
 #include "fpointarray.h"
 #include "sccolor.h"
@@ -23,7 +23,7 @@ QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, QString color, int shad);
 /*! \brief Create a cool all-infos pixmaps for the specified color.
 \param col Scribus color
 \retval QPixmap image with various icons depending on the col properties.
-*/
+ */
 QPixmap SCRIBUS_API *getSmallPixmap(QColor rgb);
 QPixmap SCRIBUS_API *getWidePixmap(QColor rgb);
 QPixmap SCRIBUS_API *getFancyPixmap(const ScColor& col, ScribusDoc* doc);
@@ -36,7 +36,7 @@ in alpha mask too.
 \param target a base pixmap. Some kind of painter.
 \param x coordinate
 \param y coordinate
-*/
+ */
 void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0, bool useMask = true);
 QImage SCRIBUS_API ProofImage(QImage *Im, ScribusDoc* doc);
 

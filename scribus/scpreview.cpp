@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "splash.h"
 #include "util.h"
+#include "util_math.h"
 #include "prefsmanager.h"
 #include "scpainter.h"
 #include "commonstrings.h"

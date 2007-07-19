@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_ps.h"
 #include "prefsmanager.h"
 #include "util.h"
+#include "util_math.h"
 #include "cmsettings.h"
 #include "scimage.h"
 

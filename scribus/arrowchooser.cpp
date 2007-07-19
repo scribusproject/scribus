@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QImage>
 #include "fpointarray.h"
 #include "scpainter.h"
-#include "util.h"
+#include "util_math.h"
 #include "commonstrings.h"
 
 ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(pa)

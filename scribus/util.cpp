@@ -21,27 +21,25 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "util.h"
-#include <qbitmap.h>
-#include <qfile.h>
-#include <qfileinfo.h>
-// #include <qdatastream.h>
-// #include <qregexp.h>
-#include <qdir.h>
-#include <qdom.h>
-#include <qcheckbox.h>
-#include <qwidget.h>
-//Added by qt3to4:
-#include <QPixmap>
-#include <QList>
-#include <QByteArray>
-#include <Q3PointArray>
-#include <QImageReader>
 
-// #include <algorithm>
-// #include <cstdlib>
+#include <QBitmap>
+#include <QByteArray>
+#include <QCheckBox>
+#include <QDomElement>
+#include <QFile>
+#include <QFileInfo>
+#include <QImageReader>
+#include <QList>
+#include <QPixmap>
+#include <QWidget>
+#include <qdir.h>
+
+
 #include <cmath>
 #include <algorithm>
+
+#include "util.h"
+
 #include "scconfig.h"
 
 //#ifdef HAVE_UNISTD_H
@@ -64,7 +62,7 @@ for which a new license (GPL+exception) is in place.
 // #include "prefsfile.h"
 // #include "prefscontext.h"
 // #include "prefstable.h"
-// #include "prefsmanager.h"
+#include "prefsmanager.h"
 #include <QProcess>
 #include <q3process.h>
 #include "scmessagebox.h"
@@ -229,40 +227,6 @@ QString GetAttr(QDomElement *el, QString at, QString def)
 	return el->attribute(at, def);
 }
 
-uint getDouble(QString in, bool raw)
-{
-	QByteArray bb(4);
-	if (raw)
-	{
-		// Qt4
-/*		bb[3] = static_cast<uchar>(QChar(in.at(0)));
-		bb[2] = static_cast<uchar>(QChar(in.at(1)));
-		bb[1] = static_cast<uchar>(QChar(in.at(2)));
-		bb[0] = static_cast<uchar>(QChar(in.at(3)));*/
-		bb = bb.insert(3, in.at(0));
-		bb = bb.insert(2, in.at(1));
-		bb = bb.insert(1, in.at(2));
-		bb = bb.insert(0, in.at(3));
-	}
-	else
-	{
-		// Qt4
-// 		bb[0] = static_cast<uchar>(QChar(in.at(0)));
-// 		bb[1] = static_cast<uchar>(QChar(in.at(1)));
-// 		bb[2] = static_cast<uchar>(QChar(in.at(2)));
-// 		bb[3] = static_cast<uchar>(QChar(in.at(3)));
-		bb = bb.insert(0, in.at(0));
-		bb = bb.insert(1, in.at(1));
-		bb = bb.insert(2, in.at(2));
-		bb = bb.insert(3, in.at(3));
-	}
-	uint ret;
-	ret = bb[0] & 0xff;
-	ret |= (bb[1] << 8) & 0xff00;
-	ret |= (bb[2] << 16) & 0xff0000;
-	ret |= (bb[3] << 24) & 0xff000000;
-	return ret;
-}
 
 // Legacy implementation of LoadText with incorrect
 // handling of unicode data. This should be retired.
@@ -344,159 +308,7 @@ bool loadRawBytes(const QString & filename, QByteArray & buf)
 	return ret;
 }
 
-Q3PointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
-{
-	uint cx = star ? c * 2 : c;
-	double seg = 360.0 / cx;
-	double sc = rota + 180.0;
-	double di = factor;
-	int mx = 0;
-	int my = 0;
-	//QPointArray pts = QPointArray();
-	Q3PointArray pts(cx);
-	for (uint x = 0; x < cx; ++x)
-	{
-		sc = seg * x + 180.0 + rota;
-		if (star)
-		{
-			double wf = x % 2 == 0 ? w / 2 : w / 2 * di;
-			double hf = x % 2 == 0 ? h / 2 : h / 2 * di;
-			mx = qRound(sin(sc / 180 * M_PI) * (wf) + (w/2));
-			my = qRound(cos(sc / 180 * M_PI) * (hf) + (h/2));
-		}
-		else
-		{
-			mx = qRound(sin(sc / 180 * M_PI) * (w/2) + (w/2));
-			my = qRound(cos(sc / 180 * M_PI) * (h/2) + (h/2));
-		}
-		//pts.resize(x+1);
-		pts.setPoint(x, mx, my);
-	}
-	return pts;
-}
 
-FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota)
-{
-	uint cx = star ? c * 2 : c;
-	double seg = 360.0 / cx;
-	double sc = rota + 180.0;
-	double di = factor;
-	double mx = 0;
-	double my = 0;
-	//FPointArray pts;
-	FPointArray pts(cx);
-	for (uint x = 0; x < cx; ++x)
-	{
-		sc = seg * x + 180.0 + rota;
-		if (star)
-		{
-			double wf = x % 2 == 0 ? w / 2 : w / 2 * di;
-			double hf = x % 2 == 0 ? h / 2 : h / 2 * di;
-			mx = qRound(sin(sc / 180 * M_PI) * (wf) + (w/2));
-			my = qRound(cos(sc / 180 * M_PI) * (hf) + (h/2));
-		}
-		else
-		{
-			mx = sin(sc / 180 * M_PI) * (w/2) + (w/2);
-			my = cos(sc / 180 * M_PI) * (h/2) + (h/2);
-		}
-		//pts.resize(x+1);
-		pts.setPoint(x, mx, my);
-	}
-	return pts;
-}
-
-QList<QPainterPath> decomposePath(QPainterPath &path)
-{
-	QList<QPainterPath> ret;
-	ret.clear();
-	QPainterPath part;
-	part = QPainterPath();
-	bool first = true;
-	for (int i = 0; i < path.elementCount(); ++i)
-	{
-		const QPainterPath::Element &elm = path.elementAt(i);
-		if ((first) && (elm.type != QPainterPath::MoveToElement))
-			part.moveTo(elm.x, elm.y);
-		switch (elm.type)
-		{
-			case QPainterPath::MoveToElement:
-				if (!first)
-				{
-					ret.append(part);
-					part = QPainterPath();
-				}
-				first = false;
-				part.moveTo(elm.x, elm.y);
-				break;
-			case QPainterPath::LineToElement:
-				part.lineTo(elm.x, elm.y);
-				break;
-			case QPainterPath::CurveToElement:
-				part.cubicTo(elm.x, elm.y, path.elementAt(i+1).x, path.elementAt(i+1).y, path.elementAt(i+2).x, path.elementAt(i+2).y );
-				break;
-			default:
-				break;
-		}
-	}
-	if (!part.isEmpty())
-		ret.append(part);
-	return ret;
-}
-
-Q3PointArray FlattenPath(FPointArray ina, QList<uint> &Segs)
-{
-	Q3PointArray Bez(4);
-	Q3PointArray outa, cli;
-	Segs.clear();
-	if (ina.size() > 3)
-	{
-		for (uint poi=0; poi<ina.size()-3; poi += 4)
-		{
-			if (ina.point(poi).x() > 900000 && cli.size() > 0)
-			{
-				outa.resize(outa.size()+1);
-				outa.setPoint(outa.size()-1, cli.point(cli.size()-1));
-				Segs.append(outa.size());
-				continue;
-			}
-			BezierPoints(&Bez, ina.pointQ(poi), ina.pointQ(poi+1), ina.pointQ(poi+3), ina.pointQ(poi+2));
-			cli = Bez.cubicBezier();
-			outa.putPoints(outa.size(), cli.size()-1, cli);
-		}
-		outa.resize(outa.size()+1);
-		outa.setPoint(outa.size()-1, cli.point(cli.size()-1));
-	}
-	return outa;
-}
-
-double xy2Deg(double x, double y)
-{
-	return (atan2(y,x)*(180.0/M_PI));
-}
-
-void BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
-{
-	ar->setPoint(0, n1);
-	ar->setPoint(1, n2);
-	ar->setPoint(2, n3);
-	ar->setPoint(3, n4);
-	return;
-}
-
-/* CB Replaced by ScribusDoc::layerLevelFromNumber
-int Layer2Level(ScribusDoc *currentDoc, int LayerNr)
-{
-	int retVal=currentDoc->layerLevelFromNumber(LayerNr);
-	int layerCount=currentDoc->layerCount();
-	for (uint la2 = 0; la2 < layerCount; ++la2)
-{
-		if (currentDoc->Layers[la2].LNr == LayerNr)
-			return currentDoc->Layers[la2].Level;
-}
-	return 0;
-}
-*/
 QString CompressStr(QString *in)
 {
 	QString out = "";
@@ -1070,46 +882,6 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->DashOffset = obj->attribute("DASHOFF", "0.0").toDouble();
 }
 
-FPoint getMaxClipF(FPointArray* Clip)
-{
-	FPoint np, rp;
-	double mx = 0;
-	double my = 0;
-	uint clipSize=Clip->size();
-	for (uint c = 0; c < clipSize; ++c)
-	{
-		np = Clip->point(c);
-		if (np.x() > 900000)
-			continue;
-		if (np.x() > mx)
-			mx = np.x();
-		if (np.y() > my)
-			my = np.y();
-	}
-	rp.setXY(mx, my);
-	return rp;
-}
-
-FPoint getMinClipF(FPointArray* Clip)
-{
-	FPoint np, rp;
-	double mx = 99999;
-	double my = 99999;
-	uint clipSize=Clip->size();
-	for (uint c = 0; c < clipSize; ++c)
-	{
-		np = Clip->point(c);
-		if (np.x() > 900000)
-			continue;
-		if (np.x() < mx)
-			mx = np.x();
-		if (np.y() < my)
-			my = np.y();
-	}
-	rp.setXY(mx, my);
-	return rp;
-}
-
 QString checkFileExtension(const QString &currName, const QString &extension)
 {
 	QString newName(currName);
@@ -1138,62 +910,6 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension)
 		defaultName = fi.baseName(true);
 	}
 	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number, 3, 10, QChar('0')).arg(extension);
-}
-
-bool compareDouble(double a, double b)
-{
-	if(a > -21473 && b > -21473 && a < 21474 && b < 21474)
-	{
-		long al = static_cast<long>(10000 * a);
-		long bl = static_cast<long>(10000 * b);
-		return al == bl;
-	}
-	return a == b;
-}
-
-inline double square(double x)
-{
-	return x*x;
-}
-
-inline double distance(double x, double y)
-{
-	return sqrt(x*x+y*y);
-}
-
-double constrainAngle(double angle, double constrain)
-{
-	double newAngle=angle;
-	double constrainTo=constrain;
-	if (newAngle<0.0)
-		newAngle+=360.0;
-	newAngle=qRound(angle/constrainTo)*constrainTo;
-	if (newAngle==360.0)
-		newAngle=0.0;
-	return newAngle;
-}
-
-double getRotationFromMatrix(QMatrix& matrix, double def)
-{
-	double value = def;
-	double norm = sqrt(fabs(matrix.det()));
-	if (norm > 0.0000001)
-	{
-		double m11 = matrix.m11() / norm;
-		double m12 = matrix.m12() / norm;
-		double m21 = matrix.m21() / norm;
-		double m22 = matrix.m22() / norm;
-		if (fabs(m11) <= 1.0 && fabs(m12) <= 1.0 && fabs(m21) <= 1.0 && fabs(m22) <= 1.0)
-		{
-			QMatrix mat(m11, m12, m21, m22, 0, 0);
-			if (abs(mat.det()-1.0) < 0.00001 && (mat.m12() == -mat.m21()))
-			{
-				double ac = acos(mat.m11());
-				value = (mat.m21() >= 0.0) ? ac : (-ac);
-			}
-		}
-	}
-	return value;
 }
 
 const QString getStringFromSequence(DocumentSectionType type, uint position)

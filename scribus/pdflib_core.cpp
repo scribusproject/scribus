@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 #include "bookpalette.h"
 #include "scfonts.h"
 #include "util.h"
+#include "util_math.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "pdfoptions.h"

@@ -4,23 +4,24 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qpainter.h>
-#include <qcolor.h>
-#include <qmatrix.h>
-#include <qpixmap.h>
-#include <qstringlist.h>
-#include <qmap.h>
-#include <qregexp.h>
+#include <QColor>
+#include <QMap>
+#include <QMatrix>
+#include <QPainter>
+#include <QPixmap>
+#include <QRegExp>
+#include <QStringList>
 
-#include "scribusdoc.h"
-#include "scfonts.h"
-#include "style.h"
-#include "scfontmetrics.h"
-#include "scpainter.h"
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "page.h"
-#include "util.h"
+#include "scfontmetrics.h"
+#include "scfonts.h"
+#include "scpainter.h"
+#include "scribusdoc.h"
+#include "style.h"
+#include "util_math.h"
+
 
 // this code contains a set of font related functions
 // that don't really fit within ScFonts.

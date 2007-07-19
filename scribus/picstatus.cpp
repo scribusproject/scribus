@@ -33,18 +33,19 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <cstdio>
 
-#include "colorutil.h"
-#include "formatutils.h"
-#include "picsearch.h"
-#include "picsearchoptions.h"
-#include "scribusdoc.h"
-#include "pageitem.h"
-#include "filesearch.h"
-#include "scribuscore.h"
 #include "commonstrings.h"
 #include "effectsdialog.h"
 #include "extimageprops.h"
+#include "filesearch.h"
+#include "formatutils.h"
+#include "pageitem.h"
+#include "picsearch.h"
+#include "picsearchoptions.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "util_color.h"
 #include "util_icon.h"
+
 
 PicItem::PicItem(QListWidget* parent, QString text, QPixmap pix, PageItem* pgItem)
 	: QListWidgetItem(pix, text, parent)

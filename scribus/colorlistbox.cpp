@@ -15,12 +15,14 @@ for which a new license (GPL+exception) is in place.
 #include <QHelpEvent>
 
 #include "qdebug.h"
-#include "scconfig.h"
+
 #include "commonstrings.h"
-#include "scribusdoc.h"
-#include "colorutil.h"
-#include "util_icon.h"
 #include "sccolorengine.h"
+#include "scconfig.h"
+#include "scribusdoc.h"
+#include "util_color.h"
+#include "util_icon.h"
+
 
 
 ColorPixmapValue::ColorPixmapValue() : m_color(), m_doc(NULL), m_name("invalid")

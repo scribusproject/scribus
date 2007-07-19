@@ -19,13 +19,14 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QApplication>
 #include <QTextStream>
-#include "colorutil.h"
-#include "customfdialog.h"
-#include "util.h"
-#include "util_icon.h"
-#include "prefsmanager.h"
-#include "prefsfile.h"
 #include "commonstrings.h"
+#include "customfdialog.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "util.h"
+#include "util_color.h"
+#include "util_icon.h"
+
 
 KCurve::KCurve(QWidget *parent) : QWidget(parent)
 {

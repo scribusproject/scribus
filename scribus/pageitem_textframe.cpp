@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pageitem_textframe.h"
-//#include "pageitem_textframe.moc"
 #include <qpainter.h>
 #include <qpen.h>
 #include <qfont.h>
@@ -33,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
-//Added by qt3to4:
 #include <QList>
 #include <QKeyEvent>
 #include <Q3PointArray>
@@ -56,7 +54,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "guidemanager.h"
 
-#include "util.h"
+#include "util_math.h"
 #include "text/nlsconfig.h"
 
 using namespace std;

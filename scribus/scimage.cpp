@@ -24,14 +24,15 @@ for which a new license (GPL+exception) is in place.
 #include <cassert>
 #include CMS_INC
 #include "cmsutil.h"
-#include "gsutil.h"
+#include "commonstrings.h"
 #include "exif.h"
 #include "formatutils.h"
-#include "commonstrings.h"
-#include "colorutil.h"
-#include "util.h"
+#include "gsutil.h"
 #include "rawimage.h"
 #include "sccolorengine.h"
+#include "util.h"
+#include "util_color.h"
+
 
 using namespace std;
 

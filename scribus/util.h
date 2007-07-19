@@ -9,20 +9,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 
-#include <qcolor.h>
-#include <qstring.h>
-#include <qpixmap.h>
-#include <qstringlist.h>
-#include <q3pointarray.h>
-#include <qpoint.h>
-//Added by qt3to4:
+#include <QColor>
+#include <QString>
+#include <QPixmap>
+#include <QStringList>
 #include <QByteArray>
 #include <QList>
 #include <QPainterPath>
 #include <QTextStream>
 
-#include "fpoint.h"
-#include "fpointarray.h"
 #include "pagestructs.h"
 #include "style.h"
 #include "styles/charstyle.h"
@@ -54,21 +49,11 @@ QStringList SCRIBUS_API sortQStringList(QStringList aList);
 void SCRIBUS_API ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
 void SCRIBUS_API WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 bool SCRIBUS_API overwrite(QWidget *parent, QString filename);
-FPoint SCRIBUS_API getMaxClipF(FPointArray* Clip);
-FPoint SCRIBUS_API getMinClipF(FPointArray* Clip);
-QString SCRIBUS_API Path2Relative(QString Path);
 QByteArray SCRIBUS_API ComputeMD5Sum(QByteArray *in);
 char SCRIBUS_API *toHex( uchar u );
 QString SCRIBUS_API String2Hex(QString *in, bool lang = true);
 QString SCRIBUS_API CompressStr(QString *in);
 QByteArray SCRIBUS_API CompressArray(QByteArray *in);
-void SCRIBUS_API BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4);
-double SCRIBUS_API xy2Deg(double x, double y);
-Q3PointArray SCRIBUS_API FlattenPath(FPointArray ina, QList<uint> &Segs);
-QList<QPainterPath> SCRIBUS_API decomposePath(QPainterPath &path);
-Q3PointArray SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
-FPointArray SCRIBUS_API RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
-uint SCRIBUS_API getDouble(QString in, bool raw);
 //! \brief WARNING: loadText is INCORRECT - use loadRawText instead!
 bool SCRIBUS_API loadText(QString nam, QString *Buffer);
 /*! \brief Replacement version of loadText that returns a QCString as an out parameter.
@@ -122,22 +107,6 @@ QString SCRIBUS_API getShortPathName(QString longPath);
  */
 QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension);
 void SCRIBUS_API sDebug(QString message);
-inline double SCRIBUS_API square(double);
-inline double SCRIBUS_API distance(double, double);
-/*! \brief Constrains an angle of rotation to 45 degree intervals
-   Will make code simpler and reduce interval or provide as a parameter
-   \param double angle Angle in degrees
-   \param double contrain value in degrees
-   \retval double Constrained angle
- */
-double SCRIBUS_API constrainAngle(double angle, double constrain);
-/*! \brief Get the rotation angle (in radian) from a transformation matrix
-   Will make code simpler and reduce interval or provide as a parameter
-   \param matrix the transformation matrix
-   \param def the value that should be return if matrix is not a rotation matrix
-   \retval double the rotation angle
- */
-double SCRIBUS_API getRotationFromMatrix(QMatrix& matrix, double def);
 const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint position);
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);
