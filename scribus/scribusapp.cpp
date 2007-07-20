@@ -260,7 +260,7 @@ QStringList ScribusQApp::getLang(QString lang)
 			PrefsPfad = Pff;
 		else
 			PrefsPfad = QDir::homeDirPath();
-		QString prefsXMLFile=QDir::convertSeparators(PrefsPfad + "/prefs134.xml");
+		QString prefsXMLFile=QDir::convertSeparators(PrefsPfad + "/prefs135.xml");
 		QFileInfo infoPrefsFile(prefsXMLFile);
 		if (infoPrefsFile.exists())
 		{
