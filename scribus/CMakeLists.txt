@@ -110,6 +110,8 @@ SET(SCRIBUS_MOC_CLASSES
   gradienteditor.h
   gtdialogs.h
   guidemanager.h
+  guidesdelegate.h
+  guidesmodel.h
   helpbrowser.h
   hruler.h
   hyask.h
@@ -310,6 +312,8 @@ SET(SCRIBUS_SOURCES
   gtstyle.cpp
   gtwriter.cpp
   guidemanager.cpp
+  guidesdelegate.cpp
+  guidesmodel.cpp
   guidemanagercore.cpp
   helpbrowser.cpp
   hnjalloc.c

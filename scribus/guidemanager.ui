@@ -12,10 +12,22 @@
    </rect>
   </property>
   <layout class="QGridLayout" >
-   <property name="margin" >
+   <property name="leftMargin" >
     <number>11</number>
    </property>
-   <property name="spacing" >
+   <property name="topMargin" >
+    <number>11</number>
+   </property>
+   <property name="rightMargin" >
+    <number>11</number>
+   </property>
+   <property name="bottomMargin" >
+    <number>11</number>
+   </property>
+   <property name="horizontalSpacing" >
+    <number>6</number>
+   </property>
+   <property name="verticalSpacing" >
     <number>6</number>
    </property>
    <item row="0" column="0" >
@@ -31,28 +43,13 @@
        <item row="0" column="0" colspan="2" >
         <layout class="QHBoxLayout" >
          <item>
-          <widget class="Q3GroupBox" name="horizontalGroupBox" >
+          <widget class="QGroupBox" name="horizontalGroupBox" >
            <property name="title" >
             <string>Horizontals</string>
            </property>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
            <layout class="QGridLayout" >
             <item row="0" column="0" colspan="2" >
-             <widget class="Q3ListView" name="horizontalList" >
-              <property name="selectionMode" >
-               <enum>Q3ListView::Extended</enum>
-              </property>
-              <property name="allColumnsShowFocus" >
-               <bool>true</bool>
-              </property>
-              <column>
-               <property name="text" >
-                <string>Guide</string>
-               </property>
-              </column>
-             </widget>
+             <widget class="QTableView" name="horizontalView" />
             </item>
             <item row="1" column="0" >
              <widget class="QPushButton" name="addHorButton" >
@@ -78,28 +75,13 @@
           </widget>
          </item>
          <item>
-          <widget class="Q3GroupBox" name="verticalGroupBox" >
+          <widget class="QGroupBox" name="verticalGroupBox" >
            <property name="title" >
             <string>Verticals</string>
            </property>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
            <layout class="QGridLayout" >
             <item row="0" column="0" colspan="2" >
-             <widget class="Q3ListView" name="verticalList" >
-              <property name="selectionMode" >
-               <enum>Q3ListView::Extended</enum>
-              </property>
-              <property name="allColumnsShowFocus" >
-               <bool>true</bool>
-              </property>
-              <column>
-               <property name="text" >
-                <string>Guide</string>
-               </property>
-              </column>
-             </widget>
+             <widget class="QTableView" name="verticalView" />
             </item>
             <item row="1" column="0" >
              <widget class="QPushButton" name="addVerButton" >
@@ -154,12 +136,9 @@
       </attribute>
       <layout class="QGridLayout" >
        <item row="0" column="0" >
-        <widget class="Q3GroupBox" name="horizontalAutoGroup" >
+        <widget class="QGroupBox" name="horizontalAutoGroup" >
          <property name="title" >
           <string>Horizontals</string>
-         </property>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
          </property>
          <layout class="QGridLayout" >
           <item row="0" column="0" >
@@ -260,12 +239,9 @@
         </widget>
        </item>
        <item row="0" column="1" >
-        <widget class="Q3GroupBox" name="verticalAutoGroup" >
+        <widget class="QGroupBox" name="verticalAutoGroup" >
          <property name="title" >
           <string>Verticals</string>
-         </property>
-         <property name="orientation" >
-          <enum>Qt::Vertical</enum>
          </property>
          <layout class="QGridLayout" >
           <item row="0" column="0" >
@@ -433,21 +409,10 @@
  <layoutdefault spacing="6" margin="11" />
  <customwidgets>
   <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>Q3ButtonGroup</class>
    <extends>Q3GroupBox</extends>
    <header>Qt3Support/Q3ButtonGroup</header>
    <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Q3ListView</class>
-   <extends>Q3Frame</extends>
-   <header>q3listview.h</header>
   </customwidget>
   <customwidget>
    <class>ScrSpinBox</class>
@@ -466,358 +431,5 @@
   <include location="local" >scrspinbox.h</include>
  </includes>
  <resources/>
- <connections>
-  <connection>
-   <sender>addHorButton</sender>
-   <signal>clicked()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>addHorButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>delHorButton</sender>
-   <signal>clicked()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>delHorButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>addVerButton</sender>
-   <signal>clicked()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>addVerButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>delVerButton</sender>
-   <signal>clicked()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>delVerButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lockCheck</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>lockCheck_stateChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalAutoGapCheck</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>horizontalAutoGapCheck_stateChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>verticalAutoGapCheck</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>verticalAutoGapCheck_stateChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalAutoCountSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>horizontalAutoCountSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>verticalAutoCountSpin</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>verticalAutoCountSpin_valueChanged(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>tabWidget</sender>
-   <signal>currentChanged(QWidget*)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>tabWidget_currentChanged(QWidget*)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalList</sender>
-   <signal>doubleClicked(Q3ListViewItem*)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>horizontalList_doubleClicked(Q3ListViewItem*)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalList</sender>
-   <signal>returnPressed(Q3ListViewItem*)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>horizontalList_returnPressed(Q3ListViewItem*)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>verticalList</sender>
-   <signal>returnPressed(Q3ListViewItem*)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>verticalList_returnPressed(Q3ListViewItem*)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>verticalList</sender>
-   <signal>doubleClicked(Q3ListViewItem*)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>verticalList_doubleClicked(Q3ListViewItem*)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalList</sender>
-   <signal>selectionChanged()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>horizontalList_selectionChanged()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>verticalList</sender>
-   <signal>selectionChanged()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>verticalList_selectionChanged()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>applyToAllStdButton</sender>
-   <signal>clicked()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>applyToAllStdButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>applyToAllAutoButton</sender>
-   <signal>clicked()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>applyToAllAutoButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>deletePageButton</sender>
-   <signal>clicked()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>deletePageButton_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>deleteAllGuides</sender>
-   <signal>clicked()</signal>
-   <receiver>GuideManager</receiver>
-   <slot>deleteAllGuides_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalReferGroup</sender>
-   <signal>clicked(int)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>horizontalReferGroup_clicked(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>verticalReferGroup</sender>
-   <signal>clicked(int)</signal>
-   <receiver>GuideManager</receiver>
-   <slot>verticalReferGroup_clicked(int)</slot>
-   <hints>
-    <hint type="sourcelabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-    <hint type="destinationlabel" >
-     <x>20</x>
-     <y>20</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>
