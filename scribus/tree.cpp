@@ -158,7 +158,10 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	annotTextIcon = loadIcon("22/pdf-annotations.png");
 	annotLinkIcon = loadIcon("goto.png");
 	selectionTriggered = false;
-	freeObjects = 0;
+	m_MainWindow  = NULL;
+	freeObjects   = NULL;
+	rootObject    = NULL;
+	currentObject = NULL;
 	languageChange();
 	// signals and slots connections
 	connect(reportDisplay, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(slotSelect(QTreeWidgetItem*, int)));
