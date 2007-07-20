@@ -3112,10 +3112,11 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	sourcePage->guides.copy(&targetPage->guides);
 	uint end = DocItems.count();
 	uint end2 = MasterItems.count();
+	Selection tempSelection(this, false);
 	m_Selection->clear();
-	ScLayers::iterator it;
 	if (Layers.count()!= 0)
 	{
+		ScLayers::iterator it;
 		int currActiveLayer = activeLayer();
 		for (it = Layers.begin(); it != Layers.end(); ++it)
 		{
@@ -3124,18 +3125,19 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			{
 				PageItem *itemToCopy = DocItems.at(ite);
 				if ((itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr())) && ((*it).LNr == itemToCopy->LayerNr))
-					m_Selection->addItem(itemToCopy, true);
+					tempSelection.addItem(itemToCopy, true);
 			}
-			if (m_Selection->count() != 0)
+			if (tempSelection.count() != 0)
 			{
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				QString dataS = ss->WriteElem(this, view(), m_Selection);
+				QString dataS = ss->WriteElem(this, view(), &tempSelection);
 				setMasterPageMode(true);
 				setCurrentPage(targetPage);
 				ss->ReadElem(dataS, prefsData.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.GFontSub, view());
 				delete ss;
+				setMasterPageMode(false);
 			}
-			m_Selection->clear();
+			tempSelection.clear();
 		}
 		setActiveLayer(currActiveLayer);
 	}
