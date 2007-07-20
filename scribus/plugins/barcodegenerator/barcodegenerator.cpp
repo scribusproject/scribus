@@ -5,16 +5,16 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "barcodegenerator.h"
-//#include "barcodegenerator.moc"
-#include "gsutil.h"
-#include "util_icon.h"
-#include "scribus.h"
-#include "scpaths.h"
-#include "commonstrings.h"
-#include "undomanager.h"
-#include "loadsaveplugin.h"
 #include "../formatidlist.h"
+#include "barcodegenerator.h"
+#include "commonstrings.h"
+#include "loadsaveplugin.h"
+#include "scpaths.h"
+#include "scribus.h"
+#include "undomanager.h"
+#include "util_ghostscript.h"
+#include "util_icon.h"
+
 
 #include <QTextStream>
 #include <QColorDialog>

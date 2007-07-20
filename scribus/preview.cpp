@@ -59,8 +59,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scpaths.h"
 #include "pageselector.h"
-#include "printerutil.h"
-#include "gsutil.h"
+#include "util_printer.h"
+#include "util_ghostscript.h"
 #include "sccolorengine.h"
 
 #if defined(_WIN32)

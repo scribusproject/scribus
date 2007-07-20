@@ -9,8 +9,8 @@ for which a new license (GPL+exception) is in place.
 //To be used for basic format detection and checking
 //One central place for storing all our extensions we support, etc
 
-#ifndef FORMAT_UTILS_H
-#define FORMAT_UTILS_H
+#ifndef _UTIL_FORMATs_H
+#define _UTIL_FORMATs_H
 
 #include <QByteArray>
 #include <QList>

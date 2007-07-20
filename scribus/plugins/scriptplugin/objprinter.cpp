@@ -13,8 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <vector>
 #include "pslib.h"
-#include "gsutil.h"
-#include "printerutil.h"
+#include "util_ghostscript.h"
+#include "util_printer.h"
 #include "scribuscore.h"
 #include "util.h"
 #include "scpaths.h"

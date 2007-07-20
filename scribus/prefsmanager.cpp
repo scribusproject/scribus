@@ -46,8 +46,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "scribuscore.h"
-#include "gsutil.h"
 #include "util.h"
+#include "util_ghostscript.h"
 #include "werktoolb.h"
 
 

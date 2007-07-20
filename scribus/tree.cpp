@@ -24,13 +24,13 @@ for which a new license (GPL+exception) is in place.
 #include "actionmanager.h"
 #include "util_color.h"
 #include "commonstrings.h"
-#include "formatutils.h"
 #include "mpalette.h"
 #include "page.h"
 #include "scribus.h"
 #include "selection.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_formats.h"
 #include "util_icon.h"
 
 OutlineTreeItem::OutlineTreeItem(OutlineTreeItem* parent, OutlineTreeItem* after) : QTreeWidgetItem(parent, after)

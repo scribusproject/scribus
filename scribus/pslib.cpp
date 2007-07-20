@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 
 #include "commonstrings.h"
-#include "formatutils.h"
 #include "scconfig.h"
 #include "pluginapi.h"
 #include "prefsmanager.h"
@@ -47,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include <cmath>
 #include "util.h"
+#include "util_formats.h"
 #include "util_math.h"
 #include "multiprogressdialog.h"
 #include "scribusapp.h"

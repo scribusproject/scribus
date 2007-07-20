@@ -22,14 +22,14 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "documentchecker.h"
-#include "formatutils.h"
-#include "pageitem.h"
-#include "scribusstructs.h"
-#include "scribusdoc.h"
-#include "sclayer.h"
 #include "page.h"
+#include "pageitem.h"
+#include "sclayer.h"
+#include "scribusdoc.h"
+#include "scribusstructs.h"
 #include "text/nlsconfig.h"
 #include "util.h"
+#include "util_formats.h"
 
 bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {

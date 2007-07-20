@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "gsutil.h"
+#include "util_ghostscript.h"
 
 #include <qdir.h>
 #include <qfile.h>

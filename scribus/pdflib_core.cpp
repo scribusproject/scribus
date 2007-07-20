@@ -45,28 +45,29 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "rc4.h"
 
+
+#include "bookmwin.h"
+#include "bookpalette.h"
 #include "commonstrings.h"
-#include "formatutils.h"
+#include "multiprogressdialog.h"
 #include "page.h"
 #include "pageitem.h"
-#include "bookmwin.h"
+#include "pdfoptions.h"
+#include "prefscontext.h"
+#include "prefsmanager.h"
+#include "sccolor.h"
+#include "sccolorengine.h"
+#include "scfonts.h"
 #include "scpaths.h"
+#include "scpattern.h"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "multiprogressdialog.h"
-#include "bookpalette.h"
-#include "scfonts.h"
-#include "util.h"
-#include "util_math.h"
-#include "prefsmanager.h"
-#include "prefscontext.h"
-#include "pdfoptions.h"
-#include "sccolor.h"
-#include "scpattern.h"
-#include "sccolorengine.h"
-
 #include "text/nlsconfig.h"
+#include "util.h"
+#include "util_formats.h"
+#include "util_math.h"
+
 
 using namespace std;
 

@@ -11,13 +11,13 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QByteArray>
 
-#include "formatutils.h"
-#include "gsutil.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scimgdataloader_ps.h"
 #include "prefsmanager.h"
 #include "util.h"
+#include "util_formats.h"
+#include "util_ghostscript.h"
 #include "util_math.h"
 #include "cmsettings.h"
 #include "scimage.h"

@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QImageReader>
 #include <QMapIterator>
 
-#include "formatutils.h"
+#include "util_formats.h"
 
 FormatsManager* FormatsManager::_instance = 0;
 

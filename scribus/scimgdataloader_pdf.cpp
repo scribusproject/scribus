@@ -6,7 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include <qfile.h>
 #include <qfileinfo.h>
-#include "gsutil.h"
+
+#include "util_ghostscript.h"
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scimgdataloader_pdf.h"

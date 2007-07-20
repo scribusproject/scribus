@@ -6,43 +6,44 @@ for which a new license (GPL+exception) is in place.
 */
 #include "colorm.h"
 
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QByteArray>
-#include <QMenu>
-#include <QToolTip>
-#include <QPushButton>
-#include <QGroupBox>
-#include <QToolButton>
-#include <QSignalMapper>
-#include <QAction>
-#include <QList>
-#include <QPixmap>
-#include <QMessageBox>
-#include <QDomDocument>
-#include <QDataStream>
-#include <QTextStream>
-#include <QListWidgetItem>
 #include <QAbstractItemView>
+#include <QAction>
+#include <QByteArray>
+#include <QDataStream>
+#include <QDomDocument>
+#include <QGroupBox>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QList>
+#include <QListWidgetItem>
+#include <QMenu>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QPushButton>
+#include <QSignalMapper>
+#include <QTextStream>
+#include <QToolButton>
+#include <QToolTip>
+#include <QVBoxLayout>
+
 #include <cstdlib>
 
-#include "scconfig.h"
+#include "cmykfw.h"
+#include "colorlistbox.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
 #include "dcolor.h"
 #include "fileloader.h"
-#include "formatutils.h"
-#include "cmykfw.h"
-#include "scribusdoc.h"
-#include "prefsmanager.h"
 #include "prefsfile.h"
-#include "scpaths.h"
-#include "colorlistbox.h"
-
-#include "util.h"
-#include "util_icon.h"
+#include "prefsmanager.h"
 #include "sccolorengine.h"
+#include "scconfig.h"
+#include "scpaths.h"
+#include "scribusdoc.h"
+#include "util.h"
+#include "util_formats.h"
+#include "util_icon.h"
+
 
 ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QString docColSet, QStringList custColSet)
 		: QDialog( parent ), EditColors(doc, true), UsedC(doc, true)

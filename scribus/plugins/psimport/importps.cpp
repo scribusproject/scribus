@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "importps.h"
 
-#include "formatutils.h"
 #include "scconfig.h"
 #include "scribus.h"
 #include "scribuscore.h"
@@ -22,7 +21,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qregexp.h>
 #include <QStack>
-//Added by qt3to4:
 #include <QDrag>
 #include <QMimeData>
 #include <QList>
@@ -39,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "loadsaveplugin.h"
 #include "util.h"
+#include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
 

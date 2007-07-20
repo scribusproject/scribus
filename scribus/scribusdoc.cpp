@@ -41,9 +41,12 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QByteArray>
 
+
+
+#include "cmserrorhandling.h"
+#include "commonstrings.h"
 #include "fileloader.h"
 #include "filewatcher.h"
-//CBVTD
 #include "hruler.h"
 #include "hyphenator.h"
 #include "layers.h"
@@ -59,26 +62,22 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "resourcecollection.h"
+#include "sccolorengine.h"
 #include "scmessagebox.h"
 #include "scpainter.h"
 #include "scraction.h"
 #include "scribusXml.h"
 #include "selection.h"
 #include "story.h"
-// #include "tree.h"
+#include "text/nlsconfig.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "units.h"
 #include "util.h"
-#include "util_math.h"
-#include "commonstrings.h"
-#include "sccolorengine.h"
-
-#include "text/nlsconfig.h"
-
-#include "cmsutil.h"
-#include "cmserrorhandling.h"
+#include "util_cms.h"
 #include "util_icon.h"
+#include "util_math.h"
+
 
 static const bool FRAMESELECTION_EDITS_DEFAULTSTYLE = false;
 

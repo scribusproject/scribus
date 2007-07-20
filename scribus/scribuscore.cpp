@@ -25,19 +25,19 @@ for which a new license (GPL+exception) is in place.
 //Added by qt3to4:
 #include <QByteArray>
 
-#include "scribuscore.h"
-//#include "scribuscore.moc"
 
-#include "util.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
-#include "gsutil.h"
 #include "pluginmanager.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
-#include "splash.h"
 #include "scribusapp.h"
+#include "scribuscore.h"
+#include "splash.h"
 #include "undomanager.h"
+#include "util.h"
+#include "util_ghostscript.h"
+
 
 extern ScribusQApp* ScQApp;
 

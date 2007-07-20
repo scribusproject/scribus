@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scimgdataloader_gimp.h"
 #include "scimgdataloader_jpeg.h"
-#include "scimgdataloader_pdf.h"
 #include "scimgdataloader_ps.h"
 #include "scimgdataloader_psd.h"
 #include "scimgdataloader_pdf.h"
@@ -23,15 +22,15 @@ for which a new license (GPL+exception) is in place.
 #include <memory>
 #include <cassert>
 #include CMS_INC
-#include "cmsutil.h"
+#include "util_cms.h"
 #include "commonstrings.h"
 #include "exif.h"
-#include "formatutils.h"
-#include "gsutil.h"
+#include "util_ghostscript.h"
 #include "rawimage.h"
 #include "sccolorengine.h"
 #include "util.h"
 #include "util_color.h"
+#include "util_formats.h"
 
 
 using namespace std;

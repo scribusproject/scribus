@@ -44,12 +44,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmsettings.h"
 #include "commonstrings.h"
-#include "formatutils.h"
 #include "sccombobox.h"
 #include "scimage.h"
 #include "scribusstructs.h"
 #include "util.h"
 #include "util_color.h"
+#include "util_formats.h"
 #include "util_icon.h"
 
 

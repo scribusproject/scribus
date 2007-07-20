@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "tabexternaltoolswidget.h"
 #include <QFileDialog>
-#include "gsutil.h"
+#include "util_ghostscript.h"
 #include "scpaths.h"
 
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent, const char*name)

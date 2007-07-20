@@ -37,13 +37,13 @@ for which a new license (GPL+exception) is in place.
 #include "effectsdialog.h"
 #include "extimageprops.h"
 #include "filesearch.h"
-#include "formatutils.h"
 #include "pageitem.h"
 #include "picsearch.h"
 #include "picsearchoptions.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "util_color.h"
+#include "util_formats.h"
 #include "util_icon.h"
 
 

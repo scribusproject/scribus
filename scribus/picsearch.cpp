@@ -9,12 +9,12 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 
 #include "commonstrings.h"
-#include "formatutils.h"
 #include "scimage.h"
 #include "scpaths.h"
 #include "scribusstructs.h"
 #include "util.h"
 #include "util_color.h"
+#include "util_formats.h"
 #include "util_icon.h"
 
 

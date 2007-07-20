@@ -259,7 +259,6 @@ SET(SCRIBUS_SOURCES
   cmserrorhandling.cpp
   cmykfw.cpp
   cmsprefs.cpp
-  cmsutil.cpp
   cmsettings.cpp
   collect4output.cpp
   colorblind.cpp
@@ -294,14 +293,12 @@ SET(SCRIBUS_SOURCES
   fontcombo.cpp
   fontprefs.cpp
   fontreplacedialog.cpp
-  formatutils.cpp
   fparser.cpp
   fpointarray.cpp
   fpoint.cpp
   fpoptimizer.cpp
   frameedit.cpp
   gradienteditor.cpp
-  gsutil.cpp
   gtaction.cpp
   gtdialogs.cpp
   gtfont.cpp
@@ -386,7 +383,6 @@ SET(SCRIBUS_SOURCES
   prefsmanager.cpp
   prefstable.cpp
   preview.cpp
-  printerutil.cpp
   pslib.cpp
   query.cpp
   rawimage.cpp
@@ -492,9 +488,13 @@ SET(SCRIBUS_SOURCES
   upgradechecker.cpp
   useprintermarginsdialog.cpp
   util.cpp
+  util_cms.cpp
   util_color.cpp
+  util_formats.cpp
+  util_ghostscript.cpp
   util_icon.cpp
   util_math.cpp
+  util_printer.cpp
   vgradient.cpp
   vgradientex.cpp
   vruler.cpp

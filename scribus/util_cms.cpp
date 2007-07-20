@@ -4,8 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "cmsutil.h"
-#include <qstring.h>
+#include "util_cms.h"
+#include <QString>
 
 cmsHTRANSFORM scCmsCreateTransform(cmsHPROFILE Input, DWORD InputFormat,
                                 cmsHPROFILE Output,DWORD OutputFormat,

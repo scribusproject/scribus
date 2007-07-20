@@ -6,25 +6,27 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scpageoutput.h"
 
-#include <QStack>
 #include <QList>
-#include "pageitem.h"
+#include <QStack>
+
 #include "cmsettings.h"
 #include "commonstrings.h"
-#include "formatutils.h"
-#include "prefsmanager.h"
+#include "page.h"
+#include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"
 #include "pageitem_pathtext.h"
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
+#include "prefsmanager.h"
 #include "scfonts.h"
-#include "scribus.h"
 #include "scimage.h"
-#include "util.h"
+#include "scribus.h"
 #include "scribusdoc.h"
-#include "page.h"
+#include "util.h"
+#include "util_formats.h"
+
 
 MarksOptions::MarksOptions(void)
 {
