@@ -7,9 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef GUIDEMANAGER_H
 #define GUIDEMANAGER_H
 
-#include <q3listview.h>
-//Added by qt3to4:
-#include <QLabel>
 #include "scribusapi.h"
 #include "scrspinbox.h"
 #include "ui_guidemanager.h"
@@ -18,48 +15,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "page.h"
 
-class QWidget;
-class Q3GroupBox;
-class QPushButton;
-class QLabel;
-class QString;
-class QCheckBox;
-class Q3HButtonGroup;
-
 class GuidesModel;
 class ScribusDoc;
 
-/*! \brief Mapping of the GUI representation to the real double values.
-It's againts the divide/multiple rounding errors
-\author Petr Vanek <petr@scribus.info>
- */
-// typedef QMap<QString,double> GuideGUIMap;
-
-
-/*! \brief Inherited QListViewItem provides double number values sorting.
-Guides lists contains double values in 1st (0) columns. Standard QListViewItem
-provides string sorting so I have to create some special number related one ;)
-Due the rounding problems in divisions and multiplications of the GUI representation
-of the guide, there are two internal mappings: GuideGUIMap. There are hold the
-real double values as they are in page.guides structures mapped into QString
-representation i this GUI palette.
-\author Petr Vanek <petr@scribus.info>
-*/
-// class SCRIBUS_API GuideListItem : public Q3ListViewItem
-// {
-// public:
-// 	//! \brief Only 2 columns here...
-// 	GuideListItem(Q3ListView *parent, QString c1) : Q3ListViewItem(parent, c1){};
-// 
-// 	/*! \brief Reimplemented compare method to handle double values.
-// 	When is no double in column col parent string compare() is called.
-// 	\param i QListViewItem to compare with.
-// 	\param col column to sort (0 here)
-// 	\param asc ascendent on true.
-// 	\retval int -1 for (x lt y), 1 for (x gt y). See Qt docs for more info.
-// 	*/
-// 	int compare(Q3ListViewItem *i, int col, bool asc) const;
-// };
 
 
 /*! \brief GuideManager is the dialog for guides managing ;).
@@ -118,10 +76,6 @@ private:
 	//! \brief A flag to prevent guides drawing when it's not needed
 	bool m_drawGuides;
 
-	//! \brief Mapping of the GUI representation to the real double values.
-// 	GuideGUIMap m_horMap;
-// 	GuideGUIMap m_verMap;
-
 	//! \brief Initialise the units. Spin boxes gets pt/mm/etc. extensions here.
 	void unitChange();
 
@@ -133,30 +87,6 @@ private:
 	int docUnitPrecision;
 	//! \brief suffix of the unit [mm, ...]
 	QString suffix;
-
-	/*! \brief Sets the guides from the common list into the GUI.
-	\param w a widget to set the values. Horizontal or vertical guides list.
-	\param guides a list with values. E.g. the real document guide list.
-	*/
-// 	void setGuidesFromList(Q3ListView *w, GuideGUIMap *map, Guides guides);
-
-	/*! \brief Add a value from spin box to the list.
-	It's called by "add" slots.
-	\param list a reference to the QListView to add a value.
-	\retval bool false on no add (duplicate etc.), true on success.
-	*/
-// 	bool addValueToList(Q3ListView *list);
-	/*! \brief Edit a value taken from guides list.
-	It's called by "edit" slots.
-	\param list a reference to the QListView to edit a value.
-	\retval bool false on no edit. */
-// 	bool editValueToList(Q3ListView *list);
-
-	/*! \brief Delete all selected values from list.
-	\param list a pointer to the chosen QListView
-	\retval bool false on error
-	*/
-// 	bool deleteValueFormList(Q3ListView *list);
 
 	/*! \brief Copy guides from currentPage to all remaining.
 	All gudes are deleted before copying.
@@ -187,10 +117,12 @@ private:
 	when needed. */
 	void resetSelectionForPage();
 
-protected slots:
 	/*! \brief Draw guides into painter */
 	void drawGuides();
 
+protected slots:
+	void verticalModel_valueChanged();
+	void horizontalModel_valueChanged();
 	void addHorButton_clicked();
 	void delHorButton_clicked();
 	void addVerButton_clicked();
@@ -207,12 +139,6 @@ protected slots:
 	void horizontalReferGroup_clicked( int );
 	void verticalReferGroup_clicked( int );
 	void tabWidget_currentChanged( QWidget * );
-/*	void horizontalList_doubleClicked( Q3ListViewItem * );
-	void horizontalList_returnPressed( Q3ListViewItem * );
-	void verticalList_returnPressed( Q3ListViewItem * );
-	void verticalList_doubleClicked( Q3ListViewItem * );*/
-	void horizontalList_selectionChanged();
-	void verticalList_selectionChanged();
 	void deletePageButton_clicked();
 	void deleteAllGuides_clicked();
 };

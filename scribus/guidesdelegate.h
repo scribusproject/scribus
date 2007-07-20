@@ -10,6 +10,11 @@ for which a new license (GPL+exception) is in place.
 #include <QItemDelegate>
 
 
+/*! \brief A delegate/editor for guides model.
+It's based on the QDoubleSpinBox widget. User cannot enter
+any others (ugly and bad) values.
+\author Petr Vanek <petr@scribus.info>
+*/
 class GuidesDelegate : public QItemDelegate
 {
 	Q_OBJECT

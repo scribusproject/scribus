@@ -11,6 +11,14 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 
+/*! \brief A model for guides lists.
+It holds guides as a double QList (it will be expanded later because of RFEs)
+and it handles its values editing too. The editor from GuidesDelegate
+is used.
+See Qt4 documentation for more info about its methods.
+FIXME: unit conversions for dipslay vs. internal
+\author Petr Vanek <petr@scribus.info>
+*/
 class GuidesModel : public QAbstractTableModel
 {
 	Q_OBJECT
@@ -33,13 +41,17 @@ class GuidesModel : public QAbstractTableModel
 		bool insertRows( int row, int count, const QModelIndex & parent = QModelIndex());
 		void insertRow();
 
+		//! \brief Set new values into the model.
 		void setValues(Guides values);
+		//! \brief Get values back to the app.
 		Guides values();
-		// debug
+		//! debug only
 		void printValues();
 
 	signals:
-		void drawGuides();
+		/*! \brief Signal emmitted when the user finish the editation of one value.
+		*/
+		void valueChanged();
 
 	private:
 		Guides m_values;

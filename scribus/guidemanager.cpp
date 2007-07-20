@@ -22,22 +22,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <QButtonGroup>
-#include <QCheckBox>
-#include <QCursor>
-#include <QDialog>
-#include <QLabel>
-#include <QLayout>
-#include <QList>
-#include <QPushButton>
-#include <QRadioButton>
-#include <QTabWidget>
-#include <QToolTip>
-#include <q3groupbox.h>
-#include <q3listview.h>
-
 #include "guidemanager.h"
-
 #include "commonstrings.h"
 #include "page.h"
 #include "scinputdialog.h"
@@ -49,22 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "guidesmodel.h"
 #include "guidesdelegate.h"
-
-
-
-// int GuideListItem::compare(Q3ListViewItem *i, int col, bool asc) const
-// {
-// 	if (col == 0)
-// 	{
-// 		double d;
-// 		d = text(col).toDouble() - i->text(col).toDouble();
-// 		if (d > 0.0)
-// 			return 1;
-// 		return -1;
-// 	}
-// 	else
-// 		return Q3ListViewItem::compare(i, col, asc);
-// }
 
 
 GuideManager::GuideManager(QWidget* parent) :
@@ -115,8 +84,8 @@ GuideManager::GuideManager(QWidget* parent) :
 	connect(deleteAllGuides, SIGNAL(clicked()),
 			this, SLOT(deleteAllGuides_clicked()));
 
-	connect(horizontalModel, SIGNAL(drawGuides()), this, SLOT(drawGuides()));
-	connect(verticalModel, SIGNAL(drawGuides()), this, SLOT(drawGuides()));
+	connect(horizontalModel, SIGNAL(valueChanged()), this, SLOT(horizontalModel_valueChanged()));
+	connect(verticalModel, SIGNAL(valueChanged()), this, SLOT(verticalModel_valueChanged()));
 }
 
 void GuideManager::setDoc(ScribusDoc* doc)
@@ -222,39 +191,12 @@ void GuideManager::unitChange()
 	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
 }
 
-// MVC
-// bool GuideManager::deleteValueFormList(Q3ListView *list)
-// {
-// 	/* previous item pointer to ensure that ++it
-// 	runs before item goes deleted */
-// 	Q3ListViewItem *itemToDelete;
-// 	Q3ListViewItemIterator it(list, Q3ListViewItemIterator::Selected);
-// 	QString value;
-// 	while (it.current())
-// 	{
-// 		itemToDelete = it.current();
-// 		value = itemToDelete->text(0);
-// 		if (list == horizontalList)
-// 			currentPage->guides.deleteHorizontal(m_horMap[value], GuideManagerCore::Standard);
-// 		else
-// 			currentPage->guides.deleteVertical(m_verMap[value], GuideManagerCore::Standard);
-// 		++it;
-// //		if (itemToDelete)  coverity complains since itemToDelete was dereferenced before
-// 		{
-// 			list->takeItem(itemToDelete);
-// 			delete itemToDelete;
-// 		}
-// 	}
-// 	drawGuides();
-// 	return true;
-// }
-
 void GuideManager::delHorButton_clicked()
 {
 	horizontalModel->removeRows(horizontalView->currentIndex().row(), 1);
 	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
 	currentPage->guides.addHorizontals(horizontalModel->values(), GuideManagerCore::Standard);
-// 	deleteValueFormList(horizontalList);
+	drawGuides();
 }
 
 void GuideManager::delVerButton_clicked()
@@ -262,107 +204,18 @@ void GuideManager::delVerButton_clicked()
 	verticalModel->removeRows(verticalView->currentIndex().row(), 1);
 	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
 	currentPage->guides.addVerticals(verticalModel->values(), GuideManagerCore::Standard);
-// 	deleteValueFormList(verticalList);
+	drawGuides();
 }
-
-// MVC
-// bool GuideManager::editValueToList(Q3ListView *list)
-// {
-// 	bool ok;
-// 	QString original = list->currentItem()->text(0);
-// 	double newGuide = ScInputDialog::getDouble( tr("Edit Guide"),
-// 											  tr("Enter a position:"),
-// 											  original.toDouble(),
-// 											  0, 1000, docUnitDecimals, suffix,
-// 											  &ok, this);
-// 	if (!ok)
-// 		return false;
-// 
-// 	if (list == horizontalList)
-// 	{
-// 		currentPage->guides.moveHorizontal(m_horMap[original], value2pts(newGuide, docUnitIndex),
-// 										   GuideManagerCore::Standard);
-// 		clearRestoreHorizontalList();
-// 	}
-// 	else
-// 	{
-// 		currentPage->guides.moveVertical(m_verMap[original], value2pts(newGuide, docUnitIndex),
-// 										 GuideManagerCore::Standard);
-// 		clearRestoreVerticalList();
-// 	}
-// 	drawGuides();
-// 	return true;
-// }
-
-// MVC handling
-// bool GuideManager::addValueToList(Q3ListView *list)
-// {
-// 	bool ok;
-// 	double newGuide = ScInputDialog::getDouble( tr("New Guide"),
-// 										 tr("Enter a position:"),
-// 										 0.0, 0, 1000, docUnitDecimals, suffix,
-// 										 &ok, this );
-// 	if (!ok)
-// 		return false;
-// 
-// 	QString tmp;
-// 	tmp = tmp.setNum(newGuide, 'f', docUnitPrecision);
-// 	double ng = value2pts(newGuide, docUnitIndex);
-// 	if (list == horizontalList)
-// 	{
-// 		Guides tmpGuides = currentPage->guides.horizontals(GuideManagerCore::Standard);
-// 		if (tmpGuides.contains(ng))
-// 			return false;
-// 		currentPage->guides.addHorizontal(ng, GuideManagerCore::Standard);
-// 		m_horMap[tmp] = ng;
-// 	}
-// 	else
-// 	{
-// 		Guides tmpGuides = currentPage->guides.verticals(GuideManagerCore::Standard);
-// 		if (tmpGuides.contains(ng))
-// 			return false;
-// 		currentPage->guides.addVertical(ng, GuideManagerCore::Standard);
-// 		m_verMap[tmp] = ng;
-// 	}
-// 
-// 	GuideListItem *item = new GuideListItem(list, tmp);
-// 	item->setRenameEnabled(0, true);
-// 	list->insertItem(item);
-// 	list->setCurrentItem(item);
-// 	list->clearSelection();
-// 	list->setSelected(item, true);
-// 	drawGuides();
-// 	return true;
-// }
 
 void GuideManager::addHorButton_clicked()
 {
 	horizontalModel->insertRow();
-// 	addValueToList(horizontalList);
 }
 
 void GuideManager::addVerButton_clicked()
 {
 	verticalModel->insertRow();
-// 	addValueToList(verticalList);
 }
-
-// MVC
-// void GuideManager::setGuidesFromList(Q3ListView *w, GuideGUIMap *map, Guides guides)
-// {
-// 	QString tmp;
-// 	//w->clear(); // clearing is moved into the setupPage()
-// 	for (Guides::iterator it = guides.begin(); it != guides.end(); ++it)
-// 	{
-// 		tmp = tmp.setNum((*it) * docUnitRatio , 'f', docUnitPrecision);
-// 		// no insert for duplicates
-// 		if (w->findItem(tmp, 0) != 0)
-// 			continue;
-// 		GuideListItem *item = new GuideListItem(w, tmp);
-// 		w->insertItem(item);
-// 		map->insert(tmp, (*it));
-// 	}
-// }
 
 void GuideManager::lockCheck_stateChanged( int )
 {
@@ -479,62 +332,30 @@ void GuideManager::tabWidget_currentChanged(QWidget *)
 	}
 }
 
-// void GuideManager::horizontalList_doubleClicked( Q3ListViewItem * )
-// {
-// 	editValueToList(horizontalList);
-// }
-// 
-// void GuideManager::horizontalList_returnPressed( Q3ListViewItem * )
-// {
-// 	editValueToList(horizontalList);
-// }
-// 
-// void GuideManager::verticalList_returnPressed( Q3ListViewItem * )
-// {
-// 	editValueToList(verticalList);
-// }
-// 
-// void GuideManager::verticalList_doubleClicked( Q3ListViewItem * )
-// {
-// 	editValueToList(verticalList);
-// }
-
 Guides GuideManager::selectedHorizontals()
 {
-	Guides retval;
-	// TODO
-/*	Q3ListViewItemIterator it(horizontalList);
-	while (it.current())
+	QModelIndex i;
+	QModelIndexList selectedIndexes = horizontalView->selectionModel()->selectedIndexes();
+	Guides ret;
+	Guides curr = horizontalModel->values();
+	foreach (i , selectedIndexes)
 	{
-		if (it.current()->isSelected())
-			retval.append(it.current()->text(0).toDouble() / docUnitRatio);
-		++it;
-	}*/
-	return retval;
+		ret.append(curr.at(i.row()));
+	}
+	return ret;
 }
 
 Guides GuideManager::selectedVerticals()
 {
-	Guides retval;
-	// TODO
-// 	Q3ListViewItemIterator it(verticalList);
-// 	while (it.current())
-// 	{
-// 		if (it.current()->isSelected())
-// 			retval.append(it.current()->text(0).toDouble() / docUnitRatio);
-// 		++it;
-// 	}
-	return retval;
-}
-
-void GuideManager::horizontalList_selectionChanged()
-{
-	drawGuides();
-}
-
-void GuideManager::verticalList_selectionChanged()
-{
-	drawGuides();
+	QModelIndex i;
+	QModelIndexList selectedIndexes = verticalView->selectionModel()->selectedIndexes();
+	Guides ret;
+	Guides curr = verticalModel->values();
+	foreach (i , selectedIndexes)
+	{
+		ret.append(curr.at(i.row()));
+	}
+	return ret;
 }
 
 void GuideManager::drawGuides()
@@ -550,19 +371,13 @@ void GuideManager::drawGuides()
 void GuideManager::clearRestoreHorizontalList()
 {
 	horizontalModel->setValues(currentPage->guides.horizontals(GuideManagerCore::Standard));
-// 	m_horMap.clear();
-// 	horizontalList->clear();
-// 	setGuidesFromList(horizontalList, &m_horMap,
-// 					  currentPage->guides.horizontals(GuideManagerCore::Standard));
+	drawGuides();
 }
 
 void GuideManager::clearRestoreVerticalList()
 {
 	verticalModel->setValues(currentPage->guides.verticals(GuideManagerCore::Standard));
-// 	m_verMap.clear();
-// 	verticalList->clear();
-// 	setGuidesFromList(verticalList, &m_verMap,
-// 					  currentPage->guides.verticals(GuideManagerCore::Standard));
+	drawGuides();
 }
 
 void GuideManager::deletePageButton_clicked()
@@ -724,4 +539,18 @@ void GuideManager::resetSelectionForPage()
 		currentPage->guides.gw = currItem->width();
 		currentPage->guides.gh = currItem->height();
 	}
+}
+
+void GuideManager::verticalModel_valueChanged()
+{
+	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
+	currentPage->guides.addVerticals(verticalModel->values(), GuideManagerCore::Standard);
+	drawGuides();
+}
+
+void GuideManager::horizontalModel_valueChanged()
+{
+	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
+	currentPage->guides.addHorizontals(horizontalModel->values(), GuideManagerCore::Standard);
+	drawGuides();
 }

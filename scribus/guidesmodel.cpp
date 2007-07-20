@@ -57,7 +57,7 @@ bool GuidesModel::setData(const QModelIndex & index, const QVariant & value, int
 	m_values[index.row()] = newVal;
 	qSort(m_values);
 	emit dataChanged(index, index);
-	emit drawGuides();
+	emit valueChanged();
 	return true;
 }
 
@@ -82,7 +82,7 @@ bool GuidesModel::removeRows(int row, int count, const QModelIndex & parent)
 	for (int i = 0; i < count; ++i)
 		m_values.removeAt(row);
 	endRemoveRows();
-	emit drawGuides();
+// 	emit drawGuides();
 	return true;
 }
 
@@ -92,7 +92,7 @@ bool GuidesModel::insertRows( int row, int count, const QModelIndex & parent)
 	for (int i = 0; i < count; ++i)
 		m_values.insert(row + count, 0.0);
 	endInsertRows();
-	emit drawGuides();
+// 	emit drawGuides();
 	return true;
 }
 
@@ -104,6 +104,7 @@ void GuidesModel::insertRow()
 void GuidesModel::setValues(Guides values)
 {
 	m_values = values;
+	reset();
 }
 
 Guides GuidesModel::values()
