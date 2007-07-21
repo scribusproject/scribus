@@ -31,7 +31,7 @@ using namespace Gdiplus;
 #endif
 
 #include "util.h"
-#include "gsutil.h"
+#include "util_ghostscript.h"
 #include "scwinprint.h"
 //#include "scwinprint.moc"
 #include "scpainterex_gdi.h"
