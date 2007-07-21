@@ -30,7 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include <cfloat>
 #include <QPaintDevice>
 #include <QPixmap>
-//#include <qpointarray.h>
 #include <QImage>
 
 #include <iostream>

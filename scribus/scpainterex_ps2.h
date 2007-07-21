@@ -31,13 +31,14 @@ for which a new license (GPL+exception) is in place.
 // libart wrapper
 
 #include <qglobal.h>
+#include <QColor>
+#include <QFont>
 #include <QMatrix>
 #include <QList>
+#include <QPixmap>
 #include <QStack>
 #include <QTextStream>
-#include <qcolor.h>
-#include <qfont.h>
-#include <qpixmap.h>
+
 #include "scribusapi.h"
 #include "scconfig.h"
 #include "fpoint.h"
@@ -198,7 +199,7 @@ private:
 /* Line Join Style */
 	Qt::PenJoinStyle m_lineJoin;
 /* The Dash Array */
-	Q3ValueList<double> m_array;
+	QList<double> m_array;
 	double m_offset;
 /* Transformation Stack */
 	QStack<QMatrix> m_stack;
