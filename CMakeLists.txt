@@ -1,3 +1,7 @@
+
+##############################################################################################################
+########## CMake Setup                                                                              ##########
+
 #Set our CMake minimum version
 #Require 2.4.2 for Qt finding
 #Require 2.4.3 for moc change detection and rpath updates for custom cairo install
@@ -14,11 +18,56 @@ SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 SET(CMAKE_SKIP_RULE_DEPENDENCY TRUE)
 SET(CMAKE_SKIP_BUILD_RPATH TRUE)
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-#SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-#SET(CMAKE_SKIP_RPATH:BOOL NO)
+
+INCLUDE(CheckIncludeFile)
+INCLUDE(CheckCCompilerFlag)
+INCLUDE(CheckCXXCompilerFlag)
+INCLUDE(CheckTypeSize)
+INCLUDE(TestBigEndian)
+
+##############################################################################################################
+########## check for the CPU we build for                                                           ##########
+
+EXECUTE_PROCESS(
+    COMMAND ${CMAKE_C_COMPILER} -dumpmachine
+    OUTPUT_VARIABLE MACHINE
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+MESSAGE(STATUS "Building for target ${MACHINE}")
+
+STRING(REGEX MATCH "(i?86-*)|(athlon-*)|(pentium-*)" _machine_x86 "${MACHINE}")
+IF (_machine_x86)
+    MESSAGE(STATUS "Found target X86")
+    SET(ARCH_X86 1)
+ENDIF (_machine_x86)
+
+STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _machine_x86_64 "${MACHINE}")
+IF (_machine_x86_64)
+    MESSAGE(STATUS "Found target X86_64")
+    SET(ARCH_X86_64 1)
+ENDIF (_machine_x86_64)
+
+STRING(REGEX MATCH "(ppc-*)" _machine_ppc "${MACHINE}")
+IF (_machine_ppc)
+    MESSAGE(STATUS "Found target PPC")
+    SET(ARCH_PPC 1)
+ENDIF (_machine_ppc)
+
 
 #Set the custom CMake module directory where our include/lib finders are
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
+
+##############################################################################################################
+########## toplevel compiler flags                                                                  ##########
+
+# CHECK_C_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" C_HAVE_PIC)
+# CHECK_CXX_COMPILER_FLAG(" ${CMAKE_SHARED_LIBRARY_C_FLAGS}" CXX_HAVE_PIC)
+# IF (CXX_HAVE_PIC AND C_HAVE_PIC)
+#     SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
+#     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_SHARED_LIBRARY_C_FLAGS}")
+# ELSE (CXX_HAVE_PIC AND C_HAVE_PIC)
+#     MESSAGE(FATAL_ERROR "Shared library support is missing")
+# ENDIF (CXX_HAVE_PIC AND C_HAVE_PIC)
 
 # SET(CMAKE_SHARED_MODULE_LINK_FLAGS "${CMAKE_SHARED_MODULE_LINK_FLAGS} -export-dynamic")
 # SET(CMAKE_SHARED_MODULE_LINK_CXX_FLAGS "${CMAKE_SHARED_MODULE_LINK_CXX_FLAGS} -export-dynamic")
@@ -58,6 +107,9 @@ SET(PLUGIN_PERMISSIONS WORLD_EXECUTE GROUP_EXECUTE OWNER_EXECUTE WORLD_READ GROU
 #Our main directory is scribus
 SET(MAIN_DIR_NAME "scribus")
 
+##############################################################################################################
+########## Versioning Setup                                                                         ##########
+
 #On Apple, we ignore the versioning tag so all items are "scribus" not "scribus-version"
 IF (NOT BUILD_OSX_BUNDLE)
   SET(BUILD_OSX_BUNDLE ${APPLE} CACHE TYPE BOOL)
@@ -94,6 +146,9 @@ IF (WANT_VERSIONING AND NOT CACHED_VERSIONING)
     SET(TAG_VERSION ${CUSTOM_VERSIONTAG} CACHE TYPE STRING)
   ENDIF (NOT CUSTOM_VERSIONTAG)
 ENDIF (WANT_VERSIONING AND NOT CACHED_VERSIONING)
+
+##############################################################################################################
+########## Install/Directory Setup                                                                  ##########
 
 #Setp all the directories we will use
 #MAN
@@ -153,8 +208,9 @@ set(CMAKE_INSTALL_RPATH ${PLUGINDIR})
 # Set the XDG mime stuff
 SET(MIMEDIR "share/mime/packages/")
 
+##############################################################################################################
+########## Build Setup                                                                              ##########
 
-#BUILD SETUP
 #Convert our simpler command line option to the CMake style
 #None, Debug, Release, .. or custom ones
 # SET(WANT_DEBUG 1)
@@ -179,13 +235,8 @@ ENDIF(APPLE)
 SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall")
 SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall")
 
-#Test for endianess
-INCLUDE (${CMAKE_ROOT}/Modules/TestBigEndian.cmake)
-TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
-
-
-
-#FIND DEPENDENCIES
+##############################################################################################################
+########## Find Dependencies                                                                        ##########
 
 #<< Qt
 SET (QT_MT_REQUIRED true)
@@ -331,9 +382,11 @@ IF(FONTCONFIG_FOUND)
 ENDIF(FONTCONFIG_FOUND)
 #>>FontConfig
 
-#<<Test for existing include files
-INCLUDE(CheckIncludeFile)
+##############################################################################################################
+########## Include Setup                                                                            ##########
 
+TEST_BIG_ENDIAN(WORDS_BIGENDIAN)
+  
 CHECK_INCLUDE_FILE("dlfcn.h" HAVE_DLFCN_H)
 IF(HAVE_DLFCN_H)
   ADD_DEFINITIONS(-DHAVE_DLFCN_H)
@@ -362,15 +415,7 @@ INCLUDE (ConfigureChecks.cmake)
 CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 ADD_DEFINITIONS("-DHAVE_CONFIG_H")
 
-#Set up uninstall
-CONFIGURE_FILE(
-  "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
-  IMMEDIATE @ONLY
-)
 
-ADD_CUSTOM_TARGET(uninstall
-  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 
 #Set up include dirs with all found packages
 INCLUDE_DIRECTORIES(
@@ -387,6 +432,22 @@ INCLUDE_DIRECTORIES(
   ${TIFF_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
 )
+
+##############################################################################################################
+########## Uninstall Setup                                                                          ##########
+
+CONFIGURE_FILE(
+  "${CMAKE_CURRENT_SOURCE_DIR}/cmake_uninstall.cmake.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
+  IMMEDIATE @ONLY
+)
+
+ADD_CUSTOM_TARGET(uninstall
+  "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
+  
+  
+##############################################################################################################
+########## Add our subdirs                                                                          ##########
 
 #Add our source subdirs
 ADD_SUBDIRECTORY(scribus)
@@ -430,6 +491,9 @@ IF(APPLEBUNDLE)
     DESTINATION ${CMAKE_INSTALL_PREFIX}/Resources
   )
 ENDIF(APPLEBUNDLE)
+
+##############################################################################################################
+########## Install/CPack Setup                                                                      ##########
 
 # If the cmake version includes cpack, use it for tarball building
 IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
