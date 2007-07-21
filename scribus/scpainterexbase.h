@@ -29,12 +29,13 @@ for which a new license (GPL+exception) is in place.
 #define __SCPAINTEREXBASE_H__
 
 #include <qglobal.h>
-#include <qmatrix.h>
+#include <QColor>
+#include <QFont>
 #include <QList>
+#include <QMatrix>
+#include <QPixmap>
 #include <QStack>
-#include <qcolor.h>
-#include <qfont.h>
-#include <qpixmap.h>
+
 #include "scribusapi.h"
 #include "scconfig.h"
 #include "fpoint.h"

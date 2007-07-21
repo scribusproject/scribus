@@ -31,12 +31,13 @@ for which a new license (GPL+exception) is in place.
 // libart wrapper
 
 #include <qglobal.h>
-#include <qmatrix.h>
-#include <qcolor.h>
-#include <qfont.h>
-#include <qpixmap.h>
+#include <QColor>
+#include <QFont>
 #include <QList>
+#include <QMatrix>
+#include <QPixmap>
 #include <QStack>
+
 #include "scribusapi.h"
 #include "scconfig.h"
 #include "fpoint.h"
