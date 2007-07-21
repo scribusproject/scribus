@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLineEdit>
 #include <QPushButton>
 
-#include "printerutil.h"
+#include "util_printer.h"
 
 
 

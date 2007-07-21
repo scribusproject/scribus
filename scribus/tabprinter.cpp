@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include "printerutil.h"
+#include "util_printer.h"
 
 
 TabPrinter::TabPrinter(QWidget* parent, const char* name)

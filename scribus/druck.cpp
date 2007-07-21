@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 	#include <windows.h>
 	#include <winspool.h>
 #endif
-#include "printerutil.h"
+#include "util_printer.h"
 #include "util_icon.h"
 #include "units.h"
 #include "usertaskstructs.h"
