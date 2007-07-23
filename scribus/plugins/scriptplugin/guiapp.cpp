@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "guiapp.h"
 #include "cmdutil.h"
 #include "scribuscore.h"
-#include <qstring.h>
-#include <qcursor.h>
+#include <QString>
+#include <QCursor>
 
 PyObject *scribus_messagebartext(PyObject* /* self */, PyObject* args)
 {

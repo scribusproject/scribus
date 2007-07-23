@@ -6,13 +6,13 @@ for which a new license (GPL+exception) is in place.
 */
 #include "textfilter.h"
 #include <QByteArray>
-#include <qfile.h>
-#include <qfileinfo.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qtextcodec.h>
-#include <qregexp.h> 
-#include <qmap.h>
+#include <QFile>
+#include <QFileInfo>
+#include <QString>
+#include <QStringList>
+#include <QTextCodec>
+#include <QRegExp> 
+#include <QMap>
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include <vector>

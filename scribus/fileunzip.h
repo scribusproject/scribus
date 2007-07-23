@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 #include <zlib.h>
-#include <qstring.h>
+#include <QString>
 
 /**
  * @brief Extract files from a zip archive.

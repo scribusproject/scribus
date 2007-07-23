@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "fontpreview.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include <qcursor.h>
+#include <QCursor>
 
 int fontpreview_getPluginAPIVersion()
 {

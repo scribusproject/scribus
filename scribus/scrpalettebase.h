@@ -26,11 +26,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRPALETTE_BASE_H
 #define SCRPALETTE_BASE_H
 
-#include <qdialog.h>
-#include <qkeysequence.h>
-//Added by qt3to4:
-#include <QHideEvent>
 #include <QCloseEvent>
+#include <QDialog>
+#include <QHideEvent>
+#include <QKeySequence>
 
 #include "scribusapi.h"
 class PrefsContext;

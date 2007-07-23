@@ -21,8 +21,8 @@ for which a new license (GPL+exception) is in place.
 
 #ifndef SCRIBUSAPP_H
 #define SCRIBUSAPP_H
-#include <qapplication.h>
-#include <qstring.h>
+#include <QApplication>
+#include <QString>
 
 #include "scribusapi.h"
 class ScribusCore;

@@ -2,10 +2,10 @@
 #define FT_FACE_H
 
 
-#include <qstring.h>
-//#include <qvector.h>
-#include <qmap.h>
-//#include <qarray.h>
+#include <QString>
+//#include <QVector>
+#include <QMap>
+//#include <QArray>
 
 #include "scribusapi.h"
 

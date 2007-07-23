@@ -4,14 +4,14 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qpushbutton.h>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qslider.h>
-#include <qtooltip.h>
-#include <qgroupbox.h>
-#include <qcolordialog.h>
-#include <qpainter.h>
+#include <QPushButton>
+#include <QCheckBox>
+#include <QLabel>
+#include <QSlider>
+#include <QToolTip>
+#include <QGroupBox>
+#include <QColorDialog>
+#include <QPainter>
 
 #include <QList>
 #include <QPixmap>

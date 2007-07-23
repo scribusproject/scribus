@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 //#include "oldscribusformatimpl.moc"
 #include "scribus.h"
 
-#include <qstring.h>
-#include <qmessagebox.h>
+#include <QString>
+#include <QMessageBox>
 
 // Initialize members here, if any
 OldScribusFormatImpl::OldScribusFormatImpl() : QObject(0, "OldScribusFormatImpl")

@@ -24,21 +24,20 @@ for which a new license (GPL+exception) is in place.
   *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
   ***************************************************************************/
  
- #include "stylereader.h"
+#include "stylereader.h"
  
- #ifdef HAVE_XML
+#ifdef HAVE_XML
  
- #include <scribusstructs.h>
- #include <gtmeasure.h>
- #include <gtparagraphstyle.h>
- #include <gtframestyle.h>
- #include <gtfont.h>
-//Added by qt3to4:
+#include <scribusstructs.h>
+#include <gtmeasure.h>
+#include <gtparagraphstyle.h>
+#include <gtframestyle.h>
+#include <gtfont.h>
 #include <QByteArray>
  
- StyleReader* StyleReader::sreader = NULL;
+StyleReader* StyleReader::sreader = NULL;
  
- extern xmlSAXHandlerPtr sSAXHandler;
+extern xmlSAXHandlerPtr sSAXHandler;
  
 StyleReader::StyleReader(QString documentName, gtWriter *w,
                          bool textOnly, bool prefix, bool combineStyles)

@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFSFILE_H
 #define PREFSFILE_H
 
-#include <qmap.h>
+#include <QMap>
 #include <QTextStream>
 
 #include "scribusapi.h"

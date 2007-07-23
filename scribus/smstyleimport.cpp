@@ -6,17 +6,15 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smstyleimport.h"
-//#include "smstyleimport.moc"
 #include "commonstrings.h"
 
-#include <qpixmap.h>
-#include <qlayout.h>
-#include <q3listview.h>
-#include <qpushbutton.h>
-#include <q3header.h>
-#include <q3buttongroup.h>
-#include <qradiobutton.h>
-//Added by qt3to4:
+#include <QPixmap>
+#include <QLayout>
+#include <Q3ListView>
+#include <QPushButton>
+#include <Q3Header>
+#include <Q3ButtonGroup>
+#include <QRadioButton>
 #include <Q3HBoxLayout>
 #include <Q3VBoxLayout>
 #include "util_icon.h"

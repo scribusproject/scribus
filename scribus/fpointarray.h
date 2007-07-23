@@ -24,12 +24,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef FPOINTARRAY_H
 #define FPOINTARRAY_H
 
-#include <qmatrix.h>
-#include <qpoint.h>
-#include <QVector>
+#include <QMatrix>
 #include <QPainterPath>
-#include "scribusapi.h"
+#include <QPoint>
+#include <QVector>
+
 #include "fpoint.h"
+#include "scribusapi.h"
 
 /**
   *@author Franz Schmid

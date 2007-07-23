@@ -4,15 +4,16 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "scpageoutput_ps2.h"
-#include "scpainterex_ps2.h"
 
-#include "qpainter.h"
-#include "pageitem.h"
+#include <QPainter>
+
 #include "commonstrings.h"
 #include "fonts/scfontmetrics.h"
-#include "scribus.h"
+#include "pageitem.h"
 #include "scimage.h"
+#include "scpageoutput_ps2.h"
+#include "scpainterex_ps2.h"
+#include "scribus.h"
 #include "util.h"
 
 ScPageOutput_Ps2::ScPageOutput_Ps2(QIODevice* dev, ScribusDoc* doc, int pageIndex, ScPs2OutputParams& options)

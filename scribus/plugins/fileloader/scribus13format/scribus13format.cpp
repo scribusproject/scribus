@@ -22,8 +22,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_color.h"
 #include "scgzfile.h"
-#include <qcursor.h>
-#include <qfileinfo.h>
+#include <QCursor>
+#include <QFileInfo>
 //Added by qt3to4:
 #include <QByteArray>
 #include <QDataStream>

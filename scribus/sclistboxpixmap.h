@@ -7,15 +7,17 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCLISTBOXPIXMAP_H
 #define SCLISTBOXPIXMAP_H
 
-#include "scribusapi.h"
 #include <memory>
-#include <qdebug.h>
-#include <qapplication.h>
-#include <q3listbox.h>
-#include <qpainter.h>
-#include <qpixmap.h>
+
+#include <Q3ListBox>
+#include <QApplication>
+#include <QDebug>
+#include <QPainter>
+#include <QPixmap>
 #include <QVariant>
+
 #include "scguardedptr.h"
+#include "scribusapi.h"
 
 class QVariant;
 

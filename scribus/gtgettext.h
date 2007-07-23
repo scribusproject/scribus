@@ -30,11 +30,11 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <vector>
 
-#include <qdir.h>
-#include <qmap.h>
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QDir>
+#include <QMap>
+#include <QObject>
+#include <QString>
+#include <QStringList>
 
 #include "scconfig.h"
 #include "scribusapi.h"

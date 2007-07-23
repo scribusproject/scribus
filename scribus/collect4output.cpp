@@ -20,10 +20,10 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "scpattern.h"
 
-#include <qmessagebox.h>
-#include <qstring.h>
-#include <qmap.h>
-#include <qdir.h>
+#include <QMessageBox>
+#include <QString>
+#include <QMap>
+#include <QDir>
 
 CollectForOutput::CollectForOutput(ScribusDoc* doc, bool withFontsA, bool withProfilesA, bool compressDocA)
 	: QObject(ScCore, 0),

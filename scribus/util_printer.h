@@ -7,9 +7,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef PRINTERUTIL_H
 #define PRINTERUTIL_H
 
-#include "scribusapi.h"
 
-#include <qstring.h>
+#include <QString>
+
+#include "scribusapi.h"
 
 class QStringList;
 

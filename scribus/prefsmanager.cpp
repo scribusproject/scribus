@@ -19,13 +19,13 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include <QDesktopWidget>
-#include <qcolor.h>
-#include <qdir.h>
-#include <qdom.h>
-#include <qfile.h>
-#include <qstring.h>
-#include <qstylefactory.h>
-#include <qmatrix.h>
+#include <QColor>
+#include <QDir>
+#include <QDomDocument>
+#include <QFile>
+#include <QString>
+#include <QStyleFactory>
+#include <QMatrix>
 #include <QList>
 
 #include "prefsmanager.h"

@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <Python.h>
 #endif
 
-#include <qstring.h>
+#include <QString>
 
 #include "scribus.h"
 

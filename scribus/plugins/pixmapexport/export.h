@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef _SCRIBUS_PIXMAPEXPORT_H_
 #define _SCRIBUS_PIXMAPEXPORT_H_
 
-#include <qstring.h>
-#include <qfiledialog.h>
+#include <QString>
+#include <QFileDialog>
 #include <pluginapi.h>
 #include <loadsaveplugin.h>
 #include <vector>

@@ -27,11 +27,12 @@ for which a new license (GPL+exception) is in place.
 #define __VGRADIENTEX_H__
 
 #include <QList>
-#include "scribusapi.h"
-#include "scribusdoc.h"
+#include <QMatrix>
+
 #include "fpoint.h"
 #include "sccolor.h"
-#include <qmatrix.h>
+#include "scribusapi.h"
+#include "scribusdoc.h"
 
 class SCRIBUS_API VColorStopEx
 {

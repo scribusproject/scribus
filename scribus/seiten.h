@@ -7,6 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef SEITENPAL_H
 #define SEITENPAL_H
 
+#include <Q3DragObject>
+#include <Q3ListBox>
+#include <Q3Table>
 #include <QCheckBox>
 #include <QDialog>
 #include <QDragEnterEvent>
@@ -24,9 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <QSplitter>
 #include <QToolTip>
 #include <QVBoxLayout>
-#include <q3dragobject.h>
-#include <q3listbox.h>
-#include <q3table.h>
 
 
 #include "scribusapi.h"

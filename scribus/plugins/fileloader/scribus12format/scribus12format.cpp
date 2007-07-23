@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scribus12format.h"
-//#include "scribus12format.moc"
 #include "scribus12formatimpl.h"
 
 #include "../../formatidlist.h"
@@ -20,10 +19,9 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 #include "scgzfile.h"
-#include <qcursor.h>
-#include <qfileinfo.h>
+#include <QCursor>
+#include <QFileInfo>
 #include <QList>
-//Added by qt3to4:
 #include <QByteArray>
 #include <QTextStream>
 #include <QApplication>

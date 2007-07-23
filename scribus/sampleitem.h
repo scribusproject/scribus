@@ -7,8 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SAMPLEITEM_H
 #define SAMPLEITEM_H
 
-#include <qobject.h>
-//Added by qt3to4:
+#include <QObject>
 #include <QPixmap>
 #include "scribusapi.h"
 #include "scribusstructs.h"

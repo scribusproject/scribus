@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include "cmdmisc.h"
 #include "cmdgetsetprop.h"
 #include "scriptplugin.h"
-//#include "scriptplugin.moc"
 #include "cmdutil.h"
 #include "objprinter.h"
 #include "objpdffile.h"
@@ -48,9 +47,6 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "helpbrowser.h"
 #include "mpalette.h"
-//#include "seiten.h"
-//#include "layers.h"
-//#include "tree.h"
 #include "menumanager.h"
 #include "scpaths.h"
 #include "units.h"
@@ -60,14 +56,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_icon.h"
 
-#include <qapplication.h>
-#include <qmessagebox.h>
-#include <qtextcodec.h>
-#include <qdom.h>
-#include <qregexp.h>
-#include <qpixmap.h>
-#include <qwidget.h>
-#include <qstring.h>
+#include <QApplication>
+#include <QMessageBox>
+#include <QTextCodec>
+#include <QRegExp>
+#include <QPixmap>
+#include <QWidget>
+#include <QString>
 //Added by qt3to4:
 #include <QByteArray>
 #include <cstdlib>

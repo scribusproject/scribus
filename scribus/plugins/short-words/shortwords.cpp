@@ -15,13 +15,13 @@ This program is free software - see LICENSE file in the distribution
 or documentation
 */
 
-#include <qcheckbox.h>
-#include <qcursor.h>
-#include <qdir.h>
-#include <qfile.h>
-#include <qmessagebox.h>
+#include <QCheckBox>
+#include <QCursor>
+#include <QDir>
+#include <QFile>
+#include <QMessageBox>
 #include <QProgressBar>
-#include <qtextcodec.h>
+#include <QTextCodec>
 //Added by qt3to4:
 #include <QPixmap>
 

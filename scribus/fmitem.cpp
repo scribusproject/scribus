@@ -25,8 +25,8 @@ for which a new license (GPL+exception) is in place.
    string class */
  
 #include "fmitem.h"
-#include <qfontmetrics.h>
-#include <qapplication.h>
+#include <QFontMetrics>
+#include <QApplication>
 
 FmItem::FmItem(const QString& s, const ScFace&)
 {

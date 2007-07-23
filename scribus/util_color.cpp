@@ -23,21 +23,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_color.h"
 
-#include <qbitmap.h>
-#include <qdatetime.h> 
-#include <qpainter.h>
-#include <qcheckbox.h>
-//Added by qt3to4:
+#include <QBitmap>
+#include <QDateTime> 
+#include <QPainter>
+#include <QCheckBox>
 #include <QPixmap>
-// #include <algorithm>
-// #include <cstdlib>
-// #include <cmath>
 
 #include "scconfig.h"
-
-//#ifdef HAVE_UNISTD_H
-//#include <unistd.h>
-//#endif
 
 #if defined(_WIN32)
 #if defined(_MSC_VER)
@@ -49,20 +41,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "md5.h"
 
-// #include <setjmp.h>
-// #include "commonstrings.h"
-// #include "pagestructs.h"
-// #include "prefsfile.h"
-// #include "prefscontext.h"
-// #include "prefstable.h"
-// #include "prefsmanager.h"
-// #include "qprocess.h"
-// #include "scmessagebox.h"
+
 #include "scribusdoc.h"
 #include "scpixmapcache.h"
 #include "commonstrings.h"
-// #include "scpaths.h"
-// #include "text/nlsconfig.h"
 #include "util_icon.h"
 #include "util.h"
 #include "sccolorengine.h"

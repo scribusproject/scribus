@@ -24,9 +24,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_aligndistribute.h"
 
-#include <qvariant.h>
-#include <qpixmap.h>
-#include <qdialog.h>
+#include <QVariant>
+#include <QPixmap>
+#include <QDialog>
 #include <QLabel>
 #include <QList>
 

@@ -21,20 +21,18 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <q3accel.h>
 #include <QApplication>
-#include <qeventloop.h>
-#include <qcolordialog.h>
-#include <qcolor.h>
-#include <qicon.h>
-#include <qstylefactory.h>
-#include <qregexp.h>
-#include <qtextcodec.h>
-#include <qcursor.h>
-#include <q3vbox.h>
-#include <qpixmap.h>
-#include <qkeysequence.h>
-//Added by qt3to4:
+#include <QEventLoop>
+#include <QColorDialog>
+#include <QColor>
+#include <QIcon>
+#include <QStyleFactory>
+#include <QRegExp>
+#include <QTextCodec>
+#include <QCursor>
+#include <Q3VBox>
+#include <QPixmap>
+#include <QKeySequence>
 #include <QMouseEvent>
 #include <QFrame>
 #include <QDesktopWidget>

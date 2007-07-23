@@ -36,8 +36,8 @@ for which a new license (GPL+exception) is in place.
 #else
  #include <libxml/SAX.h>
 #endif
-#include <qmap.h>
-#include <qxml.h>
+#include <QMap>
+#include <QXmlAttributes>
 #include <gtstyle.h>
 #include <gtwriter.h>
 

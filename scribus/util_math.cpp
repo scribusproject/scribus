@@ -22,31 +22,21 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "util_math.h"
-#include <qbitmap.h>
-#include <qfile.h>
-#include <qfileinfo.h>
-// #include <qdatastream.h>
-// #include <qregexp.h>
-#include <qdir.h>
-#include <qdom.h>
-#include <qcheckbox.h>
-#include <qwidget.h>
-//Added by qt3to4:
+#include <QBitmap>
+#include <QFile>
+#include <QFileInfo>
+#include <QDir>
+#include <QCheckBox>
+#include <QWidget>
 #include <QPixmap>
 #include <QList>
 #include <QByteArray>
 #include <Q3PointArray>
 #include <QImageReader>
 
-// #include <algorithm>
-// #include <cstdlib>
 #include <cmath>
 #include <algorithm>
 #include "scconfig.h"
-
-//#ifdef HAVE_UNISTD_H
-//#include <unistd.h>
-//#endif
 
 #if defined(_WIN32)
 #if defined(_MSC_VER)
@@ -58,21 +48,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "md5.h"
 
-// #include <setjmp.h>
 #include "commonstrings.h"
-// #include "pagestructs.h"
-// #include "prefsfile.h"
-// #include "prefscontext.h"
-// #include "prefstable.h"
-// #include "prefsmanager.h"
 #include <QProcess>
-#include <q3process.h>
+#include <Q3Process>
 #include "scmessagebox.h"
 #include "scpixmapcache.h"
 #include "scpaths.h"
-// #include "text/nlsconfig.h"
 
-				 extern "C"
+extern "C"
 {
 #define XMD_H           // shut JPEGlib up
 #if defined(Q_OS_UNIXWARE)

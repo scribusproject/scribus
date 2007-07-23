@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORBLIND_H
 #define COLORBLIND_H
 
-#include <qvariant.h>
-#include <qcolor.h>
-#include <qobject.h>
+#include <QVariant>
+#include <QColor>
+#include <QObject>
 
 /*! \brief This code is an implementation of an algorithm described by Hans Brettel,
 Francoise Vienot and John Mollon in the Journal of the Optical Society of

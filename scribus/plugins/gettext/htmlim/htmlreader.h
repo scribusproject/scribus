@@ -34,8 +34,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <libxml/HTMLparser.h>
 
-#include <qstring.h>
-#include <qxml.h>
+#include <QString>
+#include <QXmlAttributes>
 
 #include <gtparagraphstyle.h>
 #include <gtwriter.h>

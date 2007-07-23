@@ -23,19 +23,21 @@ for which a new license (GPL+exception) is in place.
 
 #ifndef PSLIB_H
 #define PSLIB_H
-#include <qstring.h>
-#include <qpen.h>
-#include <qfile.h>
-#include <QList>
-#include <Q3TextStream>
-//Added by qt3to4:
+
 #include <vector>
 #include <utility>
+
+#include <Q3TextStream>
+#include <QFile>
+#include <QList>
+#include <QPen>
+#include <QString>
+
 class ScribusDoc;
-//class ScribusView;
-#include "scribusapi.h"
+
 #include "page.h"
 #include "pageitem.h"
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include CMS_INC
 

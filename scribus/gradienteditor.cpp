@@ -23,9 +23,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "gradienteditor.h"
 //#include "gradienteditor.moc"
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qcursor.h>
+#include <QPainter>
+#include <QPixmap>
+#include <QCursor>
 #include <QApplication>
 //Added by qt3to4:
 #include <QPolygon>

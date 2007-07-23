@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 
-#include <qstring.h>
+#include <QString>
 #include "scribusapi.h"
 
 enum FontEffect {

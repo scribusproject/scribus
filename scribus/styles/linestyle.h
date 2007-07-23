@@ -17,7 +17,7 @@
 #ifndef LINESTYLE_H
 #define LINESTYLE_H
 
-#include <qstring.h>
+#include <QString>
 #include "style.h"
 #include "styles/stylecontextproxy.h"
 

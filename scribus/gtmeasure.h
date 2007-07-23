@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef GTMEASURE_H
 #define GTMEASURE_H
 
-#include <qstring.h>
+#include <QString>
 
 #include "scribusapi.h"
 #include "units.h"

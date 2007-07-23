@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 #include <utility>
-#include <qobject.h>
+#include <QObject>
 //Added by qt3to4:
 #include <QPixmap>
 

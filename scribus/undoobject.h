@@ -27,8 +27,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef UNDOOBJECT_H
 #define UNDOOBJECT_H
 
-#include <qstring.h>
-#include <qpixmap.h>
+#include <QPixmap>
+#include <QString>
 
 #include "scribusapi.h"
 #include "undostate.h"

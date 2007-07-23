@@ -6,9 +6,9 @@ for which a new license (GPL+exception) is in place.
 */
 #include "colorlistbox.h"
 //#include "colorlistbox.moc"
-#include <qpainter.h>
-#include <qpixmap.h>
-#include <qbitmap.h>
+#include <QPainter>
+#include <QPixmap>
+#include <QBitmap>
 #include <cstdlib>
 #include <QToolTip>
 #include <QEvent>

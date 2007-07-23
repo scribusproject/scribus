@@ -9,8 +9,8 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 
 #include <structmember.h>
-#include <qfileinfo.h>
-#include <qdir.h>
+#include <QFileInfo>
+#include <QDir>
 #include <vector>
 #include "pslib.h"
 #include "util_ghostscript.h"

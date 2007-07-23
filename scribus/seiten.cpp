@@ -5,23 +5,22 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+
+//QPixmap doesnt seem to include this for its mask() code
+#include <QBitmap>
 #include <QCursor>
 #include <QList>
 #include <QLabel>
-//QPixmap doesnt seem to include this for its mask() code
-#include <QBitmap>
 #include <QMenu>
 
-#include "seiten.h"
-
 #include "commonstrings.h"
-#include "scribus.h"
-#include "scribusview.h"
 #include "page.h"
 #include "pagelayout.h"
 #include "sccombobox.h"
+#include "scribus.h"
+#include "scribusview.h"
+#include "seiten.h"
 #include "util_icon.h"
-
 
 /* Code fuer DragObjekt */
 SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): Q3StoredDrag("page/magic", parent, name)

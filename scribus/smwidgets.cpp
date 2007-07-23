@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "smwidgets.h"
 //#include "smwidgets.moc"
-#include <qtooltip.h>
-#include <qlineedit.h>
+#include <QToolTip>
+#include <QLineEdit>
 #include "units.h"
 
 /***********************************************************************/

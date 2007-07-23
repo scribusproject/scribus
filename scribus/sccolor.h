@@ -24,13 +24,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCOLOR_H
 #define SCCOLOR_H
 
-#include <qstring.h>
-#include <qcolor.h>
-#include <qmap.h>
-#include <qpointer.h>
+#include <QColor>
+#include <QMap>
+#include <QPointer>
+#include <QString>
+
+#include "scribusapi.h"
 
 class ScribusDoc;
-#include "scribusapi.h"
 
 
 /**

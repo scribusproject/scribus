@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "mypluginimpl.h"
 #include "scribusdoc.h"
 
-#include <qstring.h>
-#include <qmessagebox.h>
+#include <QString>
+#include <QMessageBox>
 
 // Initialize members here, if any
 MyPluginImpl::MyPluginImpl() : QObject(0, "MyPluginImpl")

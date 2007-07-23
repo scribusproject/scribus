@@ -26,9 +26,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#include <qregexp.h>
-#include <qcursor.h>
-#include <qdir.h>
+#include <QRegExp>
+#include <QCursor>
+#include <QDir>
 //Added by qt3to4:
 #include <QByteArray>
 #include <cstdlib>

@@ -21,14 +21,14 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_color.h"
 #include "util_icon.h"
-#include <q3header.h>
-#include <q3listbox.h>
-#include <q3listview.h>
-#include <qlayout.h>
-#include <qlineedit.h>
-#include <qpixmap.h>
-#include <qpushbutton.h>
-#include <qtabwidget.h>
+#include <Q3Header>
+#include <Q3ListBox>
+#include <Q3ListView>
+#include <QLayout>
+#include <QLineEdit>
+#include <QPixmap>
+#include <QPushButton>
+#include <QTabWidget>
 
 
 /*** LineStyleWidget *******************************************************/

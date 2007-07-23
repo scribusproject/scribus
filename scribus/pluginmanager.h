@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef _PLUGIN_MANAGER_
 #define _PLUGIN_MANAGER_
 
-#include <qobject.h>
-#include <qstring.h>
-#include <qmap.h>
+#include <QObject>
+#include <QString>
+#include <QMap>
 
 #include "scribusapi.h"
 

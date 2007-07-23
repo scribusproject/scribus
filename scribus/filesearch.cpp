@@ -6,8 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include "filesearch.h"
 //#include "filesearch.moc"
-#include <qtimer.h>
-#include <qregexp.h>
+#include <QTimer>
+#include <QRegExp>
 
 
 enum FileSearchStatus

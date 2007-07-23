@@ -9,9 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "deferredtask.h"
-#include <qstringlist.h>
+#include <QStringList>
 #include <QStack>
-#include <qdir.h>
+#include <QDir>
 
 class QTimer;
 

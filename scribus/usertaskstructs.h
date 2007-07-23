@@ -7,9 +7,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef USERTASKSTRUCTS_H
 #define USERTASKSTRUCTS_H
 
-#include <qstring.h>
-#include "pageitem.h"
+#include <QString>
+
 #include "gtgettext.h"
+#include "pageitem.h"
 
 struct InsertAFrameData
 {

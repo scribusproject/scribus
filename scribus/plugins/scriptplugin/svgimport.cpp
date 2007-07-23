@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "selection.h"
 
-#include <qstring.h>
+#include <QString>
 
 PyObject *scribus_placesvg(PyObject* /* self */, PyObject* args)
 {

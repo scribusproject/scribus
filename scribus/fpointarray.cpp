@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpointarray.h"
 #include <cstdarg>
 #include <math.h>
-#include <qregexp.h>
+#include <QRegExp>
 //Added by qt3to4:
 #include <QVector>
 

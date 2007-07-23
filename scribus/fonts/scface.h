@@ -13,10 +13,10 @@ embedding:    fontdictionary, rawdata, embedPS, embedPDF, subsetPS, subsetPDF
 virtual:      dispatch to constituents, handle embedding (-)
 */
 
-#include <qstring.h>
-//#include <qvector.h>
-#include <qmap.h>
-//#include <qarray.h>
+#include <QString>
+//#include <QVector>
+#include <QMap>
+//#include <QArray>
 #include <utility>
 
 #include "fpointarray.h"

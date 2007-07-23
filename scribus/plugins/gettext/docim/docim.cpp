@@ -9,13 +9,13 @@ for which a new license (GPL+exception) is in place.
 #include "gtwriter.h"
 #include "scpaths.h"
 #include "scribusstructs.h"
-#include <qobject.h>
+#include <QObject>
 #include <QByteArray>
-#include <qmessagebox.h>
+#include <QMessageBox>
 #include <QProcess>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qtextcodec.h>
+#include <QString>
+#include <QStringList>
+#include <QTextCodec>
 
 #if defined(_WIN32)
 #include <windows.h>

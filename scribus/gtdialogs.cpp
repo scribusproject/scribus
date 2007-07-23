@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "sccombobox.h"
-#include <qlabel.h>
+#include <QLabel>
 //Added by qt3to4:
 #include <QHBoxLayout>
 #include <QPixmap>

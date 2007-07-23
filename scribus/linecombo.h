@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef LINECOMBO_H
 #define LINECOMBO_H
 
-#include <qcombobox.h>
-#include <qpixmap.h>
+#include <QComboBox>
+#include <QPixmap>
 
 #include "scribusapi.h"
 

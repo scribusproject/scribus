@@ -632,5 +632,5 @@ bool ScLayers::setLayerMarker(const int layerNumber, QColor color)
 
 uint qHash(const ScLayer& layer)
 { 
-	return qHash(&layer); 
+	return qHash(&layer);
 }

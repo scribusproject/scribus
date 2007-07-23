@@ -28,9 +28,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef __SCPAINTEREXBASE_H__
 #define __SCPAINTEREXBASE_H__
 
-#include <qglobal.h>
 #include <QColor>
 #include <QFont>
+#include <QGlobalStatic>
 #include <QList>
 #include <QMatrix>
 #include <QPixmap>

@@ -24,10 +24,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef GRADEDITOR_H
 #define GRADEDITOR_H
 
-#include <qlabel.h>
-#include <qspinbox.h>
-#include <qlayout.h>
-#include <qtooltip.h>
+#include <QLabel>
+#include <QSpinBox>
+#include <QLayout>
+#include <QToolTip>
 //Added by qt3to4:
 #include <QList>
 #include <QPaintEvent>

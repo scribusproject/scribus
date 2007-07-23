@@ -24,10 +24,10 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <qfile.h>
-#include <qfileinfo.h>
-#include <qstring.h>
-#include <qxml.h>
+#include <QFile>
+#include <QFileInfo>
+#include <QString>
+#include <QXmlInputSource>
 #include "prefsfile.h"
 #include "prefsreader.h"
 #include "prefstable.h"

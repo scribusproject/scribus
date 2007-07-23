@@ -7,11 +7,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef PDFOPTIONSIO_H
 #define PDFOPTIONSIO_H
 
-#include "scribusapi.h"
-#include "pdfoptions.h"
-#include <qdom.h>
+#include <QDomElement>
 #include <QList>
-//Added by qt3to4:
+
+#include "pdfoptions.h"
+#include "scribusapi.h"
 
 /**
  * @file pdfoptionsio.h

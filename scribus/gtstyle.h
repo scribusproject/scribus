@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef GTSTYLE_H
 #define GTSTYLE_H
 
-#include <qstring.h>
+#include <QString>
 #include "scribusapi.h"
 #include "gtfont.h"
 

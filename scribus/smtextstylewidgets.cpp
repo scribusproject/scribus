@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smtextstylewidgets.h"
-//#include "smtextstylewidgets.moc"
 #include "units.h"
 #include "util.h"
 #include "util_icon.h"
@@ -14,17 +13,16 @@ for which a new license (GPL+exception) is in place.
 #include "smwidgets.h"
 
 #include <QGroupBox>
-#include <qlayout.h>
-#include <qtoolbutton.h>
-#include <qlabel.h>
+#include <QLayout>
+#include <QToolButton>
+#include <QLabel>
 #include <QMenu>
-#include <qcombobox.h>
-#include <qspinbox.h>
-#include <q3frame.h>
-#include <qpixmap.h>
-#include <qtabwidget.h>
-#include <qmap.h>
-//Added by qt3to4:
+#include <QComboBox>
+#include <QSpinBox>
+#include <Q3Frame>
+#include <QPixmap>
+#include <QTabWidget>
+#include <QMap>
 #include <Q3HBoxLayout>
 #include <Q3GridLayout>
 #include <Q3VBoxLayout>

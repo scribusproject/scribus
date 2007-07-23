@@ -17,9 +17,9 @@
 #ifndef RESOURCE_COLLECTION_H
 #define RESOURCE_COLLECTION_H
 
-#include <qstring.h>
-#include <qmap.h>
-#include <qlist.h>
+#include <QList>
+#include <QMap>
+#include <QString>
 
 /** 
 *   A simple structure which holds the names of all resources & styles used in a doc or part of a document.

@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <qstring.h>
+#include <QString>
 
 #include "scpattern.h"
 #include "pageitem.h"

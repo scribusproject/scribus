@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SMSTYLEIMPORT_H
 #define SMSTYLEIMPORT_H
 
-#include <qdialog.h>
-#include <qmap.h>
+#include <QDialog>
+#include <QMap>
 //Added by qt3to4:
 #include <Q3VBoxLayout>
 #include <Q3HBoxLayout>

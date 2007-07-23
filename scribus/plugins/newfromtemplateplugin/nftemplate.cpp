@@ -7,10 +7,10 @@ for which a new license (GPL+exception) is in place.
 /***************************************************************************
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
-#include <qstring.h>
-#include <qcursor.h>
-#include <qdir.h>
-#include <qwidget.h>
+#include <QString>
+#include <QCursor>
+#include <QDir>
+#include <QWidget>
 
 #include "scribus.h"
 #include "scribuscore.h"

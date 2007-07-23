@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUSCORE_H
 #define SCRIBUSCORE_H
 
-#include <qobject.h>
+#include <QObject>
 #include <QList>
 #include "scribus.h"
 #include "scribusapi.h"

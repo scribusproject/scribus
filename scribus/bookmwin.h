@@ -24,20 +24,19 @@ for which a new license (GPL+exception) is in place.
 #ifndef BOOKMWIN_H
 #define BOOKMWIN_H
 
-#include <qdialog.h>
-#include <q3listview.h>
-#include <qevent.h>
-#include <qpoint.h>
-#include <qlayout.h>
-//Added by qt3to4:
-#include <QDropEvent>
-#include <QMouseEvent>
+#include <Q3ListView>
+#include <QDialog>
 #include <QDragMoveEvent>
+#include <QDropEvent>
+#include <QEvent>
+#include <QLayout>
+#include <QMouseEvent>
+#include <QPoint>
 
-#include "scribusapi.h"
-#include "scribusview.h"
-#include "scribusdoc.h"
 #include "pageitem.h"
+#include "scribusapi.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
 
 /**
 *@author Franz Schmid

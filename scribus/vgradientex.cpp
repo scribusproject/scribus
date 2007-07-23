@@ -22,8 +22,10 @@ for which a new license (GPL+exception) is in place.
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
-#include "vgradientex.h"
+
 #include <QtAlgorithms>
+
+#include "vgradientex.h"
 
 // comparison function for use with stable_sort
 bool compareStopsEx( const VColorStopEx* item1, const VColorStopEx* item2 )

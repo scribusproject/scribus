@@ -9,9 +9,9 @@ for which a new license (GPL+exception) is in place.
 #define SCFONTMETRICS_H
 
 #include <utility>
-#include <qglobal.h>
-#include <qstring.h>
-#include <qcolor.h>
+#include <QGlobalStatic>
+#include <QString>
+#include <QColor>
 //Added by qt3to4:
 #include <QPixmap>
 

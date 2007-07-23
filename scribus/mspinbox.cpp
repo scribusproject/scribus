@@ -23,9 +23,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "mspinbox.h"
 //#include "mspinbox.moc"
-#include <qapplication.h>
-#include <qlineedit.h>
-#include <qregexp.h>
+#include <QApplication>
+#include <QLineEdit>
+#include <QRegExp>
 //Added by qt3to4:
 #include <QWheelEvent>
 #include <QKeyEvent>

@@ -10,8 +10,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef NFTTEMPLATE_H
 #define NFTTEMPLATE_H
 
-#include <qstring.h>
-#include <qfile.h>
+#include <QString>
+#include <QFile>
 #include <QTextStream>
 
 class nfttemplate {

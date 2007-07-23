@@ -20,10 +20,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef SELECTION_H
 #define SELECTION_H
 
-#include <qpointer.h>
-#include <qobject.h>
-#include <qmap.h>
 #include <QList>
+#include <QMap>
+#include <QObject>
+#include <QPointer>
 
 #include "pageitem.h"
 #include "scribusapi.h"

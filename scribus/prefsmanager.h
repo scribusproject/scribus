@@ -20,13 +20,13 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFSMANAGER_H
 #define PREFSMANAGER_H
 
-#include <qkeysequence.h>
-#include <qobject.h>
-#include <qstringlist.h>
-#include <qmap.h>
+#include <QKeySequence>
+#include <QMap>
+#include <QObject>
+#include <QStringList>
 
-#include "scribusapi.h"
 #include "prefsstructs.h"
+#include "scribusapi.h"
 
 class PrefsFile;
 class ScribusMainWindow;

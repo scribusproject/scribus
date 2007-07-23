@@ -4,13 +4,13 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qwidget.h>
-#include <qfile.h>
-#include <qregexp.h>
-#include <qcursor.h>
-#include <qdir.h>
-#include <qstring.h>
-#include <qdom.h>
+#include <QWidget>
+#include <QFile>
+#include <QRegExp>
+#include <QCursor>
+#include <QDir>
+#include <QString>
+#include <QDomElement>
 #include <QDrag>
 #include <QMimeData>
 #include <cmath>

@@ -27,8 +27,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLESTACK_H
 #define STYLESTACK_H
 
-#include <qdom.h>
-#include <qstringlist.h>
+#include <QDomElement>
+#include <QStringList>
 #include <QList>
 #include <QStack>
 

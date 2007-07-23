@@ -17,10 +17,9 @@ for which a new license (GPL+exception) is in place.
 *   (at your option) any later version.                                   *
 *                                                                         *
 ***************************************************************************/
-#include "selection.h"
-//#include "selection.moc"
 
 #include "scribusdoc.h"
+#include "selection.h"
 
 Selection::Selection(QObject* parent)
 	: QObject(parent),

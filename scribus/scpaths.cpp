@@ -5,8 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scpaths.h"
-#include <qapplication.h>
-#include <qdir.h>
+#include <QApplication>
+#include <QDir>
 
 #include "scconfig.h"
 

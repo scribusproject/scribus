@@ -6,9 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QDir>
-#include <qdom.h>
+#include <QDomDocument>
 #include <QTextStream>
 #include <QWidget>
+
 #include <iostream>
 #include <cstdlib>
 

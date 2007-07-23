@@ -6,7 +6,7 @@
  */
 
 
-#include <qobject.h>
+#include <QObject>
 #include "sctextstruct.h"
 #include "scfonts.h"
 #include "resourcecollection.h"

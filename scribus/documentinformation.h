@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef DOCUMENTINFORMATION_H
 #define DOCUMENTINFORMATION_H
 
-#include <qstring.h>
+#include <QString>
 #include "scribusapi.h"
 
 class SCRIBUS_API DocumentInformation

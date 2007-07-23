@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef MYPLUGINIMPL_H
 #define MYPLUGINIMPL_H
 
-#include <qobject.h>
+#include <QObject>
 
 class QString;
 class ScribusDoc;

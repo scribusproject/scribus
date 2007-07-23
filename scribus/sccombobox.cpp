@@ -13,12 +13,12 @@ for which a new license (GPL+exception) is in place.
  *
  */
 
-#include <q3listbox.h>
+#include <Q3ListBox>
 #include "sccombobox.h"
 
 #ifdef QT_WS_MAC
 
-#include <qmacstyle_mac.h>
+#include <QMacStyle>
 
 /// use listbox instead of popupmenu for combo boxes
 class ScMacStyle : public QMacStyle {

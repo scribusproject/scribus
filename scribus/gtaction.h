@@ -27,18 +27,20 @@ for which a new license (GPL+exception) is in place.
 #ifndef GTACTION_H
 #define GTACTION_H
 
-#include <qcolor.h>
-#include <qtextcodec.h>
-#include <qmap.h>
-#include <qstring.h>
+#include <QColor>
+#include <QTextCodec>
+#include <QMap>
+#include <QString>
+
 class PageItem;
 class PrefsManager;
 class ScFace;
-#include "scribusapi.h"
+
 #include "gtfont.h"
 #include "gtframestyle.h"
 #include "gtparagraphstyle.h"
 #include "gtstyle.h"
+#include "scribusapi.h"
 
 class ScribusDoc;
 class ScribusMainWindow;

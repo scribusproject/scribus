@@ -21,17 +21,14 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <qcolor.h>
-#include <qstring.h>
 #include <assert.h>
 
+#include "commonstrings.h"
 #include "sccolor.h"
 #include "sccolorengine.h"
+#include "scconfig.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "commonstrings.h"
-#include "scconfig.h"
-
 
 ScColor::ScColor(void)
 {

@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef _SCRIBUS_SHORTCFG_H_
 #define _SCRIBUS_SHORTCFG_H_
 
-#include <qobject.h>
+#include <QObject>
 
 class QString;
 class QStringList;

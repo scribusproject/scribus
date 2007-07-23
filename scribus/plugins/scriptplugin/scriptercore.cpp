@@ -6,13 +6,12 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scriptercore.h"
 
-#include <qglobal.h>
-#include <qwidget.h>
-#include <qstring.h>
-#include <qapplication.h>
-#include <qmessagebox.h>
-#include <qtextcodec.h>
-#include <qdom.h>
+#include <QGlobalStatic>
+#include <QWidget>
+#include <QString>
+#include <QApplication>
+#include <QMessageBox>
+#include <QTextCodec>
 #include <QByteArray>
 #include <QPixmap>
 #include <cstdlib>
@@ -33,8 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "prefstable.h"
 #include "prefsmanager.h"
-
-//#include "scriptercore.moc"
 
 ScripterCore::ScripterCore(QWidget* parent)
 {

@@ -17,11 +17,13 @@ for which a new license (GPL+exception) is in place.
 #define COLORCOMBO_H
 
 #include <QComboBox>
-#include "colorlistbox.h"
 
 #ifdef QT_WS_MAC
-#include <qmacstyle_mac.h>
+#include <QMacStyle>
 #endif
+
+
+#include "colorlistbox.h"
 
 /*!
     \class ColorCombo colorcombo.h

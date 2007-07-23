@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "exif.h"
-#include <qmatrix.h>
+#include <QMatrix>
 
 
 static unsigned char * LastExifRefd;

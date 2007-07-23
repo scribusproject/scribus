@@ -21,11 +21,11 @@ for which a new license (GPL+exception) is in place.
  
 #include <iostream>
 
-#include <qdir.h>
-#include <qfileinfo.h>
-#include <qmap.h>
-#include <qobject.h>
-#include <qstringlist.h> 
+#include <QDir>
+#include <QFileInfo>
+#include <QMap>
+#include <QObject>
+#include <QStringList> 
 
 #include "scconfig.h"
 #include "langmgr.h"

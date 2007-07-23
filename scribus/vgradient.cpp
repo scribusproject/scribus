@@ -22,9 +22,11 @@ for which a new license (GPL+exception) is in place.
    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
    Boston, MA 02111-1307, USA.
 */
-#include "vgradient.h"
+
 #include <QMutableListIterator>
 #include <QtAlgorithms>
+
+#include "vgradient.h"
 
 // colorStop comparison function for stable_sort function
 bool compareStops(const VColorStop* item1, const VColorStop* item2 ) 

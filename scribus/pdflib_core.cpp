@@ -26,14 +26,14 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include <string>
-#include <qstring.h>
-#include <qrect.h>
-#include <qimage.h>
-#include <qregexp.h>
-#include <qdatetime.h>
-#include <qfileinfo.h>
+#include <QString>
+#include <QRect>
+#include <QImage>
+#include <QRegExp>
+#include <QDateTime>
+#include <QFileInfo>
 #include <QDataStream>
-#include <qdir.h>
+#include <QDir>
 #include <QList>
 #include <QByteArray>
 #include <QPixmap>

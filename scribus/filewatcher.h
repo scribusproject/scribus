@@ -7,12 +7,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef FILEWATCHER_H
 #define FILEWATCHER_H
 
-#include <qobject.h>
-#include <qtimer.h>
-#include <qmap.h>
-#include <qfileinfo.h>
-#include <qdatetime.h>
+#include <QDateTime>
+#include <QFileInfo>
 #include <QList>
+#include <QMap>
+#include <QObject>
+#include <QTimer>
 
 #include "scribusapi.h"
 

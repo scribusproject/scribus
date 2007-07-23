@@ -27,12 +27,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef PATTERNDIALOG_H
 #define PATTERNDIALOG_H
 
-#include <qmap.h>
-#include <qstring.h>
-#include <qdialog.h>
+#include <QMap>
+#include <QString>
+#include <QDialog>
 #include <QListWidgetItem>
-#include <qpushbutton.h>
-#include <qlayout.h>
+#include <QPushButton>
+#include <QLayout>
 #include "ui_patterndialog.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"

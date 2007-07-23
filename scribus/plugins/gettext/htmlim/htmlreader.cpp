@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <qobject.h>
+#include <QObject>
 //Added by qt3to4:
 #include <QByteArray>
 #include "htmlreader.h"

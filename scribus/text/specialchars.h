@@ -26,7 +26,7 @@ pageitem.cpp  -  description
 #define SPECIALCHARS_H
 
 
-#include <qstring.h>
+#include <QString>
 #include "scribusapi.h"
 
 class SCRIBUS_API SpecialChars {

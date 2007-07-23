@@ -28,8 +28,8 @@ for which a new license (GPL+exception) is in place.
 #define PREFSCONTEXT_H
 
 #include <string>
-#include <qmap.h>
-#include <qstring.h>
+#include <QMap>
+#include <QString>
 
 #include "scribusapi.h"
 #include "prefstable.h"

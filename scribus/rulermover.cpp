@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 #include "rulermover.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
-#include <qcursor.h>
-#include <qapplication.h>
+#include <QCursor>
+#include <QApplication>
 #include <QMouseEvent>
 #include <QPixmap>
 #include "util_icon.h"

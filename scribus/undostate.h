@@ -27,12 +27,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef UNDOSTATE_H
 #define UNDOSTATE_H
 
-#include <qmap.h>
-//Added by qt3to4:
+#include <QMap>
 #include <QPixmap>
+
 #include "scribusapi.h"
 
-class QPixmap;
 class QString;
 class PageItem;
 class UndoObject;

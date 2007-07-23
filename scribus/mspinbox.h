@@ -24,9 +24,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef MSPINBOX_H
 #define MSPINBOX_H
 
-#include <qmap.h>
-#include <qspinbox.h>
-#include <qstring.h>
+#include <QMap>
+#include <QSpinBox>
+#include <QString>
 //Added by qt3to4:
 #include <QEvent>
 #include "scribusapi.h"

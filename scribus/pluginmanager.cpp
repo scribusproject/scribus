@@ -5,11 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "pluginmanager.h"
-//#include "pluginmanager.moc"
 #include "scplugin.h"
 #include "loadsaveplugin.h"
 
-#include <qdir.h>
+#include <QDir>
 
 #include "scconfig.h"
 
@@ -31,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
 #include <windows.h>
 #else
-#include <qlibrary.h>
+#include <QLibrary>
 #endif
 
 

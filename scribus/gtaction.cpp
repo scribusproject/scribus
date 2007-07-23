@@ -28,8 +28,8 @@ for which a new license (GPL+exception) is in place.
 #include "gtaction.h"
 #include "mpalette.h"
 #include "scribus.h"
-#include <qcursor.h>
-#include <qstringlist.h>
+#include <QCursor>
+#include <QStringList>
 //Added by qt3to4:
 #include <QList>
 #include "color.h"

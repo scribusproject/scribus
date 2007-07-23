@@ -9,12 +9,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 #include <QListWidgetItem>
-#include <qcheckbox.h>
-#include <qlabel.h>
-#include <qpushbutton.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qstringlist.h>
+#include <QCheckBox>
+#include <QLabel>
+#include <QPushButton>
+#include <QLayout>
+#include <QToolTip>
+#include <QStringList>
 
 #include "scribusapi.h"
 #include "ui_picsearch.h"

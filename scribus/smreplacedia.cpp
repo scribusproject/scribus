@@ -7,11 +7,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "smreplacedia.h"
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qlabel.h>
-#include <qcombobox.h>
-#include <qlayout.h>
+#include <QString>
+#include <QStringList>
+#include <QLabel>
+#include <QComboBox>
+#include <QLayout>
 //Added by qt3to4:
 #include <Q3VBoxLayout>
 #include <Q3HBoxLayout>

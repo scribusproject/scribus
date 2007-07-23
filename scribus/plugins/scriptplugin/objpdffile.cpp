@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 
 #include <structmember.h>
-#include <qfileinfo.h>
+#include <QFileInfo>
 //Added by qt3to4:
 #include <QList>
 #include <QPixmap>

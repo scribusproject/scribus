@@ -8,13 +8,13 @@ for which a new license (GPL+exception) is in place.
 #define SCFONTS_H
 
 #include <QByteArray>
+#include <QDateTime>
+#include <QFont>
+#include <QList>
+#include <QMap>
 #include <QString>
 #include <QStringList>
-//#include <qvector.h>
-#include <QFont>
-#include <QMap>
-#include <QDateTime>
-#include <QList>
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_OUTLINE_H
@@ -22,13 +22,11 @@ for which a new license (GPL+exception) is in place.
 
 FT_Error ftIOFunc( FT_Stream fts, unsigned long offset, unsigned char* buffer, unsigned long count);
 
-// #include <qpixmap.h>
-
-#include "scribusapi.h"
+#include "fonts/scface.h"
 #include "fpointarray.h"
 #include "scconfig.h"
+#include "scribusapi.h"
 
-#include "fonts/scface.h"
 
 class ScribusDoc;
 

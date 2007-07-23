@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QImageWriter>
 #include <structmember.h>
-#include <qfileinfo.h>
+#include <QFileInfo>
 #include <vector>
 #include "scribuscore.h"
 

@@ -15,14 +15,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef _SCRIBUS_CONFIG_
 #define _SCRIBUS_CONFIG_
 
-#include "scribusapi.h"
+#include <QDomDocument>
+#include <QDomElement>
 #include <QList>
-#include <qdom.h>
 #include <QProgressBar>
 
 #include "pageitem.h"
-// #include "multiline.h"
 #include "scfonts.h"
+#include "scribusapi.h"
 #include "scribusstructs.h"
 #include "selection.h"
 #include "styles/styleset.h"

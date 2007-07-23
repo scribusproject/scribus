@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef SC_USE_GDIPLUS
 #include <gdiplus.h>
-//Added by qt3to4:
+
 #include <QList>
 using namespace Gdiplus;
 #endif
@@ -45,10 +45,10 @@ using namespace Gdiplus;
 #include "scpainterex_gdi.h"
 #include "sccolorengine.h"
 
-#include <qpaintdevice.h>
-#include <qpixmap.h>
-#include <q3pointarray.h>
-#include <qimage.h>
+#include <QPaintDevice>
+#include <QPixmap>
+#include <Q3PointArray>
+#include <QImage>
 
 #include <iostream>
 using namespace std;

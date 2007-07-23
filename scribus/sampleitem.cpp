@@ -12,9 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "commonstrings.h"
 #include "prefsmanager.h"
-#include <qcolor.h>
-#include <qstring.h>
-#include <qcursor.h>
+#include <QColor>
+#include <QString>
+#include <QCursor>
 //Added by qt3to4:
 #include <QPixmap>
 #include "text/nlsconfig.h"

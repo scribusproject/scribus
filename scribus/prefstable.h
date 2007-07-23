@@ -29,9 +29,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <string>
 #include <vector>
-#include <qmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QMap>
+#include <QString>
+#include <QStringList>
 
 #include "scribusapi.h"
 

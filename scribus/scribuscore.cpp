@@ -21,8 +21,7 @@ for which a new license (GPL+exception) is in place.
  
 #include <cassert>
 #include <iostream>
-#include <qglobal.h>
-//Added by qt3to4:
+#include <QGlobalStatic>
 #include <QByteArray>
 
 

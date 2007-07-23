@@ -17,9 +17,9 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefstable.h"
 #include "scribusXml.h"
-#include <qfile.h>
-#include <qcursor.h>
-#include <qregexp.h>
+#include <QFile>
+#include <QCursor>
+#include <QRegExp>
 #include <QStack>
 #include <QDrag>
 #include <QMimeData>

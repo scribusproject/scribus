@@ -12,11 +12,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 #include <utility>
-#include <qobject.h>
-#include <qdir.h>
-#include <qxml.h>
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QObject>
+#include <QDir>
+#include <QXmlDefaultHandler>
+#include <QString>
+#include <QStringList>
 #include "nfttemplate.h"
 
 typedef std::pair<QString*,QString*> Pair;

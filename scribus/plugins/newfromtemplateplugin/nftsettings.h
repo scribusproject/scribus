@@ -12,9 +12,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include <vector>
-#include <qstring.h>
-#include <qdir.h>
-#include <qfile.h>
+#include <QString>
+#include <QDir>
+#include <QFile>
 #include "nfttemplate.h"
 #include "nftrcreader.h"
  

@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFSPANEL_H
 #define PREFSPANEL_H
 
-#include <qwidget.h>
+#include <QWidget>
 #include "scribusapi.h"
 
 /**

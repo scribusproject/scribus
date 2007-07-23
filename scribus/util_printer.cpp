@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
  #include <winspool.h>
 #endif
 
-#include <qstringlist.h>
+#include <QStringList>
 #include <QDataStream>
 #include <QByteArray>
 #include "util.h"

@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef AUTOFORMBUTTONGROUP_H
 #define AUTOFORMBUTTONGROUP_H
 
-#include <qwidget.h>
-#include <qtoolbutton.h>
+#include <QWidget>
+#include <QToolButton>
 #include <QFrame>
 #include <QGridLayout>
 #include <QPixmap>

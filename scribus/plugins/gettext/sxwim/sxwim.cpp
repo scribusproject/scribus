@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "sxwim.h"
-#include <qstringlist.h>
+#include <QStringList>
 
 #ifdef HAVE_XML
 

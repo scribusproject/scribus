@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <fcntl.h>
 #include <io.h>
 
-#include <qapplication.h>
+#include <QApplication>
 #include <exception>
 using namespace std;
 

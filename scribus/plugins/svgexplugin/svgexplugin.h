@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SVGPLUG_H
 #define SVGPLUG_H
 
-#include <qobject.h>
-#include <qdom.h>
+#include <QObject>
+#include <QDomElement>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 

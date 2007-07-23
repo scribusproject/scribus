@@ -4,15 +4,14 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qlabel.h>
-#include <qtooltip.h>
-#include <qlineedit.h>
-#include <qradiobutton.h>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QLabel>
+#include <QToolTip>
+#include <QLineEdit>
+#include <QRadioButton>
 
 #include "tabprinter.h"
-//#include "tabprinter.moc"
 #include "scrspinbox.h"
 #include "prefsmanager.h"
 #include "units.h"

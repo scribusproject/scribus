@@ -4,8 +4,8 @@
 #include FT_OUTLINE_H
 #include FT_GLYPH_H
 
-#include <qobject.h>
-#include <qfile.h>
+#include <QObject>
+#include <QFile>
 
 #include "scfonts.h"
 #include "util.h"

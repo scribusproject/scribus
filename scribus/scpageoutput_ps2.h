@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCPAGEOUTPUTPS2_H
 #define SCPAGEOUTPUTPS2_H
 
-#include <qdatastream.h>
+#include <QDataStream>
 #include <QRect>
 
 #include "scconfig.h"

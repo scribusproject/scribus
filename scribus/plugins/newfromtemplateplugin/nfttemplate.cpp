@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
  *   Riku Leino, tsoots@gmail.com                                          *
  ***************************************************************************/
 #include "nfttemplate.h"
-#include <qfileinfo.h>
+#include <QFileInfo>
 
 nfttemplate::nfttemplate(QFile* tmplXmlFile, const QString &tmplCategory) 
 {

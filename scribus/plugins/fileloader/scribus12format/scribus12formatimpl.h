@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCRIBUS12FORMATIMPL_H
 #define SCRIBUS12FORMATIMPL_H
 
-#include <qobject.h>
+#include <QObject>
 
 class QString;
 

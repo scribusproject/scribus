@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "scribusapi.h"
-#include <qstring.h>
+#include <QString>
 class ScribusDoc;
 
 #include "lcms.h"

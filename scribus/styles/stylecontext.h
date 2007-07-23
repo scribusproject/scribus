@@ -18,8 +18,8 @@
 #define STYLECONTEXT_H
 
 #include <cassert>
-#include <q3signal.h>
-#include <qstring.h>
+#include <Q3Signal>
+#include <QString>
 #include <QList>
 #include "scribusapi.h"
 

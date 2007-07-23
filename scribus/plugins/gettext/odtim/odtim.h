@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SXWIM_H
 #define SXWIM_H
 
-#include <qstring.h>
+#include <QString>
 #include <gtwriter.h>
 #include "scconfig.h"
 #include "pluginapi.h"

@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <Q3Header>
 #include <QAction>
 #include <QCursor>
 #include <QDrag>
@@ -30,7 +31,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QMouseEvent>
 #include <QPixmap>
-#include <q3header.h>
 
 #include "bookmwin.h"
 

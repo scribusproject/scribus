@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLLECT4OUTPUT_H
 #define COLLECT4OUTPUT_H
 
-#include <qobject.h>
-#include <qmap.h>
+#include <QObject>
+#include <QMap>
 
 class QString;
 class ScribusDoc;

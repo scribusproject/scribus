@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef FPOINT_H
 #define FPOINT_H
 
-#include <qpoint.h>
+#include <QPoint>
 #include "scribusapi.h"
 /**
   *@author Franz Schmid

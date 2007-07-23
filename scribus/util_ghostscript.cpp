@@ -24,26 +24,25 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_ghostscript.h"
 
-#include <qdir.h>
-#include <qfile.h>
-#include <qfileinfo.h>
-#include <qpainter.h>
-#include <QProcess>
-#include <QPixmap>
 #include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QFileInfo>
+#include <QPainter>
+#include <QPixmap>
+#include <QProcess>
 
 #include "scconfig.h"
 
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
+
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-
 #include "scribus.h"
-
 #include "util.h"
 
 using namespace std;

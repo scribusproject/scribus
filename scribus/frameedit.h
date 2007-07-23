@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef NODEPALETTE_H
 #define NODEPALETTE_H
 
-#include <qtooltip.h>
+#include <QToolTip>
 #include <QCheckBox>
 #include <QLabel>
 #include <QPushButton>

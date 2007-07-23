@@ -6,10 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 #ifndef SCRIBUS_FILELOADER_H
 #define SCRIBUS_FILELOADER_H
-#include <qobject.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qmap.h>
+#include <QObject>
+#include <QString>
+#include <QStringList>
+#include <QMap>
 #include <QList>
 
 #include "scribusapi.h"

@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef RULERMOVER_H
 #define RULERMOVER_H
 
-#include <qwidget.h>
+#include <QWidget>
 //Added by qt3to4:
 #include <QMouseEvent>
 

@@ -7,10 +7,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCIMAGESTRUCTS_H
 #define SCIMAGESTRUCTS_H
 
-#include <qstring.h>
+#include <QImage>
 #include <QList>
-#include <qimage.h>
-#include <qmap.h>
+#include <QMap>
+#include <QString>
+
 #include "fpointarray.h"
 #include "sccolor.h"
 

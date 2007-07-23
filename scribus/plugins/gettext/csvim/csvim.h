@@ -12,11 +12,11 @@ for which a new license (GPL+exception) is in place.
 #include <gtwriter.h>
 #include <gtparagraphstyle.h>
 #include <QByteArray>
-#include <qfile.h>
-#include <qfileinfo.h>
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qtextcodec.h>
+#include <QFile>
+#include <QFileInfo>
+#include <QString>
+#include <QStringList>
+#include <QTextCodec>
 
 extern "C" PLUGIN_API void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer);
 

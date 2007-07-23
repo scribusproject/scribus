@@ -25,13 +25,13 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <cstdlib>
 
-#include <qstring.h>
-#include <qfont.h>
-#include <qtranslator.h>
-#include <qfileinfo.h>
-#include <qfile.h>
-#include <qdir.h>
-#include <qtextcodec.h>
+#include <QString>
+#include <QFont>
+#include <QTranslator>
+#include <QFileInfo>
+#include <QFile>
+#include <QDir>
+#include <QTextCodec>
 #include <QTextStream>
 
 #include "scribusapp.h"

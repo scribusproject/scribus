@@ -28,13 +28,14 @@ for which a new license (GPL+exception) is in place.
 #define PREFSREADER_H
 
 #include <vector>
-#include <qstring.h>
-#include <qxml.h>
 
-#include "scribusapi.h"
+#include <QString>
+#include <QXmlDefaultHandler>
+
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefstable.h"
+#include "scribusapi.h"
 
 class SCRIBUS_API PrefsReader : public QXmlDefaultHandler
 {

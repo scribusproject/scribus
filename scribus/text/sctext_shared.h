@@ -1,11 +1,11 @@
 #ifndef SCTEXT_SHARED_H
 #define SCTEXT_SHARED_H
 
-#include <qobject.h>
-#include <qstring.h>
-#include <q3valuevector.h>
-#include <q3ptrvector.h>
-#include <q3ptrlist.h>
+#include <QObject>
+#include <QString>
+#include <Q3ValueVector>
+#include <Q3PtrVector>
+#include <Q3PtrList>
 #include <cassert>
 
 //#include "text/paragraphlayout.h"

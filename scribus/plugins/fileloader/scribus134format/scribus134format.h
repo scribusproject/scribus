@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "styles/styleset.h"
 
-#include <qdom.h>
+#include <QDomElement>
 #include <QMap>
 #include <QString>
 #include <QList>

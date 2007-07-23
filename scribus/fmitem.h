@@ -24,14 +24,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef FMITEM_H
 #define FMITEM_H
 
-#include <qsize.h>
-#include <qpainter.h>
-#include <qfont.h>
-#include <qstring.h>
-#include <qmenudata.h>
+#include <QSize>
+#include <QPainter>
+#include <QFont>
+#include <QString>
+#include <QMenuData>
 
-#include "scribusapi.h"
 #include "scfonts.h"
+#include "scribusapi.h"
 
 /**
   *@author Franz Schmid

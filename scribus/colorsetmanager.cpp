@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "util.h"
 #include "commonstrings.h"
-#include <qdom.h>
+#include <QDomElement>
 #include <QTextStream>
 #include <QByteArray>
 //Added by qt3to4:

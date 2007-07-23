@@ -21,7 +21,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCMESSAGEBOX_H
 #define SCMESSAGEBOX_H
 
-#include <qmessagebox.h>
+#include <QMessageBox>
+
 #include "scribusapi.h"
 
 class SCRIBUS_API ScMessageBox : public QMessageBox

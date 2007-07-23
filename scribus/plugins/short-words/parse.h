@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "shortwords.h"
 
-#include <qobject.h>
+#include <QObject>
 
 class PageItem;
 

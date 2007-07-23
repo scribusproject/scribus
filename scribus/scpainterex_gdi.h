@@ -30,9 +30,9 @@ for which a new license (GPL+exception) is in place.
 
 // libart wrapper
 
-#include <qglobal.h>
 #include <QColor>
 #include <QFont>
+#include <QGlobalStatic>
 #include <QList>
 #include <QMatrix>
 #include <QPixmap>

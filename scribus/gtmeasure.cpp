@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <qstring.h>
-#include <qobject.h>
+#include <QString>
+#include <QObject>
 
 #include "gtmeasure.h"
 

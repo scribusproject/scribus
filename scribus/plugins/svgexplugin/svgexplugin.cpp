@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <qfile.h>
+#include <QFile>
 #include <QTextStream>
 #include <QDataStream>
 #include <QByteArray>

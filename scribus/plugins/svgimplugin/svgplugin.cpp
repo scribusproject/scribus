@@ -14,9 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "mpalette.h"
 #include "prefsfile.h"
-#include <qfile.h>
-#include <qregexp.h>
-#include <qcursor.h>
+#include <QFile>
+#include <QRegExp>
+#include <QCursor>
 //Added by qt3to4:
 #include <QDrag>
 #include <QMimeData>

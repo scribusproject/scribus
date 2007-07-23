@@ -20,17 +20,17 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <cassert>
-#include <qmessagebox.h>
-#include <qstringlist.h>
-#include <qdir.h>
-#include <qlineedit.h>
-#include <qtooltip.h>
-#include <qpushbutton.h>
-#include <qtooltip.h>
-#include <qcheckbox.h>
-#include <qtimer.h>
-#include <qfiledialog.h>
-#include <qlabel.h>
+#include <QMessageBox>
+#include <QStringList>
+#include <QDir>
+#include <QLineEdit>
+#include <QToolTip>
+#include <QPushButton>
+#include <QToolTip>
+#include <QCheckBox>
+#include <QTimer>
+#include <QFileDialog>
+#include <QLabel>
 #include "picsearchoptions.h"
 //#include "picsearchoptions.moc"
 #include "filesearch.h"

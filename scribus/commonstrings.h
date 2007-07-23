@@ -22,8 +22,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef COMMONSTRINGS_H
 #define COMMONSTRINGS_H
 
-#include <qobject.h>
-#include <qstring.h>
+#include <QObject>
+#include <QString>
 #include "scribusapi.h"
 
 /*! \brief A simple common strings class to reduce the string count and ease

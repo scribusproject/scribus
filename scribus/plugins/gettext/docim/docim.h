@@ -10,8 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include "pluginapi.h"
-#include <qobject.h>
-#include <qstringlist.h>
+#include <QObject>
+#include <QStringList>
 
 class gtWriter;
 class QProcess;

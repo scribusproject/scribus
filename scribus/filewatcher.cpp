@@ -4,8 +4,6 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "filewatcher.h"
-//#include "filewatcher.moc"
 
 #include "scconfig.h"
 
@@ -15,11 +13,12 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef _WIN32
 #include <windows.h>
-//Added by qt3to4:
 #include <QList>
 #endif
 
 #include <QStringList>
+
+#include "filewatcher.h"
 
 FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 {

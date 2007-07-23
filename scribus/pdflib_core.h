@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PDFLIBCORE_H
 #define PDFLIBCORE_H
 
-#include <qfile.h>
+#include <QFile>
 #include <QDataStream>
 #include <QPixmap>
 #include <QList>

@@ -22,10 +22,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef LANGMANAGER_H
 #define LANGMANAGER_H
 
-#include <qmap.h>
+#include <QMap>
 #include <utility>
 
-#include <qstring.h>
+#include <QString>
 #include "scribusapi.h"
 
 typedef std::pair<QString, QString> langPair;

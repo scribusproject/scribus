@@ -5,17 +5,16 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scpreview.h"
-#include <qdom.h>
-#include <qmap.h>
-#include <qpainter.h>
-#include <qrect.h>
-#include <qimage.h>
-#include <qregion.h>
-#include <qregexp.h>
-#include <qfileinfo.h>
-#include <qbitmap.h>
-#include <qdir.h>
-//Added by qt3to4:
+#include <QDomDocument>
+#include <QMap>
+#include <QPainter>
+#include <QRect>
+#include <QImage>
+#include <QRegion>
+#include <QRegExp>
+#include <QFileInfo>
+#include <QBitmap>
+#include <QDir>
 #include <QList>
 #include <QPolygon>
 #include <QTextStream>

@@ -21,9 +21,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef TOCGENERATOR_H
 #define TOCGENERATOR_H
 
-#include <qobject.h>
+#include <QObject>
 
 #include "scribusapi.h"
+
 class ScribusDoc;
 class PageItem;
 

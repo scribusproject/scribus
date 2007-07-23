@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "fpoint.h"
 
-#include <qmatrix.h>
+#include <QMatrix>
 
 //Create transformed point
 FPoint::FPoint(const double x, const double y, const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert)

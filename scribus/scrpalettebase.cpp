@@ -24,19 +24,17 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <qapplication.h>
-#include <qpoint.h>
-//Added by qt3to4:
 #include <QApplication>
+#include <QCloseEvent>
 #include <QDesktopWidget>
 #include <QHideEvent>
-#include <QCloseEvent>
+#include <QPoint>
 
-#include "scrpalettebase.h"
-#include "scribus.h"
-#include "prefsmanager.h"
-#include "prefsfile.h"
 #include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "scribus.h"
+#include "scrpalettebase.h"
 #include "util.h"
 #include "util_icon.h"
 

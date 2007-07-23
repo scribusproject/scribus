@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #define COLORLISTBOX_H
 
 #include <QListWidget>
-#include <qcolor.h>
-#include <qpointer.h>
+#include <QColor>
+#include <QPointer>
 
 #include "colorsetmanager.h"
 #include "commonstrings.h"

@@ -26,11 +26,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef __VGRADIENT_H__
 #define __VGRADIENT_H__
 
+#include <QColor>
 #include <QList>
-#include "scribusapi.h"
+#include <QMatrix>
+
 #include "fpoint.h"
-#include <qcolor.h>
-#include <qmatrix.h>
+#include "scribusapi.h"
 
 class SCRIBUS_API VColorStop
 {

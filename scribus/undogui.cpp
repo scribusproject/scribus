@@ -24,15 +24,15 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <qlayout.h>
-#include <qpixmap.h>
-#include <qpushbutton.h>
-#include <qrect.h>
-#include <qstyle.h>
-#include <qtooltip.h>
-#include <qcheckbox.h>
-#include <qfont.h>
-#include <qfontmetrics.h>
+#include <QLayout>
+#include <QPixmap>
+#include <QPushButton>
+#include <QRect>
+#include <QStyle>
+#include <QToolTip>
+#include <QCheckBox>
+#include <QFont>
+#include <QFontMetrics>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
  

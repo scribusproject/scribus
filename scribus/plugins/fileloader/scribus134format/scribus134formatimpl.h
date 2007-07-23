@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef OLDSCRIBUSFORMATIMPL_H
 #define OLDSCRIBUSFORMATIMPL_H
 
-#include <qobject.h>
+#include <QObject>
 
 class QString;
 

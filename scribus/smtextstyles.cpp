@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "mpalette.h"
 #include "smwidgets.h"
 
-#include <qtabwidget.h>
+#include <QTabWidget>
 
 SMParagraphStyle::SMParagraphStyle(StyleSet<CharStyle> *cstyles) : StyleItem(),
 pwidget_(0), doc_(0), selectionIsDirty_(false), unitRatio_(1.0), cstyles_(cstyles)

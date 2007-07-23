@@ -28,8 +28,8 @@ or documentation
 #include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include <qdir.h>
-#include <qstringlist.h>
+#include <QDir>
+#include <QStringList>
 
 
 SWConfig::SWConfig()

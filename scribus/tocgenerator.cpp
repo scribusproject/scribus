@@ -21,8 +21,8 @@ for which a new license (GPL+exception) is in place.
 #include "tocgenerator.h"
 //#include "tocgenerator.moc"
 
-#include <qmap.h>
-#include <qstring.h>
+#include <QMap>
+#include <QString>
 
 #include "scribusdoc.h"
 #include "pagestructs.h"

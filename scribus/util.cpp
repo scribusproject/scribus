@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QPixmap>
 #include <QWidget>
-#include <qdir.h>
+#include <QDir>
 
 
 #include <cmath>
@@ -64,7 +64,7 @@ for which a new license (GPL+exception) is in place.
 // #include "prefstable.h"
 #include "prefsmanager.h"
 #include <QProcess>
-#include <q3process.h>
+#include <Q3Process>
 #include "scmessagebox.h"
 #include "scpixmapcache.h"
 #include "scpaths.h"

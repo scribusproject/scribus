@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef GTDIALOGS_H
 #define GTDIALOGS_H
 
+#include <Q3FileDialog>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QDialog>
@@ -43,8 +44,6 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 #include <QToolButton>
 #include <QToolTip>
-#include <q3filedialog.h>
-
 
 #include "scribusapi.h"
 

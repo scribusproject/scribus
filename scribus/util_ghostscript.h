@@ -14,10 +14,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef _GSUTIL_H
 #define _GSUTIL_H
 
-#include <qpixmap.h>
-#include <qstring.h>
-#include <qstringlist.h>
 #include <QMap>
+#include <QPixmap>
+#include <QString>
+#include <QStringList>
 
 #include "scribusapi.h"
 
