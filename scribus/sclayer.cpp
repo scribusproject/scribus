@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 ScLayer::ScLayer(void)
 {
-	Name         = "New Layer";
+	Name         = QObject::tr("New Layer");
 	LNr          = 0;
 	Level        = 0;
 	isPrintable  = true;
