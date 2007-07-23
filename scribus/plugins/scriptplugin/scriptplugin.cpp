@@ -186,7 +186,10 @@ bool ScriptPlugin::initPlugin()
 bool ScriptPlugin::cleanupPlugin()
 {
 	if (scripterCore)
+	{
 		delete scripterCore;
+		scripterCore = NULL;
+	}
 	Py_Finalize();
 	return true;
 }
