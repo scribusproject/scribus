@@ -249,7 +249,7 @@
         <item>
          <widget class="QPushButton" name="psToolChangeButton" >
           <property name="text" >
-           <string>&amp;Change..</string>
+           <string>&amp;Change...</string>
           </property>
           <property name="shortcut" >
            <string>Alt+C</string>
