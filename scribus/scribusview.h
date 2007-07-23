@@ -28,21 +28,20 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 // include files for QT
-#include <q3scrollview.h>
-#include <qlineedit.h>
-#include <qscrollbar.h>
+#include <Q3ScrollView>
+#include <QLineEdit>
+#include <QScrollBar>
 #if OPTION_USE_QTOOLBUTTON
-    #include <qtoolbutton.h>
+    #include <QToolButton>
 #else
-    #include <qpushbutton.h>
+    #include <QPushButton>
 #endif
 #include <QMenu>
-#include <qlabel.h>
-#include <qcombobox.h>
+#include <QLabel>
+#include <QComboBox>
 #include <QProgressDialog>
-#include <qspinbox.h>
-#include <qcursor.h>
-//Added by qt3to4:
+#include <QSpinBox>
+#include <QCursor>
 #include <QDragLeaveEvent>
 #include <QDragEnterEvent>
 #include <QDragMoveEvent>
@@ -60,7 +59,6 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 class Page;
 #include "scrspinbox.h"
-//#include "util.h"
 class Hruler;
 class Vruler;
 class UndoManager;

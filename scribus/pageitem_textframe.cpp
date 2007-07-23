@@ -21,41 +21,34 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "pageitem_textframe.h"
-#include <qpainter.h>
-#include <qpen.h>
-#include <qfont.h>
-#include <qregion.h>
-#include <qpoint.h>
-#include <qfileinfo.h>
-#include <qdrawutil.h>
-#include <qbitmap.h>
-#include <qregexp.h>
-#include <qmessagebox.h>
-#include <QList>
-#include <QKeyEvent>
 #include <Q3PointArray>
+#include <QList>
+#include <QMatrix>
+#include <QPoint>
+#include <QRegion>
+
 #include <cmath>
 #include <cassert>
 
+#include "commonstrings.h"
+#include "guidemanager.h"
 #include "hyphenator.h"
 #include "mpalette.h"
 #include "page.h"
 #include "pageitem.h"
+#include "pageitem_textframe.h"
 #include "prefsmanager.h"
+#include "scconfig.h"
 #include "scpaths.h"
 #include "scribus.h"
-#include "scribusstructs.h"
 #include "scribusdoc.h"
+#include "scribusstructs.h"
 #include "selection.h"
+#include "text/nlsconfig.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "scconfig.h"
-#include "commonstrings.h"
-#include "guidemanager.h"
-
 #include "util_math.h"
-#include "text/nlsconfig.h"
+
 
 using namespace std;
 

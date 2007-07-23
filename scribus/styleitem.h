@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLEITEM_H
 #define STYLEITEM_H
 
-#include <qobject.h>
-#include <qlist.h>
+#include <QObject>
+#include <QList>
 #include <QPair>
 
 class QString;

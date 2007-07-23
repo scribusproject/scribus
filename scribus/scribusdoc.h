@@ -26,14 +26,15 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #endif
 // include files for QT
-#include <qobject.h>
-#include <qcolor.h>
+#include <QColor>
+#include <QFont>
 #include <QList>
-#include <qpixmap.h>
-#include <qfont.h>
-#include <qmap.h>
-#include <qstringlist.h>
-#include <qtimer.h>
+#include <QMap>
+#include <QObject>
+#include <QPixmap>
+#include <QStringList>
+#include <QTimer>
+
 
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"

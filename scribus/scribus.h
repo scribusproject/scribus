@@ -61,7 +61,6 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QWheelEvent>
 #include <QWorkspace>
-#include <q3intdict.h>
 
 
 // application specific includes

@@ -22,18 +22,10 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pageitem_pathtext.h"
-#include <qpainter.h>
-#include <qpen.h>
-#include <qfont.h>
-#include <qregion.h>
-#include <qpoint.h>
-#include <qfileinfo.h>
-#include <qdrawutil.h>
-#include <qbitmap.h>
-#include <qpixmap.h>
-#include <qrect.h>
-#include <qregexp.h>
-#include <qmessagebox.h>
+#include <QImage>
+#include <QList>
+#include <QPainterPath>
+
 #include <cmath>
 #include <cassert>
 

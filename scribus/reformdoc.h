@@ -7,15 +7,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef REFORMDOC_H
 #define REFORMDOC_H
 
-#include <qlayout.h>
-#include <qcheckbox.h>
-#include <qcombobox.h>
-#include <qradiobutton.h>
-#include <qlabel.h>
-#include <qlineedit.h>
-#include <qpushbutton.h>
-#include <qtoolbutton.h>
-#include <qcolor.h>
+#include <QLayout>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QRadioButton>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QToolButton>
+#include <QColor>
 
 #include "scribusapi.h"
 #include "scribusstructs.h"

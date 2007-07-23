@@ -22,14 +22,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGEITEM_IMAGEFRAME_H
 #define PAGEITEM_IMAGEFRAME_H
 
-#include <qobject.h>
-#include <qwidget.h>
-#include <qpixmap.h>
-#include <QList>
-
-#include <qstring.h>
-#include <qrect.h>
-//Added by qt3to4:
+#include <QString>
+#include <QRect>
 #include <QKeyEvent>
 
 #include "scribusapi.h"

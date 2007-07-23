@@ -30,11 +30,11 @@ for which a new license (GPL+exception) is in place.
 #include "seiten.h"
 
 #include <utility>
-#include <qeventloop.h>
+#include <QEventLoop>
 
-#include <qdebug.h>
-#include <qfile.h>
-#include <qpainter.h>
+#include <QDebug>
+#include <QFile>
+#include <QPainter>
 #include <QProgressBar>
 
 #include <QList>

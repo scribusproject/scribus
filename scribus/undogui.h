@@ -32,13 +32,13 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "scrpalettebase.h"
 #include <vector>
-#include <qwidget.h>
-#include <qdialog.h>
-#include <qstring.h>
-#include <q3listbox.h>
-#include <qtoolbutton.h>
-#include <qpainter.h>
-#include <qpixmap.h>
+#include <QWidget>
+#include <QDialog>
+#include <QString>
+#include <Q3ListBox>
+#include <QToolButton>
+#include <QPainter>
+#include <QPixmap>
 #include <QMenu>
 
 class QCheckBox;

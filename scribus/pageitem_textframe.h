@@ -22,23 +22,17 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGEITEMTEXTFRAME_H
 #define PAGEITEMTEXTFRAME_H
 
-#include <qevent.h>
-#include <qobject.h>
-
-#include <qmap.h>
-#include <qpixmap.h>
-#include <qrect.h>
-#include <qstring.h>
-#include <qwidget.h>
-//Added by qt3to4:
+#include <QMap>
+#include <QRect>
+#include <QString>
 #include <QKeyEvent>
-#include <QList>
 
 #include "scribusapi.h"
 #include "undoobject.h"
 #include "scimage.h"
 #include "pagestructs.h"
 #include "pageitem.h"
+
 class ScPainter;
 class ScribusDoc;
 class UndoManager;

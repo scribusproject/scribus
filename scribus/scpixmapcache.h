@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCPIXMAPCACHE_H
 #define SCPIXMAPCACHE_H
 
-#include <qmap.h>
-#include <qpixmap.h>
+#include <QMap>
+#include <QPixmap>
 
 template <typename T>
 class ScPixmapCache : public QMap<T, QPixmap*>

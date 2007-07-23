@@ -22,13 +22,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGEITEMLINE_H
 #define PAGEITEMLINE_H
 
-#include <qobject.h>
-#include <qwidget.h>
-#include <qpixmap.h>
-#include <QList>
-
-#include <qstring.h>
-#include <qrect.h>
+#include <QString>
+#include <QRect>
 
 #include "scribusapi.h"
 #include "undoobject.h"

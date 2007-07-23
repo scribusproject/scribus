@@ -21,24 +21,13 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "pageitem_polygon.h"
-//#include "pageitem_polygon.moc"
-#include <qpainter.h>
-#include <qpen.h>
-#include <qfont.h>
-#include <qregion.h>
-#include <qpoint.h>
-#include <qfileinfo.h>
-#include <qdrawutil.h>
-#include <qbitmap.h>
-#include <qregexp.h>
-#include <qmessagebox.h>
 #include <cmath>
 #include <cassert>
 
 #include "mpalette.h"
 #include "page.h"
 #include "pageitem.h"
+#include "pageitem_polygon.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
 #include "scribus.h"

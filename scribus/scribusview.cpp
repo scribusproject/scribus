@@ -25,16 +25,16 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#include <qcolor.h>
-#include <qfont.h>
-#include <qfontmetrics.h>
-#include <qpixmap.h>
-#include <q3pointarray.h>
-#include <qstringlist.h>
-#include <qimage.h>
-#include <q3cstring.h>
-#include <qfileinfo.h>
-#include <qfile.h>
+#include <QColor>
+#include <QFont>
+#include <QFontMetrics>
+#include <QPixmap>
+#include <Q3PointArray>
+#include <QStringList>
+#include <QImage>
+#include <Q3CString>
+#include <QFileInfo>
+#include <QFile>
 #include <QStack>
 //Added by qt3to4:
 #include <QWheelEvent>
@@ -62,10 +62,10 @@ for which a new license (GPL+exception) is in place.
 #include <unistd.h>
 #endif
 
-#include <q3url.h>
-#include <qdir.h>
-#include <qevent.h>
-#include <qsizegrip.h>
+#include <Q3Url>
+#include <QDir>
+#include <QEvent>
+#include <QSizeGrip>
 #if QT_VERSION  > 0x030102
 	#define SPLITVC Qt::SplitHCursor
 	#define SPLITHC Qt::SplitVCursor

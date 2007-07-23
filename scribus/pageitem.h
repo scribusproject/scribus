@@ -26,8 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QObject>
 #include <QWidget>
-#include <q3pointarray.h>
-#include <QPixmap>
+#include <Q3PointArray>
 #include <QStack>
 #include <QList>
 #include <QKeyEvent>

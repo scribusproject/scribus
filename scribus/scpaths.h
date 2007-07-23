@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCPATHS_H
 #define SCPATHS_H
 
-#include <qstring.h>
-#include <qstringlist.h>
+#include <QString>
+#include <QStringList>
 #include "scribusapi.h"
 
 class SCRIBUS_API ScPaths

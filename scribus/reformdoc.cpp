@@ -6,11 +6,10 @@ for which a new license (GPL+exception) is in place.
 */
 #include "reformdoc.h"
 
-#include <qcolordialog.h>
-#include <qcursor.h>
-#include <qspinbox.h>
-#include <qtooltip.h>
-//Added by qt3to4:
+#include <QColorDialog>
+#include <QCursor>
+#include <QSpinBox>
+#include <QToolTip>
 #include <QPixmap>
 #include <QStackedWidget>
 

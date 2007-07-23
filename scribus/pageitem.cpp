@@ -22,22 +22,16 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "pageitem.h"
-//#include "pageitem.moc"
-#include <qpainter.h>
-#include <qpen.h>
-#include <qfont.h>
-#include <qregion.h>
-#include <qpoint.h>
-#include <qfileinfo.h>
+#include <QPainter>
+#include <QPen>
+#include <QFont>
+#include <QRegion>
+#include <QPoint>
+#include <QFileInfo>
 #include <qdrawutil.h>
-#include <qbitmap.h>
-#include <qregexp.h>
-#include <qmessagebox.h>
+#include <QRegExp>
+#include <QMessageBox>
 #include <Q3PointArray>
-#include <QKeyEvent>
-#include <QList>
-#include <QStack>
-#include <QPixmap>
 #include <cmath>
 #include <cassert>
 
