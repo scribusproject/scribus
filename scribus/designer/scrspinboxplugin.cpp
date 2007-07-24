@@ -4,8 +4,10 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <QtPlugin>
 #include "scrspinboxplugin.h"
 #include "scrspinbox.h"
+
 
 ScrSpinBoxPlugin::ScrSpinBoxPlugin(QObject* parent)
 	: QObject(parent), initialized(false)
@@ -83,5 +85,5 @@ QString ScrSpinBoxPlugin::codeTemplate() const
 	return QString();
 }
 
-Q_EXPORT_PLUGIN2(scribusdesigner, ScrSpinBoxPlugin)
+Q_EXPORT_PLUGIN2(scribus_scrspinbox, ScrSpinBoxPlugin)
 

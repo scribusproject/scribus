@@ -10,9 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDesignerContainerExtension>
 #include <QDesignerCustomWidgetInterface>
 
-#include <QPlugin>
-
-
 class QDesignerFormEditorInterface;
 
 
