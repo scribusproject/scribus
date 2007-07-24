@@ -394,6 +394,7 @@ void PrefsManager::initDefaults()
 	appPrefs.useStandardLI = false;
 	appPrefs.paragraphsLI = 10;
 	appPrefs.showStartupDialog = true;
+	appPrefs.useSmallWidgets = false;
 	initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
 	appPrefs.curCheckProfile = CommonStrings::PostScript;
 	appPrefs.PDF_Options.Thumbnails = false;
@@ -1071,6 +1072,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("STEFONT", appPrefs.STEfont);
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.haveStylePreview));
 	dc.setAttribute("StartUp", static_cast<int>(appPrefs.showStartupDialog));
+	dc.setAttribute("UseSmallWidgets", static_cast<int>(appPrefs.useSmallWidgets));
 	dc.setAttribute("ToolTips", static_cast<int>(appPrefs.showToolTips));
 	dc.setAttribute("stickyTools", static_cast<int>(appPrefs.stickyTools));
 	elem.appendChild(dc);
@@ -1563,6 +1565,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
 			appPrefs.haveStylePreview = static_cast<bool>(dc.attribute("STYLEPREVIEW", "1").toInt());
 			appPrefs.showStartupDialog = static_cast<bool>(dc.attribute("StartUp", "1").toInt());
+			appPrefs.useSmallWidgets = static_cast<bool>(dc.attribute("UseSmallWidgets", "0").toInt());
 			appPrefs.scratch.Bottom = dc.attribute("ScratchBottom", "20").toDouble();
 			appPrefs.scratch.Left = dc.attribute("ScratchLeft", "100").toDouble();
 			appPrefs.scratch.Right = dc.attribute("ScratchRight", "100").toDouble();

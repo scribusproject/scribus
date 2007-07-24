@@ -349,6 +349,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.documentTemplatesDir = ScPaths::separatorsToSlashes( tabGeneral->DocumentTemplateDir->text() );
 	prefsManager->appPrefs.guiLanguage=tabGeneral->selectedGUILang;
 	prefsManager->appPrefs.GUI = tabGeneral->GUICombo->currentText();
+	prefsManager->appPrefs.useSmallWidgets = tabGeneral->useSmallWidgetsCheck->isChecked();
 
 	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal = tabView->gapHorizontal->value() / prefsUnitRatio;
 	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapVertical = tabView->gapVertical->value() / prefsUnitRatio;
