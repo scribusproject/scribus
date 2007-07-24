@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "scpageoutput.h"
 
 #include <QList>
+#include <QPointF>
+#include <QRectF>
 #include <QStack>
 
 #include "cmsettings.h"
@@ -203,7 +205,7 @@ void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, const Q
 							painter->rotate(currItem->rotation());
 							if (currItem->lineColor() != CommonStrings::None)
 							{
-								ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], currItem->lineShade());
+								ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], (int) currItem->lineShade());
 								if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
 								{
 									painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
@@ -328,7 +330,7 @@ void ScPageOutput::DrawPageItems(ScPainterExBase *painter, Page *page, const QRe
 						painter->rotate(currItem->rotation());
 						if (currItem->lineColor() != CommonStrings::None)
 						{
-							ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], currItem->lineShade() );
+							ScColorShade tmp( m_doc->PageColors[currItem->lineColor()], (int) currItem->lineShade() );
 							if ((currItem->TopLine) || (currItem->RightLine) || (currItem->BottomLine) || (currItem->LeftLine))
 							{
 								painter->setPen(tmp, currItem->lineWidth(), currItem->PLineArt, Qt::SquareCap, currItem->PLineJoin);
@@ -388,7 +390,7 @@ void ScPageOutput::DrawItem_Pre( PageItem* item, ScPainterExBase* painter)
 			painter->m_fillGradient = VGradientEx(VGradientEx::linear);
 			if (item->fillColor() != CommonStrings::None)
 			{
-				painter->setBrush(ScColorShade(m_doc->PageColors[item->fillColor()], item->fillShade()));
+				painter->setBrush(ScColorShade(m_doc->PageColors[item->fillColor()], (int) item->fillShade()));
 				painter->setFillMode(ScPainterExBase::Solid);
 			}
 			else
@@ -438,7 +440,7 @@ void ScPageOutput::DrawItem_Pre( PageItem* item, ScPainterExBase* painter)
 		painter->m_fillGradient = VGradientEx(VGradientEx::linear);
 		if (item->fillColor() != CommonStrings::None)
 		{
-			painter->setBrush( ScColorShade(m_doc->PageColors[item->fillColor()], item->fillShade()) );
+			painter->setBrush( ScColorShade(m_doc->PageColors[item->fillColor()], (int) item->fillShade()) );
 			painter->setFillMode(ScPainterExBase::Solid);
 		}
 		else
@@ -450,7 +452,7 @@ void ScPageOutput::DrawItem_Pre( PageItem* item, ScPainterExBase* painter)
 			painter->setLineWidth(0);
 		else
 		{
-			ScColorShade tmp(m_doc->PageColors[item->lineColor()], item->lineShade());
+			ScColorShade tmp(m_doc->PageColors[item->lineColor()], (int) item->lineShade());
 			painter->setPen( tmp , item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
 			if (item->DashValues.count() != 0)
 				painter->setDash(item->DashValues, item->DashOffset);
@@ -472,7 +474,7 @@ void ScPageOutput::DrawItem_Post( PageItem* item, ScPainterExBase* painter )
 	{
 		if (item->lineColor() != CommonStrings::None)
 		{
-			ScColorShade tmp(m_doc->PageColors[item->lineColor()], item->lineShade());
+			ScColorShade tmp(m_doc->PageColors[item->lineColor()], (int) item->lineShade());
 			painter->setPen(tmp, item->lineWidth(), item->PLineArt, item->PLineEnd, item->PLineJoin);
 			if (item->DashValues.count() != 0)
 				painter->setDash(item->DashValues, item->DashOffset);
@@ -502,8 +504,6 @@ void ScPageOutput::DrawItem_Post( PageItem* item, ScPainterExBase* painter )
 			}
 		}
 	}
-	if ((!item->isEmbedded))
-		double scpInv = 1.0;
 //	item->Tinput = false;
 	painter->restore();
 }
@@ -772,13 +772,13 @@ void ScPageOutput::DrawPattern( PageItem* item, ScPainterExBase* painter, const 
 	double rot    = patternRotation - floor(patternRotation / 90) * 90;
 	double ctheta = cos(rot * M_PI / 180);
 	double stheta = sin(rot * M_PI / 180);
-	QRect itemRect(0, 0, item->width(), item->height());
-	QPoint pa( width * stheta * stheta, -width * stheta * ctheta );
-	QPoint pb( width + height * ctheta * stheta, height * stheta * stheta );
-	QPoint pc( -height * ctheta * stheta, height * ctheta * ctheta );
-	QPoint pd( width * ctheta * ctheta, height + width * ctheta * stheta );
-	QPoint ipa = invMat.map(pa), ipb = invMat.map(pb);
-	QPoint ipc = invMat.map(pc), ipd = invMat.map(pd);
+	QRectF  itemRect(0.0, 0.0, item->width(), item->height());
+	QPointF pa( width * stheta * stheta, -width * stheta * ctheta );
+	QPointF pb( width + height * ctheta * stheta, height * stheta * stheta );
+	QPointF pc( -height * ctheta * stheta, height * ctheta * ctheta );
+	QPointF pd( width * ctheta * ctheta, height + width * ctheta * stheta );
+	QPointF ipa = invMat.map(pa), ipb = invMat.map(pb);
+	QPointF ipc = invMat.map(pc), ipd = invMat.map(pd);
 
 	painter->save();
 	if (item->imageClip.size() != 0)
@@ -790,7 +790,7 @@ void ScPageOutput::DrawPattern( PageItem* item, ScPainterExBase* painter, const 
 	painter->setClipPath();
 	for (int index = 0; index < pattern.items.count(); index++)
 	{
-		QRect itRect;
+		QRectF itRect;
 		PageItem* it = pattern.items.at(index);
 		if (it->isGroupControl)
 			continue;
@@ -811,10 +811,10 @@ void ScPageOutput::DrawPattern( PageItem* item, ScPainterExBase* painter, const 
 		double kyb = (ipb.y() - it->gYpos) / patHeight;
 		double kyc = (ipc.y() - it->gYpos) / patHeight;
 		double kyd = (ipd.y() - it->gYpos) / patHeight;
-		int kxMin = floor( qMin(qMin(kxa, kxb), qMin(kxc, kxd)) );
-		int kxMax = ceil ( qMax(qMax(kxa, kxb), qMax(kxc, kxd)) );
-		int kyMin = floor( qMin(qMin(kya, kyb), qMin(kyc, kyd)) );
-		int kyMax = ceil ( qMax(qMax(kya, kyb), qMax(kyc, kyd)) );
+		int kxMin  = (int) floor( qMin(qMin(kxa, kxb), qMin(kxc, kxd)) );
+		int kxMax  = (int) ceil ( qMax(qMax(kxa, kxb), qMax(kxc, kxd)) );
+		int kyMin  = (int) floor( qMin(qMin(kya, kyb), qMin(kyc, kyd)) );
+		int kyMax  = (int) ceil ( qMax(qMax(kya, kyb), qMax(kyc, kyd)) );
 
 		double itx = it->xPos();
 		double ity = it->yPos();
@@ -985,7 +985,6 @@ void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter,
 void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* painter, const QRect& clip )
 {
 	int a;
-	int chs;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
 	double dx;
@@ -1038,7 +1037,6 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 		if (chstr[0] == SpecialChars::PAGENUMBER || chstr[0] == SpecialChars::PARSEP
 			|| chstr[0] == SpecialChars::TAB || chstr == SpecialChars::LINEBREAK)
 			continue;
-		chs = hl->fontSize();
 		if (a < item->itemText.length()-1)
 			chstr += item->itemText.text(a+1, 1);
 		hl->glyph.yadvance = 0;
@@ -1325,20 +1323,19 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			for (a = ls.firstItem; a <= ls.lastItem; ++a)
 			{
 				hl = item->itemText.item(a);
-				const CharStyle& charStyle = item->itemText.charStyle(a);
-				const ParagraphStyle& style = item->itemText.paragraphStyle(a);
+				const CharStyle& charStyle  = item->itemText.charStyle(a);
 				double chs = charStyle.fontSize() * hl->glyph.scaleV;
 				if (charStyle.effects() & ScStyle_StartOfLine)
 					tabCc = 0;
 				chstr = hl->ch;
 				if (charStyle.fillColor() != CommonStrings::None)
 				{
-					ScColorShade tmp(m_doc->PageColors[charStyle.fillColor()], hl->fillShade());
+					ScColorShade tmp(m_doc->PageColors[charStyle.fillColor()], (int) hl->fillShade());
 					painter->setBrush(tmp);
 				}
 				if (charStyle.strokeColor() != CommonStrings::None)
 				{
-					ScColorShade tmp(m_doc->PageColors[charStyle.strokeColor()], hl->strokeShade());
+					ScColorShade tmp(m_doc->PageColors[charStyle.strokeColor()], (int) hl->strokeShade());
 					painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 				}
 				if (charStyle.effects() & ScStyle_DropCap)
@@ -1361,12 +1358,12 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 					tabCc++;
 				//if (!m_doc->RePos)
 				{
-					double xcoZli = CurX + hl->glyph.xoffset;
+					//double xcoZli = CurX + hl->glyph.xoffset;
 					desc = - charStyle.font().descent(charStyle.fontSize() / 10.0);
 					asce = charStyle.font().ascent(charStyle.fontSize() / 10.0);
 					if (charStyle.strokeColor() != CommonStrings::None)
 					{
-						ScColorShade tmp(m_doc->PageColors[charStyle.strokeColor()], charStyle.strokeShade());
+						ScColorShade tmp(m_doc->PageColors[charStyle.strokeColor()], (int) charStyle.strokeShade());
 						painter->setPen(tmp, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					}
 					if (e2.intersects(wm.mapRect(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
