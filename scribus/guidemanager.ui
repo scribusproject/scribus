@@ -183,28 +183,12 @@
            </widget>
           </item>
           <item row="2" column="0" colspan="2" >
-           <widget class="ScrSpinBox" name="horizontalAutoGapSpin" >
-            <property name="minimumSize" >
-             <size>
-              <width>0</width>
-              <height>10</height>
-             </size>
-            </property>
-           </widget>
+           <widget class="ScrSpinBox" name="horizontalAutoGapSpin" />
           </item>
           <item row="3" column="0" colspan="2" >
-           <widget class="Q3ButtonGroup" name="horizontalReferGroup" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="QGroupBox" name="groupBox" >
             <property name="title" >
              <string>Refer To</string>
-            </property>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
             </property>
             <layout class="QGridLayout" >
              <item row="0" column="0" >
@@ -286,28 +270,12 @@
            </widget>
           </item>
           <item row="2" column="0" colspan="2" >
-           <widget class="ScrSpinBox" name="verticalAutoGapSpin" >
-            <property name="minimumSize" >
-             <size>
-              <width>0</width>
-              <height>10</height>
-             </size>
-            </property>
-           </widget>
+           <widget class="ScrSpinBox" name="verticalAutoGapSpin" />
           </item>
           <item row="3" column="0" colspan="2" >
-           <widget class="Q3ButtonGroup" name="verticalReferGroup" >
-            <property name="sizePolicy" >
-             <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
+           <widget class="QGroupBox" name="groupBox_2" >
             <property name="title" >
              <string>Refer To</string>
-            </property>
-            <property name="orientation" >
-             <enum>Qt::Vertical</enum>
             </property>
             <layout class="QGridLayout" >
              <item row="0" column="0" >
@@ -416,12 +384,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <customwidgets>
-  <customwidget>
-   <class>Q3ButtonGroup</class>
-   <extends>Q3GroupBox</extends>
-   <header>Qt3Support/Q3ButtonGroup</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>

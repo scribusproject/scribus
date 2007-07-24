@@ -76,7 +76,20 @@ GuideManager::GuideManager(QWidget* parent) :
 			this, SLOT(horizontalAutoGapSpin_valueChanged(double)));
 	connect(verticalAutoGapSpin, SIGNAL(valueChanged(double)),
 			this, SLOT(verticalAutoGapSpin_valueChanged(double)));
-	// TODO/FIXME: Refer To radiobuttons
+
+	connect(horizontalPageAutoButton, SIGNAL(toggled(bool)),
+			this, SLOT(horizontalPageAutoButton_toggled(bool)));
+	connect(horizontalMarginsAutoButton, SIGNAL(toggled(bool)),
+			this, SLOT(horizontalMarginsAutoButton_toggled(bool)));
+	connect(horizontalSelectionAutoButton, SIGNAL(toggled(bool)),
+			this, SLOT(horizontalSelectionAutoButton_toggled(bool)));
+	connect(verticalPageAutoButton, SIGNAL(toggled(bool)),
+			this, SLOT(verticalPageAutoButton_toggled(bool)));
+	connect(verticalMarginsAutoButton, SIGNAL(toggled(bool)),
+			this, SLOT(verticalMarginsAutoButton_toggled(bool)));
+	connect(verticalSelectionAutoButton, SIGNAL(toggled(bool)),
+			this, SLOT(verticalSelectionAutoButton_toggled(bool)));
+	
 	connect(applyToAllAutoButton, SIGNAL(clicked()),
 			this, SLOT(applyToAllAutoButton_clicked()));
 	connect(deletePageButton, SIGNAL(clicked()),
@@ -125,7 +138,7 @@ void GuideManager::setupGui()
 		horizontalAutoGapSpin->setEnabled(false);
 		horizontalAutoGapCheck->setEnabled(false);
 	}
-	horizontalReferGroup->setButton(currentPage->guides.horizontalAutoRefer());
+	setHorizontalRefer(currentPage->guides.horizontalAutoRefer());
 	// allow the selection radio button?
 	horizontalSelectionAutoButton->setEnabled(!m_Doc->m_Selection->isEmpty());
 
@@ -140,7 +153,7 @@ void GuideManager::setupGui()
 		verticalAutoGapSpin->setEnabled(false);
 		verticalAutoGapCheck->setEnabled(false);
 	}
-	verticalReferGroup->setButton(currentPage->guides.verticalAutoRefer());
+	setVerticalRefer(currentPage->guides.verticalAutoRefer());
 	// allow the selection radio button?
 	verticalSelectionAutoButton->setEnabled(!m_Doc->m_Selection->isEmpty());
 
@@ -158,7 +171,7 @@ void GuideManager::storePageValues(Page *page)
 		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
 	page->guides.setHorizontalAutoGap(gapValue);
 	page->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
-	page->guides.setHorizontalAutoRefer(horizontalReferGroup->selectedId());
+	page->guides.setHorizontalAutoRefer(horizontalRefer());
 	page->guides.addHorizontals(getAutoHorizontals(), GuideManagerCore::Auto);
 
 	gapValue = 0.0;
@@ -166,7 +179,7 @@ void GuideManager::storePageValues(Page *page)
 		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
 	page->guides.setVerticalAutoGap(gapValue);
 	page->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
-	page->guides.setVerticalAutoRefer(verticalReferGroup->selectedId());
+	page->guides.setVerticalAutoRefer(verticalRefer());
 	page->guides.addVerticals(getAutoVerticals(), GuideManagerCore::Auto);
 }
 
@@ -306,22 +319,6 @@ void GuideManager::verticalAutoGapCheck_stateChanged( int )
 	drawGuides();
 }
 
-void GuideManager::horizontalReferGroup_clicked(int val)
-{
-	currentPage->guides.setHorizontalAutoRefer(val);
-	if (val == 2 && horizontalSelectionAutoButton->isEnabled())
-		resetSelectionForPage();
-	drawGuides();
-}
-
-void GuideManager::verticalReferGroup_clicked(int val)
-{
-	currentPage->guides.setVerticalAutoRefer(val);
-	if (val == 2 && verticalSelectionAutoButton->isEnabled())
-		resetSelectionForPage();
-	drawGuides();
-}
-
 void GuideManager::tabWidget_currentChanged(QWidget *)
 {
 	drawGuides();
@@ -444,7 +441,7 @@ Guides GuideManager::getAutoVerticals()
 		return retval;
 	++value;
 
-	if (verticalReferGroup->selectedId() == 1)
+	if (verticalRefer() == 1)
 	{
 		newPageWidth = newPageWidth - currentPage->Margins.Left - currentPage->Margins.Right;
 		offset = currentPage->Margins.Left;
@@ -486,7 +483,7 @@ Guides GuideManager::getAutoHorizontals()
 		return retval;
 	++value;
 
-	if (horizontalReferGroup->selectedId() == 1)
+	if (horizontalRefer() == 1)
 	{
 		newPageHeight = newPageHeight - currentPage->Margins.Top - currentPage->Margins.Bottom;
 		offset = currentPage->Margins.Top;
@@ -552,5 +549,109 @@ void GuideManager::horizontalModel_valueChanged()
 {
 	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
 	currentPage->guides.addHorizontals(horizontalModel->values(), GuideManagerCore::Standard);
+	drawGuides();
+}
+
+void GuideManager::setHorizontalRefer(int button)
+{
+	switch (button)
+	{
+		case 0 :
+			horizontalPageAutoButton->setChecked(true);
+			break;
+		case 1 :
+			horizontalMarginsAutoButton->setChecked(true);
+			break;
+		case 2 :
+			horizontalSelectionAutoButton->setChecked(true);
+	}
+}
+
+int GuideManager::horizontalRefer()
+{
+	if (horizontalPageAutoButton->isChecked())
+		return 0;
+	if (horizontalMarginsAutoButton->isChecked())
+		return 1;
+	if (horizontalSelectionAutoButton->isChecked())
+		return 2;
+	return 0;
+}
+
+void GuideManager::setVerticalRefer(int button)
+{
+	switch (button)
+	{
+		case 0 :
+			verticalPageAutoButton->setChecked(true);
+			break;
+		case 1 :
+			verticalMarginsAutoButton->setChecked(true);
+			break;
+		case 2 :
+			verticalSelectionAutoButton->setChecked(true);
+	}
+}
+
+int GuideManager::verticalRefer()
+{
+	if (verticalPageAutoButton->isChecked())
+		return 0;
+	if (verticalMarginsAutoButton->isChecked())
+		return 1;
+	if (verticalSelectionAutoButton->isChecked())
+		return 2;
+	return 0;
+}
+
+void GuideManager::horizontalPageAutoButton_toggled(bool state)
+{
+	if (!state)
+		return;
+	currentPage->guides.setHorizontalAutoRefer(0);
+	drawGuides();
+}
+
+void GuideManager::horizontalMarginsAutoButton_toggled(bool state)
+{
+	if (!state)
+		return;
+	currentPage->guides.setHorizontalAutoRefer(1);
+	drawGuides();
+}
+
+void GuideManager::horizontalSelectionAutoButton_toggled(bool state)
+{
+	if (!state)
+		return;
+	currentPage->guides.setHorizontalAutoRefer(2);
+	if (horizontalSelectionAutoButton->isEnabled())
+		resetSelectionForPage();
+	drawGuides();
+}
+
+void GuideManager::verticalPageAutoButton_toggled(bool state)
+{
+	if (!state)
+		return;
+	currentPage->guides.setVerticalAutoRefer(0);
+	drawGuides();
+}
+
+void GuideManager::verticalMarginsAutoButton_toggled(bool state)
+{
+	if (!state)
+		return;
+	currentPage->guides.setVerticalAutoRefer(1);
+	drawGuides();
+}
+
+void GuideManager::verticalSelectionAutoButton_toggled(bool state)
+{
+	if (!state)
+		return;
+	currentPage->guides.setVerticalAutoRefer(2);
+	if (verticalSelectionAutoButton->isEnabled())
+		resetSelectionForPage();
 	drawGuides();
 }

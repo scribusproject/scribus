@@ -67,7 +67,9 @@ public:
 	int currentPageIndex() { return tabWidget->currentPageIndex(); };
 
 private:
+	//! \brief Store the guide values in the Qt4 model
 	GuidesModel * horizontalModel;
+	//! \brief Store the guide values in the Qt4 model
 	GuidesModel * verticalModel;
 
 	ScribusDoc* m_Doc;
@@ -120,6 +122,14 @@ private:
 	/*! \brief Draw guides into painter */
 	void drawGuides();
 
+	/*! \brief Theese methods simulate old button group behaviour.
+	Is there a better way to do it? QButtonGroup? It's more code...
+	*/
+	void setHorizontalRefer(int button);
+	int horizontalRefer();
+	void setVerticalRefer(int button);
+	int verticalRefer();
+
 protected slots:
 	void verticalModel_valueChanged();
 	void horizontalModel_valueChanged();
@@ -136,8 +146,12 @@ protected slots:
 	void verticalAutoCountSpin_valueChanged( int );
 	void horizontalAutoGapSpin_valueChanged(double);
 	void verticalAutoGapSpin_valueChanged(double);
-	void horizontalReferGroup_clicked( int );
-	void verticalReferGroup_clicked( int );
+	void horizontalPageAutoButton_toggled(bool);
+	void horizontalMarginsAutoButton_toggled(bool);
+	void horizontalSelectionAutoButton_toggled(bool);
+	void verticalPageAutoButton_toggled(bool);
+	void verticalMarginsAutoButton_toggled(bool);
+	void verticalSelectionAutoButton_toggled(bool);
 	void tabWidget_currentChanged( QWidget * );
 	void deletePageButton_clicked();
 	void deleteAllGuides_clicked();
