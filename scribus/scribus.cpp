@@ -2732,13 +2732,14 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	{
 		if (docSelectionCount != 0)
 		{
-			uint lowestItem = 999999;
+			PageItem *lowestItem = doc->m_Selection->itemAt(0);
 			for (uint a=0; a < docSelectionCount; ++a)
 			{
 				currItem = doc->m_Selection->itemAt(a);
-				lowestItem = qMin(lowestItem, currItem->ItemNr);
+				if (currItem->ItemNr < lowestItem->ItemNr)
+					lowestItem = currItem;
 			}
-			currItem = doc->Items->at(lowestItem);
+			currItem = lowestItem;
 			if ((docSelectionCount == 1) && currItem && currItem->asImageFrame())
 				isRaster = currItem->isRaster;
 //			doc->m_Selection->removeItem(currItem);
