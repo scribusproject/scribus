@@ -82,11 +82,8 @@ private:
 	void unitChange();
 
 	//! \brief Document measurements and metrics
-	double docUnitRatio;
 	int docUnitIndex;
-	int docUnitDecimals;
-	//! \brief how much 0.xx
-	int docUnitPrecision;
+
 	//! \brief suffix of the unit [mm, ...]
 	QString suffix;
 

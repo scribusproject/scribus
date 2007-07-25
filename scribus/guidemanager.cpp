@@ -191,9 +191,7 @@ void GuideManager::unitChange()
 	horizontalGroupBox->setTitle(horizontalGroupBox->title().remove(" ("+suffix.stripWhiteSpace()+")"));
 	verticalGroupBox->setTitle(verticalGroupBox->title().remove(" ("+suffix.stripWhiteSpace()+")"));
 	docUnitIndex = m_Doc->unitIndex();
-	docUnitPrecision = unitGetPrecisionFromIndex(docUnitIndex);
-	docUnitRatio = unitGetRatioFromIndex(docUnitIndex);
-	docUnitDecimals = unitGetPrecisionFromIndex(docUnitIndex);
+	int docUnitDecimals = unitGetPrecisionFromIndex(docUnitIndex);
 	
 	suffix = unitGetSuffixFromIndex(docUnitIndex);
 	horizontalAutoGapSpin->setSuffix(suffix);
@@ -202,6 +200,10 @@ void GuideManager::unitChange()
 	verticalAutoGapSpin->setDecimals(docUnitDecimals);
 	horizontalGroupBox->setTitle(horizontalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
 	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
+	// models display
+	horizontalModel->unitChange(docUnitIndex, docUnitDecimals);
+	verticalModel->unitChange(docUnitIndex, docUnitDecimals);
+	qobject_cast<GuidesDelegate*>(horizontalView->itemDelegateForColumn(0))->unitChange(docUnitDecimals);
 }
 
 void GuideManager::delHorButton_clicked()

@@ -5,11 +5,15 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "guidesmodel.h"
+#include "units.h"
 
 
 GuidesModel::GuidesModel(QObject * /*parent*/)
-	: QAbstractTableModel()
+	: QAbstractTableModel(),
+		m_docUnitIndex(0),
+		m_docUnitDecimals(0)
 {
+
 	// debug
 // 	m_values << 1.0 << 10.1 << 6.3 << 4.1;
 // 	qSort(m_values);
@@ -38,12 +42,11 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 	if (role == Qt::DisplayRole || role == Qt::EditRole)
 	{
 		QString s;
-		return QVariant(s.setNum(m_values.at(index.row()), 'f', 6));
+		return QVariant(s.setNum(pts2value(m_values.at(index.row()), m_docUnitIndex), 'f', m_docUnitDecimals));
 	}
 	if (role == Qt::BackgroundColorRole && m_values.at(index.row()) == 0.0)
 		return QVariant(Qt::red);
 	return QVariant();
-// 	return QAbstractTableModel::data(index, role);
 }
 
 bool GuidesModel::setData(const QModelIndex & index, const QVariant & value, int role)
@@ -54,7 +57,7 @@ bool GuidesModel::setData(const QModelIndex & index, const QVariant & value, int
 	double newVal = value.toDouble(&ok);
 	if (!ok)
 		return false;
-	m_values[index.row()] = newVal;
+	m_values[index.row()] = value2pts(newVal, m_docUnitIndex);
 	qSort(m_values);
 	emit dataChanged(index, index);
 	emit valueChanged();
@@ -82,7 +85,6 @@ bool GuidesModel::removeRows(int row, int count, const QModelIndex & parent)
 	for (int i = 0; i < count; ++i)
 		m_values.removeAt(row);
 	endRemoveRows();
-// 	emit drawGuides();
 	return true;
 }
 
@@ -92,7 +94,6 @@ bool GuidesModel::insertRows( int row, int count, const QModelIndex & parent)
 	for (int i = 0; i < count; ++i)
 		m_values.insert(row + count, 0.0);
 	endInsertRows();
-// 	emit drawGuides();
 	return true;
 }
 
@@ -110,6 +111,13 @@ void GuidesModel::setValues(Guides values)
 Guides GuidesModel::values()
 {
 	return m_values;
+}
+
+void GuidesModel::unitChange(int docUnitIndex, int docUnitDecimals)
+{
+	m_docUnitIndex = docUnitIndex;
+	m_docUnitDecimals = docUnitDecimals;
+	reset();
 }
 
 // debug

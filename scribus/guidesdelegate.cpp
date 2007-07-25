@@ -11,7 +11,8 @@ for which a new license (GPL+exception) is in place.
 
 
 GuidesDelegate::GuidesDelegate(QObject *parent)
-	: QItemDelegate(parent)
+	: QItemDelegate(parent),
+		m_docUnitDecimals(0)
 {
 }
 
@@ -21,6 +22,7 @@ QWidget * GuidesDelegate::createEditor(QWidget *parent,
 {
 	QDoubleSpinBox *editor = new QDoubleSpinBox(parent);
 	editor->setRange(0, 1000);
+	editor->setDecimals(m_docUnitDecimals);
 	return editor;
 }
 
@@ -47,4 +49,9 @@ void GuidesDelegate::updateEditorGeometry(QWidget *editor,
 									      const QModelIndex &/* index */) const
 {
 	editor->setGeometry(option.rect);
+}
+
+void GuidesDelegate::unitChange(int docUnitDecimals)
+{
+	m_docUnitDecimals = docUnitDecimals;
 }
