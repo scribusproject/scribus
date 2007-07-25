@@ -382,6 +382,12 @@ IF(FONTCONFIG_FOUND)
 ENDIF(FONTCONFIG_FOUND)
 #>>FontConfig
 
+FIND_PACKAGE(LIBPODOFO)
+IF(LIBPODOFO_FOUND)
+	MESSAGE("PoDoFo found OK")
+	SET(HAVE_PODOFO 1)
+ENDIF(LIBPODOFO_FOUND)
+
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
 
@@ -431,6 +437,7 @@ INCLUDE_DIRECTORIES(
   ${PYTHON_INCLUDE_PATH}
   ${TIFF_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
+  ${LIBPODOFO_H}
 )
 
 ##############################################################################################################

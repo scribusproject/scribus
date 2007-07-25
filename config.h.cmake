@@ -20,6 +20,7 @@
 #cmakedefine HAVE_TIFF 1
 #cmakedefine HAVE_LIBZ 1
 #cmakedefine HAVE_FONTCONFIG 1
+#cmakedefine HAVE_PODOFO 1
 #cmakedefine HAVE_SYS_TYPES_H 1
 #cmakedefine HAVE_SYS_STAT_H 1
 #cmakedefine FT_FREETYPE_H

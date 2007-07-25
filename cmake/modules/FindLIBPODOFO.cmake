@@ -1,0 +1,39 @@
+SET(useshared)
+IF(WIN32)
+    IF(NOT DEFINED LIBPODOFO_SHARED)
+        MESSAGE("FATAL: Win32 users MUST set LIBPODOFO_SHARED")
+        MESSAGE("FATAL: Set -DLIBPODOFO_SHARED=0 if linking to a static library PoDoFo")
+        MESSAGE("FATAL: or -DLIBPODOFO_SHARED=1 if linking to a DLL build of PoDoFo")
+        MESSAGE(FATAL_ERROR "LIBPODOFO_SHARED unset on win32 build")
+    ELSE(NOT DEFINED LIBPODOFO_SHARED)
+        IF(LIBPODOFO_SHARED)
+            SET(useshared "-DUSING_SHARED_PODOFO")
+        ENDIF(LIBPODOFO_SHARED)
+    ENDIF(NOT DEFINED LIBPODOFO_SHARED)
+ENDIF(WIN32)
+
+FIND_PATH(LIBPODOFO_H
+	NAMES podofo/podofo.h
+	PATHS "${LIBPODOFO_DIR}/include" "${LIBPODOFO_DIR}/src" "${LIBPODOFO_DIR}"
+	)
+IF(LIBPODOFO_H)
+    MESSAGE("podofo/podofo.h: ${LIBPODOFO_H}")
+ELSE(LIBPODOFO_H)
+    MESSAGE("podofo/podofo.h: not found")
+ENDIF(LIBPODOFO_H)
+
+FIND_LIBRARY(LIBPODOFO_LIB
+	NAMES libpodofo podofo
+	PATHS "${LIBPODOFO_DIR}/lib" "${LIBPODOFO_DIR}/src" "${LIBPODOFO_DIR}")
+IF(LIBPODOFO_LIB)
+    MESSAGE("podofo lib: ${LIBPODOFO_LIB}")
+ELSE(LIBPODOFO_LIB)
+    MESSAGE("podofo lib: not found")
+ENDIF(LIBPODOFO_LIB)
+
+IF(LIBPODOFO_H AND LIBPODOFO_LIB)
+    SET(LIBPODOFO_FOUND TRUE CACHE BOOLEAN "Was libpodofo found")
+ENDIF(LIBPODOFO_H AND LIBPODOFO_LIB)
+
+SET(LIBPODOFO_CFLAGS "${useshared}" CACHE STRING "Extra flags for compiling against PoDoFo")
+MESSAGE("PoDoFo cflags: ${useshared}")
