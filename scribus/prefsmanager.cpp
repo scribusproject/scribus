@@ -331,9 +331,9 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_K = true;
 	appPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extBrowserExecutable = "";
-	appPrefs.latexExecutable = "latexpng %dpi";
+	appPrefs.latexExecutable = "pdflatex";
 	appPrefs.latexEditorExecutable = "";
-	appPrefs.latexExtension = "1.png";
+	appPrefs.latexExtension = ".pdf";
 	appPrefs.latexResolution = 72;
 	appPrefs.latexForceDpi = false;
 	appPrefs.gs_AntiAliasGraphics = true;
@@ -1920,8 +1920,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "0").toInt());
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
-			setLatexExecutable(dc.attribute("Latex", "latexpng %dpi"));
-			setLatexExtension(dc.attribute("LatexExtension", "1.png"));
+			setLatexExecutable(dc.attribute("Latex", "pdflatex"));
+			setLatexExtension(dc.attribute("LatexExtension", ".pdf"));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
 		}
 		if (dc.tagName()=="HYPHEN")

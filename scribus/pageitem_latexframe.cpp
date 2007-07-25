@@ -157,15 +157,27 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	qDebug() << "LATEX: latex finished with exit code: " << exitCode;
 	tempfile->close(); //Close AND delete tempfile
 	err = exitCode;
+	static bool firstWarning = true;
 	if (exitCode) {
 		imgValid = false;
-		QMessageBox::critical(0, tr("Error"), "<qt>" + 
-			tr("Running the external application failed!") + "</qt>", 1, 0, 0);
-			
+		if (firstWarning)
+		{
+			QMessageBox::critical(0, tr("Error"), "<qt>" + 
+								  tr("Running the external application failed!") + "</qt>", 1, 0, 0);
+			firstWarning = false;
+		}
+		else
+		{
+			qDebug() << "LATEX:" << tr("Running the external application failed!");
+		}
 		qDebug() << "LATEX: Stdout was: " << qPrintable(appStdout);
 		qDebug() << "LATEX: Stderr was: " << qPrintable(appStderr);
 		doc()->view()->RefreshItem(this); //Show error marker
 		return;
+	}
+	else
+	{
+		firstWarning = true;
 	}
 	imgValid = true;
 
@@ -184,17 +196,21 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	//NOTE: QT seems to assume 96x96 dpi if no information is available
 	// so I replace the probably wrong value with our setting
 	//TODO:
-	if (PrefsManager::instance()->latexForceDpi()) {
-	pixm.imgInfo.xres = pixm.imgInfo.yres = dpi;
+	if (PrefsManager::instance()->latexForceDpi()) 
+	{
+		pixm.imgInfo.xres = pixm.imgInfo.yres = dpi;
 	}
 	
-	if (update) {
+	if (update) 
+	{
 		//Restoring parameters
 		LocalScX = scaleX / pixm.imgInfo.xres; //Account for dpi changes!
 		LocalScY = scaleY / pixm.imgInfo.yres;
 		LocalX   = offX   * pixm.imgInfo.xres;
 		LocalY   = offY   * pixm.imgInfo.yres;
-	} else {
+	} 
+	else 
+	{
 		//Setting sane defaults
 		LocalX = LocalY = 0;
 		//NOTE: Originally this was 72.0/dpi however postscript and pdf use
@@ -216,24 +232,50 @@ void PageItem_LatexFrame::runApplication()
 	
 	dpi = PrefsManager::instance()->latexResolution();
 	
+	static bool firstWarningTmpfile = true;
+	static bool firstWarningLatexMissing = true;
+	
 	//TODO: Make sure we start with an empty file!
 	//tempfile->remove();
 	if (!tempfile->open()) {
 		err = 0xffff;
-		QMessageBox::critical(0, tr("Error"), "<qt>" +
-			tr("Could not create a temporary file to run the application!") 
-			+ "</qt>", 1, 0, 0);
+		if (firstWarningTmpfile)
+		{
+			QMessageBox::critical(0, tr("Error"), "<qt>" +
+								  tr("Could not create a temporary file to run the application!") 
+								  + "</qt>", 1, 0, 0);
+			firstWarningTmpfile = false;
+		}
+		else {
+			qDebug() << "LATEX:" << tr("Could not create a temporary file to run the application!");
+		}
 		//Don't know how to continue as it's impossible to create tempfile
 		return;
+	}
+	else
+	{
+		firstWarningTmpfile = true;
 	}
 	
 	QString full_command = PrefsManager::instance()->latexExecutable().replace("%dpi", QString::number(dpi));
 	
 	if (full_command.isEmpty()) {
-		QMessageBox::information(0, tr("Information"),
-		"<qt>" + tr("Please specify a latex executable in the preferences!") +
-		"</qt>",1, 0, 0);
+		if (firstWarningLatexMissing)
+		{
+			QMessageBox::information(0, tr("Information"),
+									 "<qt>" + tr("Please specify a latex executable in the preferences!") +
+									 "</qt>",1, 0, 0);
+			firstWarningLatexMissing = false;
+		}
+		else
+		{
+			qDebug() << "LATEX:" << tr("Please specify a latex executable in the preferences!");
+		}
 		return;
+	}
+	else
+	{
+		firstWarningLatexMissing = true;
 	}
 	
 	if (full_command.indexOf("%file")>=0) {
@@ -428,7 +470,16 @@ void PageItem_LatexFrame::editorError(QProcess::ProcessError error)
 
 void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 {
-	QMessageBox::critical(0, tr("Error"), "<qt>" +
-		tr("Running the application \"%1\" failed!").arg(
-			PrefsManager::instance()->latexExecutable()) + "</qt>", 1, 0, 0);
+	static bool firstWarning = true;
+	if (firstWarning)
+	{
+		QMessageBox::critical(0, tr("Error"), "<qt>" +
+							  tr("Running the application \"%1\" failed!").
+							  arg(PrefsManager::instance()->latexExecutable()) + "</qt>", 1, 0, 0);
+		firstWarning = false;
+	}
+	else
+	{
+		qDebug() << "LATEX:" << tr("Running the application \"%1\" failed!").arg(PrefsManager::instance()->latexExecutable());
+	}
 }
