@@ -384,8 +384,10 @@ ENDIF(FONTCONFIG_FOUND)
 
 FIND_PACKAGE(LIBPODOFO)
 IF(LIBPODOFO_FOUND)
-	MESSAGE("PoDoFo found OK")
-	SET(HAVE_PODOFO 1)
+  MESSAGE("PoDoFo found OK")
+  SET(HAVE_PODOFO 1)
+ELSE(LIBPODOFO_FOUND)
+  MESSAGE("PoDoFo NOT found - Disabling support for PDF embedded in AI")
 ENDIF(LIBPODOFO_FOUND)
 
 ##############################################################################################################
@@ -437,7 +439,6 @@ INCLUDE_DIRECTORIES(
   ${PYTHON_INCLUDE_PATH}
   ${TIFF_INCLUDE_DIR}
   ${ZLIB_INCLUDE_DIR}
-  ${LIBPODOFO_H}
 )
 
 ##############################################################################################################
