@@ -30,7 +30,6 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QTextCodec>
 #include <QCursor>
-#include <Q3VBox>
 #include <QPixmap>
 #include <QKeySequence>
 #include <QMouseEvent>
@@ -289,8 +288,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	SetShortCut();
 
 	resize(610, 600);
-//	Q3VBox* vb = new Q3VBox( this );
-//	vb->setFrameStyle( QFrame::StyledPanel | QFrame::Sunken );
 	wsp = new QWorkspace( this );
 	setCentralWidget( wsp );
 	connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
