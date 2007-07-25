@@ -44,14 +44,24 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 		const QString newPSTool() const;
 		const QString newImageTool() const;
 		const QString newExtBrowserTool() const;
+		const QString newLatexTool() const;
+		const QString newLatexExtension() const;
+		const QString newLatexEditor() const;
 		bool newAntialiasText() const { return psAntialiasTextCheckBox->isChecked();}
 		bool newAntialiasGraphics() const { return psAntialiasGraphicsCheckBox->isChecked();}
 		int newPSToolResolution() const { return psResolutionSpinBox->value();}
+		int newLatexToolResolution() const { return latexResolutionSpinBox->value();}
+		bool newLatexForceDpi() const { return latexForceDpiCheckBox->checkState() == Qt::Checked;}
+		
+	protected:
+		bool fileInPath(QString file);
 		
 	public slots:
 		void changePostScriptTool();
 		void changeImageTool();
 		void changeExtBrowserTool();
+		void changeLatexTool();
+		void changeLatexEditor();
 		void rescanForTools();
 };
 

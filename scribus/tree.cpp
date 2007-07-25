@@ -399,7 +399,12 @@ void Tree::slotRightClick(QPoint point)
 				currItem->itemType() == PageItem::PathText)
 			{
 				pmen->insertSeparator();
-				if (currItem->itemType() == PageItem::ImageFrame)
+				if (currItem->asLatexFrame())
+				{
+					pmen->addAction(m_MainWindow->scrActions["itemAdjustFrameToImage"]);
+					pmen->addAction(m_MainWindow->scrActions["itemUpdateImage"]);
+					pmen->addAction(m_MainWindow->scrActions["editEditWithLatexEditor"]);
+				} else if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					pmen->addAction(m_MainWindow->scrActions["fileImportImage"]);
 					if (currItem->PicAvail)

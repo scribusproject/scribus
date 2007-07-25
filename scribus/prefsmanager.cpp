@@ -331,6 +331,11 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_K = true;
 	appPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extBrowserExecutable = "";
+	appPrefs.latexExecutable = "latexpng %dpi";
+	appPrefs.latexEditorExecutable = "";
+	appPrefs.latexExtension = "1.png";
+	appPrefs.latexResolution = 72;
+	appPrefs.latexForceDpi = false;
 	appPrefs.gs_AntiAliasGraphics = true;
 	appPrefs.gs_AntiAliasText = true;
 	appPrefs.gs_exe = getGSDefaultExeName();
@@ -834,6 +839,21 @@ void PrefsManager::setExtBrowserExecutable(const QString& executableName)
 	appPrefs.extBrowserExecutable=executableName;
 }
 
+void PrefsManager::setLatexExecutable(const QString& executableName)
+{
+	appPrefs.latexExecutable=executableName;
+}
+
+void PrefsManager::setLatexEditorExecutable(const QString& executableName)
+{
+	appPrefs.latexEditorExecutable=executableName;
+}
+
+void PrefsManager::setLatexExtension(const QString& extensionName)
+{
+	appPrefs.latexExtension=extensionName;
+}
+
 const QString PrefsManager::documentDir()
 {
 	return appPrefs.DocDir;
@@ -1306,6 +1326,11 @@ bool PrefsManager::WritePref(QString ho)
 	dc8Ex.setAttribute("AlphaGraphics", static_cast<int>(appPrefs.gs_AntiAliasGraphics));
 	dc8Ex.setAttribute("AlphaText", static_cast<int>(appPrefs.gs_AntiAliasText));
 	dc8Ex.setAttribute("Resolution", appPrefs.gs_Resolution);
+	dc8Ex.setAttribute("Latex", latexExecutable());
+	dc8Ex.setAttribute("LatexEditor", latexEditorExecutable());
+	dc8Ex.setAttribute("LatexExtension", latexExtension());
+	dc8Ex.setAttribute("LatexResolution", latexResolution());
+	dc8Ex.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.latexForceDpi));
 	elem.appendChild(dc8Ex);
 	QDomElement rde=docu.createElement("HYPHEN");
 	rde.setAttribute("LANG", appPrefs.Language);
@@ -1891,8 +1916,13 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.gs_AntiAliasText = static_cast<bool>(dc.attribute("AlphaText", "0").toInt());
 			appPrefs.gs_AntiAliasGraphics = static_cast<bool>(dc.attribute("AlphaGraphics", "0").toInt());
 			appPrefs.gs_Resolution = dc.attribute("Resolution", "72").toInt();
+			appPrefs.latexResolution = dc.attribute("LatexResolution", "72").toInt();
+			appPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "0").toInt());
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
+			setLatexExecutable(dc.attribute("Latex", "latexpng %dpi"));
+			setLatexExtension(dc.attribute("LatexExtension", "1.png"));
+			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

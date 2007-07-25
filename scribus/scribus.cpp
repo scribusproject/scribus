@@ -131,6 +131,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_textframe.h"
+#include "pageitem_latexframe.h"
 #include "pageitemattributes.h"
 #include "pagelayout.h"
 #include "pageselector.h"
@@ -625,6 +626,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editSearchReplace"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["toolsEditWithStoryEditor"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editEditWithLatexEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit");
@@ -652,6 +654,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editJavascripts"]->setEnabled(false);
 	scrActions["toolsEditWithStoryEditor"]->setEnabled(false);
 	scrActions["editEditWithImageEditor"]->setEnabled(false);
+	scrActions["editEditWithLatexEditor"]->setEnabled(false);
 
 /*Qt4
 	//Style Menu
@@ -770,6 +773,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertLine"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertBezier"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertFreehandLine"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["toolsInsertLatexFrame"], "Insert");
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["stickyTools"], "Insert");
 	scrMenuMgr->addMenuSeparator("Insert");
@@ -2618,7 +2622,8 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["toolsInsertBezier"]->setEnabled(true);
 	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
 	scrActions["toolsInsertPolygon"]->setEnabled(true);
- 	scrActions["toolsMeasurements"]->setEnabled(true);
+	scrActions["toolsInsertLatexFrame"]->setEnabled(true);
+	scrActions["toolsMeasurements"]->setEnabled(true);
 	scrActions["toolsEyeDropper"]->setEnabled(true);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
 	scrActions["toolsPDFTextField"]->setEnabled(true);
@@ -2757,7 +2762,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["editDeselectAll"]->setEnabled(SelectedType != -1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	charPalette->setEnabled(false, 0);
-	scrActions["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail);
+	scrActions["itemUpdateImage"]->setEnabled(SelectedType==PageItem::ImageFrame && (currItem->PicAvail || currItem->asLatexFrame()));
 	scrActions["itemAdjustFrameToImage"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
 	scrActions["itemExtendedImageProperties"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && currItem->pixm.imgInfo.valid);
 	scrMenuMgr->setMenuEnabled("ItemPreviewSettings", SelectedType==PageItem::ImageFrame);
@@ -2770,6 +2775,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
+	scrActions["editEditWithLatexEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->asLatexFrame()); //TODO (Herm): Change check when latex frame has it's own itemType set
 	if (SelectedType!=PageItem::ImageFrame)
 	{
 		scrActions["itemImageIsVisible"]->setOn(false);
@@ -4350,6 +4356,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["toolsInsertBezier"]->setEnabled(false);
 		scrActions["toolsInsertFreehandLine"]->setEnabled(false);
 		scrActions["toolsInsertPolygon"]->setEnabled(false);
+		scrActions["toolsInsertLatexFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsMeasurements"]->setEnabled(false);
@@ -5911,6 +5918,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsInsertBezier"]->setEnabled(false);
 		scrActions["toolsInsertFreehandLine"]->setEnabled(false);
 		scrActions["toolsInsertPolygon"]->setEnabled(false);
+		scrActions["toolsInsertLatexFrame"]->setEnabled(false);
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsMeasurements"]->setEnabled(false);
@@ -5981,6 +5989,7 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsInsertBezier"]->setEnabled(true);
 	scrActions["toolsInsertFreehandLine"]->setEnabled(true);
 	scrActions["toolsInsertPolygon"]->setEnabled(true);
+	scrActions["toolsInsertLatexFrame"]->setEnabled(true);
 	scrActions["toolsPDFPushButton"]->setEnabled(true);
 	scrActions["toolsPDFTextField"]->setEnabled(true);
 	scrActions["toolsPDFCheckBox"]->setEnabled(true);
@@ -6053,6 +6062,7 @@ void ScribusMainWindow::setAppMode(int mode)
 	scrActions["toolsInsertLine"]->setOn(mode==modeDrawLine);
 	scrActions["toolsInsertBezier"]->setOn(mode==modeDrawBezierLine);
 	scrActions["toolsInsertFreehandLine"]->setOn(mode==modeDrawFreehandLine);
+	scrActions["toolsInsertLatexFrame"]->setOn(mode==modeDrawLatex);
 	scrActions["toolsRotate"]->setOn(mode==modeRotation);
 	scrActions["toolsZoom"]->setOn(mode==modeMagnifier);
 	scrActions["toolsEditContents"]->setOn(mode==modeEdit);
@@ -6177,6 +6187,11 @@ void ScribusMainWindow::setAppMode(int mode)
 				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+				break;
+			case modeDrawLatex:
+				if (docSelectionCount!=0)
+					view->Deselect(true);
+				qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
 				break;
 			case modeDrawText:
 				if (docSelectionCount!=0)
@@ -8704,6 +8719,7 @@ void ScribusMainWindow::changeLayer(int )
 	scrActions["toolsInsertBezier"]->setEnabled(setter);
 	scrActions["toolsInsertFreehandLine"]->setEnabled(setter);
 	scrActions["toolsInsertPolygon"]->setEnabled(setter);
+	scrActions["toolsInsertLatexFrame"]->setEnabled(setter);
 	scrActions["toolsPDFPushButton"]->setEnabled(setter);
 	scrActions["toolsPDFTextField"]->setEnabled(setter);
 	scrActions["toolsPDFCheckBox"]->setEnabled(setter);
@@ -8997,6 +9013,18 @@ void ScribusMainWindow::callImageEditor()
 {
 	if (doc->m_Selection->count() != 0)
 	{
+		//NOTE to reviewers: I added my code to this function, 
+		// - as it performs a similar function,
+		// - when the frame is a latex frame it makes only sense
+		//   to run a latex editor 
+		// - IMHO ScribusMainWindow has way to many slots already
+		// - my code here is short and without sideeffects
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->asLatexFrame()) {
+			currItem->asLatexFrame()->runEditor();
+			return; //Don't process the functions for imageframes!
+		}
+		
 		QString imageEditorExecutable=prefsManager->imageEditorExecutable();
 		if (ExternalApp != 0)
 		{
@@ -9004,7 +9032,6 @@ void ScribusMainWindow::callImageEditor()
 			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(ieExe) + "</qt>", 1, 0, 0);
 			return;
 		}
-		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if (currItem->PicAvail)
 		{
 			int index;

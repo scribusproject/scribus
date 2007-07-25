@@ -24,8 +24,10 @@ for which a new license (GPL+exception) is in place.
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
+#include <iostream>
 #include "tabexternaltoolswidget.h"
 #include <QFileDialog>
+#include <QProcess>
 #include "util_ghostscript.h"
 #include "scpaths.h"
 
@@ -39,6 +41,8 @@ TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsDat
 	connect(psToolChangeButton, SIGNAL(clicked()), this, SLOT(changePostScriptTool()));
 	connect(imageToolChangeButton, SIGNAL(clicked()), this, SLOT(changeImageTool()));
 	connect(extBrowserToolChangeButton, SIGNAL(clicked()), this, SLOT(changeExtBrowserTool()));
+	connect(latexToolChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexTool()));
+	connect(latexEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexEditor()));
 	connect(rescanButton, SIGNAL(clicked()), this, SLOT(rescanForTools()));
 }
 
@@ -61,6 +65,21 @@ const QString TabExternalToolsWidget::newExtBrowserTool() const
 	return ScPaths::separatorsToSlashes(extBrowserToolLineEdit->text()); 
 }
 
+const QString TabExternalToolsWidget::newLatexTool() const 
+{ 
+	return ScPaths::separatorsToSlashes(latexToolLineEdit->text()); 
+}
+
+const QString TabExternalToolsWidget::newLatexExtension() const 
+{ 
+	return latexExtensionLineEdit->text(); 
+}
+
+const QString TabExternalToolsWidget::newLatexEditor() const 
+{ 
+	return ScPaths::separatorsToSlashes(latexEditorLineEdit->text());
+}
+
 void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	psToolLineEdit->setText(QDir::convertSeparators(prefsData->gs_exe));
@@ -69,6 +88,11 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	psResolutionSpinBox->setValue(prefsData->gs_Resolution);
 	imageToolLineEdit->setText(QDir::convertSeparators(prefsData->imageEditorExecutable));
 	extBrowserToolLineEdit->setText(QDir::convertSeparators(prefsData->extBrowserExecutable));
+	latexToolLineEdit->setText(QDir::convertSeparators(prefsData->latexExecutable));
+	latexExtensionLineEdit->setText(prefsData->latexExtension);
+	latexResolutionSpinBox->setValue(prefsData->latexResolution);
+	latexEditorLineEdit->setText(prefsData->latexEditorExecutable);
+	latexForceDpiCheckBox->setCheckState(prefsData->latexForceDpi?Qt::Checked:Qt::Unchecked);
 }
 
 void TabExternalToolsWidget::changePostScriptTool()
@@ -95,15 +119,93 @@ void TabExternalToolsWidget::changeExtBrowserTool()
 		extBrowserToolLineEdit->setText( QDir::convertSeparators(s) );
 }
 
+void TabExternalToolsWidget::changeLatexTool()
+{
+	QFileInfo fi(latexToolLineEdit->text());
+	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeLatex", tr("Locate your LaTeX executable"));
+	if (!s.isEmpty())
+		latexToolLineEdit->setText( QDir::convertSeparators(s) );
+}
+
+void TabExternalToolsWidget::changeLatexEditor()
+{
+	QFileInfo fi(latexEditorLineEdit->text());
+	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeLatex", tr("Locate your LaTeX editor"));
+	if (!s.isEmpty())
+		latexEditorLineEdit->setText( QDir::convertSeparators(s) );
+}
+
+bool TabExternalToolsWidget::fileInPath(QString file)
+{
+	if (file.isEmpty()) 
+		return false;
+	file = file.split(' ').at(0); //Ignore parameters
+	
+	file = ScPaths::separatorsToSlashes(file);
+	if (file.indexOf('/') >= 0) {
+		//Looks like an absolute path
+		QFileInfo info(file);
+		return info.exists();
+	}
+	
+	//Get $PATH
+	QStringList env = QProcess::systemEnvironment();
+	QString path;
+	foreach (QString line, env) {
+		//std::cout << "line: "<<qPrintable(line)<<"\n";
+		if (line.indexOf("PATH") == 0) {
+			path = line.mid(5); //Strip "PATH="
+			break;
+		}
+	}
+	//std::cout << "path: " << qPrintable(path) << "\n";
+	QStringList splitpath;
+	//TODO: Check this again! OS2?
+	#ifdef _WIN32
+		splitpath = path.split(';');
+	#else
+		splitpath = path.split(':');
+	#endif
+	foreach (QString dir, splitpath) {
+		//std::cout << "dir: "<<qPrintable(dir)<<"\n";
+		QFileInfo info(dir, file);
+		if (info.exists()) {
+			//std::cout << "Found!\n";
+			return true;
+		}
+	}
+	//std::cout << "Not found!\n";
+	return false;
+}
+
 void TabExternalToolsWidget::rescanForTools()
 {
-	QFileInfo fi(psToolLineEdit->text());
-	if (!fi.exists())
+	if (!fileInPath(psToolLineEdit->text()))
 	{
 		QString gsDef = getGSDefaultExeName();
 		psToolLineEdit->setText( QDir::convertSeparators(gsDef) );
 	}
-	QFileInfo fi2(imageToolLineEdit->text());
-	if (!fi2.exists())
+	
+	if (!fileInPath(imageToolLineEdit->text()))
 		imageToolLineEdit->setText("gimp");
+	
+	if (!fileInPath(latexToolLineEdit->text())) {
+		latexToolLineEdit->setText("latexpng %dpi");
+		latexExtensionLineEdit->setText("1.png");
+	}
+	
+	if (!fileInPath(latexEditorLineEdit->text())) {
+		QStringList editors;
+		editors << 
+				/*Linux */ "kwrite" << "kate" << "gedit" << "gvim" <<
+				/*Windows TODO*/ "notepad" << 
+				/*Mac OS*/ "open";
+		foreach (QString editor, editors) {
+			//std::cout << "LATEX: Probing editor" << qPrintable(editor) << "\n";
+			if (fileInPath(editor)) {
+				latexEditorLineEdit->setText(editor);
+				break;
+			}
+		}
+	}
 }

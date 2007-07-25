@@ -54,6 +54,7 @@ class PageItem_Polygon;
 class PageItem_PolyLine;
 class PageItem_TextFrame;
 class PageItem_PathText;
+class PageItem_LatexFrame;
 
 struct CopyPasteBuffer;
 /**
@@ -139,6 +140,7 @@ public:
 		Polygon		= 6,
 		PolyLine	= 7,
 		PathText	= 8,
+		LatexFrame  = 9,
 		Multiple	= 99
 	};
 
@@ -161,6 +163,7 @@ public:
 	virtual PageItem_Polygon * asPolygon() { return NULL; }
 	virtual PageItem_PolyLine * asPolyLine() { return NULL; }
 	virtual PageItem_TextFrame * asTextFrame() { return NULL; }
+	virtual PageItem_LatexFrame * asLatexFrame() { return NULL; }
 
 
 	/** @brief Frame Type

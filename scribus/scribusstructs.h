@@ -397,7 +397,8 @@ enum AppMode
 	modeMeasurementTool,
 	modeEditGradientVectors,
 	modeEyeDropper,
-	modeCopyProperties
+	modeCopyProperties,
+	modeDrawLatex
 };
 
 struct AlignObjs

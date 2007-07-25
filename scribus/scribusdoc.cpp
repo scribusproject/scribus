@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
+#include "pageitem_latexframe.h"
 #include "pagestructs.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -3198,6 +3199,10 @@ int ScribusDoc::itemAdd(const PageItem::ItemType itemType, const PageItem::ItemF
 			newItem = new PageItem_PathText(this, x, y, b, h, w, fill, outline);
 			Q_ASSERT(frameType==PageItem::Unspecified);
 			break;
+		case PageItem::LatexFrame:
+			newItem = new PageItem_LatexFrame(this, x, y, b, h, 1, toolSettings.dBrushPict, CommonStrings::None);
+			Q_ASSERT(frameType==PageItem::Rectangle || frameType==PageItem::Unspecified);
+			break;
 		default:
 			qDebug("unknown item type");
 			assert (false);
@@ -3375,7 +3380,8 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber)
 {
 	PageItem* newItem=Items->at(itemNumber);
-	Q_ASSERT(newItem->itemType()==itemType);
+	//LatexFrame is a subclass of ImageFrame and they share the same ID (except in a few places)
+	Q_ASSERT(newItem->itemType()==itemType || (newItem->itemType()==PageItem::ImageFrame && itemType==PageItem::LatexFrame));
 	switch( itemType )
 	{
 		case PageItem::ImageFrame:
@@ -6031,6 +6037,8 @@ void ScribusDoc::removePict(QString name)
 
 void ScribusDoc::updatePic()
 {
+//TODO? Getting the pointer with m_Selection->itemAt(i) over and over again in the loop 
+// seems to be a waste of ressources
 	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount > 0)
 	{
@@ -6038,7 +6046,12 @@ void ScribusDoc::updatePic()
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
 			if (m_Selection->itemAt(i)!=NULL)
-				if (m_Selection->itemAt(i)->asImageFrame())
+				if (m_Selection->itemAt(i)->asLatexFrame()) {
+					PageItem_LatexFrame *latexframe =
+						m_Selection->itemAt(i)->asLatexFrame();
+					latexframe->rerunApplication();
+					toUpdate = true;
+				} else if (m_Selection->itemAt(i)->asImageFrame())
 				{
 					PageItem *currItem = m_Selection->itemAt(i);
 					if (currItem->PicAvail)

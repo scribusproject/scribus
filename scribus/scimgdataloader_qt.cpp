@@ -54,7 +54,7 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*res*/, bool /*thum
 		m_imageInfoRecord.BBoxH = m_image.height();
 		return true;
 	}
-	return true;
+	return true; //TODO: I think this should be false!
 }
 
 void ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int res)

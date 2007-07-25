@@ -238,6 +238,11 @@ struct ApplicationPrefs
 	int gs_Resolution;
 	QString imageEditorExecutable;
 	QString extBrowserExecutable;
+	QString latexExecutable;
+	QString latexEditorExecutable;
+	int latexResolution;
+	bool latexForceDpi;
+	QString latexExtension;
 	bool ClipMargin;
 	bool GCRMode;
 	QColor STEcolor;

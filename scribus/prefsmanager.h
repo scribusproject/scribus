@@ -124,11 +124,19 @@ public:
 	void setGhostscriptExecutable(const QString&);
 	void setImageEditorExecutable(const QString&);
 	void setExtBrowserExecutable(const QString&);
+	void setLatexExecutable(const QString&);
+	void setLatexExtension(const QString&);
+	void setLatexEditorExecutable(const QString&);
 	QString ghostscriptExecutable() const {return appPrefs.gs_exe;};
 	QString imageEditorExecutable() const {return appPrefs.imageEditorExecutable;};
 	QString extBrowserExecutable() const {return appPrefs.extBrowserExecutable;};
+	QString latexExecutable() const {return appPrefs.latexExecutable;}
+	QString latexExtension() const {return appPrefs.latexExtension;}
+	QString latexEditorExecutable() const {return appPrefs.latexEditorExecutable;}
 	//! \brief Get the users preferred preview resolution
 	const int gsResolution();
+	const int latexResolution() {return appPrefs.latexResolution;}
+	const bool latexForceDpi() {return appPrefs.latexForceDpi;}
 	//! \brief Get the users preferred document directory
 	const QString documentDir();
 	void setDocumentDir(const QString& dirname);

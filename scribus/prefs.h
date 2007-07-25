@@ -45,7 +45,7 @@ foobase - foo inherited.
 */
 class SCRIBUS_API Preferences : public PrefsDialogBase
 {
-    	Q_OBJECT
+	Q_OBJECT
 
 public:
 	

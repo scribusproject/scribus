@@ -1661,6 +1661,8 @@ void PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 				switch (ite->itemType())
 				{
 					case PageItem::ImageFrame:
+					case PageItem::LatexFrame: 
+						// Same functions as for ImageFrames work for LatexFrames too
 						if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
 							PutPage(PDF_TransparenzFill(ite));
 						if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))
@@ -3305,6 +3307,8 @@ QString PDFLibCore::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bo
 	switch (ite->itemType())
 	{
 		case PageItem::ImageFrame:
+		case PageItem::LatexFrame:
+			// Same functions as for ImageFrames work for LatexFrames too
 			if (((ite->fillTransparency() != 0) || (ite->fillBlendmode() != 0)) && (Options.Version >= 14))
 				tmp += PDF_TransparenzFill(ite);
 			if ((ite->fillColor() != CommonStrings::None) || (ite->GrType != 0))

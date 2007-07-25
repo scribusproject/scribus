@@ -19,6 +19,7 @@ DragPix.xpm
 DrawFrame.xpm
 DrawFreeLine.png
 DrawImageFrame.xpm
+DrawLatexFrame.xpm
 DrawPolylineFrame.xpm
 DrawTable.xpm
 DrawTextFrame.xpm
@@ -312,6 +313,7 @@ INSTALL(FILES
 16/information.png
 16/insert-button.png
 16/insert-image.png
+16/insert-latex.png
 16/insert-table.png
 16/insert-text-frame.png
 16/layer-flow-around.png
@@ -428,6 +430,7 @@ INSTALL(FILES
 22/image-x-generic.png
 22/insert-button.png
 22/insert-image.png
+22/insert-latex.png
 22/insert-table.png
 22/insert-text-frame.png
 22/list-add.png

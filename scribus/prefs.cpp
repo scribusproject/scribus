@@ -407,6 +407,12 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.gs_AntiAliasText = tabExtTools->newAntialiasText();
 	prefsManager->setGhostscriptExecutable(tabExtTools->newPSTool());
 	prefsManager->appPrefs.gs_Resolution = tabExtTools->newPSToolResolution();
+	
+	prefsManager->appPrefs.latexResolution = tabExtTools->newLatexToolResolution();
+	prefsManager->appPrefs.latexForceDpi = tabExtTools->newLatexForceDpi();
+	prefsManager->setLatexExecutable(tabExtTools->newLatexTool());
+	prefsManager->setLatexExtension(tabExtTools->newLatexExtension());
+	prefsManager->setLatexEditorExecutable(tabExtTools->newLatexEditor());
 
 	prefsManager->appPrefs.guidesSettings.before = tabGuides->inBackground->isChecked();
 	

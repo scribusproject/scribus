@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include "scmenu.h"
 #include "scraction.h"
 #include "util.h"
+#include "util_icon.h"
+
 
 ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QString pMenuText, const QString parentName, bool pCheckable ) : QObject(parent, name)
 {

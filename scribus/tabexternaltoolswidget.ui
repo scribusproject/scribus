@@ -5,132 +5,54 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>584</width>
-    <height>404</height>
+    <width>688</width>
+    <height>614</height>
    </rect>
   </property>
   <property name="windowTitle" >
    <string>External Tools</string>
   </property>
-  <layout class="QGridLayout" >
-   <property name="margin" >
-    <number>9</number>
-   </property>
-   <property name="spacing" >
-    <number>6</number>
-   </property>
-   <item row="2" column="0" >
-    <widget class="QGroupBox" name="extBrowserToolGroupBox" >
-     <property name="toolTip" >
-      <string>Web Browser to launch with links from the Help system</string>
-     </property>
-     <property name="title" >
-      <string>Web Browser</string>
-     </property>
-     <layout class="QGridLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item row="0" column="2" >
-       <widget class="QPushButton" name="extBrowserToolChangeButton" >
-        <property name="text" >
-         <string>&amp;Change...</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+C</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="QLineEdit" name="extBrowserToolLineEdit" >
-        <property name="toolTip" >
-         <string>&lt;qt>File system location for your web browser. This is used for external links from the Help system.&lt;/qt></string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="extBrowserToolLabel" >
-        <property name="text" >
-         <string>Name of &amp;Executable:</string>
-        </property>
-        <property name="wordWrap" >
-         <bool>false</bool>
-        </property>
-        <property name="buddy" >
-         <cstring>imageToolLineEdit</cstring>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" >
-    <widget class="QGroupBox" name="imageToolGroupBox" >
-     <property name="title" >
-      <string>Image Processing Tool</string>
-     </property>
-     <layout class="QGridLayout" >
-      <property name="margin" >
-       <number>9</number>
-      </property>
-      <property name="spacing" >
-       <number>6</number>
-      </property>
-      <item row="0" column="2" >
-       <widget class="QPushButton" name="imageToolChangeButton" >
-        <property name="text" >
-         <string>&amp;Change...</string>
-        </property>
-        <property name="shortcut" >
-         <string>Alt+C</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" >
-       <widget class="QLineEdit" name="imageToolLineEdit" >
-        <property name="toolTip" >
-         <string>&lt;qt>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.&lt;/qt></string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" >
-       <widget class="QLabel" name="imageToolLabel" >
-        <property name="text" >
-         <string>Name of &amp;Executable:</string>
-        </property>
-        <property name="wordWrap" >
-         <bool>false</bool>
-        </property>
-        <property name="buddy" >
-         <cstring>imageToolLineEdit</cstring>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="0" column="0" >
+  <layout class="QVBoxLayout" >
+   <item>
     <widget class="QGroupBox" name="psToolGroupBox" >
      <property name="title" >
       <string>PostScript Interpreter</string>
      </property>
      <layout class="QGridLayout" >
-      <property name="margin" >
+      <property name="leftMargin" >
        <number>9</number>
       </property>
-      <property name="spacing" >
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
+      </property>
+      <property name="horizontalSpacing" >
+       <number>6</number>
+      </property>
+      <property name="verticalSpacing" >
        <number>6</number>
       </property>
       <item row="1" column="0" >
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
         </property>
         <item>
          <widget class="QCheckBox" name="psAntialiasTextCheckBox" >
@@ -208,11 +130,11 @@
           <property name="suffix" >
            <string> dpi</string>
           </property>
-          <property name="maximum" >
-           <number>2400</number>
-          </property>
           <property name="minimum" >
            <number>10</number>
+          </property>
+          <property name="maximum" >
+           <number>2400</number>
           </property>
          </widget>
         </item>
@@ -220,11 +142,20 @@
       </item>
       <item row="0" column="0" >
        <layout class="QHBoxLayout" >
-        <property name="margin" >
-         <number>0</number>
-        </property>
         <property name="spacing" >
          <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
         </property>
         <item>
          <widget class="QLabel" name="psToolLabel" >
@@ -261,29 +192,330 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="0" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
+   <item>
+    <widget class="QGroupBox" name="imageToolGroupBox" >
+     <property name="title" >
+      <string>Image Processing Tool</string>
      </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>20</width>
-       <height>70</height>
-      </size>
-     </property>
-    </spacer>
+     <layout class="QGridLayout" >
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
+      </property>
+      <property name="horizontalSpacing" >
+       <number>6</number>
+      </property>
+      <property name="verticalSpacing" >
+       <number>6</number>
+      </property>
+      <item row="0" column="2" >
+       <widget class="QPushButton" name="imageToolChangeButton" >
+        <property name="text" >
+         <string>&amp;Change...</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+C</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QLineEdit" name="imageToolLineEdit" >
+        <property name="toolTip" >
+         <string>&lt;qt>File system location for graphics editor. If you use gimp and your distribution includes it, we recommend 'gimp-remote', as it allows you to edit the image in an already running instance of gimp.&lt;/qt></string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="imageToolLabel" >
+        <property name="text" >
+         <string>Name of &amp;Executable:</string>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+        <property name="buddy" >
+         <cstring>imageToolLineEdit</cstring>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
-   <item row="3" column="0" >
-    <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
+   <item>
+    <widget class="QGroupBox" name="extBrowserToolGroupBox" >
+     <property name="toolTip" >
+      <string>Web Browser to launch with links from the Help system</string>
      </property>
+     <property name="title" >
+      <string>Web Browser</string>
+     </property>
+     <layout class="QGridLayout" >
+      <property name="leftMargin" >
+       <number>9</number>
+      </property>
+      <property name="topMargin" >
+       <number>9</number>
+      </property>
+      <property name="rightMargin" >
+       <number>9</number>
+      </property>
+      <property name="bottomMargin" >
+       <number>9</number>
+      </property>
+      <property name="horizontalSpacing" >
+       <number>6</number>
+      </property>
+      <property name="verticalSpacing" >
+       <number>6</number>
+      </property>
+      <item row="0" column="2" >
+       <widget class="QPushButton" name="extBrowserToolChangeButton" >
+        <property name="text" >
+         <string>&amp;Change...</string>
+        </property>
+        <property name="shortcut" >
+         <string>Alt+C</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QLineEdit" name="extBrowserToolLineEdit" >
+        <property name="toolTip" >
+         <string>&lt;qt>File system location for your web browser. This is used for external links from the Help system.&lt;/qt></string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="extBrowserToolLabel" >
+        <property name="text" >
+         <string>Name of &amp;Executable:</string>
+        </property>
+        <property name="wordWrap" >
+         <bool>false</bool>
+        </property>
+        <property name="buddy" >
+         <cstring>extBrowserToolLineEdit</cstring>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="latexToolGroupBox" >
+     <property name="title" >
+      <string>LaTeX</string>
+     </property>
+     <layout class="QVBoxLayout" >
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="latexToolLabel" >
+          <property name="text" >
+           <string>&amp;Name of Executable:</string>
+          </property>
+          <property name="wordWrap" >
+           <bool>false</bool>
+          </property>
+          <property name="buddy" >
+           <cstring>latexToolLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="latexToolLineEdit" >
+          <property name="toolTip" >
+           <string>&lt;qt>Path to LaTeX executable. Must be a script that produces one of the formats supported by image frames!&lt;/qt></string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="latexToolChangeButton" >
+          <property name="text" >
+           <string>&amp;Change...</string>
+          </property>
+          <property name="shortcut" >
+           <string>Alt+C</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="latexExtensionLabel" >
+          <property name="text" >
+           <string>Output file extension:</string>
+          </property>
+          <property name="buddy" >
+           <cstring>latexExtensionLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="latexExtensionLineEdit" />
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType" >
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>21</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="latexForceDpiCheckBox" >
+          <property name="toolTip" >
+           <string>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</string>
+          </property>
+          <property name="text" >
+           <string>Force DPI</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="latexResolutionLabel" >
+          <property name="text" >
+           <string>Resolution:</string>
+          </property>
+          <property name="wordWrap" >
+           <bool>false</bool>
+          </property>
+          <property name="buddy" >
+           <cstring>latexResolutionSpinBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="latexResolutionSpinBox" >
+          <property name="suffix" >
+           <string> dpi</string>
+          </property>
+          <property name="minimum" >
+           <number>10</number>
+          </property>
+          <property name="maximum" >
+           <number>2400</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" >
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <property name="leftMargin" >
+         <number>0</number>
+        </property>
+        <property name="topMargin" >
+         <number>0</number>
+        </property>
+        <property name="rightMargin" >
+         <number>0</number>
+        </property>
+        <property name="bottomMargin" >
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="latexEditorLabel" >
+          <property name="text" >
+           <string>Latex Editor:</string>
+          </property>
+          <property name="wordWrap" >
+           <bool>false</bool>
+          </property>
+          <property name="buddy" >
+           <cstring>latexEditorLineEdit</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="latexEditorLineEdit" >
+          <property name="toolTip" >
+           <string>&lt;qt>Path to the editor executable.&lt;/qt></string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="latexEditorChangeButton" >
+          <property name="text" >
+           <string>&amp;Change...</string>
+          </property>
+          <property name="shortcut" >
+           <string>Alt+C</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" >
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
      </property>
      <item>
       <spacer>
@@ -316,9 +548,44 @@
      </item>
     </layout>
    </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType" >
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>670</width>
+       <height>101</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
+ <tabstops>
+  <tabstop>psToolLineEdit</tabstop>
+  <tabstop>psToolChangeButton</tabstop>
+  <tabstop>psAntialiasTextCheckBox</tabstop>
+  <tabstop>psAntialiasGraphicsCheckBox</tabstop>
+  <tabstop>psResolutionSpinBox</tabstop>
+  <tabstop>imageToolLineEdit</tabstop>
+  <tabstop>imageToolChangeButton</tabstop>
+  <tabstop>extBrowserToolLineEdit</tabstop>
+  <tabstop>extBrowserToolChangeButton</tabstop>
+  <tabstop>latexToolLineEdit</tabstop>
+  <tabstop>latexToolChangeButton</tabstop>
+  <tabstop>latexExtensionLineEdit</tabstop>
+  <tabstop>latexForceDpiCheckBox</tabstop>
+  <tabstop>latexResolutionSpinBox</tabstop>
+  <tabstop>latexEditorLineEdit</tabstop>
+  <tabstop>latexEditorChangeButton</tabstop>
+  <tabstop>rescanButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

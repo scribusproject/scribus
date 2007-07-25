@@ -148,6 +148,7 @@ SET(SCRIBUS_MOC_CLASSES
   pageitem_polygon.h
   pageitem_polyline.h
   pageitem_textframe.h
+  pageitem_latexframe.h
   pagelayout.h
   pageselector.h
   patterndialog.h
@@ -358,6 +359,7 @@ SET(SCRIBUS_SOURCES
   pageitem_polygon.cpp
   pageitem_polyline.cpp
   pageitem_textframe.cpp
+  pageitem_latexframe.cpp
   pagelayout.cpp
   pageselector.cpp
   pagesize.cpp

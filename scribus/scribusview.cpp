@@ -93,6 +93,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
+#include "pageitem_latexframe.h"
 #include "pageitemattributes.h"
 #include "pageselector.h"
 #include "prefscontext.h"
@@ -1679,6 +1680,9 @@ void ScribusView::enterEvent(QEvent *)
 			case modeDrawPicture:
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
 				break;
+			case modeDrawLatex:
+				qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+				break;
 			case modeDrawText:
 				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
 				break;
@@ -2907,6 +2911,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				QLabel *PrintC = new QLabel(InfoGroup, "nc"); // </a.l.e>
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
+					//TODO (Herm): Handle latex frame (show plain tex, etc)
 					LinC->hide();
 					LinCT->hide();
 					if (currItem->PicAvail)
@@ -3026,7 +3031,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				currItem->itemType() == PageItem::PathText)
 			{
 				pmen->insertSeparator();
-				if (currItem->itemType() == PageItem::ImageFrame)
+				if (currItem->asLatexFrame()) 
+				{
+					//TODO: Keep preview settings?
+					pmen->addAction(m_ScMW->scrActions["itemAdjustFrameToImage"]);
+					pmen->addAction(m_ScMW->scrActions["itemUpdateImage"]);
+					pmen->addAction(m_ScMW->scrActions["editEditWithLatexEditor"]);
+				} else if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					pmen->addAction(m_ScMW->scrActions["fileImportImage"]);
 					if (currItem->PicAvail)
@@ -3423,6 +3434,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					}
 					else
 					{
+						//TODO (Herm): Seems related to latex but needs further investigation
 						if ((inItemCreation) && (Doc->appMode == modeNormal))
 						{
 							currItem = Doc->m_Selection->itemAt(0);
@@ -4448,6 +4460,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				if ((inItemCreation) && (Doc->appMode == modeNormal))
 				{
+					//TODO (Herm): Related to latex?
 					currItem = Doc->m_Selection->itemAt(0);
 					if (currItem->asTextFrame())
 						Doc->appMode = modeDrawText;
@@ -5592,6 +5605,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						case modeDrawPicture:
 							qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
 							break;
+						case modeDrawLatex:
+							qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+							break;
 						case modeDrawText:
 							qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
 							break;
@@ -5711,6 +5727,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							break;
 						case modeDrawPicture:
 							qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+							break;
+						case modeDrawLatex:
+							qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
 							break;
 						case modeDrawText:
 							qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
@@ -6536,6 +6555,22 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			{
 				Doc->ApplyGuides(&Rxp, &Ryp);
 				z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
+				SetupDraw(z);
+			}
+			break;
+		case modeDrawLatex:
+			if (m->button() != Qt::LeftButton)
+				break;
+			selectPage(m);
+			if (m->state() == Qt::ShiftButton)
+			{
+				z = Doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
+				SetupDrawNoResize(z);
+			}
+			else
+			{
+				Doc->ApplyGuides(&Rxp, &Ryp);
+				z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
 				SetupDraw(z);
 			}
 			break;
@@ -10680,6 +10715,30 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	case PageItem::Multiple:
 		Q_ASSERT(false);
 		break;
+	case PageItem::LatexFrame:
+		//NOTE: Ignore this for now, it's not complete
+		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
+		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
+		Doc->Items->at(z)->Pfile = Buffer->Pfile;
+		Doc->Items->at(z)->IProfile = Buffer->IProfile;
+		Doc->Items->at(z)->EmProfile = Buffer->EmProfile;
+		Doc->Items->at(z)->IRender = Buffer->IRender;
+		Doc->Items->at(z)->UseEmbedded = Buffer->UseEmbedded;
+		if (!Doc->Items->at(z)->Pfile.isEmpty())
+			Doc->LoadPict(Doc->Items->at(z)->Pfile, z);
+		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
+		Doc->Items->at(z)->setImageShown(Buffer->PicArt);
+		/*Doc->Items->at(z)->BBoxX = Buffer->BBoxX;
+		Doc->Items->at(z)->BBoxH = Buffer->BBoxH; */
+		Doc->Items->at(z)->ScaleType = Buffer->ScaleType;
+		Doc->Items->at(z)->AspectRatio = Buffer->AspectRatio;
+		Doc->Items->at(z)->setLineWidth(Buffer->Pwidth);
+		PageItem_LatexFrame *latexframe = Doc->Items->at(z)->asLatexFrame();
+		latexframe->setFormula(Buffer->itemText); //itemText seems to be a good choice...
+		//TODO (Herm): Make sure itemText is set to the right value when cutting the frame
+		break;
+
 	}
 	PageItem *currItem = Doc->Items->at(z);
 /*FIXME
