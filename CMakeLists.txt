@@ -1,4 +1,3 @@
-
 ##############################################################################################################
 ########## CMake Setup                                                                              ##########
 
@@ -24,35 +23,6 @@ INCLUDE(CheckCCompilerFlag)
 INCLUDE(CheckCXXCompilerFlag)
 INCLUDE(CheckTypeSize)
 INCLUDE(TestBigEndian)
-
-##############################################################################################################
-########## check for the CPU we build for                                                           ##########
-
-EXECUTE_PROCESS(
-    COMMAND ${CMAKE_C_COMPILER} -dumpmachine
-    OUTPUT_VARIABLE MACHINE
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-MESSAGE(STATUS "Building for target ${MACHINE}")
-
-STRING(REGEX MATCH "(i?86-*)|(athlon-*)|(pentium-*)" _machine_x86 "${MACHINE}")
-IF (_machine_x86)
-    MESSAGE(STATUS "Found target X86")
-    SET(ARCH_X86 1)
-ENDIF (_machine_x86)
-
-STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _machine_x86_64 "${MACHINE}")
-IF (_machine_x86_64)
-    MESSAGE(STATUS "Found target X86_64")
-    SET(ARCH_X86_64 1)
-ENDIF (_machine_x86_64)
-
-STRING(REGEX MATCH "(ppc-*)" _machine_ppc "${MACHINE}")
-IF (_machine_ppc)
-    MESSAGE(STATUS "Found target PPC")
-    SET(ARCH_PPC 1)
-ENDIF (_machine_ppc)
-
 
 #Set the custom CMake module directory where our include/lib finders are
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/modules")
@@ -106,6 +76,34 @@ SET(PLUGIN_PERMISSIONS WORLD_EXECUTE GROUP_EXECUTE OWNER_EXECUTE WORLD_READ GROU
 
 #Our main directory is scribus
 SET(MAIN_DIR_NAME "scribus")
+
+##############################################################################################################
+########## check for the CPU we build for                                                           ##########
+
+EXECUTE_PROCESS(
+    COMMAND ${CMAKE_C_COMPILER} -dumpmachine
+    OUTPUT_VARIABLE MACHINE
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+MESSAGE(STATUS "Building for target ${MACHINE}")
+
+STRING(REGEX MATCH "(i?86-*)|(athlon-*)|(pentium-*)" _machine_x86 "${MACHINE}")
+IF (_machine_x86)
+    MESSAGE(STATUS "Found target X86")
+    SET(ARCH_X86 1)
+ENDIF (_machine_x86)
+
+STRING(REGEX MATCH "(x86_64-*)|(X86_64-*)|(AMD64-*)|(amd64-*)" _machine_x86_64 "${MACHINE}")
+IF (_machine_x86_64)
+    MESSAGE(STATUS "Found target X86_64")
+    SET(ARCH_X86_64 1)
+ENDIF (_machine_x86_64)
+
+STRING(REGEX MATCH "(ppc-*)" _machine_ppc "${MACHINE}")
+IF (_machine_ppc)
+    MESSAGE(STATUS "Found target PPC")
+    SET(ARCH_PPC 1)
+ENDIF (_machine_ppc)
 
 ##############################################################################################################
 ########## Versioning Setup                                                                         ##########
@@ -382,6 +380,7 @@ IF(FONTCONFIG_FOUND)
 ENDIF(FONTCONFIG_FOUND)
 #>>FontConfig
 
+#<<PoDoFo for AI PDF import
 FIND_PACKAGE(LIBPODOFO)
 IF(LIBPODOFO_FOUND)
   MESSAGE("PoDoFo found OK")
@@ -389,6 +388,7 @@ IF(LIBPODOFO_FOUND)
 ELSE(LIBPODOFO_FOUND)
   MESSAGE("PoDoFo NOT found - Disabling support for PDF embedded in AI")
 ENDIF(LIBPODOFO_FOUND)
+#>>PoDoFo for AI PDF import
 
 ##############################################################################################################
 ########## Include Setup                                                                            ##########
