@@ -62,7 +62,7 @@ PrefsManager::PrefsManager(QObject *parent, const char *name)
 
 PrefsManager::~PrefsManager()
 {
-	appPrefs.AvailFonts.~SCFonts();
+	appPrefs.AvailFonts.clear();
 	delete prefsFile;
 }
 
