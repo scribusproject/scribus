@@ -8,6 +8,7 @@ ADD_SUBDIRECTORY(scripts)
 
 SET(SCRIPTER_PLUGIN_UI_SRC
   pconsole.ui
+  runscriptdialog.ui
   scripterprefsgui.ui
 )
 
