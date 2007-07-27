@@ -131,7 +131,9 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 					}
 				}
 			} // for all masterItems
-			if (!m_Doc->masterPageMode())
+			// (JG) #6009 : disable possible interaction between master text frames and normal frames
+			// which have the text flow option set
+			/*if (!m_Doc->masterPageMode())
 			{
 				for (uint a = 0; a < docItemsCount; ++a)
 				{
@@ -143,7 +145,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 						result = result.subtract(itemShape(docItem, m_Doc->view(), Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
 					}
 				} // for all docItems
-			} // if (! masterPageMode)
+			} // if (! masterPageMode) */
 		} // if (!OnMasterPage.isEmpty())
 		else
 		{
