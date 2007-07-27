@@ -28,6 +28,7 @@ SET(SCRIBUS_UI_SRC
   docitemattrprefs.ui
   docsections.ui
   guidemanager.ui
+  gtfiledialog.ui
   ui/helpbrowser.ui
   hysettingsBase.ui
   insertaframe.ui
@@ -108,6 +109,7 @@ SET(SCRIBUS_MOC_CLASSES
   fontreplacedialog.h
   frameedit.h
   gradienteditor.h
+  gtfiledialog.h
   gtdialogs.h
   guidemanager.h
   guidesdelegate.h
@@ -175,6 +177,7 @@ SET(SCRIBUS_MOC_CLASSES
   scinputdialog.h
   scmenu.h
   scmessagebox.h
+  scfilewidget.h
   scgtplugin.h
   scplugin.h
   scraction.h
@@ -301,6 +304,7 @@ SET(SCRIBUS_SOURCES
   frameedit.cpp
   gradienteditor.cpp
   gtaction.cpp
+  gtfiledialog.cpp
   gtdialogs.cpp
   gtfont.cpp
   gtframestyle.cpp
@@ -400,6 +404,7 @@ SET(SCRIBUS_SOURCES
   scdocoutput_ps2.cpp
   scinputdialog.cpp
   scfonts.cpp
+  scfilewidget.cpp
   scgtplugin.cpp
   scgzfile.cpp
   scimage.cpp

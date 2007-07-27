@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QPushButton>
 #include <QToolTip>
+#include <QCheckBox>
 #include "scribusapi.h"
 #include "scribuscore.h"
 #include "prefsmanager.h"

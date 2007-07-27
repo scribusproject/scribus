@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextCodec>
 #include <QRegExp> 
 #include <QMap>
+#include <QToolTip>
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include <vector>

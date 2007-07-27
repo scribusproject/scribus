@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QGroupBox>
 #include <QToolTip>
+#include <QLabel>
+
 
 CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
 	: QWidget( parent, "CMS" )

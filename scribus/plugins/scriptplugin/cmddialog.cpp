@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QMessageBox>
 #include <QCursor>
+#include <QInputDialog>
+
 
 PyObject *scribus_newdocdia(PyObject* /* self */)
 {

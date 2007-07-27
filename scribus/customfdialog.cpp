@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QDir>
 #include <QDomDocument>
-#include <QFileDialog>
 #include <QFileInfo>
 #include <QFrame>
 #include <QFrame>
@@ -42,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "customfdialog.h"
 
+#include "scfilewidget.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
 #include "sccombobox.h"
@@ -250,23 +250,9 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
     hboxLayout = new QHBoxLayout;
 	hboxLayout->setSpacing(5);
 	hboxLayout->setMargin(0);
-	fileDialog = new QFileDialog(this);
-	fileDialog->setSizeGripEnabled(false);
-	fileDialog->setModal(false);
-	fileDialog->setWindowFlags(Qt::Widget);
-	QList<QObject*> l = fileDialog->queryList("QPushButton");
-	QListIterator<QObject*> it(l);
-	QObject *obj;
-	while (it.hasNext())
-	{
-		obj = it.next();
-		((QPushButton*)obj)->setVisible(false);
-	}
-	fileDialog->setMinimumSize(QSize(480, 310));
-	fileDialog->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+	fileDialog = new ScFileWidget(this);
 	hboxLayout->addWidget(fileDialog);
 	fileDialog->setIconProvider(new ImIconProvider());
-	fileDialog->setViewMode(QFileDialog::List);
 	fileDialog->setFilter(filter);
 	fileDialog->selectFilter(filter);
 	fileDialog->setDirectory(wDir);

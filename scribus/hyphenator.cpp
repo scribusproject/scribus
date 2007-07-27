@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegExp>
 #include <QCursor>
 #include <QDir>
+#include <QCheckBox>
 //Added by qt3to4:
 #include <QByteArray>
 #include <cstdlib>

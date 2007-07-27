@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QMessageBox>
 #include <QRadioButton>
+#include <QToolTip>
 
 #include "stylemanager.h"
 #include "styleitem.h"

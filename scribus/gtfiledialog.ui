@@ -1,0 +1,112 @@
+<ui version="4.0" >
+ <class>gtFileDialog</class>
+ <widget class="QDialog" name="gtFileDialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>373</width>
+    <height>317</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Open</string>
+  </property>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" colspan="3" >
+    <widget class="ScFileWidget" native="1" name="fileWidget" />
+   </item>
+   <item row="1" column="0" >
+    <widget class="QLabel" name="label" >
+     <property name="text" >
+      <string>&amp;Importer:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>importerCombo</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" >
+    <widget class="ScComboBox" name="importerCombo" />
+   </item>
+   <item row="1" column="2" >
+    <widget class="QCheckBox" name="textOnlyCheckBox" >
+     <property name="text" >
+      <string>Import &amp;Text Only</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>&amp;Encoding:</string>
+     </property>
+     <property name="buddy" >
+      <cstring>encodingCombo</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1" >
+    <widget class="ScComboBox" name="encodingCombo" />
+   </item>
+   <item row="3" column="0" colspan="3" >
+    <widget class="QDialogButtonBox" name="buttonBox" >
+     <property name="orientation" >
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons" >
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScFileWidget</class>
+   <extends>QWidget</extends>
+   <header>scfilewidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ScComboBox</class>
+   <extends>QComboBox</extends>
+   <header>sccombobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>gtFileDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>gtFileDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

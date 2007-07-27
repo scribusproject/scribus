@@ -27,48 +27,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef GTDIALOGS_H
 #define GTDIALOGS_H
 
-#include <Q3FileDialog>
-#include <QCheckBox>
-#include <QComboBox>
 #include <QDialog>
-#include <QDir>
-#include <QFrame>
-#include <QHBoxLayout>
-#include <QInputDialog>
-#include <QLabel>
-#include <QLayout>
-#include <QObject>
-#include <QPushButton>
-#include <QString>
-#include <QStringList>
-#include <QTextCodec>
-#include <QToolButton>
-#include <QToolTip>
 
 #include "scribusapi.h"
 
 class PrefsContext;
+class QComboBox;
+class QCheckBox;
+class gtFileDialog;
 
-class SCRIBUS_API gtFileDialog : public Q3FileDialog
-{
-	Q_OBJECT
-private:
-	QDir dir;
-	QFrame* importerFrame;
-	QFrame* encodingFrame;
-	QHBoxLayout* importerLayout;
-	QHBoxLayout* encodingLayout;
-	QToolButton* HomeB;
-	void createWidgets(const QStringList& importers);
-public:
-	gtFileDialog(const QString& filters, const QStringList& importers, const QString& wdir);
-	~gtFileDialog();
-	QCheckBox* textOnlyCheckBox;
-	QComboBox* importerCombo;
-	QComboBox* encodingCombo;
-private slots:
-	void slotHome();
-};
 
 class SCRIBUS_API gtImporterDialog : public QDialog
 {

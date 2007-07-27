@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 #include <QByteArray>
 #include <QTableWidget>
+#include <QInputDialog>
 
 #include <cstdio>
 #include <cstdlib>
@@ -9392,7 +9393,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 			fileUrl = fileUrls[i].lower();
 			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
 			{
-				Q3Url url( fileUrls[i] );
+				QUrl url( fileUrls[i] );
 				QFileInfo fi(url.path());
 				if ( fi.exists() )
 				{

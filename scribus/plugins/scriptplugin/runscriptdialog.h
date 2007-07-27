@@ -9,13 +9,14 @@ for which a new license (GPL+exception) is in place.
 
 // Pulls in Python.h
 #include "cmdvar.h"
+#include "ui_runscriptdialog.h"
 
-#include "qobject.h"
-#include "q3filedialog.h"
-#include "qlabel.h"
-#include "qcheckbox.h"
 
-class RunScriptDialog : public Q3FileDialog
+/*! \brief Select a python script for execution.
+\author Craig Ringer
+\author Petr Vanek <petr@scribus.info>
+*/
+class RunScriptDialog : public QDialog, public Ui::RunScriptDialog
 {
 	Q_OBJECT
 
@@ -23,12 +24,14 @@ class RunScriptDialog : public Q3FileDialog
 		RunScriptDialog(QWidget* parent, bool extEnable);
 		~RunScriptDialog();
 
-		/// Check if the user wanted the script run as an extension script
+		//! \brief Check if the user wanted the script run as an extension script
 		bool extensionRequested();
+		//! \brief Return chosen filename
+		QString selectedFile();
 
 	protected:
-		QCheckBox *extChk;
-		bool extEnable;
+		// true id there is "scripter extensions" feature enabled
+		bool m_extEnable;
 };
 
 #endif

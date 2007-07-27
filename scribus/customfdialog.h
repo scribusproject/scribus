@@ -33,7 +33,7 @@ class QCheckBox;
 class QHBoxLayout;
 class QVBoxLayout;
 class QFrame;
-class QFileDialog;
+class ScFileWidget;
 class QIcon;
 
 #include "scribusapi.h"
@@ -117,7 +117,7 @@ public:
 	QFrame* LayoutC;
 	QComboBox *TxCodeM;
 	QLabel *TxCodeT;
-	QFileDialog *fileDialog;
+	ScFileWidget *fileDialog;
 	FDialogPreview *pw;
 	QCheckBox *showPreview;
 	QPushButton* OKButton;

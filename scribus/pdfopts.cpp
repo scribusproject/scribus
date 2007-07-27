@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QSpacerItem>
 #include <QRadioButton>
+#include <QToolTip>
 
 #include "scconfig.h"
 #include "customfdialog.h"

@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include <QImageWriter>
 #include <QFileDialog>
+#include <QToolTip>
 #include "dialog.h"
 #include "scribusdoc.h"
 #include "createrange.h"

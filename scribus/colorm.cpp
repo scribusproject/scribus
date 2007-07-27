@@ -25,6 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include <QToolButton>
 #include <QToolTip>
 #include <QVBoxLayout>
+#include <QLineEdit>
+#include <QCheckBox>
 
 #include <cstdlib>
 
