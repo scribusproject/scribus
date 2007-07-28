@@ -13,15 +13,24 @@ IF(WIN32)
 ENDIF(WIN32)
 
 FIND_PATH(LIBPODOFO_INCLUDE_DIR
-	NAMES podofo/podofo.h
-	PATHS "${LIBPODOFO_DIR}/include" "${LIBPODOFO_DIR}/src" "${LIBPODOFO_DIR}"
-	)
+  NAMES podofo/podofo.h
+  PATHS 
+    "${LIBPODOFO_DIR}/include"
+    "${LIBPODOFO_DIR}/src"
+    "${LIBPODOFO_DIR}"
+    /usr/include
+    /usr/local/include
+  )
 	
 SET(LIBPODOFO_FIND_QUIETLY 1)
 	
 FIND_LIBRARY(LIBPODOFO_LIBRARY
-	NAMES libpodofo podofo
-	PATHS "${LIBPODOFO_DIR}/lib" "${LIBPODOFO_DIR}/src" "${LIBPODOFO_DIR}"
+  NAMES libpodofo podofo
+  PATHS 
+    "${LIBPODOFO_DIR}/lib" 
+    "${LIBPODOFO_DIR}/src" 
+    "${LIBPODOFO_DIR}"
+    /usr/lib /usr/local/lib
 )
 
 IF(LIBPODOFO_INCLUDE_DIR AND LIBPODOFO_LIBRARY)
