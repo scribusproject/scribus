@@ -60,6 +60,7 @@ ScripterCore::ScripterCore(QWidget* parent)
 ScripterCore::~ScripterCore()
 {
 	SavePlugPrefs();
+	delete pcon;
 }
 
 void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
