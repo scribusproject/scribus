@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QFileDialog>
 
+#include "scribusapi.h"
 
 /*! \brief Simple wrapper simulating the QFileDialog as a common widget.
 Usage is simple - everything is like in QFileDialog except it is not
@@ -17,7 +18,7 @@ a dialog, it's a widget. It can be used for extension features etc.
 write your own dialog accept/reject handling.
 \author Petr Vanek <petr@scribus.info>
 */
-class ScFileWidget : public QFileDialog
+class SCRIBUS_API ScFileWidget : public QFileDialog
 {
 	Q_OBJECT
 
