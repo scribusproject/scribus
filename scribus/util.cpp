@@ -42,10 +42,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-//#ifdef HAVE_UNISTD_H
-//#include <unistd.h>
-//#endif
-
 #if defined(_WIN32)
 #if defined(_MSC_VER)
 #define __STDC__ 1 // hack to get md5_buffer correctly identified
@@ -56,21 +52,15 @@ for which a new license (GPL+exception) is in place.
 
 #include "md5.h"
 
-// #include <setjmp.h>
 #include "commonstrings.h"
-// #include "pagestructs.h"
-// #include "prefsfile.h"
-// #include "prefscontext.h"
-// #include "prefstable.h"
 #include "prefsmanager.h"
 #include <QProcess>
 #include <Q3Process>
 #include "scmessagebox.h"
 #include "scpixmapcache.h"
 #include "scpaths.h"
-// #include "text/nlsconfig.h"
 
-				 extern "C"
+extern "C"
 {
 #define XMD_H           // shut JPEGlib up
 #if defined(Q_OS_UNIXWARE)
@@ -88,17 +78,12 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-/*#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_OUTLINE_H
-#include FT_GLYPH_H
-*/
 #include <zlib.h>
 
 
-				 using namespace std;
+using namespace std;
 
-		 void sDebug(QString message)
+void sDebug(QString message)
 {
 	qDebug("%s", message.ascii());
 }
@@ -1247,10 +1232,10 @@ QString getImageType(QString filename)
 				ret = "tif";
 			else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
 				ret = "xpm";
+			
+			f.close();
 		}
 	}
-	if (f.isOpen())
-		f.close();
 	return ret;
 }
 
