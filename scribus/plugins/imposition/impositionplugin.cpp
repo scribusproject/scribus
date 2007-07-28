@@ -43,7 +43,7 @@ bool ImpositionPlugin::run(QWidget* parent, ScribusDoc* doc, QString target)
 {
   Imposition *imp = new Imposition(parent,doc);
   imp->exec();
-
+  delete imp;
   return true;
 }
 
