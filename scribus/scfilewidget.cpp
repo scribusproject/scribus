@@ -16,7 +16,7 @@ ScFileWidget::ScFileWidget(QWidget * parent)
 	setModal(false);
 	setViewMode(QFileDialog::List);
 	setWindowFlags(Qt::Widget);
-	QList<QPushButton *> b = findChildren<QPushButton *>("QPushButton");
+	QList<QPushButton *> b = findChildren<QPushButton *>();
 	QListIterator<QPushButton *> i(b);
 	while (i.hasNext())
 		i.next()->setVisible(false);
