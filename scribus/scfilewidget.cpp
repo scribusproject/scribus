@@ -9,20 +9,17 @@ for which a new license (GPL+exception) is in place.
 #include "scfilewidget.h"
 
 
-ScFileWidget::ScFileWidget(QWidget * parent) : QFileDialog(parent, Qt::Widget)
+ScFileWidget::ScFileWidget(QWidget * parent)
+	: QFileDialog(parent, Qt::Widget)
 {
 	setSizeGripEnabled(false);
 	setModal(false);
 	setViewMode(QFileDialog::List);
 	setWindowFlags(Qt::Widget);
-	QList<QObject*> l = queryList("QPushButton");
-	QListIterator<QObject*> it(l);
-	QObject *obj;
-	while (it.hasNext())
-	{
-		obj = it.next();
-		((QPushButton*)obj)->setVisible(false);
-	}
+	QList<QPushButton *> b = findChildren<QPushButton *>("QPushButton");
+	QListIterator<QPushButton *> i(b);
+	while (i.hasNext())
+		i.next()->setVisible(false);
 	setMinimumSize(QSize(480, 310));
 	setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
 }
