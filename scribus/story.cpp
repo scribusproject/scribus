@@ -1334,6 +1334,7 @@ void StoryEditor::savePrefs()
 	QList<int> splitted = EdSplit->sizes();
 	prefs->set("side", splitted[0]);
 	prefs->set("main", splitted[1]);
+	prefs->set("winstate", QString(saveState().toBase64()));
 }
 
 void StoryEditor::loadPrefs()
@@ -1359,6 +1360,10 @@ void StoryEditor::loadPrefs()
 	if ( vheight >= scr.height() )
 		vheight = qMax( gStrut.height(), scr.height() - vtop );
 	setGeometry(vleft, vtop, vwidth, vheight);
+	QByteArray state = "";
+	state = prefs->get("winstate","");
+	if (!state.isEmpty())
+		restoreState(QByteArray::fromBase64(state));
 	int side = prefs->getInt("side", -1);
 	int txtarea = prefs->getInt("main", -1);
 	if ((side != -1) && (txtarea != -1))
@@ -1551,6 +1556,7 @@ void StoryEditor::buildGUI()
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar(this);
+	FileTools->setObjectName("File");
 	FileTools->addAction(seActions["fileNew"]);
 	FileTools->addAction(seActions["fileLoadFromFile"]);
 	FileTools->addAction(seActions["fileSaveToFile"]);
@@ -1565,22 +1571,26 @@ void StoryEditor::buildGUI()
 	FileTools->setAllowedAreas(Qt::BottomToolBarArea);
 	FileTools->setAllowedAreas(Qt::TopToolBarArea);
 	FontTools = new SToolBFont(this);
+	FontTools->setObjectName("Font");
 	FontTools->setAllowedAreas(Qt::LeftToolBarArea);
 	FontTools->setAllowedAreas(Qt::RightToolBarArea);
 	FontTools->setAllowedAreas(Qt::BottomToolBarArea);
 	FontTools->setAllowedAreas(Qt::TopToolBarArea);
 	AlignTools = new SToolBAlign(this);
+	AlignTools->setObjectName("Align");
 	AlignTools->setAllowedAreas(Qt::LeftToolBarArea);
 	AlignTools->setAllowedAreas(Qt::RightToolBarArea);
 	AlignTools->setAllowedAreas(Qt::BottomToolBarArea);
 	AlignTools->setAllowedAreas(Qt::TopToolBarArea);
 	AlignTools->paraStyleCombo->setDoc(currDoc);
 	StyleTools = new SToolBStyle(this);
+	StyleTools->setObjectName("Style");
 	StyleTools->setAllowedAreas(Qt::LeftToolBarArea);
 	StyleTools->setAllowedAreas(Qt::RightToolBarArea);
 	StyleTools->setAllowedAreas(Qt::BottomToolBarArea);
 	StyleTools->setAllowedAreas(Qt::TopToolBarArea);
 	StrokeTools = new SToolBColorS(this, currDoc);
+	StrokeTools->setObjectName("Strok");
 	StrokeTools->setAllowedAreas(Qt::LeftToolBarArea);
 	StrokeTools->setAllowedAreas(Qt::RightToolBarArea);
 	StrokeTools->setAllowedAreas(Qt::BottomToolBarArea);
@@ -1588,6 +1598,7 @@ void StoryEditor::buildGUI()
 	StrokeTools->TxStroke->setEnabled(false);
 	StrokeTools->PM1->setEnabled(false);
 	FillTools = new SToolBColorF(this, currDoc);
+	FillTools->setObjectName("Fill");
 	FillTools->setAllowedAreas(Qt::LeftToolBarArea);
 	FillTools->setAllowedAreas(Qt::RightToolBarArea);
 	FillTools->setAllowedAreas(Qt::BottomToolBarArea);
