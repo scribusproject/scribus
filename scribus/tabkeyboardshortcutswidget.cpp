@@ -76,10 +76,6 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	keyDisplay->setMinimumWidth(fontMetrics().width("CTRL+ALT+SHIFT+W"));
 	keyDisplay->setText("");
 
-// 	keyTable->setSorting(-1);
-	// switched off as it's called in main prefs classes - PV
-	//restoreDefaults();
-
 	clearSearchButton->setPixmap(loadIcon("clear_right.png"));
 	// signals and slots connections
 	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
@@ -232,7 +228,6 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 		if(!f.open(QIODevice::WriteOnly))
 			return false;
 		QDataStream s(&f);
-// 		s.setEncoding(QTextStream::UnicodeUTF8);
 		QString xmltag("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 		s.writeRawBytes(xmltag, xmltag.length());
 		QString xmldoc = doc.toString(4);
@@ -428,31 +423,6 @@ void TabKeyboardShortcutsWidget::applySearch( const QString & newss )
 		else
 			it.key()->setHidden(true);
 	}
-// 	for (QList<QTreeWidgetItem*>::iterator it=lviToMenuMap.begin(); it!=lviToMenuMap.end(); ++it)
-// 	{
-// 		bool toBeVisible=false;
-// // 		QTreeWidgetItem* fc=(*it)->firstChild();
-// 		QTreeWidgetItem* fc=(*it)->child(0);
-// 		if (fc!=0)
-// 		{
-// 			if (!fc->isHidden())
-// 				toBeVisible=true;
-// 			else
-// 			{
-// 				QTreeWidgetItem* sibling=fc->nextSibling();
-// 				while (sibling!=0)
-// 				{
-// 					if (!sibling->isHidden())
-// 					{
-// 						toBeVisible=true;
-// 						break;
-// 					}
-// 					sibling=sibling->nextSibling();
-// 				}
-// 			}
-// 		}
-// 		(*it)->setHidden(!toBeVisible);
-// 	}
 }
 
 void TabKeyboardShortcutsWidget::dispKey(QTreeWidgetItem* qlvi, QTreeWidgetItem*)
@@ -522,6 +492,7 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 			default:
 				keyCode |= k->key();
 				keyDisplay->setText(getKeyText(keyCode));
+				releaseKeyboard();
 				if (checkKey(keyCode))
 				{
 					QMessageBox::information(this, CommonStrings::trWarning,
@@ -538,7 +509,6 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 					userDef->setChecked(true);
 				}
 				setKeyButton->setOn(false);
-				releaseKeyboard();
 		}
 	}
 	if (setKeyButton->isOn())
