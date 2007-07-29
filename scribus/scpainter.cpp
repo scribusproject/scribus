@@ -251,7 +251,7 @@ void ScPainter::end()
 		bmpHeader = &(bmpInfo.bmiHeader);
 		bmpHeader->biSize = sizeof(BITMAPINFOHEADER);
 		bmpHeader->biWidth = m_width;
-		bmpHeader->biHeight = -m_height;
+		bmpHeader->biHeight = -(int) m_height;
 		bmpHeader->biPlanes = 1;
 		bmpHeader->biBitCount = 32;
 		bmpHeader->biCompression = BI_RGB;

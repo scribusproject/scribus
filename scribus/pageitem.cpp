@@ -1150,7 +1150,7 @@ QString PageItem::ExpandToken(uint base)
 		QString out2;
 		//CB Section numbering
 		//out2 = out.arg(OwnPage+Doc->FirstPnum, -zae);
-		out2=out.arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage), -zae);
+		out2=out.arg(m_Doc->getSectionPageNumberForPageIndex(OwnPage), -(int) zae);
 		//out2=out.arg(out2, -zae);
 		chx = out2.mid(base-za2, 1);
 	}

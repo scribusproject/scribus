@@ -2462,7 +2462,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			QString out2;
 			//CB Section numbering
 			//out2 = out.arg(a+Doc->FirstPnum, -zae);
-			out2=out.arg(Doc->getSectionPageNumberForPageIndex(a), -zae);
+			out2=out.arg(Doc->getSectionPageNumberForPageIndex(a), -(int) zae);
 			chx = out2.mid(d-za2, 1);
 		}
 	}

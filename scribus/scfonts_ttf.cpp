@@ -282,7 +282,7 @@ bool Foi_ttf::EmbedFont(QString &str)
 			str += "00\n>";
 		}
 		else {
-			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontPath()).arg(gindex));
+			sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontPath()));
 			str += "\n] def\n";
 			return false;
 		}
