@@ -178,6 +178,7 @@ struct ApplicationPrefs
 	QString curCheckProfile;
 	int docUnitIndex;
 	windowPrefs mainWinSettings;
+	QByteArray mainWinState;
 	
 	MarginStruct bleeds;
 

@@ -186,6 +186,7 @@ void PrefsManager::initDefaults()
 	appPrefs.mainWinSettings.width = 640;
 	appPrefs.mainWinSettings.height = 480;
 	appPrefs.mainWinSettings.maximized = false;
+	appPrefs.mainWinState = "";
 	appPrefs.guidesSettings.marginsShown = true;
 	appPrefs.guidesSettings.framesShown = true;
 	appPrefs.guidesSettings.layerMarkersShown = false;
@@ -763,19 +764,25 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 		initDefaultCheckerPrefs(&appPrefs.checkerProfiles);
 		appPrefs.curCheckProfile = CommonStrings::PostScript;
 	}
+	if (!appPrefs.mainWinState.isEmpty())
+	{
+		mw->restoreState(QByteArray::fromBase64(appPrefs.mainWinState));
+	}
 }
 
 void PrefsManager::ReadPrefsXML()
 {
-    if (prefsFile)
-    {
-        PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
-        if (userprefsContext) {
-            appPrefs.guiLanguage = userprefsContext->get("gui_language","");
+	if (prefsFile)
+	{
+		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+		if (userprefsContext)
+		{
+			appPrefs.guiLanguage = userprefsContext->get("gui_language","");
+			appPrefs.mainWinState = userprefsContext->get("mainwinstate","");
             //continue here...
             //Prefs."blah blah" =...
-        }
-    }
+		}
+	}
 }
 
 
@@ -791,7 +798,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 	appPrefs.mainWinSettings.width = ScCore->primaryMainWindow()->size().width();
 	appPrefs.mainWinSettings.height = ScCore->primaryMainWindow()->size().height();
 	appPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
-
+	appPrefs.mainWinState = ScCore->primaryMainWindow()->saveState().toBase64();
 	appPrefs.RecentDocs.clear();
 	uint max = qMin(appPrefs.RecentDCount, ScCore->primaryMainWindow()->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
@@ -812,16 +819,18 @@ void PrefsManager::SavePrefs(const QString & fname)
 
 void PrefsManager::SavePrefsXML()
 {
-    if (prefsFile)
-    {
-        PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
-        if (userprefsContext) {
-            userprefsContext->set("gui_language",appPrefs.guiLanguage);
+	if (prefsFile)
+	{
+		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
+		if (userprefsContext)
+		{
+			userprefsContext->set("gui_language",appPrefs.guiLanguage);
+			userprefsContext->set("mainwinstate",QString(appPrefs.mainWinState));
             //continue here...
             //Prefs."blah blah" =...
-        }
-        prefsFile->write();
-    }
+		}
+		prefsFile->write();
+	}
 }
 
 void PrefsManager::setGhostscriptExecutable(const QString& executableName)
