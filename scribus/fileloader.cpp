@@ -450,6 +450,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 		return false;
 	if(!docu.setContent(f))
 		return false;
+	QString fileDir = QFileInfo(fileName).dirPath(true);
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
@@ -653,7 +654,7 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 					}
 					int docGc = doc->GroupCounter;
 					doc->GroupCounter = 0;
-					Neu = PasteItem(&pg, doc);
+					Neu = PasteItem(&pg, doc, fileDir);
 					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					Neu->setRedrawBounding();
 					//CB Must run onpage as we cant use pagetoload if the page has been renamed. 
@@ -882,6 +883,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
 	if (!docu.setContent(f))
 		return false;
+	QString fileDir = QFileInfo(fileName).dirPath(true);
 	doc->PageColors.clear();
 	doc->Layers.clear();
 	int layerToSetActive=0;
@@ -1611,20 +1613,20 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
-					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
-					{
-						//doc->Items = doc->DocItems;
-						//doc->Pages = &doc->DocPages;
-						doc->setMasterPageMode(false);
-					}
-					else
-					{
-						//doc->Items = doc->MasterItems;
-						//doc->Pages = &doc->MasterPages;
-						doc->setMasterPageMode(true);
-					}
-					if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
-						doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
+				if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
+				{
+					//doc->Items = doc->DocItems;
+					//doc->Pages = &doc->DocPages;
+					doc->setMasterPageMode(false);
+				}
+				else
+				{
+					//doc->Items = doc->MasterItems;
+					//doc->Pages = &doc->MasterPages;
+					doc->setMasterPageMode(true);
+				}
+				if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
+					doc->currentPage = doc->MasterPages.at(doc->MasterNames[pg.attribute("OnMasterPage")]);
 
 				if (pg.tagName()=="PAGEOBJECT")
 				{
@@ -1635,128 +1637,128 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 						itemNext[doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 					}
 				}
-					int docGc = doc->GroupCounter;
-					doc->GroupCounter = 0;
-					Neu = PasteItem(&pg, doc);
-					Neu->setRedrawBounding();
-					if (pg.tagName()=="MASTEROBJECT")
-						Neu->OwnPage = doc->OnPage(Neu);
-					else
-						Neu->OwnPage = pg.attribute("OwnPage").toInt();
-					if (pg.tagName()=="PAGEOBJECT")
-						Neu->OnMasterPage = "";
-					doc->GroupCounter = docGc;
-					tmpf = pg.attribute("IFONT", doc->toolSettings.defFont);
-					if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+				int docGc = doc->GroupCounter;
+				doc->GroupCounter = 0;
+				Neu = PasteItem(&pg, doc, fileDir);
+				Neu->setRedrawBounding();
+				if (pg.tagName()=="MASTEROBJECT")
+					Neu->OwnPage = doc->OnPage(Neu);
+				else
+					Neu->OwnPage = pg.attribute("OwnPage").toInt();
+				if (pg.tagName()=="PAGEOBJECT")
+					Neu->OnMasterPage = "";
+				doc->GroupCounter = docGc;
+				tmpf = pg.attribute("IFONT", doc->toolSettings.defFont);
+				if ((!avail.find(tmpf)) || (!avail[tmpf]->UseFont))
+				{
+					if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
 					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->UseFont))
-						{
-							newReplacement = true;
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
-						}
-						else
-							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
+						newReplacement = true;
+						ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
 					}
 					else
+						ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
+				}
+				else
+				{
+					if (!doc->UsedFonts.contains(tmpf))
 					{
-						if (!doc->UsedFonts.contains(tmpf))
-						{
 //							QFont fo = avail[tmpf]->Font;
 //							fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
-							doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
-						}
+						doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 					}
-					Neu->setFont(tmpf);
-					QDomNode IT=pg.firstChild();
-					while(!IT.isNull())
-					{
-						QDomElement it=IT.toElement();
-						if (it.tagName()=="CSTOP")
-						{
-							QString name = it.attribute("NAME");
-							double ramp = it.attribute("RAMP", "0.0").toDouble();
-							int shade = it.attribute("SHADE", "100").toInt();
-							double opa = it.attribute("TRANS", "1").toDouble();
-							Neu->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
-						}
-						if (it.tagName()=="ITEXT")
-							GetItemText(&it, doc, Neu);
-
-						//CB PageItemAttributes
-						if(it.tagName()=="PageItemAttributes")
-						{
-							QDomNode PIA = it.firstChild();
-							ObjAttrVector pageItemAttributes;
-							while(!PIA.isNull())
-							{
-								QDomElement itemAttr = PIA.toElement();
-								if(itemAttr.tagName() == "ItemAttribute")
-								{
-									ObjectAttribute objattr;
-									objattr.name=itemAttr.attribute("Name");
-									objattr.type=itemAttr.attribute("Type");
-									objattr.value=itemAttr.attribute("Value");
-									objattr.parameter=itemAttr.attribute("Parameter");
-									objattr.relationship=itemAttr.attribute("Relationship");
-									objattr.relationshipto=itemAttr.attribute("RelationshipTo");
-									objattr.autoaddto=itemAttr.attribute("AutoAddTo");
-									pageItemAttributes.append(objattr);
-								}
-								PIA = PIA.nextSibling();
-							}
-							Neu->setObjectAttributes(&pageItemAttributes);
-						}
-						IT=IT.nextSibling();
-					}
-					if (Neu->fill_gradient.Stops() == 0)
-					{
-						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, doc->toolSettings.dBrush, 100);
-						Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, doc->toolSettings.dPen, 100);
-					}
-					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", doc->Language));
-					Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
-					Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
-					Neu->gXpos = pg.attribute("gXpos", "0.0").toDouble();
-					Neu->gYpos = pg.attribute("gYpos", "0.0").toDouble();
-					QString defaultVal;
-					defaultVal.setNum(Neu->width());
-					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
-					defaultVal.setNum(Neu->height());
-					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-					if (Neu->lineSpacingMode() == 3)
-					{
-						doc->docParagraphStyles[0].BaseAdj = true;
-						Neu->setLineSpacing(doc->typographicSettings.valueBaseGrid-1);
-					}
-					if (Neu->isAutoText)
-						doc->LastAuto = Neu;
-
-					if (pg.tagName()=="FRAMEOBJECT")
-					{
-						doc->FrameItems.append(doc->Items->take(Neu->ItemNr));
-						Neu->ItemNr = doc->FrameItems.count()-1;
-					}
-					if (Neu->isTableItem)
-					{
-						if (pg.tagName()=="PAGEOBJECT")
-						{
-							TableItems.append(Neu);
-							TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
-						}
-						else if (pg.tagName()=="FRAMEOBJECT")
-						{
-							TableItemsF.append(Neu);
-							TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
-						}
-						else
-						{
-							TableItemsM.append(Neu);
-							TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
-						}
-					}
-					doc->setMasterPageMode(false);
-					counter++;
 				}
+				Neu->setFont(tmpf);
+				QDomNode IT=pg.firstChild();
+				while(!IT.isNull())
+				{
+					QDomElement it=IT.toElement();
+					if (it.tagName()=="CSTOP")
+					{
+						QString name = it.attribute("NAME");
+						double ramp = it.attribute("RAMP", "0.0").toDouble();
+						int shade = it.attribute("SHADE", "100").toInt();
+						double opa = it.attribute("TRANS", "1").toDouble();
+						Neu->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+					}
+					if (it.tagName()=="ITEXT")
+						GetItemText(&it, doc, Neu);
+
+					//CB PageItemAttributes
+					if(it.tagName()=="PageItemAttributes")
+					{
+						QDomNode PIA = it.firstChild();
+						ObjAttrVector pageItemAttributes;
+						while(!PIA.isNull())
+						{
+							QDomElement itemAttr = PIA.toElement();
+							if(itemAttr.tagName() == "ItemAttribute")
+							{
+								ObjectAttribute objattr;
+								objattr.name=itemAttr.attribute("Name");
+								objattr.type=itemAttr.attribute("Type");
+								objattr.value=itemAttr.attribute("Value");
+								objattr.parameter=itemAttr.attribute("Parameter");
+								objattr.relationship=itemAttr.attribute("Relationship");
+								objattr.relationshipto=itemAttr.attribute("RelationshipTo");
+								objattr.autoaddto=itemAttr.attribute("AutoAddTo");
+								pageItemAttributes.append(objattr);
+							}
+							PIA = PIA.nextSibling();
+						}
+						Neu->setObjectAttributes(&pageItemAttributes);
+					}
+					IT=IT.nextSibling();
+				}
+				if (Neu->fill_gradient.Stops() == 0)
+				{
+					Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, doc->toolSettings.dBrush, 100);
+					Neu->fill_gradient.addStop(doc->PageColors[doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, doc->toolSettings.dPen, 100);
+				}
+				Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", doc->Language));
+				Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
+				Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
+				Neu->gXpos = pg.attribute("gXpos", "0.0").toDouble();
+				Neu->gYpos = pg.attribute("gYpos", "0.0").toDouble();
+				QString defaultVal;
+				defaultVal.setNum(Neu->width());
+				Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
+				defaultVal.setNum(Neu->height());
+				Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
+				if (Neu->lineSpacingMode() == 3)
+				{
+					doc->docParagraphStyles[0].BaseAdj = true;
+					Neu->setLineSpacing(doc->typographicSettings.valueBaseGrid-1);
+				}
+				if (Neu->isAutoText)
+					doc->LastAuto = Neu;
+
+				if (pg.tagName()=="FRAMEOBJECT")
+				{
+					doc->FrameItems.append(doc->Items->take(Neu->ItemNr));
+					Neu->ItemNr = doc->FrameItems.count()-1;
+				}
+				if (Neu->isTableItem)
+				{
+					if (pg.tagName()=="PAGEOBJECT")
+					{
+						TableItems.append(Neu);
+						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+					}
+					else if (pg.tagName()=="FRAMEOBJECT")
+					{
+						TableItemsF.append(Neu);
+						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+					}
+					else
+					{
+						TableItemsM.append(Neu);
+						TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+					}
+				}
+				doc->setMasterPageMode(false);
+				counter++;
+			}
 			PAGE=PAGE.nextSibling();
 		}
 		PAGE=DOC.firstChild();
@@ -1885,13 +1887,13 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 					continue;
 				}
 				PageItem * tail = Itn;
-                                while (tail->NextBox)
-                                         tail = tail->NextBox;
-                                if (tail == Its)
-                                {
-                                        qDebug("scribus13format: cycle in linked textframes detected");
-                                        continue;
-                                }
+				while (tail->NextBox)
+					tail = tail->NextBox;
+				if (tail == Its)
+				{
+						qDebug("scribus13format: cycle in linked textframes detected");
+						continue;
+				}
 
 				Its->NextBox = Itn;
 				Itn->BackBox = Its;
@@ -2043,7 +2045,7 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	return;
 }
 
-PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
+PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir)
 {
 	struct ScImage::LoadRequest loadingInfo;
 	int z = 0;
@@ -2077,8 +2079,8 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem = doc->Items->at(z);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-		currItem->Pfile = obj->attribute("PFILE");
-		currItem->IProfile = obj->attribute("PRFILE","");
+		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
+		currItem->IProfile  = obj->attribute("PRFILE","");
 		currItem->EmProfile = obj->attribute("EPROF","");
 		currItem->IRender = obj->attribute("IRENDER", "1").toInt();
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
@@ -2156,9 +2158,9 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-			currItem->Pfile = obj->attribute("PFILE");
-			currItem->Pfile2 = obj->attribute("PFILE2","");
-			currItem->Pfile3 = obj->attribute("PFILE3","");
+			currItem->Pfile  = Relative2Path(obj->attribute("PFILE"), baseDir);
+			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
 			currItem->IProfile = obj->attribute("PRFILE","");
 			currItem->EmProfile = obj->attribute("EPROF","");
 			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
@@ -2182,9 +2184,9 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-			currItem->Pfile = obj->attribute("PFILE");
-			currItem->Pfile2 = obj->attribute("PFILE2","");
-			currItem->Pfile3 = obj->attribute("PFILE3","");
+			currItem->Pfile  = Relative2Path(obj->attribute("PFILE",""), baseDir);
+			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
 			currItem->IProfile = obj->attribute("PRFILE","");
 			currItem->EmProfile = obj->attribute("EPROF","");
 			currItem->IRender = obj->attribute("IRENDER", "1").toInt();

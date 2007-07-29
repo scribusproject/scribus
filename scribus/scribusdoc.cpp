@@ -2200,7 +2200,6 @@ void ScribusDoc::restoreMasterPageApplying(SimpleState *state, bool isUndo)
 bool ScribusDoc::save(const QString& fileName)
 {
 	QFileInfo fi(fileName);
-	QDir::setCurrent(fi.dirPath(true));
 	QProgressBar* mainWindowProgressBar=NULL;
 	if (ScQApp->usingGUI())
 	{

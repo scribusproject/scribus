@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <qvaluelist.h>
 #include <qpoint.h>
 #include <qdom.h>
+#include <qdir.h>
 
 #include "fpoint.h"
 #include "fpointarray.h"
@@ -40,7 +41,7 @@ If premultiplication does not allow to store result in a long value, perform a s
 bool compareDouble(double a, double b);
 
 QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, QString color, int shad);
-void SCRIBUS_API GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB);
+void SCRIBUS_API GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB, const QString& baseDir);
 /*! \brief Returns a sorted list of QStrings - sorted by locale specific rules!
 Uses compareQStrings() as rule. There is STL used!
 \author Petr Vanek
@@ -53,7 +54,8 @@ void SCRIBUS_API WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN
 bool SCRIBUS_API overwrite(QWidget *parent, QString filename);
 FPoint SCRIBUS_API getMaxClipF(FPointArray* Clip);
 FPoint SCRIBUS_API getMinClipF(FPointArray* Clip);
-QString SCRIBUS_API Path2Relative(QString Path);
+QString SCRIBUS_API Path2Relative(QString Path, const QString& baseDir = QDir::currentDirPath());
+QString SCRIBUS_API Relative2Path(QString File, const QString& baseDir = QDir::currentDirPath());
 QByteArray SCRIBUS_API ComputeMD5Sum(QByteArray *in);
 char SCRIBUS_API *toHex( uchar u );
 QString SCRIBUS_API String2Hex(QString *in, bool lang = true);

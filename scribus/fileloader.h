@@ -35,7 +35,7 @@ public:
 	bool ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *doc, int PageToLoad, bool Mpage, QString renamedPageName=QString::null);
 	bool ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *doc, QProgressBar *dia2);
 	void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo=false, bool VorLFound=false);
-	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
+	PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir);
 	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	bool postLoad();
 	void informReplacementFonts();

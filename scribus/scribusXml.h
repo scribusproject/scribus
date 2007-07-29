@@ -47,7 +47,7 @@ public:
 	QString ReadDatei(QString fileName);
 	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 	void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
-	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
+	void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
 	bool ReadLStyles(QString fileName, QMap<QString,multiLine> *Sty);
 	void GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	bool ReadStyles(QString fileName, ScribusDoc* doc);
@@ -62,7 +62,7 @@ public:
 					 QMap<QString,QString> &FontSub, ScribusView *view);
 	bool ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *docu, ScribusView *viewx, QProgressBar *dia2);
 	void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
+	void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, const QString& baseDir, uint maxC, int master);
 	bool WriteDoc(QString fileName, ScribusDoc *docu, QProgressBar *dia2);
 	ColorList Farben;
 	QValueList<ParagraphStyle> docParagraphStyles;

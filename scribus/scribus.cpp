@@ -3283,12 +3283,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	if (!fileName.isEmpty())
 	{
 		QString FName = fi.absFilePath();
-		QString DPath = fi.dirPath(true);
-		// Necessary on win32 platform for setCurrent() to succeed
-		// if document is located at drive root
-		if( !DPath.endsWith("/") )
-			DPath += "/";
-		QDir::setCurrent(DPath);
 		FileLoader *fileLoader = new FileLoader(FName);
 		if (fileLoader->TestFile() == -1)
 		{
@@ -3837,7 +3831,6 @@ void ScribusMainWindow::slotFileRevert()
 
 		QString fn(doc->DocName);
 		QFileInfo fi(fn);
-		QDir::setCurrent(fi.dirPath(true));
 		doc->setModified(false);
 		if (doc==storyEditor->currentDocument())
 			storyEditor->close();
@@ -6718,9 +6711,7 @@ void ScribusMainWindow::slotEditColors()
 	{
 		if (HaveDoc)
 		{
-			uint c, d;
 			QMap<QString,QString> ers;
-			PageItem *ite;
 			QColor tmpc;
 			slotDocCh();
 			doc->PageColors = dia->EditColors;

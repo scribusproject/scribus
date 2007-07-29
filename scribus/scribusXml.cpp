@@ -213,7 +213,7 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 	return tmpf;
 }
 
-void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
+void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat)
 {
 	double xf, yf;
 	QString tmp, tmpy;
@@ -291,7 +291,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 		if (item->annotation().ActionType() == 8)
 			ob->setAttribute("ANEXTERN", item->annotation().Extern());
 		else
-			ob->setAttribute("ANEXTERN", Path2Relative(item->annotation().Extern()));
+			ob->setAttribute("ANEXTERN", Path2Relative(item->annotation().Extern(), baseDir));
 		ob->setAttribute("ANZIEL", item->annotation().Ziel());
 		ob->setAttribute("ANACTYP", item->annotation().ActionType());
 		ob->setAttribute("ANTOOLTIP", item->annotation().ToolTip());
@@ -326,15 +326,15 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("BEXTRA",item->textToFrameDistBottom());
 	ob->setAttribute("REXTRA",item->textToFrameDistRight());
 	if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
-		ob->setAttribute("PFILE",Path2Relative(item->Pfile));
+		ob->setAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	else
 		ob->setAttribute("PFILE","");
 	if (!item->Pfile2.isEmpty())
-		ob->setAttribute("PFILE2",Path2Relative(item->Pfile2));
+		ob->setAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	else
 		ob->setAttribute("PFILE2","");
 	if (!item->Pfile3.isEmpty())
-		ob->setAttribute("PFILE3",Path2Relative(item->Pfile3));
+		ob->setAttribute("PFILE3",Path2Relative(item->Pfile3, baseDir));
 	else
 		ob->setAttribute("PFILE3","");
 	ob->setAttribute("PRFILE",item->IProfile);
@@ -875,6 +875,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 		return false;
 	if(!docu.setContent(f))
 		return false;
+	QString fileDir = QFileInfo(fileName).dirPath();
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
@@ -1035,7 +1036,7 @@ bool ScriXmlDoc::ReadPage(QString fileName, SCFonts &avail, ScribusDoc *doc, Scr
 							LFrames.append(Link);
 						}
 					}
-					GetItemProps(newVersion, &obj, &OB);
+					GetItemProps(newVersion, &obj, &OB, fileDir);
 					OB.Xpos = obj.attribute("XPOS").toDouble()+doc->Pages->at(a)->xOffset();
 					OB.Ypos=obj.attribute("YPOS").toDouble()+doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
@@ -1217,6 +1218,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 	// Build the DOM from it
 	if (!docu.setContent(f))
 		return false;
+	QString fileDir = QFileInfo(fileName).dirPath();
 	// and begin loading the doc
 	doc->PageColors.clear();
 	doc->Layers.clear();
@@ -1549,7 +1551,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 							LFrames.append(Link);
 						}
 					}
-					GetItemProps(newVersion, &obj, &OB);
+					GetItemProps(newVersion, &obj, &OB, fileDir);
 					OB.Xpos = obj.attribute("XPOS").toDouble()+doc->Pages->at(a)->xOffset();
 					OB.Ypos=obj.attribute("YPOS").toDouble()+doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
@@ -1887,6 +1889,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	int GrMax = doc->GroupCounter;
 	ScColor lf = ScColor();
 	QDomDocument docu("scridoc");
+	QString fileDir = QDir::homeDirPath();
 	if (Fi)
 	{
 		QCString f;
@@ -1896,6 +1899,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
+		fileDir = QFileInfo(fileName).dirPath(true);
 	}
 	else
 	{
@@ -1931,8 +1935,6 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	TableItems.clear();
 	TableID.clear();
 	arrowID.clear();
-	QString CurDirP = QDir::currentDirPath();
-	QDir::setCurrent(QDir::homeDirPath());
 	int startNumArrows = doc->arrowStyles.count();
 	while(!DOC.isNull())
 	{
@@ -2032,7 +2034,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="ITEM")
 		{
-			GetItemProps(newVersion, &pg, &OB);
+			GetItemProps(newVersion, &pg, &OB, fileDir);
 			OB.Xpos = Xp + pg.attribute("XPOS").toDouble() - GrX;
 			OB.Ypos = Yp + pg.attribute("YPOS").toDouble() - GrY;
 			OB.startArrowIndex =  arrowID[pg.attribute("startArrowIndex", "0").toInt()];
@@ -2161,7 +2163,6 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		}
 	}
 	doc->GroupCounter = GrMax + 1;
-	QDir::setCurrent(CurDirP);
 	return true;
 }
 
@@ -2439,15 +2440,14 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	//for (uint co=0; co<Selitems->count(); ++co)
 	for (uint co=0; co<selection->count(); ++co)
 	{
-		QString CurDirP = QDir::currentDirPath();
-		QDir::setCurrent(QDir::homeDirPath());
+		QString baseDir = QDir::homeDirPath();
 		item = doc->Items->at(ELL[co]);
 		QDomElement ob=docu.createElement("ITEM");
 		if (item->textAlignment > 4)
 			ob.setAttribute("ALIGN",UsedMapped2Saved[item->textAlignment]);
 		else
 			ob.setAttribute("ALIGN",item->textAlignment);
- 		SetItemProps(&ob, item, false);
+ 		SetItemProps(&ob, item, baseDir, false);
 		ob.setAttribute("LOCK", 0);
 		ob.setAttribute("XPOS",item->xPos() - doc->currentPage->xOffset());
 		ob.setAttribute("YPOS",item->yPos() - doc->currentPage->yOffset());
@@ -2507,7 +2507,6 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			ob.setAttribute("GRENDX", item->GrEndX);
 			ob.setAttribute("GRENDY", item->GrEndY);
 		}
-		QDir::setCurrent(CurDirP);
 		for(uint k=0;k<item->itemText.count();++k)
 		{
 			ScText * itemTextAtK = item->itemText.at(k);
@@ -2733,7 +2732,8 @@ void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc
 	}
 }
 
-void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
+void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, 
+							  const QString& baseDir, uint maxC, int master)
 {
 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tobj, tobj2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
@@ -2774,7 +2774,7 @@ void ScriXmlDoc::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *
 				ob = docu->createElement("FRAMEOBJECT");
 				break;
 		}
-		SetItemProps(&ob, item, true);
+		SetItemProps(&ob, item, baseDir, true);
 		ob.setAttribute("OnMasterPage", item->OnMasterPage);
 		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
@@ -3528,11 +3528,13 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		dia2->setTotalSteps(doc->DocPages.count()+doc->MasterPages.count()+doc->DocItems.count()+doc->MasterItems.count()+doc->FrameItems.count());
 		dia2->setProgress(0);
 	}
+	QFileInfo fi(fileName);
+	QString baseDir = fi.dirPath(true);
 	WritePages(doc, &docu, &dc, dia2, 0, true);
 	WritePages(doc, &docu, &dc, dia2, doc->MasterPages.count(), false);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count(), 2);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->FrameItems.count(), 0);
-	WriteObjects(doc, &docu, &dc, dia2, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count()+doc->FrameItems.count(), 1);
+	WriteObjects(doc, &docu, &dc, dia2, baseDir, doc->MasterPages.count()+doc->DocPages.count(), 2);
+	WriteObjects(doc, &docu, &dc, dia2, baseDir, doc->MasterPages.count()+doc->DocPages.count()+doc->FrameItems.count(), 0);
+	WriteObjects(doc, &docu, &dc, dia2, baseDir, doc->MasterPages.count()+doc->DocPages.count()+doc->MasterItems.count()+doc->FrameItems.count(), 1);
 	elem.appendChild(dc);
 /**
  * changed to enable saving

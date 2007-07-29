@@ -562,7 +562,7 @@ QByteArray ComputeMD5Sum(QByteArray *in)
 	return MDsum;
 }
 
-QString Path2Relative(QString Path)
+QString Path2Relative(QString Path, const QString& baseDir)
 {
 	QString	Ndir = "";
 	QStringList Pdir;
@@ -573,11 +573,11 @@ QString Path2Relative(QString Path)
 	uint dcoun2 = 0;
 
 #ifndef _WIN32
-	Pdir = QStringList::split("/", QDir::currentDirPath());
+	Pdir = QStringList::split("/", baseDir);
 	Bdir = QStringList::split("/", Bfi.dirPath(true));
 #else
 	// On win32, file systems are case insensitive
-	Pdir = QStringList::split("/", QDir::currentDirPath().lower());
+	Pdir = QStringList::split("/", baseDir.lower());
 	Bdir = QStringList::split("/", Bfi.dirPath(true).lower());
 	// We must check that both path are located on same drive
 	if( Pdir.size() > 0 && Bdir.size() > 0 )
@@ -610,6 +610,24 @@ QString Path2Relative(QString Path)
 		Ndir += Bdir[ddx]+"/";
 	Ndir += Bfi.fileName();
 	return Ndir;
+}
+
+QString Relative2Path(QString File, const QString& baseDir)
+{
+	QString absPath;
+	QFileInfo fi(File);
+	if (File.isEmpty())
+		absPath = File;
+	else if (fi.isRelative())
+	{
+		QFileInfo fi1(baseDir + "/" + File);
+		absPath  = fi1.dirPath(true);
+		absPath += "/";
+		absPath += fi1.fileName();
+	}
+	else
+		absPath = File;
+	return absPath;
 }
 
 /***************************************************************************
@@ -753,7 +771,7 @@ QStringList sortQStringList(QStringList aList)
 	return retList;
 }
 
-void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
+void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB, const QString& baseDir)
 {
 	QString tmp;
 	int x, y;
@@ -887,9 +905,9 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 		OB->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
 	else
 		OB->ExtraV = obj->attribute("TXTKERN").toInt();
-	OB->Pfile=obj->attribute("PFILE");
-	OB->Pfile2=obj->attribute("PFILE2","");
-	OB->Pfile3=obj->attribute("PFILE3","");
+	OB->Pfile  = Relative2Path(obj->attribute("PFILE"), baseDir);
+	OB->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+	OB->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
 	OB->IProfile=obj->attribute("PRFILE","");
 	OB->EmProfile=obj->attribute("EPROF","");
 	OB->IRender = obj->attribute("IRENDER", "1").toInt();
