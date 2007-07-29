@@ -37,6 +37,7 @@ void ScrSpinBox::init(int unitIndex)
 	setSuffix(unitGetSuffixFromIndex(m_unitIndex));
 	setDecimals(unitGetPrecisionFromIndex(m_unitIndex));
 	setSingleStep(1.0);
+	lineEdit()->setValidator(0);
 	disconnect(this, SIGNAL(valueChanged(const QString &)), this, SLOT(textChanged()));
 	connect(this, SIGNAL(valueChanged(const QString &)), this, SLOT(textChanged()));
 	installEventFilter(this);
