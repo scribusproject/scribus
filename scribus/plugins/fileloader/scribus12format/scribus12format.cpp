@@ -223,6 +223,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	// Build the DOM from it
 	if (!docu.setContent(f))
 		return false;
+	// Get file directory
+	QString fileDir = QFileInfo(fileName).dirPath(true);
 	// and begin loading the doc
 	m_Doc->PageColors.clear();
 	m_Doc->Layers.clear();
@@ -469,7 +471,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 							}
 						}
 					}
-					GetItemProps(newVersion, &obj, &OB);
+					GetItemProps(newVersion, &obj, &OB, fileDir);
 					OB.Xpos = obj.attribute("XPOS").toDouble()+m_Doc->Pages->at(a)->xOffset();
 					OB.Ypos=obj.attribute("YPOS").toDouble()+m_Doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
@@ -881,6 +883,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		return false;
 	if(!docu.setContent(f))
 		return false;
+	QString fileDir = QFileInfo(fileName).dirPath(true);
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))
@@ -1031,7 +1034,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 							itemNext[m_Doc->Items->count()] = scribus12itemID(obj.attribute("NEXTITEM").toInt(), pageNumber);
 						}
 					}
-					GetItemProps(newVersion, &obj, &OB);
+					GetItemProps(newVersion, &obj, &OB, fileDir);
 					OB.Xpos = obj.attribute("XPOS").toDouble()+m_Doc->Pages->at(a)->xOffset();
 					OB.Ypos=obj.attribute("YPOS").toDouble()+m_Doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");

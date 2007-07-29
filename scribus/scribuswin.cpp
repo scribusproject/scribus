@@ -86,8 +86,6 @@ void ScribusWin::slotAutoSave()
 	if ((m_Doc->hasName) && (m_Doc->isModified()))
 	{
 		moveFile(m_Doc->DocName, m_Doc->DocName+".bak");
-		QFileInfo fi(m_Doc->DocName);
-		QDir::setCurrent(fi.dirPath(true));
 		FileLoader fl(m_Doc->DocName);
 		if (fl.SaveFile(m_Doc->DocName, m_Doc, 0))
 		{

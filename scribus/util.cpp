@@ -396,57 +396,27 @@ QByteArray ComputeMD5Sum(QByteArray *in)
 	return MDsum;
 }
 
-QString Path2Relative(QString Path)
+QString Path2Relative(QString Path, const QString& baseDir)
 {
-	QDir d = QDir::current();
+	QDir d(baseDir);
 	return d.relativeFilePath(Path);
-/*
-	QString	Ndir("");
-	QStringList Pdir;
-	QFileInfo Bfi = QFileInfo(Path);
-	QStringList Bdir;
-	bool end = true;
-	int dcoun = 0;
-	int dcoun2 = 0;
-
-#ifndef _WIN32
-	Pdir = QStringList::split("/", QDir::currentDirPath());
-	Bdir = QStringList::split("/", Bfi.dirPath(true));
-#else
-	// On win32, file systems are case insensitive
-	Pdir = QStringList::split("/", QDir::currentDirPath().lower());
-	Bdir = QStringList::split("/", Bfi.dirPath(true).lower());
-	// We must check that both path are located on same drive
-	if( Pdir.size() > 0 && Bdir.size() > 0 )
-	{
-	QString drive = Bdir.front();
-	QString currentDrive = Pdir.front();
-	if( drive != currentDrive )
-	return Path;
 }
-#endif
 
-	while (end)
+QString Relative2Path(QString File, const QString& baseDir)
+{
+	QString   absPath;
+	QFileInfo fi(File);
+	if (File.isEmpty())
+		absPath = File;
+	else if (fi.isRelative())
 	{
-	if (Pdir[dcoun] == Bdir[dcoun])
-	dcoun++;
+		QDir d(baseDir);
+		absPath = d.absoluteFilePath(File);
+		absPath = QDir::cleanPath(absPath);
+	}
 	else
-	break;
-	if (dcoun > Pdir.count())
-	break;
-}
-	dcoun2 = dcoun;
-
-#ifdef _WIN32
-	Bdir = QStringList::split("/", Bfi.dirPath(true));
-#endif
-
-	for (int ddx2 = dcoun; ddx2 < Pdir.count(); ddx2++)
-	Ndir += "../";
-	for (int ddx = dcoun2; ddx < Bdir.count(); ddx++)
-	Ndir += Bdir[ddx]+"/";
-	Ndir += Bfi.fileName();
-	return Ndir; */
+		absPath = File;
+	return absPath;
 }
 
 /***************************************************************************
@@ -601,7 +571,7 @@ QStringList sortQStringList(QStringList aList)
 	return retList;
 }
 
-void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
+void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB, const QString& baseDir)
 {
 	QString tmp;
 	int x, y;
@@ -759,9 +729,9 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 		OB->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
 	else
 		OB->ExtraV = obj->attribute("TXTKERN").toInt();
-	OB->Pfile=obj->attribute("PFILE");
-	OB->Pfile2=obj->attribute("PFILE2","");
-	OB->Pfile3=obj->attribute("PFILE3","");
+	OB->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
+	OB->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+	OB->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
 	OB->IProfile=obj->attribute("PRFILE","");
 	OB->EmProfile=obj->attribute("EPROF","");
 	OB->IRender = obj->attribute("IRENDER", "1").toInt();

@@ -12,8 +12,8 @@ for which a new license (GPL+exception) is in place.
     email                : christian.toepp@mr-ct@gmx.de
  ***************************************************************************/
 
-#ifndef _SCRIBUS_CONFIG_
-#define _SCRIBUS_CONFIG_
+#ifndef _SCRIBUSXML_H
+#define _SCRIBUSXML_H
 
 #include <QDomDocument>
 #include <QDomElement>
@@ -47,9 +47,9 @@ public:
 	*/
 	QString ReadDatei(QString fileName);
 	void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
-	void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
+	void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
 	QString WriteElem(ScribusDoc *doc, ScribusView *view, Selection *selection);
-	void WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &dc, QMap<int, int> &UsedMapped2Saved, PageItem *item);
+	void WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &dc, const QString& baseDir, QMap<int, int> &UsedMapped2Saved, PageItem *item);
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
 	ColorList Farben;

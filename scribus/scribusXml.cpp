@@ -249,7 +249,7 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 	return tmpf;
 }
 
-void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
+void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat)
 {
 	double xf, yf;
 	QString tmp, tmpy;
@@ -329,7 +329,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 		if (item->annotation().ActionType() == 8)
 			ob->setAttribute("ANEXTERN", item->annotation().Extern());
 		else
-			ob->setAttribute("ANEXTERN", Path2Relative(item->annotation().Extern()));
+			ob->setAttribute("ANEXTERN", Path2Relative(item->annotation().Extern(), baseDir));
 		ob->setAttribute("ANZIEL", item->annotation().Ziel());
 		ob->setAttribute("ANACTYP", item->annotation().ActionType());
 		ob->setAttribute("ANTOOLTIP", item->annotation().ToolTip());
@@ -368,15 +368,15 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("BEXTRA",item->textToFrameDistBottom());
 	ob->setAttribute("REXTRA",item->textToFrameDistRight());
 	if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
-		ob->setAttribute("PFILE",Path2Relative(item->Pfile));
+		ob->setAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	else
 		ob->setAttribute("PFILE","");
 	if (!item->Pfile2.isEmpty())
-		ob->setAttribute("PFILE2",Path2Relative(item->Pfile2));
+		ob->setAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	else
 		ob->setAttribute("PFILE2","");
 	if (!item->Pfile3.isEmpty())
-		ob->setAttribute("PFILE3",Path2Relative(item->Pfile3));
+		ob->setAttribute("PFILE3",Path2Relative(item->Pfile3, baseDir));
 	else
 		ob->setAttribute("PFILE3","");
 	ob->setAttribute("PRFILE",item->IProfile);
@@ -653,6 +653,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	int GrMax = doc->GroupCounter;
 	ScColor lf = ScColor();
 	QDomDocument docu("scridoc");
+	QString fileDir = QDir::homeDirPath();
 	if (Fi)
 	{
 		QByteArray f;
@@ -662,6 +663,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
+		fileDir = QFileInfo(fileName).dirPath(true);
 	}
 	else
 	{
@@ -802,7 +804,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			while(!pa.isNull())
 			{
 				QDomElement pite = pa.toElement();
-				GetItemProps(newVersion, &pite, &OB);
+				GetItemProps(newVersion, &pite, &OB, fileDir);
 				OB.Xpos = pite.attribute("XPOS").toDouble() + doc->currentPage()->xOffset();
 				OB.Ypos = pite.attribute("YPOS").toDouble() + doc->currentPage()->yOffset();
 				OB.startArrowIndex =  arrowID[pite.attribute("startArrowIndex", "0").toInt()];
@@ -978,7 +980,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="ITEM")
 		{
-			GetItemProps(newVersion, &pg, &OB);
+			GetItemProps(newVersion, &pg, &OB, fileDir);
 			OB.Xpos = Xp + pg.attribute("XPOS").toDouble() - GrX;
 			OB.Ypos = Yp + pg.attribute("YPOS").toDouble() - GrY;
 			OB.startArrowIndex =  arrowID[pg.attribute("startArrowIndex", "0").toInt()];
@@ -1169,6 +1171,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
+	QString baseDir = QDir::homeDirPath();
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
 	item = selection->itemAt(0);
@@ -1414,7 +1417,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			QDir::setCurrent(QDir::homeDirPath());
 			item = pa.items.at(o);
 			QDomElement ob = docu.createElement("PatternItem");
-			WriteObject(doc, docu, ob, UsedMapped2Saved, item);
+			WriteObject(doc, docu, ob, baseDir, UsedMapped2Saved, item);
 			pat.appendChild(ob);
 		}
 		elem.appendChild(pat);
@@ -1424,13 +1427,14 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		QDir::setCurrent(QDir::homeDirPath());
 		item = doc->Items->at(ELL[co]);
 		QDomElement ob = docu.createElement("ITEM");
-		WriteObject(doc, docu, ob, UsedMapped2Saved, item);
+		WriteObject(doc, docu, ob, baseDir, UsedMapped2Saved, item);
 		elem.appendChild(ob);
 	}
 	return docu.toString();
 }
 
-void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &ob, QMap<int, int> &UsedMapped2Saved, PageItem *item)
+void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &ob, const QString& baseDir, 
+							 QMap<int, int> &UsedMapped2Saved, PageItem *item)
 {
 	int tst, tst2;
 	double te, tsh, tshs, te2, tsh2, tshs2;
@@ -1440,7 +1444,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 
 	int textAlignment = item->itemText.defaultStyle().alignment();
 	ob.setAttribute("ALIGN",textAlignment);
-	SetItemProps(&ob, item, false);
+	SetItemProps(&ob, item, baseDir, false);
 	ob.setAttribute("LOCK", 0);
 	ob.setAttribute("XPOS",item->xPos() - doc->currentPage()->xOffset());
 	ob.setAttribute("YPOS",item->yPos() - doc->currentPage()->yOffset());

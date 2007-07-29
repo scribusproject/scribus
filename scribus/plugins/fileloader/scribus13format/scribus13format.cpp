@@ -186,6 +186,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
+	QString fileDir = QFileInfo(fileName).dirPath(true);
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
 	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
 	if (!docu.setContent(f))
@@ -835,18 +836,18 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			}
 			if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="MASTEROBJECT") || (pg.tagName()=="FRAMEOBJECT"))
 			{
-					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
-					{
-						//m_Doc->Items = m_Doc->DocItems;
-						//m_Doc->Pages = &m_Doc->DocPages;
-						m_Doc->setMasterPageMode(false);
-					}
-					else
-					{
-						//m_Doc->Items = m_Doc->MasterItems;
-						//m_Doc->Pages = &m_Doc->MasterPages;
-						m_Doc->setMasterPageMode(true);
-					}
+				if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
+				{
+					//m_Doc->Items = m_Doc->DocItems;
+					//m_Doc->Pages = &m_Doc->DocPages;
+					m_Doc->setMasterPageMode(false);
+				}
+				else
+				{
+					//m_Doc->Items = m_Doc->MasterItems;
+					//m_Doc->Pages = &m_Doc->MasterPages;
+					m_Doc->setMasterPageMode(true);
+				}
 				if ((!pg.attribute("OnMasterPage").isEmpty()) && (pg.tagName()=="MASTEROBJECT"))
 					m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[pg.attribute("OnMasterPage")]));
 
@@ -859,119 +860,119 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
 					}
 				}
-					int docGc = m_Doc->GroupCounter;
-					m_Doc->GroupCounter = 0;
-					Neu = PasteItem(&pg, m_Doc);
-					Neu->setRedrawBounding();
-					if (pg.tagName()=="MASTEROBJECT")
-						Neu->OwnPage = m_Doc->OnPage(Neu);
-					else
-						Neu->OwnPage = pg.attribute("OwnPage").toInt();
-					if (pg.tagName()=="PAGEOBJECT")
-						Neu->OnMasterPage = "";
-					m_Doc->GroupCounter = docGc;
-					QDomNode IT=pg.firstChild();
-					LastStyles * last = new LastStyles();
-					while(!IT.isNull())
+				int docGc = m_Doc->GroupCounter;
+				m_Doc->GroupCounter = 0;
+				Neu = PasteItem(&pg, m_Doc, fileDir);
+				Neu->setRedrawBounding();
+				if (pg.tagName()=="MASTEROBJECT")
+					Neu->OwnPage = m_Doc->OnPage(Neu);
+				else
+					Neu->OwnPage = pg.attribute("OwnPage").toInt();
+				if (pg.tagName()=="PAGEOBJECT")
+					Neu->OnMasterPage = "";
+				m_Doc->GroupCounter = docGc;
+				QDomNode IT=pg.firstChild();
+				LastStyles * last = new LastStyles();
+				while(!IT.isNull())
+				{
+					QDomElement it=IT.toElement();
+					if (it.tagName()=="CSTOP")
 					{
-						QDomElement it=IT.toElement();
-						if (it.tagName()=="CSTOP")
-						{
-							QString name = it.attribute("NAME");
-							double ramp = it.attribute("RAMP", "0.0").toDouble();
-							int shade = it.attribute("SHADE", "100").toInt();
-							double opa = it.attribute("TRANS", "1").toDouble();
-							handleOldColorShade(m_Doc, name, shade);
-							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
-						}
-						if (it.tagName()=="ITEXT")
-							GetItemText(&it, m_Doc, Neu, last);
+						QString name = it.attribute("NAME");
+						double ramp = it.attribute("RAMP", "0.0").toDouble();
+						int shade = it.attribute("SHADE", "100").toInt();
+						double opa = it.attribute("TRANS", "1").toDouble();
+						handleOldColorShade(m_Doc, name, shade);
+						Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
+					}
+					if (it.tagName()=="ITEXT")
+						GetItemText(&it, m_Doc, Neu, last);
 
-						//CB PageItemAttributes
-						if(it.tagName()=="PageItemAttributes")
+					//CB PageItemAttributes
+					if(it.tagName()=="PageItemAttributes")
+					{
+						QDomNode PIA = it.firstChild();
+						ObjAttrVector pageItemAttributes;
+						while(!PIA.isNull())
 						{
-							QDomNode PIA = it.firstChild();
-							ObjAttrVector pageItemAttributes;
-							while(!PIA.isNull())
+							QDomElement itemAttr = PIA.toElement();
+							if(itemAttr.tagName() == "ItemAttribute")
 							{
-								QDomElement itemAttr = PIA.toElement();
-								if(itemAttr.tagName() == "ItemAttribute")
-								{
-									ObjectAttribute objattr;
-									objattr.name=itemAttr.attribute("Name");
-									objattr.type=itemAttr.attribute("Type");
-									objattr.value=itemAttr.attribute("Value");
-									objattr.parameter=itemAttr.attribute("Parameter");
-									objattr.relationship=itemAttr.attribute("Relationship");
-									objattr.relationshipto=itemAttr.attribute("RelationshipTo");
-									objattr.autoaddto=itemAttr.attribute("AutoAddTo");
-									pageItemAttributes.append(objattr);
-								}
-								PIA = PIA.nextSibling();
+								ObjectAttribute objattr;
+								objattr.name=itemAttr.attribute("Name");
+								objattr.type=itemAttr.attribute("Type");
+								objattr.value=itemAttr.attribute("Value");
+								objattr.parameter=itemAttr.attribute("Parameter");
+								objattr.relationship=itemAttr.attribute("Relationship");
+								objattr.relationshipto=itemAttr.attribute("RelationshipTo");
+								objattr.autoaddto=itemAttr.attribute("AutoAddTo");
+								pageItemAttributes.append(objattr);
 							}
-							Neu->setObjectAttributes(&pageItemAttributes);
+							PIA = PIA.nextSibling();
 						}
-						IT=IT.nextSibling();
+						Neu->setObjectAttributes(&pageItemAttributes);
 					}
-					delete last;
-					if (Neu->fill_gradient.Stops() == 0)
+					IT=IT.nextSibling();
+				}
+				delete last;
+				if (Neu->fill_gradient.Stops() == 0)
+				{
+					const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
+					const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
+					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+					Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+				}
+//				Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
+				Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
+				Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
+				Neu->gXpos = pg.attribute("gXpos", "0.0").toDouble();
+				Neu->gYpos = pg.attribute("gYpos", "0.0").toDouble();
+				QString defaultVal;
+				defaultVal.setNum(Neu->width());
+				Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
+				defaultVal.setNum(Neu->height());
+				Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
+				if (Neu->isAutoText)
+					m_Doc->LastAuto = Neu;
+				if (pg.tagName()=="FRAMEOBJECT")
+				{
+					m_Doc->FrameItems.append(m_Doc->Items->takeAt(Neu->ItemNr));
+					Neu->ItemNr = m_Doc->FrameItems.count()-1;
+				}
+				if (Neu->isTableItem)
+				{
+					if (pg.tagName()=="PAGEOBJECT")
 					{
-						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
-						const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
-						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+						TableItems.append(Neu);
+						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 					}
-//					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
-					Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
-					Neu->isEmbedded = static_cast<bool>(pg.attribute("isInline", "0").toInt());
-					Neu->gXpos = pg.attribute("gXpos", "0.0").toDouble();
-					Neu->gYpos = pg.attribute("gYpos", "0.0").toDouble();
-					QString defaultVal;
-					defaultVal.setNum(Neu->width());
-					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
-					defaultVal.setNum(Neu->height());
-					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-					if (Neu->isAutoText)
-						m_Doc->LastAuto = Neu;
-					if (pg.tagName()=="FRAMEOBJECT")
+					else if (pg.tagName()=="FRAMEOBJECT")
 					{
-						m_Doc->FrameItems.append(m_Doc->Items->takeAt(Neu->ItemNr));
-						Neu->ItemNr = m_Doc->FrameItems.count()-1;
-					}
-					if (Neu->isTableItem)
-					{
-						if (pg.tagName()=="PAGEOBJECT")
-						{
-							TableItems.append(Neu);
-							TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
-						}
-						else if (pg.tagName()=="FRAMEOBJECT")
-						{
-							TableItemsF.append(Neu);
-							TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
-						}
-						else
-						{
-							TableItemsM.append(Neu);
-							TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
-						}
-					}
-					/*
-					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
-					{
-						//m_Doc->DocItems = m_Doc->Items;
-						//m_Doc->DocPages = m_Doc->Pages;
+						TableItemsF.append(Neu);
+						TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 					}
 					else
 					{
-						//m_Doc->MasterItems = m_Doc->Items;
-						//m_Doc->MasterPages = m_Doc->Pages;
+						TableItemsM.append(Neu);
+						TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 					}
-					*/
-					m_Doc->setMasterPageMode(false);
-					//m_Doc->Pages=&m_Doc->DocPages;
-					counter++;
 				}
+				/*
+				if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
+				{
+					//m_Doc->DocItems = m_Doc->Items;
+					//m_Doc->DocPages = m_Doc->Pages;
+				}
+				else
+				{
+					//m_Doc->MasterItems = m_Doc->Items;
+					//m_Doc->MasterPages = m_Doc->Pages;
+				}
+				*/
+				m_Doc->setMasterPageMode(false);
+				//m_Doc->Pages=&m_Doc->DocPages;
+				counter++;
+			}
 			PAGE=PAGE.nextSibling();
 		}
 		PAGE=DOC.firstChild();
@@ -1618,11 +1619,12 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 		m_mwProgressBar->setMaximum(m_Doc->DocPages.count()+m_Doc->MasterPages.count()+m_Doc->DocItems.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count());
 		m_mwProgressBar->setValue(0);
 	}
+	QString baseDir = QFileInfo(fileName).dirPath(true);;
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, 0, true);
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count(), false);
-	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count(), 2);
-	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->FrameItems.count(), 0);
-	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), 1);
+	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count(), 2);
+	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->FrameItems.count(), 0);
+	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), 1);
 	elem.appendChild(dc);
 /**
  * changed to enable saving
@@ -1937,7 +1939,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	}
 }
 
-PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
+PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir)
 {
 	struct ImageLoadRequest loadingInfo;
 	int z = 0;
@@ -1975,8 +1977,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem = doc->Items->at(z);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-		currItem->Pfile = obj->attribute("PFILE");
-		currItem->IProfile = obj->attribute("PRFILE","");
+		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
+		currItem->IProfile  = obj->attribute("PRFILE","");
 		currItem->EmProfile = obj->attribute("EPROF","");
 		currItem->IRender = obj->attribute("IRENDER", "1").toInt();
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
@@ -2055,9 +2057,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-			currItem->Pfile = obj->attribute("PFILE");
-			currItem->Pfile2 = obj->attribute("PFILE2","");
-			currItem->Pfile3 = obj->attribute("PFILE3","");
+			currItem->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
+			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
 			currItem->IProfile = obj->attribute("PRFILE","");
 			currItem->EmProfile = obj->attribute("EPROF","");
 			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
@@ -2079,9 +2081,9 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-			currItem->Pfile = obj->attribute("PFILE");
-			currItem->Pfile2 = obj->attribute("PFILE2","");
-			currItem->Pfile3 = obj->attribute("PFILE3","");
+			currItem->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
+			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
 			currItem->IProfile = obj->attribute("PRFILE","");
 			currItem->EmProfile = obj->attribute("EPROF","");
 			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
@@ -2497,6 +2499,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		return false;
 	if(!docu.setContent(f))
 		return false;
+	QString fileDir = QFileInfo(fileName).dirPath(true);
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
@@ -2695,7 +2698,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					}
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
-					Neu = PasteItem(&pg, m_Doc);
+					Neu = PasteItem(&pg, m_Doc, fileDir);
 					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					Neu->setRedrawBounding();
 					//CB Must run onpage as we cant use pagetoload if the page has been renamed. 
@@ -3177,7 +3180,8 @@ void Scribus13Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElemen
 	}
 }
 
-void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master)
+void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, 
+								   QProgressBar *dia2, uint maxC, int master)
 {
 	int tst, tst2, tsb, tsb2, tobj, tobj2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
@@ -3219,7 +3223,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 				ob = docu->createElement("FRAMEOBJECT");
 				break;
 		}
-		SetItemProps(&ob, item, true);
+		SetItemProps(&ob, item, baseDir, true);
 		ob.setAttribute("OnMasterPage", item->OnMasterPage);
 		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
@@ -3506,7 +3510,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	}
 }
 
-void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
+void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat)
 {
 	double xf, yf;
 	QString tmp, tmpy;
@@ -3584,7 +3588,7 @@ void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, bool newForm
 		if (item->annotation().ActionType() == 8)
 			ob->setAttribute("ANEXTERN", item->annotation().Extern());
 		else
-			ob->setAttribute("ANEXTERN", Path2Relative(item->annotation().Extern()));
+			ob->setAttribute("ANEXTERN", Path2Relative(item->annotation().Extern(), baseDir));
 		ob->setAttribute("ANZIEL", item->annotation().Ziel());
 		ob->setAttribute("ANACTYP", item->annotation().ActionType());
 		ob->setAttribute("ANTOOLTIP", item->annotation().ToolTip());
@@ -3623,15 +3627,15 @@ void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, bool newForm
 	ob->setAttribute("BEXTRA",item->textToFrameDistBottom());
 	ob->setAttribute("REXTRA",item->textToFrameDistRight());
 	if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
-		ob->setAttribute("PFILE",Path2Relative(item->Pfile));
+		ob->setAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	else
 		ob->setAttribute("PFILE","");
 	if (!item->Pfile2.isEmpty())
-		ob->setAttribute("PFILE2",Path2Relative(item->Pfile2));
+		ob->setAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	else
 		ob->setAttribute("PFILE2","");
 	if (!item->Pfile3.isEmpty())
-		ob->setAttribute("PFILE3",Path2Relative(item->Pfile3));
+		ob->setAttribute("PFILE3",Path2Relative(item->Pfile3, baseDir));
 	else
 		ob->setAttribute("PFILE3","");
 	ob->setAttribute("PRFILE",item->IProfile);

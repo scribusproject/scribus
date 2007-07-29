@@ -1929,7 +1929,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	PrefsManager::deleteInstance();
 	FormatsManager::deleteInstance();
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	exit(0);
+	qApp->exit(0);
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -3626,12 +3626,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 	if (!fileName.isEmpty())
 	{
 		QString FName = fi.absFilePath();
-		QString DPath = fi.dirPath(true);
-		// Necessary on win32 platform for setCurrent() to succeed
-		// if document is located at drive root
-		if( !DPath.endsWith("/") )
-			DPath += "/";
-		QDir::setCurrent(DPath);
 		FileLoader *fileLoader = new FileLoader(FName);
 		int testResult=fileLoader->TestFile();
 		if (testResult == -1)
@@ -4085,8 +4079,6 @@ void ScribusMainWindow::slotFileRevert()
 			return;
 
 		QString fn(doc->DocName);
-		QFileInfo fi(fn);
-		QDir::setCurrent(fi.dirPath(true));
 		doc->setModified(false);
 		if (doc==storyEditor->currentDocument())
 			storyEditor->close();

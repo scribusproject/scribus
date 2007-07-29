@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
 {
 	QString text, tf, tf2, tc, tc2;
+	QString fileDir = QFileInfo(fileName).dirPath(true);
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
 	docu.setContent(st);
@@ -203,8 +204,8 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeTOC(docu);
 	writePageSets(docu);
 	writeSections(docu);
-	writePatterns(docu);
-	writeContent(docu);
+	writePatterns(docu, fileDir);
+	writeContent (docu, fileDir);
 	
 	/**
 		* changed to enable saving
@@ -808,7 +809,7 @@ void Scribus134Format::writePageSets(QDomDocument & docu)
 	dc.appendChild(pageSetAttr);
 }
 
-void Scribus134Format::writePatterns(QDomDocument & docu) 
+void Scribus134Format::writePatterns(QDomDocument & docu, const QString& baseDir) 
 {
 	QDomElement dc=docu.documentElement().firstChild().toElement();
 	
@@ -822,12 +823,12 @@ void Scribus134Format::writePatterns(QDomDocument & docu)
 		pat.setAttribute("height", pa.height);
 		pat.setAttribute("scaleX", pa.scaleX);
 		pat.setAttribute("scaleY", pa.scaleY);
-		WriteObjects(m_Doc, &docu, &pat, 0, 0, 3, &pa.items);
+		WriteObjects(m_Doc, &docu, &pat, baseDir, 0, 0, 3, &pa.items);
 		dc.appendChild(pat);
 	}	
 }
 
-void Scribus134Format::writeContent(QDomDocument & docu) 
+void Scribus134Format::writeContent(QDomDocument & docu, const QString& baseDir) 
 {
 	QDomElement dc=docu.documentElement().firstChild().toElement();
 
@@ -838,9 +839,9 @@ void Scribus134Format::writeContent(QDomDocument & docu)
 	}
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, 0, true);
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count(), false);
-	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count(), 2);
-	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->FrameItems.count(), 0);
-	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), 1);
+	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count(), 2);
+	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->FrameItems.count(), 0);
+	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), 1);
 }
 
 void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
@@ -1029,7 +1030,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	}
 }
 
-void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QList<PageItem*> *some_items)
+void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, int master, QList<PageItem*> *some_items)
 {
 	uint ObCount = maxC;
 	QList<PageItem*> *items = NULL;
@@ -1078,7 +1079,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 				ob = docu->createElement("PatternItem");
 				break;
 		}
-		SetItemProps(&ob, item, true);
+		SetItemProps(&ob, item, baseDir, true);
 		ob.setAttribute("OnMasterPage", item->OnMasterPage);
 		ob.setAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 		ob.setAttribute("ImageRes", item->pixm.imgInfo.lowResType);
@@ -1200,7 +1201,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 	}
 }
 
-void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
+void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat)
 {
 	double xf, yf;
 	QString tmp, tmpy;
@@ -1310,7 +1311,7 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 		if (item->annotation().ActionType() == 8)
 			ob->setAttribute("ANEXTERN", item->annotation().Extern());
 		else
-			ob->setAttribute("ANEXTERN", Path2Relative(item->annotation().Extern()));
+			ob->setAttribute("ANEXTERN", Path2Relative(item->annotation().Extern(), baseDir));
 		ob->setAttribute("ANZIEL", item->annotation().Ziel());
 		ob->setAttribute("ANACTYP", item->annotation().ActionType());
 		ob->setAttribute("ANTOOLTIP", item->annotation().ToolTip());
@@ -1349,15 +1350,15 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 	ob->setAttribute("BEXTRA",item->textToFrameDistBottom());
 	ob->setAttribute("REXTRA",item->textToFrameDistRight());
 	if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
-		ob->setAttribute("PFILE",Path2Relative(item->Pfile));
+		ob->setAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	else
 		ob->setAttribute("PFILE","");
 	if (!item->Pfile2.isEmpty())
-		ob->setAttribute("PFILE2",Path2Relative(item->Pfile2));
+		ob->setAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
 	else
 		ob->setAttribute("PFILE2","");
 	if (!item->Pfile3.isEmpty())
-		ob->setAttribute("PFILE3",Path2Relative(item->Pfile3));
+		ob->setAttribute("PFILE3",Path2Relative(item->Pfile3, baseDir));
 	else
 		ob->setAttribute("PFILE3","");
 	ob->setAttribute("PRFILE",item->IProfile);

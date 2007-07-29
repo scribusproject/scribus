@@ -51,13 +51,13 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		//Scribus Doc vars, not plugin vars
 		void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
 		void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, ScribusDoc *doc);
-		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
+		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(QString fStr, ScribusDoc *doc);
 		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
-		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
+		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, int master);
+		void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
 		const ScFace& findFont(ScribusDoc *doc, const QString& fontname);
 		
 		QMap<int, int> itemRemap;

@@ -186,6 +186,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
+	QString fileDir = QFileInfo(fileName).dirPath(true);
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
 	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
 	if (!docu.setContent(f))
@@ -937,7 +938,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						m_Doc->setCurrentPage(m_Doc->MasterPages.at(m_Doc->MasterNames[pg.attribute("OnMasterPage")]));
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
-					Neu = PasteItem(&pg, m_Doc);
+					Neu = PasteItem(&pg, m_Doc, fileDir);
 					Neu->setRedrawBounding();
 					if (pg.tagName()=="MASTEROBJECT")
 						Neu->OwnPage = m_Doc->OnPage(Neu);
@@ -1156,7 +1157,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					m_Doc->setMasterPageMode(false);
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
-					Neu = PasteItem(&pite, m_Doc);
+					Neu = PasteItem(&pite, m_Doc, fileDir);
 					Neu->setRedrawBounding();
 					Neu->OwnPage = pite.attribute("OwnPage").toInt();
 					Neu->OnMasterPage = "";
@@ -1922,7 +1923,7 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	fixLegacyParStyle(vg);
 }
 
-PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
+PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir)
 {
 	struct ImageLoadRequest loadingInfo;
 	int z = 0;
@@ -1956,8 +1957,8 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		currItem = doc->Items->at(z);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-		currItem->Pfile = obj->attribute("PFILE");
-		currItem->IProfile = obj->attribute("PRFILE","");
+		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
+		currItem->IProfile  = obj->attribute("PRFILE","");
 		currItem->EmProfile = obj->attribute("EPROF","");
 		currItem->IRender = obj->attribute("IRENDER", "1").toInt();
 		currItem->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
@@ -2036,9 +2037,9 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-			currItem->Pfile = obj->attribute("PFILE");
-			currItem->Pfile2 = obj->attribute("PFILE2","");
-			currItem->Pfile3 = obj->attribute("PFILE3","");
+			currItem->Pfile  = Relative2Path(obj->attribute("PFILE","") , baseDir);
+			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
 			currItem->IProfile = obj->attribute("PRFILE","");
 			currItem->EmProfile = obj->attribute("EPROF","");
 			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
@@ -2060,9 +2061,9 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			currItem->setImageXYScale(scx, scy);
 			currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
-			currItem->Pfile = obj->attribute("PFILE");
-			currItem->Pfile2 = obj->attribute("PFILE2","");
-			currItem->Pfile3 = obj->attribute("PFILE3","");
+			currItem->Pfile  = Relative2Path(obj->attribute("PFILE","") , baseDir);
+			currItem->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+			currItem->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
 			currItem->IProfile = obj->attribute("PRFILE","");
 			currItem->EmProfile = obj->attribute("EPROF","");
 			currItem->IRender = obj->attribute("IRENDER", "1").toInt();
@@ -2522,6 +2523,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		return false;
 	if(!docu.setContent(f))
 		return false;
+	QString fileDir = QFileInfo(fileName).dirPath(true);
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
@@ -2742,7 +2744,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					}*/
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
-					Neu = PasteItem(&pg, m_Doc);
+					Neu = PasteItem(&pg, m_Doc, fileDir);
 					Neu->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					Neu->setRedrawBounding();
 					//CB Must run onpage as we cant use pagetoload if the page has been renamed. 
@@ -2929,7 +2931,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					}*/
 					int docGc = m_Doc->GroupCounter;
 					m_Doc->GroupCounter = 0;
-					Neu = PasteItem(&pite, m_Doc);
+					Neu = PasteItem(&pite, m_Doc, fileDir);
 					Neu->setRedrawBounding();
 					Neu->OwnPage = pite.attribute("OwnPage").toInt();
 					Neu->OnMasterPage = "";

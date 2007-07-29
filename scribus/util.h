@@ -9,13 +9,14 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 
-#include <QColor>
-#include <QString>
-#include <QPixmap>
-#include <QStringList>
 #include <QByteArray>
+#include <QColor>
+#include <QDir>
 #include <QList>
 #include <QPainterPath>
+#include <QPixmap>
+#include <QString>
+#include <QStringList>
 #include <QTextStream>
 
 #include "pagestructs.h"
@@ -38,7 +39,7 @@ If premultiplication does not allow to store result in a long value, perform a s
 */
 bool SCRIBUS_API compareDouble(double a, double b);
 
-void SCRIBUS_API GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB);
+void SCRIBUS_API GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB, const QString& baseDir);
 /*! \brief Returns a sorted list of QStrings - sorted by locale specific rules!
 Uses compareQStrings() as rule. There is STL used!
 \author Petr Vanek
@@ -50,7 +51,8 @@ void SCRIBUS_API ReOrderText(ScribusDoc *currentDoc, ScribusView *view);
 void SCRIBUS_API WordAndPara(PageItem *currItem, int *w, int *p, int *c, int *wN, int *pN, int *cN);
 bool SCRIBUS_API overwrite(QWidget *parent, QString filename);
 QByteArray SCRIBUS_API ComputeMD5Sum(QByteArray *in);
-QString SCRIBUS_API Path2Relative(QString Path);
+QString SCRIBUS_API Path2Relative(QString Path, const QString& baseDir = QDir::currentDirPath());
+QString SCRIBUS_API Relative2Path(QString File, const QString& baseDir = QDir::currentDirPath());
 char SCRIBUS_API *toHex( uchar u );
 QString SCRIBUS_API String2Hex(QString *in, bool lang = true);
 QString SCRIBUS_API CompressStr(QString *in);

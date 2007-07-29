@@ -53,7 +53,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
 		void GetCStyle(const QDomElement *it, ScribusDoc *doc, CharStyle & newStyle);
 		void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
-		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
+		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc, const QString& baseDir);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *docParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		void writeCheckerProfiles(QDomDocument & docu);
@@ -74,11 +74,11 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void writeTOC(QDomDocument & docu);
 		void writePageSets(QDomDocument & docu);
 		void writeSections(QDomDocument & docu);
-		void writePatterns(QDomDocument & docu);
-		void writeContent(QDomDocument & docu);
+		void writePatterns(QDomDocument & docu, const QString& baseDir);
+		void writeContent(QDomDocument & docu, const QString& baseDir);
 		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QList<PageItem*> *items = 0);
-		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
+		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, int master, QList<PageItem*> *items = 0);
+		void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
 		QMap<int, int> itemRemapF;

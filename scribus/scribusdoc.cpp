@@ -2975,8 +2975,6 @@ void ScribusDoc::restorePageCopy(SimpleState *state, bool isUndo)
 //TODO: Handle saving to versions of SLA, and other formats
 bool ScribusDoc::save(const QString& fileName)
 {
-	QFileInfo fi(fileName);
-	QDir::setCurrent(fi.dirPath(true));
 	QProgressBar* mainWindowProgressBar=NULL;
 	if (ScCore->usingGUI())
 	{
