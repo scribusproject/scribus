@@ -9301,8 +9301,6 @@ void ScribusView::adjustFrametoImageSize()
 	if (docSelectionCount > 0)
 	{
 		bool toUpdate=false;
-		if (UndoManager::undoEnabled())
-			undoManager->beginTransaction(Um::Selection, Um::IImageFrame, Um::Resize, "", Um::IResize);
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
 			PageItem *currItem = Doc->m_Selection->itemAt(i);
@@ -9310,6 +9308,9 @@ void ScribusView::adjustFrametoImageSize()
 			{
 				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
 				{
+					undoManager->beginTransaction(docSelectionCount == 1 ? currItem->getUName() : Um::SelectionGroup,
+												  docSelectionCount == 1 ? currItem->getUPixmap() : Um::IGroup,
+												  Um::Resize, "", Um::IResize);
 					double w, h, x, y;
 					w = currItem->OrigW * currItem->imageXScale();
 					h = currItem->OrigH * currItem->imageYScale();
@@ -9322,10 +9323,10 @@ void ScribusView::adjustFrametoImageSize()
 				}
 			}
 		}
-		if (UndoManager::undoEnabled())
-			undoManager->commit();
+		
 		if (toUpdate)
 		{
+			undoManager->commit();
 			updateContents();
 			emit DocChanged();
 		}
