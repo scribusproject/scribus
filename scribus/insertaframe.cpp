@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "util.h"
+#include "util_formats.h"
 #include "util_icon.h"
 #include "scpaths.h"
 
@@ -189,7 +190,9 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 
 void InsertAFrame::locateImageFile()
 {
-	QString formatD(setupImageFormats());
+	QString a, b, c;
+	FormatsManager::instance()->fileTypeStrings(FormatsManager::ALLIMAGES, a, b, c);
+	QString formatD = a + b + c;
 	QString docDir = ".";
 	PrefsManager* prefsManager=PrefsManager::instance();
 	QString prefsDocDir(prefsManager->documentDir());

@@ -3969,7 +3969,10 @@ void ScribusMainWindow::slotGetContent()
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if (currItem->itemType() == PageItem::ImageFrame)
 		{
-			QString formatD(setupImageFormats());
+			QString a, b, c;
+			formatsManager->fileTypeStrings(FormatsManager::ALLIMAGES, a, b, c);
+			QString formatD = a + b + c;
+			
 			QString docDir = ".";
 			QString prefsDocDir=prefsManager->documentDir();
 			if (!prefsDocDir.isEmpty())

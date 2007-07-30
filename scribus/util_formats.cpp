@@ -14,25 +14,37 @@ FormatsManager* FormatsManager::_instance = 0;
 
 FormatsManager::FormatsManager()
 {
-	m_fmtList << "TIFF" << "PS" << "EPS" << "JPEG" << "PSD" << "PDF" << "PAT";
-	
-	m_fmts.insert(FormatsManager::TIFF, QStringList());
-	m_fmts.insert(FormatsManager::PS, QStringList());
 	m_fmts.insert(FormatsManager::EPS, QStringList());
+	m_fmts.insert(FormatsManager::GIF, QStringList());
 	m_fmts.insert(FormatsManager::JPEG, QStringList());
-	m_fmts.insert(FormatsManager::PSD, QStringList());
-	m_fmts.insert(FormatsManager::PDF, QStringList());
 	m_fmts.insert(FormatsManager::PAT, QStringList());
-
-	m_fmts[FormatsManager::TIFF] << "tif" << "tiff";
-	m_fmts[FormatsManager::PS] << "ps";
-	m_fmts[FormatsManager::EPS] << "eps" << "epsf" << "epsi";
-	m_fmts[FormatsManager::JPEG] << "jpg" << "jpeg";
-	m_fmts[FormatsManager::PSD] << "psd";
-	m_fmts[FormatsManager::PDF] << "pdf";
-	m_fmts[FormatsManager::PAT] << "pat";
+	m_fmts.insert(FormatsManager::PDF, QStringList());
+	m_fmts.insert(FormatsManager::PNG, QStringList());
+	m_fmts.insert(FormatsManager::PS, QStringList());
+	m_fmts.insert(FormatsManager::PSD, QStringList());
+	m_fmts.insert(FormatsManager::TIFF, QStringList());
+	m_fmts.insert(FormatsManager::XPM, QStringList());
 	
-	m_supportedImageFormats=QImageReader::supportedImageFormats();
+	m_fmts[FormatsManager::EPS] << "eps" << "epsf" << "epsi";
+	m_fmts[FormatsManager::GIF] << "gif";
+	m_fmts[FormatsManager::JPEG] << "jpg" << "jpeg";
+	m_fmts[FormatsManager::PAT] << "pat";
+	m_fmts[FormatsManager::PDF] << "pdf";
+	m_fmts[FormatsManager::PNG] << "png";
+	m_fmts[FormatsManager::PS] << "ps";
+	m_fmts[FormatsManager::PSD] << "psd";
+	m_fmts[FormatsManager::TIFF] << "tif" << "tiff";
+	m_fmts[FormatsManager::XPM] << "xpm";
+	
+	QMapIterator<int, QStringList> i(m_fmts);
+	while (i.hasNext()) 
+	{
+		i.next();
+		m_fmtList << i.value().first().upper();
+	}
+
+	m_qtSupportedImageFormats=QImageReader::supportedImageFormats();
+	m_supportedImageFormats=m_qtSupportedImageFormats
 	updateSupportedImageFormats(m_supportedImageFormats);
 }
 
@@ -57,7 +69,7 @@ void FormatsManager::deleteInstance()
 
 void FormatsManager::imageFormatSupported(const QString& ext)
 {
-	
+	return m_supportedImageFormats.contains(QByteArray(ext));
 }
 
 void FormatsManager::updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats)
@@ -75,10 +87,10 @@ void FormatsManager::updateSupportedImageFormats(QList<QByteArray>& supportedIma
 	}
 }
 
-void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& formatText, bool lowerCaseOnly)
+void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly)
 {
+	QString fmtList = QObject::tr("All Supported Formats")+" (";
 	QString fmtText;
-	QString fmtList;
 	QMapIterator<int, QStringList> it(m_fmts);
 	bool first=true;
 	int n=0;
@@ -87,6 +99,11 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 		it.next();
 		if (type & it.key())
 		{
+			//Just in case the Qt used doesn't support jpeg or gif
+			if ((JPEG & it.key()) && !m_supportedImageFormats.contains(QByteArray("jpg")))
+				return;
+			if ((GIF & it.key()) && !m_supportedImageFormats.contains(QByteArray("gif")))
+				return;
 			if (first)
 				first=false;
 			else
@@ -114,8 +131,9 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 		}
 		++n;
 	}
-	formatList+=fmtList;
+	formatList+=fmtList += ");;";
 	formatText+=fmtText;
+	formatAll=QObject::tr("All Files (*)");
 }
 
 bool extensionIndicatesPDF(const QString &ext)

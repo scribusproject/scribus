@@ -32,15 +32,19 @@ class SCRIBUS_API FormatsManager
 {
 	public:
 
-		enum scFormatTypes
+		enum ScImageFormatType
 		{
-			TIFF	= 1, // TIFF
-			PS		= 2, // PostScript
-			EPS		= 4, // Encapsulated PostScript
-			JPEG	= 8, // JPEG
-			PSD		= 16, // Photoshop Format
-			PDF		= 32, // PDF Format
-			PAT		= 64 // Pattern files
+			ALLIMAGES = 1|2|4|8|16|32|64|128|256|512,
+			EPS		= 1, // Encapsulated PostScript
+			GIF		= 2, // GIF files
+			JPEG	= 4, // JPEG
+			PAT		= 8, // Pattern files
+			PDF		= 16, // PDF Format
+			PNG		= 32, // PNG files
+			PS		= 64, // PostScript
+			PSD		= 128, // Photoshop Format
+			TIFF	= 256, // TIFF
+			XPM		= 512, // XPM files
 		};
 
 		FormatsManager();
@@ -58,11 +62,12 @@ class SCRIBUS_API FormatsManager
 		static void deleteInstance();
 		void imageFormatSupported(const QString&);
 		
-		void fileTypeStrings(int type, QString& formatList, QString& formatText, bool lowerCaseOnly=false);
+		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly=false);
 		
 	protected:
 		QMap<int, QStringList> m_fmts;
 		QStringList m_fmtList;
+		QList<QByteArray> m_qtSupportedImageFormats
 		QList<QByteArray> m_supportedImageFormats;
 		void updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats);
 		
