@@ -220,7 +220,7 @@ bool OODPlug::import( QString fileName, int flags )
 	QString f, f2, f3;
 	if ( !QFile::exists(fileName) )
 		return false;
-	m_styles.setAutoDelete( true );
+// 	m_styles.setAutoDelete( true );
 	FileUnzip* fun = new FileUnzip(fileName);
 	stylePath   = fun->getFile("styles.xml");
 	contentPath = fun->getFile("content.xml");
@@ -2039,5 +2039,8 @@ void OODPlug::svgClosePath(FPointArray *i)
 OODPlug::~OODPlug()
 {
 	delete tmpSel;
+	// it's propably needed as QHash() dos not support autocleaning
+	m_styles.clear();
+	m_draws.clear();
 }
 

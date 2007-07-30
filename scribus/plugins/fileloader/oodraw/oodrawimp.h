@@ -7,9 +7,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef OODPLUG_H
 #define OODPLUG_H
 
-#include <QObject>
-#include <Q3Dict>
-#include <QList>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "../../formatidlist.h"
@@ -144,7 +141,7 @@ protected:
 	QDomDocument inpContents;
 	QDomDocument inpStyles;
 	QDomDocument inpMeta;
-	Q3Dict<QDomElement> m_styles, m_draws;
+	QHash<QString,QDomElement*> m_styles, m_draws;
 	StyleStack m_styleStack;
 	QString stylePath;
 	QString contentPath;
