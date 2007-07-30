@@ -67,7 +67,7 @@ class SCRIBUS_API FormatsManager
 	protected:
 		QMap<int, QStringList> m_fmts;
 		QStringList m_fmtList;
-		QList<QByteArray> m_qtSupportedImageFormats
+		QList<QByteArray> m_qtSupportedImageFormats;
 		QList<QByteArray> m_supportedImageFormats;
 		void updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats);
 		

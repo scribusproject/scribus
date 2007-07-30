@@ -44,7 +44,7 @@ FormatsManager::FormatsManager()
 	}
 
 	m_qtSupportedImageFormats=QImageReader::supportedImageFormats();
-	m_supportedImageFormats=m_qtSupportedImageFormats
+	m_supportedImageFormats=m_qtSupportedImageFormats;
 	updateSupportedImageFormats(m_supportedImageFormats);
 }
 
