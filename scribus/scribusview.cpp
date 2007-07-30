@@ -9301,6 +9301,8 @@ void ScribusView::adjustFrametoImageSize()
 	if (docSelectionCount > 0)
 	{
 		bool toUpdate=false;
+		if (UndoManager::undoEnabled())
+			undoManager->beginTransaction(Um::Selection, Um::IImageFrame, Um::Resize, "", Um::IResize);
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
 			PageItem *currItem = Doc->m_Selection->itemAt(i);
@@ -9320,6 +9322,8 @@ void ScribusView::adjustFrametoImageSize()
 				}
 			}
 		}
+		if (UndoManager::undoEnabled())
+			undoManager->commit();
 		if (toUpdate)
 		{
 			updateContents();
