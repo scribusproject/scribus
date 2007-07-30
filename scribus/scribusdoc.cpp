@@ -8629,8 +8629,8 @@ void ScribusDoc::AdjustItemSize(PageItem *currItem)
 void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selection* customSelection)
 {
 		Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
-		if (itemSelection->count() < 2)
-			return;
+//		if (itemSelection->count() < 2)
+//			return;
 		PageItem *currItem;
 		PageItem* bb;
 		double x, y, w, h;
@@ -8683,7 +8683,9 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 		for (uint ep = 0; ep < selectedItemCount; ++ep)
 		{
 			PageItem* currItem = itemSelection->itemAt(ep);
-			double lw = currItem->lineWidth() / 2.0;
+			double lw = 0.0;
+			if (currItem->lineColor() != CommonStrings::None)
+				lw = currItem->lineWidth() / 2.0;
 			if (currItem->rotation() != 0)
 			{
 				FPointArray pb;
