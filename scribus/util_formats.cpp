@@ -69,7 +69,7 @@ void FormatsManager::deleteInstance()
 
 void FormatsManager::imageFormatSupported(const QString& ext)
 {
-	return m_supportedImageFormats.contains(QByteArray(ext));
+// 	return m_supportedImageFormats.contains(QByteArray(ext).toLatin1());
 }
 
 void FormatsManager::updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats)
