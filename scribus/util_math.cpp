@@ -120,7 +120,7 @@ uint getDouble(QString in, bool raw)
 	return ret;
 }
 
-Q3PointArray RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
+QPolygon RegularPolygon(double w, double h, uint c, bool star, double factor, double rota)
 {
 	uint cx = star ? c * 2 : c;
 	double seg = 360.0 / cx;
@@ -128,8 +128,7 @@ Q3PointArray RegularPolygon(double w, double h, uint c, bool star, double factor
 	double di = factor;
 	int mx = 0;
 	int my = 0;
-	//QPointArray pts = QPointArray();
-	Q3PointArray pts(cx);
+	QPolygon pts(cx);
 	for (uint x = 0; x < cx; ++x)
 	{
 		sc = seg * x + 180.0 + rota;
@@ -145,7 +144,6 @@ Q3PointArray RegularPolygon(double w, double h, uint c, bool star, double factor
 			mx = qRound(sin(sc / 180 * M_PI) * (w/2) + (w/2));
 			my = qRound(cos(sc / 180 * M_PI) * (h/2) + (h/2));
 		}
-		//pts.resize(x+1);
 		pts.setPoint(x, mx, my);
 	}
 	return pts;
@@ -159,7 +157,6 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 	double di = factor;
 	double mx = 0;
 	double my = 0;
-	//FPointArray pts;
 	FPointArray pts(cx);
 	for (uint x = 0; x < cx; ++x)
 	{
@@ -176,7 +173,6 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 			mx = sin(sc / 180 * M_PI) * (w/2) + (w/2);
 			my = cos(sc / 180 * M_PI) * (h/2) + (h/2);
 		}
-		//pts.resize(x+1);
 		pts.setPoint(x, mx, my);
 	}
 	return pts;
