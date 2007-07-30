@@ -18,12 +18,9 @@ RunScriptDialog::RunScriptDialog(QWidget* parent = 0, bool extEnable = false) :
 	fileWidget->setFilter( tr("Python Scripts (*.py *.PY);; All Files (*)"));
 
 	if (!extEnable)
-	{
-// 		extChk = new QCheckBox( tr("Run as Extension Script", "run script dialog"), this);
-// 		extChk->setChecked(false);
-// 		addWidgets(0, extChk, 0);
 		extChk->setVisible(false);
-	}
+
+	connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
 }
 
 RunScriptDialog::~RunScriptDialog()

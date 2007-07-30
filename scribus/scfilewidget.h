@@ -16,6 +16,10 @@ Usage is simple - everything is like in QFileDialog except it is not
 a dialog, it's a widget. It can be used for extension features etc.
 \note Original QFileDialog OK/Cancel buttons are hidden. You must
 write your own dialog accept/reject handling.
+There is one good idea - it's quite good to handle original dialog
+accepted() signal on your own to prevent ugly widget hidding when
+user e.g. doubleclicks the "open" file (in the parent (new) dialog):
+connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
 \author Petr Vanek <petr@scribus.info>
 */
 class SCRIBUS_API ScFileWidget : public QFileDialog

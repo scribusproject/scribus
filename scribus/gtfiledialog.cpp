@@ -49,6 +49,8 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 		encodingCombo->insertItem(localEn);
 		encodingCombo->setCurrentItem(encodingCombo->count()-1);
 	}
+
+	connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
 }
 
 QString gtFileDialog::selectedFile()
