@@ -159,8 +159,12 @@ private:
 	double tempW;
 	double maxHeight;
 	double textKern;
+	double textScaleH;
+	double textScaleV;
 	int startCurrentTextRange;
 	int endCurrentTextRange;
+	int imgNum;
+	QString baseFile;
 
 public slots:
 	void cancelRequested() { cancel = true; }

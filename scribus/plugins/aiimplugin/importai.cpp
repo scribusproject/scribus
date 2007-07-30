@@ -43,6 +43,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_formats.h"
 #include "sccolorengine.h"
 #include "missing.h"
+#include "rawimage.h"
+#include <tiffio.h>
 #ifdef HAVE_PODOFO
 	#include <podofo/podofo.h>
 #endif
@@ -83,13 +85,16 @@ bool AIPlug::import(QString fName, int flags, bool showProgress)
 		fT.close();
 		if (tempBuf.startsWith("%PDF"))
 		{
-			QString tmpFile = getShortPathName(ScPaths::getTempFileDir())+ "/tmp.ai";
+			QFileInfo bF2(fName);
+			QString tmpFile = getShortPathName(ScPaths::getTempFileDir())+ "/"+bF2.baseName()+"_tmp.ai";
 			if (!extractFromPDF(fName, tmpFile))
 				return false;
 			convertedPDF = true;
 			fName = tmpFile;
 		}
 	}
+	QFileInfo bF(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(bF.absolutePath()+"/"+bF.baseName()));
 	if ( showProgress )
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
@@ -357,10 +362,10 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 #ifdef HAVE_PODOFO
 	QFile outf(outfile);
 	outf.open(QIODevice::WriteOnly);
-	PoDoFo::PdfDocument *m_pDocument = new PoDoFo::PdfDocument( infile.toLocal8Bit().data() );
-	if (m_pDocument != NULL)
+	try
 	{
-		PoDoFo::PdfPage *curPage = m_pDocument->GetPage(0);
+		PoDoFo::PdfDocument doc( infile.toLocal8Bit().data() );
+		PoDoFo::PdfPage *curPage = doc.GetPage(0);
 		if (curPage != NULL)
 		{
 			PoDoFo::PdfObject *piece = curPage->GetObject()->GetIndirectKey("PieceInfo");
@@ -389,9 +394,14 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 				}
 			}
 		}
+		outf.close();
 	}
-	outf.close();
-	delete m_pDocument;
+	catch (PoDoFo::PdfError& e)
+	{
+		outf.close();
+		e.PrintErrorMsg();
+		return false;
+	}
 #endif
 	return ret;
 }
@@ -864,11 +874,11 @@ void AIPlug::getCommands(QString data, QStringList &commands)
 			tmp2 += tmp;
 			continue;
 		}
-		if (tmp == "\\")
-		{
-			skip = true;
-			continue;
-		}
+//		if (tmp == "\\")
+//		{
+//			skip = true;
+//			continue;
+//		}
 		if (!paran)
 		{
 			if (tmp == " ")
@@ -1040,12 +1050,12 @@ void AIPlug::processData(QString data)
 			ite->setWidthHeight(wh.x(),wh.y());
 			m_Doc->AdjustItemSize(ite);
 		}
-		else if (command == "u")
+		else if ((command == "u") || (command == "q"))
 		{
 			QList<PageItem*> gElements;
 			groupStack.push(gElements);
 		}
-		else if (command == "U")
+		else if ((command == "U") || (command == "Q"))
 		{
 			if (groupStack.count() != 0)
 			{
@@ -1057,8 +1067,21 @@ void AIPlug::processData(QString data)
 					{
 						tmpSel->addItem(gElements.at(dre), true);
 					}
-					if (gElements.count() > 1)
+		//			if (gElements.count() > 1)
+		//			{
 						m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
+						ite = tmpSel->itemAt(0);
+						if ((clipCoords.size() > 4) && (command == "Q"))
+						{
+							ite = tmpSel->itemAt(0);
+							clipCoords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+							FPoint tp2(getMinClipF(&clipCoords));
+							clipCoords.translate(-tp2.x(), -tp2.y());
+							ite->PoLine = clipCoords.copy();
+		//					qDebug("Clip Group: "+ite->itemName());
+						}
+						Elements.append(ite);
+		//			}
 				}
 				if (groupStack.count() != 0)
 				{
@@ -1069,6 +1092,17 @@ void AIPlug::processData(QString data)
 				}
 				tmpSel->clear();
 			}
+			if (command == "Q")
+			{
+				clipCoords.resize(0);
+				clipCoords.svgInit();
+			}
+		}
+		else if (command == "W")
+		{
+			if (clipCoords.size() > 0)
+				clipCoords.setMarker();
+			clipCoords.putPoints(clipCoords.size(), Coords.size(), Coords);
 		}
 /* End Object construction commands */
 /* Start Graphics state commands */
@@ -1312,6 +1346,8 @@ void AIPlug::processData(QString data)
 			textKern = 0;
 			startCurrentTextRange = 0;
 			endCurrentTextRange = 0;
+			textScaleH = 1000;
+			textScaleV = 1000;
 		}
 		else if (command == "Tp")
 		{
@@ -1320,7 +1356,7 @@ void AIPlug::processData(QString data)
 			gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
 			textMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
 		}
-		else if (command == "Tx")
+		else if (command == "Tx") // || (command == "TX"))
 		{
 			QStringList res = getStrings(Cdata);
 			if (res.count() > 0)
@@ -1339,8 +1375,8 @@ void AIPlug::processData(QString data)
 					nstyle.setFillShade(100);
 					nstyle.setStrokeColor(CurrColorStroke);
 					nstyle.setStrokeShade(100);
-					nstyle.setScaleH(1000);
-					nstyle.setScaleV(1000);
+					nstyle.setScaleH(textScaleH);
+					nstyle.setScaleV(textScaleV);
 					nstyle.setBaselineOffset(0);
 					nstyle.setShadowXOffset(50);
 					nstyle.setShadowYOffset(-50);
@@ -1355,6 +1391,8 @@ void AIPlug::processData(QString data)
 					textData.applyCharStyle(pot, 1, nstyle);
 					tempW += nstyle.font().realCharWidth(ch[0], nstyle.fontSize() / 10.0)+1;
 					tempH  = qMax(tempH, nstyle.font().height(nstyle.fontSize() / 10.0) + 2.0);
+					maxWidth  = qMax(tempW, maxWidth);
+					maxHeight = qMax(tempH, maxHeight);
 					if ((ch == SpecialChars::PARSEP) || (ch == SpecialChars::LINEBREAK))
 					{
 						maxHeight += nstyle.font().height(nstyle.fontSize() / 10.0);
@@ -1362,8 +1400,6 @@ void AIPlug::processData(QString data)
 					}
 					endCurrentTextRange = pot;
 				}
-				maxWidth  = qMax(tempW, maxWidth);
-				maxHeight = qMax(tempH, maxHeight);
 			}
 		}
 		else if (command == "Tk")
@@ -1385,6 +1421,13 @@ void AIPlug::processData(QString data)
 			gVals >> textKern;
 			textKern *= 100.0;
 		}
+		else if (command == "Tz")
+		{
+			QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+			gVals >> textScaleH >> textScaleV;
+			textScaleH *= 10.0;
+			textScaleV *= 10.0;
+		}
 		else if (command == "T*")
 		{
 			CharStyle nstyle;
@@ -1396,8 +1439,8 @@ void AIPlug::processData(QString data)
 			nstyle.setFillShade(100);
 			nstyle.setStrokeColor(CurrColorStroke);
 			nstyle.setStrokeShade(100);
-			nstyle.setScaleH(1000);
-			nstyle.setScaleV(1000);
+			nstyle.setScaleH(textScaleH);
+			nstyle.setScaleV(textScaleV);
 			nstyle.setBaselineOffset(0);
 			nstyle.setShadowXOffset(50);
 			nstyle.setShadowYOffset(-50);
@@ -1628,7 +1671,7 @@ void AIPlug::processPattern(QDataStream &ts)
 					QPainter p;
 					p.begin(&retImg);
 					if (PatternElements.count() > 1)
-						p.drawImage(-patternX1, -patternY1, tmpImg);
+						p.drawImage(qRound(-patternX1), qRound(-patternY1), tmpImg);
 					else
 						p.drawImage(0, 0, tmpImg);
 					p.end();
@@ -1687,25 +1730,159 @@ void AIPlug::processPattern(QDataStream &ts)
 
 void AIPlug::processRaster(QDataStream &ts)
 {
-	double m1, m2, m3, m4, m5, m6, x1, y1, x2, y2, w, h, bits, type, dummy, bin;
+	double m1, m2, m3, m4, m5, m6, x1, y1, x2, y2, dummy;
+	int w, h, type, alpha, bin, bits;
 	QString tmp = "";
-	tmp = removeAIPrefix(readLinefromDataStream(ts));
-	tmp.remove("[");
-	tmp.remove("]");
-	QTextStream gVals(&tmp, QIODevice::ReadOnly);
-	gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6 >> x1 >> y1 >> x2 >> y2 >> w >> h >> bits >> type >> dummy >> dummy >> bin;
+	QString cumulated = "";
+	while (!ts.atEnd())
+	{
+		tmp = readLinefromDataStream(ts);
+		if (tmp.startsWith("%"))
+			break;
+		tmp.remove("[");
+		tmp.remove("]");
+		if (!tmp.isEmpty())
+			cumulated += " " + tmp;
+	}
+	QString Cdata = "";
+	QStringList da;
+	getCommands(cumulated, da);
+	Cdata = da[da.count()-1];
+	QTextStream gVals(&Cdata, QIODevice::ReadOnly);
+	gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6 >> x1 >> y1 >> x2 >> y2 >> w >> h >> bits >> type >> alpha >> dummy >> bin;
 //	qDebug(QString("Matrix: %1 %2 %3 %4 %5 %6").arg(m1).arg(m2).arg(m3).arg(m4).arg(m5).arg(m6));
 //	qDebug(QString("Bounds: %1 %2 %3 %4").arg(x1).arg(y1).arg(x2).arg(y2));
 //	qDebug(QString("Size: %1 %2").arg(w).arg(h));
 //	qDebug(QString("Bits: %1").arg(bits));
 //	qDebug(QString("Typ: %1").arg(type));
+//	qDebug(QString("Alpha-Channels: %1").arg(alpha));
 //	qDebug(QString("Encoding: %1").arg(bin));
-	while (!ts.atEnd())
+	uint dataSize = w * h * (type + alpha);
+	uint alphaData = w * h * type;
+	bool cmyk = false;
+	if (type == 4)
+		cmyk = true;
+	if (tmp.startsWith("%%BeginData"))
 	{
-		tmp = removeAIPrefix(readLinefromDataStream(ts));
-		if (tmp.startsWith("EndRaster"))
-			break;
+		QString dummyS;
+		QTextStream gVals2(&tmp, QIODevice::ReadOnly);
+		tmp = readLinefromDataStream(ts);
 	}
+	QByteArray psdata;
+	psdata.resize(dataSize);
+	RawImage m_image;
+	if (type == 4)
+	{
+		if (alpha > 0)
+			m_image.create(w, 1, 5);
+		else
+			m_image.create(w, 1, 4);
+	}
+	else
+	{
+		if (alpha > 0)
+			m_image.create(w, 1, 4);
+		else
+			m_image.create(w, 1, 3);
+	}
+	bool first = false;
+	if (bin == 0) // 0 = ASCII encoded data
+	{
+		uint dataPointer = 0;
+		while (!ts.atEnd())
+		{
+			if (first)
+				tmp = readLinefromDataStream(ts);
+			first = true;
+			if (tmp.startsWith("%AI5_EndRaster"))
+				break;
+			for (int a = 1; a < tmp.length(); a += 2)
+			{
+				bool ok;
+				ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
+				psdata[dataPointer++] = data;
+			}
+		}
+	}
+	else
+	{
+		psdata.resize(dataSize);
+		ts.readRawData(psdata.data(), dataSize);
+	}
+	uchar *p;
+	uint yCount = 0;
+	QString imgName = baseFile + QString("-Img-%1").arg(imgNum) + ".tif";
+	TIFF* tif = TIFFOpen(imgName.toLocal8Bit().data(), "w");
+	if (tif)
+	{
+		TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, w);
+		TIFFSetField(tif, TIFFTAG_IMAGELENGTH, h);
+		TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 8);
+		TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, m_image.channels());
+		TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
+		if (type == 4)
+			TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_SEPARATED);
+		else
+			TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
+		TIFFSetField(tif, TIFFTAG_COMPRESSION, COMPRESSION_LZW);
+		for (int y = 0; y < h; ++y)
+		{
+			p = m_image.scanLine( 0 );
+			for (int xh = 0; xh < m_image.width(); ++xh )
+			{
+				p[0] = psdata[yCount++];
+				if (type > 1)
+				{
+					p[1] = psdata[yCount++];
+					p[2] = psdata[yCount++];
+					if (type == 4)
+						p[3] = psdata[yCount++];
+				}
+				else
+				{
+					p[1] = p[0];
+					p[2] = p[0];
+				}
+				if (alpha == 1)
+				{
+					if (type == 4)
+						p[4] = psdata[alphaData++];
+					else
+						p[3] = psdata[alphaData++];
+				}
+				p += m_image.channels();
+			}
+			TIFFWriteScanline(tif, m_image.scanLine(0), y);
+		}
+		TIFFClose(tif);
+	}
+	QMatrix imgMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
+	QPointF pos = QPointF(imgMatrix.dx(), imgMatrix.dy());
+	pos += QPointF(m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pos.x() - docX, docHeight - (pos.y() - docY), 10, 10, 0, CurrColorFill, CurrColorStroke, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->setWidthHeight(w * m1, h * m4);
+	double rotation = getRotationFromMatrix(imgMatrix, 0.0);
+	ite->setRotation(rotation * 180 / M_PI);
+	ite->SetRectFrame();
+	m_Doc->setRedrawBounding(ite);
+	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	ite->setFillShade(CurrFillShade);
+	ite->setLineShade(CurrStrokeShade);
+	ite->setFillEvenOdd(fillRule);
+	ite->setFillTransparency(1.0 - Opacity);
+	ite->setLineTransparency(1.0 - Opacity);
+	ite->setLineEnd(CapStyle);
+	ite->setLineJoin(JoinStyle);
+	m_Doc->LoadPict(imgName, z);
+	if (ite->PicAvail)
+		ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
+	ite->setLocked(itemLocked);
+	Elements.append(ite);
+	if (groupStack.count() != 0)
+		groupStack.top().append(ite);
+	imgNum++;
 }
 
 void AIPlug::processComment(QDataStream &ts, QString comment)
@@ -1848,6 +2025,8 @@ bool AIPlug::convert(QString fn)
 	patternY2 = 0.0;
 	Coords.resize(0);
 	Coords.svgInit();
+	clipCoords.resize(0);
+	clipCoords.svgInit();
 	currentPoint = FPoint(0.0, 0.0);
 	currentLayer = 0;
 	currentGradient = VGradient(VGradient::linear);
@@ -1866,19 +2045,22 @@ bool AIPlug::convert(QString fn)
 	currentPatternRotation = 0.0;
 	QList<PageItem*> gElements;
 	groupStack.push(gElements);
+	imgNum = 0;
 	commandList << "m" << "l" << "L" << "c" << "C" << "v" << "V" << "y" << "Y";		// Path construction
 	commandList << "b" << "B" << "f" << "F" << "s" << "S" << "*u" << "*U";			// Object creation
-	commandList << "u" << "U";														// Object creation
+	commandList << "u" << "U" << "W" << "q" << "Q";									// Object creation
 	commandList << "A" << "w" << "j" << "J" << "Xy" << "XR";						// Graphic state
 	commandList << "k" << "K" << "Xa" << "XA" << "x" << "X" << "XX" << "Xx";		// Color commands
 	commandList << "g" << "G" << "p";												// Color commands
 	commandList << "Ln" << "Lb" << "LB";											// Layer commands
 	commandList << "Bd" << "BD" << "%_Bs" << "Bg" << "Bb" << "BB" << "Bm" << "Xm";	// Gradient commands
-	commandList << "To" << "TO" << "Tf" << "Tp" << "Tx" << "T*" << "Tk" << "Tc";	// Text commands
+	commandList << "To" << "TO" << "Tf" << "Tp" << "Tx" << "TX" << "T*" << "Tk";	// Text commands
+	commandList << "Tc" << "Tz";													// Text commands
+	commandList << "XI" << "XG" << "Xh";											// Image commands
 	commandList << "n" << "N" << "*" << "[";										// Special commands
 	commandList << "M" << "d" << "D" << "E";										// unimplemented
 	commandList << "h" << "H" << "i" << "I" << "Np" << "O";							// unimplemented
-	commandList << "P" << "q" << "Q" << "R" << "W";									// unimplemented
+	commandList << "P" << "R";														// unimplemented
 	commandList << "XI" << "XF" << "XG" << "XT" << "Z" << "`" << "~" << "_" << "@";	// unimplemented
 	commandList << "&" << "*w" << "*W" << "Ap" << "Ar";								// unimplemented
 	if(progressDialog)
