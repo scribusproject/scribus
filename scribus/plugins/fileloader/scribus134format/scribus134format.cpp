@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "sccolorengine.h"
 #include "hyphenator.h"
+#include "pageitem_latexframe.h"
 
 #include "units.h"
 #include "util.h"
@@ -1953,11 +1954,33 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		break;
 	//
 	case PageItem::ImageFrame:
-		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, CommonStrings::None, true);
+	case PageItem::LatexFrame: /*Everything that is valid for image frames i
+s also valid for latex frames*/
+		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
+		if (currItem->asLatexFrame()) {
+			PageItem_LatexFrame *latexitem = currItem->asLatexFrame(
+);
+			IT = obj->firstChild();
+			while(!IT.isNull())
+			{
+				QDomElement it = IT.toElement();
+				if (it.tagName()=="LATEX")
+				{
+					latexitem->setApplication(it.attribute("APPLICATION"));
+					latexitem->setDpi(it.attribute("DPI").toInt());
+					QString temp = it.text();
+					temp.replace("\\\\", "\\");
+					temp.replace("\\]", "]");
+					latexitem->setFormula(temp);
+				}
+                               IT=IT.nextSibling();
+                       }
+               } else {
 		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
+		}
 		currItem->IProfile  = obj->attribute("PRFILE","");
 		currItem->EmProfile = obj->attribute("EPROF","");
 		currItem->IRender = obj->attribute("IRENDER", "1").toInt();

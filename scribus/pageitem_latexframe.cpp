@@ -193,9 +193,6 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 		offY   = LocalY   / pixm.imgInfo.yres;
 	}
 	PageItem_ImageFrame::loadImage(ImageFile, true);
-	//NOTE: QT seems to assume 96x96 dpi if no information is available
-	// so I replace the probably wrong value with our setting
-	//TODO:
 	if (PrefsManager::instance()->latexForceDpi()) 
 	{
 		pixm.imgInfo.xres = pixm.imgInfo.yres = dpi;
@@ -483,3 +480,16 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 		qDebug() << "LATEX:" << tr("Running the application \"%1\" failed!").arg(PrefsManager::instance()->latexExecutable());
 	}
 }
+
+
+
+QString PageItem_LatexFrame::getApplication()
+{
+	return PrefsManager::instance()->latexExecutable();
+}
+
+int PageItem_LatexFrame::getDpi()
+{
+	return PrefsManager::instance()->latexResolution();
+}
+

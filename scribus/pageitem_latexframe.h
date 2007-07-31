@@ -73,6 +73,10 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		/* Runs the external application and sets internal vars and loads
 		the image.*/
 		void runApplication();
+		QString getApplication();
+		void setApplication(QString app) { /*TODO */ }
+		int getDpi();
+		void setDpi(int dpi) { /*TODO*/ }
 		
 		
 		//void changeApp(ExtAppConfig *app_config);

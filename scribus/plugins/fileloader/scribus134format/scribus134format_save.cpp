@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "hyphenator.h"
+#include "pageitem_latexframe.h"
 
 #include "units.h"
 #include "util.h"
@@ -823,7 +824,7 @@ void Scribus134Format::writePatterns(QDomDocument & docu, const QString& baseDir
 		pat.setAttribute("height", pa.height);
 		pat.setAttribute("scaleX", pa.scaleX);
 		pat.setAttribute("scaleY", pa.scaleY);
-		WriteObjects(m_Doc, &docu, &pat, baseDir, 0, 0, 3, &pa.items);
+		WriteObjects(m_Doc, &docu, &pat, baseDir, 0, 0, ItemSelectionPattern, &pa.items);
 		dc.appendChild(pat);
 	}	
 }
@@ -839,9 +840,9 @@ void Scribus134Format::writeContent(QDomDocument & docu, const QString& baseDir)
 	}
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, 0, true);
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count(), false);
-	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count(), 2);
-	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->FrameItems.count(), 0);
-	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), 1);
+	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count(), ItemSelectionFrame);
+	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->FrameItems.count(), ItemSelectionMaster);
+	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), ItemSelectionPage);
 }
 
 void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
@@ -1030,7 +1031,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 	}
 }
 
-void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, int master, QList<PageItem*> *some_items)
+void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *some_items)
 {
 	uint ObCount = maxC;
 	QList<PageItem*> *items = NULL;
@@ -1039,16 +1040,16 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 	uint objects = 0;
 	switch (master)
 	{
-		case 0:
+		case ItemSelectionMaster:
 			items = &doc->MasterItems;
 			break;
-		case 1:
+		case ItemSelectionPage:
 			items = &doc->DocItems;
 			break;
-		case 2:
+		case ItemSelectionFrame:
 			items = &doc->FrameItems;
 			break;
-		case 3:
+		case ItemSelectionPattern:
 			items = some_items;
 			break;
 		default:
@@ -1063,19 +1064,19 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		item = items->at(j);
 		switch (master)
 		{
-			case 0:
+			case ItemSelectionMaster:
 //				item = doc->MasterItems.at(j);
 				ob = docu->createElement("MASTEROBJECT");
 				break;
-			case 1:
+			case ItemSelectionPage:
 //				item = doc->DocItems.at(j);
 				ob = docu->createElement("PAGEOBJECT");
 				break;
-			case 2:
+			case ItemSelectionFrame:
 //				item = doc->FrameItems.at(j);
 				ob = docu->createElement("FRAMEOBJECT");
 				break;
-			case 3:
+			case ItemSelectionPattern:
 				ob = docu->createElement("PatternItem");
 				break;
 		}
@@ -1179,6 +1180,19 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		else
 			ob.setAttribute("NEXTITEM", -1);
 		ob.setAttribute("LAYER", item->LayerNr);
+		
+		if (item->asLatexFrame()) {
+			QDomElement latexinfo = docu->createElement("LATEX");
+			PageItem_LatexFrame *latexitem = item->asLatexFrame();
+			latexinfo.setAttribute("APPLICATION", latexitem->getApplication());
+			latexinfo.setAttribute("DPI", latexitem->getDpi());
+			QString temp = latexitem->getFormula();
+			temp.replace("\\", "\\\\");
+			temp.replace("]", "\\]");
+			QDomCDATASection latextext = docu->createCDATASection(temp);
+			latexinfo.appendChild(latextext);
+			ob.appendChild(latexinfo);
+		}
 
 		//CB PageItemAttributes
 		QDomElement docItemAttrs = docu->createElement("PageItemAttributes");
@@ -1207,7 +1221,11 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, const QStri
 	QString tmp, tmpy;
 	if (newFormat)
 		ob->setAttribute("OwnPage", item->OwnPage);
-	ob->setAttribute("PTYPE",item->itemType());
+	if (item->asLatexFrame()) {
+		ob->setAttribute("PTYPE", PageItem::LatexFrame);
+	} else {
+		ob->setAttribute("PTYPE",item->itemType());
+	}
 	ob->setAttribute("XPOS",item->xPos());
 	ob->setAttribute("YPOS",item->yPos());
 	ob->setAttribute("WIDTH",item->width());
@@ -1349,7 +1367,7 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, const QStri
 	ob->setAttribute("TEXTRA",item->textToFrameDistTop());
 	ob->setAttribute("BEXTRA",item->textToFrameDistBottom());
 	ob->setAttribute("REXTRA",item->textToFrameDistRight());
-	if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 		ob->setAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	else
 		ob->setAttribute("PFILE","");

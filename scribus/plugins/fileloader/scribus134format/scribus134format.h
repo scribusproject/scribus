@@ -48,6 +48,12 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QList<ScFace> &getDummyScFaces);
 
 	private:
+		enum ItemSelection {
+			ItemSelectionMaster = 0,
+			ItemSelectionPage   = 1,
+			ItemSelectionFrame  = 2,
+			ItemSelectionPattern= 3,
+		};
 		void registerFormats();
 		//Scribus Doc vars, not plugin vars
 		void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
@@ -77,7 +83,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void writePatterns(QDomDocument & docu, const QString& baseDir);
 		void writeContent(QDomDocument & docu, const QString& baseDir);
 		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
-		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, int master, QList<PageItem*> *items = 0);
+		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *items = 0);
 		void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
 		QMap<int, int> itemRemap;
 		QMap<int, int> itemNext;
