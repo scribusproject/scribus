@@ -22,11 +22,11 @@ for which a new license (GPL+exception) is in place.
 #define IMPOSITION_UI_H
 
 #include "ui_impositionbase.h"
-#include <QTabWidget>
-#include <QGroupBox>
-#include <QFrame>
-#include <QLabel>
-#include <QSpinBox>
+#include <qtabwidget.h>
+#include <qgroupbox.h>
+#include <qframe.h>
+#include <qlabel.h>
+#include <qspinbox.h>
 
 #include "scribusstructs.h"
 #include "scribuscore.h"
@@ -54,12 +54,19 @@ class Imposition : public QDialog,Ui::ImpositionBase
 		ScribusDoc* targetDoc;
 		ScribusWin* w;
 		ScribusView* view;
+		bool isEdited;
+		bool isOK;
+
+		bool verifyGrid();
+		bool verifyBooklet();
+		bool verifyFold();
 // 			
 	protected slots:
 		virtual void languageChange();
 		void setPageSize(const QString &);
 		void customizeSize();
 		void change2SidesBox(int);
+		void changeFoldBackPage(int);
 		virtual void accepted();
 		
 		void changePage();
@@ -67,6 +74,8 @@ class Imposition : public QDialog,Ui::ImpositionBase
 		void changeDocBooklet();
 		void changeDocFold();
 		void changeTab(int);
+
+		bool verifyPage();
 };
 
 #endif //IMPOSITION_UI_H
