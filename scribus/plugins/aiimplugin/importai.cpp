@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "missing.h"
 #include "rawimage.h"
 #include <tiffio.h>
+#include <zlib.h>
 #ifdef HAVE_PODOFO
 	#include <podofo/podofo.h>
 #endif
@@ -58,8 +59,9 @@ AIPlug::AIPlug(ScribusDoc* doc, int flags)
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
-bool AIPlug::import(QString fName, int flags, bool showProgress)
+bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 {
+	QString fName = fNameIn;
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
@@ -92,6 +94,18 @@ bool AIPlug::import(QString fName, int flags, bool showProgress)
 			convertedPDF = true;
 			fName = tmpFile;
 		}
+	}
+	QFile fT2(fName);
+	if (fT2.open(QIODevice::ReadOnly))
+	{
+		QByteArray tempBuf(25);
+		fT2.readBlock(tempBuf.data(), 20);
+		fT2.close();
+		/* Illustrator CS files might be compressed
+			the compressed Data starts right after the "%AI12_CompressedData" comment
+			Compression is a simple zlib compression */
+		if (tempBuf.startsWith("%AI12_CompressedData"))
+			decompressAIData(fName);
 	}
 	QFileInfo bF(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(bF.absolutePath()+"/"+bF.baseName()));
@@ -379,9 +393,9 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 						priv = illy;
 					int num = priv->GetIndirectKey("NumBlock")->GetNumber() + 1;
 					QString name = "AIPrivateData%1";
-					for (int a = 2; a < num; a++)
+					if (num == 2)
 					{
-						QString Key = name.arg(a);
+						QString Key = name.arg(1);
 						PoDoFo::PdfObject *data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
 						PoDoFo::PdfStream const *stream = data->GetStream();
 						char *Buffer;
@@ -389,6 +403,20 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 						stream->GetFilteredCopy(&Buffer, &bLen);
 						outf.write(Buffer, bLen);
 						free( Buffer );
+					}
+					else
+					{
+						for (int a = 2; a < num; a++)
+						{
+							QString Key = name.arg(a);
+							PoDoFo::PdfObject *data = priv->GetIndirectKey(PoDoFo::PdfName(Key.toUtf8().data()));
+							PoDoFo::PdfStream const *stream = data->GetStream();
+							char *Buffer;
+							long bLen;
+							stream->GetFilteredCopy(&Buffer, &bLen);
+							outf.write(Buffer, bLen);
+							free( Buffer );
+						}
 					}
 					ret = true;
 				}
@@ -404,6 +432,82 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 	}
 #endif
 	return ret;
+}
+
+bool AIPlug::decompressAIData(QString &fName)
+{
+	QString f2 = fName+"_decom.ai";
+	FILE *source = fopen(fName, "rb");
+	fseek(source, 20, SEEK_SET);
+	FILE *dest = fopen(f2, "wb");
+	int ret;
+	unsigned have;
+	z_stream strm;
+	char in[4096];
+	char out[4096];
+	strm.zalloc = Z_NULL;
+	strm.zfree = Z_NULL;
+	strm.opaque = Z_NULL;
+	strm.avail_in = 0;
+	strm.next_in = Z_NULL;
+	ret = inflateInit(&strm);
+	if (ret != Z_OK)
+		return false;
+	do
+	{
+		strm.avail_in = fread(in, 1, 4096, source);
+		if (ferror(source))
+		{
+			(void)inflateEnd(&strm);
+			return false;
+		}
+		if (strm.avail_in == 0)
+			break;
+		strm.next_in = (Bytef*)in;
+		do
+		{
+			strm.avail_out = 4096;
+			strm.next_out = (Bytef*)out;
+			ret = inflate(&strm, Z_NO_FLUSH);
+			assert(ret != Z_STREAM_ERROR);
+			switch (ret)
+			{
+				case Z_NEED_DICT:
+					ret = Z_DATA_ERROR;
+				case Z_DATA_ERROR:
+				case Z_MEM_ERROR:
+					(void)inflateEnd(&strm);
+					return false;
+			}
+			have = 4096 - strm.avail_out;
+			if (fwrite(out, 1, have, dest) != have || ferror(dest))
+			{
+				(void)inflateEnd(&strm);
+				return false;
+			}
+		}
+		while (strm.avail_out == 0);
+	}
+	while (ret != Z_STREAM_END);
+	(void)inflateEnd(&strm);
+	fclose(source);
+	fclose(dest);
+	if (!convertedPDF)
+	{
+		QFileInfo bF2(fName);
+		QString tmpFile = getShortPathName(ScPaths::getTempFileDir())+ "/"+bF2.baseName()+"_tmp.ai";
+		moveFile(f2, tmpFile);
+		fName = tmpFile;
+		convertedPDF = true;
+	}
+	else
+	{
+		QFile::remove(fName);
+		fName = f2;
+	}
+	QFileInfo bF(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(bF.absolutePath()+"/"+bF.baseName()));
+	return true;
 }
 
 bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double &h)

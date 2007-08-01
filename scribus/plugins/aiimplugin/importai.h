@@ -66,6 +66,7 @@ private:
 	\retval bool true if conversion was ok
 	 */
 	bool extractFromPDF(QString infile, QString outfile);
+	bool decompressAIData(QString &fName);
 	bool parseHeader(QString fName, double &x, double &y, double &b, double &h);
 	QString removeAIPrefix(QString comment);
 	QString parseColor(QString data);
