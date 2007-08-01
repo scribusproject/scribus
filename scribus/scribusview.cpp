@@ -32,7 +32,6 @@ for which a new license (GPL+exception) is in place.
 #include <Q3PointArray>
 #include <QStringList>
 #include <QImage>
-#include <Q3CString>
 #include <QFileInfo>
 #include <QFile>
 #include <QStack>
@@ -43,7 +42,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDragMoveEvent>
 #include <QDragLeaveEvent>
 #include <QMimeData>
-#include <Q3StrList>
 #include <QLabel>
 #include <QDropEvent>
 #include <QMenu>
@@ -62,7 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include <unistd.h>
 #endif
 
-#include <Q3Url>
+#include <QUrl>
 #include <QDir>
 #include <QEvent>
 #include <QSizeGrip>
@@ -1777,7 +1775,7 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 		updateContents();
 		>>*/
 //		SeleItemPos(e->pos());
-		Q3Url ur(text);
+		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		if (fi.exists())
@@ -1904,7 +1902,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		m_ScMW->newActWin(Doc->WinHan);
 		updateContents();
 		//>>
-		Q3Url ur(text);
+		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
 		QString ext = fi.extension(false).upper();
 		QStringList imfo;
