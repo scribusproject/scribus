@@ -6396,7 +6396,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 			tmpSelection.addItem(ite);
 		}
 	}
-	if (doc->m_Selection->count() != 0)
+	if (tmpSelection.count() != 0)
 		doc->itemSelection_DeleteItem(&tmpSelection);
 	Page *page = doc->Pages->at(pg); // need to remove guides too to get their undo/redo actions working
 	page->guides.clearHorizontals(GuideManagerCore::Standard);
