@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
 ***************************************************************************/
 
-#include <iostream>
 #include "tabexternaltoolswidget.h"
 #include <QFileDialog>
 #include <QProcess>
@@ -152,7 +151,6 @@ bool TabExternalToolsWidget::fileInPath(QString file)
 	QStringList env = QProcess::systemEnvironment();
 	QString path;
 	foreach (QString line, env) {
-		//std::cout << "line: "<<qPrintable(line)<<"\n";
 		if (line.indexOf("PATH") == 0) {
 			path = line.mid(5); //Strip "PATH="
 			break;
@@ -167,14 +165,11 @@ bool TabExternalToolsWidget::fileInPath(QString file)
 		splitpath = path.split(':');
 	#endif
 	foreach (QString dir, splitpath) {
-		//std::cout << "dir: "<<qPrintable(dir)<<"\n";
 		QFileInfo info(dir, file);
 		if (info.exists()) {
-			//std::cout << "Found!\n";
 			return true;
 		}
 	}
-	//std::cout << "Not found!\n";
 	return false;
 }
 
@@ -201,7 +196,6 @@ void TabExternalToolsWidget::rescanForTools()
 				/*Windows TODO*/ "notepad" << 
 				/*Mac OS*/ "open";
 		foreach (QString editor, editors) {
-			//std::cout << "LATEX: Probing editor" << qPrintable(editor) << "\n";
 			if (fileInPath(editor)) {
 				latexEditorLineEdit->setText(editor);
 				break;

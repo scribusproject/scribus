@@ -3434,12 +3434,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					}
 					else
 					{
-						//TODO (Herm): Seems related to latex but needs further investigation
 						if ((inItemCreation) && (Doc->appMode == modeNormal))
 						{
 							currItem = Doc->m_Selection->itemAt(0);
 							if (currItem->asTextFrame())
 								Doc->appMode = modeDrawText;
+							else if (currItem->asLatexFrame())
+								Doc->appMode = modeDrawLatex;
 							else if (currItem->asImageFrame())
 								Doc->appMode = modeDrawPicture;
 							else if (Doc->SubMode != -1)
@@ -4460,10 +4461,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				if ((inItemCreation) && (Doc->appMode == modeNormal))
 				{
-					//TODO (Herm): Related to latex?
 					currItem = Doc->m_Selection->itemAt(0);
 					if (currItem->asTextFrame())
 						Doc->appMode = modeDrawText;
+					else if (currItem->asLatexFrame())
+						Doc->appMode = modeDrawLatex;
 					else if (currItem->asImageFrame())
 						Doc->appMode = modeDrawPicture;
 					else if (Doc->SubMode != -1)
