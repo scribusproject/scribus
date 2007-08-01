@@ -1954,15 +1954,13 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 		break;
 	//
 	case PageItem::ImageFrame:
-	case PageItem::LatexFrame: /*Everything that is valid for image frames i
-s also valid for latex frames*/
+	case PageItem::LatexFrame: /*Everything that is valid for image frames is also valid for latex frames*/
 		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->toolSettings.dBrushPict, CommonStrings::None, true);
 		currItem = doc->Items->at(z);
 		currItem->setImageXYScale(scx, scy);
 		currItem->setImageXYOffset(obj->attribute("LOCALX").toDouble(), obj->attribute("LOCALY").toDouble());
 		if (currItem->asLatexFrame()) {
-			PageItem_LatexFrame *latexitem = currItem->asLatexFrame(
-);
+			PageItem_LatexFrame *latexitem = currItem->asLatexFrame();
 			IT = obj->firstChild();
 			while(!IT.isNull())
 			{
@@ -1976,10 +1974,10 @@ s also valid for latex frames*/
 					temp.replace("\\]", "]");
 					latexitem->setFormula(temp);
 				}
-                               IT=IT.nextSibling();
-                       }
-               } else {
-		currItem->Pfile     = Relative2Path(obj->attribute("PFILE"), baseDir);
+				IT=IT.nextSibling();
+			}
+		} else {
+			currItem->Pfile = Relative2Path(obj->attribute("PFILE"), baseDir);
 		}
 		currItem->IProfile  = obj->attribute("PRFILE","");
 		currItem->EmProfile = obj->attribute("EPROF","");
