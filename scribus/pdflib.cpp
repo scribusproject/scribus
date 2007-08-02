@@ -1642,7 +1642,7 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 						}
 						PutPage(setTextSt(ite, pag->pageNr(), pag));
 						break;
-					}
+				}
 				PutPage("Q\n");
 				StartObj(ObjCounter);
 				ObjCounter++;
@@ -1693,8 +1693,8 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 					QMap<QString,SpotC>::Iterator it3sc;
 					if (spotMap.count() != 0)
 					{
-					for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
-						PutDoc("/"+it3sc.data().ResName+" "+QString::number(it3sc.data().ResNum)+" 0 R\n");
+						for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+							PutDoc("/"+it3sc.data().ResName+" "+QString::number(it3sc.data().ResNum)+" 0 R\n");
 					}
 					PutDoc(">>\n");
 				}
@@ -1705,12 +1705,13 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 				if ((Options.Compress) && (CompAvail))
 					PutDoc("\n/Filter /FlateDecode");
 				PutDoc(" >>\nstream\n"+EncStream(Inhalt, ObjCounter-1)+"\nendstream\nendobj\n");
-				QString name = pag->PageNam.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ite->ItemNr);
+				int pIndex   = doc.MasterPages.findRef(pag) + 1;
+				QString name = QString("master_page_obj_%1_%2").arg(pIndex).arg(ite->ItemNr);
 				Seite.XObjects[name] = ObjCounter-1;
-				}
-				if ((Options.Version == 15) && (Options.useLayers))
-					PutPage("EMC\n");
 			}
+			if ((Options.Version == 15) && (Options.useLayers))
+				PutPage("EMC\n");
+		}
 		Lnr++;
 	}
 }
@@ -1899,7 +1900,8 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 
 	if (!pag->MPageNam.isEmpty())
 	{
-		Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);
+		const Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);
+		int   mPageIndex  = doc.MasterPages.findRef(mPage) + 1;
 		if (doc.MasterItems.count() != 0)
 		{
 			if (!Options.MirrorH)
@@ -1919,7 +1921,7 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							continue;
 						if ((!pag->PageNam.isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
-						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ite->ItemNr);
+						QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(ite->ItemNr);
 						if (! ite->asTextFrame())
 							PutPage(name+" Do\n");
 						else
