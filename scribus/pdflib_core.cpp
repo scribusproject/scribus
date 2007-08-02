@@ -2080,7 +2080,8 @@ void PDFLibCore::PDF_TemplatePage(const Page* pag, bool )
 				if ((Options.Compress) && (CompAvail))
 					PutDoc("\n/Filter /FlateDecode");
 				PutDoc(" >>\nstream\n"+EncStream(Inhalt, ObjCounter-1)+"\nendstream\nendobj\n");
-				QString name = pag->pageName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ite->ItemNr);
+				int pIndex   = doc.MasterPages.indexOf((Page* const) pag) + 1;
+				QString name = QString("master_page_obj_%1_%2").arg(pIndex).arg(ite->ItemNr);
 				Seite.XObjects[name] = ObjCounter-1;
 				}
 				if ((Options.Version == 15) && (Options.useLayers))
@@ -2513,7 +2514,8 @@ void PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	}
 	if (!pag->MPageNam.isEmpty())
 	{
-		Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);
+		const Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);
+		int   mPageIndex  = doc.MasterPages.indexOf((Page* const) mPage) + 1;
 		if (doc.MasterItems.count() != 0)
 		{
 			if (!Options.MirrorH)
@@ -2533,7 +2535,7 @@ void PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							continue;
 						if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
-						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ite->ItemNr);
+						QString name = QString("/master_page_obj_%1_%2").arg(mPageIndex).arg(ite->ItemNr);
 						if (ite->isGroupControl)
 						{
 							PutPage("q\n");
