@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QAction>
 #include <QKeySequence>
-#include <Q3PointArray>
+#include <QPolygon>
 #include <vector>
 
 #include "scribusapi.h"
@@ -124,7 +124,7 @@ struct CopyPasteBuffer
 	int IRender;
 	bool UseEmbedded;
 	QString itemText;
-	Q3PointArray Clip;
+	QPolygon Clip;
 	FPointArray PoLine;
 	FPointArray ContourLine;
 	bool PoShow;

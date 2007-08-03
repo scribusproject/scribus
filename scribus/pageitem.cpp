@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdrawutil.h>
 #include <QRegExp>
 #include <QMessageBox>
-#include <Q3PointArray>
+#include <QPolygon>
 #include <cmath>
 #include <cassert>
 
@@ -1388,13 +1388,16 @@ QImage PageItem::DrawObj_toImage()
 					{
 						emG.append(m_Doc->Items->at(ga));
 						PageItem *currItem = m_Doc->Items->at(ga);
+						double lw = 0.0;
+						if (lineColor() != CommonStrings::None)
+							lw = lineWidth() / 2.0;
 						if (currItem->rotation() != 0)
 						{
 							FPointArray pb(4);
-							pb.setPoint(0, FPoint(currItem->xPos(), currItem->yPos()));
-							pb.setPoint(1, FPoint(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-							pb.setPoint(2, FPoint(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-							pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+							pb.setPoint(0, FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+							pb.setPoint(1, FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+							pb.setPoint(2, FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+							pb.setPoint(3, FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
 							for (uint pc = 0; pc < 4; ++pc)
 							{
 								minx = qMin(minx, pb.point(pc).x());
@@ -1405,10 +1408,10 @@ QImage PageItem::DrawObj_toImage()
 						}
 						else
 						{
-							minx = qMin(minx, currItem->xPos());
-							miny = qMin(miny, currItem->yPos());
-							maxx = qMax(maxx, currItem->xPos() + currItem->width());
-							maxy = qMax(maxy, currItem->yPos() + currItem->height());
+							minx = qMin(minx, currItem->xPos()-lw);
+							miny = qMin(miny, currItem->yPos()-lw);
+							maxx = qMax(maxx, currItem->xPos()-lw + currItem->width());
+							maxy = qMax(maxy, currItem->yPos()-lw + currItem->height());
 						}
 					}
 				}
@@ -1425,13 +1428,16 @@ QImage PageItem::DrawObj_toImage()
 	}
 	else
 	{
+		double lw = 0.0;
+		if (lineColor() != CommonStrings::None)
+			lw = lineWidth() / 2.0;
 		if (rotation() != 0)
 		{
 			FPointArray pb(4);
-			pb.setPoint(0, FPoint(xPos(), yPos()));
-			pb.setPoint(1, FPoint(width(), 0.0, xPos(), yPos(), rotation(), 1.0, 1.0));
-			pb.setPoint(2, FPoint(width(), height(), xPos(), yPos(), rotation(), 1.0, 1.0));
-			pb.setPoint(3, FPoint(0.0, height(), xPos(), yPos(), rotation(), 1.0, 1.0));
+			pb.setPoint(0, FPoint(xPos()-lw, yPos()-lw));
+			pb.setPoint(1, FPoint(width()+lw*2.0, -lw, xPos()-lw, yPos()-lw, rotation(), 1.0, 1.0));
+			pb.setPoint(2, FPoint(width()+lw*2.0, height()+lw*2.0, xPos()-lw, yPos()-lw, rotation(), 1.0, 1.0));
+			pb.setPoint(3, FPoint(-lw, height()+lw*2.0, xPos()-lw, yPos()-lw, rotation(), 1.0, 1.0));
 			for (uint pc = 0; pc < 4; ++pc)
 			{
 				minx = qMin(minx, pb.point(pc).x());
@@ -1442,10 +1448,10 @@ QImage PageItem::DrawObj_toImage()
 		}
 		else
 		{
-			minx = qMin(minx, xPos());
-			miny = qMin(miny, yPos());
-			maxx = qMax(maxx, xPos() + width());
-			maxy = qMax(maxy, yPos() + height());
+			minx = qMin(minx, xPos()-lw);
+			miny = qMin(miny, yPos()-lw);
+			maxx = qMax(maxx, xPos()-lw + width()+lw*2.0);
+			maxy = qMax(maxy, yPos()-lw + height()+lw*2.0);
 		}
 		gXpos = xPos() - minx;
 		gYpos = yPos() - miny;
@@ -1935,7 +1941,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	}
 }
 
-void PageItem::DrawPolyL(QPainter *p, Q3PointArray pts)
+void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 {
 	QColor tmp;
 	ScribusView* view = m_Doc->view();
@@ -3507,7 +3513,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 		}
 	}
 	Buffer->itemText = Text;
-	Buffer->Clip = Clip.copy();
+	Buffer->Clip = Clip;
 	Buffer->PoLine = PoLine.copy();
 	Buffer->ContourLine = ContourLine.copy();
 	//Buffer->UseContour = textFlowUsesContourLine();
@@ -4123,7 +4129,7 @@ void PageItem::setPolyClip(int up, int down)
 		downval *= -1;
 	}
 	QPoint np, np2;
-	Q3PointArray cl, cl1, cl2;
+	QPolygon cl, cl1, cl2;
 	cl = FlattenPath(PoLine, Segments);
 	for (int a = 0; a < cl.size()-1; ++a)
 	{

@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFont>
 #include <QFontMetrics>
 #include <QPixmap>
-#include <Q3PointArray>
+#include <QPolygon>
 #include <QStringList>
 #include <QImage>
 #include <QFileInfo>
@@ -437,28 +437,30 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				pp.translate(-qRound(Doc->minCanvasCoordinate.x()*Scale), -qRound(Doc->minCanvasCoordinate.y()*Scale));
 				PageItem *currItem = Doc->m_Selection->itemAt(0);
 				Transform(currItem, &pp);
-				Q3PointArray Bez(4);
+				QPainterPath Bez;
 				if (currItem->PoLine.size() > 1)
 				{
 					QPoint nXY = redrawPolygon.point(0);
 					if (!m_MouseButtonPressed)
 					{
-						QPoint a1 = currItem->PoLine.pointQ(currItem->PoLine.size()-2);
-						QPoint a2 = currItem->PoLine.pointQ(currItem->PoLine.size()-1);
-						BezierPoints(&Bez, a1, a2, nXY, nXY);
-						pp.drawCubicBezier(Bez);
+						FPoint a1 = currItem->PoLine.point(currItem->PoLine.size()-2);
+						FPoint a2 = currItem->PoLine.point(currItem->PoLine.size()-1);
+						Bez.moveTo(a1.x(), a1.y());
+						Bez.cubicTo(a2.x(), a2.y(), nXY.x(), nXY.y(), nXY.x(), nXY.y());
+						pp.drawPath(Bez);
 					}
 					else
 					{
-						QPoint a2 = currItem->PoLine.pointQ(currItem->PoLine.size()-1);
+						FPoint a2 = currItem->PoLine.point(currItem->PoLine.size()-1);
 						if (currItem->PoLine.size() > 2)
 						{
-							QPoint a1 = currItem->PoLine.pointQ(currItem->PoLine.size()-2);
-							QPoint a3 = currItem->PoLine.pointQ(currItem->PoLine.size()-3);
-							BezierPoints(&Bez, a3, a1, nXY, a2);
-							pp.drawCubicBezier(Bez);
+							FPoint a1 = currItem->PoLine.point(currItem->PoLine.size()-2);
+							FPoint a3 = currItem->PoLine.point(currItem->PoLine.size()-3);
+							Bez.moveTo(a3.x(), a3.y());
+							Bez.cubicTo(a1.x(), a1.y(), nXY.x(), nXY.y(), a2.x(), a2.y());
+							pp.drawPath(Bez);
 						}
-						pp.drawLine(a2, nXY);
+						pp.drawLine(QPoint(qRound(a2.x()), qRound(a2.y())), nXY);
 					}
 				}
 				else
@@ -4720,7 +4722,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	FPoint npf, npf2;
 	QPainter p;
 	QRect tx;
-	Q3PointArray Bez(4);
 	bool erf = false;
 	double sc = Scale;
 	horizRuler->Draw(m->x());
@@ -5643,7 +5644,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				if (Doc->EditClip)
 				{
 					FPointArray Clip;
-					Q3PointArray cli;
+					QPolygon cli;
 					ClRe2 = -1;
 					SegP1 = -1;
 					SegP2 = -1;
@@ -5676,8 +5677,14 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					{
 						for (uint poi=0; poi<Clip.size()-3; poi += 4)
 						{
-							BezierPoints(&Bez, Clip.pointQ(poi), Clip.pointQ(poi+1), Clip.pointQ(poi+3), Clip.pointQ(poi+2));
-							cli = Bez.cubicBezier();
+							FPoint a1 = Clip.point(poi);
+							FPoint a2 = Clip.point(poi+1);
+							FPoint a3 = Clip.point(poi+3);
+							FPoint a4 = Clip.point(poi+2);
+							QPainterPath Bez;
+							Bez.moveTo(a1.x(), a1.y());
+							Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+							cli = Bez.toFillPolygon().toPolygon();
 							for (int clp = 0; clp < cli.size()-1; ++clp)
 							{
 								if (PointOnLine(cli.point(clp), cli.point(clp+1), p.inverted().map(mpo)))
@@ -5840,7 +5847,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	QPainter p;
 	PaintSizeRect(QRect());
 	FPoint npf, npf2;
-	Q3PointArray Bez(4);
 	QRect tx;
 	QMatrix pm;
 	m_MouseButtonPressed = true;
@@ -5979,7 +5985,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					if (ClRe == -1)	// We don't have a Point, try to add one onto the current curve segment
 					{
 						bool foundP = false;
-						Q3PointArray Bez(4);
+						QPainterPath Bez;
 						uint seg = 0;
 						double absDist = 9999999999.9;
 						FPoint point = FPoint(0, 0);
@@ -5991,8 +5997,14 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
 						for (uint poi=0; poi<Clip.size()-3; poi += 4)
 						{
-							BezierPoints(&Bez, Clip.pointQ(poi), Clip.pointQ(poi+1), Clip.pointQ(poi+3), Clip.pointQ(poi+2));
-							Q3PointArray cli2 = Bez.cubicBezier();
+							FPoint a1 = Clip.point(poi);
+							FPoint a2 = Clip.point(poi+1);
+							FPoint a3 = Clip.point(poi+3);
+							FPoint a4 = Clip.point(poi+2);
+							QPainterPath Bez;
+							Bez.moveTo(a1.x(), a1.y());
+							Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+							QPolygon cli2 = Bez.toFillPolygon().toPolygon();
 							for (int clp = 0; clp < cli2.size()-1; ++clp)
 							{
 								if (PointOnLine(cli2.point(clp), cli2.point(clp+1), mpo2))
@@ -6217,7 +6229,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				if ((Doc->EditClipMode == 1) && (ClRe2 != -1))
 				{
 					bool foundP = false;
-					Q3PointArray Bez(4);
+					QPainterPath Bez;
 					uint seg = 0;
 					double absDist = 9999999999.9;
 					FPoint point = FPoint(0, 0);
@@ -6229,8 +6241,14 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					mpo2.moveCenter(QPoint(qRound(npf2.x()), qRound(npf2.y())));
 					for (uint poi=0; poi<Clip.size()-3; poi += 4)
 					{
-						BezierPoints(&Bez, Clip.pointQ(poi), Clip.pointQ(poi+1), Clip.pointQ(poi+3), Clip.pointQ(poi+2));
-						Q3PointArray cli2 = Bez.cubicBezier();
+						FPoint a1 = Clip.point(poi);
+						FPoint a2 = Clip.point(poi+1);
+						FPoint a3 = Clip.point(poi+3);
+						FPoint a4 = Clip.point(poi+2);
+						QPainterPath Bez;
+						Bez.moveTo(a1.x(), a1.y());
+						Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+						QPolygon cli2 = Bez.toFillPolygon().toPolygon();
 						for (int clp = 0; clp < cli2.size()-1; ++clp)
 						{
 							if (PointOnLine(cli2.point(clp), cli2.point(clp+1), mpo2))
@@ -7218,7 +7236,6 @@ void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 void ScribusView::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool)
 {
 	double x, y;
-	Q3PointArray Bez(4);
 	p->save();
 	p->resetMatrix();
 	QPoint out = contentsToViewport(QPoint(0, 0));
@@ -7238,14 +7255,17 @@ void ScribusView::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, boo
 			if (cli.point(poi).x() > 900000)
 				continue;
 			p->setPen(QPen(Qt::blue, 1 / Scale, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			BezierPoints(&Bez, QPoint(qRound(cli.point(poi).x()), qRound(cli.point(poi).y())),
-												QPoint(qRound(cli.point(poi+1).x()), qRound(cli.point(poi+1).y())),
-												QPoint(qRound(cli.point(poi+3).x()), qRound(cli.point(poi+3).y())),
-												QPoint(qRound(cli.point(poi+2).x()), qRound(cli.point(poi+2).y())));
-			p->drawCubicBezier(Bez);
+			FPoint a1 = cli.point(poi);
+			FPoint a2 = cli.point(poi+1);
+			FPoint a3 = cli.point(poi+3);
+			FPoint a4 = cli.point(poi+2);
+			QPainterPath Bez;
+			Bez.moveTo(a1.x(), a1.y());
+			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+			p->drawPath(Bez);
 			p->setPen(QPen(Qt::blue, 1 / Scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			p->drawLine(Bez.point(0), Bez.point(1));
-			p->drawLine(Bez.point(2), Bez.point(3));
+			p->drawLine(QPointF(a1.x(), a1.y()), QPointF(a2.x(), a2.y()));
+			p->drawLine(QPointF(a3.x(), a3.y()), QPointF(a4.x(), a4.y()));
 		}
 	}
 	for (uint a=0; a<cli.size()-1; a += 2)
@@ -10818,7 +10838,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->LeftLinkID = Buffer->LeftLinkID;
 	currItem->RightLinkID = Buffer->RightLinkID;
 	currItem->BottomLinkID = Buffer->BottomLinkID;
-	currItem->Clip = Buffer->Clip.copy(); //irrelevant, overwritten below
+	currItem->Clip = Buffer->Clip; //irrelevant, overwritten below
 	currItem->PoShow = Buffer->PoShow;
 	currItem->BaseOffs = Buffer->BaseOffs;
 	currItem->textPathFlipped = Buffer->textPathFlipped;

@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QList>
 #include <QByteArray>
-#include <Q3PointArray>
+#include <QPolygon>
 #include <QImageReader>
 
 #include <cmath>
@@ -216,10 +216,9 @@ QList<QPainterPath> decomposePath(QPainterPath &path)
 	return ret;
 }
 
-Q3PointArray FlattenPath(FPointArray ina, QList<uint> &Segs)
+QPolygon FlattenPath(FPointArray ina, QList<uint> &Segs)
 {
-	Q3PointArray Bez(4);
-	Q3PointArray outa, cli;
+	QPolygon cli, outa;
 	Segs.clear();
 	if (ina.size() > 3)
 	{
@@ -232,8 +231,14 @@ Q3PointArray FlattenPath(FPointArray ina, QList<uint> &Segs)
 				Segs.append(outa.size());
 				continue;
 			}
-			BezierPoints(&Bez, ina.pointQ(poi), ina.pointQ(poi+1), ina.pointQ(poi+3), ina.pointQ(poi+2));
-			cli = Bez.cubicBezier();
+			FPoint a1 = ina.point(poi);
+			FPoint a2 = ina.point(poi+1);
+			FPoint a3 = ina.point(poi+3);
+			FPoint a4 = ina.point(poi+2);
+			QPainterPath Bez;
+			Bez.moveTo(a1.x(), a1.y());
+			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
+			cli = Bez.toFillPolygon().toPolygon();
 			outa.putPoints(outa.size(), cli.size()-1, cli);
 		}
 		outa.resize(outa.size()+1);
@@ -246,17 +251,6 @@ double xy2Deg(double x, double y)
 {
 	return (atan2(y,x)*(180.0/M_PI));
 }
-
-void BezierPoints(Q3PointArray *ar, QPoint n1, QPoint n2, QPoint n3, QPoint n4)
-{
-	ar->setPoint(0, n1);
-	ar->setPoint(1, n2);
-	ar->setPoint(2, n3);
-	ar->setPoint(3, n4);
-	return;
-}
-
-
 
 FPoint getMaxClipF(FPointArray* Clip)
 {

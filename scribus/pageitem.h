@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QObject>
 #include <QWidget>
-#include <Q3PointArray>
+#include <QPolygon>
 #include <QStack>
 #include <QList>
 #include <QKeyEvent>
@@ -298,7 +298,7 @@ public:
 	double layoutGlyphs(const CharStyle& style, const QString chars, GlyphLayout& layout);
 	void SetFarbe(QColor *tmp, QString farbe, double shad);
 	void drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs );
-	void DrawPolyL(QPainter *p, Q3PointArray pts);
+	void DrawPolyL(QPainter *p, QPolygon pts);
 	QString ExpandToken(uint base);
 	
 	bool AutoName;	
@@ -322,7 +322,7 @@ public:
 	Qt::PenJoinStyle PLineJoin;
 	QString NamedLStyle;
   /** Defines clipping region of the elements; */
-	Q3PointArray Clip;
+	QPolygon Clip;
 	
 	FPointArray PoLine;
 	const FPointArray shape() const { return PoLine; }

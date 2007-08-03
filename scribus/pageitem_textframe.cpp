@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <Q3PointArray>
+#include <QPolygon>
 #include <QList>
 #include <QMatrix>
 #include <QPoint>
@@ -73,7 +73,7 @@ static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, d
 	pp.rotate(docItem->rotation());
 	if (docItem->textFlowUsesBoundingBox())
 	{
-		Q3PointArray tcli(4);
+		QPolygon tcli(4);
 		tcli.setPoint(0, QPoint(0,0));
 		tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
 		tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
@@ -84,14 +84,14 @@ static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, d
 	else if ((docItem->textFlowUsesImageClipping()) && (docItem->imageClip.size() != 0))
 	{
 		QList<uint> Segs;
-		Q3PointArray Clip2 = FlattenPath(docItem->imageClip, Segs);
+		QPolygon Clip2 = FlattenPath(docItem->imageClip, Segs);
 //		res = QRegion(pp.xForm(Clip2));
 		res = QRegion(pp.map(Clip2)).intersect(QRegion(pp.map(docItem->Clip)));
 	}
 	else if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
 	{
 		QList<uint> Segs;
-		Q3PointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+		QPolygon Clip2 = FlattenPath(docItem->ContourLine, Segs);
 //		res = QRegion(pp.xForm(Clip2));
 		res = QRegion(pp.map(Clip2));
 	}
@@ -1492,7 +1492,7 @@ void PageItem_TextFrame::layout()
 //				qDebug(QString("dropcapoffset: %1 -> %2").arg(current.xPos-style.dropCapOffset()).arg(current.xPos));
 				current.xPos = qMax(current.xPos, current.colLeft);
 				maxDX = current.xPos;
-				Q3PointArray tcli(4);
+				QPolygon tcli(4);
 				if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 				{
 					current.yPos -= m_Doc->typographicSettings.valueBaseGrid * (DropLines-1);
@@ -2219,14 +2219,41 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		p->setupPolygon(&PoLine);
 		p->setClipPath();
 		p->scale(LocalScX, LocalScY);
-		p->translate(static_cast<int>(LocalX*LocalScX), static_cast<int>(LocalY*LocalScY));
+		p->translate(LocalX*LocalScX, LocalY*LocalScY);
 		if (pixm.width() > 0 && pixm.height() > 0)
-		{
-			QImage img(pixm.qImage());
-			p->drawImage(&img);
-		}
+			p->drawImage(pixm.qImagePtr());
 		p->restore();
 	}
+/* Experimental Addition to display an Image as Background */
+/*
+	else if ((!Pfile.isEmpty()) && (PicAvail) && (PicArt))
+	{
+		p->save();
+		if (imageClip.size() != 0)
+		{
+			p->setupPolygon(&imageClip);
+			p->setClipPath();
+		}
+		p->setupPolygon(&PoLine);
+		p->setClipPath();
+		if (imageFlippedH())
+		{
+			p->translate(Width, 0);
+			p->scale(-1, 1);
+		}
+		if (imageFlippedV())
+		{
+			p->translate(0, Height);
+			p->scale(1, -1);
+		}
+		p->translate(LocalX*LocalScX, LocalY*LocalScY);
+		p->scale(LocalScX, LocalScY);
+		if (pixm.imgInfo.lowResType != 0)
+			p->scale(pixm.imgInfo.lowResScale, pixm.imgInfo.lowResScale);
+		p->drawImage(pixm.qImagePtr());
+		p->restore();
+	}
+*/
 	if (itemText.length() != 0)
 	{
 //		qDebug("drawing textframe: len=%d", itemText.length());
