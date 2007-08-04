@@ -76,6 +76,7 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 	currView->redrawMode = 0;
 	currView->specialRendering = false;
 	currView->firstSpecial = false;
+	currView->DrawNew();
 }
 
 void RulerMover::mouseMoveEvent(QMouseEvent *m)

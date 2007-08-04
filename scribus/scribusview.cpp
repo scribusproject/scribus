@@ -10225,7 +10225,7 @@ void ScribusView::rulerMove(QMouseEvent *m)
 	horizRuler->Draw(out.x());
 	vertRuler->Draw(out.y());
 	redrawPolygon.clear();
-	redrawPolygon << QPoint(newX, newY);
+	redrawPolygon << py;
 	updateContents();
 	DrHY = newY;
 	DrVX = newX;
@@ -10242,7 +10242,7 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 		Doc->rulerYoffset -= Doc->currentPage()->yOffset();
 	}
 	setRulerPos(contentsX(), contentsY());
-	updateContents();
+	redrawPolygon.clear();
 	int docSelectionCount=Doc->m_Selection->count();
 	if (docSelectionCount != 0)
 	{
