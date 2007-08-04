@@ -134,15 +134,15 @@ QPolygon RegularPolygon(double w, double h, uint c, bool star, double factor, do
 		sc = seg * x + 180.0 + rota;
 		if (star)
 		{
-			double wf = x % 2 == 0 ? w / 2 : w / 2 * di;
-			double hf = x % 2 == 0 ? h / 2 : h / 2 * di;
-			mx = qRound(sin(sc / 180 * M_PI) * (wf) + (w/2));
-			my = qRound(cos(sc / 180 * M_PI) * (hf) + (h/2));
+			double wf = x % 2 == 0 ? w / 2.0 : w / 2.0 * di;
+			double hf = x % 2 == 0 ? h / 2.0 : h / 2.0 * di;
+			mx = qRound(sin(sc / 180.0 * M_PI) * (wf) + (w/2.0));
+			my = qRound(cos(sc / 180.0 * M_PI) * (hf) + (h/2.0));
 		}
 		else
 		{
-			mx = qRound(sin(sc / 180 * M_PI) * (w/2) + (w/2));
-			my = qRound(cos(sc / 180 * M_PI) * (h/2) + (h/2));
+			mx = qRound(sin(sc / 180.0 * M_PI) * (w/2.0) + (w/2.0));
+			my = qRound(cos(sc / 180.0 * M_PI) * (h/2.0) + (h/2.0));
 		}
 		pts.setPoint(x, mx, my);
 	}
@@ -163,15 +163,15 @@ FPointArray RegularPolygonF(double w, double h, uint c, bool star, double factor
 		sc = seg * x + 180.0 + rota;
 		if (star)
 		{
-			double wf = x % 2 == 0 ? w / 2 : w / 2 * di;
-			double hf = x % 2 == 0 ? h / 2 : h / 2 * di;
-			mx = qRound(sin(sc / 180 * M_PI) * (wf) + (w/2));
-			my = qRound(cos(sc / 180 * M_PI) * (hf) + (h/2));
+			double wf = x % 2 == 0 ? w / 2.0 : w / 2.0 * di;
+			double hf = x % 2 == 0 ? h / 2.0 : h / 2.0 * di;
+			mx = sin(sc / 180.0 * M_PI) * (wf) + (w/2.0);
+			my = cos(sc / 180.0 * M_PI) * (hf) + (h/2.0);
 		}
 		else
 		{
-			mx = sin(sc / 180 * M_PI) * (w/2) + (w/2);
-			my = cos(sc / 180 * M_PI) * (h/2) + (h/2);
+			mx = sin(sc / 180.0 * M_PI) * (w/2.0) + (w/2.0);
+			my = cos(sc / 180.0 * M_PI) * (h/2.0) + (h/2.0);
 		}
 		pts.setPoint(x, mx, my);
 	}
@@ -226,8 +226,7 @@ QPolygon FlattenPath(FPointArray ina, QList<uint> &Segs)
 		{
 			if (ina.point(poi).x() > 900000 && cli.size() > 0)
 			{
-				outa.resize(outa.size()+1);
-				outa.setPoint(outa.size()-1, cli.point(cli.size()-1));
+				outa << cli.point(cli.size()-1);
 				Segs.append(outa.size());
 				continue;
 			}
@@ -239,10 +238,10 @@ QPolygon FlattenPath(FPointArray ina, QList<uint> &Segs)
 			Bez.moveTo(a1.x(), a1.y());
 			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
 			cli = Bez.toFillPolygon().toPolygon();
-			outa.putPoints(outa.size(), cli.size()-1, cli);
+			if (cli.size() > 0)
+				outa.putPoints(outa.size(), cli.size()-1, cli);
 		}
-		outa.resize(outa.size()+1);
-		outa.setPoint(outa.size()-1, cli.point(cli.size()-1));
+		outa << cli.point(cli.size()-1);
 	}
 	return outa;
 }
