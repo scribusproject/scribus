@@ -241,7 +241,8 @@ QPolygon FlattenPath(FPointArray ina, QList<uint> &Segs)
 			if (cli.size() > 0)
 				outa.putPoints(outa.size(), cli.size()-1, cli);
 		}
-		outa << cli.point(cli.size()-1);
+		if (cli.size() > 0)
+			outa << cli.point(cli.size()-1);
 	}
 	return outa;
 }
