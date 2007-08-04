@@ -4501,6 +4501,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}*/
 		}
 	}
+	operItemResizeInEditMode = false;
 	if ((Doc->appMode == modeEdit) && !operItemResizeInEditMode)
 	{
 		currItem = Doc->m_Selection->itemAt(0);
@@ -4511,11 +4512,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				currItem->itemText.deselectAll();
 				currItem->HasSel = false;
 				emit HasNoTextSel();
-				RefreshItem(currItem);
 			}
 		}
 		else
 			emit DocChanged();
+		RefreshItem(currItem);
 	}
 	if (Doc->appMode == modeMagnifier)
 	{
@@ -6641,6 +6642,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						{
 							operItemResizeInEditMode = true;
 							slotDoCurs(true);
+							specialRendering = true;
+							firstSpecial = true;
 							return;
 						}
 					}
