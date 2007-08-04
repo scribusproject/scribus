@@ -8944,153 +8944,156 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			currItem = Doc->currentPage()->FromMaster.at(currNr);
 		}
 	}
-	if (Doc->Items->count() == 0)
-		return false;
-	if ((Doc->m_Selection->count() != 0) && (m->state() == Qt::ControlButton))
-		currItem = Doc->m_Selection->itemAt(0);
-	else
-		currItem = Doc->Items->at(Doc->Items->count()-1);
-	if ((m->state() == (Qt::ControlButton | Qt::ShiftButton)) && (Doc->m_Selection->count() != 0))
+	if (Doc->Items->count() != 0)
 	{
-		int currNr = Doc->Items->count();
-		for (a = 0; a < Doc->Items->count(); ++a)
+		if ((Doc->m_Selection->count() != 0) && (m->state() == Qt::ControlButton))
+			currItem = Doc->m_Selection->itemAt(0);
+		else
+			currItem = Doc->Items->at(Doc->Items->count()-1);
+		if ((m->state() == (Qt::ControlButton | Qt::ShiftButton)) && (Doc->m_Selection->count() != 0))
 		{
-			if (currItem->isSelected())
+			int currNr = Doc->Items->count();
+			for (a = 0; a < Doc->Items->count(); ++a)
 			{
-				if (currItem->ItemNr == 0)
+				if (currItem->isSelected())
 				{
-					currItem = Doc->Items->at(Doc->Items->count()-1);
+					if (currItem->ItemNr == 0)
+					{
+						currItem = Doc->Items->at(Doc->Items->count()-1);
+						break;
+					}
+					currNr--;
+					currItem = Doc->Items->at(currNr);
 					break;
 				}
 				currNr--;
 				currItem = Doc->Items->at(currNr);
-				break;
 			}
-			currNr--;
-			currItem = Doc->Items->at(currNr);
 		}
-	}
-	Doc->m_Selection->setIsGUISelection(false);
-	if (currItem == NULL)
-	{
-		Doc->m_Selection->setIsGUISelection(true);
-		Doc->m_Selection->connectItemToGUI();
-		Deselect(true);
-		return false;
-	}
-	//Where all basic selection occurs having found the click location and the current page
-	int currNr = Doc->Items->indexOf(currItem);
-	for (a = currNr; a > -1; a--)
-	{
-		currItem = Doc->Items->at(a);
-		if ((Doc->masterPageMode())  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(Doc->currentPage()->pageNr())))))
-			continue;
-		if ((currItem->LayerNr == Doc->activeLayer()) && (!Doc->layerLocked(currItem->LayerNr)))
+		Doc->m_Selection->setIsGUISelection(false);
+		if (currItem == NULL)
 		{
-			p = QMatrix();
-			Transform(currItem, p);
-			if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
-			        (QRegion(currItem->Clip * p).contains(mpo.toRect())))
+			Doc->m_Selection->setIsGUISelection(true);
+			Doc->m_Selection->connectItemToGUI();
+			Deselect(true);
+		}
+		else
+		{
+			//Where all basic selection occurs having found the click location and the current page
+			int currNr = Doc->Items->indexOf(currItem);
+			for (a = currNr; a > -1; a--)
 			{
-				//If the clicked on item is not tagged as selected
-				if (!currItem->isSelected())
+				currItem = Doc->Items->at(a);
+				if ((Doc->masterPageMode())  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(Doc->currentPage()->pageNr())))))
+					continue;
+				if ((currItem->LayerNr == Doc->activeLayer()) && (!Doc->layerLocked(currItem->LayerNr)))
 				{
-					if ((m->state() != Qt::ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
-						Deselect(false);
-					//If we are selecting an item that is part of a group...
-					if (currItem->Groups.count() != 0)
+					p = QMatrix();
+					Transform(currItem, p);
+					if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
+							(QRegion(currItem->Clip * p).contains(mpo.toRect())))
 					{
-						if (Doc->m_Selection->count() != 0)
+						//If the clicked on item is not tagged as selected
+						if (!currItem->isSelected())
 						{
-							if (Doc->m_Selection->findItem(currItem) == -1)
-								Doc->m_Selection->addItem(currItem, true);
-						}
-						else
-							Doc->m_Selection->addItem(currItem, true);
-						//CB This is where we add the items of an unselected group
-						if (m->state() != (Qt::ControlButton | Qt::AltButton))
-						{
-							for (int ga=0; ga<Doc->Items->count(); ++ga)
+							if ((m->state() != Qt::ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
+								Deselect(false);
+							//If we are selecting an item that is part of a group...
+							if (currItem->Groups.count() != 0)
 							{
-								if (Doc->Items->at(ga)->Groups.count() != 0)
+								if (Doc->m_Selection->count() != 0)
 								{
-									if (Doc->Items->at(ga)->Groups.top() == currItem->Groups.top())
+									if (Doc->m_Selection->findItem(currItem) == -1)
+										Doc->m_Selection->addItem(currItem, true);
+								}
+								else
+									Doc->m_Selection->addItem(currItem, true);
+								//CB This is where we add the items of an unselected group
+								if (m->state() != (Qt::ControlButton | Qt::AltButton))
+								{
+									for (int ga=0; ga<Doc->Items->count(); ++ga)
 									{
-										if (Doc->Items->at(ga)->ItemNr != currItem->ItemNr)
+										if (Doc->Items->at(ga)->Groups.count() != 0)
 										{
-											if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
-												Doc->m_Selection->addItem(Doc->Items->at(ga), true);
+											if (Doc->Items->at(ga)->Groups.top() == currItem->Groups.top())
+											{
+												if (Doc->Items->at(ga)->ItemNr != currItem->ItemNr)
+												{
+													if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
+														Doc->m_Selection->addItem(Doc->Items->at(ga), true);
+												}
+												Doc->Items->at(ga)->isSingleSel = false;
+											}
 										}
-										Doc->Items->at(ga)->isSingleSel = false;
 									}
 								}
+								else
+								{
+									currItem->isSingleSel = true;
+									updateContents(currItem->getRedrawBounding(Scale));
+								}
 							}
+							else
+							//If we are just selecting one item
+							{
+								//CB 301206 We shouldnt be ignoring the GUI here...
+								//Doc->m_Selection->addItem(currItem, true);
+								Doc->m_Selection->addItem(currItem);
+								updateContents(currItem->getRedrawBounding(Scale));
+							}
+						}
+						else //If the clicked on item is tagged as selected
+						{
+							if (Doc->m_Selection->count() > 1)
+							{
+								PageItem *bb = Doc->m_Selection->itemAt(0);
+								Doc->m_Selection->removeItem(currItem);
+								Doc->m_Selection->prependItem(currItem);
+								updateContents(currItem->getRedrawBounding(Scale));
+								//CB dont think we need to paint here when we paint below
+								//CB With the change of 301206, perhaps we need to?
+								updateContents(bb->getRedrawBounding(Scale));
+							}
+						}
+						Doc->m_Selection->setIsGUISelection(true);
+						Doc->m_Selection->connectItemToGUI();
+						if (Doc->m_Selection->count() > 1)
+						{
+							for (uint aa = 0; aa < Doc->m_Selection->count(); ++aa)
+							{
+								PageItem *bb = Doc->m_Selection->itemAt(aa);
+								updateContents(bb->getRedrawBounding(Scale));
+							}
+							Doc->m_Selection->setGroupRect();
+							double x, y, w, h;
+							Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+							emit ItemPos(x, y);
+							emit ItemGeom(w, h);
+							getGroupRectScreen(&x, &y, &w, &h);
+							updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+							emit HaveSel(currItem->itemType());
+						}
+		//CB 301206 Unsure why we need this if the above is no longer ignoring the GUI
+		// 				else
+		// 				{
+		// 					Doc->m_Selection->connectItemToGUI();
+		// 					//CB Dont need this as creating the 0th selection does this
+		// 					currItem->paintObj();
+		// 				}
+						if (Doc->m_Selection->count() == 1)
+						{
+							HandleSizer(currItem, mpo.toRect(), m);
+							if ((frameResizeHandle == 0) && (!currItem->locked()))
+								qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
 						}
 						else
 						{
-							currItem->isSingleSel = true;
-							updateContents(currItem->getRedrawBounding(Scale));
+							qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+							operItemResizing = false;
 						}
-					}
-					else
-					//If we are just selecting one item
-					{
-						//CB 301206 We shouldnt be ignoring the GUI here...
-						//Doc->m_Selection->addItem(currItem, true);
-						Doc->m_Selection->addItem(currItem);
-						updateContents(currItem->getRedrawBounding(Scale));
+						return true;
 					}
 				}
-				else //If the clicked on item is tagged as selected
-				{
-					if (Doc->m_Selection->count() > 1)
-					{
-						PageItem *bb = Doc->m_Selection->itemAt(0);
-						Doc->m_Selection->removeItem(currItem);
-						Doc->m_Selection->prependItem(currItem);
-						updateContents(currItem->getRedrawBounding(Scale));
-						//CB dont think we need to paint here when we paint below
-						//CB With the change of 301206, perhaps we need to?
-						updateContents(bb->getRedrawBounding(Scale));
-					}
-				}
-				Doc->m_Selection->setIsGUISelection(true);
-				Doc->m_Selection->connectItemToGUI();
-				if (Doc->m_Selection->count() > 1)
-				{
-					for (uint aa = 0; aa < Doc->m_Selection->count(); ++aa)
-					{
-						PageItem *bb = Doc->m_Selection->itemAt(aa);
-						updateContents(bb->getRedrawBounding(Scale));
-					}
-					Doc->m_Selection->setGroupRect();
-					double x, y, w, h;
-					Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-					emit ItemPos(x, y);
-					emit ItemGeom(w, h);
-					getGroupRectScreen(&x, &y, &w, &h);
-					updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
-					emit HaveSel(currItem->itemType());
-				}
-//CB 301206 Unsure why we need this if the above is no longer ignoring the GUI
-// 				else
-// 				{
-// 					Doc->m_Selection->connectItemToGUI();
-// 					//CB Dont need this as creating the 0th selection does this
-// 					currItem->paintObj();
-// 				}
-				if (Doc->m_Selection->count() == 1)
-				{
-					HandleSizer(currItem, mpo.toRect(), m);
-					if ((frameResizeHandle == 0) && (!currItem->locked()))
-						qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-				}
-				else
-				{
-					qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-					operItemResizing = false;
-				}
-				return true;
 			}
 		}
 	}
