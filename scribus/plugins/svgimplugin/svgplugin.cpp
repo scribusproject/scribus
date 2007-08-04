@@ -4,41 +4,41 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "svgplugin.h"
 
-#include "scconfig.h"
-
-#include "customfdialog.h"
-#include "color.h"
-#include "scribus.h"
-#include "scribusXml.h"
-#include "mpalette.h"
-#include "prefsfile.h"
-#include <QFile>
-#include <QRegExp>
 #include <QCursor>
-//Added by qt3to4:
 #include <QDrag>
-#include <QMimeData>
+#include <QFile>
 #include <QList>
+#include <QMimeData>
+#include <QRegExp>
 #include <cmath>
 #include <zlib.h>
+
+#include "color.h"
 #include "commonstrings.h"
+#include "customfdialog.h"
+#include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
+#include "loadsaveplugin.h"
 #include "menumanager.h"
-#include "prefsmanager.h"
+#include "mpalette.h"
 #include "pageitem.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "sccolorengine.h"
+#include "scconfig.h"
 #include "scraction.h"
+#include "scribus.h"
+#include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "selection.h"
+#include "svgplugin.h"
 #include "undomanager.h"
-#include "loadsaveplugin.h"
 #include "util.h"
+#include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
-#include "fonts/scfontmetrics.h"
-#include "sccolorengine.h"
 
 using namespace std;
 
@@ -114,15 +114,14 @@ void SVGImportPlugin::deleteAboutData(const AboutData* about) const
 
 void SVGImportPlugin::registerFormats()
 {
-	QString svgName = tr("Scalable Vector Graphics");
 	FileFormat fmt(this);
-	fmt.trName = svgName;
+	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::SVG);
 	fmt.formatId = FORMATID_SVGIMPORT;
-	fmt.filter = svgName + " (*.svg *.SVG *.svgz *.SVGZ)";
-	fmt.nameMatch = QRegExp("\\.(svg|svgz)$", false);
+	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG);
+ 	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::SVG, 1)+"$", false);
 	fmt.load = true;
 	fmt.save = false;
-	fmt.mimeTypes = QStringList("image/svg+xml");
+	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::SVG);
 	fmt.priority = 64;
 	registerFormat(fmt);
 }
@@ -150,7 +149,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SVGPlugin");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"));
+		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), FormatsManager::instance()->fileDialogFormatList(FormatsManager::SVG));
 		if (diaf.exec())
 		{
 			filename = diaf.selectedFile();

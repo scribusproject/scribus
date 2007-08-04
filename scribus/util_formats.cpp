@@ -7,35 +7,57 @@ for which a new license (GPL+exception) is in place.
 
 #include <QImageReader>
 #include <QMapIterator>
+#include <QObject>
 
+#include "commonstrings.h"
 #include "util_formats.h"
 
 FormatsManager* FormatsManager::_instance = 0;
 
 FormatsManager::FormatsManager()
 {
-	m_fmts.insert(FormatsManager::EPS, QStringList());
-	m_fmts.insert(FormatsManager::GIF, QStringList());
-	m_fmts.insert(FormatsManager::JPEG, QStringList());
-	m_fmts.insert(FormatsManager::PAT, QStringList());
-	m_fmts.insert(FormatsManager::PDF, QStringList());
-	m_fmts.insert(FormatsManager::PNG, QStringList());
-	m_fmts.insert(FormatsManager::PS, QStringList());
-	m_fmts.insert(FormatsManager::PSD, QStringList());
-	m_fmts.insert(FormatsManager::TIFF, QStringList());
-	m_fmts.insert(FormatsManager::XPM, QStringList());
+	m_fmts.insert(FormatsManager::EPS,  QStringList() << "eps" << "epsf" << "epsi");
+	m_fmts.insert(FormatsManager::GIF,  QStringList() << "gif");
+	m_fmts.insert(FormatsManager::JPEG, QStringList() << "jpg" << "jpeg");
+	m_fmts.insert(FormatsManager::PAT,  QStringList() << "pat");
+	m_fmts.insert(FormatsManager::PDF,  QStringList() << "pdf");
+	m_fmts.insert(FormatsManager::PNG,  QStringList() << "png");
+	m_fmts.insert(FormatsManager::PS,   QStringList() << "ps");
+	m_fmts.insert(FormatsManager::PSD,  QStringList() << "psd");
+	m_fmts.insert(FormatsManager::TIFF, QStringList() << "tif" << "tiff");
+	m_fmts.insert(FormatsManager::XPM,  QStringList() << "xpm");
+	m_fmts.insert(FormatsManager::WMF,  QStringList() << "wmf");
+	m_fmts.insert(FormatsManager::SVG,  QStringList() << "svg" << "svgz");
+	m_fmts.insert(FormatsManager::AI,   QStringList() << "ai");
 	
-	m_fmts[FormatsManager::EPS] << "eps" << "epsf" << "epsi";
-	m_fmts[FormatsManager::GIF] << "gif";
-	m_fmts[FormatsManager::JPEG] << "jpg" << "jpeg";
-	m_fmts[FormatsManager::PAT] << "pat";
-	m_fmts[FormatsManager::PDF] << "pdf";
-	m_fmts[FormatsManager::PNG] << "png";
-	m_fmts[FormatsManager::PS] << "ps";
-	m_fmts[FormatsManager::PSD] << "psd";
-	m_fmts[FormatsManager::TIFF] << "tif" << "tiff";
-	m_fmts[FormatsManager::XPM] << "xpm";
+	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript");
+	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
+	m_fmtNames[FormatsManager::JPEG] = QObject::tr("JPEG");
+	m_fmtNames[FormatsManager::PAT]  = QObject::tr("Pattern Files");
+	m_fmtNames[FormatsManager::PDF]  = QObject::tr("PDF Document");
+	m_fmtNames[FormatsManager::PNG]  = QObject::tr("PNG");
+	m_fmtNames[FormatsManager::PS]   = QObject::tr("PostScript");
+	m_fmtNames[FormatsManager::PSD]  = QObject::tr("Adobe Photoshop");
+	m_fmtNames[FormatsManager::TIFF] = QObject::tr("TIFF");
+	m_fmtNames[FormatsManager::XPM]  = QObject::tr("XPM");
+	m_fmtNames[FormatsManager::WMF]  = QObject::tr("Windows Meta File");
+	m_fmtNames[FormatsManager::SVG]  = QObject::tr("Scalable Vector Graphics");
+	m_fmtNames[FormatsManager::AI]   = QObject::tr("Adobe Illustrator");
 	
+	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
+	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
+	m_fmtMimeTypes.insert(FormatsManager::JPEG, QStringList() << "image/jpeg");
+	m_fmtMimeTypes.insert(FormatsManager::PAT,  QStringList() << "");
+	m_fmtMimeTypes.insert(FormatsManager::PDF,  QStringList() << "application/pdf");
+	m_fmtMimeTypes.insert(FormatsManager::PNG,  QStringList() << "image/png");
+	m_fmtMimeTypes.insert(FormatsManager::PS,   QStringList() << "application/postscript");
+	m_fmtMimeTypes.insert(FormatsManager::PSD,  QStringList() << "application/photoshop");
+	m_fmtMimeTypes.insert(FormatsManager::TIFF, QStringList() << "image/tiff");
+	m_fmtMimeTypes.insert(FormatsManager::XPM,  QStringList() << "image/xpm ");
+	m_fmtMimeTypes.insert(FormatsManager::WMF,  QStringList() << "image/wmf");
+	m_fmtMimeTypes.insert(FormatsManager::SVG,  QStringList() << "image/svg+xml");
+	m_fmtMimeTypes.insert(FormatsManager::AI,   QStringList() << "application/illustrator");
+			
 	QMapIterator<int, QStringList> i(m_fmts);
 	while (i.hasNext()) 
 	{
@@ -87,6 +109,84 @@ void FormatsManager::updateSupportedImageFormats(QList<QByteArray>& supportedIma
 	}
 }
 
+QString FormatsManager::nameOfFormat(int type)
+{
+	QMapIterator<int, QString> it(m_fmtNames);
+	while (it.hasNext())
+	{
+		it.next();
+		if (type & it.key())
+			return it.value();
+	}
+	return QString::null;
+}
+
+QStringList FormatsManager::mimetypeOfFormat(int type)
+{
+	QMapIterator<int, QStringList> it(m_fmtMimeTypes);
+	while (it.hasNext())
+	{
+		it.next();
+		if (type & it.key())
+			return it.value();
+	}
+	return QStringList();
+}
+
+QString FormatsManager::extensionsForFormat(int type)
+{
+	QString a,b,c;
+	fileTypeStrings(type, a, b, c);
+	return b;
+}
+
+QString FormatsManager::fileDialogFormatList(int type)
+{
+	QString a,b,c;
+	fileTypeStrings(type, a, b, c);
+	return a + b + ";;" +c;
+}
+
+QString FormatsManager::extensionListForFormat(int type, int listType)
+{
+	QString nameMatch;
+	QString separator(listType==0 ? " *." : "|");
+	QMapIterator<int, QStringList> it(m_fmts);
+	bool first=true;
+	int n=0;
+	while (it.hasNext())
+	{
+		it.next();
+		if (type & it.key())
+		{
+			//Just in case the Qt used doesn't support jpeg or gif
+			if ((JPEG & it.key()) && !m_supportedImageFormats.contains(QByteArray("jpg")))
+				continue;
+			if ((GIF & it.key()) && !m_supportedImageFormats.contains(QByteArray("gif")))
+				continue;
+			if (first)
+				first=false;
+			QStringListIterator itSL(it.value());
+			while (itSL.hasNext())
+			{
+				if (listType==0)
+					nameMatch += separator;
+				nameMatch += itSL.next();
+				if (listType==1 && itSL.hasNext())
+					nameMatch += separator;
+			}
+		}
+		++n;
+		if (listType==1 && it.hasNext() && nameMatch.length()>0 && !nameMatch.endsWith(separator))
+			nameMatch += separator;
+	}
+	if (listType==0 && nameMatch.startsWith(" "))
+		nameMatch.remove(0,1);
+	if (listType==1 && nameMatch.endsWith("|"))
+		nameMatch.chop(1);
+	return nameMatch;
+}
+
 void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly)
 {
 	QString fmtList = QObject::tr("All Supported Formats")+" (";
@@ -101,14 +201,17 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 		{
 			//Just in case the Qt used doesn't support jpeg or gif
 			if ((JPEG & it.key()) && !m_supportedImageFormats.contains(QByteArray("jpg")))
-				return;
+				continue;
 			if ((GIF & it.key()) && !m_supportedImageFormats.contains(QByteArray("gif")))
-				return;
+				continue;
 			if (first)
 				first=false;
 			else
+			{
 				fmtList += " ";
-			QString text=m_fmtList[n] + " (";
+				fmtText += ";;";
+			}
+			QString text=m_fmtNames[it.key()] + " (";
 			QStringListIterator itSL(it.value());
 			while (itSL.hasNext())
 			{
@@ -126,12 +229,12 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 					text += " ";
 				}
 			}
-			text += ");;";
+			text += ")";
 			fmtText += text;
 		}
 		++n;
 	}
-	formatList+=fmtList += ");;";
+	formatList+=fmtList + ");;";
 	formatText+=fmtText;
 	formatAll=QObject::tr("All Files (*)");
 }

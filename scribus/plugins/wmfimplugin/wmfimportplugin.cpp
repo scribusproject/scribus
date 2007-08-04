@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "loadsaveplugin.h"
 #include "util.h"
+#include "util_formats.h"
 #include "fonts/scfontmetrics.h"
 
 #include "wmfimport.h"
@@ -108,15 +109,14 @@ void WMFImportPlugin::deleteAboutData(const AboutData* about) const
 
 void WMFImportPlugin::registerFormats()
 {
-	QString wmfName = tr("Windows metafiles");
 	FileFormat fmt(this);
-	fmt.trName = wmfName;
+	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::WMF);
 	fmt.formatId = FORMATID_WMFIMPORT;
-	fmt.filter = wmfName + " (*.wmf *.WMF)";
-	fmt.nameMatch = QRegExp("\\.(wmf)$", false);
+	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::WMF);
+	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::WMF, 1)+"$", false);
 	fmt.load = true;
 	fmt.save = false;
-	fmt.mimeTypes = QStringList("image/wmf");
+	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::WMF);
 	fmt.priority = 64;
 	registerFormat(fmt);
 }
@@ -144,7 +144,7 @@ bool WMFImportPlugin::import(QString filename, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("WMFPlugin");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), QObject::tr("WMF Files (*.wmf);;All Files (*)"));
+		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), FormatsManager::instance()->fileDialogFormatList(FormatsManager::WMF));
 		if (diaf.exec())
 		{
 			filename = diaf.selectedFile();

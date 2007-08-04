@@ -429,7 +429,11 @@ void ColorManager::importColors()
 	QString fileName;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("colors", ".");
-	CustomFDialog dia(this, wdir, tr("Import"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"));
+	
+	
+	QString docexts("*.sla *.sla.gz *.scd *.scd.gz");
+	CustomFDialog dia(this, wdir, tr("Import"), tr("Documents (%1);;Other Files (%2);;All Files (*)").arg(docexts).arg(FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS|FormatsManager::AI, 0)));
+	
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else

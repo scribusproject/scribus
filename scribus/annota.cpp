@@ -38,6 +38,7 @@ for which a new license (GPL+exception) is in place.
 #include "navigator.h"
 #include "scribusview.h"
 #include "util_icon.h"
+#include "util_formats.h"
 
 Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusView* vie) : QDialog(parent)
 {
@@ -347,7 +348,7 @@ void Annota::GetFile()
 	QString fn;
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("annot_getfile", ".");
-	CustomFDialog dia(this, wdir, tr("Open"), tr("PDF-Documents (*.pdf);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF)));
 	if (!Destfile->text().isEmpty())
 		dia.setSelection(Destfile->text());
 	if (dia.exec() == QDialog::Accepted)

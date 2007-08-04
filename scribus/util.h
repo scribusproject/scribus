@@ -138,7 +138,6 @@ Useful for duration holes finding.
 \author Petr Vanek */
 void tDebug(QString message);
 
-// QString SCRIBUS_API setupImageFormats();
 QString SCRIBUS_API getImageType(QString filename);
 QString SCRIBUS_API readLinefromDataStream(QDataStream &s);
 

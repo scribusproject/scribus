@@ -34,17 +34,20 @@ class SCRIBUS_API FormatsManager
 
 		enum ScImageFormatType
 		{
-			ALLIMAGES = 1|2|4|8|16|32|64|128|256|512,
-			EPS		= 1, // Encapsulated PostScript
-			GIF		= 2, // GIF files
-			JPEG	= 4, // JPEG
-			PAT		= 8, // Pattern files
-			PDF		= 16, // PDF Format
-			PNG		= 32, // PNG files
-			PS		= 64, // PostScript
-			PSD		= 128, // Photoshop Format
-			TIFF	= 256, // TIFF
-			XPM		= 512, // XPM files
+			ALLIMAGES = 1|2|4|8|16|32|64|128|256|512|1024|2048|4096,
+			EPS		= 1,      // Encapsulated PostScript
+			GIF		= 2,      // GIF files
+			JPEG	= 4,      // JPEG
+			PAT		= 8,      // Pattern files
+			PDF		= 16,     // PDF Format
+			PNG		= 32,     // PNG files
+			PS		= 64,     // PostScript
+			PSD		= 128,    // Photoshop Format
+			TIFF	= 256,    // TIFF
+			XPM		= 512,    // XPM files
+			WMF		= 1024,   // WMF files
+			SVG		= 2048,   // WMF files
+			AI		= 4096,   // Adobe Illustrator files
 		};
 
 		FormatsManager();
@@ -61,15 +64,31 @@ class SCRIBUS_API FormatsManager
 	 */
 		static void deleteInstance();
 		void imageFormatSupported(const QString&);
+		//! Returns the name of a format, eg "Encapsulated PostScript"
+		QString nameOfFormat(int type);
 		
-		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly=false);
+		//! Returns the mimetypes of a format, eg "application/postscript"
+		QStringList mimetypeOfFormat(int type);
+		
+		//! Returns in the form of "EPS (*.eps *.EPS *.epsf *.EPSF *.epsi *.EPSI)"
+		QString extensionsForFormat(int type);
+		
+		//! Returns in the form of "*.eps *.epsf *.epsi" or "eps|epsf|epsi"
+ 		QString extensionListForFormat(int type, int listType);
+		
+		//! Returns in the form of "All Supported Formats (*.eps *.EPS *.epsf *.EPSF *.epsi *.EPSI);;EPS (*.eps *.EPS);;EPSI (*.epsf *.EPSF);;EPSI (*.epsi *.EPSI);;All Files (*)"
+		QString fileDialogFormatList(int type);
 		
 	protected:
+		QMap<int, QString> m_fmtNames;
+		QMap<int, QStringList> m_fmtMimeTypes;
 		QMap<int, QStringList> m_fmts;
 		QStringList m_fmtList;
+		
 		QList<QByteArray> m_qtSupportedImageFormats;
 		QList<QByteArray> m_supportedImageFormats;
 		void updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats);
+		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly=false);
 		
 	private:
 	/**

@@ -4,19 +4,20 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "importaiplugin.h"
-//#include "importpsplugin.moc"
+#include "commonstrings.h"
+#include "customfdialog.h"
 #include "importai.h"
-#include "scribuscore.h"
+#include "importaiplugin.h"
+#include "menumanager.h"
 #include "page.h"
-#include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include "undomanager.h"
-#include "customfdialog.h"
+#include "prefsmanager.h"
 #include "scraction.h"
-#include "menumanager.h"
-#include "commonstrings.h"
+#include "scribuscore.h"
+#include "undomanager.h"
+#include "util_formats.h"
+
 
 int importai_getPluginAPIVersion()
 {
@@ -90,15 +91,14 @@ void ImportAIPlugin::deleteAboutData(const AboutData* about) const
 
 void ImportAIPlugin::registerFormats()
 {
-	QString psName = "Adobe Illustrator";
 	FileFormat fmt(this);
-	fmt.trName = psName; // Human readable name
+	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::AI); // Human readable name
 	fmt.formatId = FORMATID_AIIMPORT;
-	fmt.filter = psName + " (*.ai *.AI)"; // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\.(ai)$", false);
+	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::AI); // QFileDialog filter
+	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::AI, 1)+"$", false);
 	fmt.load = true;
 	fmt.save = false;
-	fmt.mimeTypes = QStringList("application/illustrator"); // MIME types
+	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::AI); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
 }
@@ -126,9 +126,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importai");
 		QString wdir = prefs->get("wdir", ".");
-		QString formats = QObject::tr("All Supported Formats (*.ai *.AI);;");
-		formats += "AI (*.ai *.AI);;" + QObject::tr("All Files (*)");
-		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), formats);
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), FormatsManager::instance()->fileDialogFormatList(FormatsManager::AI));
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();

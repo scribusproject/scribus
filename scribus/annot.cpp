@@ -29,27 +29,28 @@ for which a new license (GPL+exception) is in place.
 #include <QDateTime>
 #include <QPixmap>
 
-#include "scfonts.h"
 #include "annotation.h"
-#include "cmsettings.h"
-#include "editor.h"
-#include "customfdialog.h"
 #include "buttonicon.h"
-#include "mpalette.h"
-#include "selfield.h"
-#include "colorlistbox.h"
-#include "prefsmanager.h"
-#include "prefsfile.h"
-#include "scimage.h"
-#include "pageitem.h"
-#include "navigator.h"
-#include "scribusview.h"
-#include "util_icon.h"
-#include "prefscontext.h"
-#include "scribusstructs.h"
-#include "commonstrings.h"
-#include "sccombobox.h"
+#include "cmsettings.h"
 #include "colorcombo.h"
+#include "colorlistbox.h"
+#include "commonstrings.h"
+#include "customfdialog.h"
+#include "editor.h"
+#include "mpalette.h"
+#include "navigator.h"
+#include "pageitem.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "sccombobox.h"
+#include "scfonts.h"
+#include "scimage.h"
+#include "scribusstructs.h"
+#include "scribusview.h"
+#include "selfield.h"
+#include "util_formats.h"
+#include "util_icon.h"
 
 Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
 		: QDialog( parent )
@@ -1277,7 +1278,7 @@ void Annot::GetNIcon()
 	QString fileName;
 	QString wdir = dirs->get("icon", ".");
 	CustomFDialog dia(this, wdir, tr("Open"),
-	                  tr("Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *.epsi);;All Files (*)"), fdShowPreview | fdExistingFiles);
+					  tr("Images (*.tif *.png *.jpg *.xpm);;%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::EPS)), fdShowPreview | fdExistingFiles);
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	else

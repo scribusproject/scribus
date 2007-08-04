@@ -4,19 +4,19 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "importpsplugin.h"
-//#include "importpsplugin.moc"
+#include "commonstrings.h"
+#include "customfdialog.h"
 #include "importps.h"
-#include "scribuscore.h"
+#include "importpsplugin.h"
+#include "menumanager.h"
 #include "page.h"
-#include "prefsmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
-#include "undomanager.h"
-#include "customfdialog.h"
+#include "prefsmanager.h"
 #include "scraction.h"
-#include "menumanager.h"
-#include "commonstrings.h"
+#include "scribuscore.h"
+#include "undomanager.h"
+#include "util_formats.h"
 
 int importps_getPluginAPIVersion()
 {
@@ -54,7 +54,7 @@ void ImportPSPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 
 void ImportPSPlugin::languageChange()
 {
-	importAction->setMenuText( tr("Import &EPS/PS..."));
+	importAction->setMenuText( tr("Import PostScript..."));
 	// (Re)register file format support
 	unregisterAll();
 	registerFormats();
@@ -67,7 +67,7 @@ ImportPSPlugin::~ImportPSPlugin()
 
 const QString ImportPSPlugin::fullTrName() const
 {
-	return QObject::tr("PS/EPS Importer");
+	return QObject::tr("PostScript Importer");
 }
 
 
@@ -75,8 +75,8 @@ const ScActionPlugin::AboutData* ImportPSPlugin::getAboutData() const
 {
 	AboutData* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
-	about->shortDescription = tr("Imports EPS Files");
-	about->description = tr("Imports most EPS files into the current document,\nconverting their vector data into Scribus objects.");
+	about->shortDescription = tr("Imports PostScript Files");
+	about->description = tr("Imports most PostScript files into the current document,\nconverting their vector data into Scribus objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;
@@ -90,27 +90,25 @@ void ImportPSPlugin::deleteAboutData(const AboutData* about) const
 
 void ImportPSPlugin::registerFormats()
 {
-	QString psName = CommonStrings::trPostScript;
 	FileFormat fmt(this);
-	fmt.trName = psName; // Human readable name
+	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PS); // Human readable name
 	fmt.formatId = FORMATID_PSIMPORT;
-	fmt.filter = psName + " (*.ps *.PS *.eps *.EPS *.epsi *.EPSI)"; // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\.(ps|eps|epsi)$", false);
+	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::EPS|FormatsManager::PS);// QFileDialog filter
+ 	fmt.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS, 1)+")$", false);
 	fmt.load = true;
 	fmt.save = false;
-	fmt.mimeTypes = QStringList("application/postscript"); // MIME types
+	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PS); // MIME types
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
 
-	QString pdfName = tr("PDF");
 	FileFormat fmt2(this);
-	fmt2.trName = pdfName; // Human readable name
+	fmt2.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PDF); // Human readable name
 	fmt2.formatId = FORMATID_PDFIMPORT;
-	fmt2.filter = pdfName + " (*.pdf *.PDF)"; // QFileDialog filter
-	fmt2.nameMatch = QRegExp("\\.pdf$", false);
+	fmt2.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF);// QFileDialog filter
+	fmt2.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PDF, 1)+"$", false);
 	fmt2.load = true;
 	fmt2.save = false;
-	fmt2.mimeTypes = QStringList("application/pdf"); // MIME types
+	fmt2.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PDF); // MIME types
 	fmt2.priority = 64; // Priority
 	registerFormat(fmt2);
 }
@@ -138,9 +136,7 @@ bool ImportPSPlugin::import(QString fileName, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importps");
 		QString wdir = prefs->get("wdir", ".");
-		QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;");
-		formats += "EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
-		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), formats);
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), FormatsManager::instance()->fileDialogFormatList(FormatsManager::EPS|FormatsManager::PS));
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();

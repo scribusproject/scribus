@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "sctextstruct.h"
 #include "guidemanager.h"
 #include "sccolorengine.h"
+#include "util_formats.h"
 
 int svgexplugin_getPluginAPIVersion()
 {
@@ -117,7 +118,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 	{
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("svgex");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("SVG-Images (*.svg *.svgz);;All Files (*)"), fdCompressFile);
+		CustomFDialog *openDia = new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdCompressFile);
 		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
@@ -136,7 +137,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 			if (f.exists())
 			{
 				int exit = QMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
-					QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
+					QObject::tr("Do you really want to overwrite the file:\n%1 ?").arg(fileName),
 					QMessageBox::Yes | QMessageBox::No);
 				if (exit == QMessageBox::No)
 					return true;

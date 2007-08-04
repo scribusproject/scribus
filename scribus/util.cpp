@@ -1134,45 +1134,6 @@ void tDebug(QString message)
 	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message).ascii());
 }
 
-// QString setupImageFormats()
-// {
-// 	QString formats = "";
-// 	QString formatD = QObject::tr("All Supported Formats")+" (";
-// 	QString form1 = "";
-// 	QString form2 = "";
-// 	QList<QByteArray> imgs = QImageReader::supportedImageFormats();
-// 	for (int i = 0; i < imgs.count(); ++i )
-// 	{
-// 		form1 = QString(imgs.at(i)).lower();
-// 		form2 = QString(imgs.at(i)).upper();
-// 		if (form1 == "jpeg")
-// 		{
-// 			form1 = "jpg";
-// 			form2 = "JPG";
-// 		}
-// 		if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
-// 		{
-// 			formats += form2 + " (*."+form1+" *."+form2+");;";
-// 			formatD += "*."+form1+" *."+form2+" ";
-// 		}
-// 		else if (form1 == "jpg")
-// 		{
-// 			// JPEG is a special case because both .jpg and .jpeg
-// 			// are acceptable extensions.
-// 			formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
-// 			formatD += "*.jpg *.jpeg *.JPG *.JPEG ";
-// 		}
-// 	}
-// 	formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
-// 	formatD += "*.tif *.tiff *.TIF *.TIFF";
-// 	formats += "PSD (*.psd *.PSD);;";
-// 	formatD += " *.psd *.PSD";
-// 	formats += "EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;" + QObject::tr("All Files (*)");
-// 	formatD += " *.epsi *.EPSI *.eps *.EPS *.pdf *.PDF";
-// 	formatD += ");;"+formats;
-// 	return formatD;
-// }
-
 QString getImageType(QString filename)
 {
 	QString ret = "";

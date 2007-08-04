@@ -3969,9 +3969,7 @@ void ScribusMainWindow::slotGetContent()
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if (currItem->itemType() == PageItem::ImageFrame)
 		{
-			QString a, b, c;
-			formatsManager->fileTypeStrings(FormatsManager::ALLIMAGES, a, b, c);
-			QString formatD = a + b + c;
+			QString formatD(FormatsManager::instance()->fileDialogFormatList(FormatsManager::ALLIMAGES));
 			
 			QString docDir = ".";
 			QString prefsDocDir=prefsManager->documentDir();
@@ -7852,7 +7850,7 @@ void ScribusMainWindow::reallySaveAsEps()
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", prefsDocDir);
 	else
 		wdir = prefsManager->prefsFile->getContext("dirs")->get("eps", ".");
-	QString fn = CFileDialog( wdir, tr("Save as"), tr("EPS Files (*.eps);;All Files (*)"), fna, fdNone);
+	QString fn = CFileDialog( wdir, tr("Save as"), tr("%1;;All Files (*)").arg(formatsManager->extensionsForFormat(FormatsManager::EPS)), fna, fdNone);
 	if (!fn.isEmpty())
 	{
 		prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.findRev("/")));
