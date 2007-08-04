@@ -240,6 +240,8 @@ QPolygon FlattenPath(FPointArray ina, QList<uint> &Segs)
 			cli = Bez.toFillPolygon().toPolygon();
 			if (cli.size() > 0)
 				outa.putPoints(outa.size(), cli.size()-1, cli);
+			else
+				outa << QPoint(qRound(a4.x()), qRound(a4.y()));
 		}
 		if (cli.size() > 0)
 			outa << cli.point(cli.size()-1);
