@@ -220,13 +220,14 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 	iccProfDirs.append("/usr/local/share/color/icc/");
 #elif defined(_WIN32)
 	// On Windows it's more complicated, profiles location depends on OS version
-	char sysDir[MAX_PATH + 1];
+	WCHAR sysDir[MAX_PATH + 1];
 	OSVERSIONINFO osVersion;
 	ZeroMemory( &osVersion, sizeof(OSVERSIONINFO));
 	osVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO); // Necessary for GetVersionEx to succeed
 	GetVersionEx(&osVersion);  // Get Windows version infos
-	GetSystemDirectory( sysDir, MAX_PATH ); // getSpecialDir(CSIDL_SYSTEM) fails on Win9x
-	QString winSysDir = QString(sysDir).replace('\\','/');
+	GetSystemDirectoryW( sysDir, MAX_PATH ); // getSpecialDir(CSIDL_SYSTEM) fails on Win9x
+	QString winSysDir = QString::fromUtf16((const ushort*) sysDir);
+	winSysDir = winSysDir.replace('\\','/');
 	if( osVersion.dwPlatformId == VER_PLATFORM_WIN32_NT	) // Windows NT/2k/XP
 	{
 		if( osVersion.dwMajorVersion >= 5 ) // for 2k and XP dwMajorVersion == 5 
@@ -295,7 +296,7 @@ QString ScPaths::getTempFileDir(void)
 	DWORD result = GetTempPathW(1024, wTempPath);
 	if ( result )
 	{
-		tempPath = QString::fromUcs2((const unsigned short*) wTempPath);
+		tempPath = QString::fromUtf16((const unsigned short*) wTempPath);
 		tempPath.replace( '\\', '/' );
 		tempPath += "/";
 		// GetTempPath may return Windows directory, better not use this one
@@ -313,10 +314,10 @@ QString ScPaths::getSpecialDir(int folder)
 {
 	QString qstr;
 #if defined(_WIN32)
-	char dir[256];
-	if ( SHGetSpecialFolderPath(NULL, dir, folder , false) )
+	WCHAR dir[256];
+	if ( SHGetSpecialFolderPathW(NULL, dir, folder , false) )
 	{
-		qstr = dir;
+		qstr = QString::fromUtf16((const unsigned short*) dir);
 		if( !qstr.endsWith("\\") )
 			qstr += "\\";
 		qstr.replace( '\\', '/' );
