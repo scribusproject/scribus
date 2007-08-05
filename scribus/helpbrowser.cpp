@@ -205,21 +205,21 @@ void HelpBrowser::setupLocalUI()
 {
 	setIcon(loadIcon("AppIcon.png"));
 	//Add Menus
-	fileMenu=menuBar()->addMenu(tr("&File"));
-	editMenu=menuBar()->addMenu(tr("&Edit"));
-	bookMenu=menuBar()->addMenu(tr("&Bookmarks"));
+	fileMenu=menuBar()->addMenu("");
+	editMenu=menuBar()->addMenu("");
+	bookMenu=menuBar()->addMenu("");
 	histMenu=new QMenu(this);
 
 	//Add Menu items
-	filePrint=fileMenu->addAction(loadIcon("16/document-print.png"), tr("&Print..."), this, SLOT(print()), Qt::CTRL+Qt::Key_P);
+	filePrint=fileMenu->addAction(loadIcon("16/document-print.png"), "", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
 	fileMenu->insertSeparator();
-	fileExit=fileMenu->addAction(loadIcon("exit.png"), tr("&Quit"), this, SLOT(close()));
-	editFind=editMenu->addAction(loadIcon("find.png"), tr("&Find..."), this, SLOT(find()), Qt::CTRL+Qt::Key_F);
-	editFindNext=editMenu->addAction( tr("Find &Next"), this, SLOT(findNext()), Qt::Key_F3);
-	editFindPrev=editMenu->addAction( tr("Find &Previous"), this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
-	bookAdd=bookMenu->addAction( tr("&Add Bookmark"), this, SLOT(bookmarkButton_clicked()), Qt::CTRL+Qt::Key_D);
-	bookDel=bookMenu->addAction( tr("&Delete"), this, SLOT(deleteBookmarkButton_clicked()));
-	bookDelAll=bookMenu->addAction( tr("D&elete All"), this, SLOT(deleteAllBookmarkButton_clicked()));
+	fileExit=fileMenu->addAction(loadIcon("exit.png"), "", this, SLOT(close()));
+	editFind=editMenu->addAction(loadIcon("find.png"), "", this, SLOT(find()), Qt::CTRL+Qt::Key_F);
+	editFindNext=editMenu->addAction( "", this, SLOT(findNext()), Qt::Key_F3);
+	editFindPrev=editMenu->addAction( "", this, SLOT(findPrevious()), Qt::SHIFT+Qt::Key_F3);
+	bookAdd=bookMenu->addAction( "", this, SLOT(bookmarkButton_clicked()), Qt::CTRL+Qt::Key_D);
+	bookDel=bookMenu->addAction( "", this, SLOT(deleteBookmarkButton_clicked()));
+	bookDelAll=bookMenu->addAction( "", this, SLOT(deleteAllBookmarkButton_clicked()));
 
 	//Add Toolbar items
 	goHome=toolBar->addAction(loadIcon("16/go-home.png"), "", textBrowser, SLOT(home()));
@@ -252,6 +252,8 @@ void HelpBrowser::setupLocalUI()
 	connect(bookmarksView, SIGNAL(itemClicked( QTreeWidgetItem *, int)), this, SLOT(itemBookmarkSelected(QTreeWidgetItem *, int)));
 	// links hoover
 	connect(textBrowser, SIGNAL(overLink(const QString &)), this, SLOT(showLinkContents(const QString &)));
+	
+	languageChange();
 }
 
 void HelpBrowser::showLinkContents(const QString &link)
@@ -263,7 +265,20 @@ void HelpBrowser::languageChange()
 {
 	setCaption( tr( "Scribus Online Help" ) );
 	noHelpMsg=tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.");
-// 	listView->clear();
+	
+	fileMenu->setTitle(tr("&File"));
+	editMenu->setTitle(tr("&Edit"));
+	bookMenu->setTitle(tr("&Bookmarks"));
+	
+	filePrint->setText(tr("&Print..."));
+	fileExit->setText(tr("&Quit"));
+	editFind->setText(tr("&Find..."));
+	editFindNext->setText(tr("Find &Next"));
+	editFindPrev->setText(tr("Find &Previous"));
+	bookAdd->setText(tr("&Add Bookmark"));
+	bookDel->setText(tr("&Delete"));
+	bookDelAll->setText(tr("D&elete All"));
+	Ui::HelpBrowser::retranslateUi(this);
 }
 
 void HelpBrowser::print()
