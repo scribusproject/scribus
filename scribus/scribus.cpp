@@ -6493,6 +6493,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 			SimpleState *ss = new SimpleState(Um::DeletePage, "", Um::ICreate);
 			ss->set("DELETE_PAGE", "delete_page");
 			ss->set("PAGENR", a + 1);
+			ss->set("PAGENAME",   doc->Pages->at(a)->pageName());
 			ss->set("MASTERPAGE", doc->Pages->at(a)->MPageNam);
 			// replace the deleted page in the undostack by a dummy object that will
 			// replaced with the "undone" page if user choose to undo the action
@@ -6523,6 +6524,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 		outlinePalette->BuildTree();
 	doc->rebuildMasterNames();
 	pagePalette->RebuildPage();
+	pagePalette->RebuildTemp();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
@@ -8381,11 +8383,14 @@ void ScribusMainWindow::restore(UndoState* state, bool isUndo)
 
 void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 {
+	int where, wo;
 	int pagenr = state->getUInt("PAGENR");
 	QStringList tmpl;
 	tmpl << state->get("MASTERPAGE");
-	tmpl << state->get("PAGENAME");
-	int where, wo;
+	QString pageName = state->get("PAGENAME");
+	bool oldPageMode = doc->masterPageMode();
+	if (!pageName.isEmpty() && !oldPageMode) // We try do undo a master page deletion in standard mode
+		doc->setMasterPageMode(true);
 	if (pagenr == 1)
 	{
 		where = 0;
@@ -8405,7 +8410,7 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 	{
 		if (doc->masterPageMode())
 		{
-			slotNewMasterPage(wo, tmpl[1]);
+			slotNewMasterPage(wo, pageName);
 		}
 		else
 		{
@@ -8422,6 +8427,12 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 		undoManager->replaceObject(doc->Pages->at(pagenr - 1)->getUId(), duo);
 		state->set("DUMMY_ID", id);
 		DeletePage(pagenr, pagenr);
+	}
+	if (!pageName.isEmpty() && !oldPageMode)
+	{
+		doc->setMasterPageMode(oldPageMode);
+		doc->rebuildMasterNames();
+		pagePalette->RebuildTemp();
 	}
 	pagePalette->RebuildPage();
 }
