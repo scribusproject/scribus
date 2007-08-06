@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 #define _UTIL_FORMATs_H
 
 #include <QByteArray>
+#include <QFile>
+#include <QFileInfo>
 #include <QList>
 #include <QMap>
 #include <QString>
@@ -26,7 +28,7 @@ bool SCRIBUS_API extensionIndicatesPDF(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPSD(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPattern(const QString &ext);
 bool SCRIBUS_API extensionIndicatesTIFF(const QString &ext);
-
+QString SCRIBUS_API getImageType(QString filename);
 
 class SCRIBUS_API FormatsManager
 {

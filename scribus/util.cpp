@@ -1134,41 +1134,6 @@ void tDebug(QString message)
 	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message).ascii());
 }
 
-QString getImageType(QString filename)
-{
-	QString ret = "";
-	QFile f(filename);
-	QFileInfo fi(f);
-	if (fi.exists())
-	{
-		QByteArray buf(20);
-		if (f.open(QIODevice::ReadOnly))
-		{
-			f.readBlock(buf.data(), 20);
-			if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
-				ret = "eps";
-			else if ((buf[0] == '\xC5') && (buf[1] == '\xD0') && (buf[2] == '\xD3') && (buf[3] == '\xC6'))
-				ret = "eps";
-			else if ((buf[0] == 'G') && (buf[1] == 'I') && (buf[2] == 'F') && (buf[3] == '8'))
-				ret = "gif";
-			else if ((buf[0] == '\xFF') && (buf[1] == '\xD8') && (buf[2] == '\xFF'))
-				ret = "jpg";
-			else if ((buf[0] == '%') && (buf[1] == 'P') && (buf[2] == 'D') && (buf[3] == 'F'))
-				ret = "pdf";
-			else if ((buf[0] == '\x89') && (buf[1] == 'P') && (buf[2] == 'N') && (buf[3] == 'G'))
-				ret = "png";
-			else if ((buf[0] == '8') && (buf[1] == 'B') && (buf[2] == 'P') && (buf[3] == 'S'))
-				ret = "psd";
-			else if (((buf[0] == 'I') && (buf[1] == 'I') && (buf[2] == '\x2A')) || ((buf[0] == 'M') && (buf[1] == 'M') && (buf[3] == '\x2A')))
-				ret = "tif";
-			else if ((buf[0] == '/') && (buf[1] == '*') && (buf[2] == ' ') && (buf[3] == 'X') && (buf[4] == 'P') && (buf[5] == 'M'))
-				ret = "xpm";
-			
-			f.close();
-		}
-	}
-	return ret;
-}
 
 QString readLinefromDataStream(QDataStream &s)
 {

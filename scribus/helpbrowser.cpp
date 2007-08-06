@@ -289,7 +289,6 @@ void HelpBrowser::languageChange()
 			language="en";
 		else
 			language=PrefsManager::instance()->guiLanguage();
-		language=PrefsManager::instance()->guiLanguage();
 		loadMenu();
 		loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
 	}
