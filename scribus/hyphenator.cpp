@@ -76,7 +76,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 		hdict = NULL;
 		return;
 	}
-	QByteArray fn = pfad.latin1();
+	QByteArray fn = pfad.local8bit();
 	const char * filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
 	useAble = hdict == NULL ? false : true;
@@ -122,7 +122,7 @@ void Hyphenator::NewDict(const QString& name)
 			hdict = NULL;
 			return;
 		}
-		QByteArray fn = pfad.latin1();
+		QByteArray fn = pfad.local8bit();
 		filename = fn.data();
 		hdict = hnj_hyphen_load(filename);
 		useAble = hdict == NULL ? false : true;
