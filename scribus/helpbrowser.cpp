@@ -285,12 +285,10 @@ void HelpBrowser::languageChange()
 		QString fname(QDir::cleanDirPath(textBrowser->source()));
 		QFileInfo fi(fname);
 		QString filename(fi.fileName());
-/*		QString oldLang=language;
 		if (PrefsManager::instance()->guiLanguage().isEmpty())
 			language="en";
 		else
 			language=PrefsManager::instance()->guiLanguage();
-		fname.replace("/"+oldLang+"/", "/"+language+"/");*/
 		language=PrefsManager::instance()->guiLanguage();
 		loadMenu();
 		loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
