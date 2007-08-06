@@ -141,12 +141,12 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 	setupUi(this);
 	setupLocalUI();
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
-	languageChange();
 	menuModel=NULL;
 	loadMenu();
 	readBookmarks();
 	readHistory();
 	jumpToHelpSection(jumpToSection, jumpToFile );
+	languageChange();
 }
 
 HelpBrowser::~HelpBrowser()
@@ -279,6 +279,24 @@ void HelpBrowser::languageChange()
 	bookDel->setText(tr("&Delete"));
 	bookDelAll->setText(tr("D&elete All"));
 	Ui::HelpBrowser::retranslateUi(this);
+	static bool first=true;
+	if (!first)
+	{
+		QString fname(QDir::cleanDirPath(textBrowser->source()));
+		QFileInfo fi(fname);
+		QString filename(fi.fileName());
+/*		QString oldLang=language;
+		if (PrefsManager::instance()->guiLanguage().isEmpty())
+			language="en";
+		else
+			language=PrefsManager::instance()->guiLanguage();
+		fname.replace("/"+oldLang+"/", "/"+language+"/");*/
+		language=PrefsManager::instance()->guiLanguage();
+		loadMenu();
+		loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
+	}
+	else
+		first=false;
 }
 
 void HelpBrowser::print()
@@ -374,7 +392,7 @@ void HelpBrowser::bookmarkButton_clicked()
  		return;
 	QString toFind(fname.remove(QDir::convertSeparators(ScPaths::instance().docDir()+language + "/")));
 	QMapIterator<QString, QString> i(quickHelpIndex);
-	while (i.hasNext()) 
+	while (i.hasNext())
 	{
 		i.next();
 		if (i.value()==toFind)
@@ -486,15 +504,15 @@ void HelpBrowser::loadMenu()
 	QString toLoad;
 	QString pfad2 = QDir::convertSeparators(pfad + language + "/menu.xml");
 	QFileInfo fi = QFileInfo(pfad2);
-
 	if (fi.exists())
 		toLoad=pfad2;
 	else
 	{
+		if (!language.isEmpty())
+			sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
 		toLoad = QDir::convertSeparators(pfad + "en/menu.xml");
 		language="en";
 		fi = QFileInfo(toLoad);
-		sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
 	}
 
 	if (fi.exists())
