@@ -154,14 +154,15 @@ QString getShortPathName(QString longPath)
 	QString shortPath(longPath);
 #if defined _WIN32
 	QFileInfo fInfo(longPath);
-	if(fInfo.exists())
+	if (fInfo.exists())
 	{
-		char shortName[MAX_PATH + 1];
+		WCHAR shortName[MAX_PATH + 1];
 		// An error should not be blocking as ERROR_INVALID_PARAMETER can simply mean
 		// that volume does not support 8.3 filenames, so return longPath in this case
-		int ret = GetShortPathName(QDir::convertSeparators(longPath).local8Bit(), shortName, sizeof(shortName));
-		if( ret != ERROR_INVALID_PARAMETER && ret < sizeof(shortName))
-			shortPath = shortName;
+		QString nativePath = QDir::convertSeparators(longPath);
+		int ret = GetShortPathNameW((LPCWSTR) nativePath.utf16(), shortName, MAX_PATH);
+		if (ret != ERROR_INVALID_PARAMETER && ret < MAX_PATH)
+			shortPath = QString::fromUtf16((const ushort*) shortName);
 	}
 #endif
 	return shortPath;

@@ -25,7 +25,7 @@ protected:
 
 	void resetData(void);
 
-	typedef bool (ScWinPrint::*PrintPageFunc) ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODE* devMode );
+	typedef bool (ScWinPrint::*PrintPageFunc) ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode );
 
 	/*! \brief Print selected pages to a printer or a file
 	\param doc the document whose pages are to be printer
@@ -37,7 +37,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODE* devMode, QByteArray& fileName, bool forceGDI = false );
+	bool printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName, bool forceGDI = false );
 	/*! \brief Print a page to a gdi printer
 	Print a page using GDI drawing code ( works on all printers : PS, PCL, GDI... )
 	\param doc the document whose page is to be printer
@@ -49,7 +49,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_GDI ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODE* devMode );
+	bool printPage_GDI ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode );
 	/*! \brief Print a page to a PostScript printer using passthroughs
 	Print a page using PS drawing code and PS passthroughs ( works on PS printers only )
 	\param doc the document whose page is to be printer
@@ -61,7 +61,7 @@ protected:
 	\retval bool true on success 
 	\author Jean Ghali
 	*/
-	bool printPage_PS  ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODE* devMode );
+	bool printPage_PS  ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode );
 	/*! \brief Send a file to printer using PostScript Passthrough
 	Send a postscript file to a printer using ps passthrough ( works on PS printers only )
 	\param filePath the Postscript file path
@@ -78,7 +78,7 @@ protected:
 	\param devMode pointer to a DEVMODE structure
 	\author Jean Ghali
 	*/
-	void setDeviceParams ( ScribusDoc* doc, PrintOptions& options, DEVMODE* devMode );
+	void setDeviceParams ( ScribusDoc* doc, PrintOptions& options, DEVMODEW* devMode );
 	/*! \brief Get support for PostScript Passthrough
 	Get ps passthrough support and escape code
 	\param printerDC the printer device context

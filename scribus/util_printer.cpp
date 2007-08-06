@@ -37,14 +37,14 @@ QStringList PrinterUtil::getPrinterNames()
 #elif defined(_WIN32)
 	DWORD size;
 	DWORD numPrinters;
-	PRINTER_INFO_2* printerInfos = NULL;
-    EnumPrinters ( PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS , NULL, 2, NULL, 0, &size, &numPrinters );
-	printerInfos = (PRINTER_INFO_2*) malloc(size);
-	if ( EnumPrinters ( PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS, NULL, 2, (LPBYTE) printerInfos, size, &size, &numPrinters ) )
+	PRINTER_INFO_2W* printerInfos = NULL;
+	EnumPrintersW ( PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS , NULL, 2, NULL, 0, &size, &numPrinters );
+	printerInfos = (PRINTER_INFO_2W*) malloc(size);
+	if ( EnumPrintersW ( PRINTER_ENUM_LOCAL|PRINTER_ENUM_CONNECTIONS, NULL, 2, (LPBYTE) printerInfos, size, &size, &numPrinters ) )
 	{
 		for ( uint i = 0; i < numPrinters; i++)
 		{
-			printerName = printerInfos[i].pPrinterName;
+			printerName = QString::fromUtf16( (const ushort*) printerInfos[i].pPrinterName );
 			printerNames.append(printerName);
 		}
 		printerNames.sort();	
@@ -81,20 +81,18 @@ bool PrinterUtil::getDefaultSettings( QString printerName, QByteArray& devModeA 
 {
 	bool done;
 	uint size;
-	QByteArray printer;
 	LONG result = IDOK+1;
 	Qt::HANDLE handle = NULL;
-	printer = printerName.local8Bit();
 	// Get the printer handle
-	done = OpenPrinter( printer.data(), &handle, NULL );
+	done = OpenPrinterW( (LPWSTR) printerName.utf16(), &handle, NULL );
 	if(!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentProperties( ScCore->primaryMainWindow()->winId(), handle, printer.data(), NULL, NULL, 0);
+	size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
 	// Allocate the memory needed by the DEVMODE structure
 	devModeA.resize( size );
 	// Retrieve printer default settings
-	result = DocumentProperties( ScCore->primaryMainWindow()->winId(), handle, printer.data(), (DEVMODE*) devModeA.data(), NULL, DM_OUT_BUFFER);
+	result = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
 	// Free the printer handle
 	ClosePrinter( handle );
 	return ( result == IDOK );
@@ -106,27 +104,25 @@ bool PrinterUtil::initDeviceSettings( QString printerName, QByteArray& devModeA 
 {
 	bool done;
 	uint size;
-	QByteArray printer;
 	LONG result = IDOK+1;
 	Qt::HANDLE handle = NULL;
-	printer = printerName.local8Bit();
 	// Get the printer handle
-	done = OpenPrinter( printer.data(), &handle, NULL );
+	done = OpenPrinterW( (LPWSTR) printerName.utf16(), &handle, NULL );
 	if(!done)
 		return false;
 	// Get size of DEVMODE structure (public + private data)
-	size = DocumentProperties( ScCore->primaryMainWindow()->winId(), handle, printer.data(), NULL, NULL, 0);
+	size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
 	// Compare size with DevMode structure size
 	if( devModeA.size() == size )
 	{
 		// Merge printer settings
-		result = DocumentProperties( ScCore->primaryMainWindow()->winId(), handle, printer.data(), (DEVMODE*) devModeA.data(), (DEVMODE*) devModeA.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
+		result = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), (DEVMODEW*) devModeA.data(), DM_IN_BUFFER | DM_OUT_BUFFER);
 	}
 	else
 	{
 		// Retrieve default settings
 		devModeA.resize( size );
-		result = DocumentProperties( ScCore->primaryMainWindow()->winId(), handle, printer.data(), (DEVMODE*) devModeA.data(), NULL, DM_OUT_BUFFER);
+		result = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), (DEVMODEW*) devModeA.data(), NULL, DM_OUT_BUFFER);
 	}
 	done = ( result == IDOK);
 	// Free the printer handle
@@ -164,20 +160,19 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 #elif defined(_WIN32)
 	DWORD nPaper;
 	DWORD nPaperNames;
-	typedef char char64[64];
-	QByteArray printer = printerName.local8Bit();
-	nPaper = DeviceCapabilities( printer.data(), NULL, DC_PAPERS, NULL, NULL );
-	nPaperNames = DeviceCapabilities( printer.data(), NULL, DC_PAPERNAMES, NULL, NULL );
+	typedef WCHAR wchar64[64];
+	nPaper = DeviceCapabilitiesW( (LPCWSTR) printerName.utf16(), NULL, DC_PAPERS, NULL, NULL );
+	nPaperNames = DeviceCapabilitiesW( (LPCWSTR) printerName.utf16(), NULL, DC_PAPERNAMES, NULL, NULL );
 	if ( (nPaper > 0) && (nPaperNames > 0) && (nPaper == nPaperNames) )
 	{
 		int paperIndex = -1;
-		DWORD *papers = new DWORD[nPaper];
-		char64 *paperNames = new char64[nPaperNames];
-		DWORD s1 = DeviceCapabilities( printer.data(), NULL, DC_PAPERS, (LPSTR) papers, NULL );
-		DWORD s2 = DeviceCapabilities( printer.data(), NULL, DC_PAPERNAMES, (LPSTR) paperNames, NULL );
+		DWORD   *papers = new DWORD[nPaper];
+		wchar64 *paperNames = new wchar64[nPaperNames];
+		DWORD s1 = DeviceCapabilitiesW( (LPCWSTR) printerName.utf16(), NULL, DC_PAPERS, (LPWSTR) papers, NULL );
+		DWORD s2 = DeviceCapabilitiesW( (LPCWSTR) printerName.utf16(), NULL, DC_PAPERNAMES, (LPWSTR) paperNames, NULL );
 		for ( uint i = 0; i < nPaperNames; i++ )
 		{
-			if ( pageSize == QString(paperNames[i]) )
+			if ( pageSize == QString::fromUtf16((const ushort*) paperNames[i]) )
 			{
 				paperIndex = i;
 				break;
@@ -186,18 +181,18 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 		if ( paperIndex >= 0 )
 		{
 			Qt::HANDLE handle = NULL;
-			if( OpenPrinter( printer.data(), &handle, NULL ) )
+			if( OpenPrinterW( (LPWSTR) printerName.utf16(), &handle, NULL ) )
 			{
 				// Retrieve DEVMODE structure for selected device
-				uint size = DocumentProperties( ScCore->primaryMainWindow()->winId(), handle, printer.data(), NULL, NULL, 0);
-				QByteArray devModeA(size);
-				DEVMODE* devMode = (DEVMODE*) devModeA.data();
-				DocumentProperties( ScCore->primaryMainWindow()->winId(), handle, printer.data(), devMode, NULL, DM_OUT_BUFFER);
+				uint size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
+				QByteArray devModeW(size);
+				DEVMODEW* devMode = (DEVMODEW*) devModeW.data();
+				DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), devMode, NULL, DM_OUT_BUFFER);
 				ClosePrinter( handle );
 				// Set paper size
 				devMode->dmPaperSize = papers[paperIndex];
 				// Create device context
-				HDC printerDC = CreateDC( NULL, printer.data(), NULL, devMode );
+				HDC printerDC = CreateDCW( NULL, (LPWSTR) printerName.utf16(), NULL, devMode );
 				if( printerDC )
 				{
 					retVal = true;
@@ -225,10 +220,9 @@ bool PrinterUtil::isPostscriptPrinter( QString printerName)
 	HDC dc;
 	int	escapeCode;
 	char technology[MAX_PATH] = {0};
-	QByteArray printer = printerName.local8Bit();
 	
 	// Create the default device context
-	dc = CreateDC( NULL, printer.data(), NULL, NULL );
+	dc = CreateDCW( NULL, (LPCWSTR) printerName.utf16(), NULL, NULL );
 	if ( !dc )
 	{
 		qWarning( QString("isPostscriptPrinter() failed to create device context for %1").arg(printerName) );

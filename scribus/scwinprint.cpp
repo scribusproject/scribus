@@ -96,8 +96,8 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 	bool success;
 	HDC printerDC;
 	QString diaSelection, docDir, prefsDocDir;
-	QByteArray printerName = options.printer.local8Bit();
-	QByteArray fileName;
+	QString printerName = options.printer;
+	QString fileName;
 
 	if( !doc || options.toFile )	
 		return false;
@@ -123,8 +123,7 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 			if ( overwrite(doc->scMW()->view, selectedFile) )
 			{
 				dirs->set("winprn", selectedFile.left(selectedFile.findRev("/")));
-				selectedFile = QDir::convertSeparators( selectedFile );
-				fileName = selectedFile.local8Bit();
+				fileName = QDir::convertSeparators( selectedFile );
 			}
 		}
 		else
@@ -136,13 +135,13 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 #endif
 
 	// Set user options in the DEVmode structure
-	setDeviceParams( doc, options, (DEVMODE*) devMode.data() );
+	setDeviceParams( doc, options, (DEVMODEW*) devMode.data() );
 		
 	// Create the device context
-	printerDC = CreateDC( NULL, printerName.data(), NULL, (DEVMODE*) devMode.data() );
+	printerDC = CreateDCW( NULL, (LPCWSTR) printerName.utf16(), NULL, (DEVMODEW*) devMode.data() );
 	if( printerDC )
 	{
-		success = printPages( doc, options, printerDC, (DEVMODE*) devMode.data(), fileName, forceGDI );
+		success = printPages( doc, options, printerDC, (DEVMODEW*) devMode.data(), fileName, forceGDI );
 		DeleteDC( printerDC );
 	}
 	else
@@ -283,15 +282,15 @@ bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, Pr
 	return success;
 }
 
-bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODE* devMode, QByteArray& fileName, bool forceGDI )
+bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printerDC, DEVMODEW* devMode, QString& fileName, bool forceGDI )
 {
  int  jobId;
  bool psPrint;
  auto_ptr<MultiProgressDialog> progress;
  PrintPageFunc doPrintPage = NULL;
- bool success = true;
- char docName[512];
- DOCINFO docInfo;
+ bool  success = true;
+ WCHAR docName[512];
+ DOCINFOW docInfo;
  Page* docPage;
 
 	// Test printer for PostScript support and
@@ -303,15 +302,15 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 		doPrintPage = &ScWinPrint::printPage_GDI;
 
 	// Setup document infos structure
-	strncpy( docName, doc->DocName.local8Bit(), sizeof(docName) - 1);
+	wcsncpy  (docName, (const WCHAR*) doc->DocName.utf16(), 511);
 	ZeroMemory( &docInfo, sizeof(docInfo) );
 	docInfo.cbSize = sizeof(docInfo);
 	docInfo.lpszDocName = docName;
-	docInfo.lpszOutput = ( fileName.size() > 0 ? fileName.data() : NULL );
+	docInfo.lpszOutput  = (LPCWSTR) ( fileName.length() > 0 ? fileName.utf16() : NULL );
 	docInfo.lpszDatatype = NULL;
 	docInfo.fwType = 0;
 
-	jobId = StartDoc( printerDC, &docInfo );
+	jobId = StartDocW( printerDC, &docInfo );
 	if ( jobId <= 0 )
 	{
 		AbortDoc( printerDC ) ;
@@ -351,7 +350,7 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 	return success;
 }
 
-bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODE* devMode )
+bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode )
 {
 	int logPixelsX;
 	int logPixelsY;
@@ -364,8 +363,8 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	bool success = true;
 	ScPainterEx_GDI *painter;
 	ScPageOutput *pageOutput;
-	QByteArray inputProfile;
-	QByteArray printerProfile;
+	QString inputProfile;
+	QString printerProfile;
 	HCOLORSPACE hColorSpace = NULL;
 	double scalex = 1, scaley = 1;
 	bool rotate = false;
@@ -380,19 +379,19 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 		QString pProf = doc->CMSSettings.DefaultPrinterProfile;
 		if ( ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf) )
 		{
-			inputProfile  = QDir::convertSeparators(ScCore->InputProfiles[mProf]).local8Bit();
-			printerProfile = QDir::convertSeparators(ScCore->PrinterProfiles[pProf]).local8Bit();
+			inputProfile  = QDir::convertSeparators(ScCore->InputProfiles[mProf]);
+			printerProfile = QDir::convertSeparators(ScCore->PrinterProfiles[pProf]);
 			// Avoid color transform if input and output profile are the same
 			if ( inputProfile != printerProfile )
 			{
 				// Setup input color space
-				LOGCOLORSPACE logColorSpace;
+				LOGCOLORSPACEW logColorSpace;
 				logColorSpace.lcsSize = sizeof(logColorSpace);
 				logColorSpace.lcsVersion = 0x400;
 				logColorSpace.lcsSignature = LCS_SIGNATURE;
 				logColorSpace.lcsCSType = LCS_CALIBRATED_RGB;
 				logColorSpace.lcsIntent = LCS_GM_GRAPHICS;
-				strncpy(logColorSpace.lcsFilename, inputProfile.data(), MAX_PATH);
+				wcsncpy(logColorSpace.lcsFilename, (const wchar_t*) inputProfile.utf16(), MAX_PATH);
 				// MSDN recommend to setup reasonable values even if profile is specified
 				// so let's use sRGB colorspace values
 				logColorSpace.lcsEndpoints.ciexyzRed.ciexyzX = __FXPT2DOT30(0.64);
@@ -408,11 +407,11 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 				logColorSpace.lcsGammaGreen = __FXPT16DOT16(0.45);
 				logColorSpace.lcsGammaBlue = __FXPT16DOT16(0.45);
 				// Create the color space handle
-				hColorSpace = CreateColorSpace( &logColorSpace );
+				hColorSpace = CreateColorSpaceW( &logColorSpace );
 				if ( hColorSpace )
 				{
 					// Setup the input and output profiles for the device context
-					if ( SetColorSpace(printerDC, hColorSpace) && SetICMProfile(printerDC, printerProfile.data()) )
+					if ( SetColorSpace(printerDC, hColorSpace) && SetICMProfileW(printerDC, (LPWSTR) printerProfile.utf16()) )
 					{
 						int result = SetICMMode( printerDC, ICM_ON );
 						success = ( result != 0 );
@@ -497,7 +496,7 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	return success;
 }
 
-bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODE* devMode )
+bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& options, HDC printerDC, DEVMODEW* devMode )
 {
 	bool succeed = false;
 	ColorList usedColors;
@@ -641,10 +640,10 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 	return ( (fileSize == bw) && ( br >= 0 ) );
 }
 
-void ScWinPrint::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMODE* devMode )
+void ScWinPrint::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMODEW* devMode )
 {
 	HANDLE handle;
-	QByteArray printer = options.printer.local8Bit();
+	QString printer = options.printer;
 	DWORD devFlags = devMode->dmFields;
 
 	short nCopies = options.copies;
@@ -660,8 +659,8 @@ void ScWinPrint::setDeviceParams( ScribusDoc* doc, PrintOptions& options, DEVMOD
 
 	devMode->dmFields = devFlags;
 
-	OpenPrinter( printer.data(), &handle, NULL );
-	DocumentProperties( doc->scMW()->winId(), handle, printer.data(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
+	OpenPrinterW( (LPWSTR) printer.utf16(), &handle, NULL );
+	DocumentPropertiesW( doc->scMW()->winId(), handle, (LPWSTR) printer.utf16(), devMode, devMode, DM_IN_BUFFER | DM_OUT_BUFFER);
 	ClosePrinter( handle );
 }
 
@@ -670,40 +669,40 @@ QString ScWinPrint::getDefaultPrinter( void )
 	QString defPrinter;
 	OSVERSIONINFO osvi;
 	DWORD returned, buffSize;
-	char szPrinter[512] = { 0 };
-	char* p;
+	WCHAR szPrinter[512] = { 0 };
+	WCHAR* p;
 	
-	buffSize = sizeof( szPrinter );
+	buffSize = 512;
 	osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 	GetVersionEx(&osvi);
 
 	if ( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion >= 5 ) // Win2k and later
 	{
-		if ( GetDefaultPrinter(szPrinter, &buffSize) )
-			defPrinter = szPrinter;
+		if ( GetDefaultPrinterW(szPrinter, &buffSize) )
+			defPrinter = QString::fromUtf16((const ushort*) szPrinter);
 	}
 	else if( osvi.dwPlatformId == VER_PLATFORM_WIN32_NT && osvi.dwMajorVersion < 5 ) // NT4 or earlier
 	{
-		if ( GetProfileString("windows","device","", szPrinter, buffSize) < (buffSize - 1) )
+		if ( GetProfileStringW(L"windows",L"device",L"", szPrinter, buffSize) < (buffSize - 1) )
 		{
 			p = szPrinter;
 			while (*p != 0 && *p != ',')
 				++p;
 			*p = 0;
-			defPrinter = szPrinter;
+			defPrinter = QString::fromUtf16((const ushort*) szPrinter);
 		}
 	}
 	else
 	{
 		DWORD numPrinters;
-		PRINTER_INFO_2* printerInfos = NULL;
-		EnumPrinters ( PRINTER_ENUM_DEFAULT, NULL, 2, NULL, 0, &buffSize, &numPrinters );
-		printerInfos = (PRINTER_INFO_2*) malloc(buffSize);
-		if ( EnumPrinters ( PRINTER_ENUM_LOCAL, NULL, 2, (LPBYTE) printerInfos, buffSize, &buffSize, &returned ) )
+		PRINTER_INFO_2W* printerInfos = NULL;
+		EnumPrintersW ( PRINTER_ENUM_DEFAULT, NULL, 2, NULL, 0, &buffSize, &numPrinters );
+		printerInfos = (PRINTER_INFO_2W*) malloc(buffSize);
+		if ( EnumPrintersW ( PRINTER_ENUM_LOCAL, NULL, 2, (LPBYTE) printerInfos, buffSize, &buffSize, &returned ) )
 		{
 			if ( returned > 0 )
 			{
-				defPrinter = printerInfos->pPrinterName;
+				defPrinter = QString::fromUtf16((const ushort*) printerInfos->pPrinterName);
 			}
 		}
 		if( printerInfos) free(printerInfos);
@@ -768,28 +767,27 @@ bool ScWinPrint::printerUseFilePort( QString& printerName )
 {
  bool done;
  bool toFile = false;
- QByteArray printer = printerName.local8Bit();
  HANDLE prnHandle;
  DWORD size = 0;
 
-	done = OpenPrinter( printer.data(), &prnHandle, NULL );
+	done = OpenPrinterW( (LPWSTR) printerName.utf16(), &prnHandle, NULL );
 	if ( !done )
 		return false;
 	
 	// Get buffer size for the PRINTER_INFO_2 structure
-	GetPrinter( prnHandle, 2, NULL, 0, &size );
+	GetPrinterW( prnHandle, 2, NULL, 0, &size );
 	if ( size > 0 )
 	{
-		PRINTER_INFO_2* pInfos = (PRINTER_INFO_2*) malloc(size);
+		PRINTER_INFO_2W* pInfos = (PRINTER_INFO_2W*) malloc(size);
 		if( pInfos )
 		{
 			// Get printer informations
-			done = GetPrinter( prnHandle, 2, (LPBYTE) pInfos, size, &size );
+			done = GetPrinterW( prnHandle, 2, (LPBYTE) pInfos, size, &size );
 			if( done )
 			{
 				// Get printer port
-				char* pPortName = pInfos->pPortName;
-				if( strstr(pPortName, "FILE:") )
+				WCHAR* pPortName = pInfos->pPortName;
+				if( wcsstr(pPortName, L"FILE:") )
 					toFile = true;
 			}
 			free(pInfos);

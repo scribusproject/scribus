@@ -275,7 +275,7 @@ QString getGSDefaultExeName(void)
 	return gsName;
 }
 
-QMap<int, QString> SCRIBUS_API getGSExePaths(const char* regKey)
+QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey)
 {
 	QMap<int, QString> gsVersions;
 #if defined _WIN32
@@ -283,32 +283,32 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const char* regKey)
 	DWORD size;
 	HKEY hKey1, hKey2;
 	DWORD regType = REG_SZ;
-	char regVersion[MAX_PATH];
-	char regPath[MAX_PATH];
-	char gsPath[MAX_PATH];
+	WCHAR regVersion[MAX_PATH];
+	WCHAR regPath[MAX_PATH];
+	WCHAR gsPath[MAX_PATH];
 	QString gsVersion, gsName;
 
-	if( RegOpenKey(HKEY_LOCAL_MACHINE, regKey, &hKey1) == ERROR_SUCCESS )
+	if( RegOpenKeyW(HKEY_LOCAL_MACHINE, (LPCWSTR) regKey.utf16(), &hKey1) == ERROR_SUCCESS )
 	{
-		size = sizeof(regVersion) - 1;
+		size = sizeof(regVersion)/sizeof(WCHAR) - 1;
 		DWORD keyIndex = 0;
-		while ( RegEnumKeyEx(hKey1, keyIndex, regVersion, &size, NULL, NULL, NULL, NULL) == ERROR_SUCCESS )
+		while ( RegEnumKeyExW(hKey1, keyIndex, regVersion, &size, NULL, NULL, NULL, NULL) == ERROR_SUCCESS )
 		{
 			int gsNumericVer, gsMajor, gsMinor;
-			strcpy(regPath, regKey);
-			strcat(regPath, "\\");
-			strcat(regPath, regVersion);
-			if (RegOpenKey(HKEY_LOCAL_MACHINE, regPath, &hKey2) == ERROR_SUCCESS)
+			wcscpy(regPath, (const wchar_t*) regKey.utf16());
+			wcscat(regPath, L"\\");
+			wcscat(regPath, regVersion);
+			if (RegOpenKeyW(HKEY_LOCAL_MACHINE, regPath, &hKey2) == ERROR_SUCCESS)
 			{
 				size = sizeof(gsPath) - 1;
-				if (RegQueryValueEx(hKey2, "GS_DLL", 0, &regType, (LPBYTE) gsPath, &size) == ERROR_SUCCESS)
+				if (RegQueryValueExW(hKey2, L"GS_DLL", 0, &regType, (LPBYTE) gsPath, &size) == ERROR_SUCCESS)
 				{
 					// We now have GhostScript dll path, but we want gswin32c.exe
 					// Normally gswin32c.exe and gsdll.dll are in the same directory
-					if ( getNumericGSVersion(QString(regVersion), gsMajor, gsMinor) )
+					if ( getNumericGSVersion(QString::fromUtf16((const ushort*) regVersion), gsMajor, gsMinor) )
 					{
 						gsNumericVer = gsMajor * 1000 + gsMinor;
-						gsName = gsPath;
+						gsName = QString::fromUtf16((const ushort*) gsPath);
 						size   = gsName.findRev("\\");
 						if (size > 0)
 						{

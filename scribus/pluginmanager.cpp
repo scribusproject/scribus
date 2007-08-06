@@ -62,7 +62,7 @@ void* PluginManager::loadDLL( QString plugin )
 	dlerror();
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
 	QString libpath = QDir::convertSeparators( plugin );
-	HINSTANCE hdll = LoadLibrary( (const char*) libpath );
+	HINSTANCE hdll = LoadLibraryW( (const wchar_t*) libpath.utf16() );
 	lib = (void*) hdll;
 #else
 	if( QFile::exists(plugin) )

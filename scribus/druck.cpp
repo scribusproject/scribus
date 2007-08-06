@@ -443,18 +443,15 @@ void Druck::SetOptions()
 
 #elif defined(_WIN32)
 	bool done;
-	QString  printerS;
-	QByteArray printerC;
 	Qt::HANDLE handle = NULL;
 	// Retrieve the selected printer
-	printerS = PrintDest->currentText(); 
-	printerC = printerS.local8Bit();
+	QString printerS = PrintDest->currentText(); 
 	// Get a printer handle
-	done = OpenPrinter( printerC.data(), &handle, NULL );
+	done = OpenPrinterW( (LPWSTR) printerS.utf16(), &handle, NULL );
 	if(!done)
 		return;
 	// Merge stored settings, prompt user and return user settings
-	DocumentProperties( winId(), handle, printerC.data(), (DEVMODE*) DevMode.data(), (DEVMODE*) DevMode.data(), 
+	DocumentPropertiesW( winId(), handle, (LPWSTR) printerS.utf16(), (DEVMODEW*) DevMode.data(), (DEVMODEW*) DevMode.data(), 
 						DM_IN_BUFFER | DM_IN_PROMPT | DM_OUT_BUFFER);
 	// Free the printer handle
 	ClosePrinter( handle );
