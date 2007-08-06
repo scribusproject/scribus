@@ -72,7 +72,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 		hdict = NULL;
 		return;
 	}
-	QCString fn = pfad.latin1();
+	QCString fn = pfad.local8Bit();
 	const char * filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
 	useAble = hdict == NULL ? false : true;
@@ -109,7 +109,7 @@ void Hyphenator::slotNewDict(QString name)
 		hdict = NULL;
 		return;
 	}
-	QCString fn = pfad.latin1();
+	QCString fn = pfad.local8Bit();
 	filename = fn.data();
 	hdict = hnj_hyphen_load(filename);
 	useAble = hdict == NULL ? false : true;
