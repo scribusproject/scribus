@@ -506,9 +506,22 @@ void HelpBrowser::loadMenu()
 	else
 	{
 		if (!language.isEmpty())
-			sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
-		toLoad = QDir::convertSeparators(pfad + "en/menu.xml");
-		language="en";
+		{
+			//Check if we can load, eg "de" when "de_CH" docs dont exist
+			QString pfad3 = QDir::convertSeparators(pfad + language.left(2) + "/menu.xml");
+			QFileInfo fi3 = QFileInfo(pfad3);
+			if (fi3.exists())
+				language=language.left(2);
+			else
+			{
+				//Fall back to English
+				sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
+				language="en";
+			}
+		}
+		else
+			language="en";
+		toLoad = QDir::convertSeparators(pfad + language + "/menu.xml");
 		fi = QFileInfo(toLoad);
 	}
 
