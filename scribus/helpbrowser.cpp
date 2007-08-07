@@ -53,11 +53,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "util_icon.h"
 
-#if defined(_WIN32)
-#include <windows.h>
-#include <shellapi.h>
-#endif
-
 /*! \brief XML parsef for documantation history.
 This is small helper class which reads saved bookmarks configuration
 from ~/.scribus/doc/history.xml file.
