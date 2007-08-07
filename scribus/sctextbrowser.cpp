@@ -49,7 +49,10 @@ void ScTextBrowser::hoverMouse(const QString &link)
 
 void ScTextBrowser::navigateOverride(const QUrl & link)
 {
-	UrlLauncher::instance()->launchUrlExt(link, parentWidget());
+	if (link.scheme()=="http")
+		UrlLauncher::instance()->launchUrlExt(link, parentWidget());
+	else
+		setSource(link);
 	/*
 #if defined(_WIN32)
 	if (link.scheme()=="http")
