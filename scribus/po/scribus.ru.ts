@@ -560,7 +560,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getLineColor([&quot;name&quot;]) -&gt; string
 
-Возвращает название цвета, используемого для штриха
+Возвращает название цвета, используемого для обводки
 объекта &quot;name&quot;. Если &quot;name&quot; не задан, используется 
 выделенный объект.
 </translation>
@@ -573,7 +573,7 @@ is not given the currently selected Item is used.
 </source>
         <translation>getLineWidth([&quot;name&quot;]) -&gt; integer
 
-Возвращает толщину линии штриха объекта &quot;name&quot;. 
+Возвращает толщину линии обводки объекта &quot;name&quot;. 
 Если &quot;name&quot; не задан, используется выделенный объект.
 </translation>
     </message>
@@ -585,7 +585,7 @@ If &quot;name&quot; is not given the currently selected item is used.
 </source>
         <translation>getLineShade([&quot;name&quot;]) -&gt; integer
 
-Возвращает тип тени, используемой для штриха объекта &quot;name&quot;. 
+Возвращает тип тени, используемой для обводки объекта &quot;name&quot;. 
 Если &quot;name&quot; не задан, используется выделенный объект.
 </translation>
     </message>
@@ -2307,7 +2307,7 @@ strings.
     </message>
     <message>
         <source>Send to S&amp;crapbook</source>
-        <translation>Передать в запа&amp;сник</translation>
+        <translation>Передать в &amp;альбом</translation>
     </message>
     <message>
         <source>&amp;Attributes...</source>
@@ -2963,6 +2963,10 @@ strings.
     <message>
         <source>Show Text Frame Columns</source>
         <translation>Показать границы столбцов</translation>
+    </message>
+    <message>
+        <source>&amp;400%</source>
+        <translation>&amp;400%</translation>
     </message>
 </context>
 <context>
@@ -3977,7 +3981,7 @@ strings.
     </message>
     <message>
         <source>Background color - under the code lines</source>
-        <translation>Цвет фона - под штриховыми линиями</translation>
+        <translation>Цвет фона — под штриховыми линиями</translation>
     </message>
     <message>
         <source>&amp;Lines</source>
@@ -4098,7 +4102,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>Choose a Scrapbook Directory</source>
-        <translation>Выберите каталог для альбома</translation>
+        <translation>Выберите каталог альбома</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -4713,6 +4717,10 @@ It is a reserved name for transparent color</source>
         <source>&amp;Ignore Errors</source>
         <translation>&amp;Игнорировать ошибки</translation>
     </message>
+    <message>
+        <source>Annotation uses a non TrueType font</source>
+        <translation>Аннотация использует не TrueType шрифт</translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5288,6 +5296,10 @@ It is a reserved name for transparent color</source>
     <message>
         <source>December</source>
         <translation>Декабрь</translation>
+    </message>
+    <message>
+        <source>PostScript</source>
+        <translation>PostScript</translation>
     </message>
 </context>
 <context>
@@ -6704,11 +6716,11 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation>Жёсткий свет</translation>
+        <translation>Направленный свет</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation>Мягкий свет</translation>
+        <translation>Рассеянный свет</translation>
     </message>
     <message>
         <source>Difference</source>
@@ -6732,7 +6744,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation>Режим совмещения:</translation>
+        <translation>Режим наложения:</translation>
     </message>
     <message>
         <source>Opacity:</source>
@@ -6906,7 +6918,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
@@ -7491,7 +7503,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>PDF</source>
@@ -8928,7 +8940,7 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation>Цвет штриха текста и/или отбрасываемой тени, смотря что выбрано. Если выбраны оба, то их цвет будет одинаковым.</translation>
+        <translation>Цвет обводки текста и/или отбрасываемой тени, смотря что выбрано. Если выбраны оба, то их цвет будет одинаковым.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -9594,7 +9606,7 @@ Corners:</source>
     </message>
     <message>
         <source>Separation Name</source>
-        <translation>Имя сепарации</translation>
+        <translation>Имя цветоделения</translation>
     </message>
     <message>
         <source>Cyan</source>
@@ -10710,15 +10722,15 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation>PDF 1.3</translation>
+        <translation type="obsolete">PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation>PDF 1.4</translation>
+        <translation type="obsolete">PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation>PDF/X-3</translation>
+        <translation type="obsolete">PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
@@ -11593,11 +11605,11 @@ External Links
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation>Норвежский (бокмол)</translation>
+        <translation>Норвежский (Бокмол)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
-        <translation>Норвежский (новонорвежский)</translation>
+        <translation>Норвежский (Новонорвежский)</translation>
     </message>
     <message>
         <source>Norwegian</source>
@@ -12616,7 +12628,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Trad.)</source>
-        <translation>Немецкий (Традиц.)</translation>
+        <translation>Немецкий (Традиционный)</translation>
     </message>
     <message>
         <source>Exporting PostScript File</source>
@@ -12726,7 +12738,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>German (Swiss)</source>
-        <translation type="unfinished"></translation>
+        <translation>Немецкий (Швейцария)</translation>
+    </message>
+    <message>
+        <source>Chinese (Trad.)</source>
+        <translation>Китайский (Традиционный)</translation>
     </message>
 </context>
 <context>
@@ -13715,7 +13731,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
@@ -16327,7 +16343,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Text Stroke:</source>
-        <translation>Штрих текста:</translation>
+        <translation>Обводка текста:</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -16798,15 +16814,15 @@ to %2</source>
     </message>
     <message>
         <source>Set font stroke color</source>
-        <translation>Изменён цвет заполнения штриха шрифта</translation>
+        <translation>Изменён цвет обводки текста</translation>
     </message>
     <message>
         <source>Set font fill color shade</source>
-        <translation>Изменена тень цвета заполнения шрифта</translation>
+        <translation>Изменена тень цвета заливки текста</translation>
     </message>
     <message>
         <source>Set font stroke color shade</source>
-        <translation>Изменена тень цвета заполнения штриха шрифта</translation>
+        <translation>Изменена тень цвета обводки текста</translation>
     </message>
     <message>
         <source>Set kerning</source>
@@ -16830,7 +16846,7 @@ to %2</source>
     </message>
     <message>
         <source>Set font effect</source>
-        <translation>Применён эффект шрифта</translation>
+        <translation>Применён эффект текста</translation>
     </message>
     <message>
         <source>Image frame</source>
