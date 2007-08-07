@@ -376,6 +376,12 @@ void MasterPagesPalette::selectMasterPage(QString name)
 	currentView->showMasterPage(currentDoc->MasterNames[sMuster]);
 }
 
+void MasterPagesPalette::updateMasterPageList(void)
+{
+	QString masterPageName = (currentDoc->MasterNames.contains(sMuster)) ? sMuster : QString("Normal");
+	updateMasterPageList(masterPageName);
+}
+
 void MasterPagesPalette::updateMasterPageList(QString MasterPageName)
 {
 	masterPageData->clear();
