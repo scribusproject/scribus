@@ -190,6 +190,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "units.h"
+#include "urllauncher.h"
 #include "util.h"
 #include "util_formats.h"
 #include "util_ghostscript.h"
@@ -220,6 +221,7 @@ ScribusMainWindow::ScribusMainWindow()
 	scrMenuMgr=0;
 	prefsManager=0;
 	formatsManager=0;
+	UrlLauncher::instance();
 	mainWindowStatusLabel=0;
 	ExternalApp=0;
 #ifdef Q_WS_MAC
@@ -937,6 +939,12 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["helpManual2"], "Help");
 	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpTooltips"], "Help");
+	scrMenuMgr->addMenuSeparator("Help");
+	scrMenuMgr->addMenuItem(scrActions["helpOnlineWWW"], "Help");
+	scrMenuMgr->addMenuItem(scrActions["helpOnlineDocs"], "Help");
+	scrMenuMgr->addMenuItem(scrActions["helpOnlineWiki"], "Help");
+	scrMenuMgr->createMenu("HelpOnlineTutorials", QPixmap(noIcon), tr("Online &Tutorials"), "Help");
+	scrMenuMgr->addMenuItem(scrActions["helpOnlineTutorialEN"], "HelpOnlineTutorials");
 	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutPlugins"], "Help");
@@ -1928,6 +1936,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	UndoManager::deleteInstance();
 	PrefsManager::deleteInstance();
 	FormatsManager::deleteInstance();
+	UrlLauncher::deleteInstance();
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	qApp->exit(0);
 }
@@ -9293,6 +9302,7 @@ void ScribusMainWindow::languageChange()
 			scrMenuMgr->setMenuText("Windows", tr("&Windows"));
 			scrMenuMgr->setMenuText("Help", tr("&Help"));
 			scrMenuMgr->setMenuText("Alignment", tr("&Alignment"));
+			scrMenuMgr->setMenuText("HelpOnlineTutorials", tr("Online &Tutorials"));
 
 			rebuildStyleMenu(HaveDoc ? doc->CurrentSel : -1);
 		}

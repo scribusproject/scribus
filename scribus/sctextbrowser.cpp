@@ -21,9 +21,9 @@ for which a new license (GPL+exception) is in place.
 #include <shellapi.h>
 #endif
 
-#include "sctextbrowser.h"
-
 #include "prefsmanager.h"
+#include "sctextbrowser.h"
+#include "urllauncher.h"
 
 ScTextBrowser::ScTextBrowser( QWidget * parent )
 	 : QTextBrowser(parent)
@@ -49,6 +49,8 @@ void ScTextBrowser::hoverMouse(const QString &link)
 
 void ScTextBrowser::navigateOverride(const QUrl & link)
 {
+	UrlLauncher::instance()->launchUrlExt(link, parentWidget());
+	/*
 #if defined(_WIN32)
 	if (link.scheme()=="http")
 	{
@@ -83,4 +85,5 @@ void ScTextBrowser::navigateOverride(const QUrl & link)
 #else
 	setSource(link);
 #endif
+	*/
 }

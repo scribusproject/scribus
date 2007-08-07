@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "text/storytext.h"
 #include "undomanager.h"
+#include "urllauncher.h"
 #include "util_icon.h"
 
 
@@ -817,6 +818,14 @@ void ActionManager::initHelpMenuActions()
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 	name="helpManual";
 	scrActions->insert(name, new ScrAction(loadIcon("16/help-browser.png"), QPixmap(), "", defKeys[name], mainWindow));
+	name="helpOnlineWWW";
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, "http://www.scribus.net"));
+	name="helpOnlineDocs";
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, "http://docs.scribus.net"));
+	name="helpOnlineWiki";
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, "http://wiki.scribus.net"));
+	name="helpOnlineTutorialEN";
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, "http://wiki.scribus.net/index.php/Get_Started_with_Scribus"));
 
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
 	(*scrActions)["helpTooltips"]->setOn(true);
@@ -826,6 +835,11 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpAboutQt"], SIGNAL(activated()), mainWindow, SLOT(slotHelpAboutQt()) );
 	connect( (*scrActions)["helpTooltips"], SIGNAL(activated()), mainWindow, SLOT(ToggleTips()) );
 	connect( (*scrActions)["helpManual"], SIGNAL(activated()), mainWindow, SLOT(slotOnlineHelp()) );
+	UrlLauncher* ul=UrlLauncher::instance();
+	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpOnlineTutorialEN"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 }
 
 void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList)
@@ -1422,6 +1436,10 @@ void ActionManager::languageChange()
 	(*scrActions)["helpAboutQt"]->setTexts( tr("About &Qt"));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
 	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Manual..."));
+	(*scrActions)["helpOnlineWWW"]->setTexts( tr("Scribus Homepage"));
+	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Scribus Online Documentation"));
+	(*scrActions)["helpOnlineWiki"]->setTexts( tr("Scribus Wiki"));
+	(*scrActions)["helpOnlineTutorialEN"]->setTexts( tr("English"));
 
 	//GUI
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
@@ -1722,6 +1740,10 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("helpAboutQt", QKeySequence());
 	defKeys.insert("helpTooltips", QKeySequence());
 	defKeys.insert("helpManual", Qt::Key_F1);
+	defKeys.insert("helpOnlineWWW", QKeySequence());
+	defKeys.insert("helpOnlineDocs", QKeySequence());
+	defKeys.insert("helpOnlineWiki", QKeySequence());
+	defKeys.insert("helpOnlineTutorialEN", QKeySequence());
 
 	//GUI
 	defKeys.insert("specialToggleAllPalettes", Qt::Key_F10);
@@ -1930,7 +1952,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second  << "windowsCascade" << "windowsTile" << "toolsProperties" << "toolsOutline" << "toolsScrapbook" << "toolsLayers" << "toolsPages" << "toolsBookmarks" << "toolsMeasurements" << "toolsActionHistory" << "toolsPreflightVerifier" << "toolsAlignDistribute" << "toolsToolbarTools" << "toolsToolbarPDF";
 	//Help
 	++itmenu;
-	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual";
+	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual" << "helpOnlineWWW" << "helpOnlineDocs" << "helpOnlineWiki" << "helpOnlineTutorialEN";
 	//Other
 // 	++itmenu;
 // 	itmenu->second << "";

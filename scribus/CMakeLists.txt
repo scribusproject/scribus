@@ -234,6 +234,7 @@ SET(SCRIBUS_MOC_CLASSES
   undomanager.h
   unicodesearch.h
   upgradechecker.h
+  urllauncher.h
   useprintermarginsdialog.h
   vruler.h
   werktoolb.h
@@ -493,6 +494,7 @@ SET(SCRIBUS_SOURCES
   units.cpp
   unzip.c
   upgradechecker.cpp
+  urllauncher.cpp
   useprintermarginsdialog.cpp
   util.cpp
   util_cms.cpp
@@ -590,6 +592,7 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
   ${SCRIBUS_FONTS_LIB}
 )
 
+#do we want a lib suffix on osx? doubt it
 IF(APPLEBUNDLE)
   INSTALL(DIRECTORY DESTINATION MacOS)
   INSTALL(TARGETS ${EXE_NAME}
@@ -599,7 +602,7 @@ IF(APPLEBUNDLE)
 ELSE(APPLEBUNDLE)
   INSTALL(TARGETS ${EXE_NAME}
     RUNTIME DESTINATION bin
-    LIBRARY DESTINATION lib
+    LIBRARY DESTINATION ${LIB_DIR_NAME}
     )
 ENDIF(APPLEBUNDLE)
 
