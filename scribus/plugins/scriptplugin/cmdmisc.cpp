@@ -190,7 +190,7 @@ PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Layer == "")
+	if (!*Layer)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
 		return NULL;
@@ -229,7 +229,7 @@ PyObject *scribus_layervisible(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (!*Name)
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name"));
 		return NULL;
@@ -261,7 +261,7 @@ PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (!*Name)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
 		return NULL;
@@ -292,7 +292,7 @@ PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (!*Name)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
 		return NULL;
@@ -323,7 +323,7 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (!*Name)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
 		return NULL;
@@ -355,7 +355,7 @@ PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (!*Name)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
 		return NULL;
@@ -410,7 +410,7 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if(!checkHaveDocument())
 		return NULL;
-	if (Name == "")
+	if (!*Name)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create layer without a name.","python error"));
 		return NULL;

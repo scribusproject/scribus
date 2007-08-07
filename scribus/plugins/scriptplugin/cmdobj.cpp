@@ -30,7 +30,7 @@ PyObject *scribus_newrect(PyObject* /* self */, PyObject* args)
 								ScMW->doc->toolSettings.dWidth,
 								ScMW->doc->toolSettings.dBrush, ScMW->doc->toolSettings.dPen, true);
 	ScMW->doc->setRedrawBounding(ScMW->doc->Items->at(i));
-	if (Name != "")
+	if (*Name)
 		ScMW->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScMW->doc->Items->at(i)->itemName().utf8());
 }
@@ -59,7 +59,7 @@ PyObject *scribus_newellipse(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	ScMW->doc->setRedrawBounding(ScMW->doc->Items->at(i));
-	if (Name != "")
+	if (*Name)
 		ScMW->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScMW->doc->Items->at(i)->itemName().utf8());
 }
@@ -86,7 +86,7 @@ PyObject *scribus_newimage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	ScMW->doc->setRedrawBounding(ScMW->doc->Items->at(i));
-	if (Name != "")
+	if (*Name)
 		ScMW->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScMW->doc->Items->at(i)->itemName().utf8());
 }
@@ -113,7 +113,7 @@ PyObject *scribus_newtext(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	ScMW->doc->setRedrawBounding(ScMW->doc->Items->at(i));
-	if (Name != "")
+	if (*Name)
 		ScMW->doc->Items->at(i)->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(ScMW->doc->Items->at(i)->itemName().utf8());
 }
@@ -151,7 +151,7 @@ PyObject *scribus_newline(PyObject* /* self */, PyObject* args)
 	it->updateClip();
 	ScMW->doc->setRedrawBounding(it);
 	it->OwnPage = ScMW->doc->OnPage(it);
-	if (Name != "")
+	if (*Name)
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
 }
@@ -224,7 +224,7 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	}
 	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScMW->view->AdjustItemSize(it);
-	if (Name != "")
+	if (*Name)
 	{
 		it->setItemName(QString::fromUtf8(Name));
 	}
@@ -304,7 +304,7 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	}
 	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScMW->view->AdjustItemSize(it);
-	if (Name != "")
+	if (*Name)
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
 }
@@ -391,7 +391,7 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	}
 	ScMW->view->SizeItem(it->PoLine.WidthHeight().x(), it->PoLine.WidthHeight().y(), ic, false, false, false);
 	ScMW->view->AdjustItemSize(it);
-	if (Name != "")
+	if (*Name)
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
 }
@@ -429,7 +429,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	PageItem *it = ScMW->doc->Items->at(i);
 	ScMW->view->ToPathText();
 	ScMW->view->MoveItem(pageUnitXToDocX(x) - it->xPos(), pageUnitYToDocY(y) - it->yPos(), it);
-	if (Name != "")
+	if (*Name)
 		it->setItemName(QString::fromUtf8(Name));
 	return PyString_FromString(it->itemName().utf8());
 }
@@ -532,7 +532,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 			return NULL;
 		}
 		// for current item only
-		if (ScMW->doc->m_Selection->count() == 0 || name != "")
+		if (ScMW->doc->m_Selection->count() == 0 || *name)
 		{
 			// quick hack to always apply on the right frame - pv
 			ScMW->view->Deselect(true);

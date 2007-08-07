@@ -147,7 +147,7 @@ PyObject *scribus_delcolor(PyObject* /* self */, PyObject* args)
 	char *Repl = const_cast<char*>(CommonStrings::None.latin1());
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &Name, "utf-8", &Repl))
 		return NULL;
-	if (Name == "")
+	if (!*Name)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot delete a color with an empty name.","python error"));
 		return NULL;
