@@ -122,7 +122,7 @@ ScPainterEx_GDI::~ScPainterEx_GDI()
 
 void ScPainterEx_GDI::loadMsImg32( void )
 {
-	m_hMsImg32 = LoadLibrary( "msimg32.dll" );
+	m_hMsImg32 = LoadLibraryW( L"msimg32.dll" );
 	if( m_hMsImg32 )
 		m_gradientFill = (gradientFillFunc) GetProcAddress( m_hMsImg32, "GradientFill" );
 }
