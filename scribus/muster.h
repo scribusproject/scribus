@@ -27,6 +27,7 @@ public:
 	MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc, ScribusView *pCurrentView, QString masterPageName);
 	~MasterPagesPalette() {};
 	void closeEvent(QCloseEvent *closeEvent);
+	void updateMasterPageList(void);
 	void updateMasterPageList(QString MasterPageName);
 
 public slots:
