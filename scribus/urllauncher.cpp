@@ -50,9 +50,6 @@ void UrlLauncher::launchUrlExt(const QString& link, QWidget *parent)
 
 void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
 {
-// #if defined(_WIN32) || defined(QT_OS_MAC)
-// 	QDesktopServices::openUrl(link);
-// #else
 	if (link.scheme()=="http")
 	{
 		QWidget *p=parent;
@@ -79,5 +76,6 @@ void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
 				QMessageBox::critical(p, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences. Scribus will attempt to launch the system's default browser.").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok, QMessageBox::NoButton);
 		}
 	}
-// #endif
+	else
+		QDesktopServices::openUrl(link);
 }
