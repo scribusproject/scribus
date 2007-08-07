@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QDesktopServices>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
@@ -49,39 +50,34 @@ void UrlLauncher::launchUrlExt(const QString& link, QWidget *parent)
 
 void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
 {
-#if defined(_WIN32)
+// #if defined(_WIN32) || defined(QT_OS_MAC)
+// 	QDesktopServices::openUrl(link);
+// #else
 	if (link.scheme()=="http")
 	{
-		QString url(link.authority());
-		ShellExecuteW( winId(), 0, (LPCWSTR)url.utf16(), 0, 0, SW_SHOWNORMAL );
-		return;
-	}
-#endif
-#if !defined(QT_OS_MAC) && !defined(_WIN32)
-	QWidget *p=parent;
-	if (p==0)
-		p=ScCore->primaryMainWindow();
-	if (link.scheme()=="http")
-	{
+		QWidget *p=parent;
+		if (p==0)
+			p=ScCore->primaryMainWindow();
 		QString extBrowser(PrefsManager::instance()->extBrowserExecutable());
 		QFileInfo fi(extBrowser);
-
-		
 		if (extBrowser.isEmpty() || !fi.exists())
 		{
-			extBrowser = QFileDialog::getOpenFileName(QString::null, QString::null, p, "changeExtBrowser", tr("Locate your web browser"));
-			if (!QFileInfo(extBrowser).exists())
-				extBrowser="";
-			PrefsManager::instance()->setExtBrowserExecutable(extBrowser);
-		}		
+			if (!QDesktopServices::openUrl(link))
+			{
+				extBrowser = QFileDialog::getOpenFileName(QString::null, QString::null, p, "changeExtBrowser", tr("Locate your web browser"));
+				if (!QFileInfo(extBrowser).exists())
+					extBrowser="";
+				PrefsManager::instance()->setExtBrowserExecutable(extBrowser);
+			}
+		}
 		if (!extBrowser.isEmpty())
 		{
 			QStringList args;
 			args << link;
 			QProcess webProc;
 			if (!webProc.startDetached(extBrowser, args))
-				QMessageBox::critical(p, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok, QMessageBox::NoButton);
+				QMessageBox::critical(p, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences. Scribus will attempt to launch the system's default browser.").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok, QMessageBox::NoButton);
 		}
 	}
-#endif
+// #endif
 }
