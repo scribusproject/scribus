@@ -22,29 +22,17 @@ copyright            : Scribus Team
 #ifndef PAGEITEM_LATEXFRAME_H
 #define PAGEITEM_LATEXFRAME_H
 
-#include <qobject.h>
-#include <qwidget.h>
-
-
-#include <qstring.h>
-#include <qrect.h>
-#include <QTemporaryFile>
+#include <QObject>
+#include <QWidget>
+#include <QString>
 #include <QProcess>
 
 #include "scribusapi.h"
-#include "undoobject.h"
-#include "scimage.h"
-#include "pagestructs.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
-#include "filewatcher.h"
-// class ScPainter;
-// class ScribusDoc;
-// class UndoManager;
-// class UndoState;
-// struct CopyPasteBuffer;
 
-
+class FileWatcher;
+class QTemporaryFile;
 
 class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 {
@@ -52,24 +40,21 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 
 	public:
 		PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
-		PageItem_LatexFrame(const PageItem & p) : PageItem_ImageFrame(p) {}
+		/*PageItem_LatexFrame(const PageItem & p) : PageItem_ImageFrame(p) { }*/
 		~PageItem_LatexFrame();
 
-		/* Not sure about this casts */
-		//virtual PageItem_ImageFrame * asImageFrame() { return this; }
 		virtual PageItem_LatexFrame * asLatexFrame() { return this; }
-		/* Keep handleModeEditKey from ImageFrame? */
-		// virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
 		virtual void clearContents();
 		
 		/* Called from UI callback 
 		UI-Handlers in other parts of the code should be as short as 
 		possible so this function will take most of the UI related code. */
 		void runEditor();
+		/*TODO*/
 		void convertToVector();
 		/* Sets the formula text and forces rerunning latex at the next update */
-		void setFormula(QString &formula);
-		QString getFormula() { return formula_text; }
+		void setFormula(QString formula, bool undoable=true);
+		QString getFormula() { return formulaText; }
 		/* Runs the external application and sets internal vars and loads
 		the image.*/
 		void runApplication();
@@ -78,23 +63,18 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		int getDpi();
 		void setDpi(int dpi) { /*TODO*/ }
 		
-		
-		//void changeApp(ExtAppConfig *app_config);
-		
-		
 		int getError() { return err; }
 		
 		void rerunApplication();
+		
+		void restore(UndoState *state, bool isUndo);
 		
 	protected:
 		/* DrawObj_Item is defined in ImageFrame and should be usable for
 		displaying images created by latex too in most cases */
 		virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);
 		
-		QString formula_text;
-		
-		/* Which application to run */
-		//ExtAppConfig application;
+		QString formulaText;
 		
 		void writeEditorFile();
 		void writeFileContents(QFile *tempfile);
@@ -110,7 +90,7 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		
 		QProcess *latex, *editor;
 		QTemporaryFile *tempfile;
-		FileWatcher *fileWatcher; //TODO: Use ScCore->fileWatcher?
+		FileWatcher *fileWatcher;
 		bool imgValid;
 	protected slots:
 		void updateImage(int exitCode, QProcess::ExitStatus exitStatus);

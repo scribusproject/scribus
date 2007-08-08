@@ -332,7 +332,7 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_K = true;
 	appPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extBrowserExecutable = "";
-	appPrefs.latexExecutable = "pdflatex";
+	appPrefs.latexExecutable = "pdflatex --interaction nonstopmode";
 	appPrefs.latexEditorExecutable = "";
 	appPrefs.latexExtension = ".pdf";
 	appPrefs.latexResolution = 72;
@@ -1929,7 +1929,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "0").toInt());
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
-			setLatexExecutable(dc.attribute("Latex", "pdflatex"));
+			setLatexExecutable(dc.attribute("Latex", "pdflatex --interaction nonstopmode"));
 			setLatexExtension(dc.attribute("LatexExtension", ".pdf"));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
 		}

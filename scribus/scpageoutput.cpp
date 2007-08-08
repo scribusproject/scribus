@@ -717,6 +717,7 @@ void ScPageOutput::DrawItem_Embedded( PageItem* item, ScPainterExBase *p, const 
 		switch(embedded->itemType())
 		{
 			case PageItem::ImageFrame:
+			case PageItem::LatexFrame:
 			case PageItem::TextFrame:
 			case PageItem::Polygon:
 			case PageItem::PathText:

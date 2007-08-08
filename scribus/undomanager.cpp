@@ -754,6 +754,7 @@ void UndoManager::languageChange()
 	UndoManager::SetFontEffect      = tr("Set font effect");
 	UndoManager::ImageFrame         = tr("Image frame");
 	UndoManager::TextFrame          = tr("Text frame");
+	UndoManager::LatexFrame         = tr("Latex frame");
 	UndoManager::Polygon            = tr("Polygon");
 	UndoManager::BezierCurve        = tr("Bezier curve");
 	UndoManager::Polyline           = tr("Polyline");
@@ -795,6 +796,7 @@ void UndoManager::languageChange()
 	UndoManager::DoNotPrintLayer    = tr("Disable printing of layer");
 	UndoManager::SetLayerName       = tr("Change name of the layer");
 	UndoManager::GetImage           = tr("Get image");
+	UndoManager::ChangeFormula      = tr("Change formula");
 	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
 	UndoManager::ApplyTextStyle     = tr("Apply text style");
 	UndoManager::MenuUndo           = tr("&Undo: %1", "f.e. Undo: Move");
@@ -821,6 +823,7 @@ void UndoManager::initIcons()
 /*** Icons for UndoObjects *******************************************/
 	UndoManager::IImageFrame      = new QPixmap(iconDir + "16/insert-image.png");
 	UndoManager::ITextFrame       = new QPixmap(iconDir + "16/insert-text-frame.png");
+	UndoManager::ILatexFrame      = new QPixmap(iconDir + "16/insert-latex.png");
 	UndoManager::ILine            = new QPixmap(iconDir + "Stift.xpm");
 	UndoManager::IPolygon         = new QPixmap(iconDir + "16/draw-polygon.png");
 	UndoManager::IPolyline        = new QPixmap(iconDir + "16/draw-bezier-curves.png");
@@ -940,6 +943,7 @@ QString UndoManager::AlignText          = "";
 QString UndoManager::SetFontEffect      = "";
 QString UndoManager::ImageFrame         = "";
 QString UndoManager::TextFrame          = "";
+QString UndoManager::LatexFrame         = "";
 QString UndoManager::Polygon            = "";
 QString UndoManager::BezierCurve        = "";
 QString UndoManager::Polyline           = "";
@@ -981,6 +985,7 @@ QString UndoManager::PrintLayer         = "";
 QString UndoManager::DoNotPrintLayer    = "";
 QString UndoManager::SetLayerName       = "";
 QString UndoManager::GetImage           = "";
+QString UndoManager::ChangeFormula      = "";
 QString UndoManager::MultipleDuplicate  = "";
 QString UndoManager::ApplyTextStyle     = "";
 QString UndoManager::MenuUndo           = "";
@@ -1002,6 +1007,7 @@ QString UndoManager::ToOutlines         = "";
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;
 QPixmap *UndoManager::ITextFrame       = 0;
+QPixmap *UndoManager::ILatexFrame      = 0;
 QPixmap *UndoManager::ILine            = 0;
 QPixmap *UndoManager::IPolygon         = 0;
 QPixmap *UndoManager::IPolyline        = 0;
@@ -1043,5 +1049,6 @@ QPixmap *UndoManager::IUp              = 0;
 QPixmap *UndoManager::IDown            = 0;
 QPixmap *UndoManager::IPrint           = 0;
 QPixmap *UndoManager::IGetImage        = 0;
+QPixmap *UndoManager::IChangeFormula   = 0;
 QPixmap *UndoManager::IMultipleDuplicate = 0;
 

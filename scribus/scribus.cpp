@@ -2783,7 +2783,7 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	scrActions["editPasteContents"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["editPasteContentsAbs"]->setEnabled(SelectedType==PageItem::ImageFrame);
 	scrActions["editEditWithImageEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
-	scrActions["editEditWithLatexEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem->asLatexFrame()); //TODO (Herm): Change check when latex frame has it's own itemType set
+	scrActions["editEditWithLatexEditor"]->setEnabled(SelectedType==PageItem::ImageFrame && currItem && currItem->asLatexFrame());
 	if (SelectedType!=PageItem::ImageFrame)
 	{
 		scrActions["itemImageIsVisible"]->setOn(false);

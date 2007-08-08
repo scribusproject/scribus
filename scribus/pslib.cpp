@@ -2191,6 +2191,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 		switch (c->itemType())
 		{
 		case PageItem::ImageFrame:
+		case PageItem::LatexFrame:
 			if (master)
 				break;
 			if ((c->fillColor() != CommonStrings::None) || (c->GrType != 0))

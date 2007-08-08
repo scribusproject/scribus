@@ -1972,7 +1972,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 					QString temp = it.text();
 					temp.replace("\\\\", "\\");
 					temp.replace("\\]", "]");
-					latexitem->setFormula(temp);
+					latexitem->setFormula(temp, false);
 				}
 				IT=IT.nextSibling();
 			}

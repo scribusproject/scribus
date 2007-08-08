@@ -185,8 +185,8 @@ void TabExternalToolsWidget::rescanForTools()
 		imageToolLineEdit->setText("gimp");
 	
 	if (!fileInPath(latexToolLineEdit->text())) {
-		latexToolLineEdit->setText("latexpng %dpi");
-		latexExtensionLineEdit->setText("1.png");
+		latexToolLineEdit->setText("pdflatex --interaction nonstopmode");
+		latexExtensionLineEdit->setText(".pdf");
 	}
 	
 	if (!fileInPath(latexEditorLineEdit->text())) {

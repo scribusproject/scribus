@@ -345,9 +345,15 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_PrintEnabled = true;
 	isBookmark = false;
 	m_isAnnotation = false;
+	
 	switch (m_ItemType)
 	{
 	case ImageFrame:
+	case LatexFrame:
+		//We can't determine if this is a latex frame here
+		// because c++'s typeinfos are still saying it's 
+		// a plain pageitem
+		// This is fixed in the PageItem_LatexFrame constructor
 		AnName = tr("Image");
 		setUPixmap(Um::IImageFrame);
 		break;
@@ -1229,6 +1235,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 		{
 			case ImageFrame:
 			case TextFrame:
+			case LatexFrame:
 			case Polygon:
 			case PathText:
 				embedded->DrawObj_Item(p, e, sc);
@@ -2499,7 +2506,11 @@ void PageItem::convertTo(ItemType newType)
 	switch (m_ItemType)
 	{
 		case ImageFrame:
-			fromType = Um::ImageFrame;
+			if (asLatexFrame()) {
+				fromType = Um::LatexFrame;
+			} else {
+				fromType = Um::ImageFrame;
+			}
 			break;
 		case TextFrame:
 			fromType = Um::TextFrame;
@@ -2516,6 +2527,10 @@ void PageItem::convertTo(ItemType newType)
 		case ImageFrame:
 			toType = Um::ImageFrame;
 			setUPixmap(Um::IImageFrame);
+			break;
+		case LatexFrame:
+			toType = Um::LatexFrame;
+			setUPixmap(Um::ILatexFrame);
 			break;
 		case TextFrame:
 			toType = Um::TextFrame;

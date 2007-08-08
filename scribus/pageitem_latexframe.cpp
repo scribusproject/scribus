@@ -22,40 +22,23 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "pageitem_latexframe.h"
-#include <qpainter.h>
-#include <qpen.h>
-#include <qfont.h>
-#include <qregion.h>
-#include <qpoint.h>
-#include <qfileinfo.h>
-#include <qdrawutil.h>
-#include <qbitmap.h>
-#include <qregexp.h>
-#include <qmessagebox.h>
-#include <qprocess.h>
-//Added by qt3to4:
-#include <QKeyEvent>
-#include <cmath>
-#include <cassert>
 
-#include "mpalette.h"
-#include "page.h"
-#include "pageitem.h"
+#include <QDebug>
+#include <QTemporaryFile>
+
 #include "prefsmanager.h"
-#include "scpaths.h"
 #include "scribus.h"
-#include "scribusstructs.h"
 #include "scribusdoc.h"
-#include "commonstrings.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "scconfig.h"
-
-#include "util.h"
+#include "filewatcher.h"
 
 PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 		: PageItem_ImageFrame(pa, x, y, w, h, w2, fill, outline)
 {
+	setUPixmap(Um::IImageFrame);
+	AnName = tr("Latex") + QString::number(m_Doc->TotalItems);
+	
 	imgValid = false;
 	err = 0;
 	
@@ -77,6 +60,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	fileWatcher->setTimeOut(1500);
 	
 	dpi = PrefsManager::instance()->latexResolution();
+	pixm.imgInfo.lowResType = 0;
 }
 
 PageItem_LatexFrame::~PageItem_LatexFrame()
@@ -110,7 +94,7 @@ PageItem_LatexFrame::~PageItem_LatexFrame()
 void PageItem_LatexFrame::clearContents()
 {
 	PageItem_ImageFrame::clearContents();
-	formula_text = "";
+	formulaText = "";
 	err = 0;
 	imgValid = false;
 }
@@ -192,7 +176,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 		offX   = LocalX   / pixm.imgInfo.xres;
 		offY   = LocalY   / pixm.imgInfo.yres;
 	}
-	PageItem_ImageFrame::loadImage(ImageFile, true);
+	PageItem_ImageFrame::loadImage(ImageFile, true, dpi);
 	if (PrefsManager::instance()->latexForceDpi()) 
 	{
 		pixm.imgInfo.xres = pixm.imgInfo.yres = dpi;
@@ -232,8 +216,8 @@ void PageItem_LatexFrame::runApplication()
 	static bool firstWarningTmpfile = true;
 	static bool firstWarningLatexMissing = true;
 	
-	//TODO: Make sure we start with an empty file!
-	//tempfile->remove();
+	//TODO: BUG Make sure we start with an empty file!
+	tempfile->close();
 	if (!tempfile->open()) {
 		err = 0xffff;
 		if (firstWarningTmpfile)
@@ -355,18 +339,56 @@ char demofile[] =
 "\\title{Scribus-Test-File}\n"
 "\\author{Hermann Kraus}\n"
 "\\pagestyle{empty}\n"
+"\\setlength{\\textwidth}{$scribus_realwidth$ pt}\n"
 "\\begin{document}\n"
-"\\section*{Scribus-Test}\n"
-"Das ist ein Test $E=mc^2$\n"
+"%--- Place your text below this line ---%\n"
+"\\section*{Manual}\n"
+"Your latex-frames setup is working when you can read this text!\\\\\n"
+"Placing formulas is very easy:\\\\\nRight click $\\Rightarrow$ Edit Latex Source\\\\\n"
+"And replace this text with your own. Here is an example:\n"
+"\\begin{verbatim}\\[J = \\int r^2 \\mathrm{d}m\\]\\end{verbatim}\n"
+"becomes\n"
+"\\[J = \\int r^2 \\mathrm{d}m\\]\n"
+"Some scribus values:\\\\\n"
+"\\$scribus\\_width\\$ $\\Rightarrow$ $scribus_width$ pt\\\\\n"
+"\\$scribus\\_height\\$ $\\Rightarrow$ $scribus_height$ pt\\\\\n"
+"\\$scribus\\_dpi\\$ $\\Rightarrow$ $scribus_dpi$ dpi\\\\\n"
+"%$scribus_width$ - $scribus_offsetX$ / $scribus_scaleX$\n"
+"%--- Don't remove the next line ---%\n"
 "\\end{document}\n";
 
 void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 {
-	if (formula_text.isEmpty()) {
-		formula_text = demofile;
+	if (formulaText.isEmpty()) {
+		formulaText = demofile;
 	}
-	qDebug() << "LATEX: Writing temporary file. size: " << formula_text.size();
-	tempfile->write(formula_text.toUtf8());
+	QString tmp(formulaText);
+	double scaleX, scaleY, realW, realH, offsetX, offsetY;
+	static bool firstrun = true;
+	if (firstrun) {
+		//TODO: I don't know why, but the values are wrong the first time
+		scaleX = scaleY = 1;
+		offsetX = offsetY = 0;
+		realW = Width;
+		realH = Height;
+	} else {
+		scaleX = LocalScX/72.0*dpi;
+		scaleY = LocalScY/72.0*dpi;
+		offsetX = LocalX*LocalScX;
+		offsetY = LocalY*LocalScY;
+		realW = Width/scaleX - LocalX*72.0/dpi;
+		realH = Height/scaleY - LocalY*72.0/dpi;
+	}
+	tmp.replace(QString("$scribus_width$"), QString::number(Width));
+	tmp.replace(QString("$scribus_height$"), QString::number(Height));
+	tmp.replace(QString("$scribus_realwidth$"), QString::number(realW));
+	tmp.replace(QString("$scribus_realheight$"), QString::number(realH));
+	tmp.replace(QString("$scribus_offsetX$"), QString::number(offsetX));
+	tmp.replace(QString("$scribus_offsetY$"), QString::number(offsetY));
+	tmp.replace(QString("$scribus_scaleX$"), QString::number(scaleX));
+	tmp.replace(QString("$scribus_scaleY$"), QString::number(scaleY));
+	tmp.replace(QString("$scribus_dpi$"), QString::number(dpi));
+	tempfile->write(tmp.toUtf8());
 	//TODO Does this work on windows or do I have to close the file first
 	if (!tempfile->flush()) {
 		qDebug() << "LATEX: Can't flush. Program will likely fail!";
@@ -376,7 +398,7 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 void PageItem_LatexFrame::writeEditorFile()
 {
 	fileWatcher->stop();
-	fileWatcher->disconnect(); //Avoid 
+	fileWatcher->disconnect(); //Avoid triggering false updates
 	//First create a temp file name
 	if (editorFile.isEmpty()) {
 		QTemporaryFile *editortempfile = new QTemporaryFile("scribus_editor_XXXXXX");
@@ -393,7 +415,7 @@ void PageItem_LatexFrame::writeEditorFile()
 	}
 	QFile f(editorFile);
 	f.open(QIODevice::WriteOnly);
-	writeFileContents(&f);
+	f.write(formulaText.toUtf8());
 	f.close();
 	fileWatcher->forceScan();
 	connect(fileWatcher, SIGNAL(fileChanged(QString)),
@@ -401,12 +423,20 @@ void PageItem_LatexFrame::writeEditorFile()
 	fileWatcher->start();
 }
 	
-void PageItem_LatexFrame::setFormula(QString &formula)
+void PageItem_LatexFrame::setFormula(QString formula, bool undoable)
 {
 	qDebug() << "LATEX: setFormula()";
 	imgValid = false;
 	err = 0;
-	formula_text = formula;
+	if (UndoManager::undoEnabled() && undoable)
+	{
+		SimpleState *ss = new SimpleState(Um::ChangeFormula, "", Um::IChangeFormula);
+		ss->set("CHANGE_FORMULA", "change_formula");
+		ss->set("OLD_FORMULA", formulaText);
+		ss->set("NEW_FORMULA", formula);
+		undoManager->action(this, ss);
+	}
+	formulaText = formula;
 	//Stop any running process to avoid overwriting the image again
 	//TODO: move this to a common place
 	if (latex->state() != QProcess::NotRunning) {
@@ -453,7 +483,6 @@ void PageItem_LatexFrame::editorFinished(int exitCode, QProcess::ExitStatus exit
 
 void PageItem_LatexFrame::editorFileChanged(QString filename)
 {
-	qDebug() << "LATEX: editorFileChanged()";
 	loadEditorFile();
 	rerunApplication();
 }
@@ -482,14 +511,31 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 }
 
 
-
 QString PageItem_LatexFrame::getApplication()
 {
 	return PrefsManager::instance()->latexExecutable();
 }
+
 
 int PageItem_LatexFrame::getDpi()
 {
 	return PrefsManager::instance()->latexResolution();
 }
 
+void PageItem_LatexFrame::restore(UndoState *state, bool isUndo)
+{
+	SimpleState *ss = dynamic_cast<SimpleState*>(state);
+	if (!ss) {
+		PageItem_ImageFrame::restore(state, isUndo);
+		return;
+	}
+	if (ss->contains("CHANGE_FORMULA")) {
+		if (isUndo) {
+			setFormula(ss->get("OLD_FORMULA"), false);
+		} else {
+			setFormula(ss->get("NEW_FORMULA"), false);
+		}
+	} else {
+		PageItem_ImageFrame::restore(state, isUndo);
+	}
+}

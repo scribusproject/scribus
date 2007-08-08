@@ -507,6 +507,7 @@ public:
 	static QString SetFontEffect;
 	static QString ImageFrame;
 	static QString TextFrame;
+	static QString LatexFrame;
 	static QString Polygon;
 	static QString BezierCurve;
 	static QString Polyline;
@@ -548,6 +549,7 @@ public:
 	static QString DoNotPrintLayer;
 	static QString SetLayerName;
 	static QString GetImage;
+	static QString ChangeFormula;
 	static QString MultipleDuplicate;
 	static QString ApplyTextStyle;
 	static QString MenuUndo;
@@ -573,6 +575,7 @@ public:
 /*** Icons for UndoObjects *******************************************/
 	static QPixmap *IImageFrame;
 	static QPixmap *ITextFrame;
+	static QPixmap *ILatexFrame;
 	static QPixmap *ILine;
 	static QPixmap *IPolygon;
 	static QPixmap *IPolyline;
@@ -614,6 +617,7 @@ public:
 	static QPixmap *IDown;
 	static QPixmap *IPrint;
 	static QPixmap *IGetImage;
+	static QPixmap *IChangeFormula;
 	static QPixmap *IMultipleDuplicate;
 	/*@}*/
 
