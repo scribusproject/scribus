@@ -940,9 +940,8 @@ void ScPainter::drawVPath( int mode )
 			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
 		if (fillMode == 1)
 		{
-			double r = qRed( m_fill.rgb() ) / 255.0;
-			double g = qGreen( m_fill.rgb() ) / 255.0;
-			double b = qBlue( m_fill.rgb() ) / 255.0;
+			double r, g, b;
+			m_fill.getRgbF(&r, &g, &b);
 			cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
 			cairo_fill_preserve( m_cr );
 		}
@@ -968,10 +967,9 @@ void ScPainter::drawVPath( int mode )
 				sneu = s * shad / 100;
 				vneu = 255 - ((255 - v) * shad / 100);
 				qStopColor.setHsv(h, sneu, vneu);
-				double r = qRed( qStopColor.rgb() ) / 255.0;
-				double g = qGreen( qStopColor.rgb() ) / 255.0;
-				double b = qBlue( qStopColor.rgb() ) / 255.0;
 				double a = colorStops[offset]->opacity;
+				double r, g, b;
+				qStopColor.getRgbF(&r, &g, &b);
 				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
 			}
 			cairo_set_source (m_cr, pat);
@@ -1045,9 +1043,8 @@ void ScPainter::drawVPath( int mode )
 		}
 		else
 			cairo_set_dash( m_cr, NULL, 0, 0 );
-		double r = qRed( m_stroke.rgb() ) / 255.0;
-		double g = qGreen( m_stroke.rgb() ) / 255.0;
-		double b = qBlue( m_stroke.rgb() ) / 255.0;
+		double r, g, b;
+		m_stroke.getRgbF(&r, &g, &b);
 		cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
 		if( PLineEnd == Qt::RoundCap )
 			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
