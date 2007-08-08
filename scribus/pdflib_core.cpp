@@ -2152,7 +2152,8 @@ void PDFLibCore::PDF_End_Page()
 	}
 	double maxBoxX = ActPageP->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = ActPageP->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
-	PutPage("Q\n");
+	// (JG) Fix #5977 and #6075 (invalid restore), one could also insert a PutPage("q\n") in PDF_Begin_Page()
+	//PutPage("Q\n");
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
 	{
 		PutPage("0.5 w 0 j 0 J [] 0 d\n");
