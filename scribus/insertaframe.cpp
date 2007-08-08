@@ -190,7 +190,7 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 
 void InsertAFrame::locateImageFile()
 {
-	QString formatD(FormatsManager::instance()->fileDialogFormatList(FormatsManager::ALLIMAGES));
+	QString formatD(FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME));
 	QString docDir = ".";
 	PrefsManager* prefsManager=PrefsManager::instance();
 	QString prefsDocDir(prefsManager->documentDir());

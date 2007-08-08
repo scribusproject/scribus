@@ -36,20 +36,21 @@ class SCRIBUS_API FormatsManager
 
 		enum ScImageFormatType
 		{
-			ALLIMAGES = 1|2|4|8|16|32|64|128|256|512|1024|2048|4096,
-			EPS		= 1,      // Encapsulated PostScript
-			GIF		= 2,      // GIF files
-			JPEG	= 4,      // JPEG
-			PAT		= 8,      // Pattern files
-			PDF		= 16,     // PDF Format
-			PNG		= 32,     // PNG files
-			PS		= 64,     // PostScript
-			PSD		= 128,    // Photoshop Format
-			TIFF	= 256,    // TIFF
-			XPM		= 512,    // XPM files
-			WMF		= 1024,   // WMF files
-			SVG		= 2048,   // WMF files
-			AI		= 4096,   // Adobe Illustrator files
+			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096,
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512,  // all Types suitable for Image Frames
+			EPS				= 1,      // Encapsulated PostScript
+			GIF				= 2,      // GIF files
+			JPEG			= 4,      // JPEG
+			PAT				= 8,      // Pattern files
+			PDF				= 16,     // PDF Format
+			PNG				= 32,     // PNG files
+			PS				= 64,     // PostScript
+			PSD				= 128,    // Photoshop Format
+			TIFF			= 256,    // TIFF
+			XPM				= 512,    // XPM files
+			WMF				= 1024,   // WMF files
+			SVG				= 2048,   // WMF files
+			AI				= 4096,   // Adobe Illustrator files
 		};
 
 		FormatsManager();
