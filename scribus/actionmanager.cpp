@@ -1439,7 +1439,7 @@ void ActionManager::languageChange()
 	(*scrActions)["helpOnlineWWW"]->setTexts( tr("Scribus Homepage"));
 	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Scribus Online Documentation"));
 	(*scrActions)["helpOnlineWiki"]->setTexts( tr("Scribus Wiki"));
-	(*scrActions)["helpOnlineTutorial1"]->setTexts( tr("Scribus Tutorial"));
+	(*scrActions)["helpOnlineTutorial1"]->setTexts( tr("Getting Started with Scribus"));
 
 	//GUI
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
