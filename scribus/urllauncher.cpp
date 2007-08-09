@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QMessageBox>
-#include <QProcess>
 #include <QString>
 #include <QStringList>
 
@@ -17,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribus.h"
 #include "scribuscore.h"
+#include "util.h"
 
 UrlLauncher* UrlLauncher::_instance = 0;
 
@@ -57,7 +57,7 @@ void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
 			p=ScCore->primaryMainWindow();
 		QString extBrowser(PrefsManager::instance()->extBrowserExecutable());
 		QFileInfo fi(extBrowser);
-		if (extBrowser.isEmpty() || !fi.exists())
+		if (extBrowser.isEmpty())
 		{
 			if (!QDesktopServices::openUrl(link))
 			{
@@ -71,9 +71,13 @@ void UrlLauncher::launchUrlExt(const QUrl& link, QWidget *parent)
 		{
 			QStringList args;
 			args << link;
-			QProcess webProc;
-			if (!webProc.startDetached(extBrowser, args))
-				QMessageBox::critical(p, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences. Scribus will attempt to launch the system's default browser.").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok, QMessageBox::NoButton);
+			int ret=System(extBrowser, args);
+			if (ret!=0)
+			{
+				QMessageBox::StandardButton sb=QMessageBox::critical(p, tr("External Web Browser Failed to Start"), tr("Scribus was not able to start the external web browser application %1. Please check the setting in Preferences.\nWould you like to start the system's default browser instead?").arg(PrefsManager::instance()->extBrowserExecutable()), QMessageBox::Ok|QMessageBox::Cancel, QMessageBox::Ok);
+				if (sb==QMessageBox::Ok)
+					QDesktopServices::openUrl(link);
+			}
 		}
 	}
 	else
