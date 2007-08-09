@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "actionmanager.h"
 #include "prefsmanager.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -2066,7 +2067,7 @@ void ActionManager::languageChangeActions()
 	//Here we mangle the URL based on the current GUI language, returning English if we dont get one of these hard coded options.
 	//CB TODO make more flexible one day.
 	QString language="EN";
-	QString langpref(PrefsManager::instance()->guiLanguage().left(2));
+	QString langpref(ScCore->getGuiLanguage().left(2));
 	if (langpref=="de" || langpref=="fr" || langpref=="po" || langpref=="pt" || langpref=="ru")
 		language=langpref.toUpper();
 	(*scrActions)["helpOnlineTutorial1"]->setActionQString("http://wiki.scribus.net/index.php/tutorial"+language);
