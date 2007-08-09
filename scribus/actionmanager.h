@@ -94,6 +94,7 @@ class SCRIBUS_API ActionManager : public QObject
 		static void initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList);
 		void initSpecialActions();
 		static void languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap);
+		void languageChangeActions();
 	
 		QPixmap noIcon;
 		ScribusMainWindow *mainWindow;

@@ -944,7 +944,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["helpOnlineDocs"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpOnlineWiki"], "Help");
 	scrMenuMgr->createMenu("HelpOnlineTutorials", QPixmap(noIcon), tr("Online &Tutorials"), "Help");
-	scrMenuMgr->addMenuItem(scrActions["helpOnlineTutorialEN"], "HelpOnlineTutorials");
+	scrMenuMgr->addMenuItem(scrActions["helpOnlineTutorial1"], "HelpOnlineTutorials");
 	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutPlugins"], "Help");

@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "actionmanager.h"
-
+#include "prefsmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -824,8 +824,8 @@ void ActionManager::initHelpMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, "http://docs.scribus.net"));
 	name="helpOnlineWiki";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, "http://wiki.scribus.net"));
-	name="helpOnlineTutorialEN";
-	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, "http://wiki.scribus.net/index.php/Get_Started_with_Scribus"));
+	name="helpOnlineTutorial1";
+	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, ""));
 
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
 	(*scrActions)["helpTooltips"]->setOn(true);
@@ -839,7 +839,7 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
-	connect( (*scrActions)["helpOnlineTutorialEN"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpOnlineTutorial1"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 }
 
 void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList)
@@ -1439,13 +1439,14 @@ void ActionManager::languageChange()
 	(*scrActions)["helpOnlineWWW"]->setTexts( tr("Scribus Homepage"));
 	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Scribus Online Documentation"));
 	(*scrActions)["helpOnlineWiki"]->setTexts( tr("Scribus Wiki"));
-	(*scrActions)["helpOnlineTutorialEN"]->setTexts( tr("English"));
+	(*scrActions)["helpOnlineTutorial1"]->setTexts( tr("Scribus Tutorial"));
 
 	//GUI
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
 	(*scrActions)["specialToggleAllGuides"]->setTexts( tr("Toggle Guides"));
 
 	languageChangeUnicodeActions(scrActions);
+	languageChangeActions();
 }
 
 void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap)
@@ -1743,7 +1744,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("helpOnlineWWW", QKeySequence());
 	defKeys.insert("helpOnlineDocs", QKeySequence());
 	defKeys.insert("helpOnlineWiki", QKeySequence());
-	defKeys.insert("helpOnlineTutorialEN", QKeySequence());
+	defKeys.insert("helpOnlineTutorial1", QKeySequence());
 
 	//GUI
 	defKeys.insert("specialToggleAllPalettes", Qt::Key_F10);
@@ -1952,7 +1953,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second  << "windowsCascade" << "windowsTile" << "toolsProperties" << "toolsOutline" << "toolsScrapbook" << "toolsLayers" << "toolsPages" << "toolsBookmarks" << "toolsMeasurements" << "toolsActionHistory" << "toolsPreflightVerifier" << "toolsAlignDistribute" << "toolsToolbarTools" << "toolsToolbarPDF";
 	//Help
 	++itmenu;
-	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual" << "helpOnlineWWW" << "helpOnlineDocs" << "helpOnlineWiki" << "helpOnlineTutorialEN";
+	itmenu->second << "helpAboutScribus" << "helpAboutPlugins" << "helpAboutQt" << "helpTooltips" << "helpManual" << "helpOnlineWWW" << "helpOnlineDocs" << "helpOnlineWiki" << "helpOnlineTutorial1";
 	//Other
 // 	++itmenu;
 // 	itmenu->second << "";
@@ -2058,4 +2059,15 @@ void ActionManager::createDefaultNonMenuActions()
 void ActionManager::handleMultipleSelections(bool isMultiple)
 {
 	(*scrActions)["itemAttributes"]->setEnabled(!isMultiple);
+}
+
+void ActionManager::languageChangeActions()
+{
+	//Here we mangle the URL based on the current GUI language, returning English if we dont get one of these hard coded options.
+	//CB TODO make more flexible one day.
+	QString language="EN";
+	QString langpref(PrefsManager::instance()->guiLanguage().left(2));
+	if (langpref=="de" || langpref=="fr" || langpref=="po" || langpref=="pt" || langpref=="ru")
+		language=langpref.toUpper();
+	(*scrActions)["helpOnlineTutorial1"]->setActionQString("http://wiki.scribus.net/index.php/tutorial"+language);
 }

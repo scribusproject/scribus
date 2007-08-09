@@ -147,7 +147,8 @@ public:
 	 */		
 	const int actionInt();	
 	const double actionDouble();	
-	const QString actionQString();	
+	const QString actionQString();
+	void setActionQString(const QString &);
 	
 	/*! \brief Set up text and menuText at the same time */
 	void setTexts(const QString &newText, bool setTextToo = true);

@@ -268,3 +268,8 @@ void ScrAction::toggle()
 	if (fakeToggle)
 		emit activated();
 }
+
+void ScrAction::setActionQString(const QString &s)
+{
+	_dataQString=s;
+}
