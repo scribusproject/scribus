@@ -1,25 +1,23 @@
 <qt>
-<title>Scribus Version 1.3.4 Readme</title>
-<h2>Scribus Version 1.3.4 Readme</h2>
+<title>Scribus Version 1.3.5 Readme</title>
+<h2>Scribus Version 1.3.5 Readme</h2>
 <h4>What's New ?</h4>
-<p>The Scribus 1.3.4 is the xxxxxx development release of the next generation for Scribus. While it is fairly stable, there are a number of under the hood changes which are on-going. </p>
-<h4>The file format has changed and is NOT backwardly compatible. You have been warned. We have specifically disabled the ability to open 1.3.x files in the stable 1.2.x versions. Our plans for a new file format should be settled in the 1.3.4 -1.3.5 development period.</h4>
+<p>The Scribus 1.3.5 is the fifth development release of the next generation for Scribus. This release is the first based on Qt4 and on first use some GUI elements have changed along with new features made possible with Qt. </p>
+<h4>The file format has changed and is NOT backwardly compatible. You have been warned. We have specifically disabled the ability to open 1.3.4+ files in the stable 1.3.3.x versions. Our plans for a new file format should be settled in the 1.3.6 -1.3.7 development period.</h4>
 <ol>
-<li>Windows users are <strong>strongly encouraged</strong> to install the latest  <a href="http://ghostscript.com">Ghostscript</a> <strong>before</strong> installing Scribus. This greatly simplifies setting up EPS importing. Ghostscript is a mature PostScript interpreter and is essential for EPS import into Scribus.</li>
+<li>Windows users are <strong>strongly encouraged</strong> to install the latest  <a href="http://ghostscript.com">Ghostscript</a> <strong>before</strong> installing Scribus. This greatly simplifies setting up EPS importing. Ghostscript is a mature PostScript interpreter and is essential for EPS import and print preview in Scribus.</li>
 <li>Because of the new enhanced menu/keyboard shortcuts code, 1.2.x  keyboard short cuts are not migrated and will be recreated once on the first launch 1.3.x. There are vastly more keyboard shortcuts and they can be exported to use on other machines if customized.</li>
-<li>On initial launch, 1.3.x will offer to convert preferences to the new 1.3.x format. This is recommended. Scribus 1.3.x will store its preferences separately from 1.2.x.</li>
-<li>You <strong>can</strong> install both versions in parallel and run them at the same time. The only caveat is to install them using different prefix/ directories e.g 1.2 in /usr/local and 1.3 in /opt or $home/bin. You can use the --prefix argument to configure to set where Scribus should be installed.</li>
+<li>On initial launch, 1.3.5 will offer to inherit preferences from any existing prior version, but store them separately, so you can run 1.3.3.x in parallel with 1.3.5. </li>
+<li>You <strong>can</strong> install both versions in parallel and run them at the same time. The only caveat is to install them using different prefix/ directories e.g 1.3.3.x in /usr/local and 1.3.5 in /opt or $home/bin. You can use the <code>-DCMAKE_INSTALL_PREFIX:PATH=</code> argument to configure to set where Scribus should be installed.</li>
 <li>Many of the new or revised GUI functions have extensive tool tips. To enable tool tips, make sure <strong>Help &#062; Tooltips </strong>is checked. </li>
 </ol>
-<h4>Scribus 1.3.x is based on the latest 1.2.x branch code, but also includes:</h4>
+<h4>New In Scribus 1.3.5</h4>
 <ul>
-<li>Undo with objects specific undo capabilities. The number of undo/redo steps can be set in the preferences. There is also a new palette which has the undo history with details of each action. </li>
+<li>Porting to Qt4 should provide vastly better performance under OSX. Scribus 1.3.5 will run on OSX 10.3.9+  </li>
 <li>Much more extensive support for CMYK images, including clipping paths in TIFF and JPEG files, as well as extensive support for native Photoshop &#174; PSD files. 16 bit CMYK TIFF and PSD support will follow soon. Use of CMYK images is recommended with color management properly setup and active for best on screen appearance. CMYK-JPEG is also supported. </li>
-<li>Completely revised document and application preferences. They are independently set of each other. New documents will inherit the current application preferences. Moreover 1.3.x preferences can exist side by side with 1.2.x preferences without issue.</li>
-<li>This documentation is mostly based on 1.2.x, but there are some updates for 1.3, notably concerning the preferences and printing.</li>
-<li>Scribus now has true facing pages and images and other objects can span them.</li>
-<li>Scribus now has "scratch space" which can be used to store objects partially or fully off the page.</li>
-<li>Scribus now has its own built-in pre-flight file verifier for printing or exporting PDF. The default settings are to ensure images and fonts are of sufficient quality to provide trouble-free printing or PDF export. You can choose to ignore them in settings, but they are carefully chosen to ensure a minimum of quality or avoid known limitations of PS3 or PDF versions.</li>
+<li>There is a new imposition tool which allows you to create booklets. This enables for example printing 2 pages of A5 on A4 paper.</li>
+<li>The other new major addtion is the new latex import capabilties. This is explained in detail in the online help.</li>
+
 
 </ul>
 <p>For detailed changes please see the ChangeLog and the Roadmap on <a href="http://wiki.scribus.net/">http://wiki.scribus.net/</a>.</p>
@@ -28,18 +26,11 @@
 <p>The EPS/PS import features in 1.3.x uses advanced features of Ghostscript. We recommend ALL users update to the newest version of Ghostscript available for your distribution. There are detailed hints on docs.scribus.net for installing GS 8.x in parallel to the GS installed by your distribution.</p>
 	
 <p>Activating Color Management <strong>requires</strong> installation of CMYK and RGB ICC profiles. Grey scale icc profiles in images are not supported in this release. Scribus comes with 2 icc profiles only to ensure color management works immediately. These profiles are not sufficient to provide correctly working color management. Please see the included help files and <a href="http://docs.scribus.net">http://docs.scribus.net</a> for details.</p>
-<p>If you have a 64-bit version of Qt, sometimes ./configure will not detect the 64-bit version headers. Try : <pre>./configure --enable-libsuffix=64</pre> to test for 64-bit versions of libraries.</p>
+<!--<p>If you have a 64-bit version of Qt, sometimes ./configure will not detect the 64-bit version headers. Try : <pre>./configure --enable-libsuffix=64</pre> to test for 64-bit versions of libraries.</p>-->
 <h4>Other notes/known issues at the time of release:</h4>
 	
 <p>There is a bug in font outline handling for some fonts in the freetype libraries. It's being worked on upstream. Don't file a bug report. Instead change the font used if you need the outlines. This is not a Scribus bug. Some testing has shown that this bug is not present in freetype 2.1.10+, but we counsel caution trying to upgrade freetype2. Upgrading freetype2 on some distributions can be quite difficult.</p>
-	
-<h4>Issue with gradients:</h4>
-	
-<p>If you have gradient (e.g. with black color) with 50% shade in both beginning and end of gradient, you end up with darker center than edges. One expects the gradient to have equal shading from beginning to end, especially if there is no other color-stops in-between them. This we believe is a libart issue and not fixable by us. The gradient will export and print properly. The optional cairo build is a compile time option. The is enabled by:</p>
-<pre>./configure --enable-cairo</pre>
 
-<p>Our Cairo build does not have these issues.  We encourage those willing to test the Cairo backend builds and report issues to the mailing list and/IRC. We *know* the Cairo enabled build is slower, but are encouraged by the on-going development by the Cairo team.
-</p>
 
 <h4>Font Issues</h4>
 <p>There are extensive notes and detailed on documentation on fonts and trouble shooting of font issues in the help documentation and online at http://docs.scribus.net.  Please read these carefully before filing bugs.</p>
@@ -49,18 +40,16 @@
 <h4>For Debian Users:	</h4>
 <p>If Scribus does not start while complaining about the absence of PostScript fonts please install either xfonts-scalable or gsfonts-x11.	They are in the "Recommends" and will be installed by all sensible apt front-ends.
 </p>	
-<h4>For Suse 9.x Users:</h4>
+<h4>For Suse 10.x Users:</h4>
 <ul>
-<li>The littlecms libs 1.10, which shipped with Suse 9.0 does not offer complete support for all the the latest CMS features in Scribus 1.2. There are updated Suse 9.x RPM's available on the Scribus.net site. We also recommend using the latest version of lcms.littlecms 1.1.4 is the current version.</li>
-<li>We recommend using the latest Qt-3.3.4 rpms from Suse.</li>
-<li>To enable direct CUPS support which we recommend, make sure both cups-devel and openssl-devel are installed. Suse enables ssl support in CUPS. See the BUILDING file.</li></ul>
-<p>Fedora/RH with Qt 3.3.2-6+ has the same fixes.</p>
+<li>There are both 32 and 64 bit packages in OpenSuse Build server. Within the same repo are several programs which are useful with Scribus including GSview and other graphics utilities.</li>
+<li>Should you compile your own from source, to enable direct CUPS support which we recommend, make sure both cups-devel and openssl-devel are installed. Suse enables ssl support in CUPS. See the BUILDING file.</li></ul>
 <p>There is a separate file, PACKAGING for detailed hints and notes on building packages for Scribus.</p>
 <p> More hints and other information are on the <a href="http://www.scribus.net">http://www.scribus.net</a> and <a href="http://docs.scribus.net">http://docs.scribus.net</a> sites. Full compile, install and FAQs are available there.</p>
 	
 <p>There is a lively on-line community, both on IRC @ #scribus on irc.freenode.net and the mailing list. Mailing list info can be found at: http://nashi.altmuehlnet.de/mailman/listinfo/scribus</p>
 <p>For the Scribus Team,</p>
 <p>Peter Linnell<br />
-in January 2007 <br />
+in August 2007 <br />
 </p>
 </qt>
