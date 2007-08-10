@@ -5,30 +5,16 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-
 #include "colorcombo.h"
-#include "colorlistbox.h"
-#include "commonstrings.h"
 #include "linecombo.h"
 #include "mpalette.h"
 #include "sccolorengine.h"
 #include "scribus.h"
-#include "scribusdoc.h"
-#include "scribusview.h"
 #include "scrspinbox.h"
 #include "selection.h"
 #include "smlinestyle.h"
-#include "util.h"
 #include "util_color.h"
 #include "util_icon.h"
-#include <Q3Header>
-#include <Q3ListBox>
-#include <Q3ListView>
-#include <QLayout>
-#include <QLineEdit>
-#include <QPixmap>
-#include <QPushButton>
-#include <QTabWidget>
 
 
 /*** LineStyleWidget *******************************************************/
@@ -40,11 +26,9 @@ LineStyleWidget::LineStyleWidget() : QWidget()
 	removeButton->setPixmap(loadIcon("pencilsub.png"));
 
 	dashCombo = new LineCombo(this);
-//qt4	lineLayout->addWidget(dashCombo, 0, 0);
 	gridLayout->addWidget(dashCombo, 0, 0);
 
 	lineWidth = new ScrSpinBox( 0, 300, this, 0 );
-//qt4	widthLayout->addWidget(lineWidth, 0, 1);
 	gridLayout1->addWidget(lineWidth, 0, 1);
 	
 	colorCombo = new ColorCombo(this);
@@ -92,10 +76,7 @@ void LineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList
 	ColorList::Iterator it;
 	ScribusDoc* doc = colorList.document();
 	for (it = colorList.begin(); it != colorList.end(); ++it)
-	{
 		colorCombo->insertWideItem(colorList[it.key()], doc, it.key());
-//Qt4		colorCombo->listBox()->insertItem(new ColorWidePixmapItem(colorList[it.key()], doc, it.key()));
-	}
 	colors = colorList;
 	updateLineList();
 	slotEditNewLine(subLine);

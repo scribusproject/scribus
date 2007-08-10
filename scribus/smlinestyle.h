@@ -12,9 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include "styleitem.h"
 #include "ui_smlinestylew.h"
 
-#include <QObject>
-#include <QColor>
-
 class ScribusDoc;
 class LineCombo;
 class ColorCombo;
