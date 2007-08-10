@@ -44,6 +44,7 @@ SET(SCRIBUS_UI_SRC
   smreplacedia.ui
   smpstylew.ui
   smcstylew.ui
+  smstyleimport.ui
   stylemanager.ui
   tabexternaltoolswidget.ui
   tabkeyboardshortcutswidget.ui

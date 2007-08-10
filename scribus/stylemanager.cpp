@@ -331,7 +331,7 @@ void StyleManager::slotImport()
 
 		Q_ASSERT(pstyle && cstyle && lstyle);
 
-		ImportDialog *dia2 = new ImportDialog(this, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
+		SMStyleImport *dia2 = new SMStyleImport(this, &tmpParaStyles, &tmpCharStyles, &tmpLineStyles);
 // end hack
 
 		QList<QPair<QString, QString> > selected;
@@ -341,75 +341,66 @@ void StyleManager::slotImport()
 				slotOk();
 			QStringList neededColors;
 			neededColors.clear();
-			QMap<Q3CheckListItem*, QString>::Iterator it;
-			for (it = dia2->storedStyles.begin(); it != dia2->storedStyles.end(); ++it)
+
+			foreach (QString aStyle, dia2->paragraphStyles())
 			{
-				ParagraphStyle& sty(tmpParaStyles[tmpParaStyles.find(it.data())]);
-				if (it.key()->isOn())
+				ParagraphStyle& sty(tmpParaStyles[tmpParaStyles.find(aStyle)]);
+				if (dia2->clashRename())
 				{
-					if (dia2->clashRename())
-					{
-						sty.setName(pstyle->getUniqueName(sty.name()));
+					sty.setName(pstyle->getUniqueName(sty.name()));
+					pstyle->tmpStyles()->create(sty);
+				}
+				else
+				{
+					if (pstyle->tmpStyles()->find(sty.name()) >= 0)
+						(*(pstyle->tmpStyles()))[pstyle->tmpStyles()->find(/*it.data()*/aStyle)] = sty;
+					else
 						pstyle->tmpStyles()->create(sty);
-					}
-					else
-					{
-						if (pstyle->tmpStyles()->find(sty.name()) >= 0)
-							(*(pstyle->tmpStyles()))[pstyle->tmpStyles()->find(it.data())] = sty;
-						else
-							pstyle->tmpStyles()->create(sty);
-					}
-					selected << QPair<QString, QString>(pstyle->typeName(), sty.name());
-					if ((!doc_->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
-						neededColors.append(sty.charStyle().strokeColor());
-					if ((!doc_->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
-						neededColors.append(sty.charStyle().fillColor());
 				}
+				selected << QPair<QString, QString>(pstyle->typeName(), sty.name());
+				if ((!doc_->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
+					neededColors.append(sty.charStyle().strokeColor());
+				if ((!doc_->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
+					neededColors.append(sty.charStyle().fillColor());
 			}
 
-			for (it = dia2->storedCharStyles.begin(); it != dia2->storedCharStyles.end(); ++it)
+			foreach (QString aStyle, dia2->characterStyles())
 			{
-				CharStyle& sty(tmpCharStyles[tmpCharStyles.find(it.data())]);
-				if (it.key()->isOn())
+				CharStyle& sty(tmpCharStyles[tmpCharStyles.find(/*it.data()*/aStyle)]);
+				if (dia2->clashRename())
 				{
-					if (dia2->clashRename())
-					{
-						sty.setName(cstyle->getUniqueName(sty.name()));
+					sty.setName(cstyle->getUniqueName(sty.name()));
+					cstyle->tmpStyles()->create(sty);
+				}
+				else
+				{
+					if (cstyle->tmpStyles()->find(sty.name()) >= 0)
+						(*(cstyle->tmpStyles()))[cstyle->tmpStyles()->find(/*it.data()*/aStyle)] = sty;
+					else
 						cstyle->tmpStyles()->create(sty);
-					}
-					else
-					{
-						if (cstyle->tmpStyles()->find(sty.name()) >= 0)
-							(*(cstyle->tmpStyles()))[cstyle->tmpStyles()->find(it.data())] = sty;
-						else
-							cstyle->tmpStyles()->create(sty);
-					}
-					selected << QPair<QString, QString>(cstyle->typeName(), sty.name());
-					if ((!doc_->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
-						neededColors.append(sty.strokeColor());
-					if ((!doc_->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
-						neededColors.append(sty.fillColor());
 				}
+				selected << QPair<QString, QString>(cstyle->typeName(), sty.name());
+				if ((!doc_->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
+					neededColors.append(sty.strokeColor());
+				if ((!doc_->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
+					neededColors.append(sty.fillColor());
 			}
 
-			for (it = dia2->storedLineStyles.begin(); it != dia2->storedLineStyles.end(); ++it)
+			foreach (QString aStyle, dia2->lineStyles())
 			{
-				multiLine &sty = tmpLineStyles[it.data()];
-				QString styName = it.data();
+				multiLine &sty = tmpLineStyles[/*it.data()*/aStyle];
+				QString styName = aStyle;
 
-				if (it.key()->isOn())
+				if (dia2->clashRename())
+					styName = lstyle->getUniqueName(aStyle);
+
+				lstyle->tmpLines[styName] = sty;
+				selected << QPair<QString, QString>(lstyle->typeName(), styName);
+
+				for (int i = 0; i < sty.count(); ++i)
 				{
-					if (dia2->clashRename())
-						styName = lstyle->getUniqueName(styName);
-
-					lstyle->tmpLines[styName] = sty;
-					selected << QPair<QString, QString>(lstyle->typeName(), styName);
-					
-					for (int i = 0; i < sty.count(); ++i)
-					{
-						if ((!doc_->PageColors.contains(sty[i].Color)) && (!neededColors.contains(sty[i].Color)))
-							neededColors.append(sty[i].Color);
-					}
+					if ((!doc_->PageColors.contains(sty[i].Color)) && (!neededColors.contains(sty[i].Color)))
+						neededColors.append(sty[i].Color);
 				}
 			}
 

@@ -8,52 +8,50 @@ for which a new license (GPL+exception) is in place.
 #define SMSTYLEIMPORT_H
 
 #include <QDialog>
-#include <QMap>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3HBoxLayout>
 
+#include "ui_smstyleimport.h"
 #include "scribusapi.h"
 #include "styles/styleset.h"
 #include "scribusstructs.h"
 
-class QWidget;
-class Q3ListView;
-class QPushButton;
-class Q3CheckListItem;
-class Q3VBoxLayout;
-class Q3HBoxLayout;
-class ParagraphStyle;
-class Q3ButtonGroup;
-class QRadioButton;
 
-class SCRIBUS_API ImportDialog : public QDialog
+/*! \brief Import styles from outer sla document.
+User can choose what to import and what to do with the style
+names here.
+*/
+class SCRIBUS_API SMStyleImport : public QDialog, public Ui::SMStyleImport
 {
 	Q_OBJECT
 
-public:
-	ImportDialog(QWidget* parent,
-	             StyleSet<ParagraphStyle> *pstyleList,
-	             StyleSet<CharStyle> *cstyleList,
-	             QMap<QString, multiLine> *lstyleList);
-	~ImportDialog() {};
+	public:
+		SMStyleImport(QWidget* parent,
+					StyleSet<ParagraphStyle> *pstyleList,
+					StyleSet<CharStyle> *cstyleList,
+					QMap<QString, multiLine> *lstyleList);
+		~SMStyleImport() {};
 
-	QMap<Q3CheckListItem*, QString> storedStyles;
-	QMap<Q3CheckListItem*, QString> storedCharStyles;
-	QMap<Q3CheckListItem*, QString> storedLineStyles;
+		//! \brief True if the rename feature is ON.
+		bool clashRename();
+		QStringList paragraphStyles();
+		QStringList characterStyles();
+		QStringList lineStyles();
 
-	bool clashRename();
+	protected:
+		//! \brief Root items in the styleWidget
+		QTreeWidgetItem * pstyleItem;
+		QTreeWidgetItem * cstyleItem;
+		QTreeWidgetItem * lstyleItem;
 
-protected:
-	Q3ListView* StyleView;
-	QPushButton* OkButton;
-	QPushButton* CancelButton;
+		/*! \brief Following constants are used as flags for searching.
+		Soemthing like: give me all character style related items from
+		the list. See commonStyles() for more info.
+		*/
+		static const int cType = QTreeWidgetItem::UserType;
+		static const int pType = QTreeWidgetItem::UserType + 1;
+		static const int lType = QTreeWidgetItem::UserType + 2;
 
-	Q3VBoxLayout  *ChooseStylesLayout;
-	Q3HBoxLayout  *layout2;
-	Q3ButtonGroup *clashBox;
-	QRadioButton *renameButton;
-	QRadioButton *replaceButton;
+		QStringList commonStyles(QTreeWidgetItem * rootItem, int type);
+
 };
 
 #endif // SMSTYLEIMPORT_H
