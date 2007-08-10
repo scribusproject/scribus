@@ -12,22 +12,22 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "smwidgets.h"
 
-#include <QGroupBox>
-#include <QLayout>
-#include <QToolButton>
-#include <QLabel>
-#include <QMenu>
-#include <QComboBox>
-#include <QSpinBox>
-#include <Q3Frame>
-#include <QPixmap>
-#include <QTabWidget>
-#include <QMap>
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <Q3VBoxLayout>
-#include <cmath>
-#include <QListView>
+// #include <QGroupBox>
+// #include <QLayout>
+// #include <QToolButton>
+// #include <QLabel>
+// #include <QMenu>
+// #include <QComboBox>
+// #include <QSpinBox>
+// #include <Q3Frame>
+// #include <QPixmap>
+// #include <QTabWidget>
+// #include <QMap>
+// #include <Q3HBoxLayout>
+// #include <Q3GridLayout>
+// #include <Q3VBoxLayout>
+// #include <cmath>
+// #include <QListView>
 
 static bool isEqual(double a, double b)
 {
@@ -46,7 +46,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : QWidget()
 	basicGroup->setColumnLayout(0, Qt::Vertical );
 	basicGroup->layout()->setSpacing( 0 );
 	basicGroup->layout()->setMargin( 0 );
-	basicBoxLayout = new Q3VBoxLayout(basicGroup->layout());	
+	basicBoxLayout = new QVBoxLayout(basicGroup->layout());
 	basicBoxLayout->setAlignment( Qt::AlignTop );
 	basicBoxLayout->setSpacing( 5 );
 	basicBoxLayout->setMargin( 10 );
@@ -54,7 +54,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : QWidget()
 	fontFace_ = new SMFontComboH(basicGroup);
 	basicBoxLayout->addWidget( fontFace_ );
 	
-	spinBoxLayoutBasic_ = new Q3GridLayout(1, 9);
+	spinBoxLayoutBasic_ = new QGridLayout(1, 9);
 	fontSize_ = new SMScrSpinBox( 1, 2048, basicGroup, 1 );
 	fontSize_->setMinimumSize( QSize( 70, 22 ) );
 	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
@@ -76,7 +76,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : QWidget()
 //qt4  	spinBoxLayoutBasic_->addItem( spacer4 );
 	basicBoxLayout->addLayout( spinBoxLayoutBasic_ );
 	
-	layout8 = new Q3HBoxLayout( 0, 0, 0, "layout8");
+	layout8 = new QHBoxLayout( 0, 0, 0, "layout8");
 	effects_ = new SMStyleSelect(basicGroup);
 	layout8->addWidget(effects_);
 	spacer2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -87,12 +87,12 @@ SMCStylePage::SMCStylePage(QWidget *parent) : QWidget()
 	advGroup->setColumnLayout(0, Qt::Vertical );
 	advGroup->layout()->setSpacing( 0 );
 	advGroup->layout()->setMargin( 0 );
-	advBoxLayout = new Q3VBoxLayout(advGroup->layout());	
+	advBoxLayout = new QVBoxLayout(advGroup->layout());
 	advBoxLayout->setAlignment( Qt::AlignTop );
 	advBoxLayout->setSpacing( 5 );
 	advBoxLayout->setMargin( 10 );
 	
-	spinBoxLayout_ = new Q3GridLayout(1, 9);
+	spinBoxLayout_ = new QGridLayout(1, 9);
 
 	baselineOffsetLabel_ = new QLabel( advGroup, "pixmapLabel2" );
 	baselineOffsetLabel_->setMinimumSize( QSize( 22, 22 ) );
@@ -131,7 +131,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : QWidget()
 
 	advBoxLayout->addLayout( spinBoxLayout_, Qt::AlignLeft );
 	
-	layout9a = new Q3HBoxLayout( 0, 0, 0, "layout9");
+	layout9a = new QHBoxLayout( 0, 0, 0, "layout9");
 	languageLabel_ = new QLabel( "", advGroup, "languageLabel_" );
 	language_ = new SMScComboBox(false, advGroup, "language_");
 	layout9a->addWidget(languageLabel_);
@@ -147,12 +147,12 @@ SMCStylePage::SMCStylePage(QWidget *parent) : QWidget()
 	smColorGroup->setColumnLayout(0, Qt::Vertical );
 	smColorGroup->layout()->setSpacing( 0 );
 	smColorGroup->layout()->setMargin( 0 );
-	colorBoxLayout = new Q3VBoxLayout(smColorGroup->layout());	
+	colorBoxLayout = new QVBoxLayout(smColorGroup->layout());
 	colorBoxLayout->setAlignment( Qt::AlignTop );
 	colorBoxLayout->setSpacing( 5 );
 	colorBoxLayout->setMargin( 10 );
 	
-	layout5 = new Q3HBoxLayout( 0, 0, 5, "layout5");
+	layout5 = new QHBoxLayout( 0, 0, 5, "layout5");
 	FillIcon = new QLabel( "", smColorGroup, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
 	layout5->addWidget( FillIcon );
@@ -172,7 +172,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : QWidget()
 	layout5->addItem( spacer3 );
 	colorBoxLayout->addLayout( layout5 );
 
-	layout6 = new Q3HBoxLayout( 0, 0, 5, "layout6");
+	layout6 = new QHBoxLayout( 0, 0, 5, "layout6");
 	StrokeIcon = new QLabel( "", smColorGroup, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
 	layout6->addWidget( StrokeIcon );
@@ -694,7 +694,7 @@ void SMPStyleWidget::setupDistances()
 //qt4	distancesBox->setColumnLayout(0, Qt::Vertical );
 	distancesBox->layout()->setSpacing( 0 );
 	distancesBox->layout()->setMargin( 0 );
-	distancesBoxLayout = new Q3GridLayout( distancesBox->layout() );
+	distancesBoxLayout = new QGridLayout( distancesBox->layout() );
 	distancesBoxLayout->setAlignment( Qt::AlignTop );
 	distancesBoxLayout->setSpacing( 5 );
 	distancesBoxLayout->setMargin( 10 );
@@ -800,7 +800,7 @@ void SMPStyleWidget::setupDropCaps()
 	dropCapsBox->layout()->setSpacing( 5 );
 	dropCapsBox->layout()->setMargin( 10 );
 
-	dropCapsBoxLayout = new Q3GridLayout(dropCapsBox->layout());
+	dropCapsBoxLayout = new QGridLayout(dropCapsBox->layout());
 	dropCapsBoxLayout->setAlignment(Qt::AlignTop);
 
 	dropCapLines_ = new SMSpinBox(dropCapsBox, "DropLines");
@@ -823,7 +823,7 @@ void SMPStyleWidget::setupTabs()
 	tabsBox->layout()->setSpacing( 0 );
 	tabsBox->layout()->setMargin( 0 );
 
-	tabsBoxLayout = new Q3VBoxLayout(tabsBox->layout());
+	tabsBoxLayout = new QVBoxLayout(tabsBox->layout());
 	tabsBoxLayout->setAlignment( Qt::AlignTop );
 	tabsBoxLayout->setSpacing( 5 );
 	tabsBoxLayout->setMargin( 10 );
@@ -834,7 +834,7 @@ void SMPStyleWidget::setupTabs()
 
 void SMPStyleWidget::setupCharStyle()
 {
-	Q3HBoxLayout *la = new Q3HBoxLayout(characterBox, 0, 0, "la");
+	QHBoxLayout *la = new QHBoxLayout(characterBox, 0, 0, "la");
 	cpage = new SMCStylePage(characterBox);
 	la->addWidget(cpage);
 	characterBox->setEnabled(true);

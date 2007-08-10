@@ -10,38 +10,21 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_smpstylew.h"
 #include "ui_smcstylew.h"
-//qt4 #include "smpstylewbase.h"
-//qt4#include "smcstylewbase.h"
-#include "styles/styleset.h"
-//Added by qt3to4:
-#include <Q3HBoxLayout>
-#include <Q3GridLayout>
-#include <QLabel>
-#include <QMenu>
-#include <Q3VBoxLayout>
 
-class Q3GridLayout;
-class QToolButton;
-class SMScrSpinBox;
-class QLabel;
-class QTabWidget;
-class QString;
-class QComboBox;
-class SMAlignSelect;
-class SMSpinBox;
-class Q3VBoxLayout;
-class SMTabruler;
-class SMFontComboH;
-class StyleSelect;
-class QSpacerItem;
-class SMScComboBox;
-class SMShadeButton;
+#include "styles/styleset.h"
+
 class CharStyle;
-class ParagraphStyle;
-//qt4class SMCStylePage;
-class ColorList;
-class SMColorCombo;
+class SMFontComboH;
 class SMStyleSelect;
+class SMColorCombo;
+class SMShadeButton;
+class SMScComboBox;
+class SMScrSpinBox;
+class SMSpinBox;
+class SMAlignSelect;
+class SMTabruler;
+class ParagraphStyle;
+
 
 class SMCStylePage : public QWidget, public Ui::CStyleP
 {
@@ -58,15 +41,15 @@ public:
 	void clearAll();
 
 private:
-	Q3VBoxLayout *basicBoxLayout;
-	Q3VBoxLayout *advBoxLayout;
-	Q3VBoxLayout *colorBoxLayout;
-	Q3HBoxLayout *layout8;
-	Q3HBoxLayout *layout9a;
-	Q3HBoxLayout *layout5;
-	Q3HBoxLayout *layout6;
-	Q3GridLayout *spinBoxLayout_;
-	Q3GridLayout *spinBoxLayoutBasic_;
+	QVBoxLayout *basicBoxLayout;
+	QVBoxLayout *advBoxLayout;
+	QVBoxLayout *colorBoxLayout;
+	QHBoxLayout *layout8;
+	QHBoxLayout *layout9a;
+	QHBoxLayout *layout5;
+	QHBoxLayout *layout6;
+	QGridLayout *spinBoxLayout_;
+	QGridLayout *spinBoxLayoutBasic_;
 
 	SMFontComboH  *fontFace_;
 	SMStyleSelect *effects_;
@@ -131,9 +114,9 @@ public:
 	void unitChange(double oldRatio, double newRatio, int unitIndex);
 
 private:
-	Q3GridLayout *distancesBoxLayout;
-	Q3GridLayout *dropCapsBoxLayout;
-	Q3VBoxLayout *tabsBoxLayout;
+	QGridLayout *distancesBoxLayout;
+	QGridLayout *dropCapsBoxLayout;
+	QVBoxLayout *tabsBoxLayout;
 
 	SMScComboBox *lineSpacingMode_;
 
