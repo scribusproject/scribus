@@ -4145,8 +4145,7 @@ void Mpalette::handleOverprint()
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->doOverprint = Overprint->isChecked();
-		m_ScMW->view->RefreshItem(CurItem);
+		doc->itemSelection_SetOverprint(Overprint->isChecked());
 		emit DocChanged();
 	}
 }

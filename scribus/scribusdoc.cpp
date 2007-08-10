@@ -6624,6 +6624,25 @@ void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection
 	changed();
 }
 
+void ScribusDoc::itemSelection_SetOverprint(bool overprint, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	assert(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	for (uint i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem* currItem = itemSelection->itemAt(i);
+		currItem->setOverprint(overprint);
+		if (selectedItemCount==1)
+			emit refreshItem(currItem);
+	}
+	if (selectedItemCount>1)
+		emit updateContents();
+	changed();
+}
+
 void ScribusDoc::itemSelection_DoHyphenate()
 {
 	uint selectedItemCount=m_Selection->count();

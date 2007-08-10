@@ -1064,6 +1064,7 @@ public slots:
 	void itemSelection_SetItemLineBlend(int t);
 	void itemSelection_SetLineGradient(VGradient& newGradient, Selection* customSelection=0);
 	void itemSelection_SetFillGradient(VGradient& newGradient, Selection* customSelection=0);
+	void itemSelection_SetOverprint(bool overprint, Selection* customSelection=0);
 	void itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection=0);
 	void itemSelection_FlipH();
 	void itemSelection_FlipV();
