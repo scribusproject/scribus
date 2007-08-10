@@ -10,17 +10,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_smreplacedia.h"
 #include "styleitem.h"
-#include <QList>
-#include <QLabel>
-#include <Q3HBoxLayout>
-#include <Q3VBoxLayout>
 
-class QString;
-class QStringList;
 class QLabel;
 class QComboBox;
-class Q3HBoxLayout;
 
+
+/*! \brief Style Manager: replace one style with another one.
+A "current--new row" widget.
+*/
 class SMRowWidget : public QWidget
 {
 	Q_OBJECT
@@ -32,12 +29,16 @@ public:
 	QString replaceWith();
 
 private:
-	Q3HBoxLayout *layout;
+	QHBoxLayout *layout;
 	QLabel      *deleteLabel;
 	QComboBox   *optionsCombo;
 };
 
-class SMReplaceDia : public QDialog, Ui::SMReplaceDia {
+
+/*! \brief Style Manager replace dialog
+*/
+class SMReplaceDia : public QDialog, Ui::SMReplaceDia
+{
 	Q_OBJECT
 public:
 	SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions, QWidget *parent);
@@ -46,8 +47,8 @@ public:
 	QList<RemoveItem> items();
 
 private:
-	Q3VBoxLayout *layout;
-	Q3HBoxLayout *headerLayout;
+	QVBoxLayout *layout;
+	QHBoxLayout *headerLayout;
 	QLabel      *deleteHeader;
 	QLabel      *optionsHeader;
 	QList<SMRowWidget*>  rowWidgets;

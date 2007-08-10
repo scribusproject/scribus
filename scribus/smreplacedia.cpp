@@ -7,19 +7,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "smreplacedia.h"
 
-#include <QString>
-#include <QStringList>
 #include <QLabel>
 #include <QComboBox>
-#include <QLayout>
-//Added by qt3to4:
-#include <Q3VBoxLayout>
-#include <Q3HBoxLayout>
+
 
 SMRowWidget::SMRowWidget(const QString &toBeDeleted, QStringList replaceOptions, QWidget *parent)
 : QWidget(parent, "SMRowWidget")
 {
-	layout = new Q3HBoxLayout(this, 0, 5, "layout");
+	layout = new QHBoxLayout(this, 0, 5, "layout");
 	deleteLabel = new QLabel(toBeDeleted, this, "deleteLabel");
 	layout->addWidget(deleteLabel);
 	optionsCombo = new QComboBox(this, "optionsCombo");
@@ -61,8 +56,8 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 			options << replaceOptions[i];
 	}
 
-	layout = new Q3VBoxLayout(mainFrame, 0, 5, "layout");
-	headerLayout = new Q3HBoxLayout(layout, 5, "headerLayout");
+	layout = new QVBoxLayout(mainFrame, 0, 5, "layout");
+	headerLayout = new QHBoxLayout(layout, 5, "headerLayout");
 	deleteHeader = new QLabel("<b>" + tr("Remove") + "</b>", mainFrame);
 	optionsHeader = new QLabel("<b>" + tr("Replace with") + "</b>", mainFrame);
 	headerLayout->addWidget(deleteHeader);
