@@ -50,6 +50,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 	private:
 		void registerFormats();
 		//Scribus Doc vars, not plugin vars
+		void GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB, const QString& baseDir, bool newVersion);
 		void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj, LastStyles* last);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);

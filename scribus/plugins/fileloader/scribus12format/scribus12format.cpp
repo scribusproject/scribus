@@ -471,7 +471,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 							}
 						}
 					}
-					GetItemProps(newVersion, &obj, &OB, fileDir);
+					GetItemProps(&obj, &OB, fileDir, newVersion);
 					OB.Xpos = obj.attribute("XPOS").toDouble()+m_Doc->Pages->at(a)->xOffset();
 					OB.Ypos=obj.attribute("YPOS").toDouble()+m_Doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");
@@ -748,6 +748,272 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 bool Scribus12Format::saveFile(const QString & /* fileName */, const FileFormat & /* fmt */)
 {
 	return false;
+}
+
+void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB, const QString& baseDir, bool newVersion)
+{
+	QString tmp;
+	int x, y;
+	double xf, yf, xf2;
+	OB->PType = static_cast<PageItem::ItemType>(obj->attribute("PTYPE").toInt());
+	OB->Width=obj->attribute("WIDTH").toDouble();
+	OB->Height=obj->attribute("HEIGHT").toDouble();
+	OB->RadRect = obj->attribute("RADRECT", "0").toDouble();
+	OB->ClipEdited = obj->attribute("CLIPEDIT", "0").toInt();
+	OB->FrameType = obj->attribute("FRTYPE", "0").toInt();
+	OB->Pwidth=obj->attribute("PWIDTH").toDouble();
+	OB->Pcolor = obj->attribute("PCOLOR");
+	if ((!newVersion) && (OB->PType == 4))
+	{
+		OB->TxtFill = obj->attribute("PCOLOR2");
+		OB->Pcolor2 = CommonStrings::None;
+	}
+	else
+	{
+		OB->Pcolor2 = obj->attribute("PCOLOR2");
+		OB->TxtFill = obj->attribute("TXTFILL", "Black");
+	}
+	OB->Shade = obj->attribute("SHADE").toInt();
+	OB->Shade2 = obj->attribute("SHADE2").toInt();
+	OB->FillRule = obj->attribute("fillRule", "1").toInt();
+	OB->TxtStroke=obj->attribute("TXTSTROKE", CommonStrings::None);
+	OB->ShTxtFill=obj->attribute("TXTFILLSH", "100").toInt();
+	OB->ShTxtStroke=obj->attribute("TXTSTRSH", "100").toInt();
+	OB->TxtScale=qRound(obj->attribute("TXTSCALE", "100").toDouble() * 10);
+	OB->TxtScaleV=qRound(obj->attribute("TXTSCALEV", "100").toDouble() * 10);
+	OB->TxTBase=qRound(obj->attribute("TXTBASE", "0").toDouble() * 10);
+	OB->TxTStyle=obj->attribute("TXTSTYLE", "0").toInt();
+	OB->TxtShadowX=qRound(obj->attribute("TXTSHX", "5").toDouble() * 10);
+	OB->TxtShadowY=qRound(obj->attribute("TXTSHY", "-5").toDouble() * 10);
+	OB->TxtOutline=qRound(obj->attribute("TXTOUT", "1").toDouble() * 10);
+	OB->TxtUnderPos=qRound(obj->attribute("TXTULP", "-0.1").toDouble() * 10);
+	OB->TxtUnderWidth=qRound(obj->attribute("TXTULW", "-0.1").toDouble() * 10);
+	OB->TxtStrikePos=qRound(obj->attribute("TXTSTP", "-0.1").toDouble() * 10);
+	OB->TxtStrikeWidth=qRound(obj->attribute("TXTSTW", "-0.1").toDouble() * 10);
+	OB->Cols = obj->attribute("COLUMNS", "1").toInt();
+	OB->ColGap = obj->attribute("COLGAP", "0.0").toDouble();
+	OB->GrType = obj->attribute("GRTYP", "0").toInt();
+	OB->fill_gradient.clearStops();
+	if (OB->GrType != 0)
+	{
+		if (OB->GrType == 8)
+		{
+			OB->pattern = obj->attribute("pattern", "");
+			OB->patternScaleX = obj->attribute("pScaleX", "100.0").toDouble();
+			OB->patternScaleY = obj->attribute("pScaleY", "100.0").toDouble();
+			OB->patternOffsetX = obj->attribute("pOffsetX", "0.0").toDouble();
+			OB->patternOffsetY = obj->attribute("pOffsetY", "0.0").toDouble();
+			OB->patternRotation = obj->attribute("pRotation", "0.0").toDouble();
+		}
+		else
+		{
+			OB->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();
+			OB->GrStartY = obj->attribute("GRSTARTY", "0.0").toDouble();
+			OB->GrEndX = obj->attribute("GRENDX", "0.0").toDouble();
+			OB->GrEndY = obj->attribute("GRENDY", "0.0").toDouble();
+			OB->GrColor = obj->attribute("GRCOLOR","");
+			if (OB->GrColor.isEmpty())
+				OB->GrColor = "Black";
+			OB->GrColor2 = obj->attribute("GRCOLOR2","Black");
+			if (OB->GrColor2.isEmpty())
+				OB->GrColor2 = "Black";
+			OB->GrShade = obj->attribute("GRSHADE", "100").toInt();
+			OB->GrShade2 = obj->attribute("GRSHADE2", "100").toInt();
+		}
+	}
+	OB->Rot=obj->attribute("ROT").toDouble();
+	OB->PLineArt=Qt::PenStyle(obj->attribute("PLINEART").toInt());
+	OB->PLineEnd=Qt::PenCapStyle(obj->attribute("PLINEEND", "0").toInt());
+	OB->PLineJoin=Qt::PenJoinStyle(obj->attribute("PLINEJOIN", "0").toInt());
+	OB->LineSp=obj->attribute("LINESP").toDouble();
+	OB->LineSpMode = obj->attribute("LINESPMode", "0").toInt();
+	OB->LocalScX=obj->attribute("LOCALSCX").toDouble();
+	OB->LocalScY=obj->attribute("LOCALSCY").toDouble();
+	OB->LocalX=obj->attribute("LOCALX").toDouble();
+	OB->LocalY=obj->attribute("LOCALY").toDouble();
+	OB->PicArt=obj->attribute("PICART").toInt();
+	OB->flippedH = obj->attribute("FLIPPEDH").toInt() % 2;
+	OB->flippedV = obj->attribute("FLIPPEDV").toInt() % 2;
+/*	OB->BBoxX=obj->attribute("BBOXX").toDouble();
+	OB->BBoxH=obj->attribute("BBOXH").toDouble(); */
+	OB->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
+	OB->AspectRatio = obj->attribute("RATIO", "0").toInt();
+	OB->isPrintable=obj->attribute("PRINTABLE").toInt();
+	OB->m_isAnnotation=obj->attribute("ANNOTATION", "0").toInt();
+	OB->m_annotation.setType(obj->attribute("ANTYPE", "0").toInt());
+	OB->m_annotation.setAction(obj->attribute("ANACTION",""));
+	OB->m_annotation.setE_act(obj->attribute("ANEACT",""));
+	OB->m_annotation.setX_act(obj->attribute("ANXACT",""));
+	OB->m_annotation.setD_act(obj->attribute("ANDACT",""));
+	OB->m_annotation.setFo_act(obj->attribute("ANFOACT",""));
+	OB->m_annotation.setBl_act(obj->attribute("ANBLACT",""));
+	OB->m_annotation.setK_act(obj->attribute("ANKACT",""));
+	OB->m_annotation.setF_act(obj->attribute("ANFACT",""));
+	OB->m_annotation.setV_act(obj->attribute("ANVACT",""));
+	OB->m_annotation.setC_act(obj->attribute("ANCACT",""));
+	OB->m_annotation.setActionType(obj->attribute("ANACTYP", "0").toInt());
+	OB->m_annotation.setExtern(obj->attribute("ANEXTERN",""));
+	if ((!OB->m_annotation.Extern().isEmpty()) && (OB->m_annotation.ActionType() != 8))
+	{
+		QFileInfo efp(OB->m_annotation.Extern());
+		OB->m_annotation.setExtern(efp.absFilePath());
+	}
+	OB->m_annotation.setZiel(obj->attribute("ANZIEL", "0").toInt());
+	OB->AnName=obj->attribute("ANNAME","");
+	OB->m_annotation.setToolTip(obj->attribute("ANTOOLTIP",""));
+	OB->m_annotation.setRollOver(obj->attribute("ANROLL",""));
+	OB->m_annotation.setDown(obj->attribute("ANDOWN",""));
+	OB->m_annotation.setBwid(obj->attribute("ANBWID", "1").toInt());
+	OB->m_annotation.setBsty(obj->attribute("ANBSTY", "0").toInt());
+	OB->m_annotation.setFeed(obj->attribute("ANFEED", "1").toInt());
+	OB->m_annotation.setFlag(obj->attribute("ANFLAG", "0").toInt());
+	OB->m_annotation.setFont(obj->attribute("ANFONT", "4").toInt());
+	OB->m_annotation.setFormat(obj->attribute("ANFORMAT", "0").toInt());
+	OB->m_annotation.setVis(obj->attribute("ANVIS", "0").toInt());
+	OB->m_annotation.setIsChk(static_cast<bool>(obj->attribute("ANCHK", "0").toInt()));
+	OB->m_annotation.setAAact(static_cast<bool>(obj->attribute("ANAA", "0").toInt()));
+	OB->m_annotation.setHTML(static_cast<bool>(obj->attribute("ANHTML", "0").toInt()));
+	OB->m_annotation.setUseIcons(static_cast<bool>(obj->attribute("ANICON", "0").toInt()));
+	OB->m_annotation.setChkStil(obj->attribute("ANCHKS", "0").toInt());
+	OB->m_annotation.setMaxChar(obj->attribute("ANMC", "-1").toInt());
+	OB->m_annotation.setBorderColor(obj->attribute("ANBCOL",CommonStrings::None));
+	OB->m_annotation.setIPlace(obj->attribute("ANPLACE", "1").toInt());
+	OB->m_annotation.setScaleW(obj->attribute("ANSCALE", "0").toInt());
+	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
+		OB->Pcolor = CommonStrings::None;
+	OB->textAlignment=obj->attribute("ALIGN", "0").toInt();
+	if ( obj->hasAttribute("TEXTFLOWMODE") )
+		OB->TextflowMode = (PageItem::TextFlowMode) obj->attribute("TEXTFLOWMODE", "0").toInt();
+	else if ( obj->attribute("TEXTFLOW").toInt() )
+	{
+		if (obj->attribute("TEXTFLOW2", "0").toInt())
+			OB->TextflowMode = PageItem::TextFlowUsesBoundingBox;
+		else if (obj->attribute("TEXTFLOW3", "0").toInt())
+			OB->TextflowMode = PageItem::TextFlowUsesContourLine;
+		else
+			OB->TextflowMode = PageItem::TextFlowUsesFrameShape;	
+	}
+	else
+		OB->TextflowMode = PageItem::TextFlowDisabled;
+	OB->Extra=obj->attribute("EXTRA").toDouble();
+	OB->TExtra=obj->attribute("TEXTRA", "1").toDouble();
+	OB->BExtra=obj->attribute("BEXTRA", "1").toDouble();
+	OB->RExtra=obj->attribute("REXTRA", "1").toDouble();
+	OB->PoShow = obj->attribute("PLTSHOW", "0").toInt();
+	OB->BaseOffs = obj->attribute("BASEOF", "0").toDouble();
+	OB->textPathType =  obj->attribute("textPathType", "0").toInt();
+	OB->textPathFlipped = static_cast<bool>(obj->attribute("textPathFlipped", "0").toInt());
+	OB->ISize = qRound(obj->attribute("ISIZE", "12").toDouble() * 10);
+	if (obj->hasAttribute("EXTRAV"))
+		OB->ExtraV = qRound(obj->attribute("EXTRAV", "0").toDouble() / obj->attribute("ISIZE", "12").toDouble() * 1000.0);
+	else
+		OB->ExtraV = obj->attribute("TXTKERN").toInt();
+	OB->Pfile  = Relative2Path(obj->attribute("PFILE" ,""), baseDir);
+	OB->Pfile2 = Relative2Path(obj->attribute("PFILE2",""), baseDir);
+	OB->Pfile3 = Relative2Path(obj->attribute("PFILE3",""), baseDir);
+	OB->IProfile=obj->attribute("PRFILE","");
+	OB->EmProfile=obj->attribute("EPROF","");
+	OB->IRender = obj->attribute("IRENDER", "1").toInt();
+	OB->UseEmbedded = obj->attribute("EMBEDDED", "1").toInt();
+	OB->Locked = static_cast<bool>(obj->attribute("LOCK", "0").toInt());
+	OB->LockRes = static_cast<bool>(obj->attribute("LOCKR", "0").toInt());
+	OB->Reverse = static_cast<bool>(obj->attribute("REVERS", "0").toInt());
+	OB->isTableItem = static_cast<bool>(obj->attribute("isTableItem", "0").toInt());
+	OB->TopLine = static_cast<bool>(obj->attribute("TopLine", "0").toInt());
+	OB->LeftLine = static_cast<bool>(obj->attribute("LeftLine", "0").toInt());
+	OB->RightLine = static_cast<bool>(obj->attribute("RightLine", "0").toInt());
+	OB->BottomLine = static_cast<bool>(obj->attribute("BottomLine", "0").toInt());
+	OB->TopLinkID =  obj->attribute("TopLINK", "-1").toInt();
+	OB->LeftLinkID =  obj->attribute("LeftLINK", "-1").toInt();
+	OB->RightLinkID =  obj->attribute("RightLINK", "-1").toInt();
+	OB->BottomLinkID =  obj->attribute("BottomLINK", "-1").toInt();
+	OB->Transparency = obj->attribute("TransValue", "0.0").toDouble();
+	if (obj->hasAttribute("TransValueS"))
+		OB->TranspStroke = obj->attribute("TransValueS", "0.0").toDouble();
+	else
+		OB->TranspStroke = OB->Transparency;
+	OB->TransBlend = obj->attribute("TransBlend", "0").toInt();
+	OB->TransBlendS = obj->attribute("TransBlendS", "0").toInt();
+	tmp = "";
+	if (obj->hasAttribute("NUMCLIP"))
+	{
+		OB->Clip.resize(obj->attribute("NUMCLIP").toUInt());
+		tmp = obj->attribute("CLIPCOOR");
+		QTextStream fc(&tmp, QIODevice::ReadOnly);
+		for (uint c=0; c<obj->attribute("NUMCLIP").toUInt(); ++c)
+		{
+			fc >> x;
+			fc >> y;
+			OB->Clip.setPoint(c, x, y);
+		}
+	}
+	else
+		OB->Clip.resize(0);
+	tmp = "";
+	if (obj->hasAttribute("NUMPO"))
+	{
+		OB->PoLine.resize(obj->attribute("NUMPO").toUInt());
+		tmp = obj->attribute("POCOOR");
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
+		for (uint cx=0; cx<obj->attribute("NUMPO").toUInt(); ++cx)
+		{
+			fp >> xf;
+			fp >> yf;
+			OB->PoLine.setPoint(cx, xf, yf);
+		}
+	}
+	else
+		OB->PoLine.resize(0);
+	tmp = "";
+	if (obj->hasAttribute("NUMCO"))
+	{
+		OB->ContourLine.resize(obj->attribute("NUMCO").toUInt());
+		tmp = obj->attribute("COCOOR");
+		QTextStream fp(&tmp, QIODevice::ReadOnly);
+		for (uint cx=0; cx<obj->attribute("NUMCO").toUInt(); ++cx)
+		{
+			fp >> xf;
+			fp >> yf;
+			OB->ContourLine.setPoint(cx, xf, yf);
+		}
+	}
+	else
+		OB->ContourLine.resize(0);
+	tmp = "";
+	if ((obj->hasAttribute("NUMTAB")) && (obj->attribute("NUMTAB", "0").toInt() != 0))
+	{
+		ParagraphStyle::TabRecord tb;
+		tmp = obj->attribute("TABS");
+		QTextStream tgv(&tmp, QIODevice::ReadOnly);
+		OB->TabValues.clear();
+		for (int cxv = 0; cxv < obj->attribute("NUMTAB", "0").toInt(); cxv += 2)
+		{
+			tgv >> xf;
+			tgv >> xf2;
+			tb.tabPosition = xf2;
+			tb.tabType = static_cast<int>(xf);
+			tb.tabFillChar = QChar();
+			OB->TabValues.append(tb);
+		}
+		tmp = "";
+	}
+	else
+		OB->TabValues.clear();
+	if ((obj->hasAttribute("NUMDASH")) && (obj->attribute("NUMDASH", "0").toInt() != 0))
+	{
+		tmp = obj->attribute("DASHS");
+		QTextStream dgv(&tmp, QIODevice::ReadOnly);
+		OB->DashValues.clear();
+		for (int cxv = 0; cxv < obj->attribute("NUMDASH", "0").toInt(); ++cxv)
+		{
+			dgv >> xf;
+			OB->DashValues.append(xf);
+		}
+		tmp = "";
+	}
+	else
+		OB->DashValues.clear();
+	OB->DashOffset = obj->attribute("DASHOFF", "0.0").toDouble();
 }
 
 void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj, LastStyles* last)
@@ -1034,7 +1300,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 							itemNext[m_Doc->Items->count()] = scribus12itemID(obj.attribute("NEXTITEM").toInt(), pageNumber);
 						}
 					}
-					GetItemProps(newVersion, &obj, &OB, fileDir);
+					GetItemProps(&obj, &OB, fileDir, newVersion);
 					OB.Xpos = obj.attribute("XPOS").toDouble()+m_Doc->Pages->at(a)->xOffset();
 					OB.Ypos=obj.attribute("YPOS").toDouble()+m_Doc->Pages->at(a)->yOffset();
 					OB.NamedLStyle = obj.attribute("NAMEDLST", "");

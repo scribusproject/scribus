@@ -39,7 +39,6 @@ If premultiplication does not allow to store result in a long value, perform a s
 */
 bool SCRIBUS_API compareDouble(double a, double b);
 
-void SCRIBUS_API GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB, const QString& baseDir);
 /*! \brief Returns a sorted list of QStrings - sorted by locale specific rules!
 Uses compareQStrings() as rule. There is STL used!
 \author Petr Vanek
