@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QFont>
 #include <QFileDialog>
+#include <QScrollBar>
 #include <QStackedWidget>
 
 #include "commonstrings.h"
@@ -49,6 +50,7 @@ void OptionListWidget::arrangeIcons()
 	setWrapping(false);
 	QListWidgetItem* ic;
 	int startY = 5;
+	int scrollBarWidth = 0;
 	for (int cc = 0; cc < count(); ++cc)
 	{
 		ic = item(cc);
@@ -57,13 +59,21 @@ void OptionListWidget::arrangeIcons()
 	}
 	setMaximumWidth(maxWidth+16);
 	setResizeMode(QListView::Fixed);
-	int startX = qMax((viewport()->width() - maxWidth) / 2, 0);
+	QList<QScrollBar*> scrollBars = findChildren<QScrollBar*>();
+	for (int cc = 0; cc < scrollBars.count(); ++cc)
+	{
+		if (scrollBars.at(cc)->orientation() == Qt::Vertical)
+		{
+			scrollBarWidth = scrollBars.at(cc)->height();
+			break;
+		}
+	}
+	int startX = qMax((viewport()->width() - scrollBarWidth) / 2, 0);
 	for (int cc = 0; cc < count(); ++cc)
 	{
 		ic = item(cc);
 		QRect ir = visualItemRect(ic);
-		int moveW = (maxWidth - ir.width()) / 2;
-		setPositionForIndex(QPoint(moveW + startX, startY), indexFromItem(ic));
+		setPositionForIndex(QPoint(startX - ir.width() / 2, startY), indexFromItem(ic));
 		startY += ir.height()+5;
 	}
 }
