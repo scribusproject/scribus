@@ -51,8 +51,8 @@ void VGradient::inSort( VColorStop* d )
 	register VColorStop *n = m_colorStops.value(index);
 	while (n && compareItems(n,d) <= 0)
 	{
-		n = m_colorStops.value(index);
 		++index;
+		n = m_colorStops.value(index);
 	}
 	m_colorStops.insert( qMin(index, m_colorStops.size()), d );
 }
