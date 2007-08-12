@@ -112,7 +112,7 @@ bool ScDocOutput_Ps2::initializeCmsTransforms(void)
 
 		int dcmsflags = 0;
 		dcmsflags |= cmsFLAGS_LOWRESPRECALC;
-		if (m_doc->CMSSettings.BlackPoint)
+		if (m_doc->BlackPoint)
 			dcmsflags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 
 		int outputDataTypeColors = 0;

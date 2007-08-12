@@ -3822,6 +3822,11 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				doc->HasCMS = true;
 				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
 			}
+			else
+			{
+				doc->SetDefaultCMSParams();
+				doc->HasCMS = false;
+			}
 			if (doc->HasCMS)
 			{
 				recalcColors();

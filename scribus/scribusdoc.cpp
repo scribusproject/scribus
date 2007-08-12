@@ -314,6 +314,7 @@ void ScribusDoc::init()
 	stdTransRGB = NULL;
 	stdProofGC = NULL;
 	stdProofCMYKGC = NULL;
+	SetDefaultCMSParams();
 
 	PrefsManager *prefsManager = PrefsManager::instance();
 	CMSSettings = prefsManager->appPrefs.DCMSset;
@@ -501,8 +502,9 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
 	PDF_Options.Intent = CMSSettings.DefaultIntentColors;
 	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
+	BlackPoint   = CMSSettings.BlackPoint;
 	SoftProofing = CMSSettings.SoftProofOn;
-	Gamut = CMSSettings.GamutCheck;
+	Gamut        = CMSSettings.GamutCheck;
 	IntentColors = CMSSettings.DefaultIntentColors;
 	IntentImages = CMSSettings.DefaultIntentImages;
 	if (ScCore->haveCMS() && CMSSettings.CMSinUse)
@@ -513,7 +515,10 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 			PDF_Options.SComp = CMSSettings.ComponentsInput2;
 		}
 		else
+		{
+			SetDefaultCMSParams();
 			HasCMS = false;
+		}
 	}
 }
 
@@ -552,37 +557,37 @@ void ScribusDoc::CloseCMSProfiles()
 	HasCMS = false;
 	if (ScCore->haveCMS() /*&& CMSSettings.CMSinUse*/)
 	{
-		if (DocInputImageRGBProf)
+		if (DocInputImageRGBProf && !ScCore->IsDefaultProfile(DocInputImageRGBProf))
 			cmsCloseProfile(DocInputImageRGBProf);
-		if (DocInputImageCMYKProf)
+		if (DocInputImageCMYKProf && !ScCore->IsDefaultProfile(DocInputImageCMYKProf))
 			cmsCloseProfile(DocInputImageCMYKProf);
-		if (DocInputRGBProf)
+		if (DocInputRGBProf && !ScCore->IsDefaultProfile(DocInputRGBProf))
 			cmsCloseProfile(DocInputRGBProf);
-		if (DocInputCMYKProf)
+		if (DocInputCMYKProf && !ScCore->IsDefaultProfile(DocInputCMYKProf))
 			cmsCloseProfile(DocInputCMYKProf);
-		if (DocOutputProf)
+		if (DocOutputProf && !ScCore->IsDefaultProfile(DocOutputProf))
 			cmsCloseProfile(DocOutputProf);
-		if (DocPrinterProf)
+		if (DocPrinterProf && !ScCore->IsDefaultProfile(DocPrinterProf))
 			cmsCloseProfile(DocPrinterProf);
-		if (stdTransRGBMon)
+		if (stdTransRGBMon && !ScCore->IsDefaultTransform(stdTransRGBMon))
 			cmsDeleteTransform(stdTransRGBMon);
-		if (stdTransCMYKMon)
+		if (stdTransCMYKMon && !ScCore->IsDefaultTransform(stdTransCMYKMon))
 			cmsDeleteTransform(stdTransCMYKMon);
-		if (stdProof)
+		if (stdProof && !ScCore->IsDefaultTransform(stdProof))
 			cmsDeleteTransform(stdProof);
-		if (stdTransImg)
+		if (stdTransImg && !ScCore->IsDefaultTransform(stdTransImg))
 			cmsDeleteTransform(stdTransImg);
-		if (stdProofImg)
+		if (stdProofImg && !ScCore->IsDefaultTransform(stdProofImg))
 			cmsDeleteTransform(stdProofImg);
-		if (stdTransCMYK)
+		if (stdTransCMYK && !ScCore->IsDefaultTransform(stdTransCMYK))
 			cmsDeleteTransform(stdTransCMYK);
-		if (stdProofCMYK)
+		if (stdProofCMYK && !ScCore->IsDefaultTransform(stdProofCMYK))
 			cmsDeleteTransform(stdProofCMYK);
-		if (stdTransRGB)
+		if (stdTransRGB && !ScCore->IsDefaultTransform(stdTransRGB))
 			cmsDeleteTransform(stdTransRGB);
-		if (stdProofCMYKGC)
+		if (stdProofCMYKGC && !ScCore->IsDefaultTransform(stdProofCMYKGC))
 			cmsDeleteTransform(stdProofCMYKGC);
-		if (stdProofGC)
+		if (stdProofGC && !ScCore->IsDefaultTransform(stdProofGC))
 			cmsDeleteTransform(stdProofGC);
 		DocInputRGBProf = NULL;
 		DocInputCMYKProf = NULL;
@@ -601,6 +606,33 @@ void ScribusDoc::CloseCMSProfiles()
 		stdProofCMYKGC = NULL;
 		stdProofGC = NULL;
 	}
+	SetDefaultCMSParams();
+}
+
+void ScribusDoc::SetDefaultCMSParams()
+{
+	BlackPoint     = true;
+	SoftProofing   = false;
+	Gamut          = false;
+	IntentColors   = 1; // INTENT_RELATIVE_COLORIMETRIC
+	IntentImages   = 1; // INTENT_RELATIVE_COLORIMETRIC
+	DocInputRGBProf       = ScCore->defaultRGBProfile;
+	DocInputCMYKProf      = ScCore->defaultCMYKProfile;
+	DocInputImageRGBProf  = ScCore->defaultRGBProfile;
+	DocInputImageCMYKProf = ScCore->defaultCMYKProfile;
+	DocOutputProf         = ScCore->defaultRGBProfile;
+	DocPrinterProf        = ScCore->defaultCMYKProfile;
+	stdTransRGBMon        = ScCore->defaultRGBToScreenSolidTrans;
+	stdTransCMYKMon       = ScCore->defaultCMYKToRGBTrans;
+	stdTransRGB           = ScCore->defaultRGBToScreenSolidTrans;
+	stdTransCMYK          = ScCore->defaultCMYKToRGBTrans;
+	stdProof              = ScCore->defaultRGBToScreenSolidTrans;
+	stdProofGC            = ScCore->defaultRGBToScreenSolidTrans;
+	stdProofCMYK          = ScCore->defaultCMYKToRGBTrans;
+	stdProofCMYKGC        = ScCore->defaultCMYKToRGBTrans;
+	stdTransImg           = ScCore->defaultRGBToScreenImageTrans;
+	stdProofImg           = ScCore->defaultRGBToScreenImageTrans;
+	stdProofImgCMYK       = ScCore->defaultCMYKToScreenImageTrans;
 }
 
 bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo)
@@ -753,8 +785,9 @@ void ScribusDoc::enableCMS(bool enable)
 	int cc = PageColors.count() + Items->count();
 	m_ScMW->mainWindowProgressBar->setMaximum(cc);
 	HasCMS = CMSSettings.CMSinUse;
+	BlackPoint   = CMSSettings.BlackPoint;
 	SoftProofing = CMSSettings.SoftProofOn;
-	Gamut = CMSSettings.GamutCheck;
+	Gamut        = CMSSettings.GamutCheck;
 	IntentColors = CMSSettings.DefaultIntentColors;
 	IntentImages = CMSSettings.DefaultIntentImages;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
@@ -783,7 +816,10 @@ void ScribusDoc::enableCMS(bool enable)
 		RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
 	}
 	else
+	{
+		SetDefaultCMSParams();
 		HasCMS = false;
+	}
 	m_ScMW->mainWindowProgressBar->setValue(cc);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_ScMW->setStatusBarInfoText("");

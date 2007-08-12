@@ -1969,7 +1969,18 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			}
 		}
 	}
-	if (cmSettings.useColorManagement() && useProf && inputProf)
+	else if (useProf && embeddedProfile.size() > 0)
+	{
+		inputProf = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
+		inputProfisEmbedded = true;
+	}
+	else if (useProf && isCMYK)
+		inputProf = ScCore->defaultCMYKProfile;
+	else if (useProf)
+		inputProf = ScCore->defaultRGBProfile;
+	cmsHPROFILE screenProf  = cmSettings.monitorProfile() ? cmSettings.monitorProfile() : ScCore->defaultRGBProfile;
+	cmsHPROFILE printerProf = cmSettings.printerProfile() ? cmSettings.printerProfile() : ScCore->defaultCMYKProfile;
+	if (useProf && inputProf && screenProf && printerProf)
 	{
 		bool  isPsdTiff = (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext));
 		DWORD SC_TYPE_YMCK_8 = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));
@@ -1989,12 +2000,12 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			inputProfFormat = SC_TYPE_YMCK_8;
 		else if ( inputProfColorSpace == icSigGrayData )
 			inputProfFormat = TYPE_GRAY_8;
-		int outputProfColorSpace = static_cast<int>(cmsGetColorSpace(cmSettings.printerProfile()));
+		int outputProfColorSpace = static_cast<int>(cmsGetColorSpace(printerProf));
 		if ( outputProfColorSpace == icSigRgbData )
 			outputProfFormat = TYPE_BGRA_8;
 		else if ( outputProfColorSpace == icSigCmykData )
 			outputProfFormat = SC_TYPE_YMCK_8;
-		if (cmSettings.doSoftProofing())
+		if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
 		{
 			cmsProofFlags |= cmsFLAGS_SOFTPROOFING;
 			if (cmSettings.doGamutCheck())
@@ -2002,20 +2013,20 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				cmsProofFlags |= cmsFLAGS_GAMUTCHECK;
 			}
 		}
-		if (cmSettings.useBlackPoint())
+		if (!cmSettings.useColorManagement() || cmSettings.useBlackPoint())
 			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 		switch (reqType)
 		{
 		case CMYKData: // CMYK
 //			if ((!isCMYK && (outputProfColorSpace == icSigCmykData)) || (isCMYK && (outputProfColorSpace == icSigRgbData)) )
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.printerProfile(), outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, printerProf, outputProfFormat, cmSettings.imageRenderingIntent(), cmsFlags);
 			if (outputProfColorSpace != icSigCmykData )
 				*realCMYK = isCMYK = false;
 			break;
 		case Thumbnail:
 		case RGBData: // RGB
 			if (isCMYK)
-				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, screenProf, TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
 			else
 			{
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
@@ -2031,24 +2042,24 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			break;
 		case RGBProof: // RGB Proof
 			{
-				if (cmSettings.doSoftProofing())
+				if (cmSettings.useColorManagement() && cmSettings.doSoftProofing())
 				{
-					if ((imgInfo.profileName == cmSettings.doc()->CMSSettings.DefaultImageRGBProfile) || (imgInfo.profileName == cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile))
+					if ((imgInfo.profileName == cmSettings.defaultImageRGBProfile()) || (imgInfo.profileName == cmSettings.defaultImageCMYKProfile()))
 					{
 						if (isCMYK)
-							xform = cmSettings.doc()->stdProofImgCMYK;
+							xform = cmSettings.cmykImageProofingTransform();
 						else
-							xform = cmSettings.doc()->stdProofImg;
+							xform = cmSettings.rgbImageProofingTransform();
 						cmsChangeBuffersFormat(xform, inputProfFormat, TYPE_BGRA_8);
 						stdProof = true;
 					}
 					else
 						xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
-					                     cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.printerProfile(),
+					                     screenProf, TYPE_BGRA_8, printerProf,
 					                     cmSettings.intent(), INTENT_RELATIVE_COLORIMETRIC, cmsFlags | cmsProofFlags);
 				}
 				else
-					xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), 
+					xform = scCmsCreateTransform(inputProf, inputProfFormat, screenProf, 
 										 TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
 			}
 			break;
@@ -2157,15 +2168,15 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 					}
 				}
 			}
-			if (!stdProof)
+			if (!stdProof && !ScCore->IsDefaultTransform(xform))
 				cmsDeleteTransform (xform);
 		}
-		if ((inputProf) && (inputProfisEmbedded))
+		if ((inputProf) && (inputProfisEmbedded) && !ScCore->IsDefaultProfile(inputProf))
 			cmsCloseProfile(inputProf);
 		if (isCMYK)
-			cmsChangeBuffersFormat(cmSettings.doc()->stdProofImgCMYK, TYPE_CMYK_8, TYPE_RGBA_8);
+			cmsChangeBuffersFormat(cmSettings.cmykImageProofingTransform(), TYPE_CMYK_8, TYPE_RGBA_8);
 		else
-			cmsChangeBuffersFormat(cmSettings.doc()->stdProofImg, TYPE_RGBA_8, TYPE_RGBA_8);
+			cmsChangeBuffersFormat(cmSettings.rgbImageProofingTransform(), TYPE_RGBA_8, TYPE_RGBA_8);
 	}
 	else
 	{

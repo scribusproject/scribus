@@ -55,9 +55,9 @@ ScColor ScColorEngine::convertToModel(const ScColor& color, const ScribusDoc* do
 
 void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RGBColor& rgb)
 {
-	bool cmsUse = doc ? doc->HasCMS : false;
-	colorModel model = color.getColorModel();
-	if (ScCore->haveCMS() && cmsUse)
+	colorModel    model = color.getColorModel();
+	cmsHTRANSFORM transRGB = doc ? doc->stdTransRGB : ScCore->defaultCMYKToRGBTrans;
+	if (ScCore->haveCMS() && transRGB)
 	{
 		if (model == colorModelRGB)
 		{
@@ -73,7 +73,7 @@ void ScColorEngine::getRGBValues(const ScColor& color, const ScribusDoc* doc, RG
 			inC[1] = color.MG * 257;
 			inC[2] = color.YB * 257;
 			inC[3] = color.K * 257;
-			cmsDoTransform(doc->stdTransRGB, inC, outC, 1);
+			cmsDoTransform(transRGB, inC, outC, 1);
 			rgb.r = outC[0] / 257;
 			rgb.g = outC[1] / 257;
 			rgb.b = outC[2] / 257;
@@ -97,9 +97,9 @@ void ScColorEngine::getCMYKValues(const ScColor& color, const ScribusDoc* doc, C
 {
 	WORD inC[4];
 	WORD outC[4];
-	bool cmsUse = doc ? doc->HasCMS : false;
 	colorModel model = color.getColorModel();
-	if (ScCore->haveCMS() && cmsUse)
+	cmsHTRANSFORM transCMYK = doc ? doc->stdTransCMYK : ScCore->defaultRGBToCMYKTrans;
+	if (ScCore->haveCMS() && transCMYK)
 	{
 		if (model == colorModelRGB)
 		{
@@ -114,7 +114,7 @@ void ScColorEngine::getCMYKValues(const ScColor& color, const ScribusDoc* doc, C
 				inC[0] = color.CR * 257;
 				inC[1] = color.MG * 257;
 				inC[2] = color.YB * 257;
-				cmsDoTransform(doc->stdTransCMYK, inC, outC, 1);
+				cmsDoTransform(transCMYK, inC, outC, 1);
 				cmyk.c = outC[0] / 257;
 				cmyk.m = outC[1] / 257;
 				cmyk.y = outC[2] / 257;
@@ -241,7 +241,7 @@ QColor ScColorEngine::getDisplayColorGC(const ScColor& color, const ScribusDoc* 
 {
 	QColor tmp;
 	bool doSoftProofing = doc ? doc->SoftProofing : false;
-	bool doGamutCheck = doc ? doc->Gamut : false;
+	bool doGamutCheck   = doc ? doc->Gamut : false;
 	if ( doSoftProofing && doGamutCheck )
 	{
 		bool outOfGamutFlag = isOutOfGamut(color, doc);
@@ -329,16 +329,19 @@ QColor ScColorEngine::getColorProof(RGBColor& rgb, const ScribusDoc* doc, bool s
 	WORD inC[4];
 	WORD outC[4];
 	int  r = rgb.r, g = rgb.g, b = rgb.b;
-//	bool alert = true;
-	bool cmsUse = doc ? doc->HasCMS : false;
-	if (ScCore->haveCMS() && cmsUse)
+	cmsHTRANSFORM transRGBMon  = doc ? doc->stdTransRGBMon : ScCore->defaultRGBToScreenSolidTrans;
+	cmsHTRANSFORM transProof   = doc ? doc->stdProof   : ScCore->defaultRGBToScreenSolidTrans;
+	cmsHTRANSFORM transProofGC = doc ? doc->stdProofGC : ScCore->defaultRGBToScreenSolidTrans;
+	bool cmsUse   = doc ? doc->HasCMS : false;
+	bool cmsTrans = (transRGBMon && transProof && transProofGC); 
+	if (ScCore->haveCMS() && cmsTrans)
 	{
 		inC[0] = rgb.r * 257;
 		inC[1] = rgb.g * 257;
 		inC[2] = rgb.b * 257;
-		if (!spot && doc->SoftProofing)
+		if (cmsUse && !spot && doc->SoftProofing)
 		{
-			cmsHTRANSFORM xform = gamutCkeck ? doc->stdProofGC : doc->stdProof;
+			cmsHTRANSFORM xform = gamutCkeck ? transProofGC : transProof;
 			cmsDoTransform(xform, inC, outC, 1);
 			r = outC[0] / 257;
 			g = outC[1] / 257;
@@ -346,7 +349,7 @@ QColor ScColorEngine::getColorProof(RGBColor& rgb, const ScribusDoc* doc, bool s
 		}
 		else
 		{
-			cmsDoTransform(doc->stdTransRGBMon, inC, outC, 1);
+			cmsDoTransform(transRGBMon, inC, outC, 1);
 			r = outC[0] / 257;
 			g = outC[1] / 257;
 			b = outC[2] / 257;
@@ -360,17 +363,20 @@ QColor ScColorEngine::getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool
 	int  r = 0, g = 0, b = 0;
 	WORD inC[4];
 	WORD outC[4];
-//	bool alert = true;
-	bool cmsUse = doc ? doc->HasCMS : false;
-	if (ScCore->haveCMS() && cmsUse)
+	cmsHTRANSFORM transCMYKMon     = doc ? doc->stdTransCMYKMon : ScCore->defaultCMYKToRGBTrans;
+	cmsHTRANSFORM transProofCMYK   = doc ? doc->stdProofCMYK   : ScCore->defaultCMYKToRGBTrans;
+	cmsHTRANSFORM transProofCMYKGC = doc ? doc->stdProofCMYKGC : ScCore->defaultCMYKToRGBTrans;
+	bool cmsUse   = doc ? doc->HasCMS : false;
+	bool cmsTrans = (transCMYKMon && transProofCMYK && transProofCMYKGC); 
+	if (ScCore->haveCMS() && cmsTrans)
 	{
 		inC[0] = cmyk.c * 257;
 		inC[1] = cmyk.m * 257;
 		inC[2] = cmyk.y * 257;
 		inC[3] = cmyk.k * 257;
-		if (!spot && doc->SoftProofing)
+		if (cmsUse && !spot && doc->SoftProofing)
 		{
-			cmsHTRANSFORM xform = gamutCkeck ? doc->stdProofCMYKGC : doc->stdProofCMYK;
+			cmsHTRANSFORM xform = gamutCkeck ? transProofCMYKGC : transProofCMYK;
 			cmsDoTransform(xform, inC, outC, 1);
 			r = outC[0] / 257;
 			g = outC[1] / 257;
@@ -378,7 +384,7 @@ QColor ScColorEngine::getColorProof(CMYKColor& cmyk, const ScribusDoc* doc, bool
 		}
 		else
 		{
-			cmsDoTransform(doc->stdTransCMYKMon, inC, outC, 1);
+			cmsDoTransform(transCMYKMon, inC, outC, 1);
 			r = outC[0] / 257;
 			g = outC[1] / 257;
 			b = outC[2] / 257;
@@ -400,14 +406,13 @@ QColor ScColorEngine::getDisplayColor(RGBColor& rgb, const ScribusDoc* doc, bool
 	int r = rgb.r;
 	int g = rgb.g;
 	int b = rgb.b; 
-//	bool alert = true;
-	bool cmsUse = doc ? doc->HasCMS : false;
-	if (ScCore->haveCMS() && cmsUse)
+	cmsHTRANSFORM transRGBMon = doc ? doc->stdTransRGBMon : ScCore->defaultRGBToScreenSolidTrans;
+	if (ScCore->haveCMS() && transRGBMon)
 	{
 		inC[0] = r * 257;
 		inC[1] = g * 257;
 		inC[2] = b * 257;
-		cmsDoTransform(doc->stdTransRGBMon, inC, outC, 1);
+		cmsDoTransform(transRGBMon, inC, outC, 1);
 		r = outC[0] / 257;
 		g = outC[1] / 257;
 		b = outC[2] / 257;
@@ -420,15 +425,14 @@ QColor ScColorEngine::getDisplayColor(CMYKColor& cmyk, const ScribusDoc* doc, bo
 	int  r = 0, g = 0, b = 0;
 	WORD inC[4];
 	WORD outC[4];
-//	bool alert = true;
-	bool cmsUse = doc ? doc->HasCMS : false;
-	if (ScCore->haveCMS() && cmsUse)
+	cmsHTRANSFORM transCMYKMon = doc ? doc->stdTransCMYKMon : ScCore->defaultCMYKToRGBTrans;
+	if (ScCore->haveCMS() && transCMYKMon)
 	{
 		inC[0] = cmyk.c * 257;
 		inC[1] = cmyk.m * 257;
 		inC[2] = cmyk.y * 257;
 		inC[3] = cmyk.k * 257;
-		cmsDoTransform(doc->stdTransCMYKMon, inC, outC, 1);
+		cmsDoTransform(transCMYKMon, inC, outC, 1);
 		r = outC[0] / 257;
 		g = outC[1] / 257;
 		b = outC[2] / 257;

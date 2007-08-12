@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 
 
+#include "cmserrorhandling.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "pluginmanager.h"
@@ -35,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "splash.h"
 #include "undomanager.h"
 #include "util.h"
+#include "util_cms.h"
 #include "util_ghostscript.h"
 
 
@@ -50,12 +52,21 @@ ScribusCore::ScribusCore() : QObject()
 	m_HaveCMS=false;
 // 	m_PaletteParent=0;
 	m_currScMW=0;
+
+	defaultRGBProfile  = NULL;
+	defaultCMYKProfile = NULL;
+	defaultRGBToScreenSolidTrans  = NULL;
+	defaultRGBToScreenImageTrans  = NULL;
+	defaultCMYKToScreenImageTrans = NULL;
+	defaultRGBToCMYKTrans = NULL;
+	defaultCMYKToRGBTrans = NULL;
 }
 
 
 
 ScribusCore::~ScribusCore()
 {
+	TermDefaultColorTransforms();
 // 	delete m_PaletteParent;
 }
 
@@ -463,6 +474,111 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 	}
 }
 
+void ScribusCore::InitDefaultColorTransforms(void)
+{
+	TermDefaultColorTransforms();
+
+	cmsErrorAction(LCMS_ERROR_ABORT);
+	if (setjmp(cmsJumpBuffer))
+	{
+		// Reset to the default handler otherwise may enter a loop
+		// if an error occur afterwards
+		cmsSetErrorHandler(NULL);
+		cmsErrorAction(LCMS_ERROR_IGNORE);
+		TermDefaultColorTransforms();
+		cmsErrorAction(LCMS_ERROR_ABORT);
+		return;
+	}
+	cmsSetErrorHandler(&cmsErrorHandler);
+
+	// Ouvre le profile RGB par défault
+	if (InputProfiles.contains("sRGB IEC61966-2.1"))
+	{
+		const QByteArray rgbProfPath(InputProfiles["sRGB IEC61966-2.1"].local8Bit());
+		defaultRGBProfile = cmsOpenProfileFromFile(rgbProfPath.data(), "r");
+	}
+	else
+		defaultRGBProfile = cmsCreate_sRGBProfile();
+
+	// Ouvre le profile CMYK par défaut
+	if (InputProfilesCMYK.contains("Fogra27L CMYK Coated Press"))
+	{
+		const QByteArray cmykProfPath(InputProfilesCMYK["Fogra27L CMYK Coated Press"].local8Bit());
+		defaultCMYKProfile = cmsOpenProfileFromFile(cmykProfPath.data(), "r");
+	}
+
+	if (!defaultRGBProfile || !defaultCMYKProfile)
+	{
+		TermDefaultColorTransforms();
+		cmsSetErrorHandler(NULL);
+		return;
+	}
+
+	int dcmsFlags = cmsFLAGS_LOWRESPRECALC | cmsFLAGS_BLACKPOINTCOMPENSATION;
+	int intent    = INTENT_RELATIVE_COLORIMETRIC;
+
+	defaultRGBToScreenSolidTrans  = scCmsCreateTransform(defaultRGBProfile, TYPE_RGB_16,
+				defaultRGBProfile, TYPE_RGB_16, intent, cmsFLAGS_NULLTRANSFORM);
+	defaultRGBToScreenImageTrans  = scCmsCreateTransform(defaultRGBProfile, TYPE_RGBA_8,
+				defaultRGBProfile, TYPE_RGBA_8, intent, cmsFLAGS_NULLTRANSFORM);
+	defaultCMYKToScreenImageTrans = scCmsCreateTransform(defaultRGBProfile, TYPE_CMYK_8,
+				defaultCMYKProfile, TYPE_RGBA_8, intent, cmsFLAGS_NULLTRANSFORM);
+	defaultRGBToCMYKTrans = scCmsCreateTransform(defaultRGBProfile, TYPE_RGB_16,
+				defaultCMYKProfile, TYPE_CMYK_16, intent, dcmsFlags);
+	defaultCMYKToRGBTrans = scCmsCreateTransform(defaultCMYKProfile, TYPE_CMYK_16,
+				defaultRGBProfile, TYPE_RGB_16, intent, dcmsFlags);
+	if (!defaultRGBToScreenSolidTrans  || !defaultRGBToScreenImageTrans || 
+		!defaultCMYKToScreenImageTrans || !defaultRGBToCMYKTrans || 
+		!defaultCMYKToRGBTrans )
+	{
+		TermDefaultColorTransforms();
+	}
+	cmsSetErrorHandler(NULL);
+}
+
+void ScribusCore::TermDefaultColorTransforms(void)
+{
+	if (defaultRGBProfile)
+		cmsCloseProfile(defaultRGBProfile); 
+	if (defaultCMYKProfile)
+		cmsCloseProfile(defaultCMYKProfile);
+	if (defaultRGBToScreenSolidTrans)
+		cmsDeleteTransform(defaultRGBToScreenSolidTrans);
+	if (defaultRGBToScreenImageTrans)
+		cmsDeleteTransform(defaultRGBToScreenImageTrans);
+	if (defaultCMYKToScreenImageTrans)
+		cmsDeleteTransform(defaultCMYKToScreenImageTrans);
+	if (defaultRGBToCMYKTrans)
+		cmsDeleteTransform(defaultRGBToCMYKTrans);
+	if (defaultCMYKToRGBTrans)
+		cmsDeleteTransform(defaultCMYKToRGBTrans);
+	defaultRGBProfile  = NULL;
+	defaultCMYKProfile = NULL;
+	defaultRGBToScreenSolidTrans  = NULL;
+	defaultRGBToScreenImageTrans  = NULL;
+	defaultCMYKToScreenImageTrans = NULL;
+	defaultRGBToCMYKTrans = NULL;
+	defaultCMYKToRGBTrans = NULL;
+}
+
+bool ScribusCore::IsDefaultProfile(cmsHPROFILE prof)
+{
+	if (prof == defaultRGBProfile || prof == defaultCMYKProfile)
+		return true;
+	return false;
+}
+
+bool ScribusCore::IsDefaultTransform(cmsHTRANSFORM trans)
+{
+	if (trans == defaultRGBToScreenSolidTrans || trans == defaultRGBToScreenImageTrans)
+		return true;
+	if (trans == defaultCMYKToScreenImageTrans)
+		return true;
+	if (trans == defaultRGBToCMYKTrans || trans == defaultCMYKToRGBTrans)
+		return true;
+	return false;
+}
+
 void ScribusCore::initCMS()
 {
 	if (m_HaveCMS)
@@ -498,6 +614,7 @@ void ScribusCore::initCMS()
 			ip = PrinterProfiles.begin();
 			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
 		}
+		InitDefaultColorTransforms();
 	}
 }
 

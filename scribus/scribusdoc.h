@@ -379,6 +379,7 @@ public:
 	void getUsedProfiles(ProfilesL& usedProfiles);
 	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
+	void SetDefaultCMSParams();
 	/**
 	 * @brief Switch Colormanagement on or of
 	 * @param enable bool, if true Colormanagement is switched on, else off
@@ -957,10 +958,11 @@ public:
 	cmsHTRANSFORM stdTransRGB;
 	cmsHTRANSFORM stdProofGC;
 	cmsHTRANSFORM stdProofCMYKGC;
+	bool BlackPoint;
 	bool SoftProofing;
 	bool Gamut;
-	int IntentColors;
-	int IntentImages;
+	int  IntentColors;
+	int  IntentImages;
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
 	int TotalItems;

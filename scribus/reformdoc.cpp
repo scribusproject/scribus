@@ -478,7 +478,8 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->IntentColors = currDoc->CMSSettings.DefaultIntentColors;
 			currDoc->IntentImages = currDoc->CMSSettings.DefaultIntentImages;
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			bool newCM = currDoc->CMSSettings.CMSinUse;
+			bool newCM  = currDoc->CMSSettings.CMSinUse;
+			bool updCol = false;
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
@@ -487,8 +488,8 @@ void ReformDoc::updateDocumentSettings()
 				currDoc->HasCMS = false;
 				if	(oldCM)
 				{
-					ScMW->recalcColors(ScMW->mainWindowProgressBar);
-					currDoc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+					currDoc->SetDefaultCMSParams();
+					updCol = true;
 				}
 			}
 			else if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
@@ -499,11 +500,18 @@ void ReformDoc::updateDocumentSettings()
 				currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;
 				currDoc->PDF_Options.PrintProf = currDoc->CMSSettings.DefaultPrinterProfile;
 				currDoc->PDF_Options.Intent = currDoc->CMSSettings.DefaultIntentColors;
+				updCol = true;
+			}
+			else
+			{
+				currDoc->SetDefaultCMSParams();
+				currDoc->HasCMS = false;
+			}
+			if (updCol)
+			{
 				ScMW->recalcColors(ScMW->mainWindowProgressBar);
 				currDoc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, ScMW->mainWindowProgressBar);
 			}
-			else
-				currDoc->HasCMS = false;
 			ScMW->mainWindowProgressBar->setValue(cc);
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			ScMW->setStatusBarInfoText("");

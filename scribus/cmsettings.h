@@ -76,6 +76,7 @@ public:
 
 	cmsHTRANSFORM cmykColorDisplayTransform() const;  // stdTransCMYKMonG
 	cmsHTRANSFORM cmykColorProofingTransform() const; // stdProofCMYKG
+	cmsHTRANSFORM cmykImageProofingTransform() const; // stdProofImgCMYK
 	cmsHTRANSFORM cmykToRgbColorTransform() const;    // stdTransRGBG
 	cmsHTRANSFORM cmykGamutCheckTransform() const;    //stdProofCMYKGCG
 

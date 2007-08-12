@@ -27,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusapi.h"
 
+#include CMS_INC
+
 class QWidget;
 class FileWatcher;
 class PluginManager;
@@ -94,6 +96,10 @@ public:
 	bool haveTIFFSep() const {return m_HaveTiffSep;}
 	void getCMSProfiles(bool showInfo);
 	void getCMSProfilesDir(QString pfad, bool showInfo, bool recursive);
+	void InitDefaultColorTransforms(void);
+	void TermDefaultColorTransforms(void);
+	bool IsDefaultProfile(cmsHPROFILE prof);
+	bool IsDefaultTransform(cmsHTRANSFORM trans);
 	bool fileWatcherActive() const;
 	void recheckGS();
 	
@@ -108,6 +114,14 @@ public:
 	ProfilesL MonitorProfiles;
 	ProfilesL PrinterProfiles;
 	ProfilesL PDFXProfiles;
+
+	cmsHPROFILE   defaultRGBProfile;
+	cmsHPROFILE   defaultCMYKProfile;
+	cmsHTRANSFORM defaultRGBToScreenSolidTrans;
+	cmsHTRANSFORM defaultRGBToScreenImageTrans;
+	cmsHTRANSFORM defaultCMYKToScreenImageTrans;
+	cmsHTRANSFORM defaultRGBToCMYKTrans;
+	cmsHTRANSFORM defaultCMYKToRGBTrans;
 	//CB FIXME protect
 // 	QWidget *m_PaletteParent;
 	
