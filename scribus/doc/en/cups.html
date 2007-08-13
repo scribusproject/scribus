@@ -5,7 +5,7 @@
 <p>First, make sure you have the the correct CUPS development libraries installed before compiling Scribus. On Redhat, for example, they are named cups-devel. Complete details are in the BUILDING file with the source</p>
 <p>Second, on many Linux distributions there are optional gimp-print drivers. These drivers are not only for gimp, but can be used in any program to give you more exacting print control and in some cases much better output with photographs. Often many inkjet printers on Linux are supported by more than one driver - typically an 'ijs' driver and gimp-print. The difference lies mostly in the added options versus some speed loss. By the way, the next release of the gimp-print drivers  will be known as gutenprint to avoid confusion.</p>
 <p>The cups control panel in Scribus with the regular ijs plus ghostscript driver:</p>
-<table width="100%"><tr><td align="center"><img align="center" alt="Cups Control Panel in Scribus" src="images/cups1.png" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/cups1.png" align="center" alt="Cups Control Panel in Scribus"  /></td></tr></table>
 <h3>Hints:</h3>
 <ul>
 	<li>CUPS has a separate gimp-print plug in which really improves the output of Scribus and any color docs GIMP-Print Drivers, especially those which have lots of pictures.</li>
@@ -15,7 +15,7 @@
 <li>To access setup and configuration for locally installed CUPS printers, there are 2 recommended methods to this with CUPS: 1. Type: <code>http://localhost:631</code> to use the CUPS web interface. 2. Use the KDE Print Manager. No other option will give you full access to all the features with CUPS.</li>
 </ul>
 <p>The image below shows the difference with the GIMP-Print Plug-in installed.</p>
-<table width="100%"><tr><td align="center"><img align="center" alt="Cups Control Panel in Scribus With Gimp-Print" src="images/cups2.png" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/cups2.png" align="center" alt="Cups Control Panel in Scribus With Gimp-Print" /></td></tr></table>
 <p>The main difference is the more refined color and ink density adjustments available in GIMP Print. Often it will be slower than other drivers, but the output quality is the main reason. You can also use kprinter in combination with other programs which are not CUPS aware, but can benefit from high quality printing. As an example, Acrobat Reader on Linux before version 7.0.5 does not recognize CUPS, but has a command line window to call kprinter. Thus, you can with the correct settings, print high resolution PDF's with the same high quality as Scribus. </p>
 <p>What I recommend with CUPS is to set up your everyday printer with the ijs or regular kprinter driver and then add a second printer instance with GIMP Print, so you have quicker output with everyday docs like text files etc..</p>
 <h3>PostScript Printers and CUPS</h3>
