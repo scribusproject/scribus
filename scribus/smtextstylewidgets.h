@@ -41,46 +41,6 @@ public:
 	void clearAll();
 
 private:
-	QVBoxLayout *basicBoxLayout;
-	QVBoxLayout *advBoxLayout;
-	QVBoxLayout *colorBoxLayout;
-	QHBoxLayout *layout8;
-	QHBoxLayout *layout9a;
-	QHBoxLayout *layout5;
-	QHBoxLayout *layout6;
-	QGridLayout *spinBoxLayout_;
-	QGridLayout *spinBoxLayoutBasic_;
-
-	SMFontComboH  *fontFace_;
-	SMStyleSelect *effects_;
-	SMColorCombo  *fillColor_;
-	SMShadeButton *fillShade_;
-	SMColorCombo  *strokeColor_;
-	SMShadeButton *strokeShade_;
-	SMScComboBox  *language_;
-
-	SMScrSpinBox  *fontSize_;
-	SMScrSpinBox  *fontHScale_;
-	SMScrSpinBox  *fontVScale_;
-	SMScrSpinBox  *tracking_;
-	SMScrSpinBox  *baselineOffset_;
-
-	QLabel      *fontSizeLabel_;
-	QLabel      *hscaleLabel_;
-	QLabel      *vscaleLabel_;
-	QLabel      *FillIcon;
-	QLabel      *pixmapLabel3_20;
-	QLabel      *StrokeIcon;
-	QLabel      *pixmapLabel3_19;
-	QLabel      *trackingLabel_;
-	QLabel      *baselineOffsetLabel_;
-	QLabel      *languageLabel_;
-
-	QSpacerItem *spacer1;
-	QSpacerItem *spacer2;
-	QSpacerItem *spacer3;
-	QSpacerItem *spacer4;
-
 	QMap<QString, QString> langMap_;
 
 	void showSizeAndPosition(const QList<CharStyle*> &cstyles);

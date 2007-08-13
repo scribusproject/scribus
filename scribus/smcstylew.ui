@@ -1,25 +1,8 @@
 <ui version="4.0" >
  <class>CStyleP</class>
  <widget class="QWidget" name="CStyleP" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>312</width>
-    <height>196</height>
-   </rect>
-  </property>
-  <property name="windowTitle" >
-   <string>Form1</string>
-  </property>
-  <layout class="QVBoxLayout" >
-   <property name="margin" >
-    <number>0</number>
-   </property>
-   <property name="spacing" >
-    <number>5</number>
-   </property>
-   <item>
+  <layout class="QGridLayout" >
+   <item row="0" column="0" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -29,19 +12,28 @@
      </property>
      <property name="sizeHint" >
       <size>
-       <width>290</width>
-       <height>5</height>
+       <width>503</width>
+       <height>16</height>
       </size>
      </property>
     </spacer>
    </item>
-   <item>
+   <item row="1" column="0" >
     <layout class="QHBoxLayout" >
-     <property name="margin" >
-      <number>0</number>
-     </property>
      <property name="spacing" >
       <number>6</number>
+     </property>
+     <property name="leftMargin" >
+      <number>0</number>
+     </property>
+     <property name="topMargin" >
+      <number>0</number>
+     </property>
+     <property name="rightMargin" >
+      <number>0</number>
+     </property>
+     <property name="bottomMargin" >
+      <number>0</number>
      </property>
      <item>
       <widget class="QLabel" name="parentLabel" >
@@ -56,9 +48,7 @@
      <item>
       <widget class="QComboBox" name="parentCombo" >
        <property name="sizePolicy" >
-        <sizepolicy>
-         <hsizetype>1</hsizetype>
-         <vsizetype>0</vsizetype>
+        <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
          <horstretch>5</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
@@ -67,7 +57,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="2" column="0" >
     <spacer>
      <property name="orientation" >
       <enum>Qt::Vertical</enum>
@@ -77,40 +67,310 @@
      </property>
      <property name="sizeHint" >
       <size>
-       <width>290</width>
-       <height>5</height>
+       <width>421</width>
+       <height>16</height>
       </size>
      </property>
     </spacer>
    </item>
-   <item>
-    <widget class="Q3GroupBox" name="basicGroup" >
+   <item row="3" column="0" >
+    <widget class="QGroupBox" name="basicGroup" >
      <property name="title" >
       <string>Basic Formatting</string>
      </property>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="SMFontComboH" name="fontFace_" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="fontSizeLabel_" >
+          <property name="minimumSize" >
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SMScrSpinBox" name="fontSize_" />
+        </item>
+        <item>
+         <widget class="QLabel" name="trackingLabel_" >
+          <property name="minimumSize" >
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SMScrSpinBox" name="tracking_" />
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0" >
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="SMStyleSelect" name="effects_" >
+          <property name="sizePolicy" >
+           <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType" >
+           <enum>QSizePolicy::Expanding</enum>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item>
-    <widget class="Q3GroupBox" name="advGroup" >
+   <item row="4" column="0" >
+    <widget class="QGroupBox" name="advGroup" >
      <property name="title" >
       <string>Advanced Formatting</string>
      </property>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="hscaleLabel_" >
+          <property name="maximumSize" >
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SMScrSpinBox" name="fontHScale_" />
+        </item>
+        <item>
+         <widget class="QLabel" name="vscaleLabel_" >
+          <property name="maximumSize" >
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SMScrSpinBox" name="fontVScale_" />
+        </item>
+        <item>
+         <widget class="QLabel" name="baselineOffsetLabel_" >
+          <property name="maximumSize" >
+           <size>
+            <width>22</width>
+            <height>22</height>
+           </size>
+          </property>
+          <property name="text" >
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SMScrSpinBox" name="baselineOffset_" />
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0" >
+       <layout class="QHBoxLayout" >
+        <item>
+         <widget class="QLabel" name="languageLabel_" >
+          <property name="text" >
+           <string>Language:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="SMScComboBox" name="language_" />
+        </item>
+        <item>
+         <spacer>
+          <property name="orientation" >
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" >
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item>
-    <widget class="Q3GroupBox" name="smColorGroup" >
+   <item row="5" column="0" >
+    <widget class="QGroupBox" name="smColorGroup" >
      <property name="title" >
       <string>Colors</string>
      </property>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
+     <layout class="QGridLayout" >
+      <item row="0" column="0" >
+       <widget class="QLabel" name="FillIcon" >
+        <property name="maximumSize" >
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="SMColorCombo" name="fillColor_" />
+      </item>
+      <item row="0" column="2" >
+       <widget class="QLabel" name="fillShadeLabel" >
+        <property name="maximumSize" >
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3" >
+       <widget class="SMShadeButton" name="fillShade_" >
+        <property name="text" >
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="StrokeIcon" >
+        <property name="maximumSize" >
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="SMColorCombo" name="strokeColor_" />
+      </item>
+      <item row="1" column="2" >
+       <widget class="QLabel" name="strokeShadeLabel" >
+        <property name="maximumSize" >
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="text" >
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3" >
+       <widget class="SMShadeButton" name="strokeShade_" >
+        <property name="text" >
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
@@ -118,10 +378,34 @@
  <layoutdefault spacing="6" margin="11" />
  <customwidgets>
   <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
+   <class>SMFontComboH</class>
+   <extends>QComboBox</extends>
+   <header>smfontcomboh.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMScrSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>smscrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMStyleSelect</class>
+   <extends>QLineEdit</extends>
+   <header>smstyleselect.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMScComboBox</class>
+   <extends>QComboBox</extends>
+   <header>smsccombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMColorCombo</class>
+   <extends>QComboBox</extends>
+   <header>smcolorcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMShadeButton</class>
+   <extends>QPushButton</extends>
+   <header>smshadebutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

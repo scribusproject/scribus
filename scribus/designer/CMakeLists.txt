@@ -1,3 +1,5 @@
+# it's unfinished ADD_SUBDIRECTORY(smwidgets)
+
 INCLUDE_DIRECTORIES(
 ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus

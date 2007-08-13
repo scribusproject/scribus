@@ -25,9 +25,13 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "story.h"
 #include "menumanager.h"
-//qt4 #include "fmitem.h"
 #include "mpalette.h"
-#include "smwidgets.h"
+#include "smalignselect.h"
+#include "smsccombobox.h"
+#include "smtabruler.h"
+#include "smspinbox.h"
+#include "smcolorcombo.h"
+#include "smshadebutton.h"
 
 #include <QTabWidget>
 

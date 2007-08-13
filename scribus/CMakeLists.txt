@@ -200,12 +200,20 @@ SET(SCRIBUS_MOC_CLASSES
   selection.h
   selfield.h
   shadebutton.h
+  smalignselect.h
+  smfontcomboh.h
   smlinestyle.h
   smreplacedia.h
+  smsccombobox.h
+  smcolorcombo.h
+  smscrspinbox.h
+  smshadebutton.h
+  smspinbox.h
   smstyleimport.h
+  smstyleselect.h
+  smtabruler.h
   smtextstyles.h
   smtextstylewidgets.h
-  smwidgets.h
   spalette.h
   story.h
   styleitem.h
@@ -452,12 +460,20 @@ SET(SCRIBUS_SOURCES
   selfield.cpp
   serializer.cpp
   shadebutton.cpp
+  smalignselect.cpp
+  smfontcomboh.cpp
   smlinestyle.cpp
+  smsccombobox.cpp
+  smcolorcombo.cpp
+  smscrspinbox.cpp
+  smshadebutton.cpp
+  smspinbox.cpp
   smreplacedia.cpp
   smstyleimport.cpp
+  smstyleselect.cpp
+  smtabruler.cpp
   smtextstyles.cpp
   smtextstylewidgets.cpp
-  smwidgets.cpp
   spalette.cpp
   splash.cpp
   stencilreader.cpp
