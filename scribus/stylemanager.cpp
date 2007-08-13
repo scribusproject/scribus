@@ -4,32 +4,27 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-
-// tmp
-#include <Q3Header>
 #include <QMenu>
-#include <Q3ButtonGroup>
-
-#include <QMessageBox>
-#include <QRadioButton>
 #include <QToolTip>
+#include <QMessageBox>
 
-#include "stylemanager.h"
-#include "styleitem.h"
-#include "scribusdoc.h"
-#include "scribusview.h"
-#include "smreplacedia.h"
-#include "smtextstyles.h"
-#include "smlinestyle.h"
-#include "styleitem.h"
-#include "selection.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
-#include "prefscontext.h"
 #include "commonstrings.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "stylemanager.h"
+#include "shortcutwidget.h"
+#include "styleview.h"
+#include "styleitem.h"
+#include "smreplacedia.h"
+#include "selection.h"
 #include "customfdialog.h"
-#include "fileloader.h"
+#include "smtextstyles.h"
+#include "smlinestyle.h"
 #include "smstyleimport.h"
+#include "fileloader.h"
+#include "scraction.h"
 
 
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
@@ -42,16 +37,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(p
 	splitter->setResizeMode(rightFrame, QSplitter::Stretch);
 	uniqueLabel->hide();
 	rightFrame->hide();
-	svLayout = new QHBoxLayout(styleViewFrame);
-	styleView = new StyleView(styleViewFrame);
-	svLayout->addWidget(styleView);
-	styleView->addColumn( tr("Name"));
-	styleView->addColumn( tr("Shortcut"));
-	styleView->setColumnWidthMode(NAME_COL, Q3ListView::Maximum);
-	styleView->setColumnWidthMode(SHORTCUT_COL, Q3ListView::Maximum);
-	styleView->setColumnWidth(NAME_COL, 0);
-	styleView->setColumnWidth(SHORTCUT_COL, 0);
-	styleView->header()->hide();
+
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
 	layout_ = new QGridLayout(mainFrame);
@@ -84,10 +70,10 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(p
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(slotDelete()));
 	connect(cloneButton, SIGNAL(clicked()), this, SLOT(slotClone()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
-	connect(styleView, SIGNAL(rightButtonClicked(Q3ListViewItem*, const QPoint&, int)),
-			this, SLOT(slotRightClick(Q3ListViewItem*, const QPoint&, int)));
-	connect(styleView, SIGNAL(doubleClicked(Q3ListViewItem*, const QPoint&, int)),
-			this, SLOT(slotDoubleClick(Q3ListViewItem*, const QPoint&, int)));
+	connect(styleView, SIGNAL(customContextMenuRequested(const QPoint &)),
+			this, SLOT(slotRightClick(const QPoint &)));
+	connect(styleView, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
+			this, SLOT(slotDoubleClick(QTreeWidgetItem *, int)));
 
 	languageChange();
 	slotOk();
@@ -258,9 +244,10 @@ void StyleManager::slotDelete()
 		selected << rcStyle_;
 	else
 	{
-		Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
-		while (it.current()) {
-			selected << it.current()->text(0);
+		QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selected);
+		while (*it)
+		{
+			selected << (*it)->text(0);
 			++it;
 		}
 	}
@@ -442,12 +429,12 @@ void StyleManager::setSelection(const QList<QPair<QString, QString> > &selected)
 {
 	styleView->clearSelection();
 	
-	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selectable);
+	QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selectable);
 	StyleViewItem *item;
 
-	while (it.current())
+	while (*it)
 	{
-		item = dynamic_cast<StyleViewItem*>(it.current());
+		item = dynamic_cast<StyleViewItem*>(*it);
 		if (item)
 		{
 			for (int i = 0; i < selected.count(); ++i)
@@ -456,14 +443,14 @@ void StyleManager::setSelection(const QList<QPair<QString, QString> > &selected)
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
-					item->repaint();
+// 					item->repaint();
 				}
 			}
 		}
 		++it;
 	}
 
-	styleView->triggerUpdate();
+// 	styleView->triggerUpdate();
 }
 
 void StyleManager::slotEdit()
@@ -473,10 +460,10 @@ void StyleManager::slotEdit()
 
 	if (!rcStyle_.isNull())
 	{
-		Q3ListViewItemIterator it(styleView);
-		while (it.current())
+		QTreeWidgetItemIterator it(styleView);
+		while (*it)
 		{
-			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+			StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 			if (item && !item->isRoot())
 			{
 				if (item->rootName() == styleClassesSP_[rcType_] &&
@@ -484,7 +471,7 @@ void StyleManager::slotEdit()
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
-					item->repaint();
+// 					item->repaint();
 					break;
 				}
 			}
@@ -503,10 +490,10 @@ void StyleManager::slotClone()
 
 	if (!rcStyle_.isNull())
 	{
-		Q3ListViewItemIterator it(styleView);
-		while (it.current())
+		QTreeWidgetItemIterator it(styleView);
+		while (*it)
 		{
-			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+			StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 			if (item && !item->isRoot())
 			{
 				if (item->rootName() == styleClassesSP_[rcType_] &&
@@ -514,7 +501,7 @@ void StyleManager::slotClone()
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
-					item->repaint();
+// 					item->repaint();
 					break;
 				}
 			}
@@ -524,12 +511,12 @@ void StyleManager::slotClone()
 		rcType_ = QString::null;
 	}
 
-	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
+	QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selected);
 	QList<QPair<QString, QString> > names;
 
-	while (it.current())
+	while (*it)
 	{ // can't create styles here cause createNewStyle() alters the selection
-		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 		if (item)
 			names << QPair<QString, QString>(item->rootName(), item->text(NAME_COL));
 		++it;
@@ -572,8 +559,9 @@ void StyleManager::slotNewPopup(int i)
 	createNewStyle(typeName);
 }
 
-void StyleManager::slotRightClick(Q3ListViewItem *item, const QPoint &point, int col)
+void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*, int col*/)
 {
+	StyleViewItem *item = static_cast<StyleViewItem*>(styleView->currentItem());
 	rcStyle_ = QString::null;
 	rcType_ = QString::null;
 
@@ -582,33 +570,33 @@ void StyleManager::slotRightClick(Q3ListViewItem *item, const QPoint &point, int
 		styleView->clearSelection();
 		styleView->setCurrentItem(item);
 		item->setSelected(true);
-		item->repaint();
+// 		item->repaint();
 	}
 
-	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
-	if (sitem && !sitem->isRoot())
+// 	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
+	if (item && !item->isRoot())
 	{
 		rightClickPopup_->removeItem(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->insertItem( tr("New %1").arg(styleClassesPS_[sitem->rootName()]),
+		rcpNewId_ = rightClickPopup_->insertItem( tr("New %1").arg(styleClassesPS_[item->rootName()]),
 		                                         this, SLOT(slotNewPopup(int)), 0, -1, 0);
 		rightClickPopup_->setItemEnabled(rcpDeleteId_, true);
 		rightClickPopup_->setItemEnabled(rcpEditId_, true);
 		rightClickPopup_->setItemEnabled(rcpCloneId_, true);
 		rightClickPopup_->setItemEnabled(rcpToScrapId_, true);
-		rcStyle_ = sitem->text(0);
-		rcType_ = styleClassesPS_[sitem->rootName()];
-		loadType(styleClassesPS_[sitem->rootName()]);
+		rcStyle_ = item->text(0);
+		rcType_ = styleClassesPS_[item->rootName()];
+		loadType(styleClassesPS_[item->rootName()]);
 	}
-	else if (sitem && sitem->isRoot())
+	else if (item && item->isRoot())
 	{
 		rightClickPopup_->removeItem(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->insertItem( tr("New %1").arg(styleClassesPS_[sitem->text(0)]),
+		rcpNewId_ = rightClickPopup_->insertItem( tr("New %1").arg(styleClassesPS_[item->text(0)]),
 		                                         this, SLOT(slotNewPopup(int)), 0, -1, 0);
 		rightClickPopup_->setItemEnabled(rcpDeleteId_, false);
 		rightClickPopup_->setItemEnabled(rcpEditId_, false);
 		rightClickPopup_->setItemEnabled(rcpCloneId_, false);
 		rightClickPopup_->setItemEnabled(rcpToScrapId_, false);
-		rcType_ = styleClassesPS_[sitem->text(0)];
+		rcType_ = styleClassesPS_[item->text(0)];
 		loadType(rcType_);
 	}
 	else
@@ -621,10 +609,10 @@ void StyleManager::slotRightClick(Q3ListViewItem *item, const QPoint &point, int
 		rightClickPopup_->setItemEnabled(rcpToScrapId_, false);
 	}
 
-	rightClickPopup_->exec(point);
+	rightClickPopup_->exec(styleView->mapToGlobal(point));
 }
 
-void StyleManager::slotDoubleClick(Q3ListViewItem *item, const QPoint &point, int col)
+void StyleManager::slotDoubleClick(QTreeWidgetItem *item, /*const QPoint &point, */int col)
 {
 	rcStyle_ = QString::null;
 	rcType_ = QString::null;
@@ -634,7 +622,7 @@ void StyleManager::slotDoubleClick(Q3ListViewItem *item, const QPoint &point, in
 		styleView->clearSelection();
 		styleView->setCurrentItem(item);
 		item->setSelected(true);
-		item->repaint();
+// 		item->repaint();
 		return; // work done, already in edit mode
 	}
 
@@ -664,11 +652,11 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 			item_->newStyle() : item_->newStyle(fromParent);
 	if (newName.isNull())
 		return;
-	Q3ListViewItem *root = 0;
-	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::NotSelectable);
-	while (it.current())
+	StyleViewItem *root = 0;
+	QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::NotSelectable);
+	while (*it)
 	{
-		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 		if (item)
 		{
 			if (item->text(NAME_COL) == item_->typeName())
@@ -686,7 +674,7 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 	newItem->setDirty(true);
 	styleView->setCurrentItem(newItem);
 	newItem->setSelected(true);
-	newItem->repaint();
+// 	newItem->repaint();
 	slotSetupWidget();
 	nameEdit->setFocus();
 	nameEdit->selectAll();
@@ -700,9 +688,9 @@ void StyleManager::slotOk()
 	static bool isFirst = true;
 	if (isEditMode_)
 	{
-		disconnect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
+		disconnect(styleView, SIGNAL(itemSelectionChanged()), this, SLOT(slotSetupWidget()));
 		slotApply();
-		styleView->setSelectionMode(Q3ListView::Multi);
+		styleView->setSelectionMode(QAbstractItemView::MultiSelection);
 		okButton->setText(QString("%1 >>").arg( tr("&Edit")));
 		editFrame->hide();
 		applyButton->hide();
@@ -728,10 +716,10 @@ void StyleManager::slotOk()
 		if (!isFirst)
 			move(editPosition_);
 		prefs_->set("isEditMode", isEditMode_);
-		connect(styleView, SIGNAL(selectionChanged(Q3ListViewItem*)),
-		        this, SLOT(slotApplyStyle(Q3ListViewItem*)));
-		connect(styleView, SIGNAL(clicked(Q3ListViewItem*)),
-				this, SLOT(slotApplyStyle(Q3ListViewItem*)));
+		connect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+		        this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
+		connect(styleView, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+				this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
 		if (isStoryEditMode_)
 		{
 			isStoryEditMode_=false;
@@ -740,14 +728,14 @@ void StyleManager::slotOk()
 	}
 	else
 	{
-		disconnect(styleView, SIGNAL(selectionChanged(Q3ListViewItem*)),
-		           this, SLOT(slotApplyStyle(Q3ListViewItem*)));
-		disconnect(styleView, SIGNAL(clicked(Q3ListViewItem*)),
-				this, SLOT(slotApplyStyle(Q3ListViewItem*)));
+		disconnect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+				   this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
+		disconnect(styleView, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
+				   this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
 
 
 		slotSetupWidget();
-		styleView->setSelectionMode(Q3ListView::Extended);
+		styleView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 		editPosition_.setX(x());
 		editPosition_.setY(y());
 		prefs_->set("eX", x());
@@ -771,7 +759,7 @@ void StyleManager::slotOk()
 		resize(700, 500);
 		//adjustSize();
 		prefs_->set("isEditMode", isEditMode_);
-		connect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
+		connect(styleView, SIGNAL(itemSelectionChanged()), this, SLOT(slotSetupWidget()));
 	}
 	setOkButtonText();
 	isFirst = false;	
@@ -784,7 +772,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 
 		QList<StyleName> styles = item_->styles(loadFromDoc);
 		StyleViewItem *rootItem = new StyleViewItem(styleView, item_->typeName());
-		rootItem->setOpen(true);
+		styleView->expandItem(rootItem);
 		QMap<QString, StyleViewItem*> sitems;
 
 		for (int i = 0; i < styles.count(); ++i) // set the list of styles of this type
@@ -798,7 +786,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 			{
 				StyleViewItem *parent = sitems[styles[i].second];
 				sitem = new StyleViewItem(parent, styles[i].first, item_->typeName());
-				parent->setOpen(true);
+				styleView->expandItem(parent);
 			}
 			else 
 			{
@@ -838,14 +826,15 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 
 void StyleManager::slotDirty()
 {
-	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
+	QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selected);
 
-	while (it.current()) {
-		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+	while (*it)
+	{
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 		if (item)
 		{
 			item->setDirty(true);
-			item->repaint();
+// 			item->repaint();
 			applyButton->setEnabled(true);
 			resetButton->setEnabled(true);
 		}
@@ -857,14 +846,15 @@ void StyleManager::slotDirty()
 
 void StyleManager::slotClean()
 {
-	Q3ListViewItemIterator it(styleView);
+	QTreeWidgetItemIterator it(styleView);
 
-	while (it.current()) {
-		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+	while (*it)
+	{
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 		if (item)
 		{
 			item->setDirty(false);
-			item->repaint();
+// 			item->repaint();
 		}
 		++it;
 	}
@@ -888,12 +878,12 @@ void StyleManager::slotClean()
 
 void StyleManager::reloadStyleView(bool loadFromDoc)
 {
-	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
+	QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selected);
 	QList<QPair<QString, QString> > selected;
 
-	while (it.current())
+	while (*it)
 	{
-		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 		if (item)
 			selected << QPair<QString, QString>(item->rootName(), item->text(NAME_COL));
 		++it;
@@ -906,11 +896,11 @@ void StyleManager::reloadStyleView(bool loadFromDoc)
 	for (int i = 0; i < items_.count(); ++i)
 		addNewType(items_.at(i), false);
 
-	Q3ListViewItemIterator it2(styleView, Q3ListViewItemIterator::Selectable);
+	QTreeWidgetItemIterator it2(styleView, QTreeWidgetItemIterator::Selectable);
 
-	while (it2.current())
+	while (*it2)
 	{
-		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it2.current());
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it2);
 		if (item)
 		{
 			for (int i = 0; i < selected.count(); ++i)
@@ -1117,7 +1107,7 @@ void StyleManager::slotSetupWidget()
 
 }
 
-void StyleManager::slotApplyStyle(Q3ListViewItem *item)
+void StyleManager::slotApplyStyle(QTreeWidgetItem *item)
 {
 	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
 
@@ -1136,13 +1126,23 @@ void StyleManager::slotApplyStyle(Q3ListViewItem *item)
 	slotDocSelectionChanged();
 }
 
+void StyleManager::slotApplyStyle(QTreeWidgetItem *newitem, QTreeWidgetItem *)
+{
+	slotApplyStyle(newitem);
+}
+
+void StyleManager::slotApplyStyle(QTreeWidgetItem *item, int)
+{
+	slotApplyStyle(item);
+}
+
 void StyleManager::slotDocSelectionChanged()
 {
 	if (isEditMode_)
 		return; // don't track changes when in edit mode
 
-	disconnect(styleView, SIGNAL(currentChanged(Q3ListViewItem*)),
-	           this, SLOT(slotApplyStyle(Q3ListViewItem*)));
+	disconnect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*, QTreeWidgetItem*)),
+	           this, SLOT(slotApplyStyle(QTreeWidgetItem*, QTreeWidgetItem*)));
 
 	styleView->clearSelection();
 
@@ -1151,12 +1151,12 @@ void StyleManager::slotDocSelectionChanged()
 	for (int i = 0; i < items_.count(); ++i)
 		selected << QPair<QString, QString>(items_.at(i)->typeName(), items_.at(i)->fromSelection());
 	
-	Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selectable);
+	QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selectable);
 	StyleViewItem *item;
 
-	while (it.current())
+	while (*it)
 	{
-		item = dynamic_cast<StyleViewItem*>(it.current());
+		item = dynamic_cast<StyleViewItem*>(*it);
 		if (item)
 		{
 			for (int i = 0; i < selected.count(); ++i)
@@ -1165,17 +1165,17 @@ void StyleManager::slotDocSelectionChanged()
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
-					item->repaint();
+// 					item->repaint();
 				}
 			}
 		}
 		++it;
 	}
 
-	styleView->triggerUpdate();
+// 	styleView->triggerUpdate();
 
-	connect(styleView, SIGNAL(currentChanged(Q3ListViewItem*)),
-	        this, SLOT(slotApplyStyle(Q3ListViewItem*)));
+	connect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
+	        this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
 }
 
 void StyleManager::slotDocStylesChanged()
@@ -1195,10 +1195,10 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 
 	if (rcStyle_.isNull())
 	{
-		Q3ListViewItemIterator it(styleView, Q3ListViewItemIterator::Selected);
-		while (it.current())
+		QTreeWidgetItemIterator it(styleView, QTreeWidgetItemIterator::Selected);
+		while (*it)
 		{
-			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+			StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 			if (!item)
 			{
 				++it;
@@ -1315,341 +1315,4 @@ StyleManager::~StyleManager()
 	prefs_->set("InitY", y());
 	storeVisibility(this->isVisible());
 	storePosition();
-}
-
-
-
-/*** StyleViewItem *******************************************************************/
-
-StyleView::StyleView(QWidget *parent) : Q3ListView(parent, "StyleView")
-{
-
-}
-
-StyleView::~StyleView()
-{
-
-}
-
-void StyleView::contentsMousePressEvent(QMouseEvent *e)
-{
-	if (e->button() == Qt::RightButton)
-		emit rightButtonClicked(itemAt(e->pos()), e->globalPos(), 0);
-	else
-		Q3ListView::contentsMousePressEvent(e);
-}
-
-void StyleView::contentsMouseDoubleClickEvent(QMouseEvent *e)
-{
-	if (e->button() == Qt::LeftButton)
-		emit doubleClicked(itemAt(e->pos()), e->globalPos(), 0);
-	else
-		Q3ListView::contentsMouseDoubleClickEvent(e);
-}
-
-/*** StyleViewItem *******************************************************************/
-
-StyleViewItem::StyleViewItem(Q3ListView *view, const QString &text) : Q3ListViewItem(view, text),
-isRoot_(true), isDirty_(false), parentName_(QString::null), rootName_(QString::null)
-{
-	setSelectable(false);
-}
-
-StyleViewItem::StyleViewItem(Q3ListViewItem *parent, const QString &text, const QString &rootName)
-: Q3ListViewItem(parent, text),
-  isRoot_(false), isDirty_(false), parentName_(parent->text(0)), rootName_(rootName)
-{
-
-}
-
-void StyleViewItem::paintCell(QPainter *p, const QColorGroup &cg, int column, int width, int align)
-{
-	if (column == 0)
-	{
-		QFont f(p->font());
-		f.setBold(isDirty_);
-		p->setFont(f);
-	}
-
-	Q3ListViewItem::paintCell(p, cg, column, width, align);
-}
-
-void StyleViewItem::setDirty(bool isDirty)
-{
-	isDirty_ = isDirty;
-}
-
-bool StyleViewItem::isDirty()
-{
-	return isDirty_;
-}
-
-bool StyleViewItem::isRoot()
-{
-	return isRoot_;
-}
-
-QString StyleViewItem::parentName()
-{
-	return parentName_;
-}
-
-QString StyleViewItem::rootName()
-{
-	return rootName_;
-}
-
-StyleViewItem::~StyleViewItem()
-{
-
-}
-
-/*** ShortcutWidget ******************************************************************/
-
-ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(parent, name)
-{
-	Part0 = "";
-	Part1 = "";
-	Part2 = "";
-	Part3 = "";
-	keyCode = 0;
-	keyManagerLayout = new QVBoxLayout( this, 0, 6);
-	keyManagerLayout->setAlignment( Qt::AlignHCenter );
-
-	keyGroup = new Q3ButtonGroup( this, "keyGroup" );
-	keyGroup->setFrameStyle(0);
-	keyGroup->setColumnLayout(0, Qt::Vertical );
-	keyGroup->layout()->setSpacing( 0 );
-	keyGroup->layout()->setMargin( 0 );
-	keyGroupLayout = new QGridLayout( keyGroup->layout() );
-	keyGroupLayout->setAlignment( Qt::AlignTop );
-	keyGroupLayout->setSpacing( 6 );
-	keyGroupLayout->setMargin( 11 );
-
-	noKey = new QRadioButton( tr( "&No Key" ), keyGroup, "noKey" );
-	keyGroupLayout->addMultiCellWidget( noKey, 0, 1, 0, 1 );
-	userDef = new QRadioButton( tr( "&User Defined Key" ), keyGroup, "userDef" );
-	keyGroupLayout->addWidget( userDef, 2, 0 );
-
-	keyDisplay = new QLabel( tr( "ALT+SHIFT+T" ), keyGroup, "keyDisplay" );
-	keyDisplay->setFrameShape( QLabel::Panel );
-	keyDisplay->setFrameShadow( QLabel::Sunken );
-	keyDisplay->setAlignment( static_cast<int>( Qt::AlignCenter ) );
-	keyDisplay->setMinimumHeight(40);
-
-	keyGroupLayout->addMultiCellWidget( keyDisplay, 3, 4, 0, 2 );
-
-	setKeyButton = new QPushButton( tr( "Set &Key" ), keyGroup, "setKeyButton" );
-	setKeyButton->setToggleButton(true);
-
-	languageChange();
-
-	keyGroupLayout->addMultiCellWidget( setKeyButton, 0, 2, 1, 1, Qt::AlignCenter );
-	keyManagerLayout->addWidget( keyGroup );
-
-	connect(noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
-	connect(setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
-}
-
-void ShortcutWidget::languageChange()
-{
-/***********************************/
-/*      Begin Tooltips             */
-/***********************************/
-
-	QToolTip::add(noKey,        tr("No shortcut for the style")); // set no shortcut for this style
-	QToolTip::add(userDef,      tr("Style has user defined shortcut")); // not sure what this thing does
-	QToolTip::add(setKeyButton, tr("Assign a shortcut for the style")); // activate shorcut assigning
-
-/***********************************/
-/*      End Tooltips               */
-/***********************************/
-
-	noKey->setText( tr("&No Key"));
-	userDef->setText( tr("&User Defined Key"));
-	setKeyButton->setText( tr("Set &Key"));
-}
-
-bool ShortcutWidget::event( QEvent* ev )
-{
-	bool ret = QWidget::event( ev );
-	if ( ev->type() == QEvent::KeyPress )
-		keyPressEvent((QKeyEvent*)ev);
-	if ( ev->type() == QEvent::KeyRelease )
-		keyReleaseEvent((QKeyEvent*)ev);
-	return ret;
-}
-
-void ShortcutWidget::keyPressEvent(QKeyEvent *k)
-{
-	if (setKeyButton->isOn())
-	{
-		QStringList tl;
-		if (!keyDisplay->text().isEmpty())
-		{
-			tl = tl.split("+", keyDisplay->text());
-			Part4 = tl[tl.count()-1];
-			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
-				Part4 = "";
-		}
-		else
-			Part4 = "";
-		switch (k->key())
-		{
-			case Qt::Key_Meta:
-				Part0 = tr("Meta+");
-				keyCode |= Qt::META;
-				break;
-			case Qt::Key_Shift:
-				Part3 = tr("Shift+");
-				keyCode |= Qt::SHIFT;
-				break;
-			case Qt::Key_Alt:
-				Part2 = tr("Alt+");
-				keyCode |= Qt::ALT;
-				break;
-			case Qt::Key_Control:
-				Part1 = tr("Ctrl+");
-				keyCode |= Qt::CTRL;
-				break;
-			default:
-				keyCode |= k->key();
-				keyDisplay->setText(getKeyText(keyCode));
-// 				if (checkKey(keyCode))
-// 				{
-// 					QMessageBox::information(this,
-// 											CommonStrings::trWarning,
-// 											tr("This key sequence is already in use"),
-// 											CommonStrings::tr_OK);
-// 					keyTable->setText(currRow, 1, "");
-// 					keyDisplay->setText("");
-// 					if (currentKeyMapRow!=NULL)
-// 						currentKeyMapRow.data().keySequence=QKeySequence();
-// 					noKey->setChecked(true);
-// 				}
-// 				else
-// 				{
-// 					QKeySequence newKeySequence(keyCode);
-// 					keyTable->setText(currRow, 1, QString(newKeySequence));
-// 					if (currentKeyMapRow!=NULL)
-// 						currentKeyMapRow.data().keySequence=newKeySequence;
-// 					userDef->setChecked(true);
-// 				}
-				setKeyButton->setOn(false);
-				userDef->setChecked(true);
-				releaseKeyboard();
-				emit newKey(keyDisplay->text());
-		}
-	}
-	if (setKeyButton->isOn())
-	{
-		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
-	}
-}
-
-void ShortcutWidget::keyReleaseEvent(QKeyEvent *k)
-{
-	if (setKeyButton->isOn())
-	{
-		if (!keyDisplay->text().isEmpty())
-		{
-			QStringList tl;
-			tl = tl.split("+", keyDisplay->text());
-			Part4 = tl[tl.count()-1];
-			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
-				Part4 = "";
-		}
-		else
-			Part4 = "";
-		if (k->key() == Qt::Key_Meta)
-		{
-			Part0 = "";
-			keyCode &= ~Qt::META;
-		}
-		if (k->key() == Qt::Key_Shift)
-		{
-			Part3 = "";
-			keyCode &= ~Qt::SHIFT;
-		}
-		if (k->key() == Qt::Key_Alt)
-		{
-			Part2 = "";
-			keyCode &= ~Qt::ALT;
-		}
-		if (k->key() == Qt::Key_Control)
-		{
-			Part1 = "";
-			keyCode &= ~Qt::CTRL;
-		}
-		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
-	}
-}
-
-QString ShortcutWidget::getKeyText(int KeyC)
-{
-	if ((KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)) == 0)
-		return "";
-	// on OSX Qt translates modifiers to forsaken symbols, arrows and the like
-	// we prefer plain English
-	QString res;
-	if ((KeyC & Qt::META) != 0)
-		res += "Meta+";
-	if ((KeyC & Qt::CTRL) != 0)
-		res += "Ctrl+";
-	if ((KeyC & Qt::ALT) != 0)
-		res += "Alt+";
-	if ((KeyC & Qt::SHIFT) != 0)
-		res += "Shift+";
-	return res + QString(QKeySequence(KeyC & ~(Qt::META | Qt::CTRL | Qt::ALT | Qt::SHIFT)));
-}
-
-void ShortcutWidget::setKeyText()
-{
-	if (setKeyButton->isOn())
-	{
-		keyCode = 0;
-		Part0 = "";
-		Part1 = "";
-		Part2 = "";
-		Part3 = "";
-		Part4 = "";
-		grabKeyboard();
-	}
-	else
-		releaseKeyboard();
-}
-
-void ShortcutWidget::setShortcut(const QString &shortcut)
-{
-	disconnect(noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
-	disconnect(setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
-
-	setKeyButton->setOn(false);
-	if (shortcut.length() > 0)
-	{
-		userDef->setChecked(true);
-		keyDisplay->setText(shortcut);
-	}
-	else
-	{
-		noKey->setChecked(true);
-		keyDisplay->setText("");
-	}
-
-	connect(noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
-	connect(setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
-}
-
-void ShortcutWidget::setNoKey()
-{
-	if (noKey->isChecked())
-	{
-		keyDisplay->setText("");
-		emit newKey(QString::null);
-	}
-}
-
-ShortcutWidget::~ShortcutWidget()
-{
-
 }

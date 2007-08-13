@@ -40,6 +40,7 @@ SET(SCRIBUS_UI_SRC
   picsearchoptions.ui
   picstatus.ui
   pluginmanagerprefsgui.ui
+  shortcutwidget.ui
   smlinestylew.ui
   smreplacedia.ui
   smpstylew.ui
@@ -200,6 +201,7 @@ SET(SCRIBUS_MOC_CLASSES
   selection.h
   selfield.h
   shadebutton.h
+  shortcutwidget.h
   smalignselect.h
   smfontcomboh.h
   smlinestyle.h
@@ -219,6 +221,7 @@ SET(SCRIBUS_MOC_CLASSES
   styleitem.h
   stylemanager.h
   styleselect.h
+  styleview.h
   tabcheckdoc.h
   tabexternaltoolswidget.h
   tabkeyboardshortcutswidget.h
@@ -460,6 +463,7 @@ SET(SCRIBUS_SOURCES
   selfield.cpp
   serializer.cpp
   shadebutton.cpp
+  shortcutwidget.cpp
   smalignselect.cpp
   smfontcomboh.cpp
   smlinestyle.cpp
@@ -481,6 +485,7 @@ SET(SCRIBUS_SOURCES
   styleitem.cpp
   stylemanager.cpp
   styleselect.cpp
+  styleview.cpp
   tabcheckdoc.cpp
   tabexternaltoolswidget.cpp
   tabkeyboardshortcutswidget.cpp

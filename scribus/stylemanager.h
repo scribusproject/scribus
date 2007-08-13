@@ -8,33 +8,19 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLEMANAGER_H
 #define STYLEMANAGER_H
 
-// tmp
-#include <Q3ListViewItem>
-
-#include "scribusapi.h"
-#include "scraction.h"
+#include <QPointer>
+#include "scrpalettebase.h"
 #include "ui_stylemanager.h"
-#include "scribusstructs.h"
-#include "styleitem.h"
 
-
+class StyleItem;
+class Keys;
 class ScribusDoc;
-class QHideEvent;
-class QGridLayout;
-class QTabWidget;
-class QVBoxLayout;
-class QHBoxLayout;
-class Q3ButtonGroup;
-class QRadioButton;
-class QLabel;
-class QPushButton;
-class QSize;
 class ShortcutWidget;
-class QMenu;
-class PrefsContext;
-class StyleView;
+class ScrAction;
 
-class SCRIBUS_API StyleManager : public ScrPaletteBase, Ui::SMBase {
+
+class SCRIBUS_API StyleManager : public ScrPaletteBase, Ui::StyleManager
+{
 	Q_OBJECT
 public:
 	StyleManager(QWidget *parent = 0, const char *name = "StyleManager");
@@ -67,8 +53,6 @@ private:
 	QString             currentType_;
 	QMenu              *newPopup_;
 	QMenu              *rightClickPopup_;
-	StyleView          *styleView;
-	QHBoxLayout        *svLayout;
 
 	int                 rcpNewId_;
 	int                 rcpDeleteId_;
@@ -127,13 +111,17 @@ private slots:
 	void slotNew();
 	void slotNewPopup(int);
 	void slotScrap();
-	void slotRightClick(Q3ListViewItem *item, const QPoint &point, int col);
-	void slotDoubleClick(Q3ListViewItem *item, const QPoint &point, int col);
+	void slotRightClick(const QPoint &point);
+	void slotDoubleClick(QTreeWidgetItem * item, int column);
 
 	void slotNameChanged(const QString& name);
 	void slotShortcutChanged(const QString& shortcut);
 	void slotSetupWidget();
-	void slotApplyStyle(Q3ListViewItem *item);
+
+	void slotApplyStyle(QTreeWidgetItem *item);
+	void slotApplyStyle(QTreeWidgetItem *newitem, QTreeWidgetItem *olditem);
+	void slotApplyStyle(QTreeWidgetItem *item, int column);
+
 	void slotDocSelectionChanged();
 	void slotDocStylesChanged();
 
@@ -141,88 +129,6 @@ private slots:
 	void slotClean();
 
 	void slotApplyStyle(QString keyString); // keyString == styleClass$$$$styleName
-};
-
-class StyleView : public Q3ListView
-{
-	Q_OBJECT
-public:
-	StyleView(QWidget *parent);
-	~StyleView();
-protected:
-	void contentsMousePressEvent(QMouseEvent *e);
-	void contentsMouseDoubleClickEvent(QMouseEvent *e);
-};
-
-class StyleViewItem : public Q3ListViewItem
-{
-public:
-	StyleViewItem(Q3ListView *view, const QString &text);
-	StyleViewItem(Q3ListViewItem *parent, const QString &text, const QString &rootName);
-	~StyleViewItem();
-
-	void paintCell(QPainter *p, const QColorGroup &cg, int column, int width, int align);
-
-	bool isRoot();
-	QString parentName();
-	QString rootName();
-	void setDirty(bool isDirty);
-	bool isDirty();
-
-private:
-	bool isRoot_;
-	bool isDirty_;
-	QString parentName_;
-	QString rootName_;
-};
-
-class ShortcutWidget : public QWidget
-{
-	Q_OBJECT
-public:
-	ShortcutWidget(QWidget *parent = 0, const char *name = 0);
-	~ShortcutWidget();
-
-	bool event( QEvent* ev );
-	void keyPressEvent(QKeyEvent *k);
-	void keyReleaseEvent(QKeyEvent *k);
-	void setKeyMap(const QMap<QString,Keys> &keymap);
-
-	void setShortcut(const QString &shortcut);
-
-	static QString getKeyText(int KeyC);
-
-	void languageChange();
-
-public slots:
-	void setKeyText();
-	void setNoKey();
-
-signals:
-	/**
-	 * @brief emitted when a shrotcut is changed.
-	 *
-	 * Parameter will be QString::null when No key is used
-	 */
-	void newKey(const QString&);
-
-protected:
-	QVBoxLayout* keyManagerLayout;
-	QGridLayout* keyGroupLayout;
-	QHBoxLayout* okCancelLayout;
-
-	Q3ButtonGroup* keyGroup;
-	QRadioButton* noKey;
-	QRadioButton* userDef;
-	QLabel* keyDisplay;
-	QPushButton* setKeyButton;
-
-	int keyCode;
-	QString Part0;
-	QString Part1;
-	QString Part2;
-	QString Part3;
-	QString Part4;
 };
 
 #endif
