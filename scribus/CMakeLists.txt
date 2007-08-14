@@ -41,7 +41,7 @@ SET(SCRIBUS_UI_SRC
   picstatus.ui
   pluginmanagerprefsgui.ui
   shortcutwidget.ui
-  smlinestylew.ui
+  smlinestylewidget.ui
   smreplacedia.ui
   smpstylew.ui
   smcstylew.ui

@@ -1,6 +1,6 @@
 <ui version="4.0" >
- <class>LineStyleW</class>
- <widget class="QWidget" name="LineStyleW" >
+ <class>LineStyleWidget</class>
+ <widget class="QWidget" name="LineStyleWidget" >
   <property name="geometry" >
    <rect>
     <x>0</x>
@@ -105,7 +105,7 @@
       <number>6</number>
      </property>
      <item>
-      <widget class="Q3ListBox" name="lineStyles" >
+      <widget class="QListWidget" name="lineStyles" >
        <property name="maximumSize" >
         <size>
          <width>200</width>
@@ -277,13 +277,7 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
- <customwidgets>
-  <customwidget>
-   <class>Q3ListBox</class>
-   <extends>Q3Frame</extends>
-   <header>q3listbox.h</header>
-  </customwidget>
- </customwidgets>
+ <customwidgets/>
  <resources/>
  <connections/>
 </ui>

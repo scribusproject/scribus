@@ -70,7 +70,8 @@ void LineStyleWidget::languageChange()
 
 void LineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine)
 {
-	disconnect(lineStyles, SIGNAL(highlighted(int)), this, SLOT(slotEditNewLine(int)));
+// 	disconnect(lineStyles, SIGNAL(highlighted(int)), this, SLOT(slotEditNewLine(int)));
+	disconnect(lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotEditNewLine(int)));
 	currentStyle = lineStyle;
 	colorCombo->clear();
 	ColorList::Iterator it;
@@ -80,12 +81,13 @@ void LineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList
 	colors = colorList;
 	updateLineList();
 	slotEditNewLine(subLine);
-	connect(lineStyles, SIGNAL(highlighted(int)), this, SLOT(slotEditNewLine(int)));
+	connect(lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotEditNewLine(int)));
 }
 
 void LineStyleWidget::slotEditNewLine(int i)
 {
-	lineStyles->setSelected(i, true);
+	lineStyles->setCurrentRow(i);
+// 	lineStyles->setSelected(i, true);
 	//currentLine_ = i;
 
 	// JG #5876 protect against broken line styles
@@ -162,7 +164,8 @@ void LineStyleWidget::updateLineList()
 		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
 		tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>((*it).Dash));
 		tmp2 += " ";
-		lineStyles->insertItem(*pm2, tmp2);
+		// lineStyles->insertItem( ...)
+		lineStyles->addItem(new QListWidgetItem(*pm2, tmp2, lineStyles));
 	}
 }
 
@@ -765,7 +768,8 @@ void SMLineStyle::rebuildList()
 				break;
 		}
 		tmp2 += " ";
-		widget_->lineStyles->insertItem(*pm2, tmp2);
+// 		widget_->lineStyles->insertItem(*pm2, tmp2);
+		widget_->lineStyles->addItem(new QListWidgetItem(*pm2, tmp2, widget_->lineStyles));
 	}
 }
 
@@ -843,10 +847,16 @@ void SMLineStyle::updateSList()
 	if (widget_->lineStyles->count() == 1)  // to avoid Bug in Qt-3.1.2
 	{
 		widget_->lineStyles->clear();
-		widget_->lineStyles->insertItem(*pm, tmp2);
+// 		widget_->lineStyles->insertItem(*pm, tmp2);
+		widget_->lineStyles->addItem(new QListWidgetItem(*pm, tmp2, widget_->lineStyles));
 	}
 	else
-		widget_->lineStyles->changeItem(*pm, tmp2, currentLine_);
+	{
+// 		widget_->lineStyles->changeItem(*pm, tmp2, currentLine_);
+		QListWidgetItem *i = widget_->lineStyles->item(currentLine_);
+		i->setIcon(*pm);
+		i->setText(tmp2);
+	}
 }
 
 void SMLineStyle::updatePreview()

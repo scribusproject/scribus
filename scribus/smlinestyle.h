@@ -10,14 +10,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusstructs.h"
 #include "styleitem.h"
-#include "ui_smlinestylew.h"
+#include "ui_smlinestylewidget.h"
 
 class ScribusDoc;
 class LineCombo;
 class ColorCombo;
 class ScrSpinBox;
 
-class LineStyleWidget : public QWidget, Ui::LineStyleW
+class LineStyleWidget : public QWidget, Ui::LineStyleWidget
 {
 	Q_OBJECT
 public:
