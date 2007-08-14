@@ -737,8 +737,7 @@ void WMFImport::ellipse( QList<PageItem*>& items, long, short* params )
 	double  lineWidth   = m_context.pen().width();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, lineWidth, fillColor, strokeColor, true);
 	PageItem* ite = m_Doc->Items->at(z);
-	QMatrix mm = m_context.matrix();
-	mm.translate(px, py);
+	QMatrix mm(1.0, 0.0, 0.0, 1.0, px, py);
 	ite->PoLine.map(mm);
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(), wh.y());
@@ -817,8 +816,7 @@ void WMFImport::rectangle( QList<PageItem*>& items, long, short* params )
 	double height = params[2] - params[0];
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, lineWidth, fillColor, strokeColor, true);
 	PageItem* ite = m_Doc->Items->at(z);
-	QMatrix mm = QMatrix();
-	mm.translate(x, y);
+	QMatrix mm(1.0, 0.0, 0.0, 1.0, x, y);
 	ite->PoLine.map(mm);
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(), wh.y());
@@ -838,10 +836,10 @@ void WMFImport::roundRect( QList<PageItem*>& items, long, short* params )
 	double  lineWidth   = m_context.pen().width();
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
-	double x = params[5];
-	double y = params[4];
-	double width  = params[5] - params[3];
-	double height = params[4] - params[2];
+	double x = ((params[5] - params[3]) > 0) ? params[3] : params[5];
+	double y = ((params[4] - params[2]) > 0) ? params[2] : params[4];
+	double width  = fabs((double) params[5] - params[3]);
+	double height = fabs((double) params[4] - params[2]);
 	double rx     = params[1] / 2.0;
 	double ry     = params[0] / 2.0;
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, lineWidth, fillColor, strokeColor, true);
@@ -852,8 +850,7 @@ void WMFImport::roundRect( QList<PageItem*>& items, long, short* params )
 		ite->SetFrameRound();
 		m_Doc->setRedrawBounding(ite);
 	}
-	QMatrix mm = QMatrix();
-	mm.translate(x, y);
+	QMatrix mm(1.0, 0.0, 0.0, 1.0, x, y);
 	ite->PoLine.map(mm);
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(), wh.y());
