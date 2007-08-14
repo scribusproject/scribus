@@ -781,9 +781,8 @@ void WMFImport::polyline( QList<PageItem*>& items, long, short* params )
 	//cerr << "WMFImport::polyline unimplemented" << endl;
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
-	bool    doFill = m_context.brush().style() != Qt::NoBrush;
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
-	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
+	QString fillColor   = CommonStrings::None;
 	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
 	if (doStroke && lineWidth <= 0.0 )
@@ -1029,7 +1028,7 @@ void WMFImport::createPenIndirect( QList<PageItem*>& /*items*/, long, short* par
 	}
 
     handle->pen.setStyle( style );
-	handle->pen.setWidth( *(params + 2) );
+	handle->pen.setWidth( params[1] );
     handle->pen.setColor( colorFromParam( params+3 ) );
     handle->pen.setCapStyle( Qt::RoundCap );
 }

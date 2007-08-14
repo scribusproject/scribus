@@ -22,10 +22,9 @@ WMFGraphicsState::WMFGraphicsState(void)
 
 void WMFGraphicsState::setWindowOrg(double x, double y)
 {
-	double dx = worldMatrix.dx();
-	double dy = worldMatrix.dy();
-	worldMatrix.translate( -dx, -dy );
-	worldMatrix.translate( -x, -y );
+	double xscale = worldMatrix.m11();
+	double yscale = worldMatrix.m22();
+	worldMatrix.setMatrix( xscale, 0, 0, yscale, -x, -y);
 	windowOrg = QPointF(x, y);
 }
 
@@ -34,19 +33,9 @@ void WMFGraphicsState::setWindowExt(double x, double y)
 	if ( (x != 0.0) && (y != 0.0) ) 
 	{
 		QSizeF ext = windowExt;
-		double dx  = worldMatrix.dx();
-		double dy  = worldMatrix.dy();
-		double sx  = worldMatrix.m11();
-		double sy  = worldMatrix.m22();
-
-		worldMatrix.translate( -dx, -dy );
-		worldMatrix.scale( 1/sx, 1/sy );
-
-		sx = (double) ext.width() / x;
-		sy = (double) ext.height() / y;
-
-		worldMatrix.scale( sx, sy );
-		worldMatrix.translate( dx, dy );
+		double xscale = (ext.width() / x);
+		double yscale = (ext.height() / y);
+		worldMatrix.setMatrix(xscale, 0, 0, yscale, -windowOrg.x(), -windowOrg.y());
 		windowExt = QSizeF(x, y);
 	}
 }
