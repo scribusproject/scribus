@@ -50,7 +50,6 @@ void OptionListWidget::arrangeIcons()
 	setWrapping(false);
 	QListWidgetItem* ic;
 	int startY = 5;
-	int scrollBarWidth = 0;
 	for (int cc = 0; cc < count(); ++cc)
 	{
 		ic = item(cc);
@@ -59,6 +58,9 @@ void OptionListWidget::arrangeIcons()
 	}
 	setMaximumWidth(maxWidth+16);
 	setResizeMode(QListView::Fixed);
+	int scrollBarWidth;
+#ifdef _WIN32
+	scrollBarWidth=0;
 	QList<QScrollBar*> scrollBars = findChildren<QScrollBar*>();
 	for (int cc = 0; cc < scrollBars.count(); ++cc)
 	{
@@ -68,12 +70,22 @@ void OptionListWidget::arrangeIcons()
 			break;
 		}
 	}
+#else
+	scrollBarWidth= maxWidth;
+#endif
 	int startX = qMax((viewport()->width() - scrollBarWidth) / 2, 0);
 	for (int cc = 0; cc < count(); ++cc)
 	{
 		ic = item(cc);
 		QRect ir = visualItemRect(ic);
+		
+#ifdef _WIN32
 		setPositionForIndex(QPoint(startX - ir.width() / 2, startY), indexFromItem(ic));
+#else
+		int moveW = (maxWidth - ir.width()) / 2;
+		setPositionForIndex(QPoint(moveW + startX, startY), indexFromItem(ic));
+#endif
+		
 		startY += ir.height()+5;
 	}
 }
