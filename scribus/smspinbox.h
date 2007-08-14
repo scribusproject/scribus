@@ -13,7 +13,7 @@ class SMSpinBox : public QSpinBox
 {
 	Q_OBJECT
 public:
-	SMSpinBox(QWidget *parent, const char *name);
+	SMSpinBox(QWidget *parent, const char *name = 0);
 	~SMSpinBox() {};
 
 	void setValue(int val);

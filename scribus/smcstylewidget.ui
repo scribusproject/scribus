@@ -1,24 +1,16 @@
 <ui version="4.0" >
- <class>CStyleP</class>
- <widget class="QWidget" name="CStyleP" >
+ <class>SMCStyleWidget</class>
+ <widget class="QWidget" name="SMCStyleWidget" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>521</width>
+    <height>511</height>
+   </rect>
+  </property>
   <layout class="QGridLayout" >
    <item row="0" column="0" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>503</width>
-       <height>16</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="0" >
     <layout class="QHBoxLayout" >
      <property name="spacing" >
       <number>6</number>
@@ -57,39 +49,42 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0" >
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>421</width>
-       <height>16</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="3" column="0" >
+   <item row="1" column="0" >
     <widget class="QGroupBox" name="basicGroup" >
      <property name="title" >
       <string>Basic Formatting</string>
      </property>
      <layout class="QGridLayout" >
       <item row="0" column="0" >
-       <widget class="SMFontComboH" name="fontFace_" >
+       <widget class="SMFontComboH" native="1" name="fontFace_" >
         <property name="sizePolicy" >
-         <sizepolicy vsizetype="Preferred" hsizetype="Preferred" >
+         <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="minimumSize" >
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
        </widget>
       </item>
-      <item row="1" column="0" >
+      <item row="0" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="0" colspan="2" >
        <layout class="QHBoxLayout" >
         <item>
          <widget class="QLabel" name="fontSizeLabel_" >
@@ -139,33 +134,54 @@
        </layout>
       </item>
       <item row="2" column="0" >
-       <layout class="QHBoxLayout" >
-        <item>
-         <widget class="SMStyleSelect" name="effects_" >
-          <property name="sizePolicy" >
-           <sizepolicy vsizetype="Preferred" hsizetype="Minimum" >
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer>
-          <property name="orientation" >
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeType" >
-           <enum>QSizePolicy::Expanding</enum>
-          </property>
-         </spacer>
-        </item>
-       </layout>
+       <widget class="SMStyleSelect" native="1" name="effects_" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize" >
+         <size>
+          <width>30</width>
+          <height>0</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType" >
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="0" >
+       <spacer>
+        <property name="orientation" >
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" >
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="4" column="0" >
+   <item row="2" column="0" >
     <widget class="QGroupBox" name="advGroup" >
      <property name="title" >
       <string>Advanced Formatting</string>
@@ -266,7 +282,7 @@
      </layout>
     </widget>
    </item>
-   <item row="5" column="0" >
+   <item row="3" column="0" >
     <widget class="QGroupBox" name="smColorGroup" >
      <property name="title" >
       <string>Colors</string>
@@ -378,24 +394,14 @@
  <layoutdefault spacing="6" margin="11" />
  <customwidgets>
   <customwidget>
-   <class>SMFontComboH</class>
+   <class>SMScComboBox</class>
    <extends>QComboBox</extends>
-   <header>smfontcomboh.h</header>
+   <header>smsccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>SMScrSpinBox</class>
    <extends>QSpinBox</extends>
    <header>smscrspinbox.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SMStyleSelect</class>
-   <extends>QLineEdit</extends>
-   <header>smstyleselect.h</header>
-  </customwidget>
-  <customwidget>
-   <class>SMScComboBox</class>
-   <extends>QComboBox</extends>
-   <header>smsccombobox.h</header>
   </customwidget>
   <customwidget>
    <class>SMColorCombo</class>
@@ -406,6 +412,18 @@
    <class>SMShadeButton</class>
    <extends>QPushButton</extends>
    <header>smshadebutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SMFontComboH</class>
+   <extends>QWidget</extends>
+   <header>smfontcomboh.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SMStyleSelect</class>
+   <extends>QWidget</extends>
+   <header>smstyleselect.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

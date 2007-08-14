@@ -10,39 +10,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusstructs.h"
 #include "styleitem.h"
-#include "ui_smlinestylewidget.h"
 
 class ScribusDoc;
-class LineCombo;
-class ColorCombo;
-class ScrSpinBox;
+class SMLineStyleWidget;
 
-class LineStyleWidget : public QWidget, Ui::LineStyleWidget
-{
-	Q_OBJECT
-public:
-	LineStyleWidget();
-	~LineStyleWidget();
-	void showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine = 0);
-
-	void languageChange();
-
-private:
-	LineCombo *dashCombo;
-	ScrSpinBox  *lineWidth;
-	ColorCombo *colorCombo;
-	multiLine  currentStyle;
-	ColorList  colors;
-
-	void updateLineList();
-	QColor getColor(const QString &name, int shade);
-
-	friend class SMLineStyle;
-
-protected slots:
-	void slotEditNewLine(int i);
-
-};
 
 class SMLineStyle : public StyleItem
 {
@@ -76,7 +47,7 @@ signals:
 
 private:
 	ScribusDoc               *doc_;
-	LineStyleWidget          *widget_;
+	SMLineStyleWidget          *widget_;
 	QTabWidget               *twidget_;
 	QMap<QString, multiLine>  tmpLines;
 	bool                      selectionIsDirty_;

@@ -6,8 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smtextstyles.h"
-//#include "smtextstyles.moc"
-#include "smtextstylewidgets.h"
+#include "smpstylewidget.h"
+#include "smcstylewidget.h"
 #include "util.h"
 #include "scrspinbox.h"
 #include "alignselect.h"
@@ -1180,7 +1180,7 @@ SMCharacterStyle::SMCharacterStyle() : StyleItem(), widget_(0), page_(0), doc_(0
 	widget_ = new QTabWidget();
 	Q_CHECK_PTR(widget_);
 	widget_->setMargin(5);//CB the SMCStylePage parent has a 0 value to fit properly onto the pstyle page, so add it here
-	page_ = new SMCStylePage();
+	page_ = new SMCStyleWidget();
 	Q_CHECK_PTR(page_);
 	widget_->addTab(page_, tr("Properties"));
 }

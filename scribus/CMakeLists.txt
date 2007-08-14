@@ -43,8 +43,8 @@ SET(SCRIBUS_UI_SRC
   shortcutwidget.ui
   smlinestylewidget.ui
   smreplacedia.ui
-  smpstylew.ui
-  smcstylew.ui
+  smpstylewidget.ui
+  smcstylewidget.ui
   smstyleimport.ui
   stylemanager.ui
   tabexternaltoolswidget.ui
@@ -205,6 +205,7 @@ SET(SCRIBUS_MOC_CLASSES
   smalignselect.h
   smfontcomboh.h
   smlinestyle.h
+  smlinestylewidget.h
   smreplacedia.h
   smsccombobox.h
   smcolorcombo.h
@@ -215,7 +216,8 @@ SET(SCRIBUS_MOC_CLASSES
   smstyleselect.h
   smtabruler.h
   smtextstyles.h
-  smtextstylewidgets.h
+  smcstylewidget.h
+  smpstylewidget.h
   spalette.h
   story.h
   styleitem.h
@@ -467,6 +469,7 @@ SET(SCRIBUS_SOURCES
   smalignselect.cpp
   smfontcomboh.cpp
   smlinestyle.cpp
+  smlinestylewidget.cpp
   smsccombobox.cpp
   smcolorcombo.cpp
   smscrspinbox.cpp
@@ -477,7 +480,8 @@ SET(SCRIBUS_SOURCES
   smstyleselect.cpp
   smtabruler.cpp
   smtextstyles.cpp
-  smtextstylewidgets.cpp
+  smcstylewidget.cpp
+  smpstylewidget.cpp
   spalette.cpp
   splash.cpp
   stencilreader.cpp

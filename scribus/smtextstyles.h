@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 class CharStyle;
 class ScribusDoc;
-class SMCStylePage;
+class SMCStyleWidget;
 class SMPStyleWidget;
 
 class SMParagraphStyle : public StyleItem
@@ -132,7 +132,7 @@ signals:
 
 private:
 	QTabWidget   *widget_;
-	SMCStylePage *page_;
+	SMCStyleWidget *page_;
 	ScribusDoc   *doc_;
 	StyleSet<CharStyle> tmpStyles_;
 	QList<CharStyle*> selection_;

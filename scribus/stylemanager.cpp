@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "smtextstyles.h"
 #include "smlinestyle.h"
+#include "smlinestylewidget.h"
 #include "smstyleimport.h"
 #include "fileloader.h"
 #include "scraction.h"
@@ -29,7 +30,9 @@ for which a new license (GPL+exception) is in place.
 
 const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
-StyleManager::StyleManager(QWidget *parent, const char *name) : ScrPaletteBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), currentType_(QString::null), isEditMode_(true), doc_(0)
+StyleManager::StyleManager(QWidget *parent, const char *name)
+	: ScrPaletteBase(parent, name), item_(0), widget_(0),
+	shortcutWidget_(0), currentType_(QString::null), isEditMode_(true), doc_(0)
 {
 	setupUi(this);
 	splitter->setMinimumWidth(0);

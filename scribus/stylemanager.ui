@@ -9,8 +9,14 @@
     <x>0</x>
     <y>0</y>
     <width>682</width>
-    <height>461</height>
+    <height>531</height>
    </rect>
+  </property>
+  <property name="sizePolicy" >
+   <sizepolicy vsizetype="MinimumExpanding" hsizetype="MinimumExpanding" >
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize" >
    <size>
@@ -40,19 +46,19 @@
    <item row="1" column="0" >
     <layout class="QHBoxLayout" >
      <property name="spacing" >
-      <number>6</number>
+      <number>5</number>
      </property>
      <property name="leftMargin" >
-      <number>0</number>
+      <number>6</number>
      </property>
      <property name="topMargin" >
-      <number>0</number>
+      <number>6</number>
      </property>
      <property name="rightMargin" >
-      <number>0</number>
+      <number>6</number>
      </property>
      <property name="bottomMargin" >
-      <number>0</number>
+      <number>6</number>
      </property>
      <item>
       <spacer>
@@ -244,6 +250,24 @@
              <enum>QFrame::Plain</enum>
             </property>
             <layout class="QGridLayout" >
+             <property name="leftMargin" >
+              <number>6</number>
+             </property>
+             <property name="topMargin" >
+              <number>6</number>
+             </property>
+             <property name="rightMargin" >
+              <number>6</number>
+             </property>
+             <property name="bottomMargin" >
+              <number>6</number>
+             </property>
+             <property name="horizontalSpacing" >
+              <number>5</number>
+             </property>
+             <property name="verticalSpacing" >
+              <number>5</number>
+             </property>
              <item row="0" column="0" >
               <widget class="StyleView" name="styleView" >
                <property name="contextMenuPolicy" >
@@ -557,37 +581,12 @@
               </widget>
              </item>
              <item>
-              <spacer>
-               <property name="orientation" >
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeType" >
-                <enum>QSizePolicy::Fixed</enum>
-               </property>
-               <property name="sizeHint" >
-                <size>
-                 <width>31</width>
-                 <height>5</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QFrame" name="mainFrame" >
                <property name="sizePolicy" >
                 <sizepolicy vsizetype="Preferred" hsizetype="Expanding" >
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
-               </property>
-               <property name="frameShape" >
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="frameShadow" >
-                <enum>QFrame::Plain</enum>
-               </property>
-               <property name="lineWidth" >
-                <number>0</number>
                </property>
               </widget>
              </item>
