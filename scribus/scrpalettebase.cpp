@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, Qt::WFlags f) : QDialog ( parent, name, modal, f | Qt::WStyle_Customize | Qt::WStyle_Tool | Qt::WStyle_Title | Qt::WStyle_MinMax | Qt::WStyle_SysMenu | Qt::WStyle_NormalBorder),
+ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, Qt::WFlags f) : QDialog ( parent, name, modal, f | Qt::WStyle_Tool | Qt::WStyle_Title | Qt::WStyle_MinMax | Qt::WStyle_SysMenu ),
 palettePrefs(0),
 prefsContextName(QString::null),
 visibleOnStartup(false)
@@ -214,7 +214,7 @@ void ScrPaletteBase::storePosition()
 {
 	if (palettePrefs)
 	{
-#if QT_VERSION  >= 0x040300
+#if QT_VERSION  >= 0x040300 && !defined(_WIN32)
 		QRect geo = geometry();
 #else
 		QRect geo = frameGeometry();
