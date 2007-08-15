@@ -13,8 +13,8 @@ for which a new license (GPL+exception) is in place.
 class WmfCmd
 {
 public:
-    ~WmfCmd() { if ( next ) delete next; }
-    WmfCmd* next;
+	WmfCmd()  { params = NULL; }
+    ~WmfCmd() { if (params) delete params; }
     unsigned short funcIndex;
     long   numParam;
     short* params;

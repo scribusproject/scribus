@@ -72,7 +72,7 @@ protected:
     QRect  m_HeaderBoundingBox;
     QRect  m_BBox;
 
-    WmfCmd*        m_FirstCmd;
+	QList<WmfCmd*> m_commands;
     WmfObjHandle** m_ObjHandleTab;
     FPointArray    m_Points;
     int m_Dpi;

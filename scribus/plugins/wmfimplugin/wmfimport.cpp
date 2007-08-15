@@ -10,13 +10,13 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "wmfimport.h"
 
-#include <QFile>
-#include <QRegExp>
 #include <QCursor>
+#include <QDrag>
 #include <QBuffer>
 #include <QDataStream>
-#include <QDrag>
+#include <QFile>
 #include <QMimeData>
+#include <QRegExp>
 
 #include "customfdialog.h"
 #include "scribus.h"
@@ -66,15 +66,15 @@ WMFImport::WMFImport( ScribusMainWindow* mw, int flags ) :
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 
 	m_Valid        = false;
-    m_FirstCmd     = NULL;
     m_ObjHandleTab = NULL;
     m_Dpi          = 1000;
 }
 
 WMFImport::~WMFImport()
 {
-	delete m_tmpSel;
-	if ( m_FirstCmd ) delete m_FirstCmd;
+	qDeleteAll(m_commands);
+	m_commands.clear();
+	if ( m_tmpSel) delete m_tmpSel;
     if ( m_ObjHandleTab ) delete[] m_ObjHandleTab;
 }
 
@@ -207,7 +207,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
     WmfPlaceableHeader pheader;
     WORD16 checksum;
     int filePos, idx, i;
-    WmfCmd *cmd, *last;
+    WmfCmd *cmd;
     WORD32 rdSize;
     WORD16 rdFunc;
 
@@ -215,8 +215,8 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 	header.mtHeaderSize = 0;
 	header.mtNoParameters = 0;
 
-    if ( m_FirstCmd ) delete m_FirstCmd;
-    m_FirstCmd = NULL;
+    qDeleteAll(m_commands);
+	m_commands.clear();
 
     st.setDevice( &buffer );
     st.setByteOrder( QDataStream::LittleEndian ); // Great, I love Qt !
@@ -318,7 +318,6 @@ bool WMFImport::loadWMF( QBuffer &buffer )
     if ( m_Valid )
     {
         //----- Read Metafile Records
-        last = NULL;
         rdFunc = -1;
         while ( !st.eof() && (rdFunc != 0) )
         {
@@ -328,14 +327,11 @@ bool WMFImport::loadWMF( QBuffer &buffer )
             rdSize -= 3;
 
             cmd = new WmfCmd;
-            cmd->next = NULL;
-            if ( last ) last->next = cmd;
-            else m_FirstCmd = cmd;
+            m_commands.append(cmd);
 
             cmd->funcIndex = idx;
             cmd->numParam = rdSize;
             cmd->params = new WORD16[ rdSize ];
-            last = cmd;
 
             for ( i=0; i<rdSize && !st.eof(); i++ )
                 st >> cmd->params[ i ];
@@ -581,7 +577,7 @@ bool WMFImport::importWMF(int flags)
 QList<PageItem*> WMFImport::parseWmfCommands(void)
 {
 	int idx, i;
-    WmfCmd* cmd;
+    const WmfCmd* cmd;
 	QList<PageItem*> elements;
 
 	m_context.reset();
@@ -604,8 +600,9 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
         mPainter.setWindow( mBBox.top(), mBBox.left(), mBBox.width(), mBBox.height() );
     }*/
 
-    for ( cmd = m_FirstCmd; cmd; cmd=cmd->next )
+    for (int index = 0; index < m_commands.count(); ++index)
     {
+		cmd = m_commands.at(index);
         idx = cmd->funcIndex;
         ( this->*metaFuncTab[ idx ].method )( elements, cmd->numParam, cmd->params );
 
@@ -810,10 +807,10 @@ void WMFImport::rectangle( QList<PageItem*>& items, long, short* params )
 	double  lineWidth   = m_context.pen().width();
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
-	double x = params[3];
-	double y = params[2];
-	double width  = params[3] - params[1];
-	double height = params[2] - params[0];
+	double x = ((params[3] - params[1]) > 0) ? params[1] : params[3];
+	double y = ((params[2] - params[0]) > 0) ? params[0] : params[2];
+	double width  = fabs((double) params[3] - params[1]);
+	double height = fabs((double) params[2] - params[0]);
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, lineWidth, fillColor, strokeColor, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	QMatrix mm(1.0, 0.0, 0.0, 1.0, x, y);
