@@ -228,7 +228,7 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 QString ScrSpinBox::textFromValue ( double value ) const
 {
 	if (m_unitIndex==SC_PICAS)
-		return QString("%1%2%3").arg((static_cast<int>(value))/12).arg(unitGetStrFromIndex(m_unitIndex)).arg(fmod(value, 12));
+		return QString("%1%2%3").arg((static_cast<int>(value))/12).arg(unitGetStrFromIndex(m_unitIndex)).arg(fabs(fmod(value, 12)));
 	return QDoubleSpinBox::textFromValue ( value );
 }
 
