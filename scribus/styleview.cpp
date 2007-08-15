@@ -55,7 +55,7 @@ StyleViewItem::StyleViewItem(QTreeWidget *parent, const QString &text)
 	isRoot_(true), isDirty_(false),
 	parentName_(QString::null), rootName_(QString::null)
 {
-// 	setSelectable(false);
+	setFlags(flags() & ~Qt::ItemIsSelectable);
 	setText(0, text);
 }
 
