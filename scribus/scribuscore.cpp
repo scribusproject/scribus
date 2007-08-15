@@ -85,7 +85,7 @@ int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QString fil
 	m_UseGUI=useGUI;
 	m_File=fileToUse;
 	m_SwapDialogButtonOrder=swapDialogButtonOrder;
-#ifndef NDEBUG
+#if !defined(NDEBUG) && !defined(_WIN32)
 	qInstallMsgHandler( & abort_on_error );
 #endif
 
