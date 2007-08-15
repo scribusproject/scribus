@@ -471,7 +471,7 @@ INSTALL(FILES
   AUTHORS
   BUILDING
   ChangeLog
-  ChangeLogCVS
+  ChangeLogSVN
   COPYING
   NEWS
   PACKAGING
