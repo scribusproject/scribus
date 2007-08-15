@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
-#include "scribusview.h"
 
 /**
 *@author Franz Schmid
