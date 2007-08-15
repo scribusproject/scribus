@@ -4806,10 +4806,14 @@ void ScribusDoc::ChLineWidth(double w)
 				                  static_cast<int>(currItem->width()+ph),static_cast<int>(currItem->height()+ph),
 				                  -ph,static_cast<int>(currItem->height()+ph));
 			}
-			emit refreshItem(currItem);
+			if (selectedItemCount == 1)
+				emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 	}
 	changed();
 }
@@ -4825,10 +4829,14 @@ void ScribusDoc::ChLineArt(Qt::PenStyle w)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			m_Selection->itemAt(a)->setLineStyle(w);
-			emit refreshItem(m_Selection->itemAt(a));
+			if (selectedItemCount == 1)
+				emit refreshItem(m_Selection->itemAt(a));
 		}
 		if (selectedItemCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 	}
 	changed();
 }
@@ -4844,10 +4852,14 @@ void ScribusDoc::ChLineJoin(Qt::PenJoinStyle w)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			m_Selection->itemAt(a)->setLineJoin(w);
-			emit refreshItem(m_Selection->itemAt(a));
+			if (selectedItemCount == 1)
+				emit refreshItem(m_Selection->itemAt(a));
 		}
 		if (selectedItemCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 	}
 	changed();
 }
@@ -4863,10 +4875,14 @@ void ScribusDoc::ChLineEnd(Qt::PenCapStyle w)
 		for (uint a = 0; a < selectedItemCount; ++a)
 		{
 			m_Selection->itemAt(a)->setLineEnd(w);
-			emit refreshItem(m_Selection->itemAt(a));
+			if (selectedItemCount == 1)
+				emit refreshItem(m_Selection->itemAt(a));
 		}
 		if (selectedItemCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 	}
 	changed();
 }
@@ -4899,6 +4915,30 @@ void ScribusDoc::itemSelection_SetNamedParagraphStyle(const QString& name, Selec
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
+void ScribusDoc::itemSelection_SetNamedLineStyle(const QString &name, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	uint docSelectionCount   = itemSelection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::LineStyle, name, Um::ILineStyle);
+		for (uint aa = 0; aa < docSelectionCount; ++aa)
+		{
+			PageItem *currItem = itemSelection->itemAt(aa);
+			currItem->setCustomLineStyle(name);
+			if (docSelectionCount == 1)
+				emit refreshItem(currItem);
+		}
+		if (docSelectionCount > 1)
+		{
+			undoManager->commit();
+			emit updateContents();
+		}
+		changed();
+	}
+}
+
 void ScribusDoc::ItemPen(QString farbe)
 {
 	uint selectedItemCount=m_Selection->count();
@@ -4917,10 +4957,14 @@ void ScribusDoc::ItemPen(QString farbe)
 				continue;
 
 			i->setLineColor(farbe);
-			emit refreshItem(i);
+			if (selectedItemCount == 1)
+				emit refreshItem(i);
 		}
 		if (selectedItemCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 	}
 	changed();
 }
@@ -5023,10 +5067,14 @@ void ScribusDoc::ItemBrush(QString farbe)
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->setFillColor(farbe);
-			emit refreshItem(currItem);
+			if (selectedItemCount == 1)
+				emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 		changed();
 	}
 }
@@ -5045,10 +5093,14 @@ void ScribusDoc::ItemBrushShade(int sha)
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->setFillShade(sha);
-			emit refreshItem(currItem);
+			if (selectedItemCount == 1)
+				emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 		changed();
 	}
 }
@@ -5066,10 +5118,14 @@ void ScribusDoc::ItemPenShade(int sha)
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->setLineShade(sha);
-			emit refreshItem(currItem);
+			if (selectedItemCount == 1)
+				emit refreshItem(currItem);
 		}
 		if (selectedItemCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 		changed();
 	}
 }
@@ -6180,10 +6236,14 @@ void ScribusDoc::itemSelection_ToggleLock( )
 		for ( uint a = 0; a < docSelectionCount; ++a)
 		{
 			m_Selection->itemAt(a)->toggleLock();
-			emit refreshItem(m_Selection->itemAt(a));
+			if (docSelectionCount == 1)
+				emit refreshItem(m_Selection->itemAt(a));
 		}
 		if (docSelectionCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 		changed();
  		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
@@ -6204,10 +6264,14 @@ void ScribusDoc::itemSelection_ToggleSizeLock( )
 		for ( uint a = 0; a < selectedItemCount; ++a)
 		{
 			m_Selection->itemAt(a)->toggleSizeLock();
-			emit refreshItem(m_Selection->itemAt(a));
+			if (selectedItemCount == 1)
+				emit refreshItem(m_Selection->itemAt(a));
 		}
 		if (selectedItemCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 		changed();
  		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
@@ -6249,10 +6313,14 @@ void ScribusDoc::itemSelection_TogglePrintEnabled( )
 		for ( uint a = 0; a < docSelectionCount; ++a)
 		{
 			m_Selection->itemAt(a)->togglePrintEnabled();
-			emit refreshItem(m_Selection->itemAt(a));
+			if (docSelectionCount == 1)
+				emit refreshItem(m_Selection->itemAt(a));
 		}
 		if (docSelectionCount > 1)
+		{
 			undoManager->commit();
+			emit updateContents();
+		}
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}

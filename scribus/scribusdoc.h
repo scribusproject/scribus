@@ -752,6 +752,7 @@ public:
 
 	void itemSelection_SetNamedParagraphStyle(const QString & name, Selection* customSelection=0);
 	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection=0);
+	void itemSelection_SetNamedLineStyle(const QString & name, Selection* customSelection=0);
 
 	void ChLineWidth(double w);
 	void ChLineArt(Qt::PenStyle w);

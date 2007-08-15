@@ -3802,16 +3802,14 @@ void Mpalette::SetSTline(QListWidgetItem *c)
 	if (c == NULL)
 		return;
 	bool setter = (c->listWidget()->currentRow() == 0);
-	if (setter)
-		CurItem->setCustomLineStyle("");
-	else
-		CurItem->setCustomLineStyle(c->text());
+	doc->itemSelection_SetNamedLineStyle(setter ? QString("") : c->text());
 	LStyle->setEnabled(setter);
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
 	LEndStyle->setEnabled(setter);
-	m_ScMW->view->RefreshItem(CurItem);
-	emit DocChanged();
+	//handled by itemSelection_SetNamedLineStyle()
+	//m_ScMW->view->RefreshItem(CurItem);
+	//emit DocChanged();
 }
 
 void Mpalette::updateColorList()
