@@ -21,23 +21,24 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "hruler.h"
-
-#include <QPaintEvent>
+#include <QCursor>
 #include <QMouseEvent>
-#include <QPixmap>
+#include <QPaintEvent>
 #include <QPainter>
 #include <QPixmap>
-#include <QCursor>
-#include <QRect>
+#include <QPixmap>
 #include <QPolygon>
-#include "scribusview.h"
-#include "scribusdoc.h"
-#include "scribus.h"
-#include "selection.h"
+#include <QRect>
+
+#include "hruler.h"
 #include "page.h"
-#include "units.h"
 #include "prefsmanager.h"
+#include "scribus.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "selection.h"
+#include "units.h"
+
 
 #if QT_VERSION  > 0x030102
 	#define SPLITHC Qt::SplitVCursor
@@ -485,7 +486,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 				break;
 			case 3:
 			case 5:
-				tx = QString::number(markC * iter2 / (iter2 / 10) / cor);
+				tx = QString::number(markC * iter2 / (iter2 / 5) / cor);
 				break;
 			case 4:
 				tx = QString::number(markC * iter2 / iter2 / cor);

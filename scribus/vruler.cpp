@@ -21,21 +21,21 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "vruler.h"
-
-#include <QPaintEvent>
+#include <QCursor>
 #include <QMouseEvent>
+#include <QPaintEvent>
 #include <QPainter>
 #include <QPixmap>
-#include <QCursor>
-#include <QRect>
 #include <QPolygon>
+#include <QRect>
 #include <QRubberBand>
+
+#include "page.h"
+#include "prefsmanager.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "page.h"
 #include "units.h"
-#include "prefsmanager.h"
+#include "vruler.h"
 
 #if QT_VERSION  > 0x030102
 	#define SPLITVC Qt::SplitHCursor
@@ -146,7 +146,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 				break;
 			case 3:
 			case 5:
-				tx = QString::number(markC * iter2 / (iter2 / 10) / cor);
+				tx = QString::number(markC * iter2 / (iter2 /5) / cor);
 				break;
 			case 4:
 				tx = QString::number(markC * iter2 / iter2 / cor);

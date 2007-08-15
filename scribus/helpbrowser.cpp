@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include <QXmlDefaultHandler>
 
 #include "prefsmanager.h"
+#include "scribuscore.h"
 #include "util_icon.h"
 
 /*! \brief XML parsef for documantation history.
@@ -280,10 +281,10 @@ void HelpBrowser::languageChange()
 		QString fname(QDir::cleanDirPath(textBrowser->source()));
 		QFileInfo fi(fname);
 		QString filename(fi.fileName());
-		if (PrefsManager::instance()->guiLanguage().isEmpty())
+		if (ScCore->getGuiLanguage().isEmpty())
 			language="en";
 		else
-			language=PrefsManager::instance()->guiLanguage();
+			language=ScCore->getGuiLanguage();
 		loadMenu();
 		loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
 	}

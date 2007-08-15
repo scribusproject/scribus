@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "actionmanager.h"
-#include "prefsmanager.h"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
