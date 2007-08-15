@@ -592,7 +592,7 @@ bool Imposition::verifyGrid()
 
 bool Imposition::verifyBooklet()
 {
-	
+	return false;
 }
 
 bool Imposition::verifyFold()
