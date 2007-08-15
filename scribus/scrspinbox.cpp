@@ -67,9 +67,9 @@ void ScrSpinBox::setNewUnit(int unitIndex)
 	double newUnitRatio=unitGetRatioFromIndex(unitIndex);
 	setMinimum(oldMin * newUnitRatio);
 	setMaximum(oldMax * newUnitRatio);
-	setValue(oldVal * newUnitRatio);
 	setSingleStep(1.0);
 	m_unitIndex=unitIndex;
+ 	setValue(oldVal * newUnitRatio);
 }
 
 void ScrSpinBox::setValues(double min, double max, int deci, double val)
@@ -107,18 +107,43 @@ static const QString FinishTag("\xA0");
 
 double ScrSpinBox::valueFromText ( const QString & text ) const
 {
-//	qDebug() << "vft:" << text;
-// 	return QDoubleSpinBox::valueFromText(text);
+	//Get all our units strings
+	QString trStrPT=unitGetStrFromIndex(SC_PT);
+	QString trStrMM=unitGetStrFromIndex(SC_MM);
+	QString trStrIN=unitGetStrFromIndex(SC_IN);
+	QString trStrP =unitGetStrFromIndex(SC_P);
+	QString trStrCM=unitGetStrFromIndex(SC_CM);
+	QString trStrC =unitGetStrFromIndex(SC_C);
+	QString strPT=unitGetUntranslatedStrFromIndex(SC_PT);
+	QString strMM=unitGetUntranslatedStrFromIndex(SC_MM);
+	QString strIN=unitGetUntranslatedStrFromIndex(SC_IN);
+	QString strP =unitGetUntranslatedStrFromIndex(SC_P);
+	QString strCM=unitGetUntranslatedStrFromIndex(SC_CM);
+	QString strC =unitGetUntranslatedStrFromIndex(SC_C);
+	//Get a copy for use
+	QString ts = text.trimmed();
 	
-	FunctionParser fp;
-// 	setFPConstants(fp);
-	QString ts = text;
-	QString su = suffix().trimmed();
+	//Replace our pica XpY.Z format with (X*12+Y.Z)pt
+	if (trStrP.localeAwareCompare(strP)!=0)
+		ts.replace(trStrP, strP);
+	QRegExp rxP("(\\d+)"+strP+"(\\d+\\.?\\d*)");
+	int posP = 0;
+	while (posP >= 0)
+	{
+		posP = rxP.indexIn(ts, posP);
+		if (posP >= 0)
+		{
+			QString replacement = QString("%1%2").arg(rxP.cap(1).toDouble()*(static_cast<double>(unitGetBaseFromIndex(SC_PICAS))) + rxP.cap(2).toDouble()).arg(strPT);
+			ts.replace(posP, rxP.cap(0).length(), replacement);
+		}
+	}
+	
 	ts.replace(",", ".");
 	ts.replace("%", "");
 	ts.replace("°", "");
 	ts.replace(FinishTag, "");
 	ts = ts.trimmed();
+	QString su(suffix().trimmed());
 	if (ts.endsWith(su))
 		ts = ts.left(ts.length()-su.length());
 	int pos = ts.length();
@@ -138,19 +163,6 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	if (ts.endsWith("."))
 		ts.append("0");
 	
-	//Get all our units strings
-	QString trStrPT=unitGetStrFromIndex(SC_PT);
-	QString trStrMM=unitGetStrFromIndex(SC_MM);
-	QString trStrIN=unitGetStrFromIndex(SC_IN);
-	QString trStrP =unitGetStrFromIndex(SC_P);
-	QString trStrCM=unitGetStrFromIndex(SC_CM);
-	QString trStrC =unitGetStrFromIndex(SC_C);
-	QString strPT=unitGetUntranslatedStrFromIndex(SC_PT);
-	QString strMM=unitGetUntranslatedStrFromIndex(SC_MM);
-	QString strIN=unitGetUntranslatedStrFromIndex(SC_IN);
-	QString strP =unitGetUntranslatedStrFromIndex(SC_P);
-	QString strCM=unitGetUntranslatedStrFromIndex(SC_CM);
-	QString strC =unitGetUntranslatedStrFromIndex(SC_C);
 	//CB FParser doesn't handle unicode well/at all.
 	//So, instead of just getting the translated strings and
 	//sticking them in as variables in the parser, if they are
@@ -166,15 +178,12 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 		ts.replace(trStrMM, strMM);
 	if (trStrIN.localeAwareCompare(strIN)!=0)
 		ts.replace(trStrIN, strIN);
-	if (trStrP.localeAwareCompare(strP)!=0)
-		ts.replace(trStrP, strP);
 	if (trStrCM.localeAwareCompare(strCM)!=0)
 		ts.replace(trStrCM, strCM);
 	if (trStrC.localeAwareCompare(strPT)!=0)
 		ts.replace(trStrC, strC);
 	//Replace in our typed text all of the units strings with *unitstring
-//	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
-	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strP+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
+	QRegExp rx("\\b(\\d+)\\s*("+strPT+"|"+strMM+"|"+strC+"|"+strCM+"|"+strIN+")\\b");
 	pos = 0;
 	while (pos >= 0) {
 		pos = rx.indexIn(ts, pos);
@@ -183,10 +192,11 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 			ts.replace(pos, rx.cap(0).length(), replacement);
 		}
 	}
-//	qDebug() << "text2value: text for fp =" << ts;
 	//Get the index of our suffix
 	int toConvertToIndex=unitIndexFromString(su);
 	//Add in the fparser constants using our unit strings, and the conversion factors.
+	FunctionParser fp;
+// 	setFPConstants(fp);
 	fp.AddConstant(strPT.toStdString(), value2value(1.0, SC_PT, toConvertToIndex));
 	fp.AddConstant(strMM.toStdString(), value2value(1.0, SC_MM, toConvertToIndex));
 	fp.AddConstant(strIN.toStdString(), value2value(1.0, SC_IN, toConvertToIndex));
@@ -213,6 +223,13 @@ double ScrSpinBox::valueFromText ( const QString & text ) const
 	double erg = fp.Eval(NULL);
 //	qDebug() << "fp value =" << erg;
 	return erg;
+}
+
+QString ScrSpinBox::textFromValue ( double value ) const
+{
+	if (m_unitIndex==SC_PICAS)
+		return QString("%1%2%3").arg((static_cast<int>(value))/12).arg(unitGetStrFromIndex(m_unitIndex)).arg(fmod(value, 12));
+	return QDoubleSpinBox::textFromValue ( value );
 }
 
 QValidator::State ScrSpinBox::validate ( QString & input, int & pos ) const
@@ -247,7 +264,7 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 /* Adding this to be sure that the IM* events are processed correctly i.e not intercepted by our KeyPress/Release handlers */
  	if (event->type() == QEvent::InputMethod)
  		return QDoubleSpinBox::eventFilter(watched, event);
-	
+	/*
 	if ( event->type() == QEvent::KeyPress )
 	{
 		QKeyEvent* k = (QKeyEvent*)event;
@@ -265,6 +282,7 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 		}
 		else if ((k->key() == Qt::Key_Control && shiftB) || (k->key() == Qt::Key_Shift && controlB))
 		{
+			qDebug("boo1");
 			setSingleStep(0.01);
 			retval = QWidget::event(event);
 		}
@@ -299,33 +317,33 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 			retval = QWidget::event(event);
 		}
 	}
-	else if ( event->type() == QEvent::Wheel )
+	*/
+	if ( event->type() == QEvent::Wheel )
 	{
 		//If read only dont spin
 		if (isReadOnly())
 			return false;
 		QWheelEvent* k = (QWheelEvent*)event;
 		bool shiftB=k->modifiers() & Qt::ShiftModifier;
-		bool controlB=k->modifiers() & Qt::ControlModifier;
-		if (shiftB && !controlB)
+		bool altB=k->modifiers() & Qt::AltModifier;
+		if (shiftB && !altB)
 		{
 			setSingleStep(0.1);
 			retval=QWidget::event(event);
 		} 
-		else if (!shiftB && controlB)
+		else if (!shiftB && altB)
 		{
 			setSingleStep(10.0);
 			retval=QWidget::event(event);
 		}
-		else if (shiftB && controlB)
+		else if (shiftB && altB)
 		{
 			setSingleStep(0.01);
 			retval=QWidget::event(event);
 		}
-		else
-		if (!shiftB && !controlB)
+		else if (!shiftB && !altB)
 		{
- 			setSingleStep(1.0);
+			setSingleStep(1.0);
 			retval=QWidget::event(event);
 		}
 	}

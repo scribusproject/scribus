@@ -33,8 +33,17 @@ const double unitGetRatioFromIndex(const int index)
 	// a zero value if they are accessing here with a correct index.
 	if (index<UNITMIN || index>UNITMAX)
 		return 0;
-	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0/12.0, 2.54/72.0, 25.4/72.0/4.512, 1.0, 1.0 };
+	//                  PT,        MM,       IN,   P,             CM,               C,   °,   %
+	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0,      2.54/72.0, 25.4/72.0/4.512, 1.0, 1.0 };
+// 	double ratio[] = { 1.0, 25.4/72.0, 1.0/72.0, 1.0/12.0, 2.54/72.0, 25.4/72.0/4.512, 1.0, 1.0 };
 	return ratio[index];
+}
+
+const int SCRIBUS_API unitGetBaseFromIndex(const int index)
+{
+	if (index==SC_P)
+		return 12;
+	return 10;
 }
 
 /*!
@@ -128,6 +137,10 @@ const scUnit unitIndexFromString(const QString& value)
  */
 const QString unitGetSuffixFromIndex(const int index)
 {
+	if (index==SC_P)
+	{
+		return "";
+	}
 	return QString(" %1").arg(unitGetStrFromIndex(index));
 }
 
@@ -300,6 +313,7 @@ double pts2value(double unitValue, int unit)
 	switch (unit)
 	{
 		case 0:
+		case 3:
 		case 6:
 		case 7:
 			ret = unitValue; //dont multiply by 1
@@ -320,6 +334,7 @@ double value2pts(double unitValue, int unit)
 	switch (unit)
 	{
 		case 0:
+		case 3:
 		case 6:
 		case 7:
 			ret = unitValue; // dont divide by 1
