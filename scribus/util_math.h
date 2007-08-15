@@ -10,17 +10,15 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 
 #include <QString>
-#include <QStringList>
-#include <Q3PointArray>
 #include <QPolygon>
-#include <QPoint>
 #include <QList>
 #include <QPainterPath>
-#include <QTextStream>
 
-#include "fpoint.h"
-#include "fpointarray.h"
 #include "scribusapi.h"
+
+class FPoint;
+class FPointArray;
+
 
 /*! \brief Compare double values by pre-multiplying by 10000 and converting to long if possible.
 If premultiplication does not allow to store result in a long value, perform a standard comparison.

@@ -6810,7 +6810,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					RCenter = FPoint(currItem->width()/2, currItem->height()/2, 0, 0, currItem->rotation(), 1, 1, false);
 //					if (!currItem->asLine())
 //					{
-						if (QRegion(mat.map(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
+						if (QRegion(mat.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
 						{
 							if (mat.map(QRect(0, 0, 6, 6)).intersects(mpo))
 							{
@@ -8163,7 +8163,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		if (currItem==0)
 			return false;
 		QRect mpo(x - Doc->guidesSettings.grabRad, y - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
-		if ((QRegion(p.map(Q3PointArray(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
+		if ((QRegion(p.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo)) ||
 		        (QRegion(p.map(currItem->Clip)).contains(mpo)))
 		{
 	//		m_cursorVisible = true;

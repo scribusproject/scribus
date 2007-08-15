@@ -50,7 +50,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include <QProcess>
-#include <Q3Process>
 #include "scmessagebox.h"
 #include "scpixmapcache.h"
 #include "scpaths.h"
