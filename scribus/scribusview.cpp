@@ -49,7 +49,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDragEnterEvent>
 #include <QList>
 #include <QMouseEvent>
-#include <Q3GridLayout>
 #include <QImageReader>
 #include <QWidgetAction>
 #include <cmath>

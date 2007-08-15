@@ -45,10 +45,9 @@ using namespace Gdiplus;
 #include "scpainterex_gdi.h"
 #include "sccolorengine.h"
 
+#include <QImage>
 #include <QPaintDevice>
 #include <QPixmap>
-#include <Q3PointArray>
-#include <QImage>
 
 #include <iostream>
 using namespace std;
