@@ -119,10 +119,10 @@ StoryText StoryText::copy() const
 	*(result.d) = *d;
 	return result;
 //	qDebug(QString("StoryText::copy:"));
-	Q3PtrListIterator<ScText> it( *(result.d) );
+	QListIterator<ScText*> it( *(result.d) );
 	ScText* elem;
-	while ( (elem = it.current()) != NULL ) {
-		++it;
+	while ( it.hasNext() ) {
+		elem = it.next();
 //		qDebug(QString("\tchar '%1' size %2 (orig %3)").arg(elem->ch).arg(elem->fontSize()).arg(charStyle(i++).fontSize()));
 	}
 	
@@ -292,7 +292,7 @@ void StoryText::removeChars(int pos, uint len)
 			removeParSep(i);
 		}
 //		qDebug("remove char %d at %d", (int) it->ch.unicode(), i);
-		d->take(i);
+		d->takeAt(i);
 		d->len--;
 		delete it;
 	}
@@ -419,10 +419,8 @@ QString StoryText::text(int pos, uint len) const
 
 	QString result;
 	StoryText* that(const_cast<StoryText*>(this));
-	that->d->at(pos);
 	for (int i = pos; i < pos+signed(len); ++i) {
-		result += that->d->current()->ch;
-		that->d->next();
+		result += that->d->at(i)->ch;
 	}
 
 	return result;
@@ -479,27 +477,26 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 //	assert( that->at(pos)->cab < doc->docParagraphStyles.count() );
 //	return doc->docParagraphStyles[that->at(pos)->cab];
 	
-	that->d->at(pos);
-	while (pos < length() && that->d->current()->ch != SpecialChars::PARSEP) {
+	while (pos < length() && that->d->at(pos)->ch != SpecialChars::PARSEP) {
 		++pos;
-		that->d->next();
 	}
 	if (pos >= length()) {
 		return that->d->trailingStyle;
 	}
-	else if ( !that->d->current()->parstyle ) {
+	else if ( !that->d->at(pos)->parstyle ) {
+		ScText* current = that->d->at(pos);
 		qDebug(QString("inserting default parstyle at %1").arg(pos));
-		that->d->current()->parstyle = new ParagraphStyle();
-		that->d->current()->parstyle->setContext( & d->pstyleContext);
-//		that->d->current()->parstyle->setName( "para(paragraphStyle)" ); // DONT TRANSLATE
-//		that->d->current()->parstyle->charStyle().setName( "cpara(paragraphStyle)" ); // DONT TRANSLATE
-//		that->d->current()->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
+		current->parstyle = new ParagraphStyle();
+		current->parstyle->setContext( & d->pstyleContext);
+//		current->parstyle->setName( "para(paragraphStyle)" ); // DONT TRANSLATE
+//		current->parstyle->charStyle().setName( "cpara(paragraphStyle)" ); // DONT TRANSLATE
+//		current->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 	}
 	else {
 //		qDebug(QString("using parstyle at %1").arg(pos));
 	}
-	assert (that->d->current()->parstyle);
-	return *that->d->current()->parstyle;
+	assert (that->d->at(pos)->parstyle);
+	return *that->d->at(pos)->parstyle;
 }
 
 const ParagraphStyle& StoryText::defaultStyle() const
@@ -537,12 +534,12 @@ void StoryText::applyCharStyle(int pos, uint len, const CharStyle& style )
 	if (len == 0)
 		return;
 
-	d->at(pos);
+	ScText* itText;
 	for (uint i=pos; i < pos+len; ++i) {
-		if (d->current()->ch == SpecialChars::PARSEP && d->current()->parstyle != NULL)
-			d->current()->parstyle->charStyle().applyCharStyle(style);
-		d->current()->applyCharStyle(style);
-		d->next();
+		itText = d->at(i);
+		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
+			itText->parstyle->charStyle().applyCharStyle(style);
+		itText->applyCharStyle(style);
 	}
 
 	invalidate(pos, pos + len);
@@ -561,12 +558,12 @@ void StoryText::eraseCharStyle(int pos, uint len, const CharStyle& style )
 	if (len == 0)
 		return;
 	
-	d->at(pos);
+	ScText* itText;
 	for (uint i=pos; i < pos+len; ++i) {
-		if (d->current()->ch == SpecialChars::PARSEP && d->current()->parstyle != NULL)
-			d->current()->parstyle->charStyle().eraseCharStyle(style);
-		d->current()->eraseCharStyle(style);
-		d->next();
+		itText = d->at(i);
+		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
+			itText->parstyle->charStyle().eraseCharStyle(style);
+		itText->eraseCharStyle(style);
 	}
 	
 	invalidate(pos, pos + len);
@@ -657,12 +654,12 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 	if (len == 0)
 		return;
 	
-	d->at(pos);
+	ScText* itText;
 	for (uint i=pos; i < pos+len; ++i) {
-		if (d->current()->ch == SpecialChars::PARSEP && d->current()->parstyle != NULL)
-			d->current()->parstyle->charStyle() = style;
-		d->current()->setStyle(style);
-		d->next();
+		itText = d->at(i);
+		if (itText->ch == SpecialChars::PARSEP && itText->parstyle != NULL)
+			itText->parstyle->charStyle() = style;
+		itText->setStyle(style);
 	}
 	
 	invalidate(pos, pos + len);
@@ -704,13 +701,13 @@ void StoryText::replaceNamedResources(ResourceCollection& newNames)
 	if (len == 0)
 		return;
 	
-	d->at(0);
+	ScText* itText;
 	for (int i=0; i < len; ++i) {
-		if (d->current()->parstyle)
-			d->current()->parstyle->replaceNamedResources(newNames);
+		itText = d->at(i);
+		if (itText->parstyle)
+			itText->parstyle->replaceNamedResources(newNames);
 		else
-			d->current()->replaceNamedResources(newNames);
-		d->next();
+			itText->replaceNamedResources(newNames);
 	}
 	
 	invalidate(0, len);	
@@ -729,13 +726,11 @@ uint StoryText::nrOfParagraphs() const
 {
 	uint result = 0;
 	StoryText* that = const_cast<StoryText *>(this);
-	that->d->at(0);
 	bool lastWasPARSEP = true;
 	for (int i=0; i < length(); ++i) {
-		lastWasPARSEP = that->d->current()->ch == SpecialChars::PARSEP;
+		lastWasPARSEP = that->d->at(i)->ch == SpecialChars::PARSEP;
 		if (lastWasPARSEP)
 			++result;
-		that->d->next();
 	}
 	return lastWasPARSEP? result : result + 1;
 }
@@ -746,11 +741,9 @@ int StoryText::startOfParagraph(uint index) const
 		return 0;
 
 	StoryText* that = const_cast<StoryText *>(this);
-	that->d->at(0);
 	for (int i=0; i < length(); ++i) {
-		if (that->d->current()->ch == SpecialChars::PARSEP && ! --index)
+		if (that->d->at(i)->ch == SpecialChars::PARSEP && ! --index)
 			return i + 1;
-		that->d->next();
 	}
 	return length();
 }
@@ -759,11 +752,9 @@ int StoryText::endOfParagraph(uint index) const
 {
 	++index;
 	StoryText* that = const_cast<StoryText *>(this);
-	that->d->at(0);
 	for (int i=0; i < length(); ++i) {
-		if (that->d->current()->ch == SpecialChars::PARSEP && ! --index)
+		if (that->d->at(i)->ch == SpecialChars::PARSEP && ! --index)
 			return i;
-		that->d->next();
 	}
 	return length();
 }

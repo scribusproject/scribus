@@ -27,9 +27,7 @@ pageitem.cpp  -  description
 
 #include <QObject>
 #include <QString>
-#include <Q3ValueVector>
-#include <Q3PtrVector>
-#include <Q3PtrList>
+#include <QList>
 #include <cassert>
 
 //#include "text/paragraphlayout.h"
@@ -260,7 +258,7 @@ private:
 	ScribusDoc * doc; 
 	int selFirst, selLast;
 	int firstFrameItem, lastFrameItem;
-	Q3ValueVector<LineSpec> m_lines;
+	QList<LineSpec> m_lines;
 	bool m_validLayout;
 	double m_magicX;
 	int m_lastMagicPos;

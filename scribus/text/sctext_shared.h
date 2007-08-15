@@ -1,11 +1,9 @@
 #ifndef SCTEXT_SHARED_H
 #define SCTEXT_SHARED_H
 
+#include <QList>
 #include <QObject>
 #include <QString>
-#include <Q3ValueVector>
-#include <Q3PtrVector>
-#include <Q3PtrList>
 #include <cassert>
 
 //#include "text/paragraphlayout.h"
@@ -16,7 +14,7 @@
 #include "styles/stylecontextproxy.h"
 
 
-class SCRIBUS_API ScText_Shared : public Q3PtrList<ScText>
+class SCRIBUS_API ScText_Shared : public QList<ScText*>
 {
 public:
 	ParagraphStyle defaultStyle;
