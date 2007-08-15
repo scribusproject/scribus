@@ -27,7 +27,6 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString unit = unitGetSuffixFromIndex(unitIndex);
-	int precision = unitGetPrecisionFromIndex(unitIndex);
 
 	tabGuidesLayout = new QVBoxLayout( this );
 	tabGuidesLayout->setMargin(0);
@@ -141,7 +140,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel6 = new QLabel( groupBox1, "textLabel6" );
 	textLabel6->setText( tr( "Spacing:" ) );
 	groupBox1Layout->addWidget( textLabel6, 0, 0 );
-	majorSpace = new ScrSpinBox( 10 * unitRatio, 1000 * unitRatio, groupBox1, precision );
+	majorSpace = new ScrSpinBox( 10 * unitRatio, 1000 * unitRatio, groupBox1, unitIndex );
 	groupBox1Layout->addWidget( majorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox1, 0, 0 );
 	groupBox2 = new QGroupBox( checkGrid, "groupBox2" );
@@ -163,7 +162,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel7 = new QLabel( groupBox2, "textLabel7" );
 	textLabel7->setText( tr( "Spacing:" ) );
 	groupBox2Layout->addWidget( textLabel7, 0, 0 );
-	minorSpace = new ScrSpinBox( unitRatio, 1000 * unitRatio, groupBox2, precision );
+	minorSpace = new ScrSpinBox( unitRatio, 1000 * unitRatio, groupBox2, unitIndex );
 	groupBox2Layout->addWidget( minorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox2, 0, 1 );
 	tabGuidesLayout->addWidget( checkGrid );
@@ -196,11 +195,11 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baseGridBoxLayout->setMargin(10);
 	baseGridBoxLayout->setSpacing(5);
 	baseGridBoxLayout->setAlignment( Qt::AlignTop );
-	baseGrid = new ScrSpinBox( pts2value(1.0, unitIndex), 1000, baseGridBox, precision );
+	baseGrid = new ScrSpinBox( 1.0, 1000.0, baseGridBox, 0 );
 	baseGridBoxLayout->addWidget( baseGrid, 0, 1 );
 	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ), baseGridBox, "textLabel6a" );
 	baseGridBoxLayout->addWidget( textLabel6a, 0, 0 );
-	baseOffset = new ScrSpinBox( 0, 1000, baseGridBox, precision );
+	baseOffset = new ScrSpinBox( 1.0, 1000.0, baseGridBox, 0 );
 	baseGridBoxLayout->addWidget( baseOffset, 1, 1 );
 	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ), baseGridBox, "textLabel7a" );
 	baseGridBoxLayout->addWidget( textLabel7a, 1, 0 );
@@ -270,12 +269,8 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	snapDistance->setSuffix( " " + tr( "px" ) );
 	grabDistance->setValue(prefsData->grabRad);
 	grabDistance->setSuffix( " " + tr( " px" ) );
-	baseGrid->setDecimals( decimals );
-	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
-	baseGrid->setSuffix( unit );
-	baseOffset->setDecimals( decimals );
-	baseOffset->setValue(prefsData2->offsetBaseGrid * unitRatio);
-	baseOffset->setSuffix( unit );
+	baseGrid->setValue(prefsData2->valueBaseGrid);
+	baseOffset->setValue(prefsData2->offsetBaseGrid);
 	inBackground->setChecked( prefsData->before );
 	inForeground->setChecked( !prefsData->before );
 	baselineBox->setChecked(prefsData->baseShown);
@@ -357,15 +352,9 @@ void TabGuides::unitChange(QString unit, int docUnitIndex, double invUnitConvers
 
 	minorSpace->setSuffix(unit);
 	majorSpace->setSuffix(unit);
-	baseGrid->setSuffix(unit);
-	baseOffset->setSuffix(unit);
 	
 	minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
 	majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
-	baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
-	baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimal, val * invUnitConversion);
 }

@@ -102,8 +102,6 @@ void SMPStyleWidget::languageChange()
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
 {
-    spaceAbove_->setNewUnit(unitIndex);
-	spaceBelow_->setNewUnit(unitIndex);
 	dropCapOffset_->setNewUnit(unitIndex);
 	tabList_->left_->setNewUnit(unitIndex);
 	tabList_->right_->setNewUnit(unitIndex);
@@ -130,11 +128,11 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		lineSpacing_->setValue(pstyle->lineSpacing(), pstyle->isInhLineSpacing());
 		lineSpacing_->setParentValue(parent->lineSpacing());
 
-		spaceAbove_->setValue(pstyle->gapBefore() * unitRatio, pstyle->isInhGapBefore());
-		spaceAbove_->setParentValue(parent->gapBefore() * unitRatio);
+		spaceAbove_->setValue(pstyle->gapBefore(), pstyle->isInhGapBefore());
+		spaceAbove_->setParentValue(parent->gapBefore());
 
-		spaceBelow_->setValue(pstyle->gapAfter() * unitRatio, pstyle->isInhGapAfter());
-		spaceBelow_->setParentValue(parent->gapAfter() * unitRatio);
+		spaceBelow_->setValue(pstyle->gapAfter(), pstyle->isInhGapAfter());
+		spaceBelow_->setParentValue(parent->gapAfter());
 
 		dropCapsBox->setChecked(pstyle->hasDropCap());;
 		parentDropCap_ = parent->hasDropCap();
@@ -177,8 +175,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	{
 		lineSpacingMode_->setCurrentItem(pstyle->lineSpacingMode());
 		lineSpacing_->setValue(pstyle->lineSpacing());
-		spaceAbove_->setValue(pstyle->gapBefore() * unitRatio);
-		spaceBelow_->setValue(pstyle->gapAfter() * unitRatio);
+		spaceAbove_->setValue(pstyle->gapBefore());
+		spaceBelow_->setValue(pstyle->gapAfter());
 		dropCapsBox->setChecked(pstyle->hasDropCap());
 		parentDropCapButton->hide();
 		disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
@@ -311,7 +309,7 @@ void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	if (tmpA < 0)
 		spaceAbove_->clear();
 	else
-		spaceAbove_->setValue(tmpA * unitRatio);
+		spaceAbove_->setValue(tmpA);
 
 	tmpA = -1.2;
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -326,7 +324,7 @@ void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
 	if (tmpA < 0)
 		spaceBelow_->clear();
 	else
-		spaceBelow_->setValue(tmpA * unitRatio);
+		spaceBelow_->setValue(tmpA);
 }
 
 void SMPStyleWidget::showDropCap(QList<ParagraphStyle*> &pstyles, int unitIndex)

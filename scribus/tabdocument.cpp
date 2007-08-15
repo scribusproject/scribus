@@ -35,7 +35,6 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	unitRatio = unitGetRatioFromIndex(prefsData->docUnitIndex);
-	int decimals = unitGetPrecisionFromIndex(prefsData->docUnitIndex);
 
 	tabLayout_7 = new QHBoxLayout( this );
 	tabLayout_7->setSpacing( 5 );
@@ -99,13 +98,13 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	Layout5_2->setSpacing( 5 );
 	Layout5_2->setMargin( 0 );
 
-	pageWidth = new ScrSpinBox( 1, 100000, GroupSize, decimals );
+	pageWidth = new ScrSpinBox( 1, 100000, GroupSize, prefsData->docUnitIndex );
 	pageWidth->setMinimumSize( QSize( 90, 20 ) );
 	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize );
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
 
-	pageHeight = new ScrSpinBox( 1, 100000, GroupSize, decimals );
+	pageHeight = new ScrSpinBox( 1, 100000, GroupSize, prefsData->docUnitIndex );
 	pageHeight->setMinimumSize( QSize( 90, 20 ) );
 	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize );
 	Layout5_2->addWidget( GZText4 );
@@ -275,25 +274,11 @@ void TabDocument::unitChange()
 	disconnect(pageHeight, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 
 	int docUnitIndex = unitCombo->currentItem();
-	double oldUnitRatio = unitRatio;
-	double oldB, oldBM, oldH, oldHM, val;
-	unitRatio = unitGetRatioFromIndex(docUnitIndex);
-	int decimalsOld = -1;
-	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
-	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
-	
-	pageWidth->getValues(&oldB, &oldBM, &decimalsOld, &val);
-	oldB /= oldUnitRatio;
-	oldBM /= oldUnitRatio;
-	pageHeight->getValues(&oldH, &oldHM, &decimalsOld, &val);
-	oldH /= oldUnitRatio;
-	oldHM /= oldUnitRatio;
-
-	pageWidth->setSuffix(suffix);
-	pageHeight->setSuffix(suffix);
-
-	pageWidth->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageW * unitRatio);
-	pageHeight->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageH * unitRatio);
+	pageWidth->setNewUnit(docUnitIndex);
+	pageHeight->setNewUnit(docUnitIndex);
+	unitRatio = unitGetRatioFromIndex(docUnitIndex);	
+	pageWidth->setValue(pageW * unitRatio);
+	pageHeight->setValue(pageH * unitRatio);
 	marginGroup->setNewUnit(docUnitIndex);
 	marginGroup->setPageHeight(pageH);
 	marginGroup->setPageWidth(pageW);
