@@ -858,6 +858,7 @@ public slots:
 	void itemSelection_DoHyphenate();
 	void itemSelection_DoDeHyphenate();
 	void itemSelection_SendToLayer(int layerNumber);
+	void itemSelection_SetLineStyle(const QString & name, Selection* customSelection=0);
 	void itemSelection_SetParagraphStyle(int s);
 	void itemSelection_SetImageOffset(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScale(double x, double y, Selection* customSelection=0);

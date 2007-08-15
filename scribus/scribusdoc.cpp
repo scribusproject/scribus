@@ -5908,6 +5908,29 @@ void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 	changed();
 }
 
+void ScribusDoc::itemSelection_SetLineStyle(const QString & name, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	uint docSelectionCount   = itemSelection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::LineStyle, name, Um::ILineStyle);
+		for (uint aa = 0; aa < docSelectionCount; ++aa)
+		{
+			PageItem *currItem = itemSelection->itemAt(aa);
+			currItem->setCustomLineStyle(name);
+			if (docSelectionCount == 1)
+				emit refreshItem(currItem);
+		}
+		if (docSelectionCount > 1)
+		{
+			undoManager->commit();
+			emit updateContents();
+		}
+		changed();
+	}
+}
 
 void ScribusDoc::itemSelection_SetParagraphStyle(int s)
 {

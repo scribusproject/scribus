@@ -3283,10 +3283,7 @@ void Mpalette::SetSTline(QListBoxItem *c)
 	if (c == NULL)
 		return;
 	bool setter = c->listBox()->currentItem() == 0 ? true : false;
-	if (setter == true)
-		CurItem->setCustomLineStyle("");
-	else
-		CurItem->setCustomLineStyle(c->text());
+	doc->itemSelection_SetLineStyle(setter ? QString("") : c->text());
 	LStyle->setEnabled(setter);
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
