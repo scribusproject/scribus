@@ -12,12 +12,11 @@ for which a new license (GPL+exception) is in place.
 #include "scrpalettebase.h"
 #include "ui_stylemanager.h"
 
-class StyleItem;
-class Keys;
-class ScribusDoc;
-class ShortcutWidget;
-class ScrAction;
-
+class  StyleItem;
+class  ScribusDoc;
+class  ShortcutWidget;
+class  ScrAction;
+struct Keys;
 
 class SCRIBUS_API StyleManager : public ScrPaletteBase, Ui::StyleManager
 {
