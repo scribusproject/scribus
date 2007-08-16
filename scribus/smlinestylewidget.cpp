@@ -86,8 +86,9 @@ void SMLineStyleWidget::slotEditNewLine(int i)
 // 	lineStyles->setSelected(i, true);
 	//currentLine_ = i;
 
-	// JG #5876 protect against broken line styles
-	if (currentStyle.count() <= i)
+	// JG #5876 protect against broken line styles 
+	// JG #6099 no current item selected
+	if (currentStyle.count() <= i || (i < 0))
 		return;
 
 	lineWidth->setValue(currentStyle[i].Width);
