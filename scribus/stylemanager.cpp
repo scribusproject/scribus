@@ -35,9 +35,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	shortcutWidget_(0), currentType_(QString::null), isEditMode_(true), doc_(0)
 {
 	setupUi(this);
-	splitter->setMinimumWidth(0);
-	splitter->setResizeMode(leftFrame, QSplitter::KeepSize);
-	splitter->setResizeMode(rightFrame, QSplitter::Stretch);
+
 	uniqueLabel->hide();
 	rightFrame->hide();
 
@@ -55,8 +53,6 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	isStoryEditMode_ = false;
 	editPosition_.setX(prefs_->getInt("eX", x()));
 	editPosition_.setY(prefs_->getInt("eY", y()));
-
-	setMinimumHeight(500); // 135
 
 	newButton->setEnabled(false);
 	cloneButton->setEnabled(false);
@@ -446,14 +442,11 @@ void StyleManager::setSelection(const QList<QPair<QString, QString> > &selected)
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
-// 					item->repaint();
 				}
 			}
 		}
 		++it;
 	}
-
-// 	styleView->triggerUpdate();
 }
 
 void StyleManager::slotEdit()
@@ -474,7 +467,6 @@ void StyleManager::slotEdit()
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
-// 					item->repaint();
 					break;
 				}
 			}
@@ -504,7 +496,6 @@ void StyleManager::slotClone()
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
-// 					item->repaint();
 					break;
 				}
 			}
@@ -573,10 +564,8 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 		styleView->clearSelection();
 		styleView->setCurrentItem(item);
 		item->setSelected(true);
-// 		item->repaint();
 	}
 
-// 	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
 	if (item && !item->isRoot())
 	{
 		rightClickPopup_->removeItem(rcpNewId_);
@@ -625,7 +614,6 @@ void StyleManager::slotDoubleClick(QTreeWidgetItem *item, /*const QPoint &point,
 		styleView->clearSelection();
 		styleView->setCurrentItem(item);
 		item->setSelected(true);
-// 		item->repaint();
 		return; // work done, already in edit mode
 	}
 
@@ -677,7 +665,6 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 	newItem->setDirty(true);
 	styleView->setCurrentItem(newItem);
 	newItem->setSelected(true);
-// 	newItem->repaint();
 	slotSetupWidget();
 	nameEdit->setFocus();
 	nameEdit->selectAll();
@@ -698,7 +685,6 @@ void StyleManager::slotOk()
 		editFrame->hide();
 		applyButton->hide();
 		resetButton->hide();
-// 		editButtonsFrame->hide();
 		rightFrame->hide();
 		isEditMode_ = false;
 		for (int i = 0; i < items_.count(); ++i)
@@ -709,13 +695,7 @@ void StyleManager::slotOk()
 		QToolTip::add(okButton, enterEditModeOk_);
 		slotClean();
 		slotDocSelectionChanged();
-		setMinimumSize(230,500);
-		setMaximumSize(300,500);
-		QList<int> l;
-		l << 220 << 0;
-		splitter->setSizes(l);
-		resize(220, 500);
-		//adjustSize();
+
 		if (!isFirst)
 			move(editPosition_);
 		prefs_->set("isEditMode", isEditMode_);
@@ -736,36 +716,31 @@ void StyleManager::slotOk()
 		disconnect(styleView, SIGNAL(itemClicked(QTreeWidgetItem*,int)),
 				   this, SLOT(slotApplyStyle(QTreeWidgetItem*,int)));
 
-
 		slotSetupWidget();
 		styleView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 		editPosition_.setX(x());
 		editPosition_.setY(y());
 		prefs_->set("eX", x());
 		prefs_->set("eY", y());
-// 		okButton->setText(QString("<< %1").arg( tr("&Done")));
 		editFrame->show();
 		applyButton->show();
 		resetButton->show();
-// 		editButtonsFrame->show();
 		rightFrame->show();
 		isEditMode_ = true;
 		for (int i = 0; i < items_.count(); ++i)
 			items_.at(i)->editMode(true);
 		QToolTip::add(okButton, exitEditModeOk_);
 		slotClean();
-		setMinimumSize(700,500);
-		setMaximumSize(700,500);
-		QList<int> l;
-		l << 220 << 470;
-		splitter->setSizes(l);
-		resize(700, 500);
-		//adjustSize();
+
 		prefs_->set("isEditMode", isEditMode_);
 		connect(styleView, SIGNAL(itemSelectionChanged()), this, SLOT(slotSetupWidget()));
 	}
 	setOkButtonText();
-	isFirst = false;	
+	isFirst = false;
+
+	resize(1, 1); // megahack to keep palette small
+	updateGeometry();
+	adjustSize();
 }
 
 void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
@@ -837,7 +812,6 @@ void StyleManager::slotDirty()
 		if (item)
 		{
 			item->setDirty(true);
-// 			item->repaint();
 			applyButton->setEnabled(true);
 			resetButton->setEnabled(true);
 		}
@@ -855,10 +829,7 @@ void StyleManager::slotClean()
 	{
 		StyleViewItem *item = dynamic_cast<StyleViewItem*>(*it);
 		if (item)
-		{
 			item->setDirty(false);
-// 			item->repaint();
-		}
 		++it;
 	}
 
@@ -1168,14 +1139,11 @@ void StyleManager::slotDocSelectionChanged()
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
-// 					item->repaint();
 				}
 			}
 		}
 		++it;
 	}
-
-// 	styleView->triggerUpdate();
 
 	connect(styleView, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)),
 	        this, SLOT(slotApplyStyle(QTreeWidgetItem*,QTreeWidgetItem*)));
@@ -1270,7 +1238,6 @@ void StyleManager::hideEvent(QHideEvent *e)
 	prefs_->set("InitY", y());
 	storeVisibility(false);
 	storePosition();
-	// QT4 SMBase::hideEvent(e);
 	ScrPaletteBase::hideEvent(e);
 	emit closed();
 }
@@ -1284,7 +1251,6 @@ void StyleManager::closeEvent(QCloseEvent *e)
 	prefs_->set("InitY", y());
 	storeVisibility(false);
 	storePosition();
-	// Qt4 SMBase::closeEvent(e);
 	ScrPaletteBase::closeEvent(e);
 	emit closed();
 }
@@ -1299,7 +1265,6 @@ void StyleManager::showEvent(QShowEvent *e)
 		slotEdit();
 	}
 	setOkButtonText();
-	// Qt4 SMBase::showEvent(e);
 	ScrPaletteBase::showEvent(e);
 	if (isFirst)
 	{

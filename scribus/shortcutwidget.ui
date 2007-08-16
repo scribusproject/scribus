@@ -58,6 +58,9 @@
      <property name="frameShadow" >
       <enum>QFrame::Sunken</enum>
      </property>
+     <property name="lineWidth" >
+      <number>2</number>
+     </property>
      <property name="text" >
       <string/>
      </property>

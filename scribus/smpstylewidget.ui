@@ -31,7 +31,7 @@
    <item row="0" column="0" >
     <widget class="QTabWidget" name="tabWidget" >
      <property name="currentIndex" >
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab" >
       <attribute name="title" >
@@ -106,7 +106,14 @@
            <widget class="SMScComboBox" name="lineSpacingMode_" />
           </item>
           <item row="0" column="2" >
-           <widget class="SMScrSpinBox" name="lineSpacing_" />
+           <widget class="SMScrSpinBox" name="lineSpacing_" >
+            <property name="minimum" >
+             <number>1</number>
+            </property>
+            <property name="maximum" >
+             <number>300</number>
+            </property>
+           </widget>
           </item>
           <item row="0" column="3" >
            <spacer>
@@ -135,7 +142,11 @@
            </widget>
           </item>
           <item row="1" column="1" >
-           <widget class="SMScrSpinBox" name="spaceAbove_" />
+           <widget class="SMScrSpinBox" name="spaceAbove_" >
+            <property name="maximum" >
+             <number>300</number>
+            </property>
+           </widget>
           </item>
           <item row="2" column="0" >
            <widget class="QLabel" name="pixmapLabel4" >
@@ -151,7 +162,11 @@
            </widget>
           </item>
           <item row="2" column="1" >
-           <widget class="SMScrSpinBox" name="spaceBelow_" />
+           <widget class="SMScrSpinBox" name="spaceBelow_" >
+            <property name="maximum" >
+             <number>300</number>
+            </property>
+           </widget>
           </item>
           <item row="3" column="0" colspan="2" >
            <widget class="SMAlignSelect" native="1" name="alignement_" />
@@ -343,7 +358,7 @@
        <item>
         <widget class="QFrame" name="characterBox" >
          <property name="enabled" >
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="frameShape" >
           <enum>QFrame::NoFrame</enum>

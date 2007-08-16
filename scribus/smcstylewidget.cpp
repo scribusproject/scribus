@@ -14,29 +14,29 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget()
 {
 	setupUi(this);
 
-	fontSize_->setMinimum(1.0);
-	fontSize_->setMaximum(2048.0);
+// 	fontSize_->setMinimum(1.0);
+// 	fontSize_->setMaximum(2048.0);
 	fontSizeLabel_->setPixmap(loadIcon("Zeichen.xpm"));
 
 	trackingLabel_->setPixmap( loadIcon("textkern.png") );
-	tracking_->setMinimum(-300.0);
-	tracking_->setMaximum(300.0);
-	tracking_->setSuffix( tr( " %" ) );
+// 	tracking_->setMinimum(-300.0);
+// 	tracking_->setMaximum(300.0);
+// 	tracking_->setSuffix( tr( " %" ) );
 
 	baselineOffsetLabel_->setPixmap( loadIcon("textbase.png") );
-	baselineOffset_->setMinimum(-100.0);
-	baselineOffset_->setMaximum(100.0);
-	baselineOffset_->setSuffix( tr( " %" ) );
+// 	baselineOffset_->setMinimum(-100.0);
+// 	baselineOffset_->setMaximum(100.0);
+// 	baselineOffset_->setSuffix( tr( " %" ) );
 
 	hscaleLabel_->setPixmap( loadIcon("textscaleh.png") );
-	fontHScale_->setMinimum(10.0);
-	fontHScale_->setMaximum(400.0);
-	fontHScale_->setSuffix( tr( " %" ) );
+// 	fontHScale_->setMinimum(10.0);
+// 	fontHScale_->setMaximum(400.0);
+// 	fontHScale_->setSuffix( tr( " %" ) );
 
 	vscaleLabel_->setPixmap( loadIcon("textscalev.png") );
-	fontVScale_->setMinimum(10.0);
-	fontVScale_->setMaximum(400.0);
-	fontVScale_->setSuffix( tr( " %" ) );
+// 	fontVScale_->setMinimum(10.0);
+// 	fontVScale_->setMaximum(400.0);
+// 	fontVScale_->setSuffix( tr( " %" ) );
 
 	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
 	fillShadeLabel->setPixmap( loadIcon("shade.png") );
@@ -83,10 +83,10 @@ void SMCStyleWidget::languageChange()
 
 	parentLabel->setText( tr("Based On:"));
 	languageLabel_->setText( tr("Language:"));
-	fontVScale_->setSuffix( tr(" %"));
-	fontHScale_->setSuffix( tr(" %"));
-	baselineOffset_->setSuffix( tr(" %"));
-	tracking_->setSuffix( tr(" %"));
+// 	fontVScale_->setSuffix( tr(" %"));
+// 	fontHScale_->setSuffix( tr(" %"));
+// 	baselineOffset_->setSuffix( tr(" %"));
+// 	tracking_->setSuffix( tr(" %"));
 	fontSize_->setSuffix(unitGetSuffixFromIndex(0));
 }
 

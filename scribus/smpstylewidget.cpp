@@ -20,9 +20,6 @@ static bool isEqual(double a, double b)
 }
 
 
-/******************************************************************************/
-/******************************************************************************/
-
 SMPStyleWidget::SMPStyleWidget() : QWidget()
 {
 	setupUi(this);
@@ -37,20 +34,10 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 	connect(lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
 
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
-	lineSpacing_->setMinimum(1);
-	lineSpacing_->setMaximum(300);
-
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
-	spaceAbove_->setMinimum(0);
-	spaceAbove_->setMaximum(300);
-
 	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
-	spaceBelow_->setMinimum(0);
-	spaceBelow_->setMaximum(300);
 
 	dropCapOffset_->setSuffix(unitGetSuffixFromIndex(0));
-
-// 	characterBox->setEnabled(true);
 }
 
 void SMPStyleWidget::slotLineSpacingModeChanged(int i)
