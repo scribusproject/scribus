@@ -137,6 +137,7 @@ void StyleManager::languageChange()
 	styleView->clear();
 	for (int i = 0; i < items_.count(); ++i)
 		addNewType(items_.at(i));
+	styleView->resizeColumnToContents(0);
 
 	rightClickPopup_->clear();
 	rcpNewId_ = rightClickPopup_->insertItem( tr("New"), newPopup_);
@@ -202,6 +203,7 @@ void StyleManager::setDoc(ScribusDoc *doc)
 		if (doc_)
 			items_.at(i)->unitChange();
 	}
+	styleView->resizeColumnToContents(0);
 }
 
 void StyleManager::updateColorList()
@@ -892,7 +894,8 @@ void StyleManager::reloadStyleView(bool loadFromDoc)
 		++it2;
 	}
 
-	styleView->repaint();
+	styleView->resizeColumnToContents(0);
+// 	styleView->repaint();
 }
 
 void StyleManager::insertShortcutPage(QTabWidget *twidget)
