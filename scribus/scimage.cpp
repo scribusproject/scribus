@@ -2096,9 +2096,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 					ptr2 = pDataLoader->r_image.scanLine(i);
 				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != CMYKData) )
 				{
-					unsigned char* ucs = ptr + 1;
+					unsigned char* ucs = ptr2 ? (ptr2 + 1) : (ptr + 1);
 					unsigned char* uc = new unsigned char[width()];
-					for( int uci = 0; uci < width(); uci++ )
+					for( int uci = 0; uci < width(); ++uci )
 					{
 						uc[uci] = *ucs;
 						ucs += 4;
@@ -2109,12 +2109,13 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				else if ( inputProfFormat == TYPE_GRAY_8 && (reqType == CMYKData) )
 				{
 					unsigned char  value;
-					unsigned char* ucs = ptr;
-					for( int uci = 0; uci < width(); uci++ )
+					unsigned char* ucs = ptr2 ? ptr2 : ptr;
+					unsigned char* uc  = ptr;
+					for( int uci = 0; uci < width(); ++uci, uc += 4 )
 					{
 						value = 255 - *(ucs + 1);
-						ucs[0] = ucs[1] = ucs[2] = 0;
-						ucs[3] = value;
+						uc[0] = uc[1] = uc[2] = 0;
+						uc[3] = value;
 						ucs += 4;
 					}
 				}
