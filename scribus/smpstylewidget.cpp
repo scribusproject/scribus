@@ -293,7 +293,7 @@ void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 
 void SMPStyleWidget::showSpaceAB(QList<ParagraphStyle*> &pstyles, int unitIndex)
 {
-	double unitRatio = unitGetRatioFromIndex(unitIndex);
+// 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	double tmpA = -1.2;
 	for (int i = 0; i < pstyles.count(); ++i)
 	{
