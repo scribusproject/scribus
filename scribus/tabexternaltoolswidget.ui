@@ -348,7 +348,7 @@
         <item>
          <widget class="QLineEdit" name="latexToolLineEdit" >
           <property name="toolTip" >
-           <string>&lt;qt>Path to LaTeX executable. Must be a script that produces one of the formats supported by image frames!&lt;/qt></string>
+           <string>&lt;qt>Path to LaTeX executable. Must be a program that produces one of the formats supported by image frames!&lt;/qt></string>
           </property>
          </widget>
         </item>
@@ -497,8 +497,66 @@
         </item>
        </layout>
       </item>
+      <item>
+       <layout class="QHBoxLayout" >
+        <item>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QLabel" name="latexPreLabel" >
+            <property name="text" >
+             <string>Preamble:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>latexPreTextEdit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="latexPreTextEdit" >
+            <property name="acceptRichText" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" >
+          <item>
+           <widget class="QLabel" name="labelLatexPost" >
+            <property name="text" >
+             <string>End:</string>
+            </property>
+            <property name="buddy" >
+             <cstring>latexPostTextEdit</cstring>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="latexPostTextEdit" />
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
      </layout>
     </widget>
+   </item>
+   <item>
+    <spacer>
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType" >
+      <enum>QSizePolicy::Expanding</enum>
+     </property>
+     <property name="sizeHint" >
+      <size>
+       <width>670</width>
+       <height>101</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item>
     <layout class="QHBoxLayout" >
@@ -548,22 +606,6 @@
      </item>
     </layout>
    </item>
-   <item>
-    <spacer>
-     <property name="orientation" >
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType" >
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
-     <property name="sizeHint" >
-      <size>
-       <width>670</width>
-       <height>101</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11" />
@@ -584,6 +626,8 @@
   <tabstop>latexResolutionSpinBox</tabstop>
   <tabstop>latexEditorLineEdit</tabstop>
   <tabstop>latexEditorChangeButton</tabstop>
+  <tabstop>latexPreTextEdit</tabstop>
+  <tabstop>latexPostTextEdit</tabstop>
   <tabstop>rescanButton</tabstop>
  </tabstops>
  <resources/>

@@ -413,6 +413,8 @@ void Preferences::updatePreferences()
 	prefsManager->setLatexExecutable(tabExtTools->newLatexTool());
 	prefsManager->setLatexExtension(tabExtTools->newLatexExtension());
 	prefsManager->setLatexEditorExecutable(tabExtTools->newLatexEditor());
+	prefsManager->setLatexPre(tabExtTools->newLatexPre());
+	prefsManager->setLatexPost(tabExtTools->newLatexPost());
 
 	prefsManager->appPrefs.guidesSettings.before = tabGuides->inBackground->isChecked();
 	

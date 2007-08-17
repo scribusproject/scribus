@@ -241,6 +241,8 @@ struct ApplicationPrefs
 	QString extBrowserExecutable;
 	QString latexExecutable;
 	QString latexEditorExecutable;
+	QString latexPre;
+	QString latexPost;
 	int latexResolution;
 	bool latexForceDpi;
 	QString latexExtension;

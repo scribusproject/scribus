@@ -69,6 +69,9 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		
 		void restore(UndoState *state, bool isUndo);
 		
+		static const QString defaultApp;
+		static const QString defaultPre;
+		static const QString defaultPost;
 	protected:
 		/* DrawObj_Item is defined in ImageFrame and should be usable for
 		displaying images created by latex too in most cases */
@@ -84,12 +87,11 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		int err;
 		int dpi;
 		
-		QString ImageFile, editorFile;
+		QString ImageFile, editorFile, tempFileBase;
 		QString appStdout;
 		QString appStderr;
 		
 		QProcess *latex, *editor;
-		QTemporaryFile *tempfile;
 		FileWatcher *fileWatcher;
 		bool imgValid;
 	protected slots:

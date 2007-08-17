@@ -127,12 +127,16 @@ public:
 	void setLatexExecutable(const QString&);
 	void setLatexExtension(const QString&);
 	void setLatexEditorExecutable(const QString&);
+	void setLatexPre(const QString&);
+	void setLatexPost(const QString&);
 	QString ghostscriptExecutable() const {return appPrefs.gs_exe;};
 	QString imageEditorExecutable() const {return appPrefs.imageEditorExecutable;};
 	QString extBrowserExecutable() const {return appPrefs.extBrowserExecutable;};
 	QString latexExecutable() const {return appPrefs.latexExecutable;}
 	QString latexExtension() const {return appPrefs.latexExtension;}
 	QString latexEditorExecutable() const {return appPrefs.latexEditorExecutable;}
+	QString latexPre() const {return appPrefs.latexPre;}
+	QString latexPost() const {return appPrefs.latexPost;}
 	//! \brief Get the users preferred preview resolution
 	const int gsResolution();
 	const int latexResolution() {return appPrefs.latexResolution;}

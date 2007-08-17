@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "guidemanager.h"
 #include "mpalette.h"
 #include "page.h"
+#include "pageitem_latexframe.h"
 #include "prefsmanager.h"
 #include "resourcecollection.h"
 #include "sccolorengine.h"
@@ -3543,7 +3544,14 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 			Text += QString::number(itemText.charStyle(a).strikethruWidth())+'\n';
 		}
 	}
-	Buffer->itemText = Text;
+	if (asLatexFrame()) {
+		qDebug() << "Copying latex frame";
+		Buffer->itemText = asLatexFrame()->getFormula();
+		Buffer->PType = PageItem::LatexFrame;
+	} else {
+		qDebug() << "Copying normal frame";
+		Buffer->itemText = Text;
+	}
 	Buffer->Clip = Clip;
 	Buffer->PoLine = PoLine.copy();
 	Buffer->ContourLine = ContourLine.copy();

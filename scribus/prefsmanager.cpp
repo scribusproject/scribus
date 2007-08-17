@@ -49,7 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_ghostscript.h"
 #include "werktoolb.h"
-
+#include "pageitem_latexframe.h"
 
 extern bool emergencyActivated;
 
@@ -332,11 +332,13 @@ void PrefsManager::initDefaults()
 	appPrefs.PrPr_K = true;
 	appPrefs.imageEditorExecutable = "gimp";
 	appPrefs.extBrowserExecutable = "";
-	appPrefs.latexExecutable = "pdflatex --interaction nonstopmode";
+	appPrefs.latexExecutable = PageItem_LatexFrame::defaultApp;
 	appPrefs.latexEditorExecutable = "";
 	appPrefs.latexExtension = ".pdf";
 	appPrefs.latexResolution = 72;
 	appPrefs.latexForceDpi = false;
+	appPrefs.latexPre = PageItem_LatexFrame::defaultPre;
+	appPrefs.latexPost = PageItem_LatexFrame::defaultPost;
 	appPrefs.gs_AntiAliasGraphics = true;
 	appPrefs.gs_AntiAliasText = true;
 	appPrefs.gs_exe = getGSDefaultExeName();
@@ -863,6 +865,16 @@ void PrefsManager::setLatexExtension(const QString& extensionName)
 	appPrefs.latexExtension=extensionName;
 }
 
+void PrefsManager::setLatexPre(const QString& text)
+{
+	appPrefs.latexPre=text;
+}
+
+void PrefsManager::setLatexPost(const QString& text)
+{
+	appPrefs.latexPost=text;
+}
+
 const QString PrefsManager::documentDir()
 {
 	return appPrefs.DocDir;
@@ -1340,6 +1352,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc8Ex.setAttribute("LatexExtension", latexExtension());
 	dc8Ex.setAttribute("LatexResolution", latexResolution());
 	dc8Ex.setAttribute("LatexForceDpi", static_cast<int>(appPrefs.latexForceDpi));
+	dc8Ex.setAttribute("LatexPre", latexPre());
+	dc8Ex.setAttribute("LatexPost", latexPost());
 	elem.appendChild(dc8Ex);
 	QDomElement rde=docu.createElement("HYPHEN");
 	rde.setAttribute("LANG", appPrefs.Language);
@@ -1929,9 +1943,11 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.latexForceDpi = static_cast<bool>(dc.attribute("LatexForceDpi", "0").toInt());
 			setImageEditorExecutable(dc.attribute("GIMP", "gimp"));
 			setExtBrowserExecutable(dc.attribute("WebBrowser", ""));
-			setLatexExecutable(dc.attribute("Latex", "pdflatex --interaction nonstopmode"));
+			setLatexExecutable(dc.attribute("Latex", PageItem_LatexFrame::defaultApp));
 			setLatexExtension(dc.attribute("LatexExtension", ".pdf"));
 			setLatexEditorExecutable(dc.attribute("LatexEditor", ""));
+			setLatexPre(dc.attribute("LatexPre", PageItem_LatexFrame::defaultPre));
+			setLatexPost(dc.attribute("LatexPost", PageItem_LatexFrame::defaultPost));
 		}
 		if (dc.tagName()=="HYPHEN")
 		{

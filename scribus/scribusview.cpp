@@ -3029,13 +3029,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				currItem->itemType() == PageItem::TextFrame ||
 				currItem->itemType() == PageItem::PathText)
 			{
+				/* Common submenu for latex and image frames*/
+				pmenResolution->addAction(m_ScMW->scrActions["itemImageIsVisible"]);
+				pmenResolution->insertSeparator();
+				pmenResolution->addAction(m_ScMW->scrActions["itemPreviewLow"]);
+				pmenResolution->addAction(m_ScMW->scrActions["itemPreviewNormal"]);
+				pmenResolution->addAction(m_ScMW->scrActions["itemPreviewFull"]);
 				pmen->insertSeparator();
 				if (currItem->asLatexFrame()) 
 				{
-					//TODO: Keep preview settings?
 					pmen->addAction(m_ScMW->scrActions["itemAdjustFrameToImage"]);
 					pmen->addAction(m_ScMW->scrActions["itemUpdateImage"]);
 					pmen->addAction(m_ScMW->scrActions["editEditWithLatexEditor"]);
+					pmen->insertItem( tr("Preview Settings"), pmenResolution);
+
 				} else if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					pmen->addAction(m_ScMW->scrActions["fileImportImage"]);
@@ -3048,11 +3055,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						pmen->addAction(m_ScMW->scrActions["itemUpdateImage"]);
 					}
 					pmen->insertItem( tr("Preview Settings"), pmenResolution);
-					pmenResolution->addAction(m_ScMW->scrActions["itemImageIsVisible"]);
-					pmenResolution->insertSeparator();
-					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewLow"]);
-					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewNormal"]);
-					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewFull"]);
 					if (currItem->PicAvail && currItem->isRaster)
 					{
 						pmen->addAction(m_ScMW->scrActions["styleImageEffects"]);
@@ -10587,6 +10589,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	double h = Buffer->Height;
 	double pw = Buffer->Pwidth;
 	int z = 0;
+	qDebug() << "Pasting frame of type " << Buffer->PType;
 	switch (Buffer->PType)
 	{
 	// OBSOLETE CR 2005-02-06
@@ -10752,7 +10755,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Q_ASSERT(false);
 		break;
 	case PageItem::LatexFrame:
-		//NOTE: Ignore this for now, it's not complete
 		z = Doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, x, y, w, h, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, !m_MouseButtonPressed);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageXYOffset(Buffer->LocalX, Buffer->LocalY);
@@ -10772,7 +10774,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		Doc->Items->at(z)->setLineWidth(Buffer->Pwidth);
 		PageItem_LatexFrame *latexframe = Doc->Items->at(z)->asLatexFrame();
 		latexframe->setFormula(Buffer->itemText); //itemText seems to be a good choice...
-		//TODO (Herm): Make sure itemText is set to the right value when cutting the frame
 		break;
 
 	}

@@ -47,8 +47,13 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 		this, SLOT(updateImage(int, QProcess::ExitStatus)));
 	connect(latex, SIGNAL(error(QProcess::ProcessError)), 
 		this, SLOT(latexError(QProcess::ProcessError)));
-	tempfile = new QTemporaryFile("scribus_temp_file_XXXXXX");
-
+	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "scribus_temp_latex_XXXXXX");
+	tempfile->open();
+	tempFileBase = tempfile->fileName();
+	//TODO: Avoid races with file creation!
+	tempfile->close();
+	delete tempfile;
+	qDebug() << "Base" << tempFileBase;
 	editor = new QProcess();
 	connect(editor, SIGNAL(finished(int, QProcess::ExitStatus)), 
 		this, SLOT(editorFinished(int, QProcess::ExitStatus)));
@@ -87,7 +92,6 @@ PageItem_LatexFrame::~PageItem_LatexFrame()
 		}
 	}
 	deleteImageFile();
-	delete tempfile;
 	delete latex;
 }
 
@@ -101,13 +105,26 @@ void PageItem_LatexFrame::clearContents()
 
 void PageItem_LatexFrame::deleteImageFile()
 {
-	QDir dir;
 	if (ImageFile.isEmpty()) {
 		return;
 	}
 	
-	if (!dir.remove(ImageFile)) {
-		qDebug() << "LATEX: Failed to remove imagefile" << qPrintable(ImageFile);
+	QFileInfo fi(tempFileBase);
+	QDir dir = fi.absoluteDir();
+	QStringList filter;
+	
+	filter << fi.fileName() + "*";
+	Q_ASSERT(!fi.fileName().isEmpty());
+	Q_ASSERT(!fi.fileName().contains("/"));
+	Q_ASSERT(!fi.fileName().contains("\\"));
+	qDebug() << "Filter: " << filter << dir.absolutePath();
+	QStringList files;
+	files = dir.entryList(filter);
+	foreach (QString file, files) {
+		Q_ASSERT(file.startsWith("scribus_temp"));
+		qDebug() << "LATEX: Deleting " << file << 
+			" (please check that this file is correct!)";
+		//TODO dir.remove(file);
 	}
 	imgValid = false;
 }
@@ -139,7 +156,6 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	appStdout = latex->readAllStandardOutput();
 	appStderr = latex->readAllStandardError();
 	qDebug() << "LATEX: latex finished with exit code: " << exitCode;
-	tempfile->close(); //Close AND delete tempfile
 	err = exitCode;
 	static bool firstWarning = true;
 	if (exitCode) {
@@ -216,9 +232,8 @@ void PageItem_LatexFrame::runApplication()
 	static bool firstWarningTmpfile = true;
 	static bool firstWarningLatexMissing = true;
 	
-	//TODO: BUG Make sure we start with an empty file!
-	tempfile->close();
-	if (!tempfile->open()) {
+	QFile tempfile(tempFileBase);
+	if (!tempfile.open(QIODevice::Truncate|QIODevice::WriteOnly)) {
 		err = 0xffff;
 		if (firstWarningTmpfile)
 		{
@@ -259,10 +274,15 @@ void PageItem_LatexFrame::runApplication()
 		firstWarningLatexMissing = true;
 	}
 	
-	if (full_command.indexOf("%file")>=0) {
-		full_command.replace("%file", tempfile->fileName());
+	if (full_command.contains("%file")) {
+		full_command.replace("%file", tempFileBase);
 	} else {
-		full_command += " " + tempfile->fileName();
+		full_command += " " + tempFileBase;
+	}
+	if (full_command.contains("%dir")) {
+		full_command.replace("%dir", QDir::tempPath());
+	} else {
+		latex->setWorkingDirectory(QDir::tempPath());
 	}
 	qDebug() << "Full command" << full_command;
 	
@@ -271,12 +291,11 @@ void PageItem_LatexFrame::runApplication()
 	args.removeAt(0);
 	
 	deleteImageFile();
-	ImageFile = tempfile->fileName() + PrefsManager::instance()->latexExtension();
+	ImageFile = tempFileBase + PrefsManager::instance()->latexExtension();
 
-	writeFileContents(tempfile);
+	writeFileContents(&tempfile);
+	tempfile.close();
 	
-	qDebug() << "LATEX: Running app " << command << 
-		" with file" << tempfile->fileName().latin1();
 	latex->start(command, args);
 }
 
@@ -297,12 +316,17 @@ void PageItem_LatexFrame::runEditor()
 		return;
 	}
 	
-	writeEditorFile(); //This must be here, because it sets editorFile
+	writeEditorFile(); //This must be at this position, because it sets editorFile
 	
-	if (full_command.indexOf("%file")>=0) {
+	if (full_command.contains("%file")) {
 		full_command.replace("%file", editorFile);
 	} else {
 		full_command += " " + editorFile;
+	}
+	if (full_command.contains("%dir")) {
+		full_command.replace("%dir", QDir::tempPath());
+	} else {
+		editor->setWorkingDirectory(QDir::tempPath());
 	}
 	
 	QStringList args = full_command.split(' ', QString::SkipEmptyParts); //TODO: This does not handle quoted arguments with spaces!
@@ -333,15 +357,6 @@ void PageItem_LatexFrame::rerunApplication()
 	
 
 char demofile[] = 
-"\\documentclass[a4paper,10pt]{article}\n"
-"\\usepackage[utf8]{inputenc}\n"
-"\\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}\n"
-"\\title{Scribus-Test-File}\n"
-"\\author{Hermann Kraus}\n"
-"\\pagestyle{empty}\n"
-"\\setlength{\\textwidth}{$scribus_realwidth$ pt}\n"
-"\\begin{document}\n"
-"%--- Place your text below this line ---%\n"
 "\\section*{Manual}\n"
 "Your latex-frames setup is working when you can read this text!\\\\\n"
 "Placing formulas is very easy:\\\\\nRight click $\\Rightarrow$ Edit Latex Source\\\\\n"
@@ -352,10 +367,7 @@ char demofile[] =
 "Some scribus values:\\\\\n"
 "\\$scribus\\_width\\$ $\\Rightarrow$ $scribus_width$ pt\\\\\n"
 "\\$scribus\\_height\\$ $\\Rightarrow$ $scribus_height$ pt\\\\\n"
-"\\$scribus\\_dpi\\$ $\\Rightarrow$ $scribus_dpi$ dpi\\\\\n"
-"%$scribus_width$ - $scribus_offsetX$ / $scribus_scaleX$\n"
-"%--- Don't remove the next line ---%\n"
-"\\end{document}\n";
+"\\$scribus\\_dpi\\$ $\\Rightarrow$ $scribus_dpi$ dpi\\\\\n";
 
 void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 {
@@ -379,6 +391,9 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 		realW = Width/scaleX - LocalX*72.0/dpi;
 		realH = Height/scaleY - LocalY*72.0/dpi;
 	}
+	if (!tmp.contains("$scribus_noprepost$")) {
+		tmp = PrefsManager::instance()->latexPre() + tmp + PrefsManager::instance()->latexPost();
+	}
 	tmp.replace(QString("$scribus_width$"), QString::number(Width));
 	tmp.replace(QString("$scribus_height$"), QString::number(Height));
 	tmp.replace(QString("$scribus_realwidth$"), QString::number(realW));
@@ -389,10 +404,6 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 	tmp.replace(QString("$scribus_scaleY$"), QString::number(scaleY));
 	tmp.replace(QString("$scribus_dpi$"), QString::number(dpi));
 	tempfile->write(tmp.toUtf8());
-	//TODO Does this work on windows or do I have to close the file first
-	if (!tempfile->flush()) {
-		qDebug() << "LATEX: Can't flush. Program will likely fail!";
-	}
 }
 
 void PageItem_LatexFrame::writeEditorFile()
@@ -401,7 +412,8 @@ void PageItem_LatexFrame::writeEditorFile()
 	fileWatcher->disconnect(); //Avoid triggering false updates
 	//First create a temp file name
 	if (editorFile.isEmpty()) {
-		QTemporaryFile *editortempfile = new QTemporaryFile("scribus_editor_XXXXXX");
+		QTemporaryFile *editortempfile = new QTemporaryFile(QDir::tempPath() +
+			"scribus_temp_editor_XXXXXX");
 		if (!editortempfile->open()) {
 			QMessageBox::critical(0, tr("Error"), "<qt>" + 
 				tr("Could not create a temporary file to run the external editor!") 
@@ -539,3 +551,15 @@ void PageItem_LatexFrame::restore(UndoState *state, bool isUndo)
 		PageItem_ImageFrame::restore(state, isUndo);
 	}
 }
+
+const QString PageItem_LatexFrame::defaultApp = "pdflatex  --interaction nonstopmode";
+const QString PageItem_LatexFrame::defaultPre = 
+		"\\documentclass[a4paper,10pt]{article}\n"
+		"\\usepackage[utf8]{inputenc}\n"
+		"\\usepackage[left=0cm,top=0cm,right=0cm,bottom=0cm,nohead,nofoot]{geometry}\n"
+		"\\title{Scribus-Latex-File}\n"
+		"\\author{Scribus}\n"
+		"\\pagestyle{empty}\n"
+		"\\setlength{\\textwidth}{$scribus_realwidth$ pt}\n"
+		"\\begin{document}\n";
+const QString PageItem_LatexFrame::defaultPost = "\\end{document}";

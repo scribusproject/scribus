@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFileDialog>
 #include <QProcess>
 #include "util_ghostscript.h"
+#include "pageitem_latexframe.h"
 #include "scpaths.h"
 
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent, const char*name)
@@ -75,8 +76,18 @@ const QString TabExternalToolsWidget::newLatexExtension() const
 }
 
 const QString TabExternalToolsWidget::newLatexEditor() const 
-{ 
+{
 	return ScPaths::separatorsToSlashes(latexEditorLineEdit->text());
+}
+
+const QString TabExternalToolsWidget::newLatexPre() const 
+{
+	return latexPreTextEdit->toPlainText();
+}
+
+const QString TabExternalToolsWidget::newLatexPost() const 
+{
+	return latexPostTextEdit->toPlainText();
 }
 
 void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -92,6 +103,8 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	latexResolutionSpinBox->setValue(prefsData->latexResolution);
 	latexEditorLineEdit->setText(prefsData->latexEditorExecutable);
 	latexForceDpiCheckBox->setCheckState(prefsData->latexForceDpi?Qt::Checked:Qt::Unchecked);
+	latexPreTextEdit->setPlainText(prefsData->latexPre);
+	latexPostTextEdit->setPlainText(prefsData->latexPost);
 }
 
 void TabExternalToolsWidget::changePostScriptTool()
@@ -156,7 +169,6 @@ bool TabExternalToolsWidget::fileInPath(QString file)
 			break;
 		}
 	}
-	//std::cout << "path: " << qPrintable(path) << "\n";
 	QStringList splitpath;
 	//TODO: Check this again! OS2?
 	#ifdef _WIN32
@@ -185,7 +197,7 @@ void TabExternalToolsWidget::rescanForTools()
 		imageToolLineEdit->setText("gimp");
 	
 	if (!fileInPath(latexToolLineEdit->text())) {
-		latexToolLineEdit->setText("pdflatex --interaction nonstopmode");
+		latexToolLineEdit->setText(PageItem_LatexFrame::defaultApp);
 		latexExtensionLineEdit->setText(".pdf");
 	}
 	
