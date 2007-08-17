@@ -546,6 +546,8 @@ public:
 	// 0=none, 1,2,3,4=linear, 5=radial, 6=free linear, 7=free radial, 8=pattern 
 	int gradientType() const { return GrType; }
 	void setGradientType(int val) { GrType = val; }
+	void gradientVector(double& startX, double& startY, double& endX, double& endY) const;
+	void setGradientVector(double startX, double startY, double endX, double endY);
 	// 
 	bool fillEvenOdd() const { return fillRule; }
 	void setFillEvenOdd(bool val) { fillRule = val; }

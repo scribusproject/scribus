@@ -2037,6 +2037,22 @@ void PageItem::setPattern(const QString &newPattern)
 		patternVal = newPattern;
 }
 
+void PageItem::gradientVector(double& startX, double& startY, double& endX, double& endY) const
+{
+	startX = GrStartX;
+	startY = GrStartY;
+	endX   = GrEndX;
+	endY   = GrEndY;
+}
+
+void PageItem::setGradientVector(double startX, double startY, double endX, double endY)
+{
+	GrStartX = startX;
+	GrStartY = startY;
+	GrEndX   = endX;
+	GrEndY   = endY;
+}
+
 void PageItem::setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
 {
 	patternScaleX = scaleX;

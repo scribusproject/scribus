@@ -7087,6 +7087,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SeleItem(m);
 			if (GetItem(&currItem))
 			{
+				double gsx, gsy, gex, gey;
+				double scaleX, scaleY, offsetX, offsetY, rotation;
 				currItem->ColGap = Doc->ElemToLink->ColGap;
 				currItem->Cols = Doc->ElemToLink->Cols;
 				currItem->BottomLine = Doc->ElemToLink->BottomLine;
@@ -7097,6 +7099,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				currItem->setLineStyle(Doc->ElemToLink->lineStyle());
 				currItem->setLineWidth(Doc->ElemToLink->lineWidth());
 				currItem->setLineTransparency(Doc->ElemToLink->lineTransparency());
+				currItem->setLineBlendmode(Doc->ElemToLink->lineBlendmode());
 				currItem->setLineShade(Doc->ElemToLink->lineShade());
 				currItem->setLineColor(Doc->ElemToLink->lineColor());
 				currItem->setLineEnd(Doc->ElemToLink->lineEnd());
@@ -7107,6 +7110,14 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				currItem->setFillColor(Doc->ElemToLink->fillColor());
 				currItem->setFillShade(Doc->ElemToLink->fillShade());
 				currItem->setFillTransparency(Doc->ElemToLink->fillTransparency());
+				currItem->setFillBlendmode(Doc->ElemToLink->fillBlendmode());
+				currItem->fill_gradient = Doc->ElemToLink->fill_gradient;
+				currItem->setGradientType(Doc->ElemToLink->gradientType());
+				Doc->ElemToLink->gradientVector(gsx, gsy, gex, gey);
+				currItem->setGradientVector(gsx, gsy, gex, gey);
+				currItem->setPattern(Doc->ElemToLink->pattern());
+				Doc->ElemToLink->patternTransform(scaleX, scaleY, offsetX, offsetY, rotation);
+				currItem->setPatternTransform(scaleX, scaleY, offsetX, offsetY, rotation);
 				Doc->ElemToLink = currItem;
 				emit DocChanged();
 				updateContents();
