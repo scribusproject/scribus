@@ -5457,6 +5457,12 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				currItem->setFillColor(Doc->ElemToLink->fillColor());
 				currItem->setFillShade(Doc->ElemToLink->fillShade());
 				currItem->setFillTransparency(Doc->ElemToLink->fillTransparency());
+				currItem->fill_gradient = Doc->ElemToLink->fill_gradient;
+				currItem->GrType   = Doc->ElemToLink->GrType;
+				currItem->GrStartX = Doc->ElemToLink->GrStartX;
+				currItem->GrStartY = Doc->ElemToLink->GrStartY;
+				currItem->GrEndX   = Doc->ElemToLink->GrEndX;
+				currItem->GrEndY   = Doc->ElemToLink->GrEndY;
 				Doc->ElemToLink = currItem;
 				emit DocChanged();
 				updateContents();
