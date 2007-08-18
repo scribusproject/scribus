@@ -624,8 +624,8 @@ void ScribusDoc::SetDefaultCMSParams()
 	DocPrinterProf        = ScCore->defaultCMYKProfile;
 	stdTransRGBMon        = ScCore->defaultRGBToScreenSolidTrans;
 	stdTransCMYKMon       = ScCore->defaultCMYKToRGBTrans;
-	stdTransRGB           = ScCore->defaultRGBToScreenSolidTrans;
-	stdTransCMYK          = ScCore->defaultCMYKToRGBTrans;
+	stdTransRGB           = ScCore->defaultCMYKToRGBTrans;
+	stdTransCMYK          = ScCore->defaultRGBToCMYKTrans;
 	stdProof              = ScCore->defaultRGBToScreenSolidTrans;
 	stdProofGC            = ScCore->defaultRGBToScreenSolidTrans;
 	stdProofCMYK          = ScCore->defaultCMYKToRGBTrans;
