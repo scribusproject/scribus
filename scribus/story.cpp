@@ -226,170 +226,170 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	getCursorPosition(&p, &i);
 	int pos = StyledText.startOfParagraph(p) + i;
 	int keyMod=0;
-	if (k->state() & Qt::ShiftButton)
+	if (k->modifiers() & Qt::ShiftModifier)
 		keyMod |= Qt::SHIFT;
-	if (k->state() & Qt::ControlButton)
+	if (k->modifiers() & Qt::ControlModifier)
 		keyMod |= Qt::CTRL;
-	if (k->state() & Qt::AltButton)
+	if (k->modifiers() & Qt::AltModifier)
 		keyMod |= Qt::ALT;
 
 	QString uc = k->text();
-	switch (k->state())
+	if ((k->modifiers() == Qt::ControlModifier) ||
+		(k->modifiers() && (Qt::ControlModifier | Qt::ShiftModifier)) ||
+		(k->modifiers() && (Qt::ControlModifier | Qt::KeypadModifier)) ||
+		(k->modifiers() && (Qt::ControlModifier | Qt::ShiftModifier | Qt::KeypadModifier))
+	   )
 	{
-		case Qt::ControlButton:
-		case Qt::ControlButton|Qt::ShiftButton:
-		case Qt::ControlButton|Qt::Keypad:
-		case Qt::ControlButton|Qt::ShiftButton|Qt::Keypad:
-			switch (k->key())
+		switch (k->key())
+		{
+			case Qt::Key_Delete:
+				moveCursor(Q3TextEdit::MoveWordForward, true);
+				deleteSel();
+				break;
+			case Qt::Key_Backspace:
+				moveCursor(Q3TextEdit::MoveWordBackward, true);
+				deleteSel();
+				break;
+			case Qt::Key_K:
+				moveCursor(Q3TextEdit::MoveLineEnd, true);
+				deleteSel();
+				break;
+			case Qt::Key_D:
+				moveCursor(Q3TextEdit::MoveForward, true);
+				deleteSel();
+				break;
+			case Qt::Key_H:
+				moveCursor(Q3TextEdit::MoveBackward, true);
+				deleteSel();
+				break;
+			case Qt::Key_X:
+				cut();
+				return;
+				break;
+			case Qt::Key_V:
+				paste();
+				return;
+				break;
+			case Qt::Key_Y:
+			case Qt::Key_Z:
+				emit SideBarUp(true);
+				return;
+				break;
+			case Qt::Key_C:
+				copyStyledText();
+				break;
+		}
+	}
+	
+	if ((k->modifiers() == Qt::NoModifier) ||
+		(k->modifiers() == Qt::KeypadModifier) ||
+		(k->modifiers() == Qt::ShiftModifier) ||
+		(k->modifiers() && (Qt::ControlModifier | Qt::AltModifier)) ||
+		(k->modifiers() && (Qt::ControlModifier | Qt::AltModifier | Qt::ShiftModifier)) // Shift + AltGr on Windows for polish characters
+	   )
+	{
+		if (unicodeTextEditMode)
+		{
+			int conv = 0;
+			bool ok = false;
+			unicodeInputString += k->text();
+			conv = unicodeInputString.toInt(&ok, 16);
+			if (!ok)
 			{
-				case Qt::Key_Delete:
-					moveCursor(Q3TextEdit::MoveWordForward, true);
-					deleteSel();
-					break;
-				case Qt::Key_Backspace:
-					moveCursor(Q3TextEdit::MoveWordBackward, true);
-					deleteSel();
-					break;
-				case Qt::Key_K:
-					moveCursor(Q3TextEdit::MoveLineEnd, true);
-					deleteSel();
-					break;
-				case Qt::Key_D:
-					moveCursor(Q3TextEdit::MoveForward, true);
-					deleteSel();
-					break;
-				case Qt::Key_H:
-					moveCursor(Q3TextEdit::MoveBackward, true);
-					deleteSel();
-					break;
-				case Qt::Key_X:
-					cut();
-					return;
-					break;
-				case Qt::Key_V:
-					paste();
-					return;
-					break;
-				case Qt::Key_Y:
-				case Qt::Key_Z:
-					emit SideBarUp(true);
-					return;
-					break;
-				case Qt::Key_C:
-					copyStyledText();
-					break;
+				unicodeTextEditMode = false;
+				unicodeInputCount = 0;
+				unicodeInputString = "";
+				return;
 			}
-			break;
-		case Qt::NoButton:
-		case Qt::Keypad:
-		case Qt::ShiftButton:
-		case Qt::ControlButton|Qt::AltButton:
-		case Qt::ControlButton|Qt::AltButton|Qt::ShiftButton: // Shift + AltGr on Windows for polish characters
-			if (unicodeTextEditMode)
+			unicodeInputCount++;
+			if (unicodeInputCount == 4)
 			{
-				int conv = 0;
-				bool ok = false;
-				unicodeInputString += k->text();
-				conv = unicodeInputString.toInt(&ok, 16);
-				if (!ok)
+				unicodeTextEditMode = false;
+				unicodeInputCount = 0;
+				unicodeInputString = "";
+				if (ok)
 				{
-					unicodeTextEditMode = false;
-					unicodeInputCount = 0;
-					unicodeInputString = "";
-					return;
-				}
-				unicodeInputCount++;
-				if (unicodeInputCount == 4)
-				{
-					unicodeTextEditMode = false;
-					unicodeInputCount = 0;
-					unicodeInputString = "";
-					if (ok)
-					{
-						if (conv < 31)
-							conv = 32;
-						insChars(QString(QChar(conv)));
- 						insert(QString(QChar(conv)));
-						emit SideBarUp(true);
-						emit SideBarUpdate();
-						return;
-					}
-				}
-				else
-				{
+					if (conv < 31)
+						conv = 32;
+					insChars(QString(QChar(conv)));
+					insert(QString(QChar(conv)));
 					emit SideBarUp(true);
 					emit SideBarUpdate();
 					return;
 				}
 			}
-			wasMod = false;
-			switch (k->key())
+			else
 			{
-				case Qt::Key_Escape:
-					k->ignore();
-					break;
-				case Qt::Key_Shift:
-				case Qt::Key_Control:
-				case Qt::Key_Alt:
-					wasMod = true;
-					break;
-				case Qt::Key_F12:
-					unicodeTextEditMode = true;
-					unicodeInputCount = 0;
-					unicodeInputString = "";
-					return;
-					break;
-				case Qt::Key_Delete:
-					if (!hasSelectedText())
-					{
-						if (pos < StyledText.length())
-							StyledText.removeChars(pos, 1);
-					}
-					else
-						deleteSel();
-					break;
-				case Qt::Key_Backspace:
-					if (!hasSelectedText())
-					{
-						if (pos > 0)
-							StyledText.removeChars(pos-1, 1);
-					}
-					else
-						deleteSel();
-					break;
-				case Qt::Key_Return:
-				case Qt::Key_Enter:
-					{
-						if (hasSelectedText()) {
-							pos = StyledText.startOfSelection();
-							deleteSel();
-						}
-						StyledText.insertChars(pos, SpecialChars::PARSEP);
-					}
-					break;
-				case Qt::Key_Left:
-				case Qt::Key_Right:
-				case Qt::Key_Prior:
-				case Qt::Key_Next:
-				case Qt::Key_Up:
-				case Qt::Key_Down:
-				case Qt::Key_Home:
-				case Qt::Key_End:
-					break;
-				default:
-					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
-					{
-						insChars(k->text());
-						Q3TextEdit::keyPressEvent(k);
-						emit SideBarUp(true);
-						emit SideBarUpdate();
-					}
-					return;
-					break;
+				emit SideBarUp(true);
+				emit SideBarUpdate();
+				return;
 			}
-			break;
-		default:
-			break;
+		}
+		wasMod = false;
+		switch (k->key())
+		{
+			case Qt::Key_Escape:
+				k->ignore();
+				break;
+			case Qt::Key_Shift:
+			case Qt::Key_Control:
+			case Qt::Key_Alt:
+				wasMod = true;
+				break;
+			case Qt::Key_F12:
+				unicodeTextEditMode = true;
+				unicodeInputCount = 0;
+				unicodeInputString = "";
+				return;
+				break;
+			case Qt::Key_Delete:
+				if (!hasSelectedText())
+				{
+					if (pos < StyledText.length())
+						StyledText.removeChars(pos, 1);
+				}
+				else
+					deleteSel();
+				break;
+			case Qt::Key_Backspace:
+				if (!hasSelectedText())
+				{
+					if (pos > 0)
+						StyledText.removeChars(pos-1, 1);
+				}
+				else
+					deleteSel();
+				break;
+			case Qt::Key_Return:
+			case Qt::Key_Enter:
+				{
+					if (hasSelectedText()) {
+						pos = StyledText.startOfSelection();
+						deleteSel();
+					}
+					StyledText.insertChars(pos, SpecialChars::PARSEP);
+				}
+				break;
+			case Qt::Key_Left:
+			case Qt::Key_Right:
+			case Qt::Key_Prior:
+			case Qt::Key_Next:
+			case Qt::Key_Up:
+			case Qt::Key_Down:
+			case Qt::Key_Home:
+			case Qt::Key_End:
+				break;
+			default:
+				if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
+				{
+					insChars(k->text());
+					Q3TextEdit::keyPressEvent(k);
+					emit SideBarUp(true);
+					emit SideBarUpdate();
+				}
+				return;
+				break;
+		}
 	}
 	Q3TextEdit::keyPressEvent(k);
 	emit SideBarUp(true);

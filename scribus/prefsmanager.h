@@ -144,16 +144,16 @@ public:
 	//! \brief Get the users preferred document directory
 	const QString documentDir();
 	void setDocumentDir(const QString& dirname);
-	const int mouseWheelValue();
+	const int mouseWheelValue() const;
 	//! \brief Get the user set display scale
-	const double displayScale();
+	const double displayScale() const;
 	//! \brief Get the GUI language from preferences
-	const QString& guiLanguage();
+	const QString& guiLanguage() const;
 	//! \brief Get the GUI style from preferences
-	const QString& guiStyle();
+	const QString& guiStyle() const;
 	//! \brief Get the GUI style from preferences
-	const int& guiFontSize();
-	const int& paletteFontSize();
+	const int& guiFontSize() const;
+	const int& paletteFontSize() const;
 	void setKeyEntry(const QString&, const QString&, const QKeySequence&, const int&);
 	void setShowStartupDialog(const bool);
 	//! \brief Sets the preferences' color set

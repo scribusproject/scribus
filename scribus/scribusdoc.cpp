@@ -6282,7 +6282,7 @@ void ScribusDoc::itemSelection_ToggleImageShown()
 {
 	if (m_Selection->count() != 0)
 	{
-		for (uint a = 0; a < m_Selection->count(); ++a)
+		for (int a = 0; a < m_Selection->count(); ++a)
 		{
 			PageItem_ImageFrame* imageItem=m_Selection->itemAt(a)->asImageFrame();
 			if (imageItem==NULL)
@@ -7022,7 +7022,7 @@ bool ScribusDoc::startAlign()
 	}
 	
 	QString targetTooltip = Um::ItemsInvolved + "\n";
-	for (uint i = 0; i < m_Selection->count(); ++i)
+	for (int i = 0; i < m_Selection->count(); ++i)
 		targetTooltip += "\t" + m_Selection->itemAt(i)->getUName() + "\n";
 	// Make the align action a single action in Action History
 	undoManager->beginTransaction(Um::Selection, 0, Um::AlignDistribute, targetTooltip, Um::IAlignDistribute);
@@ -7040,7 +7040,7 @@ void ScribusDoc::endAlign()
 {
 	changed();
 	m_ScMW->HaveNewSel(m_Selection->itemAt(0)->itemType());
-	for (uint i = 0; i < m_Selection->count(); ++i)
+	for (int i = 0; i < m_Selection->count(); ++i)
 		setRedrawBounding(m_Selection->itemAt(i));
 	undoManager->commit(); // commit and send the action to the UndoManager
 	m_View->updateContents();
@@ -8026,7 +8026,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 		for (int i=0; i<mdData.copyCount; ++i)
 		{
 			m_ScMW->slotEditPaste();
-			for (uint b=0; b<m_Selection->count(); ++b)
+			for (int b=0; b<m_Selection->count(); ++b)
 			{
 				PageItem* bItem=m_Selection->itemAt(b);
 				bItem->setLocked(false);
@@ -8070,7 +8070,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdDa
 				if (i==0 && j==0)
 					continue;
 				m_ScMW->slotEditPaste();
-				for (uint b=0; b<m_Selection->count(); ++b)
+				for (int b=0; b<m_Selection->count(); ++b)
 				{
 					PageItem* bItem=m_Selection->itemAt(b);
 					bItem->setLocked(false);

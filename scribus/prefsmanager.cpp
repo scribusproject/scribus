@@ -885,7 +885,7 @@ void PrefsManager::setDocumentDir(const QString& dirname)
 	appPrefs.DocDir = dirname;
 }
 
-const int PrefsManager::mouseWheelValue()
+const int PrefsManager::mouseWheelValue() const
 {
 	return appPrefs.Wheelval;
 }
@@ -1049,27 +1049,27 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 	}
 }
 
-const double PrefsManager::displayScale()
+const double PrefsManager::displayScale() const
 {
 	return appPrefs.DisScale;
 }
 
-const QString& PrefsManager::guiLanguage()
+const QString& PrefsManager::guiLanguage() const
 {
 	return appPrefs.guiLanguage;
 }
 
-const QString& PrefsManager::guiStyle()
+const QString& PrefsManager::guiStyle() const
 {
 	return appPrefs.GUI;
 }
 
-const int& PrefsManager::guiFontSize()
+const int& PrefsManager::guiFontSize() const
 {
 	return appPrefs.AppFontSize;
 }
 
-const int& PrefsManager::paletteFontSize()
+const int& PrefsManager::paletteFontSize() const
 {
 	return appPrefs.PaletteFontSize;
 }

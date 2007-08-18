@@ -112,15 +112,15 @@ void ScrPaletteBase::keyPressEvent(QKeyEvent *keyEvent)
 {
 	// Sample code to use in overriding classes 
 	int keyMod;
-	switch (keyEvent->state())
+	switch (keyEvent->modifiers())
 	{
-		case Qt::ShiftButton:
+		case Qt::ShiftModifier:
 			keyMod = Qt::SHIFT;
 			break;
-		case Qt::AltButton:
+		case Qt::AltModifier:
 			keyMod = Qt::ALT;
 			break;
-		case Qt::ControlButton:
+		case Qt::ControlModifier:
 			keyMod = Qt::CTRL;
 			break;
 		default:

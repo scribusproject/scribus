@@ -1088,7 +1088,7 @@ void ScribusMainWindow::wheelEvent(QWheelEvent *w)
 	if (HaveDoc)
 	{
 		int wheelVal=prefsManager->mouseWheelValue();
-		if ((w->orientation() != Qt::Vertical) || ( w->state() & Qt::ShiftButton ))
+		if ((w->orientation() != Qt::Vertical) || ( w->modifiers() & Qt::ShiftModifier ))
 		{
 			if (w->delta() < 0)
 				view->scrollBy(wheelVal, 0);
@@ -1166,11 +1166,11 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 	if ( e->type() == QEvent::KeyPress ) {
 		QKeyEvent *k = (QKeyEvent *)e;
 		int keyMod=0;
-		if (k->state() & Qt::ShiftButton)
+		if (k->modifiers() & Qt::ShiftModifier)
 			keyMod |= Qt::SHIFT;
-		if (k->state() & Qt::ControlButton)
+		if (k->modifiers() & Qt::ControlModifier)
 			keyMod |= Qt::CTRL;
-		if (k->state() & Qt::AltButton)
+		if (k->modifiers() & Qt::AltModifier)
 			keyMod |= Qt::ALT;
 
 		QKeySequence currKeySeq = QKeySequence(k->key() | keyMod);
@@ -1181,6 +1181,7 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 		if (currKeySeq == scrActions["specialToggleAllPalettes"]->accel())
 			scrActions["specialToggleAllPalettes"]->activate(QAction::Trigger);
 		else
+// CB These were moved to ActionManager via the setShortcutContext(Qt::ApplicationShortcut) calls, leaving for notes for now
 // 		if (currKeySeq == scrActions["toolsProperties"]->accel())
 // 			scrActions["toolsProperties"]->toggle();
 // 		else
@@ -1255,22 +1256,13 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 	if (keyrep)
 		return;
 	keyrep = true;
-	int KeyMod;
-	switch (k->state())
-	{
-	case Qt::ShiftButton:
-		KeyMod = Qt::SHIFT;
-		break;
-	case Qt::AltButton:
-		KeyMod = Qt::ALT;
-		break;
-	case Qt::ControlButton:
-		KeyMod = Qt::CTRL;
-		break;
-	default:
-		KeyMod = 0;
-		break;
-	}
+	int keyMod=0;
+	if (k->modifiers() & Qt::ShiftModifier)
+		keyMod |= Qt::SHIFT;
+	if (k->modifiers() & Qt::ControlModifier)
+		keyMod |= Qt::CTRL;
+	if (k->modifiers() & Qt::AltModifier)
+		keyMod |= Qt::ALT;
 	//User presses escape and we have a doc open, and we have an item selected
 	if ((kk == Qt::Key_Escape) && (HaveDoc))
 	{
@@ -1339,7 +1331,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		slotSelect();
 		return;
 	}
-	Qt::ButtonState buttonState = k->state();
+	Qt::KeyboardModifiers buttonModifiers = k->modifiers();
 	/**If we have a doc and we are not changing the page or zoom level in the status bar */
 	if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 	{
@@ -1355,7 +1347,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		{
 			int pg;
 			int wheelVal = prefsManager->mouseWheelValue();
-			if ((buttonState & Qt::ShiftButton) && !(buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
+			if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 				wheelVal = qMax(qRound(wheelVal / 10.0), 1);
 			switch (kk)
 			{
@@ -1373,7 +1365,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				else
 				{
 					pg = doc->currentPageNumber();
-					if ((buttonState & Qt::ShiftButton) && !(buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
+					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 						pg--;
 					else
 						pg -= doc->pageSets[doc->currentPageLayout].Columns;
@@ -1389,7 +1381,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				else
 				{
 					pg = doc->currentPageNumber();
-					if ((buttonState & Qt::ShiftButton) && !(buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
+					if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 						pg++;
 					else
 						pg += doc->pageSets[doc->currentPageLayout].Columns;
@@ -1477,30 +1469,30 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			double moveBy=1.0;
 			if (doc->unitIndex()!=SC_INCHES)
 			{
-				if ((buttonState & Qt::ShiftButton) && !(buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
+				if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 					moveBy=0.1;
-				else if (!(buttonState & Qt::ShiftButton) && (buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
+				else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 					moveBy=10.0;
-				else if ((buttonState & Qt::ShiftButton) && (buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
+				else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 					moveBy=0.01;
 
 				moveBy/=doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			}
 			else
 			{
-				if ((buttonState & Qt::ShiftButton) && !(buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
+				if ((buttonModifiers & Qt::ShiftModifier) && !(buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 					moveBy=0.1/doc->unitRatio();
-				else if (!(buttonState & Qt::ShiftButton) && (buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
+				else if (!(buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 					moveBy=1.0/doc->unitRatio();
-				else if ((buttonState & Qt::ShiftButton) && (buttonState & Qt::ControlButton) && !(buttonState & Qt::AltButton))
+				else if ((buttonModifiers & Qt::ShiftModifier) && (buttonModifiers & Qt::ControlModifier) && !(buttonModifiers & Qt::AltModifier))
 					moveBy=0.01/doc->unitRatio();
 			}
-			bool resizing=((buttonState & Qt::AltButton) && !(buttonState & Qt::ControlButton));
-			bool resizingsmaller=(resizing && (buttonState & Qt::ShiftButton));
+			bool resizing=((buttonModifiers & Qt::AltModifier) && !(buttonModifiers & Qt::ControlModifier));
+			bool resizingsmaller=(resizing && (buttonModifiers & Qt::ShiftModifier));
 			double resizeBy=1.0;
 			//CB with control locked out due to the requirement of moveby of 0.01, we cannot support
 			//resizeby 10 units unless we move to supporting modifier keys that most people dont have.
-			//if (buttonState & Qt::ControlButton)
+			//if (buttonModifiers & Qt::ControlButton)
 			//	resizeBy*=10.0;
 			resizeBy/=doc->unitRatio();
 			if (resizingsmaller)
@@ -1849,9 +1841,10 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 
 void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 {
-	if (HaveDoc && (k->state() & Qt::ControlButton))
+	//Exit out of panning mode if Control is release while the right mouse button is pressed
+	if (HaveDoc)
 	{
-		if ((doc->appMode == modePanning) && (k->state() & Qt::RightButton))
+		if ((doc->appMode == modePanning) && (k->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
 			setAppMode(modeNormal);
 	}
 	if (HaveDoc)
@@ -1870,7 +1863,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 			_arrowKeyDown = false;
 			if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 			{
-				uint docSelectionCount=doc->m_Selection->count();
+				int docSelectionCount=doc->m_Selection->count();
 				if ((docSelectionCount != 0) && (doc->appMode == modeNormal) && (doc->EditClip) && (view->ClRe != -1))
 				{
 					PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -1881,7 +1874,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
 					view->updateContents();
 				}
-				for (uint i = 0; i < docSelectionCount; ++i)
+				for (int i = 0; i < docSelectionCount; ++i)
 					doc->m_Selection->itemAt(i)->checkChanges(true);
 				if (docSelectionCount > 1 && view->groupTransactionStarted())
 					undoManager->commit();
@@ -4748,7 +4741,7 @@ void ScribusMainWindow::slotEditCut()
 				rebuildRecentPasteMenu();
 			}
 			Buffer2 = BufferI;
-			for (uint i=0; i < doc->m_Selection->count(); ++i)
+			for (int i=0; i < doc->m_Selection->count(); ++i)
 			{
 				PageItem* frame = doc->m_Selection->itemAt(i);
 				if (frame->asTextFrame() && frame->prevInChain() == NULL)
@@ -5104,7 +5097,7 @@ void ScribusMainWindow::slotEditPaste()
 				else 
 				{
 					Selection pastedObjects = Serializer(*doc).deserializeObjects(Buffer2.utf8());
-					for (uint i=0; i < pastedObjects.count(); ++i)
+					for (int i=0; i < pastedObjects.count(); ++i)
 						pastedObjects.itemAt(i)->LayerNr = doc->activeLayer();
 					
 					/*double x = doc->currentPage()->xOffset();
@@ -7188,9 +7181,6 @@ void ScribusMainWindow::slotEditColors()
 	{
 		if (HaveDoc)
 		{
-			/*uint c;
-			int d;
-			PageItem *ite;*/
 			QColor tmpc;
 			slotDocCh();
 			doc->PageColors = dia->EditColors;
@@ -7295,7 +7285,7 @@ void ScribusMainWindow::ObjektDup()
 	slotEditCopy();
 	view->Deselect(true);
 	slotEditPaste();
-	for (uint b=0; b<doc->m_Selection->count(); ++b)
+	for (int b=0; b<doc->m_Selection->count(); ++b)
 	{
 		doc->m_Selection->itemAt(b)->setLocked(false);
 		doc->MoveItem(doc->toolSettings.dispX, doc->toolSettings.dispY, doc->m_Selection->itemAt(b));

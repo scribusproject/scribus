@@ -140,16 +140,18 @@ void PageItem_ImageFrame::clearContents()
 void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
 	double moveBy=1.0;
-	Qt::ButtonState buttonState = k->state();
+	Qt::KeyboardModifiers buttonModifiers = k->modifiers();
+	bool controlDown=(buttonModifiers & Qt::ControlButton);
+	bool altDown=(buttonModifiers & Qt::AltButton);
+	bool shiftDown=(buttonModifiers & Qt::ShiftButton);
 	bool resizingImage=false;
-	bool controlDown=(buttonState & Qt::ControlButton);
-	if ((buttonState & Qt::ShiftButton) && !controlDown)
+	if (shiftDown && !controlDown)
 		moveBy=10.0;
-	else if ((buttonState & Qt::ShiftButton) && controlDown && !(buttonState & Qt::AltButton))
+	else if (shiftDown && controlDown && !altDown)
 		moveBy=0.1;
-	else if ((buttonState & Qt::ShiftButton) && controlDown && (buttonState & Qt::AltButton))
+	else if (shiftDown && controlDown && altDown)
 		moveBy=0.01;
-	else if (!(buttonState & Qt::ShiftButton) && (buttonState & Qt::AltButton))
+	else if (!shiftDown && altDown)
 		resizingImage=true;
 	double dX=0.0,dY=0.0;
 	int kk = k->key();

@@ -118,7 +118,7 @@ class SCRIBUS_API Selection : public QObject
 		/**
 		 * \brief Return the count of the selection
 		 */
-		uint count() const { return m_SelList.count(); }
+		int count() const { return m_SelList.count(); }
 		/**
 		 * \brief Check if the selection is empty.
 		 */
