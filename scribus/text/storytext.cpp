@@ -317,7 +317,7 @@ void StoryText::insertChars(int pos, QString txt, bool applyNeighbourStyle) //, 
 	ScText clone;
 	if (applyNeighbourStyle)
 	{
-		int referenceChar = QMAX(0, QMIN(pos, length()-1));
+		int referenceChar = qMax(0, qMin(pos, length()-1));
 		clone.applyCharStyle(charStyle(referenceChar));
 		clone.setEffects(ScStyle_Default);
 	}
@@ -452,7 +452,7 @@ const CharStyle & StoryText::charStyle(int pos) const
 		return defaultStyle().charStyle();
 	}
 	else if (pos == length()) {
-		qDebug(QString("storytext::charstyle: access at end of text %1").arg(pos));
+		qDebug("storytext::charstyle: access at end of text %i", pos);
 		--pos;
 	}
 	if (text(pos) == SpecialChars::PARSEP)
@@ -485,7 +485,7 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 	}
 	else if ( !that->d->at(pos)->parstyle ) {
 		ScText* current = that->d->at(pos);
-		qDebug(QString("inserting default parstyle at %1").arg(pos));
+		qDebug("inserting default parstyle at %i", pos);
 		current->parstyle = new ParagraphStyle();
 		current->parstyle->setContext( & d->pstyleContext);
 //		current->parstyle->setName( "para(paragraphStyle)" ); // DONT TRANSLATE
@@ -584,7 +584,7 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 	}
 	if (i < length()) {
 		if (!d->at(i)->parstyle) {
-			qDebug(QString("PARSEP without style at pos %1").arg(i));
+			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
 //			d->at(i)->parstyle->setName( "para(applyStyle)" ); // DONT TRANSLATE
@@ -616,7 +616,7 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 	}
 	if (i < length()) {
 		if (!d->at(i)->parstyle) {
-			qDebug(QString("PARSEP without style at pos %1").arg(i));
+			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
 //			d->at(i)->parstyle->setName( "para(eraseStyle)" ); // DONT TRANSLATE
@@ -798,31 +798,31 @@ int StoryText::nextWord(int pos)
 {
 	int len = length();
 	pos = qMin(len, pos+1);
-	while (pos < len  && wordBoundaries.find(text(pos)) < 0)
+	while (pos < len  && wordBoundaries.indexOf(text(pos)) < 0)
 		++pos;
 	return pos < len ? pos + 1 : pos;
 }
 int StoryText::prevWord(int pos)
 {
 	pos = qMax(0, pos-1);
-	while (pos > 0 && wordBoundaries.find(text(pos)) < 0)
+	while (pos > 0 && wordBoundaries.indexOf(text(pos)) < 0)
 		--pos;
-	return wordBoundaries.find(text(pos)) < 0 ? pos + 1 : pos;
+	return wordBoundaries.indexOf(text(pos)) < 0 ? pos + 1 : pos;
 }
 int StoryText::nextSentence(int pos)
 {
 	int len = length();
 	pos = qMin(len, pos+1);
-	while (pos < len && sentenceBoundaries.find(text(pos)) < 0)
+	while (pos < len && sentenceBoundaries.indexOf(text(pos)) < 0)
 		++pos;
 	return pos < len ? pos + 1 : pos;
 }
 int StoryText::prevSentence(int pos)
 {
 	pos = qMax(0, pos-1);
-	while (pos > 0 && sentenceBoundaries.find(text(pos)) < 0)
+	while (pos > 0 && sentenceBoundaries.indexOf(text(pos)) < 0)
 		--pos;
-	return sentenceBoundaries.find(text(pos)) < 0 ? pos + 1 : pos;
+	return sentenceBoundaries.indexOf(text(pos)) < 0 ? pos + 1 : pos;
 }
 int StoryText::nextParagraph(int pos)
 {

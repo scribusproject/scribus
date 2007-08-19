@@ -180,7 +180,7 @@ QString CharStyle::asString() const
 		result += QObject::tr("+stretch ");
 	if ( hasParent() )
 		result += QObject::tr("parent= %1").arg(parent());
-	return result.stripWhiteSpace();
+	return result.trimmed();
 }
 
 
@@ -261,7 +261,7 @@ void CharStyle::runFeatures(const QStringList& featureList, const CharStyle* par
 	QStringList::ConstIterator it;
 	for (it = featureList.begin(); it != featureList.end(); ++it)
 	{
-		QString feature = it->stripWhiteSpace();
+		QString feature = it->trimmed();
 		if (feature == INHERIT)
 		{
 			if (parent)
@@ -363,11 +363,11 @@ void CharStyle::runFeatures(const QStringList& featureList, const CharStyle* par
 				m_Effects &= ~ScStyle_SmallCaps;
 			}
 			else {
-				qDebug("CharStyle: unknown feature: %s", feature.ascii());
+				qDebug("CharStyle: unknown feature: %s", feature.toLocal8Bit().constData());
 			}
 		}
 		else {
-			qDebug("CharStyle: unknown feature: %s", feature.ascii());
+			qDebug("CharStyle: unknown feature: %s", feature.toLocal8Bit().constData());
 		}
 		
 	}
@@ -403,16 +403,16 @@ void CharStyle::replaceNamedResources(ResourceCollection& newNames)
 	QMap<QString,QString>::ConstIterator it;
 	
 	if (!inh_FillColor && (it = newNames.colors().find(fillColor())) != newNames.colors().end())
-		setFillColor(it.data()); 
+		setFillColor(it.value());
 								  
 	if (!inh_StrokeColor && (it = newNames.colors().find(strokeColor())) != newNames.colors().end())
-		setStrokeColor(it.data());
+		setStrokeColor(it.value());
 
 	if (hasParent() && (it = newNames.charStyles().find(parent())) != newNames.charStyles().end())
-		setParent(it.data());
+		setParent(it.value());
 	
 	if (!inh_Font && (it = newNames.fonts().find(font().scName())) != newNames.fonts().end())
-		setFont(newNames.availableFonts->findFont(it.data(), NULL));
+		setFont(newNames.availableFonts->findFont(it.value(), NULL));
 	updateFeatures();
 }
 								

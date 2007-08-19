@@ -179,7 +179,7 @@ void FtFace::loadGlyph(uint gl) const
 	}
 	else {
 		double ww = double(face->glyph->metrics.horiAdvance) / m_uniEM;
-		double w  = (face->glyph->metrics.width + QABS(double(face->glyph->metrics.horiBearingX))) / m_uniEM;
+		double w  = (face->glyph->metrics.width + qAbs(double(face->glyph->metrics.horiBearingX))) / m_uniEM;
 		GRec.bbox_width = qMax(w, ww);
 		double height = double(face->glyph->metrics.height) / m_uniEM;
 		GRec.bbox_ascent = double(face->glyph->metrics.horiBearingY) / m_uniEM;

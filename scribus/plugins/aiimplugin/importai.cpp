@@ -21,7 +21,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qregexp.h>
 #include <QStack>
-//Added by qt3to4:
 #include <QDrag>
 #include <QMimeData>
 #include <QList>
@@ -549,7 +548,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 				QTextStream ts2(&tmp, QIODevice::ReadOnly);
 				ts2 >> c >> m >> yc >> k;
 				FarNam = ts2.readAll();
-				FarNam = FarNam.stripWhiteSpace();
+				FarNam = FarNam.trimmed();
 				FarNam = FarNam.remove(0,1);
 				FarNam = FarNam.remove(FarNam.length()-1,1);
 				cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
@@ -569,7 +568,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 					QTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> yc >> k;
 					FarNam = ts2.readAll();
-					FarNam = FarNam.stripWhiteSpace();
+					FarNam = FarNam.trimmed();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * yc), qRound(255 * k));
@@ -1189,7 +1188,7 @@ void AIPlug::processData(QString data)
 				}
 				if (groupStack.count() != 0)
 				{
-					for (uint as = 0; as < tmpSel->count(); ++as)
+					for (int as = 0; as < tmpSel->count(); ++as)
 					{
 						groupStack.top().append(tmpSel->itemAt(as));
 					}
@@ -1394,7 +1393,7 @@ void AIPlug::processData(QString data)
 			int en = Cdata.lastIndexOf(")");
 			currentPatternName = Cdata.mid(an+1, en-an-1);
 			currentPatternName.remove("\\");
-			currentPatternName = currentPatternName.stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
+			currentPatternName = currentPatternName.trimmed().simplified().replace(" ", "_");
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
 			QTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			gVals >> currentPatternX >> currentPatternY >> currentPatternXScale >> currentPatternYScale >> currentPatternRotation;
@@ -1660,7 +1659,7 @@ void AIPlug::processData(QString data)
 			int en = Cdata.lastIndexOf(")");
 			currentPatternDefName = Cdata.mid(an+1, en-an-1);
 			currentPatternDefName.remove("\\");
-			currentPatternDefName = currentPatternDefName.stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
+			currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
 			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
 			QTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
@@ -1786,7 +1785,7 @@ void AIPlug::processPattern(QDataStream &ts)
 					//			pat.height = currItem->gHeight;
 					pat.width = patternX2 - patternX1;
 					pat.height = patternY2 - patternY1;
-					for (uint as = 0; as < tmpSel->count(); ++as)
+					for (int as = 0; as < tmpSel->count(); ++as)
 					{
 						pat.items.append(tmpSel->itemAt(as));
 					}

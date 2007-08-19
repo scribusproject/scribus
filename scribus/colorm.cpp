@@ -356,7 +356,7 @@ void ColorManager::loadDefaults(const QString &txt)
 				while (!tsC.atEnd())
 				{
 					ScColor tmp;
-					ColorEn = tsC.readLine().stripWhiteSpace();
+					ColorEn = tsC.readLine().trimmed();
 					if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
 						continue;
 					
@@ -368,12 +368,12 @@ void ColorManager::loadDefaults(const QString &txt)
 						if (cus)
 						{
 							CoE >> Kval;
-							Cname = CoE.readAll().stripWhiteSpace();
+							Cname = CoE.readAll().trimmed();
 							tmp.setColor(Rval, Gval, Bval, Kval);
 						}
 						else
 						{
-							Cname = CoE.readAll().stripWhiteSpace();
+							Cname = CoE.readAll().trimmed();
 							tmp.setColorRGB(Rval, Gval, Bval);
 						}
 					}
@@ -465,10 +465,10 @@ void ColorManager::importColors()
 						QTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> y >> k;
 						FarNam = ts2.readAll();
-						FarNam = FarNam.stripWhiteSpace();
+						FarNam = FarNam.trimmed();
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
-						FarNam = FarNam.simplifyWhiteSpace();
+						FarNam = FarNam.simplified();
 						cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 						cc.setSpotColor(true);
 						if (!EditColors.contains(FarNam))
@@ -489,7 +489,7 @@ void ColorManager::importColors()
 							FarNam = FarNam.trimmed();
 							FarNam = FarNam.remove(0,1);
 							FarNam = FarNam.remove(FarNam.length()-1,1);
-							FarNam = FarNam.simplifyWhiteSpace();
+							FarNam = FarNam.simplified();
 							cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 							cc.setSpotColor(true);
 							if (!EditColors.contains(FarNam))

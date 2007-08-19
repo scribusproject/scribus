@@ -4875,7 +4875,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				dr->start();
 //				QImage drImg = currItem->DrawObj_toImage();
 //				QPixmap pm;
-//				pm.convertFromImage(drImg);
+//				pm.fromImage(drImg);
 //				dr->setPixmap(pm);
 //				dr->setPixmap(loadIcon("DragPix.xpm"));
 //				dr->drag();
@@ -8501,7 +8501,7 @@ void ScribusView::slotDoCurs(bool draw)
 			}
 			else
 			{
-				FRect bbox = textframe->itemText.boundingBox(QMAX(0,QMIN(textframe->CPos, textframe->itemText.length())));
+				FRect bbox = textframe->itemText.boundingBox(qMax(0,qMin(textframe->CPos, textframe->itemText.length())));
 				x = static_cast<int>(bbox.x());
 				y = static_cast<int>(bbox.y());
 				if (bbox.height() <= 2) 

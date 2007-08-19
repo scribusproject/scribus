@@ -134,7 +134,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 		for (int i = 0; i < l.size(); ++i)
 		{
 			++colIndex;
-			QString tmp = l[i].stripWhiteSpace();
+			QString tmp = l[i].trimmed();
 			if (isHeader)
 				header += "\t" + tmp;
 			else

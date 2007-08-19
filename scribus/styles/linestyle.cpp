@@ -94,7 +94,7 @@ QString LineStyle::asString() const
 		result += QObject::tr("+stretch ");
 	if ( hasParent() )
 		result += QObject::tr("parent= %1").arg(parent());
-*/	return result.stripWhiteSpace();
+*/	return result.trimmed();
 }
 
 
@@ -140,9 +140,9 @@ void LineStyle::replaceNamedResources(ResourceCollection& newNames)
 	QList<LineStyle>::iterator itl, itle = m_Sublines.end();
 
 	if (!inh_Color && (it = newNames.colors().find(color())) != newNames.colors().end())
-		setColor(it.data());
+		setColor(it.value());
 	if (hasParent() && (it = newNames.lineStyles().find(parent())) != newNames.lineStyles().end())
-		setParent(it.data());
+		setParent(it.value());
 	for (itl = m_Sublines.begin(); itl != itle; ++itl)
 		(*itl).replaceNamedResources(newNames);
 }

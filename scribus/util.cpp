@@ -776,7 +776,7 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 			tmp = tmp.right(tmp.length() - tmp.find(",") - 1);
 		}
 
-		token = token.stripWhiteSpace();
+		token = token.trimmed();
 		if (token == "*") // Import all source doc pages
 		{
 			for (int i = 1; i <= sourcePageCount; ++i)

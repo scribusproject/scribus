@@ -94,7 +94,7 @@ QString StencilReader::createShape(QString datain)
 		obGroup.setAttribute("PLINEART", Qt::SolidLine);
 		obGroup.setAttribute("PLINEEND", Qt::FlatCap);
 		obGroup.setAttribute("PLINEJOIN", Qt::MiterJoin);
-		obGroup.setAttribute("ANNAME", name.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
+		obGroup.setAttribute("ANNAME", name.simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
 		obGroup.setAttribute("GROUPS", 1);
 		obGroup.setAttribute("NUMGROUP", 1);
 		obGroup.setAttribute("isGroupControl", 1);
@@ -174,9 +174,9 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 		PoLine.resize(0);
 		QDomElement pg=DOC.toElement();
 		QString STag = pg.tagName();
-		QString style = pg.attribute( "style", "" ).simplifyWhiteSpace();
+		QString style = pg.attribute( "style", "" ).simplified();
 		if (style.isEmpty())
-			style = pg.attribute( "svg:style", "" ).simplifyWhiteSpace();
+			style = pg.attribute( "svg:style", "" ).simplified();
 		if (!style.isEmpty())
 		{
 			FillCol = "None";
@@ -185,8 +185,8 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 			for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 			{
 				QStringList substyle = QStringList::split( ':', (*it) );
-				QString command	= substyle[0].stripWhiteSpace();
-				QString params	= substyle[1].stripWhiteSpace();
+				QString command(substyle[0].trimmed());
+				QString params(substyle[1].trimmed());
 				if (command == "fill")
 				{
 					if ((params == "foreground") || (params == "fg") || (params == "inverse"))
@@ -286,7 +286,7 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 			bool bFirst = true;
 			double x = 0.0;
 			double y = 0.0;
-			QString points = pg.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
+			QString points = pg.attribute( "points" ).simplified().replace(',', " ");
 			QStringList pointList = QStringList::split( ' ', points );
 			FirstM = true;
 			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
@@ -451,15 +451,15 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 		PoLine.resize(0);
 		QDomElement pg = DOC.toElement();
 		QString STag = pg.tagName();
-		QString style = pg.attribute( "style", "" ).simplifyWhiteSpace();
+		QString style = pg.attribute( "style", "" ).simplified();
 		if (style.isEmpty())
-			style = pg.attribute( "svg:style", "" ).simplifyWhiteSpace();
+			style = pg.attribute( "svg:style", "" ).simplified();
 		QStringList substyles = QStringList::split( ';', style );
 		for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 		{
 			QStringList substyle = QStringList::split( ':', (*it) );
-			QString command = substyle[0].stripWhiteSpace();
-			QString params = substyle[1].stripWhiteSpace();
+			QString command(substyle[0].trimmed());
+			QString params(substyle[1].trimmed());
 			if (command == "fill")
 			{
 				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default") || (params == "inverse")))
@@ -546,7 +546,7 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 			bool bFirst = true;
 			double x = 0.0;
 			double y = 0.0;
-			QString points = pg.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
+			QString points = pg.attribute( "points" ).simplified().replace(',', " ");
 			QStringList pointList = QStringList::split( ' ', points );
 			FirstM = true;
 			for( QStringList::Iterator it1 = pointList.begin(); it1 != pointList.end(); it1++ )
@@ -773,7 +773,7 @@ bool StencilReader::parseSVG( const QString &s, FPointArray *ite )
 	bool ret = false;
 	if( !d.isEmpty() )
 	{
-		d = d.simplifyWhiteSpace();
+		d = d.simplified();
 		const char *ptr = d.latin1();
 		const char *end = d.latin1() + d.length() + 1;
 		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
@@ -1309,7 +1309,7 @@ QPixmap StencilReader::createPreview(QString data)
 	}
 	QImage tmpi = tmp.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
 	QPixmap tmpil;
-	tmpil.convertFromImage(tmpi);
+	tmpil.fromImage(tmpi);
 	return tmpil;
 }
 
@@ -1557,7 +1557,7 @@ QString StencilReader::createObjects(QString datain)
 		obGroup.setAttribute("PLINEART", Dash);
 		obGroup.setAttribute("PLINEEND", LineEnd);
 		obGroup.setAttribute("PLINEJOIN", LineJoin);
-		obGroup.setAttribute("ANNAME", name.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
+		obGroup.setAttribute("ANNAME", name.simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ));
 		obGroup.setAttribute("GROUPS", 1);
 		obGroup.setAttribute("NUMGROUP", 1);
 		obGroup.setAttribute("isGroupControl", 1);

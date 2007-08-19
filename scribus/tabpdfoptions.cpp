@@ -1741,7 +1741,7 @@ void TabPDFOptions::PagePr()
 	{
 		for (int pg = 0; pg < doc->Pages->count(); ++pg)
 		{
-			pm.convertFromImage(doc->view()->PageToPixmap(pg, 70));
+			pm.fromImage(doc->view()->PageToPixmap(pg, 70));
 			pgMaxX = qMax(pgMaxX, pm.width());
 			pgMaxY = qMax(pgMaxY, pm.height());
 			new QListWidgetItem( pm, tr("Page")+" "+tmp.setNum(pg+1), Pages);

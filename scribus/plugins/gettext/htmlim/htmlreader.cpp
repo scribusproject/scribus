@@ -254,7 +254,7 @@ bool HTMLReader::characters(const QString &ch)
 				tmp = tmp.right(tmp.length() - 2);
 		}
 		else
-			tmp = tmp.simplifyWhiteSpace();
+			tmp = tmp.simplified();
 
 		if (!lastCharWasSpace)
 			if (fcis)

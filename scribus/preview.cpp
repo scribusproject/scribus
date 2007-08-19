@@ -699,7 +699,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		while (!tsC.atEnd())
 		{
 			Sname = tsC.readLine();
-			QString tt = Sname.remove("%%SeparationName:").stripWhiteSpace();
+			QString tt = Sname.remove("%%SeparationName:").trimmed();
 			sepsToFileNum.insert(tt, counter);
 			counter++;
 		}
@@ -1081,7 +1081,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		p.end();
 	}
 	else
-		Bild.convertFromImage(image);
+		Bild.fromImage(image);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	getUserSelection(Seite);
 	return Bild;

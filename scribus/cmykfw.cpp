@@ -705,12 +705,12 @@ void CMYKChoose::SelSwatch(int n)
 						if (cus)
 						{
 							CoE >> Kval;
-							Cname = CoE.readAll().stripWhiteSpace();
+							Cname = CoE.readAll().trimmed();
 							tmp.setColor(Rval, Gval, Bval, Kval);
 						}
 						else
 						{
-							Cname = CoE.readAll().stripWhiteSpace();
+							Cname = CoE.readAll().trimmed();
 							tmp.setColorRGB(Rval, Gval, Bval);
 						}
 	

@@ -295,7 +295,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				QTextStream ts2(&tmp, QIODevice::ReadOnly);
 				ts2 >> c >> m >> y >> k;
 				FarNam = ts2.readAll();
-				FarNam = FarNam.stripWhiteSpace();
+				FarNam = FarNam.trimmed();
 				FarNam = FarNam.remove(0,1);
 				FarNam = FarNam.remove(FarNam.length()-1,1);
 				cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
@@ -314,7 +314,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					QTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> y >> k;
 					FarNam = ts2.readAll();
-					FarNam = FarNam.stripWhiteSpace();
+					FarNam = FarNam.trimmed();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
 					cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));

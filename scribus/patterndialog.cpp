@@ -74,9 +74,9 @@ void PatternDialog::updatePatternList()
 	{
 		QPixmap pm;
 		if (it.data().getPattern()->width() >= it.data().getPattern()->height())
-			pm.convertFromImage(it.data().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+			pm.fromImage(it.data().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm.convertFromImage(it.data().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+			pm.fromImage(it.data().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
 		pm2.fill(palette().base());
 		QPainter p;
@@ -144,7 +144,7 @@ void PatternDialog::loadPatternDir()
 					continue;
 				else if (formats.contains(ext))
 				{
-					QString patNam = fi.baseName().stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
+					QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
 					if (!dialogPatterns.contains(patNam))
 					{
 						ScPattern pat = ScPattern();
@@ -214,7 +214,7 @@ void PatternDialog::loadPattern()
 		}
 		else
 		{
-			QString patNam = fi.baseName().stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
+			QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
 			ScPattern pat = ScPattern();
 			pat.setDoc(m_doc);
 			pat.setPattern(fileName);
@@ -230,7 +230,7 @@ void PatternDialog::loadPattern()
 void PatternDialog::loadVectors(QString data)
 {
 	QFileInfo fi(data);
-	QString patNam = fi.baseName().stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
+	QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
 	if (fi.extension(true).lower() == "sml")
 	{
 		QString f = "";

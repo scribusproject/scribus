@@ -388,7 +388,7 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		if ((*it) >= 0 && (*it) <= m_page->height())
 			p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 	// highlight selected standards
-	if (ScCore->primaryMainWindow()->guidePalette->currentPageIndex() == 0
+	if (ScCore->primaryMainWindow()->guidePalette->currentIndex() == 0
 		   && m_page->pageNr() == ScCore->primaryMainWindow()->guidePalette->pageNr())
 	{
 		p->setPen(Qt::red, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
@@ -402,7 +402,7 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 				p->drawLine(FPoint(0, (*it)), FPoint(m_page->width(), (*it)));
 	}
 	// all auto
-	if (ScCore->primaryMainWindow()->guidePalette->currentPageIndex() == 1)
+	if (ScCore->primaryMainWindow()->guidePalette->currentIndex() == 1)
 		color = Qt::red;
 	else
 		color = doc->guidesSettings.guideColor;

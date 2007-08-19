@@ -64,7 +64,7 @@ public:
 	\retval int page no */
 	int pageNr() const { return ((currentPage) ? currentPage->pageNr() : -1); }
 
-	int currentPageIndex() { return tabWidget->currentPageIndex(); };
+	int currentIndex() { return tabWidget->currentIndex(); };
 
 private:
 	//! \brief Store the guide values in the Qt4 model

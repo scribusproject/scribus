@@ -919,7 +919,7 @@ bool FPointArray::parseSVG(const QString& svgPath)
 	bool ret = false;
 	if( !d.isEmpty() )
 	{
-		d = d.simplifyWhiteSpace();
+		d = d.simplified();
 		const char *ptr = d.latin1();
 		const char *end = d.latin1() + d.length() + 1;
 		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;

@@ -169,7 +169,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 				else
 					cp->setChecked(!((*it2).flags & 2));
 				QPixmap pm;
-				pm.convertFromImage((*it2).thumb);
+				pm.fromImage((*it2).thumb);
 				col1Width = qMax(col1Width, pm.width());
 				cp->setPixmap(pm);
 				FlagsSicht.append(cp);
@@ -184,7 +184,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 					else
 						cp2->setChecked(true);
 					QPixmap pm2;
-					pm2.convertFromImage((*it2).thumb_mask);
+					pm2.fromImage((*it2).thumb_mask);
 					col2Width = qMax(col2Width, pm2.width());
 					cp2->setPixmap(pm2);
 					connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
@@ -248,7 +248,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			p->end();
 			delete p;
 			QPixmap pm;
-			pm.convertFromImage(pixm);
+			pm.fromImage(pixm);
 			new QListWidgetItem(QIcon(pm), it.key(), pathList);
 			if (it.key() == info->usedPath)
 			{

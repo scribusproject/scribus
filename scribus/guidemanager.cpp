@@ -188,8 +188,8 @@ void GuideManager::unitChange()
 	if (!m_Doc)
 		return;
 	// a little bit magic to get Verticals (unit) into group boxes
-	horizontalGroupBox->setTitle(horizontalGroupBox->title().remove(" ("+suffix.stripWhiteSpace()+")"));
-	verticalGroupBox->setTitle(verticalGroupBox->title().remove(" ("+suffix.stripWhiteSpace()+")"));
+	horizontalGroupBox->setTitle(horizontalGroupBox->title().remove(" ("+suffix.trimmed()+")"));
+	verticalGroupBox->setTitle(verticalGroupBox->title().remove(" ("+suffix.trimmed()+")"));
 	docUnitIndex = m_Doc->unitIndex();
 	int docUnitDecimals = unitGetPrecisionFromIndex(docUnitIndex);
 	
@@ -198,8 +198,8 @@ void GuideManager::unitChange()
 	verticalAutoGapSpin->setSuffix(suffix);
 	horizontalAutoGapSpin->setDecimals(docUnitDecimals);
 	verticalAutoGapSpin->setDecimals(docUnitDecimals);
-	horizontalGroupBox->setTitle(horizontalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
-	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
+	horizontalGroupBox->setTitle(horizontalGroupBox->title() + " ("+suffix.trimmed()+")");
+	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.trimmed()+")");
 	// models display
 	horizontalModel->unitChange(docUnitIndex, docUnitDecimals);
 	verticalModel->unitChange(docUnitIndex, docUnitDecimals);
@@ -324,7 +324,7 @@ void GuideManager::verticalAutoGapCheck_stateChanged( int )
 void GuideManager::tabWidget_currentChanged(QWidget *)
 {
 	drawGuides();
-	if (tabWidget->currentPageIndex() == 1)
+	if (tabWidget->currentIndex() == 1)
 	{
 		horizontalAutoGapSpin->setEnabled(horizontalAutoGapCheck->isChecked());
 		verticalAutoGapSpin->setEnabled(verticalAutoGapCheck->isChecked());

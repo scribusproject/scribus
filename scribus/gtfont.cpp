@@ -392,7 +392,7 @@ QString gtFont::getName()
 		name2 += width + " ";
 
 	name2 += append;
-	name2 = name2.simplifyWhiteSpace();
+	name2 = name2.simplified();
 	return name2;
 }
 
@@ -446,7 +446,7 @@ QString gtFont::getName(uint i)
 				fname = fname + " " + fontWeights[ROMAN];
 			break;
 	}
-	fname = fname.simplifyWhiteSpace();
+	fname = fname.simplified();
 	return fname;
 }
 
@@ -707,7 +707,7 @@ void gtFont::parseFamily()
 		append = "";
 	else
 		append = name.right(name.length() - biggestIndex - 1);
-	family = family.stripWhiteSpace();
+	family = family.trimmed();
 }
 
 int gtFont::find(const QString& where, const QString& what)

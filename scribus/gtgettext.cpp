@@ -115,11 +115,11 @@ ImportSetup gtGetText::run()
 				filters += "*." + importers[i].fileEndings[j] + " ";
 				allSupported += "*." + importers[i].fileEndings[j] + " ";
 			}
-			filters = filters.stripWhiteSpace();
+			filters = filters.trimmed();
 			filters += ");;";
 		}
 	}
-	allSupported = allSupported.stripWhiteSpace();
+	allSupported = allSupported.trimmed();
 	allSupported += ");;";
 	filters = allSupported + filters;
 	filters += QObject::tr("All Files (*)");

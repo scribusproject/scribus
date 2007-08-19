@@ -64,7 +64,7 @@ QStringList PrinterUtil::getPrinterNames()
 				continue;
 			if ((tmp[0] != '#') && (tmp[0] != ' ') && (tmp[0] != '\n') && (tmp[0] != '\t'))
 			{
-				tmp = tmp.stripWhiteSpace();
+				tmp = tmp.trimmed();
 				tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));
 				wt = QStringList::split("|", tmp);
 				printerName = wt[0];

@@ -241,7 +241,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 	// is it really applied?
 // 	bool done = false;
 
-	for (uint i = 0; i < m_Doc->m_Selection->count(); ++i)
+	for (int i = 0; i < m_Doc->m_Selection->count(); ++i)
 	{
 		PageItem* currItem=m_Doc->m_Selection->itemAt(i);
 		if (currItem == NULL)

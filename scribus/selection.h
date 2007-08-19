@@ -114,7 +114,7 @@ class SCRIBUS_API Selection : public QObject
 		 * @param item Item pointer to find in the list
 		 * @return Item
 		 */
-		int findItem(PageItem *item) const { return m_SelList.findIndex(item); }
+		int findItem(PageItem *item) const { return m_SelList.indexOf(item); }
 		/**
 		 * \brief Return the count of the selection
 		 */

@@ -231,7 +231,7 @@ void ParagraphStyle::replaceNamedResources(ResourceCollection& newNames)
 	
 	if (hasParent() && (it = (newNames.styles().find(parent()))) != newNames.styles().end())
 	{
-		setParent(it.data());
+		setParent(it.value());
 		repairImplicitCharStyleInheritance();
 	}
 	cstyle.replaceNamedResources(newNames);

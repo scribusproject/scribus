@@ -1639,7 +1639,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		int firstElem = -1;
 		if (CurItem->Groups.count() != 0)
 			firstElem = CurItem->Groups.top();
-		for (uint bx = 0; bx < doc->m_Selection->count(); ++bx)
+		for (int bx = 0; bx < doc->m_Selection->count(); ++bx)
 		{
 			if (doc->m_Selection->itemAt(bx)->Groups.count() != 0)
 			{
@@ -1886,7 +1886,7 @@ void Mpalette::setMultipleSelection(bool isMultiple)
 		FlipV->setToggleButton( false );
 		PageItem *i;
 		uint lowestItem = 999999;
-		for (uint a=0; a<doc->m_Selection->count(); ++a)
+		for (int a=0; a<doc->m_Selection->count(); ++a)
 		{
 			i = doc->m_Selection->itemAt(a);
 			lowestItem = qMin(lowestItem, i->ItemNr);
@@ -4274,7 +4274,7 @@ void Mpalette::spinboxFinishUserAction()
 //	qDebug("sniffer: spinbox finish action");
 	_userActionOn = false;
 
-	for (uint i = 0; i < doc->m_Selection->count(); ++i)
+	for (int i = 0; i < doc->m_Selection->count(); ++i)
 		doc->m_Selection->itemAt(i)->checkChanges(true);
 	if (m_ScMW->view->groupTransactionStarted())
 	{

@@ -389,21 +389,21 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		if (!item->Pfile.isEmpty())
 		{
 			im.LoadPicture(item->Pfile, cms, false, false, ScImage::RGBData, 72);
-			pmI1.convertFromImage(im.qImage());
+			pmI1.fromImage(im.qImage());
 			NiconPrev->setPixmap(pmI1);
 			IconNR->setEnabled(true);
 		}
 		if (!item->Pfile2.isEmpty())
 		{
 			im.LoadPicture(item->Pfile2, cms, false, false, ScImage::RGBData, 72);
-			pmI1.convertFromImage(im.qImage());
+			pmI1.fromImage(im.qImage());
 			PiconPrev->setPixmap(pmI1);
 			IconPR->setEnabled(true);
 		}
 		if (!item->Pfile3.isEmpty())
 		{
 			im.LoadPicture(item->Pfile3, cms, false, false, ScImage::RGBData, 72);
-			pmI1.convertFromImage(im.qImage());
+			pmI1.fromImage(im.qImage());
 			RiconPrev->setPixmap(pmI1);
 			IconRR->setEnabled(true);
 		}
@@ -1289,7 +1289,7 @@ void Annot::GetNIcon()
 		QPixmap pmI1;
 		CMSettings cms(view->Doc, "", 0);
 		item->pixm.LoadPicture(fileName, cms, false, false, ScImage::RGBData, 72);
-		pmI1.convertFromImage(item->pixm.qImage());
+		pmI1.fromImage(item->pixm.qImage());
 		NiconPrev->setPixmap(pmI1);
 		item->Pfile = fileName;
 		item->PicAvail = true;
@@ -1321,7 +1321,7 @@ void Annot::GetPIcon()
 		ScImage im;
 		CMSettings cms(view->Doc, "",0 );
 		im.LoadPicture(fileName, cms, false, false, ScImage::RGBData, 72);
-		pmI1.convertFromImage(im.qImage());
+		pmI1.fromImage(im.qImage());
 		PiconPrev->setPixmap(pmI1);
 		item->Pfile2 = fileName;
 		IconPR->setEnabled(true);
@@ -1345,7 +1345,7 @@ void Annot::GetRIcon()
 		ScImage im;
 		CMSettings cms(view->Doc, "", 0);
 		im.LoadPicture(fileName, cms, false, false, ScImage::RGBData, 72);
-		pmI1.convertFromImage(im.qImage());
+		pmI1.fromImage(im.qImage());
 		RiconPrev->setPixmap(pmI1);
 		item->Pfile3 = fileName;
 		IconRR->setEnabled(true);

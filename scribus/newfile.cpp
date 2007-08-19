@@ -529,7 +529,7 @@ void NewDoc::ExitOK()
 	bleedRight = marginGroup->rightBleed();
 	if (onStartup)
 	{
-		tabSelected = tabWidget->currentPageIndex();
+		tabSelected = tabWidget->currentIndex();
 #if QT_VERSION  >= 0x040300
 		QStringList files = fileDialog->selectedFiles();
 		if (files.count() != 0)

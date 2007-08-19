@@ -1822,7 +1822,7 @@ void StoryEditor::doubleClick(int para, int position)
 		return;
 	}
 	Editor->getSelection(&paraFrom, &indexFrom, &paraTo, &indexTo);
-	selText =  selText.stripWhiteSpace();
+	selText =  selText.trimmed();
 	Editor->setSelection(paraFrom, indexFrom, paraFrom, indexFrom + selText.length());
 	updateProps(para, position);
 }

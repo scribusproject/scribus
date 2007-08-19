@@ -294,7 +294,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	}
 	p->end();
 	QPixmap pmr;
-	pmr.convertFromImage(pm.copy(0, 0, qMin(qRound(gp.x()), w), qMin(qRound(ymax), h)));
+	pmr.fromImage(pm.copy(0, 0, qMin(qRound(gp.x()), w), qMin(qRound(ymax), h)));
 // this one below gives some funny results
 //	pmr.convertFromImage(pm.scaled(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 //	pmr.resize(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h));
@@ -421,13 +421,14 @@ static int traceCubicBezier( FT_Vector *p, FT_Vector *q, FT_Vector *to, FPointAr
 }
 
 /// init the Adobe Glyph List
-void readAdobeGlyphNames() {
+void readAdobeGlyphNames() 
+{
 	adobeGlyphNames.clear();
 	QRegExp pattern("(\\w*);([0-9A-Fa-f]{4})");
 	for (uint i=0; table[i]; ++i) {
-		if (pattern.search(table[i]) >= 0) {
+		if (pattern.indexIn(table[i]) >= 0) {
 			FT_ULong unicode = pattern.cap(2).toULong(0, 16);
-			qDebug("%s", QString("reading glyph name %1 fo unicode %2(%3)").arg(pattern.cap(1)).arg(unicode).arg(pattern.cap(2)).ascii());
+			qDebug(QString("reading glyph name %1 fo unicode %2(%3)").arg(pattern.cap(1)).arg(unicode).arg(pattern.cap(2)).toLocal8Bit());
 			adobeGlyphNames.insert(unicode, pattern.cap(1));
 		}
 	}
@@ -435,7 +436,8 @@ void readAdobeGlyphNames() {
 
 
 /// if in AGL, use that name, else use "uni1234" or "u12345"
-QString adobeGlyphName(FT_ULong charcode) {
+QString adobeGlyphName(FT_ULong charcode) 
+{
 	static const char HEX[] = "0123456789ABCDEF";
 	QString result;
 	if (adobeGlyphNames.contains(charcode))

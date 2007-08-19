@@ -161,7 +161,7 @@ void CreateRange::basicSelectRangeType(int i)
 
 void CreateRange::selectRangeType(QWidget *)
 {
-	m_RangeType=tabWidget->currentPageIndex();
+	m_RangeType=tabWidget->currentIndex();
 }
 
 

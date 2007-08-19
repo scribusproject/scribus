@@ -674,7 +674,7 @@ void PagePalette::RebuildTemp()
 	{
 		if (masterPageList->Thumb)
 		{
-			pm.convertFromImage(currView->MPageToPixmap(it.key(),60));
+			pm.fromImage(currView->MPageToPixmap(it.key(),60));
 			masterPageList->insertItem(pm, it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 		}
 		else

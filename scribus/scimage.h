@@ -93,7 +93,7 @@ public:
 	
 	int height() const { return QImage::height(); }
 	int width() const { return QImage::width(); }
-	bool hasAlpha() const { return QImage::hasAlphaBuffer(); }
+	bool hasAlpha() const { return QImage::hasAlphaChannel(); }
 	
 	// Routines for PDF/PS output of images
 	QByteArray ImageToArray();

@@ -1501,7 +1501,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	QDomElement elem=docu.documentElement();
 	item = selection->itemAt(0);
 	QList<uint> ELL;
-	for (uint cor=0; cor<selection->count(); ++cor)
+	for (int cor=0; cor<selection->count(); ++cor)
 		ELL.append(selection->itemAt(cor)->ItemNr);
 	qSort(ELL);
 	if (selection->isMultipleSelection())
@@ -1687,7 +1687,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	QMap<int, ArrowDesc>::Iterator itar;
 	struct ArrowDesc arrow;
 	//for (uint co=0; co<Selitems->count(); ++co)
-	for (uint co=0; co<selection->count(); ++co)
+	for (int co=0; co<selection->count(); ++co)
 	{
 		item = doc->Items->at(ELL[co]);
 		int startIndex = item->startArrowIndex();
@@ -1747,7 +1747,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		}
 		elem.appendChild(pat);
 	}
-	for (uint co=0; co<selection->count(); ++co)
+	for (int co=0; co<selection->count(); ++co)
 	{
 		QDir::setCurrent(QDir::homeDirPath());
 		item = doc->Items->at(ELL[co]);

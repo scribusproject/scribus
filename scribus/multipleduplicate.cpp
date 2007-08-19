@@ -71,7 +71,7 @@ void MultipleDuplicate::setCopiesGap()
 
 void MultipleDuplicate::getMultiplyData(ItemMultipleDuplicateData& mdData)
 {
-	mdData.type = tabWidget->currentPageIndex();
+	mdData.type = tabWidget->currentIndex();
 	mdData.copyCount = numberOfCopiesSpinBox->value();
 	mdData.copyShiftOrGap = createGapRadioButton->isChecked() ? 1 : 0;
 	mdData.copyShiftGapH = horizShiftSpinBox->value();

@@ -71,7 +71,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 	}
 	for (QMap<QString,QString>::Iterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
 	{
-		ScFace fon = prefsManager->appPrefs.AvailFonts[it2.data()];
+		ScFace fon = prefsManager->appPrefs.AvailFonts[it2.value()];
 		if (! fon.usable() )
 			continue;
 		ScFace::FontType type = fon.type();
@@ -80,13 +80,13 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 		if (forSubstitute && fon.isReplacement())
 			continue;
 		if (fon.isReplacement())
-			addItem(substFont, it2.data());
+			addItem(substFont, it2.value());
 		else if (type == ScFace::OTF)
-			addItem(otfFont, it2.data());
+			addItem(otfFont, it2.value());
 		else if (type == ScFace::TYPE1)
-			addItem(psFont, it2.data());
+			addItem(psFont, it2.value());
 		else if (type == ScFace::TTF)
-			addItem(ttfFont, it2.data());
+			addItem(ttfFont, it2.value());
 	}
 	QAbstractItemView *tmpView = view();
 	int tmpWidth = tmpView->sizeHintForColumn(0);
@@ -229,7 +229,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 	}
 	for (QMap<QString,QString>::Iterator it2a = flist.begin(); it2a != flist.end(); ++it2a)
 	{
-		ScFace fon = prefsManager->appPrefs.AvailFonts[it2a.data()+" "+prefsManager->appPrefs.AvailFonts.fontMap[it2a.data()][0]];
+		ScFace fon = prefsManager->appPrefs.AvailFonts[it2a.value()+" "+prefsManager->appPrefs.AvailFonts.fontMap[it2a.value()][0]];
 		if ( !fon.usable() || fon.isReplacement() )
 			continue;
 		ScFace::FontType type = fon.type();
@@ -238,13 +238,13 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 		if ((forSubstitute) && fon.isReplacement())
 			continue;
 		if (fon.isReplacement())
-			fontFamily->addItem(substFont, it2a.data());
+			fontFamily->addItem(substFont, it2a.value());
 		else if (type == ScFace::OTF)
-			fontFamily->addItem(otfFont, it2a.data());
+			fontFamily->addItem(otfFont, it2a.value());
 		else if (type == ScFace::TYPE1)
-			fontFamily->addItem(psFont, it2a.data());
+			fontFamily->addItem(psFont, it2a.value());
 		else if (type == ScFace::TTF)
-			fontFamily->addItem(ttfFont, it2a.data());
+			fontFamily->addItem(ttfFont, it2a.value());
 	}
 	QString family = fontFamily->currentText();
 	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[family];

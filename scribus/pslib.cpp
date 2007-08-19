@@ -137,9 +137,9 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 		if ((type == ScFace::TTF) || (AllFonts[it.key()].isOTF()) || (AllFonts[it.key()].subset()))
 		{
 			QMap<uint, FPointArray>& RealGlyphs(it.data());
-			FontDesc += "/"+AllFonts[it.key()].psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+
+			FontDesc += "/"+AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+
 					" "+IToStr(RealGlyphs.count()+1)+" dict def\n";
-			FontDesc += AllFonts[it.key()].psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" begin\n";
+			FontDesc += AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" begin\n";
 			QMap<uint,FPointArray>::Iterator ig;
 			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
 			{
@@ -177,13 +177,13 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 		else
 		{
 			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
-			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()].psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" findfont definefont pop\n";
+			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" findfont definefont pop\n";
 			if (AllFonts[it.key()].embedPs())
 			{
 				QString tmp;
 				if(AllFonts[it.key()].EmbedFont(tmp))
 				{
-					FontDesc += "%%BeginFont: " + AllFonts[it.key()].psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + "\n";
+					FontDesc += "%%BeginFont: " + AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + "\n";
 					FontDesc += tmp + "\n%%EndFont\n";
 				}
 			}
@@ -476,7 +476,7 @@ QString PSLib::PSEncode(QString in)
 {
 	static QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
 	QString tmp = "";
-	tmp = in.simplifyWhiteSpace().replace( badchars, "_" );
+	tmp = in.simplified().replace( badchars, "_" );
 	return tmp;
 }
 
@@ -2727,7 +2727,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								PutSeite(ToStr(style.fillShade() / 100.0)+" "+spotMap[style.fillColor()]);
 							else
 								PutSeite(FillColor + " cmyk");
-							PS_showSub(chr, style.font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+							PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
 							if ((style.effects() & ScStyle_Outline))
 							{
 								if ((style.strokeColor() != CommonStrings::None) && ((tsz * style.outlineWidth() / 10000.0) != 0))
@@ -2740,7 +2740,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 										PutSeite(ToStr(style.strokeShade() / 100.0)+" "+spotMap[style.strokeColor()]);
 									else
 										PutSeite(StrokeColor + " cmyk");
-									PS_showSub(chr, style.font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
+									PS_showSub(chr, style.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
 									PS_restore();
 								}
 							}
@@ -3412,7 +3412,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 					PutSeite(ToStr(hl->fillShade() / 100.0)+" "+spotMap[hl->fillColor()]);
 				else
 					PutSeite(FillColor + " cmyk");
-				PS_showSub(chr, hl->font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+						PS_showSub(chr, hl->font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
 			}
 			PS_restore();
 		}
@@ -3787,7 +3787,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 					PutSeite(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
 					else
 						PutSeite(FillColor + " cmyk");
-					PS_showSub(glyph, cstyle.font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+					PS_showSub(glyph, cstyle.font().psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
 				}
 				PS_restore();
 			}

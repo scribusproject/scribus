@@ -961,7 +961,7 @@ QPixmap ScPreview::createPreview(QString data)
 	pS->end();
 	QImage tmpi = tmp.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
 	QPixmap ret;
-	ret.convertFromImage(tmpi);
+	ret.fromImage(tmpi);
 	delete pS;
 //	FT_Done_FreeType( library );
 	return ret;

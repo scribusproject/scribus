@@ -704,11 +704,11 @@ void SCFonts::AddXFontServerPath()
 
 		if(pos<0) pos=paths.length();
 		paths = paths.left(pos);
-		paths = paths.simplifyWhiteSpace();
+		paths = paths.simplified();
 		paths.replace(QRegExp(" "), "");
 		paths.replace(QRegExp(","), "\n");
 		paths += "\n";
-		paths = paths.stripWhiteSpace();
+		paths = paths.trimmed();
 
 		pos=-1;
 		do {

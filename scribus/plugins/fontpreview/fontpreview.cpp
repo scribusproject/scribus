@@ -159,11 +159,11 @@ FontPreview::~FontPreview()
 
 void FontPreview::languageChange()
 {
-	QToolTip::add(okButton, "<qt>" + tr("Append selected font into Style, Font menu", "font preview") + "</qt>");
-	QToolTip::add(cancelButton,tr("Leave preview", "font preview"));
-	QToolTip::add(searchEdit, "<qt>" + tr("Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.") + "</qt>");
-	QToolTip::add(searchButton, tr("Start searching"));
-	QToolTip::add(sizeSpin, tr("Size of the selected font"));
+	okButton->setToolTip("<qt>" + tr("Append selected font into Style, Font menu", "font preview") + "</qt>");
+	cancelButton->setToolTip(tr("Leave preview", "font preview"));
+	searchEdit->setToolTip("<qt>" + tr("Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.") + "</qt>");
+	searchButton->setToolTip(tr("Start searching"));
+	sizeSpin->setToolTip(tr("Size of the selected font"));
 }
 
 bool FontPreview::allowSample()

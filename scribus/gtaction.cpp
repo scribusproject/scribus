@@ -597,7 +597,7 @@ QString gtAction::parseColor(const QString &s)
 		QColor c;
 		if( s.startsWith( "rgb(" ) )
 		{
-			QString parse = s.stripWhiteSpace();
+			QString parse = s.trimmed();
 			QStringList colors = QStringList::split( ',', parse );
 			QString r = colors[0].right( ( colors[0].length() - 4 ) );
 			QString g = colors[1];
@@ -621,7 +621,7 @@ QString gtAction::parseColor(const QString &s)
 		}
 		else
 		{
-			QString rgbColor = s.stripWhiteSpace();
+			QString rgbColor = s.trimmed();
 			if( rgbColor.startsWith( "#" ) )
 				c.setNamedColor( rgbColor );
 			else

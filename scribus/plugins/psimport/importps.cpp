@@ -123,11 +123,11 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 					QTextStream ts2(&tmp, QIODevice::ReadOnly);
 					ts2 >> c >> m >> y >> k;
 					FarNam = ts2.readAll();
-					FarNam = FarNam.stripWhiteSpace();
+					FarNam = FarNam.trimmed();
 					FarNam = FarNam.remove(0,1);
 					FarNam = FarNam.remove(FarNam.length()-1,1);
 //					QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
-//					FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
+//					FarNam = FarNam.simplified().replace( badchars, "_" );
 					cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 					cc.setSpotColor(true);
 					CustColors.insert(FarNam, cc);
@@ -145,11 +145,11 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 						QTextStream ts2(&tmp, QIODevice::ReadOnly);
 						ts2 >> c >> m >> y >> k;
 						FarNam = ts2.readAll();
-						FarNam = FarNam.stripWhiteSpace();
+						FarNam = FarNam.trimmed();
 						FarNam = FarNam.remove(0,1);
 						FarNam = FarNam.remove(FarNam.length()-1,1);
 //						QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
-//						FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
+//						FarNam = FarNam.simplified().replace( badchars, "_" );
 						cc = ScColor(qRound(255 * c), qRound(255 * m), qRound(255 * y), qRound(255 * k));
 						cc.setSpotColor(true);
 						CustColors.insert(FarNam, cc);
@@ -871,7 +871,7 @@ bool EPSPlug::Image(QString vals)
 	Code >> horpix;
 	Code >> verpix;
 	Code >> device;
-	filename = Code.readAll().stripWhiteSpace();
+	filename = Code.readAll().trimmed();
 	if (device.startsWith("psd")) {
 		filename = filename.mid(0, filename.length()-3) + "psd";
 	}

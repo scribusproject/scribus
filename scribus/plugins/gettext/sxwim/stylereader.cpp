@@ -165,7 +165,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  				style += attrs.value(i) + " ";
  		}
  		QString name = family + " " + style;
- 		name = name.simplifyWhiteSpace();
+		name = name.simplified();
  		fonts[key] = name;
  	}
  	return true;

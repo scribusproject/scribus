@@ -1405,7 +1405,7 @@ QString OODPlug::parseColor( const QString &s )
 	QString ret = CommonStrings::None;
 	if( s.startsWith( "rgb(" ) )
 	{
-		QString parse = s.stripWhiteSpace();
+		QString parse = s.trimmed();
 		QStringList colors = QStringList::split( ',', parse );
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
@@ -1429,7 +1429,7 @@ QString OODPlug::parseColor( const QString &s )
 	}
 	else
 	{
-		QString rgbColor = s.stripWhiteSpace();
+		QString rgbColor = s.trimmed();
 		if( rgbColor.startsWith( "#" ) )
 			c.setNamedColor( rgbColor );
 		else
@@ -1475,8 +1475,8 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 	for (; it != end; ++it)
 	{
 		QStringList subtransform = QStringList::split('(', (*it));
-		subtransform[0] = subtransform[0].stripWhiteSpace().lower();
-		subtransform[1] = subtransform[1].simplifyWhiteSpace();
+		subtransform[0] = subtransform[0].trimmed().lower();
+		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
 		QStringList params = QStringList::split(reg, subtransform[1]);
 		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
@@ -1523,7 +1523,7 @@ void OODPlug::parseViewBox( const QDomElement& object, double *x, double *y, dou
 	if( !object.attribute( "svg:viewBox" ).isEmpty() )
 	{
 		QString viewbox( object.attribute( "svg:viewBox" ) );
-		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplifyWhiteSpace() );
+		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplified() );
 		*x = points[0].toDouble();
 		*y = points[1].toDouble();
 		*w = points[2].toDouble();
@@ -1641,7 +1641,7 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 	bool ret = false;
 	if( !d.isEmpty() )
 	{
-		d = d.simplifyWhiteSpace();
+		d = d.simplified();
 		const char *ptr = d.latin1();
 		const char *end = d.latin1() + d.length() + 1;
 		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;

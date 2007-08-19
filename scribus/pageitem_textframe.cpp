@@ -481,7 +481,7 @@ struct LineControl {
 		if ((itemText.text(line.firstItem) == SpecialChars::PARSEP) || (itemText.text(line.firstItem) == SpecialChars::LINEBREAK))
 			result = itemText.charStyle(line.firstItem).font().ascent(itemText.charStyle(line.firstItem).fontSize() / 10.0);
 		else if (itemText.object(line.firstItem) != 0)
-			result = QMAX(result, (itemText.object(line.firstItem)->gHeight + itemText.object(line.firstItem)->lineWidth()) * (itemText.charStyle(line.firstItem).scaleV() / 1000.0));
+			result = qMax(result, (itemText.object(line.firstItem)->gHeight + itemText.object(line.firstItem)->lineWidth()) * (itemText.charStyle(line.firstItem).scaleV() / 1000.0));
 		else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
 			result = itemText.charStyle(line.firstItem).font().realCharAscent(itemText.text(line.firstItem), itemText.charStyle(line.firstItem).fontSize() / 10.0);
 		for (int zc = 0; zc < itemsInLine; ++zc)
@@ -501,7 +501,7 @@ struct LineControl {
 			else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
 				asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0);
 			//							qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result));
-			result = QMAX(result, asce);
+			result = qMax(result, asce);
 		}
 		return result;
 	}
@@ -510,7 +510,7 @@ struct LineControl {
 	{
 		double result = 0;
 		if (itemText.object(line.firstItem) != 0)
-			result = QMAX(result, (itemText.object(line.firstItem)->gHeight + itemText.object(line.firstItem)->lineWidth()) * (itemText.charStyle(line.firstItem).scaleV() / 1000.0));
+			result = qMax(result, (itemText.object(line.firstItem)->gHeight + itemText.object(line.firstItem)->lineWidth()) * (itemText.charStyle(line.firstItem).scaleV() / 1000.0));
 		else //if (itemText.charStyle(current.line.firstItem).effects() & ScStyle_DropCap == 0)
 			result = itemText.charStyle(line.firstItem).font().height(itemText.charStyle(line.firstItem).fontSize() / 10.0);
 		for (int zc = 0; zc < itemsInLine; ++zc)
@@ -527,7 +527,7 @@ struct LineControl {
 			else //if (itemText.charStyle(current.line.firstItem+zc).effects() & ScStyle_DropCap == 0)
 				asce = itemText.charStyle(line.firstItem+zc).font().height(itemText.charStyle(line.firstItem+zc).fontSize() / 10.0);
 			//					qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(result));
-			result = QMAX(result, asce);
+			result = qMax(result, asce);
 		}
 		return result;
 	}
@@ -1571,7 +1571,7 @@ void PageItem_TextFrame::layout()
 								current.line.naturalWidth += opticalRightMargin(itemText, current.line);
 							double optiWidth = current.colRight - style.lineSpacing()/2.0 - current.line.x;
 							if (current.line.naturalWidth > optiWidth)
-								current.line.width = QMAX(current.line.width - current.maxShrink, optiWidth);
+								current.line.width = qMax(current.line.width - current.maxShrink, optiWidth);
 							// simple offset
 							indentLine(itemText, current.line, OFs);
 						}
@@ -1851,7 +1851,7 @@ void PageItem_TextFrame::layout()
 							else //if (itemText.charStyle(current.line.firstItem + zc).effects() & ScStyle_DropCap == 0)
 								asce = cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0);
 //							qDebug(QString("checking char 'x%2' with ascender %1 > %3").arg(asce).arg(ch.unicode()).arg(currasce));
-							currasce = qMax(currasce, asce);
+						currasce = qMax(currasce, asce);
 						}*/
 						double adj = firstasce - currasce;
 //						qDebug(QString("move1 line %1.. down by %2").arg(current.line.firstItem).arg(-adj));

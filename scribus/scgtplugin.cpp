@@ -78,11 +78,11 @@ QString ScGTPluginManager::fileFilter()
 				filters += "*." + fileExtensions[j] + " ";
 				allSupported += "*." + fileExtensions[j] + " ";
 			}
-			filters = filters.stripWhiteSpace();
+			filters = filters.trimmed();
 			filters += ");;";
 		}
 	}
-	allSupported = allSupported.stripWhiteSpace();
+	allSupported = allSupported.trimmed();
 	allSupported += ");;";
 	filters = allSupported + filters;
 	filters += QObject::tr("All Files (*)");

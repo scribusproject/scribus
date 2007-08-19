@@ -107,6 +107,6 @@ void ColorChart::drawPalette(int val)
 			++p;
 		}
 	}
-	pmx.convertFromImage(ProofImage(&image, m_doc));
+	pmx.fromImage(ProofImage(&image, m_doc));
 	repaint();
 }

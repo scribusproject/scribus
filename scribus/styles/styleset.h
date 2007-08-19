@@ -176,11 +176,11 @@ inline void StyleSet<STYLE>::rename(const QMap<QString,QString>& newNames)
 		
 		it = newNames.find(styles[i]->name());
 		if (it != newNames.end())
-			styles[i]->setName(it.data());
+			styles[i]->setName(it.value());
 	
 		it = newNames.find(styles[i]->parent());
 		if (it != newNames.end())
-			styles[i]->setParent(it.data());
+			styles[i]->setParent(it.value());
 	}
 	invalidate();
 }

@@ -42,7 +42,7 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 		p->end();
 	}
 	delete p;
-	pixm.convertFromImage(pix);
+	pixm.fromImage(pix);
 
 	QString tmp;
 	tmp.sprintf("%04X", currentChar);

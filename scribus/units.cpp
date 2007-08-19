@@ -53,38 +53,38 @@ const double unitValueFromString(const QString& value)
 {
 	QString lowerValue = value.lower();
 	QString dbl = "0.0";
-	if (lowerValue.find("pt") != -1)
+	if (lowerValue.indexOf("pt") != -1)
 	{
 		dbl = lowerValue.remove("pt");
 	}
-	else if (lowerValue.find("mm") != -1)
+	else if (lowerValue.indexOf("mm") != -1)
 	{
 		dbl = lowerValue.remove("mm");
 	}
-	else if (lowerValue.find("in") != -1)
+	else if (lowerValue.indexOf("in") != -1)
 	{
 		dbl = lowerValue.remove("in");
 	}
-	else if (lowerValue.find("p") != -1)
+	else if (lowerValue.indexOf("p") != -1)
 	{
 		dbl = lowerValue.remove("p");
 	}
-	else if (lowerValue.find("cm") != -1)
+	else if (lowerValue.indexOf("cm") != -1)
 	{
 		dbl = lowerValue.remove("cm");
 	}
-	else if (lowerValue.find("°") != -1)
+	else if (lowerValue.indexOf("°") != -1)
 	{
 		dbl = lowerValue.remove("°");
 	}
-	else if (lowerValue.find("%") != -1)
+	else if (lowerValue.indexOf("%") != -1)
 	{
 		dbl = lowerValue.remove("%");
 	}
 	else
 		dbl = "0.0";
 
-	dbl = dbl.stripWhiteSpace();
+	dbl = dbl.trimmed();
 	return dbl.toDouble();
 }
 
@@ -95,35 +95,35 @@ const scUnit unitIndexFromString(const QString& value)
 {
 	QString lowerValue = value.lower();
 	scUnit retVal;
-	if (lowerValue.find("pt") != -1)
+	if (lowerValue.indexOf("pt") != -1)
 	{
 		retVal=SC_PT;
 	}
-	else if (lowerValue.find("mm") != -1)
+	else if (lowerValue.indexOf("mm") != -1)
 	{
 		retVal=SC_MM;
 	}
-	else if (lowerValue.find("in") != -1)
+	else if (lowerValue.indexOf("in") != -1)
 	{
 		retVal=SC_IN;
 	}
-	else if (lowerValue.find("p") != -1)
+	else if (lowerValue.indexOf("p") != -1)
 	{
 		retVal=SC_P;
 	}
-	else if (lowerValue.find("cm") != -1)
+	else if (lowerValue.indexOf("cm") != -1)
 	{
 		retVal=SC_CM;
 	}
-	else if (lowerValue.find("c") != -1)
+	else if (lowerValue.indexOf("c") != -1)
 	{
 		retVal=SC_C;
 	}	
-	else if (lowerValue.find("°") != -1)
+	else if (lowerValue.indexOf("°") != -1)
 	{
 		retVal=SC_DEGREES;
 	}
-	else if (lowerValue.find("%") != -1)
+	else if (lowerValue.indexOf("%") != -1)
 	{
 		retVal=SC_PERCENT;
 	}	

@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 #include "tocgenerator.h"
-//#include "tocgenerator.moc"
 
 #include <QMap>
 #include <QString>
@@ -126,7 +125,7 @@ void TOCGenerator::generateDefault()
 				QString oldTocPage=QString::null;
 				for (QMap<QString, QString>::Iterator tocIt=tocMap.begin();tocIt!=tocMap.end();++tocIt)
 				{
-					QString tocPage(tocIt.key().section( ',', 2, 2 ).stripWhiteSpace());
+					QString tocPage(tocIt.key().section( ',', 2, 2 ).trimmed());
 					QString tocLine;
 					//Start with text or numbers
 					if ((*tocSetupIt).pageLocation==End || (*tocSetupIt).pageLocation==NotShown)

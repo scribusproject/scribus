@@ -306,8 +306,8 @@ void ScPainterEx_Ps2::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 	m_lineWidth = w;
 	m_lineEnd = ca;
 	m_lineJoin = jo;
-	double Dt = QMAX(2*w, 1.0);
-	double Da = QMAX(6*w, 1.0);
+	double Dt = qMax(2*w, 1.0);
+	double Da = qMax(6*w, 1.0);
 	m_array.clear();
 	if (st == Qt::DashLine)
 		m_array << Da << Dt;

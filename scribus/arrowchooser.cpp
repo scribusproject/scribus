@@ -69,7 +69,7 @@ void ArrowChooser::rebuildList(QList<ArrowDesc> *arrowStyles)
 			}
     	}
     	QPixmap Ico;
-		Ico.convertFromImage(image);
+		Ico.fromImage(image);
 		addItem(Ico, arrowStyles->at(a).name);
 	}
 }
