@@ -872,7 +872,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		neu->setWidthHeight(gw, gh);
 		if (clipPath.size() != 0)
 		{
-			QMatrix mm;
+			QMatrix mm = gc->matrix;
 			mm.translate(-gx + BaseX, -gy + BaseY);
 			neu->PoLine = clipPath.copy();
 			neu->PoLine.map(mm);
