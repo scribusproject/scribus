@@ -204,16 +204,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="okButton" >
-       <property name="text" >
-        <string>&amp;Append</string>
-       </property>
-       <property name="shortcut" >
-        <string>Alt+A</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="cancelButton" >
        <property name="text" >
         <string>&amp;Close</string>

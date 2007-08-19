@@ -116,7 +116,6 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	connect(displayButton, SIGNAL(clicked()), this, SLOT(displayButton_clicked()));
 	connect(searchEdit, SIGNAL(textChanged(QString)), this, SLOT(searchEdit_textChanged(QString)));
 	connect(searchButton, SIGNAL(clicked()), this, SLOT(searchButton_clicked()));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_clicked()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
 	connect(resetDisplayButton, SIGNAL(clicked()), this, SLOT(resetDisplayButton_clicked()));
 	connect(sizeSpin, SIGNAL(valueChanged(int)), this, SLOT(sizeSpin_valueChanged(int)));
@@ -159,7 +158,6 @@ FontPreview::~FontPreview()
 
 void FontPreview::languageChange()
 {
-	okButton->setToolTip("<qt>" + tr("Append selected font into Style, Font menu", "font preview") + "</qt>");
 	cancelButton->setToolTip(tr("Leave preview", "font preview"));
 	searchEdit->setToolTip("<qt>" + tr("Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.") + "</qt>");
 	searchButton->setToolTip(tr("Start searching"));
@@ -227,11 +225,6 @@ void FontPreview::displayButton_clicked()
 {
 	sampleItem->setText(displayEdit->text());
 	paintSample();
-}
-
-void FontPreview::okButton_clicked()
-{
-	accept();
 }
 
 void FontPreview::cancelButton_clicked()

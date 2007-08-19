@@ -100,7 +100,6 @@ protected slots:
 	void sizeSpin_valueChanged( int );
 
 	void cancelButton_clicked();
-	void okButton_clicked();
 };
 
 #endif // FONTPREVIEW_H
