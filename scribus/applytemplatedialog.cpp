@@ -270,7 +270,7 @@ void ApplyMasterPageDialog::languageChange()
 	allPagesRadioButton->setAccel( QKeySequence( tr( "Alt+A" ) ) );
 	useRangeCheckBox->setText( tr( "&Within range" ) );
 	useRangeCheckBox->setAccel( QKeySequence( tr( "Alt+W" ) ) );
-	QToolTip::add( useRangeCheckBox, "<qt>" + tr( "Apply the selected master page to even, odd or all pages within the following range") + "</qt>" );
+	useRangeCheckBox->setToolTip( "<qt>" + tr( "Apply the selected master page to even, odd or all pages within the following range") + "</qt>" );
 	toPageLabel->setText( tr( "to" ) );
 	okButton->setText( CommonStrings::tr_OK );
 	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );

@@ -78,9 +78,9 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	FontReplaceDialogLayout->addLayout( layout1 );
 	resize( QSize(450, 250) );
 
-	QToolTip::add( cancelButton, "<qt>" + tr( "Cancels these font substitutions and stops loading the document.") + "</qt>" );
-	QToolTip::add( stickyReplacements, "<qt>" + tr( "Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit > Preferences > Fonts.") + "</qt>" );
-	QToolTip::add( okButton, "<qt>" + tr( "If you select OK, then save, these substitutions are made permanent in the document.") + "</qt>" );
+	cancelButton->setToolTip( "<qt>" + tr( "Cancels these font substitutions and stops loading the document.") + "</qt>" );
+	stickyReplacements->setToolTip( "<qt>" + tr( "Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit > Preferences > Fonts.") + "</qt>" );
+	okButton->setToolTip( "<qt>" + tr( "If you select OK, then save, these substitutions are made permanent in the document.") + "</qt>" );
 	connect(okButton, SIGNAL(clicked()), this, SLOT(leaveOK()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }

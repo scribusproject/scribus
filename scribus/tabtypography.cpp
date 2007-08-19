@@ -141,16 +141,16 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	tabTypoLayout->addWidget( groupBox4a, 4, 1 );
 	// switched off as it's called in main prefs classes - PV
 	//restoreDefaults(prefsData);
-	QToolTip::add( superDisplacement, tr( "Displacement above the baseline of the font on a line" ) );
-	QToolTip::add( superScaling, tr( "Relative size of the superscript compared to the normal font" ) );
-	QToolTip::add( subDisplacement, tr( "Displacement below the baseline of the normal font on a line" ) );
-	QToolTip::add( subScaling, tr( "Relative size of the subscript compared to the normal font" ) );
-	QToolTip::add( capsScaling, tr( "Relative size of the small caps font compared to the normal font" ) );
-	QToolTip::add( autoLine, tr( "Percentage increase over the font size for the line spacing" ) );
-	QToolTip::add( underlinePos, tr( "Displacement below the baseline of the normal font expressed as a percentage of the fonts descender" ) );
-	QToolTip::add( underlineWidth, tr( "Line width expressed as a percentage of the font size" ) );
-	QToolTip::add( strikethruPos, tr( "Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender" ) );
-	QToolTip::add( strikethruWidth, tr( "Line width expressed as a percentage of the font size" ) );
+	superDisplacement->setToolTip( tr( "Displacement above the baseline of the font on a line" ) );
+	superScaling->setToolTip( tr( "Relative size of the superscript compared to the normal font" ) );
+	subDisplacement->setToolTip( tr( "Displacement below the baseline of the normal font on a line" ) );
+	subScaling->setToolTip( tr( "Relative size of the subscript compared to the normal font" ) );
+	capsScaling->setToolTip( tr( "Relative size of the small caps font compared to the normal font" ) );
+	autoLine->setToolTip( tr( "Percentage increase over the font size for the line spacing" ) );
+	underlinePos->setToolTip( tr( "Displacement below the baseline of the normal font expressed as a percentage of the fonts descender" ) );
+	underlineWidth->setToolTip( tr( "Line width expressed as a percentage of the font size" ) );
+	strikethruPos->setToolTip( tr( "Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender" ) );
+	strikethruWidth->setToolTip( tr( "Line width expressed as a percentage of the font size" ) );
 }
 
 void TabTypograpy::restoreDefaults(struct typoPrefs *prefsData)

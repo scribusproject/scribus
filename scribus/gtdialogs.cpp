@@ -60,7 +60,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	QBoxLayout* ilayout = new QHBoxLayout(0, 5, 5, "dlayout2");
 	importerCombo = new ScComboBox(0, this, "importerCombo2");
 	importerCombo->setMinimumSize(QSize(150, 0));
-	QToolTip::add(importerCombo, tr("Choose the importer to use"));
+	importerCombo->setToolTip( tr("Choose the importer to use"));
 	importerCombo->insertStringList(importers);
 	if (static_cast<int>(importers.count()) > currentSelection)
 		importerCombo->setCurrentItem(currentSelection);
@@ -72,7 +72,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout2");
 	rememberCheck = new QCheckBox( tr("Remember association"), this, "rememberCheck");
 	rememberCheck->setChecked(false);
-	QToolTip::add(rememberCheck, "<qt>" + tr("Remember the file extension - importer association and do not ask again to select an importer for files of this type.") + "</qt>" );
+	rememberCheck->setToolTip( "<qt>" + tr("Remember the file extension - importer association and do not ask again to select an importer for files of this type.") + "</qt>" );
 	dlayout->addStretch(10);
 	dlayout->addWidget(rememberCheck);
 	layout->addLayout(dlayout);

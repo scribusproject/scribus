@@ -18,7 +18,7 @@ SMAlignSelect::SMAlignSelect(QWidget *parent)
 	parentButton->setMaximumSize( QSize( 22, 22 ) );
 	parentButton->setToggleButton( true );
 	parentButton->setText( tr("P", "P as in Parent"));
-	QToolTip::add(parentButton, tr("Use parent style's alignment instead of overriding it"));
+	parentButton->setToolTip( tr("Use parent style's alignment instead of overriding it"));
 	GroupAlignLayout->addWidget( parentButton );
 	resize(minimumSizeHint());
 	parentButton->hide();

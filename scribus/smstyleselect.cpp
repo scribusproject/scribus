@@ -18,7 +18,7 @@ SMStyleSelect::SMStyleSelect(QWidget *parent)
 	parentButton->setMaximumSize(QSize(22, 22));
 	parentButton->setMinimumSize(QSize(22, 22));
 	parentButton->setText( tr("P", "P as in Parent"));
-	QToolTip::add(parentButton, tr("Use parent style's effects instead of overriding them"));
+	parentButton->setToolTip( tr("Use parent style's effects instead of overriding them"));
 	ssLayout->addWidget(parentButton);
 	resize(minimumSizeHint());
 	parentButton->hide();

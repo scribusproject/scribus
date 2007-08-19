@@ -27,19 +27,19 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	: QWidget(parent, name, 0)
 {
 	setupUi(this);
-	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>");
-	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
-	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
-	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
-	QToolTip::add( checkFrame, "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
-	QToolTip::add( checkLayerM, "<qt>" + tr("Turns the display of layer indicators on or off") + "</qt>");
-	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
-	QToolTip::add( leftScratch, "<qt>" + tr( "Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
-	QToolTip::add( rightScratch, "<qt>" + tr( "Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
-	QToolTip::add( topScratch, "<qt>" + tr( "Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
-	QToolTip::add( bottomScratch, "<qt>" + tr( "Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
-	QToolTip::add( CaliText, "<qt>" + tr( "Set the default zoom level" )  + "</qt>");
-	QToolTip::add( CaliGroup, "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
+	backColor->setToolTip( "<qt>" + tr( "Color for paper" ) + "</qt>");
+	checkUnprintable->setToolTip( "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
+	checkLink->setToolTip( "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
+	checkControl->setToolTip( "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
+	checkFrame->setToolTip( "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
+	checkLayerM->setToolTip( "<qt>" + tr("Turns the display of layer indicators on or off") + "</qt>");
+	checkPictures->setToolTip( "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
+	leftScratch->setToolTip( "<qt>" + tr( "Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	rightScratch->setToolTip( "<qt>" + tr( "Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	topScratch->setToolTip( "<qt>" + tr( "Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	bottomScratch->setToolTip( "<qt>" + tr( "Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page" ) + "</qt>" );
+	CaliText->setToolTip( "<qt>" + tr( "Set the default zoom level" )  + "</qt>");
+	CaliGroup->setToolTip( "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
 
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 	connect(buttonFrameSelected, SIGNAL(clicked()), this, SLOT(changeFrameColor()));

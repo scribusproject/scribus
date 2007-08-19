@@ -870,10 +870,10 @@ void Cpalette::languageChange()
 	blendMode->insertItem( tr("Color"));
 	blendMode->insertItem( tr("Luminosity"));
 
-	QToolTip::add( Inhalt, tr( "Edit Line Color Properties" ) );
-	QToolTip::add( Innen, tr( "Edit Fill Color Properties" ) );
-	QToolTip::add( PM1, tr( "Saturation of color" ) );
-	QToolTip::add( gradientQCombo, tr( "Normal or gradient fill method" ) );
-	QToolTip::add( TransSpin, tr( "Set the transparency for the color selected" ) );
-	QToolTip::add( gradEditButton, "<qt>" + tr( "Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed" ) + "</qt>");
+	Inhalt->setToolTip( tr( "Edit Line Color Properties" ) );
+	Innen->setToolTip( tr( "Edit Fill Color Properties" ) );
+	PM1->setToolTip( tr( "Saturation of color" ) );
+	gradientQCombo->setToolTip( tr( "Normal or gradient fill method" ) );
+	TransSpin->setToolTip( tr( "Set the transparency for the color selected" ) );
+	gradEditButton->setToolTip( "<qt>" + tr( "Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed" ) + "</qt>");
 }

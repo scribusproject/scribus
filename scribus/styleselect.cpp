@@ -257,25 +257,25 @@ void StyleSelect::languageChange()
 {
 	ShadowVal->languageChange();
 
-	QToolTip::remove(underlineButton);
-	QToolTip::remove(underlineWordButton);
-	QToolTip::remove(allcapsButton);
-	QToolTip::remove(smallcapsButton);
-	QToolTip::remove(subscriptButton);
-	QToolTip::remove(superscriptButton);
-	QToolTip::remove(strikeoutButton);
-	QToolTip::remove(outlineButton);
-	QToolTip::remove(shadowButton);
+	underlineButton->setToolTip("");
+	underlineWordButton->setToolTip("");
+	allcapsButton->setToolTip("");
+	smallcapsButton->setToolTip("");
+	subscriptButton->setToolTip("");
+	superscriptButton->setToolTip("");
+	strikeoutButton->setToolTip("");
+	outlineButton->setToolTip("");
+	shadowButton->setToolTip("");
 
-	QToolTip::add(underlineButton,  "<qt>" + tr("Underline Text. Hold down the button momentarily to set line width and displacement options."));
-	QToolTip::add(underlineWordButton,  "<qt>" + tr("Underline Words Only. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
-	QToolTip::add(allcapsButton, tr("All Caps"));
-	QToolTip::add(smallcapsButton, tr("Small Caps"));
-	QToolTip::add(subscriptButton, tr("Subscript"));
-	QToolTip::add(superscriptButton, tr("Superscript"));
-	QToolTip::add(strikeoutButton, "<qt>" + tr("Strike Out. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
-	QToolTip::add(outlineButton, "<qt>" + tr("Outline. Hold down the button momentarily to change the outline stroke width.", "Text Style Selector") + "</qt>" );
-	QToolTip::add(shadowButton,  "<qt>" + tr("Shadowed Text. Hold down the button momentarily to enable the offset spacing.") + "</qt>" );
+	underlineButton->setToolTip(  "<qt>" + tr("Underline Text. Hold down the button momentarily to set line width and displacement options."));
+	underlineWordButton->setToolTip(  "<qt>" + tr("Underline Words Only. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
+	allcapsButton->setToolTip( tr("All Caps"));
+	smallcapsButton->setToolTip( tr("Small Caps"));
+	subscriptButton->setToolTip( tr("Subscript"));
+	superscriptButton->setToolTip( tr("Superscript"));
+	strikeoutButton->setToolTip( "<qt>" + tr("Strike Out. Hold down the button momentarily to set line width and displacement options.") + "</qt>" );
+	outlineButton->setToolTip( "<qt>" + tr("Outline. Hold down the button momentarily to change the outline stroke width.", "Text Style Selector") + "</qt>" );
+	shadowButton->setToolTip(  "<qt>" + tr("Shadowed Text. Hold down the button momentarily to enable the offset spacing.") + "</qt>" );
 }
 
 void StyleSelect::setStyle(int s)

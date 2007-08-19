@@ -60,17 +60,17 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 	QWidget::setTabOrder( FileC3, DocumentTemplateDir );
 	QWidget::setTabOrder( DocumentTemplateDir, FileC4 );
 
-	QToolTip::add(guiLangCombo, "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus" )+"</qt>");
-	QToolTip::add(recentDocs, "<qt>" + tr("Number of recently edited documents to show in the File menu") + "</qt>" );
-	QToolTip::add( wheelJumpSpin, "<qt>" + tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) + "</qt>");
-	QToolTip::add( GUICombo, "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins." ) + "</qt>" );
-	QToolTip::add( GFsize, "<qt>" + tr( "Default font size for the menus and windows" ) + "</qt>" );
-	QToolTip::add( GTFsize, "<qt>" + tr("Default font size for the tool windows") + "</qt>" );
-	QToolTip::add( Docs, "<qt>" + tr( "Default documents directory" ) + "</qt>" );
-	QToolTip::add(useSmallWidgetsCheck, "<qt>" + tr("Palette windows will use smaller (space savy) widgets. Requires application restart") + "</qt>");
-	QToolTip::add( ProPfad, "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc " ) + "</qt>" );
-	QToolTip::add( ScriptPfad, "<qt>" + tr( "Default Scripter scripts directory" ) + "</qt>" );
-	QToolTip::add( DocumentTemplateDir, "<qt>"+ tr("Additional directory for document templates")+"</qt>" );
+	guiLangCombo->setToolTip( "<qt>" + tr( "Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus" )+"</qt>");
+	recentDocs->setToolTip( "<qt>" + tr("Number of recently edited documents to show in the File menu") + "</qt>" );
+	wheelJumpSpin->setToolTip( "<qt>" + tr( "Number of lines Scribus will scroll for each move of the mouse wheel" ) + "</qt>");
+	GUICombo->setToolTip( "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins." ) + "</qt>" );
+	GFsize->setToolTip( "<qt>" + tr( "Default font size for the menus and windows" ) + "</qt>" );
+	GTFsize->setToolTip( "<qt>" + tr("Default font size for the tool windows") + "</qt>" );
+	Docs->setToolTip( "<qt>" + tr( "Default documents directory" ) + "</qt>" );
+	useSmallWidgetsCheck->setToolTip( "<qt>" + tr("Palette windows will use smaller (space savy) widgets. Requires application restart") + "</qt>");
+	ProPfad->setToolTip( "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc " ) + "</qt>" );
+	ScriptPfad->setToolTip( "<qt>" + tr( "Default Scripter scripts directory" ) + "</qt>" );
+	DocumentTemplateDir->setToolTip( "<qt>"+ tr("Additional directory for document templates")+"</qt>" );
 
 	connect(guiLangCombo, SIGNAL(activated(const QString &)), this, SLOT(setSelectedGUILang(const QString &)));
 	connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));

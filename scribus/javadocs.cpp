@@ -68,7 +68,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 	connect(DeleteScript, SIGNAL(clicked()), this, SLOT(slotDelete()));
 	connect(ExitDia, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(Scripts, SIGNAL(itemActivated (QListWidgetItem *)), this, SLOT(slotEdit()));
-	QToolTip::add( AddScript, "<qt>" + tr( "Adds a new Script, predefines a function with the same name. If you want to use this script as an \"Open Action\" script be sure not to change the name of the function." ) + "</qt>" );
+	AddScript->setToolTip( "<qt>" + tr( "Adds a new Script, predefines a function with the same name. If you want to use this script as an \"Open Action\" script be sure not to change the name of the function." ) + "</qt>" );
 }
 
 void JavaDocs::slotAdd()

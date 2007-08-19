@@ -45,7 +45,7 @@ PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, co
 	searchLabel->hide();
 	connect(startButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
 	connect(changeDirButton, SIGNAL(clicked()), this, SLOT(changeSearchDir()));
-	QToolTip::add(caseInsensitiveCheck, "<qt>" + tr("The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows") + "</qt>");
+	caseInsensitiveCheck->setToolTip( "<qt>" + tr("The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows") + "</qt>");
 }
 
 void PicSearchOptions::setSearchButton(bool toCancel, const FileSearch* searcher)

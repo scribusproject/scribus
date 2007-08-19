@@ -92,9 +92,9 @@ void SWPrefsGui::languageChange()
 	okButton->setText( tr("&Save"));
 	resetButton->setText( tr("&Reset"));
 	// tooltips
-	QToolTip::add(okButton, tr("Save user configuration"));
-	QToolTip::add(resetButton, "<qt>" + tr("Reload system wide configuration and remove user defined one") + "</qt>");
-	QToolTip::add(cfgEdit, "<qt>" + tr("Edit custom configuration. If you save it, it will be used over system wide configuration") + "</qt>");
+	okButton->setToolTip( tr("Save user configuration"));
+	resetButton->setToolTip( "<qt>" + tr("Reload system wide configuration and remove user defined one") + "</qt>");
+	cfgEdit->setToolTip( "<qt>" + tr("Edit custom configuration. If you save it, it will be used over system wide configuration") + "</qt>");
 }
 
 void SWPrefsGui::apply()

@@ -352,7 +352,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							break;
 						case ImageIsGIF:
 							object->setText(1, isGIF);
-							//QToolTip::add(object, isGIFtoolTip);
+							//object->setToolTip( isGIFtoolTip);
 							break;
 						case WrongFontInAnnotation:
 							object->setText(1, WrongFont);
@@ -423,7 +423,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case ImageIsGIF:
 								errorText->setText(1, isGIF);
 								errorText->setIcon(0, onlyWarning);
-								//QToolTip::add(errorText, isGIFtoolTip);
+								//errorText->setToolTip( isGIFtoolTip);
 								break;
 							case WrongFontInAnnotation:
 								errorText->setText(1, WrongFont);
@@ -522,7 +522,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							break;
 						case ImageIsGIF:
 							object->setText(1, isGIF);
-							//QToolTip::add(object, isGIFtoolTip);
+							//object->setToolTip( isGIFtoolTip);
 							break;
 						case WrongFontInAnnotation:
 							object->setText(1, WrongFont);
@@ -593,7 +593,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case ImageIsGIF:
 								errorText->setText(1, isGIF);
 								errorText->setIcon(0, onlyWarning);
-								//QToolTip::add(errorText, isGIFtoolTip);
+								//errorText->setToolTip( isGIFtoolTip);
 								break;
 							case WrongFontInAnnotation:
 								errorText->setText(1, WrongFont);
@@ -695,7 +695,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							break;
 						case ImageIsGIF:
 							object->setText(1, isGIF);
-							//QToolTip::add(object, isGIFtoolTip);
+							//object->setToolTip( isGIFtoolTip);
 							break;
 						case WrongFontInAnnotation:
 							object->setText(1, WrongFont);
@@ -762,7 +762,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							case ImageIsGIF:
 								errorText->setText(1, isGIF);
 								errorText->setIcon(0, onlyWarning);
-								//QToolTip::add(errorText, isGIFtoolTip);
+								//errorText->setToolTip( isGIFtoolTip);
 								break;
 							case WrongFontInAnnotation:
 								errorText->setText(1, WrongFont);

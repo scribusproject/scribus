@@ -24,18 +24,18 @@ TabPrinter::TabPrinter(QWidget* parent, const char* name)
 	: QWidget(parent, name, 0)
 {
 	setupUi(this);
-	QToolTip::add( bleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
-	QToolTip::add( bleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
-	QToolTip::add( bleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
-	QToolTip::add( bleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
-	QToolTip::add( setClip, "<qt>" + tr( "Do not show objects outside the margins on the printed page" ) + "</qt>" );
-	QToolTip::add( useAltPrintCommand,"<qt>" + tr( "Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options") + "</qt>" );
-	QToolTip::add( psLevel,"<qt>" +  tr( "Sets the PostScript Level.\n Setting to Level 1 or 2 can create huge files" ) + "</qt>" );
-	QToolTip::add( doGCR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>");
-	QToolTip::add(convertSpots,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
-	QToolTip::add(doOverprint, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
-	QToolTip::add(useICC,"<qt>" + tr( "Allows you to embed ICC profiles in the print stream when color management is enabled" ) + "</qt>");
-	QToolTip::add(setMedia, "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
+	bleedTop->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
+	bleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
+	bleedLeft->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
+	bleedRight->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
+	setClip->setToolTip( "<qt>" + tr( "Do not show objects outside the margins on the printed page" ) + "</qt>" );
+	useAltPrintCommand->setToolTip("<qt>" + tr( "Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options") + "</qt>" );
+	psLevel->setToolTip("<qt>" +  tr( "Sets the PostScript Level.\n Setting to Level 1 or 2 can create huge files" ) + "</qt>" );
+	doGCR->setToolTip( "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>");
+	convertSpots->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
+	doOverprint->setToolTip( "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
+	useICC->setToolTip("<qt>" + tr( "Allows you to embed ICC profiles in the print stream when color management is enabled" ) + "</qt>");
+	setMedia->setToolTip( "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
 	connect(useAltPrintCommand, SIGNAL(clicked()), this, SLOT(selOtherComm()));
 }
 

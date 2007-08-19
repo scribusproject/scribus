@@ -221,7 +221,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
 	resize(minimumSizeHint().expandedTo(QSize(300, 100)));
 
 //tooltips
-	QToolTip::add( Table, "<qt>" + tr( "This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help > About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *" ) + "</qt>" );
+	Table->setToolTip( "<qt>" + tr( "This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help > About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *" ) + "</qt>" );
 
     // signals and slots connections
 	connect( PushButton2, SIGNAL( clicked() ), this, SLOT( reject() ) );

@@ -87,7 +87,7 @@ private:
 
 	// Provide a couple of PutDoc implementations to ease transition away from
 	// QString abuse and to provide fast paths for constant strings.
-	void PutDoc(const QString & in) { outStream.writeRawData(in.latin1(), in.length()); }
+	void PutDoc(const QString & in) { outStream.writeRawData(in.toLatin1(), in.length()); }
 	void PutDoc(const QByteArray & in) { outStream.writeRawData(in, in.size()); }
 	void PutDoc(const char* in) { outStream.writeRawData(in, strlen(in)); }
 	void PutDoc(const std::string & in) { outStream.writeRawData(in.c_str(), in.length()); }

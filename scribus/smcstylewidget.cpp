@@ -64,18 +64,18 @@ void SMCStyleWidget::languageChange()
 // These are for the character style page
 // as in character styles and in paragraph style's character style
 
-	QToolTip::add(parentCombo,     tr("Parent style"));
-	QToolTip::add(fontFace_,       tr("Font face"));
-	QToolTip::add(fontSize_,       tr("Font size"));
-	QToolTip::add(tracking_,       tr("Tracking"));
-	QToolTip::add(baselineOffset_, tr("Baseline offset"));
-	QToolTip::add(fontHScale_,     tr("Horizontal scaling"));
-	QToolTip::add(fontVScale_,     tr("Vertical scaling"));
-	QToolTip::add(language_,       tr("Language"));
-	QToolTip::add(fillColor_,      tr("Fill color"));
-	QToolTip::add(fillShade_,      tr("Fill shade"));
-	QToolTip::add(strokeColor_,    tr("Stroke color"));
-	QToolTip::add(strokeShade_,    tr("Stroke shade"));
+	parentCombo->setToolTip(     tr("Parent style"));
+	fontFace_->setToolTip(       tr("Font face"));
+	fontSize_->setToolTip(       tr("Font size"));
+	tracking_->setToolTip(       tr("Tracking"));
+	baselineOffset_->setToolTip( tr("Baseline offset"));
+	fontHScale_->setToolTip(     tr("Horizontal scaling"));
+	fontVScale_->setToolTip(     tr("Vertical scaling"));
+	language_->setToolTip(       tr("Language"));
+	fillColor_->setToolTip(      tr("Fill color"));
+	fillShade_->setToolTip(      tr("Fill shade"));
+	strokeColor_->setToolTip(    tr("Stroke color"));
+	strokeShade_->setToolTip(    tr("Stroke shade"));
 
 /***********************************/
 /*        End Tooltips             */

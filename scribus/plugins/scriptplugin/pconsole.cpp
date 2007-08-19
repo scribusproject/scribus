@@ -114,8 +114,8 @@ void PythonConsole::documentChanged(bool state)
 void PythonConsole::languageChange()
 {
 	setCaption( tr("Script Console"));
-	QToolTip::add(commandEdit, "<qt>" + tr("Write your commands here. A selection is processed as script") + "</qt>");
-	QToolTip::add(outputEdit, "<qt>" + tr("Output of your script") + "</qt>");
+	commandEdit->setToolTip( "<qt>" + tr("Write your commands here. A selection is processed as script") + "</qt>");
+	outputEdit->setToolTip( "<qt>" + tr("Output of your script") + "</qt>");
 }
 
 void PythonConsole::slot_runScript()

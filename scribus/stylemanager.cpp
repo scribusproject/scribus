@@ -90,13 +90,13 @@ void StyleManager::languageChange()
 	// for the "Edit >>" button when not in edit mode
 	enterEditModeOk_= tr("Edit styles");
 
-	QToolTip::add(nameEdit,     tr("Name of the selected style"));
-	QToolTip::add(resetButton,  tr("Reset all changes"));
-	QToolTip::add(applyButton,  tr("Apply all changes"));
-	QToolTip::add(newButton,    tr("Create a new style"));
-	QToolTip::add(importButton, tr("Import styles from another document"));
-	QToolTip::add(cloneButton,  tr("Clone selected style"));
-	QToolTip::add(deleteButton, tr("Delete selected styles"));
+	nameEdit->setToolTip(     tr("Name of the selected style"));
+	resetButton->setToolTip(  tr("Reset all changes"));
+	applyButton->setToolTip(  tr("Apply all changes"));
+	newButton->setToolTip(    tr("Create a new style"));
+	importButton->setToolTip( tr("Import styles from another document"));
+	cloneButton->setToolTip(  tr("Clone selected style"));
+	deleteButton->setToolTip( tr("Delete selected styles"));
 
 /***********************************/
 /*      End Tooltips               */
@@ -114,9 +114,9 @@ void StyleManager::languageChange()
 	deleteButton->setText( tr("&Delete"));
 
 	if (isEditMode_)
-		QToolTip::add(okButton, exitEditModeOk_);
+		okButton->setToolTip( exitEditModeOk_);
 	else
-		QToolTip::add(okButton, enterEditModeOk_);
+		okButton->setToolTip( enterEditModeOk_);
 
 	if (shortcutWidget_)
 		shortcutWidget_->languageChange();
@@ -694,7 +694,7 @@ void StyleManager::slotOk()
 			items_.at(i)->apply();
 			items_.at(i)->editMode(false);
 		}
-		QToolTip::add(okButton, enterEditModeOk_);
+		okButton->setToolTip( enterEditModeOk_);
 		slotClean();
 		slotDocSelectionChanged();
 
@@ -731,7 +731,7 @@ void StyleManager::slotOk()
 		isEditMode_ = true;
 		for (int i = 0; i < items_.count(); ++i)
 			items_.at(i)->editMode(true);
-		QToolTip::add(okButton, exitEditModeOk_);
+		okButton->setToolTip( exitEditModeOk_);
 		slotClean();
 
 		prefs_->set("isEditMode", isEditMode_);

@@ -902,10 +902,10 @@ SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 
 void SToolBColorF::languageChange()
 {
-	QToolTip::remove(TxFill);
-	QToolTip::remove(PM2);
-	QToolTip::add(TxFill, tr( "Color of text fill" ));
-	QToolTip::add(PM2, tr( "Saturation of color of text fill" ));
+	TxFill->setToolTip("");
+	PM2->setToolTip("");
+	TxFill->setToolTip( tr( "Color of text fill" ));
+	PM2->setToolTip( tr( "Saturation of color of text fill" ));
 }
 
 void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
@@ -960,10 +960,10 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 
 void SToolBColorS::languageChange()
 {
-	QToolTip::remove(TxStroke);
-	QToolTip::remove(PM1);
-	QToolTip::add(TxStroke, tr("Color of text stroke"));
-	QToolTip::add(PM1, tr("Saturation of color of text stroke"));
+	TxStroke->setToolTip("");
+	PM1->setToolTip("");
+	TxStroke->setToolTip( tr("Color of text stroke"));
+	PM1->setToolTip( tr("Saturation of color of text stroke"));
 }
 
 void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
@@ -1026,8 +1026,8 @@ SToolBStyle::SToolBStyle(QMainWindow* parent) : QToolBar( tr("Character Settings
 
 void SToolBStyle::languageChange()
 {
-	QToolTip::remove(Extra);
-	QToolTip::add(Extra, tr( "Manual Tracking" ));
+	Extra->setToolTip("");
+	Extra->setToolTip( tr( "Manual Tracking" ));
 }
 
 void SToolBStyle::newStrikeHandler()
@@ -1131,8 +1131,8 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 
 void SToolBAlign::languageChange()
 {
-	QToolTip::remove(paraStyleCombo);
-	QToolTip::add(paraStyleCombo, tr("Style of current paragraph"));
+	paraStyleCombo->setToolTip("");
+	paraStyleCombo->setToolTip( tr("Style of current paragraph"));
 }
 
 
@@ -1192,14 +1192,14 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 
 void SToolBFont::languageChange()
 {
-	QToolTip::remove(Fonts);
-	QToolTip::remove(Size);
-	QToolTip::remove(ChScale);
-	QToolTip::remove(ChScaleV);
-	QToolTip::add(Fonts, tr("Font of selected text"));
-	QToolTip::add(Size, tr("Font Size"));
-	QToolTip::add(ChScale, tr("Scaling width of characters"));
-	QToolTip::add(ChScaleV, tr("Scaling height of characters"));
+	Fonts->setToolTip("");
+	Size->setToolTip("");
+	ChScale->setToolTip("");
+	ChScaleV->setToolTip("");
+	Fonts->setToolTip( tr("Font of selected text"));
+	Size->setToolTip( tr("Font Size"));
+	ChScale->setToolTip( tr("Scaling width of characters"));
+	ChScaleV->setToolTip( tr("Scaling height of characters"));
 }
 
 void SToolBFont::SetFont(QString f)

@@ -141,21 +141,21 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo ) : QTabWidget
 	//restoreDefaults();
 
 	//tooltips
-	QToolTip::add( authorEdit, "<qt>" + tr( "The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) );
-	QToolTip::add( titleEdit, "<qt>" + tr( "A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) + "</qt>");
-	QToolTip::add( descriptionEdit, "<qt>" + tr( "An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export" ) + "</qt>" );
-	QToolTip::add( keywordsEdit, "<qt>" + tr( "The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files" ) + "</qt>" );
-	QToolTip::add( publisherEdit, "<qt>" + tr( "A person or organisation responsible for making the document available" ) + "</qt>" );
-	QToolTip::add( contributorsEdit, "<qt>" + tr( "A person or organisation responsible for making contributions to the content of the document" ) + "</qt>" );
-	QToolTip::add( dateEdit, "<qt>" + tr( "A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601" ) + "</qt>" );
-	QToolTip::add( typeEdit, "<qt>" + tr( "The nature or genre of the content of the document, eg. categories, functions, genres, etc" )  + "</qt>");
-	QToolTip::add( formatEdit, "<qt>" + tr( "The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here" ) + "</qt>" );
-	QToolTip::add( identifierEdit, "<qt>" + tr( "An unambiguous reference to the document within a given context such as ISBN or URI" ) + "</qt>" );
-	QToolTip::add( sourceEdit, "<qt>" + tr( "A reference to a document from which the present document is derived, eg. ISBN or URI" ) + "</qt>" );
-	QToolTip::add( languageEdit, "<qt>" + tr( "The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH" ) + "</qt>" );
-	QToolTip::add( relationEdit, "<qt>" + tr( "A reference to a related document, possibly using a formal identifier such as a ISBN or URI" ) + "</qt>" );
-	QToolTip::add( coverageEdit, "<qt>" + tr( "The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges" ) + "</qt>" );
-	QToolTip::add( rightsEdit, "<qt>" + tr( "Information about rights held in and over the document, eg. copyright, patent or trademark" ) + "</qt>" );
+	authorEdit->setToolTip( "<qt>" + tr( "The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) );
+	titleEdit->setToolTip( "<qt>" + tr( "A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF" ) + "</qt>");
+	descriptionEdit->setToolTip( "<qt>" + tr( "An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export" ) + "</qt>" );
+	keywordsEdit->setToolTip( "<qt>" + tr( "The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files" ) + "</qt>" );
+	publisherEdit->setToolTip( "<qt>" + tr( "A person or organisation responsible for making the document available" ) + "</qt>" );
+	contributorsEdit->setToolTip( "<qt>" + tr( "A person or organisation responsible for making contributions to the content of the document" ) + "</qt>" );
+	dateEdit->setToolTip( "<qt>" + tr( "A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601" ) + "</qt>" );
+	typeEdit->setToolTip( "<qt>" + tr( "The nature or genre of the content of the document, eg. categories, functions, genres, etc" )  + "</qt>");
+	formatEdit->setToolTip( "<qt>" + tr( "The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here" ) + "</qt>" );
+	identifierEdit->setToolTip( "<qt>" + tr( "An unambiguous reference to the document within a given context such as ISBN or URI" ) + "</qt>" );
+	sourceEdit->setToolTip( "<qt>" + tr( "A reference to a document from which the present document is derived, eg. ISBN or URI" ) + "</qt>" );
+	languageEdit->setToolTip( "<qt>" + tr( "The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH" ) + "</qt>" );
+	relationEdit->setToolTip( "<qt>" + tr( "A reference to a related document, possibly using a formal identifier such as a ISBN or URI" ) + "</qt>" );
+	coverageEdit->setToolTip( "<qt>" + tr( "The extent or scope of the content of the document, possibly including location, time and jurisdiction ranges" ) + "</qt>" );
+	rightsEdit->setToolTip( "<qt>" + tr( "Information about rights held in and over the document, eg. copyright, patent or trademark" ) + "</qt>" );
 }
 
 

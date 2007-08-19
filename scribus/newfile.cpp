@@ -136,15 +136,15 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	Layout1->addWidget( CancelB );
 	TabbedNewDocLayout->addLayout( Layout1 );
 	//tooltips
-	QToolTip::add( pageSizeComboBox, tr( "Document page size, either a standard size or a custom size" ) );
-	QToolTip::add( pageOrientationComboBox, tr( "Orientation of the document's pages" ) );
-	QToolTip::add( widthSpinBox, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( heightSpinBox, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
-	QToolTip::add( pageCountSpinBox, tr( "Initial number of pages of the document" ) );
-	QToolTip::add( unitOfMeasureComboBox, tr( "Default unit of measurement for document editing" ) );
-	QToolTip::add( autoTextFrame, tr( "Create text frames automatically when new pages are added" ) );
-	QToolTip::add( numberOfCols, tr( "Number of columns to create in automatically created text frames" ) );
-	QToolTip::add( Distance, tr( "Distance between automatically created columns" ) );
+	pageSizeComboBox->setToolTip( tr( "Document page size, either a standard size or a custom size" ) );
+	pageOrientationComboBox->setToolTip( tr( "Orientation of the document's pages" ) );
+	widthSpinBox->setToolTip( tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
+	heightSpinBox->setToolTip( tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
+	pageCountSpinBox->setToolTip( tr( "Initial number of pages of the document" ) );
+	unitOfMeasureComboBox->setToolTip( tr( "Default unit of measurement for document editing" ) );
+	autoTextFrame->setToolTip( tr( "Create text frames automatically when new pages are added" ) );
+	numberOfCols->setToolTip( tr( "Number of columns to create in automatically created text frames" ) );
+	Distance->setToolTip( tr( "Distance between automatically created columns" ) );
 
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );

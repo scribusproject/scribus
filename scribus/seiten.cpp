@@ -559,8 +559,8 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	connect(Trash, SIGNAL(DelPage(int)), m_scMW, SLOT(DeletePage2(int)));
 	connect(this, SIGNAL(GotoSeite(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
 	
-	QToolTip::add(Trash, "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
-	QToolTip::add(masterPageList, "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
+	Trash->setToolTip( "<qt>" + tr("Drag pages or master pages onto the trashbin to delete them") + "</qt>");
+	masterPageList->setToolTip( "<qt>" + tr("Here are all your master pages. To create a new page, drag a master page to the page view below") + "</qt>");
 }
 
 void PagePalette::DelMPage(QString tmp)

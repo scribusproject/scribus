@@ -91,15 +91,15 @@ int AlignSelect::selectedId()
 
 void AlignSelect::languageChange()
 {
-	QToolTip::remove(TextL);
-	QToolTip::remove(TextR);
-	QToolTip::remove(TextC);
-	QToolTip::remove(TextB);
-	QToolTip::remove(TextF);
+	TextL->setToolTip("");
+	TextR->setToolTip("");
+	TextC->setToolTip("");
+	TextB->setToolTip("");
+	TextF->setToolTip("");
 
-	QToolTip::add(TextL, tr("Align Text Left"));
-	QToolTip::add(TextR, tr("Align Text Right"));
-	QToolTip::add(TextC, tr("Align Text Center"));
-	QToolTip::add(TextB, tr("Align Text Justified"));
-	QToolTip::add(TextF, tr("Align Text Forced Justified"));
+	TextL->setToolTip( tr("Align Text Left"));
+	TextR->setToolTip( tr("Align Text Right"));
+	TextC->setToolTip( tr("Align Text Center"));
+	TextB->setToolTip( tr("Align Text Justified"));
+	TextF->setToolTip( tr("Align Text Forced Justified"));
 }

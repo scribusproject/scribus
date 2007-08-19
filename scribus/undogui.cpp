@@ -62,7 +62,7 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	undoButton = new QToolButton(this, "undoButton");
 	undoButton->setIconSet(loadIcon("u_undo.png"));
 	undoButton->setUsesTextLabel(false);
-	QToolTip::add(undoButton, tr("Undo"));
+	undoButton->setToolTip(tr("Undo"));
 	layout->addWidget(undoButton);
 	undoMenu = new QPopupMenu(undoButton, "undoMenu");
 	undoButton->setPopup(undoMenu);
@@ -72,7 +72,7 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	redoButton = new QToolButton(this, "redoButton");
 	redoButton->setIconSet(loadIcon("u_redo.png"));
 	redoButton->setUsesTextLabel(false);
-	QToolTip::add(redoButton, tr("Redo"));
+	redoButton->setToolTip(tr("Redo"));
 	layout->addWidget(redoButton);
 	redoMenu = new QPopupMenu(redoButton, "redoMenu");
 	redoButton->setPopup(redoMenu);
@@ -410,7 +410,7 @@ void UndoPalette::showToolTip(Q3ListBoxItem *i)
 	{
 		QString tip = item->getDescription();
 		if (tip.isNull())
-		  QToolTip::add(undoList, tip);
+		  undoList->setToolTip(tip);
 	}
 	else
 		removeToolTip();
@@ -418,7 +418,7 @@ void UndoPalette::showToolTip(Q3ListBoxItem *i)
 
 void UndoPalette::removeToolTip()
 {
-	QToolTip::remove(undoList);
+	undoList->setToolTip("");
 }
 
 UndoPalette::~UndoPalette()

@@ -179,16 +179,16 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 
 	tabLayout_7->addLayout( Layout21 );
 
-	QToolTip::add( pageWidth, "<qt>" + tr( "Width of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
-	QToolTip::add( pageHeight, "<qt>" + tr( "Height of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
-	QToolTip::add( pageSizeComboBox, "<qt>" + tr( "Default page size, either a standard size or a custom size" ) + "</qt>" );
-	QToolTip::add( pageOrientationComboBox, "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
-	QToolTip::add( unitCombo, "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
-	QToolTip::add( GroupAS, "<qt>" + tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses" ) + "</qt>" );
-	QToolTip::add( ASTime, "<qt>" + tr( "Time period between saving automatically" ) + "</qt>" );
-	QToolTip::add( urSpinBox, "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
-	QToolTip::add( sizeAllPages, "<qt>" + tr( "Apply the page size changes to all existing pages in the document" ) + "</qt>" );
-	QToolTip::add( sizeAllMasterPages, "<qt>" + tr( "Apply the page size changes to all existing master pages in the document" ) + "</qt>" );
+	pageWidth->setToolTip( "<qt>" + tr( "Width of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
+	pageHeight->setToolTip( "<qt>" + tr( "Height of document pages, editable if you have chosen a custom page size" ) + "</qt>" );
+	pageSizeComboBox->setToolTip( "<qt>" + tr( "Default page size, either a standard size or a custom size" ) + "</qt>" );
+	pageOrientationComboBox->setToolTip( "<qt>" + tr( "Default orientation of document pages" ) + "</qt>" );
+	unitCombo->setToolTip( "<qt>" + tr( "Default unit of measurement for document editing" ) + "</qt>" );
+	GroupAS->setToolTip( "<qt>" + tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses" ) + "</qt>" );
+	ASTime->setToolTip( "<qt>" + tr( "Time period between saving automatically" ) + "</qt>" );
+	urSpinBox->setToolTip( "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
+	sizeAllPages->setToolTip( "<qt>" + tr( "Apply the page size changes to all existing pages in the document" ) + "</qt>" );
+	sizeAllMasterPages->setToolTip( "<qt>" + tr( "Apply the page size changes to all existing master pages in the document" ) + "</qt>" );
 	connect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	connect(pageHeight, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));

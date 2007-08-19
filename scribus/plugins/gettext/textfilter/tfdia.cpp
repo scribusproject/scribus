@@ -62,7 +62,7 @@ void tfDia::createLayout()
 	filtersCombo->setMinimumSize(QSize(150, 0));
 	filtersCombo->setEditable(false);
 	filtersCombo->setDuplicatesEnabled(false);
-	QToolTip::add(filtersCombo, tr("Choose a previously saved filter"));
+	filtersCombo->setToolTip( tr("Choose a previously saved filter"));
 	PrefsTable* filterNames = prefs->getTable("tf_Filters");
 	filtersCombo->insertItem("");
 	for (int i = 0; i < filterNames->height(); ++i)
@@ -113,7 +113,7 @@ void tfDia::createLayout()
 	layout2->setMargin(5);
 	layout2->setSpacing(5);
 	saveEdit = new QLineEdit(this, "saveEdit");
-	QToolTip::add(saveEdit, tr("Give a name to this filter for saving"));
+	saveEdit->setToolTip( tr("Give a name to this filter for saving"));
 	layout2->addWidget(saveEdit, 10);
 	if (prefs->getBool("save_hint", true))
 	{

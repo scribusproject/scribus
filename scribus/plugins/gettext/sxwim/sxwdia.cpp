@@ -35,7 +35,7 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)
 	hlayout->setSpacing(5);
 	updateCheck = new QCheckBox( tr("Overwrite Paragraph Styles"), this);
 	updateCheck->setChecked(update);
-	QToolTip::add(updateCheck, "<qt>" + tr("Enabling this will overwrite existing styles in the current Scribus document") + "</qt>");
+	updateCheck->setToolTip( "<qt>" + tr("Enabling this will overwrite existing styles in the current Scribus document") + "</qt>");
 	hlayout->addWidget(updateCheck);
 	layout->addLayout(hlayout);
 	
@@ -44,7 +44,7 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)
 	palayout->setSpacing(5);
 	packCheck = new QCheckBox( tr("Merge Paragraph Styles"), this);
 	packCheck->setChecked(pack);
-	QToolTip::add(packCheck, "<qt>" + tr("Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.") +"</qt>");
+	packCheck->setToolTip( "<qt>" + tr("Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document's styles are named differently.") +"</qt>");
 	palayout->addWidget(packCheck);
 	layout->addLayout(palayout);
 
@@ -53,7 +53,7 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)
 	playout->setSpacing(5);
 	prefixCheck = new QCheckBox( tr("Use document name as a prefix for paragraph styles"), this);
 	prefixCheck->setChecked(prefix);
-	QToolTip::add(prefixCheck, "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus.") +"</qt>");
+	prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus.") +"</qt>");
 	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 
@@ -62,7 +62,7 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(0)
 	dlayout->setSpacing(5);
 	doNotAskCheck = new QCheckBox( tr("Do not ask again"), this);
 	doNotAskCheck->setChecked(false);
-	QToolTip::add(doNotAskCheck, "<qt>" + tr("Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.") +"</qt>");
+	doNotAskCheck->setToolTip( "<qt>" + tr("Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.") +"</qt>");
 	//dlayout->addStretch(10);
 	dlayout->addWidget(doNotAskCheck);
 	layout->addLayout(dlayout);

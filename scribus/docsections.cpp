@@ -58,9 +58,9 @@ DocSections::~DocSections()
 
 void DocSections::languageChange()
 {
-	QToolTip::add(addButton, "<qt>"+ tr("Add a page numbering section to the document. The new section will be added after the currently selected section.") + "</qt>");
-	QToolTip::add(deleteButton, "<qt>"+ tr("Delete the currently selected section.") + "</qt>");
-	QToolTip::add(sectionsTable, "<qt>"+ tr("<b>Name:</b> Optional name for section eg. Index<br/>"
+	addButton->setToolTip( "<qt>"+ tr("Add a page numbering section to the document. The new section will be added after the currently selected section.") + "</qt>");
+	deleteButton->setToolTip( "<qt>"+ tr("Delete the currently selected section.") + "</qt>");
+	sectionsTable->setToolTip( "<qt>"+ tr("<b>Name:</b> Optional name for section eg. Index<br/>"
 											"<b>Shown:</b> Select to show the page numbers in this section if there is one or more text frames setup to do so.<br/>"
 											"<b>From:</b> The page index for this section to start at.<br/>"
 											"<b>To:</b> The page index for this section to stop at.<br/>"

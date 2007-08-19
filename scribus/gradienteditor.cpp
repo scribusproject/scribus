@@ -22,18 +22,17 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "gradienteditor.h"
-//#include "gradienteditor.moc"
 #include <QPainter>
 #include <QPixmap>
 #include <QCursor>
 #include <QApplication>
-//Added by qt3to4:
 #include <QPolygon>
 #include <QPaintEvent>
 #include <QFrame>
 #include <QLabel>
 #include <QMouseEvent>
 #include <QEvent>
+#include <QToolTip>
 #include "scpainter.h"
 #include "fpoint.h"
 #include "util_icon.h"
@@ -308,8 +307,17 @@ void GradientEditor::changePos(int v)
 
 void GradientEditor::languageChange()
 {
-	QToolTip::remove(Preview);
-	QToolTip::add(Preview, QRect(10,43, Preview->width()-20, 13), tr( "Add, change or remove color stops here" ) );
 	Desc->setText( tr( "Position:" ) );
 	Position->setSuffix( tr(" %") );
 }
+
+bool GradientEditor::event(QEvent * event)
+{
+	if (event->type() == QEvent::ToolTip) 
+	{
+		QHelpEvent *helpEvent = static_cast<QHelpEvent *>(event);
+		QToolTip::showText(helpEvent->globalPos(), tr( "Add, change or remove color stops here" ), Preview, QRect(10,43, Preview->width()-20, 13));
+	}
+	return QWidget::event(event);
+}
+

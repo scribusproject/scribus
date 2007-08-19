@@ -514,15 +514,15 @@ void CurveWidget::languageChange()
 	resetButton->setText( QString::null );
 	loadButton->setText( QString::null );
 	saveButton->setText( QString::null );
-	QToolTip::remove( invertButton );
-	QToolTip::remove( resetButton );
-	QToolTip::remove( linearButton );
-	QToolTip::remove( loadButton );
-	QToolTip::remove( saveButton );
-	QToolTip::add( invertButton, tr( "Inverts the curve" ) );
-	QToolTip::add( resetButton, tr( "Resets the curve" ) );
-	QToolTip::add( linearButton, tr( "Switches between linear and cubic interpolation of the curve" ) );
-	QToolTip::add( loadButton, tr( "Loads a curve" ) );
-	QToolTip::add( saveButton, tr( "Saves this curve" ) );
+	invertButton->setToolTip("");
+	resetButton->setToolTip("");
+	linearButton->setToolTip("");
+	loadButton->setToolTip("");
+	saveButton->setToolTip("");
+	invertButton->setToolTip( tr( "Inverts the curve" ) );
+	resetButton->setToolTip( tr( "Resets the curve" ) );
+	linearButton->setToolTip( tr( "Switches between linear and cubic interpolation of the curve" ) );
+	loadButton->setToolTip( tr( "Loads a curve" ) );
+	saveButton->setToolTip( tr( "Saves this curve" ) );
 }
 

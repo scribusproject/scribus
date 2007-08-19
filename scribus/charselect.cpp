@@ -135,9 +135,9 @@ CharSelect::CharSelect(QWidget* parent)
 	mainLayout->addWidget(m_quickPalette, 0, 1, 1, 1);
 
 	//tooltips
-	QToolTip::add(insertButton, "<qt>" + tr("Insert the characters at the cursor in the text") + "</qt>");
-	QToolTip::add(deleteButton, "<qt>" + tr("Delete the current selection(s).") + "</qt>");
-	QToolTip::add(m_charTable, "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
+	insertButton->setToolTip( "<qt>" + tr("Insert the characters at the cursor in the text") + "</qt>");
+	deleteButton->setToolTip( "<qt>" + tr("Delete the current selection(s).") + "</qt>");
+	m_charTable->setToolTip( "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
 	// signals and slots connections
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));

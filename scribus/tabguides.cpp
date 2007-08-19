@@ -214,23 +214,23 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	connect(baselineColor, SIGNAL(clicked()), this, SLOT(changeBaselineColor()));
 	connect(guideColor, SIGNAL(clicked()), this, SLOT(changeGuideColor()));
 	connect(marginColor, SIGNAL(clicked()), this, SLOT(changeMarginColor()));
-	QToolTip::add( inBackground, tr( "Guides are not visible through objects on the page" ) );
-	QToolTip::add( inForeground, tr( "Guides are visible above all objects on the page" ) );
-	QToolTip::add( minorSpace, tr( "Distance between the minor grid lines" ) );
-	QToolTip::add( majorSpace, tr( "Distance between the major grid lines" ) );
-	QToolTip::add( snapDistance, tr( "Distance within which an object will snap to your placed guides" ) );
-	QToolTip::add( grabDistance, tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
-	QToolTip::add( minorGridColor, tr( "Color of the minor grid lines" ) );
-	QToolTip::add( majorGridColor, tr( "Color of the major grid lines" ) );
-	QToolTip::add( guideColor, tr( "Color of the guide lines you insert" ) );
-	QToolTip::add( marginColor, tr( "Color for the margin lines" ) );
-	QToolTip::add( baselineColor, tr( "Color for the baseline grid" ) );
-	QToolTip::add( baselineBox, tr("Turns the basegrid on or off"));
-	QToolTip::add( baseGrid, tr("Distance between the lines of the baseline grid"));
-	QToolTip::add( baseOffset, tr("Distance from the top of the page for the first baseline"));
-	QToolTip::add( checkGrid, tr("Turns the gridlines on or off"));
-	QToolTip::add( guideBox, tr("Turns the guides on or off"));
-	QToolTip::add( marginBox, tr("Turns the margins on or off"));
+	inBackground->setToolTip( tr( "Guides are not visible through objects on the page" ) );
+	inForeground->setToolTip( tr( "Guides are visible above all objects on the page" ) );
+	minorSpace->setToolTip( tr( "Distance between the minor grid lines" ) );
+	majorSpace->setToolTip( tr( "Distance between the major grid lines" ) );
+	snapDistance->setToolTip( tr( "Distance within which an object will snap to your placed guides" ) );
+	grabDistance->setToolTip( tr( "Radius of the area where Scribus will allow you to grab an objects handles" ) );
+	minorGridColor->setToolTip( tr( "Color of the minor grid lines" ) );
+	majorGridColor->setToolTip( tr( "Color of the major grid lines" ) );
+	guideColor->setToolTip( tr( "Color of the guide lines you insert" ) );
+	marginColor->setToolTip( tr( "Color for the margin lines" ) );
+	baselineColor->setToolTip( tr( "Color for the baseline grid" ) );
+	baselineBox->setToolTip( tr("Turns the basegrid on or off"));
+	baseGrid->setToolTip( tr("Distance between the lines of the baseline grid"));
+	baseOffset->setToolTip( tr("Distance from the top of the page for the first baseline"));
+	checkGrid->setToolTip( tr("Turns the gridlines on or off"));
+	guideBox->setToolTip( tr("Turns the guides on or off"));
+	marginBox->setToolTip( tr("Turns the margins on or off"));
 }
 
 void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex)

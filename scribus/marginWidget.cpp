@@ -80,8 +80,8 @@ pageType(0)
 		marginsForAllMasterPages->setChecked( false );
 		marginsForPagesLayout->addWidget(marginsForAllMasterPages);
 		GroupLayout->addLayout( marginsForPagesLayout, 6, 0, 1, 2 );
-		QToolTip::add( marginsForAllPages, "<qt>" + tr( "Apply the margin changes to all existing pages in the document" ) + "</qt>" );
-		QToolTip::add( marginsForAllMasterPages, "<qt>" + tr( "Apply the margin changes to all existing master pages in the document" ) + "</qt>" );
+		marginsForAllPages->setToolTip( "<qt>" + tr( "Apply the margin changes to all existing pages in the document" ) + "</qt>" );
+		marginsForAllMasterPages->setToolTip( "<qt>" + tr( "Apply the margin changes to all existing master pages in the document" ) + "</qt>" );
 	}
 	else
 	{
@@ -94,7 +94,7 @@ pageType(0)
 #if defined(HAVE_CUPS) || defined(_WIN32)
 	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),marginPage, "usePrinterMarginsButton" );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
-	QToolTip::add( usePrinterMarginsButton, "<qt>" + tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
+	usePrinterMarginsButton->setToolTip( "<qt>" + tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
 	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
 #endif
 
@@ -132,10 +132,10 @@ pageType(0)
 		linkBleeds->setAutoRaise( true );
 		linkBleeds->setMaximumSize( QSize( 15, 32767 ) );
 		BleedGroupLayout->addWidget( linkBleeds, 0, 2, 4, 1 );
-		QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
-		QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
-		QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
-		QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
+		BleedTop->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
+		BleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
+		BleedLeft->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
+		BleedRight->setToolTip( "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 		connect(linkBleeds, SIGNAL(clicked()), this, SLOT(ToggleKette()));
 		connect(BleedLeft, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 		connect(BleedRight, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
@@ -145,10 +145,10 @@ pageType(0)
 	}
 
 	// hints
-	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
-	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
-	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
-	QToolTip::add( rightR, "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
+	topR->setToolTip( "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
+	bottomR->setToolTip( "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
+	leftR->setToolTip( "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
+	rightR->setToolTip( "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 
 		// signals&slots
 	connect(topR, SIGNAL(valueChanged(double)), this, SLOT(setTop()));
@@ -482,7 +482,7 @@ PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(paren
 	insertItem( tr("Nine Parts"), PresetLayout::nineparts);
 	setCurrentItem(PresetLayout::none);
 
-	QToolTip::add(this, "<qt>" + tr("You can select a predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
+	this->setToolTip( "<qt>" + tr("You can select a predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
 }
 
 MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHeight, double leftMargin)

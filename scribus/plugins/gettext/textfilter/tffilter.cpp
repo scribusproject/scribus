@@ -105,7 +105,7 @@ void tfFilter::createWidget()
 	enableCheck->setMaximumSize(QSize(25,25));
 	enableCheck->setMinimumSize(QSize(25,25));
 	enableCheck->setChecked(true);
-	QToolTip::add(enableCheck, tr("Disable or enable this filter row"));
+	enableCheck->setToolTip( tr("Disable or enable this filter row"));
 	layout->addWidget(enableCheck);
 
 	actionFrame = new QFrame(this);
@@ -131,12 +131,12 @@ void tfFilter::createWidget()
 
 	layout->addSpacing(20);
 	removeButton = new QPushButton(loadIcon("22/list-remove.png"), 0, this, "removeButton");
-	QToolTip::add(removeButton, tr("Remove this filter row"));
+	removeButton->setToolTip( tr("Remove this filter row"));
 	removeButton->setMaximumSize(QSize(25,25));
 	removeButton->setMinimumSize(QSize(25,25));
 	layout->addWidget(removeButton);
 	addButton = new QPushButton(loadIcon("22/list-add.png"), 0, this, "addButton");
-	QToolTip::add(addButton, tr("Add a new filter row"));
+	addButton->setToolTip( tr("Add a new filter row"));
 	addButton->setMaximumSize(QSize(25,25));
 	addButton->setMinimumSize(QSize(25,25));
 	layout->addWidget(addButton);
@@ -280,7 +280,7 @@ void tfFilter::getSecondCombo()
 	if (!secondRegexpCheck)
 	{
 		secondRegexpCheck = new QCheckBox(actionFrame);
-		QToolTip::add(secondRegexpCheck, tr("Value at the left is a regular expression"));
+		secondRegexpCheck->setToolTip( tr("Value at the left is a regular expression"));
 		secondRegexpCheck->show();
 		alayout->addWidget(secondRegexpCheck, -1);
 	}
@@ -335,7 +335,7 @@ void tfFilter::getThirdCombo(int)
 // 	if (!thirdRegexpCheck)
 // 	{
 // 		thirdRegexpCheck = new QCheckBox(actionFrame, "secondRegexpCheck");
-// 		QToolTip::add(thirdRegexpCheck, tr("Value is treated as a regular expression"));
+// 		thirdRegexpCheck->setToolTip( tr("Value is treated as a regular expression"));
 // 		thirdRegexpCheck->hide();
 // 		alayout->addWidget(thirdRegexpCheck, -1);
 // 	}
@@ -418,7 +418,7 @@ void tfFilter::getFifthCombo()
 	if (!fifthRegexpCheck)
 	{
 		fifthRegexpCheck = new QCheckBox(actionFrame);
-		QToolTip::add(fifthRegexpCheck, tr("Value at the left is a regular expression"));
+		fifthRegexpCheck->setToolTip( tr("Value at the left is a regular expression"));
 		fifthRegexpCheck->hide();
 		blayout->addWidget(fifthRegexpCheck, -1);
 		blayout->addSpacing(5);

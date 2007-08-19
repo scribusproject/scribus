@@ -18,11 +18,11 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 	fileWidget->setMode(QFileDialog::ExistingFile);
 	fileWidget->setFilter(filters);
 
-	QToolTip::add(importerCombo, tr("Choose the importer to use"));
+	importerCombo->setToolTip( tr("Choose the importer to use"));
 	importerCombo->insertItem( tr("Automatic"));
 	importerCombo->insertStringList(importers);
 
-	QToolTip::add(textOnlyCheckBox, tr("Import text without any formatting"));
+	textOnlyCheckBox->setToolTip( tr("Import text without any formatting"));
 
 	QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
 					   "ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",

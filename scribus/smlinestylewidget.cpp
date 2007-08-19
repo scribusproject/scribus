@@ -48,14 +48,14 @@ void SMLineStyleWidget::languageChange()
 /***********************************/
 // These are for the line style page
 
-	QToolTip::add(addButton,    tr("Add a new line"));
-	QToolTip::add(removeButton, tr("Remove a line"));
-	QToolTip::add(dashCombo,    tr("Line style"));
-	QToolTip::add(lineWidth,    tr("Line width"));
-	QToolTip::add(endCombo,     tr("End style"));
-	QToolTip::add(joinCombo,    tr("Join style"));
-	QToolTip::add(colorCombo,   tr("Line color"));
-	QToolTip::add(shadeBox,     tr("Line shade"));
+	addButton->setToolTip(    tr("Add a new line"));
+	removeButton->setToolTip( tr("Remove a line"));
+	dashCombo->setToolTip(    tr("Line style"));
+	lineWidth->setToolTip(    tr("Line width"));
+	endCombo->setToolTip(     tr("End style"));
+	joinCombo->setToolTip(    tr("Join style"));
+	colorCombo->setToolTip(   tr("Line color"));
+	shadeBox->setToolTip(     tr("Line shade"));
 
 /***********************************/
 /*      End Tooltips               */

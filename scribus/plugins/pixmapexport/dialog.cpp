@@ -103,16 +103,16 @@ ExportForm::~ExportForm()
 
 void ExportForm::languageChange()
 {
-	QToolTip::add( intervalPagesRadio, tr( "Export a range of pages" ) );
-	QToolTip::add( rangeVal, tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );
-	QToolTip::add( allPagesRadio, tr( "Export all pages" ) );
-	QToolTip::add( onePageRadio, tr( "Export only the current page" ) );
-	QToolTip::add( DPIBox, tr( "Resolution of the Images\nUse 72 dpi for Images intended for the Screen" ) );
-	QToolTip::add( enlargementBox, tr( "Size of the images. 100% for no changes, 200% for two times larger etc." ));
-	QToolTip::add( qualityBox, tr( "The quality of your images - 100% is the best, 1% the lowest quality" ) );
-	QToolTip::add( bitmapType, tr( "Available export formats" ) );
-	QToolTip::add( outputDirectory, tr( "The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'" ) );
-	QToolTip::add( outputDirectoryButton, tr( "Change the output directory" ) );
+	intervalPagesRadio->setToolTip( tr( "Export a range of pages" ) );
+	rangeVal->setToolTip( tr( "Insert a comma separated list of tokens where\na token can be * for all the pages, 1-5 for\na range of pages or a single page number." ) );
+	allPagesRadio->setToolTip( tr( "Export all pages" ) );
+	onePageRadio->setToolTip( tr( "Export only the current page" ) );
+	DPIBox->setToolTip( tr( "Resolution of the Images\nUse 72 dpi for Images intended for the Screen" ) );
+	enlargementBox->setToolTip( tr( "Size of the images. 100% for no changes, 200% for two times larger etc." ));
+	qualityBox->setToolTip( tr( "The quality of your images - 100% is the best, 1% the lowest quality" ) );
+	bitmapType->setToolTip( tr( "Available export formats" ) );
+	outputDirectory->setToolTip( tr( "The output directory - the place to store your images.\nName of the export file will be 'documentname-pagenumber.filetype'" ) );
+	outputDirectoryButton->setToolTip( tr( "Change the output directory" ) );
 }
 
 

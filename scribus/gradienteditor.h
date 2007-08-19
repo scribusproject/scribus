@@ -27,8 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <QLabel>
 #include <QSpinBox>
 #include <QLayout>
-#include <QToolTip>
-//Added by qt3to4:
 #include <QList>
 #include <QPaintEvent>
 #include <QMouseEvent>
@@ -90,6 +88,7 @@ signals:
 	void gradientChanged();
 
 protected:
+	virtual bool event ( QEvent * event );
 	QVBoxLayout* Form1Layout;
 	QHBoxLayout* Layout1;
 };

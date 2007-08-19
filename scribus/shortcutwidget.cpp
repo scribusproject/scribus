@@ -34,9 +34,9 @@ void ShortcutWidget::languageChange()
 /*      Begin Tooltips             */
 /***********************************/
 
-	QToolTip::add(noKey,        tr("No shortcut for the style")); // set no shortcut for this style
-	QToolTip::add(userDef,      tr("Style has user defined shortcut")); // not sure what this thing does
-	QToolTip::add(setKeyButton, tr("Assign a shortcut for the style")); // activate shorcut assigning
+	noKey->setToolTip(        tr("No shortcut for the style")); // set no shortcut for this style
+	userDef->setToolTip(      tr("Style has user defined shortcut")); // not sure what this thing does
+	setKeyButton->setToolTip( tr("Assign a shortcut for the style")); // activate shorcut assigning
 
 /***********************************/
 /*      End Tooltips               */

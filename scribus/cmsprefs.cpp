@@ -127,18 +127,18 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	// switched off as it's called in main prefs classes - PV
 	restoreDefaults(prefs, InputProfiles, InputProfilesCMYK, PrinterProfiles, MonitorProfiles);
 
-	QToolTip::add( inputPCMYKIm, tr( "Default color profile for imported CMYK images" ) );
-	QToolTip::add( inputPRGBIm, tr( "Default color profile for imported RGB images" ) );
-	QToolTip::add( inputPRGB, tr( "Default color profile for solid RGB colors on the page" ) );
-	QToolTip::add( inputPCMYK, tr( "Default color profile for solid CMYK colors on the page" ) );
-	QToolTip::add( monitorP, tr( "Color profile that you have generated or received from the manufacturer.\nThis profile should be specific to your monitor and not a generic profile (i.e. sRGB)." ) );
-	QToolTip::add( printerP, tr( "Color profile for your printer model from the manufacturer.\nThis profile should be specific to your printer and not a generic profile (i.e. sRGB)." ) );
-	QToolTip::add( colorsI, tr( "Default rendering intent for solid colors. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
-	QToolTip::add( imagesI, tr( "Default rendering intent for images. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
-	QToolTip::add( simulate, tr( "Enable 'soft proofing' of how your document colors will print,\nbased on the chosen printer profile." ) );
-	QToolTip::add( convertAll, tr( "Simulate a full color managed environment :\nall colors, rgb or cmyk, are converted to printer color space." ) );
-	QToolTip::add( gamutC, tr( "Method of showing colors on the screen which may not print properly.\nThis requires very accurate profiles and serves only as a warning." ) );
-	QToolTip::add( blackP, tr( "Black Point Compensation is a method of improving contrast in photos.\nIt is recommended that you enable this if you have photos in your document." ) );
+	inputPCMYKIm->setToolTip( tr( "Default color profile for imported CMYK images" ) );
+	inputPRGBIm->setToolTip( tr( "Default color profile for imported RGB images" ) );
+	inputPRGB->setToolTip( tr( "Default color profile for solid RGB colors on the page" ) );
+	inputPCMYK->setToolTip( tr( "Default color profile for solid CMYK colors on the page" ) );
+	monitorP->setToolTip( tr( "Color profile that you have generated or received from the manufacturer.\nThis profile should be specific to your monitor and not a generic profile (i.e. sRGB)." ) );
+	printerP->setToolTip( tr( "Color profile for your printer model from the manufacturer.\nThis profile should be specific to your printer and not a generic profile (i.e. sRGB)." ) );
+	colorsI->setToolTip( tr( "Default rendering intent for solid colors. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
+	imagesI->setToolTip( tr( "Default rendering intent for images. Unless you know why to change it,\nRelative Colorimetric or Perceptual should be chosen." ) );
+	simulate->setToolTip( tr( "Enable 'soft proofing' of how your document colors will print,\nbased on the chosen printer profile." ) );
+	convertAll->setToolTip( tr( "Simulate a full color managed environment :\nall colors, rgb or cmyk, are converted to printer color space." ) );
+	gamutC->setToolTip( tr( "Method of showing colors on the screen which may not print properly.\nThis requires very accurate profiles and serves only as a warning." ) );
+	blackP->setToolTip( tr( "Black Point Compensation is a method of improving contrast in photos.\nIt is recommended that you enable this if you have photos in your document." ) );
 
 	// signals and slots connections
 	connect( checkBox1, SIGNAL( clicked() ), this, SLOT( slotCMSon() ) );

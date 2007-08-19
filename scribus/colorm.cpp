@@ -168,21 +168,21 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	if (m_Doc==0)
 	{
 		connect(SaveColSet, SIGNAL( clicked() ), this, SLOT( saveDefaults() ) );
-		QToolTip::add( LoadColSet, "<qt>" + tr( "Choose a color set to load" ) + "</qt>");
-		QToolTip::add( SaveColSet, "<qt>" + tr( "Save the current color set" ) + "</qt>");
+		LoadColSet->setToolTip( "<qt>" + tr( "Choose a color set to load" ) + "</qt>");
+		SaveColSet->setToolTip( "<qt>" + tr( "Save the current color set" ) + "</qt>");
 	}
 	else
 	{
 		connect(deleteUnusedButton, SIGNAL( clicked() ), this, SLOT( deleteUnusedColors() ) );
-		QToolTip::add( deleteUnusedButton, "<qt>" + tr( "Remove unused colors from current document's color set" ) + "</qt>");
+		deleteUnusedButton->setToolTip( "<qt>" + tr( "Remove unused colors from current document's color set" ) + "</qt>");
 	}
-	QToolTip::add( importColorsButton, "<qt>" + tr( "Import colors to the current set from an existing document" ) + "</qt>");
-	QToolTip::add( newColorButton, "<qt>" + tr( "Create a new color within the current set" ) + "</qt>");
-	QToolTip::add( editColorButton, "<qt>" + tr( "Edit the currently selected color" ) + "</qt>");
-	QToolTip::add( duplicateColorButton, "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
-	QToolTip::add( deleteColorButton, "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
-	QToolTip::add( saveButton, "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
-	QToolTip::add( colorListBox, "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
+	importColorsButton->setToolTip( "<qt>" + tr( "Import colors to the current set from an existing document" ) + "</qt>");
+	newColorButton->setToolTip( "<qt>" + tr( "Create a new color within the current set" ) + "</qt>");
+	editColorButton->setToolTip( "<qt>" + tr( "Edit the currently selected color" ) + "</qt>");
+	duplicateColorButton->setToolTip( "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
+	deleteColorButton->setToolTip( "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
+	saveButton->setToolTip( "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
+	colorListBox->setToolTip( "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
 	connect( saveButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( newColorButton, SIGNAL( clicked() ), this, SLOT( newColor() ) );

@@ -564,9 +564,9 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	connect(tabData, SIGNAL(valueChanged(double)), this, SLOT(setTab()));
 	connect(clearButton, SIGNAL(clicked()), this, SLOT(clearAll()));
 
-	QToolTip::add( tabFillCombo, tr( "Fill Character of Tab" ) );
-	QToolTip::add( TypeCombo, tr( "Type/Orientation of Tab" ) );
-	QToolTip::add( tabData, tr( "Position of Tab" ) );
+	tabFillCombo->setToolTip( tr( "Fill Character of Tab" ) );
+	TypeCombo->setToolTip( tr( "Type/Orientation of Tab" ) );
+	tabData->setToolTip( tr( "Position of Tab" ) );
 
 	if (haveFirst)
 	{
@@ -577,11 +577,11 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 		connect(firstLineData, SIGNAL(valueChanged(double)), this, SLOT(setFirstLine()));
 		connect(leftIndentData, SIGNAL(valueChanged(double)), this, SLOT(setLeftIndent()));
 		connect(rightIndentData, SIGNAL(valueChanged(double)), this, SLOT(setRightIndent()));
-		QToolTip::add( firstLineData, tr( "Indentation for first line of the paragraph" ) );
-		QToolTip::add( leftIndentData, tr( "Indentation from the left for the whole paragraph" ) );
-		QToolTip::add( rightIndentData, tr( "Indentation from the right for the whole paragraph" ) );
+		firstLineData->setToolTip( tr( "Indentation for first line of the paragraph" ) );
+		leftIndentData->setToolTip( tr( "Indentation from the left for the whole paragraph" ) );
+		rightIndentData->setToolTip( tr( "Indentation from the right for the whole paragraph" ) );
 	}
-	QToolTip::add( clearButton, tr( "Delete all Tabulators" ) );
+	clearButton->setToolTip( tr( "Delete all Tabulators" ) );
 	QString ein = unitGetSuffixFromIndex(dEin);
 	if (dEin == 2)
 	{

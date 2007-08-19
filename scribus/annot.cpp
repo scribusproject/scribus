@@ -1164,10 +1164,10 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	connect(ChFile, SIGNAL(clicked()), this, SLOT(GetFile()));
 	connect(LExtern, SIGNAL(clicked()), this, SLOT(SetExternL()));
 	connect(Name, SIGNAL(Leaved()), this, SLOT(NewName()));
-	QToolTip::add(NoSpell, tr( "Flag is ignored for PDF 1.3" ) );
-	QToolTip::add(NoScroll, tr( "Flag is ignored for PDF 1.3" ) );
-	QToolTip::add(CalcFields, tr( "Enter a comma separated list of fields here" ) );
-	QToolTip::add(IconNR, tr("You need at least the Icon for Normal to use Icons for Buttons"));
+	NoSpell->setToolTip( tr( "Flag is ignored for PDF 1.3" ) );
+	NoScroll->setToolTip( tr( "Flag is ignored for PDF 1.3" ) );
+	CalcFields->setToolTip( tr( "Enter a comma separated list of fields here" ) );
+	IconNR->setToolTip( tr("You need at least the Icon for Normal to use Icons for Buttons"));
 	SetPg(qMin(SpinBox11->value(), MaxSeite));
 	SetCross();
 	resize( minimumSizeHint() );

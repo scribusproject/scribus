@@ -303,12 +303,12 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 
 void ScribusView::languageChange()
 {
-	QToolTip::remove(cmsToolbarButton);
-	QToolTip::remove(previewToolbarButton);
-	QToolTip::remove(visualMenu);
-	QToolTip::add(cmsToolbarButton, tr("Switches Color Management on or off"));
-	QToolTip::add(previewToolbarButton, tr("Enables the Preview Mode"));
-	QToolTip::add(visualMenu, tr("Here you can select the visual appearance of the display\nYou can choose between normal and several color blindness forms"));
+	cmsToolbarButton->setToolTip("");
+	previewToolbarButton->setToolTip("");
+	visualMenu->setToolTip("");
+	cmsToolbarButton->setToolTip( tr("Switches Color Management on or off"));
+	previewToolbarButton->setToolTip( tr("Enables the Preview Mode"));
+	visualMenu->setToolTip( tr("Here you can select the visual appearance of the display\nYou can choose between normal and several color blindness forms"));
 	disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	visualMenu->clear();
 	visualMenu->insertItem(CommonStrings::trVisionNormal);

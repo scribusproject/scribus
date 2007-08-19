@@ -133,9 +133,9 @@ void SWDialog::languageChange()
 	allRadio->setText( tr("&All items", "short words plugin"));
 	okButton->setText(CommonStrings::tr_OK);
 	cancelButton->setText(CommonStrings::tr_Cancel);
-	QToolTip::add(frameRadio, tr("Only selected frames processed.", "short words plugin"));
-	QToolTip::add(pageRadio, tr("Only actual page processed.", "short words plugin"));
-	QToolTip::add(allRadio, tr("All items in document processed.", "short words plugin"));
+	frameRadio->setToolTip( tr("Only selected frames processed.", "short words plugin"));
+	pageRadio->setToolTip( tr("Only actual page processed.", "short words plugin"));
+	allRadio->setToolTip( tr("All items in document processed.", "short words plugin"));
 }
 
 void SWDialog::okButton_pressed()
