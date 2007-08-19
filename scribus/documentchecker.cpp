@@ -115,7 +115,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				          && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(ImageDPITooHigh, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
-				QString ext = fi.extension(false).lower();
+				QString ext = fi.extension(false).toLower();
 				if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
 					itemError.insert(PlacedPDF, 0);
 				if ((ext == "gif") && (checkerSettings.checkForGIF))
@@ -141,8 +141,8 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 				{
 					chstr = currItem->itemText.text(e);
-					if (chstr.upper() != currItem->itemText.text(e))
-						chstr = chstr.upper();
+					if (chstr.toUpper() != currItem->itemText.text(e))
+						chstr = chstr.toUpper();
 					chr = chstr[0].unicode();
 				}
 				if (chr == 9)
@@ -154,8 +154,8 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						chstr = QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
 						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
-							if (chstr.upper() != QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
-								chstr = chstr.upper();
+							if (chstr.toUpper() != QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
+								chstr = chstr.toUpper();
 						}
 						chr = chstr[0].unicode();
 						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
@@ -168,8 +168,8 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						chstr = QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar);
 						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
-							if (chstr.upper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
-								chstr = chstr.upper();
+							if (chstr.toUpper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
+								chstr = chstr.toUpper();
 						}
 						chr = chstr[0].unicode();
 						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
@@ -233,7 +233,7 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				          && (currItem->isRaster) && (checkerSettings.checkResolution))
 					itemError.insert(ImageDPITooHigh, 0);
 				QFileInfo fi = QFileInfo(currItem->Pfile);
-				QString ext = fi.extension(false).lower();
+				QString ext = fi.extension(false).toLower();
 				if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
 					itemError.insert(PlacedPDF, 0);
 				if ((ext == "gif") && (checkerSettings.checkForGIF))
@@ -259,8 +259,8 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 				if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 				{
 					chstr = currItem->itemText.text(e,1);
-					if (chstr.upper() != currItem->itemText.text(e,1))
-						chstr = chstr.upper();
+					if (chstr.toUpper() != currItem->itemText.text(e,1))
+						chstr = chstr.toUpper();
 					chr = chstr[0].unicode();
 				}
 				if (chr == 9)
@@ -272,8 +272,8 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						chstr = QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
 						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
-							if (chstr.upper() != QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
-								chstr = chstr.upper();
+							if (chstr.toUpper() != QString(currItem->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
+								chstr = chstr.toUpper();
 						}
 						chr = chstr[0].unicode();
 						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))
@@ -286,8 +286,8 @@ bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 						chstr = QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar);
 						if ((currItem->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (currItem->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 						{
-							if (chstr.upper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
-								chstr = chstr.upper();
+							if (chstr.toUpper() != QString(currItem->itemText.defaultStyle().tabValues()[t1].tabFillChar))
+								chstr = chstr.toUpper();
 						}
 						chr = chstr[0].unicode();
 						if ((!currItem->itemText.charStyle(e).font().canRender(chr)) && (checkerSettings.checkGlyphs))

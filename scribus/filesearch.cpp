@@ -22,7 +22,7 @@ enum FileSearchStatus
 
 FileSearch::FileSearch(QObject* parent, const QString & fileName,const QString & searchBase, int depthLimit, bool caseSensitive) :
 	DeferredTask(parent),
-	m_searchBase(searchBase.isNull() ? QDir::homeDirPath() : searchBase),
+	m_searchBase(searchBase.isNull() ? QDir::homePath() : searchBase),
 	m_fileName(fileName),
 	m_depth(0),
 	m_maxdepth(depthLimit)

@@ -259,7 +259,7 @@ void ColorListBox::insertSmallPixmapItems(ColorList& list)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
-		addItem( new ColorPixmapItem(it.data(), doc, it.key()) );
+		addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
 	}
 	if (itemDelegate())
 		delete itemDelegate();
@@ -274,7 +274,7 @@ void ColorListBox::insertWidePixmapItems(ColorList& list)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
-		addItem( new ColorPixmapItem(it.data(), doc, it.key()) );
+		addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
 	}
 	if (itemDelegate())
 		delete itemDelegate();
@@ -289,7 +289,7 @@ void ColorListBox::insertFancyPixmapItems(ColorList& list)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::tr_NoneColor)
 			continue;
-		addItem( new ColorPixmapItem(it.data(), doc, it.key()) );
+		addItem( new ColorPixmapItem(it.value(), doc, it.key()) );
 	}
 	if (itemDelegate())
 		delete itemDelegate();

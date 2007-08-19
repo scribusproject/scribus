@@ -62,7 +62,7 @@ FormatsManager::FormatsManager()
 	while (i.hasNext()) 
 	{
 		i.next();
-		m_fmtList << i.value().first().upper();
+		m_fmtList << i.value().first().toUpper();
 	}
 
 	m_qtSupportedImageFormats=QImageReader::supportedImageFormats();
@@ -220,8 +220,8 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 				text += t;
 				if(!lowerCaseOnly)
 				{
-					fmtList += " " + t.upper();
-					text += " " + t.upper();
+					fmtList += " " + t.toUpper();
+					text += " " + t.toUpper();
 				}
 				if (itSL.hasNext())
 				{
@@ -297,10 +297,10 @@ QString getImageType(QString filename)
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		QByteArray buf(20);
+		QByteArray buf(20, ' ');
 		if (f.open(QIODevice::ReadOnly))
 		{
-			f.readBlock(buf.data(), 20);
+			f.read(buf.data(), 20);
 			if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
 				ret = "eps";
 			else if ((buf[0] == '\xC5') && (buf[1] == '\xD0') && (buf[2] == '\xD3') && (buf[3] == '\xC6'))

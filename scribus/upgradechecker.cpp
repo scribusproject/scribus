@@ -45,7 +45,7 @@ void UpgradeChecker::init()
 	updates.clear();
 	version=(VERSION);
 	stability="unstablesvn";
-	QString versionStripped=version.lower();
+	QString versionStripped=version.toLower();
 	isCVS=versionStripped.contains("svn");
 	if (isCVS)
 		versionStripped.remove("svn");
@@ -136,7 +136,7 @@ bool UpgradeChecker::process( QFile& dataFile )
 	QString data(ts.read());
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
-		if (data.lower().contains("404 not found"))
+		if (data.toLower().contains("404 not found"))
 			outputText("<b>"+ tr("File not found on server")+"</b>");
 		else
 			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(dataFile.name()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
@@ -156,7 +156,7 @@ bool UpgradeChecker::process( QFile& dataFile )
 					{
 						bool newVersion = false;
 						QString verA(e.attribute("version"));
-						QString verAStripped=verA.lower();
+						QString verAStripped=verA.toLower();
 						bool verIsCVS=verAStripped.contains("cvs");
 						if (verIsCVS)
 							verAStripped.remove("cvs");

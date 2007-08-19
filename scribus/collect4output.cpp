@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 
 CollectForOutput::CollectForOutput(ScribusDoc* doc, bool withFontsA, bool withProfilesA, bool compressDocA)
-	: QObject(ScCore, 0),
+	: QObject(ScCore),
 	m_Doc(0)
 {
 	m_Doc=doc;
@@ -40,7 +40,7 @@ CollectForOutput::CollectForOutput(ScribusDoc* doc, bool withFontsA, bool withPr
 
 bool CollectForOutput::newDirDialog()
 {
-	QString curDir = QDir::currentDirPath();
+	QString curDir = QDir::currentPath();
 	if (ScCore->usingGUI())
 	{
 		QString wdir = ".";
@@ -64,7 +64,7 @@ QString CollectForOutput::collect()
 		return "";
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
-	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
+	dirs->set("collect", outputDirectory.left(outputDirectory.lastIndexOf("/",-2)));
 	ScCore->primaryMainWindow()->setStatusBarInfoText( tr("Collecting..."));
 
 	if (!collectItems())
@@ -257,8 +257,8 @@ bool CollectForOutput::collectProfiles()
 	ProfilesL::Iterator itend = docProfiles.end();
 	for (ProfilesL::Iterator it = docProfiles.begin(); it != itend; ++it)
 	{
-		QString profileName = it.key();
-		QString profilePath = it.data();
+		QString profileName(it.key());
+		QString profilePath(it.value());
 		copyFile(profilePath, outputDirectory + QFileInfo(profilePath).fileName());
 	}
 	return true;
@@ -278,7 +278,7 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 			break;
 		}
 		QFileInfo fi(newFile);
-		QString basename = fi.baseName().left(fi.baseName().findRev("_"));
+		QString basename = fi.baseName().left(fi.baseName().lastIndexOf("_"));
 		newFile = QString("%1_%2.%3").arg(basename).arg(cnt).arg(fi.extension());
 		++cnt;
 	}

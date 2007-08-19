@@ -408,7 +408,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	QMap<QString,LPIData>::Iterator it = ScCore->primaryMainWindow()->doc->PDF_Options.LPISettings.begin();
 	while (it != ScCore->primaryMainWindow()->doc->PDF_Options.LPISettings.end()) {
 		PyObject *tmp;
-		tmp = Py_BuildValue(const_cast<char*>("[siii]"), it.key().ascii(), it.data().Frequency, it.data().Angle, it.data().SpotFunc);
+		tmp = Py_BuildValue(const_cast<char*>("[siii]"), it.key().ascii(), it.value().Frequency, it.value().Angle, it.value().SpotFunc);
 		if (!tmp) {
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
 			return -1;

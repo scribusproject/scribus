@@ -5946,7 +5946,7 @@ void PDFLibCore::PDF_Bookmark(PageItem *currItem, double ypos)
 QString PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, int Intent)
 {
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	ScImage img;
@@ -6113,7 +6113,7 @@ QString PDFLibCore::PDF_Image(PageItem* c, const QString& fn, double sx, double 
 				{
 					int colsp = img.imgInfo.colorspace;
 					bool prog = img.imgInfo.progressive;
-					img = img.smoothScale(qRound(ax), qRound(ay));
+					img = img.scaled(qRound(ax), qRound(ay), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 					img.imgInfo.colorspace = colsp;
 					img.imgInfo.progressive = prog;
 				}

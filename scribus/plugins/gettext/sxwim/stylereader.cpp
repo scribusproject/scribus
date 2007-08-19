@@ -707,7 +707,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  double StyleReader::getSize(QString s, double parentSize)
  {
  	QString dbl = "0.0";
- 	QString lowerValue = s.lower();
+ 	QString lowerValue = s.toLower();
  	double ret = 0.0;
  	if (lowerValue.find("pt") != -1)
  	{
@@ -814,7 +814,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  void StyleReader::startElement(void*, const xmlChar * fullname, const xmlChar ** atts)
  {
  	QString* name = new QString((const char*) fullname);
- 	name = new QString(name->lower());
+ 	name = new QString(name->toLower());
  	QXmlAttributes* attrs = new QXmlAttributes();
  	if (atts)
  	{
@@ -827,7 +827,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  void StyleReader::endElement(void*, const xmlChar * name)
  {
  	QString *nname = new QString((const char*) name);
- 	nname = new QString(nname->lower());
+ 	nname = new QString(nname->toLower());
  	sreader->endElement(NULL, NULL, *nname);
  }
  

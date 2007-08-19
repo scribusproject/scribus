@@ -76,7 +76,7 @@ void PicSearchOptions::changeSearchDir()
 {
 	QString workDir;
 #ifndef _WIN32
-	workDir = QDir::homeDirPath();
+	workDir = QDir::homePath();
 #endif
 	QString searchBase;
 	searchBase = QFileDialog::getExistingDirectory( workDir, NULL, NULL, tr("Select a base directory for search"));

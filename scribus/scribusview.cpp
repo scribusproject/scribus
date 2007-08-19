@@ -1836,7 +1836,7 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 		}
 /*		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
-		QString ext = fi.extension(false).upper();
+		QString ext = fi.extension(false).toUpper();
 		QStrList imfo = QImageIO::inputFormats();
 		if (ext == "JPG")
 			ext = "JPEG";
@@ -1905,7 +1905,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//>>
 		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
-		QString ext = fi.extension(false).upper();
+		QString ext = fi.extension(false).toUpper();
 		QStringList imfo;
 		QList<QByteArray> imgs = QImageReader::supportedImageFormats();
 		for (int i = 0; i < imgs.count(); ++i )
@@ -2033,7 +2033,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				if ((fi.exists()) && (!img))
 				{
 					QString data;
-					if (fi.extension(true).lower() == "sml")
+					if (fi.extension(true).toLower() == "sml")
 					{
 						QString f = "";
 						loadText(ur.path(), &f);
@@ -2042,7 +2042,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						delete pre;
 						emit LoadElem(data, ex, ey, false, false, Doc, this);
 					}
-					else if (fi.extension(true).lower() == "shape")
+					else if (fi.extension(true).toLower() == "shape")
 					{
 						QString f = "";
 						loadText(ur.path(), &f);
@@ -2933,7 +2933,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						ColCT->setText( tr("Colorspace: "));
 						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 						QString cSpace;
-						QString ext = fi.extension(false).lower();
+						QString ext = fi.extension(false).toLower();
 						if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != 7))
 							cSpace = tr("Unknown");
 						else
@@ -9622,7 +9622,7 @@ void ScribusView::PasteRecentToPage(int id)
 	QString nam = pmen3->text(id);
 	QString data = m_ScMW->scrapbookPalette->tempBView->objectMap[nam].Data;
 	QFileInfo fi(data);
-	if (fi.extension(true).lower() == "sml")
+	if (fi.extension(true).toLower() == "sml")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -9630,7 +9630,7 @@ void ScribusView::PasteRecentToPage(int id)
 		data = pre->createObjects(f);
 		delete pre;
 	}
-	else if (fi.extension(true).lower() == "shape")
+	else if (fi.extension(true).toLower() == "shape")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -9638,7 +9638,7 @@ void ScribusView::PasteRecentToPage(int id)
 		data = pre->createShape(f);
 		delete pre;
 	}
-	else if (fi.extension(true).lower() == "sce")
+	else if (fi.extension(true).toLower() == "sce")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -10157,9 +10157,9 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 		double sx = pm.width() / static_cast<double>(maxGr);
 		double sy = pm.height() / static_cast<double>(maxGr);
 		if (sy < sx)
-			im = pm.smoothScale(static_cast<int>(pm.width() / sx), static_cast<int>(pm.height() / sx));
+			im = pm.scaled(static_cast<int>(pm.width() / sx), static_cast<int>(pm.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		else
-			im = pm.smoothScale(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy));
+			im = pm.scaled(static_cast<int>(pm.width() / sy), static_cast<int>(pm.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		delete painter;
 		painter=NULL;
 		previewMode = false;
@@ -11183,10 +11183,10 @@ void ScribusView::TextToPath()
 					double chs = charStyle.fontSize();
 					if (hl->effects() & ScStyle_SmallCaps)
 					{
-						if (chstr.upper() != chstr)
+						if (chstr.toUpper() != chstr)
 						{
 							chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
-							chstr = chstr.upper();
+							chstr = chstr.toUpper();
 						}
 					}
 //					double csi = static_cast<double>(chs) / 100.0;
@@ -11292,10 +11292,10 @@ void ScribusView::TextToPath()
 						double chs = charStyle.fontSize();
 						if (hl->effects() & ScStyle_SmallCaps)
 						{
-							if (chstr.upper() != chstr)
+							if (chstr.toUpper() != chstr)
 							{
 								chs = qMax(static_cast<int>(hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100), 1);
-								chstr = chstr.upper();
+								chstr = chstr.toUpper();
 							}
 						}
 						double csi = static_cast<double>(chs) / 100.0;

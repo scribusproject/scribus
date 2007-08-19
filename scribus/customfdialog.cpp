@@ -135,7 +135,7 @@ void FDialogPreview::GenPreview(QString name)
 	int w = pixmap()->width();
 	int h = pixmap()->height();
 	bool mode = false;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	QList<QByteArray> formats(QImageReader::supportedImageFormats());
 // 	FormatsManager::instance()->imageFormatSupported(ext);
 	formats.append("jpg");
@@ -149,7 +149,7 @@ void FDialogPreview::GenPreview(QString name)
 	formats.append("pat");
 // 	QString allFormats = formats.join( " " );
 // 	formats.clear();
-// 	allFormats = allFormats.lower();
+// 	allFormats = allFormats.toLower();
 // 	formats = QStringList::split( " ", allFormats );
 	if (ext.isEmpty())
 		ext = getImageType(name);
@@ -180,8 +180,8 @@ void FDialogPreview::GenPreview(QString name)
 			{
 				double sx = im.width() / static_cast<double>(w-5);
 				double sy = im.height() / static_cast<double>(h-44);
-				im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
-				                 im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
+				im2 = sy < sx ? im.scaled(qRound(im.width() / sx), qRound(im.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation)
+								: im.scaled(qRound(im.width() / sy), qRound(im.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 			}
 			else
 				im2 = im.qImage(); // no need to copy

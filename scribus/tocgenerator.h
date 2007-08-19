@@ -35,7 +35,7 @@ class SCRIBUS_API TOCGenerator : public QObject
 {
 	Q_OBJECT
 	public:
-		TOCGenerator(QObject *parent = NULL, const char *name = NULL, ScribusDoc *doc = NULL);
+		TOCGenerator(QObject *parent = NULL, ScribusDoc *doc = NULL);
 		~TOCGenerator();
 		
 		void setDoc(ScribusDoc *doc = NULL);

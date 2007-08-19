@@ -196,7 +196,7 @@ QStringList ScPaths::getSystemFontDirs(void)
 {
 	QStringList fontDirs;
 #ifdef Q_OS_MAC
-	fontDirs.append(QDir::homeDirPath() + "/Library/Fonts/");
+	fontDirs.append(QDir::homePath() + "/Library/Fonts/");
 	fontDirs.append("/Library/Fonts/");
 	fontDirs.append("/Network/Library/Fonts/");
 	fontDirs.append("/System/Library/Fonts/");
@@ -210,12 +210,12 @@ QStringList ScPaths::getSystemProfilesDirs(void)
 {
 	QStringList iccProfDirs;
 #ifdef Q_OS_MAC
-	iccProfDirs.append(QDir::homeDirPath()+"/Library/ColorSync/Profiles/");
+	iccProfDirs.append(QDir::homePath()+"/Library/ColorSync/Profiles/");
 	iccProfDirs.append("/System/Library/ColorSync/Profiles/");
 	iccProfDirs.append("/Library/ColorSync/Profiles/");
 #elif defined(Q_WS_X11)
-	iccProfDirs.append(QDir::homeDirPath()+"/color/icc/");
-	iccProfDirs.append(QDir::homeDirPath()+"/.color/icc/");
+	iccProfDirs.append(QDir::homePath()+"/color/icc/");
+	iccProfDirs.append(QDir::homePath()+"/.color/icc/");
 	iccProfDirs.append("/usr/share/color/icc/");
 	iccProfDirs.append("/usr/local/share/color/icc/");
 #elif defined(_WIN32)
@@ -246,11 +246,11 @@ QStringList ScPaths::getSystemCreateSwatchesDirs(void)
 {
 	QStringList createDirs;
 #ifdef Q_OS_MAC
-	createDirs.append(QDir::homeDirPath()+"/create/swatches/");
-	createDirs.append(QDir::homeDirPath()+"/.create/swatches/");
+	createDirs.append(QDir::homePath()+"/create/swatches/");
+	createDirs.append(QDir::homePath()+"/.create/swatches/");
 #elif defined(Q_WS_X11)
-	createDirs.append(QDir::homeDirPath()+"/create/swatches/");
-	createDirs.append(QDir::homeDirPath()+"/.create/swatches/");
+	createDirs.append(QDir::homePath()+"/create/swatches/");
+	createDirs.append(QDir::homePath()+"/.create/swatches/");
 	createDirs.append("/usr/share/create/swatches/");
 	createDirs.append("/usr/local/share/create/swatches/");
 #elif defined(_WIN32)
@@ -275,7 +275,7 @@ QString ScPaths::getApplicationDataDir(void)
 	if (QDir(appData).exists())
 		return (appData + "/Scribus/");
 #endif
-	return (QDir::homeDirPath() + "/.scribus/");
+	return (QDir::homePath() + "/.scribus/");
 }
 
 QString ScPaths::getUserDocumentDir(void)
@@ -285,7 +285,7 @@ QString ScPaths::getUserDocumentDir(void)
 	if	(QDir(userDocs).exists())
 		return userDocs;
 #endif
-	return (QDir::homeDirPath() + "/");
+	return (QDir::homePath() + "/");
 }
 
 QString ScPaths::getTempFileDir(void)
@@ -306,7 +306,7 @@ QString ScPaths::getTempFileDir(void)
 	}
 	return getApplicationDataDir();
 #else
-	return (QDir::homeDirPath() + "/.scribus/");
+	return (QDir::homePath() + "/.scribus/");
 #endif
 }
 

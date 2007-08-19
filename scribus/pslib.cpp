@@ -136,7 +136,7 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 
 		if ((type == ScFace::TTF) || (AllFonts[it.key()].isOTF()) || (AllFonts[it.key()].subset()))
 		{
-			QMap<uint, FPointArray>& RealGlyphs(it.data());
+			QMap<uint, FPointArray>& RealGlyphs(it.value());
 			FontDesc += "/"+AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+
 					" "+IToStr(RealGlyphs.count()+1)+" dict def\n";
 			FontDesc += AllFonts[it.key()].psName().simplified().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" begin\n";
@@ -146,11 +146,11 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 				FontDesc += "/G"+IToStr(ig.key())+" { newpath\n";
 				FPoint np, np1, np2;
 				bool nPath = true;
-				if (ig.data().size() > 3)
+				if (ig.value().size() > 3)
 				{
-					for (uint poi = 0; poi < ig.data().size()-3; poi += 4)
+					for (uint poi = 0; poi < ig.value().size()-3; poi += 4)
 					{
-						if (ig.data().point(poi).x() > 900000)
+						if (ig.value().point(poi).x() > 900000)
 						{
 							FontDesc += "cl\n";
 							nPath = true;
@@ -158,13 +158,13 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 						}
 						if (nPath)
 						{
-							np = ig.data().point(poi);
+							np = ig.value().point(poi);
 							FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " m\n";
 							nPath = false;
 						}
-						np = ig.data().point(poi+1);
-						np1 = ig.data().point(poi+3);
-						np2 = ig.data().point(poi+2);
+						np = ig.value().point(poi+1);
+						np1 = ig.value().point(poi+3);
+						np2 = ig.value().point(poi+2);
 						FontDesc += ToStr(np.x()) + " " + ToStr(-np.y()) + " " +
 								ToStr(np1.x()) + " " + ToStr(-np1.y()) + " " +
 								ToStr(np2.x()) + " " + ToStr(-np2.y()) + " cu\n";
@@ -1305,7 +1305,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	bool dummy;
 	QByteArray tmp;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != 7))
@@ -1374,7 +1374,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 	bool dummy;
 	QByteArray tmp;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != 7))
@@ -2578,15 +2578,15 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					chstr = " ";
 				if (style.effects() & 32)
 				{
-					if (chstr.upper() != chstr)
-						chstr = chstr.upper();
+					if (chstr.toUpper() != chstr)
+						chstr = chstr.toUpper();
 				}
 				if (style.effects() & 64)
 				{
-					if (chstr.upper() != chstr)
+					if (chstr.toUpper() != chstr)
 					{
 						tsz = style.fontSize() * Doc->typographicSettings.valueSmallCaps / 100;
-						chstr = chstr.upper();
+						chstr = chstr.toUpper();
 					}
 				}
 				if (style.effects() & 1)
@@ -3353,15 +3353,15 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	}
 	if (hl->effects() & 32)
 	{
-		if (chstr.upper() != chstr)
-			chstr = chstr.upper();
+		if (chstr.toUpper() != chstr)
+			chstr = chstr.toUpper();
 	}
 	if (hl->effects() & 64)
 	{
-		if (chstr.upper() != chstr)
+		if (chstr.toUpper() != chstr)
 		{
 			tsz = hl->fontSize() * Doc->typographicSettings.valueSmallCaps / 100;
-			chstr = chstr.upper();
+			chstr = chstr.toUpper();
 		}
 	}
 	if (hl->effects() & 1)

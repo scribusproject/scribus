@@ -21,7 +21,7 @@ void ScImgDataLoader_QT::initSupportedFormatList(void)
 	m_supportedFormats.clear();
 	QList<QByteArray> fmtList = QImageReader::supportedImageFormats();
 	for (int i = 0; i < fmtList.count(); i++)
-		m_supportedFormats.append( fmtList[i].lower() );
+		m_supportedFormats.append( fmtList[i].toLower() );
 }
 
 void ScImgDataLoader_QT::loadEmbeddedProfile(const QString& fn)
@@ -63,7 +63,7 @@ void ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int res)
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if ((ext == "jpg") || (ext == "jpeg"))
 		return;
 	if (m_image.load(fn))

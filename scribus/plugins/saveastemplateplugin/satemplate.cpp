@@ -116,7 +116,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	{
 		templates.mkdir("templates");
 	}
-	QString currentDirPath = QDir::currentDirPath();
+	QString currentPath = QDir::currentDirPath();
 	QString currentFile = doc->DocName;
 	bool hasName = doc->hasName;
 	bool isModified = doc->isModified();
@@ -138,9 +138,9 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	if (oldCollect != ".")
 		dirs->set("collect", oldCollect);
 	QString docPath = doc->DocName;
-	QString docDir = docPath.left(docPath.findRev('/'));
-	QString docName = docPath.right(docPath.length() - docPath.findRev('/') - 1);
-	docName = docName.left(docName.findRev(".s"));
+	QString docDir = docPath.left(docPath.lastIndexOf('/'));
+	QString docName = docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1);
+	docName = docName.left(docName.lastIndexOf(".s"));
 
 	if (currentFile !=  doc->DocName)
 	{
@@ -149,7 +149,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
                                           static_cast<int>(doc->pageHeight + 0.5));
 		if (satdia->exec())
 		{
-			sat* s = new sat(doc, satdia, docPath.right(docPath.length() - docPath.findRev('/') - 1),docDir);
+			sat* s = new sat(doc, satdia, docPath.right(docPath.length() - docPath.lastIndexOf('/') - 1),docDir);
 			s->createImages();
 			s->createTmplXml();
 			delete s;
@@ -163,7 +163,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 			newCaption.append('*');
 		doc->scMW()->updateActiveWindowCaption(newCaption);
 		doc->scMW()->removeRecent(docPath);
-		QDir::setCurrent(currentDirPath);
+		QDir::setCurrent(currentPath);
 		delete satdia;
 	}
 }
@@ -239,7 +239,7 @@ void sat::appendTmplXml()
 		{
 			file += tmp + "\n";
 			tmp = stream.readLine();
-			if (tmp.find("</templates>") != -1)
+			if (tmp.indexOf("</templates>") != -1)
 				file += getTemplateTag();
 		}
 		tmplXml.close();

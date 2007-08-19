@@ -578,22 +578,22 @@ QString PrefsManager::setupPreferencesLocation()
 		if (Pffi.isDir())
 			PrefsPfad = Pff;
 		else
-			PrefsPfad = QDir::homeDirPath();
+			PrefsPfad = QDir::homePath();
 	}
 	else // Move to using ~/.scribus/scribus.* from ~/.scribus.*
 	{
 		QDir prefsDirectory = QDir();
 		prefsDirectory.mkdir(Pff);
 		PrefsPfad = Pff;
-		QString oldPR = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus.rc");
+		QString oldPR = QDir::convertSeparators(QDir::homePath()+"/.scribus.rc");
 		QFileInfo oldPi = QFileInfo(oldPR);
 		if (oldPi.exists())
 			moveFile(oldPR, Pff+"/scribus.rc");
-		QString oldPR2 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusfont.rc");
+		QString oldPR2 = QDir::convertSeparators(QDir::homePath()+"/.scribusfont.rc");
 		QFileInfo oldPi2 = QFileInfo(oldPR2);
 		if (oldPi2.exists())
 			moveFile(oldPR2, Pff+"/scribusfont.rc");
-		QString oldPR3 = QDir::convertSeparators(QDir::homeDirPath()+"/.scribusscrap.scs");
+		QString oldPR3 = QDir::convertSeparators(QDir::homePath()+"/.scribusscrap.scs");
 		QFileInfo oldPi3 = QFileInfo(oldPR3);
 		if (oldPi3.exists())
 			moveFile(oldPR3, Pff+"/scrap.scs");
@@ -1289,20 +1289,20 @@ bool PrefsManager::WritePref(QString ho)
 	{
 		QDomElement dc79a=docu.createElement("CheckProfile");
 		dc79a.setAttribute("Name",itcp.key());
-		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.data().ignoreErrors));
-		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.data().autoCheck));
-		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.data().checkGlyphs));
-		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.data().checkOrphans));
-		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.data().checkOverflow));
-		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.data().checkPictures));
-		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
-		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
-		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
-		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
-		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.data().checkForGIF));
-		dc79a.setAttribute("ignoreOffLayers", static_cast<int>(itcp.data().ignoreOffLayers));
-		dc79a.setAttribute("minResolution",itcp.data().minResolution);
-		dc79a.setAttribute("maxResolution",itcp.data().maxResolution);
+		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.value().ignoreErrors));
+		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.value().autoCheck));
+		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.value().checkGlyphs));
+		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.value().checkOrphans));
+		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.value().checkOverflow));
+		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.value().checkPictures));
+		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.value().checkResolution));
+		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.value().checkTransparency));
+		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.value().checkAnnotations));
+		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));
+		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.value().checkForGIF));
+		dc79a.setAttribute("ignoreOffLayers", static_cast<int>(itcp.value().ignoreOffLayers));
+		dc79a.setAttribute("minResolution",itcp.value().minResolution);
+		dc79a.setAttribute("maxResolution",itcp.value().maxResolution);
 		elem.appendChild(dc79a);
 	}
 	QDomElement dc81=docu.createElement("CMS");
@@ -1380,12 +1380,12 @@ bool PrefsManager::WritePref(QString ho)
 	{
 		QDomElement co=docu.createElement("COLOR");
 		co.setAttribute("NAME",itc.key());
-		if (itc.data().getColorModel() == colorModelRGB)
-			co.setAttribute("RGB", itc.data().nameRGB());
+		if (itc.value().getColorModel() == colorModelRGB)
+			co.setAttribute("RGB", itc.value().nameRGB());
 		else
-			co.setAttribute("CMYK", itc.data().nameCMYK());
-		co.setAttribute("Spot", static_cast<int>(itc.data().isSpotColor()));
-		co.setAttribute("Register", static_cast<int>(itc.data().isRegistrationColor()));
+			co.setAttribute("CMYK", itc.value().nameCMYK());
+		co.setAttribute("Spot", static_cast<int>(itc.value().isSpotColor()));
+		co.setAttribute("Register", static_cast<int>(itc.value().isRegistrationColor()));
 		elem.appendChild(co);
 	}
 	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.hasNext(); itf.next())
@@ -1405,11 +1405,11 @@ bool PrefsManager::WritePref(QString ho)
 	}
 	for (QMap<QString,Keys>::Iterator ksc=appPrefs.KeyActions.begin(); ksc!=appPrefs.KeyActions.end(); ++ksc)
 	{
-		if (ksc.data().actionName.isEmpty())
+		if (ksc.value().actionName.isEmpty())
 			continue;
 		QDomElement kscc=docu.createElement("SHORTCUT");
-		kscc.setAttribute("ACTION",ksc.data().actionName);
-		kscc.setAttribute("SEQUENCE",TabKeyboardShortcutsWidget::getKeyText(ksc.data().keySequence));
+		kscc.setAttribute("ACTION",ksc.value().actionName);
+		kscc.setAttribute("SEQUENCE",TabKeyboardShortcutsWidget::getKeyText(ksc.value().keySequence));
 		elem.appendChild(kscc);
 	}
 	QMap<QString,QString>::Iterator itfsu;
@@ -1417,7 +1417,7 @@ bool PrefsManager::WritePref(QString ho)
 	{
 		QDomElement fosu = docu.createElement("Substitute");
 		fosu.setAttribute("Name",itfsu.key());
-		fosu.setAttribute("Replace",itfsu.data());
+		fosu.setAttribute("Replace",itfsu.value());
 		elem.appendChild(fosu);
 	}
 	for (int ccs=0; ccs<appPrefs.CustomColorSets.count(); ++ccs)
@@ -1488,9 +1488,9 @@ bool PrefsManager::WritePref(QString ho)
 	{
 		QDomElement pdf4 = docu.createElement("LPI");
 		pdf4.setAttribute("Color", itlp.key());
-		pdf4.setAttribute("Frequency", itlp.data().Frequency);
-		pdf4.setAttribute("Angle", itlp.data().Angle);
-		pdf4.setAttribute("SpotFunction", itlp.data().SpotFunc);
+		pdf4.setAttribute("Frequency", itlp.value().Frequency);
+		pdf4.setAttribute("Angle", itlp.value().Angle);
+		pdf4.setAttribute("SpotFunction", itlp.value().SpotFunc);
 		pdf.appendChild(pdf4);
 	}
 	elem.appendChild(pdf);

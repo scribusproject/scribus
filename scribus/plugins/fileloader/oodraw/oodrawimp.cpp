@@ -263,7 +263,7 @@ bool OODPlug::import( QString fileName, int flags )
 		QFile f1(stylePath);
 		f1.remove();
 	}
-	QString CurDirP = QDir::currentDirPath();
+	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fileName);
 	QDir::setCurrent(efp.dirPath());
 	importDone = convert(flags);
@@ -1475,7 +1475,7 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 	for (; it != end; ++it)
 	{
 		QStringList subtransform = QStringList::split('(', (*it));
-		subtransform[0] = subtransform[0].trimmed().lower();
+		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
 		QStringList params = QStringList::split(reg, subtransform[1]);

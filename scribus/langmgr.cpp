@@ -127,7 +127,7 @@ void LanguageManager::generateInstalledLangList()
 		for (uint i = 0; i < dir.count(); ++i) 
 		{
 			QFileInfo file(path + dir[i]);
-			if (file.extension(false).lower() == "qm") 
+			if (file.extension(false).toLower() == "qm") 
 			{
 				langAbbrev = file.extension().remove(".qm");
 				if ((it=langList.find(langAbbrev))!=langList.end())

@@ -426,7 +426,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return false;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
@@ -648,7 +648,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	QStringList args;
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	int retg;
 	int GsMajor;
@@ -1048,7 +1048,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 	QTextStream ts2(&BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
 	QFile f2(tmpFile);
 	QString tmp;
@@ -1178,7 +1178,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 	QTextStream ts2(&BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
 	QFile f2(tmpFile);
 	QString tmp;
@@ -1298,7 +1298,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	QStringList args;
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString tmpFile2 = QDir::convertSeparators(ScPaths::getTempFileDir() + "tmp.eps");
 	QString baseFile = fi.dirPath(true);
@@ -1412,7 +1412,7 @@ void ScImgDataLoader_PS::loadDCS1(QString fn, int gsRes)
 	QStringList args;
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString baseFile = fi.dirPath(true);
 	QString picFile;
@@ -1545,7 +1545,7 @@ void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 	if (!fi.exists())
 		return;
 	QString tmp, BBox, tmp2;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	double x, y, b, h;

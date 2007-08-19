@@ -86,7 +86,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 		}
 
 		QFileInfo fi(fontIter.current().fontFilePath());
-		fi.absFilePath().contains(QDir::homeDirPath()) ?
+		fi.absFilePath().contains(QDir::homePath()) ?
 				col4->setText(tr("User", "font preview")):
 				col4->setText(tr("System", "font preview"));
 

@@ -144,14 +144,14 @@ ExportBitmap::ExportBitmap()
 	pageDPI = 72;
 	quality = 100;
 	enlargement = 100.0;
-	exportDir = QDir::currentDirPath();
+	exportDir = QDir::currentPath();
 	bitmapType = QString("PNG");
 	overwrite = false;
 }
 
 QString ExportBitmap::getFileName(ScribusDoc* doc, uint pageNr)
 {
-	return QDir::cleanDirPath(QDir::convertSeparators(exportDir + "/" + getFileNameByPage(doc, pageNr, bitmapType.lower())));
+	return QDir::cleanPath(QDir::convertSeparators(exportDir + "/" + getFileNameByPage(doc, pageNr, bitmapType.toLower())));
 }
 
 ExportBitmap::~ExportBitmap()

@@ -259,7 +259,7 @@ QStringList ScribusQApp::getLang(QString lang)
 		if (Pffi.isDir())
 			PrefsPfad = Pff;
 		else
-			PrefsPfad = QDir::homeDirPath();
+			PrefsPfad = QDir::homePath();
 		QString prefsXMLFile=QDir::convertSeparators(PrefsPfad + "/prefs135.xml");
 		QFileInfo infoPrefsFile(prefsXMLFile);
 		if (infoPrefsFile.exists())
@@ -296,10 +296,10 @@ QStringList ScribusQApp::getLang(QString lang)
 		language = QString::fromUcs2( (ushort*)out );
 		if ( GetLocaleInfoW(lcIdn, LOCALE_SISO3166CTRYNAME, out, 255) )
 		{
-			sublanguage = QString::fromUcs2( (ushort*)out ).lower();
+			sublanguage = QString::fromUcs2( (ushort*)out ).toLower();
 			lang = language;
 			if ( sublanguage != language && !sublanguage.isEmpty() )
-				lang += "_" + sublanguage.upper();
+				lang += "_" + sublanguage.toUpper();
 			langs.push_back(lang);
 		}
 	}
@@ -349,8 +349,8 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 	if (dir.exists() && (dir.count() != 0)) {
 		for (uint i = 0; i < dir.count(); ++i) {
 			QFileInfo file(path + dir[i]);
-			if ((file.extension(false).lower() == "qm")
-			&& (file.extension(true).lower().left(5) == lang)) {
+			if ((file.extension(false).toLower() == "qm")
+			&& (file.extension(true).toLower().left(5) == lang)) {
 				trans = new QTranslator(0);
 				trans->load(QString(path + dir[i]), ".");
 				installTranslator(trans);
@@ -469,7 +469,7 @@ void ScribusQApp::neverSplash(bool splashOff)
 	QFile ns(prefsDir+"/.neversplash");
 	if (splashOff)
 	{
-		if (QFileInfo(QDir::homeDirPath()).exists())
+		if (QFileInfo(QDir::homePath()).exists())
 		{
 			QDir prefsDirectory(prefsDir);
 			if (!QFileInfo(prefsDir).exists())

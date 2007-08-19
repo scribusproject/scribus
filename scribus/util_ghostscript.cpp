@@ -126,7 +126,7 @@ int callGS(const QString& args_in, const QString device)
 	// then add any user specified args and run gs
 	cmd1 += " " + args_in + " -c showpage";
 //	qDebug("Calling gs as: %s", cmd1.ascii());
-	return system(cmd1.local8Bit());
+	return system(cmd1.toLocal8Bit().constData());
 }
 
 int convertPS2PS(QString in, QString out, const QStringList& opts, int level)
@@ -365,7 +365,7 @@ QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 		double sx = image.width() / static_cast<double>(Size);
 		double sy = image.height() / static_cast<double>(Size);
 		double t = (sy < sx ? sx : sy);
-		im2 = image.smoothScale(static_cast<int>(image.width() / t), static_cast<int>(image.height() / t));
+		im2 = image.scaled(static_cast<int>(image.width() / t), static_cast<int>(image.height() / t), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		pm.fromImage(im2);
 		QPainter p;
 		p.begin(&pm);

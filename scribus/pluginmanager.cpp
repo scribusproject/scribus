@@ -303,7 +303,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 				mw->scrMenuMgr->addMenuItem(mw->scrActions[ai.name], ai.menu);
 			else
 			{
-				QString actionName(ai.menu.lower()+ai.menuAfterName);
+				QString actionName(ai.menu.toLower()+ai.menuAfterName);
 				ScrAction* afterAction=0;
 				if (mw->scrActions.contains(actionName))
 					afterAction=mw->scrActions[actionName];

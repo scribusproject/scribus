@@ -51,7 +51,7 @@ const int SCRIBUS_API unitGetBaseFromIndex(const int index)
  */
 const double unitValueFromString(const QString& value)
 {
-	QString lowerValue = value.lower();
+	QString lowerValue = value.toLower();
 	QString dbl = "0.0";
 	if (lowerValue.indexOf("pt") != -1)
 	{
@@ -93,7 +93,7 @@ const double unitValueFromString(const QString& value)
  */
 const scUnit unitIndexFromString(const QString& value)
 {
-	QString lowerValue = value.lower();
+	QString lowerValue = value.toLower();
 	scUnit retVal;
 	if (lowerValue.indexOf("pt") != -1)
 	{

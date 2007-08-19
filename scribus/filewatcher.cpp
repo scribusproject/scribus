@@ -125,27 +125,27 @@ void FileWatcher::checkFiles()
 	QMap<QString, fileMod>::Iterator it;
 	for ( it = watchedFiles.begin(); it != watchedFiles.end(); ++it )
 	{
-		it.data().info.refresh();
-		if (!it.data().info.exists())
+		it.value().info.refresh();
+		if (!it.value().info.exists())
 		{
-			if (!it.data().pending)
+			if (!it.value().pending)
 			{
-				it.data().pendingCount = 5;
-				it.data().pending = true;
+				it.value().pendingCount = 5;
+				it.value().pending = true;
 				emit statePending(it.key());
 				continue;
 			}
 			else
 			{
-				if (it.data().pendingCount != 0)
+				if (it.value().pendingCount != 0)
 				{
-					it.data().pendingCount--;
+					it.value().pendingCount--;
 					continue;
 				}
 				else
 				{
-					it.data().pending = false;
-					if (it.data().info.isDir())
+					it.value().pending = false;
+					if (it.value().info.isDir())
 						emit dirDeleted(it.key());
 					else
 						emit fileDeleted(it.key());
@@ -156,22 +156,22 @@ void FileWatcher::checkFiles()
 		}
 		else
 		 {
-			it.data().pending = false;
-			time = it.data().info.lastModified();
-			if (time != it.data().timeInfo)
+			it.value().pending = false;
+			time = it.value().info.lastModified();
+			if (time != it.value().timeInfo)
 			{
-				if (it.data().info.isDir())
+				if (it.value().info.isDir())
 					emit dirChanged(it.key());
 				else
 				{
-					uint sizeo = it.data().info.size();
+					uint sizeo = it.value().info.size();
 			#ifndef _WIN32
 					usleep(100);
 			#else
 					Sleep(1);
 			#endif
-					it.data().info.refresh();
-					uint sizen = it.data().info.size();
+					it.value().info.refresh();
+					uint sizen = it.value().info.size();
 					while (sizen != sizeo)
 					{
 						sizeo = sizen;
@@ -180,10 +180,10 @@ void FileWatcher::checkFiles()
 				#else
 						Sleep(1);
 				#endif
-						it.data().info.refresh();
-						sizen = it.data().info.size();
+						it.value().info.refresh();
+						sizen = it.value().info.size();
 					}
-					it.data().timeInfo = time;
+					it.value().timeInfo = time;
 					emit fileChanged(it.key());
 				}
 			}

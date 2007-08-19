@@ -191,7 +191,7 @@ void PrefsDialogBase::languageChange()
 void PrefsDialogBase::saveButton_clicked()
 {
 	QString s = QFileDialog::getSaveFileName(
-			QDir::currentDirPath(),
+			QDir::currentPath(),
 			"All Files (*)",
 			this,
 			"save prefs",

@@ -31,31 +31,31 @@ void nfttemplate::remove()
 		QString line = stream.readLine();
 		while (!line.isNull())
 		{
-			if ((line.find(enCategory) != -1) || collect)
+			if ((line.indexOf(enCategory) != -1) || collect)
 			{
 				collect = true;
 				line += "\n";
 				tmp += line;
-				if (line.find("name") != -1)
+				if (line.indexOf("name") != -1)
 				{
-					if (line.find(name) == -1)
+					if (line.indexOf(name) == -1)
 					{
 						collect = false;
 						newTmplXml += tmp;
 						tmp = "";
 					}
 				} 
-				else if (line.find("file") != -1)
+				else if (line.indexOf("file") != -1)
 				{
-					QString shortFile = file.right(file.length() - file.findRev("/") -1);
-					if (line.find(shortFile) == -1)
+					QString shortFile = file.right(file.length() - file.lastIndexOf("/") -1);
+					if (line.indexOf(shortFile) == -1)
 					{
 						collect = false;
 						newTmplXml += tmp;
 						tmp = "";
 					}
 				} 
-				else if (line.find("</template>") != -1)
+				else if (line.indexOf("</template>") != -1)
 				{
 					collect = false;
 					tmp = "";

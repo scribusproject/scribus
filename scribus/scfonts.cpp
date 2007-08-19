@@ -155,8 +155,8 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 					AddScalableFonts(pathfile);
 				continue;
 			}
-			QString ext = fi.extension(false).lower();
-			QString ext2 = fi2.extension(false).lower();
+			QString ext = fi.extension(false).toLower();
+			QString ext2 = fi2.extension(false).toLower();
 			if ((ext != ext2) && (ext.isEmpty())) 
 				ext = ext2;
 			if ((ext == "ttc") || (ext == "dfont") || (ext == "pfa") || (ext == "pfb") || (ext == "ttf") || (ext == "otf"))

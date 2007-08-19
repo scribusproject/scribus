@@ -10,8 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "tabscrapbook.h"
 //#include "tabscrapbook.moc"
 
-TabScrapbook::TabScrapbook(QWidget* parent, const char* name)
-	: QWidget(parent, name, 0)
+TabScrapbook::TabScrapbook(QWidget* parent)
+	: QWidget(parent, 0)
 {
 	setupUi(this);
 }

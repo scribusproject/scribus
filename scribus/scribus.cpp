@@ -3323,7 +3323,7 @@ void ScribusMainWindow::pasteRecent(QString fn)
 {
 	QString data = scrapbookPalette->tempBView->objectMap[fn].Data;
 	QFileInfo fi(data);
-	if (fi.extension(true).lower() == "sml")
+	if (fi.extension(true).toLower() == "sml")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -3331,7 +3331,7 @@ void ScribusMainWindow::pasteRecent(QString fn)
 		data = pre->createObjects(f);
 		delete pre;
 	}
-	else if (fi.extension(true).lower() == "shape")
+	else if (fi.extension(true).toLower() == "shape")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -3339,7 +3339,7 @@ void ScribusMainWindow::pasteRecent(QString fn)
 		data = pre->createShape(f);
 		delete pre;
 	}
-	else if (fi.extension(true).lower() == "sce")
+	else if (fi.extension(true).toLower() == "sce")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -4396,7 +4396,7 @@ bool ScribusMainWindow::DoFileClose()
 		if ( QDir().exists(prefsDocDir) )
 			QDir::setCurrent( PrefsManager::instance()->documentDir() );
 		else
-			QDir::setCurrent( QDir::homeDirPath() );
+			QDir::setCurrent( QDir::homePath() );
 	}
 	styleManager->setDoc(0);
 	return true;
@@ -4460,7 +4460,7 @@ void ScribusMainWindow::slotReallyPrint()
 		else
 		{
 			QDir di = QDir();
-			doc->Print_Options.filename = di.currentDirPath()+"/"+doc->DocName+".ps";
+			doc->Print_Options.filename = di.currentPath()+"/"+doc->DocName+".ps";
 		}
 	}
 	doc->Print_Options.copies = 1;
@@ -7686,9 +7686,9 @@ void ScribusMainWindow::reallySaveAsEps()
 	{
 		QDir di = QDir();
 		if (doc->m_Selection->count() != 0)
-			fna = di.currentDirPath() + "/" + doc->DocName + "_selection.eps";
+			fna = di.currentPath() + "/" + doc->DocName + "_selection.eps";
 		else
-			fna = di.currentDirPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
+			fna = di.currentPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
 	fna = QDir::convertSeparators(fna);
 	QString wdir = ".";
@@ -8624,7 +8624,7 @@ void ScribusMainWindow::initHyphenator()
 		for (uint dc = 0; dc < d2.count(); dc++)
 		{
 			QFileInfo fi(pfad + d2[dc]);
-			QString ext = fi.extension(false).lower();
+			QString ext = fi.extension(false).toLower();
 			if (ext == "qm")
 			{
     			QTranslator *trans = new QTranslator(0);
@@ -9221,7 +9221,7 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 		Q3UriDrag::decodeLocalFiles(e, fileUrls);
 		for( int i = 0; i < fileUrls.count(); ++i )
 		{
-			fileUrl = fileUrls[i].lower();
+			fileUrl = fileUrls[i].toLower();
 			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
 			{
 				accepted = true;;
@@ -9242,7 +9242,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 		Q3UriDrag::decodeLocalFiles(e, fileUrls);
 		for( int i = 0; i < fileUrls.count(); ++i )
 		{
-			fileUrl = fileUrls[i].lower();
+			fileUrl = fileUrls[i].toLower();
 			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
 			{
 				QUrl url( fileUrls[i] );

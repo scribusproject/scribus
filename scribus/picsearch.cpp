@@ -66,7 +66,7 @@ void PicSearch::createPreview()
 	int w = 200;
 	int h = 200;
 	bool mode = false;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if (ext.isEmpty())
 		ext = getImageType(currentImage);
 	ScImage im;
@@ -94,8 +94,8 @@ void PicSearch::createPreview()
 		{
 			double sx = im.width() / static_cast<double>(w-5);
 			double sy = im.height() / static_cast<double>(h-44);
-			im2 = sy < sx ?  im.smoothScale(qRound(im.width() / sx), qRound(im.height() / sx)) :
-								im.smoothScale(qRound(im.width() / sy), qRound(im.height() / sy));
+			im2 = sy < sx ? im.scaled(qRound(im.width() / sx), qRound(im.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation)
+						: im.scaled(qRound(im.width() / sy), qRound(im.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		}
 		else
 			im2 = im.qImage(); // no need to copy

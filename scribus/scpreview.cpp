@@ -188,8 +188,8 @@ QPixmap ScPreview::createPreview(QString data)
 		if(pg.tagName()=="ITEM")
 		{
 			currItem++;
-			QString CurDirP = QDir::currentDirPath();
-			QDir::setCurrent(QDir::homeDirPath());
+			QString CurDirP = QDir::currentPath();
+			QDir::setCurrent(QDir::homePath());
 			Segments.clear();
 			// TODO: Nicer conversion
 			OB.PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
@@ -372,7 +372,7 @@ QPixmap ScPreview::createPreview(QString data)
 						continue;
 					QStringList wt;
 					QStringList::Iterator it;
-					wt = QStringList::split("\t", cc);
+					wt = cc.split("\t");
 					it = wt.begin();
 					hg = new ScText;
 					hg->ch = it->at(0);
@@ -624,10 +624,10 @@ QPixmap ScPreview::createPreview(QString data)
 								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.scalingSubScript / 100);
 							if (hl->effects() & 64)
 							{
-								if (chstr.upper() != chstr)
+								if (chstr.toUpper() != chstr)
 								{
 									chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
-									chstr = chstr.upper();
+									chstr = chstr.toUpper();
 								}
 							}
 						}
@@ -858,10 +858,10 @@ QPixmap ScPreview::createPreview(QString data)
 						}
 						if (chst & 64)
 						{
-							if (chstr.upper() != chstr)
+							if (chstr.toUpper() != chstr)
 							{
 								chs = static_cast<int>(hl->fontSize() * prefsManager->appPrefs.typographicSettings.valueSmallCaps / 100);
-								chstr = chstr.upper();
+								chstr = chstr.toUpper();
 							}
 						}
 					}
@@ -959,7 +959,7 @@ QPixmap ScPreview::createPreview(QString data)
 	}
 	pS->endLayer();
 	pS->end();
-	QImage tmpi = tmp.smoothScale(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax));
+	QImage tmpi = tmp.scaled(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	QPixmap ret;
 	ret.fromImage(tmpi);
 	delete pS;

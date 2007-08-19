@@ -82,9 +82,9 @@ QImage* ScImage::qImagePtr()
 	return this;
 }
 
-QImage ScImage::smoothScale(int h, int w, Qt::AspectRatioMode mode) const
+QImage ScImage::scaled(int h, int w, Qt::AspectRatioMode mode, Qt::TransformationMode transformMode) const
 {
-	return QImage::smoothScale(h,w,mode);
+	return QImage::scaled(h, w, mode, transformMode);
 }
 
 
@@ -1687,7 +1687,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 	if (!fi.exists())
 		return retArray;
 	QString tmp, BBox, tmp2;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if (extensionIndicatesJPEG(ext))
 		return retArray;
 	if (extensionIndicatesPDF(ext))
@@ -1796,7 +1796,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 
 	if (extensionIndicatesPSD(ext))
 		pDataLoader = new ScImgDataLoader_PSD();
@@ -1851,7 +1851,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return ret;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
 	QChar tc;
 	QString profileName = "";

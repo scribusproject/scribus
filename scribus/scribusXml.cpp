@@ -929,7 +929,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	int x, GrMax = doc->GroupCounter;
 	ScColor lf = ScColor();
 
-	QString fileDir = QDir::homeDirPath();
+	QString fileDir = QDir::homePath();
 	if (Fi)
 	{
 		QByteArray f;
@@ -985,8 +985,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	TableItems.clear();
 	TableID.clear();
 	arrowID.clear();
-	QString CurDirP = QDir::currentDirPath();
-	QDir::setCurrent(QDir::homeDirPath());
+	QString CurDirP = QDir::currentPath();
+	QDir::setCurrent(QDir::homePath());
 	int startNumArrows = doc->arrowStyles.count();
 	while (!sReader.atEnd() && !sReader.hasError())
 	{
@@ -1206,21 +1206,21 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 					if (!OB.Pfile.isEmpty())
 					{
 						QFileInfo pfi(fileName);
-						QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile));
+						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile));
 						QFileInfo pfi2(test);
 						OB.Pfile = pfi2.absFilePath();
 					}
 					if (!OB.Pfile2.isEmpty())
 					{
 						QFileInfo pfi(fileName);
-						QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile2));
+						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile2));
 						QFileInfo pfi2(test);
 						OB.Pfile2 = pfi2.absFilePath();
 					}
 					if (!OB.Pfile3.isEmpty())
 					{
 						QFileInfo pfi(fileName);
-						QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile3));
+						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile3));
 						QFileInfo pfi2(test);
 						OB.Pfile3 = pfi2.absFilePath();
 					}
@@ -1396,21 +1396,21 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			if (!OB.Pfile.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile));
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile));
 				QFileInfo pfi2(test);
 				OB.Pfile = pfi2.absFilePath();
 			}
 			if (!OB.Pfile2.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile2));
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile2));
 				QFileInfo pfi2(test);
 				OB.Pfile2 = pfi2.absFilePath();
 			}
 			if (!OB.Pfile3.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanDirPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile3));
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile3));
 				QFileInfo pfi2(test);
 				OB.Pfile3 = pfi2.absFilePath();
 			}
@@ -1496,7 +1496,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
-	QString baseDir = QDir::homeDirPath();
+	QString baseDir = QDir::homePath();
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
 	item = selection->itemAt(0);
@@ -1739,7 +1739,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		pat.setAttribute("height", pa.height);
 		for (int o = 0; o < pa.items.count(); o++)
 		{
-			QDir::setCurrent(QDir::homeDirPath());
+			QDir::setCurrent(QDir::homePath());
 			item = pa.items.at(o);
 			QDomElement ob = docu.createElement("PatternItem");
 			WriteObject(doc, docu, ob, baseDir, UsedMapped2Saved, item);
@@ -1749,7 +1749,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	}
 	for (int co=0; co<selection->count(); ++co)
 	{
-		QDir::setCurrent(QDir::homeDirPath());
+		QDir::setCurrent(QDir::homePath());
 		item = doc->Items->at(ELL[co]);
 		QDomElement ob = docu.createElement("ITEM");
 		WriteObject(doc, docu, ob, baseDir, UsedMapped2Saved, item);
@@ -1765,7 +1765,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 	double te, tsh, tshs, te2, tsh2, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
 	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
-	QString CurDirP = QDir::currentDirPath();
+	QString CurDirP = QDir::currentPath();
 
 	int textAlignment = item->itemText.defaultStyle().alignment();
 	ob.setAttribute("ALIGN",textAlignment);

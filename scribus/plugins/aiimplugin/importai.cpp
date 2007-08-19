@@ -70,7 +70,7 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 	convertedPDF = false;
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -197,7 +197,7 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-	QString CurDirP = QDir::currentDirPath();
+	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName))
 	{

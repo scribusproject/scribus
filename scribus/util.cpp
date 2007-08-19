@@ -578,11 +578,11 @@ QString checkFileExtension(const QString &currName, const QString &extension)
 	//If filename ends with a period, just add the extension
 	if (newName.right(1)==".")
 	{
-		newName+=extension.lower();
+		newName+=extension.toLower();
 		return newName;
 	}
 	//If filename doesnt end with the period+extension, add it on
-	QString dotExt("." + extension.lower());
+	QString dotExt("." + extension.toLower());
 	if (!newName.endsWith(dotExt,false))
 		newName+=dotExt;
 	return newName;
@@ -611,7 +611,7 @@ const QString getStringFromSequence(DocumentSectionType type, uint position)
 			retVal=QString::number(position);
 			break;
 		case Type_A_B_C:
-			retVal=numberToLetterSequence(position).upper();
+			retVal=numberToLetterSequence(position).toUpper();
 			break;
 		case Type_a_b_c:
 			retVal=numberToLetterSequence(position);
@@ -622,7 +622,7 @@ const QString getStringFromSequence(DocumentSectionType type, uint position)
 		case Type_i_ii_iii:
 			//well, for lower case people will want that, even if its "wrong"
 			//ie, X=10, x=10000
-			retVal=arabicToRoman(position).lower();
+			retVal=arabicToRoman(position).toLower();
 			break;
 		case Type_None:
 			break;

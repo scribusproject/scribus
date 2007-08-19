@@ -306,7 +306,7 @@ void Tree::slotRightClick(QPoint point)
 						ColCT->setText( tr("Colorspace: "));
 						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 						QString cSpace;
-						QString ext = fi.extension(false).lower();
+						QString ext = fi.extension(false).toLower();
 						if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != 7))
 							cSpace = tr("Unknown");
 						else

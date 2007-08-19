@@ -90,7 +90,7 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	p.drawRect(12, 12, 104, 104);
 	if (item->PicAvail)
 	{
-		QImage im2 = item->pixm.smoothScale(104, 104, Qt::ScaleMin);
+		QImage im2 = item->pixm.scaled(104, 104, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 		p.drawImage((104 - im2.width()) / 2 + 12, (104 - im2.height()) / 2 + 12, im2);
 	}
 	else
@@ -146,7 +146,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 		if (currItem->PicAvail)
 		{
 			QFileInfo fi = QFileInfo(currItem->Pfile);
-			QString ext = fi.extension(false).lower();
+			QString ext = fi.extension(false).toLower();
 			displayName->setText(fi.fileName());
 			displayPath->setText(QDir::convertSeparators(fi.dirPath()));
 			QString format = "";
@@ -171,7 +171,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 					format = tr("JPG2000");
 					break;
 				case 6:
-					format = ext.upper();
+					format = ext.toUpper();
 					break;
 				case 7:
 					format = tr("emb. PSD");

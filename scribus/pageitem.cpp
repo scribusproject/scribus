@@ -1623,15 +1623,15 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 		layout.scaleV *= style.scaleV() / 1000.0;
 		if (chst & ScStyle_AllCaps)
 		{
-			layout.glyph = style.font().char2CMap(chars[0].upper().unicode());
+			layout.glyph = style.font().char2CMap(chars[0].toUpper().unicode());
 		}
 		if (chst & ScStyle_SmallCaps)
 		{
 			double smallcapsScale = m_Doc->typographicSettings.valueSmallCaps / 100.0;
-			QChar uc = chars[0].upper();
+			QChar uc = chars[0].toUpper();
 			if (uc != chars[0])
 			{
-				layout.glyph = style.font().char2CMap(chars[0].upper().unicode());
+				layout.glyph = style.font().char2CMap(chars[0].toUpper().unicode());
 				layout.scaleV *= smallcapsScale;
 				layout.scaleH *= smallcapsScale;
 			}
@@ -3834,7 +3834,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		BBoxH = pixm.imgInfo.BBoxH;
 		OrigW = pixm.width();
 		OrigH = pixm.height();
-		QString ext = fi.extension(false).lower();
+		QString ext = fi.extension(false).toLower();
 		isRaster = !(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext));
 		UseEmbedded=pixm.imgInfo.isEmbedded;
 		if (pixm.imgInfo.isEmbedded)

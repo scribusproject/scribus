@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribuscore.h"
 #include "nftemplate.h"
-//#include "nftemplate.moc"
 #include "nftdialog.h"
 #include "scraction.h"
 #include "menumanager.h"
@@ -109,14 +108,14 @@ void MenuNFT::RunNFTPlug(ScribusDoc* /*doc*/)
 	if (nftdia->exec())
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-		if (mw->loadDoc(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file)))
+		if (mw->loadDoc(QDir::cleanPath(nftdia->currentDocumentTemplate->file)))
 		{
 			mw->doc->hasName = false;
 			UndoManager::instance()->renameStack(nftdia->currentDocumentTemplate->name);
 			mw->doc->DocName = nftdia->currentDocumentTemplate->name;
 			mw->updateActiveWindowCaption(QObject::tr("Document Template: ") + nftdia->currentDocumentTemplate->name);
 			QDir::setCurrent(PrefsManager::instance()->documentDir());
-			mw->removeRecent(QDir::cleanDirPath(nftdia->currentDocumentTemplate->file));
+			mw->removeRecent(QDir::cleanPath(nftdia->currentDocumentTemplate->file));
 		}
 		qApp->restoreOverrideCursor();
 	}

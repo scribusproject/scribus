@@ -84,7 +84,7 @@ FileUnzip::FileUnzip(QString zipFilePath)
 
 QString FileUnzip::getFile(QString name)
 {
-	QString pwd = QDir::currentDirPath();
+	QString pwd = QDir::currentPath();
 	QString outDir = ScPaths::getTempFileDir();
 	QFile f(outDir);
 	QFileInfo fi(f);

@@ -102,7 +102,7 @@ void PatternDialog::loadPatternDir()
 		QString form1 = "";
 		for ( int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
 		{
-			form1 = QString(QImageReader::supportedImageFormats().at(i)).lower();
+			form1 = QString(QImageReader::supportedImageFormats().at(i)).toLower();
 			if (form1 == "jpeg")
 				form1 = "jpg";
 			if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
@@ -129,17 +129,17 @@ void PatternDialog::loadPatternDir()
 			{
 				mainWin->mainWindowProgressBar->setValue(dc);
 				qApp->processEvents(QEventLoop::ExcludeUserInput);
-				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
-				QString ext = fi.extension(true).lower();
+				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+				QString ext = fi.extension(true).toLower();
 				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
-					loadVectors(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+					loadVectors(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 			}
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
 				mainWin->mainWindowProgressBar->setValue(d.count() + dc);
 				qApp->processEvents(QEventLoop::ExcludeUserInput);
-				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
-				QString ext = fi.extension(true).lower();
+				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+				QString ext = fi.extension(true).toLower();
 				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
 					continue;
 				else if (formats.contains(ext))
@@ -149,7 +149,7 @@ void PatternDialog::loadPatternDir()
 					{
 						ScPattern pat = ScPattern();
 						pat.setDoc(m_doc);
-						pat.setPattern(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+						pat.setPattern(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 						dialogPatterns.insert(patNam, pat);
 					}
 				}
@@ -174,8 +174,8 @@ void PatternDialog::loadPattern()
 	QString form2 = "";
 	for (int i = 0; i < QImageReader::supportedImageFormats().count(); ++i )
 	{
-		form1 = QString(QImageReader::supportedImageFormats().at(i)).lower();
-		form2 = QString(QImageReader::supportedImageFormats().at(i)).upper();
+		form1 = QString(QImageReader::supportedImageFormats().at(i)).toLower();
+		form2 = QString(QImageReader::supportedImageFormats().at(i)).toUpper();
 		if (form1 == "jpeg")
 		{
 			form1 = "jpg";
@@ -207,7 +207,7 @@ void PatternDialog::loadPattern()
 	{
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.findRev("/")));
 		QFileInfo fi(fileName);
-		if ((fi.extension(true).lower() == "sml") || (fi.extension(true).lower() == "shape") || (fi.extension(true).lower() == "sce"))
+		if ((fi.extension(true).toLower() == "sml") || (fi.extension(true).lower() == "shape") || (fi.extension(true).lower() == "sce"))
 		{
 			loadVectors(fileName);
 			updatePatternList();
@@ -231,7 +231,7 @@ void PatternDialog::loadVectors(QString data)
 {
 	QFileInfo fi(data);
 	QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
-	if (fi.extension(true).lower() == "sml")
+	if (fi.extension(true).toLower() == "sml")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -239,7 +239,7 @@ void PatternDialog::loadVectors(QString data)
 		data = pre->createObjects(f);
 		delete pre;
 	}
-	else if (fi.extension(true).lower() == "shape")
+	else if (fi.extension(true).toLower() == "shape")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -247,7 +247,7 @@ void PatternDialog::loadVectors(QString data)
 		data = pre->createShape(f);
 		delete pre;
 	}
-	else if (fi.extension(true).lower() == "sce")
+	else if (fi.extension(true).toLower() == "sce")
 	{
 		QString f = "";
 		loadText(data, &f);

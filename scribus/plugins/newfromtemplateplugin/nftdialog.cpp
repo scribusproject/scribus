@@ -56,7 +56,7 @@ void nftdialog::setupCategories()
 	categoryList->addItem(tr("All"));
 	for (uint i = 0; i < settings->templates.size(); i++)
 	{
-		if ((categories.find(settings->templates[i]->templateCategory) == -1) &&
+		if ((categories.indexOf(settings->templates[i]->templateCategory) == -1) &&
 		    (!settings->templates[i]->isDeleted))
 		{
 			categoryList->addItem(settings->templates[i]->templateCategory);
@@ -103,7 +103,7 @@ void nftdialog::setTNails()
 		tnailGrid->clear();
 		for (uint i = 0; i < iconItems.size(); ++i)
 		{
-			if (curtype.find(iconItems[i]->first->templateCategory) != -1)
+			if (curtype.indexOf(iconItems[i]->first->templateCategory) != -1)
 			{
 				QPixmap pm(iconItems[i]->first->tnail);
 				QListWidgetItem* tmpQIVI = new QListWidgetItem(pm,

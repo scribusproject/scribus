@@ -24,13 +24,13 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	setupUi(this);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
 	
-	outputDirectory->setText( QDir::convertSeparators(prefs->get("wdir", QDir::currentDirPath())) );
+	outputDirectory->setText( QDir::convertSeparators(prefs->get("wdir", QDir::currentPath())) );
 	QList<QByteArray> imgs = QImageWriter::supportedImageFormats();
 	for (int a = 0; a < imgs.count(); a++)
 	{
 		bitmapType->addItem(imgs[a]);
 	}
-	bitmapType->setCurrentText(type.lower());
+	bitmapType->setCurrentText(type.toLower());
 	qualityBox->setValue(quality);
 	DPIBox->setValue(size);
 	enlargementBox->setValue(size);

@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtwriter.h"
 #include "page.h"
 
-TOCGenerator::TOCGenerator(QObject *parent, const char *name, ScribusDoc *doc) : QObject(parent, name)
+TOCGenerator::TOCGenerator(QObject *parent, ScribusDoc *doc) : QObject(parent)
 {
 	currDoc=doc;
 }
@@ -129,14 +129,14 @@ void TOCGenerator::generateDefault()
 					QString tocLine;
 					//Start with text or numbers
 					if ((*tocSetupIt).pageLocation==End || (*tocSetupIt).pageLocation==NotShown)
-						tocLine = tocIt.data();
+						tocLine = tocIt.value();
 					if ((*tocSetupIt).pageLocation==Beginning && oldTocPage!=tocPage)
 						tocLine = tocPage;
 					//Add in the tab for the leaders
 					tocLine+="\t";
 					//End with text or numbers
 					if ((*tocSetupIt).pageLocation==Beginning)
-						tocLine += tocIt.data();
+						tocLine += tocIt.value();
 					if ((*tocSetupIt).pageLocation==End && oldTocPage!=tocPage)
 						tocLine += tocPage;
 					tocLine += "\n";

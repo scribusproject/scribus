@@ -129,9 +129,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel3b = new QLabel(colorComboText, tr( "Text Color:" ), subTabText, "textLabel3b" );
 	subTabTextLayout->addWidget( textLabel3b, 3, 0 );
 	shadingText = new QSpinBox( subTabText, "shadingText" );
-	shadingText->setMaxValue( 100 );
+	shadingText->setMaximum( 100 );
 	shadingText->setSuffix( tr( " %" ) );
-	shadingText->setMinValue( 0 );
+	shadingText->setMinimum( 0 );
 	subTabTextLayout->addWidget( shadingText, 3, 3, Qt::AlignLeft );
 	textLabelTS = new QLabel( shadingText, tr( "Shading:" ), subTabText, "textLabelTS" );
 	subTabTextLayout->addWidget( textLabelTS, 3, 2 );
@@ -142,9 +142,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel3b2 = new QLabel(colorComboStrokeText, tr( "Text Stroke:" ), subTabText, "textLabel3b2" );
 	subTabTextLayout->addWidget( textLabel3b2, 4, 0 );
 	shadingTextStroke = new QSpinBox( subTabText, "shadingTextStroke" );
-	shadingTextStroke->setMaxValue( 100 );
+	shadingTextStroke->setMaximum( 100 );
 	shadingTextStroke->setSuffix( tr( " %" ) );
-	shadingTextStroke->setMinValue( 0 );
+	shadingTextStroke->setMinimum( 0 );
 
 	subTabTextLayout->addWidget( shadingTextStroke, 4, 3, Qt::AlignLeft );
 	textLabelTSS = new QLabel( shadingTextStroke, tr( "Shading:" ), subTabText, "textLabelTS" );
@@ -156,9 +156,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel3bT = new QLabel(colorComboTextBackground, tr( "Fill Color:" ), subTabText, "textLabel3b" );
 	subTabTextLayout->addWidget( textLabel3bT, 5, 0 );
 	shadingTextBack = new QSpinBox( subTabText, "shadingTextBack" );
-	shadingTextBack->setMaxValue( 100 );
+	shadingTextBack->setMaximum( 100 );
 	shadingTextBack->setSuffix( tr( " %" ) );
-	shadingTextBack->setMinValue( 0 );
+	shadingTextBack->setMinimum( 0 );
 
 	subTabTextLayout->addWidget( shadingTextBack, 5, 3, Qt::AlignLeft );
 	textLabelTSB = new QLabel( shadingTextBack, tr( "Shading:" ), subTabText, "textLabelTSS" );
@@ -170,9 +170,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel3bTL = new QLabel(colorComboTextLine, tr( "Stroke Color:" ), subTabText, "textLabel3b2" );
 	subTabTextLayout->addWidget( textLabel3bTL, 6, 0 );
 	shadingTextLine = new QSpinBox( subTabText, "shadingTextStroke" );
-	shadingTextLine->setMaxValue( 100 );
+	shadingTextLine->setMaximum( 100 );
 	shadingTextLine->setSuffix( tr( " %" ) );
-	shadingTextLine->setMinValue( 0 );
+	shadingTextLine->setMinimum( 0 );
 
 	subTabTextLayout->addWidget( shadingTextLine, 6, 3, Qt::AlignLeft );
 	textLabelTSL = new QLabel( shadingTextLine, tr( "Shading:" ), subTabText, "textLabelTSL" );
@@ -189,8 +189,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel3b2t2 = new QLabel(gapTab, tr( "Tab Width:" ), subTabText, "textLabel3b2t2" );
 	subTabTextLayout->addWidget( textLabel3b2t2, 7, 2 );
 	columnsText = new QSpinBox( subTabText, "columnsText" );
-	columnsText->setMinValue( 1 );
-	columnsText->setMaxValue(100);
+	columnsText->setMinimum( 1 );
+	columnsText->setMaximum(100);
 
 	subTabTextLayout->addWidget( columnsText, 8, 1, Qt::AlignLeft );
 	textLabel4b = new QLabel(columnsText, tr("Colu&mns:"), subTabText, "TextCol");
@@ -222,9 +222,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel7b = new QLabel( colorComboLineShape, tr( "&Line Color:" ), subTabShape, "textLabel7b" );
 	subTabShapeLayout->addWidget( textLabel7b, 1, 0 );
 	shadingLineShape = new QSpinBox( subTabShape, "shadingLineShape" );
-	shadingLineShape->setMaxValue( 100 );
+	shadingLineShape->setMaximum( 100 );
 	shadingLineShape->setSuffix( tr( " %" ) );
-	shadingLineShape->setMinValue( 0 );
+	shadingLineShape->setMinimum( 0 );
 
 	subTabShapeLayout->addWidget( shadingLineShape, 2, 1, Qt::AlignLeft );
 	textLabel8b = new QLabel( shadingLineShape, tr( "&Shading:" ), subTabShape, "textLabel8b" );
@@ -235,9 +235,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel9b = new QLabel( comboFillShape, tr( "&Fill Color:" ), subTabShape, "textLabel9b" );
 	subTabShapeLayout->addWidget( textLabel9b, 3, 0 );
 	shadingFillShape = new QSpinBox( subTabShape, "shadingFillShape" );
-	shadingFillShape->setMaxValue( 100 );
+	shadingFillShape->setMaximum( 100 );
 	shadingFillShape->setSuffix( tr( " %" ) );
-	shadingFillShape->setMinValue( 0 );
+	shadingFillShape->setMinimum( 0 );
 
 	subTabShapeLayout->addWidget( shadingFillShape, 4, 1, Qt::AlignLeft );
 	textLabel10b = new QLabel( shadingFillShape, tr( "S&hading:" ), subTabShape, "textLabel10b" );
@@ -271,7 +271,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel13b = new QLabel(colorComboLine, tr("&Line Color:"), subTabLine, "textLabel13b" );
 	subTabLineLayout->addWidget( textLabel13b, 1, 0 );
 	shadingLine = new QSpinBox( subTabLine, "shadingLine" );
-	shadingLine->setMaxValue( 100 );
+	shadingLine->setMaximum( 100 );
 
 	shadingLine->setSuffix( tr( " %" ) );
 	subTabLineLayout->addWidget( shadingLine, 2, 1, Qt::AlignLeft );
@@ -320,16 +320,16 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	buttonGroup3Layout->setSpacing(5);
 	buttonGroup3Layout->setAlignment( Qt::AlignTop );
 	scalingHorizontal = new QSpinBox( buttonGroup3, "scalingHorizontal" );
-	scalingHorizontal->setMaxValue( 1000 );
-	scalingHorizontal->setMinValue( 1 );
+	scalingHorizontal->setMaximum( 1000 );
+	scalingHorizontal->setMinimum( 1 );
 
 	scalingHorizontal->setSuffix( tr( " %" ) );
 	buttonGroup3Layout->addWidget( scalingHorizontal, 0, 1, Qt::AlignRight );
 	textLabel17b = new QLabel(scalingHorizontal, tr("&Horizontal Scaling:"), buttonGroup3, "textLabel17b" );
 	buttonGroup3Layout->addWidget( textLabel17b, 0, 0 );
 	scalingVertical = new QSpinBox( buttonGroup3, "scalingVertical" );
-	scalingVertical->setMaxValue( 1000 );
-	scalingVertical->setMinValue( 1 );
+	scalingVertical->setMaximum( 1000 );
+	scalingVertical->setMinimum( 1 );
 	scalingVertical->setSuffix( tr( " %" ) );
 
 	buttonGroup3Layout->addWidget( scalingVertical, 1, 1, Qt::AlignRight );
@@ -358,7 +358,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel19b = new QLabel(comboFillImage, tr( "F&ill Color:" ), subTabImage, "textLabel19b" );
 	subTabImageLayout->addWidget( textLabel19b, 3, 0 );
 	shadingFillImage = new QSpinBox( subTabImage, "shadingFillImage" );
-	shadingFillImage->setMaxValue( 100 );
+	shadingFillImage->setMaximum( 100 );
 
 	shadingFillImage->setSuffix( tr( " %" ) );
 	subTabImageLayout->addWidget( shadingFillImage, 4, 1, Qt::AlignLeft );
@@ -408,16 +408,16 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	zoomHeadLine->setFont(f);
 	subTabZoomLayout->addWidget( zoomHeadLine, 0, 0, 1, 2, Qt::AlignHCenter | Qt::AlignTop );
 	minimumZoom = new QSpinBox( subTabZoom, "minimumZoom" );
-	minimumZoom->setMaxValue( 3200 );
-	minimumZoom->setMinValue( 10 );
+	minimumZoom->setMaximum( 3200 );
+	minimumZoom->setMinimum( 10 );
 	minimumZoom->setSuffix( tr( " %" ) );
 	subTabZoomLayout->addWidget( minimumZoom, 1, 1, Qt::AlignLeft );
 	textLabel21b = new QLabel( minimumZoom, tr( "Mi&nimum:" ), subTabZoom, "textLabel21b" );
 	subTabZoomLayout->addWidget( textLabel21b, 1, 0);
 
 	maximumZoom = new QSpinBox( subTabZoom, "maximumZoom" );
-	maximumZoom->setMaxValue( 3200 );
-	maximumZoom->setMinValue( 10 );
+	maximumZoom->setMaximum( 3200 );
+	maximumZoom->setMinimum( 10 );
 	maximumZoom->setSuffix( tr( " %" ) );
 	subTabZoomLayout->addWidget( maximumZoom, 2, 1, Qt::AlignLeft );
 	textLabel22b = new QLabel( maximumZoom, tr( "Ma&ximum:" ), subTabZoom, "textLabel22b" );

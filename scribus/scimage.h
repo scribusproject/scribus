@@ -89,7 +89,7 @@ public:
 
 	const QImage& qImage();
 	QImage* qImagePtr();
-	QImage smoothScale(int h, int w, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio) const;
+	QImage scaled(int h, int w, Qt::AspectRatioMode mode = Qt::IgnoreAspectRatio, Qt::TransformationMode transformMode = Qt::FastTransformation) const;
 	
 	int height() const { return QImage::height(); }
 	int width() const { return QImage::width(); }

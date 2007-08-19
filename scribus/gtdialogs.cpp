@@ -110,7 +110,7 @@ gtDialogs::gtDialogs()
 	encoding = "";
 	importer = -1;
 	prefs = PrefsManager::instance()->prefsFile->getContext("gtDialogs");
-	pwd = QDir::currentDirPath();
+	pwd = QDir::currentPath();
 }
 
 bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importers)
@@ -140,7 +140,7 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 	int curSel = prefs->getInt("curSel", 0);
 	QString extension = "";
 	QString shortName = fileName.right(fileName.length() - fileName.findRev("/") - 1);
-	if (shortName.find(".") == -1)
+	if (shortName.indexOf(".") == -1)
 		extension = ".no_extension";
 	else
 		extension = fileName.right(fileName.length() - fileName.findRev("."));
@@ -182,9 +182,9 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 			{
 				importer = i;
 				prefs->set("curSel", static_cast<int>(i));
-				if (fileName.find(".") != -1)
+				if (fileName.indexOf(".") != -1)
 				{
-					if (shortName.find(".") == -1)
+					if (shortName.indexOf(".") == -1)
 						fileExtension = ".no_extension";
 					else
 						fileExtension = fileName.right(fileName.length() - fileName.findRev("."));

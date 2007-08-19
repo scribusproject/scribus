@@ -278,7 +278,7 @@ void HelpBrowser::languageChange()
 	static bool first=true;
 	if (!first)
 	{
-		QString fname(QDir::cleanDirPath(textBrowser->source()));
+		QString fname(QDir::cleanPath(textBrowser->source()));
 		QFileInfo fi(fname);
 		QString filename(fi.fileName());
 		if (ScCore->getGuiLanguage().isEmpty())
@@ -378,7 +378,7 @@ void HelpBrowser::findPrevious()
 void HelpBrowser::bookmarkButton_clicked()
 {
 	QString title = textBrowser->documentTitle();
-	QString fname(QDir::cleanDirPath(textBrowser->source()));
+	QString fname(QDir::cleanPath(textBrowser->source()));
  	title = QInputDialog::getText( tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0, this);
 	// user cancel
  	if (title.isNull())

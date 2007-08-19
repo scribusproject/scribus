@@ -29,7 +29,7 @@ void ScImgDataLoader::setRequest(bool valid, QMap<int, ImageLoadRequest> req)
 
 bool ScImgDataLoader::supportFormat(const QString& fmt) 
 {
-	QString format = fmt.lower();
+	QString format = fmt.toLower();
 	return (m_supportedFormats.contains(format));
 }
 

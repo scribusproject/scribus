@@ -204,7 +204,7 @@ void ScripterCore::FinishScriptRun()
 void ScripterCore::runScriptDialog()
 {
 	QString fileName;
-	QString curDirPath = QDir::currentDirPath();
+	QString curDirPath = QDir::currentPath();
 	RunScriptDialog dia( ScCore->primaryMainWindow(), m_enableExtPython );
 	if (dia.exec())
 	{

@@ -264,7 +264,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 			{
 				QTreeWidgetItem * layer = new QTreeWidgetItem( item, pagep );
 				errorCodes::Iterator it03;
-				for (it03 = it01.data().begin(); it03 != it01.data().end(); ++it03)
+				for (it03 = it01.value().begin(); it03 != it01.value().end(); ++it03)
 				{
 					QTreeWidgetItem * errorText = new QTreeWidgetItem( layer, 0 );
 					switch (it03.key())
@@ -305,9 +305,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					masterPageItemMap.insert(object, doc->MasterItems.at(it2.key())->ItemNr);
 					object->setText(0, doc->MasterItems.at(it2.key())->itemName());
 					errorCodes::Iterator it3;
-					if (it2.data().count() == 1)
+					if (it2.value().count() == 1)
 					{
-						it3 = it2.data().begin();
+						it3 = it2.value().begin();
 						switch (it3.key())
 						{
 						case MissingGlyph:
@@ -366,7 +366,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					}
 					else
 					{
-						for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
+						for (it3 = it2.value().begin(); it3 != it2.value().end(); ++it3)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
 							switch (it3.key())
@@ -475,9 +475,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					object->setText(0, doc->DocItems.at(it2.key())->itemName());
 					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
-					if (it2.data().count() == 1)
+					if (it2.value().count() == 1)
 					{
-						it3 = it2.data().begin();
+						it3 = it2.value().begin();
 						switch (it3.key())
 						{
 						case MissingGlyph:
@@ -536,7 +536,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					}
 					else
 					{
-						for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
+						for (it3 = it2.value().begin(); it3 != it2.value().end(); ++it3)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
 							switch (it3.key())
@@ -651,9 +651,9 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					object->setText(0, doc->DocItems.at(it2.key())->itemName());
 					itemMap.insert(object, doc->DocItems.at(it2.key())->ItemNr);
 					errorCodes::Iterator it3;
-					if (it2.data().count() == 1)
+					if (it2.value().count() == 1)
 					{
-						it3 = it2.data().begin();
+						it3 = it2.value().begin();
 						switch (it3.key())
 						{
 						case MissingGlyph:
@@ -665,7 +665,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							object->setText(1, textOverflow);
 							break;
 						case ObjectNotOnPage:
-							object->setText(1, notOnPage);
+// 							object->setText(1, notOnPage);
 							break;
 						case MissingImage:
 							object->setText(1, missingImg);
@@ -708,7 +708,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					}
 					else
 					{
-						for (it3 = it2.data().begin(); it3 != it2.data().end(); ++it3)
+						for (it3 = it2.value().begin(); it3 != it2.value().end(); ++it3)
 						{
 							QTreeWidgetItem * errorText = new QTreeWidgetItem( object, 0 );
 							switch (it3.key())

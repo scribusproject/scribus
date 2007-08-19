@@ -92,7 +92,7 @@ int FileLoader::TestFile()
 	int ret = -1;
 	if (!fi.exists())
 		ret = -1;
-	QString ext = fi.extension(true).lower();
+	QString ext = fi.extension(true).toLower();
 
 	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
 	QList<FileFormat>::const_iterator it(fileFormats.constBegin());

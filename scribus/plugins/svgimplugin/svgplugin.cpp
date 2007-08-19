@@ -204,7 +204,7 @@ bool SVGPlug::import(QString fname, int flags)
 {
 	if (!loadData(fname))
 		return false;
-	QString CurDirP = QDir::currentDirPath();
+	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
 	QDir::setCurrent(efp.dirPath());
 	convert(flags);
@@ -1550,7 +1550,7 @@ QMatrix SVGPlug::parseTransform( const QString &transform )
 	{
 		QMatrix result;
 		QStringList subtransform = QStringList::split('(', (*it));
-		subtransform[0] = subtransform[0].trimmed().lower();
+		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
 		QStringList params = QStringList::split(reg, subtransform[1]);
@@ -1672,7 +1672,7 @@ bool SVGPlug::parseSVG( const QString &s, FPointArray *ite )
 QColor SVGPlug::parseColorN( const QString &rgbColor )
 {
 	int r, g, b;
-	keywordToRGB( rgbColor.lower(), r, g, b );
+	keywordToRGB( rgbColor.toLower(), r, g, b );
 	return QColor( r, g, b );
 }
 

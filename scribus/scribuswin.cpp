@@ -39,7 +39,7 @@ ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent, "
 	setIcon(loadIcon("AppIcon2.png"));
 	m_Doc = doc;
 	m_masterPagesPalette = NULL;
-	currentDir = QDir::currentDirPath();
+	currentDir = QDir::currentPath();
 }
 
 void ScribusWin::setMainWindow(ScribusMainWindow *mw)
@@ -78,7 +78,7 @@ void ScribusWin::setView(ScribusView* newView)
 	statusFrameLayout->addWidget(m_View->previewToolbarButton);
 	statusFrameLayout->addWidget(m_View->visualMenu);
 	statusBar()->addWidget(statusFrame, 4, true);
-	currentDir = QDir::currentDirPath();
+	currentDir = QDir::currentPath();
 }
 
 void ScribusWin::slotAutoSave()
@@ -150,6 +150,6 @@ void ScribusWin::windowActivationChange ( bool oldActive )
 	if( isActiveWindow() )
 		QDir::setCurrent( currentDir );
 	else
-		currentDir = QDir::currentDirPath();
+		currentDir = QDir::currentPath();
 	QMainWindow::windowActivationChange( oldActive );
 }

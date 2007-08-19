@@ -717,9 +717,9 @@ void CMYKChoose::SelSwatch(int n)
 						if ((n<customSetStartIndex) && (Cname.length()==0))
 						{
 							if (!cus)
-								Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).upper();
+								Cname=QString("#%1%2%3").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).toUpper();
 							else
-								Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).upper();
+								Cname=QString("#%1%2%3%4").arg(Rval,2,16).arg(Gval,2,16).arg(Bval,2,16).arg(Kval,2,16).toUpper();
 							Cname.replace(" ","0");
 						}
 						if (CurrSwatch.contains(Cname))

@@ -369,7 +369,7 @@ void SearchReplace::slotDoSearch()
 	if (SText->isChecked())
 		sText = STextVal->text();
 	if (CaseIgnore->isChecked())
-		sText = sText.lower();
+		sText = sText.toLower();
 	if (SEffect->isChecked())
 		sEff = SEffVal->getStyle();
 	if (SFill->isChecked())
@@ -400,7 +400,7 @@ void SearchReplace::slotDoSearch()
 			{
 				QString chstr = Item->itemText.text(a,1);
 				if (CaseIgnore->isChecked())
-					chstr = chstr.lower();
+					chstr = chstr.toLower();
 				found = chstr == sText.mid(inde, 1) ? true : false;
 				if ((Word->isChecked()) && (inde == 0) && (chstr[0].isSpace()))
 					found = true;
@@ -535,14 +535,14 @@ void SearchReplace::slotDoSearch()
 						{
 							QRegExp rx( "(\\b"+sText+"\\b)" );
 							if (CaseIgnore->isChecked())
-								as = rx.search( Doc->scMW()->CurrStED->Editor->text(pa).lower(), i );
+								as = rx.search( Doc->scMW()->CurrStED->Editor->text(pa).toLower(), i );
 							else
 								as = rx.search( Doc->scMW()->CurrStED->Editor->text(pa), i );
 						}
 						else
 						{
 							if (CaseIgnore->isChecked())
-								as = Doc->scMW()->CurrStED->Editor->text(pa).lower().find(sText, i);
+								as = Doc->scMW()->CurrStED->Editor->text(pa).toLower().find(sText, i);
 							else
 								as = Doc->scMW()->CurrStED->Editor->text(pa).find(sText, i);
 						}

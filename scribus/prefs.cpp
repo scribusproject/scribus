@@ -129,7 +129,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabKeyboardShortcuts = new TabKeyboardShortcutsWidget(prefsData->KeyActions, prefsWidgets);
 	addItem( tr("Keyboard Shortcuts"), loadIcon("key_bindings.png"), tabKeyboardShortcuts);
 
-	tabScrapbook = new TabScrapbook( prefsWidgets, "tabScrapbook" );
+	tabScrapbook = new TabScrapbook( prefsWidgets );
 	addItem(  tr("Scrapbook"), loadIcon("scrap.png"), tabScrapbook);
 
 	tabView = new TabDisplay(prefsWidgets, "tabView");

@@ -141,9 +141,9 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
 	double moveBy=1.0;
 	Qt::KeyboardModifiers buttonModifiers = k->modifiers();
-	bool controlDown=(buttonModifiers & Qt::ControlButton);
-	bool altDown=(buttonModifiers & Qt::AltButton);
-	bool shiftDown=(buttonModifiers & Qt::ShiftButton);
+	bool controlDown=(buttonModifiers & Qt::ControlModifier);
+	bool altDown=(buttonModifiers & Qt::AltModifier);
+	bool shiftDown=(buttonModifiers & Qt::ShiftModifier);
 	bool resizingImage=false;
 	if (shiftDown && !controlDown)
 		moveBy=10.0;

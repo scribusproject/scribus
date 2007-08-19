@@ -20,7 +20,7 @@ class SCRIBUS_API TabScrapbook : public QWidget, public Ui::TabScrapbook
 	Q_OBJECT
 
 	public:
-		TabScrapbook(QWidget* parent = 0, const char* name = 0);
+		TabScrapbook(QWidget* parent = 0);
 		~TabScrapbook(){};
 		void restoreDefaults(struct ApplicationPrefs *prefsData);
 };

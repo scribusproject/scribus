@@ -60,7 +60,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	bool found = false;
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if ( !ScCore->usingGUI() ) {
 		interactive = false;
 		showProgress = false;
@@ -219,7 +219,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-	QString CurDirP = QDir::currentDirPath();
+	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
 	{
@@ -424,7 +424,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString pfad = ScPaths::instance().libDir();
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	
 	if (progressDialog) {
 		progressDialog->setOverallProgress(1);
@@ -1025,9 +1025,9 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 		tmp.setColorRGB(Rc, Gc, Bc);
 		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
-			if (it.data().getColorModel() == colorModelRGB)
+			if (it.value().getColorModel() == colorModelRGB)
 			{
-				it.data().getRGB(&hR, &hG, &hB);
+				it.value().getRGB(&hR, &hG, &hB);
 				if ((Rc == hR) && (Gc == hG) && (Bc == hB))
 				{
 					ret = it.key();
@@ -1055,9 +1055,9 @@ QString EPSPlug::parseColor(QString vals, bool eps, colorModel model)
 		tmp.setColor(Cc, Mc, Yc, Kc);
 		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
-			if (it.data().getColorModel() == colorModelCMYK)
+			if (it.value().getColorModel() == colorModelCMYK)
 			{
-				it.data().getCMYK(&hC, &hM, &hY, &hK);
+				it.value().getCMYK(&hC, &hM, &hY, &hK);
 				if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
 				{
 					ret = it.key();

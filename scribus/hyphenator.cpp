@@ -229,7 +229,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 		}
 		if (Ccount > MinWordLen-1)
 		{
-			found = text.mid(firstC, Ccount).lower();
+			found = text.mid(firstC, Ccount).toLower();
 			found2 = text.mid(firstC, Ccount);
 			if (found.contains(SpecialChars::SHYPHEN))
 				break;

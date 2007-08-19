@@ -50,7 +50,7 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	if (ext == "psd")
 	{
 		QFile f(fn);

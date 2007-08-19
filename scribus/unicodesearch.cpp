@@ -106,7 +106,7 @@ void UnicodeSearch::readUnicodeMap()
 		for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
 		{
 			line = QStringList::split(':', *it);
-			m_unicodeMap[line[0]] = line[1].lower();
+			m_unicodeMap[line[0]] = line[1].toLower();
 		}
 	}
 	else

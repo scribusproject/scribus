@@ -395,7 +395,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 			}
 
 #ifndef QT_OS_MAC
-			QString ext = fi.extension(false).lower();
+			QString ext = fi.extension(false).toLower();
 			if ((ext != "icm") && (ext != "icc"))
 				continue;
 #endif

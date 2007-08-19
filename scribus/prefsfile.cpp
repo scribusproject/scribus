@@ -110,21 +110,21 @@ void PrefsFile::writeContexts(ContextMap* contextMap, QTextStream& stream)
 	ContextMap::Iterator it;
 	for (it = contextMap->begin(); it != contextMap->end(); ++it)
 	{
-		if ((it.data()->isPersistent()) && (!it.data()->isEmpty()))
+		if ((it.value()->isPersistent()) && (!it.value()->isEmpty()))
 		{
 			stream << "\t\t<context name=\"" + replaceIllegalChars(it.key()) + "\">\n";
 			AttributeMap::Iterator it2;
-			PrefsContext* tmpCon = it.data();
+			PrefsContext* tmpCon = it.value();
 			for (it2 = tmpCon->values.begin(); it2 != tmpCon->values.end(); ++it2)
 			{
 				stream << "\t\t\t<attribute key=\"" + replaceIllegalChars(it2.key()) + "\" ";
-				stream << "value=\""  + replaceIllegalChars(it2.data()) + "\"/>\n";
+				stream << "value=\""  + replaceIllegalChars(it2.value()) + "\"/>\n";
 			}
 			TableMap::Iterator it3;
 			for (it3 = tmpCon->tables.begin(); it3 != tmpCon->tables.end(); ++it3)
 			{
 				stream << "\t\t\t<table name=\"" + replaceIllegalChars(it3.key()) + "\">\n";
-				PrefsTable* t = it3.data();
+				PrefsTable* t = it3.value();
 				for (int i = 0; i < t->height(); ++i)
 				{
 					stream << QString("\t\t\t\t<row index=\"%1\">\n").arg(i);
@@ -174,7 +174,7 @@ PrefsFile::~PrefsFile()
 {
 	ContextMap::Iterator it;
 	for (it = contexts.begin(); it != contexts.end(); ++it)
-		delete it.data();
+		delete it.value();
 	for (it = pluginContexts.begin(); it != pluginContexts.end(); ++it)
-		delete it.data();
+		delete it.value();
 }

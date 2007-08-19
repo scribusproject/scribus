@@ -642,7 +642,7 @@ void CharSelect::setEnabled(bool state, PageItem* item)
 void CharSelect::uniLoadButton_clicked()
 {
 	QString f = QFileDialog::getOpenFileName(
-                    QDir::currentDirPath(),
+                    QDir::currentPath(),
                     paletteFileMask,
                     this,
                     "loadDialog",
@@ -688,7 +688,7 @@ void CharSelect::uniSaveButton_clicked()
 	if (m_userTableModel->characters().count() == 0)
 		return;
 	QString f = QFileDialog::getSaveFileName(
-                    QDir::currentDirPath(),
+                    QDir::currentPath(),
                     paletteFileMask,
                     this,
                     "saveDialog",

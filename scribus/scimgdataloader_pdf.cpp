@@ -87,7 +87,7 @@ void ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes)
 	if (!fi.exists())
 		return;
 	QString tmp, BBox;
-	QString ext = fi.extension(false).lower();
+	QString ext = fi.extension(false).toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	QStringList args;

@@ -167,7 +167,7 @@ bool WMFImport::import(QString fname, int flags)
 {
 	if (!loadWMF(fname))
 		return false;
-	QString CurDirP = QDir::currentDirPath();
+	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
 	QDir::setCurrent(efp.dirPath());
 	importWMF(flags);

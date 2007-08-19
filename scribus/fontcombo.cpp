@@ -63,10 +63,10 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 			if (currentDoc != NULL)
 			{
 				if (currentDoc->DocName == it.current().localForDocument() || it.current().localForDocument().isEmpty())
-					rlist.insert(it.currentKey().lower(), it.currentKey());
+					rlist.insert(it.currentKey().toLower(), it.currentKey());
 			}
 			else
-				rlist.insert(it.currentKey().lower(), it.currentKey());
+				rlist.insert(it.currentKey().toLower(), it.currentKey());
 		}
 	}
 	for (QMap<QString,QString>::Iterator it2 = rlist.begin(); it2 != rlist.end(); ++it2)
@@ -222,10 +222,10 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 				}
 			}
 			if (!ilist.isEmpty())
-				flist.insert((*it2).lower(), *it2);
+				flist.insert((*it2).toLower(), *it2);
 		}
 		else
-			flist.insert((*it2).lower(), *it2);
+			flist.insert((*it2).toLower(), *it2);
 	}
 	for (QMap<QString,QString>::Iterator it2a = flist.begin(); it2a != flist.end(); ++it2a)
 	{

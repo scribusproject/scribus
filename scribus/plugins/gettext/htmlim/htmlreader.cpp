@@ -121,7 +121,7 @@ void HTMLReader::startElement(void*, const xmlChar * fullname, const xmlChar ** 
 	elemJustStarted = true;
 	elemJustFinished = false;
 	QString* name = new QString((const char*) fullname);
-	name = new QString(name->lower());
+	name = new QString(name->toLower());
 	QXmlAttributes* attrs = new QXmlAttributes();
 	if (atts)
 	{
@@ -308,7 +308,7 @@ void HTMLReader::endElement(void*, const xmlChar * name)
 	elemJustStarted = false;
 	elemJustFinished = true;
 	QString *nname = new QString((const char*) name);
-	nname = new QString(nname->lower());
+	nname = new QString(nname->toLower());
 	hreader->endElement(NULL, NULL, *nname);
 }
 
