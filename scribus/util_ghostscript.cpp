@@ -366,7 +366,7 @@ QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 		double sy = image.height() / static_cast<double>(Size);
 		double t = (sy < sx ? sx : sy);
 		im2 = image.scaled(static_cast<int>(image.width() / t), static_cast<int>(image.height() / t), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-		pm.fromImage(im2);
+		pm=QPixmap::fromImage(im2);
 		QPainter p;
 		p.begin(&pm);
 		p.setBrush(Qt::NoBrush);

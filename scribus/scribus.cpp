@@ -7818,7 +7818,7 @@ void ScribusMainWindow::doSaveAsPDF()
 				pageNumbersSize = pageNs2.size();
 				QPixmap pm(10,10);
 				if (doc->PDF_Options.Thumbnails)
-					pm.fromImage(view->PageToPixmap(pageNs[aa]-1, 100));
+					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[aa]-1, 100));
 				thumbs.insert(1, pm);
 				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa])+"."+ext);
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs))
@@ -7837,7 +7837,7 @@ void ScribusMainWindow::doSaveAsPDF()
 			{
 				QPixmap pm(10,10);
 				if (doc->PDF_Options.Thumbnails)
-					pm.fromImage(view->PageToPixmap(pageNs[ap]-1, 100));
+					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[ap]-1, 100));
 				thumbs.insert(pageNs[ap], pm);
 			}
 			if (!getPDFDriver(fileName, nam, components, pageNs, thumbs))

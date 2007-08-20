@@ -361,9 +361,9 @@ void Cpalette::updatePatternList()
 	{
 		QPixmap pm;
 		if (it.data().getPattern()->width() >= it.data().getPattern()->height())
-			pm.fromImage(it.data().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+			pm=QPixmap::fromImage(it.data().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm.fromImage(it.data().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+			pm=QPixmap::fromImage(it.data().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
 		pm2.fill(palette().base());
 		QPainter p;

@@ -1309,7 +1309,7 @@ QPixmap StencilReader::createPreview(QString data)
 	}
 	QImage tmpi = tmp.scaled(static_cast<int>(tmp.width()*pmmax), static_cast<int>(tmp.height()*pmmax), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	QPixmap tmpil;
-	tmpil.fromImage(tmpi);
+	tmpil=QPixmap::fromImage(tmpi);
 	return tmpil;
 }
 

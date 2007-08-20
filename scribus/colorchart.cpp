@@ -107,6 +107,6 @@ void ColorChart::drawPalette(int val)
 			++p;
 		}
 	}
-	pmx.fromImage(ProofImage(&image, m_doc));
+	pmx=QPixmap::fromImage(ProofImage(&image, m_doc));
 	repaint();
 }

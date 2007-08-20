@@ -4875,7 +4875,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				dr->start();
 //				QImage drImg = currItem->DrawObj_toImage();
 //				QPixmap pm;
-//				pm.fromImage(drImg);
+//				pm=QPixmap::fromImage(drImg);
 //				dr->setPixmap(pm);
 //				dr->setPixmap(loadIcon("DragPix.xpm"));
 //				dr->drag();

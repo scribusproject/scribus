@@ -294,7 +294,7 @@ QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force
 	}
 	p->end();
 	QPixmap pmr;
-	pmr.fromImage(pm.copy(0, 0, qMin(qRound(gp.x()), w), qMin(qRound(ymax), h)));
+	pmr=QPixmap::fromImage(pm.copy(0, 0, qMin(qRound(gp.x()), w), qMin(qRound(ymax), h)));
 // this one below gives some funny results
 //	pmr.convertFromImage(pm.scaled(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 //	pmr.resize(qMin(qRound(gp.x()), w), qMin(qRound(ymax), h));

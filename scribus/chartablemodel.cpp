@@ -69,7 +69,7 @@ QVariant CharTableModel::data(const QModelIndex &index, int role) const
 			p->end();
 		}
 		delete p;
-		pixm.fromImage(pix);
+		pixm=QPixmap::fromImage(pix);
 		return QVariant(pixm);
 	}
 	// trash

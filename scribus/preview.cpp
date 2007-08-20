@@ -1081,7 +1081,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		p.end();
 	}
 	else
-		Bild.fromImage(image);
+		Bild=QPixmap::fromImage(image);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	getUserSelection(Seite);
 	return Bild;
