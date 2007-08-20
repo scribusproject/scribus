@@ -28,7 +28,8 @@ QTabWidget* SMLineStyle::widget()
 		twidget_ = new QTabWidget();
 		widget_ = new SMLineStyleWidget();
 		twidget_->addTab(widget_, tr("Properties"));
-		connect(widget_->lineStyles, SIGNAL(highlighted(int)), this, SLOT(slotCurrentLineChanged(int)));
+// 		connect(widget_->lineStyles, SIGNAL(highlighted(int)), this, SLOT(slotCurrentLineChanged(int)));
+		connect(widget_->lineStyles, SIGNAL(currentRowChanged(int)), this, SLOT(slotCurrentLineChanged(int)));
 	}
 	return twidget_;
 }
