@@ -20,7 +20,7 @@ SMStyleImport::SMStyleImport(QWidget* parent,
 
 	cstyleItem = new QTreeWidgetItem(styleWidget);
 	cstyleItem->setText(0, tr("Character Styles"));
-	for (uint x = 0; x < cstyleList->count(); ++x)
+	for (int x = 0; x < cstyleList->count(); ++x)
 	{
 		CharStyle& vg ((*cstyleList)[x]);
 		QCheckBox *box = new QCheckBox(vg.name());
@@ -32,7 +32,7 @@ SMStyleImport::SMStyleImport(QWidget* parent,
 
 	pstyleItem = new QTreeWidgetItem(styleWidget);
 	pstyleItem->setText(0, tr("Paragraph Styles"));
-	for (uint x = 0; x < pstyleList->count(); ++x)
+	for (int x = 0; x < pstyleList->count(); ++x)
 	{
 		ParagraphStyle& vg ((*pstyleList)[x]);
 		QCheckBox *box = new QCheckBox(vg.name());

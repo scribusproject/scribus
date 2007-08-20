@@ -848,9 +848,9 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 		else
 			itemlist = NULL;
 	}
-	for (uint i = 0; i < docParagraphStyles.count(); ++i)
+	for (int i = 0; i < docParagraphStyles.count(); ++i)
 		docParagraphStyles[i].getNamedResources(lists);
-	for (uint i = 0; i < docCharStyles.count(); ++i)
+	for (int i = 0; i < docCharStyles.count(); ++i)
 		docCharStyles[i].getNamedResources(lists);
 //	for (uint i = 0; i < docLineStyles.count(); ++i)
 //		docLineStyles[i].getNamedResources(lists);
@@ -996,7 +996,7 @@ void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool 
 	{
 		QMap<QString, QString> deletion;
 		QString deflt("");
-		for (uint i=0; i < docParagraphStyles.count(); ++i)
+		for (int i=0; i < docParagraphStyles.count(); ++i)
 		{
 			const QString& nam(docParagraphStyles[i].name());
 			if (newStyles.find(nam) < 0)
@@ -1006,7 +1006,7 @@ void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool 
 			replaceStyles(deletion);
 	}
 	// repair charstyle context:
-	for (uint i=0; i < docParagraphStyles.count(); ++i)
+	for (int i=0; i < docParagraphStyles.count(); ++i)
 	{
 		ParagraphStyle& sty(docParagraphStyles[i]);
 		if (docParagraphStyles.isDefault(sty))
@@ -1029,7 +1029,7 @@ void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool r
 	{
 		QMap<QString, QString> deletion;
 		QString deflt("");
-		for (uint i=0; i < docCharStyles.count(); ++i)
+		for (int i=0; i < docCharStyles.count(); ++i)
 		{
 			const QString& nam(docCharStyles[i].name());
 			if (newStyles.find(nam) < 0)
@@ -1057,7 +1057,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName, StyleSet<ParagraphStyle> *
 	StyleSet<ParagraphStyle> *wrkStyles     = NULL;
 	StyleSet<CharStyle> *wrkCharStyles      = NULL;
 	QMap<QString, multiLine> *wrkLineStyles = NULL;
-	uint oldStyles, oldCharStyles;
+	int oldStyles, oldCharStyles;
 	int oldLineStyles;
 
 	/*

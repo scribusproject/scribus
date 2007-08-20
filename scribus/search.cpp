@@ -98,7 +98,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		SStyleVal->addItem(tmp_sty[a]);
 //	if (doc->docParagraphStyles.count() >5)
 	{
-		for (uint x = 0; x < doc->paragraphStyles().count(); ++x)
+		for (int x = 0; x < doc->paragraphStyles().count(); ++x)
 			SStyleVal->addItem(doc->paragraphStyles()[x].name());
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(SStyleVal->view()); Q_ASSERT(tmpView);
@@ -185,7 +185,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		RStyleVal->addItem(tmp_sty[a]);
 //	if (doc->docParagraphStyles.count() > 5)
 	{
-		for (uint x = 0; x < doc->paragraphStyles().count(); ++x)
+		for (int x = 0; x < doc->paragraphStyles().count(); ++x)
 			RStyleVal->addItem(doc->paragraphStyles()[x].name());
 	}
 	tmpView = dynamic_cast<QListView*>(RStyleVal->view()); Q_ASSERT(tmpView);

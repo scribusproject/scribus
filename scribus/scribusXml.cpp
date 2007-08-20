@@ -816,7 +816,7 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 		}
 		vg.setTabValues(tbs);
 	}
-	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
+	for (int xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
 		if (vg.name() == docParagraphStyles[xx].name())
 		{
@@ -840,7 +840,7 @@ void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<Paragrap
 	}
 	if (!fou)
 	{
-		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
+		for (int xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
 			if (vg.equiv(docParagraphStyles[xx]))
 			{
@@ -1104,7 +1104,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			QXmlStreamReader sReader1(patText);
 			while(!sReader1.atEnd() && !sReader1.hasError())
 			{
-				QXmlStreamReader::TokenType tType = sReader1.readNext();
+// 				QXmlStreamReader::TokenType tType = sReader1.readNext();
 				if (sReader1.hasError())
 					break;
 				QString tagName1 = sReader1.name().toString();
@@ -1295,7 +1295,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QString itemClip;
 	while(!sReader.atEnd() && !sReader.hasError())
 	{
-		QXmlStreamReader::TokenType tType = sReader.readNext();
+// 		QXmlStreamReader::TokenType tType = sReader.readNext();
 		QString tagName = sReader.name().toString();
 		QXmlStreamAttributes attrs = sReader.attributes();
 

@@ -1551,7 +1551,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 			IT=IT.nextSibling();
 		}
 	}
-	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
+	for (int xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
 		if (vg->name() == docParagraphStyles[xx].name())
 		{
@@ -1575,7 +1575,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	}
 	if (!fou)
 	{
-		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
+		for (int xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
 			if (vg->equiv(docParagraphStyles[xx]))
 			{

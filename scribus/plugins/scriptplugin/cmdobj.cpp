@@ -591,8 +591,8 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		bool found = false;
 		uint styleid = 0;
 		// We start at zero here because it's OK to match an internal name
-		uint docParagraphStylesCount=ScCore->primaryMainWindow()->doc->paragraphStyles().count();
-		for (uint i=0; i < docParagraphStylesCount; ++i)
+		int docParagraphStylesCount=ScCore->primaryMainWindow()->doc->paragraphStyles().count();
+		for (int i=0; i < docParagraphStylesCount; ++i)
 		{
 			if (ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name() == QString::fromUtf8(style)) {
 				found = true;
@@ -646,7 +646,7 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 	if(!checkHaveDocument())
 		return NULL;
 	styleList = PyList_New(0);
-	for (uint i=0; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
+	for (int i=0; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
 	{
 		if (PyList_Append(styleList, PyString_FromString(ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name().utf8())))
 		{

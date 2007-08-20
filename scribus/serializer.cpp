@@ -281,7 +281,7 @@ Selection Serializer::importCollection()
 
 		do {
 			newNames.clear();
-			for (uint i = 0; i < coll->cstyles.count(); ++i)  
+			for (int i = 0; i < coll->cstyles.count(); ++i)
 			{
 				QString oldName = coll->cstyles[i].name();
 				int oldIndex = m_Doc.charStyles().find(oldName);
@@ -304,7 +304,7 @@ Selection Serializer::importCollection()
 
 		do {
 			newNames.clear();
-			for (uint i = 0; i < coll->pstyles.count(); ++i)  // FIXME:  QValueList<QString> StyleSet::names()
+			for (int i = 0; i < coll->pstyles.count(); ++i)  // FIXME:  QValueList<QString> StyleSet::names()
 			{
 				QString oldName = coll->pstyles[i].name();
 				int oldIndex = m_Doc.paragraphStyles().find(oldName);

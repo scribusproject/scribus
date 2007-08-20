@@ -59,7 +59,7 @@ void ParaStyleComboBox::updateFormatList()
 		QStringList st;
 		st.clear();
 		insertItem( tr("No Style"));
-		for (uint x = 0; x < currentDoc->paragraphStyles().count(); ++x)
+		for (int x = 0; x < currentDoc->paragraphStyles().count(); ++x)
 			if ( !currentDoc->paragraphStyles()[x].name().isEmpty() )
 				st.append(currentDoc->paragraphStyles()[x].name());
 		st.sort();
@@ -115,7 +115,7 @@ void CharStyleComboBox::updateFormatList()
 		QStringList st;
 		st.clear();
 		insertItem( tr("No Style"));
-		for (uint x = 0; x < currentDoc->charStyles().count(); ++x)
+		for (int x = 0; x < currentDoc->charStyles().count(); ++x)
 			if ( !currentDoc->charStyles()[x].name().isEmpty() )
 				st.append(currentDoc->charStyles()[x].name());
 		st.sort();

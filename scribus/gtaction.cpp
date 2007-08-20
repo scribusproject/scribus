@@ -221,7 +221,7 @@ int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
 int gtAction::findParagraphStyle(const QString& name)
 {
 	int pstyleIndex = -1;
-	for (uint i = 0; i < textFrame->doc()->paragraphStyles().count(); ++i)
+	for (int i = 0; i < textFrame->doc()->paragraphStyles().count(); ++i)
 	{
 		if (textFrame->doc()->paragraphStyles()[i].name() == name)
 		{
@@ -335,7 +335,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
 	ScribusDoc* currDoc=textFrame->doc();
-	for (uint i = 0; i < currDoc->paragraphStyles().count(); ++i)
+	for (int i = 0; i < currDoc->paragraphStyles().count(); ++i)
 	{
 		if (currDoc->paragraphStyles()[i].name() == pstyle->getName())
 			return;

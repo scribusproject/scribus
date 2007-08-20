@@ -3158,7 +3158,7 @@ void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Pa
 	const StyleSet<ParagraphStyle> * docParagraphStyles = tempStyles? tempStyles : & doc->paragraphStyles();
 	PrefsManager* prefsManager=PrefsManager::instance();
 	readParagraphStyle(*vg, *pg, prefsManager->appPrefs.AvailFonts, doc);
-	for (uint xx=0; xx<docParagraphStyles->count(); ++xx)
+	for (int xx=0; xx<docParagraphStyles->count(); ++xx)
 	{
 		if (vg->name() == (*docParagraphStyles)[xx].name())
 		{
@@ -3181,7 +3181,7 @@ void Scribus134Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Pa
 	}
 	if (!fou)
 	{
-		for (uint xx=0; xx< docParagraphStyles->count(); ++xx)
+		for (int xx=0; xx< docParagraphStyles->count(); ++xx)
 		{
 			if (vg->equiv((*docParagraphStyles)[xx]))
 			{

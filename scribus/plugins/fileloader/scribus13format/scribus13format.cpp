@@ -1365,7 +1365,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	}
 //	if (m_Doc->docParagraphStyles.count() > 5)
 	{
-		for (uint ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
+		for (int ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
 		{
 			QDomElement fo=docu.createElement("STYLE");
 			fo.setAttribute("NAME",m_Doc->paragraphStyles()[ff].name());
@@ -2878,7 +2878,7 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	fou = false;
 	readParagraphStyle(*vg, *pg, doc);
 	const StyleSet<ParagraphStyle> & docParagraphStyles(tempParagraphStyles? *tempParagraphStyles : doc->paragraphStyles());
-	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
+	for (int xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
 		if (vg->name() == docParagraphStyles[xx].name())
 		{
@@ -2901,7 +2901,7 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	}
 	if (!fou)
 	{
-		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
+		for (int xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
 			if (vg->equiv(docParagraphStyles[xx]))
 			{

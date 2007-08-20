@@ -99,7 +99,7 @@ QList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 		reloadTmpStyles();
 	}
 
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	for (int i = 0; i < tmpStyles_.count(); ++i)
 	{
 		if (tmpStyles_[i].hasName())
 		{
@@ -134,9 +134,9 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 
 	QList<ParagraphStyle> pstyles; // get saved styles
 	QList<CharStyle> cstyles;
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	for (int i = 0; i < tmpStyles_.count(); ++i)
 		pstyles << tmpStyles_[i];
-	for (uint i = 0; i < cstyles_->count(); ++i)
+	for (int i = 0; i < cstyles_->count(); ++i)
 		cstyles << (*cstyles_)[i];
 
 	int index;
@@ -159,7 +159,7 @@ QList<CharStyle> SMParagraphStyle::getCharStyles()
 		return charStyles; // no doc available
 
 	const StyleSet<CharStyle> &tmp(doc_->charStyles());
-	for (uint i = 0; i < tmp.count(); ++i)
+	for (int i = 0; i < tmp.count(); ++i)
 		charStyles.append(tmp[i]);
 	return charStyles;
 }
@@ -170,7 +170,7 @@ QString SMParagraphStyle::fromSelection() const
 	if (!doc_)
 		return lsName; // no doc available
 
-	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+	for (int i = 0; i < doc_->m_Selection->count(); ++i)
 	{
 		// wth is going on here
 		PageItem *item = doc_->m_Selection->itemAt(i);
@@ -236,7 +236,7 @@ QString SMParagraphStyle::getUniqueName(const QString &name)
 	{
 start:
 		++id;
-		for (uint i = 0; i < tmpStyles_.count(); ++i)
+		for (int i = 0; i < tmpStyles_.count(); ++i)
 		{
 			if (tmpStyles_[i].name() == s)
 			{
@@ -337,7 +337,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 	tmpStyles_.create(p);
 	selection_.clear();
 	selection_.append(&tmpStyles_[tmpStyles_.find(newName)]);
-	for (uint j = 0; j < tmpStyles_.count(); ++j)
+	for (int j = 0; j < tmpStyles_.count(); ++j)
 	{
 		int index = tmpStyles_.find(oldName);
 		if (index > -1)
@@ -347,7 +347,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 		}
 	}
 
-	for (uint j = 0; j < tmpStyles_.count(); ++j)
+	for (int j = 0; j < tmpStyles_.count(); ++j)
 	{
 		if (tmpStyles_[j].parent() == oldName)
 			tmpStyles_[j].setParent(newName);
@@ -1236,7 +1236,7 @@ QList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 	if (reloadFromDoc)
 		reloadTmpStyles();
 
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	for (int i = 0; i < tmpStyles_.count(); ++i)
 	{
 		if (tmpStyles_[i].hasName())
 		{
@@ -1267,7 +1267,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 
 	tmpStyles_.invalidate();
 
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	for (int i = 0; i < tmpStyles_.count(); ++i)
 		cstyles << tmpStyles_[i];
 
 	for (int i = 0; i < styleNames.count(); ++i)
@@ -1288,7 +1288,7 @@ QString SMCharacterStyle::fromSelection() const
 	if (!doc_)
 		return lsName; // no doc available
 
-	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+	for (int i = 0; i < doc_->m_Selection->count(); ++i)
 	{
 		// wth is going on here
 		PageItem *item = doc_->m_Selection->itemAt(i);
@@ -1352,7 +1352,7 @@ QString SMCharacterStyle::getUniqueName(const QString &name)
 	{
 start:
 		++id;
-		for (uint i = 0; i < tmpStyles_.count(); ++i)
+		for (int i = 0; i < tmpStyles_.count(); ++i)
 		{
 			if (tmpStyles_[i].name() == s)
 			{
@@ -1451,7 +1451,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 	tmpStyles_.create(c);
 	selection_.clear();
 	selection_.append(&tmpStyles_[tmpStyles_.find(newName)]);
-	for (uint j = 0; j < tmpStyles_.count(); ++j)
+	for (int j = 0; j < tmpStyles_.count(); ++j)
 	{
 		int index = tmpStyles_.find(oldName);
 		if (index > -1)
@@ -1461,7 +1461,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 		}
 	}
 
-	for (uint j = 0; j < tmpStyles_.count(); ++j)
+	for (int j = 0; j < tmpStyles_.count(); ++j)
 	{
 		if (tmpStyles_[j].parent() == oldName)
 			tmpStyles_[j].setParent(newName);

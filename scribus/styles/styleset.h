@@ -30,8 +30,8 @@ public:
 
 	inline const Style* resolve(const QString& name) const;
 	
-	uint count() const { 
-		return (uint) styles.count(); 
+	int count() const {
+		return styles.count();
 	}
 	
 	STYLE* append(STYLE* style) { 
@@ -136,7 +136,7 @@ inline void StyleSet<STYLE>::redefine(const StyleSet<STYLE>& defs, bool removeUn
 	for (int i=signed(styles.count())-1; i >= 0; --i) 
 	{
 		bool found = false;
-		for (uint j=0; j < defs.count(); ++j) 
+		for (int j=0; j < defs.count(); ++j)
 		{
 			if (styles[i]->name() == defs[j].name()) 
 			{
@@ -155,7 +155,7 @@ inline void StyleSet<STYLE>::redefine(const StyleSet<STYLE>& defs, bool removeUn
 			remove(i);
 		}
 	}
-	for (uint j=0; j < defs.count(); ++j) 
+	for (int j=0; j < defs.count(); ++j)
 	{
 		if (find(defs[j].name()) < 0) 
 		{
