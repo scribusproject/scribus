@@ -337,13 +337,13 @@ bool WMFImport::loadWMF( QBuffer &buffer )
                 st >> cmd->params[ i ];
 
 
-            if ( rdFunc == 0x020B ) {         // SETWINDOWORG: dimensions
-                m_BBox.setLeft( cmd->params[ 1 ] );
-                m_BBox.setTop( cmd->params[ 0 ] );
+            if ( rdFunc == 0x020B && !m_IsPlaceable) {         // SETWINDOWORG: dimensions
+                m_BBox.setLeft( qMin((int) cmd->params[ 1 ], m_BBox.left()) );
+                m_BBox.setTop ( qMin((int) cmd->params[ 0 ], m_BBox.top()) );
             }
-            if ( rdFunc == 0x020C ) {         // SETWINDOWEXT: dimensions
-                m_BBox.setWidth( cmd->params[ 1 ] );
-                m_BBox.setHeight( cmd->params[ 0 ] );
+            if ( rdFunc == 0x020C && !m_IsPlaceable ) {         // SETWINDOWEXT: dimensions
+                m_BBox.setWidth ( qMax((int) cmd->params[ 1 ], m_BBox.width()) );
+                m_BBox.setHeight( qMax((int) cmd->params[ 0 ], m_BBox.height()));
             }
 
             if ( i<rdSize )
@@ -593,9 +593,9 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
         cerr << "Bounding box : " << m_BBox.left() << " " << m_BBox.top() << " " << m_BBox.right() << " " << m_BBox.bottom() << endl;
     }
 
-	double scale = (m_Dpi > 288) ? 288.0 / m_Dpi : 1.0;
-    m_context.setWindowOrg( m_BBox.left(), m_BBox.top() );
-	m_context.setWindowExt( abs(m_BBox.width()) * scale, abs(m_BBox.height()) * scale );
+	double  scale = (m_Dpi > 288) ? 288.0 / m_Dpi : 1.0;
+	m_context.setViewportOrg( 0, 0 );
+	m_context.setViewportExt( m_BBox.width() * scale, m_BBox.height() * scale );
 	/*if ( mAbsoluteCoord ) {
         mPainter.setWindow( mBBox.top(), mBBox.left(), mBBox.width(), mBBox.height() );
     }*/
@@ -641,7 +641,7 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
 
 void WMFImport::finishCmdParsing( PageItem* item )
 {
-	QMatrix gcm  = m_context.matrix();
+	QMatrix gcm  = m_context.worldMatrix();
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());

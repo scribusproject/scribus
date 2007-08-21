@@ -13,6 +13,8 @@ using namespace std;
 WMFGraphicsState::WMFGraphicsState(void)
 				: windowOrg(0.0, 0.0),
 				  windowExt(1.0, 1.0),
+				  viewportOrg(0.0, 0.0),
+				  viewportExt(1.0, 1.0),
 				  position (0.0, 0.0),
 				  backgroundMode(Qt::TransparentMode),
 				  windingFill(false)
@@ -22,22 +24,35 @@ WMFGraphicsState::WMFGraphicsState(void)
 
 void WMFGraphicsState::setWindowOrg(double x, double y)
 {
-	double xscale = worldMatrix.m11();
-	double yscale = worldMatrix.m22();
-	worldMatrix.setMatrix( xscale, 0, 0, yscale, -x, -y);
 	windowOrg = QPointF(x, y);
+	updateWorldMatrix();
 }
 
 void WMFGraphicsState::setWindowExt(double x, double y)
 {
-	if ( (x != 0.0) && (y != 0.0) ) 
-	{
-		QSizeF ext = windowExt;
-		double xscale = (ext.width() / x);
-		double yscale = (ext.height() / y);
-		worldMatrix.setMatrix(xscale, 0, 0, yscale, -windowOrg.x(), -windowOrg.y());
-		windowExt = QSizeF(x, y);
-	}
+	windowExt = QSizeF(x, y);
+	updateWorldMatrix();
+}
+
+void WMFGraphicsState::setViewportOrg(double x, double y)
+{
+	viewportOrg = QPointF(x, y);
+	updateWorldMatrix();
+}
+
+void WMFGraphicsState::setViewportExt(double x, double y)
+{
+	viewportExt = QSizeF(x, y);
+	updateWorldMatrix();
+}
+
+void WMFGraphicsState::updateWorldMatrix(void)
+{
+	double xscale = (windowExt.width()  != 0.0) ? (viewportExt.width()  / windowExt.width())  : 1.0;
+	double yscale = (windowExt.height() != 0.0) ? (viewportExt.height() / windowExt.height()) : 1.0;
+	double dx     = viewportOrg.x() - xscale * windowOrg.x();
+	double dy     = viewportOrg.y() - yscale * windowOrg.y();
+	worldMatrix.setMatrix( xscale, 0, 0, yscale, dx, dy );
 }
 
 WMFContext::WMFContext(void)

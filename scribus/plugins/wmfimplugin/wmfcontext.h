@@ -22,6 +22,10 @@ protected:
 
 	QPointF windowOrg;
 	QSizeF  windowExt;
+	QPointF viewportOrg;
+	QSizeF  viewportExt;
+
+	void updateWorldMatrix(void);
 
 public:
 	QPoint		position;
@@ -39,6 +43,8 @@ public:
 
 	void setWindowOrg(double x, double y);
 	void setWindowExt(double x, double y);
+	void setViewportOrg(double x, double y);
+	void setViewportExt(double x, double y);
 };
 
 class WMFContext : public QStack<WMFGraphicsState>
@@ -61,7 +67,7 @@ public:
 	QColor       textColor(void) { return current().textColor; }
 	bool         windingFill(void) { return current().windingFill; }
 	FPointArray& path (void) { return current().path; }
-	QMatrix&     matrix (void) { return current().worldMatrix; }
+	QMatrix&     worldMatrix (void) { return current().worldMatrix; }
 
 	void setPosition (const QPoint& pos) { current().position = pos; }
 	void setPen   (const QPen& pen) { current().pen = pen; }
@@ -76,6 +82,8 @@ public:
 	// window operations
 	void setWindowOrg(double x, double y) { current().setWindowOrg(x, y); }
 	void setWindowExt(double x, double y) { current().setWindowExt(x, y); }
+	void setViewportOrg(double x, double y) { current().setViewportOrg(x, y); }
+	void setViewportExt(double x, double y) { current().setViewportExt(x, y); }
 
 	// matrix operations
 	void translate (double x, double y) { current().worldMatrix.translate(x, y); }
