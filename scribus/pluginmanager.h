@@ -87,6 +87,9 @@ public:
 	/*! \brief Return file extension used for shared libs on this platform */
 	static QString platformDllExtension();
 
+	/*! \brief Return file extension used for shared libs on this platform */
+	static int platformDllSearchFlags();
+
 	/*! \brief Return a pointer to this instance.
 	 \Note: for now, returns a reference to (*ScMW->pluginManager); should
 	 probably be turned into a singleton later. */

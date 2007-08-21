@@ -178,7 +178,7 @@ void PluginManager::initPlugs()
 	psimp before barcode.You know, security by obscurity ;) PV */
 	QDir dirList(ScPaths::instance().pluginDir(),
 				 libPattern, QDir::Name | QDir::Reversed,
-				 QDir::Files | QDir::Executable | QDir::NoSymLinks);
+				 (QDir::Filter) PluginManager::platformDllSearchFlags());
 
 	if ((!dirList.exists()) || (dirList.count() == 0))
 		return;
@@ -466,6 +466,15 @@ QString PluginManager::platformDllExtension()
 #else
 	// Generic *NIX
 	return "so";
+#endif
+}
+
+int PluginManager::platformDllSearchFlags()
+{
+#if defined(_WIN32) || defined(_WIN64)
+	return (QDir::Files | QDir::NoSymLinks);
+#else
+	return (QDir::Files | QDir::Executable | QDir::NoSymLinks);
 #endif
 }
 

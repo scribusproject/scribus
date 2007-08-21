@@ -77,7 +77,7 @@ void gtGetText::loadImporterPlugins()
 	QString gtdir = ScPaths::instance().pluginDir();
 	gtdir += "gettext";
 	QString libPattern = QString("*.%1*").arg(PluginManager::platformDllExtension());
-	QDir d(gtdir, libPattern, QDir::Name, QDir::Files | QDir::Executable | QDir::NoSymLinks);
+	QDir d(gtdir, libPattern, QDir::Name, (QDir::Filter) PluginManager::platformDllSearchFlags());
 
 	struct ImporterData ida;
 	ida.fileFormatName = "";
