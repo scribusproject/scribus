@@ -129,7 +129,7 @@ protected:
 	QString parseColor( const QString &s );
 	void parseTransform(FPointArray *composite, const QString &transform);
 	void parseViewBox( const QDomElement& object, double *x, double *y, double *w, double *h );
-	void appendPoints(FPointArray *composite, const QDomElement& object);
+	void appendPoints(FPointArray *composite, const QDomElement& object, bool closePath);
 	const char * getCoord( const char *ptr, double &number );
 	bool parseSVG( const QString &s, FPointArray *ite );
 	void calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
