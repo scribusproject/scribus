@@ -77,6 +77,7 @@
       <submenuitem file="toolbox11.html" text="Vektorisierer" />
       <submenuitem file="toolbox12.html" text="WINE" />
       <submenuitem file="toolbox13.html" text="XnView" />
+      <submenuitem file="toolbox15.html" text="Krita" />
     </submenuitem>
     <submenuitem file="topten.html" text="Tips und FAQs" >
       <submenuitem file="faq1.html" text="Hilfe" />
