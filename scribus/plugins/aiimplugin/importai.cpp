@@ -1170,21 +1170,15 @@ void AIPlug::processData(QString data)
 					{
 						tmpSel->addItem(gElements.at(dre), true);
 					}
-		//			if (gElements.count() > 1)
-		//			{
-						m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
+					m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
+					ite = tmpSel->itemAt(0);
+					if ((clipCoords.size() > 4) && (command == "Q"))
+					{
 						ite = tmpSel->itemAt(0);
-						if ((clipCoords.size() > 4) && (command == "Q"))
-						{
-							ite = tmpSel->itemAt(0);
-							clipCoords.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-							FPoint tp2(getMinClipF(&clipCoords));
-							clipCoords.translate(-tp2.x(), -tp2.y());
-							ite->PoLine = clipCoords.copy();
-		//					qDebug("Clip Group: "+ite->itemName());
-						}
-						Elements.append(ite);
-		//			}
+						clipCoords.translate(m_Doc->currentPage()->xOffset()-ite->xPos(), m_Doc->currentPage()->yOffset()-ite->yPos());
+						ite->PoLine = clipCoords.copy();
+					}
+					Elements.append(ite);
 				}
 				if (groupStack.count() != 0)
 				{
@@ -1290,7 +1284,7 @@ void AIPlug::processData(QString data)
 				gVals >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
 				startMatrix.translate(m5, -m6);
 //				endMatrix.scale(m1, m4);
-				endMatrix = QMatrix(m1, m2, m3, m4, 0, 0);
+				endMatrix *= QMatrix(m1, m2, m3, m4, 0, 0);
 //				endMatrix = QMatrix(m1, m2, m3, m4, m5, m6);
 				wasBC = true;
 			}
