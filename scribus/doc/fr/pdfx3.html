@@ -1,0 +1,53 @@
+<qt>
+<title>Information sur PDF/X-3 et Scribus</title>
+<h2>Information sur PDF/X-3 et Scribus</h2>
+<p>Le support de PDF/X-3 est une &eacute;tape importante dans le d&eacute;veloppement de Scribus. Scribus a &eacute;t&eacute; la premi&egrave;re application de PAO &agrave; supporter un standard ISO demandant mais ouvert : ISO 15930-3:2002. Ce type de support pour la cr&eacute;ation de PDF de haute qualit&eacute; a &eacute;t&eacute; disponible, jusqu'&agrave; pr&eacute;sent, seulement pour les applications propri&eacute;taires dispendieuses. De plus, cr&eacute;er des PDFs &#034;pr&ecirc;t &agrave; l'impression&#034; pour des presses commerciales a historiquement &eacute;t&eacute; charg&eacute; d'erreurs, sp&eacute;cialement pour les utilisateurs qui ne sont pas familiers avec les nuances du postscript, de la distillation PDF et des caract&eacute;ritiques vari&eacute;es des composeurs d'images. La phrase &#034;Il est difficile de cr&eacute;er un bon PDF, mais tr&egrave;s facile de tout embrouiller&#034; poss&egrave;de une bonne part de v&eacute;rit&eacute;. L'utilisation la plus courante de la famille d'application Adobe Acrobat Distiller pour la cr&eacute;ation de PDF a typiquement exig&eacute; la connaissance d'au moins quelques uns des presque 100 param&egrave;tres de Distiller.</p>
+<p>Dans les pays europ&eacute;ens, le concept PDF/X est beaucoup plus r&eacute;pandu et accept&eacute; qu'en Am&eacute;rique du Nord. Le gros de l'avanc&eacute;e de ces standards est venu d'Allemagne et des compagnies allemandes de pr&eacute;-impression, leaders mondiaux de l'impression et de la technologie de pointe en imagerie num&eacute;rique.</p>
+<p>La cr&eacute;ation de PDF/X, avec ses 3 normes ISO actuellement d&eacute;finies, vise notamment &agrave; fournir aux utilisateurs et aux cr&eacute;ateurs un outil de r&eacute;f&eacute;rence ind&eacute;pendant des fournisseurs, utilisable pour l'impression commerciale ou l'&eacute;change avec des services d'impression. Scribus poss&egrave;de maintenant des options faciles &agrave; comprendre et &agrave; utiliser qui permettent aux utilisateurs de cr&eacute;er des fichiers 100% conformes &agrave; la norme PDF/X-3. Avec un usage judicieux des options PDF, les utilisateurs peuvent &ecirc;tre certains que leurs fichiers, s'ils le d&eacute;sirent, soient aussi 100% conformes aux standards. Comme toujours, soyez assur&eacute;s que tous les PDF que vous cr&eacute;ez peuvent &ecirc;tre utilis&eacute;s  dans le processus de votre imprimeur ou de votre service de pr&eacute;-impression. Ils ne sont pas tous &eacute;quip&eacute;s pour manipuler la derni&egrave;re technologie PDF. Les derni&egrave;res composeuses Prinergy et Harlequin supportentPDF/X-3</p>
+<p><strong>Attention : toutes les images doivent &ecirc;tre en RGB, et non en CMJN, avant l'importation. Sinon, un d&eacute;calage de couleur ind&eacute;sirable peut appara&icirc;tre.</strong></p>
+<h3>Guide d'initiation &agrave; la cr&eacute;ation d'un PDF compatible PDF/X-3</h3>
+<ol>
+	<li>Assurez-vous que la gestion des couleurs soit install&eacute;e et fonctionne correctement. Vous devez avoir au moins un profil ICC CMJN d'imprimante install&eacute;.</li>
+	<li>Ensuite, dans <strong>Fichier &#062; Pr&eacute;f&eacute;rences &#062;Gestion des couleurs</strong>, v&eacute;rifiez que la gestion des couleurs est activ&eacute;e et que vos param&egrave;tres pr&eacute;f&eacute;r&eacute;s pour les profils couleurs sont choisis.</li>
+	<li>D&eacute;s&eacute;lectionnez l'&eacute;l&eacute;ment <em>Utiliser les caract&eacute;ristiques de transparence PDF 1.4</em> dans l'onglet <strong>Fichier &#062; Pr&eacute;f&eacute;rences &#062;Affichage</strong>. (PDF/X-3 est bas&eacute; sur PDF 1.3)</li>
+	<li>S&eacute;lectionnez <strong>Fichier &#062; Exporter...&#062; Enregistrer en PDF...</strong> ou s&eacute;lectionnez l'ic&ocirc;ne PDF dans la barre d'outils.</li>
+</ol>
+<p>Ce panneau s'ouvrira et s&eacute;lectionnez <strong>PDF/X-3</strong> dans la liste d&eacute;roulante de compatibilit&eacute;comme montr&eacute; ci-dessous. Ceci modifiera les param&egrave;tres par d&eacute;faut automatiquement, au besoin.</p>
+<table width="100%"><tr><td align="center"><img src="images/pdfx3-1.png" alt="Fen&ecirc;tre de cr&eacute;ation de PDF, onglet G&eacute;n&eacute;ral" /></td></tr></table>
+<p>S&eacute;lectionnez ensuite l'onglet <strong>Couleur</strong> comme suit :</p>
+<table width="100%"><tr><td align="center"><img src="images/pdfxcolor.png" alt="Fen&ecirc;tre de cr&eacute;ation de PDF, onglet  Couleur" /></td></tr></table>
+<p>Ici vous choisissez le profil couleur &agrave; inclure dans le PDF. En ne s&eacute;lectionnant ou en n'incluant aucun profil ICC, un profil CMJN est automatiquement choisi comme espace couleur.</p>
+<p>Puis, allez &agrave; l'onglet <strong>PDF/X-3</strong> comme montr&eacute; ci-dessous :</p>
+<table width="100%"><tr><td align="center"><img src="images/pdfxintent.png" alt="Fen&ecirc;tre de cr&eacute;ation de PDF, onglet PDF/X-3" /></td></tr></table>
+<p>C'est ici que vous pouvez ajuster le trait de coupe, et aussi inclure dans le PDF les conditions d'impression d&eacute;sir&eacute;e s, lesquelles sont d&eacute;finies par le profil d'imprimante ICC. C'est probablement le choix le plus important en terme de profils couleur, puisque les couleurs du document en entier en sont affect&eacute;es. Vous pouvez aussi inscrire une courte note &agrave; propos du document, qui sera utile plus tard. <strong>Ceci ne doit pas &ecirc;tre laiss&eacute; vide afin de ne pas controvenir aux standards PDF/X-3.</strong><p>
+<p>Note: &agrave; cause des standards exigeants de PDF/X-3, certaines caract&eacute;ristiques PDF sont d&eacute;sactiv&eacute;es telles que l'encryption ou les effets de pr&eacute;sentation. Les polices sont ainsi automatiquement incluses. De m&ecirc;me, les annotations et la transparence sont d&eacute;sactiv&eacute;es. Vous devriez suivre pr&eacute;cautionneusement les conseils donn&eacute;s dans <a href="pdfexport1.html">Options d'exportation PDF</a> pour la pr&eacute;paration des fichiers et le choix des formats d'image.</p>
+
+<h3>Comment Scribus a-t-il r&eacute;ussi ce tour de force ?</h3>
+<ul>
+	<li>L'exportateur PDF de Scribus en est maintenant &agrave; sa septi&egrave;me g&eacute;n&eacute;ration. En raffinant soigneusement le code de la sortie PDF et de la gestion des couleurs pour une qualit&eacute; de sortie optimale, Scribus a cr&eacute;&eacute; des PDF qui peuvent &ecirc;tre utilis&eacute;s avec confiance dans des services d'impression bas&eacute;s sur un flux de travaux PDF. Plusieurs magazines, journaux et autres publications pr&eacute;f&egrave;rent maintenant PDF/X pour des fichiers cr&eacute;&eacute;s par les annonceurs, par exemple. Consultez les notes sous la rubrique <a href="prepress.html">Consid&eacute;rations sur Scribus et la pr&eacute;-impression</a>.</li>
+	<li>Le cr&eacute;dit revient &agrave; Marti Maria d'avoir cr&eacute;&eacute; et activement maintenu <strong>little cms</strong>, qui est le syst&egrave;me de gestion des couleurs de Scribus. Littlecms n'est pas une application utilisateur en soi, mais Scribus utilise les outils de gestion des couleurs qui &eacute;taient auparavant seulement disponibles dans les syst&egrave;mes propri&eacute;taires.</li>
+</ul>
+
+<h3>Quand devrais-je utiliser PDF/X-3 ?</h3>
+<p>Lorsque vous avez besoin de reproduction couleur <strong>tr&egrave;s</strong> pr&eacute;cise <strong>et</strong> que votre imprimeur peut accepter les fichiers PDF/X-3. Sans support de la part de votre imprimeur, vous aurez probablement des changement de couleurs ind&eacute;sirables (par rapport &agrave; une exportation PDF traditionnelle).</p>
+
+<h3>Est-ce que j'ai vraiment besoin de la gestion des couleurs ?</h3>
+<p>Oui, PDF/X-3 est con&ccedil;u pour fournir un flux de travaux PDF avec gestion des couleurs compl&egrave;te, sans une connaissance d&eacute;taill&eacute;e des technologies d'impression.</p>
+
+<h3>Quelles sont les diff&eacute;rences entre les versions de PDF-X ?</h3>
+<p>En bref, <strong>PDF/X-1a</strong> requiert ce qui suit : l'espace de couleurs doit &ecirc;tre CMJN/niveaux de gris, toutes les polices sont incluses et le PDF indique s'il y aura chevauchement (trapping) = true ou aucun chevauchement(trapping) = false. Voyez ceci comme un coup de d&eacute;s, puisqu'il n'y a aucune garantie quant &agrave; l'apparance du rendu final.</p>
+<p><strong>PDF/X-2</strong> est un standard tol&eacute;rant, mais qui n&eacute;cessite plus d'&eacute;changes de connaissances entre le fournisseur et le r&eacute;cepteur du fichier. L'inclusion des polices n'est pas obligatoire, et il est possible d'utiliser OPI (Open Press Initiative). PDF/X-2 permet aussi d'utiliser des p&eacute;riph&eacute;riques dans des espaces d&eacute;pendants des couleurs, comme CieLab.</p>
+<p><strong>PDF/X-3</strong> permet aux profils couleur ICC de r&eacute;sider dans le PDF, ainsi que diff&eacute;rentes sorties pr&eacute;vues et l'espace de couleur 'DeviceN'point de couleur) - maintenant support&eacute; dans la version AFPL de Ghostscript 8.0+. Cela &eacute;vite &eacute;galement la surimpression des couleurs.</p>
+
+<h3>Comment puis-je tester et vraiment certifier que les fichiers PDF de Scribus sont enti&egrave;rement conformes &agrave; la norme PDF/X-3 ?</h3>
+<ol>
+	<li><a href="http://callas.de/en/">Callas Software</a> a fourni une extension gratuite 'PDF Inspektor' pour Adobe Acrobat. Cette extension v&eacute;rifie le PDF et produit un rapport d&eacute;taill&eacute; sur chaque point du fichier PDF, incluant les m&eacute;ta-donn&eacute;es du fichier et une liste d&eacute;taill&eacute;e des images et des autres objets PDF.</li>
+	<li>Certaines applications sp&eacute;cialis&eacute;es dans le PDF, comme Enfocus Pit Stop Pro et la version compl&egrave;te de PDF Inspektor, peuvent effectuerdes v&eacute;rifications d&eacute;taill&eacute;es du document PDF. Acrobat 6 Professional peut aussi v&eacute;rifier et valider les fichiers PDF/X-3.</li>
+</ol>
+
+<h3>Liens PDF/X :</h3>
+<p><a href="http://www.ddap.org/resource_center/article_index.php">http://www.ddap.org/resource_center/article_index.php</a></p>
+<p><a href="http://www.ipa.org/PDFS/pdfxguide.zip">http://www.ipa.org/PDFS/pdfxguide.zip</a></p>
+<p><a href="http://www.pdf-x.com/downloads/pdf/application_notes_pdfx3.pdf">http://www.pdf-x.com/downloads/pdf/application_notes_pdfx3.pdf</a></p>
+</qt>
+ 

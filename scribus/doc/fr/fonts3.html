@@ -1,0 +1,28 @@
+<qt>
+<title>Id&eacute;ogrammes CJC, scripts indo-aryennes et autres alphabets : les polices non latines </title>
+<h2>Id&eacute;ogrammes CJC, scripts indo-aryennes et autres alphabets : les polices non latines </h2>
+<p>Il est possible d'utiliser les polices CJC (Chinois, Japonais, Cor&eacute;en) dans Scribus. Mais, &agrave; part l'ajout de l'encodage KOIR-8, peu de choses ont encore &eacute;t&eacute; faites pour l'int&eacute;gration de ces polices. Malgr&eacute; tout, certains utilisateurs ont pu cr&eacute;er des PDF utilisables sur presses. Gr&acirc;ce &agrave; l'excellente int&eacute;gration de l'Unicode dans QT, une bonne partie du travail est faite. Des modifications majeures seront effectu&eacute;es pour la prochaine g&eacute;n&eacute;ration de Scribus afin d'&eacute;tendre grandement le support pour les langues non latines. Tenez-vous au courant.</p>
+<h4>Que peut donc faire Scribus dans son &eacute;tat actuel?</h4>
+<ul>
+	<li>Scribus affichera correctement les glyphes individuels d'&agrave; peu pr&egrave;s n'importe quelle bonne police Unicode. Nos tests n'ont r&eacute;v&eacute;l&eacute; aucun probl&egrave;me avec les polices Cyberbit Unicode, si ce n'est la lenteur de chargement. </li>
+	<li>On peut &eacute;crire ou importer du texte en arabe, bien que les fonctions li&eacute;es &agrave; la terminaison des lignes ne soient pas encore d&eacute;ploy&eacute;es.</li>
+	<li>L'h&eacute;breu est bien int&eacute;gr&eacute; tout comme les autres langues qui s'&eacute;crivent de droite &agrave; gauche. Certains probl&egrave;mes subsistent avec certains accents.</li>
+	<li>Les scriptes des langues indo-aryennes constituent une difficult&eacute; particuli&egrave;re mais nous sommes r&eacute;solus &agrave; les int&eacute;grer dans Scribus. Un concepteur indien travaille avec les concepteurs de Scribus afin de modifier la grille d'affichage, ce qui permettra de mettre en oeuvre la totalit&eacute; des fonctions particuli&egrave;res n&eacute;cessaires &agrave; l'affichage et &agrave; l'impression de ces glyphes.</li>
+	<li>La combinaison des glyphes de ces langues n'est pas (encore) int&eacute;gr&eacute;e.</li>
+	<li>Scribus prend en charge sans broncher les polices Unicode TrueType et OpenType, m&ecirc;me en export PDF 1.3.</li>
+	<li>Les fichiers export&eacute;s au format EPS ou PostScript fonctionnent tr&egrave;s bien avec &agrave; peu pr&egrave;s toutes les polices CJC ou Unicode.</li>
+	<li>L'alphabet cyrillique fonctionne parfaitement et Scribus peut compter sur l'aide active de traducteurs pour le russe et l'ukrainien.</li>
+</ul>
+<h4>Conseils :</h4>
+<ul>
+	<li>Afin de r&eacute;duire la taille de vos PDF et de vos fichiers PostScript, vous pouvez, au choix :
+ 	<ol>
+			<li>Convertir en contours toutes les polices de votre document. </li>
+			<li>Activer l'option &laquo; jeu partiel &raquo; de toute police Unicode ou CJC TrueType dans Pr&eacute;f&eacute;rences > Polices.</li>
+		</ol>
+	</li>
+	<li>Lorsque vous utilisez Acrobat Reader, activez la fonction de lissage des dessins au trait. R&eacute;f&eacute;rez-vous aussi &agrave; la section <a href="toolbox1.html">Acrobat Reader</a>.</li>
+	<li>Lorsque vous exportez au format SVG, la conversion du texte en contours PostScript donne presque toujours de meilleurs r&eacute;sultats.</li>
+	<li>Certaines polices Unicode sont tr&egrave;s volumineuses et prolongeront de mani&egrave;re significative le lancement de Scribus. De plus, vos besoins en m&eacute;moire vive seront plus &eacute;lev&eacute;s. Scribus effectue un n&eacute;cessaire contr&ocirc;le sanitaire des polices chaque fois que vous lancez l'application.</li>
+</ul>
+</qt> 

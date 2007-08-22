@@ -1,0 +1,50 @@
+<ul>
+<title>Pr&eacute;f&eacute;rences de polices et gestion des polices avec Scribus - Linux/Unix</title>
+<h2>Pr&eacute;f&eacute;rences de polices et gestion des polices avec Scribus - Linux/Unix</h2>
+
+<h3>Aper&ccedil;u</h3>
+
+<p><strong>Note : </strong>les utilisateurs Windows devraient &eacute;galement lire les notes <a href="fonts-win32.html">Polices Windows et Scribus</a></p>
+
+<p>Scribus poss&egrave;de des panneaux utiles et faciles &agrave; utiliser pour la gestion des polices avec Scribus, ainsi que des m&eacute;thodes pour rendre vos pr&eacute;f&eacute;rences globales de polices et de substitution facile dans Scribus. Dans ces nouvelles pr&eacute;f&eacute;rences de police, vous pouvez :</p>
+
+<ul>
+	<li>D&eacute;finir des chemins pour les polices de l'utilisateur, qui n'ont pas besoin des permissions root ni d'ajuster manuellement les chemins des polices dans les fichiers de configuration Xfree86 ou X.org.</li>
+	<li>D&eacute;finir des pr&eacute;f&eacute;rences utilisateur pour l'utilisation des polices et l'inclusion des polices dans les documents Scribus.</li>
+	<li>Ajuster les param&egrave;tres pour la substitution instantan&eacute;e des polices manquantes ou non disponibles.</li>
+</ul>
+
+<p>Au premier abord, cela peut sembler confus, puisque certaines options sont gris&eacute;es au d&eacute;part. Cependant, comme nous le verrons,
+la logique est pr&eacute;cise. Un des d&eacute;fis historiques dans la manipulation des polices avec Xfree86 ou X.org survient lorsque des applications commencent &agrave; ajouter des chemins de polices au chemin de police par d&eacute;faut configur&eacute; par Xfree86 ou X.org. Le nouveau m&eacute;canisme fontconfig et Freetype2 ont grandement assaini un des plus ancien probl&egrave;me que les utilisateurs avaient avec Linux sur leur bureau.</p>
+
+
+<h3>Ajouter des chemins de polices suppl&eacute;mentaires :</h3>
+
+<p>Ouvrez Scribus <strong>sans</strong> aucun document ouvert. Ensuite allez &agrave; <strong>Fichier &#062; Pr&eacute;f&eacute;rences &#062; Polices</strong>, ce qui affiche un panneau avec des onglets. S&eacute;lectionnez l'onglet Chemins additionnels :</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref1.png" alt="Ajouter des chemins de polices suppl&eacute;mentaires" title="Ajouter des chemins de polices suppl&eacute;mentaires."/></td></tr></table>
+
+<p>Vous pouvez ajouter des chemins de polices qui ne font pas partie des d&eacute;fauts de XFree86 ou X-org. Dans l'exemple qui suit, nous avons ajout&eacute; trois chemins de polices de l'utilisateur o&ugrave; se situent les polices que nous d&eacute;sirons utiliser dans Scribus. Le r&eacute;pertoire <code>.fonts</code> est le r&eacute;pertoire par d&eacute;faut utilis&eacute; avec le nouveau m&eacute;canisme <a href="fontconfig.html">fontconfig</a> avec Xft2 inclus dans les nouvelles distributions. Apr&egrave;s avoir cliqu&eacute; <strong>OK</strong>, Scribus ajoutera ces chemins de polices, et toutes les polices correctement install&eacute;es seront disponibles imm&eacute;diatement dans tout fichier que vous cr&eacute;erez ou ouvrirez.</p>
+
+<h3>Substitution de polices</h3>
+
+<p>Lorsque vous ouvrez un document Scribus, celui-ci v&eacute;rifie si toutes les polices sp&eacute;cifi&eacute;es dans le document sont disponibles. Dans le cas o&ugrave; une police ne serait pas disponible sur votre ordinateur, une substitution vous est propos&eacute;e &agrave; l'ouverture. Vous pouvez modifier cette pr&eacute;f&eacute;rence dans l'onglet <strong>Substitutions de polices</strong>. Cet onglet vous permet de changer le mod&egrave;le de substitution par d&eacute;faut. Dans cet exemple, nous substituons Timmons Bold, inclus dans StarOffice 5.2+, par un version TrueType de Time New Roman.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref2.png" alt="Substituions de polices" title="Substitution de polices" /></td></tr></table>
+
+<h4>Polices disponibles</h4>
+
+<p>Cet onglet affiche les polices disponibles dans le syst&egrave;me, y compris dans les chemins de polices sp&eacute;cifi&eacute;s par l'utilisateur. Vous pouvez aussi sp&eacute;cifier quelles polices sont utilis&eacute;es dans Scribus, police par police, ainsi que celles qui doivent &ecirc;tre incluses dans une sortie PostScript.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref3.png" alt="Polices disponibles et pr&eacute;f&eacute;rences d'inclusion de polices" title="Polices disponibles et pr&eacute;f&eacute;rences d'inclusion de polices"/></td></tr></table>
+
+<p>Dans cet exemple, Nimbus Roman (qui ressemble &agrave; Times ou Times Roman) a &eacute;t&eacute; d&eacute;sactiv&eacute;e, puisqu'elle ne s'affiche pas toujours de fa&ccedil;on optimale sur d'autres plateformes, sans compter que Acrobat Reader y substituera ses propres polices Multi Master.</p>
+
+<h3>Autres notes &agrave; propos des polices et de la gestion des polices :</h3>
+<ul>
+<li><strong>Les sous-r&eacute;glages</strong> de polices permettent d'inclure tous les glyphes d'une police dans un flux PostScript ou un PDF. Les des PDF sont alors moins lourds, mais il devient plus difficile de proc&eacute;der &agrave; des corrections mineures dans les outils de pr&eacute;-impression comme Pit Stop. &Agrave; moins d'envoyer un PDF &agrave; un imprimeur commercial, vous pouvez sous-r&eacute;gler les polices d'une mani&egrave;re relativement fiable. C'est important si vous essayez de maintenir un PDF t&eacute;l&eacute;chargeable &agrave; sa plus petite taille.</li>
+<li><strong>Les polices OpenType</strong> ne peuvent pas &ecirc;tre incluses compl&egrave;tement par d&eacute;faut. Ceci simplifie grandement leur manipulation dans d'autres applications. Les polices OpenType et Unicode TrueType peuvent &ecirc;tre tr&egrave;s grandes.  Les polices OpenType sont export&eacute;es en contours dans les PDF. Ceci permet de les utiliser dans les PDF, alors que souvent d'autres applications ne les utilisent pas.</li>
+<li><strong>Convertir en contours.</strong> Scribus peut optionnellement convertir du texte en contours PostScript. Ceci peut &ecirc;tre une bonne option lorsque votre imprimante n'a pas un module RIP suffisant pour accepter PDF 1.4. C'est &eacute;galement parfois une bonne option pour exporter en fichiers SVG ou EPS. Lorsque vous &ecirc;tes certain que les fichiers EPS seront import&eacute;s dans d'autres applications ou sur d'autres plateformes, c'est une option recommand&eacute;e.</li>
+<li><strong>Scribus ne cr&eacute;e pas de "fausses" polices gras ou italique.</strong>  Il s'agit d'un fl&eacute;au de la pr&eacute;-impression et cause des probl&egrave;mes connus lors de l'impression commerciale et peut amener une d&eacute;gradation de la qualit&eacute; du texte. Donc, Scribus ne cr&eacute;era pas une version Italique de la police si vous n'avez pas le fichier de police Italique pour une famille de police donn&eacute;e. Certaines applications de mise en page et de traitement de texte ont d&eacute;cid&eacute; d'offrir cette "caract&eacute;ristique". L'&eacute;quipe de d&eacute;veloppement de Scribus a pris la d&eacute;cision consciente de ne <strong>pas</strong> l'activer.</li>
+</ul>
+</qt> 

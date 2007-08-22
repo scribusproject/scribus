@@ -1,0 +1,25 @@
+<qt>
+<title>L'exportation PDF avec Scribus</title>
+<h2>L'exportation PDF avec Scribus</h2>
+<h3>Affichange &agrave; l'&eacute;cran et formulaires PDF en ligne</h3>
+<p>Choisissez ces param&egrave;tres lorsque la vitesse de t&eacute;l&eacute;chargement est r&eacute;duite ou lorsqu'il est important de maintenir un poids minimal.</p>
+
+<p><b>Param&egrave;tres recommand&eacute;s et conseils :</b></p>
+
+<ul>
+<li>R&eacute;-&eacute;chantillonez toutes les images &agrave; 72-96 PPP.</li>
+<li>R&eacute;duisez le nombre de polices au minimum n&eacute;cessaire.</li>
+<li>Choisissez pour la compression le param&egrave;tre de qualit&eacute; la plus basse qui donne des r&eacute;sultat acceptables &agrave; l'&eacute;cran.</li>
+<li>Vous pouvez souvent substituer Arial pour Helvetica, puisque les visualiseurs r&eacute;cents incluent souvent cette police.</li>
+<li>&Eacute;vitez d'importer des EPS ou des PDFs dans votre document - convertissez-les plut&ocirc;t en PNG basse r&eacute;solution avec GSview, puis placez-les dans votre document Scribus. Pourquoi ? Ils s'afficheront plus rapidement sur votre &eacute;cran et ceci pour une taille de fichier souvent plus petite.</li>
+<li>&Eacute;vitez d'utiliser les polices Nimbus, sinon au moins utilisez un sous-ensemble. Acrobat Reader sur d'autres plateformes effectue une mauvaise substitution en utilisant ses polices incluses. Un autre probl&egrave;me qui peut vous arriver est que Helvetica est souvent surnomm&eacute; Nimbus Sans sur plusieurs distributions.</li>
+<li>&Agrave; moins que la transparence dans le dessin ne soit n&eacute;cessaire, s&eacute;lectionnez la sortie PDF 1.3 pour maintenir une plus grande compatibilit&eacute; avec les autres utilisateurs.</li>
+<li>Lorsque c'est possible, remplacez les images bitmap par des dessins vectoriels. Un dessin vectoriel est beaucoup plus compact en taille dans PDF.</li>
+</ul>
+<h4>Lorsqu'il s'agit de l'optimisation PDF pour les sites web, il y a deux probl&egrave;mes :</h4>
+
+<p>La taille globale du fichier. Celle-ci peut partiellement &ecirc;tre r&eacute;duite en choisissant bien les polices et en n'utilisant pas trop de polices diff&eacute;rentes. Vous pouvez, si l'espace compte vraiment, ne pas inclure les polices et utiliser seulement les polices 'base 14" que tous les visualiseurs PDF devraient avoir. Ces polices incluent les variantes gras et italique de Courier, Helvetica ou ArialMT, ainsi que Times. </p>
+
+<p>Le second probl&egrave;me est le temps de t&eacute;l&eacute;chargement perceptible lorsque le PDF est visible dans le visualiseur. Ghostscript poss&egrave;de un outil en ligne de commande, <strong> pdfopt</strong>,  qui peut 'lin&eacute;ariser' un PDF et permettre &agrave; un visualiseur PDF d'afficher la premi&egrave;re page du PDF, tandis que les pages subs&eacute;quentes se chargent en arri&egrave;re-plan. Ceci est tr&egrave;s utile pour de plus longs documents. Notez que cet outil ne r&eacute;duit pas la taille du PDF et peut m&ecirc;me augmenter la taille puisque qu'il d&eacute;fait la mani&egrave;re non-lin&eacute;aire dont sont conserv&eacute;es les objets dans le PDF. Lisez le fichier use.html dans la documentation de Ghostscript pour plus de d&eacute;tails. Notez &eacute;galement que le serveur web apache doit &ecirc;tre  configur&eacute; avec une caract&eacute;ristique appel&eacute;e 'byte-serving'. </p>
+</qt>
+ 

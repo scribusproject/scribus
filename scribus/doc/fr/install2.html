@@ -1,0 +1,39 @@
+<qt>
+<title>&Eacute;l&eacute;ments requis</title>
+<h2>&Eacute;l&eacute;ments requis</h2>
+<p>Pour compiler Scribus, vous aurez besoin de :</p>
+<ol>
+	<li><strong>Pour Scribus 1.3.x+ GCC 3.x+ est requis, GCC 3.3+ est fortement recommand&eacute;</strong>. L'&eacute;quipe de Scribus a test&eacute; la compilation avec GCC 3.4 ou GCC 4.0 et recommande de l'utiliser, s'il est disponible, pour les gains de performance obtenus.</li>
+	<li>autoconf 2.53+</li>
+	<li>automake 1.6.3+</li>
+</ol>
+Les d&eacute;pendances pour la compilation et pour ex&eacute;cuter Scribus sont:
+<ol>
+	<li>Qt 3.3.0+, les librairies d'ex&eacute;cution et les libraires de d&eacute;veloppement. Nous recommandons d'utiliser Qt 3.3.4+. <strong>Qt =&#060; 3.2.x n'est pas support&eacute;.</strong></li>
+	<li>Les librairies Python et python-devel 2.3+. Vous pouvez d&eacute;sactiver le support Python &agrave; l'aide de <code>configure --without-python</code>. Python 2.2 n'est pas support&eacute;.</li>
+	<li>Freetype2 2.1.3+. &Agrave; cause de nombreux probl&egrave;mes de freetype2, nous recommandons, si votre distribution/syst&egrave;me d'exploitation le permet, d'utiliser 2.1.10+</li>
+	<li>libart_lgpl 2.3.10+, 2.3.17+ recommand&eacute;.</li>
+	<li>libxml 2.6+.</li>
+	<li>Ghostscript 7.07+ ou GPL Ghostscript 8.57+ est hautement recommand&eacute;.</li>
+	<li>PostScript-Fonts. TrueType Fonts. Scribus supporte &eacute;galement les polices OpenType, TrueType et Type 1 Outline OpenType Fonts dans 1.1.1+.</li>
+</ol>
+<p>Scribus s'ex&eacute;cutera sous la plupart des gestionnaires de fen&ecirc;tres et ne requiert pas KDE en soi. Cependant, les fonctionnalit&eacute;s de glisser-d&eacute;poser seront perdues sans KDE. Un des d&eacute;veloppeurs de Scribus roule sous Gnome. L'auteur de cette documentation s'est astreint &agrave; tester chaque version de Scribus sous Blackbox &eacute;galement.
+L'op&eacute;ration n'a r&eacute;v&eacute;l&eacute; aucune incompatibilit&eacute; ni probl&egrave;me, mise &agrave; part la perte de la fonctionnalit&eacute; glisser-d&eacute;poser.</p>
+<p>Si la gestion des couleurs ne fonctionne pas, c'est probablement que vous n'avez pas install&eacute; les librairies de d&eacute;veloppement pour littlecms. En t&eacute;l&eacute;chargeant le progiciel &agrave; partir de littlecms le fichier make est d&eacute;j&agrave; configur&eacute; pour Linux, la compilation en devient tr&egrave;s simple. Vous avez &eacute;galement besoin d'au moins un profil couleur RVB et d'un profil CMJN install&eacute;s, sinon les pr&eacute;f&eacute;rences et les options couleurs n'appara&icirc;tront pas dans les menus.</p>
+<p>Les tests sugg&egrave;rent d'assigner le param&egrave;tre &#034;-march=&#034; CXXFLAGS a tr&egrave;s peu d'effets b&eacute;n&eacute;fiques sur la performance de Scribus. Par exemple, si vous avez un processeur Duron ou Athlon, utilisez <code>export
+CXXFLAGS=&#034;-march=athlon&#034;</code> serait b&eacute;n&eacute;fique. V&eacute;rifiez si votre distribution les assigne pour vous et comment ils sont assign&eacute;s et, pour plus d'information, voyez :
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>man gcc</pre>
+</td></tr></table></blockquote>
+pour des options d&eacute;taill&eacute;es</p>
+<h3>Optionnellement :</h3>
+<ul>
+<li>Les librairies de d&eacute;veloppement CUPS - Scribus supporte maintenant directement l'impression avec CUPS.</li>
+<li>Les librairies de d&eacute;veloppement Gimp Print - Scribus supporte maintenant l'extension Gimp Print avec CUPS.</li>
+<li>Littlecms - aussi connu comme lcms dans certaines distributions. Minimum 1.12, 1.16+ recommand&eacute;. lcms 1.12+ supporte la g&eacute;n&eacute;ration du point noir.</li>
+<li>tkinter - pour le script d'&eacute;chantillonnage de police</li>
+<li>Les librairies python-imaging pour l'aper&ccedil;u du script d'&eacute;chantillonage de police</li>
+<li>openssl-devel (Certaines distributions activent le support ssl pour CUPS, notamment Suse Linux)</li>
+<li>fontconfig-devel - pour la d&eacute;couverte automatique des polices sous Linux, MacOSX et Unix. Pas n&eacute;cessaire sous Windows.</li>
+</ul>
+</qt> 

@@ -1,0 +1,54 @@
+<qt>
+<title>Importation/exportation SVG dans Scribus</title>
+<h2>Importation/exportation SVG dans Scribus</h2>
+<p>Scribus inclut des extensions pour l'importation et l'exportation de SVG, ce qui vous permet d'exporter des pages Scribus ou des objets en format SVG. Le module d'importation vous permet d'importer des dessins SVG et des documents &agrave; partir d'applications d'illustration comme Inkscape, Skencil et Adobe Illustrator.</p>
+<p>Le module est capable d'importer et d'exporter le format SVG 1.0 utilisant des primitives graphique 2D standard et du texte. Ces SVG peuvent &ecirc;tre affich&eacute;s dans les navigateurs web avec capacit&eacute; SVG et dans les afficheurs SVG. Ils peuvent aussi &ecirc;tre &eacute;dit&eacute;s dans des &eacute;diteurs vectoriels supportant le SVG, commeSkencil, Inkscape ou Adobe Illustrator.
+</p>
+<h4>Exporter en utilisant le module d'extension :</h4>
+<p>Ouvrez simplement la page que vous voulez exporter, s&eacute;lectionnez-la et utilisez <strong>Fichier > Exporter > Enregistrer la page en SVG..</strong></p>
+<h4>Importer en utilisant le module d'extension :</h4>
+<p>Allez &agrave; <strong>Fichier > Importer > Importer un fichier SVG</strong>. Lorsque vous importez un dessin ou une image  SVG, le SVG appara&icirc;tra comme un objet provenant de l'album. D&eacute;placez le curseur l&agrave; o&ugrave; vous voulez placer l'image SVG. </p>
+
+<h4>Conseils d'importation SVG :</h4>
+<p>Scribus peut manipuler la plupart des caract&eacute;ristiques SVG qui peuvent &ecirc;tre cr&eacute;&eacute;es dans Inkscape et Sketch, deux applications de dessin vectoriel bien connues pour Linux. Le principal probl&egrave;me que j'ai observ&eacute; est que, parfois, les trac&eacute;s n'apparaissent pas ferm&eacute;s lorsqu'ils sont interpr&eacute;t&eacute;s. Certaines parties du fichier SVG apparaissent donc vides &agrave; l'importation. Il suffit de d&eacute;grouper les &eacute;l&eacute;ments, de s&eacute;lectionner les objets qui paraissent vides, puis de double-cliquer pour faire afficher la palette d'&eacute;dition des objets dessin, et enfin de cliquer sur le bouton Fermer le trac&eacute;. En r&egrave;gle g&eacute;n&eacute;rale, l'objet invisible appara&icirc;t.</p>
+<p>Je <strong>recommande fortement de ne pas</strong> cr&eacute;er d'effets sp&eacute;ciaux de texte en SVG, &agrave; moins que a) l'effet ne puisse &ecirc;tre effectu&eacute; dans Scribus, &eacute;tant donn&eacute; que celui-ci poss&egrave;de des outils d'effets de texte tr&egrave;s polyvalents. b) les effets de texte ne soient convertis en contours avant l'importation. Pourquoi ? Scribus utilise un mod&egrave;le PostScript pour manipuler les polices et le texte, tandis que SVG utilise un mod&egrave;le semblable au html. Dans le cas o&ugrave; vous devez cr&eacute;er les effets dans une autre application, convertissez le texte en contours, et vous obtiendrez de bien meilleurs r&eacute;sultats.</p>
+
+<h3>Scribus - questions et r&eacute;ponses sur le SVG</h3>
+<h4>Qu'est-ce qu'un SVG ?</h4>
+<p>SVG (Scalable Vector Graphics) est un standard recommand&eacute; par le W3C pour les graphiques vectoriels comme des dessins contenant des lignes, des cartes et des logos. </p>
+<h4>Pourquoi ajouter l'exportation SVG &agrave; Scribus ?</h4>
+<p>Scribus poss&egrave;de beaucoup d'outils de dessin sophistiqu&eacute;s, faciles &agrave; reconna&icirc;tre et &agrave; utiliser. Il se peut que les utilisateurs souhaitent manipuler les objets cr&eacute;&eacute;s dans Scribus avec d'autres applications, par exemple pour le design web. Beaucoup d'autres
+applications peuvent importer du SVG et exporter un objet SVG en d'autres formats de fichier. Vous pouvez ainsi cr&eacute;er vos objets pour l'impression et pour le web &agrave; partir d'une seule source.</p>
+<h4>Quelles caract&eacute;ristiques puis-je importer avec le module d'extension ?</h4>
+<p>Des graphique 2D de base et du texte. Le texte superpors&eacute; &agrave; un trac&eacute; fonctionne parfois avec d'autres applications, mais parfois non. Adobe Illustrator et Sodipodi (de plus en plus) importent bien les SVG de Scribus. Toutes les caract&eacute;ristiques d'un document Scribus peuvent &ecirc;tre export&eacute;es en format SVG. Les images d'une page sont converties en PNG. Le navigateur web Amaya affichera &eacute;galement les SVG de Scribus. Certaines constructions de Mozilla poss&egrave;dent un rendu SVG natif et de futures constructions pourraient l'inclure en standard.</p>
+<h4>Quelles caract&eacute;riques ne sont pas support&eacute;es ?</h4>
+<p>La version courante du module d'importation SVG comporte les limitations suivantes :</p>
+<ol>
+	<li>Le texte n'est pas encore compl&egrave;tement support&eacute;.</li>
+	<li>Certains styles de d&eacute;grad&eacute;s ne sont pas support&eacute;s.</li>
+	<li>Il n'y a aucun support pour le masquage et les d&eacute;coupes</li>
+	<li>Les images incorpor&eacute;es dans le SVG ne sont pas support&eacute;es.</li>
+	<li>Le SVG doit &ecirc;tre bien form&eacute;, les structures et les balises doivent &ecirc;tre correctes. Les SVG corrompus font planter le module d'extension.</li>
+	<li>Les animations, le multim&eacute;dia et les "extensions" ou les marqueurs propri&eacute;taires dans SVG, qui peuvent seulement &ecirc;tre vus avec certains visionneurs, ne sont pas support&eacute;s.</li>
+</ol>
+
+<h4>Pourquoi SVG ?</h4>
+<p>SVG est un format de fichier qui pr&eacute;sente plusieurs avantages :</p>
+<ul>
+	<li>Il est facile &agrave; impl&eacute;menter. Le format de fichier SVG est bas&eacute; sur XML et poss&egrave;de plusieurs ressemblances avec le format de fichier natif de Scribus.</li>
+	<li>SVG est compos&eacute; de graphiques vectoriels redimensionnables, donc les graphiques ne sont pas pix&eacute;lis&eacute;s quand ils sont agrandis.</li>
+	<li>Il est en format XML, compos&eacute; de texte et rapide &agrave; charger. Il est beaucoup plus l&eacute;ger que des images bitmap. Un fichier SVG typique fait moins de 10 Ko.</li>
+	<li>SVG est un standard ouvert bas&eacute; sur XML, du consortium W3</li>
+	<li>Il est ind&eacute;pendant de la plate-forme</li>
+	<li>Il peut &ecirc;tre script&eacute; pour l'interaction et le contr&ocirc;le par l'utilisateur. Il supporte &eacute;galement les espaces de couleur ICC, donc la couleur s'affiche correctement, m&ecirc;me dans un navigateur.</li>
+	<li>Les couleurs du SVG peuvent &ecirc;tre g&eacute;r&eacute;es et des profils ICC peuvent &ecirc;tre d&eacute;finis correctement.</li>
+</ul>
+
+<h4>Qu'en est-il du support des navigateurs ?</h4>
+<p>Firefox 1.5 et Konqueror 3.4.0+ sous Linux supportent le SVG nativement. Le dernier module d'extension SVG deAdobe est int&eacute;ressant. Il fonctionne bien dans mes tests avec Mozilla 1.4+.</p>
+<h4>O&ugrave; en apprendre plus ?</h4>
+<p><a href="http://www.svgx.org/">La fondation SVG</a> poss&egrave;de beaucoup de liens et de d&eacute;p&ecirc;ches. </p><p>D'autres liens sont list&eacute; &agrave; la <a href="sclinks.html">Page de liens</a></p>
+<h4>Une page Scribus affich&eacute;e dans un navigateur :</strong></h4>
+<table width="100%"><tr><td align="center"><img src="images/svg1.png" title="Page Scribus export&eacute;e en SVG dans un navigateur" alt="Page Scribus export&eacute;e en SVG dans un navigateur" /></td></tr></table>
+</qt>
+ 

@@ -1,0 +1,35 @@
+<qt>
+<title>Notes sur l'importation EPS dans Scribus</title>
+<h2>Notes sur l'importation EPS dans Scribus</h2>
+
+<p>Pour am&eacute;liorer vos chances d'importer avec succ&egrave;s des fichiers EPS, ces trois ingr&eacute;dients sont utiles :</p>
+ <ul>
+<li>Un fichier EPS qui est conforme aux sp&eacute;cifications publi&eacute;es. Ce ne sont pas toutes les applications qui exportent les fichiers EPS avec le m&ecirc;me niveau de fid&eacute;lit&eacute;, et elles n'incluent pas toutes les polices correctement.</li>
+<li>Le dernier Ghostscript disponible pour votre plateforme.</li>
+<li>Si un fichier EPS a des polices incluses, assurez-vous que le chemin de polices de Ghostscript est param&eacute;tr&eacute; correctement. Voir: <a href="gsfont.html">Polices Ghostscript</a> pour plus d'indications.</li></ul>
+<p>Il y a deux m&eacute;thodes de base pour importer des fichiers EPS et les deux ont des avantages et des inconv&eacute;nients. La premi&egrave;re consiste &agrave; importer tout simplement l'EPS dans un cadre d'image, un peu comme la m&eacute;thode utilis&eacute;e par GIMP ou Photoshop. Ceci Ici il s'agit de <em>rasteriser (tracer ligne &agrave; ligne)</em>, ou de transformer l'EPS en un bitmap comme un TIFF ou JPEG. La deuxi&egrave;me m&eacute;thode souvent pr&eacute;f&eacute;r&eacute;e consiste &agrave; importer l'EPS dans Scribus en tant qu'objet natif. Les deux m&eacute;thodes ont des inconv&eacute;nients, en partie &agrave; cause de la nature inh&eacute;rente des fichiers EPS. Comme les PDFs, la plupart, sinon tous les EPS ne sont pas faits pour &ecirc;tre &eacute;dit&eacute;s, mais EPS est plus un format d'&eacute;change. Cependant, les importer en tant qu'objets natifs de Scribus peut permettre une certaine &eacute;dition du contenu, ainsi que le redimensionnement sans perte de r&eacute;solution.</p>
+
+<h3>Importer un EPS en tant qu'image</h3>
+<p>Lorsque vous voulez importer un EPS dans Scribus et y ajouter du texte, des images et des vecteurs, c'est la seule vraie option. Ce type d'importation, si les polices sont correctement incluses, fonctionne habituellement de mani&egrave;re tr&egrave;s fiable et reste fid&egrave;le aux couleurs CMJN d&eacute;finies dans l'EPS. Lors de l'importation initial, Scribus ignorera les aper&ccedil;us TIFF ou pict et g&eacute;n&eacute;rera sont propre aper&ccedil;u basse r&eacute;solution de l'EPS. Si rien ne s'affiche, c'est une indication que quelque chose ne fonctionne pas correctement dans l'importation, et qu'il faut voir cela de plus pr&egrave;s. Lors de l'exportation en PDF, l'EPS est repass&eacute; dans Ghostscript comme il est inclus dans le PDF. Ne soyez donc pas surpris que l e temps d'exportation en PDF soit long ou que l'usage m&eacute;moire soit &eacute;lev&eacute;.
+</p>
+<p>Pour importer un EPS en tant qu'image :</p>
+<ul>
+   <li>S&eacute;lectionnez l'outil d'insertion d'images </li>
+   <li>Cliquez avec le bouton gauche et glissez pour modifier la taille du cadre.</li>
+   <li>Cliquez avec le bouton droit ce nouveau cadre d'image et s&eacute;lectionnez <strong>Importer une image...</strong> </li>
+ </ul>
+<h3>Importer un EPS en tant qu'objet natif de Scribus.</h3>
+<p>Importer un EPS en tant qu'objet natif de Scribus, lorsque c'est possible, a certains avantages. Premi&egrave;rement, il est enti&egrave;rement constitu&eacute; de vecteurs, donc la taille du fichier et la taille du fichier PDF export&eacute; sont relativement petites. Il rend le fichier ind&eacute;pendant de la r&eacute;solution, de sorte qu'il peut &ecirc;tre redimensionn&eacute; sans perte de pr&eacute;cision &agrave; l'impression. En prime, vous pouvez &eacute;diter les &eacute;l&eacute;ments graphiques comme les lignes, les polygones et les courbes directement dans Scribus.</p>
+<p>Pour importer un EPS en tant qu'objet natif de Scribus :</p>
+<ul>
+   <li><strong>Fichier > Importer > Importer un fichier (E)PS</strong>  </li>
+   <li>S&eacute;lectionnez l'EPS. Si les aper&ccedil;us sont activ&eacute;s dans le dialogue de choix de fichiers, un fichier EPS volumineux et complexe peut prendre un certain temps &agrave; s'afficher. </li>
+   <li>Cliquez avec le bouton gauche pour d&eacute;poser le curseur l&agrave; o&ugrave; vous voulez placer le fichier. Une fois d&eacute;pos&eacute; sur le canevas, les objets du fichier EPS sont group&eacute;s. Vous devrez les d&eacute;grouper pour &eacute;diter les objets individuels. Pour redimensionner un EPS import&eacute;, s&eacute;lectionnez le coin en bas &agrave; droite et Ctrl + Clic gauche puis glisser en haut ou en bas selon le besoin. Cette op&eacute;ration redimensionnera votre EPS de fa&ccedil;on proportionnelle.</li>
+ </ul>
+<h4>Conseils importants :</h4>
+<p>Une de mes mani&egrave;res pr&eacute;f&eacute;r&eacute;es d'importer des fichiers EPS dans Scribus est de ferme tous les documents ouverts. Ensuite importez directement le fichier EPS. Ceci cr&eacute;e un nouveau document dans lequel la taille de la page est calcul&eacute;e automatiquement &agrave; partir des limites de l'EPS. Sauvegardez-le sous un nom de fichier. Ensuite, r&eacute;-ouvrez le document dans lequel vous voulez l'importer. Cr&eacute;ez un nouveau calque et utilisez la fonction d'importation de page pour importer le document que vous venez de cr&eacute;er dans un nouveau calque de votre document existant. Ceci &eacute;vite de des &eacute;l&eacute;ments import&eacute;s perturbent les objets existants et vous permet de placer le fichier o&ugrave; vous voulez avec pr&eacute;cision.</p>
+
+<h4>D&eacute;pannage pour l'importation EPS </h4>
+<p>Comme mentionn&eacute; plus haut, la qualit&eacute; de l'exportation EPS &agrave; partir d'autres applications peut varier grandement. Certaines applications ajoutent leurs propres ingr&eacute;dients &agrave; la sauce, malheureusement. La premi&egrave;re &eacute;tape pour tester une exportation &eacute;chou&eacute;e est d'ouvrir le fichier dans <a href="toolbox6.html">GSview</a>, puis presser <strong>M</strong> pour voir les messages de Ghostscript alors qu'il essaie d'ouvrir le fichier. Lorsque vous obtenez un &eacute;chec dans GSview, les messages peuvent sembler obscurs, mais ils sont une bonne indication pour rep&eacute;rer le probl&egrave;me.</p>
+<p></p>
+</qt> 

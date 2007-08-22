@@ -1,0 +1,118 @@
+<qt>
+<title>Comment utiliser le d&eacute;p&ocirc;t Scribus de Debian / Ubuntu</title>
+<h2>Comment utiliser le d&eacute;p&ocirc;t Scribus de Debian / Ubuntu</h2>
+<p><em>Ces notes sont gracieusement fournies par notre mainteneur du d&eacute;p&ocirc;t Debian, Oleksandr Moskalenko.</em> &#060;malex &agrave; tagancha.org&#062;. Veuillez adresser les questions concernant Scribus sous Debian au courriel ci-dessus.</p>
+
+<p>Note : utilisez apt. C'est la bonne mani&egrave;re d'installer des modules debian, binaire et source. V&eacute;rifiez que dpkg-dev est install&eacute; si vous pensez construire votre propre module &agrave; partir de la source.</p>
+
+<p>Le module Scribus pour Debian GNU/Linux est cr&eacute;&eacute; par Oleksandr (Alex) Moskalenko (malex &agrave; tagancha.org). Contactez-le par courriel si vous avez des questions qui ne font pas partie du BTS (Bug Tracking System) de Debian ou Scribus, ou pour tout commentaire concernant cette page.</p>
+
+<p>Si vous aimeriez rester &agrave; jour par rapport au d&eacute;veloppement de Scribus, veuillez utiliser les d&eacute;p&ocirc;ts en amont, puisque  je dois t&eacute;l&eacute;charger Scribus dans Debian via un sponsor et que ce processus prend habituellement des semaines. &Agrave; cause de cela, les modules officiels sont souvent loin en arri&egrave;re par rapport &agrave; ce qui est disponible dans les d&eacute;p&ocirc;ts en amont. Essayez un module d'un d&eacute;p&ocirc;t en amont pour v&eacute;rifier si le probl&egrave;me que vous avez d&eacute;couvert a d&eacute;j&agrave; &eacute;t&eacute; r&eacute;solu et si un nouveau module est disponible. On appelle cela "la magie de Scribus &#8482;". Notez que les d&eacute;p&ocirc;ts list&eacute;s ci-dessous sont IDENTIQUES afin de fournir une sauvegarde de secours et une bande passante additionnelle si n&eacute;cessaire. Le d&eacute;p&ocirc;t contient les modules pour Debian (stable, testing, unstable) et les distributions Ubuntu (hoary, breezy).
+<h3>Pr&eacute;paration :</h3>
+</p>Pour utiliser les d&eacute;p&ocirc;ts en amont : ajoutez les lignes appropri&eacute;es de la liste suivante &agrave; votre fichier /etc/apt/sources.list :<p>
+
+
+<p>Ajoutez les lignes suivantes &agrave; votre fichier <code>/etc/apt/sources.list :</code></p>
+<p> Debian stable</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>#Debian stable
+# debian.scribus.net - D&eacute;p&ocirc;t principal
+deb         http://debian.scribus.net/debian/ stable main non-free contrib
+deb-src     http://debian.scribus.net/debian/ stable main non-free contrib
+
+# debian.tagancha.org - D&eacute;p&ocirc;t de secours
+deb         http://debian.tagancha.org/debian/ stable main non-free contrib
+deb-src     http://debian.tagancha.org/debian/ stable main non-free contrib</pre>
+</td></tr></table></blockquote>
+<p> Debian testing</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>#Debian testing
+# debian.scribus.net - D&eacute;p&ocirc;t principal
+deb         http://debian.scribus.net/debian/ testing main non-free contrib
+deb-src     http://debian.scribus.net/debian/ testing main non-free contrib
+
+# debian.tagancha.org - D&eacute;p&ocirc;t de secours
+deb         http://debian.tagancha.org/debian/ testing main non-free contrib
+deb-src     http://debian.tagancha.org/debian/ testing main non-free contrib</pre>
+</td></tr></table></blockquote>
+
+<p> Debian unstable</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>#Debian testing
+# debian.scribus.net - D&eacute;p&ocirc;t principal
+deb         http://debian.scribus.net/debian/ unstable main non-free contrib
+deb-src     http://debian.scribus.net/debian/ unstable main non-free contrib
+
+# debian.tagancha.org - D&eacute;p&ocirc;t de secours
+deb         http://debian.tagancha.org/debian/ unstable main non-free contrib
+deb-src     http://debian.tagancha.org/debian/ unstable main non-free contrib</pre>
+</td></tr></table></blockquote>
+
+<p> Ubuntu hoary</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre># Ubuntu hoary
+deb         http://debian.scribus.net/debian/ hoary main restricted
+deb-src     http://debian.scribus.net/debian/ hoary main restricted
+
+deb         http://debian.tagancha.org/debian/ hoary main restricted
+deb-src     http://debian.tagancha.org/debian/ hoary main restricted</pre>
+</td></tr></table></blockquote>
+
+<p> Ubuntu breezy</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre># Ubuntu breezy
+deb         http://debian.scribus.net/debian/ breezy main restricted
+deb-src     http://debian.scribus.net/debian/ breezy main restricted
+
+deb         http://debian.tagancha.org/debian/ breezy main restricted
+deb-src     http://debian.tagancha.org/debian/ breezy main restricted</pre>
+</td></tr></table></blockquote>
+
+<p>Un fois que vous avez ajout&eacute; les lignes de source appropri&eacute;es, vous pouvez ex&eacute;cuter :</p>
+
+<p>Mise &agrave; jour de la base de donn&eacute;es des modules :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre> aptitude update</pre>
+</td></tr></table></blockquote>
+<p>ou</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre> apt-get update </pre>
+</td></tr></table></blockquote>
+<p>Installez le module Scribus appropri&eacute; ou les deux modules :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre> aptitude install scribus scribus-cvs </pre>
+</td></tr></table></blockquote>
+<p>ou</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre> apt-get install scribus scribus-cvs </pre>
+</td></tr></table></blockquote>
+<p>ou utilisez votre interface graphique pr&eacute;f&eacute;r&eacute;e pour apt-get, comme synaptic (N'oubliez pas de "Recharger la liste des modules" dans synaptic. C'est l'&eacute;quivalent de apt-get update et doit &ecirc;tre effectu&eacute; avant que de nouveaux modules de ces d&eacute;p&ocirc;ts deviennent disponibles pour vos outils de gestions de modules.</p>
+
+<p>Le module "scribus" indique les s&eacute;ries stables 1.2.xcvs tandis que le module "scribus-cvs" vous permettra d'essayer les nouvelles s&eacute;ries 1.3cvs, qui sont assez stables et ont beaucoup plus de caract&eacute;ristiques que 1.2. Le module "scribus-cvs" s'installe dans la hi&eacute;rarchie /usr/local et peut &ecirc;tre install&eacute; en parall&egrave;le avec le module scribus, de sorte que vous pouvez avoir les deux et m&ecirc;me les ex&eacute;cuter en m&ecirc;me temps. Cependant, veuillez NE PAS signaler de probl&egrave;me concernant le module scribus-cvs 1.3 ou tout module de ces d&eacute;p&ocirc;ts en amont sur le BTS Debian ou Ubuntu. Utilisez seulement la BTS de la distribution pour les versions des modules qui sont dans cette distribution. Si vous avez un probl&egrave;me avec Scribus, qui n'est pas li&eacute; au modules de Debian, il est alors pr&eacute;f&eacute;rable d'utiliser le BTS de Scribus pour signaler les probl&egrave;mes. Allez &agrave; <a href="http://bugs.scribus.net/" name="http://bugs.scribus.net/">http://bugs.scribus.net/</a> et amusez-vous.</p>
+
+
+<h3> autres branches</h3>
+<p><strong>Les instruction qui suivent sont devenues presque d&eacute;su&egrave;tes pour l'architecture x86 par les nouveaux d&eacute;p&ocirc;ts. Si vous avez un mat&eacute;riel non-x86 ou que vous aimeriez construire un module optimis&eacute;, vous pouvez toujours suivre ces instructions. Vous pouvez me soumettre des modules pour d'autres architectures et je les placerai dans le d&eacute;p&ocirc;t.</strong></p>
+<h4> Si votre distribution n'est pas d&eacute;j&agrave; support&eacute;e :</h4>
+
+<p>Veuillez visiter le <a href="http://wiki.scribus.net/index.php/Scribus_on_Debian_GNU/Linux">Wiki Scribus</a> pour des astuces directement des utilisateurs. </p>
+<!--<p>If you have a non-x86 arch or would like to optimize the packages for your CPT you can achive these goals by a very simple package rebuild. Make sure that you have the deb-src lines for scribus repositories uncommented and run the following commands:</p>
+<h3> The cool way &#8482; - as root or set up sudo for yourself as a user:</h3>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>apt-get install apt-build</pre>
+<pre>apt-build update</pre>
+<pre>apt-build install scribus (or scribus-cvs)</pre>
+</td></tr></table></blockquote>
+<p>Answer questions about your CPU and stuff - see an excellent document at: <a href="http://julien.danjou.info/article-apt-build.html">http://julien.danjou.info/article-apt-build.html</a></p>
+
+<h3> User notes about installation on other Debian-based distributions:</h3>-->
+
+
+<h3>R&eacute;f&eacute;rences:</h3>
+<p>Note : ces instructions sont &eacute;galement disponibles en partie &agrave; :</p>
+<a href="http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html">http://www.debian.org/doc/FAQ/ch-pkg_basics.en.html</a>
+<p>Vois la section 6.13 "Comment installer un module source?" et la section 6.14 "Comment construire un module binaire &agrave; partir du module source?"</p>
+<p>Profitez de Scribus!</p>
+</qt>
+ 

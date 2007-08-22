@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+<area text="Bienvenue" file="index.html">
+<submenuitem text="Lisez-moi" file="readme.html"/>
+</area>
+<area text="Documentation" file="documentation.html">
+	<submenuitem text="Introduction" file="intro.html">
+		<submenuitem text="Notre équipe" file="about1.html"/>
+		<submenuitem text="Fiche technique" file="specs.html"/>
+	</submenuitem>
+	<submenuitem text="Installation" file="install.html">
+		<submenuitem text="Source Scribus et CVS" file="install1.html"/>
+		<submenuitem text="Configuration requise" file="install2.html"/>
+		<submenuitem text="Compilation et installation" file="install3.html"/>
+		<submenuitem text="Compilation et installation avec CMake" file="install4.html"/>
+		<submenuitem text="Installation parallèle" file="parallel-install.html"/>
+		<submenuitem text="Information sur Debian dpkg" file="install-dpkg.html"/>
+	</submenuitem>
+	<submenuitem text="Support multiplateforme" file="cross-platform.html">
+		<submenuitem text="Mac OSX/Fink" file="machints1.html"/>
+		<submenuitem text="Mac OSX/Fink et CVS" file="machints2.html"/>
+		<submenuitem text="Lisez-moi Windows" file="readme-win32.html"/>
+		<submenuitem text="Lisez-moi OS/2" file="readme-os2.html"/>
+	</submenuitem>
+	<submenuitem text="Setup" file="settings1.html">
+            <submenuitem text="Raccourcis-claviers" file="keys.html"/>
+            <submenuitem text="Raccourcis-souris" file="mouse.html"/>
+            <submenuitem text="Césure automatique" file="hyphenator.html"/>
+            <submenuitem text="Installation des polices" file="fonts1.html"/>
+            <submenuitem text="Polices en détail" file="fonts2.html"/>
+            <submenuitem text="Polices GS" file="gsfont.html"/>
+            <submenuitem text="Polices pour alphabets autres que latins" file="fonts3.html"/>
+            <submenuitem text="Tests des polices de base 1" file="fonts4.html"/>
+            <submenuitem text="Tests des polices de base 2" file="fonts5.html"/>
+	    <submenuitem text="Installation de polices Win32" file="fonts-win32.html"/>
+        </submenuitem>
+            <submenuitem text="Initiation à Scribus" file="about2.html" >
+            <submenuitem file="docinfo.html" text="Doc. Info" />
+            <submenuitem text="Pages modèles" file="pagetemplate1.html" />
+	    <submenuitem text="Numérotation des pages" file="pagenumber.html" />
+            <submenuitem text="Espaces insécables" file="short-words.html" />
+	    <submenuitem text="Modification des couleurs" file="color1.html" />
+	    <submenuitem text="Calques" file="layers.html" />
+        </submenuitem>
+            <submenuitem text="Importation" file="importhints.html">
+            <submenuitem text="Importation de fichiers EPS" file="importhints1.html"/>
+            <submenuitem text="Importation (avancée)" file="importhints2.html"/>
+            <submenuitem file="importhints3.html" text="OpenOffice.org Docs" />
+	    <submenuitem file="importhints4.html" text="Importation HTML" />
+            <submenuitem file="scribus-svg.html" text="Importation de fichiers SVG" />
+	    <submenuitem file="psd.html" text="Importation de fichiers PSD" />
+        </submenuitem>
+            <submenuitem text="Exportation en PDF" file="pdfexport1.html">
+            <submenuitem text="Exportation des travaux pour PDF" file="pdfexport2.html"/>
+            <submenuitem text="Variantes PDF" file="pdflavor.html"/>
+            <submenuitem text="PDF/X-3" file="pdfx3.html"/>
+            <submenuitem text="Formulaires PDF" file="pdfexport3.html"/>
+            <submenuitem text="PDF et JavaScript" file="javascriptpdf.html"/>
+            <submenuitem text="Formulaires PDF et PHP" file="pdf_form.html"/>
+            <submenuitem text="Présentations PDF" file="pdfexport4.html"/>
+            </submenuitem>
+	<submenuitem text="Impression" file="print1.html">
+            <submenuitem text="Prévisualisation" file="print2.html"/>
+            <submenuitem text="CUPS" file="cups.html"/>
+            <submenuitem text="Préparation pour l'imprimeur" file="print3.html"/>
+            <submenuitem text="Pré-impression" file="prepress.html"/>
+        </submenuitem>
+            <submenuitem text="Gestion des couleurs" file="cms.html">
+            <submenuitem text="Partie 2 " file="cms2.html"/>
+            <submenuitem text="Partie 3 " file="cms3.html"/>
+            <submenuitem text="Partie 4 " file="cms4.html"/>
+            <submenuitem text="Calibrage d'écran" file="moncal.html"/>
+        </submenuitem>
+            <submenuitem text="Boîte à outils de PAO" file="toolbox.html">
+            <submenuitem text="Lecteur Acrobat" file="toolbox1.html"/>
+            <submenuitem text="Autres lecteurs PDF" file="toolbox2.html"/>
+            <submenuitem text="Batik" file="toolbox3.html"/>
+            <submenuitem text="Gimp" file="toolbox4.html"/>
+            <submenuitem text="Ghostscript" file="toolbox5.html"/>
+            <submenuitem text="GSview" file="toolbox6.html"/>
+            <submenuitem text="Advanced Ghostscript &amp; GSView" file="toolbox7.html"/>
+            <submenuitem text="Imagemagick" file="toolbox8.html"/>
+            <submenuitem text="Inkscape" file="toolbox9.html"/>
+            <submenuitem text="KSnapshot" file="toolbox10.html"/>
+            <submenuitem text="Tracing Tools" file="toolbox11.html"/>
+            <submenuitem text="WINE" file="toolbox12.html"/>
+            <submenuitem text="Xnview" file="toolbox13.html"/>
+	    <submenuitem text="Lprof" file="toolbox14.html"/>
+        </submenuitem>
+            <submenuitem text="Conseils et FAQ" file="topten.html">
+            <submenuitem text="Aide" file="faq1.html"/>
+            <submenuitem text="Divers" file="faq2.html"/>
+            <submenuitem text="Développement" file="faq3.html"/>
+            </submenuitem>
+	</area>
+	<area text="Tutoriels" file="tutorials.html" section="tutorials">
+</area>
+<area text="À l'intention des développeurs " file="developers.html">
+	<submenuitem text="Format de document Scribus" file="scribusfileformat.html"/>
+	<submenuitem text="Scripter" file="scripter1.html"/>
+	<submenuitem text="FAQ de Scripter" file="scripter-faq.html"/>
+	<submenuitem text="API de Scripter" file="scripterapi.html">
+	<submenuitem text="Commandes de traitement des documents" file="scripterapi-doc.html"/>
+	<submenuitem text="Commandes de traitement des pages" file="scripterapi-page.html"/>
+	<submenuitem text="Création et destruction d'objets" file="scripterapi-object.html"/>
+	<submenuitem text="Sélection d'objets" file="scripterapi-select.html"/>
+	<submenuitem text="Définition des propriétés de l'objet" file="scripterapi-setobjprop.html"/>
+	<submenuitem text="Définition des propriétés de l'objet" file="scripterapi-getobjprop.html"/>
+	<submenuitem text="Manipulation des objets" file="scripterapi-manobj.html"/>
+	<submenuitem text="Manipulation des cadres de texte" file="scripterapi-textframes.html"/>
+	<submenuitem text="Commandes de traitement des couleurs" file="scripterapi-color.html"/>
+	<submenuitem text="Commandes de traitement des polices" file="scripterapi-font.html"/>
+	<submenuitem text="Commandes de traitement des calques" file="scripterapi-layer.html"/>
+	<submenuitem text="Utilisation des dialogues" file="scripterapi-dialogs.html"/>
+	<submenuitem text="Exportation au format PDF" file="scripterapi-PDFfile.html"/>
+	<submenuitem text="Impression" file="scripterapi-Printer.html"/>
+	<submenuitem text="Exportation d'images" file="scripterapi-ImageExport.html"/>
+	<submenuitem text="Constantes prédéfinies" file="scripterapi-constants.html"/>
+	<submenuitem text="Extensions de Scripter" file="scripter-extensions.html"/>
+	<submenuitem text="API des extensions de Scripter" file="scripterapi-extensions.html"/>
+	</submenuitem>
+	<submenuitem text="Modules externes - Info" file="plugin_howto.html"/>
+	<submenuitem text="GetText - Info" file="gettexthowto.html"/>
+	<submenuitem text="Normes de codage" file="codingstandards.html"/>
+	<submenuitem text="Traduction - Info" file="translation_howto.html"/>
+	<submenuitem text="Lipsum - Info" file="lipsum.html"/>
+</area>
+<area text="Complément d'information" file="otherinfo.html">
+	<submenuitem text="Communauté" file="resources.html"/>
+	<submenuitem file="irc.html" text="IRC"/>
+	<submenuitem text="Imprimantes" file="scprinters.html"/>
+	<submenuitem text="Téléchargement" file="download.html"/>
+	<submenuitem text="Contributions" file="contributions.html"/>
+	<submenuitem text="Copyright du logiciel Scribus" file="scribuscopyright.html"/>
+	<submenuitem text="Copyright de la documentation" file="doccopyright.html"/>
+</area>
+</menu>

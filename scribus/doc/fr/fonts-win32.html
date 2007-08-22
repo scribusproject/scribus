@@ -1,0 +1,41 @@
+<qt>
+<title>Pr&eacute;f&eacute;rences de polices et gestion des polices avec Scribus - Windows</title>
+<h2>Pr&eacute;f&eacute;rences de polices et gestion des polices avec Scribus - Windows</h2>
+
+<h3>Aper&ccedil;u</h3>
+
+<p>Scribus poss&egrave;de des panneaux utiles et faciles &agrave; utiliser pour la gestion des polices avec Scribus, ainsi que des m&eacute;thodes pour rendre vos pr&eacute;f&eacute;rences globales de polices et de substitution facile dans Scribus. Dans ces nouvelles pr&eacute;f&eacute;rences de police, vous pouvez:</p>
+
+<ul>
+	<li>D&eacute;finir des chemins pour les polices de l'utilisateur, qui n'ont pas besoin des permissions administrator ni d'installer manuellement des polices pour tout le syst&egrave;me.</li>
+	<li>D&eacute;finir des pr&eacute;f&eacute;rences utilisateur pour l'utilisation des polices et l'inclusion des polices dans les documents Scribus.</li>
+	<li>Ajuster les param&egrave;tres pour la substitution instantan&eacute;e des polices manquantes ou non disponibles.</li>
+</ul>
+
+<p> Au premier abord, cela peut sembler confus, puisque certaines options sont gris&eacute;es au d&eacute;part. Cependant, ceci suit une logique comme nous le verrons. Une des raisons principale est de ne <strong>pas</strong> supprimer les polices qui pourraient &ecirc;tre utilis&eacute;es pendant l'&eacute;dition d'un document.</p>
+
+
+<h3>Ajouter des chemins de polices suppl&eacute;mentaires :</h3>
+
+<p>Ouvrez Scribus <strong>sans</strong> aucun document ouvert. Ensuite allez &agrave; <strong>Fichier &#062; Pr&eacute;f&eacute;rences &#062; Polices</strong>, ce qui affiche un panneau avec des onglets. S&eacute;lectionnez l'onglet Chemins additionnels :</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref4.png" alt="Ajouter des chemins de polices suppl&eacute;mentaires." title="Ajouter des chemins de polices suppl&eacute;mentaires."/></td></tr></table>
+
+<p>Dans l'image qui suit, vous pouvez ajouter des chemins de polices qui ne font pas partie des d&eacute;fauts du syst&egrave;me. Dans l'exemple pr&eacute;sent, nous avons ajout&eacute; un r&eacute;pertoire qui est seulement utilis&eacute; pour un projet.  Apr&egrave;s avoir cliqu&eacute; <strong>OK</strong>, Scribus ajoutera ces chemins de polices et toutes les polices correctement install&eacute;es seront disponibles imm&eacute;diatement dans tout fichier que vous cr&eacute;erez ou ouvrirez. Notez &eacute;galement que Scribus cherchera aussi automatiquement dans le chemin du document courant pour des polices suppl&eacute;mentaires.</p>
+
+<h3>Substitution de polices</h3>
+
+<p>Lorsque vous ouvrez un document Scribus, celui-ci v&eacute;rifie si toutes les polices sp&eacute;cifi&eacute;es dans le document sont disponibles. Dans le cas o&ugrave; une police ne serait pas disponible sur votre ordinateur, une substitution vous est propos&eacute;e &agrave; l'ouverture. Vous pouvez modifier cette pr&eacute;f&eacute;rence dans l'onglet <strong>Substitutions de polices</strong>. Cet onglet vous permet de changer le mod&egrave;le de substitution par d&eacute;faut. </p>
+
+<h4>Polices disponibles</h4>
+
+<p>Cet onglet affiche les polices disponibles dans le syst&egrave;me, y compris dans les chemins de polices sp&eacute;cifi&eacute;s par l'utilisateur. Vous pouvez aussi sp&eacute;cifier quelles polices sont utilis&eacute;es dans Scribus, police par police, ainsi que quelles polices sont incluses dans une sortie PostScript.</p>
+
+<h3>Autres notes &agrave; propos des polices et de la gestion des polices :</h3>
+<ul>
+<li><strong>Les sous-r&eacute;glages</strong> de polices permettent d'inclure tous les glyphes d'une police dans un flux PostScript ou un PDF. Ceci permet des PDF moins lourds, mais rend plus difficile les &eacute;ditions mineures dans les outils de pr&eacute;-impression comme Pit Stop. &Agrave; moins d'envoyer un PDF &agrave; un imprimeur commercial, vous pouvez sous-r&eacute;gler les polices d'une mani&egrave;re relativement fiable. C'est important si vous essayer de maintenir un PDF t&eacute;l&eacute;chargeable &agrave; sa plus petite taille.</li>
+<li><strong>Les polices OpenType</strong> ne peuvent pas &ecirc;tre incluses compl&egrave;tement par d&eacute;faut. Ceci simplifie grandement leur manipulation dans d'autres applications. Les polices OpenType et Unicode TrueType peuvent &ecirc;tre tr&egrave;s grandes.  Les polices OpenType sont export&eacute;es en contours dans les PDF. Ceci permet de les utiliser dans les PDF, alors que souvent d'autres applications ne les utilisent pas.</li>
+<li><strong>Convertir en contours.</strong> Scribus peut optionnellement convertir du texte en contours PostScript. Ceci peut &ecirc;tre une bonne option lorsque votre imprimante n'a pas un module RIP suffisant pour accepter PDF 1.4. C'est &eacute;galement parfois une bonne option pour exporter en fichiers SVG ou EPS. Lorsque vous &ecirc;tes certain que les fichiers EPS seront import&eacute;s dans d'autres applications ou sur d'autres plateformes, c'est une option recommand&eacute;e.</li>
+<li><strong>Scribus ne cr&eacute;e pas de "fausses" polices gras ou italique.</strong>  Il s'agit d'un fl&eacute;au de la pr&eacute;-impression qui cause des probl&egrave;mes connus lors de l'impression commerciale et peut amener une d&eacute;gradation de la qualit&eacute; du texte. Donc, Scribus ne cr&eacute;era pas une version Italique de la police si vous n'avez pas le fichier de po lice Italique pour une famille de police donn&eacute;e. Certaines applications de mise en page et de traitement de texte ont d&eacute;cid&eacute; d'offrir cette "caract&eacute;ristique". L'&eacute;quipe de d&eacute;veloppement de Scribus a pris la d&eacute;cision consciente de ne <strong>pas</strong> l'activer.</li>
+</ul>
+</qt> 
