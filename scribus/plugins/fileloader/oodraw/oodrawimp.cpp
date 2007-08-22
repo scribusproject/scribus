@@ -627,7 +627,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
-			appendPoints(&ite->PoLine, b);
+			appendPoints(&ite->PoLine, b, true);
 			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->setWidthHeight(wh.x(), wh.y());
 			ite->ClipEdited = true;
@@ -643,7 +643,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			z = Doku->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, CommonStrings::None, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
-			appendPoints(&ite->PoLine, b);
+			appendPoints(&ite->PoLine, b, false);
 			FPoint wh = getMaxClipF(&ite->PoLine);
 			ite->setWidthHeight(wh.x(), wh.y());
 			ite->ClipEdited = true;
@@ -1099,7 +1099,7 @@ void OODPlug::parseViewBox( const QDomElement& object, double *x, double *y, dou
 	}
 }
 
-void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object)
+void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bool closePath)
 {
 	double x = parseUnit(object.attribute("svg:x"));
 	double y = parseUnit(object.attribute("svg:y")) ;
@@ -1131,8 +1131,11 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object)
 			composite->addPoint(point);
 		}
     }
-	composite->addPoint(firstP);
-	composite->addPoint(firstP);
+	if (closePath)
+	{
+		composite->addPoint(firstP);
+		composite->addPoint(firstP);
+	}
 	QWMatrix mat;
 	mat.translate(x, y);
 	mat.scale(w / vw, h / vh);
