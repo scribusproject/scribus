@@ -6445,32 +6445,36 @@ void PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	int Basis;
 	int ResO;
 	BookMItem* ip;
-	Q3ListViewItem* pp;
+	QTreeWidgetItem* pp;
 	QString Inhal = "";
 	QMap<int,QString> Inha;
 	Inha.clear();
 	int Bmc = 0;
-	if ((Bvie->childCount() != 0) && (Options.Bookmarks) && (BookMinUse))
+	//if ((Bvie->childCount() != 0) && (Options.Bookmarks) && (BookMinUse))
+	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks) && (BookMinUse))
 	{
 		Basis = ObjCounter - 1;
-		Outlines.Count = Bvie->childCount();
-		ip = (BookMItem*)Bvie->firstChild();
-		pp = Bvie->firstChild();
+		Outlines.Count = Bvie->topLevelItemCount();
+		ip = (BookMItem*)Bvie->topLevelItem(0);
+		pp = Bvie->topLevelItem(0);
 		Outlines.First = ip->ItemNr+Basis;
 		while (pp)
 		{
-			if (!pp->nextSibling())
+// 			if (!pp->nextSibling())
+			if (!Bvie->itemBelow(pp))
 			{
 				ip = (BookMItem*)pp;
 				Outlines.Last = ip->ItemNr+Basis;
 				break;
 			}
-			pp = pp->nextSibling();
+// 			pp = pp->nextSibling();
+			pp = Bvie->itemBelow(pp);
 		}
-		Q3ListViewItemIterator it(Bvie);
-		for ( ; it.current(); ++it)
+		QTreeWidgetItemIterator it(Bvie);
+// 		for ( ; it.current(); ++it)
+		while (*it)
 		{
-			ip = (BookMItem*)it.current();
+			ip = (BookMItem*)(*it);
 			Inhal = "";
 			Bmc++;
 			Inhal += QString::number(ip->ItemNr+Basis)+ " 0 obj\n";
@@ -6492,12 +6496,14 @@ void PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 				Inhal += "/First "+QString::number(ip->First+Basis)+" 0 R\n";
 			if (ip->Last != 0)
 				Inhal += "/Last "+QString::number(ip->Last+Basis)+" 0 R\n";
-			if (ip->firstChild())
+// 			if (ip->firstChild())
+			if (ip->childCount())
 				Inhal += "/Count -"+QString::number(ip->childCount())+"\n";
 			if ((ip->PageObject->OwnPage != -1) && (ip->PageObject->OwnPage < static_cast<int>(PageTree.Kids.count())))
 				Inhal += "/Dest ["+QString::number(PageTree.Kids[ip->PageObject->OwnPage])+" 0 R "+ip->Action+"\n";
 			Inhal += ">>\nendobj\n";
 			Inha[ip->ItemNr] = Inhal;
+			++it;
 		}
 		for (int b = 1; b < Bmc+1; ++b)
 		{
@@ -6595,7 +6601,8 @@ void PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 	XRef[2] = bytesWritten();
 	PutDoc("3 0 obj\n<<\n/Type /Outlines\n");
 	PutDoc("/Count "+QString::number(Outlines.Count)+"\n");
-	if ((Bvie->childCount() != 0) && (Options.Bookmarks))
+// 	if ((Bvie->childCount() != 0) && (Options.Bookmarks))
+	if ((Bvie->topLevelItemCount() != 0) && (Options.Bookmarks))
 	{
 		PutDoc("/First "+QString::number(Outlines.First)+" 0 R\n");
 		PutDoc("/Last "+QString::number(Outlines.Last)+" 0 R\n");

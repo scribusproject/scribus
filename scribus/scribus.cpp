@@ -7898,15 +7898,16 @@ void ScribusMainWindow::RestoreBookMarks()
 		}
 		else
 		{
-			Q3ListViewItemIterator it3(bookmarkPalette->BView);
-			for ( ; it3.current(); ++it3)
+			QTreeWidgetItemIterator it3(bookmarkPalette->BView);
+			while (*it3)
 			{
-				ip = (BookMItem*)it3.current();
+				ip = (BookMItem*)(*it3);
 				if ((*it2).Parent == ip->ItemNr)
 				{
 					ip2 = ip;
 					break;
 				}
+				++it3;
 			}
 			if ((*it2).Prev == 0)
 			{
@@ -7915,15 +7916,16 @@ void ScribusMainWindow::RestoreBookMarks()
 			}
 			else
 			{
-				Q3ListViewItemIterator it4(bookmarkPalette->BView);
-				for ( ; it4.current(); ++it4)
+				QTreeWidgetItemIterator it4(bookmarkPalette->BView);
+				while (*it4)
 				{
-					ip = (BookMItem*)it4.current();
+					ip = (BookMItem*)(*it4);
 					if ((*it2).Prev == ip->ItemNr)
 					{
 						ip3 = ip;
 						break;
 					}
+					++it4;
 				}
 				(void) new BookMItem(ip2, ip3, &(*it2));
 				bookmarkPalette->BView->NrItems++;
@@ -7938,11 +7940,11 @@ void ScribusMainWindow::StoreBookmarks()
 {
 	doc->BookMarks.clear();
 	BookMItem* ip;
-	Q3ListViewItemIterator it(bookmarkPalette->BView);
+	QTreeWidgetItemIterator it(bookmarkPalette->BView);
 	struct ScribusDoc::BookMa Boma;
-	for ( ; it.current(); ++it)
+	while (*it)
 	{
-		ip = (BookMItem*)it.current();
+		ip = (BookMItem*)(*it);
 		Boma.Title = ip->Titel;
 		Boma.Text = ip->text(0);
 		Boma.Aktion = ip->Action;
@@ -7956,6 +7958,7 @@ void ScribusMainWindow::StoreBookmarks()
 		Boma.Next = ip->Next;
 		Boma.Last = ip->Last;
 		doc->BookMarks.append(Boma);
+		++it;
 	}
 	doc->NrItems = bookmarkPalette->BView->NrItems;
 	doc->First = bookmarkPalette->BView->First;

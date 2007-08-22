@@ -24,14 +24,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef BOOKMWIN_H
 #define BOOKMWIN_H
 
-#include <Q3ListView>
-#include <QDialog>
-#include <QDragMoveEvent>
-#include <QDropEvent>
-#include <QEvent>
-#include <QLayout>
-#include <QMouseEvent>
-#include <QPoint>
+// #include <Q3ListView>
+// #include <QDialog>
+// #include <QDragMoveEvent>
+// #include <QDropEvent>
+// #include <QEvent>
+// #include <QLayout>
+// #include <QMouseEvent>
+// #include <QPoint>
+#include <QTreeWidget>
 
 #include "pageitem.h"
 #include "scribusapi.h"
@@ -41,15 +42,15 @@ for which a new license (GPL+exception) is in place.
 *@author Franz Schmid
 */
 
-class SCRIBUS_API BookMItem : public Q3ListViewItem
+class SCRIBUS_API BookMItem : public QTreeWidgetItem
 {
 public:
-	BookMItem(Q3ListViewItem* parent, struct ScribusDoc::BookMa *Bm);
-	BookMItem(Q3ListViewItem* parent, Q3ListViewItem* after, struct ScribusDoc::BookMa *Bm);
-	BookMItem(Q3ListView* parent, Q3ListViewItem* after, struct ScribusDoc::BookMa *Bm);
-	BookMItem(Q3ListView* parent, struct ScribusDoc::BookMa *Bm);
-	BookMItem(Q3ListView* parent, Q3ListViewItem* after, int nr, PageItem *PObject);
-	BookMItem(Q3ListView* parent, int nr, PageItem *PObject);
+	BookMItem(QTreeWidgetItem* parent, struct ScribusDoc::BookMa *Bm);
+	BookMItem(QTreeWidgetItem* parent, QTreeWidgetItem* after, struct ScribusDoc::BookMa *Bm);
+	BookMItem(QTreeWidget* parent, QTreeWidgetItem* after, struct ScribusDoc::BookMa *Bm);
+	BookMItem(QTreeWidget* parent, struct ScribusDoc::BookMa *Bm);
+	BookMItem(QTreeWidget* parent, QTreeWidgetItem* after, int nr, PageItem *PObject);
+	BookMItem(QTreeWidget* parent, int nr, PageItem *PObject);
 	~BookMItem() {};
 	void SetUp(struct ScribusDoc::BookMa *Bm);
 	virtual QString key(int, bool) const;
@@ -65,7 +66,7 @@ public:
 	int Pare;
 };
 
-class SCRIBUS_API BookMView : public Q3ListView
+class SCRIBUS_API BookMView : public QTreeWidget
 {
 	Q_OBJECT
 
@@ -101,6 +102,9 @@ protected:
 	
 private:
 	int idBookMarkCol;
+
+	private slots:
+		void setPageItem(QTreeWidgetItem * old, QTreeWidgetItem * newItem);
 };
 
 #endif
