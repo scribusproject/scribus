@@ -223,9 +223,9 @@ QPolygon FlattenPath(FPointArray ina, QList<uint> &Segs)
 	{
 		for (uint poi=0; poi<ina.size()-3; poi += 4)
 		{
-			if (ina.point(poi).x() > 900000 && cli.size() > 0)
+			if (ina.point(poi).x() > 900000) // && cli.size() > 0)
 			{
-				outa << cli.point(cli.size()-1);
+//				outa << cli.point(cli.size()-1);
 				Segs.append(outa.size());
 				continue;
 			}
@@ -237,13 +237,13 @@ QPolygon FlattenPath(FPointArray ina, QList<uint> &Segs)
 			Bez.moveTo(a1.x(), a1.y());
 			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
 			cli = Bez.toFillPolygon().toPolygon();
-			if (cli.size() > 0)
-				outa.putPoints(outa.size(), cli.size()-1, cli);
+			if (cli.size() > 1)
+				outa.putPoints(outa.size(), cli.size()-2, cli);
 			else
 				outa << QPoint(qRound(a4.x()), qRound(a4.y()));
 		}
-		if (cli.size() > 0)
-			outa << cli.point(cli.size()-1);
+//		if (cli.size() > 0)
+//			outa << cli.point(cli.size()-1);
 	}
 	return outa;
 }
