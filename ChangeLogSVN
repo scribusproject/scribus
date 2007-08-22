@@ -1,5 +1,17 @@
 Scribus - 1.3.3.10cvs
 =====================
+- 0006104: [-] Gradient properties not copied by "Copy Item Properties" tool (jghali)
+- 0005586: [Styles] line style applies only to one member of group of polylines while it is expected to apply to all (jghali)
+- 0005777: [Scripter] allPrinters method only return ['FILE'] printer (jghali)
+- 0005784: [Scripter] print method won't work correctly on windows (jghali)
+- 0003645: [Undo/Redo] Undo in connection with master pages triggers crash (Tsoots)
+- 0005489: [Undo/Redo] Undo-ing 'Adjust frame to Image' doesn't work correctly (jghali)
+- 0005988: [Undo/Redo] Bad undo after redimension (jghali)
+- 0006068: [Translation] Updated Russian translation for 1.3.3.10 (plinnell)
+- 0005701: [Internal] Bug #05696 still present in 1.3.3.10cvs (fschmid)
+- 0006051: [PDF] PDF export does not work correctly when Master Page name contains foreign letters (jghali)
+- 0006042: [General] Loading a second Scribus file fails to find images for image frames (jghali)
+- 0006009: [Story Editor / Text Frames] Item on master page is displaced when moving an image on normal page (jghali)
 - 0005817: [Story Editor / Text Frames] Problems with text flow (jghali)
 - 0005988: [Undo/Redo] Bad undo after redimension (jghali)
 - 0005982: [General] crash on close with file from 5435 (jghali)
