@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/styleset.h"
 
 class QXmlStreamAttributes;
+class QXmlStreamWriter;
 class PrefsManager;
 class ScribusView;
 class SCFonts;
@@ -46,14 +47,10 @@ public:
 	\param fileName filename of file to test
 	\retval bool true = Scribus format file, false : not Scribus
 	*/
-	QString ReadDatei(QString fileName);
-	void GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPasteBuffer *OB, const QString& baseDir, bool newVersion);
-	void GetItemText (const QXmlStreamAttributes& attrs, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
-	void SetItemProps(QDomElement *ob, PageItem* item, const QString& baseDir, bool newFormat);
+	bool    ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
+	bool    ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
 	QString WriteElem(ScribusDoc *doc, ScribusView *view, Selection *selection);
-	void WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &dc, const QString& baseDir, QMap<int, int> &UsedMapped2Saved, PageItem *item);
-	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
-	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
+
 	ColorList Farben;
 	StyleSet<ParagraphStyle> docParagraphStyles;
 	QList<Linked> LFrames;
@@ -72,7 +69,12 @@ protected:
 	int     attrAsInt (const QXmlStreamAttributes& attrs, const QString& attName, int  defVal = 0);
 	double  attrAsDbl (const QXmlStreamAttributes& attrs, const QString& attName, double defVal = 0.0);
 	QString attrAsString (const QXmlStreamAttributes& attrs, const QString& attName, const QString& defVal);
-	
+
+	void GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPasteBuffer *OB, const QString& baseDir, bool newVersion);
+	void GetItemText (const QXmlStreamAttributes& attrs, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
+	void SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem* item, const QString& baseDir, bool newFormat);
+	void WriteObject (QXmlStreamWriter& writer, ScribusDoc *doc, PageItem *item, const QString& baseDir, QMap<int, int> &UsedMapped2Saved);
+
 	void    GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 };
