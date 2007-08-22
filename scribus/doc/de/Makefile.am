@@ -13,7 +13,7 @@ scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-l
 scripterapi-object.html scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html \
 scripterapi-textframes.html scripter-faq.html scripterapi-pydoc.html scripterapi-PDFfile.html scripterapi-Printer.html \
 scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html toolbox12.html \
-toolbox13.html toolbox15.html toolbox1.html toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html \
+toolbox13.html toolbox14.html toolbox15.html toolbox1.html toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html \
 toolbox8.html toolbox9.html toolbox.html topten.html translation_howto.html  otherinfo.html documentation.html \
 tutorials.html CMakeLists.txt
 
@@ -110,6 +110,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/toolbox11.html $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox11.html
 	$(INSTALL_DATA) $(srcdir)/toolbox12.html $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox12.html
 	$(INSTALL_DATA) $(srcdir)/toolbox13.html $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox13.html
+	$(INSTALL_DATA) $(srcdir)/toolbox14.html $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox14.html
 	$(INSTALL_DATA) $(srcdir)/toolbox15.html $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox15.html
 	$(INSTALL_DATA) $(srcdir)/toolbox1.html $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox1.html
 	$(INSTALL_DATA) $(srcdir)/toolbox2.html $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox2.html
@@ -222,6 +223,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox12.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox13.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox14.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox15.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox1.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox2.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/toolbox3.html
