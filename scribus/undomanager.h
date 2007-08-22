@@ -419,7 +419,7 @@ private:
 	 */
 	void initIcons();
 
-	void setMenuTexts();
+	void setTexts();
 
 public:
 

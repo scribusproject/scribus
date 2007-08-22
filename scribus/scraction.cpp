@@ -257,7 +257,7 @@ const QString ScrAction::actionQString()
 
 void ScrAction::setTexts(const QString &newText, bool setTextToo)
 {
-	QAction::setMenuText(newText);
+	QAction::setText(newText);
 	if (setTextToo)
 		QAction::setText(cleanMenuText());
 }

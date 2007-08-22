@@ -51,7 +51,7 @@ PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatte
 	patternView->setMinimumWidth(175);
 	for (QMap<QString, ScPattern>::Iterator it = docPatterns->begin(); it != docPatterns->end(); ++it)
 	{
-		dialogPatterns.insert(it.key(), it.data());
+		dialogPatterns.insert(it.key(), it.value());
 	}
 	origPatterns = docPatterns->keys();
 	updatePatternList();
@@ -73,10 +73,10 @@ void PatternDialog::updatePatternList()
 	for (QMap<QString, ScPattern>::Iterator it = dialogPatterns.begin(); it != dialogPatterns.end(); ++it)
 	{
 		QPixmap pm;
-		if (it.data().getPattern()->width() >= it.data().getPattern()->height())
-			pm=QPixmap::fromImage(it.data().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+		if (it.data().getPattern()->width() >= it.value().getPattern()->height())
+			pm=QPixmap::fromImage(it.value().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm=QPixmap::fromImage(it.data().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+			pm=QPixmap::fromImage(it.value().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
 		pm2.fill(palette().base());
 		QPainter p;
@@ -205,7 +205,7 @@ void PatternDialog::loadPattern()
 		return;
 	if (!fileName.isEmpty())
 	{
-		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.findRev("/")));
+		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
 		QFileInfo fi(fileName);
 		if ((fi.extension(true).toLower() == "sml") || (fi.extension(true).lower() == "shape") || (fi.extension(true).lower() == "sce"))
 		{
@@ -293,7 +293,7 @@ void PatternDialog::loadVectors(QString data)
 	for (QMap<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
 	{
 		if (!origPatterns.contains(it.key()))
-			dialogPatterns.insert(it.key(), it.data());
+			dialogPatterns.insert(it.key(), it.value());
 	}
 }
 

@@ -1275,7 +1275,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					QMap<PageItem*, int>::Iterator it;
 					for (it = groupID2.begin(); it != groupID2.end(); ++it)
 					{
-						it.key()->groupsLastItem = m_Doc->Items->at(it.data());
+						it.key()->groupsLastItem = m_Doc->Items->at(it.value());
 					}
 				}
 				if (TableItems2.count() != 0)
@@ -1397,7 +1397,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupIDF.begin(); it != groupIDF.end(); ++it)
 		{
-			it.key()->groupsLastItem = m_Doc->FrameItems.at(it.data());
+			it.key()->groupsLastItem = m_Doc->FrameItems.at(it.value());
 		}
 	}
 	if (groupID.count() != 0)
@@ -1405,7 +1405,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupID.begin(); it != groupID.end(); ++it)
 		{
-			it.key()->groupsLastItem = m_Doc->DocItems.at(it.data());
+			it.key()->groupsLastItem = m_Doc->DocItems.at(it.value());
 		}
 	}
 	if (groupIDM.count() != 0)
@@ -1413,7 +1413,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupIDM.begin(); it != groupIDM.end(); ++it)
 		{
-			it.key()->groupsLastItem = m_Doc->MasterItems.at(it.data());
+			it.key()->groupsLastItem = m_Doc->MasterItems.at(it.value());
 		}
 	}
 	m_Doc->setActiveLayer(layerToSetActive);
@@ -1429,10 +1429,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<int,int>::Iterator lc;
 		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			if (lc.data() >= 0)
+			if (lc.value() >= 0)
 			{
 				PageItem * Its = m_Doc->DocItems.at(lc.key());
-				PageItem * Itn = m_Doc->DocItems.at(lc.data());
+				PageItem * Itn = m_Doc->DocItems.at(lc.value());
 				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
 					qDebug("scribus134format: corruption in linked textframes detected");
@@ -1448,10 +1448,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<int,int>::Iterator lc;
 		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
 		{
-			if (lc.data() >= 0)
+			if (lc.value() >= 0)
 			{
 				PageItem * Its = m_Doc->MasterItems.at(lc.key());
-				PageItem * Itn = m_Doc->MasterItems.at(lc.data());
+				PageItem * Itn = m_Doc->MasterItems.at(lc.value());
 				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
 					qDebug("scribus134format: corruption in linked textframes detected");
@@ -3099,12 +3099,12 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		QMap<int,int>::Iterator lc;
 		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			if (itemRemap[lc.data()] >= 0)
+			if (itemRemap[lc.value()] >= 0)
 			{
-				if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.data()] < m_Doc->Items->count()))
+				if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.value()] < m_Doc->Items->count()))
 				{
 					PageItem * Its = m_Doc->DocItems.at(lc.key());
-					PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.data()]);
+					PageItem * Itn = m_Doc->DocItems.at(itemRemap[lc.value()]);
 					if (Itn->prevInChain() || Its->nextInChain()) 
 					{
 						qDebug("scribus134format: corruption in linked textframes detected");
@@ -3120,13 +3120,13 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		QMap<int,int>::Iterator lc;
 		for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
 		{
-			if (itemRemapM[lc.data()] >= 0)
+			if (itemRemapM[lc.value()] >= 0)
 			{
-				if ((lc.key() < m_Doc->MasterItems.count()) && (itemRemapM[lc.data()] < m_Doc->MasterItems.count()))
+				if ((lc.key() < m_Doc->MasterItems.count()) && (itemRemapM[lc.value()] < m_Doc->MasterItems.count()))
 				{
 					PageItem * Its = m_Doc->MasterItems.at(lc.key());
-					PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.data()]);
-					if (Itn->prevInChain() || Its->nextInChain()) 
+					PageItem * Itn = m_Doc->MasterItems.at(itemRemapM[lc.value()]);
+					if (Itn->prevInChain() || Its->nextInChain())
 					{
 						qDebug("scribus134format: corruption in linked textframes detected");
 						continue;
@@ -3318,7 +3318,7 @@ bool Scribus134Format::readLineStyles(const QString& fileName, QMap<QString,mult
 				QString Nam2 = Nam;
 				int copyC = 1;
 				QMap<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
-				if (mlit != Sty->end() && ml != mlit.data())
+				if (mlit != Sty->end() && ml != mlit.value())
 				{
 					while (Sty->contains(Nam2))
 					{

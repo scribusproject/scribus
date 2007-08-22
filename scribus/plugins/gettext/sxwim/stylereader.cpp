@@ -763,10 +763,10 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	StyleMap::Iterator it;
  	for (it = styles.begin(); it != styles.end(); ++it)
  	{
- 		if (it.data())
+ 		if (it.value())
  		{
- 			delete it.data();
- 			it.data() = NULL;
+ 			delete it.value();
+ 			it.value() = NULL;
  		}
  	}
  }

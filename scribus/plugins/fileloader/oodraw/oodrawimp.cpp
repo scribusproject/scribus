@@ -91,7 +91,7 @@ OODrawImportPlugin::~OODrawImportPlugin()
 
 void OODrawImportPlugin::languageChange()
 {
-	importAction->setMenuText( tr("Import &OpenOffice.org Draw..."));
+	importAction->setText( tr("Import &OpenOffice.org Draw..."));
 	// (Re)register file formats
 	unregisterAll();
 	registerFormats();
@@ -171,7 +171,7 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.findRev("/")));
+			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 		}
 		else
 			return true;
@@ -229,8 +229,8 @@ bool OODPlug::import( QString fileName, int flags )
 	// Qt4 NULL -> isNull()
 	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
-		QString docname = fileName.right(fileName.length() - fileName.findRev("/") - 1);
-		docname = docname.left(docname.findRev("."));
+		QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
+		docname = docname.left(docname.lastIndexOf("."));
 		loadText(stylePath, &f);
 		if(!inpStyles.setContent(f))
 			return false;
@@ -1441,9 +1441,9 @@ QString OODPlug::parseColor( const QString &s )
 	QColor tmpR;
 	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 	{
-		if (it.data().getColorModel() == colorModelRGB)
+		if (it.value().getColorModel() == colorModelRGB)
 		{
-			it.data().getRGB(&r, &g, &b);
+			it.value().getRGB(&r, &g, &b);
 			tmpR.setRgb(r, g, b);
 			if (c == tmpR)
 			{

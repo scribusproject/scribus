@@ -29,11 +29,11 @@ PolygonProps::PolygonProps(QWidget* parent, int polyC, int polyFd, double polyF,
 	Layout1->setSpacing(5);
 	QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer_2 );
-	okButton = new QPushButton( this, "PushButton1" );
+	okButton = new QPushButton(this);
 	okButton->setText( CommonStrings::tr_OK );
 	okButton->setDefault( true );
 	Layout1->addWidget( okButton );
-	cancelButton = new QPushButton( this, "PushButton2" );
+	cancelButton = new QPushButton(this);
 	cancelButton->setText( CommonStrings::tr_Cancel );
 	Layout1->addWidget( cancelButton );
 	PolygonPropsLayout->addLayout( Layout1 );

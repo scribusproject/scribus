@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
  \param pa Parent Window
  \retval None
  */
-LineCombo::LineCombo(QWidget* pa) : QComboBox(true, pa)
+LineCombo::LineCombo(QWidget* pa) : QComboBox(pa)
 {
 	setEditable(false);
 	setIconSize(QSize(73, 7));

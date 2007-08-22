@@ -1083,10 +1083,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		QMap<int,int>::Iterator lc;
 		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			if (itemRemap[lc.data()] >= 0)
+			if (itemRemap[lc.value()] >= 0)
 			{
 				PageItem * Its = m_Doc->Items->at(lc.key());
-				PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
+				PageItem * Itn = m_Doc->Items->at(itemRemap[lc.value()]);
 				if (Itn->prevInChain() || Its->nextInChain()) 
 				{
 					qDebug("scribus13format: corruption in linked textframes detected");
@@ -1271,19 +1271,19 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	{
 		QDomElement dc79a=docu.createElement("CheckProfile");
 		dc79a.setAttribute("Name",itcp.key());
-		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.data().ignoreErrors));
-		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.data().autoCheck));
-		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.data().checkGlyphs));
-		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.data().checkOrphans));
-		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.data().checkOverflow));
-		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.data().checkPictures));
-		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
-		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
-		dc79a.setAttribute("minResolution",itcp.data().minResolution);
-		dc79a.setAttribute("maxResolution",itcp.data().maxResolution);
-		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
-		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
-		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.data().checkForGIF));
+		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.value().ignoreErrors));
+		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.value().autoCheck));
+		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.value().checkGlyphs));
+		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.value().checkOrphans));
+		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.value().checkOverflow));
+		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.value().checkPictures));
+		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.value().checkResolution));
+		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.value().checkTransparency));
+		dc79a.setAttribute("minResolution",itcp.value().minResolution);
+		dc79a.setAttribute("maxResolution",itcp.value().maxResolution);
+		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.value().checkAnnotations));
+		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));
+		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.value().checkForGIF));
 		dc.appendChild(dc79a);
 	}
 	QMap<QString,multiLine>::Iterator itMU;
@@ -1291,7 +1291,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	{
 		QDomElement MuL=docu.createElement("MultiLine");
 		MuL.setAttribute("Name",itMU.key());
-		multiLine ml = itMU.data();
+		multiLine ml = itMU.value();
 		multiLine::iterator itMU2;
 		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
 		{
@@ -1331,7 +1331,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	{
 		QDomElement jav=docu.createElement("JAVA");
 		jav.setAttribute("NAME",itja.key());
-		jav.setAttribute("SCRIPT",itja.data());
+		jav.setAttribute("SCRIPT",itja.value());
 		dc.appendChild(jav);
 	}
 	QList<ScribusDoc::BookMa>::Iterator itbm;
@@ -1511,9 +1511,9 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	{
 		QDomElement pdf4 = docu.createElement("LPI");
 		pdf4.setAttribute("Color", itlp.key());
-		pdf4.setAttribute("Frequency", itlp.data().Frequency);
-		pdf4.setAttribute("Angle", itlp.data().Angle);
-		pdf4.setAttribute("SpotFunction", itlp.data().SpotFunc);
+		pdf4.setAttribute("Frequency", itlp.value().Frequency);
+		pdf4.setAttribute("Angle", itlp.value().Angle);
+		pdf4.setAttribute("SpotFunction", itlp.value().SpotFunc);
 		pdf.appendChild(pdf4);
 	}
 	dc.appendChild(pdf);
@@ -2841,12 +2841,12 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		QMap<int,int>::Iterator lc;
 		for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 		{
-			if (itemRemap[lc.data()] >= 0)
+			if (itemRemap[lc.value()] >= 0)
 			{
-				if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.data()] < m_Doc->Items->count()))
+				if ((lc.key() < m_Doc->Items->count()) && (itemRemap[lc.value()] < m_Doc->Items->count()))
 				{
 					PageItem * Its = m_Doc->Items->at(lc.key());
-					PageItem * Itn = m_Doc->Items->at(itemRemap[lc.data()]);
+					PageItem * Itn = m_Doc->Items->at(itemRemap[lc.value()]);
 					if (Itn->prevInChain() || Its->nextInChain()) 
 					{
 						qDebug("scribus13format: corruption in linked textframes detected");
@@ -3284,10 +3284,10 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			{
 				QDomElement psd = docu->createElement("PSDLayer");
 				psd.setAttribute("Layer",it2.key());
-				psd.setAttribute("Visible", static_cast<int>(it2.data().visible));
-				psd.setAttribute("useMask", static_cast<int>(it2.data().useMask));
-				psd.setAttribute("Opacity", it2.data().opacity);
-				psd.setAttribute("Blend", it2.data().blend);
+				psd.setAttribute("Visible", static_cast<int>(it2.value().visible));
+				psd.setAttribute("useMask", static_cast<int>(it2.value().useMask));
+				psd.setAttribute("Opacity", it2.value().opacity);
+				psd.setAttribute("Blend", it2.value().blend);
 				ob.appendChild(psd);
 			}
 		}

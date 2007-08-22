@@ -229,8 +229,8 @@ void DocSections::addEntry()
 		uint i=0;
 		for(DocumentSectionMap::Iterator it2 = tempSections.begin(); it2!= tempSections.end(); ++it2)
 		{
-			it2.data().number=i;
-			localSections.insert(i, it2.data());
+			it2.value().number=i;
+			localSections.insert(i, it2.value());
 			
 			if ((*it).number==i)
 			{
@@ -286,8 +286,8 @@ void DocSections::deleteEntry()
 		it = tempSections.begin();
 		for(; it!= tempSections.end(); ++it)
 		{
-			it.data().number=i;
-			localSections.insert(i++, it.data());
+			it.value().number=i;
+			localSections.insert(i++, it.value());
 		}
 		int newCount=localSections.count();
 		//int preIndex=qMax(currentIndex-1, 0);

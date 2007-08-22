@@ -441,7 +441,7 @@ void ColorManager::importColors()
 	if (!fileName.isEmpty())
 	{
 		int oldCount = EditColors.count();
-		dirs->set("colors", fileName.left(fileName.findRev("/")));
+		dirs->set("colors", fileName.left(fileName.lastIndexOf("/")));
 		QFileInfo fi = QFileInfo(fileName);
 		QString ext = fi.extension(false).toLower();
 		if (extensionIndicatesEPSorPS(ext) || (ext == "ai"))
@@ -543,7 +543,7 @@ void ColorManager::importColors()
 				for (it = LColors.begin(); it != LColors.end(); ++it)
 				{
 					if (!EditColors.contains(it.key()))
-						EditColors.insert(it.key(), it.data());
+						EditColors.insert(it.key(), it.value());
 				}
 				updateCList();
 			}
@@ -588,7 +588,7 @@ void ColorManager::newColor()
 		for (it = EditColors.begin(); it != EditColors.end(); ++it)
 		{
 			if (regChecked)
-				it.data().setRegistrationColor(false);
+				it.value().setRegistrationColor(false);
 			if (it==itnew)
 				newItemIndex=colCount;
 			++colCount;
@@ -617,7 +617,7 @@ void ColorManager::editColor()
 		{
 			ColorList::Iterator it;
 			for (it = EditColors.begin(); it != EditColors.end(); ++it)
-				it.data().setRegistrationColor(false);
+				it.value().setRegistrationColor(false);
 		}
 		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
 		if (sColor != dia->Farbname->text())
@@ -649,8 +649,8 @@ void ColorManager::deleteColor()
 			QMap<QString,QString>::Iterator it;
 			for (it = replaceMap.begin(); it != replaceMap.end(); ++it)
 			{
-				if (it.data() == sColor)
-					it.data() = replacementColor;
+				if (it.value() == sColor)
+					it.value() = replacementColor;
 			}
 		}
 		replaceMap.insert(sColor, replacementColor);

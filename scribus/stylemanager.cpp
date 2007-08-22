@@ -283,7 +283,7 @@ void StyleManager::slotImport()
 	if (dia.exec() == QDialog::Accepted)
 	{
 		QString selectedFile = dia.selectedFile();
-		dirs->set("editformats", selectedFile.left(selectedFile.findRev("/")));
+		dirs->set("editformats", selectedFile.left(selectedFile.lastIndexOf("/")));
 
 		StyleSet<ParagraphStyle> tmpParaStyles;
 		StyleSet<CharStyle> tmpCharStyles;

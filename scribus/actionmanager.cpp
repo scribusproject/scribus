@@ -35,8 +35,8 @@ QMap<QString, QKeySequence> ActionManager::defKeys;
 QVector< QPair<QString, QStringList> > ActionManager::defMenus;
 QVector< QPair<QString, QStringList> > ActionManager::defNonMenuActions;
 
-ActionManager::ActionManager ( QObject * parent, const char * name ) :
-	QObject ( parent, name ),
+ActionManager::ActionManager ( QObject * parent ) :
+	QObject ( parent),
 	mainWindow(0)
 {
 }
@@ -582,16 +582,16 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewSnapToGrid"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGuides"]->setToggleAction(true);
 
-	(*scrActions)["viewFitPreview"]->setOn(false);
-	(*scrActions)["viewShowMargins"]->setOn(true);
-	(*scrActions)["viewShowBleeds"]->setOn(true);
-	(*scrActions)["viewShowFrames"]->setOn(true);
-	(*scrActions)["viewShowLayerMarkers"]->setOn(false);
-	(*scrActions)["viewShowImages"]->setOn(true);
-	(*scrActions)["viewShowGuides"]->setOn(true);
-	(*scrActions)["viewShowColumnBorders"]->setOn(false);
-	(*scrActions)["viewShowRulers"]->setOn(true);
-	(*scrActions)["viewRulerMode"]->setOn(true);
+	(*scrActions)["viewFitPreview"]->setChecked(false);
+	(*scrActions)["viewShowMargins"]->setChecked(true);
+	(*scrActions)["viewShowBleeds"]->setChecked(true);
+	(*scrActions)["viewShowFrames"]->setChecked(true);
+	(*scrActions)["viewShowLayerMarkers"]->setChecked(false);
+	(*scrActions)["viewShowImages"]->setChecked(true);
+	(*scrActions)["viewShowGuides"]->setChecked(true);
+	(*scrActions)["viewShowColumnBorders"]->setChecked(false);
+	(*scrActions)["viewShowRulers"]->setChecked(true);
+	(*scrActions)["viewRulerMode"]->setChecked(true);
 
 	connect( (*scrActions)["viewFitInWindow"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFitWidth"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
@@ -828,7 +828,7 @@ void ActionManager::initHelpMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0, 0.0, ""));
 
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
-	(*scrActions)["helpTooltips"]->setOn(true);
+	(*scrActions)["helpTooltips"]->setChecked(true);
 
 	connect( (*scrActions)["helpAboutScribus"], SIGNAL(activated()), mainWindow, SLOT(slotHelpAbout()) );
 	connect( (*scrActions)["helpAboutPlugins"], SIGNAL(activated()), mainWindow, SLOT(slotHelpAboutPlugins()) );
@@ -1174,8 +1174,8 @@ void ActionManager::setPDFActions(ScribusView *currView)
 	{
 		(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
 		(*scrActions)["itemPDFIsBookmark"]->setEnabled(false);
-		(*scrActions)["itemPDFIsAnnotation"]->setOn(false);
-		(*scrActions)["itemPDFIsBookmark"]->setOn(false);
+		(*scrActions)["itemPDFIsAnnotation"]->setChecked(false);
+		(*scrActions)["itemPDFIsBookmark"]->setChecked(false);
 		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
 		(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
 		return;
@@ -1183,8 +1183,8 @@ void ActionManager::setPDFActions(ScribusView *currView)
 
 	(*scrActions)["itemPDFIsAnnotation"]->setEnabled(true);
 	(*scrActions)["itemPDFIsBookmark"]->setEnabled(true);
-	(*scrActions)["itemPDFIsAnnotation"]->setOn(currItem->isAnnotation());
-	(*scrActions)["itemPDFIsBookmark"]->setOn(currItem->isBookmark);
+	(*scrActions)["itemPDFIsAnnotation"]->setChecked(currItem->isAnnotation());
+	(*scrActions)["itemPDFIsBookmark"]->setChecked(currItem->isBookmark);
 	if (currItem->isAnnotation())
 	{
 		int aType=currItem->annotation().Type();
@@ -1379,37 +1379,26 @@ void ActionManager::languageChange()
 
 	//toolbar only items
 	(*scrActions)["toolsSelect"]->setTexts( tr("Select Item"));
-	(*scrActions)["toolsInsertTextFrame"]->setMenuText( tr("&Text Frame"));
-	(*scrActions)["toolsInsertImageFrame"]->setMenuText( tr("&Image Frame"));
-	(*scrActions)["toolsInsertLatexFrame"]->setMenuText( tr("&Latex Frame"));
-	(*scrActions)["toolsInsertTableFrame"]->setMenuText( tr("T&able"));
-	(*scrActions)["toolsInsertShape"]->setMenuText( tr("&Shape"));
-	(*scrActions)["toolsInsertPolygon"]->setMenuText( tr("&Polygon"));
-	(*scrActions)["toolsInsertLine"]->setMenuText( tr("&Line"));
-	(*scrActions)["toolsInsertBezier"]->setMenuText( tr("&Bezier Curve"));
-	(*scrActions)["toolsInsertFreehandLine"]->setMenuText( tr("&Freehand Line"));
 	(*scrActions)["toolsRotate"]->setTexts( tr("Rotate Item"));
 	(*scrActions)["toolsZoom"]->setTexts( tr("Zoom in or out"));
 	(*scrActions)["toolsZoomIn"]->setTexts( tr("Zoom in"));
 	(*scrActions)["toolsZoomOut"]->setTexts( tr("Zoom out"));
 	(*scrActions)["toolsEditContents"]->setTexts( tr("Edit Contents of Frame"));
-	(*scrActions)["toolsEditWithStoryEditor"]->setMenuText( tr("Edit Text..."));
+	(*scrActions)["toolsEditWithStoryEditor"]->setText( tr("Edit Text..."));
 	(*scrActions)["toolsLinkTextFrame"]->setTexts( tr("Link Text Frames"));
 	(*scrActions)["toolsUnlinkTextFrame"]->setTexts( tr("Unlink Text Frames"));
 	(*scrActions)["toolsEyeDropper"]->setTexts( tr("&Eye Dropper"));
 	(*scrActions)["toolsCopyProperties"]->setTexts( tr("Copy Item Properties"));
 
-	(*scrActions)["toolsEditWithStoryEditor"]->setText( tr("Edit the text with the Story Editor"));
-
-	(*scrActions)["toolsInsertTextFrame"]->setText( tr("Insert Text Frame"));
-	(*scrActions)["toolsInsertImageFrame"]->setText( tr("Insert Image Frame"));
-	(*scrActions)["toolsInsertLatexFrame"]->setText( tr("Insert Latex Frame"));
-	(*scrActions)["toolsInsertTableFrame"]->setText( tr("Insert Table"));
-	(*scrActions)["toolsInsertShape"]->setText( tr("Insert Shape"));
-	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert Polygon"));
-	(*scrActions)["toolsInsertLine"]->setText( tr("Insert Line"));
-	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert Bezier Curve"));
-	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert Freehand Line"));
+	(*scrActions)["toolsInsertTextFrame"]->setText( tr("Insert &Text Frame"));
+	(*scrActions)["toolsInsertImageFrame"]->setText( tr("Insert &Image Frame"));
+	(*scrActions)["toolsInsertLatexFrame"]->setText( tr("Insert &Latex Frame"));
+	(*scrActions)["toolsInsertTableFrame"]->setText( tr("Insert T&able"));
+	(*scrActions)["toolsInsertShape"]->setText( tr("Insert &Shape"));
+	(*scrActions)["toolsInsertPolygon"]->setText( tr("Insert &Polygon"));
+	(*scrActions)["toolsInsertLine"]->setText( tr("Insert &Line"));
+	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert &Bezier Curve"));
+	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert &Freehand Line"));
 
 	(*scrActions)["toolsPDFPushButton"]->setTexts( tr("Insert PDF Push Button"));
 	(*scrActions)["toolsPDFTextField"]->setTexts( tr("Insert PDF Text Field"));
@@ -1427,8 +1416,8 @@ void ActionManager::languageChange()
 	(*scrActions)["extrasGenerateTableOfContents"]->setTexts( tr("&Generate Table Of Contents"));
 
 	//Windows Menu
-	(*scrActions)["windowsCascade"]->setMenuText( tr("&Cascade"));
-	(*scrActions)["windowsTile"]->setMenuText( tr("&Tile"));
+	(*scrActions)["windowsCascade"]->setText( tr("&Cascade"));
+	(*scrActions)["windowsTile"]->setText( tr("&Tile"));
 
 	//Help Menu
 	(*scrActions)["helpAboutScribus"]->setTexts( tr("&About Scribus"));
@@ -1452,15 +1441,15 @@ void ActionManager::languageChange()
 void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap)
 {
 	//typography
-	(*actionMap)["unicodeSmartHyphen"]->setMenuText( tr("Smart &Hyphen"));
-	(*actionMap)["unicodeNonBreakingHyphen"]->setMenuText( tr("Non Breaking Dash"));
-	(*actionMap)["unicodeNonBreakingSpace"]->setMenuText( tr("Non Breaking &Space"));
-	(*actionMap)["unicodePageNumber"]->setMenuText( tr("Page &Number"));
-	(*actionMap)["unicodeNewLine"]->setMenuText( tr("New Line"));
-	(*actionMap)["unicodeFrameBreak"]->setMenuText( tr("Frame Break"));
-	(*actionMap)["unicodeColumnBreak"]->setMenuText( tr("Column Break"));
-	(*actionMap)["unicodeZerowidthSpace"]->setMenuText( tr("&Zero Width Space"));
-	(*actionMap)["unicodeZerowidthNonBreakingSpace"]->setMenuText( tr("Zero Width NB Space"));
+	(*actionMap)["unicodeSmartHyphen"]->setText( tr("Smart &Hyphen"));
+	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Non Breaking Dash"));
+	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Non Breaking &Space"));
+	(*actionMap)["unicodePageNumber"]->setText( tr("Page &Number"));
+	(*actionMap)["unicodeNewLine"]->setText( tr("New Line"));
+	(*actionMap)["unicodeFrameBreak"]->setText( tr("Frame Break"));
+	(*actionMap)["unicodeColumnBreak"]->setText( tr("Column Break"));
+	(*actionMap)["unicodeZerowidthSpace"]->setText( tr("&Zero Width Space"));
+	(*actionMap)["unicodeZerowidthNonBreakingSpace"]->setText( tr("Zero Width NB Space"));
 	(*actionMap)["unicodeCopyRight"]->setTexts( tr("Copyright"));
 	(*actionMap)["unicodeRegdTM"]->setTexts( tr("Registered Trademark"));
 	(*actionMap)["unicodeTM"]->setTexts( tr("Trademark"));
@@ -1498,15 +1487,15 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QPointer<ScrActio
 	(*actionMap)["unicodeSpaceMid"]->setTexts( tr("Mid Space"));
 	(*actionMap)["unicodeSpaceHair"]->setTexts( tr("Hair Space"));
 
-	(*actionMap)["unicodeSmartHyphen"]->setText( tr("Insert Smart Hyphen"));
-	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Insert Non Breaking Dash"));
-	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Insert Non Breaking Space"));
-	(*actionMap)["unicodePageNumber"]->setText( tr("Insert Page Number"));
-	(*actionMap)["unicodeNewLine"]->setText( tr("New Line"));
-	(*actionMap)["unicodeFrameBreak"]->setText( tr("Frame Break"));
-	(*actionMap)["unicodeColumnBreak"]->setText( tr("Column Break"));
-	(*actionMap)["unicodeZerowidthSpace"]->setText( tr("&Zero Width Space"));
-	(*actionMap)["unicodeZerowidthNonBreakingSpace"]->setText( tr("Zero Width NB Space"));
+// 	(*actionMap)["unicodeSmartHyphen"]->setText( tr("Insert Smart Hyphen"));
+// 	(*actionMap)["unicodeNonBreakingHyphen"]->setText( tr("Insert Non Breaking Dash"));
+// 	(*actionMap)["unicodeNonBreakingSpace"]->setText( tr("Insert Non Breaking Space"));
+// 	(*actionMap)["unicodePageNumber"]->setText( tr("Insert Page Number"));
+// 	(*actionMap)["unicodeNewLine"]->setText( tr("New Line"));
+// 	(*actionMap)["unicodeFrameBreak"]->setText( tr("Frame Break"));
+// 	(*actionMap)["unicodeColumnBreak"]->setText( tr("Column Break"));
+// 	(*actionMap)["unicodeZerowidthSpace"]->setText( tr("&Zero Width Space"));
+// 	(*actionMap)["unicodeZerowidthNonBreakingSpace"]->setText( tr("Zero Width NB Space"));
 
 	(*actionMap)["unicodeLigature_ff"]->setTexts( tr("ff"));
 	(*actionMap)["unicodeLigature_fi"]->setTexts( tr("fi"));

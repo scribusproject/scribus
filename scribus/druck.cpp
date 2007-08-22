@@ -468,26 +468,26 @@ void Druck::getOptions()
 	QMap<QString,CupsOptions::OpData>::Iterator it;
 	for (it = cdia->KeyToText.begin(); it != cdia->KeyToText.end(); ++it)
 	{
-		if (cdia->KeyToDefault[it.key()] != cdia->FlagsOpt.at(it.data().Cnum)->currentText())
+		if (cdia->KeyToDefault[it.key()] != cdia->FlagsOpt.at(it.value().Cnum)->currentText())
 		{
-			if (it.data().KeyW == "mirror")
+			if (it.value().KeyW == "mirror")
 				PrinterOpts += " -o mirror";
 			else
 			{
-				if (it.data().KeyW == "page-set")
+				if (it.value().KeyW == "page-set")
 				{
-					PrinterOpts += " -o "+it.data().KeyW+"=";
-					if (cdia->FlagsOpt.at(it.data().Cnum)->currentItem() == 1)
+					PrinterOpts += " -o "+it.value().KeyW+"=";
+					if (cdia->FlagsOpt.at(it.value().Cnum)->currentItem() == 1)
 						PrinterOpts += "even";
 					else
 						PrinterOpts += "odd";
 				}
 				else
 				{
-					if (it.data().KeyW == "number-up")
+					if (it.value().KeyW == "number-up")
 					{
-						PrinterOpts += " -o "+it.data().KeyW+"=";
-						switch (cdia->FlagsOpt.at(it.data().Cnum)->currentItem())
+						PrinterOpts += " -o "+it.value().KeyW+"=";
+						switch (cdia->FlagsOpt.at(it.value().Cnum)->currentItem())
 						{
 							case 1:
 								PrinterOpts += "2";
@@ -508,11 +508,11 @@ void Druck::getOptions()
 					}
 					else
 					{
-						if (it.data().KeyW == "orientation")
+						if (it.value().KeyW == "orientation")
 							PrinterOpts += " -o landscape";
 						else
 							PrinterOpts += " -o " +
-									it.data().KeyW+"="+cdia->FlagsOpt.at(it.data().Cnum)->currentText();
+									it.value().KeyW+"="+cdia->FlagsOpt.at(it.value().Cnum)->currentText();
 					}
 				}
 			}
@@ -619,7 +619,7 @@ void Druck::SelFile()
 	if (dia.exec() == QDialog::Accepted)
 	{
 		QString selectedFile = dia.selectedFile();
-		dirs->set("druck", selectedFile.left(selectedFile.findRev("/")));
+		dirs->set("druck", selectedFile.left(selectedFile.lastIndexOf("/")));
 		LineEdit1->setText( QDir::convertSeparators(selectedFile) );
 	}
 }

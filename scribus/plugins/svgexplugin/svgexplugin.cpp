@@ -132,7 +132,7 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 
 		if (!fileName.isEmpty())
 		{
-			prefs->set("wdir", fileName.left(fileName.findRev("/")));
+			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 			QFile f(fileName);
 			if (f.exists())
 			{

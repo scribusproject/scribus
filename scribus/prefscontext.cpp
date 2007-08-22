@@ -177,5 +177,5 @@ PrefsContext::~PrefsContext()
 {
 	TableMap::Iterator it;
 	for (it = tables.begin(); it != tables.end(); ++it)
-		delete it.data();
+		delete it.value();
 }

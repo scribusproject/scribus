@@ -54,7 +54,7 @@ void ImportPSPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 
 void ImportPSPlugin::languageChange()
 {
-	importAction->setMenuText( tr("Import PostScript..."));
+	importAction->setText( tr("Import PostScript..."));
 	// (Re)register file format support
 	unregisterAll();
 	registerFormats();
@@ -140,7 +140,7 @@ bool ImportPSPlugin::import(QString fileName, int flags)
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.findRev("/")));
+			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 		}
 		else
 			return true;

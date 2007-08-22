@@ -11,9 +11,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef wmfstruct_h
 #define wmfstruct_h
 
-typedef Q_INT16 WORD16;
-typedef Q_INT32 WORD32;
-typedef Q_INT32 LONG32;
+typedef qint16 WORD16;
+typedef qint32 WORD32;
+typedef qint32 LONG32;
 typedef void* _HANDLE;
 
 typedef struct _RECT16

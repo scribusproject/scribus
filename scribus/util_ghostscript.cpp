@@ -309,7 +309,7 @@ QMap<int, QString> SCRIBUS_API getGSExePaths(const QString& regKey)
 					{
 						gsNumericVer = gsMajor * 1000 + gsMinor;
 						gsName = QString::fromUtf16((const ushort*) gsPath);
-						size   = gsName.findRev("\\");
+						size   = gsName.lastIndexOf("\\");
 						if (size > 0)
 						{
 							gsName  = gsName.left(size + 1);

@@ -132,7 +132,7 @@ void ColorSetManager::findPalettes()
 				QFileInfo file(path + dir[i]);
 				QString setName=file.baseName();
 				setName.replace("_", " ");
-				palettes.insert(setName, file.absFilePath());
+				palettes.insert(setName, file.absoluteFilePath());
 			}
 	}
 }

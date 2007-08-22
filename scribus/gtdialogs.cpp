@@ -129,7 +129,7 @@ bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importe
 		if (encoding == "UTF-16")
 			encoding = "ISO-10646-UCS-2";
 		importer = fdia->importerCombo->currentItem() - 1;
-		dirs->set("get_text", fileName.left(fileName.findRev("/")));
+		dirs->set("get_text", fileName.left(fileName.lastIndexOf("/")));
 	}
 	QDir::setCurrent(pwd);
 	return accepted;
@@ -139,11 +139,11 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 {
 	int curSel = prefs->getInt("curSel", 0);
 	QString extension = "";
-	QString shortName = fileName.right(fileName.length() - fileName.findRev("/") - 1);
+	QString shortName = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 	if (shortName.indexOf(".") == -1)
 		extension = ".no_extension";
 	else
-		extension = fileName.right(fileName.length() - fileName.findRev("."));
+		extension = fileName.right(fileName.length() - fileName.lastIndexOf("."));
 	int extensionSel = prefs->getInt(extension, -1);
 	QString imp = prefs->get("remember"+extension, QString("false"));
 	QString res = "";
@@ -187,7 +187,7 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 					if (shortName.indexOf(".") == -1)
 						fileExtension = ".no_extension";
 					else
-						fileExtension = fileName.right(fileName.length() - fileName.findRev("."));
+						fileExtension = fileName.right(fileName.length() - fileName.lastIndexOf("."));
 					if (!fileExtension.isEmpty())
 					{
 						prefs->set(fileExtension, static_cast<int>(i));

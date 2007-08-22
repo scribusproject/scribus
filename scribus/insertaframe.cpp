@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 
 #include <QGroupBox>
+#include <QIcon>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QRadioButton>
@@ -43,7 +44,7 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 // 	radioButtonShape->setShown(false);
 // 	radioButtonPolygon->setShown(false);
 	
-	placementPagesRangeButton->setPixmap(loadIcon("ellipsis.png"));
+	placementPagesRangeButton->setIcon(QIcon(loadIcon("ellipsis.png")));
 	
 	//set tab order
 	QWidget::setTabOrder(radioButtonCustomPosition, xPosScrSpinBox);

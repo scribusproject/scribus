@@ -201,10 +201,10 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 		{
 			Xml_attr psd;
 			psd.insert("Layer", toXMLString(it2.key()));
-			psd.insert("Visible", toXMLString(it2.data().visible));
-			psd.insert("useMask", toXMLString(it2.data().useMask));
-			psd.insert("Opacity", toXMLString(it2.data().opacity));
-			psd.insert("Blend", it2.data().blend);
+			psd.insert("Visible", toXMLString(it2.value().visible));
+			psd.insert("useMask", toXMLString(it2.value().useMask));
+			psd.insert("Opacity", toXMLString(it2.value().opacity));
+			psd.insert("Blend", it2.value().blend);
 			handler.begin("PSDLayer", psd);
 			handler.end("PSDLayer");
 		}

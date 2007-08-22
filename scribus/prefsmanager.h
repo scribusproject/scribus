@@ -44,7 +44,7 @@ class SCRIBUS_API PrefsManager : public QObject
 {
 Q_OBJECT
 public:
-	PrefsManager(QObject *parent = 0, const char *name = 0);
+	PrefsManager(QObject *parent = 0);
 	~PrefsManager();
 
 	/**

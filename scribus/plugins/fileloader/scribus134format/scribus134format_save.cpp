@@ -247,20 +247,20 @@ void Scribus134Format::writeCheckerProfiles(QDomDocument & docu)
 	{
 		QDomElement dc79a=docu.createElement("CheckProfile");
 		dc79a.setAttribute("Name",itcp.key());
-		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.data().ignoreErrors));
-		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.data().autoCheck));
-		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.data().checkGlyphs));
-		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.data().checkOrphans));
-		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.data().checkOverflow));
-		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.data().checkPictures));
-		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.data().checkResolution));
-		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.data().checkTransparency));
-		dc79a.setAttribute("minResolution",itcp.data().minResolution);
-		dc79a.setAttribute("maxResolution",itcp.data().maxResolution);
-		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
-		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
-		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.data().checkForGIF));
-		dc79a.setAttribute("ignoreOffLayers", static_cast<int>(itcp.data().ignoreOffLayers));		
+		dc79a.setAttribute("ignoreErrors", static_cast<int>(itcp.value().ignoreErrors));
+		dc79a.setAttribute("autoCheck", static_cast<int>(itcp.value().autoCheck));
+		dc79a.setAttribute("checkGlyphs", static_cast<int>(itcp.value().checkGlyphs));
+		dc79a.setAttribute("checkOrphans", static_cast<int>(itcp.value().checkOrphans));
+		dc79a.setAttribute("checkOverflow", static_cast<int>(itcp.value().checkOverflow));
+		dc79a.setAttribute("checkPictures", static_cast<int>(itcp.value().checkPictures));
+		dc79a.setAttribute("checkResolution", static_cast<int>(itcp.value().checkResolution));
+		dc79a.setAttribute("checkTransparency", static_cast<int>(itcp.value().checkTransparency));
+		dc79a.setAttribute("minResolution",itcp.value().minResolution);
+		dc79a.setAttribute("maxResolution",itcp.value().maxResolution);
+		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.value().checkAnnotations));
+		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));
+		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.value().checkForGIF));
+		dc79a.setAttribute("ignoreOffLayers", static_cast<int>(itcp.value().ignoreOffLayers));
 		dc.appendChild(dc79a);
 	}
 }

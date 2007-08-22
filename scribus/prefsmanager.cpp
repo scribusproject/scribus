@@ -55,8 +55,8 @@ extern bool emergencyActivated;
 
 PrefsManager* PrefsManager::_instance = 0;
 
-PrefsManager::PrefsManager(QObject *parent, const char *name)
- : QObject(parent, name)
+PrefsManager::PrefsManager(QObject *parent)
+ : QObject(parent)
 {
 }
 

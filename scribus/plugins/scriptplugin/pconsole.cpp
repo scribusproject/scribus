@@ -367,8 +367,8 @@ QString SyntaxColors::qcolor2named(QColor color)
 	QString retval("#");
 	QString oct;
 	color.getRgb(&r, &g, &b);
-	retval += oct.setNum(r, 16).rightJustify(2, '0');
-	retval += oct.setNum(g, 16).rightJustify(2, '0');
-	retval += oct.setNum(b, 16).rightJustify(2, '0');
+	retval += oct.setNum(r, 16).rightJustified(2, '0');
+	retval += oct.setNum(g, 16).rightJustified(2, '0');
+	retval += oct.setNum(b, 16).rightJustified(2, '0');
 	return retval;
 }

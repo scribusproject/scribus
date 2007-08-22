@@ -39,10 +39,10 @@ PageSize::PageSize(const QString sizeName)
 	{
 		PageSizeInfoMap::Iterator it = pageSizeList.find(sizeName);
 		m_pageSizeName=it.key();
-		m_width=it.data().width;
-		m_height=it.data().height;
-		m_pageUnitIndex=it.data().pageUnitIndex;
-		m_trPageSizeName=it.data().trSizeName;
+		m_width=it.value().width;
+		m_height=it.value().height;
+		m_pageUnitIndex=it.value().pageUnitIndex;
+		m_trPageSizeName=it.value().trSizeName;
 		valuesSet=true;
 	}
 	else //build based on translated value.
@@ -53,10 +53,10 @@ PageSize::PageSize(const QString sizeName)
 			if (sizeName==it.data().trSizeName)
 			{
 				m_pageSizeName=it.key();
-				m_width=it.data().width;
-				m_height=it.data().height;
-				m_pageUnitIndex=it.data().pageUnitIndex;
-				m_trPageSizeName=it.data().trSizeName;
+				m_width=it.value().width;
+				m_height=it.value().height;
+				m_pageUnitIndex=it.value().pageUnitIndex;
+				m_trPageSizeName=it.value().trSizeName;
 				valuesSet=true;
 			}
 		}
@@ -96,7 +96,7 @@ QStringList PageSize::sizeTRList(void) const
 	pageSizes.clear();
 	PageSizeInfoMap::ConstIterator it;
 	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)
-		pageSizes.append(it.data().trSizeName);
+		pageSizes.append(it.value().trSizeName);
 	return QStringList(pageSizes);
 }
 
@@ -237,6 +237,6 @@ void PageSize::printSizeList()
 {
 	PageSizeInfoMap::Iterator it;
 	for (it=pageSizeList.begin();it!=pageSizeList.end();++it)
-		std::cout << it.key().leftJustify(6).toStdString() << ": " << it.data().width << " x " << it.data().height << ",  " << it.data().width*unitGetRatioFromIndex(it.data().pageUnitIndex) << " x " << it.data().height*unitGetRatioFromIndex(it.data().pageUnitIndex) << ",  " << it.data().trSizeName.toStdString() << std::endl;
+		std::cout << it.key().leftJustified(6).toStdString() << ": " << it.value().width << " x " << it.value().height << ",  " << it.value().width*unitGetRatioFromIndex(it.value().pageUnitIndex) << " x " << it.value().height*unitGetRatioFromIndex(it.value().pageUnitIndex) << ",  " << it.value().trSizeName.toStdString() << std::endl;
 }
 

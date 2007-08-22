@@ -752,7 +752,7 @@ void Biblio::Import()
 	
 	if (!s.isEmpty())
 	{
-		dirs->set("old_scrap_load", s.left(s.findRev(QDir::convertSeparators("/"))));
+		dirs->set("old_scrap_load", s.left(s.lastIndexOf(QDir::convertSeparators("/"))));
 		
 		QString scrapbookFileO = s;
 		QFileInfo scrapbookFileInfoO = QFileInfo(scrapbookFileO);

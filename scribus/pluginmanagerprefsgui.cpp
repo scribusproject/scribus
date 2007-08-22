@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 
 
 PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
-	: PrefsPanel(parent, "pluginManagerPrefsWidget")	
+	: PrefsPanel(parent)	
 {
 	setupUi(this);
 	PluginManager& pluginManager(PluginManager::instance());

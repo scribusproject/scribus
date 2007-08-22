@@ -1285,7 +1285,7 @@ void Annot::GetNIcon()
 		return;
 	if (!fileName.isEmpty())
 	{
-		dirs->set("icon", fileName.left(fileName.findRev("/")));
+		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		CMSettings cms(view->Doc, "", 0);
 		item->pixm.LoadPicture(fileName, cms, false, false, ScImage::RGBData, 72);
@@ -1316,7 +1316,7 @@ void Annot::GetPIcon()
 		return;
 	if (!fileName.isEmpty())
 	{
-		dirs->set("icon", fileName.left(fileName.findRev("/")));
+		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		ScImage im;
 		CMSettings cms(view->Doc, "",0 );
@@ -1340,7 +1340,7 @@ void Annot::GetRIcon()
 		return;
 	if (!fileName.isEmpty())
 	{
-		dirs->set("icon", fileName.left(fileName.findRev("/")));
+		dirs->set("icon", fileName.left(fileName.lastIndexOf("/")));
 		QPixmap pmI1;
 		ScImage im;
 		CMSettings cms(view->Doc, "", 0);
@@ -1463,7 +1463,7 @@ void Annot::DecodeCalc()
 	QString tm = "";
 	QString tm2;
 	QString pfor = item->annotation().C_act();
-	int ss = pfor.findRev("(");
+	int ss = pfor.lastIndexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-3);
 	QStringList pfol;
 	pfol = pfol.split(",", pfo);
@@ -2237,7 +2237,7 @@ void Annot::GetFile()
 		fn = dia.selectedFile();
 		if (!fn.isEmpty())
 		{
-			dirs->set("annot_getfile", fn.left(fn.findRev("/")));
+			dirs->set("annot_getfile", fn.left(fn.lastIndexOf("/")));
 			Destfile->setText(fn);
 			SpinBox11->setValue(1);
 			SpinBox11->setMaxValue(1000);

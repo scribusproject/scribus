@@ -20,10 +20,6 @@ class SCRIBUS_API Measurements : public ScrPaletteBase
 public:
 	Measurements( QWidget* parent );
 	~Measurements() {};
-	//void closeEvent(QCloseEvent *ce);
-
-signals:
-	//void Schliessen(bool);
 
 public slots:
 	void setValues(double x1, double y1, double x2, double y2, double angle, double length, int unitIndex);

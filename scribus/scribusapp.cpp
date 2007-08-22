@@ -450,7 +450,7 @@ void ScribusQApp::showHeader()
 	endl(ts);
 	QString heading( tr("Scribus, Open Source Desktop Publishing") );
 	// Build a separator of ----s the same width as the heading
-	QString separator = QString("").rightJustify(heading.length(),'-');
+	QString separator = QString("").rightJustified(heading.length(),'-');
 	// Then output the heading, separator, and docs/www/etc info in an aligned table
 	const int urlwidth = 23;
 	const int descwidth = -(heading.length() - urlwidth - 1);

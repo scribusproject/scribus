@@ -278,7 +278,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	BuFromApp = false;
 
-	actionManager = new ActionManager(this, "actionManager");
+	actionManager = new ActionManager(this);
 	actionManager->init(this);
 	initMenuBar();
 	initToolBars();
@@ -9109,39 +9109,39 @@ void ScribusMainWindow::languageChange()
 		//Update menu texts
 		if (scrMenuMgr!=NULL && !scrMenuMgr->empty())
 		{
-			scrMenuMgr->setMenuText("File", tr("&File"));
-			scrMenuMgr->setMenuText(recentFileMenuName, tr("Open &Recent"));
-			scrMenuMgr->setMenuText(recentPasteMenuName, tr("Paste Recent"));
-			scrMenuMgr->setMenuText("FileImport", tr("&Import"));
-			scrMenuMgr->setMenuText("FileExport", tr("&Export"));
-			scrMenuMgr->setMenuText("Edit", tr("&Edit"));
-			scrMenuMgr->setMenuText("EditContents", tr("Contents"));
-			scrMenuMgr->setMenuText("Style", tr("St&yle"));
-			scrMenuMgr->setMenuText("Color", tr("&Color"));
-			scrMenuMgr->setMenuText("FontSize", tr("&Size"));
-			scrMenuMgr->setMenuText("Shade", tr("&Shade"));
-			scrMenuMgr->setMenuText("Font", tr("&Font"));
-			scrMenuMgr->setMenuText("TypeEffects", tr("&Effects"));
-			scrMenuMgr->setMenuText("Item", tr("&Item"));
-			scrMenuMgr->setMenuText("ItemLevel", tr("&Level"));
-			scrMenuMgr->setMenuText("ItemLayer", tr("Send to Layer"));
-			scrMenuMgr->setMenuText("ItemPreviewSettings", tr("Previe&w Settings"));
-			scrMenuMgr->setMenuText("ItemPDFOptions", tr("&PDF Options"));
-			scrMenuMgr->setMenuText("ItemShapes", tr("&Shape"));
-			scrMenuMgr->setMenuText("ItemConvertTo", tr("C&onvert To"));
-			scrMenuMgr->setMenuText("Insert", tr("I&nsert"));
-			scrMenuMgr->setMenuText("InsertChar", tr("Character"));
-			scrMenuMgr->setMenuText("InsertQuote", tr("Quote"));
-			scrMenuMgr->setMenuText("InsertSpace", tr("Space"));
-			scrMenuMgr->setMenuText("InsertLigature", tr("Liga&ture"));
-			scrMenuMgr->setMenuText("Page", tr("&Page"));
-			scrMenuMgr->setMenuText("View", tr("&View"));
-			scrMenuMgr->setMenuText("Tools", tr("&Tools"));
-			scrMenuMgr->setMenuText("Extras", tr("E&xtras"));
-			scrMenuMgr->setMenuText("Windows", tr("&Windows"));
-			scrMenuMgr->setMenuText("Help", tr("&Help"));
-			scrMenuMgr->setMenuText("Alignment", tr("&Alignment"));
-			scrMenuMgr->setMenuText("HelpOnlineTutorials", tr("Online &Tutorials"));
+			scrMenuMgr->setText("File", tr("&File"));
+			scrMenuMgr->setText(recentFileMenuName, tr("Open &Recent"));
+			scrMenuMgr->setText(recentPasteMenuName, tr("Paste Recent"));
+			scrMenuMgr->setText("FileImport", tr("&Import"));
+			scrMenuMgr->setText("FileExport", tr("&Export"));
+			scrMenuMgr->setText("Edit", tr("&Edit"));
+			scrMenuMgr->setText("EditContents", tr("Contents"));
+			scrMenuMgr->setText("Style", tr("St&yle"));
+			scrMenuMgr->setText("Color", tr("&Color"));
+			scrMenuMgr->setText("FontSize", tr("&Size"));
+			scrMenuMgr->setText("Shade", tr("&Shade"));
+			scrMenuMgr->setText("Font", tr("&Font"));
+			scrMenuMgr->setText("TypeEffects", tr("&Effects"));
+			scrMenuMgr->setText("Item", tr("&Item"));
+			scrMenuMgr->setText("ItemLevel", tr("&Level"));
+			scrMenuMgr->setText("ItemLayer", tr("Send to Layer"));
+			scrMenuMgr->setText("ItemPreviewSettings", tr("Previe&w Settings"));
+			scrMenuMgr->setText("ItemPDFOptions", tr("&PDF Options"));
+			scrMenuMgr->setText("ItemShapes", tr("&Shape"));
+			scrMenuMgr->setText("ItemConvertTo", tr("C&onvert To"));
+			scrMenuMgr->setText("Insert", tr("I&nsert"));
+			scrMenuMgr->setText("InsertChar", tr("Character"));
+			scrMenuMgr->setText("InsertQuote", tr("Quote"));
+			scrMenuMgr->setText("InsertSpace", tr("Space"));
+			scrMenuMgr->setText("InsertLigature", tr("Liga&ture"));
+			scrMenuMgr->setText("Page", tr("&Page"));
+			scrMenuMgr->setText("View", tr("&View"));
+			scrMenuMgr->setText("Tools", tr("&Tools"));
+			scrMenuMgr->setText("Extras", tr("E&xtras"));
+			scrMenuMgr->setText("Windows", tr("&Windows"));
+			scrMenuMgr->setText("Help", tr("&Help"));
+			scrMenuMgr->setText("Alignment", tr("&Alignment"));
+			scrMenuMgr->setText("HelpOnlineTutorials", tr("Online &Tutorials"));
 
 			rebuildStyleMenu(HaveDoc ? doc->CurrentSel : -1);
 		}

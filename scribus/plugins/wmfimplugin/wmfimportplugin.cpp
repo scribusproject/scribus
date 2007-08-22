@@ -79,7 +79,7 @@ WMFImportPlugin::~WMFImportPlugin()
 
 void WMFImportPlugin::languageChange()
 {
-	importAction->setMenuText( tr("Import &WMF..."));
+	importAction->setText( tr("Import &WMF..."));
 	// (Re)register file format support.
 	unregisterAll();
 	registerFormats();
@@ -148,7 +148,7 @@ bool WMFImportPlugin::import(QString filename, int flags)
 		if (diaf.exec())
 		{
 			filename = diaf.selectedFile();
-			prefs->set("wdir", filename.left(filename.findRev("/")));
+			prefs->set("wdir", filename.left(filename.lastIndexOf("/")));
 		}
 		else
 			return true;

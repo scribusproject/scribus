@@ -186,7 +186,7 @@ void HelpBrowser::closeEvent(QCloseEvent * event)
 		stream << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 		stream << "<history>\n";
 		for (QMap<QAction*,histd2>::Iterator it = mHistory.begin() ; it != mHistory.end(); ++it)
-			stream << "\t<item title=\"" << it.data().title << "\" url=\"" << it.data().url << "\" />\n";
+			stream << "\t<item title=\"" << it.value().title << "\" url=\"" << it.value().url << "\" />\n";
 		stream << "</history>\n";
 		histFile.close();
 	}

@@ -131,7 +131,7 @@ void LanguageManager::generateInstalledLangList()
 			{
 				langAbbrev = file.extension().remove(".qm");
 				if ((it=langList.find(langAbbrev))!=langList.end())
-						installedLangList.insert(it.key(), it.data().second);
+						installedLangList.insert(it.key(), it.value().second);
 			}
 		}
 }
@@ -142,9 +142,9 @@ const QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTra
 	if ((it=langList.find(langAbbrev))!=langList.end())
 	{
 		if (getTranslated)
-			return it.data().second;
+			return it.value().second;
 		else
-			return it.data().first;
+			return it.value().first;
 	}
 	else
 		return "";	
@@ -159,9 +159,9 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTrans
 		{
 			if (installedLangList.find(it.key()) != installedLangList.end())
 			{
-				if (getFromTranslated && it.data().second==lang)
+				if (getFromTranslated && it.value().second==lang)
 					return it.key();
-				if (!getFromTranslated && it.data().first==lang)
+				if (!getFromTranslated && it.value().first==lang)
 					return it.key();
 			}
 		}
@@ -172,10 +172,10 @@ const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTrans
 		{
 // 			if (installedLangList.find(it.key()) != installedLangList.end())
 // 			{
-				if (getFromTranslated && it.data().second==lang)
-					return it.key();
-				if (!getFromTranslated && it.data().first==lang)
-					return it.key();
+			if (getFromTranslated && it.value().second==lang)
+				return it.key();
+			if (!getFromTranslated && it.value().first==lang)
+				return it.key();
 // 			}
 		}
 	}
@@ -195,7 +195,7 @@ void LanguageManager::fillInstalledStringList(QStringList *stringListToFill, boo
 		}
 
 		for (it=installedLangList.begin();it!=installedLangList.end();++it)
-			stringListToFill->append(it.data());
+			stringListToFill->append(it.value());
 	}
 }
 
@@ -204,7 +204,7 @@ void LanguageManager::printInstalledList()
 	QMap<QString, QString>::Iterator it;
 
 	for (it=installedLangList.begin();it!=installedLangList.end();++it)
-		std::cout << it.key().leftJustify(6).toStdString() << ": " << it.data().toStdString() << std::endl;
+		std::cout << it.key().leftJustify(6).toStdString() << ": " << it.value().toStdString() << std::endl;
 }
 
 QString LanguageManager::numericSequence(QString seq)

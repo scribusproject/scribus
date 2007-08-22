@@ -84,7 +84,7 @@ SVGImportPlugin::~SVGImportPlugin()
 
 void SVGImportPlugin::languageChange()
 {
-	importAction->setMenuText( tr("Import &SVG..."));
+	importAction->setText( tr("Import &SVG..."));
 	// (Re)register file format support.
 	unregisterAll();
 	registerFormats();
@@ -153,7 +153,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 		if (diaf.exec())
 		{
 			filename = diaf.selectedFile();
-			prefs->set("wdir", filename.left(filename.findRev("/")));
+			prefs->set("wdir", filename.left(filename.lastIndexOf("/")));
 		}
 		else
 			return true;
@@ -781,7 +781,7 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 		if (attr.startsWith( "url("))
 		{
 			unsigned int start = attr.find("#") + 1;
-			unsigned int end = attr.findRev(")");
+			unsigned int end = attr.lastIndexOf(")");
 			QString key = attr.mid(start, end - start);
 			QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);
 			if (it != m_clipPaths.end())
@@ -1765,7 +1765,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		else if( params.startsWith( "url(" ) )
 		{
 			unsigned int start = params.find("#") + 1;
-			unsigned int end = params.findRev(")");
+			unsigned int end = params.lastIndexOf(")");
 			QString key = params.mid(start, end - start);
 			while (!m_gradients[key].reference.isEmpty())
 			{
@@ -1845,7 +1845,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 				else if( params.startsWith( "url(" ) )
 				{
 					unsigned int start = params.find("#") + 1;
-					unsigned int end = params.findRev(")");
+					unsigned int end = params.lastIndexOf(")");
 					QString key = params.mid( start, end - start );
 					gc->stroke.gradient() = m_gradients[ key ].gradient;
 					gc->stroke.gradient().transform( m_gradients[ key ].gradientTransform );

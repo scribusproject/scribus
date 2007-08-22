@@ -163,7 +163,7 @@ void PrefsFile::canWrite()
 			ioEnabled = fi.isWritable();
 		else
 		{
-			QFile f2(prefsFilePath.left(prefsFilePath.findRev("/")));
+			QFile f2(prefsFilePath.left(prefsFilePath.lastIndexOf("/")));
 			QFileInfo fi2(f2);
 			ioEnabled = fi2.isWritable();
 		}

@@ -437,7 +437,7 @@ void CurveWidget::doLoad()
 		return;
 	if (!fileName.isEmpty())
 	{
-		dirs->set("curves", fileName.left(fileName.findRev("/")));
+		dirs->set("curves", fileName.left(fileName.lastIndexOf("/")));
 		QFile f(fileName);
 		if (f.open(QIODevice::ReadOnly))
 		{
@@ -474,7 +474,7 @@ void CurveWidget::doSave()
 	{
 		if (!fileName.endsWith(".scu"))
 			fileName += ".scu";
-		PrefsManager::instance()->prefsFile->getContext("dirs")->set("curves", fileName.left(fileName.findRev("/")));
+		PrefsManager::instance()->prefsFile->getContext("dirs")->set("curves", fileName.left(fileName.lastIndexOf("/")));
 		if (overwrite(this, fileName))
 		{
 			QString efval = "";

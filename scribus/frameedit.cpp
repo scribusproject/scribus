@@ -178,8 +178,8 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout1->addWidget(RotateCW, 0, 1, 1, 1);
 
 	RotVal = new QSpinBox(this, "RotVal");
-	RotVal->setMinValue(1);
-	RotVal->setMaxValue(180);
+	RotVal->setMinimum(1);
+	RotVal->setMaximum(180);
 	RotVal->setValue(1);
 	RotVal->setSuffix( QString::fromUtf8(" °"));
 	gridLayout1->addWidget(RotVal, 0, 2, 1, 1);
@@ -199,8 +199,8 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout1->addWidget(Shrink, 1, 1, 1, 1);
 
 	scalePercentage = new QSpinBox( this, "scalePercentage");
-	scalePercentage->setMinValue(1);
-	scalePercentage->setMaxValue(100);
+	scalePercentage->setMinimum(1);
+	scalePercentage->setMaximum(100);
 	scalePercentage->setValue(10);
 	gridLayout1->addWidget(scalePercentage, 1, 2, 1, 1);
 

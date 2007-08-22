@@ -55,7 +55,7 @@ void ImportAIPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 
 void ImportAIPlugin::languageChange()
 {
-	importAction->setMenuText( tr("Import AI..."));
+	importAction->setText( tr("Import AI..."));
 	// (Re)register file format support
 	unregisterAll();
 	registerFormats();
@@ -130,7 +130,7 @@ bool ImportAIPlugin::import(QString fileName, int flags)
 		if (diaf.exec())
 		{
 			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.findRev("/")));
+			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 		}
 		else
 			return true;

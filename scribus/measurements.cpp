@@ -20,14 +20,14 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	measurementsLayout = new QGridLayout( this );
 	measurementsLayout->setMargin(10);
 	measurementsLayout->setSpacing(5);
-	x1Label = new QLabel( this, "x1Label" );
-	y1Label = new QLabel( this, "y1Label" );
-	x2Label = new QLabel( this, "x2Label" );
-	y2Label = new QLabel( this, "y2Label" );
-	dxLabel = new QLabel( this, "dxLabel" );
-	dyLabel = new QLabel( this, "dyLabel" );
-	angleLabel = new QLabel( this, "dxLabel" );
-	lengthLabel = new QLabel( this, "dyLabel" );
+	x1Label = new QLabel( this );
+	y1Label = new QLabel( this );
+	x2Label = new QLabel( this );
+	y2Label = new QLabel( this );
+	dxLabel = new QLabel( this );
+	dyLabel = new QLabel( this );
+	angleLabel = new QLabel( this );
+	lengthLabel = new QLabel( this );
 	measurementsLayout->addWidget( x1Label, 0, 0 );
 	measurementsLayout->addWidget( y1Label, 1, 0 );
 	measurementsLayout->addWidget( x2Label, 2, 0 );
@@ -37,16 +37,16 @@ Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "Measure
 	measurementsLayout->addWidget( angleLabel, 6, 0 );
 	measurementsLayout->addWidget( lengthLabel, 7, 0 );
 
-	x1Data = new QLabel( "", this, "x1Data" );
-	y1Data = new QLabel( "", this, "y1Data" );
-	x2Data = new QLabel( "", this, "x2Data" );
-	y2Data = new QLabel( "", this, "y2Data" );
-	dXData = new QLabel( "", this, "dxData" );
-	dYData = new QLabel( "", this, "dyData" );
-	angleData = new QLabel( "", this, "angleData" );
-	lengthData = new QLabel( "", this, "lengthData" );
+	x1Data = new QLabel( "", this );
+	y1Data = new QLabel( "", this );
+	x2Data = new QLabel( "", this );
+	y2Data = new QLabel( "", this );
+	dXData = new QLabel( "", this );
+	dYData = new QLabel( "", this );
+	angleData = new QLabel( "", this );
+	lengthData = new QLabel( "", this );
 	
-	const QString widthString="10000.00 " + tr( "pt" );
+	const QString widthString="10000.00 " + unitGetStrFromIndex(0);
 	int textWidth = fontMetrics().width(widthString);
 	x1Data->setMinimumSize(textWidth, 12);
 	y1Data->setMinimumSize(textWidth, 12);

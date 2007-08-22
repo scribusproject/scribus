@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include "util_icon.h"
 
-AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent, "AlignSelect")
+AlignSelect::AlignSelect(QWidget* parent) : QWidget(parent)
 {
 	buttonGroup = new QButtonGroup(this);
 

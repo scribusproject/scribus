@@ -48,7 +48,7 @@ void gtGetText::launchImporter(int importer, const QString& filename, bool textO
 	bool callImporter = true;
 	if (importer == -1)
 	{
-		QString fend = filename.right(filename.length() - filename.findRev(".") - 1);
+		QString fend = filename.right(filename.length() - filename.lastIndexOf(".") - 1);
 		if (importerMap.find(fend) != importerMap.end())
 			ida = *importerMap[fend];
 		else

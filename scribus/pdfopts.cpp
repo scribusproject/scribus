@@ -214,7 +214,7 @@ void PDFExportDialog::ChangeFile()
 	if (dia.exec() == QDialog::Accepted)
 	{
 		fn = dia.selectedFile();
-		dirs->set("pdf", fn.left(fn.findRev("/")));
+		dirs->set("pdf", fn.left(fn.lastIndexOf("/")));
 	}
 	else
 		return;

@@ -106,7 +106,7 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 	toFile = printerUseFilePort( options.printer );
 	if ( toFile )
 	{
-		diaSelection = doc->DocName.right( doc->DocName.length() - doc->DocName.findRev("/") - 1 );
+		diaSelection = doc->DocName.right( doc->DocName.length() - doc->DocName.lastIndexOf("/") - 1 );
 		diaSelection = diaSelection.left( diaSelection.find(".") );
 		diaSelection += ".prn";
 		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
@@ -122,7 +122,7 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 			QString selectedFile = dia.selectedFile();
 			if ( overwrite(doc->scMW()->view, selectedFile) )
 			{
-				dirs->set("winprn", selectedFile.left(selectedFile.findRev("/")));
+				dirs->set("winprn", selectedFile.left(selectedFile.lastIndexOf("/")));
 				fileName = QDir::convertSeparators( selectedFile );
 			}
 		}

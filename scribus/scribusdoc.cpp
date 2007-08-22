@@ -3363,7 +3363,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			{
 				if (QFile::exists(iafData.source))
 				{
-					PrefsManager::instance()->prefsFile->getContext("dirs")->set("images", iafData.source.left(iafData.source.findRev("/")));
+					PrefsManager::instance()->prefsFile->getContext("dirs")->set("images", iafData.source.left(iafData.source.lastIndexOf("/")));
 					currItem->EmProfile = "";
 					currItem->pixm.imgInfo.isRequest = false;
 					currItem->UseEmbedded = true;

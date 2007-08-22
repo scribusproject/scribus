@@ -57,7 +57,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	{
 		replacementTable->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
 		FontCombo* item = new FontCombo(this);
-		item->setCurrentText(itfsu.data());
+		item->setCurrentText(itfsu.value());
 		replacementTable->setCellWidget(a, 1, item);
 		a++;
 	}
@@ -96,7 +96,8 @@ void FontReplaceDialog::leaveOK()
 	for (int a = 0; a < replacementTable->rowCount(); ++a)
 	{
 		FontCombo* item = (FontCombo*)replacementTable->cellWidget(a, 1);
-		ReplaceList->replace(replacementTable->item(a, 0)->text(), item->currentText());
+		ReplaceList->remove(replacementTable->item(a, 0)->text());
+		ReplaceList->insert(replacementTable->item(a, 0)->text(), item->currentText());
 	}
 	if (okButton == sender())
 		accept();

@@ -824,7 +824,7 @@ void SEditor::paste()
 		{
 			data.replace(QRegExp("\r"), "");
 			newParaCount=data.count("\n");
-			lengthLastPara=data.length()-data.findRev("\n");
+			lengthLastPara=data.length()-data.lastIndexOf("\n");
 			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
 //			inserted=true;
 			advanceLen = data.length() - newParaCount;
@@ -1680,8 +1680,7 @@ void StoryEditor::languageChange()
 {
 	setWindowTitle( tr( "Story Editor" ) );
 	//File Menu
-	seMenuMgr->setMenuText("File", tr("&File"));
-	seActions["fileNew"]->setMenuText( tr("&New"));
+	seMenuMgr->setText("File", tr("&File"));
 	seActions["fileNew"]->setText( tr("Clear All Text"));
 	seActions["fileRevert"]->setTexts( tr("&Reload Text from Frame"));
 	seActions["fileSaveToFile"]->setTexts( tr("&Save to File..."));
@@ -1690,7 +1689,7 @@ void StoryEditor::languageChange()
 	seActions["fileUpdateAndExit"]->setTexts( tr("&Update Text Frame and Exit"));
 	seActions["fileExit"]->setTexts( tr("&Exit Without Updating Text Frame"));
 	//Edit Menu
-	seMenuMgr->setMenuText("Edit", tr("&Edit"));
+	seMenuMgr->setText("Edit", tr("&Edit"));
 	seActions["editSelectAll"]->setTexts( tr("Select &All"));
 	seActions["editCut"]->setTexts( tr("Cu&t"));
 	seActions["editCopy"]->setTexts( tr("&Copy"));
@@ -1702,14 +1701,14 @@ void StoryEditor::languageChange()
 	seActions["editUpdateFrame"]->setTexts( tr("&Update Text Frame"));
 
 	//Insert menu
-	seMenuMgr->setMenuText("Insert", tr("&Insert"));
-	seMenuMgr->setMenuText("InsertChar", tr("Character"));
-	seMenuMgr->setMenuText("InsertQuote", tr("Quote"));
-	seMenuMgr->setMenuText("InsertSpace", tr("Space"));
+	seMenuMgr->setText("Insert", tr("&Insert"));
+	seMenuMgr->setText("InsertChar", tr("Character"));
+	seMenuMgr->setText("InsertQuote", tr("Quote"));
+	seMenuMgr->setText("InsertSpace", tr("Space"));
 	seActions["insertGlyph"]->setTexts( tr("&Insert Glyph..."));
 
 	//Settings Menu
-	seMenuMgr->setMenuText("Settings", tr("&Settings"));
+	seMenuMgr->setText("Settings", tr("&Settings"));
 	seActions["settingsBackground"]->setTexts( tr("&Background..."));
 	seActions["settingsDisplayFont"]->setTexts( tr("&Display Font..."));
 	seActions["settingsSmartTextSelection"]->setTexts( tr("&Smart text selection"));
@@ -2911,7 +2910,7 @@ void StoryEditor::LoadTextFile()
 		fileName =  dia.selectedFile();
 		if (!fileName.isEmpty())
 		{
-			dirs->set("story_load", fileName.left(fileName.findRev("/")));
+			dirs->set("story_load", fileName.left(fileName.lastIndexOf("/")));
 			QString txt;
 			if (Serializer::readWithEncoding(fileName, LoadEnc, txt))
 			{
@@ -2951,7 +2950,7 @@ void StoryEditor::SaveTextFile()
 	fileName =  dia.selectedFile();
 	if (!fileName.isEmpty())
 	{
-		dirs->set("story_save", fileName.left(fileName.findRev("/")));
+		dirs->set("story_save", fileName.left(fileName.lastIndexOf("/")));
 		Serializer::writeWithEncoding(fileName, LoadEnc, Editor->text());
 	}
 	blockUpdate = false;

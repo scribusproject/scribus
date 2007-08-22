@@ -94,8 +94,8 @@ SxwIm::SxwIm(QString fileName, QString enc, gtWriter* w, bool textOnly)
 	// Qt4 NULL -> isNull()
 	if ((!stylePath.isNull()) && (!contentPath.isNull()))
 	{
-		QString docname = filename.right(filename.length() - filename.findRev("/") - 1);
-		docname = docname.left(docname.findRev("."));
+		QString docname = filename.right(filename.length() - filename.lastIndexOf("/") - 1);
+		docname = docname.left(docname.lastIndexOf("."));
 		StyleReader *sreader = new StyleReader(docname, writer, textOnly, prefix, pack);
 		sreader->parse(stylePath);
 		ContentReader *creader = new ContentReader(docname, sreader, writer, textOnly);

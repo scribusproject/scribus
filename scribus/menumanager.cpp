@@ -94,11 +94,11 @@ bool MenuManager::clearMenu(const QString &menuName)
 	return retVal;
 }
 
-void MenuManager::setMenuText(const QString &menuName, const QString &menuText)
+void MenuManager::setText(const QString &menuName, const QString &menuText)
 {
 	if (menuList.contains(menuName) && menuList[menuName]!=NULL)
 	{
-		menuList[menuName]->setMenuText(menuText);
+		menuList[menuName]->setText(menuText);
 		QString parent=menuList[menuName]->getParentMenuName();
 		if (!parent.isNull())
 			menuList[parent]->repopulateLocalMenu();

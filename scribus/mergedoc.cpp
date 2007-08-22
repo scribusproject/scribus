@@ -137,7 +137,7 @@ void MergeDoc::changeFile()
 		fn = dia->selectedFile();
 		if (!fn.isEmpty())
 		{
-			dirs->set("merge", fn.left(fn.findRev("/")));
+			dirs->set("merge", fn.left(fn.lastIndexOf("/")));
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			FileLoader fl(fn);
 			if (fl.TestFile() == -1)

@@ -233,7 +233,7 @@ int MSpinBox::mapTextToValue(bool *)
 	int pos = ts.length();
 	while (pos > 0)
 	{
-		pos = ts.findRev(".", pos);
+		pos = ts.lastIndexOf(".", pos);
 		if (pos >= 0) 
 		{
 			if (pos < static_cast<int>(ts.length()))

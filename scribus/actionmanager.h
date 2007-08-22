@@ -50,7 +50,7 @@ class SCRIBUS_API ActionManager : public QObject
 
 	friend class StoryEditor;
 	public:
-		ActionManager ( QObject * parent, const char * name );	
+		ActionManager ( QObject * parent );
 		~ActionManager();
 		void init(ScribusMainWindow *);
 		static void createDefaultShortcuts();

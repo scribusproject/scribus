@@ -278,8 +278,8 @@ GradientEditor::GradientEditor(QWidget *pa) : QLabel(pa)
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 0 );
 	Position = new QSpinBox( this, "shspin" );
-	Position->setMinValue(0);
-	Position->setMaxValue(100);
+	Position->setMinimum(0);
+	Position->setMaximum(100);
 	Position->setLineStep(1);
 	Position->setValue(0);
 	Desc = new QLabel( this, "Desc" );

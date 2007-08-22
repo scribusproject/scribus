@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 
 ScripterPrefsGui::ScripterPrefsGui(QWidget* parent )
-	: PrefsPanel(parent, "ScripterPrefsGui")
+	: PrefsPanel(parent)
 {
 	setupUi(this);
 	

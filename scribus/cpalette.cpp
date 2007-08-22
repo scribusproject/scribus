@@ -84,8 +84,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	ShadeTxt = new QLabel( this);
 	Layout1->addWidget( ShadeTxt);
 	PM1 = new QSpinBox( this );
-	PM1->setMinValue(0);
-	PM1->setMaxValue(100);
+	PM1->setMinimum(0);
+	PM1->setMaximum(100);
 	PM1->setLineStep(10);
 	PM1->setValue(100);
 	Layout1->addWidget(PM1);
@@ -207,8 +207,8 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	TransTxt = new QLabel( TransGroup );
 	Layout1t->addWidget( TransTxt, 0, 0 );
 	TransSpin = new QSpinBox( TransGroup );
-	TransSpin->setMinValue(0);
-	TransSpin->setMaxValue(100);
+	TransSpin->setMinimum(0);
+	TransSpin->setMaximum(100);
 	TransSpin->setLineStep(10);
 	TransSpin->setValue(100);
 	Layout1t->addWidget(TransSpin, 0, 1);
@@ -360,10 +360,10 @@ void Cpalette::updatePatternList()
 	for (QMap<QString, ScPattern>::Iterator it = patternList->begin(); it != patternList->end(); ++it)
 	{
 		QPixmap pm;
-		if (it.data().getPattern()->width() >= it.data().getPattern()->height())
-			pm=QPixmap::fromImage(it.data().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
+		if (it.value().getPattern()->width() >= it.value().getPattern()->height())
+			pm=QPixmap::fromImage(it.value().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
-			pm=QPixmap::fromImage(it.data().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
+			pm=QPixmap::fromImage(it.value().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
 		pm2.fill(palette().base());
 		QPainter p;

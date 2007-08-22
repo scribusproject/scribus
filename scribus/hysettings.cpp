@@ -11,14 +11,14 @@ for which a new license (GPL+exception) is in place.
 #include "QHeaderView"
 #include <QInputDialog>
 
-HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent, "Settings" )
+HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent )
 {
 	langsMap = *langs;
 	setupUi(this);
 	QMap<QString,QString>::Iterator it;
 	QStringList lada;
 	for (it = langs->begin(); it != langs->end(); ++it)
-		lada.append(it.data());
+		lada.append(it.value());
 	lada.sort();
 	language->addItems(lada);
 	buttonExceptAdd->setIcon(QIcon(loadIcon("16/list-add.png")));

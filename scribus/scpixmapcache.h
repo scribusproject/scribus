@@ -27,7 +27,7 @@ ScPixmapCache<T>::~ScPixmapCache()
 
 	itEnd = this->end();
 	for (it = this->begin(); it != itEnd; it++)
-		delete (it.data());
+		delete (it.value());
 };
 
 #endif

@@ -67,7 +67,7 @@ const QString ScrPopupMenu::getMenuText()
 	return menuText;
 }
 
-void ScrPopupMenu::setMenuText(const QString pMenuText)
+void ScrPopupMenu::setText(const QString pMenuText)
 {
 	menuText=pMenuText;
 }

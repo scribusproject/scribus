@@ -50,7 +50,7 @@ public:
 	bool addMenuToMenu(const QString & child, const QString &parent);
 	bool deleteMenu(const QString &menuName, const QString &parent = QString::null);
 	bool clearMenu(const QString &menuName);
-	void setMenuText(const QString &menuName, const QString &menuText);
+	void setText(const QString &menuName, const QString &menuText);
 	void setMenuIcon(const QString &menuName, const QIcon &menuIcon);
 	QMenu *getLocalPopupMenu(const QString &menuName);
 	void setMenuEnabled(const QString &menuName, const bool enabled);

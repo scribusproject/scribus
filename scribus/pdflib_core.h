@@ -107,7 +107,7 @@ private:
 	void PDF_xForm(double w, double h, QString im);
 	QString PDF_Image(PageItem* c, const QString& fn, double sx, double sy, double x, double y, bool fromAN = false, const QString& Profil = "", bool Embedded = false, int Intent = 1);
 
-	int bytesWritten() { return Spool.at(); }
+	int bytesWritten() { return Spool.pos(); }
 
 	QString Inhalt;
 	ScribusDoc & doc;

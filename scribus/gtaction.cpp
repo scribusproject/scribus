@@ -598,7 +598,7 @@ QString gtAction::parseColor(const QString &s)
 		if( s.startsWith( "rgb(" ) )
 		{
 			QString parse = s.trimmed();
-			QStringList colors = QStringList::split( ',', parse );
+			QStringList colors = parse.split(',');
 			QString r = colors[0].right( ( colors[0].length() - 4 ) );
 			QString g = colors[1];
 			QString b = colors[2].left( ( colors[2].length() - 1 ) );
@@ -630,7 +630,7 @@ QString gtAction::parseColor(const QString &s)
 		found = false;
 		for (it = textFrame->doc()->PageColors.begin(); it != textFrame->doc()->PageColors.end(); ++it)
 		{
-			if (c == ScColorEngine::getRGBColor(it.data(), textFrame->doc()))
+			if (c == ScColorEngine::getRGBColor(it.value(), textFrame->doc()))
 			{
 				ret = it.key();
 				found = true;

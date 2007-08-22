@@ -34,7 +34,8 @@ NewTm::NewTm( QWidget* parent, QString text, QString titel, ScribusDoc *doc, con
 	Layout2->setSpacing( 5 );
 	Layout2->setMargin( 0 );
 	Answer = new QLineEdit( this );
-	Frage = new QLabel( Answer, text, this );
+	Frage = new QLabel( text, this );
+	Frage->setBuddy(Answer);
 // Qt4 	Frage->setFrameShape( QLabel::MShape );
 // Qt4 	Frage->setFrameShadow( QLabel::MShadow );
 	Frage->adjustSize();

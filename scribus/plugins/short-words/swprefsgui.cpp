@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scmessagebox.h"
 
-SWPrefsGui::SWPrefsGui(QWidget* parent ) : PrefsPanel(parent, "SWPrefsGui")
+SWPrefsGui::SWPrefsGui(QWidget* parent ) : PrefsPanel(parent)
 {
 	SWPrefsGuiLayout = new QGridLayout(this);
 	SWPrefsGuiLayout->setMargin(10);

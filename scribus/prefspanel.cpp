@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefspanel.h"
 //#include "prefspanel.moc"
 
-PrefsPanel::PrefsPanel(QWidget* parent, const char* name) : QWidget(parent, name, 0)
+PrefsPanel::PrefsPanel(QWidget* parent) : QWidget(parent, 0)
 {}
 
 PrefsPanel::~PrefsPanel()

@@ -55,7 +55,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7))
 	{
 		QString tm = item->annotation().Action();
-		tl = tl.split(" ", tm);
+		tl = tm.split(" ");
 	}
 	else
 	{
@@ -115,9 +115,9 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 		ChFile->hide();
 	}
 
-	SpinBox1 = new QSpinBox( GroupBox1, "SpinBox1" );
-	SpinBox1->setMinValue(1);
-	SpinBox1->setMaxValue(item->annotation().ActionType() == 7 ? 1000 : Seite);
+	SpinBox1 = new QSpinBox( GroupBox1);
+	SpinBox1->setMinimum(1);
+	SpinBox1->setMaximum(item->annotation().ActionType() == 7 ? 1000 : Seite);
 	TextLabel3 = new QLabel( SpinBox1, tr("&Page:"), GroupBox1, "TextLabel3" );
 	GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
 	GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
@@ -137,15 +137,15 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
 	GroupBox1Layout->addWidget(Pg, 1, 2, 3, 1);
 
-	SpinBox2 = new QSpinBox( GroupBox1, "SpinBox2" );
+	SpinBox2 = new QSpinBox( GroupBox1);
 	SpinBox2->setSuffix( tr( " pt" ) );
-	SpinBox2->setMaxValue(Breite);
+	SpinBox2->setMaximum(Breite);
 	SpinBox2->setValue(tl[0].toInt());
 	TextLabel4 = new QLabel( SpinBox2, tr("&X-Pos"), GroupBox1, "TextLabel4" );
 	GroupBox1Layout->addWidget( TextLabel4, 2, 0 );
 	GroupBox1Layout->addWidget( SpinBox2, 2, 1 );
-	SpinBox3 = new QSpinBox( GroupBox1, "SpinBox3" );
-	SpinBox3->setMaxValue(Hoehe);
+	SpinBox3 = new QSpinBox( GroupBox1 );
+	SpinBox3->setMaximum(Hoehe);
 	SpinBox3->setSuffix( tr( " pt" ) );
 	SpinBox3->setValue(Hoehe-tl[1].toInt());
 	TextLabel5 = new QLabel( SpinBox3, tr("&Y-Pos:"), GroupBox1, "TextLabel5" );
@@ -204,8 +204,8 @@ void Annota::SetPg(int v)
 		Breite = OriBreite;
 		Hoehe = OriHoehe;
 	}
-	SpinBox2->setMaxValue(Breite);
-	SpinBox3->setMaxValue(Hoehe);
+	SpinBox2->setMaximum(Breite);
+	SpinBox3->setMaximum(Hoehe);
 	connect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
 }
 
@@ -356,10 +356,10 @@ void Annota::GetFile()
 		fn = dia.selectedFile();
 		if (!fn.isEmpty())
 		{
-			dirs->set("annot_getfile", fn.left(fn.findRev("/")));
+			dirs->set("annot_getfile", fn.left(fn.lastIndexOf("/")));
 			Destfile->setText(fn);
 			SpinBox1->setValue(1);
-			SpinBox1->setMaxValue(1000);
+			SpinBox1->setMaximum(1000);
 			SetPg(1);
 		}
 	}

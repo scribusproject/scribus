@@ -274,7 +274,7 @@ void FontPrefs::AddPath()
 	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
 	if (!s.isEmpty())
 	{
-		dirs->set("fontprefs", s.left(s.findRev("/", -2)));
+		dirs->set("fontprefs", s.left(s.lastIndexOf("/", -2)));
 		if( s.endsWith("/") )
 			s = s.left(s.length()-1);
 		QString s2 = QDir::convertSeparators(s);

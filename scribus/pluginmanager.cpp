@@ -18,8 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include "menumanager.h"
 #include "scraction.h"
 #include "splash.h"
-//#include "mpalette.h"
-//#include "tree.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "scpaths.h"
@@ -495,7 +493,7 @@ void PluginManager::languageChange()
 				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
 				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
 				if (pluginAction != 0)
-					pluginAction->setMenuText( ai.text );
+					pluginAction->setText( ai.text );
 			}
 		}
 	}

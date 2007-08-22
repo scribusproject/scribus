@@ -540,13 +540,13 @@ void ScripterCore::runStartupScript()
 
 void ScripterCore::languageChange()
 {
-	scrScripterActions["scripterExecuteScript"]->setMenuText(QObject::tr("&Execute Script..."));
-	scrScripterActions["scripterShowConsole"]->setMenuText(QObject::tr("Show &Console"));
-	scrScripterActions["scripterAboutScript"]->setMenuText(QObject::tr("&About Script..."));
+	scrScripterActions["scripterExecuteScript"]->setText(QObject::tr("&Execute Script..."));
+	scrScripterActions["scripterShowConsole"]->setText(QObject::tr("Show &Console"));
+	scrScripterActions["scripterAboutScript"]->setText(QObject::tr("&About Script..."));
 
-	menuMgr->setMenuText("Scripter", QObject::tr("&Script"));
-	menuMgr->setMenuText("ScribusScripts", QObject::tr("&Scribus Scripts"));
-	menuMgr->setMenuText("RecentScripts", QObject::tr("&Recent Scripts"));
+	menuMgr->setText("Scripter", QObject::tr("&Script"));
+	menuMgr->setText("ScribusScripts", QObject::tr("&Scribus Scripts"));
+	menuMgr->setText("RecentScripts", QObject::tr("&Recent Scripts"));
 }
 
 bool ScripterCore::setupMainInterpreter()

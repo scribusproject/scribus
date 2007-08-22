@@ -111,7 +111,7 @@ void Editor::OpenScript()
 	QString fileName = QFileDialog::getOpenFileName(dirs->get("editor_open", "."), tr("JavaScripts (*.js);;All Files (*)"),this);
 	if (!fileName.isEmpty())
 	{
-		dirs->set("editor_open", fileName.left(fileName.findRev("/")));
+		dirs->set("editor_open", fileName.left(fileName.lastIndexOf("/")));
 		QFile file( fileName );
 		if ( file.open( QIODevice::ReadOnly ) )
 		{
@@ -127,7 +127,7 @@ void Editor::SaveAs()
 	QString fn = QFileDialog::getSaveFileName(dirs->get("editor_save", "."), tr("JavaScripts (*.js);;All Files (*)"), this);
 	if (!fn.isEmpty())
 	{
-		dirs->set("editor_save", fn.left(fn.findRev("/")));
+		dirs->set("editor_save", fn.left(fn.lastIndexOf("/")));
 		QFile file( fn );
 		if ( file.open( QIODevice::WriteOnly ) )
 		{

@@ -332,7 +332,7 @@ void UndoManager::switchStack(const QString& stackName)
 	for (uint i = 0; i < undoGuis_.size(); ++i)
 		setState(undoGuis_[i]);
 
-	setMenuTexts();
+	setTexts();
 }
 
 void UndoManager::renameStack(const QString& newName)
@@ -410,7 +410,7 @@ void UndoManager::action(UndoObject* target, UndoState* state, QPixmap *targetPi
 	if (targetPixmap)
 		target->setUPixmap(oldIcon);
 
-	setMenuTexts();
+	setTexts();
 }
 
 void UndoManager::action(UndoObject* target, UndoState* state,
@@ -433,7 +433,7 @@ void UndoManager::undo(int steps)
 	setUndoEnabled(true);
 	emit undoSignal(steps);
 	emit undoRedoDone();
-	setMenuTexts();
+	setTexts();
 }
 
 void UndoManager::redo(int steps)
@@ -446,7 +446,7 @@ void UndoManager::redo(int steps)
 	setUndoEnabled(true);
 	emit redoSignal(steps);
 	emit undoRedoDone();
-	setMenuTexts();
+	setTexts();
 }
 
 bool UndoManager::hasUndoActions(int )
@@ -475,7 +475,7 @@ void UndoManager::showObject(int uid)
 			setState(undoGuis_[i], currentUndoObjectId_);
 	}
 	setUndoEnabled(true);
-	setMenuTexts();
+	setTexts();
 }
 
 UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
@@ -531,7 +531,7 @@ bool UndoManager::isGlobalMode()
 	return currentUndoObjectId_ == -1;
 }
 
-void UndoManager::setMenuTexts()
+void UndoManager::setTexts()
 {
 	if (stacks_[currentDoc_].undoItems() > 0)
 	{
