@@ -60,7 +60,12 @@ class Imposition : public QDialog,Ui::ImpositionBase
 		bool verifyGrid();
 		bool verifyBooklet();
 		bool verifyFold();
-// 			
+		QList<int>* parsePages(QString);
+		
+		void booklet4p(QList<int>*);
+		void booklet8p(QList<int>*);
+		void booklet16p(QList<int>*);
+ 			
 	protected slots:
 		virtual void languageChange();
 		void setPageSize(const QString &);

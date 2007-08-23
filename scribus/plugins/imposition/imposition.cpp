@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "desaxe/saxXML.h"
 #include "serializer.h"
+#include <QDebug>
 
 Imposition::Imposition(QWidget* parent, ScribusDoc* doc)
   : QDialog(parent,"Imposition", true, 0)
@@ -116,7 +117,7 @@ Imposition::Imposition(QWidget* parent, ScribusDoc* doc)
 	connect(cbFront, SIGNAL(currentIndexChanged(QString)), this, SLOT(verifyPage()));
 	connect(cbBack, SIGNAL(currentIndexChanged(QString)), this, SLOT(verifyPage()));
 	
-	connect(cbSetting, SIGNAL(currentIndexChanged(QString)), this, SLOT(verifyPage()));
+	connect(cbLayout, SIGNAL(currentIndexChanged(QString)), this, SLOT(verifyPage()));
 }
 
 
@@ -365,9 +366,886 @@ void Imposition::changeDocGrid()
 	}
 }
 
+QList<int>* Imposition::parsePages(QString pageslist)
+{
+	QList<int>* li = new QList<int>();
+	
+	QStringList spages = pageslist.split(",");
+	for (int i = 0; i < spages.count(); i++) 
+	{
+		if (spages.at(i).split("-").count() == 1)
+		{
+			li->append(spages.at(i).toInt());
+		}
+		if (spages.at(i).split("-").count() == 2)
+		{
+			QStringList range = spages.at(i).split("-");
+			for (int j = range.at(0).toInt(); j <= range.at(1).toInt(); j++)
+				li->append(j);
+			
+		}
+	}
+	
+	return li;
+}
+
 void Imposition::changeDocBooklet()
 {
-	//booklet positioning
+	if (isOK == true)
+	{
+		switch (cbLayout->currentText().toInt())
+		{
+			case 4:	this->booklet4p(parsePages(inpPages->text())); break;
+			case 8: this->booklet8p(parsePages(inpPages->text())); break;
+			case 16: this->booklet16p(parsePages(inpPages->text())); break;
+		}
+	}
+}
+
+void Imposition::booklet4p(QList<int>* pages)
+{
+	/*
+	
+	4 page imposition looks like this:
+	       front:                     back:
+	 --------------------       --------------------
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	|    4    |    1     |     |    2    |    3     |
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+         --------------------       --------------------
+	
+	*/
+	
+	//fill the pages, so that it could be divided by for
+	while ( (pages->count() % 4) != 0)
+	{
+		pages->append(0);
+	}
+	
+	//create pages
+	int targetSheets = (int)ceil(pages->count() / 4); //how many sheets do we have
+	int targetPages = targetSheets * 2; //how many pages do we have
+	
+	targetDoc->createNewDocPages(targetPages);
+	
+	targetDoc->changeLayerName(0,srcDoc->layerName(0));
+	for (int i = 1; i < srcDoc->layerCount(); i++)
+	{
+		targetDoc->addLayer(srcDoc->layerName(i));
+	}
+	
+	//make guides
+	for (int i = 0; i < targetDoc->Pages->count(); i++)
+	{
+		Page* p = targetDoc->Pages->at(i);
+		
+		//count the left guide:
+		double guide_x = (p->width() - 2 * srcDoc->pageWidth)/2;
+		p->guides.addVertical(guide_x, p->guides.Standard);
+		
+		//middle guide:
+		guide_x += srcDoc->pageWidth;
+		p->guides.addVertical(guide_x, p->guides.Standard);
+		
+		//and the right one:
+		guide_x += srcDoc->pageWidth;
+		p->guides.addVertical(guide_x, p->guides.Standard);
+		
+		//now, the top guide:
+		double guide_y = (p->height() - srcDoc->pageHeight)/2;
+		p->guides.addHorizontal(guide_y, p->guides.Standard);
+		
+		//and the bottom one:
+		guide_y += srcDoc->pageHeight;
+		p->guides.addHorizontal(guide_y, p->guides.Standard);
+	}
+	
+	//start copying
+	ScribusMainWindow* scMW = ScCore->primaryMainWindow();
+	scMW->NoFrameEdit();
+	Selection* s = new Selection(scMW);
+	
+	//first, do the frontsides
+	for (int i = 0; i < targetDoc->Pages->count(); i = i + 2)
+	{
+		targetDoc->setCurrentPage(targetDoc->Pages->at(i));
+		
+		//copy the page to the clipboard
+		//right side
+		//make selections
+		for (int j = 0; j < srcDoc->Items->count(); j++)
+		{
+			if (srcDoc->OnPage(srcDoc->Items->at(j)) == (pages->at(i)-1))
+			{
+				s->addItem(srcDoc->Items->at(j),false);
+			}
+			
+		}
+		
+		if (s->count() > 0)
+		{
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
+			Serializer::serializeObjects(*s, xmlStream);
+			std::string xml(xmlString.str());
+			QByteArray ba(QByteArray(xml.c_str(), xml.length()));
+			
+			//paste page from clipboard
+			
+			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
+			
+			view->moveGroup(
+					targetDoc->Pages->at(i)->guides.vertical(1, targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(i)->guides.horizontal(0, targetDoc->Pages->at(i)->guides.Standard),
+					false,
+					&pastedObjects
+				);
+			
+			
+			s->clear();
+			
+			for (int j = 0; j < targetDoc->layerCount(); j++)
+			{
+				//create group out of all the items in the layer
+				Selection* gs = new Selection(scMW);
+				
+				for (unsigned int k = 0; k < pastedObjects.count(); k++)
+				{
+					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
+				}
+				
+				if (gs->count() > 0)
+				{
+					//create group
+					targetDoc->itemSelection_GroupObjects(false, false, gs);
+					
+					//get group control
+					signed int groupid = gs->itemAt(0)->Groups.at(0);
+					
+					PageItem* groupcontrol;
+					for (int k = 0; k < targetDoc->Items->count(); k++)
+					{
+						if (
+							targetDoc->Items->at(k)->Groups.count() > 0 &&
+							targetDoc->Items->at(k)->Groups.at(0) == groupid &&
+							targetDoc->Items->at(k)->isGroupControl
+						   )
+						{
+							groupcontrol = targetDoc->Items->at(k);
+							break;
+						}
+					}
+					groupcontrol->SetRectFrame();
+					
+					double points[32] = {
+					//left upper corner - left lower corner
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					
+					//left lower corner - right lower corner
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+							
+					100,
+     					100,
+	  				100,
+       					100,
+
+					//right lower corner - right upper corner
+					100,
+					100,
+					100,
+					100,
+							
+					0,
+     					100,
+	  				0,
+       					100,
+	    
+					//right upper corner - left upper corner
+					0,
+					100,
+					0,
+					100,
+					
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					};
+					
+					double groupX = groupcontrol->xPos();
+					double groupY = groupcontrol->yPos() - targetDoc->Pages->at(i)->yOffset();
+					
+					double groupWidth = groupcontrol->width();
+					double groupHeight = groupcontrol->height();
+					
+					qDebug() << groupX << groupY << groupWidth << groupHeight;
+					
+					for (int k = 0; k < 12; k += 2)
+					{
+						if  (points[k] < groupX)
+						{
+							points[k] = 0;
+						}
+						else if (points[k] - groupX > 100)
+						{
+							points[k] = 100;
+						}
+						else
+						{
+							points[k] = 100* (points[k] - groupX) / groupWidth;
+						}
+						
+						if (points[k+1] < groupY)
+						{
+							points[k+1] = 0;
+						}
+						else if (points[k+1] - groupY > 100)
+						{
+							points[k+1] = 100;
+						}
+						else
+						{
+							points[k+1] = 100* (points[k+1] - groupY) / groupHeight;
+						}
+						
+						qDebug() << "IMPOSITION: points[" << k << "] " << points[i] << "\n";
+						qDebug() << "IMPOSITION: points[" << k+1 << "] " << points[i+1] << "\n";
+					}
+					
+					for (int k = 28; k < 32; k += 2)
+					{
+						if  (points[k] < groupX)
+						{
+							points[k] = 0;
+						}
+						else if (points[k] - groupX > 100)
+						{
+							points[k] = 100;
+						}
+						else
+						{
+							points[k] = 100* (points[k] - groupX) / groupWidth;
+						}
+						
+						if (points[k+1] < groupY)
+						{
+							points[k+1] = 0;
+						}
+						else if (points[k+1] - groupY > 100)
+						{
+							points[k+1] = 100;
+						}
+						else
+						{
+							points[k+1] = 100* (points[k+1] - groupY) / groupHeight;
+						}
+						
+						qDebug() << "IMPOSITION: points[" << k << "] " << points[i] << "\n";
+						qDebug() << "IMPOSITION: points[" << k+1 << "] " << points[i+1] << "\n";
+					}
+
+					groupcontrol->SetFrameShape(32,points);					
+				}
+			}
+		
+		}
+		
+		//left side
+		for (int j = 0; j < srcDoc->Items->count(); j++)
+		{
+			if (srcDoc->OnPage(srcDoc->Items->at(j)) == (pages->at(pages->count()-i-1)-1))
+			{
+				s->addItem(srcDoc->Items->at(j),false);
+			}
+		
+		}
+		
+		if (s->count() > 0)
+		{
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
+			Serializer::serializeObjects(*s, xmlStream);
+			std::string xml(xmlString.str());
+			QByteArray ba(QByteArray(xml.c_str(), xml.length()));
+			
+			//paste page from clipboard
+			
+			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
+			
+			view->moveGroup(
+					targetDoc->Pages->at(i)->guides.vertical(0, targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(i)->guides.horizontal(0, targetDoc->Pages->at(i)->guides.Standard),
+					false,
+					&pastedObjects
+				       );
+			s->clear();
+			
+			//clipping layerwise
+			for (int j = 0; j < targetDoc->layerCount(); j++)
+			{
+				//create group out of all the items in the layer
+				Selection* gs = new Selection(scMW);
+				
+				for (unsigned int k = 0; k < pastedObjects.count(); k++)
+				{
+					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
+				}
+				
+				if (gs->count() > 0)
+				{
+					//create group
+					targetDoc->itemSelection_GroupObjects(false, false, gs);
+					
+					//get group control
+					signed int groupid = gs->itemAt(0)->Groups.at(0);
+					
+					PageItem* groupcontrol;
+					for (int k = 0; k < targetDoc->Items->count(); k++)
+					{
+						if (
+							targetDoc->Items->at(k)->Groups.count() > 0 &&
+							targetDoc->Items->at(k)->Groups.at(0) == groupid &&
+							targetDoc->Items->at(k)->isGroupControl
+						   )
+						{
+							groupcontrol = targetDoc->Items->at(k);
+							break;
+						}
+					}
+					groupcontrol->SetRectFrame();
+					
+					double points[32] = {
+					//left upper corner - left lower corner
+					0,
+					0,
+					0,
+					0,
+					
+					0,
+					100,
+					0,
+					100,
+					
+					//left lower corner - right lower corner
+					0,
+					100,
+					0,
+					100,
+							
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+
+					//right lower corner - right upper corner
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+							
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+
+					//right upper corner - left upper corner
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					
+					0,
+					0,
+					0,
+					0
+					};
+					
+					double groupX = groupcontrol->xPos();
+					double groupY = groupcontrol->yPos() - targetDoc->Pages->at(i)->yOffset();
+					
+					double groupWidth = groupcontrol->width();
+					double groupHeight = groupcontrol->height();
+					
+					qDebug() << groupX << groupY << groupWidth << groupHeight;
+					
+					for (int k = 13; k < 28; k += 2)
+					{
+						if  (points[k] < groupX)
+						{
+							points[k] = 0;
+						}
+						else if (points[k] - groupX > 100)
+						{
+							points[k] = 100;
+						}
+						else
+						{
+							points[k] = 100* (points[k] - groupX) / groupWidth;
+						}
+						
+						if (points[k+1] < groupY)
+						{
+							points[k+1] = 0;
+						}
+						else if (points[k+1] - groupY > 100)
+						{
+							points[k+1] = 100;
+						}
+						else
+						{
+							points[k+1] = 100* (points[k+1] - groupY) / groupHeight;
+						}
+						
+						qDebug() << "IMPOSITION: points[" << k << "] " << points[i] << "\n";
+						qDebug() << "IMPOSITION: points[" << k+1 << "] " << points[i+1] << "\n";
+					}
+					
+					groupcontrol->SetFrameShape(32,points);					
+				}
+			}
+		}
+	}
+	
+	//backsides
+	for (int i = 1; i < targetDoc->Pages->count(); i = i + 2)
+	{
+		targetDoc->setCurrentPage(targetDoc->Pages->at(i));
+		
+		//copy the page to the clipboard
+		//left side
+		//make selections
+		for (int j = 0; j < srcDoc->Items->count(); j++)
+		{
+			if (srcDoc->OnPage(srcDoc->Items->at(j)) == (pages->at(i)-1))
+			{
+				s->addItem(srcDoc->Items->at(j),false);
+			}
+			
+		}
+		
+		if (s->count() > 0)
+		{
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
+			Serializer::serializeObjects(*s, xmlStream);
+			std::string xml(xmlString.str());
+			QByteArray ba(QByteArray(xml.c_str(), xml.length()));
+			
+			//paste page from clipboard
+			
+			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
+			
+			view->moveGroup(
+					targetDoc->Pages->at(i)->guides.vertical(0, targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(i)->guides.horizontal(0, targetDoc->Pages->at(i)->guides.Standard),
+					false,
+				       &pastedObjects
+				       );
+			s->clear();
+			
+			//clipping layerwise
+			for (int j = 0; j < targetDoc->layerCount(); j++)
+			{
+				//create group out of all the items in the layer
+				Selection* gs = new Selection(scMW);
+				
+				for (unsigned int k = 0; k < pastedObjects.count(); k++)
+				{
+					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
+				}
+				
+				if (gs->count() > 0)
+				{
+					//create group
+					targetDoc->itemSelection_GroupObjects(false, false, gs);
+					
+					//get group control
+					signed int groupid = gs->itemAt(0)->Groups.at(0);
+					
+					PageItem* groupcontrol;
+					for (int k = 0; k < targetDoc->Items->count(); k++)
+					{
+						if (
+							targetDoc->Items->at(k)->Groups.count() > 0 &&
+							targetDoc->Items->at(k)->Groups.at(0) == groupid &&
+							targetDoc->Items->at(k)->isGroupControl
+						   )
+						{
+							groupcontrol = targetDoc->Items->at(k);
+							break;
+						}
+					}
+					groupcontrol->SetRectFrame();
+					
+					double points[32] = {
+					//left upper corner - left lower corner
+					0,
+					0,
+					0,
+					0,
+					
+					0,
+					100,
+					0,
+					100,
+					
+					//left lower corner - right lower corner
+					0,
+					100,
+					0,
+					100,
+							
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+
+					//right lower corner - right upper corner
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+							
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+
+					//right upper corner - left upper corner
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					
+					0,
+					0,
+					0,
+					0
+					};
+					
+					double groupX = groupcontrol->xPos();
+					double groupY = groupcontrol->yPos() - targetDoc->Pages->at(i)->yOffset();
+					
+					double groupWidth = groupcontrol->width();
+					double groupHeight = groupcontrol->height();
+					
+					qDebug() << groupX << groupY << groupWidth << groupHeight;
+					
+					for (int k = 13; k < 28; k += 2)
+					{
+						if  (points[k] < groupX)
+						{
+							points[k] = 0;
+						}
+						else if (points[k] - groupX > 100)
+						{
+							points[k] = 100;
+						}
+						else
+						{
+							points[k] = 100* (points[k] - groupX) / groupWidth;
+						}
+						
+						if (points[k+1] < groupY)
+						{
+							points[k+1] = 0;
+						}
+						else if (points[k+1] - groupY > 100)
+						{
+							points[k+1] = 100;
+						}
+						else
+						{
+							points[k+1] = 100* (points[k+1] - groupY) / groupHeight;
+						}
+						
+						qDebug() << "IMPOSITION: points[" << k << "] " << points[i] << "\n";
+						qDebug() << "IMPOSITION: points[" << k+1 << "] " << points[i+1] << "\n";
+					}
+					
+					groupcontrol->SetFrameShape(32,points);					
+				}
+			}
+		}
+		
+		//right side
+		for (int j = 0; j < srcDoc->Items->count(); j++)
+		{
+			if (srcDoc->OnPage(srcDoc->Items->at(j)) == (pages->at(pages->count()-i-1)-1))
+			{
+				s->addItem(srcDoc->Items->at(j),false);
+			}
+		
+		}
+		
+		if (s->count() > 0)
+		{
+			std::ostringstream xmlString;
+			SaxXML xmlStream(xmlString);
+			Serializer::serializeObjects(*s, xmlStream);
+			std::string xml(xmlString.str());
+			QByteArray ba(QByteArray(xml.c_str(), xml.length()));
+			
+			//paste page from clipboard
+			
+			Selection pastedObjects = Serializer(*targetDoc).deserializeObjects(ba);
+			
+			view->moveGroup(
+					targetDoc->Pages->at(i)->guides.vertical(1, targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(i)->guides.horizontal(0, targetDoc->Pages->at(i)->guides.Standard),
+					false,
+					&pastedObjects
+				       );
+			s->clear();
+			
+			for (int j = 0; j < targetDoc->layerCount(); j++)
+			{
+				//create group out of all the items in the layer
+				Selection* gs = new Selection(scMW);
+				
+				for (unsigned int k = 0; k < pastedObjects.count(); k++)
+				{
+					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
+				}
+				
+				if (gs->count() > 0)
+				{
+					//create group
+					targetDoc->itemSelection_GroupObjects(false, false, gs);
+					
+					//get group control
+					signed int groupid = gs->itemAt(0)->Groups.at(0);
+					
+					PageItem* groupcontrol;
+					for (int k = 0; k < targetDoc->Items->count(); k++)
+					{
+						if (
+							targetDoc->Items->at(k)->Groups.count() > 0 &&
+							targetDoc->Items->at(k)->Groups.at(0) == groupid &&
+							targetDoc->Items->at(k)->isGroupControl
+						   )
+						{
+							groupcontrol = targetDoc->Items->at(k);
+							break;
+						}
+					}
+					groupcontrol->SetRectFrame();
+					
+					double points[32] = {
+					//left upper corner - left lower corner
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					
+					//left lower corner - right lower corner
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(1,targetDoc->Pages->at(i)->guides.Standard),
+							
+					100,
+     					100,
+	  				100,
+       					100,
+
+					//right lower corner - right upper corner
+					100,
+					100,
+					100,
+					100,
+							
+					0,
+     					100,
+	  				0,
+       					100,
+	    
+					//right upper corner - left upper corner
+					0,
+					100,
+					0,
+					100,
+					
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.vertical(1,targetDoc->Pages->at(0)->guides.Standard),
+					targetDoc->Pages->at(0)->guides.horizontal(0,targetDoc->Pages->at(i)->guides.Standard),
+					};
+					
+					double groupX = groupcontrol->xPos();
+					double groupY = groupcontrol->yPos() - targetDoc->Pages->at(i)->yOffset();
+					
+					double groupWidth = groupcontrol->width();
+					double groupHeight = groupcontrol->height();
+					
+					qDebug() << groupX << groupY << groupWidth << groupHeight;
+					
+					for (int k = 0; k < 12; k += 2)
+					{
+						if  (points[k] < groupX)
+						{
+							points[k] = 0;
+						}
+						else if (points[k] - groupX > 100)
+						{
+							points[k] = 100;
+						}
+						else
+						{
+							points[k] = 100* (points[k] - groupX) / groupWidth;
+						}
+						
+						if (points[k+1] < groupY)
+						{
+							points[k+1] = 0;
+						}
+						else if (points[k+1] - groupY > 100)
+						{
+							points[k+1] = 100;
+						}
+						else
+						{
+							points[k+1] = 100* (points[k+1] - groupY) / groupHeight;
+						}
+						
+						qDebug() << "IMPOSITION: points[" << k << "] " << points[i] << "\n";
+						qDebug() << "IMPOSITION: points[" << k+1 << "] " << points[i+1] << "\n";
+					}
+					
+					for (int k = 28; k < 32; k += 2)
+					{
+						if  (points[k] < groupX)
+						{
+							points[k] = 0;
+						}
+						else if (points[k] - groupX > 100)
+						{
+							points[k] = 100;
+						}
+						else
+						{
+							points[k] = 100* (points[k] - groupX) / groupWidth;
+						}
+						
+						if (points[k+1] < groupY)
+						{
+							points[k+1] = 0;
+						}
+						else if (points[k+1] - groupY > 100)
+						{
+							points[k+1] = 100;
+						}
+						else
+						{
+							points[k+1] = 100* (points[k+1] - groupY) / groupHeight;
+						}
+						
+						qDebug() << "IMPOSITION: points[" << k << "] " << points[i] << "\n";
+						qDebug() << "IMPOSITION: points[" << k+1 << "] " << points[i+1] << "\n";
+					}
+
+					groupcontrol->SetFrameShape(32,points);					
+				}
+			}
+
+		}
+		
+	}
+
+}
+
+void Imposition::booklet8p(QList<int>* pages)
+{
+	/*
+	
+	8 page imposition looks like this:
+	       front:                     back:
+         --------------------       --------------------
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	|    5    |    4     |     |    3    |    6     |
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+        |--------------------|     |--------------------|
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	|    8    |    1     |     |    2    |    7     |
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	|         |          |     |         |          |
+	--------------------       --------------------
+	
+	*/
+	
+}
+
+void Imposition::booklet16p(QList<int>* pages)
+{
+	/*
+	16 page imposition looks like this:
+	
+	       front:
+         -----------------------------------------
+	|         |          |         |          |
+	|         |          |         |          |
+	|         |          |         |          |
+	|    5    |    12    |    9    |    8     |
+	|         |          |         |          |
+	|         |          |         |          |
+	|         |          |         |          |
+	|--------------------|--------------------|
+	|         |          |         |          |
+	|         |          |         |          |
+	|         |          |         |          |
+	|    4    |    13    |    16   |    1     |
+	|         |          |         |          |
+	|         |          |         |          |
+	|         |          |         |          |
+	 -----------------------------------------
+	
+	       back:
+	 -----------------------------------------
+	|         |          |         |          |
+	|         |          |         |          |
+	|         |          |         |          |
+	|    7    |    10    |    11   |    6     |
+	|         |          |         |          |
+	|         |          |         |          |
+	|         |          |         |          |
+	|--------------------|--------------------|
+	|         |          |         |          |
+	|         |          |         |          |
+	|         |          |         |          |
+	|    2    |    15    |    14   |    3     |
+	|         |          |         |          |
+	|         |          |         |          |
+	|         |          |         |          |
+	 -----------------------------------------
+	*/
+
 }
 
 void Imposition::changeDocFold()
@@ -399,7 +1277,6 @@ void Imposition::changeDocFold()
 		{
 			lastPage = firstPage + srcDoc->currentPageLayout;
 		}
-		printf("%d\t%d\n",firstPage,lastPage);
 		
 		//make guides
 		double allWidth = srcDoc->pageWidth * (srcDoc->currentPageLayout+1);
@@ -484,7 +1361,6 @@ void Imposition::changeDocFold()
 		
 		for (int i = 0; i < srcDoc->Items->count(); i++)
 		{
-			printf("%d %d\n", srcDoc->OnPage(srcDoc->Items->at(i)), firstPage, lastPage);
 			if (	(srcDoc->OnPage(srcDoc->Items->at(i)) >= firstPage) &&
 						      (srcDoc->OnPage(srcDoc->Items->at(i)) <= lastPage)
 			   )
@@ -592,7 +1468,7 @@ bool Imposition::verifyGrid()
 
 bool Imposition::verifyBooklet()
 {
-	return false;
+	return true;
 }
 
 bool Imposition::verifyFold()
