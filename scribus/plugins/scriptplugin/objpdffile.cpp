@@ -960,7 +960,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 //void ScribusMainWindow::SaveAsPDF()
 	int Components = 3;
 	QString nam = "";
-	if (ScCore->primaryMainWindow()->bookmarkPalette->BView->columnCount() == 0)
+	if (ScCore->primaryMainWindow()->bookmarkPalette->BView->topLevelItemCount() == 0)
 		ScCore->primaryMainWindow()->doc->PDF_Options.Bookmarks = false;
 
 // apply fonts attribute
