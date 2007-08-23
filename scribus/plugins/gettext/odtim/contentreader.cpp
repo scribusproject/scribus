@@ -77,7 +77,7 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		else
 		{
 			gtStyle *tmp = sreader->getStyle(getName());
-			if ((tmp->getName()).find("default-style") != -1)
+			if ((tmp->getName()).indexOf("default-style") != -1)
 				getStyle();
 			else
 				currentStyle = tmp;
@@ -97,7 +97,7 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 			}
 		}
 		gtStyle *tmp = sreader->getStyle(getName());
-		if ((tmp->getName()).find("default-style") != -1)
+		if ((tmp->getName()).indexOf("default-style") != -1)
 			getStyle();
 		else
 			currentStyle = tmp;

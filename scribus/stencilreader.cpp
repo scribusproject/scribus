@@ -181,10 +181,10 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 		{
 			FillCol = "None";
 			strokewidth = 0.1;
-			QStringList substyles = QStringList::split( ';', style );
+			QStringList substyles = style.split(';');
 			for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 			{
-				QStringList substyle = QStringList::split( ':', (*it) );
+				QStringList substyle = (*it).split(':');
 				QString command(substyle[0].trimmed());
 				QString params(substyle[1].trimmed());
 				if (command == "fill")
@@ -287,7 +287,7 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 			double x = 0.0;
 			double y = 0.0;
 			QString points = pg.attribute( "points" ).simplified().replace(',', " ");
-			QStringList pointList = QStringList::split( ' ', points );
+			QStringList pointList = points.split(' ');
 			FirstM = true;
 			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
 			{
@@ -454,10 +454,10 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 		QString style = pg.attribute( "style", "" ).simplified();
 		if (style.isEmpty())
 			style = pg.attribute( "svg:style", "" ).simplified();
-		QStringList substyles = QStringList::split( ';', style );
+		QStringList substyles = style.split(';');
 		for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 		{
-			QStringList substyle = QStringList::split( ':', (*it) );
+			QStringList substyle = (*it).split(':');
 			QString command(substyle[0].trimmed());
 			QString params(substyle[1].trimmed());
 			if (command == "fill")
@@ -484,9 +484,9 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 				continue;
 			for (itc = PageColors.begin(); itc != PageColors.end(); ++itc)
 			{
-				if (itc.data().getColorModel() == colorModelRGB)
+				if (itc.value().getColorModel() == colorModelRGB)
 				{
-					itc.data().getRGB(&r, &g, &b);
+					itc.value().getRGB(&r, &g, &b);
 					tmpR.setRgb(r, g, b);
 					if (fill == tmpR)
 					{
@@ -547,7 +547,7 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 			double x = 0.0;
 			double y = 0.0;
 			QString points = pg.attribute( "points" ).simplified().replace(',', " ");
-			QStringList pointList = QStringList::split( ' ', points );
+			QStringList pointList = points.split(' ');
 			FirstM = true;
 			for( QStringList::Iterator it1 = pointList.begin(); it1 != pointList.end(); it1++ )
 			{
@@ -1474,9 +1474,9 @@ QString StencilReader::createObjects(QString datain)
 		QColor tmpR;
 		for (it = PageColors.begin(); it != PageColors.end(); ++it)
 		{
-			if (it.data().getColorModel() == colorModelRGB)
+			if (it.value().getColorModel() == colorModelRGB)
 			{
-				it.data().getRGB(&r, &g, &b);
+				it.value().getRGB(&r, &g, &b);
 				tmpR.setRgb(r, g, b);
 				if (stroke == tmpR)
 				{
@@ -1516,9 +1516,9 @@ QString StencilReader::createObjects(QString datain)
 			continue;
 		for (it = PageColors.begin(); it != PageColors.end(); ++it)
 		{
-			if (it.data().getColorModel() == colorModelRGB)
+			if (it.value().getColorModel() == colorModelRGB)
 			{
-				it.data().getRGB(&r, &g, &b);
+				it.value().getRGB(&r, &g, &b);
 				tmpR.setRgb(r, g, b);
 				if (fill == tmpR)
 				{

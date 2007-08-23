@@ -18,13 +18,14 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDialog(parent, "nftdialog", true)
+nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDialog(parent)
 {
 	setupUi(this);
+	setModal(true);
 
 	settings = new nftsettings(lang, templateDir);
 
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	
 	// context menu
 	removeAction = new QAction(tr("&Remove"), tnailGrid);

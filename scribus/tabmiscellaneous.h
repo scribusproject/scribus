@@ -20,7 +20,7 @@ class SCRIBUS_API TabMiscellaneous : public QWidget, public Ui::TabMiscellaneous
 	Q_OBJECT
 
 public:
-	TabMiscellaneous(QWidget* parent = 0, const char* name = 0);
+	TabMiscellaneous(QWidget* parent = 0);
 	~TabMiscellaneous(){};
 	void restoreDefaults(struct ApplicationPrefs *prefsData);
 

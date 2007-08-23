@@ -14,7 +14,7 @@ RunScriptDialog::RunScriptDialog(QWidget* parent = 0, bool extEnable = false) :
 
 	m_extEnable = extEnable;
 	PrefsManager *prefsManager=PrefsManager::instance();
-	fileWidget->setDir(!prefsManager->appPrefs.ScriptDir.isEmpty() ? prefsManager->appPrefs.ScriptDir : QDir::currentPath());
+	fileWidget->setDirectory(!prefsManager->appPrefs.ScriptDir.isEmpty() ? prefsManager->appPrefs.ScriptDir : QDir::currentPath());
 	fileWidget->setFilter( tr("Python Scripts (*.py *.PY);; All Files (*)"));
 
 	if (!extEnable)

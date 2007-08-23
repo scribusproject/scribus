@@ -116,8 +116,8 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	{
 		templates.mkdir("templates");
 	}
-	QString currentPath = QDir::currentDirPath();
-	QString currentFile = doc->DocName;
+	QString currentPath(QDir::currentPath());
+	QString currentFile(doc->DocName);
 	bool hasName = doc->hasName;
 	bool isModified = doc->isModified();
 	QString userTemplatesDir = PrefsManager::instance()->appPrefs.documentTemplatesDir;

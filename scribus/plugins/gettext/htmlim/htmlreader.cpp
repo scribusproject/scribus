@@ -327,8 +327,8 @@ bool HTMLReader::endElement(const QString&, const QString&, const QString &name)
 	else if (name == "a")
 	{
 		toggleEffect(UNDERLINE);
-		if ((!href.isEmpty()) && ((href.find("//") != -1) ||
-		    (href.find("mailto:") != -1) || (href.find("www") != -1)))
+		if ((!href.isEmpty()) && ((href.indexOf("//") != -1) ||
+		    (href.indexOf("mailto:") != -1) || (href.indexOf("www") != -1)))
 		{
 			href = href.remove("mailto:");
 			writer->append(QString(" [%1]").arg(extIndex), pstyle);

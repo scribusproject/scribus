@@ -138,7 +138,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabExtTools = new TabExternalToolsWidget( prefsData, prefsWidgets );
 	addItem(  tr("External Tools"), loadIcon("externaltools.png"), tabExtTools);
 
-	tabMiscellaneous = new TabMiscellaneous(prefsWidgets, "tabMiscellaneous" );
+	tabMiscellaneous = new TabMiscellaneous(prefsWidgets);
 	addItem(  tr("Miscellaneous"), loadIcon("misc.png"), tabMiscellaneous);
 
 	// plugin manager. pv.

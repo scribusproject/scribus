@@ -63,7 +63,7 @@ void ScHelpTreeModel::setupModelData(const QString &dataFile, TreeItem *parent, 
 	indentations << 0;
 	QDomElement docElem = doc.documentElement();
 	QDomNode n = docElem.firstChild();
-	bool haveTutorials=false;
+//	bool haveTutorials=false;
 	QList<QVariant> columnData;
 	int position=0;
 	while( !n.isNull() )

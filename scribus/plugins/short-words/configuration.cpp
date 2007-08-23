@@ -58,7 +58,7 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 	// path to the cfg. file
 	QFile f;
 
-	f.setName(filename);
+	f.setFileName(filename);
 	if (!f.exists())
 	{
 		qDebug("Short Words config file not found");
@@ -79,7 +79,7 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 		f.close();
 	}
 	if (success)
-		return QStringList::split(",", shorts);
+		return shorts.split(",");
 	return QStringList();
 }
 

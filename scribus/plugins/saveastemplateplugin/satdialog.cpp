@@ -13,9 +13,10 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "util_icon.h"
 
-satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent, "satdialog", true)
+satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent)
 {
 	setupUi(this);
+	setModal(true);
 	setCaption( tr("Save as Template"));
 	setIcon(loadIcon("AppIcon.png"));
 	readPrefs();
