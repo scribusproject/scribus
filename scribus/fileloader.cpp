@@ -416,7 +416,8 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
 	PageItem *Neu;
-	Page* Apage;
+        //TODO-DONE warning: 'Apage' 'pageY' may be used uninitialized in this function
+	Page* Apage = 0;
 	itemRemap.clear();
 	itemNext.clear();
 	QString tmV, tmp, tmpf, tmp2, tmp3, tmp4, PgNam, Defont, tmf;
@@ -424,7 +425,8 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	int a, counter, baseobj;
-	double xf, pageX, pageY;
+        //TODO warning: 'pageX' 'pageY' may be used uninitialized in this function
+	double xf = 0, pageX = 0, pageY = 0;
 	bool newVersion = false;
 	bool VorLFound = false;
 	QMap<int,int> layerTrans;
@@ -1918,7 +1920,8 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bool impo, bool VorLFound)
 {
 	ScText *hg;
-	Foi* dummy;
+        //TODO warning: 'dummy' may be used uninitialized in this function
+	Foi* dummy = 0;
 	bool unknown = false;
 	QString tmp2, tmpf;
 	tmp2 = it->attribute("CH");
@@ -2219,11 +2222,13 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString
 	currItem->FrameType = obj->attribute("FRTYPE", "0").toInt();
 	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
 	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
+        //TODO comparison b/n signed and unsigned int expressions
 	if (startArrowIndex < 0 || startArrowIndex > doc->arrowStyles.size())
 	{
 		qDebug(QString("invalid start arrow for line: %1").arg(startArrowIndex));
 		startArrowIndex = 0;
 	}
+        //TODO comparison b/n signed and unsigned int expressions
 	if (endArrowIndex < 0 || endArrowIndex > doc->arrowStyles.size())
 	{
 		qDebug(QString("invalid end arrow for line: %1").arg(endArrowIndex));
@@ -2477,8 +2482,10 @@ PageItem* FileLoader::PasteItem(QDomElement *obj, ScribusDoc *doc, const QString
 	currItem->GrType = obj->attribute("GRTYP", "0").toInt();
 	QString GrColor;
 	QString GrColor2;
-	int GrShade;
-	int GrShade2;
+        //FIXME warning: 'GrShade' may be used uninitialized in this function
+	int GrShade = 0;
+        //FIXME warning: 'GrShade2' may be used uninitialized in this function
+	int GrShade2 = 0;
 	if (currItem->GrType != 0)
 	{
 		currItem->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();
