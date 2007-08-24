@@ -253,7 +253,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	spotColors = new QCheckBox( tr( "Convert Spot Colors" ), jobTitle );
 	Layout1->addWidget( spotColors );
 
-	UseICC = new QCheckBox( tr( "Apply ICC Profiles" ), jobTitle );
+	UseICC = new QCheckBox( tr( "Apply Color Profiles" ), jobTitle );
 	Layout1->addWidget( UseICC );
 	if (!doc->HasCMS)
 		UseICC->setEnabled(false);
@@ -324,7 +324,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	scaleBox->setToolTip( "<qt>" + tr("Resize the scale of the page.") + "</qt>");
 	spotColors->setToolTip("<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	EnableOverprint->setToolTip( "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
-	UseICC->setToolTip("<qt>" + tr( "Allows you to embed ICC profiles in the print stream when color management is enabled" ) + "</qt>");
+	UseICC->setToolTip("<qt>" + tr( "Allows you to embed color profiles in the print stream when color management is enabled" ) + "</qt>");
 
 	//signals and slots
 	connect(AntiAlias, SIGNAL(clicked()), this, SLOT(redisplay()));

@@ -3799,7 +3799,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			if (cmsWarning)
 			{
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				QString mess = tr("Some ICC profiles used by this document are not installed:")+"\n\n";
+				QString mess = tr("Some color profiles used by this document are not installed:")+"\n\n";
 				for (int m = 0; m < missing.count(); ++m)
 				{
 					mess += missing[m] + tr(" was replaced by: ")+replacement[m]+"\n";

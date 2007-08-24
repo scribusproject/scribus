@@ -188,7 +188,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	m_HavePngAlpha = testGSDeviceAvailability("pngalpha");
 	m_HaveTiffSep = testGSDeviceAvailability("tiffsep");
 	
-	ScCore->setSplashStatus( tr("Reading ICC Profiles") );
+	ScCore->setSplashStatus( tr("Reading Color Profiles") );
 	m_HaveCMS = false;
 	getCMSProfiles(showProfileInfo);
 	initCMS();
@@ -403,7 +403,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 			QFile f(fi.filePath());
 			QByteArray bb(40);
 			if (!f.open(QIODevice::ReadOnly)) {
-				sDebug(QString("couldn't open %1 as ICC").arg(fi.filePath()));
+				sDebug(QString("couldn't open %1 as color profile").arg(fi.filePath()));
 				continue;
 			}
 			int len = f.readBlock(bb.data(), 40);
@@ -415,7 +415,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 				{
 					// Profile is broken, show info if necessary
 					if (showInfo)
-						sDebug(QString("ICC profile %s is broken").arg(fi.filePath()));
+						sDebug(QString("Color profile %s is broken").arg(fi.filePath()));
 					// Reset to the default handler otherwise may enter a loop
 					// if an error occur in cmsCloseProfile()
 					cmsSetErrorHandler(NULL);
@@ -467,7 +467,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 				cmsCloseProfile(hIn);
 				hIn = NULL;
 				if (showInfo)
-					sDebug( QString("ICC profile %1 loaded from %2").arg(nam).arg(pfad + d[dc]) );
+					sDebug( QString("Color profile %1 loaded from %2").arg(nam).arg(pfad + d[dc]) );
 			}
 		}
 		cmsSetErrorHandler(NULL);

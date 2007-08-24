@@ -723,7 +723,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	GroupBox9Layout->setMargin( 10 );
 	GroupBox9Layout->setAlignment( Qt::AlignTop );
 	EmbedProfs = new QCheckBox( GroupBox9 );
-	EmbedProfs->setText( tr( "Use ICC Profile" ) );
+	EmbedProfs->setText( tr( "Use Color Profile" ) );
 	GroupBox9Layout->addWidget( EmbedProfs, 0, 0, 1, 2 );
 	ProfsTxt1 = new QLabel(GroupBox9);
 	ProfsTxt1->setText( tr( "Profile:" ) );
@@ -747,10 +747,10 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	ProfsGroupLayout->setSpacing( 5 );
 	ProfsGroupLayout->setMargin( 10 );
 	ProfsGroupLayout->setAlignment( Qt::AlignTop );
-	EmbedProfs2 = new QCheckBox( tr( "Use ICC Profile" ), ProfsGroup );
+	EmbedProfs2 = new QCheckBox( tr( "Use Color Profile" ), ProfsGroup );
 	ProfsGroupLayout->addWidget( EmbedProfs2, 0, 0, 1, 2 );
 	NoEmbedded = new QCheckBox( ProfsGroup );
-	NoEmbedded->setText( tr( "Don't use embedded ICC profiles" ) );
+	NoEmbedded->setText( tr( "Do not use embedded color profiles" ) );
 	ProfsGroupLayout->addWidget( NoEmbedded, 1, 0, 1, 2 );
 	ProfsTxt3 = new QLabel( ProfsGroup );
 	ProfsTxt3->setText( tr( "Profile:" ) );
