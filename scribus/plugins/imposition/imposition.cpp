@@ -427,7 +427,7 @@ void Imposition::booklet4p(QList<int>* pages)
 	}
 	
 	//create pages
-	int targetSheets = (int)ceil(pages->count() / 4); //how many sheets do we have
+	int targetSheets = (int)ceil(pages->count() / 4.0); //how many sheets do we have
 	int targetPages = targetSheets * 2; //how many pages do we have
 	
 	targetDoc->createNewDocPages(targetPages);
@@ -513,7 +513,7 @@ void Imposition::booklet4p(QList<int>* pages)
 				//create group out of all the items in the layer
 				Selection* gs = new Selection(scMW);
 				
-				for (unsigned int k = 0; k < pastedObjects.count(); k++)
+				for (int k = 0; k < pastedObjects.count(); k++)
 				{
 					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
 				}
@@ -701,7 +701,7 @@ void Imposition::booklet4p(QList<int>* pages)
 				//create group out of all the items in the layer
 				Selection* gs = new Selection(scMW);
 				
-				for (unsigned int k = 0; k < pastedObjects.count(); k++)
+				for (int k = 0; k < pastedObjects.count(); k++)
 				{
 					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
 				}
@@ -864,7 +864,7 @@ void Imposition::booklet4p(QList<int>* pages)
 				//create group out of all the items in the layer
 				Selection* gs = new Selection(scMW);
 				
-				for (unsigned int k = 0; k < pastedObjects.count(); k++)
+				for (int k = 0; k < pastedObjects.count(); k++)
 				{
 					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
 				}
@@ -1018,7 +1018,7 @@ void Imposition::booklet4p(QList<int>* pages)
 				//create group out of all the items in the layer
 				Selection* gs = new Selection(scMW);
 				
-				for (unsigned int k = 0; k < pastedObjects.count(); k++)
+				for (int k = 0; k < pastedObjects.count(); k++)
 				{
 					if (pastedObjects.itemAt(k)->LayerNr == j) gs->addItem(pastedObjects.itemAt(k));
 				}
