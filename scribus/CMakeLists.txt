@@ -189,7 +189,6 @@ SET(SCRIBUS_MOC_CLASSES
   scribuscore.h
   scribusdoc.h
   scribusview.h
-  scribusXml.h
   scribuswin.h
   scrpalettebase.h
   scrspinbox.h

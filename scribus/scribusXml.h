@@ -34,9 +34,9 @@ class ScribusView;
 class SCFonts;
 class ScribusDoc;
 
-class SCRIBUS_API ScriXmlDoc : public QObject
+class SCRIBUS_API ScriXmlDoc
 {
-Q_OBJECT
+
 public:
 	ScriXmlDoc();
 	~ScriXmlDoc() {};

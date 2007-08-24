@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "scribusXml.h"
-//#include "scribusXml.moc"
 
 #include <QtAlgorithms>
 #include <QApplication>
