@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDataStream>
 #include <QFile>
 #include <QMimeData>
+#include <QPainterPath>
 #include <QRegExp>
 
 #include "customfdialog.h"
@@ -161,6 +162,16 @@ FPointArray WMFImport::pointsToPolyline( const FPointArray& points, bool closePa
 	if (closePath && (points.size() > 4))
 		polyline.svgClosePath();
 	return polyline;
+}
+
+void WMFImport::pointsToAngle( double xStart, double yStart, double xEnd, double yEnd, double& angleStart, double& angleLength )
+{
+    double aStart  = atan2( yStart,  xStart );
+    double aLength = atan2( yEnd, xEnd ) - aStart;
+
+    angleStart  = (int)(aStart * 180.0 / 3.14166);
+    angleLength = (int)(aLength * 180.0 / 3.14166);
+    if ( angleLength < 0 ) angleLength = 360.0 + angleLength;
 }
 
 bool WMFImport::import(QString fname, int flags)
@@ -642,8 +653,6 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
 void WMFImport::finishCmdParsing( PageItem* item )
 {
 	QMatrix gcm  = m_context.worldMatrix();
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
 	double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());
 	double coeff2 = sqrt(gcm.m21() * gcm.m21() + gcm.m22() * gcm.m22());
 	if( item->asImageFrame() )
@@ -736,8 +745,6 @@ void WMFImport::ellipse( QList<PageItem*>& items, long, short* params )
 	PageItem* ite = m_Doc->Items->at(z);
 	QMatrix mm(1.0, 0.0, 0.0, 1.0, px, py);
 	ite->PoLine.map(mm);
-	FPoint wh = getMaxClipF(&ite->PoLine);
-	ite->setWidthHeight(wh.x(), wh.y());
 	finishCmdParsing(ite);
 	items.append(ite);
 }
@@ -815,8 +822,6 @@ void WMFImport::rectangle( QList<PageItem*>& items, long, short* params )
 	PageItem* ite = m_Doc->Items->at(z);
 	QMatrix mm(1.0, 0.0, 0.0, 1.0, x, y);
 	ite->PoLine.map(mm);
-	FPoint wh = getMaxClipF(&ite->PoLine);
-	ite->setWidthHeight(wh.x(), wh.y());
 	finishCmdParsing(ite);
 	items.append(ite);
 }
@@ -849,28 +854,110 @@ void WMFImport::roundRect( QList<PageItem*>& items, long, short* params )
 	}
 	QMatrix mm(1.0, 0.0, 0.0, 1.0, x, y);
 	ite->PoLine.map(mm);
-	FPoint wh = getMaxClipF(&ite->PoLine);
-	ite->setWidthHeight(wh.x(), wh.y());
 	finishCmdParsing(ite);
 	items.append(ite);
 }
 
-void WMFImport::arc( QList<PageItem*>& /*items*/, long, short* /*params*/ )
+void WMFImport::arc( QList<PageItem*>& items, long, short* params )
 {
-	unsupported = true;
-	cerr << "WMFImport::arc unimplemented" << endl;
+	FPointArray  pointArray;
+	QPainterPath painterPath;
+	double  BaseX = m_Doc->currentPage()->xOffset();
+	double  BaseY = m_Doc->currentPage()->yOffset();
+	bool    doStroke = m_context.pen().style() != Qt::NoPen;
+	QString fillColor   = CommonStrings::None;
+	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	double  lineWidth   = m_context.pen().width();
+	if (doStroke && lineWidth <= 0.0 )
+		lineWidth = 1.0;
+	double  angleStart, angleLength;
+	double  xCenter = (params[5] + params[7]) / 2.0;
+	double  yCenter = (params[4] + params[6]) / 2.0;
+	double  xWidth  =  params[5] - params[7];
+	double  yHeight =  params[4] - params[6];
+	pointsToAngle(params[3] - xCenter, yCenter - params[2], params[1] - xCenter, yCenter - params[0], angleStart, angleLength);
+	painterPath.arcMoveTo(params[7], params[6], xWidth, yHeight, angleStart);
+	painterPath.arcTo(params[7], params[6], xWidth, yHeight, angleStart, angleLength);
+	pointArray.fromQPainterPath(painterPath);
+	if( pointArray.size() > 0 )
+	{
+		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		ite->PoLine = pointArray;
+		finishCmdParsing(ite);
+		items.append(ite);
+	}
 }
 
-void WMFImport::chord( QList<PageItem*>& /*items*/, long, short* /*params*/ )
+void WMFImport::chord( QList<PageItem*>& items, long, short* params )
 {
-	unsupported = true;
-	cerr << "WMFImport::chord unimplemented" << endl;
+	QPointF      firstPoint;
+	FPointArray  pointArray;
+	QPainterPath painterPath;
+	double  BaseX = m_Doc->currentPage()->xOffset();
+	double  BaseY = m_Doc->currentPage()->yOffset();
+	bool    doFill   = m_context.brush().style() != Qt::NoBrush;
+	bool    doStroke = m_context.pen().style() != Qt::NoPen;
+	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	double  lineWidth   = m_context.pen().width();
+	if (doStroke && lineWidth <= 0.0 )
+		lineWidth = 1.0;
+	double  angleStart, angleLength;
+	double  xCenter = (params[5] + params[7]) / 2.0;
+	double  yCenter = (params[4] + params[6]) / 2.0;
+	double  xWidth  =  params[5] - params[7];
+	double  yHeight =  params[4] - params[6];
+	pointsToAngle(params[3] - xCenter, yCenter - params[2], params[1] - xCenter, yCenter - params[0], angleStart, angleLength);
+	painterPath.arcMoveTo(params[7], params[6], xWidth, yHeight, angleStart);
+	firstPoint = painterPath.currentPosition();
+	painterPath.arcTo (params[7], params[6], xWidth, yHeight, angleStart, angleLength);
+	painterPath.lineTo(firstPoint);
+	pointArray.fromQPainterPath(painterPath);
+	if( pointArray.size() > 0 )
+	{
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		ite->PoLine = pointArray;
+		finishCmdParsing(ite);
+		items.append(ite);
+	}
 }
 
-void WMFImport::pie( QList<PageItem*>& /*items*/, long, short* /*params*/ )
+void WMFImport::pie( QList<PageItem*>& items, long, short* params )
 {
-	unsupported = true;
-	cerr << "WMFImport::pie unimplemented" << endl;
+	QPointF      firstPoint;
+	FPointArray  pointArray;
+	QPainterPath painterPath;
+	double  BaseX = m_Doc->currentPage()->xOffset();
+	double  BaseY = m_Doc->currentPage()->yOffset();
+	bool    doFill   = m_context.brush().style() != Qt::NoBrush;
+	bool    doStroke = m_context.pen().style() != Qt::NoPen;
+	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	double  lineWidth   = m_context.pen().width();
+	if (doStroke && lineWidth <= 0.0 )
+		lineWidth = 1.0;
+	double  angleStart, angleLength;
+	double  xCenter = (params[5] + params[7]) / 2.0;
+	double  yCenter = (params[4] + params[6]) / 2.0;
+	double  xWidth  =  params[5] - params[7];
+	double  yHeight =  params[4] - params[6];
+	pointsToAngle(params[3] - xCenter, yCenter - params[2], params[1] - xCenter, yCenter - params[0], angleStart, angleLength);
+	painterPath.arcMoveTo(params[7], params[6], xWidth, yHeight, angleStart);
+	firstPoint = painterPath.currentPosition();
+	painterPath.arcTo (params[7], params[6], xWidth, yHeight, angleStart, angleLength);
+	painterPath.lineTo(xCenter, yCenter);
+	painterPath.lineTo(firstPoint);
+	pointArray.fromQPainterPath(painterPath);
+	if( pointArray.size() > 0 )
+	{
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		ite->PoLine = pointArray;
+		finishCmdParsing(ite);
+		items.append(ite);
+	}
 }
 
 void WMFImport::setPolyFillMode( QList<PageItem*>& /*items*/, long, short* params )
@@ -918,22 +1005,104 @@ void WMFImport::setTextColor( QList<PageItem*>& /*items*/, long, short* params )
 	m_context.setTextColor( colorFromParam(params) );
 }
 
-void WMFImport::setTextAlign( QList<PageItem*>& /*items*/, long, short* /*params*/ )
+void WMFImport::setTextAlign( QList<PageItem*>& /*items*/, long, short* params )
 {
-	unsupported = true;
-	cerr << "WMFImport::setTextAlign unimplemented" << endl;
+	m_context.setTextAlign(params[ 0 ]);
 }
 
-void WMFImport::textOut( QList<PageItem*>& /*items*/, long, short* /*params*/ )
+void WMFImport::textOut( QList<PageItem*>& items, long num, short* params )
 {
-	unsupported = true;
-	cerr << "WMFImport::textOut unimplemented" << endl;
+	short *copyParm = new short[num + 1];
+
+    // re-order parameters
+    int idxOffset = (params[0] / 2) + 1 + (params[0] & 1);
+    copyParm[0] = params[idxOffset];
+    copyParm[1] = params[idxOffset + 1];
+    copyParm[2] = params[0];
+    copyParm[3] = 0;
+    memcpy( &copyParm[4], &params[1], params[0] );
+
+    extTextOut(items, num + 1, copyParm );
+    delete [] copyParm;
 }
 
-void WMFImport::extTextOut( QList<PageItem*>& /*items*/, long, short* params )
+void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 {
-	unsupported = true;
-	cerr << "WMFImport::extTextOut unimplemented" << endl;
+	double  BaseX = m_Doc->currentPage()->xOffset();
+	double  BaseY = m_Doc->currentPage()->yOffset();
+
+	// ETO_CLIPPED flag add 4 parameters
+	char* ptStr = (params[3] != 0) ? ((char*)&params[8]) : ((char*)&params[4]);
+    QByteArray textArray( ptStr, params[2] );
+	QString    textString = QString::fromLocal8Bit(textArray.data());
+
+    QFontMetrics fm( m_context.font() );
+    int width  = fm.width(textString) + fm.descent();  // because fm.width(text) isn't rigth with Italic text
+    int height = fm.height();
+	int ascent = fm.ascent();
+
+	double startX = params[1], startY = params[0];
+	int    textAlign    = m_context.textAlign();
+	double textRotation = m_context.textRotation();
+	if ( textAlign & 0x01 ) {       // (left, top) position = current logical position
+        QPoint pos = m_context.position();
+        startX = pos.x();
+        startY = pos.y();
+    }
+
+	m_context.save();
+	if ( textRotation != 0.0) {
+        m_context.translate(params[1], params[0]);
+        m_context.rotate ( textRotation );
+        m_context.translate(-params[1], -params[0] );
+    }
+
+    if ( textAlign & 0x06 )
+        startX -= (width / 2);
+    /*if ( textAlign & 0x08 )
+        startY -= (height - fm.descent());*/
+	if ( textAlign == 0 ) // TA_TOP                       
+		startY += fm.ascent();
+
+	int idxOffset = (params[ 2 ] / 2) + 4 + (params[ 2 ] & 1);
+    if ( ( params[2] > 1 ) && ( num >= (idxOffset + params[2]) ) && ( params[3] == 0 ) ) 
+	{
+		double left = startX;
+		double lineWidth = 0.0;
+		FPointArray textPath;
+		QString textColor = importColor( m_context.textColor() );
+		for (int i = 0; i < params[2] ; i++) 
+		{
+			QPainterPath painterPath;
+			if (i > 0)
+				left += params[idxOffset + i - 1];
+			painterPath.addText(left, startY, m_context.font(), textString.at(i));
+			textPath.fromQPainterPath(painterPath);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, textColor, CommonStrings::None, true);
+			PageItem* ite = m_Doc->Items->at(z);
+			ite->PoLine = textPath;
+			finishCmdParsing(ite);
+			items.append(ite);
+        }
+    }
+    else 
+	{
+		FPointArray textPath;
+		QString textColor = importColor( m_context.textColor() );
+		QPainterPath painterPath;
+		painterPath.addText( startX, startY, m_context.font(), textString );
+		textPath.fromQPainterPath(painterPath);
+		if (textPath.size() > 0)
+		{
+			double  lineWidth = 0.0;
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, textColor, CommonStrings::None, true);
+			PageItem* ite = m_Doc->Items->at(z);
+			ite->PoLine = textPath;
+			finishCmdParsing(ite);
+			items.append(ite);
+		}
+    }
+	m_context.restore();
 }
 
 void WMFImport::selectObject( QList<PageItem*>& /*items*/, long, short* params )
@@ -1034,8 +1203,7 @@ void WMFImport::createFontIndirect( QList<PageItem*>& /*items*/, long , short* p
 
     QString family( (const char*)&params[ 9 ] );
 
-    handle->rotation = -params[ 2 ]  / 10;               // text rotation (in 1/10 degree)
-                                                // TODO: memorisation of rotation in object Font
+    handle->rotation = -params[ 2 ]  / 10; // text rotation (in 1/10 degree)
     handle->font.setFamily( family );
     handle->font.setFixedPitch( ((params[ 8 ] & 0x01) == 0) );
     // TODO: investigation why some test case need -2. (size of font in logical point)

@@ -49,6 +49,7 @@ public:
     virtual void apply( WMFContext& p );
     QFont  font;
     double rotation;
+	WmfObjFontHandle() { rotation = 0.0; }
     virtual ~WmfObjFontHandle() {};
 };
 
@@ -67,9 +68,10 @@ void WmfObjPatternBrushHandle::apply( WMFContext& p )
     p.setBrush( brush );
 }
 
-void WmfObjFontHandle::apply( WMFContext& /*p*/ )
+void WmfObjFontHandle::apply( WMFContext& p )
 {
-    //p.setFont( font );
+	p.setTextRotation( rotation );
+    p.setFont( font );
 }
 
 #endif

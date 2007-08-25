@@ -98,6 +98,8 @@ protected:
 	/** Transform a point array to an item path used as polyline */
 	FPointArray pointsToPolyline( const FPointArray& points, bool closePath );
 
+	void pointsToAngle( double xStart, double yStart, double xEnd, double yEnd, double& angleStart, double& angleLength );
+
 	/** Handle win-object-handles */
     void addHandle( WmfObjHandle*  );
     void deleteHandle( int );
