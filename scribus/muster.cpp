@@ -145,8 +145,17 @@ void MasterPagesPalette::duplicateMasterPage()
 		//atf = currentDoc->usesAutomaticTextFrames();
 		//currentDoc->setUsesAutomaticTextFrames(false);
 		//emit createNew(nr);
+		Page* pageFrom = currentDoc->currentPage;
 		currentDoc->currentPage=currentDoc->addMasterPage(nr, MasterPageName);
 		currentDoc->setLoading(true);
+		currentDoc->currentPage->initialMargins.Top    = pageFrom->initialMargins.Top;
+		currentDoc->currentPage->initialMargins.Bottom = pageFrom->initialMargins.Bottom;
+		currentDoc->currentPage->initialMargins.Left   = pageFrom->initialMargins.Left;
+		currentDoc->currentPage->initialMargins.Right  = pageFrom->initialMargins.Right;
+		currentDoc->currentPage->Margins.Top    = pageFrom->Margins.Top;
+		currentDoc->currentPage->Margins.Bottom = pageFrom->Margins.Bottom;
+		currentDoc->currentPage->Margins.Left   = pageFrom->Margins.Left;
+		currentDoc->currentPage->Margins.Right  = pageFrom->Margins.Right;
 		if (currentDoc->currentPageLayout != singlePage)
 		{
 			int lp = dia->Links->currentItem();
