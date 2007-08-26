@@ -76,7 +76,15 @@ WMFImport::~WMFImport()
 	qDeleteAll(m_commands);
 	m_commands.clear();
 	if ( m_tmpSel) delete m_tmpSel;
-    if ( m_ObjHandleTab ) delete[] m_ObjHandleTab;
+    if ( m_ObjHandleTab ) 
+	{
+		for (int i = 0; i < MAX_OBJHANDLE; ++i)
+		{
+			if (m_ObjHandleTab[i])
+				delete m_ObjHandleTab[i];
+		}
+		delete[] m_ObjHandleTab;
+	}
 }
 
 QString WMFImport::importColor(const QColor& color)
