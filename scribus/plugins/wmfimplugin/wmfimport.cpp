@@ -96,9 +96,9 @@ QString WMFImport::importColor(const QColor& color)
 	ColorList::Iterator it;
 	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 	{
-		if (it.data().getColorModel() == colorModelRGB)
+		if (it.value().getColorModel() == colorModelRGB)
 		{
-			it.data().getRGB(&r, &g, &b);
+			it.value().getRGB(&r, &g, &b);
 			tmpColor.setRgb(r, g, b);
 			if (color == tmpColor)
 			{
@@ -188,7 +188,7 @@ bool WMFImport::import(QString fname, int flags)
 		return false;
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
-	QDir::setCurrent(efp.dirPath());
+	QDir::setCurrent(efp.path());
 	importWMF(flags);
 	QDir::setCurrent(CurDirP);
 	return true;
@@ -204,7 +204,7 @@ bool WMFImport::loadWMF( const QString &fileName )
         return false;
     }
 
-    if ( !file.open( IO_ReadOnly ) )
+    if ( !file.open( QIODevice::ReadOnly ) )
     {
         cerr << "Cannot open file " << QFile::encodeName(fileName).data() << endl;
         return false;
@@ -214,7 +214,7 @@ bool WMFImport::loadWMF( const QString &fileName )
     file.close();
 
     QBuffer buffer( &ba );
-    buffer.open( IO_ReadOnly );
+    buffer.open( QIODevice::ReadOnly );
     return loadWMF( buffer );
 }
 
@@ -271,10 +271,10 @@ bool WMFImport::loadWMF( QBuffer &buffer )
             cerr << "  checksum=" << pheader.checksum << "( " << (pheader.checksum==checksum?"ok":"wrong") << " )" << endl;
         }
     }
-    else buffer.at( 0 );
+    else buffer.seek( 0 );
 
     //----- Read as enhanced metafile header
-    filePos = buffer.at();
+    filePos = buffer.pos();
     st >> eheader.iType;
     st >> eheader.nSize;
     st >> eheader.rclBounds.left;
@@ -319,7 +319,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
     else // no, not enhanced
     {
         //----- Read as standard metafile header
-        buffer.at( filePos );
+        buffer.seek( filePos );
         st >> header.mtType;
         st >> header.mtHeaderSize;
         st >> header.mtVersion;
@@ -338,7 +338,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
     {
         //----- Read Metafile Records
         rdFunc = -1;
-        while ( !st.eof() && (rdFunc != 0) )
+        while ( !st.atEnd() && (rdFunc != 0) )
         {
             st >> rdSize;
             st >> rdFunc;
@@ -352,7 +352,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
             cmd->numParam = rdSize;
             cmd->params = new WORD16[ rdSize ];
 
-            for ( i=0; i<rdSize && !st.eof(); i++ )
+            for ( i=0; i<rdSize && !st.atEnd(); i++ )
                 st >> cmd->params[ i ];
 
 
@@ -422,7 +422,7 @@ bool WMFImport::importWMF(int flags)
 	m_Doc->DoDrawing = false;
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	//gc->Family = m_Doc->toolSettings.defFont;
 	m_Doc->PageColors.ensureBlackAndWhite();
 	//m_gc.push( gc );
@@ -526,7 +526,7 @@ bool WMFImport::importWMF(int flags)
 	m_Doc->scMW()->ScriptRunning = false;
 	if (interactive)
 		m_Doc->setLoading(false);
-	qApp->setOverrideCursor(QCursor(Qt::arrowCursor), true);
+	qApp->setOverrideCursor(QCursor(Qt::ArrowCursor));
 	if ((Elements.count() > 0) && (!ret) && (interactive))
 	{
 		if (flags & LoadSavePlugin::lfScripted)
@@ -641,7 +641,7 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
                 str += param;
                 str += " ";
             }
-            cerr << str.ascii() << endl;
+            cerr << str.toAscii().data() << endl;
         }
     }
 /*
@@ -1218,7 +1218,8 @@ void WMFImport::createFontIndirect( QList<PageItem*>& /*items*/, long , short* p
     handle->font.setFamily( family );
     handle->font.setFixedPitch( ((params[ 8 ] & 0x01) == 0) );
     // TODO: investigation why some test case need -2. (size of font in logical point)
-    handle->font.setPointSize( QABS(params[ 0 ]) - 2 );
+	int fontSize = (params[0] != 0) ? (qAbs(params[0]) - 2) : 12;
+	handle->font.setPointSize( fontSize );
     handle->font.setWeight( (params[ 4 ] >> 3) );
     handle->font.setItalic( (params[ 5 ] & 0x01) );
     handle->font.setUnderline( (params[ 5 ] & 0x100) );
