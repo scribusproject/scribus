@@ -334,11 +334,11 @@ Selection Serializer::importCollection()
 		QMap<QString,multiLine>::Iterator mlit;
 		for (mlit = coll->lstyles.begin(); mlit != coll->lstyles.end(); ++mlit)
 		{
-			multiLine& ml = mlit.data();
+			multiLine& ml = mlit.value();
 			QString    oldName = mlit.key();
 			QString    newName = mlit.key();
 			QMap<QString,multiLine>::ConstIterator mlitd = m_Doc.MLineStyles.find(oldName);
-			if (mlitd != m_Doc.MLineStyles.end() && ml != mlitd.data())
+			if (mlitd != m_Doc.MLineStyles.end() && ml != mlitd.value())
 			{
 				int counter = 0;
 				while (m_Doc.MLineStyles.contains(newName))

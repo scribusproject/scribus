@@ -306,11 +306,11 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  		else if (attrs.localName(i) == "style:text-scale")
  			currentStyle->getFont()->setHscale(static_cast<int>(getSize(attrs.value(i), -1.0)));
  		else if ((attrs.localName(i) == "style:text-position") && 
- 		        (((attrs.value(i)).find("sub") != -1) || 
+ 		        (((attrs.value(i)).indexOf("sub") != -1) || 
  				(((attrs.value(i)).left(1) == "-") && ((attrs.value(i)).left(1) != "0"))))
  			currentStyle->getFont()->toggleEffect(SUBSCRIPT);
  		else if ((attrs.localName(i) == "style:text-position") && 
- 		        (((attrs.value(i)).find("super") != -1) || 
+				(((attrs.value(i)).indexOf("super") != -1) || 
  				(((attrs.value(i)).left(1) != "-") && ((attrs.value(i)).left(1) != "0"))))
  			currentStyle->getFont()->toggleEffect(SUPERSCRIPT);
  		else if ((attrs.localName(i) == "fo:margin-top") && (pstyle != NULL))
@@ -535,7 +535,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
 	 StyleMap::Iterator it, itEnd = styles.end();
 	 for (it = styles.begin(); it != itEnd; ++it)
 	 {
-		 gtParagraphStyle *pStyle = dynamic_cast<gtParagraphStyle*> (it.data());
+		 gtParagraphStyle *pStyle = dynamic_cast<gtParagraphStyle*> (it.value());
 		 if (pStyle && pStyle->isDefaultStyle())
 		 {
 			 defStyle = pStyle;
@@ -551,7 +551,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	{
  		gtStyle* tmp = styles[name];
  		QString tname = tmp->getName();
- 		if ((tname.find(docname) == -1) && (usePrefix))
+		if ((tname.indexOf(docname) == -1) && (usePrefix))
  			tmp->setName(docname + "_" + tname);
  
  		return tmp;
@@ -605,7 +605,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	}
  	if (!styles.contains(name))
  	{
- 		if ((tname.find(docname) == -1) && (usePrefix))
+		if ((tname.indexOf(docname) == -1) && (usePrefix))
  			style->setName(docname + "_" + tname);
  		styles[name] = style;
  	}
@@ -626,9 +626,9 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  	CounterMap::Iterator it;
  	for (it = pstyleCounts.begin(); it != pstyleCounts.end(); ++it)
  	{
- 		if (it.data() > count)
+ 		if (it.value() > count)
  		{
- 			count = it.data();
+ 			count = it.value();
  			fstyleName = it.key();
  		}
  	}
@@ -711,11 +711,11 @@ ListStyle* StyleReader::getList(const QString &name)
  	else if (key == "style:text-scale")
  		style->getFont()->setHscale(static_cast<int>(getSize(value, -1.0)));
  	else if ((key == "style:text-position") && 
- 	        (((value).find("sub") != -1) || 
+			(((value).indexOf("sub") != -1) || 
  			(((value).left(1) == "-") && ((value).left(1) != "0"))))
  		style->getFont()->toggleEffect(SUBSCRIPT);
  	else if ((key == "style:text-position") && 
- 	        (((value).find("super") != -1) || 
+			(((value).indexOf("super") != -1) || 
  			(((value).left(1) != "-") && ((value).left(1) != "0"))))
  		style->getFont()->toggleEffect(SUPERSCRIPT);
  	else if ((key == "fo:margin-top") && (pstyle != NULL))
@@ -772,35 +772,35 @@ ListStyle* StyleReader::getList(const QString &name)
  		dbl = lowerValue.remove("pt");
  		ret = gtMeasure::d2d(dbl.toDouble(), SC_PT);
  	}
- 	else if (lowerValue.find("mm") != -1)
+	else if (lowerValue.indexOf("mm") != -1)
  	{
  		dbl = lowerValue.remove("mm");
  		ret = gtMeasure::d2d(dbl.toDouble(), SC_MM);
  	}
- 	else if (lowerValue.find("cm") != -1)
+	else if (lowerValue.indexOf("cm") != -1)
  	{
  		dbl = lowerValue.remove("cm");
  		ret = gtMeasure::d2d(dbl.toDouble() * 10, SC_MM);
  	}
- 	else if (lowerValue.find("in") != -1)
+	else if (lowerValue.indexOf("in") != -1)
  	{
  		dbl = lowerValue.remove("inch");
  		dbl = lowerValue.remove("in");
  		ret = gtMeasure::d2d(dbl.toDouble(), SC_IN);
  	}
- 	else if (lowerValue.find("pi") != -1)
+	else if (lowerValue.indexOf("pi") != -1)
  	{
  		dbl = lowerValue.remove("pica");
  		dbl = lowerValue.remove("pi");
  		ret = gtMeasure::d2d(dbl.toDouble(), SC_P);
  	}
- 	else if (lowerValue.find("c") != -1)
+	else if (lowerValue.indexOf("c") != -1)
  	{
  		dbl = lowerValue.remove("cicero");
  		dbl = lowerValue.remove("c");
  		ret = gtMeasure::d2d(dbl.toDouble(), SC_C);
  	}
- 	else if (lowerValue.find("%") != -1)
+	else if (lowerValue.indexOf("%") != -1)
  	{
  		dbl = lowerValue.remove("%");
  		double factor = dbl.toDouble();

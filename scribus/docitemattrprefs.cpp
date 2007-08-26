@@ -10,8 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QComboBox>
 
-DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, const char* name, Qt::WFlags fl  )
-	: QWidget(parent, name, fl)
+DocumentItemAttributes::DocumentItemAttributes(  QWidget* parent, Qt::WFlags fl  )
+	: QWidget(parent, fl)
 {
 	setupUi(this);
 	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
@@ -149,7 +149,7 @@ void DocumentItemAttributes::updateTable()
 			(*it).relationship="none";
 			index=0;
 		}
-		item5->setCurrentItem(index);
+		item5->setCurrentIndex(index);
 		//Relationship to
 		QTableWidgetItem *item6 = new QTableWidgetItem((*it).relationshipto);
 		attributesTable->setItem(row, i++, item6);
@@ -163,7 +163,7 @@ void DocumentItemAttributes::updateTable()
 			(*it).relationship="none";
 			index2=0;
 		}
-		item7->setCurrentItem(index2);
+		item7->setCurrentIndex(index2);
 
 		QTableWidgetItem *t=attributesTable->verticalHeaderItem(row);
  		if (t!=NULL)

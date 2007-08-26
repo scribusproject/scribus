@@ -1569,12 +1569,12 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	{
 		writer.writeStartElement("COLOR");
 		writer.writeAttribute("NAME",itc.key());
-		if (itc.data().getColorModel() == colorModelRGB)
-			writer.writeAttribute("RGB" , itc.data().nameRGB());
+		if (itc.value().getColorModel() == colorModelRGB)
+			writer.writeAttribute("RGB" , itc.value().nameRGB());
 		else
-			writer.writeAttribute("CMYK", itc.data().nameCMYK());
-		writer.writeAttribute("Spot"    , itc.data().isSpotColor() ? "1" : "0");
-		writer.writeAttribute("Register", itc.data().isRegistrationColor() ? "1" : "0");
+			writer.writeAttribute("CMYK", itc.value().nameCMYK());
+		writer.writeAttribute("Spot"    , itc.value().isSpotColor() ? "1" : "0");
+		writer.writeAttribute("Register", itc.value().isRegistrationColor() ? "1" : "0");
 		writer.writeEndElement();
 	}
 	QMap<int, ParagraphStyle> UsedStyles;
@@ -1675,7 +1675,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	{
 		writer.writeStartElement("MultiLine");
 		writer.writeAttribute("Name",itMU.key());
-		multiLine ml = itMU.data();
+		multiLine ml = itMU.value();
 		multiLine::iterator itMU2;
 		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
 		{
@@ -1716,19 +1716,19 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	{
 		for (itar = usedArrows.begin(); itar != usedArrows.end(); ++itar)
 		{
-			if (itar.data().userArrow)
+			if (itar.value().userArrow)
 			{
 				writer.writeStartElement("Arrows");
-				writer.writeAttribute("NumPoints", QString::number(itar.data().points.size()));
+				writer.writeAttribute("NumPoints", QString::number(itar.value().points.size()));
 				QString arp = "";
 				double xa, ya;
-				for (uint nxx = 0; nxx < itar.data().points.size(); ++nxx)
+				for (uint nxx = 0; nxx < itar.value().points.size(); ++nxx)
 				{
-					itar.data().points.point(nxx, &xa, &ya);
+					itar.value().points.point(nxx, &xa, &ya);
 					arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
 				}
 				writer.writeAttribute("Points", arp);
-				writer.writeAttribute("Name"  , itar.data().name);
+				writer.writeAttribute("Name"  , itar.value().name);
 				writer.writeAttribute("Index" , QString::number(itar.key()));
 				writer.writeEndElement();
 			}
@@ -1842,10 +1842,10 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 		{
 			writer.writeStartElement("PSDLayer");
 			writer.writeAttribute("Layer"  , QString::number(it2.key()));
-			writer.writeAttribute("Visible", it2.data().visible ? "1" : "0");
-			writer.writeAttribute("useMask", it2.data().useMask ? "1" : "0");
-			writer.writeAttribute("Opacity", QString::number(it2.data().opacity) );
-			writer.writeAttribute("Blend"  , it2.data().blend);
+			writer.writeAttribute("Visible", it2.value().visible ? "1" : "0");
+			writer.writeAttribute("useMask", it2.value().useMask ? "1" : "0");
+			writer.writeAttribute("Opacity", QString::number(it2.value().opacity) );
+			writer.writeAttribute("Blend"  , it2.value().blend);
 			writer.writeEndElement();
 		}
 	}

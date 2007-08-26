@@ -34,10 +34,10 @@ TabManager::TabManager( QWidget* parent, int dEin, QList<ParagraphStyle::TabReco
 	layout10->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout10->addItem( spacer );
-	OKButton = new QPushButton( CommonStrings::tr_OK, this, "OKButton" );
+	OKButton = new QPushButton( CommonStrings::tr_OK, this);
 	OKButton->setDefault( true );
 	layout10->addWidget( OKButton );
-	CancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
+	CancelButton = new QPushButton( CommonStrings::tr_Cancel, this);
 	layout10->addWidget( CancelButton );
 	TabManagerLayout->addLayout( layout10 );
 	resize( minimumSizeHint() );

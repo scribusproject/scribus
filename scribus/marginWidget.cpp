@@ -33,7 +33,7 @@ pageType(0)
 	marginPage = new QWidget(this);
 
 	presetCombo = new PresetLayout(marginPage, "presetCombo");
-	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), marginPage, "presetLabel");
+	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), marginPage);
 	m_unitIndex=unitIndex;
 	m_unitRatio=unitGetRatioFromIndex(unitIndex);
 	leftR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
@@ -45,10 +45,10 @@ pageType(0)
 	bottomR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
 	bottomR->setValue(RandB * m_unitRatio);
 
-	bText = new QLabel( bottomR, tr( "&Bottom:" ), marginPage, "bText" );
-	tText = new QLabel( topR, tr( "&Top:" ), marginPage, "tText" );
-	rText = new QLabel( rightR, tr( "&Right:" ), marginPage, "rText" );
-	lText = new QLabel( leftR, tr( "&Left:" ), marginPage, "lText" );
+	bText = new QLabel( bottomR, tr( "&Bottom:" ), marginPage);
+	tText = new QLabel( topR, tr( "&Top:" ), marginPage);
+	rText = new QLabel( rightR, tr( "&Right:" ), marginPage);
+	lText = new QLabel( leftR, tr( "&Left:" ), marginPage);
 
 	// layout
 	GroupLayout = new QGridLayout( marginPage );

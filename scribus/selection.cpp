@@ -125,7 +125,7 @@ bool Selection::connectItemToGUI()
 		//Quick check to see if the pointer is NULL, if its NULL, we should remove it from the list now
 		if (pi.isNull())
 		{
-			m_SelList.remove(pi);
+			m_SelList.removeAll(pi);
 			return ret;
 		}
 		ret = pi->connectToGUI();
@@ -247,7 +247,7 @@ bool Selection::removeItem(PageItem *item)
 {
 	if (!m_SelList.isEmpty() && m_SelList.contains(item))
 	{
-		bool removeOk=m_SelList.remove(item);
+		bool removeOk=(m_SelList.removeAll(item)==1);
 		if (removeOk)
 		{
 			item->setSelected(false);
@@ -274,7 +274,7 @@ PageItem* Selection::takeItem(int itemIndex)
 	if (!m_SelList.isEmpty() && itemIndex<m_SelList.count())
 	{
 		PageItem *item=m_SelList[itemIndex];
-		bool removeOk=m_SelList.remove(item);
+		bool removeOk=(m_SelList.removeAll(item)==1);
 		if (removeOk)
 		{
 			item->setSelected(false);

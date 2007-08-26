@@ -204,7 +204,7 @@ void LanguageManager::printInstalledList()
 	QMap<QString, QString>::Iterator it;
 
 	for (it=installedLangList.begin();it!=installedLangList.end();++it)
-		std::cout << it.key().leftJustify(6).toStdString() << ": " << it.value().toStdString() << std::endl;
+		std::cout << it.key().leftJustified(6).toStdString() << ": " << it.value().toStdString() << std::endl;
 }
 
 QString LanguageManager::numericSequence(QString seq)

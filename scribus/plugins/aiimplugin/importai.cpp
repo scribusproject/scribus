@@ -658,9 +658,9 @@ QString AIPlug::parseColor(QString data)
 	tmp.setColor(Cc, Mc, Yc, Kc);
 	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 	{
-		if (it.data().getColorModel() == colorModelCMYK)
+		if (it.value().getColorModel() == colorModelCMYK)
 		{
-			it.data().getCMYK(&hC, &hM, &hY, &hK);
+			it.value().getCMYK(&hC, &hM, &hY, &hK);
 			if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
 			{
 				ret = it.key();
@@ -696,9 +696,9 @@ QString AIPlug::parseColorGray(QString data)
 	tmp.setColor(0, 0, 0, Kc);
 	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 	{
-		if (it.data().getColorModel() == colorModelCMYK)
+		if (it.value().getColorModel() == colorModelCMYK)
 		{
-			it.data().getCMYK(&hC, &hM, &hY, &hK);
+			it.value().getCMYK(&hC, &hM, &hY, &hK);
 			if ((hC == 0) && (hM == 0) && (hY == 0) && (Kc == hK))
 			{
 				ret = it.key();
@@ -738,9 +738,9 @@ QString AIPlug::parseColorRGB(QString data)
 	tmp.setColorRGB(Rc, Gc, Bc);
 	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 	{
-		if (it.data().getColorModel() == colorModelRGB)
+		if (it.value().getColorModel() == colorModelRGB)
 		{
-			it.data().getRGB(&hR, &hG, &hB);
+			it.value().getRGB(&hR, &hG, &hB);
 			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
 			{
 				ret = it.key();
@@ -791,9 +791,9 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 	tmp.setColor(Cc, Mc, Yc, Kc);
 	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 	{
-		if (it.data().getColorModel() == colorModelCMYK)
+		if (it.value().getColorModel() == colorModelCMYK)
 		{
-			it.data().getCMYK(&hC, &hM, &hY, &hK);
+			it.value().getCMYK(&hC, &hM, &hY, &hK);
 			if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
 			{
 				ret = it.key();
@@ -834,9 +834,9 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		tmp.setColorRGB(Rc, Gc, Bc);
 		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
-			if (it.data().getColorModel() == colorModelRGB)
+			if (it.value().getColorModel() == colorModelRGB)
 			{
-				it.data().getRGB(&hR, &hG, &hB);
+				it.value().getRGB(&hR, &hG, &hB);
 				if ((Rc == hR) && (Gc == hG) && (Bc == hB))
 				{
 					ret = it.key();
@@ -859,9 +859,9 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, QString type)
 		tmp.setColor(Cc, Mc, Yc, Kc);
 		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
-			if (it.data().getColorModel() == colorModelCMYK)
+			if (it.value().getColorModel() == colorModelCMYK)
 			{
-				it.data().getCMYK(&hC, &hM, &hY, &hK);
+				it.value().getCMYK(&hC, &hM, &hY, &hK);
 				if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
 				{
 					ret = it.key();
@@ -1019,7 +1019,7 @@ void AIPlug::processData(QString data)
 		Cdata = da[a];
 		if ((Cdata.startsWith("%")) || (Cdata.startsWith(" %")))
 			continue;
-		QStringList da2 = QStringList::split(" ", Cdata);
+		QStringList da2 = Cdata.split(" ");
 		if (da2.count() == 0)
 			return;
 		command = da2[da2.count()-1];
@@ -1674,7 +1674,7 @@ void AIPlug::processGradientData(QString data)
 	for (int a = 0; a < da.count(); a++)
 	{
 		Cdata = da[a];
-		QStringList da2 = QStringList::split(" ", Cdata);
+		QStringList da2 = Cdata.split(" ");
 		command = da2[da2.count()-1];
 		if (command == "Bd")
 		{
