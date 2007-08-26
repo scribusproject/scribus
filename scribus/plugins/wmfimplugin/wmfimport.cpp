@@ -68,7 +68,7 @@ WMFImport::WMFImport( ScribusMainWindow* mw, int flags ) :
 
 	m_Valid        = false;
     m_ObjHandleTab = NULL;
-    m_Dpi          = 1000;
+    m_Dpi          = 1440;
 }
 
 WMFImport::~WMFImport()
@@ -388,9 +388,8 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 bool WMFImport::importWMF(int flags)
 {
 	bool ret = false;
-	/*double width  = m_BBox.width();
-	double height = m_BBox.height();*/
-	double scale = (m_Dpi > 288) ? 288.0 / m_Dpi : 1.0;
+	//double scale = (m_Dpi > 288) ? 288.0 / m_Dpi : 1.0;
+	double scale  = (m_Dpi > 0) ? 72.0 / m_Dpi : 0.05;
 	double width  = m_BBox.width() * scale;
 	double height = m_BBox.height() * scale;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
@@ -612,7 +611,8 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
         cerr << "Bounding box : " << m_BBox.left() << " " << m_BBox.top() << " " << m_BBox.right() << " " << m_BBox.bottom() << endl;
     }
 
-	double  scale = (m_Dpi > 288) ? 288.0 / m_Dpi : 1.0;
+	//double scale = (m_Dpi > 288) ? 288.0 / m_Dpi : 1.0;
+	double scale  = (m_Dpi > 0) ? 72.0 / m_Dpi : 0.05;
 	m_context.setViewportOrg( 0, 0 );
 	m_context.setViewportExt( m_BBox.width() * scale, m_BBox.height() * scale );
 	/*if ( mAbsoluteCoord ) {
@@ -1086,11 +1086,14 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
 				left += params[idxOffset + i - 1];
 			painterPath.addText(left, startY, m_context.font(), textString.at(i));
 			textPath.fromQPainterPath(painterPath);
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, textColor, CommonStrings::None, true);
-			PageItem* ite = m_Doc->Items->at(z);
-			ite->PoLine = textPath;
-			finishCmdParsing(ite);
-			items.append(ite);
+			if (textPath.size() > 0)
+			{
+				int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, textColor, CommonStrings::None, true);
+				PageItem* ite = m_Doc->Items->at(z);
+				ite->PoLine = textPath;
+				finishCmdParsing(ite);
+				items.append(ite);
+			}
         }
     }
     else 
