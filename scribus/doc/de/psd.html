@@ -1,0 +1,34 @@
+<qt>
+<title>Arbeiten mit Photoshop&#174; </title>
+<h2>Arbeiten mit Photoshop&#174; </h2>
+<h4><em>Dieses Dokument ist zur Zeit noch in Arbeit, da der Umgang mit PSD- und EPS-Dateien in Scribus fast täglich verbessert wird. Einige der beschriebenen Features werden nur mit Scribus 1.3.4 oder höher funktionieren und setzen die Cairo-Bibliothek statt der standardmäßig verwendeten Libart-Bibliothek voraus.</em></h4>
+
+<h3>Übersicht</h3>
+<p>Adobe Photoshop ist eines der bekanntesten Computerprogramme überhaupt. Es ist im professionellen Grafikbereich weit verbreitet, sowohl für den Druck als auch für das Internet. Obwohl ich gerne mit Open-Source-Anwendungen wie Cinepaint, GIMP oder Krita arbeite und deren Entwicklung unterstütze, kann man doch manchmal nicht auf Photoshop verzichten, vor allem im Druckbereich.<br />
+
+<p>Einer der Gründe für seine Leistungsfähigkeit ist das native PSD-Dateiformat. Eine PSD-Datei kann nicht nur Bilddaten enthalten, sondern stellt vielmehr eine Art Container, in dem unter anderem Metadaten, Kamerainformationen, Text, Vektordaten und mehr gespeichert werden können. Die meisten anderen Programme bieten nur einen Teil der Photoshop-Funktionen.</p>
+<ul>
+<li>Scribus verfügt über einen eigenen Importfilter für PSD-Dateien bis zur Photoshop-Version 6 &ndash; die letzte Version, deren Dateiformat öffentlich verfügbar war. Die Unterstützung für diese Dateien ist ziemlich umfangreich. Er umfaßt unter anderem die Bearbeitung und die Anpassung von Ebeneneinstellungen. Eingebettete Masken und Pfade können aktiviert und verwendet werden. Fast immer werden ICC-Profile erkannt und verwendet. Einige der fortgeschrittenen Funktion setzen voraus, daß Scribus mit der Cairo-Bibliothek kompiliert wurde. Dateien, die aus späteren Photoshop-Versionen stammen, sollten ohne größere Probleme geladen werden können, aber sie könnten Funktionen enthalten, die nicht öffentlich dokumentiert sind.</li>
+<li>Scribus kann Graustufen-, RGB- und CMYK-Dateien im PSD-Format mit 8 Bit Farbtiefe in der Regel ohne Probleme importieren. Alpha-Transparenz wird in RGB- und CMYK-Dateien in Scribus 1.3.4+ unterstützt.</li>
+<li>Scribus importiert PSD-Dateien mit normalen Ebenen und zeigt diese in den "Erweiterten Bildeigenschaften" an.</li>
+<li>Beschneidungspfade und Transparenzmodi können verwendet werden, um das Erscheinungsbild im Druck zu beeinflussen. Dazu ist Scribus 1.3.4 mit Cairo-1.2.x-Unterstützung notwendig. Es wird jedoch wegen der besseren Geschwindigkeit und Darstellung Cairo 1.4+ empfohlen</li>
+<li>Einstellungs- und Effektebenen werden noch nicht unterstützt. Sollten diese enthalten sein, verwendet Scribus eine "geglättete" Version der Datei.</li>
+<li>Wenn Sie eine CMYK-Datei mit Alpha-Transparenz verwenden müssen, empfiehlt es sich momentan, eine Photoshop-PDF-Datei zu exportieren und diese in einen Bildrahmen zu laden. Der Nachteil ist freilich, daß diese Datei einen höheren Arbeitsspeicherbedarf hat und der Export länger dauert, weil dazu Ghostscript benötigt wird.</li>
+<li>TIFF-Dateien mit Ebenen, die aus Photoshop gespeichert wurden, bereiten anderen Dateibetrachtern oder Bildbearbeitungsprogrammen oft Probleme. Der Grund dafür ist, daß Photoshop oft PSD-artige Ebenen einbettet und diese mit einem besonderen Tag versieht. Scribus versucht die PSD-Ebenen zu lesen und diese über die "Erweiterten Bildeigenschaften" zugänglich zu machen. Text- und Vektorebenen in diesen Tags werden noch nicht unterstützt.</li>
+<li>Scribus wird in fast allen Fällen automatisch die Kodierung erkenne, egal ob es sich um ASCII, binär oder binär mit JPEG handelt.</li>
+<li>Scribus kann mit PSD unabhängig von der Byte-Endung umgehen. Es ist also egal, ob die Datei auf einem PC oder einem Rechner mit PPC/SPARC-Prozessor erstellt wurde. Wenn Sie Scribus von der Kommandozeile aus starten, werden Sie ein paar harmlose Warnmeldungen über die falsche Byte-Reihenfolge sehen. Sie können sie ignorieren.</li>
+</ul>
+<h3>Besondere Formen von EPS- and PSD-Dateien aus Photoshop</h3>
+<ul>
+<li>DCS (Desktop Color Separations) 1.x/2.0 EPS-Dateien, eine besondere EPS-Variante von Photoshop, können direkt importiert werden, genau wie PSD-Dateien. ICC-Profile bleiben beim Import erhalten. Die Bildqualität sollte genauso gut oder wenigstens annähernd so gut sein wie bei einer nativen PSD-Datei. Vektormasken werden ebenfalls erkannt und können über die "Erweiterten Bildeigenschaften" verwendet werden. DCS-EPS-Dateien können auch von QuarkXPress&#174; exportiert werden, aber dafür wird vorläufig Ghostscript als Filter eingesetzt.</li>
+<li>Scribus kann Duplex-, Triplex- und Quadruplex-Daten in PSD- und Photoshop-EPS-Dateien lesen. Beachten Sie jedoch, daß Sie die Schmuckfarben extra importieren müssen, und zwar mit <strong>Bearbeiten &#062; Farben &#062; Importieren</strong>. In diesem Dialog müssen Sie die EPS-Datei auswählen. Wenn Sie eine PSD-Datei importieren, können Sie die Schmuckfarben direkt bearbeiten, nämlich "Bildeffekte"-Dialog.</li></ul>
+<table width="100%"><tr><td align="center"><img src="images/imageeffects.png" title="Importierte Schmuckfaren in einer Triplex-Datei" alt="Importierte Schmuckfaren in einer Triplex-Datei" /></td></tr></table>
+<h3>Empfehlungen:</h3>
+<p>Erstens, wenn Sie eine native Photoshop-Datei vorliegen haben, verwenden Sie sie auf jeden Fall. Achten Sie darauf, daß das richtige ICC-Profil eingebettet ist. In Photoshop geschieht dies mit <strong>Bild &#062; Modus &#062; In Profil umwandeln</strong>. </p>
+<ul>
+   <li>Vermeiden Sie Textebenen. Scribus verfügt über mächtige Werkzeuge für Texteffekte und exportiert sie als Vektordaten, nicht als Bitmap, was die Qualität im Druck erhöht. Dieser Hinweis gilt für alle Bildbearbeitungen.</li>
+<li>Vektordaten sollten Sie ebenfalls vermeiden. Scribus enthält ziemlich vollständige Vektorwerkzeuge, mit denen sie bessere Ergebnisse im Druck erzielen.</li>
+   <li>Scribus <strong>kann</strong> mit CMYK-JPEGs aus Photoshop, inklusive ICC-Profilen, umgehen, aber es empfiehlt sich in der Regel, PSD oder TIFF zu verwenden, denn die wenigsten anderen Anwendungen können mit CMYK-JPEGS etwas anfangen.</li>
+<li>Wenn Sie Einstellungs- oder Effektebenen verwenden, speichern Sie eine Kopie des Bildes und führen Sie die Ebenen zusammen. Dadurch wird nicht nur die Datei kleiner, sondern es treten auch keine Probleme beim Import in Scribus auf.</li>
+ </ul>
+</qt>
