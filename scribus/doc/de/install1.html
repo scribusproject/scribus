@@ -1,38 +1,33 @@
 <qt>
-<title>Wie Sie die Quelldateien von Scribus bekommen</title>
-<h2>Wie Sie die Quelldateien von Scribus bekommen</h2>
-<p>Die aktuellste Version von Scribus bekommen Sie von:</p>
+<title>Wie man den Scribus-Quellcode erhält</title>
+<h2>Wie man den Scribus-Quellcode erhält</h2>
+<p>Sie erhalten die allerneueste Scribus-Version unter folgenden Adressen:</p>
 <ul class="simple">
-<li>der Scribus-Hauptseite - <a href="http://www.scribus.net">http://www.scribus.net</a></li>
-<li> <a href="http://sourceforge.net/project/showfiles.php?group_id=125235">als Download von Scribus Sourceforge:</a></li>
-<!--<li>ibiblio Mirror - US - http://www.ibiblio.org/pub/linux/apps/office/</li>
-<li>Scribus mirror at Planetmirror.com - http://scribus.planetmirror.com/</li>
-<li>Scribus mirror at National Technical University of Athens - http://mirrors.ntua.gr/Scribus/</li>-->
+<li>Scribus-Website - <a href="http://www.scribus.net">http://www.scribus.net</a></li>
+<li> <a href="http://sourceforge.net/project/showfiles.php?group_id=125235">Scribus Sourceforge Downloads</a></li>
+
 
 </ul>
-<p>Dank N@twork gibt es einen anonymen Zugang zu CVS, wo Dateien t&auml;glich aktualisiert werden; empfehlenswert eher f&uuml;r jene, die stets auf dem neuesten Stand bleiben wollen. Und so bekommen Sie die neuesten Quelldateien vom CVS-Server: </p>
+<p>Dank <a href="http://Anduin.net">Anduin.net</a> können wir auch anonymen SVN-Zugang anbieten, der täglich aktualisiert wird. Diese Versionen sind nur jenen zu empfehlen, die immer auf dem allerneuesten Stand sein wollen. <strong>Die Entwickling von Scribus 1.2.x wurde eingestellt.</strong></p>
+<p> Anleitung zum Herunterladen der neuesten Quelltexte mit SVN:</p>
+
+<p><strong>Scribus 1.3.3.x &ndash; Stabil</strong></p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
-export CVSROOT=:pserver:anoncvs@scribus.info:/cvs
+svn co svn://scribus.info/Scribus/branches/Version133x
 </pre>
 </td></tr></table></blockquote>
+
+<p>Wenn der Quelletxt heruntergeladen wurde, lesen Sie bitte die <a href="install3.html">Anleitung zum Kompilieren und Installieren mit Hilfe der Autotools</a> </p>
+
+<p><strong>Scribus 1.3.5svn &ndash; Entwicklerversion &ndash; Qt4 Port</strong></p>
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
-cvs login
+svn co svn://scribus.info/Scribus/trunk
 </pre>
 </td></tr></table></blockquote>
-<!--<p>when it asks for a password, press return</p>-->
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-cvs -z3 co Scribus
-</pre>
-</td></tr></table></blockquote>
-<p>Damit beginnt das Herunterladen der Quelldateien, die in Ihrem aktuellen Arbeitsordner landen. Anschlie&szlig;end:</p>
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-cd Scribus
-make -f Makefile.cvs
-</pre>
-</td></tr></table></blockquote>
-<p>Wenn Sie hier angelangt sind, folgen sie bitte den Anweisungen unter <a href="install3.html">Compiling and Installing</a>.</p>
+
+<p>Sie benötigen CMake, um 1.3.5svn zu kompilieren, da die die Autotools in dieser Version nicht mehr funktionieren.</p>
+<p>Wenn der Quelletxt heruntergeladen wurde, lesen Sie bitte die <a href="install4.html">Anleitung zum Kompilieren und Installieren mit Hilfe von CMake</a> instructions.</p>
+
 </qt>
