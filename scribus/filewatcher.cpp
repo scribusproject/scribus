@@ -25,8 +25,9 @@ FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 	m_timeOut=10000;
 	watchedFiles.clear();
 	watchTimer = new QTimer(this);
+	watchTimer->setSingleShot(true);
 	connect(watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
-	watchTimer->start(m_timeOut, true);
+	watchTimer->start(m_timeOut);
 	blockAddRemove = false;
 	stopped = false;
 }
@@ -64,7 +65,7 @@ void FileWatcher::addFile(QString fileName)
 		watchedFiles.insert(fileName, fi);
 	}
 	if (!stopped)
-		watchTimer->start(m_timeOut, true);
+		watchTimer->start(m_timeOut);
 }
 
 void FileWatcher::removeFile(QString fileName)
@@ -73,7 +74,7 @@ void FileWatcher::removeFile(QString fileName)
 	if (watchedFiles.contains(fileName))
 		watchedFiles.remove(fileName);
 	if (!stopped)
-		watchTimer->start(m_timeOut, true);
+		watchTimer->start(m_timeOut);
 }
 
 void FileWatcher::addDir(QString fileName)
@@ -90,7 +91,7 @@ void FileWatcher::start()
 {
 	watchTimer->stop();
 	stopped = false;
-	watchTimer->start(m_timeOut, true);
+	watchTimer->start(m_timeOut);
 }
 
 void FileWatcher::stop()
@@ -193,6 +194,6 @@ void FileWatcher::checkFiles()
 		watchedFiles.remove(toRemove[i]);
 	blockAddRemove = false;
 	stopped = false;
-	watchTimer->start(m_timeOut, true);
+	watchTimer->start(m_timeOut);
 }
 

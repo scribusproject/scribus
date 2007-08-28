@@ -143,7 +143,7 @@ void DocumentItemAttributes::updateTable()
 		QComboBox *item5 = new QComboBox();
 		item5->addItems(relationships);
 		attributesTable->setCellWidget(row, i++, item5);
-		int index=relationshipsData.findIndex((*it).relationship);
+		int index=relationshipsData.indexOf((*it).relationship);
 		if (index==-1)
 		{
 			(*it).relationship="none";

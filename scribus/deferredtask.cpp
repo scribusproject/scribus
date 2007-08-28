@@ -33,7 +33,7 @@ void DeferredTask::init()
 	m_status = Status_NotStarted,
 	m_lastError = QString::null;
 	// Build the timer we'll use to access the event loop
-	m_timer = new QTimer(this, "DeferredTask timer");
+	m_timer = new QTimer(this);
 	Q_CHECK_PTR(m_timer);
 	// and hook up to it.
 	connect(m_timer, SIGNAL(timeout()), SLOT(next()) );
@@ -70,7 +70,8 @@ void DeferredTask::start()
 {
 	m_status = Status_Running;
 	// Start the timer to do our search in the event loop's idle time
-	m_timer->start(0, false);
+	m_timer->setSingleShot(false);
+	m_timer->start(0);
 }
 
 void DeferredTask::cancel()

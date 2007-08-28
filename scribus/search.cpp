@@ -208,7 +208,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	REffVal->setStyle(0);
 	REffVal->setEnabled(false);
 	ReplaceLayout->addWidget( REffVal, 4, 1, Qt::AlignLeft );
-	RFillVal = new ColorCombo( true, Replace, "RFillVal" );
+	RFillVal = new ColorCombo( true, Replace );
 	RFillVal->setEditable(false);
 	RFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	RFillVal->view()->setMinimumWidth(RFillVal->view()->maximumViewportSize().width() + 24);
@@ -218,7 +218,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RFillSVal = new ShadeButton(Replace);
 	RFillSVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFillSVal, 6, 1, Qt::AlignLeft );
-	RStrokeVal = new ColorCombo( true, Replace, "RStrokeVal" );
+	RStrokeVal = new ColorCombo( true, Replace );
 	RStrokeVal->setEditable(false);
 	RStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	RStrokeVal->view()->setMinimumWidth(RStrokeVal->view()->maximumViewportSize().width() + 24);

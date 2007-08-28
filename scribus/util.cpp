@@ -597,7 +597,7 @@ QString getFileNameByPage(ScribusDoc* currDoc, uint pageNo, QString extension)
 	else
 	{
 		QFileInfo fi(defaultName);
-		defaultName = fi.baseName(true);
+		defaultName = fi.completeBaseName();
 	}
 	return QString("%1-%2%3.%4").arg(defaultName).arg(QObject::tr("page", "page export")).arg(number, 3, 10, QChar('0')).arg(extension);
 }

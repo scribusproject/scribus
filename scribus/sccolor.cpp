@@ -101,7 +101,7 @@ colorModel ScColor::getColorModel () const
 void ScColor::fromQColor(QColor color)
 {
 	int r, g, b;
-	color.rgb(&r, &g, &b);
+	color.getRgb(&r, &g, &b);
 	setColorRGB(r, g, b);
 }
 
@@ -310,7 +310,10 @@ void ColorList::addColors(const ColorList& colorList, bool overwrite)
 	ColorList::ConstIterator itend;
 	itend = colorList.end();
 	for (it = colorList.begin(); it != itend; ++it)
-		insert(it.key(), it.data(), overwrite);
+	{
+		if (overwrite || !contains(it.key()))
+			insert(it.key(), it.value());
+	}
 }
 
 void ColorList::copyColors(const ColorList& colorList, bool overwrite)
@@ -336,7 +339,7 @@ void ColorList::ensureBlack(void)
 	ColorList::Iterator itb = find("Black");
 	if (itb != end())
 	{
-		ScColor& black = itb.data();
+		ScColor& black = itb.value();
 		colorModel model = black.getColorModel();
 		if (model == colorModelCMYK)
 		{
@@ -356,7 +359,7 @@ void ColorList::ensureWhite(void)
 	ColorList::Iterator itw = find("White");
 	if (itw != end())
 	{
-		ScColor& white = itw.data();
+		ScColor& white = itw.value();
 		colorModel model = white.getColorModel();
 		if (model == colorModelCMYK)
 		{

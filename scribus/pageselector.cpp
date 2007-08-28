@@ -40,7 +40,7 @@ PageValidator::PageValidator(int /* min */, int /* max */, QObject * parent) : Q
 
 QValidator::State PageValidator::validate(QString & input, int & /* pos */) const
 {
-	if (rx2.search(input) == 0 && pageSelector->PageCombo->text(input.toInt()-1) == input)
+	if (rx2.indexIn(input) == 0 && pageSelector->PageCombo->itemText(input.toInt()-1) == input)
 		return Acceptable;
 	else
 		return Intermediate;
@@ -48,12 +48,12 @@ QValidator::State PageValidator::validate(QString & input, int & /* pos */) cons
 
 void PageValidator::fixup(QString & input) const
 {
-	if (rx.search(input) == 0)
+	if (rx.indexIn(input) == 0)
 		input = const_cast<QRegExp &>(rx).cap(1);
 }
 	
 
-PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgsel", 0 )
+PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, 0 )
 {
 	LastPG = maxPg;
 	APage = 1;
@@ -62,28 +62,28 @@ PageSelector::PageSelector( QWidget* parent, int maxPg ) : QWidget( parent, "pgs
 	PageSelectorLayout->setSpacing(1);
 
 #if OPTION_USE_QTOOLBUTTON
-	Start = new QToolButton( this, "Start" );
+	Start = new QToolButton( this );
 	Start->setAutoRaise(OPTION_FLAT_BUTTON);
-	Back = new QToolButton( this, "Back" );
+	Back = new QToolButton( this );
 	Back->setAutoRaise(OPTION_FLAT_BUTTON);
-	Forward = new QToolButton( this, "Forward" );
+	Forward = new QToolButton( this );
 	Forward->setAutoRaise(OPTION_FLAT_BUTTON);
-	Last = new QToolButton( this, "Last" );
+	Last = new QToolButton( this );
 	Last->setAutoRaise(OPTION_FLAT_BUTTON);
 #else
-	Start = new QPushButton( this, "Start" );
+	Start = new QPushButton( this );
 	Start->setDefault( false );
 	Start->setAutoDefault( false );
 	Start->setFlat(OPTION_FLAT_BUTTON);
-	Back = new QPushButton( this, "Back" );
+	Back = new QPushButton( this );
 	Back->setDefault( false );
 	Back->setAutoDefault( false );
 	Back->setFlat(OPTION_FLAT_BUTTON);
-	Forward = new QPushButton( this, "Forward" );
+	Forward = new QPushButton( this );
 	Forward->setDefault( false );
 	Forward->setAutoDefault( false );
 	Forward->setFlat(OPTION_FLAT_BUTTON);
-	Last = new QPushButton( this, "Last" );
+	Last = new QPushButton( this );
 	Last->setDefault( false );
 	Last->setAutoDefault( false );
 	Last->setFlat(OPTION_FLAT_BUTTON);
@@ -174,7 +174,7 @@ void PageSelector::GotoPage()
 void PageSelector::GotoPg(int a)
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
-	PageCombo->setCurrentItem(a);
+	PageCombo->setCurrentIndex(a);
 	PageCombo->setEditText( tr( "%1 of %2" ).arg(a+1).arg(LastPG) );
 	APage = a+1;
 	Back->setEnabled(true);
@@ -194,7 +194,7 @@ void PageSelector::GotoPg(int a)
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 
-void PageSelector::setMaxValue(int a)
+void PageSelector::setMaximum(int a)
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	PageCombo->clear();
@@ -203,7 +203,7 @@ void PageSelector::setMaxValue(int a)
 //	v->setTop(LastPG);
 	for (int b = 0; b < LastPG; ++b)
 	{
-		PageCombo->insertItem(tmp.setNum(b+1));
+		PageCombo->insertItem(b, tmp.setNum(b+1));
 	}
 	PageCombo->setEditText( tr( "%1 of %2" ).arg(APage).arg(LastPG) );
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );

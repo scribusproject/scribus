@@ -17,23 +17,25 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "qdebug.h"
 
-ColorCombo::ColorCombo( QWidget* parent, const char* name ) : QComboBox(false, parent, name)
+ColorCombo::ColorCombo( QWidget* parent ) : QComboBox(parent)
 {
 #ifdef QT_WS_MAC
 //	setStyle( new ColorCombo::ScMacStyle() );
 #endif
-	ColorListBox* lb = new ColorListBox( this, "in-combo");
+	setEditable(false);
+	ColorListBox* lb = new ColorListBox(this);
 	setModel( lb->model() );
 	setItemDelegate( lb->itemDelegate() );
 	setView( lb );
 }
 
-ColorCombo::ColorCombo( bool rw, QWidget* parent, const char* name ) : QComboBox(rw, parent, name)
+ColorCombo::ColorCombo( bool rw, QWidget* parent ) : QComboBox(parent)
 {
 #ifdef QT_WS_MAC
 //	setStyle( new ColorCombo::ScMacStyle() );
 #endif
-	ColorListBox* lb = new ColorListBox( this, "in-combo");
+	setEditable(rw);
+	ColorListBox* lb = new ColorListBox(this);
 	setModel( lb->model() );
 	setItemDelegate( lb->itemDelegate() );
 	setView( lb );

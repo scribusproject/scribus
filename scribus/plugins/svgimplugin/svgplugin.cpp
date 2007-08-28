@@ -1543,17 +1543,17 @@ QMatrix SVGPlug::parseTransform( const QString &transform )
 {
 	QMatrix ret;
 	// Split string for handling 1 transform statement at a time
-	QStringList subtransforms = QStringList::split(')', transform);
+	QStringList subtransforms = transform.split(')');
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
 	for(; it != end; ++it)
 	{
 		QMatrix result;
-		QStringList subtransform = QStringList::split('(', (*it));
+		QStringList subtransform = (*it).split('(');
 		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
-		QStringList params = QStringList::split(reg, subtransform[1]);
+		QStringList params = subtransform[1].split(reg);
 		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
 		if(subtransform[0] == "rotate")
@@ -1684,7 +1684,7 @@ QString SVGPlug::parseColor( const QString &s )
 	if( s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.trimmed();
-		QStringList colors = QStringList::split( ',', parse );
+		QStringList colors = parse.split(',');
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
@@ -1719,9 +1719,9 @@ QString SVGPlug::parseColor( const QString &s )
 	QColor tmpR;
 	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 	{
-		if (it.data().getColorModel() == colorModelRGB)
+		if (it.value().getColorModel() == colorModelRGB)
 		{
-			it.data().getRGB(&r, &g, &b);
+			it.value().getRGB(&r, &g, &b);
 			tmpR.setRgb(r, g, b);
 			if (c == tmpR)
 			{
@@ -1764,7 +1764,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		}
 		else if( params.startsWith( "url(" ) )
 		{
-			unsigned int start = params.find("#") + 1;
+			unsigned int start = params.indexOf("#") + 1;
 			unsigned int end = params.lastIndexOf(")");
 			QString key = params.mid(start, end - start);
 			while (!m_gradients[key].reference.isEmpty())
@@ -1886,7 +1886,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		if(params != "none")
 		{
 			QString params2 = params.simplified().replace(',', " ");
-			QStringList dashes = QStringList::split( ' ', params2 );
+			QStringList dashes = params2.split(' ');
 			for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
 				array.append( (*it).toDouble() );
 		}
@@ -1906,7 +1906,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		{
 			QString fam;
 			QString fn = it.current().scName();
-			int	pos=fn.find(" ");
+			int	pos=fn.indexOf(" ");
 			fam = fn.left(pos);
 			if (fam == family)
 			{
@@ -1972,10 +1972,10 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 	if( !e.attribute( "text-anchor" ).isEmpty() )
 		parsePA( obj, "text-anchor", e.attribute( "text-anchor" ) );
 	QString style = e.attribute( "style" ).simplified();
-	QStringList substyles = QStringList::split( ';', style );
+	QStringList substyles = style.split(';');
 	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 	{
-		QStringList substyle = QStringList::split( ':', (*it) );
+		QStringList substyle = (*it).split(':');
 		QString command(substyle[0].trimmed());
 		QString params(substyle[1].trimmed());
 		parsePA( obj, command, params );
@@ -2016,10 +2016,10 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			else
 			{
 				QString style = stop.attribute( "style" ).simplified();
-				QStringList substyles = QStringList::split( ';', style );
+				QStringList substyles = style.split(';');
 				for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 				{
-					QStringList substyle = QStringList::split( ':', (*it) );
+					QStringList substyle = (*it).split(':');
 					QString command(substyle[0].trimmed());
 					QString params(substyle[1].trimmed());
 					if( command == "stop-color" )

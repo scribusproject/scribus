@@ -720,7 +720,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
 	StrokeIcon->setScaledContents( false );
 	layout23->addWidget( StrokeIcon );
-	TxStroke = new ColorCombo( false, page_3, "TxStroke" );
+	TxStroke = new ColorCombo( false, page_3);
 	layout23->addWidget( TxStroke );
 	ShadeTxt1 = new QLabel( "", page_3, "ShadeTxt" );
 	ShadeTxt1->setPixmap(loadIcon("shade.png"));
@@ -735,7 +735,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	FillIcon = new QLabel( "", page_3, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
 	layout24->addWidget( FillIcon );
-	TxFill = new ColorCombo( false, page_3, "TxFill" );
+	TxFill = new ColorCombo( false, page_3);
 	layout24->addWidget( TxFill );
 	ShadeTxt2 = new QLabel("", page_3, "ShadeTxt" );
 	ShadeTxt2->setPixmap(loadIcon("shade.png"));

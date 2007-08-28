@@ -206,14 +206,9 @@ QString ColorFancyItemDelegate::text(const QVariant& data) const
 }
 
 
-ColorListBox::ColorListBox(QWidget * parent, const char * name) //, Qt::WFlags f)
+ColorListBox::ColorListBox(QWidget * parent)
 	: QListWidget(parent)
 {
-	if (!name || strlen(name) == 0)
-		setName("ColorListBox");
-	else
-		setName(name);
-//	setWFlags(f);
 	cList = NULL;
 	setItemDelegate(new ColorWideItemDelegate());
 }

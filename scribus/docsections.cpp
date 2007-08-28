@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 
 
 DocSections::DocSections( QWidget* parent )
-	: QWidget( parent, "DocSections" )
+	: QWidget( parent )
 {
 	setupUi(this);
 	languageChange();
@@ -103,9 +103,9 @@ void DocSections::updateTable()
 		item5->addItems(styles);
 		sectionsTable->setCellWidget(row, i++, item5);
 		if ((*it).type==Type_None)
-			item5->setCurrentItem(styles.count()-1);
+			item5->setCurrentIndex(styles.count()-1);
 		else
-			item5->setCurrentItem((*it).type);
+			item5->setCurrentIndex((*it).type);
 		//Start Page Number
 		QTableWidgetItem *item6 = new QTableWidgetItem(QString::number((*it).sectionstartindex));
 		sectionsTable->setItem(row, i++, item6);
@@ -278,7 +278,7 @@ void DocSections::deleteEntry()
 			(*--it2).toindex=(*it).toindex;
 		}
 		//Delete the currently selected entry
-		localSections.remove(it);
+		localSections.erase(it);
 		//Now, copy to a temp map and reinsert with consecutive keys again
 		DocumentSectionMap tempSections(localSections);
 		localSections.clear();

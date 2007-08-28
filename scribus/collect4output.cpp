@@ -279,7 +279,7 @@ QString CollectForOutput::collectFile(QString oldFile, QString newFile)
 		}
 		QFileInfo fi(newFile);
 		QString basename = fi.baseName().left(fi.baseName().lastIndexOf("_"));
-		newFile = QString("%1_%2.%3").arg(basename).arg(cnt).arg(fi.extension());
+		newFile = QString("%1_%2.%3").arg(basename).arg(cnt).arg(fi.completeSuffix());
 		++cnt;
 	}
 	if (copy)

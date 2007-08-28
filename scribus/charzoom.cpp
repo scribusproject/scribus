@@ -8,9 +8,9 @@
 
 CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 #ifdef QT_WS_MAC
-	: QDialog( parent, "CharZoom", false, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WType_Popup)
+	: QDialog( parent, Qt::FramelessWindowHint | Qt::Popup)
 #else
-	: QDialog( parent, "CharZoom", false, Qt::WStyle_Customize | Qt::WStyle_NoBorder)
+	: QDialog( parent, Qt::FramelessWindowHint)
 #endif
 {
 	int base = 48;
@@ -20,7 +20,7 @@ CharZoom::CharZoom(QWidget* parent, uint currentChar, ScFace face)
 	setMinimumSize(sizex, sizey);
 	setMaximumSize(sizex, sizey);
 	
-	pixm.resize(size, size);
+	pixm = QPixmap(size, size);
 	QImage pix(size, size, QImage::Format_ARGB32);
 	ScPainter *p = new ScPainter(&pix, size, size);
 	p->clear();

@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 
 AboutPlugins::AboutPlugins( QWidget* parent )
-	: QDialog( parent, "AboutPlugins" ),
+	: QDialog(parent),
 	// Get a list of plugins, enabled or not
 	pluginNames(PluginManager::instance().pluginNames(true))
 {
@@ -65,7 +65,7 @@ void AboutPlugins::displayPlugin(QListWidgetItem* item)
 	QString html;
 	html = QString("<html><body><h1>%1</h1>").arg(plugin->fullTrName());
 	html += "<table>";
-	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Filename:")).arg(fi.baseName(true));
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Filename:")).arg(fi.completeBaseName());
 	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Version:")).arg(about->version);
 	QString ena;
 	ena = pluginManager.enabled(name) ? CommonStrings::trYes : CommonStrings::trNo;

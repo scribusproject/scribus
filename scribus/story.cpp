@@ -944,7 +944,7 @@ SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr(
 	StrokeIcon->setScaledContents( false );
 	strokeIconAction=addWidget(StrokeIcon);
 	strokeIconAction->setVisible(true);
-	TxStroke = new ColorCombo( false, this, "TxStroke" );
+	TxStroke = new ColorCombo(false, this);
 	txStrokeAction=addWidget(TxStroke);
 	txStrokeAction->setVisible(true);
 	PM1 = new ShadeButton(this);

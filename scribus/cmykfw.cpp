@@ -250,7 +250,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Frame5aLayout->addWidget( Frame5, 0, Qt::AlignCenter);
 	TabStack->addWidget( Frame5a );
 
-	ColorSwatch = new ColorListBox(TabStack, "StyledL");
+	ColorSwatch = new ColorListBox(TabStack);
 	TabStack->addWidget( ColorSwatch );
 
 	Frame4Layout->addWidget( TabStack );

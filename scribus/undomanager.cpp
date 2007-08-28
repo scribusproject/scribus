@@ -346,7 +346,7 @@ void UndoManager::renameStack(const QString& newName)
 	}
 	
 	UndoStack tmp(stacks_[currentDoc_]);
-	stacks_.erase(currentDoc_);
+	stacks_.remove(currentDoc_);
 	stacks_[newName] = tmp;
 	currentDoc_ = newName;
 }
@@ -356,7 +356,7 @@ void UndoManager::removeStack(const QString& stackName)
 	if (stacks_.contains(stackName))
 	{
 		stacks_[stackName].clear();
-		stacks_.erase(stackName);
+		stacks_.remove(stackName);
 		if (currentDoc_ == stackName)
 		{
 			for (uint i = 0; i < undoGuis_.size(); ++i)
@@ -513,7 +513,7 @@ void UndoManager::setAllHistoryLengths(int steps)
 	{
 		for (StackMap::Iterator it = stacks_.begin(); it != stacks_.end(); ++it )
 		{
-			it.data().setMaxSize(static_cast<uint>(steps));
+			it.value().setMaxSize(static_cast<uint>(steps));
 		}
 		prefs_->set("historylength", steps);
 	}

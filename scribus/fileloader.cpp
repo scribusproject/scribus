@@ -58,7 +58,7 @@ for which a new license (GPL+exception) is in place.
  \retval None
  */
 FileLoader::FileLoader(const QString & fileName) :
-	QObject(0, "FileLoader"),
+	QObject(0),
 	FileName(fileName),
 	FileType(-1),
 	formatSLA12x(LoadSavePlugin::getFormatById(FORMATID_SLA12XIMPORT)),
@@ -92,14 +92,14 @@ int FileLoader::TestFile()
 	int ret = -1;
 	if (!fi.exists())
 		ret = -1;
-	QString ext = fi.extension(true).toLower();
+	QString ext = fi.completeSuffix().toLower();
 
 	QList<FileFormat> fileFormats(LoadSavePlugin::supportedFormats());
 	QList<FileFormat>::const_iterator it(fileFormats.constBegin());
 	QList<FileFormat>::const_iterator itEnd(fileFormats.constEnd());
 	for ( ; it != itEnd ; ++it )
 	{
-		if ((*it).nameMatch.search("."+ext)!=-1)
+		if ((*it).nameMatch.indexIn("."+ext)!=-1)
 		{
 //  			qDebug(QString("Match :%1: :.%2: on %3").arg((*it).nameMatch.pattern()).arg(ext).arg((*it).trName));
 			if ((*it).plug!=0)
@@ -270,7 +270,7 @@ bool FileLoader::LoadFile(ScribusDoc* currDoc)
 	QList<FileFormat>::const_iterator it;
 	if (findFormat(FileType, it))
 	{
-		qDebug(QString("fileloader: type %1 plugin %2").arg(FileType).arg((*it).trName));
+//		qDebug("fileloader: type %d plugin %s"),FileType,(*it).trName);
 		switch (FileType)
 		{
 			case FORMATID_SLA12XIMPORT:
@@ -516,7 +516,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 				for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
 				{
 					if (dia.stickyReplacements->isChecked())
-						prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.data();
+						prefsManager->appPrefs.GFontSub[itfsu.key()] = itfsu.value();
 				}
 				currDoc->AllFonts->setSubstitutions(ReplacedFonts, currDoc);
 				//ResourceCollection repl;
@@ -598,7 +598,7 @@ void FileLoader::informReplacementFonts()
 		QMap<QString,QString>::Iterator it;
 		for (it = ReplacedFonts.begin(); it != ReplacedFonts.end(); ++it)
 		{
-			mess += it.key() + tr(" was replaced by: ")+ it.data() +"\n";
+			mess += it.key() + tr(" was replaced by: ")+ it.value() +"\n";
 		}
 		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, mess, 1, 0, 0);
 	}

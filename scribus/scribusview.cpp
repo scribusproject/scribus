@@ -9864,7 +9864,7 @@ void ScribusView::setMenTxt(int Seite)
 	if (m_ScMW->ScriptRunning)
 		return;
 	disconnect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
-	pageSelector->setMaxValue(Doc->masterPageMode() ? 1 : Doc->Pages->count());
+	pageSelector->setMaximum(Doc->masterPageMode() ? 1 : Doc->Pages->count());
 	if ((!Doc->isLoading()) && (!Doc->masterPageMode()))
 		pageSelector->GotoPg(Seite);
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));

@@ -50,7 +50,7 @@ PageSize::PageSize(const QString sizeName)
 		PageSizeInfoMap::Iterator it;
 		for (it=pageSizeList.begin();it!=pageSizeList.end() && valuesSet!=true;++it)
 		{
-			if (sizeName==it.data().trSizeName)
+			if (sizeName==it.value().trSizeName)
 			{
 				m_pageSizeName=it.key();
 				m_width=it.value().width;

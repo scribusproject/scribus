@@ -180,7 +180,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	TextLabel40a = new QLabel( GroupBox20 );
 	TextLabel40a->setText( tr( "Color:" ) );
 	GroupBox20Layout->addWidget( TextLabel40a, 0, 0 );
-	BorderC = new ColorCombo( true, GroupBox20, "BorderC" );
+	BorderC = new ColorCombo( true, GroupBox20);
 	ColorList::Iterator cit;
 	BorderC->insertItem(CommonStrings::tr_NoneColor);
 	if (item->annotation().borderColor() == CommonStrings::None)

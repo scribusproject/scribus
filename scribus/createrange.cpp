@@ -15,8 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QTabWidget>
 
-CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, const char* name, Qt::WFlags fl )
-	: QDialog(parent, name, fl),
+CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, Qt::WFlags fl )
+	: QDialog(parent, fl),
 	m_PageCount(pageCount),
 	m_RangeType(0),
 	m_BasicRangeType(0)

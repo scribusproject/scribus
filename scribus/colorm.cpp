@@ -67,7 +67,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	layout3 = new QVBoxLayout;
 	layout3->setSpacing( 5 );
 	layout3->setMargin( 0 );
-	colorListBox = new ColorListBox( this, "colorListBox" );
+	colorListBox = new ColorListBox(this);
 	colorListBox->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Expanding);
 	colorListBox->setMinimumSize( QSize( 164, 228 ) );
 	layout5->addWidget( colorListBox );

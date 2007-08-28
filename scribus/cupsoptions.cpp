@@ -209,10 +209,10 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent )
 	Layout2->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
-	PushButton1 = new QPushButton( CommonStrings::tr_OK, this, "PushButton1" );
+	PushButton1 = new QPushButton( CommonStrings::tr_OK, this );
 	PushButton1->setDefault( true );
 	Layout2->addWidget( PushButton1 );
-	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton1_2" );
+	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this );
 	PushButton2->setDefault( false );
 	PushButton1->setFocus();
 	Layout2->addWidget( PushButton2 );

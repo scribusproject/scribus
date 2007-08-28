@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #include "smcolorcombo.h"
 
 
-SMColorCombo::SMColorCombo(QWidget *parent, const char *name)
-: ColorCombo(parent, name),
+SMColorCombo::SMColorCombo(QWidget *parent)
+: ColorCombo(parent),
   hasParent_(false),
   useParentValue_(false),
   pItem_(0)
@@ -17,8 +17,8 @@ SMColorCombo::SMColorCombo(QWidget *parent, const char *name)
 	
 }
 
-SMColorCombo::SMColorCombo(bool rw, QWidget* parent, const char* name)
-: ColorCombo(rw, parent, name),
+SMColorCombo::SMColorCombo(bool rw, QWidget* parent)
+: ColorCombo(rw, parent),
   hasParent_(false),
   useParentValue_(false),
   pItem_(0),

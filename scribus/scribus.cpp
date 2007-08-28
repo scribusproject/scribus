@@ -6428,7 +6428,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 	else
 		doc->deletePage(pg);
 	disconnect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
-	view->pageSelector->setMaxValue(doc->Pages->count());
+	view->pageSelector->setMaximum(doc->Pages->count());
 	view->pageSelector->GotoPg(0);
 	connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
 	undoManager->setUndoEnabled(false); // ugly hack to prevent object moving when undoing page deletion
@@ -6516,7 +6516,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 		else
 			doc->deletePage(a);
 		disconnect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
-		view->pageSelector->setMaxValue(doc->Pages->count());
+		view->pageSelector->setMaximum(doc->Pages->count());
 		view->pageSelector->GotoPg(0);
 		connect(view->pageSelector, SIGNAL(GotoPage(int)), view, SLOT(GotoPa(int)));
 		if (!isMasterPage) // Master pages are not added to sections when created
@@ -7678,7 +7678,7 @@ void ScribusMainWindow::reallySaveAsEps()
 	{
 		QFileInfo fi(doc->DocName);
 		if (doc->m_Selection->count() != 0)
-			fna = fi.dirPath() + "/" + fi.baseName(true) + "_selection.eps";
+			fna = fi.dirPath() + "/" + fi.completeBaseName() + "_selection.eps";
 		else
 			fna = fi.dirPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
@@ -7807,7 +7807,7 @@ void ScribusMainWindow::doSaveAsPDF()
 			QFileInfo fi(fileName);
 			QString ext = fi.extension( false );
 			QString path = fi.dirPath( true );
-			QString name = fi.baseName( true );
+			QString name = fi.completeBaseName();
 			uint aa = 0;
 			while (aa < pageNs.size())
 			{

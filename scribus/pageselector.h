@@ -49,7 +49,7 @@ public:
 
 public slots:
 	virtual void GotoPg(int);
-	virtual void setMaxValue(int);
+	virtual void setMaximum(int);
 	void languageChange();
 	void clearFocus();
 

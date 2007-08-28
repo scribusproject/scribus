@@ -57,8 +57,8 @@ public:
 		fancyPixmaps
 	};
 
-	ColorCombo( QWidget* parent=0, const char* name=0 );
-	ColorCombo( bool rw, QWidget* parent=0, const char* name=0 );
+	ColorCombo( QWidget* parent=0 );
+	ColorCombo( bool rw, QWidget* parent=0 );
 
 	QString currentColor() const; 
 	

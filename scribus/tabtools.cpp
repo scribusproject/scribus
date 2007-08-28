@@ -123,7 +123,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel2b = new QLabel(sizeComboText, tr( "Size:" ), subTabText, "textLabel2b" );
 	subTabTextLayout->addWidget( textLabel2b, 2, 0 );
 
-	colorComboText = new ColorCombo( false, subTabText, "colorComboText" );
+	colorComboText = new ColorCombo( false, subTabText );
 
 	subTabTextLayout->addWidget( colorComboText, 3, 1 );
 	textLabel3b = new QLabel(colorComboText, tr( "Text Color:" ), subTabText, "textLabel3b" );
@@ -136,7 +136,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTS = new QLabel( shadingText, tr( "Shading:" ), subTabText, "textLabelTS" );
 	subTabTextLayout->addWidget( textLabelTS, 3, 2 );
 
-	colorComboStrokeText = new ColorCombo( false, subTabText, "colorComboStrokeText" );
+	colorComboStrokeText = new ColorCombo( false, subTabText );
 
 	subTabTextLayout->addWidget( colorComboStrokeText, 4, 1 );
 	textLabel3b2 = new QLabel(colorComboStrokeText, tr( "Text Stroke:" ), subTabText, "textLabel3b2" );
@@ -150,7 +150,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTSS = new QLabel( shadingTextStroke, tr( "Shading:" ), subTabText, "textLabelTS" );
 	subTabTextLayout->addWidget( textLabelTSS, 4, 2 );
 
-	colorComboTextBackground = new ColorCombo( false, subTabText, "colorComboTextBackground" );
+	colorComboTextBackground = new ColorCombo( false, subTabText );
 
 	subTabTextLayout->addWidget( colorComboTextBackground, 5, 1 );
 	textLabel3bT = new QLabel(colorComboTextBackground, tr( "Fill Color:" ), subTabText, "textLabel3b" );
@@ -164,7 +164,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTSB = new QLabel( shadingTextBack, tr( "Shading:" ), subTabText, "textLabelTSS" );
 	subTabTextLayout->addWidget( textLabelTSB, 5, 2 );
 
-	colorComboTextLine = new ColorCombo( false, subTabText, "colorComboTextLine" );
+	colorComboTextLine = new ColorCombo( false, subTabText );
 
 	subTabTextLayout->addWidget( colorComboTextLine, 6, 1 );
 	textLabel3bTL = new QLabel(colorComboTextLine, tr( "Stroke Color:" ), subTabText, "textLabel3b2" );
@@ -216,7 +216,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	shapeHeadLine = new QLabel( tr( "Shapes" ), subTabShape, "shapeHeadLine" );
 	shapeHeadLine->setFont(f);
 	subTabShapeLayout->addWidget( shapeHeadLine, 0, 0, 1, 2, Qt::AlignHCenter | Qt::AlignTop );
-	colorComboLineShape = new ColorCombo( false, subTabShape, "colorComboLineShape" );
+	colorComboLineShape = new ColorCombo( false, subTabShape );
 
 	subTabShapeLayout->addWidget( colorComboLineShape, 1, 1, Qt::AlignLeft );
 	textLabel7b = new QLabel( colorComboLineShape, tr( "&Line Color:" ), subTabShape, "textLabel7b" );
@@ -229,7 +229,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabShapeLayout->addWidget( shadingLineShape, 2, 1, Qt::AlignLeft );
 	textLabel8b = new QLabel( shadingLineShape, tr( "&Shading:" ), subTabShape, "textLabel8b" );
 	subTabShapeLayout->addWidget( textLabel8b, 2, 0 );
-	comboFillShape = new ColorCombo( false, subTabShape, "comboFillShape" );
+	comboFillShape = new ColorCombo( false, subTabShape );
 
 	subTabShapeLayout->addWidget( comboFillShape, 3, 1, Qt::AlignLeft );
 	textLabel9b = new QLabel( comboFillShape, tr( "&Fill Color:" ), subTabShape, "textLabel9b" );
@@ -265,7 +265,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	lineHeadLine = new QLabel( tr( "Lines" ), subTabLine, "lineHeadLine" );
 	lineHeadLine->setFont(f);
 	subTabLineLayout->addWidget( lineHeadLine, 0, 0, 1, 3, Qt::AlignHCenter | Qt::AlignTop );
-	colorComboLine = new ColorCombo( false, subTabLine, "colorComboLine" );
+	colorComboLine = new ColorCombo( false, subTabLine );
 
 	subTabLineLayout->addWidget( colorComboLine, 1, 1, Qt::AlignLeft );
 	textLabel13b = new QLabel(colorComboLine, tr("&Line Color:"), subTabLine, "textLabel13b" );
@@ -353,7 +353,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	buttonGroup5Layout->addWidget( checkRatioImage );
 	subTabImageLayout->addWidget( buttonGroup5, 2, 0, 1, 2 );
 	
-	comboFillImage = new ColorCombo( false, subTabImage, "comboFillImage" );
+	comboFillImage = new ColorCombo( false, subTabImage );
 	subTabImageLayout->addWidget( comboFillImage, 3, 1, Qt::AlignLeft );
 	textLabel19b = new QLabel(comboFillImage, tr( "F&ill Color:" ), subTabImage, "textLabel19b" );
 	subTabImageLayout->addWidget( textLabel19b, 3, 0 );

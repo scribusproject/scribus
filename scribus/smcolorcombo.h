@@ -14,8 +14,8 @@ class SMColorCombo  : public ColorCombo
 {
 	Q_OBJECT
 public:
-	SMColorCombo(QWidget *parent, const char *name = 0);
-	SMColorCombo(bool rw, QWidget* parent, const char* name);
+	SMColorCombo(QWidget *parent);
+	SMColorCombo(bool rw, QWidget* parent);
 	~SMColorCombo() {};
 
 	void setCurrentItem(int i);

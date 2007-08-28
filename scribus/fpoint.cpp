@@ -34,12 +34,12 @@ FPoint::FPoint(const double x, const double y, const double dx, const double dy,
 
 bool FPoint::operator==(const FPoint &rhs) const 
 {
-	return QABS(xp-rhs.xp) < 1E-10 && QABS(yp-rhs.yp) < 1E-10;
+	return qAbs(xp-rhs.xp) < 1E-10 && qAbs(yp-rhs.yp) < 1E-10;
 }
 
 bool FPoint::operator!=(const FPoint &rhs) const
 {
-	return QABS(xp-rhs.xp) > 1E-10 || QABS(yp-rhs.yp) > 1E-10;
+	return qAbs(xp-rhs.xp) > 1E-10 || qAbs(yp-rhs.yp) > 1E-10;
 }
 
 void FPoint::transform(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert)
@@ -49,7 +49,7 @@ void FPoint::transform(const double dx, const double dy, const double rot, const
 	ma.scale(sx, sy);
 	ma.rotate(rot);
 	if (invert)
-		ma = ma.invert();
+		ma = ma.inverted();
 	//save new value as old one is used on next line
 	double newxp = ma.m11() * xp + ma.m21() * yp + ma.dx();
 	yp = ma.m22() * yp + ma.m12() * xp + ma.dy();
@@ -63,7 +63,7 @@ FPoint FPoint::transformPoint(const double dx, const double dy, const double rot
 	ma.scale(sx, sy);
 	ma.rotate(rot);
 	if (invert)
-		ma = ma.invert();
+		ma = ma.inverted();
 	double x = ma.m11() * xp + ma.m21() * yp + ma.dx();
 	double y = ma.m22() * yp + ma.m12() * xp + ma.dy();
 	return FPoint(x, y);
