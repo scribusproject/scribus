@@ -44,7 +44,7 @@
 		<ul>
 			<li>Create the table in a spreadsheet in either StarOffice or OpenOffice.org 1.1.x (recommended as a first choice). Format the table with the desired fonts, sizing and background colors for the cells.</li>
 			<li>&quot;Print&quot; the file saving as PS, by printing a &quot;file&quot; to the &quot;generic printer&quot;.</li>
-			<li>Open the just created postscript file in GSView (Version 4.6 or newer recommended)</li>
+			<li>Open the just created PostScript file in GSView (Version 4.6 or newer recommended)</li>
 			<li>File &gt; Convert &gt; Select Device epswrite</li>
 			<li>Choose 300 or more dpi as the resolution and save. Then, place the image as an EPS. Scribus will print this with the colors, shading and fonts intact. The screen preview may not be perfect, but it will either export as PDF or print just fine.</li>
 			<li>Alternative: Import as an SVG, as outlined: Importing Tricks for Scribus</li>
@@ -86,8 +86,8 @@
 		<p class="faqquestion">How do you get printer to print on a non standard size page?</p>
 		<p>It depends:</p>
 		<ol>
-			<li>If you are printing to a local printer which is *not* a postscript printer, but using CUPS, you can't. It is a limitation, as far as we can tell of CUPS.</li>
-			<li>If you have a &quot;real&quot; postscript printer, Scribus - with CUPS support - will support any arbitrary page size, as long as the printer support it.</li>
+			<li>If you are printing to a local printer which is *not* a PostScript printer, but using CUPS, you can't. It is a limitation, as far as we can tell of CUPS.</li>
+			<li>If you have a &quot;real&quot; PostScript printer, Scribus - with CUPS support - will support any arbitrary page size, as long as the printer support it.</li>
 		</ol>
 		<a href="#top">Back to top</a><hr/>
 	</li>
@@ -129,7 +129,7 @@
 		<p class="faqquestion">Why don't images do not print on a HP LaserJet 1xxx series printer(or other B&amp;W laser)from within Scribus 
 or from exported ps/pdf files, but can be viewed in PDFs.</p>
 		<p>One workaround is to export your document to PDF then load it into AcrobatReader and print at PS level 2.</p>
-		<p>Another solution is to create a non postscript printer (E.g. for a HP LJ 1300 series a printer was set up in CUPS as hplj with lj5gray printer). That works for some apps/docs, too. In general,create a ps2 level printer. Make sure you use the PPD file from the windowsdriver package instead of the cups/foomatic one. You will get better results during the conversion.</p>
+		<p>Another solution is to create a non PostScript printer (E.g. for a HP LJ 1300 series a printer was set up in CUPS as hplj with lj5gray printer). That works for some apps/docs, too. In general,create a ps2 level printer. Make sure you use the PPD file from the windowsdriver package instead of the cups/foomatic one. You will get better results during the conversion.</p>
 		<p>The reason is Scribus is generating PS3 level objects which the PS interpreter is unable to understand. This is a frequent issue with Black and White laser jets when printing from Desktop Publishing apps - I've seen this with LJ4 and 5, as well as newer HP2xxx printers with Pagemaker, Quark Xpress and Indesign. </p>
 		<a href="#top">Back to top</a><hr/>
 	</li>
