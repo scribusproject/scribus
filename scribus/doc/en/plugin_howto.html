@@ -6,8 +6,8 @@
 
 <p>This article shows you how to write plugins for Scribus. Plugins are
 libraries that are loaded into the main application at run-time. Plugins can
-extend and to an extent modify the behaviour of the application without having
-to edit and recompile the core app. They are useful for adding extra tools,
+extend and to an extent modify the behavior of the application without having
+to edit and recompile the core application. They are useful for adding extra tools,
 extra import and export functions, and for various more advanced uses.</p>
 
 <p>This document assumes some basic knowledge of C++. You're assumed to know
@@ -23,6 +23,10 @@ you do.</p>
 system works here. This is just about how to write a plugin. The documentation
 in the <code>scplugin.h</code> and <code>pluginmanager.h</code> help explain
 how the system works.</p>
+
+<p>For any reasonable plugin idea, you will receive encouragement and assistance from the Scribus Team.
+As rule, we do not do a lot of planning or development discussion by e-mail, but by <a href="irc.html">IRC</a>. Probably 99% of 
+the planning and project discussions take place there. You will find #scribus usually lively during parts of each day. The team is mostly resident in Europe, so Central European Time evenings is when it is busiest. </p>
 
 <h3>Where do I find Scribus Plugins?</h3>
 
@@ -68,13 +72,11 @@ and read this section; you might save yourself some time and trouble.</p>
 	separate module that knows as little about the innards of Scribus as
 	possible.</p>
 
-	<p>This document covers implementing a plugin for Scribus 1.3.1svn.  It is
+	<p>This document covers implementing a plugin for Scribus 1.3.x.  It is
 	dramatically different to what was required for the 1.2.x series. Future
 	changes should be smaller.</p>
 
-	<p>It is generally not practical to write a plugin that'll work on 1.2.x and
-	1.3.x versions of Scribus.</p>
-
+	
 <h3>Quick Start</h3>
 
 <p>It's not too hard to jump in and start writing a plugin. The documentation
@@ -88,6 +90,9 @@ if you get confused you can refer back to this document.</p>
 started, though you'll probably want to start distributing it separately later
 on (see later). To start work on an Action plugin:</p>
 
+<p>We use <a href="http://cmake.org">CMake</a>, as support for autotools has been
+deprecated and moving forward it will be the only one used in 1.3.5+</p>
+
 <ul>
 	<li>Copy <code>scribus/plugins/myplugin</code>
 	to <code>scribus/plugins/pluginname</code>
@@ -95,17 +100,17 @@ on (see later). To start work on an Action plugin:</p>
 	pluginname must be a valid C identifier - I suggest
 	sticking to nothing but lower case characters.</li>
 
-	<li>Edit <code>scribus/plugins/Makefile.am</code> and add
-	"pluginname" to Makefile.am . This tells Scribus's build
+	<li>Edit <code>scribus/plugins/CmakeLists.txt</code> and add
+	"pluginname" to it by adding the subdirectory to the others. This tells Scribus's build
 	system to compile your plugin.</li>
 
 	<li>rename all the files in <code>scribus/plugins/pluginname/</code>
 	from <code>myplugin</code> to <code>pluginname</code>, eg
 	<code>myplugin.h</code> to <code>pluginname.h</code>.
-	<i>Do not rename Makefile.am</i>.</li>
+	</li>
 
 	<li>rename <code>myplugin</code> wherever it appears in the files to
-	<code>pluginname</code>, eg <code>myplugin_getPluginAPIVersion()</code>
+	<code>pluginname</code>, e.g. <code>myplugin_getPluginAPIVersion()</code>
 	to <code>pluginname_getPluginAPIVersion()</code>. Do the same for
 	<code>MyPlugin</code> and <code>MYPLUGIN</code>. On UNIX, you can use this
 	command:<br/>
@@ -148,8 +153,9 @@ code should go in <code>pluginnameimpl.cpp</code> and
 <code>pluginnameimpl.h</code>. The existing code should display a message
 dialog box.</p>
 
-<p>To compile the plugin, you can simply re-run <code>make -f Makefile.svn</code>,
-<code>./configure</code>, and <code>make</code> in the top-level Scribus directory.
+<p>To compile the plugin, you can simply re-run <code>cmake with your usual options. </code>,
+and <code>make</code> in the top-level Scribus directory. You may need to remove CmakeCache.txt,
+but this is becoming a rarer necessity in newer versions of CMake.
 When the compile completes, run <code>make install</code> and fire up Scribus.
 Your plugin should now appear in the plugin manager (in the preferences), and
 should have a menu item. If you press the menu item, a dialog box should appear.</p>
@@ -158,23 +164,26 @@ should have a menu item. If you press the menu item, a dialog box should appear.
 
 <h4>Quick and dirty using QMake</h4>
 
-	<b>Warning</b>
+	<p><strong>Warning</strong></p>
 
-	<p>Beware - a qmake project easy to use but isn't necessarily the most standard
-	way to distribute software on the Linux platform. This process is an example
+	<li>Beware - a qmake project easy to use but isn't necessarily the most standard
+	way to distribute software on the Linux platform. Scribus runs natively on Linux/Unix, MacOSX, OS/2 and
+	Windows. This process is an example
 	only for development. When you create your bug-free functional package then
-	save the time to prepare full featured automagic (autoconf, automake)
-	distributon as described in the next section.</p>
+	make time to prepare a full featured distributon as described in the next section.</li>
 
-	<p>Let's compile it, but it isn't so easy as typing in <code>gcc
+	<li>Let's compile it, but it isn't so easy as typing in <code>gcc
 		myplugin.cpp</code> ;). One easy way to build it - Qt qmake (because some
-	people really really hate autoconf and automake in their complexity). Note: you
+	people really really hate autoconf and automake in their complexity. We've been know to
+call it worse things more than once. ). Note: you
 	will need to create an empty <code>config.h</code> file before running these
-	steps</p>
+	steps</li>
+	<li>On Linux or OSX systems where Qt3 and Qt4 are installed parallel, you may need to
+provide the full path: e.g. <code>/usr/lib/Qt4/qmake</code></li>
 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
-#qmake -project
+$qmake -project
 </pre>
 </td></tr></table></blockquote>
 
@@ -207,8 +216,8 @@ SOURCES += myplugin.cpp
 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>
-#qmake
-#make
+$qmake
+$make
 </pre>
 </td></tr></table></blockquote>
 
@@ -224,8 +233,8 @@ SOURCES += myplugin.cpp
 
 	<h4>Distribute it! (a.k.a. Compile it! 2nd edition)</h4>
 
-	<p>Qmake is user frendly and useful for rapid development, but there is one
-	standard way to compile/distribute software for Linux, *BSD etc. - autoconf
+	<p>Qmake is user frendly and useful for rapid development, but traditionally there has been
+	 one standard way to compile/distribute software for Linux, *BSD etc. - autoconf
 	and automake. Lets call these two programs by the automagic acronym in the
 	following text.</p>
 
@@ -233,70 +242,13 @@ SOURCES += myplugin.cpp
 	oriented pentagram on the floor (Carrefour, 2&#8364;), red-black daemonic
 	dress (Hugo Boss, 2000&#8364;) and a sacrificed penguin on the home altar
 	(one hour of fear in your local zoo). Err, only joking.. dont harm any
-	nice little penguins, you wont need to.</p>
+	nice little penguins, you wont need to. We strongly prefer the simpler and 
+easier to use CMake build system.</p>
 
 	<p>Download the <code>donothingplugin-1.0.tar.gz</code> example from
 	http://docs.scribus.net, unpack it and browse it.</p>
 
-	<p>When you enter the main directory you can see a lot of files and
-	directories. <b>Warning</b>, do not change anything in the admin directory.
-	It's content is TABOO for you!</p>
-
-	<p>As you read the automagic docs (surely) you know that there is an
-	important file in every directory of your project called
-	<code>Makefile.am</code>. Here is a short commented example:</p>
-
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-# set where will be plugin installed
-pluginsdir = $(prefix)/lib/scribus/plugins
-# specify additional includes for compilation
-AM_CPPFLAGS = -I$(prefix)/include/scribus
-# specify directories to dive in
-SUBDIRS = translation doc
-# name of the plugin = library
-plugins_LTLIBRARIES = libscribusvlna.la
-# join all includes
-INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
-# library related trash - symlinks etc.
-libscribusvlna_la_LDFLAGS = -version-info 0:0:0
-libscribusvlna_la_METASOURCES = AUTO
-#
-# list of the source files of your project
-libscribusvlna_la_SOURCES = frame.cpp selection.cpp vlnadialog.cpp vlnapage.cpp svlna.cpp
-EXTRA_DIST = frame.cpp selection.cpp svlna.cpp vlnadialog.cpp vlnapage.cpp frame.h /
-		selection.h svlna.h vlnadialog.h vlnapage$
-# how to compile
-KDE_OPTIONS = qtonly
-AM_LDFLAGS =    -s $(LIBFREETYPE_LIBS)
-</pre>
-</td></tr></table></blockquote>
-
-	<p>Shortly - if you take the <code>donothingplugin-1.0.tar.gz</code> file
-	and parse the content (and rename it of course :)) of
-	<code>Makefile.am</code> files you'll get a functional package.</p>
-
-	<p>There is one more thing to do. You have to specify directory structure
-	in <code>configure.in</code> in the project root directory too:</p>
-
-<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
-<pre>
-AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([svlna/Makefile])
-AC_CONFIG_FILES([svlna/translation/Makefile])
-AC_CONFIG_FILES([svlna/doc/Makefile])
-</pre>
-</td></tr></table></blockquote>
-
-	<p>And now to how it works...</p>
-
-	<p>First run <code>make -f Makefile.dist</code> in the root directory. It
-	creates <code>Makefile.in</code> templates (some kind of the black
-	magic).</p>
-
-	<p>And then obligatory <code>./configure ; make ; make install</code>
-	should work for you. Enjoy.</p>
-
+	
 <h3>Learning More</h3>
 
 <p>To go on from here, you should probably read <code>scplugin.h</code> and ensure
@@ -361,5 +313,5 @@ myPluginPrefs-&gt;set("s", "cat");
 <h3>Plugin related links</h3>
 <a href="http://doc.trolltech.com/">Qt documentation from Trolltech</a><br />
 <a href="http://doc.trolltech.com/3.3/qmake-manual.html">QMake documentation from Trolltech</a><br />
-<a href="http://www.murrayc.com/learning/linux/automake/automake.shtml">Automake/autoconf example</a><br />
+<!--<a href="http://www.murrayc.com/learning/linux/automake/automake.shtml">Automake/autoconf example</a>--><br />
 </qt>
