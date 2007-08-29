@@ -618,6 +618,8 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 void CharSelect::hideCheck_clicked()
 {
 	m_bigPalette->setShown(!hideCheck->isChecked());
+	resize(1, 1); // megahack to keep palette small
+	updateGeometry();
 	adjustSize();
 }
 
