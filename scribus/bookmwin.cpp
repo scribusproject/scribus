@@ -21,19 +21,9 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-// #include <Q3Header>
-// #include <QAction>
-// #include <QCursor>
-// #include <QDrag>
-// #include <QDragMoveEvent>
-// #include <QDropEvent>
-// #include <QMenu>
-// #include <QMimeData>
-// #include <QMouseEvent>
-// #include <QPixmap>
+#include <QHeaderView>
 
 #include "bookmwin.h"
-
 #include "util_icon.h"
 
 
@@ -111,26 +101,32 @@ QString BookMItem::key(int, bool) const
 	return tmp;
 }
 
+int BookMItem::level()
+{
+	int ret = 0; // 0 = top level
+	QTreeWidgetItem * p = parent();
+	while (p)
+	{
+		++ret;
+		p = p->parent();
+	}
+	return ret;
+}
+
 
 BookMView::BookMView(QWidget* parent) : QTreeWidget(parent)
 {
 	NrItems = 0;
-	Mpressed = false;
-	DraggedI = 0;
 	First = 1;
 	Last = 0;
+
 	setAcceptDrops(true);
 	setSelectionMode(QAbstractItemView::SingleSelection);
 	setDragEnabled(true);
 	setDropIndicatorShown(true);
 	setDragDropMode(QAbstractItemView::InternalMove);
-// 	viewport()->setAcceptDrops(true);
 	setRootIsDecorated(true);
-// 	idBookMarkCol = addColumn("Bookmarks");
-// 	setResizeMode(Q3ListView::AllColumns);
-// 	setSelectionMode(Q3ListView::NoSelection);
-// 	setSorting(-1,1);
-	languageChange();
+	header()->hide();
 
 	connect(this, SIGNAL(currentItemChanged( QTreeWidgetItem *, QTreeWidgetItem *)),
 			this, SLOT(setPageItem(QTreeWidgetItem *, QTreeWidgetItem *)));
@@ -164,394 +160,97 @@ void BookMView::setPageItem(QTreeWidgetItem * /*old*/, QTreeWidgetItem * newItem
 	if (i)
 		emit SelectElement(i->PageObject);
 }
-
-void BookMView::contentsMouseReleaseEvent(QMouseEvent *e)
+#include <QApplication>
+void BookMView::dropEvent(QDropEvent *e)
 {
-// 	if (Mpressed)
-// 	{
-// 		Q3ListViewItem *i = itemAt(contentsToViewport(e->pos()));
-// 		QPoint p = contentsToViewport(e->pos());
-// 		if ( i ) 
-// 		{
-// 			if ( p.x() > header()->cellPos( header()->mapToActual( 0 ) ) + treeStepSize() * ( i->depth() + ( rootIsDecorated() ? 1 : 0) ) + itemMargin() ||
-// 					p.x() < header()->cellPos( header()->mapToActual( 0 ) ) ) 
-// 			{
-// 				BookMItem *ip;
-// 				ip = (BookMItem*)i;
-// 				emit SelectElement(ip->PageObject);
-// 			}
-// 		}
-// 	}
-// 	Mpressed = false;
+	QTreeWidget::dropEvent(e);
+	QApplication::restoreOverrideCursor();
+	rebuildTree();
 }
 
-void BookMView::contentsMousePressEvent(QMouseEvent* e)
+// #include <QtDebug>
+void BookMView::rebuildTree()
 {
-// 	Q3ListView::contentsMousePressEvent(e);
-// 	Q3ListViewItem *i = itemAt(contentsToViewport(e->pos()));
-// 	if (i)
-// 	{
-// 		Mpos = e->pos();
-// 		Mpressed = true;
-// 	}
-}
+	QTreeWidgetItemIterator it(this, QTreeWidgetItemIterator::All);
+	// level - parent : children
+	QMap<int,QMap<int,QList<BookMItem*> > > levels;
+	QMap<int,BookMItem*> items;
 
-void BookMView::contentsMouseMoveEvent(QMouseEvent* e)
-{
-// 	if ((Mpressed) && ((Mpos - e->pos()).manhattanLength() > 4))
-// 	{
-// 		Mpressed = false;
-// 		Q3ListViewItem *i = itemAt(contentsToViewport(Mpos));
-// 		if (i)
-// 		{
-// 			DraggedI = (BookMItem*)i;
-// // 			Q3DragObject *dr = new Q3TextDrag(i->text(0), this, "BMD");
-// // 			dr->drag();
-// 			QMimeData* md = new QMimeData();
-// 			md->setText(i->text(0));
-// 			QDrag* dr = new QDrag(this);
-// 			dr->setMimeData(md);
-// 			dr->exec();
-// 		}
-// 	}
-}
+	Last = 0;
 
-void BookMView::contentsDropEvent(QDropEvent *e)
-{
-/*	QString text;
-// 	if (!Q3TextDrag::decode(e, text))
-// 	{
-// 		e->ignore();
-// 		return;
-//     }
-	if (e->mimeData()->hasText())
+	while (*it)
 	{
-		e->acceptProposedAction();
-		text=e->mimeData()->text();
+		BookMItem * currItem = (BookMItem*)(*it);
+		// handle parents
+		BookMItem * parent = (BookMItem*)currItem->parent();
+		currItem->Pare = parent ? parent->ItemNr : 0;
+
+		levels[currItem->level()][currItem->Pare].append(currItem);
+		items[Last] = currItem;
+		
+		currItem->ItemNr = Last;
+		++Last;
+		++it;
 	}
-	else
+
+	NrItems = Last;
+
+	foreach (int level, levels.keys())
 	{
-		e->ignore();
-		return;
-	}
-	QAction *ins, *mov, *mret, *can;
-	Q3ListViewItem *pp;
-	Q3ListViewItem *lv;
-	BookMItem *ip;
-	BookMItem *ip2;
-	BookMItem *ite;
-	Q3ListViewItem *item = itemAt(contentsToViewport(e->pos()));
-	BookMItem *Bite = (BookMItem*)item;
-	if ((item) && (DraggedI != 0))
-  	{
-  		if ((BookMItem*)item != DraggedI)
-  		{
-  			pp = item->parent();
-  			while (pp)
-  			{
-  				if (pp == DraggedI)
-  					return;
-  				pp = pp->parent();
-  			}
-			QMenu *pmenu = new QMenu();
-			mov = pmenu->addAction( tr("Move Bookmark"));
-			ins = pmenu->addAction( tr("Insert Bookmark"));
-			can = pmenu->addAction( tr("Cancel"));
-			mret = pmenu->exec(QCursor::pos());
-			if (mret != can)
+// 		qDebug() << "LEVEL: " << level;
+		QMapIterator<int,QList<BookMItem*> > parent(levels[level]);
+		while (parent.hasNext())
+		{
+			parent.next();
+// 			qDebug() << "PARENT: " << parent.key();
+			int cnt = parent.value().count();
+			items[parent.key()]->First = cnt > 0 ? parent.value().at(0)->ItemNr : 0;
+			items[parent.key()]->Last = cnt > 0 ? parent.value().at(cnt-1)->ItemNr : 0;
+			int prev = parent.key();
+			int ix = 0;
+			foreach (BookMItem* item, parent.value())
 			{
-				if (mret == ins)
-				{
-					lv = DraggedI->parent();
-					lv = lv ? lv->firstChild() : firstChild();
-					if (!DraggedI->Prev == 0)
-					{
-						while (lv)
-						{
-							ip = (BookMItem*)lv;
-							if (ip->ItemNr == DraggedI->Prev)
-								break;
-							lv = lv->nextSibling();
-						}
-						ip = (BookMItem*)lv;
-						lv = DraggedI->nextSibling();
-						if (lv)
-						{
-							ip2 = (BookMItem*)lv;
-							ip2->Prev = ip->ItemNr;
-							ip->Next = ip2->ItemNr;
-						}
-						else
-							ip->Next = 0;
-					}
-					lv = DraggedI->parent();
-					item->insertItem(DraggedI);
-					lv ? lv = lv->firstChild() : lv = firstChild();
-					if (DraggedI->Prev == 0)
-					{
-						ip = (BookMItem*)lv;
-						if (ip)
-							ip->Prev = 0;
-					}
-					Q3ListViewItemIterator it(this);
-					for ( ; it.current(); ++it)
-					{
-						ite = (BookMItem*)it.current();
-						if (ite->ItemNr == DraggedI->ItemNr)
-							DraggedI = ite;
-					}
-					DraggedI->Pare = Bite->ItemNr;
-					ip = (BookMItem*)item->firstChild();
-					Bite->First = ip->ItemNr;
-					lv = item->firstChild();
-					while (lv)
-					{
-						if (!lv->nextSibling())
-						{
-							ip = (BookMItem*)lv;
-							Bite->Last = ip->ItemNr;
-							break;
-						}
-						lv = lv->nextSibling();
-					}
-					if (DraggedI->nextSibling())
-					{
-						ip = (BookMItem*)DraggedI->nextSibling();
-						DraggedI->Next = ip->ItemNr;
-						ip->Prev = DraggedI->ItemNr;
-					}
-					else
-						DraggedI->Next = 0;
-					if (DraggedI != item->firstChild())
-					{
-						ip = (BookMItem*)DraggedI->itemAbove();
-						DraggedI->Prev = ip->ItemNr;
-						ip->Next = DraggedI->ItemNr;
-					}
-					else
-						DraggedI->Prev = 0;
-					emit changed();
-				}
-				if (mret == mov)
-				{
-					lv = DraggedI->parent();
-					lv ? lv = lv->firstChild() : lv = firstChild();
-					if (DraggedI->Prev == 0)
-					{
-						ip = (BookMItem*)lv->nextSibling();
-						if (ip)
-							ip->Prev = 0;
-					}
-					else
-					{
-						while (lv)
-						{
-							ip = (BookMItem*)lv;
-							if (ip->ItemNr == DraggedI->Prev)
-								break;
-							lv = lv->nextSibling();
-						}
-					}
-					ip = (BookMItem*)lv;
-					lv = DraggedI->nextSibling();
-					if (lv)
-					{
-						ip2 = (BookMItem*)lv;
-						ip2->Prev = ip->ItemNr;
-						ip->Next = ip2->ItemNr;
-					}
-					else
-						ip->Next = 0;
-					lv = DraggedI->parent();
-					DraggedI->moveItem(item);
-					lv ? lv = lv->firstChild() : lv = firstChild();
-					if (DraggedI->Prev == 0)
-					{
-						ip = (BookMItem*)lv;
-						if (ip)
-							ip->Prev = 0;
-					}
-					Q3ListViewItemIterator it2(this);
-					for ( ; it2.current(); ++it2)
-					{
-						ite = (BookMItem*)it2.current();
-						if (ite->ItemNr == DraggedI->ItemNr)
-							DraggedI = ite;
-					}
-					ip = (BookMItem*)item;
-					DraggedI->Pare = ip->Pare;
-					DraggedI->Prev = ip->ItemNr;
-					ip->Next = DraggedI->ItemNr;
-					if (DraggedI->nextSibling())
-					{
-						ip = (BookMItem*)DraggedI->nextSibling();
-						DraggedI->Next = ip->ItemNr;
-						ip->Prev = DraggedI->ItemNr;
-					}
-					else
-						DraggedI->Next = 0;
-					lv = item->parent();
-					if (lv)
-					{
-						ip = (BookMItem*)lv->firstChild();
-						ip2 = (BookMItem*)lv;
-						ip2->First = ip->ItemNr;
-						lv = lv->firstChild();
-						while (lv)
-						{
-							if (!lv->nextSibling())
-							{
-								ip = (BookMItem*)lv;
-								ip2->Last = ip->ItemNr;
-								break;
-							}
-							lv = lv->nextSibling();
-						}
-					}
-					emit changed();
-				}
-				emit MarkMoved();
-  			}
-			delete pmenu;	
-  			DraggedI = 0;
-  		}
-  	}*/
-}
+// 				qDebug() << "CHILD: " << item->ItemNr;
+				item->Prev = prev;
+				prev = item->ItemNr;
+				if (ix < (cnt - 1))
+					item->Next = parent.value()[ix+1]->ItemNr;
+				++ix;
+			}
+		}
+	}
+/*
+	foreach (BookMItem* i, items.values())
+	{
+		qDebug() << i->ItemNr << " " << i->text(0).left(10) << " " << i->Prev << " " << i->Next << " " << i->Pare << " " << i->First << " " << i->Last;
+	}*/
 
-void BookMView::contentsDragMoveEvent(QDragMoveEvent *e)
-{
-/*	QString text;
-// 	if (!Q3TextDrag::decode(e, text))
-// 	{
-// 		e->ignore();
-// 		return;
-//     }
-	if (e->mimeData()->hasText())
-	{
-		e->acceptProposedAction();
-		text=e->mimeData()->text();
-	}
-	else
-	{
-		e->ignore();
-		return;
-	}
-	Q3ListViewItem *item = itemAt(contentsToViewport(e->pos()));
-	if (item)
-  	{
-		setSelected(item, true);
-		e->accept();
-  	}
-	else
-		e->ignore();*/
+	emit MarkMoved();
+	emit changed();
 }
 
 void BookMView::AddItem(QString text, QString Tit, PageItem *PageObject)
 {
-// 	Q3ListViewItem *lv = firstChild();
-// 	while (lv)
-// 	{
-//   		if (!lv->nextSibling())
-//   			break;
-//   		lv = lv->nextSibling();
-//   	}
-// 	BookMItem *ip;
-// 	BookMItem *ite;
-// 	if (lv)
-// 		ite = new BookMItem(this, lv, NrItems+1, PageObject);
-// 	else
-// 		ite = new BookMItem(this, NrItems+1, PageObject);
 	BookMItem * ite = new BookMItem(this, NrItems+1, PageObject);
 	ite->setText(0, text);
 	ite->Titel = Tit;
-	ite->Next = 0;
-// 	if (lv)
-//   	{
-//   		ip = (BookMItem*)lv;
-//   		ip->Next = ite->ItemNr;
-//   		ite->Prev = ip->ItemNr;
-//   	}
-	NrItems++;
+	rebuildTree();
 }
 
 void BookMView::DeleteItem(PageItem *pObject)
 {
-// 	BookMItem *ite;
-// 	int nr = 0;
-// 	QTreeWidgetItemIterator itx(this);
-// 	while (*it)
-// 	{
-// 		ite = (BookMItem*)(*itx);
-// 		if (ite->PageObject == pObject)
-// 		{
-// 			nr = ite->ItemNr;
-// 			break;
-// 		}
-// 	}
-// 	BookMItem *ite2 = 0;
-// 	BookMItem *ite3;
-// 	BookMItem *ite4;
-// 	QTreeWidgetItemIterator it(this);
-// 	while (*it)
-// 	{
-// 		ite = (BookMItem*)(*it);
-// 		if (ite->Next == nr)
-// 			ite2 = ite;
-// 		if (ite->ItemNr == nr)
-// 		{
-// 			Q3ListViewItem *pp = ite->firstChild();
-// 			Q3ListViewItem *ppn = ite->nextSibling();
-// 			if ((ite->parent()) && (ite2 == 0) && (ppn))
-// 			{
-// 				ite3 = (BookMItem*)ite->parent();
-// 				ite4 = (BookMItem*)ppn;
-// 				ite3->First = ite4->ItemNr;
-// 			}
-// 			while (pp)
-// 			{
-//     		  	ite->parent() ? ite->parent()->insertItem(pp) :	pp->moveItem(ite);
-// 				pp = ite->firstChild();
-// 			}
-// 			if (ppn)
-// 			{
-// 				ite3 = (BookMItem*)ppn;
-// 				if (ite2)
-// 				{
-// 					ite2->Next = ite3->ItemNr;
-// 					ite3->Prev = ite2->ItemNr;
-// 				}
-// 				else
-// 					ite3->Prev = 0;
-// 			}
-// 			else
-// 				if (ite2)
-// 					ite2->Next = 0;
-// 			delete ite;
-// 			NrItems--;
-// 		}
-// 	}
-// 	QMap<int,int> Tabl;
-// 	Tabl.clear();
-// 	Tabl[0] = 0;
-// 	int Counter = 1;
-// 	Q3ListViewItemIterator itn(this);
-// 	for ( ; itn.current(); ++itn)
-// 	{
-// 		ite = (BookMItem*)itn.current();
-// 		Tabl[ite->ItemNr] = Counter;
-// 		Counter++;
-// 	}
-// 	Q3ListViewItemIterator itnf(this);
-// 	for ( ; itnf.current(); ++itnf)
-// 	{
-// 		ite = (BookMItem*)itnf.current();
-// 		ite->ItemNr = Tabl[ite->ItemNr];
-// 		ite->Pare = Tabl[ite->Pare];
-// 		ite->Next = Tabl[ite->Next];
-// 		ite->Prev = Tabl[ite->Prev];
-// 		ite->First = Tabl[ite->First];
-// 		ite->Last = Tabl[ite->Last];
-// 	}
+	QTreeWidgetItemIterator it(this);
+	BookMItem * item;
+	while (*it)
+	{
+		item = (BookMItem*)(*it);
+		if (item->PageObject == pObject)
+		{
+			delete (*it);
+			break;
+		}
+	}
+	rebuildTree();
 }
 
 void BookMView::SetAction(PageItem *currItem, QString Act)
@@ -598,9 +297,4 @@ void BookMView::ChangeText(PageItem *currItem)
 		}
 		++it;
 	}
-}
-
-void BookMView::languageChange()
-{
-// 	setColumnText(idBookMarkCol, tr("Bookmarks"));
 }

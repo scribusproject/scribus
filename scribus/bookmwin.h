@@ -24,24 +24,19 @@ for which a new license (GPL+exception) is in place.
 #ifndef BOOKMWIN_H
 #define BOOKMWIN_H
 
-// #include <Q3ListView>
-// #include <QDialog>
-// #include <QDragMoveEvent>
-// #include <QDropEvent>
-// #include <QEvent>
-// #include <QLayout>
-// #include <QMouseEvent>
-// #include <QPoint>
 #include <QTreeWidget>
 
 #include "pageitem.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
 
-/**
-*@author Franz Schmid
+/*! \brief Tree widget item for PDF Bookmarks.
+Secret items like Pare, First, Last etc. are PDF Outlines
+attributes. See PDF specification for more info.
+These attrs are recomputed in the BookMView::rebuildTree()
+method.
+@author Franz Schmid
 */
-
 class SCRIBUS_API BookMItem : public QTreeWidgetItem
 {
 public:
@@ -64,8 +59,19 @@ public:
 	int Prev;
 	int Next;
 	int Pare;
+
+	int level();
 };
 
+
+/*! \brief Tree widget for PDF Bookmarks.
+It's a minimal tree implementation with D'n'D handled
+in Qt4 itself. It could be rewritten into M/V/C stuff
+later, but it looks it's simpler and quicker now.
+MarkMoved() signal stores bookmarks in the ScribusDoc.
+@author Franz Schmid
+\author Petr Vanek <petr@scribus.info>
+*/
 class SCRIBUS_API BookMView : public QTreeWidget
 {
 	Q_OBJECT
@@ -76,17 +82,21 @@ public:
 	void AddItem(QString text, QString Tit, PageItem *PageObject);
 	void DeleteItem(PageItem *PageObject);
 	void SetAction(PageItem *currItem, QString Act);
+
 	int NrItems;
-	bool Mpressed;
-	QPoint Mpos;
-	BookMItem *DraggedI;
 	int First;
 	int Last;
+
+	/*! \brief Build scribus bookmark structure from tree items.
+	It looks horrible as it performs full rescan of the tree, but
+	it's pretty fast at all.
+	\author Petr vanek <petr@scribus.info>
+	*/
+	void rebuildTree();
 
 public slots:
 	void AddPageItem(PageItem* ite);
 	void ChangeText(PageItem *currItem);
-	void languageChange();
 
 signals:
 	void MarkMoved();
@@ -94,14 +104,7 @@ signals:
 	void changed();
 
 protected:
-	void contentsMouseReleaseEvent(QMouseEvent *m);
-	void contentsMousePressEvent(QMouseEvent* e);
-	void contentsMouseMoveEvent(QMouseEvent* e);
-	void contentsDropEvent(QDropEvent *e);
-	void contentsDragMoveEvent(QDragMoveEvent *e);
-	
-private:
-	int idBookMarkCol;
+	void dropEvent(QDropEvent *e);
 
 	private slots:
 		void setPageItem(QTreeWidgetItem * old, QTreeWidgetItem * newItem);

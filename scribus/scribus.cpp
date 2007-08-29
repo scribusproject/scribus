@@ -7933,6 +7933,7 @@ void ScribusMainWindow::RestoreBookMarks()
 		}
 	}
 	bookmarkPalette->BView->Last = bookmarkPalette->BView->NrItems;
+	bookmarkPalette->BView->rebuildTree();
 }
 
 //CB-->Doc, stop _storing_ bookmarks in the palette
