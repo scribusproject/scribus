@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "autoform.h"
 #include "autoformbuttongroup.h"
 
-Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
+Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent )
 {
 	Men = new QMenu();
 	buttonGroup1 = new AutoformButtonGroup( NULL );
@@ -17,17 +17,16 @@ Autoforms::Autoforms( QWidget* parent ) : QToolButton( parent, "auto" )
 	Men->addAction(MenAct);
 	setMenu(Men);
 	setPopupMode(QToolButton::InstantPopup);
-	setPixmap(buttonGroup1->getIconPixmap(0));
+	setIcon(QIcon(buttonGroup1->getIconPixmap(0)));
 	connect(buttonGroup1, SIGNAL(buttonClicked(int)), this, SLOT(selForm(int)));
 }
 
 void Autoforms::selForm(int a)
 {
-	int n;
-	double* AutoShapes;
 //	Men->activateItemAt(0);
-	setPixmap(buttonGroup1->getIconPixmap(a));
-	AutoShapes = buttonGroup1->getShapeData(a, &n);
+	setIcon(QIcon(buttonGroup1->getIconPixmap(a)));
+	int n;
+	double *AutoShapes = buttonGroup1->getShapeData(a, &n);
 	emit FormSel(a, n, AutoShapes);
 }
 

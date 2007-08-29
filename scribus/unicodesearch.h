@@ -33,7 +33,7 @@ public:
 	\param parent standard qt widget
 	\param name string name
 	\param modal is modal flag */
-	UnicodeSearch(QWidget* parent = 0, const char* name = 0, bool modal = false);
+	UnicodeSearch(QWidget* parent = 0);
 	~UnicodeSearch(){};
 	/*! \brief Check if is the m_unicodeMap filled and perform data read if it's empty.
 	It's in separate method to keep the constructor lightweight. This method is
@@ -92,7 +92,7 @@ public:
 	\param parent a QWidget parent
 	\param name string name of the widget
 	*/
-	UnicodeChooseButton(QWidget * parent, const char * name = 0);
+	UnicodeChooseButton(QWidget * parent);
 	~UnicodeChooseButton(){};
 	//! \brief Set currently used font. Passed in the m_searchDialog here only.
 	void setFont(ScFace f) { m_searchDialog->setFont(f); };

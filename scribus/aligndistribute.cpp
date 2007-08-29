@@ -50,8 +50,6 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	: ScrPaletteBase( parent, name )
 {
 	setupUi(this);
-	if ( !name )
-		setName( "AlignDistributePalette" );
 	currDoc=NULL;
 	
 	//hide spare controls 
@@ -78,18 +76,18 @@ AlignDistributePalette::~AlignDistributePalette()
 
 void AlignDistributePalette::languageChange()
 {
-	setCaption( tr( "Align and Distribute" ) );
-	tabWidget->changeTab(tabWidget->page(0), tr( "Align"));
-	tabWidget->changeTab(tabWidget->page(1), tr( "Distribute"));
+	setWindowTitle( tr( "Align and Distribute" ) );
+	tabWidget->setTabText(0, tr( "Align"));
+	tabWidget->setTabText(1, tr( "Distribute"));
 	alignRelativeToLabel->setText( tr( "&Relative to:" ) );
 	int alignComboValue=alignRelativeToCombo->currentIndex();
 	alignRelativeToCombo->clear();
-	alignRelativeToCombo->insertItem( tr( "First Selected" ) );
-	alignRelativeToCombo->insertItem( tr( "Last Selected" ) );
-	alignRelativeToCombo->insertItem( tr( "Page" ) );
-	alignRelativeToCombo->insertItem( tr( "Margins" ) );
-	alignRelativeToCombo->insertItem( tr( "Guide" ) );		
-	alignRelativeToCombo->insertItem( tr( "Selection" ) );
+	alignRelativeToCombo->addItem( tr( "First Selected" ) );
+	alignRelativeToCombo->addItem( tr( "Last Selected" ) );
+	alignRelativeToCombo->addItem( tr( "Page" ) );
+	alignRelativeToCombo->addItem( tr( "Margins" ) );
+	alignRelativeToCombo->addItem( tr( "Guide" ) );		
+	alignRelativeToCombo->addItem( tr( "Selection" ) );
 	alignRelativeToCombo->setCurrentIndex(alignComboValue);
 	alignToChanged(alignComboValue);
 	alignLeftOutToolButton->setText( QString::null );
@@ -121,7 +119,7 @@ void AlignDistributePalette::languageChange()
 	distributeDistValueHToolButton->setToolTip( tr( "Make horizontal gaps between items equal to the value specified" ) );
 	
 	distributeRightToolButton->setText( QString::null );
-	distributeRightToolButton->setTextLabel( tr( "Distribute right sides equidistantly" ) );
+	distributeRightToolButton->setToolTip( tr( "Distribute right sides equidistantly" ) );
 	distributeBottomToolButton->setText( QString::null );
 	distributeBottomToolButton->setToolTip( tr( "Distribute bottoms equidistantly" ) );
 	distributeCenterHToolButton->setText( QString::null );
@@ -179,12 +177,12 @@ void AlignDistributePalette::init()
 	distributeDistVToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-equal.png")));
  	
 	
-	distributeAcrossPageToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-page.png")));
-	distributeDownPageToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-page.png")));
-	distributeAcrossMarginsToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-margin.png")));
-	distributeDownMarginsToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-margin.png")));
-	distributeDistValueHToolButton->setIconSet(QIcon(loadIcon("22/distribute-horizontal-x.png")));
-	distributeDistValueVToolButton->setIconSet(QIcon(loadIcon("22/distribute-vertical-y.png")));
+	distributeAcrossPageToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-page.png")));
+	distributeDownPageToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-page.png")));
+	distributeAcrossMarginsToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-margin.png")));
+	distributeDownMarginsToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-margin.png")));
+	distributeDistValueHToolButton->setIcon(QIcon(loadIcon("22/distribute-horizontal-x.png")));
+	distributeDistValueVToolButton->setIcon(QIcon(loadIcon("22/distribute-vertical-y.png")));
 
 	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
 	connect(alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));

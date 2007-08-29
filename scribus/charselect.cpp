@@ -106,7 +106,7 @@ CharSelect::CharSelect(QWidget* parent)
 	hideCheck = new QCheckBox( tr("Hide Enhanced"), m_quickPalette, "hideCheck");
 	quickLayout->addWidget(hideCheck, 0, 0, 1, 2);
 
-	unicodeButton = new UnicodeChooseButton(m_quickPalette, "unicodeButton");
+	unicodeButton = new UnicodeChooseButton(m_quickPalette);
 	quickLayout->addWidget(unicodeButton, 1, 0, 1, 1);
 
 	uniLoadButton = new QPushButton(m_quickPalette, "uniLoadButton");

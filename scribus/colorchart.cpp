@@ -31,7 +31,7 @@ ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QWidget(parent), m_do
 	Xp = 0;
 	Yp = 0;
 	doDrawMark = false;
-	setBackgroundMode(Qt::NoBackground);
+	setAutoFillBackground(false);
 	drawPalette(255);
 }
 

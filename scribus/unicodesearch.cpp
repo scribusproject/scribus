@@ -20,14 +20,14 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-UnicodeChooseButton::UnicodeChooseButton(QWidget * parent, const char * name)
-	: QPushButton(parent, name),
+UnicodeChooseButton::UnicodeChooseButton(QWidget * parent)
+	: QPushButton(parent),
 	m_searchDialog(0)
 {
 	languageChange();
 	setCheckable(true);
 
-	m_searchDialog = new UnicodeSearch(this, "m_searchDialog", false);
+	m_searchDialog = new UnicodeSearch(this);
 	Q_CHECK_PTR(m_searchDialog);
 
 	connect(this, SIGNAL(toggled(bool)), this, SLOT(self_toggled(bool)));
@@ -65,13 +65,11 @@ void UnicodeChooseButton::self_toggled(bool state)
 		m_searchDialog->hide();
 }
 
-UnicodeSearch::UnicodeSearch( QWidget* parent, const char* name, bool modal)
-	: QDialog( parent, name, modal), // WStyle_Customize | WStyle_NoBorder),
+UnicodeSearch::UnicodeSearch( QWidget* parent)
+	: QDialog( parent),
 	m_zoom(0)
 {
 	setupUi(this);
-	if (!name)
-		setName("UnicodeSearch");
 
 	unicodeList->horizontalHeader()->hide();
 	unicodeList->verticalHeader()->hide();
@@ -99,13 +97,13 @@ void UnicodeSearch::readUnicodeMap()
 	QFile file(ScPaths::instance().shareDir() + "unicodenameslist.txt");
 	if (file.open( QIODevice::ReadOnly ) )
 	{
-		QStringList list(QStringList::split('\n', file.readAll()));
+		QStringList list = QString(file.readAll()).split('\n');
 		file.close();
 
 		QStringList line;
 		for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
 		{
-			line = QStringList::split(':', *it);
+			line = (*it).split(':');
 			m_unicodeMap[line[0]] = line[1].toLower();
 		}
 	}
@@ -123,7 +121,7 @@ void UnicodeSearch::query()
 	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
 	{
 		QTableWidgetItem *item = new QTableWidgetItem(it.key());
-		QTableWidgetItem *item2 = new QTableWidgetItem(it.data());
+		QTableWidgetItem *item2 = new QTableWidgetItem(it.value());
 		item->setFlags(Qt::ItemIsSelectable);
 		item2->setFlags(Qt::ItemIsSelectable);
 		unicodeList->setItem(r,0,item);
@@ -145,10 +143,10 @@ void UnicodeSearch::query(QString filter)
 	int r=0;
 	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
 	{
-		if (!it.key().contains(filter, false) && !it.data().contains(filter, false))
+		if (!it.key().contains(filter, Qt::CaseInsensitive) && !it.value().contains(filter, Qt::CaseInsensitive))
 			continue;
 		QTableWidgetItem *item = new QTableWidgetItem(it.key());
-		QTableWidgetItem *item2 = new QTableWidgetItem(it.data());
+		QTableWidgetItem *item2 = new QTableWidgetItem(it.value());
 		unicodeList->setItem(r,0,item);
 		unicodeList->setItem(r,1,item2);
 		item->setFlags(Qt::ItemIsSelectable);
