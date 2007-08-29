@@ -1059,10 +1059,18 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, short* params )
     }
 
 	m_context.save();
+	// A bit hacky but should be sufficient to have text not flipped
+	// top down in some wmfs (see cell.wmf sample from libwmf)
+	if ( m_context.worldMatrix().m22() < 0.0)
+	{
+		m_context.translate(params[1], params[0]);
+        m_context.scale (1.0, -1.0);
+        m_context.translate( -params[1], -params[0]);
+	}
 	if ( textRotation != 0.0) {
         m_context.translate(params[1], params[0]);
         m_context.rotate ( textRotation );
-        m_context.translate(-params[1], -params[0] );
+        m_context.translate( -params[1], -params[0]);
     }
 
     if ( textAlign & 0x06 )
