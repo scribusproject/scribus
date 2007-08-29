@@ -51,6 +51,7 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 	}
 
 	connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(fileWidget, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 QString gtFileDialog::selectedFile()

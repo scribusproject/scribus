@@ -21,6 +21,7 @@ RunScriptDialog::RunScriptDialog(QWidget* parent = 0, bool extEnable = false) :
 		extChk->setVisible(false);
 
 	connect(fileWidget, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(fileWidget, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 RunScriptDialog::~RunScriptDialog()
