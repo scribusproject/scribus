@@ -1224,6 +1224,7 @@ void WMFImport::createFontIndirect( QList<PageItem*>& /*items*/, long , short* p
 
     handle->rotation = -params[ 2 ]  / 10; // text rotation (in 1/10 degree)
     handle->font.setFamily( family );
+	handle->font.setStyleStrategy( QFont::ForceOutline );
     handle->font.setFixedPitch( ((params[ 8 ] & 0x01) == 0) );
     // TODO: investigation why some test case need -2. (size of font in logical point)
 	int fontSize = (params[0] != 0) ? (qAbs(params[0]) - 2) : 12;
