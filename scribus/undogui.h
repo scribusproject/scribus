@@ -27,22 +27,16 @@ for which a new license (GPL+exception) is in place.
 #ifndef UNDOGUI_H
 #define UNDOGUI_H
 
+#include <QListWidgetItem>
 #include "scribusapi.h"
 #include "undoobject.h"
 #include "undostate.h"
 #include "scrpalettebase.h"
-#include <vector>
-#include <QWidget>
-#include <QDialog>
-#include <QString>
-#include <Q3ListBox>
-#include <QToolButton>
-#include <QPainter>
-#include <QPixmap>
-#include <QMenu>
 
+class QMenu;
+class QListWidget;
 class QCheckBox;
-class PrefsContext;
+
 
 /**
  * @brief UndoGui is a virtual superclass for undo/redo widgets.
@@ -263,7 +257,7 @@ class SCRIBUS_API UndoPalette : public UndoGui
 private:
 	int currentSelection;
 	int redoItems;
-	Q3ListBox* undoList;
+	QListWidget* undoList;
 	QCheckBox* objectBox;
 	QPushButton* undoButton;
 	QPushButton* redoButton;
@@ -275,7 +269,7 @@ private:
 /*** UndoPalette::UndoItem ****************************************************/
 	
 	/** @brief UndoItem provides a custom QListBoxItem for the undo history view. */
-	class UndoItem : public Q3ListBoxItem
+	class UndoItem : public QListWidgetItem
 	{
 	private:
 		/** @brief An icon for the undo target */
@@ -318,8 +312,8 @@ private:
 		         bool isUndoAction);
 		~UndoItem();
 		void paint(QPainter *painter);
-		int height(const Q3ListBox*) const;
-		int width(const Q3ListBox*) const;
+		int height(const QListWidget*) const;
+		int width(const QListWidget*) const;
 		QString getDescription();
 		bool isUndoAction();
 		void setUndoAction(bool isUndo);
@@ -331,7 +325,7 @@ private slots:
 	void undoClicked();
 	void redoClicked();
 	void undoListClicked(int i);
-	void showToolTip(Q3ListBoxItem *i);
+	void showToolTip(QListWidgetItem *i);
 	void removeToolTip();
 	void objectCheckBoxClicked(bool on);
 

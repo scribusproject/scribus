@@ -24,22 +24,22 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#include <QLayout>
-#include <QPixmap>
+// #include <QLayout>
+// #include <QPixmap>
 #include <QPushButton>
-#include <QRect>
-#include <QStyle>
-#include <QToolTip>
+// #include <QRect>
+// #include <QStyle>
+// #include <QToolTip>
 #include <QCheckBox>
-#include <QFont>
-#include <QFontMetrics>
-#include <QHBoxLayout>
+// #include <QFont>
+// #include <QFontMetrics>
+// #include <QHBoxLayout>
 #include <QVBoxLayout>
- 
+
 #include "undogui.h"
 #include "prefsmanager.h"
-#include "prefsfile.h"
-#include "prefscontext.h"
+// #include "prefsfile.h"
+// #include "prefscontext.h"
 #include "scribuscore.h"
 #include "menumanager.h"
 #include "scraction.h"
@@ -244,9 +244,10 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	layout->addWidget(objectBox);
 // 	objectBox->setEnabled(false);
 
-	undoList = new Q3ListBox(this, "undoList");
-	undoList->setMultiSelection(false);
-	undoList->setSelectionMode(Q3ListBox::Single);
+	undoList = new QListWidget(this);
+// 	undoList->setMultiSelection(false);
+// 	undoList->setSelectionMode(QListWidget::Single);
+	undoList->setSelectionMode(QAbstractItemView::SingleSelection);
 	layout->addWidget(undoList);
 	
 	QHBoxLayout* buttonLayout = new QHBoxLayout(0, 0, 5, "buttonLayout"); 
@@ -264,9 +265,12 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(updateFromPrefs()));
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
-	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
-	connect(undoList, SIGNAL(onItem(Q3ListBoxItem*)), this, SLOT(showToolTip(Q3ListBoxItem*)));
-	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
+// 	connect(undoList, SIGNAL(highlighted(int)), this, SLOT(undoListClicked(int)));
+	connect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
+// 	connect(undoList, SIGNAL(onItem(Q3ListBoxItem*)), this, SLOT(showToolTip(Q3ListBoxItem*)));
+	connect(undoList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(showToolTip(QListWidgetItem*)));
+// 	connect(undoList, SIGNAL(onViewport()), this, SLOT(removeToolTip()));
+	connect(undoList, SIGNAL(viewportEntered()), this, SLOT(removeToolTip()));
 	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
 	connect(ScCore->primaryMainWindow()->scrActions["editActionMode"], SIGNAL(toggled(bool)),
 	        objectBox, SLOT(setChecked(bool)));
@@ -277,7 +281,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 void UndoPalette::clear()
 {
 	undoList->clear();
-	undoList->insertItem( tr("Initial State"));
+	undoList->addItem( tr("Initial State"));
 	undoButton->setEnabled(false);
 	redoButton->setEnabled(false);
 }
@@ -299,10 +303,10 @@ void UndoPalette::languageChange()
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 {
 	clearRedo();
-	undoList->insertItem(new UndoItem(target->getUName(), state->getName(),
+	undoList->addItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap(), true));
-	currentSelection = undoList->numRows() - 1;
+	currentSelection = undoList->count() - 1;
 	updateList();
 }
 
@@ -310,10 +314,11 @@ void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 {
 	if (undoList->count() == 1)
 	{
-		undoList->setSelected(0, true);
+// 		undoList->setSelected(0, true);
+		undoList->setCurrentItem(undoList->item(0));
 		currentSelection = 0;
 	}
-	undoList->insertItem(new UndoItem(target->getUName(), state->getName(),
+	undoList->addItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap(), false));
 	updateList();
@@ -321,7 +326,7 @@ void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 
 void UndoPalette::updateUndo(int steps)
 {
-	if (undoList->currentItem() == currentSelection)
+	if (undoList->row(undoList->currentItem()) == currentSelection)
 	{
 		currentSelection -= steps;
 		updateList();
@@ -330,7 +335,7 @@ void UndoPalette::updateUndo(int steps)
 
 void UndoPalette::updateRedo(int steps)
 {
-	if (undoList->currentItem() == currentSelection)
+	if (undoList->row(undoList->currentItem()) == currentSelection)
 	{
 		currentSelection += steps;
 		updateList();
@@ -341,20 +346,23 @@ void UndoPalette::popBack()
 {
 	if (undoList->count() > 1)
 	{
-		undoList->removeItem(0);
-		currentSelection = undoList->numRows() - 1;
+// 		undoList->removeItem(0);
+		delete undoList->takeItem(0);
+		currentSelection = undoList->count() - 1;
 	}
 }
 
 void UndoPalette::updateList()
 {
-	undoList->setCurrentItem(currentSelection);
-	undoList->setSelected(currentSelection, true);
-	redoButton->setEnabled(currentSelection < undoList->numRows() - 1);
+// 	undoList->setCurrentItem(currentSelection);
+	undoList->setCurrentRow(currentSelection);
+// 	undoList->setSelected(currentSelection, true);
+	redoButton->setEnabled(currentSelection < undoList->count() - 1);
 	undoButton->setEnabled(currentSelection > 0);
-	if (!undoList->itemVisible(currentSelection))
-		undoList->setBottomItem(currentSelection);
-	for (int i = 0; i < undoList->numRows(); ++i)
+// 	if (!undoList->item(currentSelection)->isVisible()) //itemVisible(currentSelection))
+// 		undoList->setBottomItem(currentSelection);
+	undoList->scrollToItem(undoList->item(currentSelection));
+	for (int i = 0; i < undoList->count(); ++i)
 	{
 		UndoItem *item = dynamic_cast<UndoItem*>(undoList->item(i));
 		if (!item)
@@ -372,8 +380,9 @@ void UndoPalette::updateUndoActions()
 
 void UndoPalette::clearRedo()
 {
-	for (int i = (undoList->numRows() - 1); i > currentSelection; --i)
-		undoList->removeItem(i);
+	for (int i = (undoList->count() - 1); i > currentSelection; --i)
+// 		undoList->removeItem(i);
+		delete undoList->takeItem(i);
 }
 
 void UndoPalette::undoClicked()
@@ -403,7 +412,7 @@ void UndoPalette::objectCheckBoxClicked(bool on)
 	emit objectMode(on);
 }
 
-void UndoPalette::showToolTip(Q3ListBoxItem *i)
+void UndoPalette::showToolTip(QListWidgetItem *i)
 {
 	UndoItem *item = dynamic_cast<UndoItem*>(i);
 	if (item)
@@ -428,7 +437,7 @@ UndoPalette::~UndoPalette()
 
 /*** UndoPalette::UndoItem ****************************************************/
 
-UndoPalette::UndoItem::UndoItem() : Q3ListBoxItem()
+UndoPalette::UndoItem::UndoItem() : QListWidgetItem()
 {
 	target = "";
 	action = "";
@@ -438,7 +447,7 @@ UndoPalette::UndoItem::UndoItem() : Q3ListBoxItem()
 	isUndoAction_ = true;
 }
 
-UndoPalette::UndoItem::UndoItem(const UndoItem &another) : Q3ListBoxItem()
+UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListWidgetItem()
 {
 	target = another.target;
 	action = another.action;
@@ -454,13 +463,13 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
                                 QPixmap *targetPixmap,
                                 QPixmap *actionPixmap,
                                 bool isUndoAction)
-: Q3ListBoxItem(),
-targetpixmap(targetPixmap),
-actionpixmap(actionPixmap),
-target(targetName),
-action(actionName),
-description(actionDescription),
-isUndoAction_(isUndoAction)
+	: QListWidgetItem(),
+	targetpixmap(targetPixmap),
+	actionpixmap(actionPixmap),
+	target(targetName),
+	action(actionName),
+	description(actionDescription),
+	isUndoAction_(isUndoAction)
 {
 
 }
@@ -490,7 +499,7 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
 }
 
-int UndoPalette::UndoItem::height(const Q3ListBox *lb) const
+int UndoPalette::UndoItem::height(const QListWidget *lb) const
 {
 	if (lb)
 	{
@@ -508,7 +517,7 @@ int UndoPalette::UndoItem::height(const Q3ListBox *lb) const
 		return 0;
 }
 
-int UndoPalette::UndoItem::width(const Q3ListBox *lb) const
+int UndoPalette::UndoItem::width(const QListWidget *lb) const
 {
 	if (lb)
 		return target.length() > action.length() ?
