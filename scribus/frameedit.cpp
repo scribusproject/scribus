@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "util_icon.h"
+#include "lensdialog.h"
 
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalette", false, 0)
 {
@@ -228,43 +229,46 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	gridLayout2->setSpacing(5);
 	gridLayout2->setMargin(0);
 
+	lensEffect = new QPushButton(this);
+	gridLayout2->addWidget(lensEffect, 0, 0, 1, 2);
+
 	AbsMode = new QCheckBox( "&Absolute Coordinates", this, "Textflow" );
 	AbsMode->setChecked(false);
-	gridLayout2->addWidget(AbsMode, 0, 0, 1, 2);
+	gridLayout2->addWidget(AbsMode, 1, 0, 1, 2);
 
 	TextLabel1 = new QLabel(this);
-	gridLayout2->addWidget(TextLabel1, 1, 0, 1, 1);
+	gridLayout2->addWidget(TextLabel1, 2, 0, 1, 1);
 
 	XSpin = new ScrSpinBox( 0, 30000, this, 2 );
 	XSpin->setEnabled(false);
-	gridLayout2->addWidget(XSpin, 1, 1, 1, 1);
+	gridLayout2->addWidget(XSpin, 2, 1, 1, 1);
 
 	TextLabel2 = new QLabel(this);
-	gridLayout2->addWidget(TextLabel2, 2, 0, 1, 1);
+	gridLayout2->addWidget(TextLabel2, 3, 0, 1, 1);
 
 	YSpin = new ScrSpinBox( 0, 30000, this, 2 );
 	YSpin->setEnabled(false);
-	gridLayout2->addWidget(YSpin, 2, 1, 1, 1);
+	gridLayout2->addWidget(YSpin, 3, 1, 1, 1);
 	TextLabel1->setBuddy(XSpin);
 	TextLabel2->setBuddy(YSpin);
 
 	EditCont = new QCheckBox(this);
 	EditCont->setChecked(false);
-	gridLayout2->addWidget(EditCont, 3, 0, 1, 2);
+	gridLayout2->addWidget(EditCont, 4, 0, 1, 2);
 
 	ResetCont = new QPushButton(this);
 	ResetCont->setEnabled(false);
-	gridLayout2->addWidget(ResetCont, 4, 0, 1, 2);
+	gridLayout2->addWidget(ResetCont, 5, 0, 1, 2);
 
 	ResetContClip = new QPushButton(this);
 	ResetContClip->setEnabled(true);
 	ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
 	ResetContClip->hide();
-	gridLayout2->addWidget(ResetContClip, 5, 0, 1, 2);
+	gridLayout2->addWidget(ResetContClip, 6, 0, 1, 2);
 
 	editEditButton = new QPushButton(this);
 	editEditButton->setDefault(true);
-	gridLayout2->addWidget(editEditButton, 6, 0, 1, 2);
+	gridLayout2->addWidget(editEditButton, 7, 0, 1, 2);
 
 	vboxLayout->addLayout(gridLayout2);
 	resize(QSize(170, 380).expandedTo(minimumSizeHint()));
@@ -300,6 +304,7 @@ void NodePalette::connectSignals()
 	connect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	connect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
 	connect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));
+	connect(lensEffect, SIGNAL(clicked()), this, SLOT(doLensEffect()));
 	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
@@ -334,6 +339,7 @@ void NodePalette::disconnectSignals()
 	disconnect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	disconnect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
 	disconnect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));
+	disconnect(lensEffect, SIGNAL(clicked()), this, SLOT(doLensEffect()));
 	//	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
 	//	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
@@ -412,6 +418,29 @@ void NodePalette::CloseBezier()
 	BezierClose->setEnabled(false);
 	PolySplit->setEnabled(true);
 	EditCont->setEnabled(true);
+}
+
+void NodePalette::doLensEffect()
+{
+	if (doc==0)
+		return;
+	FPointArray points;
+	PageItem *currItem = doc->m_Selection->itemAt(0);
+	if (view->EditContour)
+		points = currItem->ContourLine;
+	else
+		points = currItem->PoLine;
+	LensDialog *dia = new LensDialog(0, points);
+	if (dia->exec())
+	{
+		points.fromQPainterPath(dia->modifiedPath);
+		if (view->EditContour)
+			currItem->ContourLine = points;
+		else
+			currItem->PoLine = points;
+		doc->AdjustItemSize(doc->m_Selection->itemAt(0));
+	}
+	delete dia;
 }
 
 void NodePalette::doRotCCW()
@@ -815,6 +844,8 @@ void NodePalette::languageChange()
 	ResetCont->setText( tr("&Reset Contour Line"));
 	ResetContClip->setText( tr("Set Contour to Image Clip"));
 //	ResetContClip->setText( tr("Image Clip = Contour"));
+	lensEffect->setText( tr("Lens Effects..."));
+	lensEffect->setToolTip( tr("Apply fancy Lens Effects"));
 	editEditButton->setText( tr("&End Editing"));
 	MoveNode->setToolTip( tr("Move Nodes"));
 	MoveControl->setToolTip( tr("Move Control Points"));

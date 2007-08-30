@@ -32,6 +32,7 @@ SET(SCRIBUS_UI_SRC
   ui/helpbrowser.ui
   hysettingsBase.ui
   insertaframe.ui
+  lensdialogbase.ui
   multipleduplicate.ui
   multiprogressdialog.ui
   pageitemattributes.ui
@@ -127,6 +128,7 @@ SET(SCRIBUS_MOC_CLASSES
   inspage.h
   javadocs.h
   layers.h
+  lensdialog.h
   loadsaveplugin.h
   loremipsum.h
   margindialog.h
@@ -346,6 +348,7 @@ SET(SCRIBUS_SOURCES
   javadocs.cpp
   langmgr.cpp
   layers.cpp
+  lensdialog.cpp
   linecombo.cpp
   linkbutton.cpp
   loadsaveplugin.cpp

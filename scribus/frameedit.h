@@ -63,6 +63,7 @@ public:
 	QSpinBox *RotVal;
 	QSpinBox *scalePercentage;
 	ScrSpinBox *scaleDistance;
+	QPushButton* lensEffect;
 	QPushButton* ResetCont;
 	QPushButton* ResetContClip;
 	QPushButton* editEditButton;
@@ -93,6 +94,7 @@ private slots:
 	void doExpand();
 	void doReduce();
 	void doEnlarge();
+	void doLensEffect();
 	void ShearR();
 	void ShearL();
 	void ShearU();
