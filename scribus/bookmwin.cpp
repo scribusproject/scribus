@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
+#include <QApplication>
 #include <QHeaderView>
 
 #include "bookmwin.h"
@@ -160,7 +160,7 @@ void BookMView::setPageItem(QTreeWidgetItem * /*old*/, QTreeWidgetItem * newItem
 	if (i)
 		emit SelectElement(i->PageObject);
 }
-#include <QApplication>
+
 void BookMView::dropEvent(QDropEvent *e)
 {
 	QTreeWidget::dropEvent(e);
@@ -297,4 +297,5 @@ void BookMView::ChangeText(PageItem *currItem)
 		}
 		++it;
 	}
+	rebuildTree();
 }

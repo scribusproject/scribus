@@ -3564,7 +3564,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 			if (ite->locked())
 				ite->setLocked(false);
 			if ((ite->asTextFrame()) && (ite->isBookmark))
-				bookmarkPalette->BView->AddPageItem(ite);
+				AddBookMark(ite);
 		}
 //		if ((docItemsCount - oldItemsCount) > 1)
 //			doc->GroupCounter++;
@@ -7856,21 +7856,18 @@ void ScribusMainWindow::doSaveAsPDF()
 void ScribusMainWindow::AddBookMark(PageItem *ite)
 {
 	bookmarkPalette->BView->AddPageItem(ite);
-	StoreBookmarks();
 }
 
 //CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::DelBookMark(PageItem *ite)
 {
 	bookmarkPalette->BView->DeleteItem(ite);
-	StoreBookmarks();
 }
 
 //CB-->Doc, stop _storing_ bookmarks in the palette
 void ScribusMainWindow::BookMarkTxT(PageItem *ite)
 {
 	bookmarkPalette->BView->ChangeText(ite);
-	StoreBookmarks();
 }
 
 //CB-->Doc, stop _storing_ bookmarks in the palette
