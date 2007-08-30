@@ -1,41 +1,41 @@
 <qt>
-<title>Development Questions</title>
+<title>Fragen für Entwickler</title>
 <a name="top"></a>
-<h2>Development Questions</h2>
+<h2>Fragen für Entwickler</h2>
 <ul>
-	<li><a href="#16">Packaging Scribus rpms,debs or plug-ins - What should I do ?</a></li>
-	<li><a href="#12">I have a great idea for adding something to Scribus. How can I write a plug-in?</a></li>
-	<li><a href="#18">I am interested in contributing. Is there documentation on coding style or other reference?</a></li>
+	<li><a href="#16">Ich möchte RPM-, DEB- oder Plug-in-Pakete schnüren. Was sollte ich tun?</a></li>
+	<li><a href="#12">Ich habe eine großartige Idee für eine Scribus-Erweiterung. Wie kann ich ein Plug-in schreiben?</a></li>
+	<li><a href="#18">Ich möchte etwas zu Scribus beitragen. Gibt es eine Dokumentation für Entwickler oder eine andere Referenz?</a></li>
 </ul>
 
-<h3>Answers</h3>
+<h3>Antworten</h3>
 
 <ul>
 	<li><a name="16"></a>
-		<p class="faqquestion">Packaging Scribus rpms, debs or plug-ins - What should I do?</p>
-		<p>Downstream packagers are asking for and may soon demand GPG signed tarballs. For Fedora, this is not a requirement, but does ease acceptance of packages. It also shows we are doing &quot;The Right Thing&quot;. md5sums are not foolproof.</p>
-		<p>To create a gpg signed tarball: <br/>
+		<p class="faqquestion">Ich möchte RPM-, DEB- oder Plug-in-Pakete schnüren. Was sollte ich tun?</p>
+		<p>Paketbauer fragen nach GPG-signierten Tar-Archiven und werden bald darauf bestehen. Bei Fedora ist dies nicht der Fall, aber die Archive werden auf diese Weise eher akzeptiert. Es zeigt auch, daß wir das Richtige tun. MD5-Summen sind nicht idiotensicher.</p>
+		<p>Erzeugen Sie ein GPG-signiertes Tar-Archiv: <br/>
 		<code>$gpg -u package&#114;&#064;&#102;oo.net --armor --output tarball.sig --detach-sig tarball.tar.gz </code></p>
-		<p>To verify : <br/>
+		<p>Zum Verifizieren: <br/>
 		<code>$gpg --verify ./tarball.asc ./tarball.tar.gz</code></p>
 		
-		<p><strong>Packaging plug-ins:</strong></p>
-		<p>Plug-ins should be named <i>scribus-something</i>. This helps packagers deal with revisions and obsoletes when upgrading.</p>
-		<p><strong>Signing your package,deb,tar etc.</strong></p>
-		<p>First, you need to have a public/private keypair. This can be generated with GPG using &lt;code&gt;gpg --gen-key&lt;/code&gt;</p>
-		<p>To add a signature to an existing package, use the command <code>rpm --addsign /path/to/package.rpm</code> To sign in the process of building a package, use <code>rpmbuild -bb --sign</code></p>
-		<p>To check the signature on a package, use <code>rpm --checksig</code></p>
-		<a href="#top">Back to top</a><hr/>
+		<p><strong>Plug-ins paketieren:</strong></p>
+		<p>Plug-ins sollten eine Bezeichnung wie <i>scribus-irgendwas</i> tragen. Dies hilft Paketbauern, mit Revisionen obsoleten Plug-ins umzugehen, wenn sie ihre Pakete aktualisieren.</p>
+		<p><strong>Ein Paket signieren:</strong></p>
+		<p>Zunächst benötigen Sie einen öffentlichen und einen privaten Schlüssel. Diese können Sie mit GPG per <code>gpg --gen-key</code> erzeugen.</p>
+		<p>Um einen Schlüssel einem Paket hinzuzufügen, verwenden Sie den Befehl <code>rpm --addsign /path/to/package.rpm</code>. Um während des Paketbauens zu signieren, verwenden Sie den Befehl <code>rpmbuild -bb --sign</code></p>.
+		<p>Um die Signatur eines Paketes zu überprüfen, verwenden Sie <code>rpm --checksig</code></p>
+		<a href="#top">Nach oben</a><hr/>
 	</li>
 	<li><a name="12"></a>
-		<p class="faqquestion">I have a great idea for adding something to Scribus. How can I write a plug-in?</p>
-		<p>Thanks to Petr Vanek, there is nicely done article: <a href="plugin_howto.html">Scribus Plug-in Howto</a> online.</p>
-		<a href="#top">Back to top</a><hr/>
+		<p class="faqquestion">Ich habe eine großartige Idee für eine Scribus-Erweiterung. Wie kann ich ein Plug-in schreiben?</p>
+		<p>Dank Petr Vanek ist der gute Artikel <a href="plugin_howto.html">Scribus-Plug-in-Howto</a> verfügbar.</p>
+		<a href="#top">Nach oben</a><hr/>
 	</li>
 	<li><a name="18"></a>
-		<p class="faqquestion">I am interested in contributing. Is there documentation on coding style or other reference?</p>
-		<p>Glad you asked. There is a <a href="codingstandards.html">Scribus Coding section</a> which outlines coding style and recommendations for code submissions.</p>
-		<a href="#top">Back to top</a><hr/>
+		<p class="faqquestion">Ich möchte etwas zu Scribus beitragen. Gibt es eine Dokumentation für Entwickler oder eine andere Referenz?</p>
+		<p>Gut, daß Sie fragen. Es gibt eigenes <a href="codingstandards.html">Kapitel</a> zu diesem Thema, das den Programmierstil erläutert und Empfehlungen zu Code-Beiträgen enthält.</p>
+		<a href="#top">Nach oben</a><hr/>
 	</li>
 </ul>
 </qt>
