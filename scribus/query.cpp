@@ -17,7 +17,7 @@ Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QSt
 {
 	if ( !name )
 		setName( "Query" );
-	setCaption( titel );
+	setWindowTitle( titel );
 	setIcon(loadIcon("AppIcon.png"));
 	setModal(modal);
 	queryLayout = new QVBoxLayout( this );

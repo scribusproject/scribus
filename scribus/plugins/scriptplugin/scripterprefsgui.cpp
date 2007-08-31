@@ -57,7 +57,7 @@ ScripterPrefsGui::~ScripterPrefsGui()
  */
 void ScripterPrefsGui::languageChange()
 {
-	setCaption( tr("Scripter Preferences"));
+	setWindowTitle( tr("Scripter Preferences"));
 /*	extensionScriptsChk->setText( tr("Enable Extension Scripts"));
 	startupScriptEditLabel->setText( tr("Startup Script:"));
 	errorLabel->setText( tr("Errors:", "syntax highlighting"));

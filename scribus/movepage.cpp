@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool moving ) : QDialog( parent )
 {
 	move = moving;	
-	setCaption (move ? tr("Move Pages") : tr("Copy Page"));
+	setWindowTitle (move ? tr("Move Pages") : tr("Copy Page"));
 	setIcon(loadIcon("AppIcon.png"));
 	setModal(true);
 	dialogLayout = new QVBoxLayout( this, 10, 5 );
@@ -101,8 +101,8 @@ void MovePages::fromChanged(int pageNumber)
 	{
 		if (pageNumber > toPageData->value())
 			toPageData->setValue(pageNumber);
-		if ((pageNumber == 1) && (toPageData->value() == toPageData->maxValue()))
-			toPageData->setValue(toPageData->maxValue()-1);
+		if ((pageNumber == 1) && (toPageData->value() == toPageData->maximum()))
+			toPageData->setValue(toPageData->maximum()-1);
 	}
 }
 
@@ -110,7 +110,7 @@ void MovePages::toChanged(int pageNumber)
 {
 	if (pageNumber < fromPageData->value())
 		fromPageData->setValue(pageNumber);
-	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maxValue()))
+	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maximum()))
 		fromPageData->setValue(2);
 }
 

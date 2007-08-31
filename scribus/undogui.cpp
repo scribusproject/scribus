@@ -294,7 +294,7 @@ void UndoPalette::updateFromPrefs()
 
 void UndoPalette::languageChange()
 {
-	setCaption( tr("Action History"));	
+	setWindowTitle( tr("Action History"));	
 	objectBox->setText( tr("Show selected object only"));
 	undoButton->setText( tr("&Undo"));
 	redoButton->setText( tr("&Redo"));

@@ -67,7 +67,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	docUnitIndex = prefsData->docUnitIndex;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 
-	setCaption( tr( "Preferences" ) );
+	setWindowTitle( tr( "Preferences" ) );
 
 	tabGeneral = new TabGeneral( prefsWidgets, "tabGeneral" );
 	addItem( tr("General"), loadIcon("scribusicon.png"), tabGeneral);

@@ -90,7 +90,7 @@ void ScribusWin::slotAutoSave()
 		if (fl.SaveFile(m_Doc->DocName, m_Doc, 0))
 		{
 			m_Doc->setModified(false);
-			setCaption(QDir::convertSeparators(m_Doc->DocName));
+			setWindowTitle(QDir::convertSeparators(m_Doc->DocName));
 			qApp->processEvents();
 			emit AutoSaved();
 		}

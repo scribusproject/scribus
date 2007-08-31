@@ -26,7 +26,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 {
 	masterPageCombos.clear();
 	setModal(true);
-	setCaption( tr( "Insert Page" ) );
+	setWindowTitle( tr( "Insert Page" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout(this);
 	dialogLayout->setSpacing( 5 );

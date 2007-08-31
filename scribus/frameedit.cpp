@@ -178,7 +178,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	RotateCW->setAutoRepeat(true);
 	gridLayout1->addWidget(RotateCW, 0, 1, 1, 1);
 
-	RotVal = new QSpinBox(this, "RotVal");
+	RotVal = new QSpinBox(this);
 	RotVal->setMinimum(1);
 	RotVal->setMaximum(180);
 	RotVal->setValue(1);
@@ -199,7 +199,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	Shrink->setAutoRepeat(true);
 	gridLayout1->addWidget(Shrink, 1, 1, 1, 1);
 
-	scalePercentage = new QSpinBox( this, "scalePercentage");
+	scalePercentage = new QSpinBox(this);
 	scalePercentage->setMinimum(1);
 	scalePercentage->setMaximum(100);
 	scalePercentage->setValue(10);
@@ -232,7 +232,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	lensEffect = new QPushButton(this);
 	gridLayout2->addWidget(lensEffect, 0, 0, 1, 2);
 
-	AbsMode = new QCheckBox( "&Absolute Coordinates", this, "Textflow" );
+	AbsMode = new QCheckBox( "&Absolute Coordinates", this );
 	AbsMode->setChecked(false);
 	gridLayout2->addWidget(AbsMode, 1, 0, 1, 2);
 
@@ -834,7 +834,7 @@ void NodePalette::EndEdit()
 
 void NodePalette::languageChange()
 {
-	setCaption( tr( "Nodes" ) );
+	setWindowTitle( tr( "Nodes" ) );
 	scalePercentage->setSuffix( tr(" %"));
 
 	AbsMode->setText( tr("&Absolute Coordinates"));

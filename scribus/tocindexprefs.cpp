@@ -78,7 +78,7 @@ TOCIndexPrefs::~TOCIndexPrefs()
 */
 void TOCIndexPrefs::languageChange()
 {
-	setCaption( tr( "Table of Contents and Indexes" ) );
+	setWindowTitle( tr( "Table of Contents and Indexes" ) );
 	tocAddButton->setText( tr( "&Add" ) );
 	tocAddButton->setAccel( QKeySequence( tr( "Alt+A" ) ) );
 	tocDeleteButton->setText( tr( "&Delete" ) );

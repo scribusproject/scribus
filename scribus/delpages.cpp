@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 		: QDialog( parent, "DelPages", true, 0 )
 {
-	setCaption( tr( "Delete Pages" ) );
+	setWindowTitle( tr( "Delete Pages" ) );
 	setModal(true);
 	setIcon(loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout( this );
@@ -62,15 +62,15 @@ void DelPages::fromChanged(int pageNumber)
 {
 	if (pageNumber > toPageData->value())
 		toPageData->setValue(pageNumber);
-	if ((pageNumber == 1) && (toPageData->value() == toPageData->maxValue()))
-		toPageData->setValue(toPageData->maxValue()-1);
+	if ((pageNumber == 1) && (toPageData->value() == toPageData->maximum()))
+		toPageData->setValue(toPageData->maximum()-1);
 }
 
 void DelPages::toChanged(int pageNumber)
 {
 	if (pageNumber < fromPageData->value())
 		fromPageData->setValue(pageNumber);
-	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maxValue()))
+	if ((fromPageData->value() == 1) && (pageNumber == toPageData->maximum()))
 		fromPageData->setValue(2);
 }
 

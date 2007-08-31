@@ -17,7 +17,7 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 {
 	setupUi(this);
 	setModal(true);
-	setCaption( tr("Save as Template"));
+	setWindowTitle( tr("Save as Template"));
 	setIcon(loadIcon("AppIcon.png"));
 	readPrefs();
 	

@@ -1928,13 +1928,13 @@ void Mpalette::unitChange()
 	double newLX = imageXOffsetSpinBox->value() * ratioDivisor;
 	double newLY = imageYOffsetSpinBox->value() * ratioDivisor;
 	double newG = dGap->value() * ratioDivisor;
-	double newGM = dGap->maxValue() * ratioDivisor;
+	double newGM = dGap->maximum() * ratioDivisor;
 	double newDT = DTop->value() * ratioDivisor;
 	double newDL = DLeft->value() * ratioDivisor;
 	double newDB = DBottom->value() * ratioDivisor;
 	double newDR = DRight->value() * ratioDivisor;
 	double newRR = RoundRect->value() * ratioDivisor;
-	double newRM = RoundRect->maxValue() * ratioDivisor;
+	double newRM = RoundRect->maximum() * ratioDivisor;
 	double newLZ = LSize->value() * ratioDivisor;
 
 	if (doc->unitIndex() > unitGetMaxIndex())
@@ -4285,7 +4285,7 @@ void Mpalette::spinboxFinishUserAction()
 
 void Mpalette::languageChange()
 {
-	setCaption( tr("Properties"));
+	setWindowTitle( tr("Properties"));
 
 	TabStack->setItemLabel(idXYZItem, tr("X, Y, &Z"));
 	TabStack->setItemLabel(idTextItem, tr("&Text"));

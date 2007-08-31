@@ -43,7 +43,7 @@ void HySettings::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	verbose->setChecked(!prefsData->Automatic);
 	input->setChecked(prefsData->AutoCheck);
-	language->setCurrentText(langsMap[prefsData->Language]);
+	language->setItemText(langsMap[prefsData->Language]);
 	wordLen->setValue(prefsData->MinWordLen);
 	maxCount->setValue(prefsData->HyCount);
 	ignoreList->addItems(prefsData->ignoredWords.toList());
@@ -56,7 +56,7 @@ void HySettings::restoreDefaults(ScribusDoc *prefsData)
 {
 	verbose->setChecked(!prefsData->Automatic);
 	input->setChecked(prefsData->AutoCheck);
-	language->setCurrentText(langsMap[prefsData->Language]);
+	language->setItemText(langsMap[prefsData->Language]);
 	wordLen->setValue(prefsData->MinWordLen);
 	maxCount->setValue(prefsData->HyCount);
 	ignoreList->addItems(prefsData->docHyphenator->ignoredWords.toList());

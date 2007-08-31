@@ -259,7 +259,7 @@ void HelpBrowser::showLinkContents(const QString &link)
 
 void HelpBrowser::languageChange()
 {
-	setCaption( tr( "Scribus Online Help" ) );
+	setWindowTitle( tr( "Scribus Online Help" ) );
 	noHelpMsg=tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.");
 	
 	fileMenu->setTitle(tr("&File"));

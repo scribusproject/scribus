@@ -47,7 +47,7 @@ extern QString DocDir;
 
 gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSelection)
 {
-	setCaption( tr("Choose the importer to use"));
+	setWindowTitle( tr("Choose the importer to use"));
 	setIcon(loadIcon("AppIcon.png"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);

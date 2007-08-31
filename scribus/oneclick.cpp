@@ -29,7 +29,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 {
 	double m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString m_suffix = unitGetSuffixFromIndex(unitIndex);
-	setCaption( titel );
+	setWindowTitle( titel );
 	setIcon(loadIcon("AppIcon.png"));
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setSpacing( 5 );

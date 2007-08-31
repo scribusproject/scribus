@@ -94,7 +94,7 @@ void ImportPSPlugin::registerFormats()
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PS); // Human readable name
 	fmt.formatId = FORMATID_PSIMPORT;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::EPS|FormatsManager::PS);// QFileDialog filter
- 	fmt.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS, 1)+")$", false);
+ 	fmt.nameMatch = QRegExp("\\.("+FormatsManager::instance()->extensionListForFormat(FormatsManager::EPS|FormatsManager::PS, 1)+")$", Qt::CaseInsensitive);
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PS); // MIME types

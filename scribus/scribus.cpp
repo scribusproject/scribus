@@ -250,7 +250,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 //	initSplash(showSplash);
 //qt4 	setUsesBigPixmaps(true);
 	CurrStED = NULL;
-	setCaption( tr("Scribus " VERSION));
+	setWindowTitle( tr("Scribus " VERSION));
 	setKeyCompression(false);
 	setIcon(loadIcon("AppIcon.png"));
 	scrActionGroups.clear();
@@ -9209,7 +9209,7 @@ void ScribusMainWindow::updateActiveWindowCaption(const QString &newCaption)
 {
 	if (!HaveDoc)
 		return;
-	ActWin->setCaption(QDir::convertSeparators(newCaption));
+	ActWin->setWindowTitle(QDir::convertSeparators(newCaption));
 }
 
 void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)

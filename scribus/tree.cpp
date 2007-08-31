@@ -1150,7 +1150,7 @@ void Tree::parseSubGroup(int level, OutlineTreeItem* object, QList<PageItem*> *s
 
 void Tree::languageChange()
 {
-	setCaption( tr("Outline"));
+	setWindowTitle( tr("Outline"));
 	reportDisplay->setHeaderLabel( tr("Element"));
 }
 

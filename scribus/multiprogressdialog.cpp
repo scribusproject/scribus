@@ -37,7 +37,7 @@ MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString
 : QDialog(parent, name, modal, f)
 {
 	setupUi(this);
-	setCaption(titleText);
+	setWindowTitle(titleText);
 	buttonCancel->setText(cancelButtonText);
 	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(emitCancel()));
 }

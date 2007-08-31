@@ -844,7 +844,7 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 
 void PagePalette::languageChange()
 {
-	setCaption( tr( "Arrange Pages" ) );
+	setWindowTitle( tr( "Arrange Pages" ) );
 	TextLabel1->setText( tr( "Available Master Pages:" ) );
 	TextLabel2->setText( tr( "Document Pages:" ) );
 }

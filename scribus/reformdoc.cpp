@@ -59,7 +59,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	QString ein = unitGetSuffixFromIndex(docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(docUnitIndex);
 
-	setCaption( tr( "Document Setup" ) );
+	setWindowTitle( tr( "Document Setup" ) );
 	tabPage = new TabDocument( prefsWidgets, "tab", true );
 	tabPage->hideReform();
 	addItem( tr("Document"), loadIcon("scribusdoc.png"), tabPage);

@@ -78,7 +78,7 @@ double ScInputDialog::getDouble( const QString &caption, const QString &label, d
 								QWidget *parent, const char *name )
 {
 	ScInputDialog *dlg = new ScInputDialog(parent, name, TRUE);
-	dlg->setCaption( caption );
+	dlg->setWindowTitle( caption );
 	dlg->entryLabel->setText(label);
 	dlg->entrySpin->setValues(0.0, 1000.0, decimals, num);
 	dlg->entrySpin->setSuffix(suffix);
