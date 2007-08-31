@@ -120,13 +120,10 @@ About::About( QWidget* parent ) : QDialog( parent )
 	// dunno if anyone uses this...
 	bu += "-Darwin";
 #endif
-//	int wordSize;
-//	bool bigEndian;
-//	qSysInfo( & wordSize, & bigEndian );
-//	if (wordSize != 32)
+	if (QSysInfo::WordSize != 32)
 		bu += QString("-%1bit").arg(QSysInfo::WordSize);
 #if Q_BYTE_ORDER == Q_BIG_ENDIAN
-	if (bigEndian)
+	if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
 		bu += "-Big";
 #endif
 	QString gsver(getGSVersion());
