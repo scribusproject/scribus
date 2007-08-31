@@ -478,7 +478,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	args.append( "cfile" );
 	args.append( "closefile" );
 	args.append( "quit" );
-	QByteArray finalCmd = args.join(" ").local8Bit();
+	QByteArray finalCmd = args.join(" ").toLocal8Bit();
 	int ret = System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args, errFile, errFile);
 	if (ret != 0)
 	{
@@ -889,7 +889,7 @@ bool EPSPlug::Image(QString vals)
 	args.append( "-c" );
 	args.append( "showpage" );
 	args.append( "quit" );
-	QByteArray finalCmd = args.join(" ").local8Bit();
+	QByteArray finalCmd = args.join(" ").toLocal8Bit();
 	int ret = System(getShortPathName(PrefsManager::instance()->ghostscriptExecutable()), args);
 	if (ret != 0)
 	{

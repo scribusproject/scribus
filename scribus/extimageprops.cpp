@@ -115,8 +115,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		textLabel2->setText( tr( "Opacity:" ) );
 		layout1->addWidget( textLabel2 );
 		opacitySpinBox = new QSpinBox( tab, "opacitySpinBox" );
-		opacitySpinBox->setMinValue(0);
-		opacitySpinBox->setMaxValue(100);
+		opacitySpinBox->setMinimum(0);
+		opacitySpinBox->setMaximum(100);
 		opacitySpinBox->setLineStep(10);
 		opacitySpinBox->setSuffix( tr(" %"));
 		layout1->addWidget( opacitySpinBox );

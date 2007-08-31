@@ -148,8 +148,8 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	GroupASLayout->setMargin( 10 );
 	GroupASLayout->setAlignment( Qt::AlignTop );
 	ASTime = new QSpinBox( GroupAS );
-	ASTime->setMaxValue( 60 );
-	ASTime->setMinValue( 1 );
+	ASTime->setMaximum( 60 );
+	ASTime->setMinimum( 1 );
 	ASTime->setSuffix( " " + tr("min") );
 	ASText = new QLabel( ASTime, tr( "&Interval:" ), GroupAS);
 	GroupASLayout->addWidget( ASText);
@@ -163,8 +163,8 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	urGroupLayout->setMargin( 10 );
 	urGroupLayout->setAlignment(Qt::AlignTop);
 	urSpinBox = new QSpinBox(urGroup);
-	urSpinBox->setMinValue(0);
-	urSpinBox->setMaxValue(1000);
+	urSpinBox->setMinimum(0);
+	urSpinBox->setMaximum(1000);
 	int urSBValue = UndoManager::instance()->getHistoryLength();
 	if (urSBValue == -1)
 		urSpinBox->setEnabled(false);

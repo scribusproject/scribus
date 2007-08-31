@@ -235,7 +235,7 @@ static PyObject *scribus_retval(PyObject* /*self*/, PyObject* args)
 
 static PyObject *scribus_getval(PyObject* /*self*/)
 {
-	return PyString_FromString(scripterCore->inValue.utf8().data());
+	return PyString_FromString(scripterCore->inValue.toUtf8().data());
 }
 
 /*! \brief Translate a docstring. Small helper function for use with the
@@ -673,7 +673,7 @@ void initscribus(ScribusMainWindow *pl)
 		int patchVersion = version_re.cap(3).toInt();
 		QString extraVersion = version_re.cap(4);
 		PyObject* versionTuple = Py_BuildValue(const_cast<char*>("(iiisi)"),\
-				majorVersion, minorVersion, patchVersion, (const char*)extraVersion.utf8(), 0);
+				majorVersion, minorVersion, patchVersion, (const char*)extraVersion.toUtf8(), 0);
 		if (versionTuple != NULL)
 			PyDict_SetItemString(d, const_cast<char*>("scribus_version_info"), versionTuple);
 		else
@@ -747,7 +747,7 @@ function's documentation, though as with most Python code this list\n\
 is not exhaustive due to exceptions from called functions.\n\
 ");
 
-	PyObject* docStr = PyString_FromString(docstring.utf8().data());
+	PyObject* docStr = PyString_FromString(docstring.toUtf8().data());
 	if (!docStr)
 		qDebug("Failed to create module-level docstring (couldn't make str)");
 	else

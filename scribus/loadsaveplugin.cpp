@@ -77,7 +77,7 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 		}
 	}
 	else
-		qDebug("%s", tr("No File Loader Plugins Found").local8Bit().data());
+		qDebug("%s", tr("No File Loader Plugins Found").toLocal8Bit().data());
 	filterList.append( tr("All Files (*)"));
 	return filterList;
 }
@@ -143,7 +143,7 @@ void LoadSavePlugin::printFormatList()
 	for ( ; it != itEnd ; ++it )
 	{
 		qDebug("    Format: Id: %3u, Prio: %3hu, Name: %s",
-				(*it).formatId, (*it).priority, (*it).trName.local8Bit().data() );
+				(*it).formatId, (*it).priority, (*it).trName.toLocal8Bit().data() );
 	}
 	qDebug("Done");
 }

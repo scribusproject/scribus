@@ -52,8 +52,8 @@ LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", 
 	textLabel2->setText( tr( "Opacity:" ) );
 	layout1->addWidget( textLabel2 );
 	opacitySpinBox = new QSpinBox( this, "opacitySpinBox" );
-	opacitySpinBox->setMinValue(0);
-	opacitySpinBox->setMaxValue(100);
+	opacitySpinBox->setMinimum(0);
+	opacitySpinBox->setMaximum(100);
 	opacitySpinBox->setLineStep(10);
 	opacitySpinBox->setSuffix( tr(" %"));
 	opacitySpinBox->setFocusPolicy(Qt::ClickFocus);

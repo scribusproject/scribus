@@ -58,7 +58,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	templateNameLayout->setMargin(0);
 	templateNameLayout->setSpacing(5);
 
-	masterPageLabel = new QLabel( this, "masterPageLabel" );
+	masterPageLabel = new QLabel( this );
 	templateNameLayout->addWidget( masterPageLabel );
 	spacer2 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	templateNameLayout->addItem( spacer2 );
@@ -74,38 +74,38 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	applyToPageButtonGroupLayout->setSpacing( 5 );
 	applyToPageButtonGroupLayout->setMargin( 10 );
 
-	currentPageRadioButton = new QRadioButton( applyToPageButtonGroup, "currentPageRadioButton" );
+	currentPageRadioButton = new QRadioButton( applyToPageButtonGroup );
 	currentPageRadioButton->setChecked( true );
 	applyToPageButtonGroupLayout->addWidget( currentPageRadioButton );
 
-	evenPagesRadioButton = new QRadioButton( applyToPageButtonGroup, "evenPagesRadioButton" );
+	evenPagesRadioButton = new QRadioButton( applyToPageButtonGroup );
 	applyToPageButtonGroupLayout->addWidget( evenPagesRadioButton );
 
-	oddPagesRadioButton = new QRadioButton( applyToPageButtonGroup, "oddPagesRadioButton" );
+	oddPagesRadioButton = new QRadioButton( applyToPageButtonGroup );
 	applyToPageButtonGroupLayout->addWidget( oddPagesRadioButton );
 
-	allPagesRadioButton = new QRadioButton( applyToPageButtonGroup, "allPagesRadioButton" );
+	allPagesRadioButton = new QRadioButton( applyToPageButtonGroup );
 	applyToPageButtonGroupLayout->addWidget( allPagesRadioButton );
 
 	rangeLayout = new QHBoxLayout;
 	rangeLayout->setSpacing( 5 );
 	rangeLayout->setMargin( 0 );
 
-	useRangeCheckBox = new QCheckBox( applyToPageButtonGroup, "useRangeCheckBox" );
+	useRangeCheckBox = new QCheckBox( applyToPageButtonGroup );
 	useRangeCheckBox->setEnabled( false );	
 	rangeLayout->addWidget( useRangeCheckBox );
 
-	fromPageSpinBox = new QSpinBox( applyToPageButtonGroup, "fromPageSpinBox" );
+	fromPageSpinBox = new QSpinBox( applyToPageButtonGroup );
 	fromPageSpinBox->setEnabled( false );
-	fromPageSpinBox->setMinValue( 1 );
+	fromPageSpinBox->setMinimum( 1 );
 	rangeLayout->addWidget( fromPageSpinBox );
 
-	toPageLabel = new QLabel( applyToPageButtonGroup, "toPageLabel" );
+	toPageLabel = new QLabel( applyToPageButtonGroup );
 	rangeLayout->addWidget( toPageLabel );
 
-	toPageSpinBox = new QSpinBox( applyToPageButtonGroup, "toPageSpinBox" );
+	toPageSpinBox = new QSpinBox( applyToPageButtonGroup );
 	toPageSpinBox->setEnabled( false );
-	toPageSpinBox->setMinValue( 1 );
+	toPageSpinBox->setMinimum( 1 );
 	rangeLayout->addWidget( toPageSpinBox );
 	spacer3 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	rangeLayout->addItem( spacer3 );
@@ -118,10 +118,10 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 	spacer1 = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout8->addItem( spacer1 );
 
-	okButton = new QPushButton( this, "okButton" );
+	okButton = new QPushButton( this );
 	layout8->addWidget( okButton );
 
-	cancelButton = new QPushButton( this, "cancelButton" );
+	cancelButton = new QPushButton( this );
 	layout8->addWidget( cancelButton );
 	ApplyMasterPageDialogLayout->addLayout( layout8 );
 	languageChange();
@@ -165,9 +165,9 @@ void ApplyMasterPageDialog::setup(ScribusDoc *view, QString Nam)
 	const unsigned int docPagesCount = view->Pages->count();
 	if (docPagesCount < 2)
 		evenPagesRadioButton->setEnabled(false);
-	fromPageSpinBox->setMaxValue(docPagesCount);
+	fromPageSpinBox->setMaximum(docPagesCount);
 	fromPageSpinBox->setValue(view->currentPage()->pageNr()+1);
-	toPageSpinBox->setMaxValue(docPagesCount);
+	toPageSpinBox->setMaximum(docPagesCount);
 	toPageSpinBox->setValue(docPagesCount);
 }
 
@@ -261,19 +261,19 @@ void ApplyMasterPageDialog::languageChange()
 	masterPageLabel->setText( tr( "&Master Page:" ) );
 	applyToPageButtonGroup->setTitle( tr( "Apply To" ) );
 	currentPageRadioButton->setText( tr( "Current &page" ) );
-	currentPageRadioButton->setAccel( QKeySequence( tr( "Alt+P" ) ) );
+	currentPageRadioButton->setShortcut( QKeySequence( tr( "Alt+P" ) ) );
 	evenPagesRadioButton->setText( tr( "&Even pages" ) );
-	evenPagesRadioButton->setAccel( QKeySequence( tr( "Alt+E" ) ) );
+	evenPagesRadioButton->setShortcut( QKeySequence( tr( "Alt+E" ) ) );
 	oddPagesRadioButton->setText( tr( "O&dd pages" ) );
-	oddPagesRadioButton->setAccel( QKeySequence( tr( "Alt+D" ) ) );
+	oddPagesRadioButton->setShortcut( QKeySequence( tr( "Alt+D" ) ) );
 	allPagesRadioButton->setText( tr( "&All pages" ) );
-	allPagesRadioButton->setAccel( QKeySequence( tr( "Alt+A" ) ) );
+	allPagesRadioButton->setShortcut( QKeySequence( tr( "Alt+A" ) ) );
 	useRangeCheckBox->setText( tr( "&Within range" ) );
-	useRangeCheckBox->setAccel( QKeySequence( tr( "Alt+W" ) ) );
+	useRangeCheckBox->setShortcut( QKeySequence( tr( "Alt+W" ) ) );
 	useRangeCheckBox->setToolTip( "<qt>" + tr( "Apply the selected master page to even, odd or all pages within the following range") + "</qt>" );
 	toPageLabel->setText( tr( "to" ) );
 	okButton->setText( CommonStrings::tr_OK );
-	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
+	okButton->setShortcut( QKeySequence( tr( "Alt+O" ) ) );
 	cancelButton->setText( CommonStrings::tr_Cancel );
-	cancelButton->setAccel( QKeySequence( tr( "Alt+C" ) ) );
+	cancelButton->setShortcut( QKeySequence( tr( "Alt+C" ) ) );
 }

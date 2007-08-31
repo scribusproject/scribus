@@ -96,35 +96,35 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout23->setSpacing( 5 );
 	Layout23->setMargin( 0 );
 
-	TextLabel1 = new QLabel( tr( "&Name:" ), this, "TextLabel1" );
+	TextLabel1 = new QLabel( tr( "&Name:" ), this );
 	TextLabel1->setMinimumSize( QSize( 200, 22 ) );
 	Layout23->addWidget( TextLabel1 );
 
-	Farbname = new QLineEdit( this, "Farbname" );
+	Farbname = new QLineEdit( this );
 	Farbname->setMinimumSize( QSize( 200, 22 ) );
 	Farbname->setText( name );
 	TextLabel1->setBuddy( Farbname );
 	Layout23->addWidget( Farbname );
 
-	TextLabel3 = new QLabel( tr( "Color &Model" ), this, "TextLabel3" );
+	TextLabel3 = new QLabel( tr( "Color &Model" ), this );
 	TextLabel3->setMinimumSize( QSize( 100, 22 ) );
 	Layout23->addWidget( TextLabel3 );
 
-	ComboBox1 = new ScComboBox( false, this, "ComboBox1" );
-	ComboBox1->insertItem( tr( "CMYK" ) );
-	ComboBox1->insertItem( tr( "RGB" ) );
-	ComboBox1->insertItem( tr( "Web Safe RGB" ) );
+	ComboBox1 = new ScComboBox( false, this );
+	ComboBox1->addItem( tr( "CMYK" ) );
+	ComboBox1->addItem( tr( "RGB" ) );
+	ComboBox1->addItem( tr( "Web Safe RGB" ) );
 	if (!CMYKmode)
-		ComboBox1->setCurrentItem( 1 );
+		ComboBox1->setCurrentIndex( 1 );
 	TextLabel3->setBuddy( ComboBox1 );
 	Layout23->addWidget( ComboBox1 );
 
-	Separations = new QCheckBox( this, "Separations" );
+	Separations = new QCheckBox( this );
 	Separations->setText( tr( "Is Spot Color" ) );
 	Separations->setChecked(orig.isSpotColor());
 	Layout23->addWidget( Separations );
 
-	Regist = new QCheckBox( this, "Regist" );
+	Regist = new QCheckBox( this );
 	Regist->setText( tr( "Is Registration Color" ) );
 	Regist->setChecked(orig.isRegistrationColor());
 	Layout23->addWidget( Regist );
@@ -136,13 +136,13 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout2->setSpacing( 6 );
 	Layout2->setMargin( 0 );
 
-	TextLabel5_2 = new QLabel( tr( "New" ), this, "TextLabel5_2" );
+	TextLabel5_2 = new QLabel( tr( "New" ), this );
 	TextLabel5_2->setMinimumSize( QSize( 50, 22 ) );
 	TextLabel5_2->setMaximumSize( QSize( 100, 22 ) );
 
 	Layout2->addWidget( TextLabel5_2, 0, 1 );
 
-	OldC = new QLabel( "", this, "OldC" );
+	OldC = new QLabel( "", this );
 	OldC->setMinimumSize( QSize( 50, 50 ) );
 	OldC->setMaximumSize( QSize( 50, 50 ) );
 	OldC->setFrameShape( QLabel::WinPanel );
@@ -153,13 +153,13 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 
 	Layout2->addWidget( OldC, 1, 0 );
 
-	TextLabel5 = new QLabel( tr( "Old" ), this, "TextLabel5" );
+	TextLabel5 = new QLabel( tr( "Old" ), this );
 	TextLabel5->setMinimumSize( QSize( 50, 22 ) );
 	TextLabel5->setMaximumSize( QSize( 100, 22 ) );
 
 	Layout2->addWidget( TextLabel5, 0, 0 );
 
-	NewC = new QLabel( "", this, "NewC" );
+	NewC = new QLabel( "", this );
 	NewC->setMinimumSize( QSize( 50, 50 ) );
 	NewC->setMaximumSize( QSize( 50, 50 ) );
 	NewC->setFrameShape( QLabel::WinPanel );
@@ -175,23 +175,23 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout21->setSpacing( 20 );
 	Layout21->setMargin( 10 );
 
-	Cancel_2 = new QPushButton( CommonStrings::tr_OK, this, "Cancel_2" );
+	Cancel_2 = new QPushButton( CommonStrings::tr_OK, this );
 	Cancel_2->setDefault( true );
 	Layout21->addWidget( Cancel_2 );
-	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this );
 	Layout21->addWidget( Cancel );
 	Layout23->addLayout( Layout21 );
 	CMYKFarbenLayout->addLayout( Layout23 );
 
-	Frame4 = new QFrame( this, "Frame4" );
+	Frame4 = new QFrame( this );
 	Frame4->setFrameShape( QFrame::NoFrame );
 	Frame4->setFrameShadow( QFrame::Raised );
 	Frame4Layout = new QVBoxLayout( Frame4 );
 	Frame4Layout->setSpacing( 5 );
 	Frame4Layout->setMargin( 0 );
 
-	Swatches = new ScComboBox( false, Frame4, "ComboBox1" );
-	Swatches->insertItem( tr( "HSV-Colormap" ) );
+	Swatches = new ScComboBox( false, Frame4 );
+	Swatches->addItem( tr( "HSV-Colormap" ) );
 /*
 	Swatches->insertItem("X11 RGB-Set");
 	Swatches->insertItem("X11 Grey-Set");
@@ -204,7 +204,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	QStringList allSets(csm.paletteNames());
 	for ( QStringList::Iterator it = allSets.begin(); it != allSets.end(); ++it )
 	{
-		Swatches->insertItem((*it));
+		Swatches->addItem((*it));
 	}
 	customSetStartIndex=Swatches->count();
 
@@ -218,7 +218,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 			QFileInfo cfi(Cpfad);
 			if (cfi.exists())
 			{
-				Swatches->insertItem(Cust[m]);
+				Swatches->addItem(Cust[m]);
 				realEx.append(Cust[m]);
 			}
 		}
@@ -229,7 +229,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	TabStack = new QStackedWidget( Frame4 );
 	TabStack->setFrameShape( QFrame::NoFrame );
 
-	Frame5a = new QFrame( TabStack, "Frame4" );
+	Frame5a = new QFrame( TabStack );
 	Frame5a->setFrameShape( QFrame::NoFrame );
 	Frame5a->setFrameShadow( QFrame::Raised );
 	Frame5aLayout = new QHBoxLayout( Frame5a );
@@ -259,26 +259,24 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Layout2x->setSpacing( 5 );
 	Layout2x->setMargin( 0 );
 
-	CyanT = new QLabel( tr( "C:" ), Frame4, "Cyant" );
+	CyanT = new QLabel( tr( "C:" ), Frame4 );
 	Layout2x->addWidget(CyanT, 0, 0);
 
 	Layout1_2 = new QVBoxLayout;
 	Layout1_2->setSpacing( 0 );
 	Layout1_2->setMargin( 0 );
 
-	CyanP = new QLabel( Frame4, "CyanP" );
-	CyanP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5,
-	                                   CyanP->sizePolicy().hasHeightForWidth() ) );
+	CyanP = new QLabel( Frame4 );
+//	CyanP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, CyanP->sizePolicy().hasHeightForWidth() ) );
 	CyanP->setMinimumSize( QSize( 200, 10 ) );
 	CyanP->setPixmap(image0);
 	CyanP->setScaledContents( true );
 	Layout1_2->addWidget( CyanP );
 
-	CyanSL = new QSlider( Frame4, "CyanSL" );
+	CyanSL = new QSlider( Frame4 );
 	CyanSL->setMinimumSize( QSize( 200, 16 ) );
-	CyanSL->setMaxValue( 100 );
+	CyanSL->setMaximum( 100 );
 	CyanSL->setOrientation( Qt::Horizontal );
-	CyanSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2->addWidget( CyanSL );
 	Layout2x->addLayout(Layout1_2, 0, 1);
 
@@ -288,26 +286,24 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	CyanSp->setValue(ccd);
 	CyanSL->setValue(qRound(ccd));
 
-	MagentaT = new QLabel( tr( "M:" ), Frame4, "Cyant" );
+	MagentaT = new QLabel( tr( "M:" ), Frame4 );
 	Layout2x->addWidget(MagentaT, 1, 0);
 
 	Layout1_2_2 = new QVBoxLayout;
 	Layout1_2_2->setSpacing( 0 );
 	Layout1_2_2->setMargin( 0 );
 
-	MagentaP = new QLabel( Frame4, "MagentaP" );
-	MagentaP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5,
-	                                      MagentaP->sizePolicy().hasHeightForWidth() ) );
+	MagentaP = new QLabel( Frame4 );
+//	MagentaP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, MagentaP->sizePolicy().hasHeightForWidth() ) );
 	MagentaP->setMinimumSize( QSize( 200, 10 ) );
 	MagentaP->setPixmap(image1);
 	MagentaP->setScaledContents( true );
 	Layout1_2_2->addWidget( MagentaP );
 
-	MagentaSL = new QSlider( Frame4, "MagentaSL" );
+	MagentaSL = new QSlider( Frame4 );
 	MagentaSL->setMinimumSize( QSize( 200, 16 ) );
-	MagentaSL->setMaxValue( 100 );
+	MagentaSL->setMaximum( 100 );
 	MagentaSL->setOrientation( Qt::Horizontal );
-	MagentaSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_2->addWidget( MagentaSL );
 	Layout2x->addLayout(Layout1_2_2, 1, 1);
 
@@ -317,26 +313,24 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	MagentaSp->setValue(cmd);
 	MagentaSL->setValue(qRound(cmd));
 
-	YellowT = new QLabel( tr( "Y:" ), Frame4, "Cyant" );
+	YellowT = new QLabel( tr( "Y:" ), Frame4 );
 	Layout2x->addWidget(YellowT, 2, 0);
 
 	Layout1_2_3 = new QVBoxLayout;
 	Layout1_2_3->setSpacing( 0 );
 	Layout1_2_3->setMargin( 0 );
 
-	YellowP = new QLabel( Frame4, "YellowP" );
-	YellowP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5,
-	                                     YellowP->sizePolicy().hasHeightForWidth() ) );
+	YellowP = new QLabel( Frame4);
+//	YellowP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, YellowP->sizePolicy().hasHeightForWidth() ) );
 	YellowP->setMinimumSize( QSize( 200, 10 ) );
 	YellowP->setPixmap(image2);
 	YellowP->setScaledContents( true );
 	Layout1_2_3->addWidget( YellowP );
 
-	YellowSL = new QSlider( Frame4, "YellowSL" );
+	YellowSL = new QSlider( Frame4 );
 	YellowSL->setMinimumSize( QSize( 200, 16 ) );
-	YellowSL->setMaxValue( 100 );
+	YellowSL->setMaximum( 100 );
 	YellowSL->setOrientation( Qt::Horizontal );
-	YellowSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_3->addWidget( YellowSL );
 	Layout2x->addLayout(Layout1_2_3, 2, 1);
 
@@ -346,26 +340,24 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	YellowSp->setValue(cyd);
 	YellowSL->setValue(qRound(cyd));
 
-	BlackT = new QLabel( tr( "K:" ), Frame4, "Cyant" );
+	BlackT = new QLabel( tr( "K:" ), Frame4 );
 	Layout2x->addWidget(BlackT, 3, 0);
 
 	Layout1_2_4 = new QVBoxLayout;
 	Layout1_2_4->setSpacing( 0 );
 	Layout1_2_4->setMargin( 0 );
 
-	BlackP = new QLabel( Frame4, "BlackP" );
-	BlackP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5,
-	                                    BlackP->sizePolicy().hasHeightForWidth() ) );
+	BlackP = new QLabel( Frame4 );
+//	BlackP->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)5, BlackP->sizePolicy().hasHeightForWidth() ) );
 	BlackP->setMinimumSize( QSize( 200, 10 ) );
 	BlackP->setPixmap(image3);
 	BlackP->setScaledContents( true );
 	Layout1_2_4->addWidget( BlackP );
 
-	BlackSL = new QSlider( Frame4, "BlackSL" );
+	BlackSL = new QSlider( Frame4 );
 	BlackSL->setMinimumSize( QSize( 200, 16 ) );
-	BlackSL->setMaxValue( 100 );
+	BlackSL->setMaximum( 100 );
 	BlackSL->setOrientation( Qt::Horizontal );
-	BlackSL->setTickmarks( QSlider::NoMarks );
 	Layout1_2_4->addWidget( BlackSL );
 	Layout2x->addLayout(Layout1_2_4, 3, 1);
 
@@ -380,7 +372,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Frame4Layout->addItem( spacer2 );
 	CMYKFarbenLayout->addWidget( Frame4 );
 	int h, s, v;
-	ScColorEngine::getRGBColor(orig, m_doc).hsv(&h, &s, &v);
+	ScColorEngine::getRGBColor(orig, m_doc).getHsv(&h, &s, &v);
 	ColorMap->drawPalette(v);
 	ColorMap->setMark(h, s);
 	Fnam = name;
@@ -636,7 +628,7 @@ void CMYKChoose::SelSwatch(int n)
 		default:
 			if (n<customSetStartIndex)
 			{
-				QString listText=Swatches->text(n);
+				QString listText=Swatches->itemText(n);
 				if (listText=="Scribus OpenOffice")
 					cus=true;
 				pfadC2 = csm.paletteFileFromName(listText);
@@ -795,15 +787,15 @@ void CMYKChoose::SelModel(const QString& mod)
 	{
 		CMYKmode = true;
 		Wsave = false;
-		CyanSL->setMaxValue( 100 );
-		MagentaSL->setMaxValue( 100 );
-		YellowSL->setMaxValue( 100 );
+		CyanSL->setMaximum( 100 );
+		MagentaSL->setMaximum( 100 );
+		YellowSL->setMaximum( 100 );
 		CyanSp->setMaximum( 100 );
 		MagentaSp->setMaximum( 100);
 		YellowSp->setMaximum( 100 );
-		CyanSL->setLineStep(1);
-		MagentaSL->setLineStep(1);
-		YellowSL->setLineStep(1);
+		CyanSL->setSingleStep(1);
+		MagentaSL->setSingleStep(1);
+		YellowSL->setSingleStep(1);
 		CyanSL->setPageStep(10);
 		MagentaSL->setPageStep(10);
 		YellowSL->setPageStep(10);
@@ -842,9 +834,9 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanSL->setMaximum( 255 );
 		MagentaSL->setMaximum( 255 );
 		YellowSL->setMaximum( 255 );
-		CyanSL->setLineStep(1);
-		MagentaSL->setLineStep(1);
-		YellowSL->setLineStep(1);
+		CyanSL->setSingleStep(1);
+		MagentaSL->setSingleStep(1);
+		YellowSL->setSingleStep(1);
 		CyanSL->setPageStep(1);
 		MagentaSL->setPageStep(1);
 		YellowSL->setPageStep(1);
@@ -866,7 +858,7 @@ void CMYKChoose::SelModel(const QString& mod)
 		CyanP->setPixmap(SliderPix(0));
 		MagentaP->setPixmap(SliderPix(120));
 		YellowP->setPixmap(SliderPix(240));
-		Layout2x->setResizeMode(QLayout::Fixed);
+		Layout2x->setSizeConstraint(QLayout::SetFixedSize);
 /*		BlackP->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		BlackSL->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		BlackSp->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
@@ -878,9 +870,9 @@ void CMYKChoose::SelModel(const QString& mod)
 		if (mod == tr("Web Safe RGB"))
 		{
 			Wsave = true;
-			CyanSL->setLineStep(51);
-			MagentaSL->setLineStep(51);
-			YellowSL->setLineStep(51);
+			CyanSL->setSingleStep(51);
+			MagentaSL->setSingleStep(51);
+			YellowSL->setSingleStep(51);
 			CyanSL->setPageStep(51);
 			MagentaSL->setPageStep(51);
 			YellowSL->setPageStep(51);
@@ -960,8 +952,8 @@ void CMYKChoose::setColor()
 	else
 	{
 		tmp.setColorRGB(c, m, y);
-		QColor tmp2 = QColor(c, m, y, QColor::Rgb);
-		tmp2.hsv(&h, &s, &v);
+		QColor tmp2 = QColor(c, m, y);
+		tmp2.getHsv(&h, &s, &v);
 		BlackComp = 255 - v;
 		if (dynamic)
 		{
@@ -973,7 +965,7 @@ void CMYKChoose::setColor()
 	imageN.fill(ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
 		paintAlert(alertIcon, imageN, 2, 2, false);
-	ScColorEngine::getRGBColor(tmp, m_doc).hsv(&h, &s, &v);
+	ScColorEngine::getRGBColor(tmp, m_doc).getHsv(&h, &s, &v);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	ColorMap->drawPalette(v);
@@ -982,9 +974,9 @@ void CMYKChoose::setColor()
 
 void CMYKChoose::setColor2(int h, int s, bool ende)
 {
-	QColor tm = QColor(qMax(qMin(359,h),0), qMax(qMin(255,255-s),0), 255-BlackComp, QColor::Hsv);
+	QColor tm = QColor::fromHsv(qMax(qMin(359,h),0), qMax(qMin(255,255-s),0), 255-BlackComp, QColor::Hsv);
 	int r, g, b;
-	tm.rgb(&r, &g, &b);
+	tm.getRgb(&r, &g, &b);
 	ScColor tmp;
 	tmp.fromQColor(tm);
 	if (CMYKmode)
@@ -1062,7 +1054,7 @@ void CMYKChoose::setValues()
 		YellowSp->setValue(static_cast<double>(b));
 		YellowSL->setValue(b);
 		int h, s, v;
-		ScColorEngine::getRGBColor(Farbe, m_doc).hsv(&h, &s, &v);
+		ScColorEngine::getRGBColor(Farbe, m_doc).getHsv(&h, &s, &v);
 		BlackComp = 255 - v;
 		if (dynamic)
 		{

@@ -53,8 +53,8 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	{
 		numberOfCopiesLabel = new QLabel( tr("Number of copies:"), this, "numberOfCopiesLabel" );
 		numberOfCopiesData = new QSpinBox(this, "numberOfCopiesData" );
-		numberOfCopiesData->setMinValue(1);
-		numberOfCopiesData->setMaxValue(100);
+		numberOfCopiesData->setMinimum(1);
+		numberOfCopiesData->setMaximum(100);
 		++currentRow;
 		fromToLayout->addWidget(numberOfCopiesLabel, currentRow, 0);
 		fromToLayout->addWidget(numberOfCopiesData, currentRow, 1);

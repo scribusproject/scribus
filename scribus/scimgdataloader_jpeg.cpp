@@ -66,7 +66,7 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn)
 		return;
 	}
 	jpeg_create_decompress (&cinfo);
-	if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
+	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
 		return;
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
@@ -125,7 +125,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		return false;
 	}
 	jpeg_create_decompress (&cinfo);
-	if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
+	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
 		return false;
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);

@@ -21,7 +21,7 @@ PyObject *scribus_colornames(PyObject* /* self */)
 	l = PyList_New(edc.count());
 	for (it = edc.begin(); it != edc.end(); ++it)
 	{
-		PyList_SetItem(l, cc, PyString_FromString(it.key().utf8()));
+		PyList_SetItem(l, cc, PyString_FromString(it.key().toUtf8()));
 		cc++;
 	}
 	return l;

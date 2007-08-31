@@ -705,7 +705,7 @@ QList<PageItem*> OODPlug::parseElement(const QDomElement &e)
 	{
 		// warn if unsupported feature are encountered
 		unsupported = true;
-		qDebug("Not supported yet: %s", STag.local8Bit().data());
+		qDebug("Not supported yet: %s", STag.toLocal8Bit().data());
 	}
 	return GElements;
 }

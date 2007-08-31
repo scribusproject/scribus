@@ -1509,7 +1509,9 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	qSort(ELL);
 	documentStr.reserve(524288);
 	QXmlStreamWriter writer(&documentStr);
-	writer.writeStartDocument();
+//	writer.writeStartDocument();
+//	don't use that function here, as it inserts an unneeded version info into that xml, which
+//	breaks our reading code at several places.
 	writer.writeStartElement("SCRIBUSELEMUTF8");
 	if (selection->isMultipleSelection())
 	{

@@ -101,7 +101,7 @@ PyObject* convert_QStringList_to_PyListObject(QStringList& origlist)
 		return NULL;
 
 	for ( QStringList::Iterator it = origlist.begin(); it != origlist.end(); ++it )
-		if (PyList_Append(resultList, PyString_FromString((*it).utf8().data())) == -1)
+		if (PyList_Append(resultList, PyString_FromString((*it).toUtf8().data())) == -1)
 			return NULL;
 
 	return resultList;
@@ -283,7 +283,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	else if (prop.type() == QVariant::CString)
 		resultobj = PyString_FromString(prop.asCString().data());
 	else if (prop.type() == QVariant::String)
-		resultobj = PyString_FromString(prop.asString().utf8().data());
+		resultobj = PyString_FromString(prop.asString().toUtf8().data());
 	// HIGHER ORDER TYPES
 	else if (prop.type() == QVariant::Point)
 	{

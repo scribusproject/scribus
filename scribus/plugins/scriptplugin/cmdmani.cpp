@@ -294,7 +294,7 @@ PyObject *scribus_getselobjnam(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	if ((i < static_cast<int>(ScCore->primaryMainWindow()->doc->m_Selection->count())) && (i > -1))
-		return PyString_FromString(ScCore->primaryMainWindow()->doc->m_Selection->itemAt(i)->itemName().utf8());
+		return PyString_FromString(ScCore->primaryMainWindow()->doc->m_Selection->itemAt(i)->itemName().toUtf8());
 	else
 		// FIXME: Should probably return None if no selection?
 		return PyString_FromString("");

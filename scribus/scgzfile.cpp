@@ -32,7 +32,7 @@ bool ScGzFile::read(uint maxBytes)
 		maxB = maxBytes;
 	barray.resize(0);
 	gzFile gzDoc = NULL;
-	QByteArray fn(fname.local8Bit());
+	QByteArray fn(fname.toLocal8Bit());
 	gzDoc = gzopen(fn.data(),"rb");
 	if(gzDoc == NULL)
 	{ 
@@ -72,7 +72,7 @@ bool ScGzFile::read(uint maxBytes)
 bool ScGzFile::write(void)
 {
 	gzFile gzDoc = NULL;
-	QByteArray fn(fname.local8Bit());
+	QByteArray fn(fname.toLocal8Bit());
 	gzDoc = gzopen(fn.data(),"wb");
 	if(gzDoc == NULL)
 		return false;
@@ -84,7 +84,7 @@ bool ScGzFile::write(void)
 bool ScGzFile::write(const char* header)
 {
 	gzFile gzDoc = NULL;
-	QByteArray fn(fname.local8Bit());
+	QByteArray fn(fname.toLocal8Bit());
 	gzDoc = gzopen(fn.data(),"wb");
 	if(gzDoc == NULL)
 		return false;

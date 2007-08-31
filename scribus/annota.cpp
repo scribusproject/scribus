@@ -79,7 +79,8 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	for (uint prop = 0; prop < comboArray; ++prop)
 		ComboBox1->addItem(combo[prop]);
 	ComboBox1->setEditable(false);
-	TextLabel1 = new QLabel( ComboBox1, tr("&Type:"), this, "TextLabel1" );
+	TextLabel1 = new QLabel( tr("&Type:"), this);
+	TextLabel1->setBuddy(ComboBox1);
 	Layout1->addWidget( TextLabel1 );
 	Layout1->addWidget( ComboBox1 );
 	AnnotLayout->addLayout( Layout1 );
@@ -102,11 +103,11 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	GroupBox1Layout->setSpacing( 5 );
 	GroupBox1Layout->setMargin( 10 );
 
-	Destfile = new QLineEdit(GroupBox1, "File");
+	Destfile = new QLineEdit(GroupBox1);
 	Destfile->setText(item->annotation().Extern());
 	Destfile->setReadOnly(true);
 	GroupBox1Layout->addWidget( Destfile, 0, 0, 1, 2 );
-	ChFile = new QPushButton(GroupBox1, "Change");
+	ChFile = new QPushButton(GroupBox1);
 	ChFile->setText( tr("C&hange..."));
 	GroupBox1Layout->addWidget( ChFile, 0, 2 );
 	if ((item->annotation().ActionType() != 7) && (item->annotation().ActionType() != 8))
@@ -118,7 +119,8 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	SpinBox1 = new QSpinBox( GroupBox1);
 	SpinBox1->setMinimum(1);
 	SpinBox1->setMaximum(item->annotation().ActionType() == 7 ? 1000 : Seite);
-	TextLabel3 = new QLabel( SpinBox1, tr("&Page:"), GroupBox1, "TextLabel3" );
+	TextLabel3 = new QLabel( tr("&Page:"), GroupBox1);
+	TextLabel3->setBuddy(SpinBox1);
 	GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
 	GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
 	if ((!Destfile->text().isEmpty()) && (item->annotation().ActionType() == 7))
@@ -141,14 +143,16 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	SpinBox2->setSuffix( tr( " pt" ) );
 	SpinBox2->setMaximum(Breite);
 	SpinBox2->setValue(tl[0].toInt());
-	TextLabel4 = new QLabel( SpinBox2, tr("&X-Pos"), GroupBox1, "TextLabel4" );
+	TextLabel4 = new QLabel( tr("&X-Pos"), GroupBox1 );
+	TextLabel4->setBuddy(SpinBox2);
 	GroupBox1Layout->addWidget( TextLabel4, 2, 0 );
 	GroupBox1Layout->addWidget( SpinBox2, 2, 1 );
 	SpinBox3 = new QSpinBox( GroupBox1 );
 	SpinBox3->setMaximum(Hoehe);
 	SpinBox3->setSuffix( tr( " pt" ) );
 	SpinBox3->setValue(Hoehe-tl[1].toInt());
-	TextLabel5 = new QLabel( SpinBox3, tr("&Y-Pos:"), GroupBox1, "TextLabel5" );
+	TextLabel5 = new QLabel( tr("&Y-Pos:"), GroupBox1 );
+	TextLabel5->setBuddy(SpinBox3);
 	GroupBox1Layout->addWidget( TextLabel5, 3, 0 );
 	GroupBox1Layout->addWidget( SpinBox3, 3, 1 );
 	Fram->addWidget(GroupBox1);
@@ -159,10 +163,10 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1_2->addItem( spacer );
-	PushButton1 = new QPushButton( CommonStrings::tr_OK, this, "PushButton1" );
+	PushButton1 = new QPushButton( CommonStrings::tr_OK, this );
 	PushButton1->setDefault( true );
 	Layout1_2->addWidget( PushButton1 );
-	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton2" );
+	PushButton2 = new QPushButton( CommonStrings::tr_Cancel, this );
 	Layout1_2->addWidget( PushButton2 );
 	AnnotLayout->addLayout( Layout1_2 );
 
@@ -187,7 +191,7 @@ void Annota::SetCo(double x, double y)
 void Annota::SetPg(int v)
 {
 	disconnect(SpinBox1, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
-	if (ComboBox1->currentItem() == 2)
+	if (ComboBox1->currentIndex() == 2)
 	{
 		if (!Pg->SetSeite(v, 100, Destfile->text()))
 		{
@@ -223,7 +227,7 @@ void Annota::SetVals()
 {
 	QString tmp, tmp2;
 	item->annotation().setZiel(SpinBox1->value()-1);
-	item->annotation().setType(ComboBox1->currentItem()+10);
+	item->annotation().setType(ComboBox1->currentIndex()+10);
 	switch (item->annotation().Type())
 	{
 	case 10:

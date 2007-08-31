@@ -282,7 +282,7 @@ PyObject *scribus_masterpagenames(PyObject* /* self */)
 	int n = 0;
 	for ( ; it != itEnd; ++it )
 	{
-		PyList_SET_ITEM(names, n++, PyString_FromString(it.key().utf8().data()) );
+		PyList_SET_ITEM(names, n++, PyString_FromString(it.key().toUtf8().data()) );
 	}
 	return names;
 }

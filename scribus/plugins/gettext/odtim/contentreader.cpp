@@ -249,9 +249,9 @@ void ContentReader::parse(QString fileName)
 	sreader->parse(fileName);
 #if defined(_WIN32)
 	QString fname = QDir::convertSeparators(fileName);
-	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
 #else
-	QByteArray fn(fileName.local8Bit());
+	QByteArray fn(fileName.toLocal8Bit());
 #endif
 	xmlSAXParseFile(cSAXHandler, fn.data(), 1);
 }

@@ -281,8 +281,8 @@ void NewDoc::createNewDocPage()
 	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox, "pageCountLabel" );
 
 	pageCountSpinBox = new QSpinBox( optionsGroupBox, "pageCountSpinBox" );
-	pageCountSpinBox->setMaxValue( 10000 );
-	pageCountSpinBox->setMinValue( 1 );
+	pageCountSpinBox->setMaximum( 10000 );
+	pageCountSpinBox->setMinimum( 1 );
 	pageCountLabel->setBuddy(pageCountSpinBox);
 	unitOfMeasureLabel = new QLabel( tr( "&Default Unit:" ), optionsGroupBox, "unitOfMeasureLabel" );
 	unitOfMeasureComboBox = new QComboBox( true, optionsGroupBox, "unitOfMeasureComboBox" );

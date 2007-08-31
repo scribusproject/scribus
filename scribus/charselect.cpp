@@ -35,7 +35,7 @@ CharSelect::CharSelect(QWidget* parent)
 	m_doc(0),
 	m_Item(0)
 {
-	setCaption( tr("Character Palette"));
+	setWindowTitle( tr("Character Palette"));
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
 	QGridLayout * mainLayout = new QGridLayout(this);
@@ -46,14 +46,14 @@ CharSelect::CharSelect(QWidget* parent)
 
 	// big table related
 	m_bigPalette = new QGroupBox(tr("Enhanced Palette"), this);
-	QGridLayout* bigLayout = new QGridLayout(m_bigPalette->layout());
+	QGridLayout* bigLayout;
     bigLayout = new QGridLayout(m_bigPalette);
 #ifndef Q_OS_MAC
     bigLayout->setSpacing(6);
     bigLayout->setMargin(9);
 #endif
 
-	fontLabel = new QLabel(m_bigPalette, "fontLabel");
+	fontLabel = new QLabel(m_bigPalette);
 	fontLabel->setText( tr("Font:"));
 	bigLayout->addWidget(fontLabel, 0, 0, 1, 1);
 
@@ -61,11 +61,11 @@ CharSelect::CharSelect(QWidget* parent)
 	fontSelector->setMaximumSize(190, 30);
 	bigLayout->addWidget(fontSelector, 0, 1, 1, 1);
 
-	rangeLabel = new QLabel(m_bigPalette, "fontLabel");
+	rangeLabel = new QLabel(m_bigPalette);
 	rangeLabel->setText( tr("Character Class:"));
 	bigLayout->addWidget(rangeLabel, 0, 2, 1, 2);
 
-	rangeSelector = new ScComboBox(false, m_bigPalette, "rangeSelector");
+	rangeSelector = new ScComboBox(false, m_bigPalette);
 	bigLayout->addWidget(rangeSelector, 0, 4, 1, 1);
 
 	m_characterClass = 0;
@@ -80,15 +80,15 @@ CharSelect::CharSelect(QWidget* parent)
 	m_charTable->setDragDropMode(QAbstractItemView::DragOnly);
 	bigLayout->addWidget(m_charTable, 1, 0, 1, 5);
 
-	sample = new QLabel(m_bigPalette, "sample");
+	sample = new QLabel(m_bigPalette);
 	sample->setFrameShape(QFrame::Box);
-	sample->setPaletteBackgroundColor(paletteBackgroundColor());
+//	sample->setPaletteBackgroundColor(paletteBackgroundColor());
 	sample->setMinimumHeight(48);
 	sample->setMinimumWidth(460);
 	bigLayout->addWidget(sample, 2, 0, 1, 5);
 
-	insertButton = new QPushButton( tr("&Insert"), m_bigPalette, "insertButton");
-	deleteButton = new QPushButton( tr("C&lear"), m_bigPalette, "deleteButton");
+	insertButton = new QPushButton( tr("&Insert"), m_bigPalette);
+	deleteButton = new QPushButton( tr("C&lear"), m_bigPalette);
 	bigLayout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum), 3, 0, 1, 1);
 	bigLayout->addWidget(insertButton, 3, 1, 1, 2);
 	bigLayout->addWidget(deleteButton, 3, 3, 1, 2);
@@ -103,18 +103,18 @@ CharSelect::CharSelect(QWidget* parent)
     quickLayout->setMargin(9);
 #endif
 
-	hideCheck = new QCheckBox( tr("Hide Enhanced"), m_quickPalette, "hideCheck");
+	hideCheck = new QCheckBox( tr("Hide Enhanced"), m_quickPalette);
 	quickLayout->addWidget(hideCheck, 0, 0, 1, 2);
 
 	unicodeButton = new UnicodeChooseButton(m_quickPalette);
 	quickLayout->addWidget(unicodeButton, 1, 0, 1, 1);
 
-	uniLoadButton = new QPushButton(m_quickPalette, "uniLoadButton");
-	uniLoadButton->setPixmap(loadIcon("22/document-open.png"));
-	uniSaveButton = new QPushButton(m_quickPalette, "uniSaveButton");
-	uniSaveButton->setPixmap(loadIcon("22/document-save.png"));
-	uniClearButton = new QPushButton(m_quickPalette, "uniClearButton");
-	uniClearButton->setPixmap(loadIcon("22/document-new.png"));
+	uniLoadButton = new QPushButton(m_quickPalette);
+	uniLoadButton->setIcon(loadIcon("22/document-open.png"));
+	uniSaveButton = new QPushButton(m_quickPalette);
+	uniSaveButton->setIcon(loadIcon("22/document-save.png"));
+	uniClearButton = new QPushButton(m_quickPalette);
+	uniClearButton->setIcon(loadIcon("22/document-new.png"));
 	
 	quickLayout->addWidget(uniLoadButton, 2, 0, 1, 1);
 	quickLayout->addWidget(uniSaveButton, 2, 1, 1, 1);
@@ -184,8 +184,8 @@ void CharSelect::setDoc(ScribusDoc* doc)
 	m_fontInUse = m_doc->currentStyle.charStyle().font().scName();
 	if (oldFont != m_fontInUse && !m_fontInUse.isEmpty())
 	{
-		fontSelector->setCurrentText(m_fontInUse);
-		newFont(fontSelector->currentItem());
+		fontSelector->setEditText(m_fontInUse);
+		newFont(fontSelector->currentIndex());
 		unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
 	}
 }
@@ -234,9 +234,9 @@ void CharSelect::scanFont()
 	for (QMap<uint, std::pair<QChar, QString> >::iterator it=glyphs.begin();
 		 it != glyphs.end(); ++it)
 	{
-		charcode = it.data().first.unicode();
+		charcode = it.value().first.unicode();
 		gindex = it.key();
-		gname = it.data().second;
+		gname = it.value().second;
 		charactersFull.append(charcode);
 		if ((charcode >= 0x0020) && (charcode <= 0x007F))
 			charactersLatin1.append(charcode);
@@ -328,172 +328,172 @@ void CharSelect::setupRangeCombo()
 	disconnect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	int counter = 0;
 	rangeSelector->clear();
-	rangeSelector->insertItem( tr("Full Character Set"));
+	rangeSelector->addItem( tr("Full Character Set"));
 	usedCharClasses.insert(counter, 0);
 	counter++;
 	if (charactersLatin1.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Basic Latin"));
+		rangeSelector->addItem( tr("Basic Latin"));
 		usedCharClasses.insert(counter, 1);
 		counter++;
 	}
 	if (charactersLatin1Supplement.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Latin-1 Supplement"));
+		rangeSelector->addItem( tr("Latin-1 Supplement"));
 		usedCharClasses.insert(counter, 2);
 		counter++;
 	}
 	if (charactersLatinExtendedA.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Latin Extended-A"));
+		rangeSelector->addItem( tr("Latin Extended-A"));
 		usedCharClasses.insert(counter, 3);
 		counter++;
 	}
 	if (charactersLatinExtendedB.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Latin Extended-B"));
+		rangeSelector->addItem( tr("Latin Extended-B"));
 		usedCharClasses.insert(counter, 4);
 		counter++;
 	}
 	if (charactersGeneralPunctuation.count() != 0)
 	{
-		rangeSelector->insertItem( tr("General Punctuation"));
+		rangeSelector->addItem( tr("General Punctuation"));
 		usedCharClasses.insert(counter, 5);
 		counter++;
 	}
 	if (charactersSuperSubscripts.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Super- and Subscripts"));
+		rangeSelector->addItem( tr("Super- and Subscripts"));
 		usedCharClasses.insert(counter, 6);
 		counter++;
 	}
 	if (charactersCurrencySymbols.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Currency Symbols"));
+		rangeSelector->addItem( tr("Currency Symbols"));
 		usedCharClasses.insert(counter, 7);
 		counter++;
 	}
 	if (charactersLetterlikeSymbols.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Letterlike Symbols"));
+		rangeSelector->addItem( tr("Letterlike Symbols"));
 		usedCharClasses.insert(counter, 8);
 		counter++;
 	}
 	if (charactersNumberForms.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Number Forms"));
+		rangeSelector->addItem( tr("Number Forms"));
 		usedCharClasses.insert(counter, 9);
 		counter++;
 	}
 	if (charactersArrows.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Arrows"));
+		rangeSelector->addItem( tr("Arrows"));
 		usedCharClasses.insert(counter, 10);
 		counter++;
 	}
 	if (charactersMathematicalOperators.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Mathematical Operators"));
+		rangeSelector->addItem( tr("Mathematical Operators"));
 		usedCharClasses.insert(counter, 11);
 		counter++;
 	}
 	if (charactersBoxDrawing.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Box Drawing"));
+		rangeSelector->addItem( tr("Box Drawing"));
 		usedCharClasses.insert(counter, 12);
 		counter++;
 	}
 	if (charactersBlockElements.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Block Elements"));
+		rangeSelector->addItem( tr("Block Elements"));
 		usedCharClasses.insert(counter, 13);
 		counter++;
 	}
 	if (charactersGeometricShapes.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Geometric Shapes"));
+		rangeSelector->addItem( tr("Geometric Shapes"));
 		usedCharClasses.insert(counter, 14);
 		counter++;
 	}
 	if (charactersMiscellaneousSymbols.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Miscellaneous Symbols"));
+		rangeSelector->addItem( tr("Miscellaneous Symbols"));
 		usedCharClasses.insert(counter, 15);
 		counter++;
 	}
 	if (charactersDingbats.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Dingbats"));
+		rangeSelector->addItem( tr("Dingbats"));
 		usedCharClasses.insert(counter, 16);
 		counter++;
 	}
 	if (charactersSmallFormVariants.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Small Form Variants"));
+		rangeSelector->addItem( tr("Small Form Variants"));
 		usedCharClasses.insert(counter, 17);
 		counter++;
 	}
 	if (charactersAlphabeticPresentationForms.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Ligatures"));
+		rangeSelector->addItem( tr("Ligatures"));
 		usedCharClasses.insert(counter, 18);
 		counter++;
 	}
 	if (charactersSpecial.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Specials"));
+		rangeSelector->addItem( tr("Specials"));
 		usedCharClasses.insert(counter, 19);
 		counter++;
 	}
 	if (charactersGreek.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Greek"));
+		rangeSelector->addItem( tr("Greek"));
 		usedCharClasses.insert(counter, 20);
 		counter++;
 	}
 	if (charactersGreekExtended.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Greek Extended"));
+		rangeSelector->addItem( tr("Greek Extended"));
 		usedCharClasses.insert(counter, 21);
 		counter++;
 	}
 	if (charactersCyrillic.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Cyrillic"));
+		rangeSelector->addItem( tr("Cyrillic"));
 		usedCharClasses.insert(counter, 22);
 		counter++;
 	}
 	if (charactersCyrillicSupplement.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Cyrillic Supplement"));
+		rangeSelector->addItem( tr("Cyrillic Supplement"));
 		usedCharClasses.insert(counter, 23);
 		counter++;
 	}
 	if (charactersArabic.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Arabic"));
+		rangeSelector->addItem( tr("Arabic"));
 		usedCharClasses.insert(counter, 24);
 		counter++;
 	}
 	if (charactersArabicPresentationFormsA.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Arabic Extended A"));
+		rangeSelector->addItem( tr("Arabic Extended A"));
 		usedCharClasses.insert(counter, 25);
 		counter++;
 	}
 	if (charactersArabicPresentationFormsB.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Arabic Extended B"));
+		rangeSelector->addItem( tr("Arabic Extended B"));
 		usedCharClasses.insert(counter, 26);
 		counter++;
 	}
 	if (charactersHebrew.count() != 0)
 	{
-		rangeSelector->insertItem( tr("Hebrew"));
+		rangeSelector->addItem( tr("Hebrew"));
 		usedCharClasses.insert(counter, 27);
 		counter++;
 	}
-	rangeSelector->setCurrentItem(0);
+	rangeSelector->setCurrentIndex(0);
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 }
 
@@ -516,7 +516,7 @@ void CharSelect::newCharClass(int c)
 void CharSelect::newFont(int font)
 {
 	QString oldFont(m_fontInUse);
-	m_fontInUse = fontSelector->text(font);
+	m_fontInUse = fontSelector->itemText(font);
 	if (!m_fontInUse.isEmpty())
 	{
 		m_charTableModel->setFontInUse(m_fontInUse);
@@ -541,7 +541,7 @@ void CharSelect::userNewChar(uint i)
 void CharSelect::newChar(uint i)
 {
 	chToIns += QChar(i);
-	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, palette().color(QPalette::Window), true));
 	insertButton->setEnabled(true);
 	QString tmp;
 	tmp.sprintf("%04X", i);
@@ -557,7 +557,7 @@ void CharSelect::delChar()
 		return;
 	}
 	chToIns.truncate(chToIns.length() - 1);
-	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, palette().color(QPalette::Window), true));
 	insertButton->setEnabled(true);
 }
 
@@ -565,7 +565,7 @@ void CharSelect::delEdit()
 {
 	chToIns = "";
 	QPixmap pm(1,28);
-	pm.fill(paletteBackgroundColor());
+	pm.fill(palette().color(QPalette::Window));
 	sample->setPixmap(pm);
 	insertButton->setEnabled(false);
 }
@@ -643,12 +643,7 @@ void CharSelect::setEnabled(bool state, PageItem* item)
 
 void CharSelect::uniLoadButton_clicked()
 {
-	QString f = QFileDialog::getOpenFileName(
-                    QDir::currentPath(),
-                    paletteFileMask,
-                    this,
-                    "loadDialog",
-                    tr("Choose a filename to open"));
+	QString f = QFileDialog::getOpenFileName(this, tr("Choose a filename to open"), QDir::currentPath(), paletteFileMask);
 	if (!f.isNull())
 		loadUserContent(f);
 }
@@ -689,12 +684,7 @@ void CharSelect::uniSaveButton_clicked()
 {
 	if (m_userTableModel->characters().count() == 0)
 		return;
-	QString f = QFileDialog::getSaveFileName(
-                    QDir::currentPath(),
-                    paletteFileMask,
-                    this,
-                    "saveDialog",
-                    tr("Choose a filename to save under"));
+	QString f = QFileDialog::getSaveFileName(this, tr("Choose a filename to save under"), QDir::currentPath(), paletteFileMask);
 	if (f.isNull() || !overwrite(this, f))
 		return;
 	saveUserContent(f);

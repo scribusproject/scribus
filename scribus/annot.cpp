@@ -71,7 +71,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7))
 	{
 		QString tm = item->annotation().Action();
-		tl = tl.split(" ", tm);
+		tl = tm.split(" ");
 	}
 	else
 	{
@@ -182,14 +182,14 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox20Layout->addWidget( TextLabel40a, 0, 0 );
 	BorderC = new ColorCombo( true, GroupBox20);
 	ColorList::Iterator cit;
-	BorderC->insertItem(CommonStrings::tr_NoneColor);
+	BorderC->addItem(CommonStrings::tr_NoneColor);
 	if (item->annotation().borderColor() == CommonStrings::None)
-		BorderC->setCurrentItem(BorderC->count()-1);
+		BorderC->setCurrentIndex(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
-		BorderC->insertSmallItem(cit.data(), doc, cit.key());
+		BorderC->insertSmallItem(cit.value(), doc, cit.key());
 		if (cit.key() == item->annotation().borderColor())
-			BorderC->setCurrentItem(BorderC->count()-1);
+			BorderC->setCurrentIndex(BorderC->count()-1);
 	}
 	BorderC->setEditable(false);
 	GroupBox20Layout->addWidget( BorderC, 0, 1 );
@@ -449,8 +449,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Limit->setText( tr( "Limit of" ) );
 	Layout8->addWidget( Limit );
 	MaxChars = new QSpinBox( OptTextFeld );
-	MaxChars->setMinValue(0);
-	MaxChars->setMaxValue(32768);
+	MaxChars->setMinimum(0);
+	MaxChars->setMaximum(32768);
 	bool setter = item->annotation().MaxChar() != -1 ? true : false;
 	MaxChars->setValue(setter == true ? item->annotation().MaxChar() : 0);
 	Limit->setChecked(setter);
@@ -626,8 +626,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	TextLabel31->setText( tr( "Page:" ) );
 	GroupBox11Layout->addWidget( TextLabel31, 1, 0 );
 	SpinBox11 = new QSpinBox( GroupBox11 );
-	SpinBox11->setMinValue(1);
-	SpinBox11->setMaxValue(item->annotation().ActionType() == 7 ? 1000 : Seite);
+	SpinBox11->setMinimum(1);
+	SpinBox11->setMaximum(item->annotation().ActionType() == 7 ? 1000 : Seite);
 	SpinBox11->setValue(qMin(item->annotation().Ziel()+1, Seite));
 	GroupBox11Layout->addWidget( SpinBox11, 1, 1 );
 	if (item->annotation().ActionType() == 7)
@@ -641,20 +641,20 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	GroupBox11Layout->addWidget( TextLabel41, 2, 0 );
 	SpinBox21 = new QSpinBox( GroupBox11 );
 	SpinBox21->setSuffix( tr( " pt" ) );
-	SpinBox21->setMaxValue(Breite);
+	SpinBox21->setMaximum(Breite);
 	SpinBox21->setValue(tl[0].toInt());
 	GroupBox11Layout->addWidget( SpinBox21, 2, 1 );
 	TextLabel51 = new QLabel( GroupBox11 );
 	TextLabel51->setText( tr( "Y-Pos:" ) );
 	GroupBox11Layout->addWidget( TextLabel51, 3, 0 );
 	SpinBox31 = new QSpinBox( GroupBox11 );
-	SpinBox31->setMaxValue(Hoehe);
+	SpinBox31->setMaximum(Hoehe);
 	SpinBox31->setSuffix( tr( " pt" ) );
 	SpinBox31->setValue(Hoehe-tl[1].toInt());
 	GroupBox11Layout->addWidget( SpinBox31, 3, 1 );
 	Fram2->addWidget(GroupBox11);
 
-	Frame3b = new QFrame( tab_2, "Frame3b" );
+	Frame3b = new QFrame( tab_2 );
 	Frame3b->setFrameShape( QFrame::Box );
 	Frame3b->setFrameShadow( QFrame::Sunken );
 	Frame3bLayout = new QVBoxLayout( Frame3b );
@@ -755,8 +755,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	TextNu1->setText( tr( "Decimals:" ) );
 	LayoutFN1->addWidget( TextNu1 );
 	Decim = new QSpinBox( NumbGroup );
-	Decim->setMinValue(0);
-	Decim->setMaxValue(12);
+	Decim->setMinimum(0);
+	Decim->setMaximum(12);
 	Decim->setValue(0);
 	LayoutFN1->addWidget( Decim );
 	QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -801,7 +801,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	NumbGroupLayout->addWidget( NumGroup2 );
 	FoFram->addWidget(NumbGroup);
 
-	PercGroup = new QGroupBox( tab4, "NumbGroup" );
+	PercGroup = new QGroupBox( tab4 );
 	PercGroup->setTitle( tr( "Percent Format" ) );
 	PercGroupLayout = new QVBoxLayout( PercGroup );
 	PercGroupLayout->setSpacing( 5 );
@@ -814,8 +814,8 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	TextNu1a->setText( tr( "Decimals:" ) );
 	LayoutFN1a->addWidget( TextNu1a );
 	Decim2 = new QSpinBox( PercGroup );
-	Decim2->setMinValue(0);
-	Decim2->setMaxValue(12);
+	Decim2->setMinimum(0);
+	Decim2->setMaximum(12);
 	Decim2->setValue(0);
 	LayoutFN1a->addWidget( Decim2 );
 	QSpacerItem* spacer_4a = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -956,7 +956,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 
 	Layout->addWidget( FoFram );
 	TabWidget2->addTab( tab4, tr( "Format" ) );
-	TabWidget2->setTabEnabled(tab4, false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab4), false);
 
 	tab_4 = new QWidget( TabWidget2 );
 	tabLayout_4 = new QVBoxLayout( tab_4 );
@@ -1017,7 +1017,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	ValidateGroupLayout->addLayout( VLayout2 );
 	tabLayout_4->addWidget( ValidateGroup );
 	TabWidget2->addTab( tab_4, tr( "Validate" ) );
-	TabWidget2->setTabEnabled(tab_4, false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_4), false);
 	SetVali();
 
 	tab_5 = new QWidget( TabWidget2 );
@@ -1091,7 +1091,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	CalcGroupLayout->addLayout( CLayout2 );
 	tabLayout_5->addWidget( CalcGroup );
 	TabWidget2->addTab( tab_5, tr( "Calculate" ) );
-	TabWidget2->setTabEnabled(tab_5, false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_5), false);
 	SetCalc();
 	GroupBox10Layout->addWidget( TabWidget2 );
 	Fram->addWidget(GroupBox10);
@@ -1217,7 +1217,7 @@ void Annot::IPlace()
 		}
 		else
 		{
-			if (dia->ScaleH->currentItem() == 0)
+			if (dia->ScaleH->currentIndex() == 0)
 			{
 				item->setImageXYScale(sc, sc);
 				item->setImageXYOffset(((item->width()-w*sc)/sc)/2.0/ sc, ((item->height()-h*sc)/sc)/2.0/sc);
@@ -1450,10 +1450,10 @@ void Annot::setDateSample(const QString& ds)
 void Annot::DecodeVali()
 {
 	QString pfor = item->annotation().V_act();
-	int ss = pfor.find("(");
+	int ss = pfor.indexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
 	QStringList pfol;
-	pfol = pfol.split(",", pfo);
+	pfol = pfo.split(",");
 	MinValid->setText(pfol[1].simplified());
 	MaxValid->setText(pfol[3].simplified());
 }
@@ -1466,7 +1466,7 @@ void Annot::DecodeCalc()
 	int ss = pfor.lastIndexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-3);
 	QStringList pfol;
-	pfol = pfol.split(",", pfo);
+	pfol = pfo.split(",");
 	if (pfol.count() > 1)
 	{
 		tm2 = pfol[0].simplified();
@@ -1478,9 +1478,9 @@ void Annot::DecodeCalc()
 		}
 	}
 	CalcFields->setText(tm);
-	ss = pfor.find("(");
+	ss = pfor.indexOf("(");
 	pfo = pfor.mid(ss+1, pfor.length()-ss-3);
-	pfol = pfol.split(",", pfo);
+	pfol = pfo.split(",");
 	/* PFJ - 28/02/04 - Let's get rid of lots of ifs.... */
 	QString pf[] = {"\"SUM\"", "\"PRD\"", "\"AVG\"", "\"MIN\"", "\"MAX\""};
 	size_t pfTest = sizeof(pf) / sizeof(*pf);
@@ -1494,10 +1494,10 @@ void Annot::DecodeCalc()
 void Annot::DecodeNum()
 {
 	QString pfor = item->annotation().F_act();
-	int ss = pfor.find("(");
+	int ss = pfor.indexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
 	QStringList pfol;
-	pfol = pfol.split(",", pfo);
+	pfol = pfo.split(",");
 	if (item->annotation().Format() == 1)
 		{
 		Decim->setValue(pfol[0].toInt());
@@ -1566,7 +1566,7 @@ void Annot::DecodeNum()
 		}
 	if (item->annotation().Format() == 3)
 		{
-		Format0c->setCurrentText(pfol[0].remove("\""));
+		Format0c->setEditText(pfol[0].remove("\""));
 		setDateSample(pfol[0]);
 		}
 	if (item->annotation().Format() == 4)
@@ -1757,8 +1757,8 @@ void Annot::SetPg(int v)
 		Hoehe = OriHoehe;
 		//		SetCo(0,0);
 	}
-	SpinBox21->setMaxValue(Breite);
-	SpinBox31->setMaxValue(Hoehe);
+	SpinBox21->setMaximum(Breite);
+	SpinBox31->setMaximum(Hoehe);
 	connect(SpinBox11, SIGNAL(valueChanged(int)), this, SLOT(SetPg(int)));
 }
 
@@ -1844,7 +1844,7 @@ void Annot::SetVals()
 		if (SimpleCalc->isChecked())
 		{
 			QString tmpCact = "AFSimple_Calculate(";
-			switch (CalcArt->currentItem())
+			switch (CalcArt->currentIndex())
 			{
 				case 0:
 					tmpCact += "\"SUM\", ";
@@ -1864,7 +1864,7 @@ void Annot::SetVals()
 			}
 			tmpCact += "new Array (";
 			QStringList pfol;
-			pfol = pfol.split(",", CalcFields->text());
+			pfol = CalcFields->text().split(",");
 			if (pfol.count() > 1)
 			{
 				tmpCact += "\""+pfol[0].simplified()+"\"";
@@ -1878,7 +1878,7 @@ void Annot::SetVals()
 		}
 		if (CustomCalc->isChecked())
 			item->annotation().setC_act(CalcScript->toPlainText());
-		switch (TxFormat->currentItem())
+		switch (TxFormat->currentIndex())
 		{
 			case 0:
 				item->annotation().setF_act("");
@@ -2012,9 +2012,9 @@ void Annot::SetZiel(int it)
 	if (tmpac == 7)
 		tmpac = 2;
 	int sela = it + 2;
-	TabWidget2->setTabEnabled(tab4, false);
-	TabWidget2->setTabEnabled(tab_4, false);
-	TabWidget2->setTabEnabled(tab_5, false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab4), false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_4), false);
+	TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_5), false);
 	EditFormat->setEnabled( false );
 	EditKeystr->setEnabled( false );
 	SelAction->clear();
@@ -2023,7 +2023,7 @@ void Annot::SetZiel(int it)
 	size_t array_sel = sizeof(tmp_selact) / sizeof(*tmp_selact);
 	/* PFJ - 28/02/04 - Altered from uint to int and varname */
 	for (uint prop = 0; prop < array_sel; ++prop)
-		SelAction->insertItem(tmp_selact[prop]);
+		SelAction->addItem(tmp_selact[prop]);
 	bool setter;
 	switch (sela)
 	{
@@ -2043,8 +2043,8 @@ void Annot::SetZiel(int it)
 			size_t array_act = sizeof(tmp_actcom) / sizeof(*tmp_actcom);
 			/* PFJ - 28/02/04 - Altered from uint to int and varname */
 			for (uint prop = 0; prop < array_act; ++prop)
-				ActionCombo->insertItem(tmp_actcom[prop]);
-			ActionCombo->setCurrentItem(qMin(tmpac,5));
+				ActionCombo->addItem(tmp_actcom[prop]);
+			ActionCombo->setCurrentIndex(qMin(tmpac,5));
 			setter = item->annotation().ActionType() != 7 ? true : false;
 			Destfile->setEnabled(setter);
 			ChFile->setEnabled(setter);
@@ -2058,16 +2058,16 @@ void Annot::SetZiel(int it)
 	case 7:
 		if ((sela == 3) || (sela == 5))
 		{
-			TabWidget2->setTabEnabled(tab4, true);
-			TabWidget2->setTabEnabled(tab_4, true);
-			TabWidget2->setTabEnabled(tab_5, true);
-			TxFormat->setCurrentItem(item->annotation().Format());
+			TabWidget2->setTabEnabled(TabWidget2->indexOf(tab4), true);
+			TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_4), true);
+			TabWidget2->setTabEnabled(TabWidget2->indexOf(tab_5), true);
+			TxFormat->setCurrentIndex(item->annotation().Format());
 			SetFoScript(item->annotation().Format());
 			SetVali();
 			SetCalc();
 		}
 		if (sela == 6)
-			SelAction->insertItem( tr( "Selection Change" ) );
+			SelAction->addItem( tr( "Selection Change" ) );
 		ReadOnly->setEnabled(true);
 		ReadOnly->setChecked(item->annotation().Flag() & 1);
 		Required->setChecked(item->annotation().Flag() & 2);
@@ -2075,9 +2075,9 @@ void Annot::SetZiel(int it)
 		Fram->setCurrentIndex(3);
 		sela > 5 ? FramOp->setCurrentIndex(3) : FramOp->setCurrentIndex(sela-2);
 		ActionCombo->clear();
-		ActionCombo->insertItem( tr( "None" ) );
-		ActionCombo->insertItem( tr( "JavaScript" ) );
-		ActionCombo->setCurrentItem(qMin(tmpac, 1));
+		ActionCombo->addItem( tr( "None" ) );
+		ActionCombo->addItem( tr( "JavaScript" ) );
+		ActionCombo->setCurrentIndex(qMin(tmpac, 1));
 		SetActTyp(tmpac);
 		break;
 	default:
@@ -2089,7 +2089,7 @@ void Annot::SetZiel(int it)
 	CanEdit->setChecked(item->annotation().Flag() & 262144);
 	NoSpell->setChecked(item->annotation().Flag() & 4194304);
 	NoScroll->setChecked(item->annotation().Flag() & 8388608);
-	ChkStil->setCurrentItem(item->annotation().ChkStil());
+	ChkStil->setCurrentIndex(item->annotation().ChkStil());
 	isChkd->setChecked(item->annotation().IsChk());
 	setter = item->annotation().MaxChar() != -1 ? true : false;
 	MaxChars->setValue(setter == true ? item->annotation().MaxChar() : 0);
@@ -2240,7 +2240,7 @@ void Annot::GetFile()
 			dirs->set("annot_getfile", fn.left(fn.lastIndexOf("/")));
 			Destfile->setText(fn);
 			SpinBox11->setValue(1);
-			SpinBox11->setMaxValue(1000);
+			SpinBox11->setMaximum(1000);
 			SetPg(1);
 		}
 	}

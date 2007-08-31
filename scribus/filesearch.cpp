@@ -36,7 +36,7 @@ FileSearch::FileSearch(QObject* parent, const QString & fileName,const QString &
 	m_dir.setPath(m_searchBase);
 	Q_ASSERT(m_dir.exists());
 	// Give ourselves a useful name for object browsers, etc.
-	setName(QString("FileSearch for \"%1\"").arg(m_searchBase).local8Bit());
+	setName(QString("FileSearch for \"%1\"").arg(m_searchBase).toLocal8Bit());
 }
 
 FileSearch::~FileSearch()

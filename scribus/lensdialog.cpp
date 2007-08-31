@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "lensdialog.h"
 #include <QRadialGradient>
+#include "util_icon.h"
 
 LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsEllipseItem(geom)
 {
@@ -34,7 +35,7 @@ LensItem::LensItem(QRectF geom, LensDialog *parent) : QGraphicsEllipseItem(geom)
 	setPen(QPen(Qt::black));
 	QRadialGradient radialGrad(QPointF(0.5, 0.5), 1.0);
 	radialGrad.setColorAt(0.0, QColor(255, 0, 0, 127));
-	radialGrad.setColorAt(0.5, QColor(255, 255, 255, 127));
+	radialGrad.setColorAt(0.1, QColor(255, 0, 0, 127));
 	radialGrad.setColorAt(1.0, QColor(255, 255, 255, 0));
 #if QT_VERSION  >= 0x040301
 	radialGrad.setCoordinateMode(QGradient::ObjectBoundingMode);
@@ -91,8 +92,6 @@ QPainterPath LensItem::lensDeform(const QPainterPath &source, const QPointF &off
 		double len = m_radius - sqrt(dx * dx + dy * dy);
 		if (len > 0)
 			path.setElementPositionAt(i, e.x - s * dx * len / m_radius, e.y - s * dy * len / m_radius);
-		else
-			path.setElementPositionAt(i, e.x, e.y);
 	}
 	return path;
 }
@@ -103,6 +102,8 @@ LensDialog::LensDialog(QWidget* parent, FPointArray &path) : QDialog(parent)
 	buttonRemove->setEnabled(false);
 	setModal(true);
 	origPath = path.toQPainterPath(true);
+	buttonZoomOut->setPixmap(loadIcon("16/zoom-out.png"));
+	buttonZoomI->setPixmap(loadIcon("16/zoom-in.png"));
 	modifiedPath = origPath;
 	origPathItem = scene.addPath(origPath);
 	previewWidget->setRenderHint(QPainter::Antialiasing);

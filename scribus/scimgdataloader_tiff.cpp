@@ -42,7 +42,7 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
 	if ( !QFile::exists(fn) )
 		return;
 	TIFFSetTagExtender(TagExtender);
-	TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
+	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
 	if(tif)
 	{
 		DWORD EmbedLen = 0;
@@ -98,7 +98,7 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn)
 	int test;
 	struct PSDLayer lay;
 	TIFFSetTagExtender(TagExtender);
-	TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
+	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
 	if(tif)
 	{
 		do
@@ -549,7 +549,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 	m_imageInfoRecord.type = 1;
 	getLayers(fn);
 	TIFFSetTagExtender(TagExtender);
-	TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
+	TIFF* tif = TIFFOpen(fn.toLocal8Bit(), "r");
 	if(tif)
 	{
 		bool isCMYK = false;

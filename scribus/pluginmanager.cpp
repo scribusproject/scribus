@@ -54,8 +54,8 @@ void* PluginManager::loadDLL( QString plugin )
 	{
 		const char* error = dlerror();
 		qDebug("%s: %s",
-				tr("Cannot find plugin", "plugin manager").local8Bit().data(),
-				error ? error : tr("unknown error","plugin manager").local8Bit().data());
+				tr("Cannot find plugin", "plugin manager").toLocal8Bit().data(),
+				error ? error : tr("unknown error","plugin manager").toLocal8Bit().data());
 	}
 	dlerror();
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
@@ -66,7 +66,7 @@ void* PluginManager::loadDLL( QString plugin )
 	if( QFile::exists(plugin) )
 		lib = (void*) new QLibrary( plugin );
 	else
-		qDebug("%s \"%s\"", tr("Cannot find plugin", "plugin manager").local8Bit().data(), plugin.local8Bit().data());
+		qDebug("%s \"%s\"", tr("Cannot find plugin", "plugin manager").local8Bit().data(), plugin.toLocal8Bit().data());
 #endif
 	return lib;
 }
@@ -80,18 +80,18 @@ void* PluginManager::resolveSym( void* plugin, const char* sym )
 	symAddr = dlsym( plugin, sym );
 	if ((error = dlerror()) != NULL)
 	{
-		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(error).local8Bit().data());
+		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(error).toLocal8Bit().data());
 		symAddr = NULL;
 	}
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
 	symAddr = (void* ) GetProcAddress( (HMODULE) plugin, sym);
 	if ( symAddr == NULL)
-		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).local8Bit().data());
+		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).toLocal8Bit().data());
 #else
 	QLibrary* qlib = (QLibrary*) plugin;
 	if( plugin ) symAddr = qlib->resolve(sym);
 	if ( symAddr == NULL)
-		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).local8Bit().data());
+		qDebug("%s", tr("Cannot find symbol (%1)", "plugin manager").arg(sym).toLocal8Bit().data());
 #endif
 	return symAddr;
 }
@@ -132,7 +132,7 @@ QString PluginManager::getPluginName(QString fileName)
 		if (! baseName[i].isLetterOrNumber() && baseName[i] != '_' )
 		{
 			qDebug("Invalid character in plugin name for %s; skipping",
-					fileName.local8Bit().data());
+					fileName.toLocal8Bit().data());
 			return QString();
 		}
 	return baseName.latin1();
@@ -365,7 +365,7 @@ bool PluginManager::loadPlugin(PluginData & pda)
 		if ( gotVersion != PLUGIN_API_VERSION )
 		{
 			qDebug("API version mismatch when loading %s: Got %i, expected %i",
-					pda.pluginFile.local8Bit().data(), gotVersion, PLUGIN_API_VERSION);
+					pda.pluginFile.toLocal8Bit().data(), gotVersion, PLUGIN_API_VERSION);
 		}
 		else
 		{
@@ -377,7 +377,7 @@ bool PluginManager::loadPlugin(PluginData & pda)
 				if (!pda.plugin)
 				{
 					qDebug("Unable to get ScPlugin when loading %s",
-							pda.pluginFile.local8Bit().data());
+							pda.pluginFile.toLocal8Bit().data());
 				}
 				else
 					return true;

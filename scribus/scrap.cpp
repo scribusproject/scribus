@@ -415,7 +415,7 @@ void BibView::ReadOldContents(QString name, QString newName)
 				continue ;
 			QDataStream s(&fi);
 			QString fn = GetAttr(&dc, "DATA");
-			cf = isUtf8? fn.utf8() : fn.local8Bit();
+			cf = isUtf8? fn.toUtf8() : fn.toLocal8Bit();
 			s.writeRawBytes(cf.data(), cf.length());
 			fi.close();
 		}

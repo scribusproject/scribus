@@ -57,11 +57,11 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	{
 		for (int b = 0; b < it->itemText.length(); b++)
 			if (it->itemText.selected(b))
-				return PyString_FromString(it->itemText.charStyle(b).font().scName().utf8());
+				return PyString_FromString(it->itemText.charStyle(b).font().scName().toUtf8());
 		return NULL;
 	}
 	else
-		return PyString_FromString(it->currentCharStyle().font().scName().utf8());
+		return PyString_FromString(it->currentCharStyle().font().scName().toUtf8());
 }
 
 PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
@@ -182,7 +182,7 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 			text += it->itemText.text(a);
 		}
 	}
-	return PyString_FromString(text.utf8());
+	return PyString_FromString(text.toUtf8());
 }
 
 PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
@@ -215,7 +215,7 @@ PyObject *scribus_gettext(PyObject* /* self */, PyObject* args)
 			text += it->itemText.text(a);
 		}
 	} // for
-	return PyString_FromString(text.utf8());
+	return PyString_FromString(text.toUtf8());
 }
 
 PyObject *scribus_setboxtext(PyObject* /* self */, PyObject* args)

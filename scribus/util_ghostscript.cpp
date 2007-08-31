@@ -204,10 +204,10 @@ bool testGSDeviceAvailability( const QString& device )
 QString getGSVersion()
 {
 	QStringList args;
-	args.append(QString("--version").local8Bit());
+	args.append(QString("--version").toLocal8Bit());
 	QString gsExe = getShortPathName(PrefsManager::instance()->ghostscriptExecutable());
 	QProcess proc;
-	proc.start(gsExe.local8Bit(), args);
+	proc.start(gsExe.toLocal8Bit(), args);
 	if (proc.waitForStarted(5000))
 		while (!proc.waitForFinished(5000))
 			qApp->processEvents();

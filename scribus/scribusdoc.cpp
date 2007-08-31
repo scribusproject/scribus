@@ -653,21 +653,21 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		if (ScCore->usingGUI())
 			QMessageBox::warning(m_ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
 		else
-			qWarning( "%s", message.local8Bit().data() );
+			qWarning( "%s", message.toLocal8Bit().data() );
 		return false;
 	}
 	cmsSetErrorHandler(&cmsErrorHandler);
-	const QByteArray rgbInputProfilePath(InPo[CMSSettings.DefaultSolidColorRGBProfile].local8Bit());
+	const QByteArray rgbInputProfilePath(InPo[CMSSettings.DefaultSolidColorRGBProfile].toLocal8Bit());
 	DocInputRGBProf = cmsOpenProfileFromFile(rgbInputProfilePath.data(), "r");
-	const QByteArray cmykInputProfilePath(InPoCMYK[CMSSettings.DefaultSolidColorCMYKProfile].local8Bit());
+	const QByteArray cmykInputProfilePath(InPoCMYK[CMSSettings.DefaultSolidColorCMYKProfile].toLocal8Bit());
 	DocInputCMYKProf = cmsOpenProfileFromFile(cmykInputProfilePath.data(), "r");
-	const QByteArray monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].local8Bit());
+	const QByteArray monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].toLocal8Bit());
 	DocOutputProf = cmsOpenProfileFromFile(monitorProfilePath.data(), "r");
-	const QByteArray printerProfilePath(PrPo[CMSSettings.DefaultPrinterProfile].local8Bit());
+	const QByteArray printerProfilePath(PrPo[CMSSettings.DefaultPrinterProfile].toLocal8Bit());
 	DocPrinterProf = cmsOpenProfileFromFile(printerProfilePath, "r");
-	const QByteArray rgbInputImgProfilePath(InPo[CMSSettings.DefaultImageRGBProfile].local8Bit());
+	const QByteArray rgbInputImgProfilePath(InPo[CMSSettings.DefaultImageRGBProfile].toLocal8Bit());
 	DocInputImageRGBProf = cmsOpenProfileFromFile(rgbInputImgProfilePath.data(), "r");
-	const QByteArray cmykInputImgProfilePath(InPoCMYK[CMSSettings.DefaultImageCMYKProfile].local8Bit());
+	const QByteArray cmykInputImgProfilePath(InPoCMYK[CMSSettings.DefaultImageCMYKProfile].toLocal8Bit());
 	DocInputImageCMYKProf = cmsOpenProfileFromFile(cmykInputImgProfilePath.data(), "r");
 	if ((DocInputRGBProf == NULL) || (DocInputCMYKProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL) || (DocInputImageCMYKProf == NULL) || (DocInputImageRGBProf == NULL))
 	{

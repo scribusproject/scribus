@@ -45,7 +45,7 @@ PyObject *scribus_fontnames(PyObject* /* self */)
 	{
 		if (it.current().usable())
 		{
-			PyList_SetItem(l, cc, PyString_FromString(it.currentKey().utf8()));
+			PyList_SetItem(l, cc, PyString_FromString(it.currentKey().toUtf8()));
 			cc++;
 		}
 	}
@@ -61,12 +61,12 @@ PyObject *scribus_xfontnames(PyObject* /* self */)
 	for ( ; it.hasNext() ; it.next())
 	{
 		row = Py_BuildValue((char*)"(sssiis)",
-							it.currentKey().utf8().data(),
-							it.current().family().utf8().data(),
-							it.current().psName().utf8().data(),
+							it.currentKey().toUtf8().data(),
+							it.current().family().toUtf8().data(),
+							it.current().psName().toUtf8().data(),
 							it.current().subset(),
 							it.current().embedPs(),
-							it.current().fontFilePath().utf8().data()
+							it.current().fontFilePath().toUtf8().data()
 						);
 		PyList_SetItem(l, cc, row);
 		cc++;
@@ -152,7 +152,7 @@ PyObject *scribus_getlayers(PyObject* /* self */)
 	PyObject *l;
 	l = PyList_New(ScCore->primaryMainWindow()->doc->Layers.count());
 	for (int lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
-		PyList_SetItem(l, lam, PyString_FromString(ScCore->primaryMainWindow()->doc->Layers[lam].Name.utf8()));
+		PyList_SetItem(l, lam, PyString_FromString(ScCore->primaryMainWindow()->doc->Layers[lam].Name.toUtf8()));
 	return l;
 }
 
@@ -185,7 +185,7 @@ PyObject *scribus_getactlayer(PyObject* /* self */)
 {
 	if(!checkHaveDocument())
 		return NULL;
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->activeLayerName().utf8());
+	return PyString_FromString(ScCore->primaryMainWindow()->doc->activeLayerName().toUtf8());
 }
 
 PyObject *scribus_senttolayer(PyObject* /* self */, PyObject* args)
@@ -754,7 +754,7 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getlanguage(PyObject* /* self */)
 {
-	return PyString_FromString(ScCore->getGuiLanguage().utf8());
+	return PyString_FromString(ScCore->getGuiLanguage().toUtf8());
 }
 
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings

@@ -410,7 +410,7 @@ void ScripterCore::slotRunScript(const QString Script)
 	else
 	{
 		PyObject* globals = PyModule_GetDict(m);
-		PyObject* result = PyRun_String(cm.utf8().data(), Py_file_input, globals, globals);
+		PyObject* result = PyRun_String(cm.toUtf8().data(), Py_file_input, globals, globals);
 		if (result == NULL)
 		{
 			PyErr_Print();

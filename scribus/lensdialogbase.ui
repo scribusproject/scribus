@@ -80,11 +80,17 @@
             <number>5</number>
            </property>
            <item>
-            <widget class="QLabel" name="label_5" >
-             <property name="text" >
-              <string>Zoom:</string>
+            <spacer>
+             <property name="orientation" >
+              <enum>Qt::Horizontal</enum>
              </property>
-            </widget>
+             <property name="sizeHint" >
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item>
             <widget class="QToolButton" name="buttonZoomI" >

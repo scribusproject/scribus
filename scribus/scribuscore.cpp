@@ -410,7 +410,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 			f.close();
 			if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
 			{
-				const QByteArray profilePath( QString(pfad + d[dc]).local8Bit() );
+				const QByteArray profilePath( QString(pfad + d[dc]).toLocal8Bit() );
 				if (setjmp(cmsJumpBuffer))
 				{
 					// Profile is broken, show info if necessary
@@ -491,19 +491,19 @@ void ScribusCore::InitDefaultColorTransforms(void)
 	}
 	cmsSetErrorHandler(&cmsErrorHandler);
 
-	// Ouvre le profile RGB par défault
+	// Ouvre le profile RGB par dï¿½fault
 	if (InputProfiles.contains("sRGB IEC61966-2.1"))
 	{
-		const QByteArray rgbProfPath(InputProfiles["sRGB IEC61966-2.1"].local8Bit());
+		const QByteArray rgbProfPath(InputProfiles["sRGB IEC61966-2.1"].toLocal8Bit());
 		defaultRGBProfile = cmsOpenProfileFromFile(rgbProfPath.data(), "r");
 	}
 	else
 		defaultRGBProfile = cmsCreate_sRGBProfile();
 
-	// Ouvre le profile CMYK par défaut
+	// Ouvre le profile CMYK par dï¿½faut
 	if (InputProfilesCMYK.contains("Fogra27L CMYK Coated Press"))
 	{
-		const QByteArray cmykProfPath(InputProfilesCMYK["Fogra27L CMYK Coated Press"].local8Bit());
+		const QByteArray cmykProfPath(InputProfilesCMYK["Fogra27L CMYK Coated Press"].toLocal8Bit());
 		defaultCMYKProfile = cmsOpenProfileFromFile(cmykProfPath.data(), "r");
 	}
 

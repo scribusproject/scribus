@@ -16,7 +16,7 @@ PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? PyString_FromString(i->fillColor().utf8()) : NULL;
+	return i != NULL ? PyString_FromString(i->fillColor().toUtf8()) : NULL;
 }
 
 PyObject *scribus_getfilltrans(PyObject* /* self */, PyObject* args)
@@ -57,11 +57,11 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 		for (int b = 0; b < it->itemText.length(); ++b)
 		{
 			if (it->itemText.selected(b))
-				return PyString_FromString(it->itemText.charStyle(b).fillColor().utf8());
+				return PyString_FromString(it->itemText.charStyle(b).fillColor().toUtf8());
 		}
 	}
 	else
-		return PyString_FromString(it->lineColor().utf8());
+		return PyString_FromString(it->lineColor().toUtf8());
 	PyErr_SetString(NotFoundError, QObject::tr("Color not found - python error", "python error"));
 	return NULL;
 }
@@ -197,7 +197,7 @@ PyObject *scribus_getimgname(PyObject* /* self */, PyObject* args)
 	if(!checkHaveDocument())
 		return NULL;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
-	return i != NULL ? PyString_FromString(i->Pfile.utf8()) : NULL;
+	return i != NULL ? PyString_FromString(i->Pfile.toUtf8()) : NULL;
 }
 
 PyObject *scribus_getposi(PyObject* /* self */, PyObject* args)
@@ -274,13 +274,13 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 			{
 				if (ScCore->primaryMainWindow()->doc->Items->at(lam)->itemType() == typ)
 				{
-					PyList_SetItem(l, counter2, PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(lam)->itemName().utf8()));
+					PyList_SetItem(l, counter2, PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(lam)->itemName().toUtf8()));
 					counter2++;
 				}
 			}
 			else
 			{
-				PyList_SetItem(l, counter2, PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(lam)->itemName().utf8()));
+				PyList_SetItem(l, counter2, PyString_FromString(ScCore->primaryMainWindow()->doc->Items->at(lam)->itemName().toUtf8()));
 				counter2++;
 			}
 		}

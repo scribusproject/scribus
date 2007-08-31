@@ -112,8 +112,8 @@ FILE* openfile(const QString& filename, const QString& mode)
 #if defined(_WIN32) && defined(HAVE_UNICODE)
 	fout = _wfopen((const wchar_t*) filename.ucs2(), (const wchar_t*) mode.ucs2());
 #else
-	QByteArray fname = filename.local8Bit();
-	QByteArray fmode  = mode.local8Bit();
+	QByteArray fname = filename.toLocal8Bit();
+	QByteArray fmode  = mode.toLocal8Bit();
     fout = fopen(fname.data(), fmode.data());
 #endif
 	return fout;
@@ -127,7 +127,7 @@ unzFile unzOpenFile(const QString& filename)
 	file_api.zopen_file = fopen_filefunc_unicode;
 	unz = unzOpen2((const char*)filename.ucs2(), &file_api); 
 #else
-	QByteArray fname(filename.local8Bit());
+	QByteArray fname(filename.toLocal8Bit());
 	unz = unzOpen(fname.data()); 
 #endif
 	return unz;
@@ -156,10 +156,10 @@ int mymkdir(const QString& dirname)
 #if defined(_WIN32) && defined(HAVE_UNICODE)
 	ret = _wmkdir((const wchar_t*) dirname.ucs2());
 #elif defined(_WIN32)
-	QByteArray cdir = dirname.local8Bit();
+	QByteArray cdir = dirname.toLocal8Bit();
     ret = _mkdir(cdir.data());
 #else
-	QByteArray cdir = dirname.local8Bit();
+	QByteArray cdir = dirname.toLocal8Bit();
     ret = mkdir (cdir.data(), 0775);
 #endif
     return ret;
@@ -201,7 +201,7 @@ int makedir (const QString& newdir)
 int do_extract_onefile(unzFile uf, const QString& filename, int opt_extract_without_path, int opt_overwrite, const char* password)
 {
 //    int err = UNZ_OK;
-	QByteArray fname = filename.local8Bit();
+	QByteArray fname = filename.toLocal8Bit();
     if (unzLocateFile(uf,fname.data(),CASESENSITIVITY)!=UNZ_OK)
         return 2;
 
@@ -333,7 +333,7 @@ void change_file_date(const QString& filename, uLong, tm_unz tmu_date)
 #if defined(_WIN32) && defined(HAVE_UNICODE)
 	_wutime((const wchar_t*) filename.ucs2(), &ut);
 #else
-	QByteArray fname = filename.local8Bit();
+	QByteArray fname = filename.toLocal8Bit();
 	utime(fname.data(), &ut);
 #endif
 }

@@ -347,7 +347,7 @@ void PDFExportDialog::updateDocOptions()
 				if (Opts.Version == PDFOptions::PDFVersion_X3)
 				{
 					cmsHPROFILE hIn;
-					QByteArray profilePath( appPrinterProfiles[Opts.PrintProf].local8Bit() );
+					QByteArray profilePath( appPrinterProfiles[Opts.PrintProf].toLocal8Bit() );
 					hIn = cmsOpenProfileFromFile(profilePath.data(), "r");
 					const char *Descriptor = cmsTakeProductDesc(hIn);
 					cmsDescriptorName = QString(Descriptor);

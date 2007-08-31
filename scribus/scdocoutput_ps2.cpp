@@ -105,7 +105,7 @@ bool ScDocOutput_Ps2::initializeCmsTransforms(void)
 			closeTransforms();
 			cmsErrorAction(LCMS_ERROR_ABORT);
 			m_lastError = QObject::tr("An error occurred while initializing icc transforms");
-			qWarning( "%s", m_lastError.local8Bit().data() );
+			qWarning( "%s", m_lastError.toLocal8Bit().data() );
 			return false;
 		}
 		cmsSetErrorHandler(&cmsErrorHandler);
@@ -117,7 +117,7 @@ bool ScDocOutput_Ps2::initializeCmsTransforms(void)
 
 		int outputDataTypeColors = 0;
 		int outputDataTypeImages = 0;
-		QByteArray outputProfilePath(m_options.outputProfile.local8Bit());
+		QByteArray outputProfilePath(m_options.outputProfile.toLocal8Bit());
 		m_options.hProfile = cmsOpenProfileFromFile(outputProfilePath.data(), "r");
 		if (static_cast<int>(cmsGetColorSpace(m_options.hProfile)) == icSigRgbData)
 		{

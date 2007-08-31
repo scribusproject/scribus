@@ -1415,7 +1415,7 @@ void TabPDFOptions::EnablePDFX(int a)
 	if (a != 3)
 	{
 		X3Group->setEnabled(false);
-		setTabEnabled(tabSecurity, true);
+		setTabEnabled(indexOf(tabSecurity), true);
 		OutCombo->setEnabled(true);
 		EmbedProfs2->setEnabled(true);
 		emit hasInfo();
@@ -1451,7 +1451,7 @@ void TabPDFOptions::EnablePDFX(int a)
 	}
 	EnablePGI();
 	X3Group->setEnabled(true);
-	setTabEnabled(tabSecurity, false);
+	setTabEnabled(indexOf(tabSecurity), false);
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
 }
 

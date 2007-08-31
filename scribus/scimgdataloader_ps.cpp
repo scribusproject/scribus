@@ -834,7 +834,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
 		return false;
 	}
 	jpeg_create_decompress (&cinfo);
-	if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
+	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
 		return false;
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_read_header(&cinfo, true);
@@ -947,7 +947,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(QString fn, QImage &tmpImg)
 		return false;
 	}
 	jpeg_create_decompress (&cinfo);
-	if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
+	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == NULL)
 		return false;
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_read_header(&cinfo, true);

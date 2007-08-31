@@ -119,7 +119,7 @@ static const unsigned char image2_data[] =
 
 CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( parent, "checkDocument", modal, 0 ), m_Doc(0)
 {
-	QImage img;
+	QPixmap img;
 	img.loadFromData( image0_data, sizeof( image0_data ), "PNG" );
 	graveError = img;
 	img.loadFromData( image1_data, sizeof( image1_data ), "PNG" );
@@ -133,9 +133,9 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	layout1 = new QHBoxLayout;
 	layout1->setMargin(0);
 	layout1->setSpacing(5);
-	textLabel1 = new QLabel( this, "textLabel1" );
+	textLabel1 = new QLabel( this );
 	layout1->addWidget( textLabel1 );
-	curCheckProfile = new ScComboBox( false, this, "Profiles" );
+	curCheckProfile = new ScComboBox( false, this );
 	layout1->addWidget( curCheckProfile );
 	checkDocumentLayout->addLayout( layout1 );
 	reportDisplay = new QTreeWidget( this );
@@ -147,11 +147,11 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	layout2 = new QHBoxLayout;
 	layout2->setMargin(0);
 	layout2->setSpacing(5);
-	reScan = new QPushButton(this, "reScan" );
+	reScan = new QPushButton(this );
 	layout2->addWidget( reScan );
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout2->addItem( spacer );
-	ignoreErrors = new QPushButton(this, "ignoreErrors" );
+	ignoreErrors = new QPushButton(this );
 	layout2->addWidget( ignoreErrors );
 	checkDocumentLayout->addLayout( layout2 );
 	setIgnoreEnabled(false);
@@ -236,8 +236,8 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	CheckerPrefsList::Iterator it;
 	CheckerPrefsList::Iterator itend=doc->checkerProfiles.end();
 	for (it = doc->checkerProfiles.begin(); it != itend ; ++it)
-		curCheckProfile->insertItem(it.key());
-	curCheckProfile->setCurrentText(doc->curCheckProfile);
+		curCheckProfile->addItem(it.key());
+	curCheckProfile->setEditText(doc->curCheckProfile);
 
 	int minRes = qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution);
 	int maxRes = qRound(doc->checkerProfiles[doc->curCheckProfile].maxResolution);

@@ -1207,7 +1207,7 @@ void ScImage::Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray)
 		return;
 	}
 	jpeg_create_compress (&cinfo);
-	if ((outfile = fopen (fn.local8Bit(), "wb")) == NULL)
+	if ((outfile = fopen (fn.toLocal8Bit(), "wb")) == NULL)
 		return;
 	jpeg_stdio_dest (&cinfo, outfile);
 	cinfo.image_width  = width();
@@ -1911,7 +1911,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		else if (pDataLoader->issuedErrorMsg())
 		{
 			QString msg = pDataLoader->getMessage();
-			qWarning( msg.local8Bit().data() );
+			qWarning( msg.toLocal8Bit().data() );
 		}
 		return false;
 	}
@@ -1941,7 +1941,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				{
 					imgInfo.profileName = cmSettings.profileName();
 					inputProfisEmbedded = true;
-					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName].local8Bit();
+					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName].toLocal8Bit();
 					inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
 				}
 				else
@@ -1956,7 +1956,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->CMSSettings.DefaultImageRGBProfile))
 				{
 					imgInfo.profileName = cmSettings.profileName();
-					profilePath = ScCore->InputProfiles[imgInfo.profileName].local8Bit();
+					profilePath = ScCore->InputProfiles[imgInfo.profileName].toLocal8Bit();
 					inputProfisEmbedded = true;
 					inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
 				}
@@ -2292,7 +2292,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	else if (pDataLoader->issuedErrorMsg())
 	{
 		QString msg = pDataLoader->getMessage();
-		qWarning( msg.local8Bit().data() );
+		qWarning( msg.toLocal8Bit().data() );
 	}
 	return true;
 }

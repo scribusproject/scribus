@@ -257,7 +257,7 @@ void UpgradeChecker::outputText(QString text)
 	outText.remove("</i>");
 	outText.replace("<br>","\n");
 	outText.replace("<br/>","\n");
-	qDebug("%s", outText.local8Bit().data());
+	qDebug("%s", outText.toLocal8Bit().data());
 }
 
 UpgradeCheckerGUI::UpgradeCheckerGUI(ScTextBrowser *tb) :

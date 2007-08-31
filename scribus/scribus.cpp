@@ -5019,7 +5019,7 @@ void ScribusMainWindow::slotEditPaste()
 				if (hasXMLRootElem(Buffer2, "<SCRIBUSELEM"))
 					slotElemRead(Buffer2, 0, 0, false, true, doc, view);
 				else 
-					Serializer(*doc).deserializeObjects(Buffer2.utf8());
+					Serializer(*doc).deserializeObjects(Buffer2.toUtf8());
 
 				// update style lists:
 				styleManager->setDoc(doc);
@@ -5096,7 +5096,7 @@ void ScribusMainWindow::slotEditPaste()
 					slotElemRead(Buffer2, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 				else 
 				{
-					Selection pastedObjects = Serializer(*doc).deserializeObjects(Buffer2.utf8());
+					Selection pastedObjects = Serializer(*doc).deserializeObjects(Buffer2.toUtf8());
 					for (int i=0; i < pastedObjects.count(); ++i)
 						pastedObjects.itemAt(i)->LayerNr = doc->activeLayer();
 					

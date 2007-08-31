@@ -9542,7 +9542,7 @@ void ScribusView::PasteToPage()
 	{
 		bool savedAlignGrid = Doc->useRaster;
 		bool savedAlignGuides = Doc->SnapGuides;
-		Selection pastedObjects = Serializer(*Doc).deserializeObjects(m_ScMW->Buffer2.utf8());
+		Selection pastedObjects = Serializer(*Doc).deserializeObjects(m_ScMW->Buffer2.toUtf8());
 		Doc->useRaster = savedAlignGrid;
 		Doc->SnapGuides = savedAlignGuides;
 		pastedObjects.setGroupRect();

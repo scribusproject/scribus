@@ -14,119 +14,119 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "util_icon.h"
 
-AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QFrame( parent, "autoformbuttongroup" )
+AutoformButtonGroup::AutoformButtonGroup( QWidget* parent ) : QFrame( parent )
 {
 	QSizePolicy policy = QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3));
 	buttonGroup1Layout = new QGridLayout( this );
 	buttonGroup1Layout->setSpacing( 0 );
 	buttonGroup1Layout->setMargin( 0 );
-	toolButton1 = new QToolButton( this, "toolButton1" );
+	toolButton1 = new QToolButton( this );
 	toolButton1->setCheckable( true );
 	toolButton1->setIcon(QIcon(getIconPixmap(0,16)));
 	toolButton1->setIconSize(QSize(16, 16));
 	toolButton1->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton1, 0, 0 );
-	toolButton2 = new QToolButton( this, "toolButton2" );
+	toolButton2 = new QToolButton( this );
 	toolButton2->setCheckable( true );
 	toolButton2->setIcon(QIcon(getIconPixmap(1,16)));
 	toolButton2->setIconSize(QSize(16, 16));
 	toolButton2->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton2, 0, 1 );
-	toolButton3 = new QToolButton( this, "toolButton3" );
+	toolButton3 = new QToolButton( this );
 	toolButton3->setCheckable( true );
 	toolButton3->setIcon(QIcon(getIconPixmap(2,16)));
 	toolButton3->setIconSize(QSize(16, 16));
 	toolButton3->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton3, 0, 2 );
-	toolButton4 = new QToolButton( this, "toolButton4" );
+	toolButton4 = new QToolButton( this );
 	toolButton4->setCheckable( true );
 	toolButton4->setIcon(QIcon(getIconPixmap(3,16)));
 	toolButton4->setIconSize(QSize(16, 16));
 	toolButton4->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton4, 0, 3 );
 
-	toolButton5 = new QToolButton( this, "toolButton3" );
+	toolButton5 = new QToolButton( this );
 	toolButton5->setCheckable( true );
 	toolButton5->setIcon(QIcon(getIconPixmap(4,16)));
 	toolButton5->setIconSize(QSize(16, 16));
 	toolButton5->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton5, 1, 0 );
-	toolButton6 = new QToolButton( this, "toolButton4" );
+	toolButton6 = new QToolButton( this );
 	toolButton6->setCheckable( true );
 	toolButton6->setIcon(QIcon(getIconPixmap(5,16)));
 	toolButton6->setIconSize(QSize(16, 16));
 	toolButton6->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton6, 1, 1 );
-	toolButton7 = new QToolButton( this, "toolButton3" );
+	toolButton7 = new QToolButton( this );
 	toolButton7->setCheckable( true );
 	toolButton7->setIcon(QIcon(getIconPixmap(6,16)));
 	toolButton7->setIconSize(QSize(16, 16));
 	toolButton7->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton7, 1, 2 );
-	toolButton8 = new QToolButton( this, "toolButton4" );
+	toolButton8 = new QToolButton( this );
 	toolButton8->setCheckable( true );
 	toolButton8->setIcon(QIcon(getIconPixmap(7,16)));
 	toolButton8->setIconSize(QSize(16, 16));
 	toolButton8->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton8, 1, 3 );
 
-	toolButton9 = new QToolButton( this, "toolButton4" );
+	toolButton9 = new QToolButton( this );
 	toolButton9->setCheckable( true );
 	toolButton9->setIcon(QIcon(getIconPixmap(8,16)));
 	toolButton9->setIconSize(QSize(16, 16));
 	toolButton9->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton9, 2, 0 );
-	toolButton10 = new QToolButton( this, "toolButton4" );
+	toolButton10 = new QToolButton( this );
 	toolButton10->setCheckable( true );
 	toolButton10->setIcon(QIcon(getIconPixmap(9,16)));
 	toolButton10->setIconSize(QSize(16, 16));
 	toolButton10->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton10, 2, 1 );
-	toolButton11 = new QToolButton( this, "toolButton4" );
+	toolButton11 = new QToolButton( this );
 	toolButton11->setCheckable( true );
 	toolButton11->setIcon(QIcon(getIconPixmap(10,16)));
 	toolButton11->setIconSize(QSize(16, 16));
 	toolButton11->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton11, 2, 2 );
-	toolButton12 = new QToolButton( this, "toolButton4" );
+	toolButton12 = new QToolButton( this );
 	toolButton12->setCheckable( true );
 	toolButton12->setIcon(QIcon(getIconPixmap(11,16)));
 	toolButton12->setIconSize(QSize(16, 16));
 	toolButton12->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton12, 2, 3 );
 
-	toolButton13 = new QToolButton( this, "toolButton4" );
+	toolButton13 = new QToolButton( this );
 	toolButton13->setCheckable( true );
 	toolButton13->setIcon(QIcon(getIconPixmap(12,16)));
 	toolButton13->setIconSize(QSize(16, 16));
 	toolButton13->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton13, 3, 0 );
-	toolButton14 = new QToolButton( this, "toolButton4" );
+	toolButton14 = new QToolButton( this );
 	toolButton14->setCheckable( true );
 	toolButton14->setIcon(QIcon(getIconPixmap(13,16)));
 	toolButton14->setIconSize(QSize(16, 16));
 	toolButton14->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton14, 3, 1 );
-	toolButton15 = new QToolButton( this, "toolButton4" );
+	toolButton15 = new QToolButton( this );
 	toolButton15->setCheckable( true );
 	toolButton15->setIcon(QIcon(getIconPixmap(14,16)));
 	toolButton15->setIconSize(QSize(16, 16));
 	toolButton15->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton15, 3, 2 );
-	toolButton16 = new QToolButton( this, "toolButton4" );
+	toolButton16 = new QToolButton( this );
 	toolButton16->setCheckable( true );
 	toolButton16->setIcon(QIcon(getIconPixmap(15,16)));
 	toolButton16->setIconSize(QSize(16, 16));
 	toolButton16->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton16, 3, 3 );
 
-	toolButton17 = new QToolButton( this, "toolButton4" );
+	toolButton17 = new QToolButton( this );
 	toolButton17->setCheckable( true );
 	toolButton17->setIcon(QIcon(getIconPixmap(16,16)));
 	toolButton17->setIconSize(QSize(16, 16));
 	toolButton17->setSizePolicy(policy);
 	buttonGroup1Layout->addWidget( toolButton17, 4, 0 );
-	toolButton18 = new QToolButton( this, "toolButton4" );
+	toolButton18 = new QToolButton( this );
 	toolButton18->setCheckable( true );
 	toolButton18->setIcon(QIcon(getIconPixmap(17,16)));
 	toolButton18->setIconSize(QSize(16, 16));
@@ -323,84 +323,52 @@ void AutoformButtonGroup::selForm(int a)
 
 QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 {
-	if (pixmapSize!=16 && pixmapSize!=22)
-		qDebug("%s", QString("Autoformbuttongroup: Only 16px or 22px sizes supported!").ascii());
-	else
-	if (nr<18)
+	if ((pixmapSize == 16) || (pixmapSize == 22))
 	{
-		QString strSize=QString("%1").arg(pixmapSize);
-		switch(nr)
+		if (nr<18)
 		{
-			case 0:
-				return loadIcon(strSize+"/draw-rectangle.png");
-			case 1:
-				return loadIcon(strSize+"/draw-ellipse.png");
-			case 2:
-				return loadIcon(strSize+"/draw-triangle.png");
-			case 3:
-				return loadIcon(strSize+"/draw-cross.png");
-			case 4:
-				return loadIcon(strSize+"/draw-arrow-back.png");
-			case 5:
-				return loadIcon(strSize+"/draw-arrow-forward.png");
-			case 6:
-				return loadIcon(strSize+"/draw-arrow-up.png");
-			case 7:
-				return loadIcon(strSize+"/draw-arrow-down.png");
-			case 8:
-				return loadIcon(strSize+"/draw-halfcircle1.png");
-			case 9:
-				return loadIcon(strSize+"/draw-halfcircle2.png");
-			case 10:
-				return loadIcon(strSize+"/draw-halfcircle3.png");
-			case 11:
-				return loadIcon(strSize+"/draw-halfcircle4.png");
-			case 12:
-				return loadIcon(strSize+"/draw-triangle1.png");
-			case 13:
-				return loadIcon(strSize+"/draw-triangle2.png");
-			case 14:
-				return loadIcon(strSize+"/draw-triangle3.png");
-			case 15:
-				return loadIcon(strSize+"/draw-triangle4.png");
-			case 16:
-				return loadIcon(strSize+"/draw-square-inverted-corners.png");
-			case 17:
-				return loadIcon(strSize+"/draw-donut.png");
+			QString strSize=QString("%1").arg(pixmapSize);
+			switch(nr)
+			{
+				case 0:
+					return loadIcon(strSize+"/draw-rectangle.png");
+				case 1:
+					return loadIcon(strSize+"/draw-ellipse.png");
+				case 2:
+					return loadIcon(strSize+"/draw-triangle.png");
+				case 3:
+					return loadIcon(strSize+"/draw-cross.png");
+				case 4:
+					return loadIcon(strSize+"/draw-arrow-back.png");
+				case 5:
+					return loadIcon(strSize+"/draw-arrow-forward.png");
+				case 6:
+					return loadIcon(strSize+"/draw-arrow-up.png");
+				case 7:
+					return loadIcon(strSize+"/draw-arrow-down.png");
+				case 8:
+					return loadIcon(strSize+"/draw-halfcircle1.png");
+				case 9:
+					return loadIcon(strSize+"/draw-halfcircle2.png");
+				case 10:
+					return loadIcon(strSize+"/draw-halfcircle3.png");
+				case 11:
+					return loadIcon(strSize+"/draw-halfcircle4.png");
+				case 12:
+					return loadIcon(strSize+"/draw-triangle1.png");
+				case 13:
+					return loadIcon(strSize+"/draw-triangle2.png");
+				case 14:
+					return loadIcon(strSize+"/draw-triangle3.png");
+				case 15:
+					return loadIcon(strSize+"/draw-triangle4.png");
+				case 16:
+					return loadIcon(strSize+"/draw-square-inverted-corners.png");
+				case 17:
+					return loadIcon(strSize+"/draw-donut.png");
+			}
 		}
 	}
-//	int count = 0;
-//	double* AutoShapes;
-//	FPointArray Path;
 	QPixmap Ico(22, 22);
-/*	Path.resize(0);
-	AutoShapes = getShapeData(nr, &count);
-	for (int a = 0; a < count-3; a += 4)
-	{
-		if (AutoShapes[a] < 0)
-		{
-			Path.setMarker();
-			continue;
-		}
-		double x1 = 16 * AutoShapes[a] / 100.0;
-		double y1 = 16 * AutoShapes[a+1] / 100.0;
-		double x2 = 16 * AutoShapes[a+2] / 100.0;
-		double y2 = 16 * AutoShapes[a+3] / 100.0;
-		Path.addPoint(x1, y1);
-		Path.addPoint(x2, y2);
-	}
-	ScPainter *painter = new ScPainter(&Ico, 22, 22);
-	painter->setBrush(qRgb(255, 255, 255));
-	painter->setPen(qRgb(0, 0, 0));
-	painter->setFillMode(1);
-	painter->translate(3.0, 3.0);
-	painter->setupPolygon(&Path);
-	painter->setLineWidth(1.0);
-	painter->drawPolygon();
-	painter->drawPolyLine();
-	painter->end();
-	delete painter;
-	Ico.setMask( Ico.createHeuristicMask() );
-*/
 	return Ico;
 }

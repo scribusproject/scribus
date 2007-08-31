@@ -555,9 +555,9 @@ void HTMLReader::parse(QString filename)
 {
 #if defined(_WIN32)
 	QString fname = QDir::convertSeparators(filename);
-	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
 #else
-	QByteArray fn(filename.local8Bit());
+	QByteArray fn(filename.toLocal8Bit());
 #endif
 	elemJustStarted = elemJustFinished = false;
 	htmlSAXParseFile(fn.data(), NULL, mySAXHandler, NULL);

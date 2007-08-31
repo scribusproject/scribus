@@ -954,6 +954,76 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		if (groupLevel == 1)
 			docTitle = e.text();
 	}
+/*	else if( STag == "i:pgf" )
+	{
+		QByteArray cdat;
+		QByteArray ddat;
+		cdat = e.text().simplified();
+		QList<QByteArray> cdlist = cdat.split(' ');
+		for (int cd = 0; cd < cdlist.count(); cd++)
+		{
+			ddat += QByteArray::fromBase64(cdlist[cd]);
+		}
+		QFile outf("/home/franz/testdata.txt");
+		outf.open(QIODevice::WriteOnly);
+		outf.write(ddat);
+		outf.close();
+		QString f2 = "/home/franz/testdata_decom.ai";
+		FILE *source = fopen("/home/franz/testdata.txt", "rb");
+		FILE *dest = fopen(f2, "wb");
+		int ret;
+		unsigned have;
+		z_stream strm;
+		char in[4096];
+		char out[4096];
+		strm.zalloc = Z_NULL;
+		strm.zfree = Z_NULL;
+		strm.opaque = Z_NULL;
+		strm.avail_in = 0;
+		strm.next_in = Z_NULL;
+		ret = inflateInit(&strm);
+		if (ret != Z_OK)
+			return GElements;
+		do
+		{
+			strm.avail_in = fread(in, 1, 4096, source);
+			if (ferror(source))
+			{
+				(void)inflateEnd(&strm);
+				return GElements;
+			}
+			if (strm.avail_in == 0)
+				break;
+			strm.next_in = (Bytef*)in;
+			do
+			{
+				strm.avail_out = 4096;
+				strm.next_out = (Bytef*)out;
+				ret = inflate(&strm, Z_NO_FLUSH);
+				assert(ret != Z_STREAM_ERROR);
+				switch (ret)
+				{
+					case Z_NEED_DICT:
+						ret = Z_DATA_ERROR;
+					case Z_DATA_ERROR:
+					case Z_MEM_ERROR:
+						(void)inflateEnd(&strm);
+						return GElements;
+				}
+				have = 4096 - strm.avail_out;
+				if (fwrite(out, 1, have, dest) != have || ferror(dest))
+				{
+					(void)inflateEnd(&strm);
+					return GElements;
+				}
+			}
+			while (strm.avail_out == 0);
+		}
+		while (ret != Z_STREAM_END);
+		(void)inflateEnd(&strm);
+		fclose(source);
+		fclose(dest);
+	} */
 /*	else if( STag == "image" )
 		GElements = parseImage(e);
 	} */
