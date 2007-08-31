@@ -14,9 +14,10 @@ for which a new license (GPL+exception) is in place.
 #include "sctablewidget.h"
 
 PageItemAttributes::PageItemAttributes( QWidget* parent, const char* name, bool modal, Qt::WFlags fl )
-	: QDialog(parent, name, modal, fl)
+	: QDialog(parent, fl)
 {
 	setupUi(this);
+	setModal(modal);
 	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
 	relationshipsData << "none" << "relation" << "parent" << "child";
 
@@ -77,7 +78,7 @@ void PageItemAttributes::tableItemChanged( int row, int col )
 			QComboBox* qcti=dynamic_cast<QComboBox*>(attributesTable->cellWidget(row,col));
 			if (qcti!=NULL)
 			{
-				int index=qcti->currentItem();
+				int index=qcti->currentIndex();
 				if (index<relationshipsData.count())
 					localAttributes[row].relationship=relationshipsData[index];
 			}
@@ -203,13 +204,13 @@ void PageItemAttributes::updateTable()
 		QComboBox *item5 = new QComboBox();
 		item5->addItems(relationships);
 		attributesTable->setCellWidget(row, i++, item5);
-		int index=relationshipsData.findIndex((*it).relationship);
+		int index=relationshipsData.indexOf((*it).relationship);
 		if (index==-1)
 		{
 			(*it).relationship="none";
 			index=0;
 		}
-		item5->setCurrentItem(index);
+		item5->setCurrentIndex(index);
 		//Relationship to
 		QTableWidgetItem *item6 = new QTableWidgetItem((*it).relationshipto);
 		attributesTable->setItem(row, i++, item6);

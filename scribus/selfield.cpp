@@ -36,7 +36,7 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 	Layout1->setMargin(0);
 	Layout1->setSpacing(5);
 
-	Text1 = new QLabel( tr( "Available Fields" ), this, "Text1" );
+	Text1 = new QLabel( tr( "Available Fields" ), this );
 	Layout1->addWidget( Text1 );
 	AvailFields = new QListWidget( this );
 	AvailFields->setMinimumSize( QSize( 130, 180 ) );
@@ -64,9 +64,9 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 		Layout2->setSpacing(5);
 		QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 		Layout2->addItem( spacer );
-		ToSel = new QPushButton( tr( "&>>" ), this, "ToSel" );
+		ToSel = new QPushButton( tr( "&>>" ), this );
 		Layout2->addWidget( ToSel );
-		FromSel = new QPushButton( tr( "&<<" ), this, "FromSel" );
+		FromSel = new QPushButton( tr( "&<<" ), this );
 		Layout2->addWidget( FromSel );
 		QSpacerItem* spacer_2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 		Layout2->addItem( spacer_2 );
@@ -74,12 +74,12 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 		Layout3 = new QVBoxLayout;
 		Layout3->setMargin(0);
 		Layout3->setSpacing(5);
-		Text2 = new QLabel( tr( "Selected Fields" ), this, "Text2" );
+		Text2 = new QLabel( tr( "Selected Fields" ), this );
 		Layout3->addWidget( Text2 );
 		SelFields = new QListWidget( this );
 		SelFields->setMinimumSize( QSize( 130, 180 ) );
 		QStringList pfol;
-		pfol = pfol.split(",", Felder);
+		pfol = Felder.split(",");
 		if (pfol.count() > 0)
 		{
 			for (int cfx = 0; cfx < pfol.count(); ++cfx)
@@ -100,10 +100,10 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 	Layout4->setSpacing(5);
 	QSpacerItem* spacer_3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout4->addItem( spacer_3 );
-	OK = new QPushButton( CommonStrings::tr_OK, this, "OK" );
+	OK = new QPushButton( CommonStrings::tr_OK, this );
 	OK->setDefault( true );
 	Layout4->addWidget( OK );
-	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this );
 	Layout4->addWidget( Cancel );
 	QSpacerItem* spacer_4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout4->addItem( spacer_4 );

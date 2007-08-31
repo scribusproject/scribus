@@ -8,14 +8,14 @@ for which a new license (GPL+exception) is in place.
 #include "query.h"
 
 
-ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent, "ShadeButton")
+ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent)
 {
 	QString tmp[] = {"0 %", "10 %", "20 %", "30 %", "40 %", "50 %", "60 %", "70 %", "80 %", "90 %", "100 %"};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	FillSh = new QMenu();
-	FillSh->insertItem( tr("Other..."));
+	FillSh->addAction( tr("Other..."));
 	for (uint a = 0; a < array; ++a)
-		FillSh->insertItem(tmp[a]);
+		FillSh->addAction(tmp[a]);
 	setBackgroundMode(Qt::PaletteBackground);
 	setPopup(FillSh);
 	setPopupDelay(1);
@@ -31,7 +31,7 @@ void ShadeButton::setShade(int id)
 	uint a;
 	int c;
 	int b = 100;
-	for (a = 0; a < FillSh->count(); ++a)
+	for (a = 0; a < FillSh->actions()->count(); ++a)
 	{
 		FillSh->setItemChecked(FillSh->idAt(a), false);
 	}
@@ -76,7 +76,7 @@ int ShadeButton::getValue()
 
 void ShadeButton::setValue(int val)
 {
-	for (uint a = 0; a < FillSh->count(); ++a)
+	for (uint a = 0; a < FillSh->actions()->count(); ++a)
 		{
 		FillSh->setItemChecked(FillSh->idAt(a), false);
 		}

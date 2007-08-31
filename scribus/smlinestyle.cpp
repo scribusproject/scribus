@@ -303,7 +303,7 @@ void SMLineStyle::nameChanged(const QString &newName)
 		return;
 	}
 	QString oldName = selection_.begin().key();
-	multiLine *tmpLine = selection_.begin().data();
+	multiLine *tmpLine = selection_.begin().value();
 	multiLine newLine(*tmpLine);
 	
 	selection_.clear();
@@ -389,7 +389,7 @@ void SMLineStyle::slotLineStyle(int i)
 	QMap<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
-		multiLine *tmp = it.data();
+		multiLine *tmp = it.value();
 		(*tmp)[currentLine_].Dash = static_cast<int>(c);
 	}
 
@@ -422,7 +422,7 @@ void SMLineStyle::slotSetEnd(int i)
 	QMap<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
-		multiLine *tmp = it.data();
+		multiLine *tmp = it.value();
 		(*tmp)[currentLine_].LineEnd = static_cast<int>(c);
 	}
 
@@ -459,7 +459,7 @@ void SMLineStyle::slotSetJoin(int i)
 	QMap<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
-		multiLine *tmp = it.data();
+		multiLine *tmp = it.value();
 		(*tmp)[currentLine_].LineJoin = static_cast<int>(c);
 	}
 
@@ -478,7 +478,7 @@ void SMLineStyle::slotColor(const QString &s)
 	QMap<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
-		multiLine *tmp = it.data();
+		multiLine *tmp = it.value();
 		(*tmp)[currentLine_].Color = s;
 	}
 
@@ -497,7 +497,7 @@ void SMLineStyle::slotShade(int i)
 	QMap<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
-		multiLine *tmp = it.data();
+		multiLine *tmp = it.value();
 		(*tmp)[currentLine_].Shade = i;
 	}
 
@@ -516,7 +516,7 @@ void SMLineStyle::slotLineWidth()
 	QMap<QString, multiLine*>::iterator it;
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
-		multiLine *tmp = it.data();
+		multiLine *tmp = it.value();
 		(*tmp)[currentLine_].Width = widget_->lineWidth->value();
 	}
 
@@ -535,7 +535,7 @@ void SMLineStyle::slotAddLine()
 	if (!doc_ || selection_.count() != 1)
 		return;
 
-	multiLine *tmpLine = selection_.begin().data();
+	multiLine *tmpLine = selection_.begin().value();
 	struct SingleLine sl;
 	sl.Color = (*tmpLine)[currentLine_].Color;
 	sl.Shade = (*tmpLine)[currentLine_].Shade;
@@ -574,7 +574,7 @@ void SMLineStyle::rebuildList()
 	QString tmp, tmp2;
 	widget_->lineStyles->clear();
 	QPixmap * pm2;
-	multiLine *tmpLine = selection_.begin().data();
+	multiLine *tmpLine = selection_.begin().value();
 	for (multiLine::iterator it = (*tmpLine).begin(); it != (*tmpLine).end(); ++it)
 	{
 		pm2 = getWidePixmap(calcFarbe((*it).Color, (*it).Shade));
@@ -611,7 +611,7 @@ void SMLineStyle::slotDeleteLine()
 	if (!doc_ || selection_.count() != 1)
 		return;
 
-	multiLine *tmpLine = selection_.begin().data();
+	multiLine *tmpLine = selection_.begin().value();
 
 	if ((*tmpLine).size() == 1)
 		return;
@@ -651,7 +651,7 @@ void SMLineStyle::updateSList()
 
 	QString tmp, tmp2;
 	QPixmap * pm;
-	multiLine *tmpLine = selection_.begin().data();
+	multiLine *tmpLine = selection_.begin().value();
 	
 	pm = getWidePixmap(calcFarbe((*tmpLine)[currentLine_].Color, (*tmpLine)[currentLine_].Shade));
 	tmp2 = " "+tmp.setNum((*tmpLine)[currentLine_].Width)+ tr(" pt ");
@@ -701,7 +701,7 @@ void SMLineStyle::updatePreview()
 	pm.fill(Qt::white);
 	QPainter p;
 	p.begin(&pm);
-	multiLine *tmpLine = selection_.begin().data();
+	multiLine *tmpLine = selection_.begin().value();
 
 	for (int it = (*tmpLine).size()-1; it > -1; it--)
 	{
@@ -738,7 +738,7 @@ void SMLineStyle::resort()
 
 	int cc = 0;
 	struct SingleLine sl;
-	multiLine *tmpLine = selection_.begin().data();
+	multiLine *tmpLine = selection_.begin().value();
 
 	sl.Color = (*tmpLine)[currentLine_].Color;
 	sl.Shade = (*tmpLine)[currentLine_].Shade;
