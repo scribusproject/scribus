@@ -213,7 +213,14 @@ static int BytesPerFormat[] = {0,1,1,2,4,8,1,1,2,4,8,4,8};
 } ;
 */
 
-
+int ExifData::getch(QFile &infile)
+{
+	QByteArray a = infile.read(1);
+	uint r = 0;
+	r = static_cast<uint>(a[0]);
+	r &= 0x000000FF;
+	return static_cast<int>(r);
+}
 //--------------------------------------------------------------------------
 // Parse the marker stream until SOS or EOI is seen;
 //--------------------------------------------------------------------------
@@ -221,9 +228,9 @@ int ExifData::ReadJpegSections (QFile & infile, ReadMode_t ReadMode)
 {
     int a;
 
-    a = infile.getch();
+    a = getch(infile);
 
-    if (a != 0xff || infile.getch() != M_SOI) {
+    if (a != 0xff || getch(infile) != M_SOI) {
         SectionsRead = 0;
         return false;
     }
@@ -235,7 +242,7 @@ int ExifData::ReadJpegSections (QFile & infile, ReadMode_t ReadMode)
         uchar * Data;
 
         for (a=0;a<7;a++){
-            marker = infile.getch();
+            marker = getch(infile);
             if (marker != 0xff) break;
 
             if (a >= 6){
@@ -255,8 +262,8 @@ int ExifData::ReadJpegSections (QFile & infile, ReadMode_t ReadMode)
         Sections[SectionsRead].Type = marker;
 
         // Read the length of the section.
-        lh = (uchar) infile.getch();
-        ll = (uchar) infile.getch();
+        lh = (uchar) getch(infile);
+        ll = (uchar) getch(infile);
 
         itemlen = (lh << 8) | ll;
 
@@ -274,7 +281,7 @@ int ExifData::ReadJpegSections (QFile & infile, ReadMode_t ReadMode)
         Data[0] = (uchar)lh;
         Data[1] = (uchar)ll;
 
-        got = infile.readBlock((char*)Data+2, itemlen-2); // Read the whole section.
+        got = infile.read((char*)Data+2, itemlen-2); // Read the whole section.
         if (( unsigned ) got != itemlen-2){
                 return false;
 //            throw FatalError("reading from file");
@@ -288,14 +295,14 @@ int ExifData::ReadJpegSections (QFile & infile, ReadMode_t ReadMode)
                 if (ReadMode & READ_IMAGE){
                     unsigned long size;
 
-                    size = qMax( 0ll, infile.size()-infile.at() );
+                    size = qMax( 0ll, infile.size()-infile.pos() );
                     Data = (uchar *)malloc(size);
                     if (Data == NULL){
                 return false;
 //                        throw FatalError("could not allocate data for entire image");
                     }
 
-                    got = infile.readBlock((char*)Data,  size);
+                    got = infile.read((char*)Data,  size);
                     if (( unsigned ) got != size){
                 return false;
  //                       throw FatalError("could not read the rest of the image");
@@ -959,7 +966,7 @@ QImage ExifData::getThumbnail() {
 
   // now fix orientation
   QMatrix M;
-  QMatrix flip= QMatrix(-1,0,0,1,0,0);
+  QMatrix flip = QMatrix(-1,0,0,1,0,0);
   switch (Orientation) {  // notice intentional fallthroughs
     case 2: M = flip; break;
     case 4: M = flip;
@@ -970,5 +977,5 @@ QImage ExifData::getThumbnail() {
     case 8: M.rotate(270); break;
     default: break; // should never happen
   }
-  return Thumbnail.xForm(M);
+  return Thumbnail.transformed(M);
 }

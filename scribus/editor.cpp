@@ -101,14 +101,14 @@ void Editor::GetFieldN()
 	{
 		SelectFields* dia = new SelectFields(this, "", "", view->Doc, 0);
 		if (dia->exec())
-			EditTex->insert(dia->S_Fields);
+			EditTex->insertPlainText(dia->S_Fields);
 		delete dia;
 	}
 }
 
 void Editor::OpenScript()
 {
-	QString fileName = QFileDialog::getOpenFileName(dirs->get("editor_open", "."), tr("JavaScripts (*.js);;All Files (*)"),this);
+	QString fileName = QFileDialog::getOpenFileName(this, dirs->get("editor_open", "."), tr("JavaScripts (*.js);;All Files (*)"));
 	if (!fileName.isEmpty())
 	{
 		dirs->set("editor_open", fileName.left(fileName.lastIndexOf("/")));
@@ -116,7 +116,7 @@ void Editor::OpenScript()
 		if ( file.open( QIODevice::ReadOnly ) )
 		{
 			QTextStream ts( &file );
-			EditTex->setPlainText( ts.read() );
+			EditTex->setPlainText( ts.readAll() );
 			file.close();
 		}
 	}
@@ -124,7 +124,7 @@ void Editor::OpenScript()
 
 void Editor::SaveAs()
 {
-	QString fn = QFileDialog::getSaveFileName(dirs->get("editor_save", "."), tr("JavaScripts (*.js);;All Files (*)"), this);
+	QString fn = QFileDialog::getSaveFileName(this, dirs->get("editor_save", "."), tr("JavaScripts (*.js);;All Files (*)"));
 	if (!fn.isEmpty())
 	{
 		dirs->set("editor_save", fn.left(fn.lastIndexOf("/")));
@@ -133,7 +133,7 @@ void Editor::SaveAs()
 		{
 			QTextStream ts( &file );
 			ts << EditTex->toPlainText();
-			EditTex->setModified(false);
+			EditTex->document()->setModified(false);
 			file.close();
 		}
 	}

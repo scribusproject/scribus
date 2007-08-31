@@ -77,18 +77,19 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	blendModesRev.insert( tr("Exclusion"), "smud");
 	blendModesRev.insert( tr("Color Dodge"), "div ");
 	blendModesRev.insert( tr("Color Burn"), "idiv");
-	propsTab = new QTabWidget( this, "propsTab" );
-
+	propsTab = new QTabWidget( this );
+	QPalette palette;
+	palette.setColor(backgroundRole(), Qt::white);
 	if (info->layerInfo.count() != 0)
 	{
-		tab = new QWidget( propsTab, "tab" );
+		tab = new QWidget( propsTab );
 		tabLayout = new QVBoxLayout( tab );
 		tabLayout->setMargin(4);
 		tabLayout->setSpacing(4);
 		layout1 = new QHBoxLayout;
 		layout1->setMargin(0);
 		layout1->setSpacing(4);
-		textLabel1 = new QLabel( tab, "textLabel1" );
+		textLabel1 = new QLabel( tab );
 		textLabel1->setText( tr( "Blend Mode:" ) );
 		layout1->addWidget( textLabel1 );
 		blendMode = new ScComboBox( false, tab, "blendMode" );
@@ -111,13 +112,13 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		blendMode->addItem( tr("Color Dodge"));
 		blendMode->addItem( tr("Color Burn"));
 		layout1->addWidget( blendMode );
-		textLabel2 = new QLabel( tab, "textLabel2" );
+		textLabel2 = new QLabel( tab );
 		textLabel2->setText( tr( "Opacity:" ) );
 		layout1->addWidget( textLabel2 );
-		opacitySpinBox = new QSpinBox( tab, "opacitySpinBox" );
+		opacitySpinBox = new QSpinBox( tab );
 		opacitySpinBox->setMinimum(0);
 		opacitySpinBox->setMaximum(100);
-		opacitySpinBox->setLineStep(10);
+		opacitySpinBox->setSingleStep(10);
 		opacitySpinBox->setSuffix( tr(" %"));
 		layout1->addWidget( opacitySpinBox );
 		tabLayout->addLayout( layout1 );
@@ -148,12 +149,12 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			if ((info->isRequest) && (info->RequestProps.contains(0)))
 			{
 				opacitySpinBox->setValue(qRound(info->RequestProps[0].opacity / 255.0 * 100));
-				blendMode->setCurrentText(blendModes[info->RequestProps[0].blend]);
+				blendMode->setEditText(blendModes[info->RequestProps[0].blend]);
 			}
 			else
 			{
 				opacitySpinBox->setValue(qRound(info->layerInfo[0].opacity / 255.0 * 100));
-				blendMode->setCurrentText(blendModes[info->layerInfo[0].blend]);
+				blendMode->setEditText(blendModes[info->layerInfo[0].blend]);
 			}
 			opacitySpinBox->setEnabled(true);
 			blendMode->setEnabled(true);
@@ -162,8 +163,8 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			uint counter = 0;
 			for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
 			{
-				QCheckBox *cp = new QCheckBox(this, (*it2).layerName);
-				cp->setPaletteBackgroundColor(Qt::white);
+				QCheckBox *cp = new QCheckBox((*it2).layerName, this);
+				cp->setPalette(palette);
 				if ((info->isRequest) && (info->RequestProps.contains(counter)))
 					cp->setChecked(info->RequestProps[counter].visible);
 				else
@@ -171,14 +172,14 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 				QPixmap pm;
 				pm=QPixmap::fromImage((*it2).thumb);
 				col1Width = qMax(col1Width, pm.width());
-				cp->setPixmap(pm);
+				cp->setIcon(pm);
 				FlagsSicht.append(cp);
 				connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
 				layerTable->setCellWidget(info->layerInfo.count()-counter-1, 0, cp);
 				if (!(*it2).thumb_mask.isNull())
 				{
-					QCheckBox *cp2 = new QCheckBox(this, (*it2).layerName);
-					cp2->setPaletteBackgroundColor(Qt::white);
+					QCheckBox *cp2 = new QCheckBox((*it2).layerName, this);
+					cp2->setPalette(palette);
 					if ((info->isRequest) && (info->RequestProps.contains(counter)))
 						cp2->setChecked(info->RequestProps[counter].useMask);
 					else
@@ -186,7 +187,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 					QPixmap pm2;
 					pm2=QPixmap::fromImage((*it2).thumb_mask);
 					col2Width = qMax(col2Width, pm2.width());
-					cp2->setPixmap(pm2);
+					cp2->setIcon(pm2);
 					connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
 					layerTable->setCellWidget(info->layerInfo.count()-counter-1, 1, cp2);
 					FlagsMask.append(cp2);
@@ -203,11 +204,11 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		tabLayout->addWidget( layerTable );
 		layerTable->setColumnWidth(1, 24 + col2Width);
 		layerTable->setColumnWidth(0, 24 + col1Width);
-		blendMode->setCurrentItem(0);
+		blendMode->setCurrentIndex(0);
 		headerH->setResizeMode(QHeaderView::Fixed);
-		propsTab->insertTab( tab,  tr( "Layers" ) );
+		propsTab->addTab( tab,  tr( "Layers" ) );
 	}
-	tab_2 = new QWidget( propsTab, "tab_2" );
+	tab_2 = new QWidget( propsTab );
 	tabLayout_2 = new QVBoxLayout( tab_2 );
 	tabLayout_2->setMargin(4);
 	tabLayout_2->setSpacing(4);
@@ -258,9 +259,9 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		}
 	}
 	tabLayout_2->addWidget( pathList );
-	resetPath = new QPushButton( tr("Don't use any Path"), tab_2, "reset");
+	resetPath = new QPushButton( tr("Don't use any Path"), tab_2);
 	tabLayout_2->addWidget( resetPath );
-	propsTab->insertTab( tab_2, tr( "Paths" ) );
+	propsTab->addTab( tab_2, tr( "Paths" ) );
 	ExtImagePropsLayout->addWidget( propsTab );
 	resize(330, 320);
 
@@ -308,12 +309,12 @@ void ExtImageProps::selLayer(int layer)
 	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->rowCount() - layer - 1)))
 	{
 		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setCurrentText(blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].blend]);
+		blendMode->setEditText(blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].blend]);
 	}
 	else
 	{
 		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setCurrentText(blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].blend]);
+		blendMode->setEditText(blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].blend]);
 	}
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);

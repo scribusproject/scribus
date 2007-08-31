@@ -73,6 +73,7 @@ class ExifData {
     QString Comment;
     QImage Thumbnail;
 
+	int getch(QFile &infile);
     int ReadJpegSections (QFile & infile, ReadMode_t ReadMode);
     void DiscardData(void);
     int Get16u(void * Short);
