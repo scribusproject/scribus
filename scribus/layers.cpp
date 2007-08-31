@@ -44,17 +44,17 @@ LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", 
 	layout1 = new QHBoxLayout;
 	layout1->setMargin(0);
 	layout1->setSpacing(2);
-	textLabel1 = new QLabel( this, "textLabel1" );
+	textLabel1 = new QLabel( this);
 	layout1->addWidget( textLabel1 );
-	blendMode = new ScComboBox( false, this, "blendMode" );
+	blendMode = new ScComboBox( false, this);
 	layout1->addWidget( blendMode );
-	textLabel2 = new QLabel( this, "textLabel2" );
+	textLabel2 = new QLabel( this);
 	textLabel2->setText( tr( "Opacity:" ) );
 	layout1->addWidget( textLabel2 );
-	opacitySpinBox = new QSpinBox( this, "opacitySpinBox" );
+	opacitySpinBox = new QSpinBox( this);
 	opacitySpinBox->setMinimum(0);
 	opacitySpinBox->setMaximum(100);
-	opacitySpinBox->setLineStep(10);
+	opacitySpinBox->setSingleStep(10);
 	opacitySpinBox->setSuffix( tr(" %"));
 	opacitySpinBox->setFocusPolicy(Qt::ClickFocus);
 	layout1->addWidget( opacitySpinBox );
@@ -94,35 +94,35 @@ LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", 
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
 
-	newLayerButton = new QPushButton( this, "newLayerButton" );
+	newLayerButton = new QPushButton( this );
 	newLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	newLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	newLayerButton->setText( "" );
 	newLayerButton->setIcon(QIcon(loadIcon("16/list-add.png")));
 	Layout1->addWidget( newLayerButton );
 
-	deleteLayerButton = new QPushButton( this, "deleteLayerButton" );
+	deleteLayerButton = new QPushButton( this );
 	deleteLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	deleteLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	deleteLayerButton->setText( "" );
 	deleteLayerButton->setIcon(QIcon(loadIcon("16/list-remove.png")));
 	Layout1->addWidget( deleteLayerButton );
 	
-	duplicateLayerButton = new QPushButton( this, "duplicateLayerButton" );
+	duplicateLayerButton = new QPushButton( this );
 	duplicateLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	duplicateLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	duplicateLayerButton->setText( "" );
 	duplicateLayerButton->setIcon(QIcon(loadIcon("16/edit-copy.png")));
 	Layout1->addWidget( duplicateLayerButton );
 
-	raiseLayerButton = new QPushButton( this, "raiseLayerButton" );
+	raiseLayerButton = new QPushButton( this );
 	raiseLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	raiseLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	raiseLayerButton->setText( "" );
 	raiseLayerButton->setIcon(QIcon(loadIcon("16/go-up.png")));
 	Layout1->addWidget( raiseLayerButton );
 
-	lowerLayerButton = new QPushButton( this, "lowerLayerButton" );
+	lowerLayerButton = new QPushButton( this );
 	lowerLayerButton->setMinimumSize( QSize( 50, 24 ) );
 	lowerLayerButton->setMaximumSize( QSize( 50, 24 ) );
 	lowerLayerButton->setText( "" );
@@ -330,12 +330,12 @@ void LayerPalette::changeName(int row, int col)
 
 void LayerPalette::visibleLayer()
 {
-	int level = QString(sender()->name()).toInt();
+	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->isA("QCheckBox"))
+	if (senderBox->metaObject()->className()=="QCheckBox")
 	{
 		m_Doc->setLayerVisible(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
@@ -344,23 +344,23 @@ void LayerPalette::visibleLayer()
 
 void LayerPalette::printLayer()
 {
-	int level = QString(sender()->name()).toInt();
+	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->isA("QCheckBox"))
+	if (senderBox->metaObject()->className()=="QCheckBox")
 		m_Doc->setLayerPrintable(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 }
 
 void LayerPalette::lockLayer()
 {
-	int level = QString(sender()->name()).toInt();
+	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->isA("QCheckBox"))
+	if (senderBox->metaObject()->className()=="QCheckBox")
 	{
 		m_Doc->setLayerLocked(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		deleteLayerButton->setEnabled(!((QCheckBox*)(senderBox))->isChecked());
@@ -370,23 +370,23 @@ void LayerPalette::lockLayer()
 
 void LayerPalette::flowToggleLayer()
 {
-	int level = QString(sender()->name()).toInt();
+	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->isA("QCheckBox"))
+	if (senderBox->metaObject()->className()=="QCheckBox")
 		m_Doc->setLayerFlow(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 }
 
 void LayerPalette::outlineToggleLayer()
 {
-	int level = QString(sender()->name()).toInt();
+	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->isA("QCheckBox"))
+	if (senderBox->metaObject()->className()=="QCheckBox")
 	{
 		m_Doc->setLayerOutline(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
@@ -395,12 +395,12 @@ void LayerPalette::outlineToggleLayer()
 
 void LayerPalette::markLayer()
 {
-	int level = QString(sender()->name()).toInt();
+	int level = QString(sender()->objectName()).toInt();
 	int layerNumber=m_Doc->layerNumberFromLevel(level);
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->isA("QToolButton"))
+	if (senderBox->metaObject()->className()=="QToolButton")
 	{
 		QColor neu = QColor();
 		neu = QColorDialog::getColor(m_Doc->layerMarker(layerNumber), this);
@@ -434,7 +434,7 @@ void LayerPalette::markActiveLayer(int layerNumber)
 		layerToMark=m_Doc->activeLayer();
 	Table->setCurrentCell(m_Doc->layerCount()-1-m_Doc->layerLevelFromNumber(layerToMark), 6);
 	opacitySpinBox->setValue(qRound(m_Doc->layerTransparency(layerToMark) * 100));
-	blendMode->setCurrentItem(m_Doc->layerBlendMode(layerToMark));
+	blendMode->setCurrentIndex(m_Doc->layerBlendMode(layerToMark));
 	deleteLayerButton->setEnabled(m_Doc->layerCount()>1 && !m_Doc->layerLocked( m_Doc->activeLayer() ));
 		
 	if (layers->count()>1)
@@ -462,7 +462,7 @@ void LayerPalette::setActiveLayer(int row)
 	{
 		m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 		opacitySpinBox->setValue(qRound(m_Doc->layerTransparency(m_Doc->activeLayer()) * 100));
-		blendMode->setCurrentItem(m_Doc->layerBlendMode(m_Doc->activeLayer()));
+		blendMode->setCurrentIndex(m_Doc->layerBlendMode(m_Doc->activeLayer()));
 		deleteLayerButton->setEnabled(m_Doc->layerCount()>1 && !m_Doc->layerLocked( m_Doc->activeLayer() ));
 		if (layers->count()>1)
 		{

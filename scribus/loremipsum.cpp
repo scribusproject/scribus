@@ -125,11 +125,11 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	layout2->setMargin(0);
 	layout2->setSpacing(5);
 
-	paraLabel = new QLabel( this, "paraLabel" );
+	paraLabel = new QLabel( this );
 	layout2->addWidget( paraLabel );
 
-	paraBox = new QSpinBox( this, "paraBox" );
-	paraBox->setMinValue( 1 );
+	paraBox = new QSpinBox( this );
+	paraBox->setMinimum( 1 );
 	paraBox->setValue(PrefsManager::instance()->appPrefs.paragraphsLI);
 	layout2->addWidget( paraBox );
 	paraSpacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -142,10 +142,10 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	buttonSpacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( buttonSpacer );
 
-	okButton = new QPushButton( this, "okButton" );
+	okButton = new QPushButton( this );
 	layout1->addWidget( okButton );
 
-	cancelButton = new QPushButton( this, "cancelButton" );
+	cancelButton = new QPushButton( this );
 	layout1->addWidget( cancelButton );
 	layout3->addLayout( layout1 );
 
@@ -206,9 +206,9 @@ void LoremManager::languageChange()
 	setWindowTitle( tr( "Lorem Ipsum" ) );
 	paraLabel->setText( tr( "Paragraphs:" ) );
 	okButton->setText( CommonStrings::tr_OK );
-	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
+	okButton->setShortcut( QKeySequence( tr( "Alt+O" ) ) );
 	cancelButton->setText( CommonStrings::tr_Cancel );
-	cancelButton->setAccel( QKeySequence( tr( "Alt+C" ) ) );
+	cancelButton->setShortcut( QKeySequence( tr( "Alt+C" ) ) );
 	standardloremtext = tr("Standard Lorem Ipsum");
 }
 

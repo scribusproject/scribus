@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 
 LinkButton::LinkButton(QWidget *pa) : QToolButton(pa)
 {
-	setBackgroundMode(Qt::PaletteBackground);
+	setBackgroundRole(QPalette::Window);
 	QIcon a = QIcon();
 	a.addPixmap(QPixmap(ChainC), QIcon::Normal, QIcon::On);
 	a.addPixmap(QPixmap(ChainO), QIcon::Normal, QIcon::Off);

@@ -43,18 +43,18 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie) : QDialog
 	Layout1->setMargin(0);
 	Layout1->setSpacing(5);
 
-	EditScript = new QPushButton( tr( "&Edit..." ), this, "EditScript" );
+	EditScript = new QPushButton( tr( "&Edit..." ), this);
 	Layout1->addWidget( EditScript );
 
-	AddScript = new QPushButton( tr( "&Add..." ), this, "AddScript" );
+	AddScript = new QPushButton( tr( "&Add..." ), this);
 	Layout1->addWidget( AddScript );
 
-	DeleteScript = new QPushButton( tr( "&Delete" ), this, "DeleteScript" );
+	DeleteScript = new QPushButton( tr( "&Delete" ), this);
 	Layout1->addWidget( DeleteScript );
 	QSpacerItem* spacer = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	Layout1->addItem( spacer );
 
-	ExitDia = new QPushButton( tr( "&Close" ), this, "ExitDia" );
+	ExitDia = new QPushButton( tr( "&Close" ), this);
 	ExitDia->setDefault( true );
 	Layout1->addWidget( ExitDia );
 	if (Doc->JavaScripts.count() == 0)
@@ -95,7 +95,7 @@ void JavaDocs::slotAdd()
 		{
 			EditScript->setEnabled(true);
 			DeleteScript->setEnabled(true);
-			Doc->JavaScripts[nam] = dia2->EditTex->text();
+			Doc->JavaScripts[nam] = dia2->EditTex->toPlainText();
 			Scripts->addItem(nam);
 			emit docChanged(false);
 		}
@@ -110,7 +110,7 @@ void JavaDocs::slotEdit()
 	Editor* dia2 = new Editor(this, Doc->JavaScripts[nam], View);
 	if (dia2->exec())
 	{
-		Doc->JavaScripts[nam] = dia2->EditTex->text();
+		Doc->JavaScripts[nam] = dia2->EditTex->toPlainText();
 		emit docChanged(false);
 	}
 	delete dia2;

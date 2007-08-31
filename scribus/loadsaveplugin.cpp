@@ -194,7 +194,7 @@ LoadSavePlugin::findFormat(const QString& extension,
 	for ( ; it != itEnd ; ++it )
 	{
 		if (
-				((*it).nameMatch.search(extension)) &&
+			((*it).nameMatch.indexIn(extension)) &&
 				((plug == 0) || (plug == (*it).plug))
 			)
 			return it;

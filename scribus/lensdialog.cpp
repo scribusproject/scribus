@@ -102,8 +102,8 @@ LensDialog::LensDialog(QWidget* parent, FPointArray &path) : QDialog(parent)
 	buttonRemove->setEnabled(false);
 	setModal(true);
 	origPath = path.toQPainterPath(true);
-	buttonZoomOut->setPixmap(loadIcon("16/zoom-out.png"));
-	buttonZoomI->setPixmap(loadIcon("16/zoom-in.png"));
+	buttonZoomOut->setIcon(QIcon(loadIcon("16/zoom-out.png")));
+	buttonZoomI->setIcon(QIcon(loadIcon("16/zoom-in.png")));
 	modifiedPath = origPath;
 	origPathItem = scene.addPath(origPath);
 	previewWidget->setRenderHint(QPainter::Antialiasing);
