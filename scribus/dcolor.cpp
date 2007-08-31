@@ -33,24 +33,24 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 	delColorLayout = new QGridLayout;
 	delColorLayout->setSpacing( 5 );
 	delColorLayout->setMargin( 5 );
-	deleteLabel = new QLabel( tr( "Delete Color:" ), this, "deleteLabel" );
+	deleteLabel = new QLabel( tr( "Delete Color:" ), this );
 	delColorLayout->addWidget( deleteLabel, 0, 0 );
-	colorToDelLabel = new QLabel( colorName, this, "colorToDelLabel" );
+	colorToDelLabel = new QLabel( colorName, this );
 	delColorLayout->addWidget( colorToDelLabel, 0, 1 );
 
 	PrefsManager* prefsManager = PrefsManager::instance();
 	bool isToolColor = prefsManager->isToolColor(colorName);
 	if (haveDoc || isToolColor)
 	{
-		replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
+		replaceLabel = new QLabel( tr( "Replace With:" ), this );
 		delColorLayout->addWidget( replaceLabel, 1, 0 );
 		replacementColData = new ColorCombo(false, this);
 		colorList.remove(colorName);
 		// 10/26/2004 pv - user can replace deleted color with "None"
-		replacementColData->insertItem(CommonStrings::tr_NoneColor);
+		replacementColData->addItem(CommonStrings::tr_NoneColor);
 		replacementColData->insertItems(colorList, ColorCombo::smallPixmaps);
 		delColorLayout->addWidget( replacementColData, 1, 1 );
-	replacementColor = replacementColData->text(0);
+		replacementColor = replacementColData->itemText(0);
 	}
 	dialogLayout->addLayout( delColorLayout );
 
@@ -59,9 +59,9 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
-	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this );
 	okCancelLayout->addWidget( okButton );
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "PushButton13" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
 	cancelButton->setDefault( true );
 	okCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( okCancelLayout );
@@ -75,7 +75,7 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 
 void DelColor::ReplaceColor(int id)
 {
-	replacementColor = replacementColData->text(id);
+	replacementColor = replacementColData->itemText(id);
 }
 
 const QString DelColor::getReplacementColor()

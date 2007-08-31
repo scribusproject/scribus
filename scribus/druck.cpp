@@ -123,7 +123,8 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	LineEdit1 = new QLineEdit( QDir::convertSeparators(PDatei), Drucker );
 	LineEdit1->setMinimumSize( QSize( 240, 22 ) );
 	LineEdit1->setEnabled(false);
-	DateiT = new QLabel( LineEdit1, tr( "&File:" ), Drucker );
+	DateiT = new QLabel( tr( "&File:" ), Drucker );
+	DateiT->setBuddy(LineEdit1);
 	DateiT->setEnabled( false );
 	Layout1->addWidget( DateiT );
 	Layout1->addWidget( LineEdit1 );
@@ -144,7 +145,8 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	Command = new QLineEdit( PCom, Drucker );
 	Command->setMinimumSize( QSize( 240, 22 ) );
 	Command->setEnabled(false);
-	OthText = new QLabel( Command, tr( "Co&mmand:" ), Drucker );
+	OthText = new QLabel( tr( "Co&mmand:" ), Drucker );
+	OthText->setBuddy(Command);
 	OthText->setEnabled( false );
 	LayoutCC->addWidget( OthText );
 	LayoutCC->addWidget( Command );
@@ -180,7 +182,8 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	Copies->setMaximum(1000);
 	Copies->setValue(1);
 	rangeGroupLayout->addWidget( Copies, 0, 3 );
-	TextLabel3 = new QLabel( Copies, tr( "N&umber of Copies:" ), rangeGroup );
+	TextLabel3 = new QLabel( tr( "N&umber of Copies:" ), rangeGroup );
+	TextLabel3->setBuddy(Copies);
 	rangeGroupLayout->addWidget( TextLabel3, 0, 2 );
 	DruckLayout->addWidget( rangeGroup );
 
@@ -242,7 +245,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	ClipMarg = new QCheckBox( tr( "Clip to Page Margins" ), pageOpts );
 	pageOptsLayout->addWidget( ClipMarg );
 	tabLayout_2->addWidget( pageOpts );
-	colorOpts = new QGroupBox( tab_2, "colorOpts" );
+	colorOpts = new QGroupBox( tab_2 );
 	colorOpts->setTitle( tr( "Color" ) );
 	colorOptsLayout = new QVBoxLayout( colorOpts );
 	colorOptsLayout->setSpacing( 5 );
@@ -477,7 +480,7 @@ void Druck::getOptions()
 				if (it.value().KeyW == "page-set")
 				{
 					PrinterOpts += " -o "+it.value().KeyW+"=";
-					if (cdia->FlagsOpt.at(it.value().Cnum)->currentItem() == 1)
+					if (cdia->FlagsOpt.at(it.value().Cnum)->currentIndex() == 1)
 						PrinterOpts += "even";
 					else
 						PrinterOpts += "odd";
@@ -487,7 +490,7 @@ void Druck::getOptions()
 					if (it.value().KeyW == "number-up")
 					{
 						PrinterOpts += " -o "+it.value().KeyW+"=";
-						switch (cdia->FlagsOpt.at(it.value().Cnum)->currentItem())
+						switch (cdia->FlagsOpt.at(it.value().Cnum)->currentIndex())
 						{
 							case 1:
 								PrinterOpts += "2";
@@ -575,9 +578,9 @@ void Druck::SelPrinter(const QString& prn)
 	else
 	{
 		psLevel->setEnabled( false );
-		PrintSep->setCurrentText( tr("Print Normal") );
+		PrintSep->setEditText( tr("Print Normal") );
 		PrintSep->setEnabled( false );
-		SepArt->setCurrentText( tr("All") );
+		SepArt->setEditText( tr("All") );
 		SepArt->setEnabled( false );
 		ToSeparation = false;
 		if (m_doc->HasCMS)
@@ -728,7 +731,7 @@ void Druck::setStoredValues(bool gcr)
 		int selectedDest = prefs->getInt("PrintDest", 0);
 		if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
 		{
-			PrintDest->setCurrentItem(selectedDest);
+			PrintDest->setCurrentIndex(selectedDest);
 			prefs->set("CurrentPrn", PrintDest->currentText());
 			if (PrintDest->currentText() == tr("File"))
 				SelPrinter( tr("File"));
@@ -747,17 +750,17 @@ void Druck::setStoredValues(bool gcr)
 		pageNr->setEnabled(printRangeChecked);
 		pageNr->setText(prefs->get("PageNr", "1-1"));
 		Copies->setValue(prefs->getInt("Copies", 1));
-		PrintSep->setCurrentItem(prefs->getInt("Separations", 0));
-		colorType->setCurrentItem(prefs->getInt("PrintColor", 0));
+		PrintSep->setCurrentIndex(prefs->getInt("Separations", 0));
+		colorType->setCurrentIndex(prefs->getInt("PrintColor", 0));
 		int selectedSep = prefs->getInt("SepArt", 0);
 		if ((selectedSep > -1) && (selectedSep < 5))
-			SepArt->setCurrentItem(selectedSep);
-		if (PrintSep->currentItem() == 1)
+			SepArt->setCurrentIndex(selectedSep);
+		if (PrintSep->currentIndex() == 1)
 		{
 			SepArt->setEnabled(true);
 			ToSeparation = true;
 		}
-		psLevel->setCurrentItem(prefs->getInt("PSLevel", 3)-1);
+		psLevel->setCurrentIndex(prefs->getInt("PSLevel", 3)-1);
 		MirrorHor->setChecked(prefs->getBool("MirrorH", false));
 		MirrorVert->setChecked(prefs->getBool("MirrorV", false));
 		devPar->setChecked(prefs->getBool("doDev", false));
@@ -787,7 +790,7 @@ void Druck::setStoredValues(bool gcr)
 		int selectedDest = prefs->getInt("PrintDest", 0);
 		if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
 		{
-			PrintDest->setCurrentItem(selectedDest);
+			PrintDest->setCurrentIndex(selectedDest);
 			prefs->set("CurrentPrn", PrintDest->currentText());
 			if (PrintDest->currentText() == tr("File"))
 				SelPrinter( tr("File"));
@@ -806,8 +809,8 @@ void Druck::setStoredValues(bool gcr)
 		pageNr->setEnabled(printRangeChecked);
 		pageNr->setText(prefs->get("PageNr", "1-1"));
 		Copies->setValue(1);
-		PrintSep->setCurrentItem(m_doc->Print_Options.outputSeparations);
-		colorType->setCurrentItem(m_doc->Print_Options.useColor? 0 : 1);
+		PrintSep->setCurrentIndex(m_doc->Print_Options.outputSeparations);
+		colorType->setCurrentIndex(m_doc->Print_Options.useColor? 0 : 1);
 		ColorList usedSpots;
 		m_doc->getUsedColors(usedSpots, true);
 		QStringList spots = usedSpots.keys();
@@ -816,15 +819,15 @@ void Druck::setStoredValues(bool gcr)
 		spots.prepend( tr("Magenta"));
 		spots.prepend( tr("Cyan"));
 		spots.prepend( tr("All"));
-		int selectedSep = spots.findIndex(m_doc->Print_Options.separationName);
+		int selectedSep = spots.indexOf(m_doc->Print_Options.separationName);
 		if ((selectedSep > -1) && (selectedSep < SepArt->count()))
-			SepArt->setCurrentItem(selectedSep);
-		if (PrintSep->currentItem() == 1)
+			SepArt->setCurrentIndex(selectedSep);
+		if (PrintSep->currentIndex() == 1)
 		{
 			SepArt->setEnabled(true);
 			ToSeparation = true;
 		}
-		psLevel->setCurrentItem(m_doc->Print_Options.PSLevel-1);
+		psLevel->setCurrentIndex(m_doc->Print_Options.PSLevel-1);
 		MirrorHor->setChecked(m_doc->Print_Options.mirrorH);
 		MirrorVert->setChecked(m_doc->Print_Options.mirrorV);
 		devPar->setChecked(m_doc->Print_Options.setDevParam);
@@ -886,14 +889,14 @@ QStringList Druck::allSeparations()
 	QStringList ret;
 	for (int a = 1; a < SepArt->count(); ++a)
 	{
-		ret.append(SepArt->text(a));
+		ret.append(SepArt->itemText(a));
 	}
 	return ret;
 }
 
 bool Druck::color()
 {
-	if (colorType->currentItem() == 0)
+	if (colorType->currentIndex() == 0)
 		return true;
 	else
 		return false;
@@ -921,7 +924,7 @@ bool Druck::doClip()
 
 int Druck::PSLevel()
 {
-	return psLevel->currentItem() + 1;
+	return psLevel->currentIndex() + 1;
 }
 
 bool Druck::doDev()

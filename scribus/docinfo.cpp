@@ -35,28 +35,32 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo ) : QTabWidget
 	layout1->setSpacing( 5 );
 	layout1->setMargin( 5 );
 
-	titleEdit = new QLineEdit( page1, "titleEdit" );
-	titleLabel = new QLabel( titleEdit, tr("&Title:") , page1, "titleLabel");
+	titleEdit = new QLineEdit( page1 );
+	titleLabel = new QLabel( tr("&Title:"), page1);
+	titleLabel->setBuddy(titleEdit);
 	titleLabel->resize( titleLabel->sizeHint() );
 	layout1->addWidget( titleLabel, 0, 0 );
 	layout1->addWidget( titleEdit, 0, 1 );
 
-	authorEdit = new QLineEdit( page1, "lineEditAuthor" );
-	authorLabel = new QLabel( authorEdit, tr("&Author:"), page1, "authorLabel" );
+	authorEdit = new QLineEdit( page1 );
+	authorLabel = new QLabel( tr("&Author:"), page1 );
+	authorLabel->setBuddy(authorEdit);
 	authorLabel->resize( authorLabel->sizeHint() );
 	layout1->addWidget( authorLabel, 1, 0 );
 	layout1->addWidget( authorEdit, 1, 1 );
 
-	keywordsEdit = new QTextEdit( page1, "keywordsEdit" );
-	keywordsLabel = new QLabel( keywordsEdit, tr("&Keywords:"), page1, "keywordsLabel" );
-	keywordsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
+	keywordsEdit = new QTextEdit( page1 );
+	keywordsLabel = new QLabel( tr("&Keywords:"), page1 );
+	keywordsLabel->setBuddy(keywordsEdit);
+	keywordsLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	keywordsEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( keywordsLabel, 2, 0 );
 	layout1->addWidget( keywordsEdit, 2, 1 );
 
-	descriptionEdit = new QTextEdit( page1, "descriptionEdit" );
-	descriptionLabel = new QLabel( descriptionEdit, tr("Descri&ption:"), page1, "descriptionLabel" );
-	descriptionLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
+	descriptionEdit = new QTextEdit( page1 );
+	descriptionLabel = new QLabel( tr("Descri&ption:"), page1 );
+	descriptionLabel->setBuddy(descriptionEdit);
+	descriptionLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	descriptionEdit->setMinimumSize(QSize(200, 105));
 	layout1->addWidget( descriptionLabel, 3, 0 );
 	layout1->addWidget( descriptionEdit, 3, 1 );
@@ -66,69 +70,80 @@ DocInfos::DocInfos( QWidget* parent, DocumentInformation& docInfo ) : QTabWidget
 	layout2->setSpacing( 5 );
 	layout2->setMargin( 5 );
 
-	publisherEdit = new QLineEdit( page2, "publisherEdit" );
-	publisherLabel = new QLabel( publisherEdit, tr("P&ublisher:") , page2, "publisherLabel");
+	publisherEdit = new QLineEdit( page2 );
+	publisherLabel = new QLabel( tr("P&ublisher:") , page2);
+	publisherLabel->setBuddy(publisherEdit);
 	publisherLabel->resize( publisherLabel->sizeHint() );
 	layout2->addWidget( publisherLabel, 0, 0 );
 	layout2->addWidget( publisherEdit, 0, 1 );
 
-	contributorsEdit = new QTextEdit( page2, "contributorsEdit" );
-	contributorsLabel = new QLabel( contributorsEdit, tr("&Contributors:"), page2, "contributorsLabel" );
-	contributorsLabel->setAlignment( static_cast<int>( Qt::AlignTop | Qt::AlignLeft ) );
+	contributorsEdit = new QTextEdit( page2 );
+	contributorsLabel = new QLabel( tr("&Contributors:"), page2 );
+	contributorsLabel->setBuddy(contributorsEdit);
+	contributorsLabel->setAlignment(Qt::AlignTop | Qt::AlignLeft);
 	contributorsEdit->setMinimumSize(QSize(200, 105));
 	layout2->addWidget( contributorsLabel, 1, 0 );
 	layout2->addWidget( contributorsEdit, 1, 1 );
 
-	dateEdit = new QLineEdit( page2, "dateEdit" );
-	dateLabel = new QLabel( dateEdit, tr("Dat&e:") , page2, "dateLabel");
+	dateEdit = new QLineEdit( page2 );
+	dateLabel = new QLabel( tr("Dat&e:") , page2);
+	dateLabel->setBuddy(dateEdit);
 	dateLabel->resize( dateLabel->sizeHint() );
 	layout2->addWidget( dateLabel, 2, 0 );
 	layout2->addWidget( dateEdit, 2, 1 );
 
-	typeEdit = new QLineEdit( page2, "typeEdit" );
-	typeLabel = new QLabel( typeEdit, tr("T&ype:") , page2, "typeLabel");
+	typeEdit = new QLineEdit( page2 );
+	typeLabel = new QLabel( tr("T&ype:") , page2);
+	typeLabel->setBuddy(typeEdit);
 	typeLabel->resize( typeLabel->sizeHint() );
 	layout2->addWidget( typeLabel, 3, 0 );
 	layout2->addWidget( typeEdit, 3, 1 );
 
-	formatEdit = new QLineEdit( page2, "formatEdit" );
-	formatLabel = new QLabel( formatEdit, tr("F&ormat:") , page2, "formatLabel");
+	formatEdit = new QLineEdit( page2 );
+	formatLabel = new QLabel( tr("F&ormat:") , page2);
+	formatLabel->setBuddy(formatEdit);
 	formatLabel->resize( formatLabel->sizeHint() );
 	layout2->addWidget( formatLabel, 4, 0 );
 	layout2->addWidget( formatEdit, 4, 1 );
 
-	identifierEdit = new QLineEdit( page2, "identifierEdit" );
-	identifierLabel = new QLabel( identifierEdit, tr("Identi&fier:") , page2, "identifierLabel");
+	identifierEdit = new QLineEdit( page2 );
+	identifierLabel = new QLabel( tr("Identi&fier:") , page2);
+	identifierLabel->setBuddy(identifierEdit);
 	identifierLabel->resize( identifierLabel->sizeHint() );
 	layout2->addWidget( identifierLabel, 5, 0 );
 	layout2->addWidget( identifierEdit, 5, 1 );
 
-	sourceEdit = new QLineEdit( page2, "sourceEdit" );
-	sourceLabel = new QLabel( sourceEdit, tr("&Source:") , page2, "sourceLabel");
+	sourceEdit = new QLineEdit( page2 );
+	sourceLabel = new QLabel( tr("&Source:") , page2);
+	sourceLabel->setBuddy(sourceEdit);
 	sourceLabel->resize( sourceLabel->sizeHint() );
 	layout2->addWidget( sourceLabel, 6, 0 );
 	layout2->addWidget( sourceEdit, 6, 1 );
 
-	languageEdit = new QLineEdit( page2, "languageEdit" );
-	languageLabel = new QLabel( languageEdit, tr("&Language:") , page2, "languageLabel");
+	languageEdit = new QLineEdit( page2 );
+	languageLabel = new QLabel( tr("&Language:") , page2);
+	languageLabel->setBuddy(languageEdit);
 	languageLabel->resize( languageLabel->sizeHint() );
 	layout2->addWidget( languageLabel, 7, 0 );
 	layout2->addWidget( languageEdit, 7, 1 );
 
-	relationEdit = new QLineEdit( page2, "relationEdit" );
-	relationLabel = new QLabel( relationEdit, tr("&Relation:") , page2, "relationLabel");
+	relationEdit = new QLineEdit( page2 );
+	relationLabel = new QLabel( tr("&Relation:") , page2);
+	relationLabel->setBuddy(relationEdit);
 	relationLabel->resize( relationLabel->sizeHint() );
 	layout2->addWidget( relationLabel, 8, 0 );
 	layout2->addWidget( relationEdit, 8, 1 );
 
-	coverageEdit = new QLineEdit( page2, "coverageEdit" );
-	coverageLabel = new QLabel( coverageEdit, tr("Co&verage:") , page2, "coverageLabel");
+	coverageEdit = new QLineEdit( page2 );
+	coverageLabel = new QLabel( tr("Co&verage:") , page2);
+	coverageLabel->setBuddy(coverageEdit);
 	coverageLabel->resize( coverageLabel->sizeHint() );
 	layout2->addWidget( coverageLabel, 9, 0 );
 	layout2->addWidget( coverageEdit, 9, 1 );
 
-	rightsEdit = new QLineEdit( page2, "rightsEdit" );
-	rightsLabel = new QLabel( rightsEdit, tr("Ri&ghts:") , page2, "rightsLabel");
+	rightsEdit = new QLineEdit( page2 );
+	rightsLabel = new QLabel( tr("Ri&ghts:") , page2);
+	rightsLabel->setBuddy(rightsEdit);
 	rightsLabel->resize( rightsLabel->sizeHint() );
 	layout2->addWidget( rightsLabel, 10, 0 );
 	layout2->addWidget( rightsEdit, 10, 1 );

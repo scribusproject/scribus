@@ -12,27 +12,30 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "commonstrings.h"
 
-DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
-		: QDialog( parent, "DelPages", true, 0 )
+DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( parent )
 {
 	setWindowTitle( tr( "Delete Pages" ) );
 	setModal(true);
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	dialogLayout = new QVBoxLayout( this );
 	dialogLayout->setSpacing( 5 );
 	dialogLayout->setMargin( 10 );
 	fromToLayout = new QHBoxLayout;
 	fromToLayout->setSpacing( 5 );
 	fromToLayout->setMargin( 5 );
-	fromLabel = new QLabel( tr( "Delete From:" ), this, "fromLabel" );
+	fromLabel = new QLabel( tr( "Delete From:" ), this );
 	fromToLayout->addWidget( fromLabel );
-	fromPageData = new QSpinBox( 1, maxPage, 1, this, "fromPageData" );
+	fromPageData = new QSpinBox(this );
+	fromPageData->setMinimum(1);
+	fromPageData->setMaximum(maxPage);
 	fromPageData->setValue( currentPage );
 	fromToLayout->addWidget( fromPageData );
-	toLabel = new QLabel( this, "toLabel" );
+	toLabel = new QLabel( this );
 	toLabel->setText( tr( "to:" ) );
 	fromToLayout->addWidget( toLabel );
-	toPageData = new QSpinBox( 1, maxPage, 1, this, "toPageData" );
+	toPageData = new QSpinBox( this );
+	toPageData->setMinimum(1);
+	toPageData->setMaximum(maxPage);
 	toPageData->setValue( currentPage );
 	fromToLayout->addWidget( toPageData );
 	dialogLayout->addLayout( fromToLayout );
@@ -42,10 +45,10 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage )
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
-	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this );
 	okButton->setDefault( true );
 	okCancelLayout->addWidget(okButton);
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
 	cancelButton->setDefault( false );
 	okCancelLayout->addWidget(cancelButton);
 	dialogLayout->addLayout( okCancelLayout );
