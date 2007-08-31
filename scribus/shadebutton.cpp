@@ -28,10 +28,10 @@ ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent)
 void ShadeButton::setShade(int id)
 {
 	bool ok = false;
-	uint a;
+	int a;
 	int c;
 	int b = 100;
-	for (a = 0; a < FillSh->actions()->count(); ++a)
+	for (a = 0; a < FillSh->actions().count(); ++a)
 	{
 		FillSh->setItemChecked(FillSh->idAt(a), false);
 	}
@@ -76,10 +76,10 @@ int ShadeButton::getValue()
 
 void ShadeButton::setValue(int val)
 {
-	for (uint a = 0; a < FillSh->actions()->count(); ++a)
-		{
+	for (int a = 0; a < FillSh->actions().count(); ++a)
+	{
 		FillSh->setItemChecked(FillSh->idAt(a), false);
-		}
+	}
 	if ((val % 10) == 0)
 		FillSh->setItemChecked(FillSh->idAt(val/10+1), true);
 	else

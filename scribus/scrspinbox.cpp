@@ -352,11 +352,11 @@ bool ScrSpinBox::eventFilter( QObject* watched, QEvent* event )
 	return retval;
 }
 
-void ScrSpinBox::setLineStepM(int val)
-{
-	QDoubleSpinBox::setSingleStep( val );
-//	currLineStep = val * Decimals;
-}
+// void ScrSpinBox::setSingleStepM(int val)
+// {
+// 	QDoubleSpinBox::setSingleStep( val );
+// //	currLineStep = val * Decimals;
+// }
 
 void ScrSpinBox::setTabAdvance(bool enable)
 {

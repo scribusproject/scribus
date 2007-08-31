@@ -39,7 +39,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		void setNewUnit(int unitIndex);
 		double getValue(int unitIndex=0);
 		//implemented for backwards compatibility, perhaps we can remove these?
-		void setLineStepM(int val);
+// 		void setSingleStepM(int val);
 		void setTabAdvance(bool enable);
 		
 	public slots:

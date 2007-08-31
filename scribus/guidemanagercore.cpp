@@ -147,7 +147,7 @@ void GuideManagerCore::deleteHorizontal(double value, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			horizontalStdG.remove(horizontalStdG.find(value));
+			horizontalStdG.removeAt(horizontalStdG.indexOf(value));
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
@@ -165,7 +165,7 @@ void GuideManagerCore::deleteVertical(double value, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			verticalStdG.remove(verticalStdG.find(value));
+			verticalStdG.removeAt(verticalStdG.indexOf(value));
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
@@ -305,7 +305,7 @@ void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			horizontalStdG.remove(horizontalStdG.find(from));
+			horizontalStdG.removeAt(horizontalStdG.indexOf(from));
 			horizontalStdG.append(to);
 			if (UndoManager::undoEnabled())
 			{
@@ -325,7 +325,7 @@ void GuideManagerCore::moveVertical(double from, double to, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			verticalStdG.remove(verticalStdG.find(from));
+			verticalStdG.removeAt(verticalStdG.indexOf(from));
 			verticalStdG.append(to);
 			if (UndoManager::undoEnabled())
 			{
@@ -577,8 +577,7 @@ double GuideManagerCore::closestVertRight(double x)// const
 
 void GuideManagerIO::readVerticalGuides(const QString guideString, Page *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
-	QStringList gVal(QStringList::split(' ', guideString));
-
+	QStringList gVal(guideString.split(' '));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
 			page->guides.addHorizontal((*it).toDouble(), type) :
@@ -587,7 +586,7 @@ void GuideManagerIO::readVerticalGuides(const QString guideString, Page *page, G
 
 void GuideManagerIO::readHorizontalGuides(const QString guideString, Page *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
-	QStringList gVal(QStringList::split(' ', guideString));
+	QStringList gVal(guideString.split(' '));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
 			page->guides.addVertical((*it).toDouble(), type):
@@ -632,7 +631,7 @@ void GuideManagerIO::readSelection(const QString guideString, Page *page)
 	// TODO: examine this check in 134vs.134qt4 - PV
 	if (guideString.isNull() || guideString.isEmpty())
 		return;
-	QStringList gVal(QStringList::split(' ', guideString));
+	QStringList gVal(guideString.split(' '));
 	page->guides.gx = gVal[0].toDouble();
 	page->guides.gy = gVal[1].toDouble();
 	page->guides.gw = gVal[2].toDouble();

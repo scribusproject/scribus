@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "mpalette.h"
 
-
 #include <QButtonGroup>
 #include <QCheckBox>
 #include <QCloseEvent>
@@ -505,13 +504,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	startoffsetLabel = new QLabel( "Start Offset:", Distance2 );
 	DistanceLayout2->addWidget( startoffsetLabel, 1, 0);
 	Dist = new ScrSpinBox( 0, 30000, Distance2, 0 );
-	Dist->setLineStepM(10);
+	Dist->setSingleStep(10);
 	DistanceLayout2->addWidget( Dist, 1, 1);
 
 	distfromcurveLabel = new QLabel( "Distance from Curve:", Distance2 );
 	DistanceLayout2->addWidget( distfromcurveLabel, 2, 0);
 	LineW = new ScrSpinBox( -300, 300, Distance2, 0 );
-	LineW->setLineStepM(10);
+	LineW->setSingleStep(10);
 	DistanceLayout2->addWidget( LineW, 2, 1);
 
 	flippedPathText = new QCheckBox( Distance2 );
@@ -1296,10 +1295,10 @@ void Mpalette::setDoc(ScribusDoc *d)
 	LSize->setMinimum( 0 );
 	Dist->setMaximum( 30000 );
 	Dist->setMinimum( 0 );
-	Dist->setLineStepM(10);
+	Dist->setSingleStep(10);
 	LineW->setMaximum( 300 );
 	LineW->setMinimum( -300 );
-	LineW->setLineStepM(10);
+	LineW->setSingleStep(10);
 
 	updateColorList();
 
