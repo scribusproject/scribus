@@ -55,7 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 
 
-Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
+Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 {
 	Color = "";
 	Color3 = "";
@@ -76,7 +76,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Innen = new QToolButton(this);
 	Innen->setIcon(QIcon(loadIcon("16/color-fill.png")));
 	Innen->setCheckable(true);
-	Innen->setOn(true);
+	Innen->setChecked(true);
 	Layout1->addWidget(Innen);
 	selectorQSpacer = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( selectorQSpacer );
@@ -86,7 +86,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	PM1 = new QSpinBox( this );
 	PM1->setMinimum(0);
 	PM1->setMaximum(100);
-	PM1->setLineStep(10);
+	PM1->setSingleStep(10);
 	PM1->setValue(100);
 	Layout1->addWidget(PM1);
 	Form1Layout->addLayout(Layout1);
@@ -123,7 +123,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	freeGradientLayout->addWidget( gX2, 0, 3 );
 	gY2 = new ScrSpinBox( -3000, 3000, freeGradientQFrame, 0);
 	freeGradientLayout->addWidget( gY2, 1, 3 );
-	gradEditButton = new QToolButton(freeGradientQFrame, "t1");
+	gradEditButton = new QToolButton(freeGradientQFrame);
 	gradEditButton->setCheckable(true);
 	freeGradientLayout->addWidget(gradEditButton, 2, 0, 1, 4);
 	GradLayout->addWidget( freeGradientQFrame );
@@ -180,7 +180,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	spinYscaling = new ScrSpinBox( 1, 500, groupScale, 0 );
 	groupScaleLayout->addWidget( spinYscaling, 1, 1 );
 	keepScaleRatio = new LinkButton( groupScale );
-	keepScaleRatio->setToggleButton( true );
+	keepScaleRatio->setCheckable( true );
 	keepScaleRatio->setAutoRaise( true );
 	keepScaleRatio->setMaximumSize( QSize( 15, 32767 ) );
 	groupScaleLayout->addWidget( keepScaleRatio, 0, 2, 2, 1 );
@@ -209,16 +209,16 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	TransSpin = new QSpinBox( TransGroup );
 	TransSpin->setMinimum(0);
 	TransSpin->setMaximum(100);
-	TransSpin->setLineStep(10);
+	TransSpin->setSingleStep(10);
 	TransSpin->setValue(100);
 	Layout1t->addWidget(TransSpin, 0, 1);
 	TransTxt2 = new QLabel( TransGroup );
 	Layout1t->addWidget( TransTxt2, 1, 0 );
-	blendMode = new ScComboBox( false, TransGroup, "blendMode" );
+	blendMode = new ScComboBox( false, TransGroup );
 	Layout1t->addWidget( blendMode, 1, 1 );
 	Form1Layout->addWidget(TransGroup);
 
-	Inhalt->setOn(true);
+	Inhalt->setChecked(true);
 	InnenButton();
 	GradientMode = false;
 
@@ -285,7 +285,7 @@ void Cpalette::updateFromItem()
 	{
 		ChooseGrad(currentItem->GrType);
 		gradEdit->Preview->fill_gradient = currentItem->fill_gradient;
-		gradientQCombo->setCurrentItem(currentItem->GrType);
+		gradientQCombo->setCurrentIndex(currentItem->GrType);
 		gradEdit->Preview->updateDisplay();
 		double dur = currentDoc->unitRatio();
 		setSpecialGradient(currentItem->GrStartX * dur, currentItem->GrStartY * dur, currentItem->GrEndX * dur, currentItem->GrEndY * dur);
@@ -294,10 +294,10 @@ void Cpalette::updateFromItem()
 
 void Cpalette::InhaltButton()
 {
-	if (Inhalt->isOn())
+	if (Inhalt->isChecked())
 	{
 		Mode = 1;
-		Innen->setOn(false);
+		Innen->setChecked(false);
 		freeGradientQFrame->hide();
 		freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		gradientQCombo->hide();
@@ -319,13 +319,13 @@ void Cpalette::InhaltButton()
 
 void Cpalette::InnenButton()
 {
-	if (Innen->isOn())
+	if (Innen->isChecked())
 	{
 		Mode = 2;
-		Inhalt->setOn(false);
+		Inhalt->setChecked(false);
 		gradientQCombo->show();
 		gradientQCombo->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-		GradientMode = gradientQCombo->currentItem() != 0 ? true : false;
+		GradientMode = gradientQCombo->currentIndex() != 0 ? true : false;
 		if (GradientMode)
 		{
 			if (gradEdit->isHidden())
@@ -333,7 +333,7 @@ void Cpalette::InnenButton()
 				gradEdit->show();
 				gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 			}
-			if (gradientQCombo->currentItem() > 5)
+			if (gradientQCombo->currentIndex() > 5)
 			{
 				freeGradientQFrame->show();
 				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
@@ -365,7 +365,7 @@ void Cpalette::updatePatternList()
 		else
 			pm=QPixmap::fromImage(it.value().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
-		pm2.fill(palette().base());
+		pm2.fill(palette().color(QPalette::Base));
 		QPainter p;
 		p.begin(&pm2);
 		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
@@ -405,14 +405,14 @@ void Cpalette::ToggleKette()
 {
 	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	if (keepScaleRatio->isOn())
+	if (keepScaleRatio->isChecked())
 	{
 		spinYscaling->setValue(spinXscaling->value());
 		changePatternProps();
-		keepScaleRatio->setOn(true);
+		keepScaleRatio->setChecked(true);
 	}
 	else
-		keepScaleRatio->setOn(false);
+		keepScaleRatio->setChecked(false);
 	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	connect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
@@ -421,7 +421,7 @@ void Cpalette::HChange()
 {
 	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	if (keepScaleRatio->isOn())
+	if (keepScaleRatio->isChecked())
 		spinYscaling->setValue(spinXscaling->value());
 	changePatternProps();
 	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
@@ -432,7 +432,7 @@ void Cpalette::VChange()
 {
 	disconnect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	disconnect(spinYscaling, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	if (keepScaleRatio->isOn())
+	if (keepScaleRatio->isChecked())
 		spinXscaling->setValue(spinYscaling->value());
 	changePatternProps();
 	connect(spinXscaling, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
@@ -474,12 +474,12 @@ void Cpalette::selectColor(QListWidgetItem *item)
 		emit NewPen(sFarbe);
 		break;
 	case 2:
-		if (gradientQCombo->currentItem() == 0)
+		if (gradientQCombo->currentIndex() == 0)
 		{
 			Color3 = sFarbe;
 			emit NewBrush(sFarbe);
 		}
-		else if (gradientQCombo->currentItem() < 8)
+		else if (gradientQCombo->currentIndex() < 8)
 		{
 			gradEdit->Preview->setActColor(setColor(sFarbe, Shade), sFarbe, Shade);
 			Color = sFarbe;
@@ -551,7 +551,7 @@ void Cpalette::slotGrad(int number)
 {
 	if ((number == 8) && (patternList->count() == 0))
 	{
-		gradientQCombo->setCurrentItem(currentGradient);
+		gradientQCombo->setCurrentIndex(currentGradient);
 		return;
 	}
 	int oldgrad = currentGradient;
@@ -568,7 +568,7 @@ void Cpalette::ChooseGrad(int number)
 {
 	if (number==-1)
 	{
-		gradientQCombo->setCurrentItem(0);
+		gradientQCombo->setCurrentIndex(0);
 		currentGradient = 0;
 	}
 	//no need to disconnect as qcombobox only emits from user action
@@ -598,7 +598,7 @@ void Cpalette::ChooseGrad(int number)
 			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 			gradEdit->show();
 			gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-			if (gradientQCombo->currentItem() > 5)
+			if (gradientQCombo->currentIndex() > 5)
 			{
 				freeGradientQFrame->show();
 				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
@@ -652,7 +652,7 @@ void Cpalette::setActTrans(double val, double val2)
 void Cpalette::setActBlend(int val, int val2)
 {
 	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
-	blendMode->setCurrentItem(Mode == 1 ? val2 : val);
+	blendMode->setCurrentIndex(Mode == 1 ? val2 : val);
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
 }
 
@@ -672,7 +672,7 @@ void Cpalette::changeBlendMode(int blend)
 		emit NewBlendS(blend);
 	else
 	{
-		if ((gradientQCombo->currentItem() == 0) || (gradientQCombo->currentItem() == 8))
+		if ((gradientQCombo->currentIndex() == 0) || (gradientQCombo->currentIndex() == 8))
 			emit NewBlend(blend);
 	}
 }
@@ -683,7 +683,7 @@ void Cpalette::slotTrans(int val)
 		emit NewTransS(static_cast<double>(100 - val) / 100.0);
 	else
 	{
-		if ((gradientQCombo->currentItem() == 0) || (gradientQCombo->currentItem() == 8))
+		if ((gradientQCombo->currentIndex() == 0) || (gradientQCombo->currentIndex() == 8))
 			emit NewTrans(static_cast<double>(100 - val) / 100.0);
 		else
 		{
@@ -700,7 +700,7 @@ void Cpalette::setActGradient(int typ)
 	if (Mode == 2)
 	{
 		currentGradient = typ;
-		gradientQCombo->setCurrentItem(typ);
+		gradientQCombo->setCurrentIndex(typ);
 		ChooseGrad(typ);
 	}
 	connect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
@@ -736,7 +736,7 @@ void Cpalette::setActShade()
 		emit NewPenShade(b);
 		break;
 	case 2:
-		if (gradientQCombo->currentItem() == 0)
+		if (gradientQCombo->currentIndex() == 0)
 		{
 			Shade3 = b;
 			emit NewBrushShade(b);
@@ -774,9 +774,9 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 	spinYscaling->setValue(scaleY);
 	spinAngle->setValue(rotation);
 	if (scaleX == scaleY)
-		keepScaleRatio->setOn(true);
+		keepScaleRatio->setChecked(true);
 	else
-		keepScaleRatio->setOn(false);
+		keepScaleRatio->setChecked(false);
 	connect(patternBox, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPattern(QListWidgetItem*)));
 	connect(spinXoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
 	connect(spinYoffset, SIGNAL(valueChanged(double)), this, SLOT(changePatternProps()));
@@ -838,37 +838,37 @@ void Cpalette::languageChange()
 	GTextY2->setText( tr( "Y2:" ));
 	gradEditButton->setText( tr("Move Vector"));
 
-	int oldGradient=gradientQCombo->currentItem();
+	int oldGradient=gradientQCombo->currentIndex();
 	gradientQCombo->clear();
-	gradientQCombo->insertItem( tr("Normal"));
-	gradientQCombo->insertItem( tr("Horizontal Gradient"));
-	gradientQCombo->insertItem( tr("Vertical Gradient"));
-	gradientQCombo->insertItem( tr("Diagonal Gradient"));
-	gradientQCombo->insertItem( tr("Cross Diagonal Gradient"));
-	gradientQCombo->insertItem( tr("Radial Gradient"));
-	gradientQCombo->insertItem( tr("Free linear Gradient"));
-	gradientQCombo->insertItem( tr("Free radial Gradient"));
-	gradientQCombo->insertItem( tr("Pattern"));
-	gradientQCombo->setCurrentItem(oldGradient);
+	gradientQCombo->addItem( tr("Normal"));
+	gradientQCombo->addItem( tr("Horizontal Gradient"));
+	gradientQCombo->addItem( tr("Vertical Gradient"));
+	gradientQCombo->addItem( tr("Diagonal Gradient"));
+	gradientQCombo->addItem( tr("Cross Diagonal Gradient"));
+	gradientQCombo->addItem( tr("Radial Gradient"));
+	gradientQCombo->addItem( tr("Free linear Gradient"));
+	gradientQCombo->addItem( tr("Free radial Gradient"));
+	gradientQCombo->addItem( tr("Pattern"));
+	gradientQCombo->setCurrentIndex(oldGradient);
 	TransGroup->setTitle( tr( "Transparency Settings" ));
 	TransTxt2->setText( tr( "Blend Mode:" ) );
 	blendMode->clear();
-	blendMode->insertItem( tr("Normal"));
-	blendMode->insertItem( tr("Darken"));
-	blendMode->insertItem( tr("Lighten"));
-	blendMode->insertItem( tr("Multiply"));
-	blendMode->insertItem( tr("Screen"));
-	blendMode->insertItem( tr("Overlay"));
-	blendMode->insertItem( tr("Hard Light"));
-	blendMode->insertItem( tr("Soft Light"));
-	blendMode->insertItem( tr("Difference"));
-	blendMode->insertItem( tr("Exclusion"));
-	blendMode->insertItem( tr("Color Dodge"));
-	blendMode->insertItem( tr("Color Burn"));
-	blendMode->insertItem( tr("Hue"));
-	blendMode->insertItem( tr("Saturation"));
-	blendMode->insertItem( tr("Color"));
-	blendMode->insertItem( tr("Luminosity"));
+	blendMode->addItem( tr("Normal"));
+	blendMode->addItem( tr("Darken"));
+	blendMode->addItem( tr("Lighten"));
+	blendMode->addItem( tr("Multiply"));
+	blendMode->addItem( tr("Screen"));
+	blendMode->addItem( tr("Overlay"));
+	blendMode->addItem( tr("Hard Light"));
+	blendMode->addItem( tr("Soft Light"));
+	blendMode->addItem( tr("Difference"));
+	blendMode->addItem( tr("Exclusion"));
+	blendMode->addItem( tr("Color Dodge"));
+	blendMode->addItem( tr("Color Burn"));
+	blendMode->addItem( tr("Hue"));
+	blendMode->addItem( tr("Saturation"));
+	blendMode->addItem( tr("Color"));
+	blendMode->addItem( tr("Luminosity"));
 
 	Inhalt->setToolTip( tr( "Edit Line Color Properties" ) );
 	Innen->setToolTip( tr( "Edit Fill Color Properties" ) );
