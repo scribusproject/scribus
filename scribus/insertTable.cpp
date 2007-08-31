@@ -13,7 +13,7 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( p
 
 {
 	setWindowTitle( tr( "Insert Table" ) );
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	setModal(true);
 	InsertTableLayout = new QVBoxLayout( this );
 	InsertTableLayout->setMargin(10);
@@ -25,8 +25,8 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( p
 	Cols->setRange(1, maxCol);
 	Cols->setValue(1);
 	layout2->addWidget( Cols, 1, 1 );
-	Text1 = new QLabel( tr( "Number of rows:" ), this, "Text1" );
-	Text2 = new QLabel( tr( "Number of columns:" ), this, "Text2" );
+	Text1 = new QLabel( tr( "Number of rows:" ), this);
+	Text2 = new QLabel( tr( "Number of columns:" ), this);
 	layout2->addWidget( Text1, 0, 0 );
 	layout2->addWidget( Text2, 1, 0 );
 	Rows = new QSpinBox(this);
@@ -36,8 +36,8 @@ InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( p
 	InsertTableLayout->addLayout( layout2 );
 	layout1 = new QHBoxLayout();
 	layout1->setSpacing(5);
-	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this);
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this);
 	okButton->setDefault( true );
 	layout1->addWidget( okButton );
 	layout1->addWidget( cancelButton );
