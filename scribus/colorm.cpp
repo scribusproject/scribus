@@ -55,7 +55,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	m_Doc=doc;
 	customColSet = custColSet;
-	setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, sizePolicy().hasHeightForWidth() ) );
+	setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	setSizeGripEnabled(true);
 	Layout2 = new QVBoxLayout( this );
 	Layout2->setSpacing( 5 );
@@ -72,40 +72,40 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 	colorListBox->setMinimumSize( QSize( 164, 228 ) );
 	layout5->addWidget( colorListBox );
 
-	ColorsGroup = new QGroupBox( this, "ColorsGroup" );
+	ColorsGroup = new QGroupBox( this );
 	Layout1 = new QVBoxLayout( ColorsGroup );
 	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 10 );
 	Layout1->setAlignment( Qt::AlignTop );
-	importColorsButton = new QPushButton( tr( "&Import" ), ColorsGroup, "importColorsButton" );
+	importColorsButton = new QPushButton( tr( "&Import" ), ColorsGroup );
 	Layout1->addWidget( importColorsButton );
-	newColorButton = new QPushButton( tr( "&New" ), ColorsGroup, "newColorButton" );
+	newColorButton = new QPushButton( tr( "&New" ), ColorsGroup );
 	Layout1->addWidget( newColorButton );
-	editColorButton = new QPushButton( tr( "&Edit" ), ColorsGroup, "editColorButton" );
+	editColorButton = new QPushButton( tr( "&Edit" ), ColorsGroup );
 	editColorButton->setEnabled( false );
 	editColorButton->setDefault( true );
 	Layout1->addWidget( editColorButton );
-	duplicateColorButton = new QPushButton( tr( "D&uplicate" ), ColorsGroup, "duplicateColorButton" );
+	duplicateColorButton = new QPushButton( tr( "D&uplicate" ), ColorsGroup );
 	duplicateColorButton->setEnabled( false );
 	Layout1->addWidget( duplicateColorButton );
-	deleteColorButton = new QPushButton( tr( "&Delete" ), ColorsGroup, "deleteColorButton" );
+	deleteColorButton = new QPushButton( tr( "&Delete" ), ColorsGroup );
 	deleteColorButton->setEnabled( false );
 	Layout1->addWidget( deleteColorButton );
 	if (m_Doc!=0)
 	{
-		deleteUnusedButton = new QPushButton( tr( "&Remove Unused" ), ColorsGroup, "deleteUnusedButton" );
+		deleteUnusedButton = new QPushButton( tr( "&Remove Unused" ), ColorsGroup );
 		Layout1->addWidget( deleteUnusedButton );
 	}
 	layout3->addWidget( ColorsGroup );
 	if (m_Doc==0)
 	{
-		ColsSetGroup = new QGroupBox( this, "ColsSetGroup" );
+		ColsSetGroup = new QGroupBox( this );
 		ColsSetGroup->setTitle( tr( "Color Sets" ) );
 		ColsSetGroupLayout = new QVBoxLayout( ColsSetGroup );
 		ColsSetGroupLayout->setSpacing( 5 );
 		ColsSetGroupLayout->setMargin( 10 );
 		ColsSetGroupLayout->setAlignment( Qt::AlignTop );
-		textLabel1 = new QLabel( ColsSetGroup, "textLabel1" );
+		textLabel1 = new QLabel( ColsSetGroup );
 		textLabel1->setText( tr( "Current Color Set:" ) );
 		ColsSetGroupLayout->addWidget( textLabel1 );
 		QSignalMapper *signalMapper = new QSignalMapper(this);
@@ -143,20 +143,20 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 			customColSet = realEx;
 		}
 		connect(signalMapper, SIGNAL(mapped(const QString &)), this, SLOT(loadDefaults(const QString &)));
-		LoadColSet = new QToolButton( ColsSetGroup, "LoadColSet" );
+		LoadColSet = new QToolButton( ColsSetGroup );
 		LoadColSet->setMenu(CSets);
 		LoadColSet->setPopupMode(QToolButton::MenuButtonPopup);
 		LoadColSet->setText(docColSet);
 		LoadColSet->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 		ColsSetGroupLayout->addWidget( LoadColSet );
-		SaveColSet = new QPushButton( tr( "&Save Color Set" ), ColsSetGroup, "SaveColSet" );
+		SaveColSet = new QPushButton( tr( "&Save Color Set" ), ColsSetGroup );
 		SaveColSet->setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 		ColsSetGroupLayout->addWidget( SaveColSet );
 		layout3->addWidget( ColsSetGroup );
 	}
-	saveButton = new QPushButton( CommonStrings::tr_OK, this, "saveButton" );
+	saveButton = new QPushButton( CommonStrings::tr_OK, this );
 	layout3->addWidget( saveButton );
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
 	cancelButton->setDefault( true );
 	layout3->addWidget( cancelButton );
 	layout5->addLayout( layout3 );
@@ -233,8 +233,8 @@ void ColorManager::saveDefaults()
 			static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 			QByteArray cs = docu.toString().toUtf8();
 			QDataStream s(&fx);
-			s.writeRawBytes(xmlpi, strlen(xmlpi));
-			s.writeRawBytes(cs, cs.length());
+			s.writeRawData(xmlpi, strlen(xmlpi));
+			s.writeRawData(cs, cs.length());
 /*			CMYKColor cmyk;
 			QTextStream tsx(&fx);
 			QString tmp;
@@ -379,7 +379,7 @@ void ColorManager::loadDefaults(const QString &txt)
 					}
 					else
 					{
-						QStringList fields = QStringList::split(QChar(9), ColorEn);
+						QStringList fields = ColorEn.split(QChar(9));
 						if (fields.count() != 5)
 							continue;
 						Cname = fields[0];
@@ -443,7 +443,7 @@ void ColorManager::importColors()
 		int oldCount = EditColors.count();
 		dirs->set("colors", fileName.left(fileName.lastIndexOf("/")));
 		QFileInfo fi = QFileInfo(fileName);
-		QString ext = fi.extension(false).toLower();
+		QString ext = fi.suffix().toLower();
 		if (extensionIndicatesEPSorPS(ext) || (ext == "ai"))
 		{
 			QString tmp, tmp2, FarNam;
@@ -512,7 +512,7 @@ void ColorManager::importColors()
 									{
 										tmp = tmp.trimmed();
 										tmp = tmp.remove(0,1);
-										int en = tmp.find(")");
+										int en = tmp.indexOf(")");
 										FarNam = tmp.mid(0, en);
 										FarNam = FarNam.simplified();
 										cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));

@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 
 CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
-	: QWidget( parent, "CMS" )
+	: QWidget( parent )
 {
 	prefs = Vor;
 	changed = false;
@@ -39,42 +39,48 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	inputPRGBIm = new QComboBox( sysProfiles );
 	inputPRGBIm->setMinimumSize( QSize( 190, 22 ) );
 	inputPRGBIm->setEditable(false);
-	text1 = new QLabel( inputPRGBIm, tr( "&RGB Pictures:" ), sysProfiles, "Text1" );
+	text1 = new QLabel( tr( "&RGB Pictures:" ), sysProfiles );
+	text1->setBuddy(inputPRGBIm);
 	sysProfilesLayout->addWidget( text1, 0, 0 );
 	sysProfilesLayout->addWidget( inputPRGBIm, 0, 1 );
 
 	inputPCMYKIm = new QComboBox( sysProfiles );
 	inputPCMYKIm->setMinimumSize( QSize( 190, 22 ) );
 	inputPCMYKIm->setEditable(false);
-	text1CMYK = new QLabel( inputPCMYKIm, tr( "&CMYK Pictures:" ), sysProfiles, "text1cmyk" );
+	text1CMYK = new QLabel( tr( "&CMYK Pictures:" ), sysProfiles );
+	text1CMYK->setBuddy(inputPCMYKIm);
 	sysProfilesLayout->addWidget( text1CMYK, 1, 0 );
 	sysProfilesLayout->addWidget( inputPCMYKIm, 1, 1 );
 
 	inputPRGB = new QComboBox( sysProfiles );
 	inputPRGB->setMinimumSize( QSize( 190, 22 ) );
 	inputPRGB->setEditable(false);
-	text4 = new QLabel( inputPRGB, tr( "&RGB Solid Colors:" ), sysProfiles, "Text4" );
+	text4 = new QLabel( tr( "&RGB Solid Colors:" ), sysProfiles );
+	text4->setBuddy(inputPRGB);
 	sysProfilesLayout->addWidget( text4, 2, 0 );
 	sysProfilesLayout->addWidget( inputPRGB, 2, 1 );
 
 	inputPCMYK = new QComboBox( sysProfiles );
 	inputPCMYK->setMinimumSize( QSize( 190, 22 ) );
 	inputPCMYK->setEditable(false);
-	text5 = new QLabel( inputPCMYK, tr( "&CMYK Solid Colors:" ), sysProfiles, "Text5" );
+	text5 = new QLabel( tr( "&CMYK Solid Colors:" ), sysProfiles );
+	text5->setBuddy(inputPCMYK);
 	sysProfilesLayout->addWidget( text5, 3, 0 );
 	sysProfilesLayout->addWidget( inputPCMYK, 3, 1 );
 
 	monitorP = new QComboBox( sysProfiles );
 	monitorP->setMinimumSize( QSize( 190, 22 ) );
 	monitorP->setEditable(false);
-	text2 = new QLabel( monitorP, tr( "&Monitor:" ), sysProfiles, "Text2" );
+	text2 = new QLabel( tr( "&Monitor:" ), sysProfiles );
+	text2->setBuddy(monitorP);
 	sysProfilesLayout->addWidget( text2, 4, 0 );
 	sysProfilesLayout->addWidget( monitorP, 4, 1 );
 
 	printerP = new QComboBox( sysProfiles );
 	printerP->setMinimumSize( QSize( 190, 22 ) );
 	printerP->setEditable(false);
-	text3 = new QLabel( printerP, tr( "P&rinter:" ), sysProfiles, "Text3" );
+	text3 = new QLabel( tr( "P&rinter:" ), sysProfiles );
+	text3->setBuddy(printerP);
 	sysProfilesLayout->addWidget( text3, 5, 0 );
 	sysProfilesLayout->addWidget( printerP, 5, 1 );
 	cmsPrefsLayout->addWidget( sysProfiles );
@@ -88,14 +94,16 @@ CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, Pro
 	imagesI = new QComboBox( render );
 	imagesI->setMinimumSize( QSize( 190, 22 ) );
 	imagesI->setEditable(false);
-	text21 = new QLabel( imagesI, tr( "Pictures:" ), render, "Text21" );
+	text21 = new QLabel( tr( "Pictures:" ), render );
+	text21->setBuddy(imagesI);
 	renderLayout->addWidget( text21, 0, 0 );
 	renderLayout->addWidget( imagesI, 0, 1 );
 
-	colorsI = new QComboBox( true, render, "colorsI" );
+	colorsI = new QComboBox( render );
 	colorsI->setMinimumSize( QSize( 190, 22 ) );
 	colorsI->setEditable(false);
-	text22 = new QLabel( colorsI, tr( "Sol&id Colors:" ), render, "Text22" );
+	text22 = new QLabel( tr( "Sol&id Colors:" ), render );
+	text22->setBuddy(colorsI);
 	renderLayout->addWidget( text22, 1, 0 );
 	renderLayout->addWidget( colorsI, 1, 1 );
 
@@ -153,42 +161,42 @@ void CMSPrefs::restoreDefaults(CMSData *prefs, ProfilesL *InputProfiles, Profile
 	inputPRGBIm->clear();
 	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
 	{
-		inputPRGBIm->insertItem(it.key());
+		inputPRGBIm->addItem(it.key());
 		if (it.key() == prefs->DefaultImageRGBProfile)
 			inputPRGBIm->setCurrentIndex(inputPRGBIm->count()-1);
 	}
 	inputPCMYKIm->clear();
 	for (it = InputProfilesCMYK->begin(); it != InputProfilesCMYK->end(); ++it)
 	{
-		inputPCMYKIm->insertItem(it.key());
+		inputPCMYKIm->addItem(it.key());
 		if (it.key() == prefs->DefaultImageCMYKProfile)
 			inputPCMYKIm->setCurrentIndex(inputPCMYKIm->count()-1);
 	}
 	inputPRGB->clear();
 	for (it = InputProfiles->begin(); it != InputProfiles->end(); ++it)
 	{
-		inputPRGB->insertItem(it.key());
+		inputPRGB->addItem(it.key());
 		if (it.key() == prefs->DefaultSolidColorRGBProfile)
 			inputPRGB->setCurrentIndex(inputPRGB->count()-1);
 	}
 	inputPCMYK->clear();
 	for (it = InputProfilesCMYK->begin(); it != InputProfilesCMYK->end(); ++it)
 	{
-		inputPCMYK->insertItem(it.key());
+		inputPCMYK->addItem(it.key());
 		if (it.key() == prefs->DefaultSolidColorCMYKProfile)
 			inputPCMYK->setCurrentIndex(inputPCMYK->count()-1);
 	}
 	monitorP->clear();
 	for (it = MonitorProfiles->begin(); it != MonitorProfiles->end(); ++it)
 	{
-		monitorP->insertItem(it.key());
+		monitorP->addItem(it.key());
 		if (it.key() == prefs->DefaultMonitorProfile)
 			monitorP->setCurrentIndex(monitorP->count()-1);
 	}
 	printerP->clear();
 	for (it = PrinterProfiles->begin(); it != PrinterProfiles->end(); ++it)
 	{
-		printerP->insertItem(it.key());
+		printerP->addItem(it.key());
 		if (it.key() == prefs->DefaultPrinterProfile)
 			printerP->setCurrentIndex(printerP->count()-1);
 	}
