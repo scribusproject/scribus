@@ -47,7 +47,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 		this, SLOT(updateImage(int, QProcess::ExitStatus)));
 	connect(latex, SIGNAL(error(QProcess::ProcessError)), 
 		this, SLOT(latexError(QProcess::ProcessError)));
-	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "scribus_temp_latex_XXXXXX");
+	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_latex_XXXXXX");
 	tempfile->open();
 	tempFileBase = tempfile->fileName();
 	//TODO: Avoid races with file creation!
@@ -412,8 +412,7 @@ void PageItem_LatexFrame::writeEditorFile()
 	fileWatcher->disconnect(); //Avoid triggering false updates
 	//First create a temp file name
 	if (editorFile.isEmpty()) {
-		QTemporaryFile *editortempfile = new QTemporaryFile(QDir::tempPath() +
-			"scribus_temp_editor_XXXXXX");
+		QTemporaryFile *editortempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_editor_XXXXXX");
 		if (!editortempfile->open()) {
 			QMessageBox::critical(0, tr("Error"), "<qt>" + 
 				tr("Could not create a temporary file to run the external editor!") 
