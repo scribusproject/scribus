@@ -36,7 +36,7 @@ KCurve::KCurve(QWidget *parent) : QWidget(parent)
 	m_pix = NULL;
 	m_pos = 0;
 	setMouseTracking(true);
-	setPaletteBackgroundColor(Qt::NoBackground);
+//	setPaletteBackgroundColor(Qt::NoBackground);
 	setMinimumSize(150, 150);
 	m_points.resize(0);
 	m_points.addPoint(0.0, 0.0);
@@ -52,8 +52,8 @@ KCurve::~KCurve()
 void KCurve::setPixmap(QPixmap pix)
 {
 	if (m_pix) delete m_pix;
-	m_pix = new QPixmap(pix);
-	repaint(false);
+		m_pix = new QPixmap(pix);
+	repaint();
 }
 
 void KCurve::paintEvent(QPaintEvent *)
@@ -65,18 +65,18 @@ void KCurve::paintEvent(QPaintEvent *)
 	y  = 0;
 	// Drawing selection or all histogram values.
 	// A QPixmap is used for enable the double buffering.
-	QPixmap pm(size());
+//	QPixmap pm(size());
 	QPainter p1;
-	p1.begin(&pm, this);
+	p1.begin(this);
 	//  draw background
-	if(m_pix)
-	{
+//	if(m_pix)
+//	{
 		p1.scale(1.0*wWidth/m_pix->width(), 1.0*wHeight/m_pix->height());
 		p1.drawPixmap(0, 0, *m_pix);
-		p1.resetXForm();
-	}
-	else
-		pm.fill();
+		p1.resetMatrix();
+//	}
+//	else
+//		pm.fill();
 	// Draw grid separators.
 	p1.setPen(QPen::QPen(Qt::gray, 1, Qt::SolidLine));
 	p1.drawLine(wWidth/4, 0, wWidth/4, wHeight);
@@ -115,7 +115,7 @@ void KCurve::paintEvent(QPaintEvent *)
 		}
 	}
 	p1.end();
-	bitBlt(this, 0, 0, &pm);
+//	bitBlt(this, 0, 0, &pm);
 }
 
 void KCurve::keyPressEvent(QKeyEvent *e)
@@ -147,7 +147,7 @@ void KCurve::keyPressEvent(QKeyEvent *e)
 			m_points.resize(0);
 			m_points = cli.copy();
 			m_grab_point = closest_point;
-			repaint(false);
+			repaint();
 			emit modified();
 			QWidget::keyPressEvent(e);
 		}
@@ -233,7 +233,7 @@ void KCurve::mousePressEvent ( QMouseEvent * e )
 		cc++;
 		p = m_points.point(cc);
     }
-	repaint(false);
+	repaint();
 	emit modified();
 }
 
@@ -243,7 +243,7 @@ void KCurve::mouseReleaseEvent ( QMouseEvent * e )
 		return;
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	m_dragging = false;
-	repaint(false);
+	repaint();
 	emit modified();
 }
 
@@ -288,7 +288,7 @@ void KCurve::mouseMoveEvent ( QMouseEvent * e )
 			y = 0.0;
 		m_grab_point = FPoint(x, y);
 		m_points.setPoint( m_pos, m_grab_point);
-		repaint(false);
+		repaint();
 		emit modified();
 	}
 }
@@ -308,7 +308,7 @@ void KCurve::setCurve(FPointArray inlist)
 	m_points_back = m_points.copy();
 	m_points.resize(0);
 	m_points = inlist.copy();
-	repaint(false);
+	repaint();
 	emit modified();
 }
 
@@ -316,14 +316,14 @@ void KCurve::resetCurve()
 {
 	m_points.resize(0);
 	m_points = m_points_back.copy();
-	repaint(false);
+	repaint();
 	emit modified();
 }
 
 void KCurve::setLinear(bool setter)
 {
 	m_linear = setter;
-	repaint(false);
+	repaint();
 	emit modified();
 }
 
@@ -347,21 +347,21 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	layout1->setMargin(0);
 	layout1->setSpacing(5);
 
-	invertButton = new QPushButton( this, "invertButton" );
+	invertButton = new QPushButton( this );
 	invertButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	invertButton->setIcon( loadIcon("invert.png") );
 	invertButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( invertButton );
 
-	resetButton = new QPushButton( this, "resetButton" );
+	resetButton = new QPushButton( this );
 	resetButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	resetButton->setIcon( loadIcon("reload.png") );
 	resetButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( resetButton );
-	linearButton = new QPushButton( this, "linearButton" );
+	linearButton = new QPushButton( this );
 	QIcon ic;
-	ic.setPixmap(loadIcon("curvebezier.png"), QIcon::Automatic, QIcon::Normal, QIcon::Off);
-	ic.setPixmap(loadIcon("curvelinear.png"), QIcon::Automatic, QIcon::Normal, QIcon::On);
+	ic.addPixmap(loadIcon("curvebezier.png"), QIcon::Normal, QIcon::Off);
+	ic.addPixmap(loadIcon("curvelinear.png"), QIcon::Normal, QIcon::On);
 	linearButton->setIcon(ic);
 	linearButton->setCheckable( true );
 	linearButton->setChecked(false);
@@ -371,15 +371,13 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	spacer1 = new QSpacerItem( 2, 3, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout1->addItem( spacer1 );
 
-	loadButton = new QPushButton( this, "loadButton" );
-	loadButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, loadButton->sizePolicy().hasHeightForWidth() ) );
+	loadButton = new QPushButton( this );
 	loadButton->setIcon( loadIcon("22/document-open.png") );
 	loadButton->setIconSize(QSize(22, 22));
 	loadButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	layout1->addWidget( loadButton );
 
-	saveButton = new QPushButton( this, "saveButton" );
-	saveButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, saveButton->sizePolicy().hasHeightForWidth() ) );
+	saveButton = new QPushButton( this );
 	saveButton->setIcon( loadIcon("22/document-save-as.png") );
 	saveButton->setIconSize(QSize(22, 22));
 	saveButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
@@ -416,13 +414,13 @@ void CurveWidget::doReset()
 
 void CurveWidget::doLinear()
 {
-	cDisplay->setLinear(linearButton->isOn());
+	cDisplay->setLinear(linearButton->isChecked());
 }
 
 void CurveWidget::setLinear(bool setter)
 {
 	cDisplay->setLinear(setter);
-	linearButton->setOn(setter);
+	linearButton->setChecked(setter);
 }
 
 void CurveWidget::doLoad()

@@ -135,7 +135,7 @@ void FDialogPreview::GenPreview(QString name)
 	int w = pixmap()->width();
 	int h = pixmap()->height();
 	bool mode = false;
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	QList<QByteArray> formats(QImageReader::supportedImageFormats());
 // 	FormatsManager::instance()->imageFormatSupported(ext);
 	formats.append("jpg");
@@ -354,24 +354,24 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 								"Apple Roman"};
 			size_t array = sizeof(tmp_txc) / sizeof(*tmp_txc);
 			for (uint a = 0; a < array; ++a)
-				TxCodeM->insertItem(tmp_txc[a]);
+				TxCodeM->addItem(tmp_txc[a]);
 			QString localEn = QTextCodec::codecForLocale()->name();
 			if (localEn == "ISO-10646-UCS-2")
 				localEn = "UTF-16";
 			bool hasIt = false;
 			for (int cc = 0; cc < TxCodeM->count(); ++cc)
 			{
-				if (TxCodeM->text(cc) == localEn)
+				if (TxCodeM->itemText(cc) == localEn)
 				{
-					TxCodeM->setCurrentItem(cc);
+					TxCodeM->setCurrentIndex(cc);
 					hasIt = true;
 					break;
 				}
 			}
 			if (!hasIt)
 			{
-				TxCodeM->insertItem(localEn);
-				TxCodeM->setCurrentItem(TxCodeM->count()-1);
+				TxCodeM->addItem(localEn);
+				TxCodeM->setCurrentIndex(TxCodeM->count()-1);
 			}
 			TxCodeM->setMinimumSize(QSize(200, 0));
 			Layout1C->addWidget(TxCodeM);
@@ -437,8 +437,8 @@ void CustomFDialog::handleCompress()
 {
 	QFileInfo tmp;
 	tmp.setFile(selectedFile());
-	QString e(tmp.extension());
-	QStringList ex = QStringList::split(".", e);
+	QString e(tmp.completeSuffix());
+	QStringList ex = e.split(".");
 	QString baseExt = "";
 	for (int a = 0; a < ex.count(); a++)
 	{
