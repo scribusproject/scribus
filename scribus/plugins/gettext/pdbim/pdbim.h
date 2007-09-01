@@ -27,7 +27,9 @@ Pilot being 8, 16, and 32 bits, respectively. Max  8-bit unsigned */
 #if	UCHAR_MAX == U8_MAX
 typedef unsigned char	Byte;
 #else
-#error machine does not seem to support an 8-bit integral type
+// #error machine does not seem to support an 8-bit integral type
+// FIXME: for gcc4.3
+typedef unsigned char	Byte;
 #endif
 
 /*! \brief max 16-bit unsigned */
@@ -35,7 +37,9 @@ typedef unsigned char	Byte;
 #if	USHRT_MAX == U16_MAX
 typedef unsigned short	Word;
 #else
-#error machine does not seem to support a 16-bit integral type
+// #error machine does not seem to support a 16-bit integral type
+// FIXME: for gcc4.3
+typedef unsigned short	Word;
 #endif
 
 /*! \brief max 32-bit unsigned */
@@ -47,7 +51,9 @@ typedef unsigned int	DWord;
 #elif	ULONG_MAX == U32_MAX
 typedef unsigned long	DWord;
 #else
-#error machine does not seem to support a 32-bit integral type
+// #error machine does not seem to support a 32-bit integral type
+// FIXME: for gcc4.3
+typedef unsigned long	DWord;
 #endif
 
 /*! \brief Abiword's internal data types */
