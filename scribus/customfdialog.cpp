@@ -342,7 +342,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption, QSt
 			TxCodeT = new QLabel(this);
 			TxCodeT->setText( tr("Encoding:"));
 			Layout1C->addWidget(TxCodeT);
-			TxCodeM = new ScComboBox(true, LayoutC, "Cod");
+			TxCodeM = new ScComboBox(LayoutC);
 			TxCodeM->setEditable(false);
 			QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3",
 								"ISO 8859-4", "ISO 8859-5", "ISO 8859-6",

@@ -32,7 +32,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	FontReplaceDialogLayout->setMargin(10);
 	FontReplaceDialogLayout->setSpacing(5);
 
-	textLabel1 = new QLabel( this, "textLabel1" );
+	textLabel1 = new QLabel(this);
 	textLabel1->setAlignment(Qt::AlignVCenter);
 	textLabel1->setWordWrap(true);
 	textLabel1->setText( "<qt>" + tr("This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.") + "</qt>" );
@@ -57,7 +57,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	{
 		replacementTable->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
 		FontCombo* item = new FontCombo(this);
-		item->setCurrentText(itfsu.value());
+		item->setItemText(item->currentIndex(), itfsu.value());
 		replacementTable->setCellWidget(a, 1, item);
 		a++;
 	}

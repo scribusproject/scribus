@@ -196,7 +196,7 @@ void ScriXmlDoc::GetItemProps(const QXmlStreamAttributes& attrs, struct CopyPast
 	if ((!OB->m_annotation.Extern().isEmpty()) && (OB->m_annotation.ActionType() != 8))
 	{
 		QFileInfo efp(OB->m_annotation.Extern());
-		OB->m_annotation.setExtern(efp.absFilePath());
+		OB->m_annotation.setExtern(efp.absoluteFilePath());
 	}
 	OB->m_annotation.setZiel (attrAsInt(attrs, "ANZIEL", 0));
 	OB->AnName = attrAsString(attrs, "ANNAME","");
@@ -941,7 +941,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
-		fileDir = QFileInfo(fileName).dirPath(true);
+		fileDir = QFileInfo(fileName).absolutePath();
 	}
 	else
 	{
@@ -1208,23 +1208,23 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 					if (!OB.Pfile.isEmpty())
 					{
 						QFileInfo pfi(fileName);
-						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile));
+						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile));
 						QFileInfo pfi2(test);
-						OB.Pfile = pfi2.absFilePath();
+						OB.Pfile = pfi2.absoluteFilePath();
 					}
 					if (!OB.Pfile2.isEmpty())
 					{
 						QFileInfo pfi(fileName);
-						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile2));
+						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile2));
 						QFileInfo pfi2(test);
-						OB.Pfile2 = pfi2.absFilePath();
+						OB.Pfile2 = pfi2.absoluteFilePath();
 					}
 					if (!OB.Pfile3.isEmpty())
 					{
 						QFileInfo pfi(fileName);
-						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile3));
+						QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile3));
 						QFileInfo pfi2(test);
-						OB.Pfile3 = pfi2.absFilePath();
+						OB.Pfile3 = pfi2.absoluteFilePath();
 					}
 				}
 				if (tagName1 == "PatternItem" && sReader1.isEndElement())
@@ -1398,23 +1398,23 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			if (!OB.Pfile.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile));
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile));
 				QFileInfo pfi2(test);
-				OB.Pfile = pfi2.absFilePath();
+				OB.Pfile = pfi2.absoluteFilePath();
 			}
 			if (!OB.Pfile2.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile2));
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile2));
 				QFileInfo pfi2(test);
-				OB.Pfile2 = pfi2.absFilePath();
+				OB.Pfile2 = pfi2.absoluteFilePath();
 			}
 			if (!OB.Pfile3.isEmpty())
 			{
 				QFileInfo pfi(fileName);
-				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.dirPath(true)+"/"+OB.Pfile3));
+				QString test = QDir::cleanPath(QDir::convertSeparators(pfi.absolutePath()+"/"+OB.Pfile3));
 				QFileInfo pfi2(test);
-				OB.Pfile3 = pfi2.absFilePath();
+				OB.Pfile3 = pfi2.absoluteFilePath();
 			}
 		}
 		if (sReader.isEndElement() && (tagName == "ITEM"))
@@ -1481,7 +1481,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupID.begin(); it != groupID.end(); ++it)
 		{
-			it.key()->groupsLastItem = doc->Items->at(it.data());
+			it.key()->groupsLastItem = doc->Items->at(it.value());
 		}
 	}
 	doc->GroupCounter = GrMax + 1;

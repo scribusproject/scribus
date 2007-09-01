@@ -509,7 +509,7 @@ public:
 	/**
 	 * @brief Copies a normal page to be a master pages
 	 */
-	const bool copyPageToMasterPage(const int, const int, const int, const QString&);
+	bool copyPageToMasterPage(const int, const int, const int, const QString&);
 	/**
 	 * @brief Paste an item to the document.
 	 * The bulk of a paste item process runs here for want of a better place, but its a better place
@@ -637,8 +637,8 @@ public:
 	 * @retval double containing the offset. Returns -1.0 if page not in Pages list (as -ve is not possible).
 	 * Mostly saves bringing in extra includes into files that already have scribusdoc.h
 	 */
-	const double getXOffsetForPage(const int);
-	const double getYOffsetForPage(const int);
+	double getXOffsetForPage(const int);
+	double getYOffsetForPage(const int);
 	void getBleeds(int pageNumber, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight);
 	void getBleeds(Page* page, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight);
 	
@@ -650,7 +650,7 @@ public:
 	/**
 	 * @brief The page number of the current page
 	 */
-	const int currentPageNumber();
+	int currentPageNumber();
 	
 	/**
 	 * @brief Return true iff the passed name is not used by any existing PageItem

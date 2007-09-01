@@ -110,7 +110,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	TextLabel3->setMinimumSize( QSize( 100, 22 ) );
 	Layout23->addWidget( TextLabel3 );
 
-	ComboBox1 = new ScComboBox( false, this );
+	ComboBox1 = new ScComboBox( this );
 	ComboBox1->addItem( tr( "CMYK" ) );
 	ComboBox1->addItem( tr( "RGB" ) );
 	ComboBox1->addItem( tr( "Web Safe RGB" ) );
@@ -190,7 +190,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 	Frame4Layout->setSpacing( 5 );
 	Frame4Layout->setMargin( 0 );
 
-	Swatches = new ScComboBox( false, Frame4 );
+	Swatches = new ScComboBox( Frame4 );
 	Swatches->addItem( tr( "HSV-Colormap" ) );
 /*
 	Swatches->insertItem("X11 RGB-Set");

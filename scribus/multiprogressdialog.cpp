@@ -26,15 +26,15 @@ for which a new license (GPL+exception) is in place.
 
 #include "multiprogressdialog.h"
 
-MultiProgressDialog::MultiProgressDialog(QWidget* parent, const char*name, bool modal, Qt::WFlags f)
-: QDialog(parent, name, modal, f)
+MultiProgressDialog::MultiProgressDialog(QWidget* parent, Qt::WFlags f)
+: QDialog(parent, f)
 {
 	setupUi(this);
 	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(emitCancel()));
 }
 
-MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent, const char*name, bool modal, Qt::WFlags f)
-: QDialog(parent, name, modal, f)
+MultiProgressDialog::MultiProgressDialog(const QString& titleText, const QString & cancelButtonText, QWidget* parent, Qt::WFlags f)
+: QDialog(parent, f)
 {
 	setupUi(this);
 	setWindowTitle(titleText);
@@ -62,7 +62,7 @@ bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, cons
 	uint barCount=barsList.count();
 	if (barCount==0)
 		return false;
-	int gridLayoutRow=gridLayout->numRows();
+	int gridLayoutRow=gridLayout->rowCount();
 	for (uint i=0; i<barCount; ++i)
 	{
 		QString barName(barsList[i]);
@@ -72,7 +72,7 @@ bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, cons
 		progressBars.insert(barName, new QProgressBar(this));
 		if (barsNumerical[i])
 			progressBars[barName]->setFormat(tr("%v of %m"));
-		progressLabels.insert(barName, new QLabel(barsTexts[i], this, barName));
+		progressLabels.insert(barName, new QLabel(barsTexts[i], this));
 		gridLayout->addWidget(progressLabels[barName], gridLayoutRow, 0);
 		gridLayout->addWidget(progressBars[barName], gridLayoutRow, 1);
 		++gridLayoutRow;

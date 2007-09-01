@@ -119,9 +119,9 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 		fontComboLayout->setColStretch(1,10);
 		col=1;
 	}
-	fontFamily = new ScComboBox( false, this, "fontFamily" );
+	fontFamily = new ScComboBox(this);
 	fontComboLayout->addWidget(fontFamily,0,col);
-	fontStyle = new ScComboBox( false, this, "fontStyle" );
+	fontStyle = new ScComboBox(this);
 	fontComboLayout->addWidget(fontStyle,1,col);
 	RebuildList(0);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));

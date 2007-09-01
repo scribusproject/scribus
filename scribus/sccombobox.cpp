@@ -31,7 +31,7 @@ class ScMacStyle : public QMacStyle {
 };
 #endif
 
-ScComboBox::ScComboBox( QWidget* parent, const char* name ) : QComboBox(false, parent, name)
+ScComboBox::ScComboBox( QWidget* parent ) : QComboBox(parent)
 {
 #ifdef QT_WS_MAC
 	setStyle( new ScMacStyle );
@@ -39,10 +39,3 @@ ScComboBox::ScComboBox( QWidget* parent, const char* name ) : QComboBox(false, p
 //Qt4	setListBox( new Q3ListBox( this, "in-combo", Qt::WType_Popup ) );
 }
 
-ScComboBox::ScComboBox( bool rw, QWidget* parent, const char* name ) :QComboBox(rw, parent, name)
-{
-#ifdef QT_WS_MAC
-	setStyle( new ScMacStyle );
-#endif
-//Qt4	setListBox( new Q3ListBox( this, "in-combo", Qt::WType_Popup ) );
-}

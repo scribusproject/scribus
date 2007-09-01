@@ -3116,7 +3116,7 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 #endif
 }
 
-const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName)
+bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName)
 {
 	assert(!masterPageMode());
 	if (masterPageMode())
@@ -3940,14 +3940,14 @@ void ScribusDoc::reformPages(bool moveObjects)
 	}
 }
 
-const double ScribusDoc::getXOffsetForPage(const int pageNumber)
+double ScribusDoc::getXOffsetForPage(const int pageNumber)
 {
 	if (Pages->at(pageNumber)!=NULL)
 		return Pages->at(pageNumber)->xOffset();
 	return -1.0;
 }
 
-const double ScribusDoc::getYOffsetForPage(const int pageNumber)
+double ScribusDoc::getYOffsetForPage(const int pageNumber)
 {
 	if (Pages->at(pageNumber)!=NULL)
 		return Pages->at(pageNumber)->yOffset();
@@ -4212,7 +4212,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 	return newItem;
 }
 
-const int ScribusDoc::currentPageNumber()
+int ScribusDoc::currentPageNumber()
 {
 	return currentPage()->pageNr();
 }

@@ -135,7 +135,7 @@ CheckDocument::CheckDocument( QWidget* parent, bool modal )  : ScrPaletteBase( p
 	layout1->setSpacing(5);
 	textLabel1 = new QLabel( this );
 	layout1->addWidget( textLabel1 );
-	curCheckProfile = new ScComboBox( false, this );
+	curCheckProfile = new ScComboBox( this );
 	layout1->addWidget( curCheckProfile );
 	checkDocumentLayout->addLayout( layout1 );
 	reportDisplay = new QTreeWidget( this );

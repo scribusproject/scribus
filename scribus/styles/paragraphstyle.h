@@ -110,7 +110,7 @@ public:
 	/** getter: validates and returns the attribute's value */
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	const attr_TYPE attr_GETTER() const { validate(); return m_##attr_NAME; }
+	attr_TYPE attr_GETTER() const { validate(); return m_##attr_NAME; }
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
 	

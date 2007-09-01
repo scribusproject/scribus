@@ -56,7 +56,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	if (masterPages)
 	{
 		importPageLabel->setText( tr("&Import Master Page") );
-		masterPageNameData = new ScComboBox( false, this, "masterPageNameData" );
+		masterPageNameData = new ScComboBox(this);
 		masterPageNameData->setEnabled(false);
 		importPageLabel->setBuddy( masterPageNameData );
 		fromInfoLayout->addWidget( masterPageNameData, 1, 1 );
@@ -76,7 +76,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 		createPageData = new QCheckBox( this, "createPageData" );
 		createPageData->setText( tr("Create Page(s)"));
 		fromInfoLayout->addWidget( createPageData, 2, 0 );
-		importWhereData = new ScComboBox( false, this, "positionCombo" );
+		importWhereData = new ScComboBox( this );
 		importWhereData->setEnabled(false);
 		importWhereData->insertItem( tr("Before Page"));
 		importWhereData->insertItem( tr("After Page"));

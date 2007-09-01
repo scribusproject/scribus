@@ -191,7 +191,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GeoGroupLayout->addWidget( heightLabel, 3, 0 );
 
 	keepFrameWHRatioButton = new LinkButton( GeoGroup );
-	keepFrameWHRatioButton->setToggleButton( true );
+	keepFrameWHRatioButton->setCheckable( true );
 	keepFrameWHRatioButton->setAutoRaise( true );
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	keepFrameWHRatioButton->setOn(true);
@@ -456,7 +456,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	dGap = new ScrSpinBox( 0, 300, Distance, 0 );
 //	colgapLabel = new LabelButton( Distance, "&Gap:", "&Width:");
 //	colgapLabel->setBuddy(dGap);
-	colgapLabel = new ScComboBox( false, Distance, "colgapLabel" );
+	colgapLabel = new ScComboBox( Distance );
 	DistanceLayout->addWidget( colgapLabel, 1, 0, Qt::AlignLeft );
 	DistanceLayout->addWidget( dGap, 1, 1 );
 
@@ -496,7 +496,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	DistanceLayout2->setMargin( 5 );
 	DistanceLayout2->setAlignment( Qt::AlignTop );
 
-	pathTextType = new ScComboBox( false, Distance2, "pathTextType" );
+	pathTextType = new ScComboBox( Distance2 );
 	DistanceLayout2->addWidget( pathTextType, 0, 1);
 	pathTextTypeLabel = new QLabel( "Type:", Distance2 );
 	DistanceLayout2->addWidget( pathTextTypeLabel, 0, 0);
@@ -635,7 +635,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout1t->addWidget(TransSpin, 0, 1);
 	TransTxt2 = new QLabel( TransGroup );
 	Layout1t->addWidget( TransTxt2, 1, 0 );
-	blendMode = new ScComboBox( false, TransGroup, "blendMode" );
+	blendMode = new ScComboBox( TransGroup );
 	Layout1t->addWidget( blendMode, 1, 1 );
 	page_group_layout->addWidget(TransGroup);
 	QSpacerItem* spacerTr2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -753,7 +753,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Revert->setMaximumSize( QSize( 22, 22 ) );
 	Revert->setText("");
 	Revert->setPixmap(loadIcon("Revers.png"));
-	Revert->setToggleButton( true );
+	Revert->setCheckable( true );
 	Layout1->addWidget( Revert );
 	QSpacerItem* spacer7 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer7 );
@@ -830,7 +830,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	glyphExtensionHLayout->add(maxGlyphExtSpinBox);
 	GroupBox3aLayout->addLayout(glyphExtensionHLayout, 6, 0, 1, 2);
 	
-/*	langCombo = new ScComboBox( false, page_3, "Lang" );
+/*	langCombo = new ScComboBox( page_3 );
 	langLabel = new QLabel( langCombo, "Lan&guage:", page_3, "langLabel" );
 	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
 	GroupBox3aLayout->addWidget( langCombo, 1, 1 ); */
@@ -873,7 +873,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout43->addWidget( yscaleLabel, 3, 0 );
 	layout43->addWidget( imageYScaleSpinBox, 3, 1 );
 	keepImageWHRatioButton = new LinkButton( page_4 );
-	keepImageWHRatioButton->setToggleButton( true );
+	keepImageWHRatioButton->setCheckable( true );
 	keepImageWHRatioButton->setAutoRaise( true );
 	keepImageWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	layout43->addWidget( keepImageWHRatioButton, 2, 2, 2, 1 );
@@ -888,7 +888,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout43->addWidget( imgDPIYLabel, 5, 0 );
 	layout43->addWidget( imgDpiY, 5, 1 );
 	keepImageDPIRatioButton = new LinkButton( page_4 );
-	keepImageDPIRatioButton->setToggleButton( true );
+	keepImageDPIRatioButton->setCheckable( true );
 	keepImageDPIRatioButton->setAutoRaise( true );
 	keepImageDPIRatioButton->setMaximumSize( QSize( 15, 32767 ) );
 	layout43->addWidget( keepImageDPIRatioButton, 4, 2, 2, 1 );
@@ -937,11 +937,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBoxCMLayout->setAlignment( Qt::AlignTop );
 	TextCms1 = new QLabel( GroupBoxCM, "xposLabel" );
 	GroupBoxCMLayout->addWidget( TextCms1 );
-	InputP = new ScComboBox( false, GroupBoxCM, "InputP" );
+	InputP = new ScComboBox( GroupBoxCM );
 	GroupBoxCMLayout->addWidget(InputP);
 	TextCms2 = new QLabel( GroupBoxCM, "TextCms2" );
 	GroupBoxCMLayout->addWidget(TextCms2);
-	MonitorI = new ScComboBox( false, GroupBoxCM, "MonitorI" );
+	MonitorI = new ScComboBox( GroupBoxCM );
 	GroupBoxCMLayout->addWidget(MonitorI);
 	pageLayout_4->addWidget(GroupBoxCM);
 
@@ -960,7 +960,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12_2->setSpacing( 3 );
 	Layout12_2->setMargin( 0 );
 	LStyle = new LineCombo(page_5);
-	LineMode = new ScComboBox( false, page_5, "LMode" );
+	LineMode = new ScComboBox( page_5 );
 	LineModeT = new QLabel( LineMode, "&Basepoint:", page_5, "LModeText" );
 	Layout12_2->addWidget( LineModeT, 0, 0 );
 	Layout12_2->addWidget( LineMode, 0, 1 );
@@ -979,11 +979,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	linewidthLabel = new QLabel(LSize, "Line &Width:", page_5, "linewidthLabel" );
 	Layout12_2->addWidget( linewidthLabel, 4, 0 );
 	Layout12_2->addWidget( LSize, 4, 1 );
-	LJoinStyle = new ScComboBox( false, page_5, "LJoin" );
+	LJoinStyle = new ScComboBox( page_5 );
 	edgesLabel = new QLabel( LJoinStyle, "Ed&ges:", page_5, "edgesLabel" );
 	Layout12_2->addWidget( edgesLabel, 5, 0 );
 	Layout12_2->addWidget( LJoinStyle, 5, 1 );
-	LEndStyle = new ScComboBox( false, page_5, "LCap" );
+	LEndStyle = new ScComboBox( page_5 );
 	endingsLabel = new QLabel( LEndStyle, "&Endings:", page_5, "endingsLabel" );
 	Layout12_2->addWidget( endingsLabel, 6, 0 );
 	Layout12_2->addWidget( LEndStyle, 6, 1 );
@@ -1706,8 +1706,8 @@ void Mpalette::NewSel(int nr)
 		NameEdit->setEnabled(false);
 		TabStack->setItemEnabled(idLineItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
-		FlipH->setToggleButton( false );
-		FlipV->setToggleButton( false );
+		FlipH->setCheckable( false );
+		FlipV->setCheckable( false );
 		FlipH->setOn(false);
 		FlipV->setOn(false);
 	}
@@ -1754,13 +1754,13 @@ void Mpalette::NewSel(int nr)
 		//It then gets reset below for items where its valid
 		if ((nr>4) && (nr<9))
 		{
-			FlipH->setToggleButton(true);
-			FlipV->setToggleButton(true);
+			FlipH->setCheckable(true);
+			FlipV->setCheckable(true);
 			FlipH->setOn(false);
 			FlipV->setOn(false);
 		}
-		FlipH->setToggleButton((nr>=0) && (nr<5));
-		FlipV->setToggleButton((nr>=0) && (nr<5));
+		FlipH->setCheckable((nr>=0) && (nr<5));
+		FlipV->setCheckable((nr>=0) && (nr<5));
 		//CB Why cant we do this for lines?
 //		FlipH->setEnabled((nr!=-1) && (nr!=5));
 //		FlipV->setEnabled((nr!=-1) && (nr!=5));
@@ -1881,8 +1881,8 @@ void Mpalette::setMultipleSelection(bool isMultiple)
 	NameEdit->setEnabled(!isMultiple);
 	if (doc->m_Selection->count() > 1)
 	{
-		FlipH->setToggleButton( false );
-		FlipV->setToggleButton( false );
+		FlipH->setCheckable( false );
+		FlipV->setCheckable( false );
 		PageItem *i;
 		uint lowestItem = 999999;
 		for (int a=0; a<doc->m_Selection->count(); ++a)

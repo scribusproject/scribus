@@ -1663,7 +1663,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		QString title=QObject::tr("Exporting PostScript File");
 		if (Art)
 			title=QObject::tr("Printing File");
-		progressDialog=new MultiProgressDialog(title, CommonStrings::tr_Cancel, Doc->scMW(), "psexportprogress");
+		progressDialog=new MultiProgressDialog(title, CommonStrings::tr_Cancel, Doc->scMW());
 		if (progressDialog==0)
 			usingGUI=false;
 		else

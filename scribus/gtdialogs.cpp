@@ -58,7 +58,7 @@ gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSele
 	layout->addLayout(llayout);
 
 	QBoxLayout* ilayout = new QHBoxLayout(0, 5, 5, "dlayout2");
-	importerCombo = new ScComboBox(0, this, "importerCombo2");
+	importerCombo = new ScComboBox(this);
 	importerCombo->setMinimumSize(QSize(150, 0));
 	importerCombo->setToolTip( tr("Choose the importer to use"));
 	importerCombo->insertStringList(importers);

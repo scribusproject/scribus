@@ -53,7 +53,7 @@ const QString ScPlugin::pluginTypeName() const
 		return tr("Action", "plugin manager plugin type");
 	else
 	{
-		qDebug("Unknown plugin type: %s", className());
+		qDebug("Unknown plugin type: %s", metaObject()->className());
 		return tr("Unknown");
 	}
 }

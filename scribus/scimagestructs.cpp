@@ -19,13 +19,13 @@ void ExifValues::init(void)
 	ExposureTime = 0;
 	ApertureFNumber = 0;
 	ISOequivalent = 0;
-	cameraName.setLength(0);
-	cameraVendor.setLength(0);
-	comment.setLength(0);
-	userComment.setLength(0);
-	artist.setLength(0);
-	copyright.setLength(0);
-	dateTime.setLength(0);
+	cameraName.resize(0);
+	cameraVendor.resize(0);
+	comment.resize(0);
+	userComment.resize(0);
+	artist.resize(0);
+	copyright.resize(0);
+	dateTime.resize(0);
 	thumbnail = QImage();
 }
 
@@ -51,9 +51,9 @@ void ImageInfoRecord::init(void)
 	lowResScale = 1.0;
 	PDSpathData.clear();
 	RequestProps.clear();
-	clipPath.setLength(0);
-	usedPath.setLength(0);
-	profileName.setLength(0);
+	clipPath.resize(0);
+	usedPath.resize(0);
+	profileName.resize(0);
 	layerInfo.clear();
 	duotoneColors.clear();
 	exifInfo.init();

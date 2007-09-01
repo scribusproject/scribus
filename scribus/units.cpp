@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 /*!
  * @brief Returns the ratio to points for the selected unit of measure. Ratios are for: PT, MM, IN, P, CM, C. DEG and PCT return 1.0 as they will never convert
  */
-const double unitGetRatioFromIndex(const int index)
+double unitGetRatioFromIndex(const int index)
 {
 	//PT, MM, IN, P, CM, C (Cicero)
 	//NOTE: Calling functions that divide by this value will crash on divide by 0. They shouldnt be getting
@@ -39,7 +39,7 @@ const double unitGetRatioFromIndex(const int index)
 	return ratio[index];
 }
 
-const int SCRIBUS_API unitGetBaseFromIndex(const int index)
+int SCRIBUS_API unitGetBaseFromIndex(const int index)
 {
 	if (index==SC_P)
 		return 12;
@@ -49,7 +49,7 @@ const int SCRIBUS_API unitGetBaseFromIndex(const int index)
 /*!
  * @brief Strip the text from a value and return the double value for the unit
  */
-const double unitValueFromString(const QString& value)
+double unitValueFromString(const QString& value)
 {
 	QString lowerValue = value.toLower();
 	QString dbl = "0.0";
@@ -177,7 +177,7 @@ const QString unitGetUntranslatedStrFromIndex(const int index)
 /*!
  * @brief Returns the decimals for the units
  */
-const int unitGetDecimalsFromIndex(const int index)
+int unitGetDecimalsFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
@@ -189,7 +189,7 @@ const int unitGetDecimalsFromIndex(const int index)
 /*!
  * @brief Returns the precision for the units
  */
-const int unitGetPrecisionFromIndex(const int index)
+int unitGetPrecisionFromIndex(const int index)
 {
 	if (index<UNITMIN || index>UNITMAX) 
 		return 0;
@@ -219,7 +219,7 @@ const QStringList unitGetTextUnitList()
 /*!
  * @brief Returns the maximum index of the units we have now
  */
-const int unitGetMaxIndex()
+int unitGetMaxIndex()
 {
 	return UNITMAX;
 }
@@ -227,7 +227,7 @@ const int unitGetMaxIndex()
 /*!
  * @brief Returns the pts value from the mm value supplied
  */
-const double mm2pts(double mm)
+double mm2pts(double mm)
 {
 	return mm / unitGetRatioFromIndex(SC_MM);
 }
@@ -235,7 +235,7 @@ const double mm2pts(double mm)
 /*!
  * @brief Returns the pts value from the in value supplied
  */
-const double in2pts(double in)
+double in2pts(double in)
 {
 	return in / unitGetRatioFromIndex(SC_IN);
 }
@@ -243,7 +243,7 @@ const double in2pts(double in)
 /*!
  * @brief Returns the pts value from the pica value supplied
  */
-const double p2pts(double p)
+double p2pts(double p)
 {
 	return p / unitGetRatioFromIndex(SC_P);
 }
@@ -251,7 +251,7 @@ const double p2pts(double p)
 /*!
  * @brief Returns the pts value from the cm value supplied
  */
-const double cm2pts(double cm)
+double cm2pts(double cm)
 {
 	return cm / unitGetRatioFromIndex(SC_CM);
 }
@@ -259,7 +259,7 @@ const double cm2pts(double cm)
 /*!
  * @brief Returns the pts value from the cm value supplied
  */
-const double c2pts(double c)
+double c2pts(double c)
 {
 	return c / unitGetRatioFromIndex(SC_C);
 }
@@ -267,7 +267,7 @@ const double c2pts(double c)
 /*!
  * @brief Returns the mm value from the pt value supplied
  */
-const double pts2mm(double pts)
+double pts2mm(double pts)
 {
 	return pts * unitGetRatioFromIndex(SC_MM);
 }
@@ -275,7 +275,7 @@ const double pts2mm(double pts)
 /*!
  * @brief Returns the in value from the pt value supplied
  */
-const double pts2in(double pts)
+double pts2in(double pts)
 {
 	return pts * unitGetRatioFromIndex(SC_IN);
 }
@@ -283,7 +283,7 @@ const double pts2in(double pts)
 /*!
  * @brief Returns the pica value from the pt value supplied
  */
-const double pts2p(double pts)
+double pts2p(double pts)
 {
 	return pts * unitGetRatioFromIndex(SC_P);
 }
@@ -291,7 +291,7 @@ const double pts2p(double pts)
 /*!
  * @brief Returns the cm value from the pt value supplied
  */
-const double pts2cm(double pts)
+double pts2cm(double pts)
 {
 	return pts * unitGetRatioFromIndex(SC_CM);
 }
@@ -299,7 +299,7 @@ const double pts2cm(double pts)
 /*!
  * @brief Returns the c value from the pt value supplied
  */
-const double pts2c(double pts)
+double pts2c(double pts)
 {
 	return pts * unitGetRatioFromIndex(SC_C);
 }

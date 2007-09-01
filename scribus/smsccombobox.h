@@ -14,8 +14,7 @@ class SMScComboBox  : public ScComboBox
 {
 	Q_OBJECT
 public:
-	SMScComboBox(QWidget *parent, const char *name=0);
-	SMScComboBox(bool rw, QWidget* parent, const char* name);
+	SMScComboBox(QWidget *parent);
 	~SMScComboBox() {};
 
 	void setCurrentItem(int i);

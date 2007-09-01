@@ -8,17 +8,8 @@ for which a new license (GPL+exception) is in place.
 #include "smsccombobox.h"
 
 
-SMScComboBox::SMScComboBox(QWidget *parent, const char *name)
-: ScComboBox(parent, name),
-  hasParent_(false),
-  useParentValue_(false),
-  pItem_(0)
-{
-	
-}
-
-SMScComboBox::SMScComboBox(bool rw, QWidget* parent, const char* name)
-: ScComboBox(rw, parent, name),
+SMScComboBox::SMScComboBox(QWidget *parent)
+: ScComboBox(parent),
   hasParent_(false),
   useParentValue_(false),
   pItem_(0)

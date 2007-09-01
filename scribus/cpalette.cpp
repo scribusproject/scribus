@@ -95,7 +95,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	GradLayout->setSpacing(5);
 	QFont fo = QFont(font());
 	fo.setPointSize(fo.pointSize()-1);
-	gradientQCombo = new ScComboBox( false, this, "gradientQCombo" );
+	gradientQCombo = new ScComboBox( this );
 	gradientQCombo->setFont(fo);
 	GradLayout->addWidget( gradientQCombo );
 	gradEdit = new GradientEditor(this);
@@ -214,7 +214,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent)
 	Layout1t->addWidget(TransSpin, 0, 1);
 	TransTxt2 = new QLabel( TransGroup );
 	Layout1t->addWidget( TransTxt2, 1, 0 );
-	blendMode = new ScComboBox( false, TransGroup );
+	blendMode = new ScComboBox( TransGroup );
 	Layout1t->addWidget( blendMode, 1, 1 );
 	Form1Layout->addWidget(TransGroup);
 

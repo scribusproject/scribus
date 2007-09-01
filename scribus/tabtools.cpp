@@ -117,7 +117,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabTextLayout->addWidget( fontComboText, 1, 1, 1, 2, Qt::AlignLeft );
 	textLabel1b = new QLabel( fontComboText, tr( "Font:" ), subTabText, "textLabel1b" );
 	subTabTextLayout->addWidget( textLabel1b, 1, 0 );
-	sizeComboText = new ScComboBox( false, subTabText, "SizeCombo" );
+	sizeComboText = new ScComboBox( subTabText );
 
 	subTabTextLayout->addWidget( sizeComboText, 2, 1, 1, 2, Qt::AlignLeft );
 	textLabel2b = new QLabel(sizeComboText, tr( "Size:" ), subTabText, "textLabel2b" );
@@ -178,7 +178,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabelTSL = new QLabel( shadingTextLine, tr( "Shading:" ), subTabText, "textLabelTSL" );
 	subTabTextLayout->addWidget( textLabelTSL, 6, 2 );
 
-	tabFillCombo = new ScComboBox( false, subTabText, "tabFillCombo" );
+	tabFillCombo = new ScComboBox( subTabText );
 
 	subTabTextLayout->addWidget( tabFillCombo, 7, 1, Qt::AlignLeft );
 	textLabel3b2t = new QLabel(tabFillCombo, tr( "Tab Fill Character:" ), subTabText, "textLabel3b2t" );

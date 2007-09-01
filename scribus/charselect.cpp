@@ -65,7 +65,7 @@ CharSelect::CharSelect(QWidget* parent)
 	rangeLabel->setText( tr("Character Class:"));
 	bigLayout->addWidget(rangeLabel, 0, 2, 1, 2);
 
-	rangeSelector = new ScComboBox(false, m_bigPalette);
+	rangeSelector = new ScComboBox(m_bigPalette);
 	bigLayout->addWidget(rangeSelector, 0, 4, 1, 1);
 
 	m_characterClass = 0;

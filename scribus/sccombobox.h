@@ -23,11 +23,11 @@ for which a new license (GPL+exception) is in place.
     \brief The ScComboBox widget always uses a listbox instead of a popup, 
            independent of any QStyle.
 */
-class ScComboBox : public QComboBox {
+class ScComboBox : public QComboBox
+{
 
 public: 
-	ScComboBox( QWidget* parent=0, const char* name=0 );
-	ScComboBox( bool rw, QWidget* parent=0, const char* name=0 );
+	ScComboBox( QWidget* parent=0);
 };
 
 #endif

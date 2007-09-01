@@ -46,7 +46,7 @@ LayerPalette::LayerPalette(QWidget* parent) : ScrPaletteBase( parent, "Layers", 
 	layout1->setSpacing(2);
 	textLabel1 = new QLabel( this);
 	layout1->addWidget( textLabel1 );
-	blendMode = new ScComboBox( false, this);
+	blendMode = new ScComboBox( this);
 	layout1->addWidget( blendMode );
 	textLabel2 = new QLabel( this);
 	textLabel2->setText( tr( "Opacity:" ) );

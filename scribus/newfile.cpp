@@ -248,7 +248,7 @@ void NewDoc::createNewDocPage()
 	layoutLabel1 = new QLabel( pageSizeGroupBox, "layoutLabel1" );
 	layoutLabel1->setText( tr( "First Page is:" ) );
 	pageSizeGroupBoxLayout->addWidget( layoutLabel1, 4, 1 );
-	firstPage = new ScComboBox( false, pageSizeGroupBox, "firstPage" );
+	firstPage = new ScComboBox( pageSizeGroupBox );
 	firstPage->clear();
 	pageSizeGroupBoxLayout->addWidget( firstPage, 4, 2 );
 	selectItem(prefsManager->appPrefs.FacingPages);

@@ -431,7 +431,7 @@ void FontPrefs::rebuildDialog()
 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 	{
 		Table3->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
-		ScComboBox *item = new ScComboBox( true, Table3, "Replace" );
+		ScComboBox *item = new ScComboBox(Table3);
 		item->setEditable(false);
 		item->insertStringList(UsedFonts);
 		item->setCurrentText(itfsu.data());

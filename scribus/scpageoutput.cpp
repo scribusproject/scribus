@@ -876,7 +876,7 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 				if ( imageMode == ScPainterExBase::cmykImages )
 					useCmyk = true;
 				QFileInfo fInfo(item->Pfile);
-				QString ext = fInfo.extension(false);
+				QString ext = fInfo.suffix();
 				CMSettings cmsSettings(item->doc(), item->IProfile, item->IRender);
 				scImg.imgInfo.valid = false;
 				scImg.imgInfo.clipPath = "";

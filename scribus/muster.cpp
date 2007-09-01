@@ -45,13 +45,13 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 	buttonLayout = new QHBoxLayout;
 	buttonLayout->setSpacing( 5 );
 	buttonLayout->setMargin( 0 );
-	importButton = new QToolButton(this, "importButton" );
+	importButton = new QToolButton(this);
 	importButton->setIcon(QIcon(loadIcon("16/document-open.png")));
-	newButton = new QToolButton(this, "newButton" );
+	newButton = new QToolButton(this);
 	newButton->setIcon(QIcon(loadIcon("16/document-new.png")));
-	duplicateButton = new QToolButton(this, "DublicateB" );
+	duplicateButton = new QToolButton(this);
 	duplicateButton->setIcon(QIcon(loadIcon("16/edit-copy.png")));
-	deleteButton = new QToolButton(this, "deleteButton" );
+	deleteButton = new QToolButton(this);
 	deleteButton->setIcon(QIcon(loadIcon("16/edit-delete.png")));
 	buttonLayout->addWidget( newButton );
 	buttonLayout->addWidget( duplicateButton );
@@ -151,7 +151,7 @@ void MasterPagesPalette::duplicateMasterPage()
 		Page* destination = currentDoc->addMasterPage(nr, MasterPageName);
 		if (currentDoc->currentPageLayout != singlePage)
 		{
-			int lp = dia->Links->currentItem();
+			int lp = dia->Links->currentIndex();
 			if (lp == 0)
 				lp = 1;
 			else if (lp == static_cast<int>(dia->Links->count()-1))
@@ -244,7 +244,7 @@ void MasterPagesPalette::newMasterPage()
 		currentDoc->setCurrentPage(currentDoc->addMasterPage(nr, MasterPageName));
 		if (currentDoc->currentPageLayout != singlePage)
 		{
-			int lp = dia->Links->currentItem();
+			int lp = dia->Links->currentIndex();
 			if (lp == 0)
 				lp = 1;
 			else if (lp == static_cast<int>(dia->Links->count()-1))
@@ -367,7 +367,7 @@ void MasterPagesPalette::renameMasterPage(QListWidgetItem * item)
 		return;
 	}
 	bool ok;
-	QString newName = QInputDialog::getText( tr("Rename Master Page"), tr("New Name:"), QLineEdit::Normal, oldName, &ok, this );
+	QString newName = QInputDialog::getText( this, tr("Rename Master Page"), tr("New Name:"), QLineEdit::Normal, oldName, &ok);
 	if (ok && !newName.isEmpty())
 	{
 		if (currentDoc->renameMasterPage( oldName, newName))

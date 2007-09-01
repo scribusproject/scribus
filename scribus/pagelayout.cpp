@@ -73,12 +73,12 @@ PageLayouts::PageLayouts( QWidget* parent, QList<PageSet> pSets, bool mode )  : 
 	}
 	else
 	{
-		layoutsCombo = new ScComboBox( false, this, "layoutsCombo" );
+		layoutsCombo = new ScComboBox( this );
 		layoutGroupLayout->addWidget( layoutsCombo );
 	}
 	layoutLabel1 = new QLabel( this, "layoutLabel1" );
 	layoutGroupLayout->addWidget( layoutLabel1 );
-	firstPage = new ScComboBox( false, this, "firstPage" );
+	firstPage = new ScComboBox( this );
 	layoutGroupLayout->addWidget( firstPage );
 	languageChange();
 	setMaximumWidth(minimumSizeHint().width());

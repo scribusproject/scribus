@@ -116,7 +116,7 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 		KeyGen[a] = kg_array[a];
 	if (usingGUI)
 	{
-		progressDialog = new MultiProgressDialog( tr("Saving PDF"), CommonStrings::tr_Cancel, doc.scMW(), "pdfexportprogress");
+		progressDialog = new MultiProgressDialog( tr("Saving PDF"), CommonStrings::tr_Cancel, doc.scMW());
 		Q_CHECK_PTR(progressDialog);
 		QStringList barNames, barTexts;
 		barNames << "EMP" << "EP" << "ECPI";
