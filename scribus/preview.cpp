@@ -874,9 +874,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				{
 					QString fnam;
 					if (GsMinor < 54)
-						fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.data());
+						fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
 					else
-						fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.data());
+						fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.value());
 					if (!im.LoadPicture(fnam, cms, false, false, ScImage::RGBData, 72, &mode))
 					{
 						imageLoadError(Bild, Seite);

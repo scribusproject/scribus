@@ -996,7 +996,7 @@ void SMParagraphStyle::slotLanguage()
 	{
 		for (it = doc_->scMW()->LangTransl.begin(); it != doc_->scMW()->LangTransl.end(); ++it)
 		{
-			if (it.data() == pwidget_->cpage->language_->currentText())
+			if (it.value() == pwidget_->cpage->language_->currentText())
 			{
 				language = it.key();
 				break;
@@ -1797,7 +1797,7 @@ void SMCharacterStyle::slotLanguage()
 	{
 		for (it = doc_->scMW()->LangTransl.begin(); it != doc_->scMW()->LangTransl.end(); ++it)
 		{
-			if (it.data() == page_->language_->currentText())
+			if (it.value() == page_->language_->currentText())
 			{
 				language = it.key();
 				break;

@@ -406,14 +406,14 @@ void ScribusMainWindow::initKeyboardShortcuts()
 {
 	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
 	{
-		if ((ScrAction*)(it.data())!=NULL)
+		if ((ScrAction*)(it.value())!=NULL)
 		{
-			QString accelerator=it.data()->accel();
-			prefsManager->setKeyEntry(it.key(), it.data()->cleanMenuText(), accelerator,0);
+			QString accelerator=it.value()->accel();
+			prefsManager->setKeyEntry(it.key(), it.value()->cleanMenuText(), accelerator,0);
 		}
 		//else
 		//	qDebug(it.key());
-		//qDebug(QString("|-\n|%1||%2||%3").arg(it.key()).arg(it.data()->cleanMenuText()).arg(QString(it.data()->accel())));
+		//qDebug(QString("|-\n|%1||%2||%3").arg(it.key()).arg(it.value()->cleanMenuText()).arg(QString(it.data()->accel())));
 	}
 }
 
@@ -3310,7 +3310,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		for (int m = 0; m < max; ++m)
 		{
 			strippedName = it.key();
-			QPixmap pm = it.data().Preview;
+			QPixmap pm = it.value().Preview;
 			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, pm, QPixmap(), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, 0,0.0,it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(pasteRecent(QString)) );
 			scrMenuMgr->addMenuItem(scrRecentPasteActions[strippedName], recentPasteMenuName);
@@ -8533,9 +8533,9 @@ void ScribusMainWindow::SetShortCut()
 {
 	for (QMap<QString,Keys>::Iterator it = prefsManager->appPrefs.KeyActions.begin(); it != prefsManager->appPrefs.KeyActions.end(); ++it )
 	{
-		if (!it.data().actionName.isEmpty())
-			if (scrActions[it.data().actionName])
-				scrActions[it.data().actionName]->setAccel(it.data().keySequence);
+		if (!it.value().actionName.isEmpty())
+			if (scrActions[it.value().actionName])
+				scrActions[it.value().actionName]->setAccel(it.value().keySequence);
 	}
 }
 
@@ -8637,7 +8637,7 @@ void ScribusMainWindow::initHyphenator()
 					translatedLang="";
 					translatedLang = trans->translate("ScribusMainWindow", it.key(), "");
 					if (!translatedLang.isEmpty())
-						it.data().append(translatedLang);
+						it.value().append(translatedLang);
 				}
 				delete trans;
 			}
@@ -8675,8 +8675,8 @@ QString ScribusMainWindow::GetLang(QString inLang)
 	QMap<QString, QStringList>::Iterator itlend=InstLang.end();
  	for (QMap<QString, QStringList>::Iterator itl = InstLang.begin(); itl != itlend; ++itl)
 	{
-		QStringList::Iterator itlrend=itl.data().end();
-		for (QStringList::Iterator itlr = itl.data().begin(); itlr != itlrend; ++itlr)
+		QStringList::Iterator itlrend=itl.value().end();
+		for (QStringList::Iterator itlr = itl.value().begin(); itlr != itlrend; ++itlr)
 		{
 			if ((*itlr) == inLang)
 				return itl.key();
@@ -9019,7 +9019,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 			ColorList::Iterator it;
 			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 			{
-				if (selectedColor== ScColorEngine::getRGBColor(it.data(), doc))
+				if (selectedColor== ScColorEngine::getRGBColor(it.value(), doc))
 				{
 					found=true;
 					break;

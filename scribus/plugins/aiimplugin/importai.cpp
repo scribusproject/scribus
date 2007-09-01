@@ -187,7 +187,7 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
-			m_Doc->PageColors.insert(it.key(), it.data());
+			m_Doc->PageColors.insert(it.key(), it.value());
 	}
 	Elements.clear();
 	FPoint minSize = m_Doc->minCanvasCoordinate;

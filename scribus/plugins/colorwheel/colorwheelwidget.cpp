@@ -314,7 +314,7 @@ bool ColorWheel::recomputeColor(ScColor col)
 	for (it = colorMap.begin(); it != colorMap.end(); ++it)
 	{
 		int tmph, tmps, tmpv;
-		QColor col(ScColorEngine::getRGBColor(it.data(), currentDoc));
+		QColor col(ScColorEngine::getRGBColor(it.value(), currentDoc));
 		col.hsv(&tmph, &tmps, &tmpv);
 		if (origh == tmph)
 		{

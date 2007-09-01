@@ -482,7 +482,7 @@ void PrefsManager::initDefaultActionKeys()
 	for( QMap<QString, QKeySequence >::ConstIterator it = map->begin(); it!=map->end(); ++it )
 	{
 		appPrefs.KeyActions[it.key()].actionName = it.key();
-		appPrefs.KeyActions[it.key()].keySequence = it.data();
+		appPrefs.KeyActions[it.key()].keySequence = it.value();
 	}
 }
 

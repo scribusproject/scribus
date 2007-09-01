@@ -182,7 +182,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	if (mode == 0)
 	{
 		linkSize = new LinkButton( SizeGroup );
-		linkSize->setToggleButton( true );
+		linkSize->setCheckable( true );
 		linkSize->setAutoRaise( true );
 		linkSize->setMaximumSize( QSize( 15, 32767 ) );
 		SizeGroupLayout->addMultiCellWidget( linkSize, 0, 1, 2, 2 );
@@ -221,7 +221,7 @@ void OneClick::ToggleKette()
 {
 	disconnect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
 	disconnect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
-	if (linkSize->isOn())
+	if (linkSize->isChecked())
 		spinHeight->setValue(spinWidth->value());
 	connect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
 	connect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
@@ -231,7 +231,7 @@ void OneClick::changeSizesH()
 {
 	disconnect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
 	disconnect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
-	if (linkSize->isOn())
+	if (linkSize->isChecked())
 		spinWidth->setValue(spinHeight->value());
 	connect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
 	connect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
@@ -241,7 +241,7 @@ void OneClick::changeSizesW()
 {
 	disconnect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
 	disconnect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));
-	if (linkSize->isOn())
+	if (linkSize->isChecked())
 		spinHeight->setValue(spinWidth->value());
 	connect(spinWidth, SIGNAL(valueChanged(double)), this, SLOT(changeSizesW()));
 	connect(spinHeight, SIGNAL(valueChanged(double)), this, SLOT(changeSizesH()));

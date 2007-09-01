@@ -312,7 +312,7 @@ void MenuManager::generateKeyManList(QStringList *actionNames)
 				bool menuBarItemFound=false;
 				for ( menuListIt = menuList.begin(); menuListIt!=menuList.end(); ++menuListIt)
 				{
-					if(menuListIt.data()->getMenuBarID()==menuBarMenuID)
+					if(menuListIt.value()->getMenuBarID()==menuBarMenuID)
 					{
 						menuBarItemFound=true;
 						break;
@@ -320,9 +320,9 @@ void MenuManager::generateKeyManList(QStringList *actionNames)
 				}
 				if (menuBarItemFound)
 				{
-					if (menuListIt.data())
+					if (menuListIt.value())
 					{
-						ScrPopupMenu *currentMenu=menuListIt.data();
+						ScrPopupMenu *currentMenu=menuListIt.value();
 						currentMenu->generateEntryList(actionNames);
 					}
 				}

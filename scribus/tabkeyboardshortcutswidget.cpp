@@ -171,7 +171,7 @@ void TabKeyboardShortcutsWidget::importKeySet(QString filename)
 
 			//clear current menu entries
 			for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
-				it.data().keySequence = QKeySequence();
+				it.value().keySequence = QKeySequence();
 			
 			//load in new set
 			QDomNode n = docElem.firstChild();
@@ -217,11 +217,11 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 		QMap<QString,Keys>::Iterator itEnd=keyMap.end();
 		for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=itEnd; ++it)
 		{
-			if (it.data().keySequence.isEmpty() && it.key().isEmpty())
+			if (it.value().keySequence.isEmpty() && it.key().isEmpty())
 				continue;
 			QDomElement function_shortcut=doc.createElement("function");
 			function_shortcut.setAttribute("name",it.key());
-			function_shortcut.setAttribute("shortcut",getKeyText(it.data().keySequence));
+			function_shortcut.setAttribute("shortcut",getKeyText(it.value().keySequence));
 			keySetElement.appendChild(function_shortcut);
 		}
 		QFile f(filename);
@@ -559,7 +559,7 @@ bool TabKeyboardShortcutsWidget::checkKey(int code)
 	QKeySequence key = QKeySequence(code);
 	for (QMap<QString,Keys>::Iterator it=keyMap.begin(); it!=keyMap.end(); ++it)
 	{
-		if (key.matches(it.data().keySequence) != QKeySequence::NoMatch)
+		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
 		{
 			ret = true;
 			break;

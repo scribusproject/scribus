@@ -1322,18 +1322,18 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	{
 		for (QMap<QString, plateOffsets>::Iterator it = colorPlates2.begin(); it != colorPlates2.end(); ++it)
 		{
-			QByteArray imgc(it.data().len);
+			QByteArray imgc(it.value().len);
 			QFile f(picFile);
 			if (f.open(QIODevice::ReadOnly))
 			{
-				f.at(it.data().pos);
-				uint readB = f.readBlock(imgc.data(), it.data().len);
+				f.at(it.value().pos);
+				uint readB = f.readBlock(imgc.data(), it.value().len);
 				readB = 0;
 			}
 			f.close();
 			QFile f2(tmpFile2);
 			if (f2.open(QIODevice::WriteOnly))
-				f2.writeBlock(imgc.data(), it.data().len);
+				f2.writeBlock(imgc.data(), it.value().len);
 			f2.close();
 			imgc.resize(0);
 			if ((isPhotoshop) && (hasPhotoshopImageData))
@@ -1364,7 +1364,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	{
 		for (QMap<QString, QString>::Iterator it = colorPlates.begin(); it != colorPlates.end(); ++it)
 		{
-			tmpFile2 = QDir::convertSeparators(baseFile+"/"+it.data());
+			tmpFile2 = QDir::convertSeparators(baseFile+"/"+it.value());
 			if ((isPhotoshop) && (hasPhotoshopImageData))
 			{
 				QImage tmpImg;

@@ -100,7 +100,7 @@ void SMCStyleWidget::fillLangCombo(QMap<QString,QString> langMap)
 	language_->clear();
 
 	for (it = langMap.begin(); it != langMap.end(); ++it)
-		sortList.push_back(it.data());
+		sortList.push_back(it.value());
 
 	language_->insertStringList(sortQStringList(sortList));
 
@@ -121,8 +121,8 @@ void SMCStyleWidget::fillColorCombo(ColorList &colors)
 	ScribusDoc* doc = colors.document();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
 	{
-		fillColor_->insertSmallItem(it.data(), doc, it.key());
-		strokeColor_->insertSmallItem(it.data(), doc, it.key());
+		fillColor_->insertSmallItem(it.value(), doc, it.key());
+		strokeColor_->insertSmallItem(it.value(), doc, it.key());
 	}
 	fillColor_->view()->setMinimumWidth(fillColor_->view()->maximumViewportSize().width()+24);
 	strokeColor_->view()->setMinimumWidth(strokeColor_->view()->maximumViewportSize().width()+24);

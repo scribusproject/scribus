@@ -2587,7 +2587,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				QString Nam2 = Nam;
 				int copyC = 1;
 				QMap<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(Nam2);
-				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.data())
+				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
 				{
 					while (m_Doc->MLineStyles.contains(Nam2))
 					{
@@ -3032,7 +3032,7 @@ bool Scribus13Format::readLineStyles(const QString& fileName, QMap<QString,multi
 				QString Nam2 = Nam;
 				int copyC = 1;
 				QMap<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
-				if (mlit != Sty->end() && ml != mlit.data())
+				if (mlit != Sty->end() && ml != mlit.value())
 				{
 					while (Sty->contains(Nam2))
 					{

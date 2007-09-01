@@ -2371,13 +2371,13 @@ void ScribusDoc::replaceLineStyleColors(const QMap<QString, QString>& colorMap)
 	QMap<QString,multiLine>::iterator  itl;
 	for (itl = MLineStyles.begin(); itl != MLineStyles.end(); ++itl)
 	{
-		multiLine& mline = itl.data();
+		multiLine& mline = itl.value();
 		for (its = mline.begin(); its != mline.end(); ++its)
 		{
 			struct SingleLine& sline = *its;
 			it = colorMap.find(sline.Color);
 			if (it != colorMap.end())
-				sline.Color = it.data();
+				sline.Color = it.value();
 		}
 	}
 }
@@ -2440,7 +2440,7 @@ bool ScribusDoc::lineStylesUseColor(const QString& colorName)
 	itmend = MLineStyles.constEnd();
 	for (itm = MLineStyles.constBegin(); itm != itmend && !found; ++itm)
 	{
-		const multiLine& ml = itm.data();
+		const multiLine& ml = itm.value();
 		itsend = ml.constEnd();
 		for (its = ml.constBegin(); its != itsend; ++its)
 		{
@@ -4437,7 +4437,7 @@ void ScribusDoc::removePageFromSection(const uint pageIndex)
 void ScribusDoc::setFirstSectionFromFirstPageNumber()
 {
 	DocumentSectionMap::Iterator it = sections.begin();
-	it.data().sectionstartindex=FirstPnum;
+	it.value().sectionstartindex=FirstPnum;
 	updateSectionPageNumbersToPages();
 }
 

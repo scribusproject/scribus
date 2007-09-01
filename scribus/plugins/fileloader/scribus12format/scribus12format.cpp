@@ -713,7 +713,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		{
 //			qDebug(QString("1.2 textframe links: %1->%2[%3]").arg(lc.key()).arg(itemRemap[lc.data()]).arg(lc.data()));
 			PageItem *Its = m_Doc->Items->at(lc.key());
-			PageItem *Itn = m_Doc->Items->at(itemRemap[lc.data()]);
+			PageItem *Itn = m_Doc->Items->at(itemRemap[lc.value()]);
 			assert(Its && Its->asTextFrame());
 			assert(Itn && Itn->asTextFrame());
 			if (Itn->prevInChain() || Its->nextInChain()) 
@@ -1227,7 +1227,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				QString Nam2 = Nam;
 				int copyC = 1;
 				QMap<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(Nam2);
-				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.data())
+				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
 				{
 					while (m_Doc->MLineStyles.contains(Nam2))
 					{
@@ -1410,7 +1410,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 					{
 						PageItem *Its = m_Doc->Items->at(lc.key());
-						PageItem *Itn = m_Doc->Items->at(itemRemap[lc.data()]);
+						PageItem *Itn = m_Doc->Items->at(itemRemap[lc.value()]);
 						assert(Its && Its->asTextFrame());
 						assert(Itn && Itn->asTextFrame());
 						if (Itn->prevInChain() || Its->nextInChain()) 
@@ -1709,7 +1709,7 @@ bool Scribus12Format::readLineStyles(const QString& fileName, QMap<QString,multi
 				QString Nam2 = Nam;
 				int copyC = 1;
 				QMap<QString,multiLine>::ConstIterator mlit = Sty->find(Nam2);
-				if (mlit != Sty->end() && ml != mlit.data())
+				if (mlit != Sty->end() && ml != mlit.value())
 				{
 					while (Sty->contains(Nam2))
 					{

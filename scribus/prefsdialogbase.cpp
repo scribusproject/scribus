@@ -108,7 +108,7 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent )
 	layout5 = new QVBoxLayout;
 	layout5->setMargin(0);
 	layout5->setSpacing(5);
-	tabNameLabel = new QLabel( this, "tabNameLabel" );
+	tabNameLabel = new QLabel( this );
 	QFont f(tabNameLabel->font());
 	f.setPointSize(f.pointSize()+4);
 	f.setBold(true);
@@ -122,25 +122,25 @@ PrefsDialogBase::PrefsDialogBase( QWidget* parent ) : QDialog( parent )
 	layout4 = new QHBoxLayout;
 	layout4->setMargin(0);
 	layout4->setSpacing(5);
-	saveButton = new QPushButton(this, "saveButton");
+	saveButton = new QPushButton(this );
 	saveButton->setAutoDefault( false );
 	saveButton->setDefault( false );
 	layout4->addWidget(saveButton);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout4->addItem( spacer );
-	backToDefaults = new QPushButton( this, "backToDefaults" );
+	backToDefaults = new QPushButton( this );
 	backToDefaults->setAutoDefault( false );
 	backToDefaults->setDefault( false );
 	layout4->addWidget( backToDefaults );
-	applyChangesButton = new QPushButton( this, "applyChangesButton" );
+	applyChangesButton = new QPushButton( this );
 	applyChangesButton->setAutoDefault( false );
 	applyChangesButton->setDefault( false );
 	layout4->addWidget( applyChangesButton );
-	buttonOk = new QPushButton( this, "buttonOk" );
+	buttonOk = new QPushButton( this );
 	buttonOk->setAutoDefault( false );
 	buttonOk->setDefault( false );
 	layout4->addWidget( buttonOk );
-	buttonCancel = new QPushButton( this, "buttonCancel" );
+	buttonCancel = new QPushButton( this );
 	buttonCancel->setAutoDefault( false );
 	buttonCancel->setDefault( false );
 	layout4->addWidget( buttonCancel );
@@ -190,12 +190,7 @@ void PrefsDialogBase::languageChange()
 
 void PrefsDialogBase::saveButton_clicked()
 {
-	QString s = QFileDialog::getSaveFileName(
-			QDir::currentPath(),
-			"All Files (*)",
-			this,
-			"save prefs",
-			tr("Save Preferences"));
+	QString s = QFileDialog::getSaveFileName(this, tr("Save Preferences"), QDir::currentPath(), "All Files (*)");
 	if (s.isEmpty())
 		return;
 	PrefsManager *pm = PrefsManager::instance();

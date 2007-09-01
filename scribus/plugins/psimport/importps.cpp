@@ -60,7 +60,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	bool found = false;
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	if ( !ScCore->usingGUI() ) {
 		interactive = false;
 		showProgress = false;
@@ -162,7 +162,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 			f.close();
 			if (found)
 			{
-				QStringList bb = QStringList::split(" ", BBox);
+				QStringList bb = BBox.split(" ");
 				if (bb.count() == 4)
 				{
 					QTextStream ts2(&BBox, QIODevice::ReadOnly);
@@ -209,7 +209,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	for (it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
-			m_Doc->PageColors.insert(it.key(), it.data());
+			m_Doc->PageColors.insert(it.key(), it.value());
 	}
 	Elements.clear();
 	FPoint minSize = m_Doc->minCanvasCoordinate;
@@ -220,7 +220,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
-	QDir::setCurrent(fi.dirPath());
+	QDir::setCurrent(fi.path());
 	if (convert(fName, x, y, b, h))
 	{
 // 		m_Doc->m_Selection->clear();
@@ -424,7 +424,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString pfad = ScPaths::instance().libDir();
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	
 	if (progressDialog) {
 		progressDialog->setOverallProgress(1);
@@ -470,7 +470,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		exportFi.setFile(docDir + "/" + exportFi.baseName());
 	}
 	//qDebug(QString("using export path %1").arg(exportFi.absFilePath()));
-	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(exportFi.absFilePath())) );
+	args.append( QString("-sExportFiles=%1").arg(QDir::convertSeparators(exportFi.absoluteFilePath())) );
 	args.append( pfad2 );
 	args.append( QDir::convertSeparators(fn) );
 	args.append( "-c" );
@@ -553,7 +553,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			tmp = "";
 			tmp = ts.readLine();
 			if (progressDialog && (++line_cnt % 100 == 0)) {
-				int fPos = f.at();
+				int fPos = f.pos();
 				int progress = static_cast<int>(ceil(fPos / (double) fSize * 100));
 				if (progress > fProgress)
 				{
@@ -876,7 +876,7 @@ bool EPSPlug::Image(QString vals)
 		filename = filename.mid(0, filename.length()-3) + "psd";
 	}
 		
-	qDebug(QString("import %7 image %1: %2x%3 @ (%4,%5) °%6").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device));
+	qDebug("%s", QString("import %7 image %1: %2x%3 @ (%4,%5) °%6").arg(filename).arg(w).arg(h).arg(x).arg(y).arg(angle).arg(device).toLocal8Bit().data());
 	QString rawfile = filename.mid(0, filename.length()-3) + "dat";
 	QStringList args;
 	args.append( "-q" );

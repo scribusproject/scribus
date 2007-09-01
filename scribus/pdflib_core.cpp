@@ -6772,7 +6772,7 @@ void PDFLibCore::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Co
 		PutDoc("]\n/OFF [ ");
 		for (itoc = OCGEntries.begin(); itoc != OCGEntries.end(); ++itoc)
 		{
-			if (!itoc.data().visible)
+			if (!itoc.value().visible)
 				PutDoc(QString::number(itoc.value().ObjNum)+" 0 R ");
 		}
 		PutDoc("] >>\n/OCGs [ ");

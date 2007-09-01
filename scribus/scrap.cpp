@@ -521,15 +521,15 @@ void BibView::ReadContents(QString name)
 	QMap<QString,Elem>::Iterator itf;
 	for (itf = objectMap.begin(); itf != objectMap.end(); ++itf)
 	{
-		if (itf.data().Preview.width() > 60)
-			itf.data().Preview = itf.data().Preview.scaledToWidth(60, Qt::SmoothTransformation);
-		if (itf.data().Preview.height() > 60)
-			itf.data().Preview = itf.data().Preview.scaledToHeight(60, Qt::SmoothTransformation);
+		if (itf.value().Preview.width() > 60)
+			itf.value().Preview = itf.value().Preview.scaledToWidth(60, Qt::SmoothTransformation);
+		if (itf.value().Preview.height() > 60)
+			itf.value().Preview = itf.value().Preview.scaledToHeight(60, Qt::SmoothTransformation);
 		QPixmap pm(60, 60);
 		pm.fill(palette().base());
 		QPainter p;
 		p.begin(&pm);
-		p.drawPixmap(30 - itf.data().Preview.width() / 2, 30 - itf.data().Preview.height() / 2, itf.data().Preview);
+		p.drawPixmap(30 - itf.value().Preview.width() / 2, 30 - itf.value().Preview.height() / 2, itf.value().Preview);
 		p.end();
 		new QListWidgetItem(QIcon(pm), itf.key(), this);
 	}
@@ -952,7 +952,7 @@ bool Biblio::copyObj(int id)
 		{
 			QMap<QString,BibView::Elem>::Iterator it;
 			it = tempBView->objectMap.begin();
-			QFile f(it.data().Data);
+			QFile f(it.value().Data);
 			f.remove();
 			QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
 			if (fi.exists())
@@ -1203,7 +1203,7 @@ void Biblio::ObjFromMenu(QString text)
 		{
 			QMap<QString,BibView::Elem>::Iterator it;
 			it = tempBView->objectMap.begin();
-			QFile f(it.data().Data);
+			QFile f(it.value().Data);
 			f.remove();
 			QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
 			if (fi.exists())
@@ -1273,7 +1273,7 @@ void Biblio::ObjFromCopyAction(QString text)
 	{
 		QMap<QString,BibView::Elem>::Iterator it;
 		it = tempBView->objectMap.begin();
-		QFile f(it.data().Data);
+		QFile f(it.value().Data);
 		f.remove();
 		QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
 		if (fi.exists())
@@ -1312,7 +1312,7 @@ void Biblio::CleanUpTemp()
 	QMap<QString,BibView::Elem>::Iterator it;
 	for (it = tempBView->objectMap.begin(); it != tempBView->objectMap.end(); ++it)
 	{
-		QFile f(it.data().Data);
+		QFile f(it.value().Data);
 		f.remove();
 		QFileInfo fi(QDir::convertSeparators(tempBView->ScFilename + "/" + it.key() + ".png"));
 		if (fi.exists())

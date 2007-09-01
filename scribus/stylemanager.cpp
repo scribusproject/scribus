@@ -407,7 +407,7 @@ void StyleManager::slotImport()
 					for (itc = LColors.begin(); itc != LColors.end(); ++itc)
 					{
 						if (neededColors.contains(itc.key()))
-							doc_->PageColors.insert(itc.key(), itc.data());
+							doc_->PageColors.insert(itc.key(), itc.value());
 					}
 				}
 			}
@@ -1009,7 +1009,7 @@ bool StyleManager::shortcutExists(const QString &keys)
 	for (QMap<QString,Keys>::Iterator it=prefsData->KeyActions.begin();
 	     it!=prefsData->KeyActions.end(); ++it)
 	{
-		if (key.matches(it.data().keySequence) != QKeySequence::NoMatch)
+		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
 			return true;
 	}
 

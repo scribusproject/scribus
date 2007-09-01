@@ -105,7 +105,7 @@ void ImportPSPlugin::registerFormats()
 	fmt2.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::PDF); // Human readable name
 	fmt2.formatId = FORMATID_PDFIMPORT;
 	fmt2.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::PDF);// QFileDialog filter
-	fmt2.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PDF, 1)+"$", false);
+	fmt2.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::PDF, 1)+"$", Qt::CaseInsensitive);
 	fmt2.load = true;
 	fmt2.save = false;
 	fmt2.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::PDF); // MIME types

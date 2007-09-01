@@ -591,8 +591,8 @@ QMap<QString,QString> SCFonts::getSubstitutions(const QList<QString> skip) const
 	QMap<QString,ScFace>::ConstIterator it;
 	for (it = begin(); it != end(); ++it)
 	{
-		if (it.data().isReplacement() && !skip.contains(it.key()))
-			result[it.key()] = it.data().replacementName();
+		if (it.value().isReplacement() && !skip.contains(it.key()))
+			result[it.key()] = it.value().replacementName();
 	}
 	return result;
 }
@@ -603,12 +603,12 @@ void SCFonts::setSubstitutions(const QMap<QString,QString>& substitutes, Scribus
 	QMap<QString,QString>::ConstIterator it;
 	for (it = substitutes.begin(); it != substitutes.end(); ++it)
 	{
-		if (it.key() == it.data())
+		if (it.key() == it.value())
 			continue;
 		ScFace& font(const_cast<ScFace&>(findFont(it.key(), doc)));
 		if (font.isReplacement())
 		{
-			font.chReplacementTo(const_cast<ScFace&>(findFont(it.data(), doc)), doc->DocName);
+			font.chReplacementTo(const_cast<ScFace&>(findFont(it.value(), doc)), doc->DocName);
 		}
 	}
 }
@@ -786,12 +786,12 @@ void SCFonts::WriteCacheList(QString pf)
 	QMap<QString, testCache>::Iterator it;
 	for (it = checkedFonts.begin(); it != checkedFonts.end(); ++it)
 	{
-		if (it.data().isChecked)
+		if (it.value().isChecked)
 		{
 			QDomElement fosu = docu.createElement("Font");
 			fosu.setAttribute("File",it.key());
-			fosu.setAttribute("Status",static_cast<int>(it.data().isOK));
-			fosu.setAttribute("Modified",it.data().lastMod.toString(Qt::ISODate));
+			fosu.setAttribute("Status",static_cast<int>(it.value().isOK));
+			fosu.setAttribute("Modified",it.value().lastMod.toString(Qt::ISODate));
 			elem.appendChild(fosu);
 		}
 	}

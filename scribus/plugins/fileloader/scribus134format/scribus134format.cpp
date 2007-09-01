@@ -2633,7 +2633,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				QString Nam2 = Nam;
 				int copyC = 1;
 				QMap<QString,multiLine>::ConstIterator mlit = m_Doc->MLineStyles.find(Nam2);
-				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.data())
+				if (mlit != m_Doc->MLineStyles.end() && ml != mlit.value())
 				{
 					while (m_Doc->MLineStyles.contains(Nam2))
 					{
@@ -3089,7 +3089,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupID.begin(); it != groupID.end(); ++it)
 		{
-			it.key()->groupsLastItem = m_Doc->Items->at(it.data());
+			it.key()->groupsLastItem = m_Doc->Items->at(it.value());
 		}
 	}
 	

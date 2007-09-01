@@ -785,7 +785,7 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 			QString key = attr.mid(start, end - start);
 			QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);
 			if (it != m_clipPaths.end())
-				clipPath = it.data().copy();
+				clipPath = it.value().copy();
 		}
 	}
 }
@@ -1546,7 +1546,7 @@ QDomElement SVGPlug::getNodeFromUseElement(const QDomElement &e)
 		ret.removeAttribute("width");
 		ret.removeAttribute("height");
 		ret.removeAttribute("xlink:href");
-		QDomNode clone = it.data().cloneNode();
+		QDomNode clone = it.value().cloneNode();
 		QDomElement cloneElm = clone.toElement();
 		if( cloneElm.tagName() == "symbol" )
 			cloneElm.setTagName("g"); // later fix to be svg
@@ -1562,7 +1562,7 @@ QDomElement SVGPlug::getReferencedNode(const QDomElement &e)
 	QString href = e.attribute("xlink:href").mid(1);
 	it = m_nodeMap.find(href);
 	if (it != m_nodeMap.end())
-		ret = it.data().cloneNode().toElement();
+		ret = it.value().cloneNode().toElement();
 	return ret;
 }
 

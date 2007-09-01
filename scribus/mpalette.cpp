@@ -3785,7 +3785,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 	{
 		QMap<QString,multiLine>::Iterator it;
 		for (it = dd->MLineStyles.begin(); it != dd->MLineStyles.end(); ++it)
-			StyledLine->addItem( new LineFormatItem(dd, it.data(), it.key()) );
+			StyledLine->addItem( new LineFormatItem(dd, it.value(), it.key()) );
 		StyledLine->sortItems();
 		StyledLine->insertItem( 0, tr("No Style"));
 		if (StyledLine->currentItem())
@@ -4192,7 +4192,7 @@ void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 		return;
 	langCombo->clear();
 	for (it = langMap.begin(); it != langMap.end(); ++it)
-		sortList.push_back(it.data());
+		sortList.push_back(it.value());
 	langCombo->insertStringList(sortQStringList(sortList));
 	QListView *tmpView = dynamic_cast<QListView*>(langCombo->view()); Q_ASSERT(tmpView);
 	int tmpWidth = tmpView->sizeHintForColumn(0);

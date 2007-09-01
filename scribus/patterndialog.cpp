@@ -73,7 +73,7 @@ void PatternDialog::updatePatternList()
 	for (QMap<QString, ScPattern>::Iterator it = dialogPatterns.begin(); it != dialogPatterns.end(); ++it)
 	{
 		QPixmap pm;
-		if (it.data().getPattern()->width() >= it.value().getPattern()->height())
+		if (it.value().getPattern()->width() >= it.value().getPattern()->height())
 			pm=QPixmap::fromImage(it.value().getPattern()->scaledToWidth(48, Qt::SmoothTransformation));
 		else
 			pm=QPixmap::fromImage(it.value().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));

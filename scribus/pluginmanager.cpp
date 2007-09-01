@@ -112,7 +112,7 @@ void PluginManager::savePreferences()
 {
 	// write configuration
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
-		prefs->set(it.data().pluginName, it.data().enableOnStartup);
+		prefs->set(it.value().pluginName, it.value().enableOnStartup);
 }
 
 QString PluginManager::getPluginName(QString fileName)
@@ -197,7 +197,7 @@ void PluginManager::initPlugs()
 		changes = 0;
 		for (it = allPlugs.begin(); it != allPlugs.end(); ++it)
 		{
-			if (it.data() != 0)
+			if (it.value() != 0)
 				continue;
 			int res = initPlugin(it.key());
 			allPlugs[it.key()] = res;
@@ -280,11 +280,11 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 	mw->scrMenuMgr->addMenuSeparator("Extras");
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
-		if (it.data().plugin->inherits("ScActionPlugin"))
+		if (it.value().plugin->inherits("ScActionPlugin"))
 		{
 			//Add in ScrAction based plugin linkage
 			//Insert DLL Action into Dictionary with values from plugin interface
-			plugin = dynamic_cast<ScActionPlugin*>(it.data().plugin);
+			plugin = dynamic_cast<ScActionPlugin*>(it.value().plugin);
 			assert(plugin);
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.icon1, ai.icon2, ai.text, ai.keySequence, mw);
@@ -294,7 +294,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			// then enable and connect up the action
 			mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
 			// Connect action's activated signal with the plugin's run method
-			it.data().enabled = connect( mw->scrActions[ai.name], SIGNAL(activatedData(ScribusDoc*)),
+			it.value().enabled = connect( mw->scrActions[ai.name], SIGNAL(activatedData(ScribusDoc*)),
 							plugin, SLOT(run(ScribusDoc*)) );
 			//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
 			if ( ai.menuAfterName.isEmpty() )
@@ -307,7 +307,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 					afterAction=mw->scrActions[actionName];
 				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, afterAction);
 			}
-			if (it.data().enabled)
+			if (it.value().enabled)
 				ScCore->setSplashStatus( tr("Plugin: %1 initialized ok ", "plugin manager")
 						.arg(plugin->fullTrName()));
 			else
@@ -316,7 +316,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 		}
 		else
 		{
-			it.data().plugin->addToMainWindowMenu(mw);
+			it.value().plugin->addToMainWindowMenu(mw);
 		}
 
 	}
@@ -393,8 +393,8 @@ bool PluginManager::loadPlugin(PluginData & pda)
 void PluginManager::cleanupPlugins()
 {
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
-		if (it.data().enabled == true)
-			finalizePlug(it.data());
+		if (it.value().enabled == true)
+			finalizePlug(it.value());
 }
 
 void PluginManager::finalizePlug(PluginData & pda)
@@ -483,7 +483,7 @@ void PluginManager::languageChange()
 	ScrAction* pluginAction = 0;
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
-		plugin = it.data().plugin;
+		plugin = it.value().plugin;
 		if (plugin)
 		{
 			plugin->languageChange();
@@ -541,10 +541,10 @@ QStringList PluginManager::pluginNames(
 	// Scan the plugin map for plugins...
 	QStringList names;
 	for (PluginMap::ConstIterator it = pluginMap.constBegin(); it != pluginMap.constEnd(); ++it)
-		if (includeDisabled || it.data().enabled)
+		if (includeDisabled || it.value().enabled)
 			// Only including plugins that inherit a named parent (if
 			// specified), using the QMetaObject system.
-			if (!inherits || it.data().plugin->inherits(inherits))
-				names.append(it.data().pluginName);
+			if (!inherits || it.value().plugin->inherits(inherits))
+				names.append(it.value().pluginName);
 	return names;
 }

@@ -2786,7 +2786,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				for (int m = 0; m < m_ScMW->scrapbookPalette->tempBView->objectMap.count(); ++m)
 				{
 					QString strippedName = it.key();
-					QPixmap pm = it.data().Preview;
+					QPixmap pm = it.value().Preview;
 // Qt4					pmen3->insertItem(pm, strippedName);
 					pmen3->addAction(pm, strippedName);
 					it--;
@@ -9127,7 +9127,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		}
 		if (tmpGuidesSel.count() != 0)
 		{
-			GyM = tmpGuidesSel.begin().data();
+			GyM = tmpGuidesSel.begin().value();
 			QPoint py = viewport()->mapFromGlobal(m->globalPos());
 			DrHY = py.y();
 		}
@@ -9140,7 +9140,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		}
 		if (tmpGuidesSel.count() != 0)
 		{
-			GxM = tmpGuidesSel.begin().data();
+			GxM = tmpGuidesSel.begin().value();
 			QPoint py = viewport()->mapFromGlobal(m->globalPos());
 			DrVX = py.x();
 		}

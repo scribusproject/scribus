@@ -274,7 +274,7 @@ void Scribus134Format::writeLinestyles(QDomDocument & docu)
 	{
 		QDomElement MuL=docu.createElement("MultiLine");
 		MuL.setAttribute("Name",itMU.key());
-		multiLine ml = itMU.data();
+		multiLine ml = itMU.value();
 		multiLine::iterator itMU2;
 		for (itMU2 = ml.begin(); itMU2 != ml.end(); ++itMU2)
 		{
@@ -322,7 +322,7 @@ void Scribus134Format::writeJavascripts(QDomDocument & docu)
 	{
 		QDomElement jav=docu.createElement("JAVA");
 		jav.setAttribute("NAME",itja.key());
-		jav.setAttribute("SCRIPT",itja.data());
+		jav.setAttribute("SCRIPT",itja.value());
 		dc.appendChild(jav);
 	}
 	
@@ -679,9 +679,9 @@ void Scribus134Format::writePdfOptions(QDomDocument & docu)
 	{
 		QDomElement pdf4 = docu.createElement("LPI");
 		pdf4.setAttribute("Color", itlp.key());
-		pdf4.setAttribute("Frequency", itlp.data().Frequency);
-		pdf4.setAttribute("Angle", itlp.data().Angle);
-		pdf4.setAttribute("SpotFunction", itlp.data().SpotFunc);
+		pdf4.setAttribute("Frequency", itlp.value().Frequency);
+		pdf4.setAttribute("Angle", itlp.value().Angle);
+		pdf4.setAttribute("SpotFunction", itlp.value().SpotFunc);
 		pdf.appendChild(pdf4);
 	}
 	dc.appendChild(pdf);
@@ -819,7 +819,7 @@ void Scribus134Format::writePatterns(QDomDocument & docu, const QString& baseDir
 	{
 		QDomElement pat = docu.createElement("Pattern");
 		pat.setAttribute("Name",itPat.key());
-		ScPattern pa = itPat.data();
+		ScPattern pa = itPat.value();
 		pat.setAttribute("width", pa.width);
 		pat.setAttribute("height", pa.height);
 		pat.setAttribute("scaleX", pa.scaleX);
@@ -1154,10 +1154,10 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			{
 				QDomElement psd = docu->createElement("PSDLayer");
 				psd.setAttribute("Layer",it2.key());
-				psd.setAttribute("Visible", static_cast<int>(it2.data().visible));
-				psd.setAttribute("useMask", static_cast<int>(it2.data().useMask));
-				psd.setAttribute("Opacity", it2.data().opacity);
-				psd.setAttribute("Blend", it2.data().blend);
+				psd.setAttribute("Visible", static_cast<int>(it2.value().visible));
+				psd.setAttribute("useMask", static_cast<int>(it2.value().useMask));
+				psd.setAttribute("Opacity", it2.value().opacity);
+				psd.setAttribute("Blend", it2.value().blend);
 				ob.appendChild(psd);
 			}
 		}

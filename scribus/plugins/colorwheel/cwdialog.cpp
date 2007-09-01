@@ -327,7 +327,7 @@ void CWDialog::addButton_clicked()
 		else
 		{
 			status += tr("Color %1 appended.").arg(it.key()) + "<br/>";
-			m_Doc->PageColors[it.key()] = it.data();
+			m_Doc->PageColors[it.key()] = it.value();
 		}
 	}
 	status += "<p>" + tr("Now opening the color manager.") + "</p></qt>";
@@ -345,7 +345,7 @@ void CWDialog::replaceButton_clicked()
 {
 	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
 	{
-		m_Doc->PageColors[it.key()] = it.data();
+		m_Doc->PageColors[it.key()] = it.value();
 	}
 	m_Doc->scMW()->propertiesPalette->updateColorList();
 	accept();
