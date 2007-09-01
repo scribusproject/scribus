@@ -1,47 +1,54 @@
 <qt>
-<title>Scribus and OpenOffice.org</title>
-<h2>Scribus and OpenOffice.org</h2>
-<h4>Overview</h4>
-<p>The open and XML based file format used by OpenOffice.org in all versions, share some common traits with Scribus. The clear documentation and specs have helped the Scribus Team to create very useful import features. Expect more enhancements in the future. One of the pleasant surprises to see in the OpenOffice.org version 2 beta releases is the improved EPS exporter. The 1.1.x version sometimes had difficulties exporting correctly.  The exporter in V 2.x in testing here seems to create better, more conformant files, which Scribus imports with little difficulties. Except for OpenOffice.org Writer files, the magic trick to get high quality imports into Scribus depends on using OO.org Draw. Almost any type of OpenOffice.org file can be imported into Scribus with high fidelity, provided you export from Draw as EPS. Native Draw files can usually be imported directly into Scribus. </p>
-<h4>Importing from OpenOffice.org Writer</h4>
-<p>The importer for Writer imports <strong>only</strong> the text contained in your document. Images and drawing need to be saved separately outside of the Writer document and imported separately. Thus, a compound Writer document with tables of charts will not import the tables or charts. Tables, charts or other embedded objects, need to be separately placed in a Draw file and exported by the methods below.</p>
-<p>The singular most important issue to take into consideration for hassle free OO.org Writer import is well chosen usage and correctly applying styles in OO.org. Doing so will greatly reduce the amount of time needed within Scribus to format and style text. Any special paragraph styles in your Writer document will automatically be imported into your existing Scribus layout.</p>
-<h4>Step by Step:</h4>
+<title>Scribus und OpenOffice.org</title>
+<h2>Scribus und OpenOffice.org</h2>
+<h4>Übersicht</h4>
+<p>Das offene und XML-basierte Dateiformat, das von OpenOffice.org genutzt wird, hat einiges mit Scribus gemeinsam. Die klaren Spezifikationen und die Dokumentation haben dem Scribus-Team geholfen, sehr nützliche Import-Features zu schaffen. Erwarten Sie für die Zukunft noch mehr Erweiterungen. Eine der angenehmen Überraschungen in Version 2 ist der verbesserte EPS-Export. Die 1.1.x-Versionen hatten teilweise Schwierigkeiten beim Export. Version 2.x scheint in meinen Tests bessere und standardkonformere Dateien zu speichern, die Scribus ohne große Probleme importiert. Außer für OpenOffice.org-Writer-Dateien ist der magische Trick für hochwertigen Import in Scribus, OO.org Draw zu verwenden. Fast jeder OpenOffice.org-Dateityp kann in Scribus sehr zuverlässig importiert werden, vorausgesetzt, Sie exportieren aus Draw nach EPS. Native Draw-Dateien können normalerweise direkt in Scribus importiert werden. </p>
+<h4>Import von OpenOffice.org-Writer-Dateien</h4>
+<p>Der Importfilter für Writer importiert <strong>nur</strong> den Text in Ihrem Dokument. Bilder und Zeichnungen müssen separat gespeichert und importiert werden. Ein Writer-Dokument, das Tabellen oder Diagramme enthält, wird diese daher nicht importieren. Tabellen, Diagramme und andere eingebettete Objekte müssen deshalb in eine Draw-Datei kopiert und wie unten beschrieben exportiert werden.</p>
+<p>Das Allerwichtigste, das Sie für den reibungslosen Import von OO.org-Writer-Dateien beachten müssen, ist ein gut durchdachter Einsatz von Stilen (Formatvorlagen) in OO.o. Wenn Sie dies tun, sparen Sie sich viel Zeit beim Formatieren von Text in Scribus. Jeder Absatzstil in Ihrem Writer-Dokument wird automatisch in ihr Scribus-Dokument importiert.</p>
+<h4>Schritt für Schritt</h4>
 <ul>
-<li>Select the text frame.</li>
-<li>Right Click > Get Text..  </li>
-<li>Select your OO.org document. The importer is smart enough to know recognize the type of OO.org file.</li>
+<li>Wählen Sie einen Textrahmen aus.</li>
+<li>Klicken Sie mit der rechten Maustaste und wählen Sie aus dem Kontextmenü <strong>Text laden</strong>.</li>
+<li>Wählen Sie Ihr OO.org-Dokument aus. Der Importfilter ist clever genug, die Art der OO.org-Datei zu erkennen.</li>
  </ul>
 
-<p>This will import <strong>all</strong> the text in your document, so ensure there is enough space in your frames or link extra text frames on subsequent pages. You can comfortably import 10,20 or 50 pages of text in one go. In testing the importer,  we have imported 600 pages. However, the practical limit is probably not more than a chapter's (15-30 pages) worth of text for performance reasons.</p>
+<p>Damit wird <strong>der ganze</strong> Text in Ihrem Dokument importiert. Stellen Sie also sicher, daß Ihr Textrahmen groß genug ist, oder verketten Sie zusätzliche Textrahmen auf anderen Seiten. Sie können problemlos 10, 20 oder 50 Seiten in einem Rutsch importieren. Als wir den Importfilter getestet haben, konnten wir 600 Seiten importieren. aus praktischen Gründen sollte man sich jedoch auf ein einzelnes Kapitel (15&ndash;30 Seiten) beschränken, weil Scribus sonst zu langsam wird.</p>
 
-<p> When importing text from OO.org there are three important options which need to be carefully considered:</p>
+<p> Wenn Sie Text aus OO.org importieren, gibt es drei Optionen, deren Gebrauch sorgfältig abgewogen werden sollte:</p>
 
-<table width="100%"><tr><td align="center"><img src="../en/images/oogettext1.png" alt="Import Options for OO.org Writer and OASIS (Open Document) files." align="middle" title="Import Options for OO.org Writer and OASIS (Open Document) files." /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/oogettext1.png" alt="Import Options for OO.org Writer and OASIS (Open Document) files." align="middle" title="Import Options for OO.org Writer and OASIS (Open Document) files." /></td></tr></table>
 
 <ul>
-   <li><strong>Update Paragraph Styles</strong> This option will tell Scribus to change the formatting of any created styles in your Scribus document to follow those in OO.org document. </li>
-   <li><strong>Merge Paragraph Styles</strong> This option looks at the actual attributes (fonts, size) of the OO.org and merges style which have common attributes. This can help to eliminate differently named, but similar styles.</li>
-   <li><strong>Use Document Name as a prefix for paragraph styles </strong> -Is self-explanatory, but can be useful for sorting styles when importing from several documents. </li>
+   <li><strong>Absatzstile überschreiben</strong> Diese Option teilt Scribus mit, daß es in Ihrem Scribus-Dokument existierende Absatzstile mit denen aus dem OO.org-Dokument ersetzt.</li>
+   <li><strong>Absatzstile zusammenfügen</strong> Diese Option überprüft die Attribute (Schrift, Größe) des OO.org-Dokumentes auf Übereinstimmungen mit vorhandenen Absatzstilen in Ihrem Scribus-Dokument. Auf diese Weise kann man die Existenz von Absatzstilen mit ähnlichen Attributen, aber unterschiedlichen Bezeichnungen verhindern.</li>
+   <li><strong>Namen der Datei vor jedem Absatzstil einfügen </strong> ist selbsterklärend, kann aber nützlich sein, um Stile zu sortieren, wenn man Text aus mehreren Dokumenten importiert.</li>
  </ul>
-<p>The last option is to make permanent these options.</p>
+<p>Die letzte Option dient dazu, die Einstellungen dauerhaft zu speichern.</p>
 
 
-<h4>Importing Charts and Tables from Calc </h4>
-<p>This is a special case which needs to be done carefully. After you have created your Chart or Table in Calc, then <strong>Copy > Paste Special </strong> and embed the chart <strong>not</strong> as a GDI image, but as a linked object into a Draw Document, like below:</p>
+<h4>Diagramme und Tabellen aus Calc importieren</h4>
+<p>Dies ist ein besonderer Fall, der Sorgfalt erfordert. Nachdem Sie Ihr Diagram oder Ihre Tabelle in Calc erstellt haben, kopieren Sie es und wählen in Draw die Funktion <strong>Bearbeiten > Inhalte einfügen</strong>. Achten Sie darauf, das Objekt <strong>nicht</strong> als GDI-Metafile, sondern als verlinktes Objekt einzufügen, wie Sie es in der Abbildung sehen.</p>
 
-<table width="100%"><tr><td align="center"><img src="../en/images/oochart.png" alt="Embedding a Chart in to OO.org Draw" align="middle" title="Embedding a Chart in to OO.org Draw" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img src="images/oochart.png" alt="Embedding a Chart in to OO.org Draw" align="middle" title="Embedding a Chart in to OO.org Draw" /></td></tr></table>
 
-<p>After placing the linked object, import using one of the two methods below.</p>
+<p>Nachdem Sie das verlinkte Objekt plaziert haben, wählen Sie eine der der nachfolgend beschriebenen Methoden.</p>
 
-<h4>Importing Native OO.org Draw Files</h4>
-<p>There are two methods: First is to use the native importer. For most drawings this works very well and I have tested very complex Draw files which imported flawlessly. In some cases, especially with gradients, it may be preferable to test exporting EPS, with the settings further down. You should test both methods for the best results, not only on screen, but exporting a PDF.  Then open the PDF in Adobe Acrobat Reader and zooming in is a good quality check. It is important to note Draw 3D objects do not export well, as they are limited to screen resolution. They do not print well in most cases and will appear pixellated at print resolutions. </p>
+<h4>Native OO.org-Draw-Dateien importieren</h4>
+<p>Es gibt zwei Wege: Der erste ist, den Draw-Importfilter in Scribus zu verwenden. Bei den meisten Zeichnungen funktioniert dies ausgezeichnet, und ich habe sehr komplexe Draw-Dateien getestet, die sich reibungslos importieren ließen. In manchen Fällen, besonders wenn sich Farbverläufe im Dokument befinden, mag es besser sein, ins EPS-Format zu exportieren, so wie es weiter unten beschrieben wird. Sie sollten beide Methoden ausprobieren, und zwar nicht nur, was die Darstellung auf dem Bildschirm angeht, sondern auch einen Export aus Scribus ins PDF-Format vornehmen und die PDF-Datei vergrößern, um die Qualität zu beurteilen.</p>
 
-<h4>Importing Formulas</h4>
-<p>The most reliable way I have found is to save your formula as desired and Close Math. Then open OO.org Draw and create a new file. Then, <strong>Insert Object > Formula</strong>. You will have a tiny embedded square on Draw's canvas. Then, right click the embedded object > <strong>Edit Object</strong>. Then, Draw will launch Math. In Math, select <strong>Tools > Import Formula</strong> and browse to your saved formula. Then save to close the file and the embedded formula is now scalable in Draw with the context menus. Save this Draw file, then export as EPS and import into Scribus. The formulas and text will import as a grouped objects as scalable vector items. Any text is imported as outlines as well. This will result in formulas which will print with <strong>very</strong> high quality and little worries when exported as PDF. Saving the Draw file and attempting to import the Draw file with embedded objects will fail, as Scribus cannot access those object directly.</p>
-<h4>Export Settings from OO.org Draw</h4>
-<p>Below are the recommended settings when exporting from all versions of OO.org Draw.</p>
-<table width="100%"><tr><td align="center"><img src="../en/images/ooeps1.png" alt="Recommended EPS Export Settings" align="middle" title="Recommended EPS Export Settings" /></td></tr></table>
+<ul>
+   <li>  Sie sollten bedenken, daß 3D-Objekte aus Draw nicht gut exportiert werden, denn sie sind auf die Bildschirmauflösung begrenzt. Sie lassen sich in den meisten Fällen nicht gut drucken und sehen im Druck pixelig aus.</li>
+   <li>Es werden nicht alle Formen in OO.org Draw 2.x unterstützt. Konturen und Sprechblasen funktionieren zur Zeit nicht. Bis das Problem gelöst ist, verwenden Sie in Draw die Funktion <strong>Bearbeiten > Alles auswählen</strong> und klicken mit rechten Maustaste auf die Auswahl. Dann wählen Sie <strong>Umwandeln > In Kurve</strong> oder <strong>In Polygon</strong>, je nachdem, um welchen Inhalt es sich handelt.</li>
+   <li>Die meisten Kurven, Polygone und Bézierkurven werden ohne Probleme importiert. Das gleiche gilt für Sternformen, Ellipsen und Pfeillinien.</li>
+   <li>Texteffekte sollten vermieden und statt dessen in Scribus angewandt werden, das vielseitige Texteffekte bietet.</li>
+ </ul>
 
-<p>Using the settings above and a recent Ghostscript (8.50+), I have encountered only minor difficulties importing files from OpenOffice.org. Even then, ungrouping the import and minor touching up is easily done. The most noticeable issue I have found is some lines on charts or freehand lines are too thin when viewed as imported EPS in Scribus and a quick adjustment of the size of the line with the Properties Palette in Scribus sets things right.</p>
+<h4>Formeln importieren</h4>
+<p>Der zuverlässigste Weg, den ich gefunden habe, ist, eine Formel nach ihrer Fertigstellung zu speichern und Math zu schließen. Dann öffnen Sie Draw und erzeugen eine neue Datei. Anschließend wählen Sie <strong>Einfügen > Objekt > Formel</strong>. Sie sehen dann ein kleines eingebettetes Rechteck. Klicken Sie mit der rechten Maustaste darauf und wählen Sie <strong>Objekt bearbeiten</strong>. Draw startet dann Math. In Math führen Sie den Befehl <strong>Extras > Formel importieren</strong> aus und wählen zuvor gespeicherte Formel aus. Speichern Sie die Draw-Datei, exportieren Sie sie als EPS und importieren Sie diese in Scribus. Die Formel und der Text werden als Gruppe von Vektorobjekten importiert. Dadurch erhalten Sie Formeln, die in <strong>sehr</strong> hoher Qualität gedruckt werden und keine Probleme beim PDF-Export zeigen. Ein Import von Draw-Dateien mit eingebetteten Objekten wird fehlschlagen, weil Scribus auf diese Objekte nicht direkt zugreifen kann.</p>
+<h4>Exporteinstellungen in OO.org Draw</h4>
+<p>Unten sehen Sie die empfohlenen Einstellungen für den EPS-Export für alle OO.org-Draw-Versionen.</p>
+<table width="100%"><tr><td align="center"><img src="images/ooeps1.png" alt="Empfohlene EPS-Exporteinstellungen" align="middle" title="Empfohlene EPS-Exporteinstellungen" /></td></tr></table>
+
+<p>Wenn diese Einstellungen in Verbindung mit einer neueren Ghostscript-Version (8.50 oder höher) verwendet werden, habe ich nur wenige Probleme beim Import von OO.org-Draw-Dateien feststellen können. Und selbst wenn Probleme auftauchen, kann man bei importierten Objekten die Gruppierung auflösen und von Hand nachjustieren. Das größte Problem, das mir aufgefallen ist, sind einige Linien in Diagrammen. Manchmal sind auch Freihandlinien zu dünn, wenn sie als EPS-Datei in Scribus importiert werden, aber eine schnelle Anpassung der Linienbreite in der Eigenschaftenpalette löste das Problem.</p>
 </qt>

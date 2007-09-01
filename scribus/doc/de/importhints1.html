@@ -1,26 +1,52 @@
-<qt>
-<title>Notes on Importing EPS into Scribus</title>
-<h2>Notes on Importing EPS into Scribus</h2>
+<<qt>
+<title>Bemerkungen zum EPS/PS-Import</title>
+<h2>Bemerkungen zum EPS/PS-Import</h2>
 
-<p>To better your chances of successfully importing EPS files it helps to have three ingredients:</p>
+<p>Um Ihre Chancen für einen erfolgreichen EPS-Import zu erhöhen, sollten Sie auf drei Dinge achten:</p>
  <ul>
-<li>An EPS file which is conformant to the published specs. Not all applications export EPS files with the same level of fidelity, nor do all embed fonts properly.</li>
-<li>The latest Ghostscript available for your platform.</li>
-<li>Where an EPS file has fonts embedded, ensuring Ghostscript's font paths are setup correctly.See: <a href="gsfont.html">Ghostscript Fonts</a> for hints.</li></ul>
-<p>There are two basic methods of importing EPS files and both have pluses and minuses. The first is simply importing the EPS file into an image frame, much like the methods used by the GIMP or Photoshop. That is <em>rasterize</em>, or turn the EPS file into a bitmap like a tiff or jpeg. The second and often preferred method is to import the EPS into Scribus as native objects. Both have trade-offs, partly because of the inherent nature of EPS files. Like PDF, most, if not all EPS are not meant to be edited, but EPS is more of an an exchange format. However, importing them as native Scribus objects can allow some editing of some of the content, as well as re-scaling them without loss of resolution.</p>
+<li>Eine EPS-Datei, die den veröffentlichten Spezifikationen entspricht. Nicht alle Anwendungen exportieren EPS-Dateien gleich zuverlässig, und auch Fonts werden nicht immer richtig eingebettet.</li>
+<li>Die jeweils neueste Version von Ghostscript.</li>
+<li>Wenn eine EPS-Datei Fonts enthält, stellen Sie sicher, daß die Fontpfade für Ghostscript richtig konfiguriert sind. Siehe <a href="gsfont.html">Ghostscript-Fonts</a> für weitere Hinweise.</li></ul>
+<p>Es gibt zwei Methoden, EPS-Dateien zu importieren, und beide haben ihre Vor-und Nachteile. Die erste und oft bevorzugte Methode ist, EPS-dateien als native Vektorobjekte zu importieren. Die zweite ist, eine Datei einfach in einen Bildrahmen zu laden, genauso wie es bei GIMP oder Photoshop der Fall ist. Das heißt, das Bild wird <em>gerastert</em> oder in eine Bilddatei umgewandelt.  Man muß abwägen, welche Methode man anwendet, was teilweise an der Natur der EPS-Formats liegt. Wie im Fall des PDF-Formats sind die meisten, wenn nicht sogar alle EPS-Dateien nicht für Weiterbearbeitung gedacht, sondern es handelt sich um ein Austauschformat. Wenn Sie jedoch als native Scribus-Objekte importiert werden, kann ein Teil des Inhalts bearbeitet und verlustfrei skaliert werden.</p>
 
-<h3>Importing EPS as an Image</h3>
-<p>When you wish to import an EPS into Scribus and it has a mix of text, images and vector, this is the only real option. Importing in this manner, provided the fonts are correctly embedded, usually works very reliably and will maintain fidelity to the CMYK colors defined in the EPS. On initial import Scribus will ignore any embedded preview tiff or pict and will generate its own low resolution preview of the EPS. If nothing displays this is a hint something is not working correctly in the import and needs closer inspection. When exporting to PDF, the EPS is rerun through Ghostscript as it is embedded into the PDF, so do not be surprised about long PDF export times or high memory usage.
+<h4>Import-Hinweise</h4>
+<p>Eine meiner bevorzugten Methoden, EPS-Dateien zu importieren, sieht wie folgt aus: Schließen Sie alle Scribus-Dokumente. Gehen Sie dann auf <em>Datei > Importieren > EPS/PS-Dateien importieren</em> und wählen Sie die Datei aus. Scribus erstellt nun eine Seite in den Dimensionen der importierten Datei. Speichern Sie die Datei als Scribus-Dokument und schließen Sie diese.</p>
+<p>Öffnen Sie das Zieldokument und erstellen Sie eine neue Ebene. Importieren Sie dann das gespeicherte Dokument auf die neue Ebene. Dadurch wird verhindert, daß eines der importierten Elemente mit anderen in Konflikt gerät, und außerdem können Sie die Grafik präzise plazieren.</p>
+<h4>Weitere EPS/PS-Hinweise:</h4>
+<ul>
+   <li>Anwendern, die Illustrator 9.0 oder höher verwenden, wird dringend empfohlen, in einem früheren Format (Version 7 oder darunter) zu speichern. Warum? Illustrator 9.0 und spätere Versionen verwenden PDF als natives Format und betten nicht eben wenige Adobe-spezifische Daten in eine EPS-Datei ein, die beim Import Probleme  bereiten können (Scribus ist nicht als einziges Programm davon betroffen).</li>
+   <li>Photoshop kann EPS exportieren, aber es handelt sich dabei meist um Rasterobjekte mit einigen Photoshop-Spezialitäten wie Ebenen und Transparenzmodi innerhalb einer EPS-Datei. Photoshop kann außerdem eine besondere Form von EPS-Dateien exportieren, nämlich sogenannte DCS-Dateien (Desktop Color Separations). Diese EPS-Dateien importiert man am besten in einen Bildrahmen. Scribus (ab Version 1.3.4) wird dann die <strong>Erweiterten Bildeigenschaften</strong> aktivieren.<a href="psd.html">Weitergehende Hinweise zum Umgang mit Photoshop-Dateien</a></li>
+<li>Es ist sehr zu empfehlen, keine Rasterbilder in EPS-Dateien zu verwenden und nur Vektordaten als EPS zu importieren, wenn es möglich ist. Siehe unten.</li>
+   <li>Scribus kann PS-Dateien, die mehrere Seiten enthalten, importieren. Wenn Sie eine solche Datei mit <strong>Datei > Öffnen</strong> importieren, erzeugt Scribus so viele Seiten wie notwendig. Indes ist diese Vorgehensweise nicht für PS-Dateien zu empfehlen, die nur Text enthalten, denn zur Zeit wird Text in Kurven umgewandelt. Wenn Sie den Text benötigen, können Sie die PostScript-Datei mit GSView öffnen oder das Kommandozeilenwerkzeug ps2asii verwenden, um den Text zu extrahieren. Ps2ascii funktioniert auch unter Windows und Mac OS X.</li>
+<li>Falls es für Ihre Plattform verfügbar ist, sollte GSView Ihre erste Wahl sein, wenn Sie PostScript-Dateien betrachten und untersuchen möchten. Auch wenn es kein Farbmanagement unterstützt, wird es meist helfen, Importprobleme in Scribus zu analysieren. Wenn Sie <strong>M</strong> eingeben, erscheint ein Fenster, das häufig hilfreiche diagnostische Informationen anzeigt.</li>
+<li>Wenn Sie als EPS oder PostScript exportieren, achten Sie, wenn möglich, darauf, daß die Schriften eingebettet sind.</li>
+ </ul>
+<h4>EPS-Dateien mit Rastergrafiken importieren</h4>
+<p>Scribus kann EPS-Dateien importieren, die Rastergrafiken enthalten. Dies funktioniert jedoch sehr viel besser mit einer Ghostscript-Version ab 8.50, und es gibt einige Einschränkungen.</p>
+<ul>
+<li>Bildmasken funktionieren nicht richtig.</li>
+<li>Beschneidungspfade werden ignoriert.</li>
+<li>Beim Import wird für jede enthaltene Bitmap-Datei (und das können sehr viele sein) eine TIF-Datei angelegt.</li>
+</ul>
+<h3>EPS-Dateien als Bilder importieren</h3>
+<p>Wenn Sie eine EPS-Datei in Scribus importieren möchten, die eine Mischung aus Text, Bitmap- und Vektorbildern enthält, ist dies wahrscheinlich Ihre einzige Option. Wenn die Fonts korrekt eingebettet sind, funktioniert diese Methode normalerweise sehr zuverlässig. CMYK-Farben, die in der EPS-Datei definiert sind, bleiben zuverlässig erhalten. Beim Import ignoriert Scribus eingebettete TIF- oder PICT-Vorschaubilder und generiert eine eigene niedrigauflösende Vorschau. Wenn Sie nichts sehen, deutet die auf ein Importproblem hin, das genauer untersucht werden muß. Beim PDF-Export wird die EPS-Datei von Ghostscript neu gerendert, weil sie in die PDF-Datei eingebettet wird. Seien Sie also nicht überrascht, wenn der PDF-Export lange dauert oder die Speicherauslastung stark ansteigt.</p>
 </p>
+<p>Um eine EPS-Datei als Bild zu importieren,</p>
+<ul>
+   <li>Ziehen Sie einen neuen Bildrahmen auf</li>
+   <li>Wählen Sie <strong>Bild laden</strong> im Kontextmenü eines Bildrahmens</li>
+ </ul>
+<h3>EPS-Dateien als native Scribus-Objekte importieren</h3>
+<p>Eine EPS-Datei als natives Scribus-Objekt zu importieren, hat, wenn es möglich ist, einige Vorteile. Zunächst handelt es sich um reine Vektordaten, so daß die Dateigrößen beim Export ziemlich klein sind. Als Vektoren haben sie außerdem keine Bildaufösung, so daß sie beliebig vergrößert werden können, ohne ihre Schärfe zu verlieren. Außerdem können Sie die grafischen Elemente wie Linien, Polygone und Kurven mit den Scribus-Vektorwerkzeugen bearbeiten.</p>
+<p>Um eine EPS-Datei als natives Scribus-Objekt zu importieren,</p>
+<ul>
+   <li><strong>Datei > Importieren > EPS/PS-Datei importieren</strong>  </li>
+   <li>Wählen Sie EPS als Dateityp aus der Liste. Wenn Sie die Vorschau aktiviert haben, kann es einige Zeit dauern, bis große und komplexe EPS-Dateien gerendert sind.</li>
+   <li>Klicken Sie mit der linken Maustaste dorthin, wo die Grafik plaziert werden soll. Sobald die EPS-Datei eingefügt ist, sind alle Bestandteile gruppiert. Sie müssen also die Gruppe auflösen, wenn Sie einzelne Objekte bearbeiten wollen. Um eine importierte EPS-Datei zu skalieren, fassen Sie sie an der rechten unteren Ecke an und ziehen mit der Maus, während Sie Strg + Shift gedrückt halten. Damit wird die Grafik proportional skaliert.</li>
+ </ul>
 
-<h3>Importing EPS as native Scribus objects.</h3>
-<p>Importing EPS as Scribus native objects, when possible, does have some advantages. First, they are all vector, so file size and exported size are relatively small. It makes them resolution independent, so they can be re-scaled without losing crispness in printing. And - you can edit the graphical elements like lines, polygons and curves natively.</p>
 
-<h4>Importing Hints:</h4>
-<p>One of my preferred ways to import EPS files in to Scribus is to close all open documents. Then directly import the EPS file. This creates a new document in which the page size is automatically calculated from the EPS bounding box. Save this temporarily under a file name. Then, re-open the target document for import. Create a new layer and then use the page import function to import your newly created document into the new layer in your existing document. This prevents any of the imported elements from disturbing existing objects and allows you to place with precision where you want the file.</p>
-
-<h4>Troubleshooting EPS Import </h4>
-<p>As mentioned above, EPS export quality from other applications can vary widely. Some applications like to add their own ingredients to the sauce - unfortunately. The first step for testing a failed import is open the file in <a href="toolbox6.html" >GSview</a>, then press <strong>M</strong> to watch the messages from Ghostscript as it attempts to open the file. When you have a failure in GSview, the messages can be sometime cryptic, but they are a helpful pointer to see what is the problem.</p>
+<h4>Problemlösungen beim EPS-Import </h4>
+<p>Wie oben erwähnt, schwankt die Exportqualität anderer Anwendungen erheblich. Einige Programme mögen es unglücklicherweise, ihre eigenen Spezialitäten einzubauen. Der erste Schritt, einen fehlgeschlagenen Import zu überprüfen, ist das Öffnen der Datei in <a href="toolbox6.html">GSView</a>. Drücken Sie die Taste <strong>M</strong>, um die Ghostscript-Meldungen zu lesen, während es versucht, die Datei zu öffnen. Wenn das Öffnen fehlschlägt, können die Meldungen manchmal etwas kryptisch erscheinen, aber sie sind hilfreich, um herauszufinden, was das Problem ist.</p>
 <p></p>
-
 </qt>
