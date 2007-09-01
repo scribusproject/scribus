@@ -138,15 +138,15 @@ public:
 	QString latexPre() const {return appPrefs.latexPre;}
 	QString latexPost() const {return appPrefs.latexPost;}
 	//! \brief Get the users preferred preview resolution
-	const int gsResolution();
-	const int latexResolution() {return appPrefs.latexResolution;}
-	const bool latexForceDpi() {return appPrefs.latexForceDpi;}
+	int gsResolution();
+	int latexResolution() {return appPrefs.latexResolution;}
+	bool latexForceDpi() {return appPrefs.latexForceDpi;}
 	//! \brief Get the users preferred document directory
 	const QString documentDir();
 	void setDocumentDir(const QString& dirname);
-	const int mouseWheelValue() const;
+	int mouseWheelValue() const;
 	//! \brief Get the user set display scale
-	const double displayScale() const;
+	double displayScale() const;
 	//! \brief Get the GUI language from preferences
 	const QString& guiLanguage() const;
 	//! \brief Get the GUI style from preferences
@@ -184,7 +184,7 @@ public:
 
 	ApplicationPrefs* applicationPrefs();
 	PrefsFile* applicationPrefsFile();
-	const bool importingFrom12x();
+	bool importingFrom12x();
 
 	//! \brief Return the last error reported by a PrefsManager method
 	const QString & lastError() const;

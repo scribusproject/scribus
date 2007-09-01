@@ -91,7 +91,7 @@ double unitValueFromString(const QString& value)
 /*!
  * @brief Strip the text from a value and return the Unit index for the value
  */
-const scUnit unitIndexFromString(const QString& value)
+scUnit unitIndexFromString(const QString& value)
 {
 	QString lowerValue = value.toLower();
 	scUnit retVal;

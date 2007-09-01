@@ -92,7 +92,7 @@ PrefsFile* PrefsManager::applicationPrefsFile()
 	return prefsFile;
 }
 
-const bool PrefsManager::importingFrom12x()
+bool PrefsManager::importingFrom12x()
 {
 	return importingFrom12;
 }
@@ -885,7 +885,7 @@ void PrefsManager::setDocumentDir(const QString& dirname)
 	appPrefs.DocDir = dirname;
 }
 
-const int PrefsManager::mouseWheelValue() const
+int PrefsManager::mouseWheelValue() const
 {
 	return appPrefs.Wheelval;
 }
@@ -1049,7 +1049,7 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 	}
 }
 
-const double PrefsManager::displayScale() const
+double PrefsManager::displayScale() const
 {
 	return appPrefs.DisScale;
 }
@@ -2242,7 +2242,7 @@ void PrefsManager::alertLoadPrefsFailed() const
 	ScCore->showSplash(splashShowing);
 }
 
-const int PrefsManager::gsResolution()
+int PrefsManager::gsResolution()
 {
 	return appPrefs.gs_Resolution;
 }

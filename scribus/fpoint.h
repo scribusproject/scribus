@@ -54,7 +54,7 @@ public:
 	friend inline const FPoint operator-( const FPoint &, const FPoint & );
 	friend inline const FPoint operator*( const FPoint &, const double & );
 	friend inline const FPoint operator*( const double &, const FPoint & );
-	friend inline const double  operator*( const FPoint &a, const FPoint &b );
+	friend inline double  operator*( const FPoint &a, const FPoint &b );
 	//Transform an existing point
 	void transform(const double dx, const double dy, const double rot, const double sx, const double sy, const bool invert);
 	//Transform an existing point, return a new one
@@ -83,7 +83,7 @@ inline const FPoint operator*( const double &c, const FPoint &p ) {
 	return FPoint(p.xp*c, p.yp*c); 
 }
 
-inline const double operator*( const FPoint &a, const FPoint &b ) {
+inline double operator*( const FPoint &a, const FPoint &b ) {
 	return a.xp * b.xp + a.yp * b.yp; 
 }
 

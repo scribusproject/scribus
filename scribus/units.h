@@ -56,7 +56,7 @@ const QString SCRIBUS_API unitGetSuffixFromIndex(const int index);
 int SCRIBUS_API unitGetDecimalsFromIndex(const int index);
 int SCRIBUS_API unitGetPrecisionFromIndex(const int index);
 double SCRIBUS_API unitValueFromString(const QString& value);
-const scUnit SCRIBUS_API unitIndexFromString(const QString& value);
+scUnit SCRIBUS_API unitIndexFromString(const QString& value);
 const QStringList SCRIBUS_API unitGetTextUnitList();
 int SCRIBUS_API unitGetMaxIndex();
 double SCRIBUS_API mm2pts(double mm);
