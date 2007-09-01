@@ -37,7 +37,7 @@ class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsW
 	Q_OBJECT
 
 	public:
-		TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent=0, const char*name=0);
+		TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent=0);
 		~TabExternalToolsWidget();
 		void restoreDefaults(struct ApplicationPrefs *prefsData);
 		

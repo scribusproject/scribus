@@ -20,17 +20,18 @@ for which a new license (GPL+exception) is in place.
 
 
 FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
-	: QDialog(parent, "FontPreview", true, 0)
+	: QDialog(parent, 0)
 {
 	setupUi(this);
-	setIcon(loadIcon("AppIcon.png"));
+	setModal(true);
+	setWindowIcon(loadIcon("AppIcon.png"));
 	m_Doc=doc;
 
 	sampleItem = new SampleItem(m_Doc);
 
 	languageChange();
 
-	resetDisplayButton->setPixmap(loadIcon("u_undo16.png"));
+	resetDisplayButton->setIcon(QIcon(loadIcon("u_undo16.png")));
 
 	ttfFont = loadIcon("font_truetype16.png");
 	otfFont = loadIcon("font_otf16.png");
@@ -86,7 +87,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 		}
 
 		QFileInfo fi(fontIter.current().fontFilePath());
-		fi.absFilePath().contains(QDir::homePath()) ?
+		fi.absoluteFilePath().contains(QDir::homePath()) ?
 				col4->setText(tr("User", "font preview")):
 				col4->setText(tr("System", "font preview"));
 

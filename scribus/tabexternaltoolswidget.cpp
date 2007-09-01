@@ -31,8 +31,8 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_latexframe.h"
 #include "scpaths.h"
 
-TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent, const char*name)
-: QWidget(parent, name)
+TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent)
+: QWidget(parent)
 {
 	setupUi(this);
 	// switched off as it's called in main prefs classes - PV
@@ -110,7 +110,7 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 void TabExternalToolsWidget::changePostScriptTool()
 {
 	QFileInfo fi(psToolLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
+	QString s = QFileDialog::getOpenFileName(fi.path(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
 	if (!s.isEmpty())
 		psToolLineEdit->setText( QDir::convertSeparators(s) );
 }
@@ -118,7 +118,7 @@ void TabExternalToolsWidget::changePostScriptTool()
 void TabExternalToolsWidget::changeImageTool()
 {
 	QFileInfo fi(imageToolLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
+	QString s = QFileDialog::getOpenFileName(fi.path(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
 	if (!s.isEmpty())
 		imageToolLineEdit->setText( QDir::convertSeparators(s) );
 }
@@ -126,7 +126,7 @@ void TabExternalToolsWidget::changeImageTool()
 void TabExternalToolsWidget::changeExtBrowserTool()
 {
 	QFileInfo fi(extBrowserToolLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeextBrowser", tr("Locate your web browser"));
+	QString s = QFileDialog::getOpenFileName(fi.path(), QString::null, this, "changeextBrowser", tr("Locate your web browser"));
 	if (!s.isEmpty())
 		extBrowserToolLineEdit->setText( QDir::convertSeparators(s) );
 }
@@ -134,7 +134,7 @@ void TabExternalToolsWidget::changeExtBrowserTool()
 void TabExternalToolsWidget::changeLatexTool()
 {
 	QFileInfo fi(latexToolLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeLatex", tr("Locate your LaTeX executable"));
+	QString s = QFileDialog::getOpenFileName(fi.path(), QString::null, this, "changeLatex", tr("Locate your LaTeX executable"));
 	if (!s.isEmpty())
 		latexToolLineEdit->setText( QDir::convertSeparators(s) );
 }
@@ -142,7 +142,7 @@ void TabExternalToolsWidget::changeLatexTool()
 void TabExternalToolsWidget::changeLatexEditor()
 {
 	QFileInfo fi(latexEditorLineEdit->text());
-	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeLatex", tr("Locate your LaTeX editor"));
+	QString s = QFileDialog::getOpenFileName(fi.path(), QString::null, this, "changeLatex", tr("Locate your LaTeX editor"));
 	if (!s.isEmpty())
 		latexEditorLineEdit->setText( QDir::convertSeparators(s) );
 }

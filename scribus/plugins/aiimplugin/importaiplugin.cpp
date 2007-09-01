@@ -95,7 +95,7 @@ void ImportAIPlugin::registerFormats()
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::AI); // Human readable name
 	fmt.formatId = FORMATID_AIIMPORT;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::AI); // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::AI, 1)+"$", false);
+	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::AI, 1)+"$", Qt::CaseInsensitive);
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::AI); // MIME types
