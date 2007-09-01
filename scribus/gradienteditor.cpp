@@ -42,7 +42,6 @@ GradientPreview::GradientPreview(QWidget *pa) : QLabel(pa)
 	setFrameShape( QFrame::Panel );
 	setFrameShadow( QFrame::Sunken );
 	setLineWidth( 2 );
-	setEraseColor(QColor(255,255,255));
 	setMinimumSize(QSize(200, 70));
 	setMaximumSize(QSize(3000, 70));
 	setMouseTracking(true);
@@ -271,18 +270,20 @@ void GradientPreview::setActStep(double t)
 
 GradientEditor::GradientEditor(QWidget *pa) : QLabel(pa)
 {
-	Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
+	Form1Layout = new QVBoxLayout( this );
+	Form1Layout->setSpacing(0);
+	Form1Layout->setMargin(0);
 	Preview = new GradientPreview(this);
 	Form1Layout->addWidget(Preview);
-	Layout1 = new QHBoxLayout(0,0,0,"Layout1");
+	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 0 );
-	Position = new QSpinBox( this, "shspin" );
+	Position = new QSpinBox( this );
 	Position->setMinimum(0);
 	Position->setMaximum(100);
-	Position->setLineStep(1);
+	Position->setSingleStep(1);
 	Position->setValue(0);
-	Desc = new QLabel( this, "Desc" );
+	Desc = new QLabel( this );
 	languageChange();
 	Layout1->addWidget( Desc );
 	Layout1->addWidget(Position);

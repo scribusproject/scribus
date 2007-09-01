@@ -48,38 +48,46 @@ extern QString DocDir;
 gtImporterDialog::gtImporterDialog(const QStringList& importers, int currentSelection)
 {
 	setWindowTitle( tr("Choose the importer to use"));
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 
 	QBoxLayout* layout = new QVBoxLayout(this);
 
-	QBoxLayout* llayout = new QHBoxLayout(0, 5, 5, "llayout");
-	QLabel* label = new QLabel( tr("Choose the importer to use"), this, "label");
+	QBoxLayout* llayout = new QHBoxLayout;
+	llayout->setMargin(5);
+	llayout->setSpacing(5);
+	QLabel* label = new QLabel( tr("Choose the importer to use"), this);
 	llayout->addWidget(label);
 	layout->addLayout(llayout);
 
-	QBoxLayout* ilayout = new QHBoxLayout(0, 5, 5, "dlayout2");
+	QBoxLayout* ilayout = new QHBoxLayout;
+	ilayout->setMargin(5);
+	ilayout->setSpacing(5);
 	importerCombo = new ScComboBox(this);
 	importerCombo->setMinimumSize(QSize(150, 0));
 	importerCombo->setToolTip( tr("Choose the importer to use"));
-	importerCombo->insertStringList(importers);
+	importerCombo->addItems(importers);
 	if (static_cast<int>(importers.count()) > currentSelection)
-		importerCombo->setCurrentItem(currentSelection);
+		importerCombo->setCurrentIndex(currentSelection);
 	else
-		importerCombo->setCurrentItem(0);
+		importerCombo->setCurrentIndex(0);
 	ilayout->addWidget(importerCombo);
 	layout->addLayout(ilayout);
 
-	QBoxLayout* dlayout = new QHBoxLayout(0, 5, 5, "dlayout2");
-	rememberCheck = new QCheckBox( tr("Remember association"), this, "rememberCheck");
+	QBoxLayout* dlayout = new QHBoxLayout;
+	dlayout->setMargin(5);
+	dlayout->setSpacing(5);
+	rememberCheck = new QCheckBox( tr("Remember association"), this);
 	rememberCheck->setChecked(false);
 	rememberCheck->setToolTip( "<qt>" + tr("Remember the file extension - importer association and do not ask again to select an importer for files of this type.") + "</qt>" );
 	dlayout->addStretch(10);
 	dlayout->addWidget(rememberCheck);
 	layout->addLayout(dlayout);
 
-	QBoxLayout* blayout = new QHBoxLayout(0, 5, 5, "blayout2");
+	QBoxLayout* blayout = new QHBoxLayout;
+	blayout->setMargin(5);
+	blayout->setSpacing(5);
 	blayout->addStretch(10);
-	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton2");
+	okButton = new QPushButton( CommonStrings::tr_OK, this);
 	blayout->addWidget(okButton);
 	layout->addLayout(blayout);
 
@@ -128,7 +136,7 @@ bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importe
 		encoding = fdia->encodingCombo->currentText();
 		if (encoding == "UTF-16")
 			encoding = "ISO-10646-UCS-2";
-		importer = fdia->importerCombo->currentItem() - 1;
+		importer = fdia->importerCombo->currentIndex() - 1;
 		dirs->set("get_text", fileName.left(fileName.lastIndexOf("/")));
 	}
 	QDir::setCurrent(pwd);

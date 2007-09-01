@@ -95,7 +95,7 @@ void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool for
 }
 
 FontComboH::FontComboH(QWidget* parent, bool labels) :
-		QWidget(parent, "FontComboH"),
+		QWidget(parent),
 		fontFaceLabel(0),
 		fontStyleLabel(0),
 		showLabels(labels)
@@ -116,7 +116,7 @@ FontComboH::FontComboH(QWidget* parent, bool labels) :
 		fontStyleLabel=new QLabel("", this);
 		fontComboLayout->addWidget(fontFaceLabel,0,0);
 		fontComboLayout->addWidget(fontStyleLabel,1,0);
-		fontComboLayout->setColStretch(1,10);
+		fontComboLayout->setColumnStretch(1,10);
 		col=1;
 	}
 	fontFamily = new ScComboBox(this);
@@ -143,22 +143,22 @@ void FontComboH::familySelected(int id)
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	QString curr = fontStyle->currentText();
 	fontStyle->clear();
-	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[fontFamily->text(id)];
+	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[fontFamily->itemText(id)];
 	slist.sort();
 	fontStyle->addItems(slist);
 	if (slist.contains(curr))
-		fontStyle->setCurrentText(curr);
+		fontStyle->setEditText(curr);
 	else if (slist.contains("Regular"))
-		fontStyle->setCurrentText("Regular");
+		fontStyle->setEditText("Regular");
 	else if (slist.contains("Roman"))
-		fontStyle->setCurrentText("Roman");
-	emit fontSelected(fontFamily->text(id) + " " + fontStyle->currentText());
+		fontStyle->setEditText("Roman");
+	emit fontSelected(fontFamily->itemText(id) + " " + fontStyle->currentText());
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
 
 void FontComboH::styleSelected(int id)
 {
-	emit fontSelected(fontFamily->currentText() + " " + fontStyle->text(id));
+	emit fontSelected(fontFamily->currentText() + " " + fontStyle->itemText(id));
 }
 
 QString FontComboH::currentFont()
@@ -172,7 +172,7 @@ void FontComboH::setCurrentFont(QString f)
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	QString family = prefsManager->appPrefs.AvailFonts[f].family();
 	QString style = prefsManager->appPrefs.AvailFonts[f].style();
-	fontFamily->setCurrentText(family);
+	fontFamily->setEditText(family);
 	fontStyle->clear();
 	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[family];
 	slist.sort();
@@ -189,7 +189,7 @@ void FontComboH::setCurrentFont(QString f)
 	}
 	else
 		fontStyle->addItems(slist);
-	fontStyle->setCurrentText(style);
+	fontStyle->setEditText(style);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
@@ -261,7 +261,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool fo
 		fontStyle->addItems(ilist);
 	}
 	else
-		fontStyle->insertStringList(slist);
+		fontStyle->addItems(slist);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }

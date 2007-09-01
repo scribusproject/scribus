@@ -35,7 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 
 
-FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent, "fpre" )
+FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc ) : QTabWidget( parent )
 {
 	RList = PrefsManager::instance()->appPrefs.GFontSub;
 	HomeP = PPath;
@@ -72,13 +72,13 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	psFont = loadIcon("font_type1_16.png");
 	substFont = loadIcon("font_subst16.png");
 
-	checkOn = getQCheckBoxPixmap(true, fontList->paletteBackgroundColor());
-	checkOff = getQCheckBoxPixmap(false, fontList->paletteBackgroundColor());
+	checkOn = getQCheckBoxPixmap(true, fontList->palette().color(QPalette::Window));
+	checkOff = getQCheckBoxPixmap(false, fontList->palette().color(QPalette::Window));
 
 	tab1Layout->addWidget( fontList );
 	addTab( tab1, tr( "&Available Fonts" ) );
 
-	tab = new QWidget( this, "tab" );
+	tab = new QWidget( this );
 	tabLayout = new QVBoxLayout( tab );
 	tabLayout->setMargin(10);
 	tabLayout->setSpacing(5);
@@ -149,7 +149,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 				tr("Font search paths can only be set in File > Preferences, and only when "
 				   "there is no document currently open. Close any open documents, then "
 				   "use File > Preferences > Fonts to change the font search path.") + "</qt>",
-				tab3, "whyBlankLabel");
+				tab3);
 		whyBlankLabel->setWordWrap(true);
 		tab3Layout->addWidget( whyBlankLabel );
 	}
@@ -218,11 +218,11 @@ void FontPrefs::UpdateFliste()
 	{
 		tmp = FlagsRepl.at(b)->currentText();
 		FlagsRepl.at(b)->clear();
-		FlagsRepl.at(b)->insertStringList(UsedFonts);
+		FlagsRepl.at(b)->addItems(UsedFonts);
 		if (UsedFonts.contains(tmp) != 0)
-			FlagsRepl.at(b)->setCurrentText(tmp);
+			FlagsRepl.at(b)->setEditText(tmp);
 		else
-			FlagsRepl.at(b)->setCurrentItem(0);
+			FlagsRepl.at(b)->setCurrentIndex(0);
 	}
 }
 
@@ -271,7 +271,7 @@ void FontPrefs::AddPath()
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	CurrentPath = dirs->get("fontprefs", ".");
-	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), CurrentPath);
 	if (!s.isEmpty())
 	{
 		dirs->set("fontprefs", s.left(s.lastIndexOf("/", -2)));
@@ -296,7 +296,7 @@ void FontPrefs::AddPath()
 void FontPrefs::ChangePath()
 {
 	Q_ASSERT(!DocAvail); // should never be called in doc-specific prefs
-	QString s = QFileDialog::getExistingDirectory(CurrentPath, this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), CurrentPath);
 	if (!s.isEmpty())
 	{
 		if( s.endsWith("/") )
@@ -433,8 +433,8 @@ void FontPrefs::rebuildDialog()
 		Table3->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
 		ScComboBox *item = new ScComboBox(Table3);
 		item->setEditable(false);
-		item->insertStringList(UsedFonts);
-		item->setCurrentText(itfsu.data());
+		item->addItems(UsedFonts);
+		item->setEditText(itfsu.value());
 		Table3->setCellWidget(a, 1, item);
 		FlagsRepl.append(item);
 		a++;

@@ -36,7 +36,7 @@ FileSearch::FileSearch(QObject* parent, const QString & fileName,const QString &
 	m_dir.setPath(m_searchBase);
 	Q_ASSERT(m_dir.exists());
 	// Give ourselves a useful name for object browsers, etc.
-	setName(QString("FileSearch for \"%1\"").arg(m_searchBase).toLocal8Bit());
+	setObjectName(QString("FileSearch for \"%1\"").arg(m_searchBase).toLocal8Bit());
 }
 
 FileSearch::~FileSearch()
@@ -135,7 +135,9 @@ void FileSearch::pushStack()
 
 void FileSearch::addCurrentDirFiles()
 {
-	QFileInfoList filist = m_dir.entryInfoList(m_caseSensitive ? m_fileName : "*", QDir::Files);
+	QStringList flist;
+	m_caseSensitive ? flist.append(m_fileName) : flist.append("*");
+	QFileInfoList filist = m_dir.entryInfoList(flist, QDir::Files);
 	QListIterator<QFileInfo> it( filist );
 	QFileInfo fi;
 	// Search files in this dir
@@ -144,7 +146,7 @@ void FileSearch::addCurrentDirFiles()
 		while (it.hasNext())
 		{
 			fi = it.next();
-			m_matchingFiles.push_back(fi.absFilePath());
+			m_matchingFiles.push_back(fi.absoluteFilePath());
 		}
 // Qt4
 /*		while ( ( fi = it.current() ) != 0 )
@@ -156,12 +158,12 @@ void FileSearch::addCurrentDirFiles()
 	else
 	{
 		// unix only, resp. no meaning in windows
-		QRegExp r(m_fileName, false, true);
+		QRegExp r(m_fileName, Qt::CaseInsensitive, QRegExp::Wildcard);
 		while (it.hasNext())
 		{
 			fi = it.next();
 			if (r.exactMatch(fi.fileName()))
-				m_matchingFiles.push_back(fi.absFilePath());
+				m_matchingFiles.push_back(fi.absoluteFilePath());
 		}
 // Qt4
 // 		while ( ( fi = it.current() ) != 0 )

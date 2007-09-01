@@ -300,10 +300,10 @@ void gtAction::getFrameFont(gtFont *font)
 	font->setName(style.font().scName());
 	font->setSize(style.fontSize());
 	font->setColor(style.fillColor());
-	font->setShade(style.fillShade());
+	font->setShade(qRound(style.fillShade()));
 	font->setStrokeColor(style.strokeColor());
-	font->setStrokeShade(style.strokeShade());
-	font->setHscale(style.scaleH());
+	font->setStrokeShade(qRound(style.strokeShade()));
+	font->setHscale(qRound(style.scaleH()));
 	font->setKerning(0);
 }
 
@@ -312,7 +312,7 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 	fstyle->setColumns(textFrame->Cols);
 	fstyle->setColumnsGap(textFrame->ColGap);
 	fstyle->setBgColor(textFrame->fillColor());
-	fstyle->setBgShade(textFrame->fillShade());
+	fstyle->setBgShade(qRound(textFrame->fillShade()));
 
 	const ParagraphStyle& vg(textFrame->itemText.defaultStyle());
 	fstyle->setName(vg.name());
