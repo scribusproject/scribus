@@ -40,8 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "text/nlsconfig.h"
 
-Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
-	: QObject( parent, "bu"),
+Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok) : QObject( parent ),
 	doc(dok),
 	hdict(0),
 	useAble(false),
@@ -67,7 +66,7 @@ Hyphenator::Hyphenator(QWidget* parent, ScribusDoc *dok)
 		QTextStream st(&f);
     	QString line;
     	line = st.readLine();
-		codec = QTextCodec::codecForName(line);
+		codec = QTextCodec::codecForName(line.toUtf8());
 		f.close();
 	}
 	else
@@ -113,7 +112,7 @@ void Hyphenator::NewDict(const QString& name)
 			QTextStream st(&f);
 			QString line;
 			line = st.readLine();
-			codec = QTextCodec::codecForName(line);
+			codec = QTextCodec::codecForName(line.toUtf8());
 			f.close();
 		}
 		else
@@ -210,7 +209,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	while ((firstC+Ccount < signed(text.length())) && (firstC != -1) && 
 			(lastC < signed(text.length())))
 	{
-		firstC = text.find(wordBoundary, firstC+Ccount);
+		firstC = text.indexOf(wordBoundary, firstC+Ccount);
 		if (firstC < 0)
 			break;
 		if (firstC > 0 && text.at(firstC-1) == SpecialChars::SHYPHEN)
@@ -218,7 +217,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			Ccount = 1;
 			continue;
 		}
-		lastC = text.find(whiteSpace, firstC);
+		lastC = text.indexOf(whiteSpace, firstC);
 		if (lastC < 0)
 			lastC = signed(text.length());
 		Ccount = lastC - firstC;

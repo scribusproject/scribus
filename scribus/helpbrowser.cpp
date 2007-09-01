@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include <QModelIndexList>
 #include <QPainter>
 #include <QPrinter>
+#include <QPrintDialog>
 #include <QProcess>
 #include <QPushButton>
 #include <QString>
@@ -199,7 +200,7 @@ void HelpBrowser::closeEvent(QCloseEvent * event)
 
 void HelpBrowser::setupLocalUI()
 {
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	//Add Menus
 	fileMenu=menuBar()->addMenu("");
 	editMenu=menuBar()->addMenu("");
@@ -208,7 +209,7 @@ void HelpBrowser::setupLocalUI()
 
 	//Add Menu items
 	filePrint=fileMenu->addAction(loadIcon("16/document-print.png"), "", this, SLOT(print()), Qt::CTRL+Qt::Key_P);
-	fileMenu->insertSeparator();
+	fileMenu->addSeparator();
 	fileExit=fileMenu->addAction(loadIcon("exit.png"), "", this, SLOT(close()));
 	editFind=editMenu->addAction(loadIcon("find.png"), "", this, SLOT(find()), Qt::CTRL+Qt::Key_F);
 	editFindNext=editMenu->addAction( "", this, SLOT(findNext()), Qt::Key_F3);
@@ -227,8 +228,8 @@ void HelpBrowser::setupLocalUI()
 	searchingView->header()->hide();
 	bookmarksView->header()->hide();
 
-	splitter->setResizeMode( tabWidget, QSplitter::KeepSize );
-	splitter->setResizeMode( textBrowser, QSplitter::Stretch );
+	splitter->setStretchFactor(splitter->indexOf(tabWidget), 0);
+	splitter->setStretchFactor(splitter->indexOf(textBrowser), 1);
 	// reset previous size
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("helpbrowser");
 	int xsize = prefs->getUInt("xsize", 640);
@@ -278,7 +279,7 @@ void HelpBrowser::languageChange()
 	static bool first=true;
 	if (!first)
 	{
-		QString fname(QDir::cleanPath(textBrowser->source()));
+		QString fname(QDir::cleanPath(textBrowser->source().toString()));
 		QFileInfo fi(fname);
 		QString filename(fi.fileName());
 		if (ScCore->getGuiLanguage().isEmpty())
@@ -296,9 +297,9 @@ void HelpBrowser::print()
 {
 	QPrinter printer;
 	printer.setFullPage(true);
-	if (!printer.setup(this))
-		return;
- 	textBrowser->print(&printer);
+	QPrintDialog dialog(&printer, this);
+	if (dialog.exec())
+ 		textBrowser->print(&printer);
 }
 
 void HelpBrowser::searchingButton_clicked()
@@ -313,7 +314,9 @@ void HelpBrowser::searchingButton_clicked()
 void HelpBrowser::searchingInDirectory(const QString& aDir)
 {
 	QDir dir(QDir::convertSeparators(aDir + "/"));
-	QStringList lst = dir.entryList("*.html");
+	QStringList in;
+	in.append("*.html");
+	QStringList lst = dir.entryList(in);
 	for (QStringList::Iterator it = lst.begin(); it != lst.end(); ++it)
 	{
 		QString fname(aDir + (*it));
@@ -339,7 +342,9 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 		}
 	}
 	// get dirs - ugly recursion
-	QStringList dst = dir.entryList("*", QDir::Dirs);
+	in.clear();
+	in.append("*");
+	QStringList dst = dir.entryList(in, QDir::Dirs);
 	for (QStringList::Iterator it = dst.begin(); it != dst.end(); ++it)
 		if ((*it)!="." && (*it)!="..")
 			searchingInDirectory(QDir::convertSeparators(aDir + QString((*it)) + "/"));
@@ -347,7 +352,7 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 
 void HelpBrowser::find()
 {
-	findText = QInputDialog::getText( tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, 0, this);
+	findText = QInputDialog::getText( this, tr("Find"), tr("Search Term:"), QLineEdit::Normal, findText, 0);
 	if (findText.isNull())
 		return;
 	findNext();
@@ -378,8 +383,8 @@ void HelpBrowser::findPrevious()
 void HelpBrowser::bookmarkButton_clicked()
 {
 	QString title = textBrowser->documentTitle();
-	QString fname(QDir::cleanPath(textBrowser->source()));
- 	title = QInputDialog::getText( tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0, this);
+	QString fname(QDir::cleanPath(textBrowser->source().toString()));
+ 	title = QInputDialog::getText(this, tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0);
 	// user cancel
  	if (title.isNull())
  		return;
@@ -544,7 +549,7 @@ void HelpBrowser::readBookmarks()
 	handler.quickHelpIndex=&quickHelpIndex;
 	handler.bookmarkIndex=&bookmarkIndex;
 	QFile xmlFile(bookmarkFile());
-	QXmlInputSource source(xmlFile);
+	QXmlInputSource source(&xmlFile);
 	QXmlSimpleReader reader;
 	reader.setContentHandler(&handler);
 	reader.parse(source);
@@ -555,7 +560,7 @@ void HelpBrowser::readHistory()
  	HistoryParser2 handler;
  	handler.helpBrowser = this;
  	QFile xmlFile(historyFile());
- 	QXmlInputSource source(xmlFile);
+ 	QXmlInputSource source(&xmlFile);
  	QXmlSimpleReader reader;
  	reader.setContentHandler(&handler);
  	reader.parse(source);
