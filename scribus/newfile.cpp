@@ -261,7 +261,7 @@ void NewDoc::createNewDocPage()
 	widthSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
 	heightSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	QStringList pageSizes=ps.sizeList();
-	int sizeIndex=pageSizes.findIndex(ps.nameTR());
+	int sizeIndex=pageSizes.indexOf(ps.nameTR());
 	if (sizeIndex!=-1)
 		pageSizeComboBox->setCurrentItem(sizeIndex);
 	else

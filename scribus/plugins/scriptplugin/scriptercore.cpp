@@ -211,7 +211,7 @@ void ScripterCore::runScriptDialog()
 		fileName = dia.selectedFile();
 		slotRunScriptFile(fileName, dia.extensionRequested());
 
-		if (RecentScripts.findIndex(fileName) == -1)
+		if (RecentScripts.indexOf(fileName) == -1)
 			RecentScripts.prepend(fileName);
 		else
 		{

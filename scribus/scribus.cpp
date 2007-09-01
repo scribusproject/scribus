@@ -1991,7 +1991,7 @@ void ScribusMainWindow::startUpDialog()
 				QString fileName(dia->selectedFile);
 				if (!fileName.isEmpty())
 				{
-					docContext->set("docsopen", fileName.left(fileName.findRev("/")));
+					docContext->set("docsopen", fileName.left(fileName.lastIndexOf("/")));
 					loadDoc(fileName);
 				}
 			}
@@ -3241,7 +3241,7 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 
 void ScribusMainWindow::updateRecent(QString fn)
 {
-	if (RecentDocs.findIndex(fn) == -1)
+	if (RecentDocs.indexOf(fn) == -1)
 	{
 		RecentDocs.prepend(fn);
 		ScCore->fileWatcher->addFile(fn);
@@ -3256,7 +3256,7 @@ void ScribusMainWindow::updateRecent(QString fn)
 
 void ScribusMainWindow::removeRecent(QString fn)
 {
-	if (RecentDocs.findIndex(fn) != -1)
+	if (RecentDocs.indexOf(fn) != -1)
 	{
 		RecentDocs.remove(fn);
 		ScCore->fileWatcher->removeFile(fn);
@@ -3433,7 +3433,7 @@ bool ScribusMainWindow::slotDocOpen()
 	if (fileName.isEmpty())
 		// User cancelled
 		return false;
-	docContext->set("docsopen", fileName.left(fileName.findRev("/")));
+	docContext->set("docsopen", fileName.left(fileName.lastIndexOf("/")));
 	return loadDoc(fileName);
 }
 
@@ -3987,7 +3987,7 @@ void ScribusMainWindow::slotGetContent()
 			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
 			if (!fileName.isEmpty())
 			{
-				prefsManager->prefsFile->getContext("dirs")->set("images", fileName.left(fileName.findRev("/")));
+				prefsManager->prefsFile->getContext("dirs")->set("images", fileName.left(fileName.lastIndexOf("/")));
 				currItem->EmProfile = "";
 				currItem->pixm.imgInfo.isRequest = false;
 				currItem->UseEmbedded = true;
@@ -4159,7 +4159,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, optionFlags);
 	if (!fn.isEmpty())
 	{
-		docContext->set("save_as", fn.left(fn.findRev("/")));
+		docContext->set("save_as", fn.left(fn.lastIndexOf("/")));
 		if ((fn.endsWith(".sla")) || (fn.endsWith(".sla.gz")))
 			fna = fn;
 		else
@@ -4608,7 +4608,7 @@ void ScribusMainWindow::slotFileQuit()
 
 static bool hasXMLRootElem(const QString& buffer, const QString& elemtag)
 {
-	return buffer.findRev(elemtag, 50 + elemtag.length()) >= 0;
+	return buffer.lastIndexOf(elemtag, 50 + elemtag.length()) >= 0;
 }
 
 
@@ -5297,7 +5297,7 @@ void ScribusMainWindow::SaveText()
 	QString fn = CFileDialog( wdir, tr("Save as"), tr("Text Files (*.txt);;All Files(*)"), "", fdShowCodecs);
 	if (!fn.isEmpty())
 	{
-		prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.findRev("/")));
+		prefsManager->prefsFile->getContext("dirs")->set("save_text", fn.left(fn.lastIndexOf("/")));
 		const StoryText& story (doc->m_Selection->itemAt(0)->itemText);
 		Serializer::writeWithEncoding(fn, LoadEnc, story.text(0, story.length()));		
 	}
@@ -7700,7 +7700,7 @@ void ScribusMainWindow::reallySaveAsEps()
 	QString fn = CFileDialog( wdir, tr("Save as"), tr("%1;;All Files (*)").arg(formatsManager->extensionsForFormat(FormatsManager::EPS)), fna, fdNone);
 	if (!fn.isEmpty())
 	{
-		prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.findRev("/")));
+		prefsManager->prefsFile->getContext("dirs")->set("eps", fn.left(fn.lastIndexOf("/")));
 		if (overwrite(this, fn))
 		{
 			if (!DoSaveAsEps(fn))
@@ -8906,7 +8906,7 @@ void ScribusMainWindow::callImageEditor()
 			if ( cmd.count() > 0 )
 				imEditor = cmd[0];
 		#endif
-			index = imEditor.findRev( "/" );
+			index = imEditor.lastIndexOf( "/" );
 			if (index > -1 )
 			{
 				QString imEditorDir = imEditor.left( index + 1 );

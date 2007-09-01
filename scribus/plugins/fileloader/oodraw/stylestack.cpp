@@ -236,7 +236,7 @@ QDomElement StyleStack::searchAttribute( const QDomElement& element, const QStri
 		if ( n.isElement() )
 		{
 			QDomElement* e = (QDomElement*) (&n);
-			if ( (names.findIndex(e->nodeName()) >= 0) && e->hasAttribute(name) )
+			if ( (names.indexOf(e->nodeName()) >= 0) && e->hasAttribute(name) )
 			{
 				node = *e;
 				break;
@@ -257,7 +257,7 @@ QDomElement StyleStack::searchAttribute( const QDomElement& element, const QStri
 		if ( n.isElement() )
 		{
 			QDomElement* e = (QDomElement*) (&n);
-			if ( (names.findIndex(e->nodeName()) >= 0) && (e->hasAttribute(name) || e->hasAttribute(fullName)) )
+			if ( (names.indexOf(e->nodeName()) >= 0) && (e->hasAttribute(name) || e->hasAttribute(fullName)) )
 			{
 				node = *e;
 				break;

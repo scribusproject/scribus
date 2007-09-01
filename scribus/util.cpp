@@ -765,15 +765,15 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 	int from, to, pageNr;
 	do
 	{
-		if (tmp.find(",") == -1)
+		if (tmp.indexOf(",") == -1)
 		{
 			token = tmp;
 			tmp = "";
 		}
 		else
 		{
-			token = tmp.left(tmp.find(","));
-			tmp = tmp.right(tmp.length() - tmp.find(",") - 1);
+			token = tmp.left(tmp.indexOf(","));
+			tmp = tmp.right(tmp.length() - tmp.indexOf(",") - 1);
 		}
 
 		token = token.trimmed();
@@ -782,10 +782,10 @@ void parsePagesString(QString pages, std::vector<int>* pageNs, int sourcePageCou
 			for (int i = 1; i <= sourcePageCount; ++i)
 				pageNs->push_back(i);
 		}
-		else if (token.find("-") != -1) // import a range of source doc pages
+		else if (token.indexOf("-") != -1) // import a range of source doc pages
 		{
-			from = QString(token.left(token.find("-"))).toInt();
-			to = QString(token.right(token.length() - token.find("-") - 1)).toInt();
+			from = QString(token.left(token.indexOf("-"))).toInt();
+			to = QString(token.right(token.length() - token.indexOf("-") - 1)).toInt();
 			if ((from != 0) && (to != 0))
 			{
 				if (from > sourcePageCount)

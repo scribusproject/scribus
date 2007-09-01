@@ -1568,7 +1568,7 @@ void AIPlug::processData(QString data)
 			{
 				QString fam;
 				QString fn = it.current().scName();
-				int pos = fn.find(" ");
+				int pos = fn.indexOf(" ");
 				fam = fn.left(pos);
 				if (fam == family)
 				{

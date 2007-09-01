@@ -54,7 +54,7 @@ void SplashScreen::setStatus( const QString &message )
 	int f = 0;
 	while (f != -1)
 	{
-		f = tmp.find(rx);
+		f = tmp.indexOf(rx);
 		if (f != -1)
 		{
 			tmp.remove(f, 1);

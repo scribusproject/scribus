@@ -643,7 +643,7 @@ static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
 	double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
 	QChar chr = itemText.text(b);
 	double leftCorr = itemText.charStyle(b).font().realCharWidth(chr, chs / 10.0);
-	if (QString("'´`").find(chr) >= 0
+	if (QString("'´`").indexOf(chr) >= 0
 		|| chr == QChar(0x2018) // quote 6
 		|| chr == QChar(0x2019) // quote 9
 		|| chr == QChar(0x201a) // lower quote 9
@@ -652,7 +652,7 @@ static double opticalLeftMargin(const StoryText& itemText, const LineSpec& line)
 		|| chr == QChar(0x203a) // single guillemet >
 		)
 		leftCorr *= -0.7;
-	else if (QString("\"").find(chr) >= 0
+	else if (QString("\"").indexOf(chr) >= 0
 			 || chr == QChar(0x00ab) // guillemet <<
 			 || chr == QChar(0x00bb) // guillemet >>
 			 || chr == QChar(0x201c) // quote 66
@@ -687,7 +687,7 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 		QChar chr = (itemText.item(b)->effects() & ScStyle_SmartHyphenVisible) ? 
 			QChar('-') : itemText.text(b);
 		double rightCorr = itemText.charStyle(b).font().realCharWidth(chr, chs / 10.0);
-		if (QString("-,.`´'~").find(chr) >= 0
+		if (QString("-,.`´'~").indexOf(chr) >= 0
 			|| chr == QChar(0x2018)
 			|| chr == QChar(0x2019)
 			|| chr == QChar(0x201a)
@@ -697,7 +697,7 @@ static double opticalRightMargin(const StoryText& itemText, const LineSpec& line
 			|| chr == QChar(0x2032) // PRIME
 			)
 			rightCorr *= 0.7;
-		else if (QString(";:\"").find(chr) >= 0
+		else if (QString(";:\"").indexOf(chr) >= 0
 				 || chr == QChar(0x00ab)
 				 || chr == QChar(0x00bb)
 				 || chr == QChar(0x201c)

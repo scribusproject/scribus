@@ -2700,7 +2700,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 						{
 							newText=getSectionPageNumberForPageIndex(a);
 							for (int nti=0;nti<newText.length();++nti)
-								if (pageNumberText.find(newText[nti])==-1)
+								if (pageNumberText.indexOf(newText[nti])==-1)
 									pageNumberText+=newText[nti];
 						}
 					}
@@ -2751,13 +2751,13 @@ void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles)
 
 	profileNames.append(CMSSettings.DefaultSolidColorRGBProfile);
 	profileNames.append(CMSSettings.DefaultSolidColorCMYKProfile);
-	if( profileNames.findIndex(CMSSettings.DefaultImageRGBProfile) < 0 )
+	if( profileNames.indexOf(CMSSettings.DefaultImageRGBProfile) < 0 )
 		profileNames.append(CMSSettings.DefaultImageRGBProfile);
-	if( profileNames.findIndex(CMSSettings.DefaultImageCMYKProfile) < 0 )
+	if( profileNames.indexOf(CMSSettings.DefaultImageCMYKProfile) < 0 )
 		profileNames.append(CMSSettings.DefaultImageCMYKProfile);
-	if( profileNames.findIndex(CMSSettings.DefaultMonitorProfile) < 0 )
+	if( profileNames.indexOf(CMSSettings.DefaultMonitorProfile) < 0 )
 		profileNames.append(CMSSettings.DefaultMonitorProfile);
-	if( profileNames.findIndex(CMSSettings.DefaultPrinterProfile) < 0 )
+	if( profileNames.indexOf(CMSSettings.DefaultPrinterProfile) < 0 )
 		profileNames.append(CMSSettings.DefaultPrinterProfile);
 	
 	for (uint lc = 0; lc < 3; ++lc)

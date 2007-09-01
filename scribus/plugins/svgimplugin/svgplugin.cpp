@@ -780,7 +780,7 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 		QString attr = e.attribute("clip-path");
 		if (attr.startsWith( "url("))
 		{
-			unsigned int start = attr.find("#") + 1;
+			unsigned int start = attr.indexOf("#") + 1;
 			unsigned int end = attr.lastIndexOf(")");
 			QString key = attr.mid(start, end - start);
 			QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);

@@ -168,7 +168,7 @@ void TextFilter::write()
 								case STARTS_WITH:
 									if (useRegexp)
 									{
-										if (tmpText2.find(rx) == 0)
+										if (tmpText2.indexOf(rx) == 0)
 										{
 											useStyle = pstyles[pstyle];
 											if (removeMatch)
@@ -177,7 +177,7 @@ void TextFilter::write()
 									}
 									else
 									{
-										if (tmpText2.find(regExp) == 0)
+										if (tmpText2.indexOf(regExp) == 0)
 										{
 											useStyle = pstyles[pstyle];
 											if (removeMatch)
@@ -245,7 +245,7 @@ void TextFilter::replaceHex(QString* text)
 	bool ok = false;
 	do
 	{
-		index = text->find("\\x", pos);
+		index = text->indexOf("\\x", pos);
 		if (index != -1)
 		{
 			if ((text->length() - index + 1) > 6)

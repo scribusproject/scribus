@@ -255,8 +255,8 @@ void SeView::contentsDropEvent(QDropEvent * e)
 		}
 		if (str.startsWith("2"))
 		{
-			int st = str.find(" ");
-			int en = str.find(" ", st+1);
+			int st = str.indexOf(" ");
+			int en = str.indexOf(" ", st+1);
 			tmp = str.mid(en+1);
 			int dr = str.mid(st, en-st).toInt();
 			int a = rowAt(e->pos().y());
@@ -468,8 +468,8 @@ void TrashBin::dropEvent(QDropEvent * e)
 	{
 		if (str.startsWith("2"))
 		{
-			int st = str.find(" ");
-			int en = str.find(" ", st+1);
+			int st = str.indexOf(" ");
+			int en = str.indexOf(" ", st+1);
 			emit DelPage(str.mid(st, en-st).toInt());
 		}
 		if (str.startsWith("1"))

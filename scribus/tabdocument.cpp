@@ -70,7 +70,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	pageSizeComboBox->setEditable(false);
 
 	QStringList pageSizes=ps->sizeList();
-	int sizeIndex=pageSizes.findIndex(ps->nameTR());
+	int sizeIndex=pageSizes.indexOf(ps->nameTR());
 	if (sizeIndex!=-1)
 		pageSizeComboBox->setCurrentIndex(sizeIndex);
 	else

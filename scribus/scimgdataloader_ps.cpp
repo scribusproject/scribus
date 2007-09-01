@@ -231,7 +231,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 			if (tmp.startsWith("%%PlateFile: ("))
 			{
 				tmp = tmp.remove("%%PlateFile: (");
-				int endNam = tmp.find(")");
+				int endNam = tmp.indexOf(")");
 				QString plateNam = tmp.left(endNam);
 				tmp = tmp.remove(plateNam+")");
 				QTextStream ts2(&tmp, QIODevice::ReadOnly);

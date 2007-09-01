@@ -128,7 +128,7 @@ void CsvIm::loadFile()
 
 void CsvIm::parseLine(const QString& line, bool isHeader)
 {
-	if ((line.find(valueDelimiter) < 0) || (!useVDelim))
+	if ((line.indexOf(valueDelimiter) < 0) || (!useVDelim))
 	{
 		QStringList l = QStringList::split(fieldDelimiter, line);
 		for (int i = 0; i < l.size(); ++i)
@@ -143,8 +143,8 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 		return; // line done
 	}
 	
-	int vdIndexStart = line.find(valueDelimiter);
-	int vdIndexEnd   = line.find(valueDelimiter, vdIndexStart + 1);
+	int vdIndexStart = line.indexOf(valueDelimiter);
+	int vdIndexEnd   = line.indexOf(valueDelimiter, vdIndexStart + 1);
 	if (vdIndexEnd < 0)
 	{
 		if (isHeader)
@@ -154,7 +154,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 		return; // error in line, no closing valuedelimiter could be found	
 	}
 	
-	int fdIndex = line.find(fieldDelimiter, vdIndexEnd + 1);
+	int fdIndex = line.indexOf(fieldDelimiter, vdIndexEnd + 1);
 	QString tmpCol = "";
 	
 	if (fdIndex < 0)

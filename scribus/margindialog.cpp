@@ -50,7 +50,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	sizeQComboBox->insertStringList(ps->sizeTRList());
 	sizeQComboBox->insertItem( CommonStrings::trCustomPageSize );
 	prefsPageSizeName=ps->name();
-	int sizeIndex = pageSizes.findIndex(ps->nameTR());
+	int sizeIndex = pageSizes.indexOf(ps->nameTR());
 	if (sizeIndex != -1)
 		sizeQComboBox->setCurrentItem(sizeIndex);
 	else

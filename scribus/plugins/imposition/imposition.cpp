@@ -62,7 +62,7 @@ Imposition::Imposition(QWidget* parent, ScribusDoc* doc)
 	pageSizeComboBox->insertItem( CommonStrings::trCustomPageSize);
 	
 	QStringList pageSizes=ps.sizeList();
-	int sizeIndex=pageSizes.findIndex(ps.nameTR());
+	int sizeIndex=pageSizes.indexOf(ps.nameTR());
 	if (sizeIndex!=-1)
 		pageSizeComboBox->setCurrentItem(sizeIndex);
 	else

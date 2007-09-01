@@ -767,7 +767,7 @@ ListStyle* StyleReader::getList(const QString &name)
  	QString dbl = "0.0";
  	QString lowerValue = s.toLower();
  	double ret = 0.0;
- 	if (lowerValue.find("pt") != -1)
+ 	if (lowerValue.indexOf("pt") != -1)
  	{
  		dbl = lowerValue.remove("pt");
  		ret = gtMeasure::d2d(dbl.toDouble(), SC_PT);

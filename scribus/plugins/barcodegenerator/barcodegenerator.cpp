@@ -120,8 +120,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	f.open(QIODevice::ReadOnly);
 	QTextStream ts(&f);
 	QString s = ts.read();
-	int begin = s.find("% --BEGIN TEMPLATE--");
-	int end = s.find("% --END TEMPLATE--");
+	int begin = s.indexOf("% --BEGIN TEMPLATE--");
+	int end = s.indexOf("% --END TEMPLATE--");
 	psCommand.append(s.mid(begin, end));
 	f.close();
 	psCommand.append("\n\n%command\n");
