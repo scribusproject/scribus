@@ -1,0 +1,40 @@
+<qt>
+<title>Font-Einstellungen und Font-Management mit Scribus &ndash; Windows</title>
+<h2>Font-Einstellungen und Font-Management mit Scribus &ndash; Windows</h2>
+
+<h3>Übersicht</h3>
+
+<p>Scribus bietet Ihnen einige hilfreiche und leicht zu benutzende Dialoge, um Schriften für die Verwendung in Scribus zu verwalten. Außerdem macht es das Einstellen der globalen Schrifteinstellungen und -ersetzungen leicht. In den neuen Einstellungen für Fonts können Sie:</p>
+
+<ul>
+	<li>zusätzliche Pfade zu Schriftarten in Verzeichnissen setzen, für die Sie keine Administratorrechte brauchen und die Sie nicht systemweit installieren müssen.</li>
+	<li>Benutzereinstellungen für Schriftverwendung und -einbettung ändern.</li>
+	<li>Einstellungen für die direkte Ersetzung von nicht vorhandenen Schriften festlegen.</li>
+</ul>
+
+<p> Auf den ersten Blick erscheint die Angelegenheit etwas verwirrend, weil einige Optionen ausgegraut sind. Wie wir noch sehen werden, steckt jedoch eine gewisse Logik dahinter. Einer der Hauptgründe ist, zu verhindern, daß Schriften entfernt werden, die im aktuellen Dokument verwendet werden.</p>
+
+
+<h3>Zusätzliche Pfade für Schriften hinzufügen</h3>
+
+<p>Öffnen Sie Scribus, <strong>ohne daß</strong> ein Dokument geöffnet ist. Dann gehen Sie zu <strong>Datei &#062; Allgemeine Einstellungen &#062; Schriften</strong>. Sie sehen ein Fenster mit mehreren Reitern. Wählen Sie den Reiter <strong>Zusätzliche Schriften</strong> aus.</p>
+
+<table width="100%"><tr><td align="center"><img src="images/fontpref4.png" alt="Zusätzliche Pfade für Schriften hinzufügen" title="Zusätzliche Pfade für Schriften hinzufügen"/></td></tr></table>
+
+<p>In dem oben gezeigten Dialog können Sie zusätzliche Pfade für Schriften hinzufügen, die nicht den Systempfaden entsprechen. In unserem Beispiel haben wir ein Verzeichnis hinzugefügt, das nur für ein Projekt verwendet wird. Nachdem Sie <strong>OK</strong> geklickt haben, wird Scribus diese Pfade hinzufügen, und die Schriften stehen sofort für neue Dokumente zur Verfügung. Beachten Sie, daß Scribus auch in dem Verzeichnis, in dem ein Dokument gespeichert ist, automatisch nach neuen Schriften sucht.</p>
+
+<h3>Schriftersetzung</h3>
+
+<p>Wenn Sie ein Scribus-Dokument öffnen, überprüft es, ob alle Schriften, die in dem Dokument verwendet werden, verfügbar sind. Falls eine Schrift auf Ihrem Rechner fehlt, haben Sie die Möglichkeit, diese beim Öffnen des Dokuments zu ersetzen. Sie können diese Einstellung im Reiter <strong>Schriftersetzung</strong> weiter anpassen. Hier können Sie die Standardersetzung ändern.</p>
+
+<h4>Verfügbare Schriften</h4>
+
+<p>Dieser Reiter zeigt die systemweit verfügbaren Schriften sowie die vom Anwender zusätzlich hinzugefügten Schriften in anderen Verzeichnissen. Sie können auch einstellen, welche Schriften in Scribus verwendet werden und welche Schriften bei der PostScript-Ausgabe eingebettet werden.</p>
+
+<h3>Weitere Anmerkungen zu Schriften und Fontmanagement</h3>
+<ul>
+<li><strong>OpenType-Fonts</strong> können nicht eingebunden werden Dadurch wird die Verwendung der ausgegebenen PDFs in anderen Anwendungen erleichtert. OpenType- und Unicode-TrueType-Font-Dateien können sehr groß sein. OpenType-Schriften werden als Kurven im PDF gespeichert. Dadurch können andere Anwendungen die PDF-Dateien öffnen, die ansonsten mit OpenType nicht zurechtkommen.</li>
+<li><strong>In Kurven umwandeln.</strong> Scribus kann optional Text in Postscript-Kurven umwandeln. Diese Option kann sehr hilfreich sein, wenn Ihre Druckerei über keinen aktuellen RIP oder Plattenbelichter verfügt, der mit PDF 1.4 umgehen kann. Manchmal ist es auch eine nützliche Option, bevor man nach EPS oder SVG exportiert. Wenn Sie sicher sind, daß EPS-Dateien aus Scribus in andere Anwendungen importiert werden oder zwischen verschiedenen Plattformen ausgetauscht werden sollen, wird diese Option empfohlen.</li>
+<li><strong>Scribus erzeugt keine "falschen" Fett- und Kursivschnitte.</strong>  Diese sind der Pre-Press-Fluch, denn sie erzeugen Probleme beim kommerziellen Druck und liefern eine schlechtere Textqualität. Daher wird Scribus keine Kursive einer Schrift erzeugen, wenn ein entsprechender Schnitt nicht vorliegt. Einige Layoutprogramme und Textverarbeitungen bieten dies als "Feature" an. Das Scribus-Team hat sich bewußt dagegen entschieden.</li>
+</ul>
+</qt>
