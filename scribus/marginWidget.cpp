@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "useprintermarginsdialog.h"
 
 
-MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent, "marginWidget"),
+MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent),
 pageType(0)
 {
 	RandT = margs->Top;
@@ -32,8 +32,9 @@ pageType(0)
 
 	marginPage = new QWidget(this);
 
-	presetCombo = new PresetLayout(marginPage, "presetCombo");
-	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), marginPage);
+	presetCombo = new PresetLayout(marginPage);
+	presetLabel = new QLabel( tr("Preset Layouts:"), marginPage);
+	presetLabel->setBuddy(presetCombo);
 	m_unitIndex=unitIndex;
 	m_unitRatio=unitGetRatioFromIndex(unitIndex);
 	leftR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
@@ -45,10 +46,14 @@ pageType(0)
 	bottomR = new ScrSpinBox( 0, 1000, marginPage, unitIndex );
 	bottomR->setValue(RandB * m_unitRatio);
 
-	bText = new QLabel( bottomR, tr( "&Bottom:" ), marginPage);
-	tText = new QLabel( topR, tr( "&Top:" ), marginPage);
-	rText = new QLabel( rightR, tr( "&Right:" ), marginPage);
-	lText = new QLabel( leftR, tr( "&Left:" ), marginPage);
+	bText = new QLabel( tr( "&Bottom:" ), marginPage);
+	bText->setBuddy(bottomR);
+	tText = new QLabel( tr( "&Top:" ), marginPage);
+	tText->setBuddy(topR);
+	rText = new QLabel( tr( "&Right:" ), marginPage);
+	rText->setBuddy(rightR);
+	lText = new QLabel( tr( "&Left:" ), marginPage);
+	lText->setBuddy(leftR);
 
 	// layout
 	GroupLayout = new QGridLayout( marginPage );
@@ -69,13 +74,13 @@ pageType(0)
 		marginsForPagesLayout = new QHBoxLayout;
 		marginsForPagesLayout->setMargin(5);
 		marginsForPagesLayout->setSpacing(5);
-		marginsForPages = new QLabel( tr( "Apply settings to:" ), marginPage, "marginsForPages" );
+		marginsForPages = new QLabel( tr( "Apply settings to:" ), marginPage );
 		marginsForPagesLayout->addWidget(marginsForPages);
-		marginsForAllPages = new QCheckBox( marginPage, "marginsForAllPages" );
+		marginsForAllPages = new QCheckBox( marginPage );
 		marginsForAllPages->setText( tr( "All Document Pages" ) );
 		marginsForAllPages->setChecked( false );
 		marginsForPagesLayout->addWidget(marginsForAllPages);
-		marginsForAllMasterPages = new QCheckBox( marginPage, "marginsForAllMasterPages" );
+		marginsForAllMasterPages = new QCheckBox( marginPage );
 		marginsForAllMasterPages->setText( tr( "All Master Pages" ) );
 		marginsForAllMasterPages->setChecked( false );
 		marginsForPagesLayout->addWidget(marginsForAllMasterPages);
@@ -92,7 +97,7 @@ pageType(0)
 
 	usePrinterMarginsButton=NULL;
 #if defined(HAVE_CUPS) || defined(_WIN32)
-	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),marginPage, "usePrinterMarginsButton" );
+	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),marginPage );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
 	usePrinterMarginsButton->setToolTip( "<qt>" + tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
 	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
@@ -107,20 +112,20 @@ pageType(0)
 		BleedGroupLayout->setSpacing( 5 );
 		BleedGroupLayout->setMargin( 10 );
 		BleedGroupLayout->setAlignment( Qt::AlignTop );
-		BleedTxt3 = new QLabel( bleedPage, "BleedTxt3" );
+		BleedTxt3 = new QLabel( bleedPage );
 		BleedGroupLayout->addWidget( BleedTxt3, 0, 0 );
 		BleedLeft = new ScrSpinBox( 0, 3000*m_unitRatio, bleedPage, unitIndex );
 		BleedGroupLayout->addWidget( BleedLeft, 0, 1 );
-		BleedTxt4 = new QLabel( bleedPage, "BleedTxt4" );
+		BleedTxt4 = new QLabel( bleedPage );
 		BleedGroupLayout->addWidget( BleedTxt4, 1, 0 );
 		BleedRight = new ScrSpinBox( 0, 3000*m_unitRatio, bleedPage, unitIndex );
 		BleedGroupLayout->addWidget( BleedRight, 1, 1 );
-		BleedTxt1 = new QLabel( bleedPage, "BleedTxt1" );
+		BleedTxt1 = new QLabel( bleedPage );
 		BleedTxt1->setText( tr( "Top:" ) );
 		BleedGroupLayout->addWidget( BleedTxt1, 2, 0 );
 		BleedTop = new ScrSpinBox( 0, 3000*m_unitRatio, bleedPage, unitIndex );
 		BleedGroupLayout->addWidget( BleedTop, 2, 1 );
-		BleedTxt2 = new QLabel( bleedPage, "BleedTxt2" );
+		BleedTxt2 = new QLabel( bleedPage );
 		BleedTxt2->setText( tr( "Bottom:" ) );
 		BleedGroupLayout->addWidget( BleedTxt2, 3, 0 );
 		BleedBottom = new ScrSpinBox( 0, 3000*m_unitRatio, bleedPage, unitIndex );
@@ -164,7 +169,7 @@ void MarginWidget::ToggleKette()
 	disconnect(BleedRight, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	disconnect(BleedTop, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
 	disconnect(BleedBottom, SIGNAL(valueChanged(double)), this, SLOT(changeBleeds()));
-	if (linkBleeds->isOn())
+	if (linkBleeds->isChecked())
 	{
 		BleedTop->setValue(BleedLeft->value());
 		BleedBottom->setValue(BleedLeft->value());
@@ -178,7 +183,7 @@ void MarginWidget::ToggleKette()
 
 void MarginWidget::changeBleeds()
 {
-	if (linkBleeds->isOn())
+	if (linkBleeds->isChecked())
 	{
 		double val = 0.0;
 		if (BleedTop == sender())
@@ -312,7 +317,7 @@ void MarginWidget::setPreset()
 	disconnect(bottomR, SIGNAL(valueChanged(double)), this, SLOT(setBottom()));
 	disconnect(leftR, SIGNAL(valueChanged(double)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(double)), this, SLOT(setRight()));
-	int item = presetCombo->currentItem();
+	int item = presetCombo->currentIndex();
 	MarginStruct marg = presetCombo->getMargins(item, pageWidth * m_unitRatio, pageHeight * m_unitRatio, leftR->value());
 	facingPages ? presetCombo->setEnabled(true) : presetCombo->setEnabled(false);
 	if (presetCombo->needUpdate() && facingPages)
@@ -360,7 +365,7 @@ void MarginWidget::setMarginsToPrinterMargins()
 	{
 		double t,b,l,r;
 		upm.getNewPrinterMargins(t,b,l,r);
-		presetCombo->setCurrentItem(PresetLayout::none);
+		presetCombo->setCurrentIndex(PresetLayout::none);
 		topR->setValue(t * m_unitRatio);
 		bottomR->setValue(b * m_unitRatio);
 		leftR->setValue(l * m_unitRatio);
@@ -472,15 +477,15 @@ double MarginWidget::rightBleed()
 /*
  * presets
  */
-PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(parent, name)
+PresetLayout::PresetLayout(QWidget *parent) : QComboBox(parent)
 {
-	insertItem( tr("None", "layout type"), PresetLayout::none);
-	insertItem( tr("Gutenberg"), PresetLayout::gutenberg);
-	insertItem( tr("Magazine"), PresetLayout::magazine);
-	insertItem( tr("Fibonacci"), PresetLayout::fibonacci);
-	insertItem( tr("Golden Mean"), PresetLayout::goldencut);
-	insertItem( tr("Nine Parts"), PresetLayout::nineparts);
-	setCurrentItem(PresetLayout::none);
+	addItem( tr("None", "layout type"), PresetLayout::none);
+	addItem( tr("Gutenberg"), PresetLayout::gutenberg);
+	addItem( tr("Magazine"), PresetLayout::magazine);
+	addItem( tr("Fibonacci"), PresetLayout::fibonacci);
+	addItem( tr("Golden Mean"), PresetLayout::goldencut);
+	addItem( tr("Nine Parts"), PresetLayout::nineparts);
+	setCurrentIndex(PresetLayout::none);
 
 	this->setToolTip( "<qt>" + tr("You can select a predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
 }

@@ -31,7 +31,7 @@ class SCRIBUS_API PresetLayout: public QComboBox
 
 public:
 	/*! \brief QComboBox like constructor. Values/names are set here. Tooltip etc. too. */
-	PresetLayout(QWidget *parent = 0, const char * name = 0);
+	PresetLayout(QWidget *parent = 0);
 	~PresetLayout(){};
 
 	/*! \brief Compute the margins here.

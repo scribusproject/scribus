@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 
 
-MenuManager::MenuManager(QMenuBar* mb, QObject *parent, const char *name) : QObject(parent, name)
+MenuManager::MenuManager(QMenuBar* mb, QObject *parent) : QObject(parent)
 {
 	scribusMenuBar=mb;
 	menuList.clear();
@@ -70,7 +70,7 @@ bool MenuManager::addMenuToMenu(const QString &child, const QString &parent)
 	bool retVal=false;
 	if (child==parent)
 	{
-		qDebug("%s", QString("Cannot add %1 menu to %2 menu (itself)").arg(child, parent).ascii());
+		qDebug("%s", QString("Cannot add %1 menu to %2 menu (itself)").arg(child, parent).toAscii().constData());
 		return false;	
 	}
 	if ((menuList.contains(child) && menuList[child]!=NULL) &&
@@ -103,11 +103,13 @@ void MenuManager::setText(const QString &menuName, const QString &menuText)
 		if (!parent.isNull())
 			menuList[parent]->repopulateLocalMenu();
 		
-		int id=menuList[menuName]->getMenuBarID();
-		if (id!=-1) {
-			QIcon menuIcon = menuList[menuName]->getMenuIcon();
-			scribusMenuBar->changeItem(id, menuIcon, menuText);
-		}
+		int id = menuList[menuName]->getMenuBarID();
+		if (id!=-1)
+			scribusMenuBar->actions()[id]->setText(menuText);
+//		{
+//			QIcon menuIcon = menuList[menuName]->getMenuIcon();
+//			scribusMenuBar->changeItem(id, menuIcon, menuText);
+//		}
 	}
 }
 
@@ -121,10 +123,12 @@ void MenuManager::setMenuIcon(const QString &menuName, const QIcon &menuIcon)
 			menuList[parent]->repopulateLocalMenu();
 		
 		int id=menuList[menuName]->getMenuBarID();
-		if (id!=-1) {
-			QString menuText = menuList[menuName]->getMenuText();
-			scribusMenuBar->changeItem(id, menuIcon, menuText);
-		}
+		if (id!=-1)
+			scribusMenuBar->actions()[id]->setIcon(menuIcon);
+//		{
+//			QString menuText = menuList[menuName]->getMenuText();
+//			scribusMenuBar->changeItem(id, menuIcon, menuText);
+//		}
 	}
 }
 
@@ -153,7 +157,8 @@ void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
 		menuList[menuName]->setEnabled(enabled);
 		int mainID=menuList[menuName]->getMenuBarID();
 		if (mainID!=-1)
-			scribusMenuBar->setItemEnabled(mainID, enabled);
+			scribusMenuBar->actions()[mainID]->setEnabled(enabled);
+//			scribusMenuBar->setItemEnabled(mainID, enabled);
 	}
 }
 

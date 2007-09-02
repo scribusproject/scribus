@@ -26,16 +26,18 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 {
 	move = moving;	
 	setWindowTitle (move ? tr("Move Pages") : tr("Copy Page"));
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	setModal(true);
-	dialogLayout = new QVBoxLayout( this, 10, 5 );
+	dialogLayout = new QVBoxLayout( this );
 	dialogLayout->setSpacing( 5 );
 	dialogLayout->setMargin( 10 );
 	fromToLayout = new QGridLayout();
 	fromToLayout->setSpacing( 5 );
 	fromToLayout->setMargin( 5 );
-	moveLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this, "moveLabel" );
-	fromPageData = new QSpinBox( 1, maxPages, 1, this, "fromPageData" );
+	moveLabel = new QLabel( (move ? tr("Move Page(s)") : tr("Copy Page")) + ":", this );
+	fromPageData = new QSpinBox(this);
+	fromPageData->setMinimum(1);
+	fromPageData->setMaximum(maxPages);
 	fromPageData->setValue( currentPage );
 	uint currentRow = 0;
 	fromToLayout->addWidget( moveLabel, currentRow, 0);
@@ -43,16 +45,18 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 
 	if (move)
 	{
-		toLabel = new QLabel( tr("To:"), this, "toLabel" );
-		toPageData = new QSpinBox( 1, maxPages, 1, this, "toPageData" );
+		toLabel = new QLabel( tr("To:"), this );
+		toPageData = new QSpinBox( this );
+		toPageData->setMinimum(1);
+		toPageData->setMaximum(maxPages);
 		toPageData->setValue( currentPage );
 		fromToLayout->addWidget( toLabel, currentRow, 2);
 		fromToLayout->addWidget( toPageData, currentRow, 3);
 	}
 	else
 	{
-		numberOfCopiesLabel = new QLabel( tr("Number of copies:"), this, "numberOfCopiesLabel" );
-		numberOfCopiesData = new QSpinBox(this, "numberOfCopiesData" );
+		numberOfCopiesLabel = new QLabel( tr("Number of copies:"), this );
+		numberOfCopiesData = new QSpinBox(this );
 		numberOfCopiesData->setMinimum(1);
 		numberOfCopiesData->setMaximum(100);
 		++currentRow;
@@ -60,17 +64,20 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 		fromToLayout->addWidget(numberOfCopiesData, currentRow, 1);
 	}
 	++currentRow;
-	mvWhereData = new QComboBox( false, this, "mvWhereData" );
-	mvWhereData->insertItem( tr("Before Page"));
-	mvWhereData->insertItem( tr("After Page"));
-	mvWhereData->insertItem( tr("At End"));
-	mvWhereData->setCurrentItem(2);
-	mvWherePageData = new QSpinBox( 1, maxPages, 1, this, "mvWherePageData" );
+	mvWhereData = new QComboBox( this );
+	mvWhereData->addItem( tr("Before Page"));
+	mvWhereData->addItem( tr("After Page"));
+	mvWhereData->addItem( tr("At End"));
+	mvWhereData->setCurrentIndex(2);
+	mvWherePageData = new QSpinBox( this );
+	mvWherePageData->setMinimum(1);
+	mvWherePageData->setMaximum(maxPages);
 	mvWherePageData->setValue( currentPage );
 	mvWherePageData->setDisabled( true );
-	fromToLayout->addWidget( mvWhereData, currentRow, 0 );	
-	fromToLayout->addWidget( mvWherePageData, currentRow, 1 );
-	fromToLayout->addColSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):" )));
+	fromToLayout->addWidget( mvWhereData, currentRow, 0 );
+	fromToLayout->addItem(new QSpacerItem(moveLabel->fontMetrics().width( tr( "Move Page(s):" )), 0), currentRow, 1);
+	fromToLayout->addWidget( mvWherePageData, currentRow, 2 );
+//	fromToLayout->addColumnSpacing(0, moveLabel->fontMetrics().width( tr( "Move Page(s):" )));
 	dialogLayout->addLayout( fromToLayout );
 
 	okCancelLayout = new QHBoxLayout();
@@ -78,10 +85,10 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
-	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this );
 	okButton->setDefault( true );
 	okCancelLayout->addWidget(okButton);
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
 	okCancelLayout->addWidget(cancelButton);
 	dialogLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());
@@ -132,7 +139,7 @@ const int MovePages::getToPage()
 
 const int MovePages::getWhere()
 {
-	return mvWhereData->currentItem();
+	return mvWhereData->currentIndex();
 }
 
 const int MovePages::getWherePage()

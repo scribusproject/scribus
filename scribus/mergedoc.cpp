@@ -44,14 +44,15 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	fromInfoLayout = new QGridLayout;
 	fromInfoLayout->setMargin(0);
 	fromInfoLayout->setSpacing(5);
-	fromDocData = new QLineEdit( this, "fromDocData" );
-	fromDocLabel = new QLabel( fromDocData, tr( "&From Document:"), this, "fromDocLabel" );
+	fromDocData = new QLineEdit( this );
+	fromDocLabel = new QLabel( tr( "&From Document:"), this );
+	fromDocLabel->setBuddy( fromDocData );
 	fromInfoLayout->addWidget( fromDocLabel, 0, 0 );
 	fromInfoLayout->addWidget( fromDocData, 0, 1 );
-	changeButton = new QPushButton( tr( "Chan&ge..." ), this, "changeButton" );
+	changeButton = new QPushButton( tr( "Chan&ge..." ), this );
 	changeButton->setAutoDefault( false );
 	fromInfoLayout->addWidget( changeButton, 0, 2 );
-	importPageLabel = new QLabel( tr( "&Import Page(s):" ), this, "importPageLabel" );
+	importPageLabel = new QLabel( tr( "&Import Page(s):" ), this );
 	fromInfoLayout->addWidget( importPageLabel, 1, 0 );
 	if (masterPages)
 	{
@@ -63,27 +64,29 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	}
 	else
 	{
-		pageNumberData = new QLineEdit( this, "pageNumberData" );
+		pageNumberData = new QLineEdit( this );
 		pageNumberData->setEnabled(false);
 		importPageLabel->setBuddy( pageNumberData );
 		pageNumberData->setToolTip( "<qt>" + tr( "Insert a comma separated list of tokens import where "
 		                           "a token can be * for all the pages, 1-5 for "
 		                           "a range of pages or a single page number.") + "</qt>");
 		fromInfoLayout->addWidget( pageNumberData, 1, 1 );
-		fromLabel = new QLabel(this, "fromLabel");
+		fromLabel = new QLabel(this);
 		fromLabel->setText( tr(" from 0"));
 		fromInfoLayout->addWidget( fromLabel, 1, 2 );
-		createPageData = new QCheckBox( this, "createPageData" );
+		createPageData = new QCheckBox( this );
 		createPageData->setText( tr("Create Page(s)"));
 		fromInfoLayout->addWidget( createPageData, 2, 0 );
 		importWhereData = new ScComboBox( this );
 		importWhereData->setEnabled(false);
-		importWhereData->insertItem( tr("Before Page"));
-		importWhereData->insertItem( tr("After Page"));
-		importWhereData->insertItem( tr("At End"));
-		importWhereData->setCurrentItem( 2 );
+		importWhereData->addItem( tr("Before Page"));
+		importWhereData->addItem( tr("After Page"));
+		importWhereData->addItem( tr("At End"));
+		importWhereData->setCurrentIndex( 2 );
 		fromInfoLayout->addWidget( importWhereData, 2, 1 );
-		importWherePageData = new QSpinBox( 1, targetDocPageCount, 1, this, "pageSpin" );
+		importWherePageData = new QSpinBox( this );
+		importWherePageData->setMinimum(1);
+		importWherePageData->setMaximum(targetDocPageCount);
 		importWherePageData->setValue( currentPage );
 		importWherePageData->setEnabled(false);
 		fromInfoLayout->addWidget( importWherePageData, 2, 2 );
@@ -95,10 +98,10 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	importCancelLayout->setSpacing(5);
 	QSpacerItem* spacer = new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	importCancelLayout->addItem( spacer );
-	importButton = new QPushButton( tr( "&Import" ), this, "importButton" );
+	importButton = new QPushButton( tr( "&Import" ), this );
 	importButton->setEnabled(false);
 	importCancelLayout->addWidget( importButton );
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
 	cancelButton->setDefault( true );
 	importCancelLayout->addWidget( cancelButton );
 	dialogLayout->addLayout( importCancelLayout );
@@ -158,7 +161,7 @@ void MergeDoc::changeFile()
 				{
 					masterPageNameData->clear();
 					masterPageNameData->setEnabled(true);
-					masterPageNameData->insertStringList(masterPageNames);
+					masterPageNameData->addItems(masterPageNames);
 				}
 				else
 				{
@@ -199,7 +202,7 @@ void MergeDoc::enableCreateWidgets()
 	if (createPageData->isChecked())
 	{
 		importWhereData->setEnabled(true);
-		if (importWhereData->currentItem() != 2)
+		if (importWhereData->currentIndex() != 2)
 			importWherePageData->setEnabled(true);
 	}
 	else
@@ -216,7 +219,7 @@ const QString MergeDoc::getFromDoc()
 
 const int MergeDoc::getMasterPageNameItem()
 {
-	return masterPageNameData->currentItem();
+	return masterPageNameData->currentIndex();
 }
 
 const QString MergeDoc::getMasterPageNameText()
@@ -226,7 +229,7 @@ const QString MergeDoc::getMasterPageNameText()
 
 const int MergeDoc::getImportWhere()
 {
-	return importWhereData->currentItem();
+	return importWhereData->currentIndex();
 }
 
 const int MergeDoc::getImportWherePage()

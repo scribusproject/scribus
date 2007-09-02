@@ -313,28 +313,28 @@ MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc ) : QDia
 	missingFontGridLayout = new QGridLayout;
 	missingFontGridLayout->setSpacing( 10 );
 	missingFontGridLayout->setMargin( 0 );
-	notInstalledLabel = new QLabel( tr("The Font %1 is not installed.").arg(fon), this, "notInstalledLabel" );
+	notInstalledLabel = new QLabel( tr("The Font %1 is not installed.").arg(fon), this );
 	missingFontGridLayout->addWidget( notInstalledLabel, 0, 0, 1, 4 );
-	pixmapLabel = new QLabel( this, "pixmapLabel" );
+	pixmapLabel = new QLabel( this );
 	pixmapLabel->setPixmap( image0 );
 	missingFontGridLayout->addWidget( pixmapLabel, 1, 0 );
-	useLabel = new QLabel( tr( "Use" ), this, "useLabel" );
+	useLabel = new QLabel( tr( "Use" ), this );
 	missingFontGridLayout->addWidget( useLabel, 1, 1 );
 	replaceFontCombo = new FontCombo(this);
 	if (doc != 0)
 	{
-		replaceFontCombo->setCurrentText(doc->toolSettings.defFont);
+		replaceFontCombo->setEditText(doc->toolSettings.defFont);
 		replacementFont = doc->toolSettings.defFont;
 	}
 	else
 	{
-		replaceFontCombo->setCurrentText(PrefsManager::instance()->appPrefs.toolSettings.defFont);
+		replaceFontCombo->setEditText(PrefsManager::instance()->appPrefs.toolSettings.defFont);
 		replacementFont = PrefsManager::instance()->appPrefs.toolSettings.defFont;
 	}
 	missingFontGridLayout->addWidget( replaceFontCombo, 1, 2 );
-	insteadLabel = new QLabel( tr( "instead" ), this, "insteadLabel" );
+	insteadLabel = new QLabel( tr( "instead" ), this );
 	missingFontGridLayout->addWidget( insteadLabel, 1, 3 );
-	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this );
 	missingFontGridLayout->addWidget( okButton, 2, 2 );
 	missingFontLayout->addLayout( missingFontGridLayout );
 
