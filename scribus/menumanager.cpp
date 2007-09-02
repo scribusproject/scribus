@@ -105,11 +105,11 @@ void MenuManager::setText(const QString &menuName, const QString &menuText)
 		
 		int id = menuList[menuName]->getMenuBarID();
 		if (id!=-1)
-			scribusMenuBar->actions()[id]->setText(menuText);
-//		{
-//			QIcon menuIcon = menuList[menuName]->getMenuIcon();
-//			scribusMenuBar->changeItem(id, menuIcon, menuText);
-//		}
+// 			scribusMenuBar->actions()[id]->setText(menuText);
+		{
+			QIcon menuIcon = menuList[menuName]->getMenuIcon();
+			scribusMenuBar->changeItem(id, menuIcon, menuText);
+		}
 	}
 }
 
@@ -124,11 +124,11 @@ void MenuManager::setMenuIcon(const QString &menuName, const QIcon &menuIcon)
 		
 		int id=menuList[menuName]->getMenuBarID();
 		if (id!=-1)
-			scribusMenuBar->actions()[id]->setIcon(menuIcon);
-//		{
-//			QString menuText = menuList[menuName]->getMenuText();
-//			scribusMenuBar->changeItem(id, menuIcon, menuText);
-//		}
+// 			scribusMenuBar->actions()[id]->setIcon(menuIcon);
+		{
+			QString menuText = menuList[menuName]->getMenuText();
+			scribusMenuBar->changeItem(id, menuIcon, menuText);
+		}
 	}
 }
 
@@ -157,8 +157,8 @@ void MenuManager::setMenuEnabled(const QString &menuName, const bool enabled)
 		menuList[menuName]->setEnabled(enabled);
 		int mainID=menuList[menuName]->getMenuBarID();
 		if (mainID!=-1)
-			scribusMenuBar->actions()[mainID]->setEnabled(enabled);
-//			scribusMenuBar->setItemEnabled(mainID, enabled);
+// 			scribusMenuBar->actions()[mainID]->setEnabled(enabled);
+			scribusMenuBar->setItemEnabled(mainID, enabled);
 	}
 }
 
