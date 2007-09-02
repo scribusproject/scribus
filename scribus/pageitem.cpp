@@ -35,6 +35,8 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
+#include "canvas.h"
+#include "scpaths.h"
 #include "colorblind.h"
 #include "commonstrings.h"
 #include "cpalette.h"
@@ -67,7 +69,7 @@ using namespace std;
 
 PageItem::PageItem(const PageItem & other)
 	: QObject(other.parent()),
-	 UndoObject(other),
+	 UndoObject(other), SingleObservable<PageItem>(other.m_Doc->itemsChanged()),
 
 // 200 attributes! That is madness, or to quote some famous people from Kriquet:
 // "THAT ALL HAS TO GO!"
@@ -240,7 +242,7 @@ PageItem::PageItem(const PageItem & other)
 
 PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	// Initialize superclass(es)
-	: QObject(pa),
+	: QObject(pa), SingleObservable<PageItem>(pa->itemsChanged()),
 	// Initialize member variables
 	itemText(pa),
 	undoManager(UndoManager::instance()),
@@ -256,6 +258,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	m_SizeLocked(false),
 	textFlowModeVal(TextFlowDisabled)
 {
+	m_Doc = pa;
 	QString tmp;
 	BackBox = 0;
 	NextBox = 0;
@@ -270,7 +273,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BoundingH = h;
 	m_ItemType = newType;
 	oldRot = Rot = 0;
-	m_Doc = pa;
 	fillColorVal = fill;
 	lineColorVal = m_ItemType == PageItem::TextFrame ? fill : outline;
 	GrType = 0;
@@ -1555,10 +1557,10 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, double shad)
 {
 	const ScColor& col = m_Doc->PageColors[farbe];
 	*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
-	if ((m_Doc->view()) && (m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
 	{
 		VisionDefectColor *defect = new VisionDefectColor();
-		*tmp = defect->convertDefect(*tmp, m_Doc->view()->previewVisual);
+		*tmp = defect->convertDefect(*tmp, m_Doc->view()->m_canvas->previewVisual());
 		delete defect;
 	}
 }
@@ -2202,10 +2204,10 @@ void PageItem::setLineQColor()
 		const ScColor& col = m_Doc->PageColors[lineColorVal];
 		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, lineShadeVal);
 	}
-	if ((m_Doc->view()) && (m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
 	{
 		VisionDefectColor *defect = new VisionDefectColor();
-		strokeQColor = defect->convertDefect(strokeQColor, m_Doc->view()->previewVisual);
+		strokeQColor = defect->convertDefect(strokeQColor, m_Doc->view()->m_canvas->previewVisual());
 		delete defect;
 	}
 }
@@ -2217,10 +2219,10 @@ void PageItem::setFillQColor()
 		const ScColor& col = m_Doc->PageColors[fillColorVal];
 		fillQColor = ScColorEngine::getShadeColorProof(col, m_Doc, fillShadeVal);
 	}
-	if ((m_Doc->view()) && (m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+	if ((m_Doc->view()) && (m_Doc->view()->m_canvas->usePreviewVisual()))
 	{
 		VisionDefectColor *defect = new VisionDefectColor();
-		fillQColor = defect->convertDefect(fillQColor, m_Doc->view()->previewVisual);
+		fillQColor = defect->convertDefect(fillQColor, m_Doc->view()->m_canvas->previewVisual());
 		delete defect;
 	}
 }
@@ -2858,19 +2860,19 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreContourLine(ss, isUndo);
 		else if (ss->contains("MIRROR_PATH_H"))
 		{
-			bool editContour = view->EditContour;
-			view->EditContour = ss->getBool("IS_CONTOUR");
+			bool editContour = m_Doc->nodeEdit.isContourLine;
+			m_Doc->nodeEdit.isContourLine = ss->getBool("IS_CONTOUR");
 			select();
 			m_Doc->MirrorPolyH(m_Doc->m_Selection->itemAt(0));
-			view->EditContour = editContour;
+			m_Doc->nodeEdit.isContourLine = editContour;
 		}
 		else if (ss->contains("MIRROR_PATH_V"))
 		{
-			bool editContour = view->EditContour;
-			view->EditContour = ss->getBool("IS_CONTOUR");
+			bool editContour = m_Doc->nodeEdit.isContourLine;
+			m_Doc->nodeEdit.isContourLine = ss->getBool("IS_CONTOUR");
 			select();
 			m_Doc->MirrorPolyV(m_Doc->m_Selection->itemAt(0));
-			view->EditContour = editContour;
+			m_Doc->nodeEdit.isContourLine = editContour;
 		}
 		else if (ss->contains("SEND_TO_LAYER"))
 			restoreLayer(ss, isUndo);
@@ -3216,8 +3218,8 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 	int rot     = state->getInt("ROT");
 	ScribusView* view = m_Doc->view();
 	double scaling = state->getDouble("SCALING");
-	bool editContour = view->EditContour;
-	view->EditContour = isContour;
+	bool editContour = m_Doc->nodeEdit.isContourLine;
+	m_Doc->nodeEdit.isContourLine = isContour;
 	select();
 	if (isUndo)
 	{
@@ -3231,7 +3233,7 @@ void PageItem::restorePoly(SimpleState *state, bool isUndo, bool isContour)
 			scaling = ((100.0 / (100.0 - scaling)) - 1.0) * 100.0;
 	}
 	view->TransformPoly(mode, rot, scaling);
-	view->EditContour = editContour;
+	m_Doc->nodeEdit.isContourLine = editContour;
 }
 
 void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
@@ -3252,7 +3254,7 @@ void PageItem::restoreLayer(SimpleState *state, bool isUndo)
 	ScribusView* view = m_Doc->view();
 	setLayer(isUndo ? state->getInt("OLD_LAYER") : state->getInt("NEW_LAYER"));
 	view->Deselect(true);
-	view->updateContents();
+	m_Doc->regionsChanged()->update(QRect());
 }
 
 void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
@@ -3304,7 +3306,7 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 		}
 		m_Doc->AdjustItemSize(this);
 		m_Doc->MoveItem(mx, my, this, false);
-		m_Doc->view()->slotUpdateContents();
+		m_Doc->regionsChanged()->update(QRect());
 	}
 
 }
@@ -3986,7 +3988,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			pixm.createLowRes(scaling);
 			pixm.imgInfo.lowResScale = scaling;
 		}
-		if ((m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+		if ((m_Doc->view()->m_canvas->usePreviewVisual()))
 		{
 			VisionDefectColor *defect = new VisionDefectColor();
 			QColor tmpC;
@@ -4002,7 +4004,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				{
 					rgb = *s;
 					tmpC.setRgb(rgb);
-					tmpC = defect->convertDefect(tmpC, m_Doc->view()->previewVisual);
+					tmpC = defect->convertDefect(tmpC, m_Doc->view()->m_canvas->previewVisual());
 					a = qAlpha(rgb);
 					tmpC.getRgb(&r, &g, &b);
 					*s = qRgba(r, g, b, a);
@@ -4083,7 +4085,7 @@ QRect PageItem::getRedrawBounding(const double viewScale)
 	int w = qRound(ceil(BoundingW + Oldm_lineWidth + 10) * viewScale);
 	int h = qRound(ceil(BoundingH + Oldm_lineWidth + 10) * viewScale);
 	QRect ret = QRect(x, y, w, h);
-	ret.moveBy(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
+//	ret.moveBy(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
 	return ret;
 }
 
@@ -4438,7 +4440,7 @@ void PageItem::updateClip()
 				break;
 			case 2:
 				//CB FIXME: stop using clre or move out of here
-				m_Doc->view()->ClRe = -1;
+				m_Doc->nodeEdit.deselect();
 				SetFrameRound();
 				m_Doc->setRedrawBounding(this);
 				break;

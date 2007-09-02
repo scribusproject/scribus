@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "svgexplugin.h"
 
 #include "scconfig.h"
+#include "canvas.h"
 #include "cmsettings.h"
 #include "commonstrings.h"
 #include "customfdialog.h"
@@ -176,19 +177,19 @@ bool SVGExPlug::doExport( QString fName )
 	m_Doc->guidesSettings.framesShown = false;
 	m_Doc->guidesSettings.showControls = false;
 	m_View->setScale(1.0);
-	m_View->previewMode = true;
+	m_View->m_canvas->setPreviewMode(true);
 	ScPainter *painter = new ScPainter(fName, clipw, cliph, 1.0, 0);
 	painter->clear(m_Doc->papColor);
 	painter->translate(-clipx, -clipy);
 	painter->setFillMode(ScPainter::Solid);
-	m_View->DrawMasterItems(painter, Seite, QRect(clipx, clipy, clipw, cliph));
-	m_View->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+	m_View->m_canvas->DrawMasterItems(painter, Seite, QRect(clipx, clipy, clipw, cliph));
+	m_View->m_canvas->DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 	painter->end();
 	m_Doc->guidesSettings.framesShown = frs;
 	m_Doc->guidesSettings.showControls = ctrls;
 	m_View->setScale(sca);
 	delete painter;
-	m_View->previewMode = false;
+	m_View->m_canvas->setPreviewMode(false);
 	m_Doc->minCanvasCoordinate = FPoint(cx, cy);
 #else
 	QDomDocument docu("svgdoc");

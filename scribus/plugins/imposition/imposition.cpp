@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 #include <iostream>
 #include <sstream>
+#include <QDebug>
 
 #include "imposition.h"
 #include "scribus.h"
@@ -234,9 +235,9 @@ void Imposition::changeDocGrid()
 		}
 		
 		
-		//copy the firs page to the clipboard
+		//copy the first page to the clipboard
 		ScribusMainWindow* scMW = ScCore->primaryMainWindow();
-		scMW->NoFrameEdit();
+		scMW->view->requestMode(modeNormal);
 		Selection* s = new Selection(scMW);
 		
 		//select items to copy
@@ -466,7 +467,7 @@ void Imposition::booklet4p(QList<int>* pages)
 	
 	//start copying
 	ScribusMainWindow* scMW = ScCore->primaryMainWindow();
-	scMW->NoFrameEdit();
+	scMW->slotSelect();
 	Selection* s = new Selection(scMW);
 	
 	//first, do the frontsides
@@ -1298,7 +1299,7 @@ void Imposition::changeDocFold()
 		
 		//do the copying
 		ScribusMainWindow* scMW = ScCore->primaryMainWindow();
-		scMW->NoFrameEdit();
+		scMW->view->requestMode(modeNormal);
 		Selection* s = new Selection(scMW);
 		
 		//select items to copy for the first page

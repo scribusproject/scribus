@@ -43,7 +43,7 @@ class ScribusDoc;
 /**
   *@author Franz Schmid
   */
-class SCRIBUS_API Page : public UndoObject
+class SCRIBUS_API Page : public UndoObject, public SingleObservable<Page>
 {
 public:
 	Page(const double x, const double y, const double b, const double h);

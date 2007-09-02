@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 // include files for QT
-#include <Q3ScrollView>
+#include <QScrollArea>
 #include <QLineEdit>
 #include <QScrollBar>
 #if OPTION_USE_QTOOLBUTTON
@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #else
     #include <QPushButton>
 #endif
+#include <QMap>
 #include <QMenu>
 #include <QLabel>
 #include <QComboBox>
@@ -49,35 +50,47 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 #include <QEvent>
 #include <QPaintEvent>
+#include <QRect>
 #include <QWheelEvent>
 #include <QRubberBand>
 #include <QList>
+
 // application specific includes
+#include "observable.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "scpainter.h"
-class Page;
 #include "scrspinbox.h"
+
+class Canvas;
+class CanvasMode;
 class Hruler;
 class Vruler;
-class UndoManager;
+class Page;
 class RulerMover;
 class PageSelector;
 class ScribusWin;
 class ScribusMainWindow;
+class UndoManager;
 
 /**
  * This class provides an incomplete base for your application view.
  */
 
-class SCRIBUS_API ScribusView : public Q3ScrollView
+class SCRIBUS_API ScribusView : public QScrollArea, public Observer<QRect>
 {
 	Q_OBJECT
 
 public:
     ScribusView(QWidget* win=0, ScribusMainWindow* mw=0, ScribusDoc* doc=0);
     ~ScribusView() {};
+	
+	friend class LegacyMode;
+	friend class CanvasMode_NodeEdit;
+	
+	void requestMode(int appMode);
+	
   /** Vergroesserungseingabefeld */
 	ScrSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
 	PageSelector* pageSelector; //Page selector at bottom of view
@@ -102,80 +115,60 @@ public:
 	QComboBox *visualMenu;
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc * const Doc;
+	Canvas * const m_canvas;
+	CanvasMode* m_canvasMode;
+	QMap<int,CanvasMode*> modeInstances;
 	ApplicationPrefs * const Prefs;
 	UndoManager * const undoManager;
 	double OldScale;
 	double dragX,dragY,dragW,dragH;
 	double oldW;
-	int oldCp;
-	int Mxp;
-	int Myp;
-	int dragConstrainInitPtX;
-	int dragConstrainInitPtY;
-	int Dxp;
-	int Dyp;
-	int m_SnapCounter;
+	int oldCp; // -> CanvasMode
+	int Mxp; // -> CanvasMode
+	int Myp; // -> CanvasMode
+	int dragConstrainInitPtX; // -> CanvasMode
+	int dragConstrainInitPtY; // -> CanvasMode
+	int Dxp; // -> CanvasMode
+	int Dyp; // -> CanvasMode
+	int m_SnapCounter; // -> CanvasMode
 	/*!
 	 * Frame handle used for resize
 	 * 283
 	 * 7 6
 	 * 451
 	 */
-	int frameResizeHandle;
-	int SeRx;
-	int SeRy;
-	int GyM;
-	int GxM;
-	int ClRe;
-	int ClRe2;
-	int SegP1;
-	int SegP2;
+	int frameResizeHandle; // -> CanvasMode
+	int SeRx; // -> CanvasMode
+	int SeRy; // -> CanvasMode
+	int GyM; // -> CanvasMode
+	int GxM; // -> CanvasMode
 	int RotMode;
 	int DrHY;
 	int DrVX;
-	bool EdPoints;
-	bool m_MouseButtonPressed;
-	bool operItemMoving;
-	bool shiftSelItems;
-	bool MoveGY;
-	bool MoveGX;
+	bool shiftSelItems; // -> CanvasMode
+	bool MoveGY; // -> CanvasMode
+	bool MoveGX; // -> CanvasMode
 	bool HaveSelRect;
-	bool operItemResizing;
-	bool EditContour;
 	//bool GroupSel;
 	bool DraggedGroup;
 	bool DraggedGroupFirst;
-	bool operItemResizeInEditMode;
-	bool inItemCreation;
+	bool inItemCreation; // -> CanvasMode
 	bool MidButt;
 	bool updateOn;
 	bool FirstPoly;
 	bool Magnify;
-	bool MoveSym;
-	bool previewMode;
-	bool viewAsPreview;
 	bool storedFramesShown;
 	bool storedShowControls;
-	int previewVisual;
 	int redrawMode;
 	int redrawCount;
 	PageItem *redrawItem;
 	QRubberBand *redrawMarker;
-	QPolygon redrawPolygon;
-	bool specialRendering;
-	bool firstSpecial;
-	QPixmap m_buffer;
 	FPoint RCenter;
-	FPointArray RecordP;
-	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
-	void DrawPageItems(ScPainter *painter, QRect clip);
-	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
+	FPointArray RecordP; // -> CanvasMode
 	void updatesOn(bool on);
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.
 	Page* addPage(int nr, bool mov = true);
-	QList<PageItem*> linkedFramesToShow;
-	QList<int> SelNode;
 
 	
 	struct oldPageVar
@@ -184,8 +177,6 @@ public:
 		double oldXO;
 		double oldYO;
 	};
-	static const uint moveWithFullOutlinesThreshold = 21;
-	static const uint moveWithBoxesOnlyThreshold = 41;
 	void reformPages(bool moveObjects = true);
 	void updateLayerMenu();
 	void showMasterPage(int nr);
@@ -208,13 +199,9 @@ public:
 // 	void SnapToGuides(PageItem *currItem);
 	void getDragRectScreen(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
-	void paintGroupRect(bool norm = true);
-	void PaintSizeRect(QRect neu);
-	void PaintSizeRect(QPolygon neu);
 	void ToView(QPainter *p);
 	void ToView(QMatrix& m);
 // 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
-	void MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool once = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
 	void Reset1Control();
@@ -233,7 +220,7 @@ public:
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void HandleCurs(PageItem *currItem, QRect mpo);
-	void HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
+	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
 	void SelectItemNr(uint nr, bool draw = true, bool single = false);
@@ -242,9 +229,6 @@ public:
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
 	void SetupDrawNoResize(int nr);
-	void Transform(PageItem *currItem, QPainter *p);
-	void Transform(PageItem *currItem, QMatrix& m);
-	void TransformM(PageItem *currItem, QPainter *p);
 	void SetFrameRect();
 	void SetFrameRounded();
 	void SetFrameOval();
@@ -255,7 +239,7 @@ public:
 	bool groupTransactionStarted();
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
-	double scale() const { return Scale; }
+	double scale() const;
 	void normalizeSelectionRect();
 	FPoint translateToView(double x, double y);
 	FPoint translateToView(FPoint in);
@@ -265,6 +249,29 @@ public:
 	FPoint translateFromViewport(FPoint in);
 	FPoint translateToViewport(double x, double y);
 	FPoint translateToViewport(FPoint in);
+
+	virtual void changed(QRect re);
+	
+//private:
+	// legacy:
+	void updateContents(QRect box = QRect());
+	void updateContents(int x, int y, int w, int h);
+	void repaintContents(QRect box);
+	void resizeContents(int w, int h);
+	QPoint contentsToViewport(QPoint p);
+	QPoint viewportToContents(QPoint p);
+	int contentsX();
+	int contentsY();
+	int contentsWidth();
+	int contentsHeight();
+	void setContentsPos(int x, int y);
+	void scrollBy(int x, int y);
+	int visibleWidth() { return viewport()->size().width(); } ;
+	int visibleHeight() { return viewport()->size().height(); } ;
+	void handleNodeEditPress(QMouseEvent* m, QRect mpo);
+	bool handleNodeEditMove(QMouseEvent* m, QRect mpo, PageItem* currItem, QMatrix p);
+	void handleNodeEditDrag(QMouseEvent* m, PageItem* currItem);
+	void stopAllDrags();
 
 public slots: // Public slots
 	void languageChange();
@@ -320,7 +327,10 @@ public slots: // Public slots
 	void blinkCursor();
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 
+	void paintEvent ( QPaintEvent * p );
+	
 private: // Private attributes
+	int m_previousMode;
 	QMenu *pmen3;
 	QMenu *pmenResolution;
 	QTime moveTimer;
@@ -333,14 +343,7 @@ private: // Private attributes
 	bool _isGlobalMode;
 	bool evSpon;
 	bool forceRedraw;
-	double Scale;
 
-	// for shape/countour line editing undo actions
-	// store oldClip in mousePressed if in edit shape
-	// and in mouseRelease send the undo action with the 
-	// new clip
-	bool isContourLine;
-	FPointArray *oldClip;
 	double oldItemX;
 	double oldItemY;
 
@@ -357,25 +360,23 @@ private slots:
 	void setGlobalUndoMode();
 	void dragTimerTimeOut();
 
+public:
+	virtual void contentsWheelEvent ( QWheelEvent *ev );
+		
 protected: // Protected methods
-	virtual void viewportPaintEvent ( QPaintEvent * p );
-	virtual void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
+	virtual void resizeEvent ( QResizeEvent * event );
+	bool eventFilter(QObject *obj, QEvent *event);
+	inline bool moveTimerElapsed();
+
+	// those appear to be gone from QScrollArea:
 	virtual void contentsDragEnterEvent(QDragEnterEvent *e);
 	virtual void contentsDragMoveEvent(QDragMoveEvent *e);
 	virtual void contentsDragLeaveEvent(QDragLeaveEvent *e);
 	virtual void contentsDropEvent(QDropEvent *e);
-	virtual void contentsMouseDoubleClickEvent(QMouseEvent *m);
-	virtual void contentsMouseReleaseEvent(QMouseEvent *m);
-	virtual void contentsMouseMoveEvent(QMouseEvent *m);
-	virtual void contentsMousePressEvent(QMouseEvent *m);
-	virtual void contentsWheelEvent ( QWheelEvent *ev );
 	virtual void setHBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
 	virtual void setVBarGeometry(QScrollBar &bar, int x, int y, int w, int h);
-
-	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
-	inline bool moveTimerElapsed();
 	
 	//The width of vertical ruler/height of horizontal ruler, set to 17 in scribusview.cpp
 	int m_vhRulerHW;
@@ -446,4 +447,13 @@ signals:
 	void callGimp();
 	void signalGuideInformation(int, double);
 };
+
+
+
+inline bool ScribusView::moveTimerElapsed()
+{
+	return (moveTimer.elapsed() > Prefs->moveTimeout);
+}
+
+
 #endif

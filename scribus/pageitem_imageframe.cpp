@@ -176,8 +176,7 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if (dX!=0.0 || dY!=0.0)
 		{
 			moveImageInFrame(dX, dY);
-			ScribusView* view = m_Doc->view();
-			view->updateContents(getRedrawBounding(view->scale()));	
+			update();
 		}
 	}
 	else
@@ -229,7 +228,6 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				cl.scale(imageXScale(), imageYScale());
 				imageClip.map(cl);
 			}
-		ScribusView* view = m_Doc->view();
-		view->updateContents(getRedrawBounding(view->scale()));	
+		update();	
 	}
 }

@@ -455,7 +455,7 @@ void ActionManager::initItemMenuActions()
 	connect( (*scrActions)["itemSendToScrapbook"], SIGNAL(activated()), mainWindow, SLOT(PutScrap()) );
 	connect( (*scrActions)["itemSendToPattern"], SIGNAL(activated()), mainWindow, SLOT(PutToPatterns()) );
 	connect( (*scrActions)["itemAttributes"], SIGNAL(activated()), mainWindow, SLOT(objectAttributes()) );
-	connect( (*scrActions)["itemShapeEdit"], SIGNAL(activated()), mainWindow, SLOT(ToggleFrameEdit()) );
+	connect( (*scrActions)["itemShapeEdit"], SIGNAL(activated()), mainWindow, SLOT(toggleNodeEdit()) );
 	connect( (*scrActions)["itemImageInfo"], SIGNAL(activated()), mainWindow, SLOT(getImageInfo()) );
 }
 

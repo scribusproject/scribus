@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "annotation.h"
+#include "observable.h"
 #include "pagestructs.h"
 #include "scimage.h"
 #include "sctextstruct.h"
@@ -61,7 +62,7 @@ struct CopyPasteBuffer;
   *@author Franz Schmid
   */
 
-class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO 
+class SCRIBUS_API PageItem : public QObject, public UndoObject, public SaxIO, public SingleObservable<PageItem>
 {
 	Q_OBJECT
 

@@ -372,7 +372,7 @@ void NodePalette::SplitPoly()
 	if (doc==0)
 		return;
 	MoveN();
-	doc->EditClipMode = 3;
+	doc->nodeEdit.submode = NodeEditContext::SPLIT_PATH;
 	PolySplit->setChecked(true);
 }
 
@@ -426,7 +426,7 @@ void NodePalette::doLensEffect()
 		return;
 	FPointArray points;
 	PageItem *currItem = doc->m_Selection->itemAt(0);
-	if (view->EditContour)
+	if (doc->nodeEdit.isContourLine)
 		points = currItem->ContourLine;
 	else
 		points = currItem->PoLine;
@@ -434,7 +434,7 @@ void NodePalette::doLensEffect()
 	if (dia->exec())
 	{
 		points.fromQPainterPath(dia->modifiedPath);
-		if (view->EditContour)
+		if (doc->nodeEdit.isContourLine)
 			currItem->ContourLine = points;
 		else
 			currItem->PoLine = points;
@@ -518,13 +518,13 @@ void NodePalette::MirrorV()
 void NodePalette::ResetControl()
 {
 	if (doc != 0)
-		view->ResetControl();
+		doc->nodeEdit.resetControl(doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::Reset1Control()
 {
 	if (doc != 0)
-		view->Reset1Control();
+		doc->nodeEdit.reset1Control(doc->m_Selection->itemAt(0));
 }
 
 void NodePalette::ResetContour()
@@ -545,7 +545,7 @@ void NodePalette::ResetContour()
 		doc->m_Selection->itemAt(0)->ContourLine = doc->m_Selection->itemAt(0)->PoLine.copy();
 		//view->SelItem.at(0)->ClipEdited = true;
 		doc->m_Selection->itemAt(0)->ClipEdited = true;
-		view->updateContents();
+		doc->m_Selection->itemAt(0)->update();
 	}
 }
 
@@ -562,7 +562,7 @@ void NodePalette::ResetContourToImageClip()
 				} */
 		doc->m_Selection->itemAt(0)->ContourLine = doc->m_Selection->itemAt(0)->imageClip.copy();
 		doc->m_Selection->itemAt(0)->ClipEdited = true;
-		view->updateContents();
+		doc->m_Selection->itemAt(0)->update();
 	}
 }
 
@@ -570,13 +570,13 @@ void NodePalette::MovePoint()
 {
 	if (doc==0)
 		return;
-	if (doc->EditClipMode == 0)
+	if (doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
 	{
 		FPoint np(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
 		FPoint zp(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
 		if (AbsMode->isChecked())
 			np -= zp;
-		view->MoveClipPoint(doc->m_Selection->itemAt(0), np);
+		doc->nodeEdit.moveClipPoint(doc->m_Selection->itemAt(0), np);
 		doc->AdjustItemSize(doc->m_Selection->itemAt(0));
 		emit DocChanged();
 	}
@@ -585,7 +585,7 @@ void NodePalette::MovePoint()
 void NodePalette::SetSym()
 {
 	if (doc != 0)
-		view->MoveSym = true;
+		doc->nodeEdit.MoveSym = true;
 	SymMove->setChecked(true);
 	AsymMove->setChecked(false);
 }
@@ -593,7 +593,7 @@ void NodePalette::SetSym()
 void NodePalette::SetAsym()
 {
 	if (doc != 0)
-		view->MoveSym = false;
+		doc->nodeEdit.MoveSym = false;
 	SymMove->setChecked(false);
 	AsymMove->setChecked(true);
 }
@@ -638,8 +638,8 @@ void NodePalette::ToggleConMode()
 	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	if (doc != 0)
 	{
-		view->EditContour = EditCont->isChecked();
-		view->updateContents();
+		doc->nodeEdit.isContourLine = EditCont->isChecked();
+		doc->m_Selection->itemAt(0)->update();
 		if (EditCont->isChecked())
 		{
 			BezierClose->setEnabled(false);
@@ -672,7 +672,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 	YSpin->setEnabled(setter);
 	if (setter == true)
 	{
-		if (view->EdPoints)
+		if (doc->nodeEdit.EdPoints)
 			ResNode->setEnabled(setter);
 		else
 			Res1Node->setEnabled(setter);
@@ -682,7 +682,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 		ResNode->setEnabled(setter);
 		Res1Node->setEnabled(setter);
 	}
-	if (doc->EditClipMode == 0)
+	if (doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
 	{
 		disconnect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
 		disconnect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
@@ -699,12 +699,12 @@ void NodePalette::HaveNode(bool have, bool mov)
 		connect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
 		connect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
 	}
-	if (doc->EditClipMode == 2)
+	if (doc->nodeEdit.submode == NodeEditContext::DEL_POINT)
 	{
 		uint cc;
 		bool leaveEd = false;
 		PageItem*currItem=doc->m_Selection->itemAt(0);
-		if (view->EditContour)
+		if (doc->nodeEdit.isContourLine)
 			cc = currItem->ContourLine.size();
 		else
 			cc = currItem->PoLine.size();
@@ -730,9 +730,10 @@ void NodePalette::MoveK()
 {
 	if (doc==0)
 		return;
-	doc->EditClipMode = 0;
-	view->EdPoints = false;
-	view->RefreshItem(doc->m_Selection->itemAt(0));
+	doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
+	doc->nodeEdit.EdPoints = false;
+	if (doc->m_Selection->count() > 0)
+		doc->m_Selection->itemAt(0)->update();
 	SymMove->setEnabled(true);
 	AsymMove->setEnabled(true);
 	Res1Node->setEnabled(true);
@@ -749,13 +750,14 @@ void NodePalette::MoveN()
 {
 	if (doc==0)
 		return;
-	doc->EditClipMode = 0;
-	view->EdPoints = true;
-	view->ClRe = -1;
-	view->ClRe2 = -1;
-	view->SegP1 = -1;
-	view->SegP2 = -1;
-	view->RefreshItem(doc->m_Selection->itemAt(0));
+	doc->nodeEdit.submode = NodeEditContext::MOVE_POINT;
+	doc->nodeEdit.EdPoints = true;
+	doc->nodeEdit.ClRe = -1;
+	doc->nodeEdit.ClRe2 = -1;
+	doc->nodeEdit.SegP1 = -1;
+	doc->nodeEdit.SegP2 = -1;
+	if (doc->m_Selection->count() > 0)
+		doc->m_Selection->itemAt(0)->update();
 	ResNode->setEnabled(true);
 	AddNode->setEnabled(true);
 	DeleteNode->setEnabled(true);
@@ -772,8 +774,8 @@ void NodePalette::AddN()
 {
 	if (doc==0)
 		return;
-	doc->EditClipMode = 1;
-	view->EdPoints = true;
+	doc->nodeEdit.submode = NodeEditContext::ADD_POINT;
+	doc->nodeEdit.EdPoints = true;
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
 	ResNode->setEnabled(false);
@@ -786,8 +788,8 @@ void NodePalette::DelN()
 {
 	if (doc==0)
 		return;
-	doc->EditClipMode = 2;
-	view->EdPoints = true;
+	doc->nodeEdit.submode = NodeEditContext::DEL_POINT;
+	doc->nodeEdit.EdPoints = true;
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
 	ResNode->setEnabled(false);
@@ -801,11 +803,11 @@ void NodePalette::closeEvent(QCloseEvent *ce)
 	if (doc != 0)
 	{
 		MoveN();
-		view->ClRe = -1;
-		view->ClRe2 = -1;
-		view->SegP1 = -1;
-		view->SegP2 = -1;
-		view->SelNode.clear();
+		doc->nodeEdit.ClRe = -1;
+		doc->nodeEdit.ClRe2 = -1;
+		doc->nodeEdit.SegP1 = -1;
+		doc->nodeEdit.SegP2 = -1;
+		doc->nodeEdit.SelNode.clear();
 	}
 	PolySplit->setEnabled( false );
 	BezierClose->setEnabled( false );
@@ -818,11 +820,11 @@ void NodePalette::EndEdit()
 	if (doc != 0)
 	{
 		MoveN();
-		view->ClRe = -1;
-		view->ClRe2 = -1;
-		view->SegP1 = -1;
-		view->SegP2 = -1;
-		view->SelNode.clear();
+		doc->nodeEdit.ClRe = -1;
+		doc->nodeEdit.ClRe2 = -1;
+		doc->nodeEdit.SegP1 = -1;
+		doc->nodeEdit.SegP2 = -1;
+		doc->nodeEdit.SelNode.clear();
 		EditCont->setChecked(false);
 		ToggleConMode();
 	}

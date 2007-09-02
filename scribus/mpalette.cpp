@@ -1237,7 +1237,7 @@ void Mpalette::setMainWindow(ScribusMainWindow* mw)
 //	connect(this, SIGNAL(NewParStyle(int)), m_ScMW, SLOT(setNewParStyle(int)));
 	connect(this, SIGNAL(NewAlignment(int)), m_ScMW, SLOT(setNewAlignment(int)));
 	connect(this, SIGNAL(NewEffects(int)), m_ScMW, SLOT(setItemHoch(int)));
-	connect(this, SIGNAL(ShapeEdit()), m_ScMW, SLOT(ToggleFrameEdit()));
+//	connect(this, SIGNAL(ShapeEdit()), m_ScMW, SLOT(ToggleFrameEdit()));
 	connect(this, SIGNAL(NewFont(const QString&)), m_ScMW, SLOT(SetNewFont(const QString&)));
 	connect(this, SIGNAL(UpdtGui(int)), m_ScMW, SLOT(HaveNewSel(int)));
 	connect(this->Cpal, SIGNAL(modeChanged()), m_ScMW, SLOT(setCSMenu()));
@@ -2667,7 +2667,7 @@ void Mpalette::NewX()
 				doc->MoveItem(x - base, 0, CurItem, true);
 			}
 		}
-		m_ScMW->view->updateContents();
+		doc->regionsChanged()->update(QRect());
 		emit DocChanged();
 	}
 }
@@ -2744,7 +2744,7 @@ void Mpalette::NewY()
 				doc->MoveItem(0, y - base, CurItem, true);
 			}
 		}
-		m_ScMW->view->updateContents();
+		doc->regionsChanged()->update(QRect());
 		emit DocChanged();
 	}
 }
@@ -2850,7 +2850,7 @@ void Mpalette::NewW()
 			}
 		}
 		emit DocChanged();
-		m_ScMW->view->updateContents();
+		doc->regionsChanged()->update(QRect());
 	}
 }
 
@@ -2955,7 +2955,7 @@ void Mpalette::NewH()
 			}
 		}
 		emit DocChanged();
-		m_ScMW->view->updateContents();
+		doc->regionsChanged()->update(QRect());
 	}
 }
 
@@ -2980,7 +2980,7 @@ void Mpalette::NewR()
 		else
 			doc->RotateItem(Rot->value()*(-1), CurItem->ItemNr);
 		emit DocChanged();
-		m_ScMW->view->updateContents();
+		doc->regionsChanged()->update(QRect());
 		RoVal = Rot->value();
 	}
 }
@@ -3030,7 +3030,7 @@ void Mpalette::NewCols()
 	{
 		CurItem->Cols = DCol->value();
 		setCols(CurItem->Cols, CurItem->ColGap);
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -3055,7 +3055,7 @@ void Mpalette::NewGap()
 			double newGap = qMax(((CurItem->width() - CurItem->textToFrameDistLeft() - CurItem->textToFrameDistRight() - lineCorr) - (newWidth * CurItem->Cols)) / (CurItem->Cols - 1), 0.0);
 			CurItem->ColGap = newGap;
 		}
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -3679,7 +3679,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 			break;
 		}
 //qt4		m_ScMW->SCustom->setPixmap(m_ScMW->SCustom->getIconPixmap(f));
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
 		{
@@ -3713,7 +3713,8 @@ void Mpalette::EditSh()
 			TabStack->raiseWidget(1);
 		}
 		*/
-		emit ShapeEdit();
+//		emit ShapeEdit();
+		m_ScMW->view->requestMode(modeEditClip);
 		RoundRect->setEnabled(false);
 //		emit DocChanged();
 	}
@@ -3727,7 +3728,7 @@ void Mpalette::NewTDist()
 	{
 		CurItem->setTextToFrameDist(DLeft->value() / m_unitRatio, DRight->value() / m_unitRatio, DTop->value() / m_unitRatio, DBottom->value() / m_unitRatio);
 		setCols(CurItem->Cols, CurItem->ColGap);
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -3742,7 +3743,7 @@ void Mpalette::NewSpGradient(double x1, double y1, double x2, double y2)
 		CurItem->GrStartY = y1 / m_unitRatio;
 		CurItem->GrEndX = x2 / m_unitRatio;
 		CurItem->GrEndY = y2 / m_unitRatio;
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -3778,7 +3779,7 @@ void Mpalette::DoRevert()
 		bool setter=Revert->isChecked();
 		CurItem->setImageFlippedH(setter);
 		CurItem->setReversed(setter);
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -3839,9 +3840,6 @@ void Mpalette::SetSTline(QListWidgetItem *c)
 	LSize->setEnabled(setter);
 	LJoinStyle->setEnabled(setter);
 	LEndStyle->setEnabled(setter);
-	//handled by itemSelection_SetNamedLineStyle()
-	//m_ScMW->view->RefreshItem(CurItem);
-	//emit DocChanged();
 }
 
 void Mpalette::updateColorList()
@@ -3936,7 +3934,7 @@ void Mpalette::ChProf(const QString& prn)
 		bool EmbedP = prn.startsWith("Embedded") ? true : false;
 		CurItem->UseEmbedded = EmbedP;
 		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 	}
 }
 
@@ -3948,7 +3946,7 @@ void Mpalette::ChIntent()
 	{
 		CurItem->IRender = MonitorI->currentIndex();
 		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 	}
 }
 
@@ -4103,7 +4101,7 @@ void Mpalette::handlePathType()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->textPathType = pathTextType->currentIndex();
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -4116,7 +4114,7 @@ void Mpalette::handlePathFlip()
 	{
 		CurItem->textPathFlipped = flippedPathText->isChecked();
 		CurItem->updatePolyClip();
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -4128,7 +4126,7 @@ void Mpalette::handlePathLine()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->PoShow = showcurveCheckBox->isChecked();
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -4142,7 +4140,7 @@ void Mpalette::handlePathDist()
 		CurItem->setTextToFrameDistLeft(Dist->value());
 		doc->AdjustItemSize(CurItem);
 		CurItem->updatePolyClip();
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -4156,7 +4154,7 @@ void Mpalette::handlePathOffs()
 		CurItem->BaseOffs = -LineW->value();
 		doc->AdjustItemSize(CurItem);
 		CurItem->updatePolyClip();
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -4166,7 +4164,7 @@ void Mpalette::handleFillRule()
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->fillRule = EvenOdd->isChecked();
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -4176,6 +4174,7 @@ void Mpalette::handleOverprint()
 	if ((HaveDoc) && (HaveItem))
 	{
 		doc->itemSelection_SetOverprint(Overprint->isChecked());
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -4255,7 +4254,7 @@ void Mpalette::ManageTabs()
 			ParagraphStyle newStyle(CurItem->itemText.defaultStyle());
 			newStyle.setTabValues(dia->tmpTab);
 			CurItem->itemText.setDefaultStyle(newStyle);
-			m_ScMW->view->RefreshItem(CurItem);
+			CurItem->update();
 			emit DocChanged();
 		}
 		delete dia;
@@ -4270,7 +4269,7 @@ void Mpalette::HandleTLines()
 		CurItem->LeftLine = LeftLine->isChecked();
 		CurItem->RightLine = RightLine->isChecked();
 		CurItem->BottomLine = BottomLine->isChecked();
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -4856,7 +4855,7 @@ void Mpalette::setGroupTransparency(int trans)
 	if ((HaveDoc) && (HaveItem))
 	{
 		CurItem->setFillTransparency(static_cast<double>(100 - trans) / 100.0);
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 	}
 }
@@ -4864,7 +4863,7 @@ void Mpalette::setGroupTransparency(int trans)
 void Mpalette::setGroupBlending(int blend)
 {
 		CurItem->setFillBlendmode(blend);
-		m_ScMW->view->RefreshItem(CurItem);
+		CurItem->update();
 		emit DocChanged();
 }
 
@@ -4898,8 +4897,9 @@ void Mpalette::EditSh2()
 		doc->m_Selection->clear();
 		doc->m_Selection->addItem(CurItem);
 		CurItem->isSingleSel = true;
-		m_ScMW->view->RefreshItem(CurItem);
-		emit ShapeEdit();
+		CurItem->update();
+//		emit ShapeEdit();
+		m_ScMW->view->requestMode(modeEditClip);
 		RoundRect->setEnabled(false);
 	}
 }

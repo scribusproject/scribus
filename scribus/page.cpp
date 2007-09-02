@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 
 Page::Page(const double x, const double y, const double b, const double h) :
 	UndoObject(QObject::tr("Page")),
+	SingleObservable<Page>(NULL),
 	Margins(40,40,40,40),
 	initialMargins(40,40,40,40),
 	LeftPg(0),
@@ -70,6 +71,7 @@ Page::~Page()
 void Page::setDocument(ScribusDoc *doc)
 {
 	m_Doc=doc;
+	setMassObservable(doc? doc->pagesChanged() : NULL);
 }
 
 void Page::setPageNr(int pageNr)
@@ -211,7 +213,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
-	if (m_Doc->EditClip) // switch off from edit shape
+	if (m_Doc->appMode == modeEditClip) // switch off from edit shape
 		m_Doc->scMW()->nodePalette->EndEdit();
 	if (isUndo)
 	{
@@ -237,7 +239,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		m_Doc->view()->Deselect(true);
 		m_Doc->Items->append(ite);
 		ite->ItemNr = m_Doc->Items->count()-1;
-		m_Doc->view()->updateContents();
+		update();
 	}
 	m_Doc->setMasterPageMode(oldMPMode);
 }
@@ -250,7 +252,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
-	if (m_Doc->EditClip) // switch off from edit shape
+	if (m_Doc->appMode == modeEditClip) // switch off from edit shape
 		m_Doc->scMW()->nodePalette->EndEdit();
 	if (isUndo)
 	{
@@ -259,7 +261,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		m_Doc->renumberItemsInListOrder();
 // 		m_Doc->Items->append(ite);
 // 		ite->ItemNr = m_Doc->Items->count()-1;
- 		m_Doc->view()->updateContents();
+ 		update();
 	}
 	else
 	{

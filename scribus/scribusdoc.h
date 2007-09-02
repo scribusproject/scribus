@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"
 #include "scribusstructs.h"
+#include "observable.h"
 #include "pagesize.h"
 #include "prefsstructs.h"
 #include "documentinformation.h"
@@ -52,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/styleset.h"
 #include "scpattern.h"
 #include "scguardedptr.h"
+#include "updatemanager.h"
 #include "sclayer.h"
 
 #include CMS_INC
@@ -59,6 +61,7 @@ for which a new license (GPL+exception) is in place.
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+class DocUpdater;
 class UndoManager;
 class UndoState;
 class PDFOptions;
@@ -70,10 +73,56 @@ class ResourceCollection;
 
 class QProgressBar;
 
+struct SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
+{
+	enum SubMode { MOVE_POINT = 0, ADD_POINT = 1, DEL_POINT = 2, SPLIT_PATH = 3 };
+	int submode;
+	bool isContourLine;
+	FPointArray *oldClip;
+	double oldItemX;
+	double oldItemY;
+		
+	int ClRe;
+	int ClRe2;
+	int SegP1;
+	int SegP2;
+	bool EdPoints;
+	bool MoveSym;
+	QList<int> SelNode;	
+	
+	NodeEditContext() : submode(MOVE_POINT), isContourLine(false), oldClip(NULL), 
+		ClRe(-1), ClRe2(-1), SegP1(-1), SegP2(-1), EdPoints(true), MoveSym(false), SelNode() {}
+	
+	bool hasNodeSelected() { return ClRe != -1; }
+	void deselect() { ClRe = -1; }
+	
+	void reset()
+	{
+		submode = MOVE_POINT;
+		isContourLine = false;
+		ClRe = -1;
+		ClRe2 = -1;
+		SegP1 = -1;
+		SegP2 = -1;
+		delete oldClip;
+		oldClip = NULL;
+		MoveSym = false;
+		SelNode.clear();
+	}
+	
+	void reset1Control(PageItem* currItem);
+	void resetControl(PageItem* currItem);
+	FPointArray beginTransaction(PageItem* currItem);
+	void finishTransaction(PageItem* currItem);
+	ItemState<QPair<FPointArray, FPointArray> >* finishTransaction1(PageItem* currItem);
+	void finishTransaction2(PageItem* currItem, ItemState<QPair<FPointArray, FPointArray> >* state);
+	void moveClipPoint(PageItem *currItem, FPoint ip);
+};
+
 
 /**! \brief the Document Class
   */
-class SCRIBUS_API ScribusDoc : public QObject, public UndoObject
+class SCRIBUS_API ScribusDoc : public QObject, public UndoObject, public Observable<ScribusDoc>
 {
 	Q_OBJECT
 
@@ -102,6 +151,11 @@ public:
 	 * @brief Return the guarded object associated with the document
 	 */
 	const ScGuardedPtr<ScribusDoc>& guardedPtr() const;
+	
+	UpdateManager* updateManager() { return &m_updateManager; }
+	MassObservable<PageItem*> * itemsChanged() { return &m_itemsChanged; }
+	MassObservable<Page*>     * pagesChanged() { return &m_pagesChanged; }
+	MassObservable<QRect>     * regionsChanged() { return &m_regionsChanged; }
 	
 	// Add, delete and move pages
 	
@@ -823,6 +877,9 @@ public:
 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
 	void AdjustItemSize(PageItem *currItem);
+	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
+	void rotateGroup(double angle, FPoint RCenter);
+	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
 	
 protected:
 	void addSymbols();
@@ -918,8 +975,8 @@ public: // Public attributes
 	int CurrentSel;
 	ParagraphStyle currentStyle;
 
-	bool EditClip;
-	int EditClipMode;
+	NodeEditContext nodeEdit;
+
 	typoPrefs typographicSettings;
 	guidesPrefs guidesSettings;
 	toolPrefs toolSettings;
@@ -1026,6 +1083,11 @@ public:
 private:
 	bool _itemCreationTransactionStarted;
 	Page* _currentPage;
+	UpdateManager m_updateManager;
+	MassObservable<PageItem*> m_itemsChanged;
+	MassObservable<Page*> m_pagesChanged;
+	MassObservable<QRect> m_regionsChanged;
+	DocUpdater* m_docUpdater;
 	
 signals:
 	//Lets make our doc talk to our GUI rather than confusing all our normal stuff

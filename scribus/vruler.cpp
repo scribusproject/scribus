@@ -222,7 +222,7 @@ void Vruler::drawNumber(QString num, int starty, QPainter *p)
 	for (int a = 0; a < num.length(); ++a)
 	{
 		QString txt = num.mid(a, 1);
-#ifndef QT_WS_MAC
+#ifndef Q_WS_MAC
 		p->drawText(1, textY, txt);
 #else
 		static const int SCALE = 16;
@@ -259,7 +259,7 @@ void Vruler::Draw(int where)
 	whereToDraw = where;
 	drawMark = true;
 	repaint(0, oldMark-3, 17, 6);
-	drawMark = false;
+//	drawMark = false;
 	oldMark = currentCoor;
 }
 

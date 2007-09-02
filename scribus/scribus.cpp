@@ -78,6 +78,7 @@ for which a new license (GPL+exception) is in place.
 #include "arrowchooser.h"
 #include "autoform.h"
 #include "bookpalette.h"
+#include "canvasmode.h"
 #include "charselect.h"
 #include "checkDocument.h"
 #include "cmsprefs.h"
@@ -88,17 +89,16 @@ for which a new license (GPL+exception) is in place.
 #include "cpalette.h"
 #include "customfdialog.h"
 #include "delpages.h"
-#include "desaxe/digester.h"
-#include "desaxe/saxXML.h"
-#include "desaxe/simple_actions.h"
 #include "docinfo.h"
 #include "docitemattrprefs.h"
 #include "documentchecker.h"
 #include "documentinformation.h"
 #include "druck.h"
+// #include "editformats.h"
 #include "effectsdialog.h"
 #include "fileloader.h"
 #include "filewatcher.h"
+//#include "fmitem.h"
 #include "fontcombo.h"
 #include "fontprefs.h"
 #include "fpoint.h"
@@ -116,6 +116,7 @@ for which a new license (GPL+exception) is in place.
 #include "javadocs.h"
 #include "langmgr.h"
 #include "layers.h"
+// #include "lineformats.h"
 #include "loremipsum.h"
 #include "marginWidget.h"
 #include "margindialog.h"
@@ -126,23 +127,22 @@ for which a new license (GPL+exception) is in place.
 #include "mpalette.h"
 #include "multipleduplicate.h"
 #include "muster.h"
-#include "newfile.h"
 #include "newtemp.h"
+#include "newfile.h"
 #include "page.h"
-#include "pageitem_imageframe.h"
-#include "pageitem_textframe.h"
-#include "pageitem_latexframe.h"
 #include "pageitemattributes.h"
+#include "pageitem_imageframe.h"
+#include "pageitem_latexframe.h"
+#include "pageitem_textframe.h"
 #include "pagelayout.h"
 #include "pageselector.h"
 #include "pagesize.h"
 #include "patterndialog.h"
-#include "pdflib.h"
 #include "pdfoptions.h"
 #include "pdfopts.h"
+#include "pdflib.h"
 #include "picstatus.h"
 #include "pluginmanager.h"
-#include "plugins/formatidlist.h"
 #include "polygonwidget.h"
 #include "prefs.h"
 #include "prefscontext.h"
@@ -154,6 +154,19 @@ for which a new license (GPL+exception) is in place.
 #include "query.h"
 #include "reformdoc.h"
 #include "resourcecollection.h"
+#include "scraction.h"
+#include "sccolorengine.h"
+#include "sccombobox.h"
+#include "scgtplugin.h"
+#include "scmessagebox.h"
+#include "scpaths.h"
+#include "scrap.h"
+#include "scribus.h"
+#include "scribusapp.h"
+#include "scribuscore.h"
+#include "scribusXml.h"
+#include "scribuswin.h"
+#include "search.h"
 #include "sccolorengine.h"
 #include "sccombobox.h"
 #include "scgtplugin.h"
@@ -170,6 +183,7 @@ for which a new license (GPL+exception) is in place.
 #include "seiten.h"
 #include "selection.h"
 #include "serializer.h"
+#include "seiten.h"
 #include "smlinestyle.h"
 #include "smtextstyles.h"
 #include "splash.h"
@@ -182,7 +196,6 @@ for which a new license (GPL+exception) is in place.
 #include "tabpdfoptions.h"
 #include "tabtools.h"
 #include "tabtypography.h"
-#include "text/nlsconfig.h"
 #include "tocgenerator.h"
 #include "tocindexprefs.h"
 #include "tree.h"
@@ -198,6 +211,13 @@ for which a new license (GPL+exception) is in place.
 #include "vruler.h"
 #include "werktoolb.h"
 
+#include "desaxe/saxXML.h"
+#include "desaxe/digester.h"
+#include "desaxe/simple_actions.h"
+
+#include "text/nlsconfig.h"
+
+#include "plugins/formatidlist.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -211,9 +231,11 @@ bool printDinUse;
 
 QString DocDir;
 
+
 //extern ScribusCore* ScCore;
 extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
+
 
 ScribusMainWindow::ScribusMainWindow()
 {
@@ -228,6 +250,8 @@ ScribusMainWindow::ScribusMainWindow()
 	noIcon = loadIcon("noicon.xpm");
 #endif
 } // ScribusMainWindow::ScribusMainWindow()
+
+
 
 /*
  * retval 0 - ok, 1 - no fonts, ...
@@ -348,6 +372,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	return retVal;
 }
 
+
 ScribusMainWindow::~ScribusMainWindow()
 {
 }
@@ -383,6 +408,7 @@ void ScribusMainWindow::initToolBars()
 	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), mainToolBar, SLOT(setShown(bool)) );
 }
 
+
 void ScribusMainWindow::initDefaultValues()
 {
 	HaveDoc = false;
@@ -402,6 +428,7 @@ void ScribusMainWindow::initDefaultValues()
 	guidesStatus[0] = false;
 }
 
+
 void ScribusMainWindow::initKeyboardShortcuts()
 {
 	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrActions.begin(); it!=scrActions.end(); ++it )
@@ -416,6 +443,7 @@ void ScribusMainWindow::initKeyboardShortcuts()
 		//qDebug(QString("|-\n|%1||%2||%3").arg(it.key()).arg(it.value()->cleanMenuText()).arg(QString(it.data()->accel())));
 	}
 }
+
 
 void ScribusMainWindow::initPalettes()
 {
@@ -501,7 +529,7 @@ void ScribusMainWindow::initPalettes()
 	connect(propertiesPalette->paraStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewParStyle(const QString&)));
 	connect(propertiesPalette->charStyleCombo, SIGNAL(newStyle(const QString&)), this, SLOT(setNewCharStyle(const QString&)));
 //	connect(propertiesPalette, SIGNAL(EditLSt()), this, SLOT(slotEditLineStyles()));
-	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(NoFrameEdit()));
+	connect(nodePalette, SIGNAL(Schliessen()), this, SLOT(slotSelect()));
 	connect(nodePalette, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	connect(layerPalette, SIGNAL(LayerChanged()), this, SLOT(showLayer()));
 
@@ -515,6 +543,7 @@ void ScribusMainWindow::initPalettes()
 	connect(scrActions["insertGlyph"], SIGNAL(toggled(bool)), charPalette, SLOT(setPaletteShown(bool)));
 	connect(charPalette, SIGNAL(paletteShown(bool)), scrActions["insertGlyph"], SLOT(setOn(bool)));
 }
+
 
 void ScribusMainWindow::initScrapbook()
 {
@@ -540,6 +569,7 @@ void ScribusMainWindow::initScrapbook()
 	connect(scrapbookPalette, SIGNAL(updateRecentMenue()), this, SLOT(rebuildRecentPasteMenu()));
 }
 
+
 bool ScribusMainWindow::warningVersion(QWidget *parent)
 {
 	bool retval = false;
@@ -550,6 +580,7 @@ bool ScribusMainWindow::warningVersion(QWidget *parent)
 		retval = true;
 	return retval;
 }
+
 
 void ScribusMainWindow::initMenuBar()
 {
@@ -982,6 +1013,7 @@ void ScribusMainWindow::initMenuBar()
 //Qt4	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
+
 void ScribusMainWindow::addDefaultWindowMenuItems()
 {
 	scrMenuMgr->clearMenu("Windows");
@@ -1025,6 +1057,7 @@ void ScribusMainWindow::initStatusBar()
 	statusBar()->addWidget(mainWindowYPosDataLabel, 1, true);
 }
 
+
 void ScribusMainWindow::setStatusBarMousePosition(double xp, double yp)
 {
 	double xn = xp;
@@ -1045,13 +1078,15 @@ void ScribusMainWindow::setStatusBarMousePosition(double xp, double yp)
 	mainWindowYPosDataLabel->setText(tmp.setNum(qRound(yn*doc->unitRatio() * multiplier) / divisor, 'f', precision) + suffix);
 }
 
+
 void ScribusMainWindow::setStatusBarInfoText(QString newText)
 {
 	if (mainWindowStatusLabel)
 		mainWindowStatusLabel->setText(newText);
 }
 
-//CB-->Doc
+
+//AV to be replaced with Selection::update and listener in PropertiesPalette
 void ScribusMainWindow::setTBvals(PageItem *currItem)
 {
 	if (currItem->itemText.length() != 0)
@@ -1087,7 +1122,8 @@ void ScribusMainWindow::wheelEvent(QWheelEvent *w)
 {
 	if (HaveDoc)
 	{
-		int wheelVal=prefsManager->mouseWheelValue();
+		view->contentsWheelEvent(w);
+/*		int wheelVal=prefsManager->mouseWheelValue();
 		if ((w->orientation() != Qt::Vertical) || ( w->modifiers() & Qt::ShiftModifier ))
 		{
 			if (w->delta() < 0)
@@ -1102,7 +1138,7 @@ void ScribusMainWindow::wheelEvent(QWheelEvent *w)
 			else
 				view->scrollBy(0, -wheelVal);
 		}
-		w->accept();
+		w->accept();*/
 	}
 }
 
@@ -1127,7 +1163,7 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 						currItem->itemText.insertChars(currItem->CPos, QString(QChar(unicodevalue)), true);
 						currItem->CPos += 1;
 //						currItem->Tinput = true;
-						view->RefreshItem(currItem);
+						currItem->update();
 					}
 					else if (actionName=="unicodeSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
 					{
@@ -1144,7 +1180,7 @@ void ScribusMainWindow::specialActionKeyEvent(const QString& actionName, int uni
 							currItem->CPos += 1;
 #endif
 //							currItem->Tinput = true;
-							view->RefreshItem(currItem);
+							currItem->update();
 						}
 					}
 				}
@@ -1238,6 +1274,8 @@ bool ScribusMainWindow::eventFilter( QObject* /*o*/, QEvent *e )
 	return retVal;
 }
 
+
+//AV -> CanvasMode
 void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 {
 	QWidgetList windows;
@@ -1274,6 +1312,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			switch (doc->appMode)
 			{
 				case modeNormal:
+				case modeEditClip:
 					currItem->Sizing = false;
 					if (doc->SubMode != -1)
 					{
@@ -1318,16 +1357,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					break;
 			}
 		}
-		view->m_MouseButtonPressed = false;
 		doc->DragP = false;
 		doc->leaveDrag = false;
-		view->operItemMoving = false;
-		view->operItemResizing = false;
-		view->inItemCreation = false;
-		view->MidButt = false;
+		view->stopAllDrags();
 		doc->SubMode = -1;
 		doc->ElemToLink = NULL;
-		NoFrameEdit();
 		slotSelect();
 		return;
 	}
@@ -1354,9 +1388,9 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			case Qt::Key_Space:
 				keyrep = false;
 				if (doc->appMode == modePanning)
-					setAppMode(modeNormal);
+					view->requestMode(modeNormal);
 				else
-					setAppMode(modePanning);
+					view->requestMode(modePanning);
 				return;
 				break;
 			case Qt::Key_Prior:
@@ -1503,6 +1537,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			switch (doc->appMode)
 			{
 			case modeNormal:
+			case modeEditClip:
 				switch (kk)
 				{
 				case Qt::Key_Backspace:
@@ -1526,28 +1561,28 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					{
 						if (!resizing)
 						{
-							if ((doc->EditClip) && (view->ClRe != -1))
+							if ((doc->appMode == modeEditClip) && (doc->nodeEdit.hasNodeSelected()))
 							{
-								int storedClRe = view->ClRe;
-								if ((view->SelNode.count() != 0) && (view->EdPoints))
+								int storedClRe = doc->nodeEdit.ClRe;
+								if ((doc->nodeEdit.SelNode.count() != 0) && (doc->nodeEdit.EdPoints))
 								{
-									for (int itm = 0; itm < view->SelNode.count(); ++itm)
+									for (int itm = 0; itm < doc->nodeEdit.SelNode.count(); ++itm)
 									{
 										FPoint np;
-										int clRe = view->SelNode.at(itm);
+										int clRe = doc->nodeEdit.SelNode.at(itm);
 										if (clRe != 0)
 										{
-											if (view->EditContour)
+											if (doc->nodeEdit.isContourLine)
 												np = currItem->ContourLine.point(clRe);
 											else
 												np = currItem->PoLine.point(clRe);
-											view->ClRe = clRe;
+											doc->nodeEdit.ClRe = clRe;
 											np = np - FPoint(moveBy, 0);
-											view->MoveClipPoint(currItem, np);
+											doc->nodeEdit.moveClipPoint(currItem, np);
 										}
 									}
 								}
-								view->ClRe = storedClRe;
+								doc->nodeEdit.ClRe = storedClRe;
 							}
 							else
 							{
@@ -1565,7 +1600,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						else
 						{
 							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
-							if(view->EditContour)
+							if(doc->nodeEdit.isContourLine)
 								view->TransformPoly(10, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
@@ -1583,7 +1618,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								}
  							}
 						}
-						view->updateContents();
+						currItem->update();
 						slotDocCh();
 					}
 					break;
@@ -1592,28 +1627,28 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					{
 						if (!resizing)
 						{
-							if ((doc->EditClip) && (view->ClRe != -1))
+							if ((doc->appMode == modeEditClip) && (doc->nodeEdit.hasNodeSelected()))
 							{
-								int storedClRe = view->ClRe;
-								if ((view->SelNode.count() != 0) && (view->EdPoints))
+								int storedClRe = doc->nodeEdit.ClRe;
+								if ((doc->nodeEdit.SelNode.count() != 0) && (doc->nodeEdit.EdPoints))
 								{
-									for (int itm = 0; itm < view->SelNode.count(); ++itm)
+									for (int itm = 0; itm < doc->nodeEdit.SelNode.count(); ++itm)
 									{
 										FPoint np;
-										int clRe = view->SelNode.at(itm);
+										int clRe = doc->nodeEdit.SelNode.at(itm);
 										if (clRe != 0)
 										{
-											if (view->EditContour)
+											if (doc->nodeEdit.isContourLine)
 												np = currItem->ContourLine.point(clRe);
 											else
 												np = currItem->PoLine.point(clRe);
-											view->ClRe = clRe;
+											doc->nodeEdit.ClRe = clRe;
 											np = np + FPoint(moveBy, 0);
-											view->MoveClipPoint(currItem, np);
+											doc->nodeEdit.moveClipPoint(currItem, np);
 										}
 									}
 								}
-								view->ClRe = storedClRe;
+								doc->nodeEdit.ClRe = storedClRe;
 							}
 							else
 							{
@@ -1631,7 +1666,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						else
 						{
 							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
-							if(view->EditContour)
+							if(doc->nodeEdit.isContourLine)
 								view->TransformPoly(11, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
@@ -1649,7 +1684,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								}
 							}
 						}
-						view->updateContents();
+						currItem->update();
 						slotDocCh();
 					}
 					break;
@@ -1658,28 +1693,28 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					{
 						if (!resizing)
 						{
-							if ((doc->EditClip) && (view->ClRe != -1))
+							if ((doc->appMode == modeEditClip) && (doc->nodeEdit.hasNodeSelected()))
 							{
-								int storedClRe = view->ClRe;
-								if ((view->SelNode.count() != 0) && (view->EdPoints))
+								int storedClRe = doc->nodeEdit.ClRe;
+								if ((doc->nodeEdit.SelNode.count() != 0) && (doc->nodeEdit.EdPoints))
 								{
-									for (int itm = 0; itm < view->SelNode.count(); ++itm)
+									for (int itm = 0; itm < doc->nodeEdit.SelNode.count(); ++itm)
 									{
 										FPoint np;
-										int clRe = view->SelNode.at(itm);
+										int clRe = doc->nodeEdit.SelNode.at(itm);
 										if (clRe != 0)
 										{
-											if (view->EditContour)
+											if (doc->nodeEdit.isContourLine)
 												np = currItem->ContourLine.point(clRe);
 											else
 												np = currItem->PoLine.point(clRe);
-											view->ClRe = clRe;
+											doc->nodeEdit.ClRe = clRe;
 											np = np - FPoint(0, moveBy);
-											view->MoveClipPoint(currItem, np);
+											doc->nodeEdit.moveClipPoint(currItem, np);
 										}
 									}
 								}
-								view->ClRe = storedClRe;
+								doc->nodeEdit.ClRe = storedClRe;
 							}
 							else
 							{
@@ -1697,7 +1732,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						else
 						{
 							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
-							if(view->EditContour)
+							if(doc->nodeEdit.isContourLine)
 								view->TransformPoly(12, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
@@ -1715,7 +1750,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								}
 							}
 						}
-						view->updateContents();
+						currItem->update();
 						slotDocCh();
 					}
 					break;
@@ -1724,28 +1759,28 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					{
 						if (!resizing)
 						{
-							if ((doc->EditClip) && (view->ClRe != -1))
+							if ((doc->appMode == modeEditClip) && (doc->nodeEdit.hasNodeSelected()))
 							{
-								int storedClRe = view->ClRe;
-								if ((view->SelNode.count() != 0) && (view->EdPoints))
+								int storedClRe = doc->nodeEdit.ClRe;
+								if ((doc->nodeEdit.SelNode.count() != 0) && (doc->nodeEdit.EdPoints))
 								{
-									for (int itm = 0; itm < view->SelNode.count(); ++itm)
+									for (int itm = 0; itm < doc->nodeEdit.SelNode.count(); ++itm)
 									{
 										FPoint np;
-										int clRe = view->SelNode.at(itm);
+										int clRe = doc->nodeEdit.SelNode.at(itm);
 										if (clRe != 0)
 										{
-											if (view->EditContour)
+											if (doc->nodeEdit.isContourLine)
 												np = currItem->ContourLine.point(clRe);
 											else
 												np = currItem->PoLine.point(clRe);
-											view->ClRe = clRe;
+											doc->nodeEdit.ClRe = clRe;
 											np = np - FPoint(0, -moveBy);
-											view->MoveClipPoint(currItem, np);
+											doc->nodeEdit.moveClipPoint(currItem, np);
 										}
 									}
 								}
-								view->ClRe = storedClRe;
+								doc->nodeEdit.ClRe = storedClRe;
 							}
 							else
 							{
@@ -1763,7 +1798,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						else
 						{
 							//CB If in EditContour mode, allow contour line to be scaled with arrow keys too
-							if(view->EditContour)
+							if(doc->nodeEdit.isContourLine)
 								view->TransformPoly(13, 0, resizeBy/unitGetRatioFromIndex(doc->unitIndex()));
 							else
 							{
@@ -1781,7 +1816,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								}
 							}
 						}
-						view->updateContents();
+						currItem->update();
 						slotDocCh();
 					}
 					break;
@@ -1813,7 +1848,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					if (dX!=0.0 || dY!=0.0)
 					{
 						currItem->moveImageInFrame(dX, dY);
-						view->updateContents(currItem->getRedrawBounding(view->scale()));
+						currItem->update();
 					}*/
 				}
 				view->oldCp = currItem->CPos;
@@ -1845,7 +1880,7 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 	if (HaveDoc)
 	{
 		if ((doc->appMode == modePanning) && (k->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
-			setAppMode(modeNormal);
+			view->requestMode(modeNormal);
 	}
 	if (HaveDoc)
 	{
@@ -1864,15 +1899,15 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 			if ((HaveDoc) && (!view->zoomSpinBox->hasFocus()) && (!view->pageSelector->hasFocus()))
 			{
 				int docSelectionCount=doc->m_Selection->count();
-				if ((docSelectionCount != 0) && (doc->appMode == modeNormal) && (doc->EditClip) && (view->ClRe != -1))
+				if ((docSelectionCount != 0) && (doc->appMode == modeEditClip) && (doc->nodeEdit.hasNodeSelected()))
 				{
 					PageItem *currItem = doc->m_Selection->itemAt(0);
 					double xposOrig = currItem->xPos();
 					double yposOrig = currItem->yPos();
 					doc->AdjustItemSize(currItem);
-					if (!view->EditContour)
+					if (!doc->nodeEdit.isContourLine)
 						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
-					view->updateContents();
+					currItem->update();
 				}
 				for (int i = 0; i < docSelectionCount; ++i)
 					doc->m_Selection->itemAt(i)->checkChanges(true);
@@ -2012,8 +2047,8 @@ void ScribusMainWindow::startUpDialog()
 
 bool ScribusMainWindow::slotFileNew()
 {
-	if (HaveDoc && doc->EditClip)
-		ToggleFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	bool retVal = false;
 	bool docSet = false;
 	NewDoc* dia = new NewDoc(this, RecentDocs);
@@ -2316,8 +2351,8 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		ActWin = NULL;
 		return;
 	}
-	if (doc!=0 && doc->EditClip)
-		ToggleFrameEdit();
+	if (doc!=0 && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	ScribusWin* scw = (ScribusWin*)w;
 	if (scw && scw->doc())
 		if (!scw->doc()->hasGUI())
@@ -2378,7 +2413,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		}
 		//if (doc->masterPageMode())
 		//	ActWin->setMasterPagesPaletteShown(true);
-		setAppMode(doc->appMode);
+		view->requestMode(doc->appMode);
 	}
 	w->setFocus();
 	wsp->setScrollBarsEnabled(!(w->isMaximized()));
@@ -2513,11 +2548,12 @@ void ScribusMainWindow::SwitchWin()
 	//if we are switching windows #4357
 	//nodePalette->setDoc(doc, view);
 	slotChangeUnit(doc->unitIndex(), false);
-	if (doc->EditClip)
+/*	FIXME: check if this is really superflous now
+	if (doc->appMode == modeEditClip)
 	{
-		doc->EditClip = !doc->EditClip;
-		ToggleFrameEdit();
-	}
+		doc->appMode = modeNormal;
+		view->requestMode(submodeEndNodeEdit);
+	} */
 	scrActions["fileClose"]->setEnabled(true);
 	if (doc->masterPageMode())
 	{
@@ -2544,9 +2580,6 @@ void ScribusMainWindow::SwitchWin()
 		scrActions["fileOpen"]->setEnabled(true);
 		scrActions["fileClose"]->setEnabled(true);
 		scrActions["fileSave"]->setEnabled(true);
-		//CB TODO  Huh? Why different to the above?, fileMenu->setItemEnabled(M_FileSave, ActWin->MenuStat[2]);
-		scrActions["fileSaveAs"]->setEnabled(ActWin->menuStatus(3));
-		scrActions["fileCollect"]->setEnabled(ActWin->menuStatus(3));
 		scrActions["fileRevert"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("FileOpenRecent", true);
 
@@ -2686,7 +2719,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(ItemTextFont(const QString&)), propertiesPalette, SLOT(setFontFace(const QString&)));
 	connect(view, SIGNAL(ItemTextSize(double)), propertiesPalette, SLOT(setSize(double)));
 	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
-	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
+//	connect(view, SIGNAL(Amode(int)), this, SLOT(setAppMode(int)));
 	connect(view, SIGNAL(PaintingDone()), this, SLOT(slotSelect()));
 	connect(view, SIGNAL(DocChanged()), this, SLOT(slotDocCh()));
 	//connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
@@ -2718,7 +2751,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(DelBM(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
 	connect(view, SIGNAL(RasterPic(bool)), this, SLOT(HaveRaster(bool)));
 	connect(view, SIGNAL(DoGroup()), this, SLOT(GroupObj()));
-	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
+//	connect(view, SIGNAL(EndNodeEdit()), this, SLOT(ToggleFrameEdit()));
 	connect(view, SIGNAL(LevelChanged(uint )), propertiesPalette, SLOT(setLevel(uint)));
 	connect(view, SIGNAL(callGimp()), this, SLOT(callImageEditor()));
 }
@@ -3226,15 +3259,11 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 		if (doc->hasName)
 			scrActions["fileRevert"]->setEnabled(true);
 
-		bool setter = doc->Pages->count() > 1 ? true : false;
-		scrActions["pageDelete"]->setEnabled(setter);
-		scrActions["pageMove"]->setEnabled(setter);
+		bool multiPages = doc->Pages->count() > 1;
+		scrActions["pageDelete"]->setEnabled(multiPages);
+		scrActions["pageMove"]->setEnabled(multiPages);
 	}
 
-	ActWin->setMenuStatus(0, scrActions["fileSave"]->isEnabled());
-	ActWin->setMenuStatus(1, scrActions["fileClose"]->isEnabled());
-	ActWin->setMenuStatus(2, scrActions["fileSave"]->isEnabled());
-	ActWin->setMenuStatus(3, scrActions["fileSaveAs"]->isEnabled());
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree();
 }
@@ -4224,7 +4253,7 @@ bool ScribusMainWindow::DoFileClose()
 	{
 		--doc->viewCount;
 		closeActiveWindowMasterPageEditor();
-		setAppMode(modeNormal);
+		slotSelect();
 		disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 		disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
 		view->close();
@@ -4236,7 +4265,7 @@ bool ScribusMainWindow::DoFileClose()
 	}
 	undoManager->removeStack(doc->DocName);
 	closeActiveWindowMasterPageEditor();
-	setAppMode(modeNormal);
+	slotSelect();
 	doc->autoSaveTimer->stop();
 	disconnect(doc->autoSaveTimer, SIGNAL(timeout()), doc->WinHan, SLOT(slotAutoSave()));
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
@@ -4278,8 +4307,8 @@ bool ScribusMainWindow::DoFileClose()
 	propertiesPalette->unsetDoc();
 	pagePalette->setView(0);
 	pagePalette->Rebuild();
-	if (doc->EditClip)
-		NoFrameEdit();
+	if (doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	bookmarkPalette->BView->clear();
 	bookmarkPalette->BView->NrItems = 0;
 	bookmarkPalette->BView->First = 1;
@@ -4615,7 +4644,8 @@ static bool hasXMLRootElem(const QString& buffer, const QString& elemtag)
 void ScribusMainWindow::slotEditCut()
 {
 //	int a;
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	QString BufferI = "";
 	uint docSelectionCount=doc->m_Selection->count();
 	if ((HaveDoc) && (docSelectionCount != 0))
@@ -4716,7 +4746,7 @@ void ScribusMainWindow::slotEditCut()
 			}
 			*/
 			dynamic_cast<PageItem_TextFrame*>(currItem)->deleteSelectedTextFromFrame();
-			view->RefreshItem(currItem);
+			currItem->update();
 		}
 		else
 		{
@@ -4763,7 +4793,8 @@ void ScribusMainWindow::slotEditCut()
 void ScribusMainWindow::slotEditCopy()
 {
 //	int a;
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	QString BufferI = "";
 	if ((HaveDoc) && (doc->m_Selection->count() != 0))
 	{
@@ -4886,7 +4917,8 @@ void ScribusMainWindow::slotEditCopy()
 
 void ScribusMainWindow::slotEditPaste()
 {
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	if (HaveDoc)
 	{
 		if (Buffer2.isNull())
@@ -5079,7 +5111,7 @@ void ScribusMainWindow::slotEditPaste()
 				// K.I.S.S.:
 				currItem->itemText.insertChars(currItem->CPos, Buffer2, true);
 			}
-			view->RefreshItem(currItem);
+			currItem->update();
 		}
 		else
 		{
@@ -5313,7 +5345,8 @@ void ScribusMainWindow::applyNewMaster(QString name)
 
 void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 {
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	view->Deselect(true);
 	slotNewPage(wo, templ); //master page is applied now
 	//applyNewMaster(templ);
@@ -5326,7 +5359,8 @@ void ScribusMainWindow::slotNewPageP(int wo, QString templ)
 /** Erzeugt eine neue Seite */
 void ScribusMainWindow::slotNewPageM()
 {
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	view->Deselect(true);
 	QStringList base;
 	InsPage *dia = new InsPage(this, doc, doc->currentPage()->pageNr(), doc->Pages->count());
@@ -5524,8 +5558,8 @@ void ScribusMainWindow::ToggleStickyTools()
 {
 	prefsManager->appPrefs.stickyTools = !prefsManager->appPrefs.stickyTools;
 	scrActions["stickyTools"]->setOn(prefsManager->appPrefs.stickyTools);
-	if (doc->appMode!=modeNormal && !prefsManager->appPrefs.stickyTools)
-		setAppMode(modeNormal);
+	if (HaveDoc && doc->appMode!=modeNormal && !prefsManager->appPrefs.stickyTools)
+		view->requestMode(modeNormal);
 }
 
 void ScribusMainWindow::ToggleAllPalettes()
@@ -5881,11 +5915,27 @@ void ScribusMainWindow::ToggleUGuides()
 	}
 }
 
+
+void ScribusMainWindow::toggleNodeEdit()
+{
+	if (!doc)
+		return;
+	
+	if (doc->appMode == modeEditClip)
+	{
+		view->requestMode(submodeEndNodeEdit);
+	}
+	else
+	{
+		view->requestMode(modeEditClip);
+	}	
+}
+
 void ScribusMainWindow::ToggleFrameEdit()
 {
 	if (!doc)
 		return;
-	if (doc->EditClip)
+	if (doc->appMode == modeEditClip)
 	{
 		NoFrameEdit();
 	}
@@ -5895,15 +5945,16 @@ void ScribusMainWindow::ToggleFrameEdit()
 // 		undoManager->setUndoEnabled(false);
 		scrActions["editUndoAction"]->setEnabled(false);
 		scrActions["editRedoAction"]->setEnabled(false);
-		slotSelect();
+//done elsewhere now		slotSelect();
 		nodePalette->setDoc(doc, view);
 		nodePalette->MoveN();
 		nodePalette->HaveNode(false, false);
 		nodePalette->MoveNode->setOn(true);
 		nodePalette->show();
+		qDebug() << "nodepalette show:" << nodePalette->geometry();
 		connect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
-		doc->EditClipMode = 0;
-		doc->EditClip = true;
+		doc->nodeEdit.reset();
+//done elsewhere now		doc->appMode = modeEditClip;
 		scrActions["toolsSelect"]->setEnabled(false);
 		scrActions["toolsRotate"]->setEnabled(false);
 		scrActions["toolsEditContents"]->setEnabled(false);
@@ -5967,7 +6018,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 			}
 		}
 	}
-	scrActions["itemShapeEdit"]->setOn(doc->EditClip);
+	scrActions["itemShapeEdit"]->setOn(doc->appMode == modeEditClip);
 }
 
 void ScribusMainWindow::NoFrameEdit()
@@ -5976,6 +6027,7 @@ void ScribusMainWindow::NoFrameEdit()
 	actionManager->disconnectModeActions();
 	nodePalette->setDoc(0,0);
 	nodePalette->hide();
+	qDebug() << "nodepalette hide";
 	scrActions["toolsSelect"]->setEnabled(true);
 	scrActions["toolsSelect"]->setOn(true);
 	scrActions["toolsRotate"]->setEnabled(true);
@@ -6018,8 +6070,8 @@ void ScribusMainWindow::NoFrameEdit()
 // 	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
 	if (HaveDoc)
 	{
-		doc->EditClip = false;
-		view->EditContour = false;
+// done elsewhere now:		doc->appMode = modeNormal;
+		doc->nodeEdit.reset();
 		if (doc->m_Selection->count() != 0)
 		{
 			HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
@@ -6033,22 +6085,29 @@ void ScribusMainWindow::NoFrameEdit()
 // 		undoManager->setUndoEnabled(true);
 }
 
+/** This is the safest method to return to modeNormal
+*/
 void ScribusMainWindow::slotSelect()
 {
-	setAppMode(modeNormal);
+	if (doc)
+		view->requestMode(modeNormal);
+	else
+		setAppMode(modeNormal);
 }
 
 void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
 {
 	keyrep=false;
 	if (isOn)
-		setAppMode(newMode);
+		view->requestMode(newMode);
 	else
-		setAppMode(modeNormal);
+		slotSelect();
 }
 
 void ScribusMainWindow::setAppMode(int mode)
 {
+	assert(mode < submodeFirstSubmode);
+	
 	//disconnect the tools actions so we dont fire them off
 	actionManager->disconnectModeActions();
 	//set the actions state based on incoming mode
@@ -6084,6 +6143,10 @@ void ScribusMainWindow::setAppMode(int mode)
 		if (doc->m_Selection->count() != 0)
 			currItem = doc->m_Selection->itemAt(0);
 		int oldMode = doc->appMode;
+		if (oldMode == modeEditClip && mode != modeEditClip)
+			NoFrameEdit();
+		else if (oldMode != modeEditClip && mode == modeEditClip)
+			ToggleFrameEdit();
 		doc->appMode = mode;
 		if (oldMode == modeMeasurementTool)
 			disconnect(view, SIGNAL(MVals(double, double, double, double, double, double, int )), measurementPalette, SLOT(setValues(double, double, double, double, double, double, int )));
@@ -6108,7 +6171,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			view->slotDoCurs(false);
 			if (currItem != 0)
 			{
-				view->RefreshItem(currItem);
+				currItem->update();
 				scrMenuMgr->setMenuEnabled("Style", true);
 				scrMenuMgr->setMenuEnabled("Item", true);
 			}
@@ -6121,12 +6184,12 @@ void ScribusMainWindow::setAppMode(int mode)
 			view->pageSelector->focusPolicy(Qt::NoFocus);
 			if (currItem != 0)
 			{
-				if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::PathText))
-				{
-					doc->appMode = 1;
-					ToggleFrameEdit();
-					return;
-				}
+//				if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::PathText))
+//				{
+//					doc->appMode = modeNormal;
+//					view->requestMode(modeEditClip);
+//					return;
+//				}
 				setTBvals(currItem);
 				currItem->CPos = 0;
 			}
@@ -6158,7 +6221,7 @@ void ScribusMainWindow::setAppMode(int mode)
 				scrActions["editClearContents"]->setEnabled(currItem->HasSel);
 				scrActions["editSearchReplace"]->setEnabled(true);
 
-				view->RefreshItem(currItem);
+				currItem->update();
 			}
 		}
 		int docSelectionCount=doc->m_Selection->count();
@@ -6262,7 +6325,8 @@ void ScribusMainWindow::setAppMode(int mode)
 		if (mode == modeLinkFrames)
 			doc->ElemToLink = doc->m_Selection->itemAt(0);
 		if ((mode == modeLinkFrames) || (mode == modeUnlinkFrames) || (oldMode == modeLinkFrames) || (oldMode == modeUnlinkFrames))
-			view->updateContents();
+			doc->regionsChanged()->update(QRect());
+		
 		if (mode == modeStoryEditor)
 		{
 			slotStoryEditor();
@@ -6377,7 +6441,8 @@ void ScribusMainWindow::setItemHoch(int h)
 void ScribusMainWindow::DeletePage2(int pg)
 {
 	PageItem* ite;
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	if (doc->Pages->count() == 1)
 		return;
 	int oldPg = doc->currentPageNumber();
@@ -6448,7 +6513,8 @@ void ScribusMainWindow::DeletePage2(int pg)
 
 void ScribusMainWindow::DeletePage()
 {
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	view->Deselect(true);
 	DelPages *dia = new DelPages(this, doc->currentPage()->pageNr()+1, doc->Pages->count());
 	if (dia->exec())
@@ -6538,7 +6604,8 @@ void ScribusMainWindow::DeletePage(int from, int to)
 
 void ScribusMainWindow::MovePage()
 {
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	MovePages *dia = new MovePages(this, doc->currentPage()->pageNr()+1, doc->Pages->count(), true);
 	if (dia->exec())
 	{
@@ -6561,7 +6628,8 @@ void ScribusMainWindow::MovePage()
 
 void ScribusMainWindow::CopyPage()
 {
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	MovePages *dia = new MovePages(this, doc->currentPage()->pageNr()+1, doc->Pages->count(), false);
 	if (dia->exec())
 	{
@@ -6581,7 +6649,8 @@ void ScribusMainWindow::CopyPage()
 
 void ScribusMainWindow::changePageMargins()
 {
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	QString Nam = doc->currentPage()->MPageNam;
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
@@ -7270,7 +7339,7 @@ void ScribusMainWindow::MakeFrame(int f, int c, double *vals)
 		break;
 	}
 	//propertiesPalette->SetCurItem(currItem);
-	view->RefreshItem(currItem);
+	currItem->update();
 	slotDocCh();
 }
 
@@ -7301,7 +7370,8 @@ void ScribusMainWindow::ObjektDupM()
 	if (!HaveDoc)
 		return;
 	slotSelect();
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	internalCopy = true;
 	MultipleDuplicate *dia = new MultipleDuplicate(doc->unitIndex(), this);
 	if (dia->exec())
@@ -7322,7 +7392,8 @@ void ScribusMainWindow::selectItemsFromOutlines(PageItem* ite)
 
 void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 {
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	setActiveWindow();
 	view->Deselect(true);
 	if ((Page != -1) && (Page != static_cast<int>(doc->currentPage()->pageNr())))
@@ -7368,7 +7439,8 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 
 void ScribusMainWindow::selectPagesFromOutlines(int Page)
 {
-	NoFrameEdit();
+	if (HaveDoc && doc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	setActiveWindow();
 	view->Deselect(true);
 	if (Page < 0)
@@ -7446,8 +7518,8 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 
 void ScribusMainWindow::slotPrefsOrg()
 {
-	setAppMode(modeNormal);
-
+	slotSelect();
+	
 	Preferences *dia = new Preferences(this);
 	if (dia->exec())
 	{
@@ -7965,8 +8037,8 @@ void ScribusMainWindow::StoreBookmarks()
 
 void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie)
 {
-	if (doc == docc)
-		NoFrameEdit();
+	if (doc == docc && docc->appMode == modeEditClip)
+		view->requestMode(submodeEndNodeEdit);
 	
 	ScriXmlDoc *ss = new ScriXmlDoc();
 	if(ss->ReadElem(xml, prefsManager->appPrefs.AvailFonts, docc, x, y, art, loca, prefsManager->appPrefs.GFontSub, vie))
@@ -8043,10 +8115,6 @@ void ScribusMainWindow::manageMasterPages(QString temp)
 			scrActions["pageApplyMasterPage"]->setEnabled(false);
 			scrActions["pageCopyToMasterPage"]->setEnabled(false);
 			scrActions["editMasterPages"]->setEnabled(false);
-			ActWin->setMenuStatus(0, scrActions["fileSave"]->isEnabled());
-			ActWin->setMenuStatus(1, scrActions["fileRevert"]->isEnabled());
-			ActWin->setMenuStatus(2, scrActions["fileSave"]->isEnabled());
-			ActWin->setMenuStatus(3, scrActions["fileSaveAs"]->isEnabled());
 			scrActions["fileNew"]->setEnabled(false);
 			scrActions["fileOpen"]->setEnabled(false);
 			scrActions["fileClose"]->setEnabled(false);
@@ -8066,7 +8134,7 @@ void ScribusMainWindow::manageMasterPagesEnd()
 {
 	view->setScale(storedViewScale);
 	view->hideMasterPage();
-	setAppMode(modeNormal);
+	slotSelect();
 	scrActions["editMasterPages"]->setEnabled(true);
 	scrActions["fileNew"]->setEnabled(true);
 	scrActions["fileOpen"]->setEnabled(true);
@@ -8328,7 +8396,8 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 			undoManager->replaceObject(doc->Pages->at(i)->getUId(), duo);
 			state->set(QString("Page%1").arg(i), static_cast<uint>(did));
 		}
-		NoFrameEdit();
+		if (HaveDoc && doc->appMode == modeEditClip)
+			view->requestMode(submodeEndNodeEdit);
 		view->Deselect(true);
 		DeletePage(delFrom, delTo);
 	}
@@ -8525,7 +8594,7 @@ void ScribusMainWindow::ModifyAnnot()
 				slotDocCh();
 			delete dia;
 		}
-		view->RefreshItem(currItem);
+		currItem->update();
 	}
 }
 
@@ -8827,7 +8896,7 @@ void ScribusMainWindow::EditTabs()
 				ParagraphStyle newTabs(currItem->itemText.defaultStyle());
 				newTabs.setTabValues(dia->tmpTab);
 				currItem->itemText.setDefaultStyle(newTabs);
-				view->RefreshItem(currItem);
+				currItem->update();
 				slotDocCh();
 			}
 			delete dia;
@@ -8838,7 +8907,7 @@ void ScribusMainWindow::EditTabs()
 void ScribusMainWindow::SearchText()
 {
 	PageItem *currItem = doc->m_Selection->itemAt(0);
-	setAppMode(modeEdit);
+	view->requestMode(modeEdit);
 	currItem->CPos = 0;
 	SearchReplace* dia = new SearchReplace(this, doc, currItem);
 	connect(dia, SIGNAL(NewFont(const QString&)), this, SLOT(SetNewFont(const QString&)));
@@ -9073,7 +9142,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 			}
 			//propertiesPalette->Cpal->SetColors(ScMW->doc->PageColors);
 			//propertiesPalette->updateCList();
-			setAppMode(modeNormal);
+			slotSelect();
 		}
 	}
 	if (sendToSuper)

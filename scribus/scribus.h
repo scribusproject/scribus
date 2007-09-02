@@ -414,7 +414,7 @@ public slots:
 	/** \brief Schaltet Rasterbenutzung ein/aus */
 	void ToggleURaster();
 	/** \brief Schaltet Rahmenbearbeitung ein/aus */
-	void ToggleFrameEdit();
+	void toggleNodeEdit();
 	void slotSelect();
 	/** \brief Switch appMode
 	\param mode TODO learn modes*/
@@ -498,7 +498,6 @@ public slots:
 	void setItemTypeStyle(int id);
 	void slotElemRead(QString Name, double x, double y, bool art, bool loca, ScribusDoc* docc, ScribusView* vie);
 	void slotChangeUnit(int art, bool draw = true);
-	void NoFrameEdit();
 	/*!
 	 * @brief Apply master pages from the Apply Master Page dialog
 	 * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
@@ -582,6 +581,8 @@ private:
 	void initScrapbook();
 
 	void updateColorMenu(QProgressBar* progressBar=NULL);
+	void ToggleFrameEdit();
+	void NoFrameEdit();
 
 	QLabel* mainWindowStatusLabel;
 	QString recentFileMenuName;

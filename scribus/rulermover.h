@@ -42,6 +42,7 @@ public:
 	void mousePressEvent(QMouseEvent *m);
 	void mouseReleaseEvent(QMouseEvent *m);
 	void mouseMoveEvent(QMouseEvent *m);
+	void paintEvent(QPaintEvent *e);
 	bool Mpressed;
 
 private: // Private attributes

@@ -75,6 +75,8 @@ SET(SCRIBUS_MOC_CLASSES
   bookmwin.h
   bookpalette.h
   buttonicon.h
+  canvas.h
+  canvasmode_legacy.h
   charselect.h
   chartablemodel.h
   chartableview.h
@@ -145,6 +147,7 @@ SET(SCRIBUS_MOC_CLASSES
   navigator.h
   newfile.h
   newtemp.h
+  observable.h
   oneclick.h
   pageitem.h
   pageitemattributes.h
@@ -247,6 +250,7 @@ SET(SCRIBUS_MOC_CLASSES
   schelptreemodel.h
   undogui.h
   undomanager.h
+  updatemanager.h
   unicodesearch.h
   upgradechecker.h
   urllauncher.h
@@ -271,6 +275,10 @@ SET(SCRIBUS_SOURCES
   bookmwin.cpp
   bookpalette.cpp
   buttonicon.cpp
+  canvas.cpp
+  canvasmode.cpp
+  canvasmode_legacy.cpp
+  canvasmode_nodeedit.cpp
   charselect.cpp
   chartablemodel.cpp
   chartableview.cpp
@@ -369,6 +377,7 @@ SET(SCRIBUS_SOURCES
   navigator.cpp
   newfile.cpp
   newtemp.cpp
+  observable.cpp
   oneclick.cpp
   page.cpp
   pageitem.cpp
@@ -515,6 +524,7 @@ SET(SCRIBUS_SOURCES
   schelptreemodel.cpp
   undogui.cpp
   undomanager.cpp
+  updatemanager.cpp
   undoobject.cpp
   undostack.cpp
   undostate.cpp

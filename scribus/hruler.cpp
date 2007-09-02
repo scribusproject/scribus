@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QCursor>
 #include <QMouseEvent>
+#include <QDebug>
 #include <QPaintEvent>
 #include <QPainter>
 #include <QPixmap>
@@ -49,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-#ifdef QT_WS_MAC
+#ifdef Q_WS_MAC
     #define topline 1
 #else
     #define topline 3
@@ -183,7 +184,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			QPoint py = currView->viewport()->mapFromGlobal(m->globalPos());
 			currView->DrHY = py.y();
 			qApp->changeOverrideCursor(QCursor(SPLITHC));
-			currView->redrawMarker->setGeometry(QRect(currView->viewport()->mapToGlobal(QPoint(0, 0)).x(), m->globalPos().y(), currView->visibleWidth(), 1));
+			currView->redrawMarker->setGeometry(QRect(currView->viewport()->mapToGlobal(QPoint(0, 0)).x(), m->globalPos().y(), currView->viewport()->width(), 1));
 			currView->redrawMarker->show();
 		}
 	}
@@ -264,7 +265,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			currView->redrawMarker->hide();
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		emit DocChanged(false);
-		currView->updateContents();
+		currDoc->regionsChanged()->update(QRect());
 	}
 	Mpressed = false;
 }
@@ -633,7 +634,6 @@ void Hruler::paintEvent(QPaintEvent *e)
 				cr3.setPoints(3, qRound((Pos+RMargin)*sc), topline, qRound((Pos+RMargin)*sc), 15, qRound((Pos+RMargin-3/sc)*sc), 9);
 				p.drawPolygon(cr3);
 			}
-			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			if (TabValues.count() != 0)
 			{
 				p.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
@@ -724,7 +724,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 		}
 		// draw pixmap
 		p.resetMatrix();
-		p.translate(-currView->contentsX(), 0);
+		p.translate(-currView->widget()->x(), 0);
 		p.scale(1.0/SCALE, 1.0/(SCALE+1));
 		p.drawPixmap((where-2)*SCALE, 1, pix);
 		p.end();
@@ -744,7 +744,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 #else
 		// draw slim marker
 		p.resetMatrix();
-		p.translate(-currView->contentsX(), 0);
+		p.translate(-currView->widget()->x(), 0);
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
 		cr.setPoints(5,  whereToDraw, 5, whereToDraw, 16, whereToDraw, 5, whereToDraw+2, 0, whereToDraw-2, 0);
@@ -758,7 +758,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 {
 	const int y = y0 - 3 + topline;
-#ifndef QT_WS_MAC
+#ifndef Q_WS_MAC
 	p.drawText(x,y,txt);
 #else
 	static const int SCALE = 16;
@@ -789,11 +789,11 @@ void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 void Hruler::Draw(int where)
 {
 	// erase old marker
-	int currentCoor = where - currView->contentsX();
+	int currentCoor = where - currView->widget()->x();
 	whereToDraw = where;
 	drawMark = true;
 	repaint(oldMark-3, 0, 7, 17);
-	drawMark = false;
+//	drawMark = false;
 	oldMark = currentCoor;
 }
 

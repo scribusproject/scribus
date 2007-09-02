@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cassert>
 
+#include "canvas.h"
 #include "commonstrings.h"
 #include "guidemanager.h"
 #include "hyphenator.h"
@@ -2498,10 +2499,10 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		//Draw the overflow icon
 		if (frameOverflows())
 		{//CB && added here for jghali prior to commit access
-			if ((!view->previewMode) && (!view->viewAsPreview))
+			if ((!view->m_canvas->isPreviewMode()))
 				drawOverflowMarker(p);
 		}
-		if ((m_Doc->guidesSettings.colBordersShown) && ((!view->previewMode) && (!view->viewAsPreview)))
+		if ((m_Doc->guidesSettings.colBordersShown) && (!view->m_canvas->isPreviewMode()))
 			drawColumnBorders(p);
 		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)))
 		{

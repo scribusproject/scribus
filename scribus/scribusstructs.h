@@ -398,6 +398,7 @@ enum AppMode
 	modeEditGradientVectors,
 	modeEyeDropper,
 	modeCopyProperties,
+	modeEditClip,
 	modeDrawLatex
 };
 

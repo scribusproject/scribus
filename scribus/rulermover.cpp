@@ -22,12 +22,16 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "rulermover.h"
-#include "scribusview.h"
-#include "scribusdoc.h"
+
 #include <QCursor>
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPixmap>
+
+#include "scribusview.h"
+#include "scribusdoc.h"
+#include "canvas.h"
+
 #include "util_icon.h"
 
 RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
@@ -57,10 +61,8 @@ void RulerMover::mousePressEvent(QMouseEvent *m)
 	currView->DrHY = py.y();
 	qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
 	currView->redrawMode = 1;
-	currView->specialRendering = true;
-	currView->firstSpecial = true;
-	currView->redrawPolygon.clear();
-	currView->redrawPolygon << QPoint(-1, -1);
+	currView->m_canvas->setRenderModeFillBuffer();
+	currView->m_canvas->newRedrawPolygon() << QPoint(-1, -1);
 }
 
 void RulerMover::mouseReleaseEvent(QMouseEvent *m)
@@ -74,13 +76,19 @@ void RulerMover::mouseReleaseEvent(QMouseEvent *m)
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Mpressed = false;
 	currView->redrawMode = 0;
-	currView->specialRendering = false;
-	currView->firstSpecial = false;
-	currView->DrawNew();
+	currView->m_canvas->resetRenderMode();
 }
 
 void RulerMover::mouseMoveEvent(QMouseEvent *m)
 {
 	if ((Mpressed) && (m->pos().x() > width()) && (m->pos().y() > height()))
 		currView->rulerMove(m);
+}
+
+
+void RulerMover::paintEvent(QPaintEvent* e)
+{
+//	QPainter p(this);
+//	p.setPen(Qt::green);
+//	p.drawRect(0,0,width()-1,height()-1);
 }

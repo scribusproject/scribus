@@ -299,7 +299,7 @@ void ExtImageProps::changedLayer()
 		currentItem->pixm.imgInfo.RequestProps.insert(layerTable->rowCount() - r - 1, loadingInfo);
 	}
 	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);
-	viewWidget->updateContents();
+	currentItem->update();
 }
 
 void ExtImageProps::selLayer(int layer)
@@ -329,7 +329,7 @@ void ExtImageProps::noPath()
 	currentItem->imageClip.resize(0);
 	currentItem->pixm.imgInfo.usedPath = "";
 	pathList->clearSelection();
-	viewWidget->updateContents();
+	currentItem->update();
 	connect(pathList, SIGNAL( itemClicked(QListWidgetItem*) ), this, SLOT( selPath(QListWidgetItem*) ) );
 }
 
@@ -343,7 +343,7 @@ void ExtImageProps::selPath(QListWidgetItem *c)
 		cl.translate(currentItem->imageXOffset()*currentItem->imageXScale(), currentItem->imageYOffset()*currentItem->imageYScale());
 		cl.scale(currentItem->imageXScale(), currentItem->imageYScale());
 		currentItem->imageClip.map(cl);
-		viewWidget->updateContents();
+		currentItem->update();
 	}
 }
 
