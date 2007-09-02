@@ -18,7 +18,7 @@
 
 #include <QApplication>
 #include <QButtonGroup>
-#include <QCheckbox>
+#include <QCheckBox>
 #include <QCursor>
 #include <QEvent>
 #include <QMessageBox>
