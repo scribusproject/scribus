@@ -3810,7 +3810,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			dragTimer->stop();
 			if (Doc->appMode == modeEditClip)
 			{
-				handleNodeEditDrag(m, currItem);
+//				handleNodeEditDrag(m, currItem);
 				return;
 			}
 			if (m_canvas->m_viewMode.operItemResizing)
@@ -4313,7 +4313,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 //				mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
 				if (Doc->appMode == modeEditClip)
 				{
-					handleNodeEditMove(m, mpo, currItem, p);
+//					handleNodeEditMove(m, mpo, currItem, p);
 				}
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo))
 					&& ((Doc->appMode == modeNormal) || (Doc->appMode == modeRotation) || (Doc->appMode == modeEdit)))
@@ -4509,7 +4509,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			SeRy = Myp;
 			if ((Doc->appMode == modeEditClip) && (Doc->m_Selection->count() != 0))
 			{
-				handleNodeEditPress(m, mpo);
+//				handleNodeEditPress(m, mpo);
 				return;
 			}			
 			
@@ -9307,6 +9307,7 @@ double ScribusView::scale() const
 	return m_canvas->scale(); 
 }
 
+#if 0
 void ScribusView::handleNodeEditPress(QMouseEvent* m, QRect mpo)
 {
 	assert (false);
@@ -9738,7 +9739,7 @@ void ScribusView::handleNodeEditPress(QMouseEvent* m, QRect mpo)
 		}
 	
 }
-
+#endif
 
 
 

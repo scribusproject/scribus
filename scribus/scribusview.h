@@ -268,9 +268,6 @@ public:
 	void scrollBy(int x, int y);
 	int visibleWidth() { return viewport()->size().width(); } ;
 	int visibleHeight() { return viewport()->size().height(); } ;
-	void handleNodeEditPress(QMouseEvent* m, QRect mpo);
-	bool handleNodeEditMove(QMouseEvent* m, QRect mpo, PageItem* currItem, QMatrix p);
-	void handleNodeEditDrag(QMouseEvent* m, PageItem* currItem);
 	void stopAllDrags();
 
 public slots: // Public slots

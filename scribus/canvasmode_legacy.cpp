@@ -601,7 +601,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			m_view->dragTimer->stop();
 			if (m_doc->appMode == modeEditClip)
 			{
-				m_view->handleNodeEditDrag(m, currItem);
+//				m_view->handleNodeEditDrag(m, currItem);
 				return;
 			}
 			if (m_canvas->m_viewMode.operItemResizing)
@@ -1102,7 +1102,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 //				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 				if (m_doc->appMode == modeEditClip)
 				{
-					m_view->handleNodeEditMove(m, mpo, currItem, p);
+//					m_view->handleNodeEditMove(m, mpo, currItem, p);
 				}
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo))
 					&& ((m_doc->appMode == modeNormal) || (m_doc->appMode == modeRotation) || (m_doc->appMode == modeEdit)))
@@ -1292,7 +1292,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			SeRy = Myp;
 			if ((m_doc->appMode == modeEditClip) && (m_doc->m_Selection->count() != 0))
 			{
-				m_view->handleNodeEditPress(m, mpo);
+//				m_view->handleNodeEditPress(m, mpo);
 				return;
 			}			
 			
