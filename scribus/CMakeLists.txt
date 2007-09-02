@@ -76,7 +76,6 @@ SET(SCRIBUS_MOC_CLASSES
   bookpalette.h
   buttonicon.h
   canvas.h
-  canvasmode_legacy.h
   charselect.h
   chartablemodel.h
   chartableview.h
@@ -250,7 +249,6 @@ SET(SCRIBUS_MOC_CLASSES
   schelptreemodel.h
   undogui.h
   undomanager.h
-  updatemanager.h
   unicodesearch.h
   upgradechecker.h
   urllauncher.h
