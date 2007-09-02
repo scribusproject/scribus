@@ -578,9 +578,9 @@ void Druck::SelPrinter(const QString& prn)
 	else
 	{
 		psLevel->setEnabled( false );
-		PrintSep->setEditText( tr("Print Normal") );
+		PrintSep->setItemText(PrintSep->currentIndex(), tr("Print Normal"));
 		PrintSep->setEnabled( false );
-		SepArt->setEditText( tr("All") );
+		SepArt->setItemText(SepArt->currentIndex(), tr("All"));
 		SepArt->setEnabled( false );
 		ToSeparation = false;
 		if (m_doc->HasCMS)

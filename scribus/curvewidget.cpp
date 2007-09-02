@@ -33,10 +33,8 @@ KCurve::KCurve(QWidget *parent) : QWidget(parent)
 	m_grab_point     = FPoint();
 	m_dragging = false;
 	m_linear = false;
-	m_pix = NULL;
 	m_pos = 0;
 	setMouseTracking(true);
-//	setPaletteBackgroundColor(Qt::NoBackground);
 	setMinimumSize(150, 150);
 	m_points.resize(0);
 	m_points.addPoint(0.0, 0.0);
@@ -46,14 +44,6 @@ KCurve::KCurve(QWidget *parent) : QWidget(parent)
 
 KCurve::~KCurve()
 {
-	if (m_pix) delete m_pix;
-}
-
-void KCurve::setPixmap(QPixmap pix)
-{
-	if (m_pix) delete m_pix;
-		m_pix = new QPixmap(pix);
-	repaint();
 }
 
 void KCurve::paintEvent(QPaintEvent *)
@@ -64,19 +54,10 @@ void KCurve::paintEvent(QPaintEvent *)
 	x  = 0;
 	y  = 0;
 	// Drawing selection or all histogram values.
-	// A QPixmap is used for enable the double buffering.
-//	QPixmap pm(size());
 	QPainter p1;
 	p1.begin(this);
 	//  draw background
-//	if(m_pix)
-//	{
-		p1.scale(1.0*wWidth/m_pix->width(), 1.0*wHeight/m_pix->height());
-		p1.drawPixmap(0, 0, *m_pix);
-		p1.resetMatrix();
-//	}
-//	else
-//		pm.fill();
+	p1.fillRect(QRect(0, 0, wWidth, wHeight), QColor(255, 255, 255));
 	// Draw grid separators.
 	p1.setPen(QPen::QPen(Qt::gray, 1, Qt::SolidLine));
 	p1.drawLine(wWidth/4, 0, wWidth/4, wHeight);
@@ -115,7 +96,6 @@ void KCurve::paintEvent(QPaintEvent *)
 		}
 	}
 	p1.end();
-//	bitBlt(this, 0, 0, &pm);
 }
 
 void KCurve::keyPressEvent(QKeyEvent *e)

@@ -28,7 +28,6 @@ class SCRIBUS_API KCurve : public QWidget
 public:
 	KCurve(QWidget *parent);
 	virtual ~KCurve();
-	void setPixmap(QPixmap pix);
 
 protected:
 	void paintEvent(QPaintEvent *);
@@ -60,7 +59,6 @@ private:
 	double m_grabOffsetY;
 	FPointArray m_points;
 	FPointArray m_points_back;
-	QPixmap *m_pix;
 };
 
 class SCRIBUS_API CurveWidget : public QWidget

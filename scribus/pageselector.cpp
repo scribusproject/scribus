@@ -176,7 +176,7 @@ void PageSelector::GotoPg(int a)
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	PageCombo->setCurrentIndex(a);
-	PageCombo->setEditText( tr( "%1 of %2" ).arg(a+1).arg(LastPG) );
+	PageCombo->setItemText(PageCombo->currentIndex(), tr( "%1 of %2" ).arg(a+1).arg(LastPG));
 	APage = a+1;
 	Back->setEnabled(true);
 	Start->setEnabled(true);
@@ -204,9 +204,9 @@ void PageSelector::setMaximum(int a)
 //	v->setTop(LastPG);
 	for (int b = 0; b < LastPG; ++b)
 	{
-		PageCombo->insertItem(b, tmp.setNum(b+1));
+		PageCombo->addItem(tmp.setNum(b+1));
 	}
-	PageCombo->setEditText( tr( "%1 of %2" ).arg(APage).arg(LastPG) );
+	PageCombo->setItemText(PageCombo->currentIndex(), tr( "%1 of %2" ).arg(APage).arg(LastPG));
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 
@@ -243,7 +243,7 @@ void PageSelector::goFw()
 void PageSelector::languageChange()
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
-	PageCombo->setEditText( tr( "%1 of %2").arg(APage).arg(LastPG) );
+	PageCombo->setItemText(PageCombo->currentIndex(), tr( "%1 of %2" ).arg(APage).arg(LastPG));
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 

@@ -237,7 +237,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	CheckerPrefsList::Iterator itend=doc->checkerProfiles.end();
 	for (it = doc->checkerProfiles.begin(); it != itend ; ++it)
 		curCheckProfile->addItem(it.key());
-	curCheckProfile->setEditText(doc->curCheckProfile);
+	curCheckProfile->setItemText(curCheckProfile->currentIndex(), doc->curCheckProfile);
 
 	int minRes = qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution);
 	int maxRes = qRound(doc->checkerProfiles[doc->curCheckProfile].maxResolution);

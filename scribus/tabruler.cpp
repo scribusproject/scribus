@@ -685,7 +685,7 @@ void Tabruler::setFillChar()
 			break;
 		case 4:
 			tabFillCombo->setEditable(true);
-			tabFillCombo->setEditText(CommonStrings::trCustomTabFill);
+			tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill);
 			break;
 	}
 	if (tabFillCombo->currentItem() != 4)
@@ -732,7 +732,7 @@ void Tabruler::setTabFillChar(QChar t)
 	{
 		tabFillCombo->setCurrentItem(4);
 		tabFillCombo->setEditable(true);
-		tabFillCombo->setEditText(CommonStrings::trCustomTabFill+QString(t));
+		tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill+QString(t));
 	}
 	emit tabrulerChanged();
 	emit tabsChanged();

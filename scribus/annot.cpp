@@ -1565,12 +1565,12 @@ void Annot::DecodeNum()
 			}
 		}
 	if (item->annotation().Format() == 3)
-		{
-		Format0c->setEditText(pfol[0].remove("\""));
+	{
+		Format0c->setItemText(Format0c->currentIndex(), pfol[0].remove("\""));
 		setDateSample(pfol[0]);
-		}
+	}
 	if (item->annotation().Format() == 4)
-		{
+	{
 		switch (pfol[0].toInt())
 			{
 			case 0:

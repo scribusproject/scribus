@@ -147,11 +147,11 @@ void FontComboH::familySelected(int id)
 	slist.sort();
 	fontStyle->addItems(slist);
 	if (slist.contains(curr))
-		fontStyle->setEditText(curr);
+		fontStyle->setItemText(fontStyle->currentIndex(), curr);
 	else if (slist.contains("Regular"))
-		fontStyle->setEditText("Regular");
+		fontStyle->setItemText(fontStyle->currentIndex(), "Regular");
 	else if (slist.contains("Roman"))
-		fontStyle->setEditText("Roman");
+		fontStyle->setItemText(fontStyle->currentIndex(), "Roman");
 	emit fontSelected(fontFamily->itemText(id) + " " + fontStyle->currentText());
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
@@ -172,7 +172,7 @@ void FontComboH::setCurrentFont(QString f)
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	QString family = prefsManager->appPrefs.AvailFonts[f].family();
 	QString style = prefsManager->appPrefs.AvailFonts[f].style();
-	fontFamily->setEditText(family);
+	fontFamily->setItemText(fontFamily->currentIndex(), family);
 	fontStyle->clear();
 	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[family];
 	slist.sort();
@@ -189,7 +189,7 @@ void FontComboH::setCurrentFont(QString f)
 	}
 	else
 		fontStyle->addItems(slist);
-	fontStyle->setEditText(style);
+	fontStyle->setItemText(fontStyle->currentIndex(), style);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }

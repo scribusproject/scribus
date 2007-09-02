@@ -149,12 +149,12 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			if ((info->isRequest) && (info->RequestProps.contains(0)))
 			{
 				opacitySpinBox->setValue(qRound(info->RequestProps[0].opacity / 255.0 * 100));
-				blendMode->setEditText(blendModes[info->RequestProps[0].blend]);
+				blendMode->setItemText(blendMode->currentIndex(), blendModes[info->RequestProps[0].blend]);
 			}
 			else
 			{
 				opacitySpinBox->setValue(qRound(info->layerInfo[0].opacity / 255.0 * 100));
-				blendMode->setEditText(blendModes[info->layerInfo[0].blend]);
+				blendMode->setItemText(blendMode->currentIndex(), blendModes[info->layerInfo[0].blend]);
 			}
 			opacitySpinBox->setEnabled(true);
 			blendMode->setEnabled(true);
@@ -309,12 +309,12 @@ void ExtImageProps::selLayer(int layer)
 	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->rowCount() - layer - 1)))
 	{
 		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setEditText(blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].blend]);
+		blendMode->setItemText(blendMode->currentIndex(), blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].blend]);
 	}
 	else
 	{
 		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setEditText(blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].blend]);
+		blendMode->setItemText(blendMode->currentIndex(), blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].blend]);
 	}
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);

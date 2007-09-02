@@ -684,7 +684,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		tabFillCombo->setCurrentItem(4);
 		tabFillCombo->setEditable(true);
-		tabFillCombo->setEditText( CommonStrings::trCustomTabFill + prefsData->tabFillChar);
+		tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill + prefsData->tabFillChar);
 	}
 	gapText->setNewUnit(unitIndex);
 	gapTab->setNewUnit(unitIndex);
@@ -693,15 +693,15 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	gapText->setValue(prefsData->dGap * unitRatio);
 
 	colorComboLineShape->clear();
-	colorComboLineShape->insertItem(CommonStrings::tr_NoneColor);
+	colorComboLineShape->addItem(CommonStrings::tr_NoneColor);
 	if (prefsData->dPen == CommonStrings::None)
-		colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
+		colorComboLineShape->setCurrentIndex(colorComboLineShape->count()-1);
 	endOfColorList=colorList->end();
 	for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 	{
 		colorComboLineShape->insertSmallItem( itc.value(), docu, itc.key() );
 		if (itc.key() == prefsData->dPen)
-			colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
+			colorComboLineShape->setCurrentIndex(colorComboLineShape->count()-1);
 	}
 	shadingLineShape->setValue(prefsData->dShade2);
 
@@ -850,8 +850,7 @@ void TabTools::setCustomFillChar(const QString &txt)
 	if (tabFillCombo->editable())
 	{
 		tabFillCombo->setCurrentItem(4);
-		tabFillCombo->setEditText( CommonStrings::trCustomTabFill+ret);
-		tabFillCombo->changeItem( CommonStrings::trCustomTabFill+ret, 4);
+		tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill + ret);
 	}
 	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
@@ -867,13 +866,13 @@ void TabTools::setFillChar(int act)
 		case 1:
 		case 2:
 		case 3:
-			tabFillCombo->setCurrentItem(act);
+			tabFillCombo->setCurrentIndex(act);
 			tabFillCombo->setEditable(false);
 			break;
 		case 4:
 			tabFillCombo->setEditable(true);
-			tabFillCombo->setEditText(CommonStrings::trCustomTabFill);
-			tabFillCombo->changeItem(CommonStrings::trCustomTabFill, 4);
+			tabFillCombo->setCurrentIndex(4);
+			tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill);
 			tabFillCombo->lineEdit()->setFocus();
 			tabFillCombo->lineEdit()->setCursorPosition(CommonStrings::trCustomTabFill.length());
 			connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));

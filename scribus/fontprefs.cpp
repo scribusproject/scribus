@@ -220,7 +220,7 @@ void FontPrefs::UpdateFliste()
 		FlagsRepl.at(b)->clear();
 		FlagsRepl.at(b)->addItems(UsedFonts);
 		if (UsedFonts.contains(tmp) != 0)
-			FlagsRepl.at(b)->setEditText(tmp);
+			FlagsRepl.at(b)->setItemText(FlagsRepl.at(b)->currentIndex(), tmp);
 		else
 			FlagsRepl.at(b)->setCurrentIndex(0);
 	}
@@ -434,7 +434,7 @@ void FontPrefs::rebuildDialog()
 		ScComboBox *item = new ScComboBox(Table3);
 		item->setEditable(false);
 		item->addItems(UsedFonts);
-		item->setEditText(itfsu.value());
+		item->setItemText(item->currentIndex(), itfsu.value());
 		Table3->setCellWidget(a, 1, item);
 		FlagsRepl.append(item);
 		a++;
