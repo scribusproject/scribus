@@ -14,7 +14,7 @@ ScImgDataLoader::ScImgDataLoader(void)
 void ScImgDataLoader::initialize(void)
 {
 	m_msgType = noMsg;
-	m_message.setLength(0);
+	m_message.resize(0);
 	m_image = QImage();
 	m_imageInfoRecord.init();
 	m_embeddedProfile.resize(0);

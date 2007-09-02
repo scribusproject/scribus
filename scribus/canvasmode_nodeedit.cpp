@@ -437,7 +437,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 				for (int m = 0; m < m_ScMW->scrapbookPalette->tempBView->objectMap.count(); ++m)
 				{
 					QString strippedName = it.key();
-					QPixmap pm = it.data().Preview;
+					QPixmap pm = it.value().Preview;
 // Qt4					pmen3->insertItem(pm, strippedName);
 					pmen3->addAction(pm, strippedName);
 					it--;
@@ -533,13 +533,13 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 //	m_doc->SubMode = -1;
 	if (m_view->_groupTransactionStarted)
 	{
-		for (uint i = 0; i < m_doc->m_Selection->count(); ++i)
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			m_doc->m_Selection->itemAt(i)->checkChanges(true);
 		m_view->undoManager->commit();
 		m_view->_groupTransactionStarted = false;
 	}
 
-	for (uint i = 0; i < m_doc->m_Selection->count(); ++i)
+	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 
 	//Commit drag created items to undo manager.

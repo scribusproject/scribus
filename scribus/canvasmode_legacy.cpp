@@ -278,7 +278,6 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 {
 	int newX, newY;
 	double nx, ny;
-	uint a;
 	PageItem *currItem;
 	QPoint np, np2, mop;
 	FPoint npf, npf2;
@@ -431,7 +430,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				m_doc->leaveDrag = false;
 				m_doc->DraggedElem = currItem;
 				m_doc->DragElements.clear();
-				for (uint dre=0; dre<m_doc->m_Selection->count(); ++dre)
+				for (int dre=0; dre<m_doc->m_Selection->count(); ++dre)
 					m_doc->DragElements.append(m_doc->m_Selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				//Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(Doc, this, m_doc->m_Selection), this);
@@ -669,7 +668,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				else
 				{
 					//qDebug(QString("frameResizeHandle %1").arg(frameResizeHandle));
-					for (a = 0; a < m_doc->m_Selection->count(); ++a)
+					for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 					{
 						currItem = m_doc->m_Selection->itemAt(0);
 						double nh = currItem->height();
@@ -1092,7 +1091,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				}
 				return;
 			}
-			for (a = 0; a < m_doc->m_Selection->count(); ++a)
+			for (int a = 0; a < m_doc->m_Selection->count(); ++a)
 			{
 				currItem = m_doc->m_Selection->itemAt(a);
 				if (currItem->locked())
@@ -2418,7 +2417,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				for (int m = 0; m < m_ScMW->scrapbookPalette->tempBView->objectMap.count(); ++m)
 				{
 					QString strippedName = it.key();
-					QPixmap pm = it.data().Preview;
+					QPixmap pm = it.value().Preview;
 // Qt4					pmen3->insertItem(pm, strippedName);
 					pmen3->addAction(pm, strippedName);
 					it--;
@@ -2746,7 +2745,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				int firstElem = -1;
 				if (currItem->Groups.count() != 0)
 					firstElem = currItem->Groups.top();
-				for (uint bx = 0; bx < m_doc->m_Selection->count(); ++bx)
+				for (int bx = 0; bx < m_doc->m_Selection->count(); ++bx)
 				{
 					if (m_doc->m_Selection->itemAt(bx)->Groups.count() != 0)
 					{
@@ -4285,13 +4284,13 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 //	m_doc->SubMode = -1;
 	if (m_view->_groupTransactionStarted)
 	{
-		for (uint i = 0; i < m_doc->m_Selection->count(); ++i)
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 			m_doc->m_Selection->itemAt(i)->checkChanges(true);
 		m_view->undoManager->commit();
 		m_view->_groupTransactionStarted = false;
 	}
 
-	for (uint i = 0; i < m_doc->m_Selection->count(); ++i)
+	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
 		m_doc->m_Selection->itemAt(i)->checkChanges(true);
 
 	//Commit drag created items to undo manager.
@@ -4515,7 +4514,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 					m_doc->m_Selection->connectItemToGUI();
 					if (m_doc->m_Selection->count() > 1)
 					{
-						for (uint aa = 0; aa < m_doc->m_Selection->count(); ++aa)
+						for (int aa = 0; aa < m_doc->m_Selection->count(); ++aa)
 						{
 							PageItem *bb = m_doc->m_Selection->itemAt(aa);
 							m_view->updateContents(bb->getRedrawBounding(m_canvas->scale()));
@@ -4664,7 +4663,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 				m_doc->m_Selection->connectItemToGUI();
 				if (m_doc->m_Selection->count() > 1)
 				{
-					for (uint aa = 0; aa < m_doc->m_Selection->count(); ++aa)
+					for (int aa = 0; aa < m_doc->m_Selection->count(); ++aa)
 					{
 						PageItem *bb = m_doc->m_Selection->itemAt(aa);
 						m_view->updateContents(bb->getRedrawBounding(m_canvas->scale()));
@@ -4720,7 +4719,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		}
 		if (tmpGuidesSel.count() != 0)
 		{
-			GyM = tmpGuidesSel.begin().data();
+			GyM = tmpGuidesSel.begin().value();
 			QPoint py = m_view->viewport()->mapFromGlobal(m->globalPos());
 			m_view->DrHY = py.y();
 		}
@@ -4733,7 +4732,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		}
 		if (tmpGuidesSel.count() != 0)
 		{
-			GxM = tmpGuidesSel.begin().data();
+			GxM = tmpGuidesSel.begin().value();
 			QPoint py = m_view->viewport()->mapFromGlobal(m->globalPos());
 			m_view->DrVX = py.x();
 		}
