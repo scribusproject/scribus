@@ -18,15 +18,16 @@ for which a new license (GPL+exception) is in place.
 *                                                                         *
 ***************************************************************************/
 
-#include <QDesktopWidget>
 #include <QColor>
+#include <QDebug>
+#include <QDesktopWidget>
 #include <QDir>
 #include <QDomDocument>
 #include <QFile>
-#include <QString>
-#include <QStyleFactory>
 #include <QMatrix>
 #include <QList>
+#include <QString>
+#include <QStyleFactory>
 
 #include "prefsmanager.h"
 
@@ -186,7 +187,7 @@ void PrefsManager::initDefaults()
 	appPrefs.mainWinSettings.width = 640;
 	appPrefs.mainWinSettings.height = 480;
 	appPrefs.mainWinSettings.maximized = false;
-	appPrefs.mainWinState = "";
+	appPrefs.mainWinState = QByteArray();
 	appPrefs.guidesSettings.marginsShown = true;
 	appPrefs.guidesSettings.framesShown = true;
 	appPrefs.guidesSettings.layerMarkersShown = false;
@@ -768,7 +769,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	}
 	if (!appPrefs.mainWinState.isEmpty())
 	{
-		mw->restoreState(QByteArray::fromBase64(appPrefs.mainWinState));
+		mw->restoreState(appPrefs.mainWinState);
 	}
 }
 
@@ -780,7 +781,7 @@ void PrefsManager::ReadPrefsXML()
 		if (userprefsContext)
 		{
 			appPrefs.guiLanguage = userprefsContext->get("gui_language","");
-			appPrefs.mainWinState = userprefsContext->get("mainwinstate","");
+			appPrefs.mainWinState = QByteArray::fromBase64(userprefsContext->get("mainwinstate","").toAscii());
             //continue here...
             //Prefs."blah blah" =...
 		}
@@ -800,7 +801,7 @@ void PrefsManager::SavePrefs(const QString & fname)
 	appPrefs.mainWinSettings.width = ScCore->primaryMainWindow()->size().width();
 	appPrefs.mainWinSettings.height = ScCore->primaryMainWindow()->size().height();
 	appPrefs.mainWinSettings.maximized = ScCore->primaryMainWindow()->isMaximized();
-	appPrefs.mainWinState = ScCore->primaryMainWindow()->saveState().toBase64();
+	appPrefs.mainWinState = ScCore->primaryMainWindow()->saveState();
 	appPrefs.RecentDocs.clear();
 	uint max = qMin(appPrefs.RecentDCount, ScCore->primaryMainWindow()->RecentDocs.count());
 	for (uint m = 0; m < max; ++m)
@@ -826,8 +827,8 @@ void PrefsManager::SavePrefsXML()
 		PrefsContext* userprefsContext = prefsFile->getContext("user_preferences");
 		if (userprefsContext)
 		{
-			userprefsContext->set("gui_language",appPrefs.guiLanguage);
-			userprefsContext->set("mainwinstate",QString(appPrefs.mainWinState));
+			userprefsContext->set("gui_language", appPrefs.guiLanguage);
+			userprefsContext->set("mainwinstate", QString::fromAscii(appPrefs.mainWinState.toBase64()));
             //continue here...
             //Prefs."blah blah" =...
 		}
@@ -1745,11 +1746,12 @@ bool PrefsManager::ReadPref(QString ho)
 			QDesktopWidget *d = QApplication::desktop();
 			QSize gStrut = QApplication::globalStrut();
 			int minX = 0;
-#ifndef QT_OS_MAC
-			int minY = 0;
-#else
+#ifdef Q_OS_MAC
 			// on Mac you're dead if the titlebar is not on screen
 			int minY = 22;
+			qDebug() << "prefsmanager: adjust for Mac";
+#else
+			int minY = 0;
 #endif
 			if (appPrefs.mainWinSettings.xPosition < minX )
 				appPrefs.mainWinSettings.xPosition = minX;

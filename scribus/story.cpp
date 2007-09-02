@@ -1341,7 +1341,7 @@ void StoryEditor::loadPrefs()
 {
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("StoryEditor");
 	int vleft   = qMax(-80, prefs->getInt("left", 10));
-#if defined(QT_OS_MAC) || defined(_WIN32)
+#if defined(Q_OS_MAC) || defined(_WIN32)
 	int vtop    = qMax(64, prefs->getInt("top", 10));
 #else
 	int vtop    = qMax(-80, prefs->getInt("top", 10));

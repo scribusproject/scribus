@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QComboBox>
 
-#ifdef QT_WS_MAC
+#ifdef Q_WS_MAC
 #include <QMacStyle>
 #endif
 
@@ -35,15 +35,16 @@ class ColorCombo : public QComboBox
 
 private:
 
-#ifdef QT_WS_MAC
+#ifdef Q_WS_MAC
 	/// use listbox instead of popupmenu for combo boxes
 	class ScMacStyle : public QMacStyle 
 	{
-		virtual int ScMacStyle::styleHint(StyleHint sh, const QWidget * w, 
-	                                  const QStyleOption & so, 
+		virtual int ScMacStyle::styleHint(StyleHint sh, 
+	                                  const QStyleOption * so, 
+					  const QWidget * w, 
 	                                  QStyleHintReturn * r) const
 		{
-        	return sh != QStyle::SH_ComboBox_Popup && QMacStyle::styleHint(sh, w, so, r); 
+        	return sh != QStyle::SH_ComboBox_Popup && QMacStyle::styleHint(sh, so, w, r); 
 		}
 	};
 #endif

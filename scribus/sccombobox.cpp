@@ -16,24 +16,25 @@ for which a new license (GPL+exception) is in place.
 #include <Q3ListBox>
 #include "sccombobox.h"
 
-#ifdef QT_WS_MAC
+#ifdef Q_WS_MAC
 
 #include <QMacStyle>
 
 /// use listbox instead of popupmenu for combo boxes
 class ScMacStyle : public QMacStyle {
-	virtual int ScMacStyle::styleHint(StyleHint sh, const QWidget * w, 
-	                                  const QStyleOption & so, 
+	virtual int ScMacStyle::styleHint(StyleHint sh, 
+	                                  const QStyleOption * so, 
+					  const QWidget * w, 
 	                                  QStyleHintReturn * r) const
 	{
-        	return sh != QStyle::SH_ComboBox_Popup && QMacStyle::styleHint(sh, w, so, r); 
+        	return sh != QStyle::SH_ComboBox_Popup && QMacStyle::styleHint(sh, so, w, r); 
 	}
 };
 #endif
 
 ScComboBox::ScComboBox( QWidget* parent ) : QComboBox(parent)
 {
-#ifdef QT_WS_MAC
+#ifdef Q_WS_MAC
 	setStyle( new ScMacStyle );
 #endif
 //Qt4	setListBox( new Q3ListBox( this, "in-combo", Qt::WType_Popup ) );

@@ -657,7 +657,7 @@ void SCFonts::AddFontconfigFonts()
 	FT_Done_FreeType( library );
 }
 
-#elif defined(QT_WS_X11)
+#elif defined(Q_WS_X11)
 
 void SCFonts::AddXFontPath()
 {
