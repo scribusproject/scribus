@@ -39,6 +39,8 @@
       <submenuitem file="pagetemplate1.html" text="Musterseiten" />
       <submenuitem file="short-words.html" text="Umbruchkontrolle für Abkürzungen" />
       <submenuitem text="Paginierung" file="pagenumber.html" />
+      <submenuitem text="Farben in Scribus" file="color1.html" />
+      <submenuitem text="Ebenen" file="layers.html" />
     </submenuitem>
 <!-- <submenuitem text="Document Text" file="text.html" />-->
 	<submenuitem file="importhints.html" text="Importieren" >
