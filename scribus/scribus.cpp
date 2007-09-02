@@ -1526,7 +1526,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 			double resizeBy=1.0;
 			//CB with control locked out due to the requirement of moveby of 0.01, we cannot support
 			//resizeby 10 units unless we move to supporting modifier keys that most people dont have.
-			//if (buttonModifiers & Qt::ControlButton)
+			//if (buttonModifiers & Qt::ControlModifier)
 			//	resizeBy*=10.0;
 			resizeBy/=doc->unitRatio();
 			if (resizingsmaller)

@@ -4432,7 +4432,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	if (m->modifiers() == (Qt::ControlModifier | Qt::AltModifier))
 		m_view->Deselect(false);
 
-	if ((m->modifiers() == (Qt::ShiftModifier | Qt::AltModifier)) && (!Doc->masterPageMode()) && (Doc->currentPage()->FromMaster.count() != 0))
+	if ((m->modifiers() == (Qt::ShiftModifier | Qt::AltModifier)) && (!m_doc->masterPageMode()) && (m_doc->currentPage()->FromMaster.count() != 0))
 	{
 		Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->MPageNam]);
 		currItem = m_doc->currentPage()->FromMaster.at(m_doc->currentPage()->FromMaster.count()-1);
