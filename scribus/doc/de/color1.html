@@ -1,0 +1,20 @@
+<qt>
+<title>Farben bearbeiten und importieren, Scribus Farbpaletten</title>
+<h3>Farben bearbeiten und importieren, Scribus Farbpaletten</h3>
+<p>In Scribus gibt es verschiedene Methoden, um Farben zu erzeugen, zu importieren and zu bearbeiten. Welche dieser Methoden Sie anwenden, hängt davon ab, ob Sie Farben aus einem anderen Scribus-Dokument oder einer importierten Datei, etwa im EPS- oder SVG-Format, replizieren müssen. Darüber hinaus verfügt Scribus über ein spezielles Plug-in, nämlich das Farbrad, das es Ihnen ermöglicht, Farbharmonien zu erzeugen und deren Wirkung auf Farbenblinde zu überprüfen.</p>
+<p>Fangen wir mit den <strong>Farbpaletten</strong> an:</p>
+<p>Standardmäßig enthält Scribus eine Handvoll sehr nützlicher Farbpaletten, die als Ausgangsbasis für das Erzeugen eigener Paletten dienen können. Es empfiehlt sich, die Unterschiede zwischen dem RGB- und dem CMYK-Farbmodell zu verstehen, und ich rate Ihnen, das Farbmanagement richtig zu konfigurieren, wenn Sie CMYK-Farbpaletten verwenden. Wie Sie wissen, können CMYK-Farben nicht direkt auf einem Computerbildschirm wiedergegeben werden, sondern sie werden simuliert. Das Farbmanagement ermöglicht, wenn es richtig eingestellt ist, eine korrektere Farbwiedergabe, und zwar so, wie die Farben aussehen, wenn mit CMYK-Tinten gedruckt wird. Beachten Sie, daß die meisten Tinten- und Laserdrucker in die Kategorie der sogenannten RGB-Geräte gehören, genau wie Monitore. Das liegt daran, daß ihre Treiber RGB-Werte erwarten, die dann mit Hilfe des Treibers oder einer Kombination aus Treiber und Firmware intern von RGB nach CMYK umgerechnet werden.</p>
+<ul>
+   <li><strong>Scribus Small</strong> ist eine Palette mit grundlegenden CMYK-Farben. Sie basieren auf einer Mischung von Standard-CMYK-Farben.</li>
+   <li><strong>Scribus Gnome</strong> ist eine Palette mit RGB-Farben, die standardmäßig in aktuellen Gnome-Desktops eingesetzt werden.</li>
+   <li><strong>Scribus Open Office</strong> ist eine Palette mit CMYK-Farben, die auf den Standardfarben in OpenOffice.org basieren.</li>
+   <li><strong>Scribus SVG</strong> ist eine Palette mit RGB-Farben, die auf der <a href="http://www.w3.org/TR/css3-color/#svg-color">SVG-Spezifikation</a> basieren.</li>
+   <li><strong>Scribus X11</strong> ist eine Palette mit RGB-Farben, die aus X-Windows stammt</li>
+   <li><strong>Scribus X11Grey</strong> ist eine Palette mit Grautönen, die aus X-Windows stammt.</li>
+ </ul>
+<p>Sie können eine Standardpalette für alle Dokumente auswählen, wenn Sie alle offenen Scribus-Dateien schließen und dann dann eine Palette im Farbdialog auswählen.</p>
+<table width="100%"><tr><td align="center"><img src="images/colormanager1.png" title="Der Farbdialog" alt="Der Farbdialog" /></td></tr></table><br />
+<h4>Farben importieren</h4>
+<p>Im Farbdialog können Sie Farben aus anderen Scribus-Dokumenten oder aus Dateien in den Vektorformaten EPS, PostScript oder AI (Adobe Illustrator&#174;) importieren. Das gilt auch für Schmuckfarben, die eine besondere Form benannter Farben darstellen.</p>
+<p>Aus manchen unterstützen Dateien läßt sich keine Farbe importieren, selbst wenn sie auf Postscript basieren. Warum? Nicht alle Programme speichern <a href="http://en.wikipedia.org/wiki/Document_structure_convention">DSC</a>-Kommentare (Document Structure Convention) korrekt und verwenden inkompatible proprietäre Erweiterungen, die nicht dem PostScript-Standard entsprechen.</p>
+</qt>

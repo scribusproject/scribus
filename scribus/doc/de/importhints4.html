@@ -1,0 +1,51 @@
+<qt>
+<title>Bemerkungen zum HTML-Import in Scribus</title>
+<h2>Bemerkungen zum HTML-Import in Scribus</h2>
+
+<p>Scribus verfügt über einen HTML-Importfilter, der sauberes, wohlgeformtes HTML importieren kann und dabei viele Formatierungen übernimmt, vorausgesetzt, bei der Formatierung handelt es sich um einfaches HTML, und zwar <strong>in HTML-Auszeichnungen</strong>, nicht in CSS-Stylesheets. CSS-Unterstützung wird in einer zukünftigen Version enthalten sein.</p>
+<h4>Welches HTML wird unterstützt, und wie funktioniert es?</h4>
+<p>Beim Import legt der Importfilter Absatzstile an, die den HTML-Auszeichnungen entsprechen. Fett, kursiv, nichtproportionaler Text und Textausrichtung werden ebenso berücksichtigt. Unten sehen Sie eine Liste mit HTML-Tags, die unterstützt werden, sowohl in Groß- als auch in Kleinbuchstaben</p>
+<ul>
+<li>body, div, a &ndash; Der Text muß in &#060;body&#062;-Tags stehen.</li>
+<li>p and br &ndash; Entspricht Absätzen und Zeilenumbrüchen.</li>
+<li>H1 to H4 &ndash; Entspricht den Überschriftengröße 1 bis 4.</li>
+<li>ol,ul,li &ndash; Entspricht numerierten und nichtnumerierten Listen.</li>
+<li>pre and code &ndash; Entspricht vorformatiertem Text und Quellcode-Auszeichnungen. Beide werden mit Courier formatiert.</li>
+<li>Weblinks erhalten eine blaue Textfarbe, um sie ähnlich hervorzuheben, wie Webbrowser dies normalerweise tun.</li>
+<li>b, u, i, em, strong, sub, sup, del, u &ndash; Die Textformatierung wird in entsprechende Zeichenstile konvertiert. Beachten Sie, daß Ihre Standardschrift in Scribus alle diese Schriftschnitte enthalten sollte.</li>
+</ul>
+Der folgende HTML-Abschnitt wird in Scribus wie unten gezeigt aussehen, und es werden entsprechende Absatzstile angelegt.
+<pre>
+&#060;?xml version="1.0" encoding="utf-8"?&#062;
+&#060;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&#062;
+&#060;html xmlns="http://www.w3.org/1999/xhtml"&#062;
+&#060;head&#062;
+&#060;title&#062;&#060;/title&#062;
+&#060;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&#062;
+&#060;/head&#062;
+&#060;body&#062;
+&#060;h1&#062;H1 Text&#060;/h1&#062;
+&#060;h2&#062;H2 Text&#060;/h2&#062;
+&#060;h3&#062;H3 Text&#060;/h3&#062;
+&#060;h4&#062;H4 Text&#060;/h4&#062;
+&#060;ol&#062;
+&#060;li&#062;Ordered List Item 1  &#060;/li&#062;
+&#060;li&#062;Ordered List Item 2  &#060;/li&#062;
+ &#060;/ol&#062;
+ &#060;ul&#062;
+&#060;li&#062;Un-Ordered List Item 1  &#060;/li&#062;
+ &#060;li&#062;Un-Ordered List Item 2  &#060;/li&#062;
+ &#060;/ul&#062;
+ &#060;code&#062;code listings&#060;/code&#062;
+ &#060;p&#062;&#060;b&#062;Bold Paragraph Style&#060;/b&#062;&#060;/p&#062;
+ &#060;p&#062;&#060;i&#062;Italic Paragraph Style&#060;/i&#062;&#060;/p&#062;
+ &#060;p align="center"&#062;Centered Text&#060;/p&#062;
+&#060;/body&#062;
+&#060;/html&#062;</pre>
+<p>Hier sehen Sie die importierten Absatzstile: </p>
+<table width="100%"><tr><td align="center"><img src="images/htmlstyle.png" alt="HTML-Stile nach dem Import in Scribus"  title="HTML-Stile nach dem Import in Scribus" /></td></tr></table>
+<p>Hier sehen Sie, wie der Text auf dem Bildschirm dargestellt wird:</p>
+<table width="100%"><tr><td align="center"><img src="images/htmlimport.png" alt="HTML-Text nach dem Import in Scribus"  title="HTML-Text nach dem Import in Scribus" /></td></tr></table>
+<p>Nicht alle Programme befolgen beim HTML-Export die W3C-Spezifikationen gleich zuverlässig. Sie können htmltidy verwenden, um aus fehlerhaften HTML-Dateien standardkonforme zu machen, um sie anschließend in Scribus zu importieren. Siehe: <a href=" http://w3c.org"> http://w3c.org</a>
+</qt>
