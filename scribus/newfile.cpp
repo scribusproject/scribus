@@ -102,7 +102,7 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	TabbedNewDocLayout->setMargin(10);
 	TabbedNewDocLayout->setSpacing(5);
 	if (startUp)
-		tabWidget = new QTabWidget( this, "tabWidget2" );
+		tabWidget = new QTabWidget( this );
 	createNewDocPage();
 	if (startUp)
 	{
@@ -122,16 +122,16 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	Layout1->setMargin( 0 );
 	if (startUp)
 	{
-		startUpDialog = new QCheckBox( tr( "Do not show this dialog again" ), this, "startUpDialog" );
+		startUpDialog = new QCheckBox( tr( "Do not show this dialog again" ), this );
 		startUpDialog->setChecked(!prefsManager->appPrefs.showStartupDialog);
 		Layout1->addWidget( startUpDialog );
 	}
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout1->addItem( spacer );
-	OKButton = new QPushButton( CommonStrings::tr_OK, this, "OKButton" );
+	OKButton = new QPushButton( CommonStrings::tr_OK, this );
 	OKButton->setDefault( true );
 	Layout1->addWidget( OKButton );
-	CancelB = new QPushButton( CommonStrings::tr_Cancel, this, "CancelB" );
+	CancelB = new QPushButton( CommonStrings::tr_Cancel, this );
 	CancelB->setAutoDefault( false );
 	Layout1->addWidget( CancelB );
 	TabbedNewDocLayout->addLayout( Layout1 );
@@ -214,45 +214,45 @@ void NewDoc::createNewDocPage()
 	layoutsView->arrangeIcons();
 
 
-	TextLabel1 = new QLabel( tr( "&Size:" ), pageSizeGroupBox, "TextLabel1" );
+	TextLabel1 = new QLabel( tr( "&Size:" ), pageSizeGroupBox );
 	pageSizeGroupBoxLayout->addWidget( TextLabel1, 0, 1 );
 	PageSize ps(prefsManager->appPrefs.pageSize);
-	pageSizeComboBox = new QComboBox( true, pageSizeGroupBox, "pageSizeComboBox" );
-	pageSizeComboBox->insertStringList(ps.sizeTRList());
-	pageSizeComboBox->insertItem( CommonStrings::trCustomPageSize );
+	pageSizeComboBox = new QComboBox( pageSizeGroupBox );
+	pageSizeComboBox->addItems(ps.sizeTRList());
+	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize );
 	pageSizeComboBox->setEditable(false);
 	TextLabel1->setBuddy(pageSizeComboBox);
 	pageSizeGroupBoxLayout->addWidget(pageSizeComboBox, 0, 2 );
-	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), pageSizeGroupBox, "TextLabel2" );
+	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), pageSizeGroupBox );
 	pageSizeGroupBoxLayout->addWidget( TextLabel2, 1, 1 );
-	pageOrientationComboBox = new QComboBox( true, pageSizeGroupBox, "pageOrientationComboBox" );
-	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
-	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
+	pageOrientationComboBox = new QComboBox( pageSizeGroupBox );
+	pageOrientationComboBox->addItem( tr( "Portrait" ) );
+	pageOrientationComboBox->addItem( tr( "Landscape" ) );
 	pageOrientationComboBox->setEditable(false);
-	pageOrientationComboBox->setCurrentItem(prefsManager->appPrefs.pageOrientation);
+	pageOrientationComboBox->setCurrentIndex(prefsManager->appPrefs.pageOrientation);
 	TextLabel2->setBuddy(pageOrientationComboBox);
 	pageSizeGroupBoxLayout->addWidget( pageOrientationComboBox, 1, 2 );
 
-	TextLabel1_2 = new QLabel( tr( "&Width:" ), pageSizeGroupBox, "TextLabel1_2" );
+	TextLabel1_2 = new QLabel( tr( "&Width:" ), pageSizeGroupBox );
 	pageSizeGroupBoxLayout->addWidget(TextLabel1_2, 2, 1 );
 	widthSpinBox = new ScrSpinBox( 1, 10000, pageSizeGroupBox, unitIndex );
 	widthSpinBox->setSuffix(unitSuffix);
 	TextLabel1_2->setBuddy(widthSpinBox);
 	pageSizeGroupBoxLayout->addWidget(widthSpinBox, 2, 2 );
-	TextLabel2_2 = new QLabel( tr( "&Height:" ), pageSizeGroupBox, "TextLabel2_2" );
+	TextLabel2_2 = new QLabel( tr( "&Height:" ), pageSizeGroupBox );
 	pageSizeGroupBoxLayout->addWidget(TextLabel2_2, 3, 1 );
 	heightSpinBox = new ScrSpinBox( 1, 10000, pageSizeGroupBox, unitIndex );
 	heightSpinBox->setSuffix(unitSuffix);
 	TextLabel2_2->setBuddy(heightSpinBox);
 	pageSizeGroupBoxLayout->addWidget(heightSpinBox, 3, 2 );
-	layoutLabel1 = new QLabel( pageSizeGroupBox, "layoutLabel1" );
+	layoutLabel1 = new QLabel( pageSizeGroupBox );
 	layoutLabel1->setText( tr( "First Page is:" ) );
 	pageSizeGroupBoxLayout->addWidget( layoutLabel1, 4, 1 );
 	firstPage = new ScComboBox( pageSizeGroupBox );
 	firstPage->clear();
 	pageSizeGroupBoxLayout->addWidget( firstPage, 4, 2 );
 	selectItem(prefsManager->appPrefs.FacingPages);
-	firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
+	firstPage->setCurrentIndex(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
 
 	MarginStruct marg(prefsManager->appPrefs.margins);
 	marginGroup = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, unitIndex );
@@ -263,9 +263,9 @@ void NewDoc::createNewDocPage()
 	QStringList pageSizes=ps.sizeList();
 	int sizeIndex=pageSizes.indexOf(ps.nameTR());
 	if (sizeIndex!=-1)
-		pageSizeComboBox->setCurrentItem(sizeIndex);
+		pageSizeComboBox->setCurrentIndex(sizeIndex);
 	else
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
 	marginGroup->setPageSize(pageSizeComboBox->currentText());
 	setDS(prefsManager->appPrefs.FacingPages);
 	setSize(prefsManager->appPrefs.pageSize);
@@ -278,16 +278,16 @@ void NewDoc::createNewDocPage()
 	optionsGroupBoxLayout->setSpacing( 5 );
 	optionsGroupBoxLayout->setMargin( 10 );
 	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
-	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox, "pageCountLabel" );
+	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox );
 
-	pageCountSpinBox = new QSpinBox( optionsGroupBox, "pageCountSpinBox" );
+	pageCountSpinBox = new QSpinBox( optionsGroupBox );
 	pageCountSpinBox->setMaximum( 10000 );
 	pageCountSpinBox->setMinimum( 1 );
 	pageCountLabel->setBuddy(pageCountSpinBox);
-	unitOfMeasureLabel = new QLabel( tr( "&Default Unit:" ), optionsGroupBox, "unitOfMeasureLabel" );
-	unitOfMeasureComboBox = new QComboBox( true, optionsGroupBox, "unitOfMeasureComboBox" );
-	unitOfMeasureComboBox->insertStringList(unitGetTextUnitList());
-	unitOfMeasureComboBox->setCurrentItem(unitIndex);
+	unitOfMeasureLabel = new QLabel( tr( "&Default Unit:" ), optionsGroupBox );
+	unitOfMeasureComboBox = new QComboBox( optionsGroupBox );
+	unitOfMeasureComboBox->addItems(unitGetTextUnitList());
+	unitOfMeasureComboBox->setCurrentIndex(unitIndex);
 	unitOfMeasureComboBox->setEditable(false);
 	unitOfMeasureLabel->setBuddy(unitOfMeasureComboBox);
 	optionsGroupBoxLayout->addWidget( pageCountLabel, 0, 0 );
@@ -295,19 +295,19 @@ void NewDoc::createNewDocPage()
 	optionsGroupBoxLayout->addWidget( unitOfMeasureLabel, 1, 0 );
 	optionsGroupBoxLayout->addWidget( unitOfMeasureComboBox, 1, 1 );
 
-	autoTextFrame = new QCheckBox( optionsGroupBox, "autoTextFrame" );
+	autoTextFrame = new QCheckBox( optionsGroupBox );
 	autoTextFrame->setText( tr( "&Automatic Text Frames" ) );
 	optionsGroupBoxLayout->addWidget( autoTextFrame, 2, 0, 1, 2 );
-	TextLabel3 = new QLabel( tr( "Colu&mns:" ), optionsGroupBox, "TextLabel3" );
+	TextLabel3 = new QLabel( tr( "Colu&mns:" ), optionsGroupBox );
 	optionsGroupBoxLayout->addWidget( TextLabel3, 3, 0 );
-	numberOfCols = new QSpinBox( optionsGroupBox, "numberOfCols" );
+	numberOfCols = new QSpinBox( optionsGroupBox );
 	numberOfCols->setButtonSymbols( QSpinBox::UpDownArrows );
-	numberOfCols->setMinValue( 1 );
+	numberOfCols->setMinimum( 1 );
 	numberOfCols->setValue( 1 );
 	TextLabel3->setBuddy(numberOfCols);
 	optionsGroupBoxLayout->addWidget( numberOfCols, 3, 1);
 
-	TextLabel4 = new QLabel( tr( "&Gap:" ), optionsGroupBox, "TextLabel4" );
+	TextLabel4 = new QLabel( tr( "&Gap:" ), optionsGroupBox );
 	optionsGroupBoxLayout->addWidget( TextLabel4, 4, 0 );
 	Distance = new ScrSpinBox( 0, 1000, optionsGroupBox, unitIndex );
 	Distance->setValue(11 * unitRatio);
@@ -319,7 +319,7 @@ void NewDoc::createNewDocPage()
 	TextLabel4->setEnabled(false);
 	Distance->setEnabled(false);
 	numberOfCols->setEnabled(false);
-	startDocSetup = new QCheckBox( optionsGroupBox, "startDocSetup" );
+	startDocSetup = new QCheckBox( optionsGroupBox );
 	startDocSetup->setText( tr( "Show Document Settings After Creation" ) );
 	startDocSetup->setChecked(false);
 	optionsGroupBoxLayout->addWidget( startDocSetup, 5, 0, 1, 2 );
@@ -358,14 +358,10 @@ void NewDoc::createOpenDocPage()
 #endif
 	fileDialog->setSizeGripEnabled(false);
 	fileDialog->setModal(false);
-	QList<QObject*> l = fileDialog->queryList("QPushButton");
-	QListIterator<QObject*> it(l);
-	QObject *obj;
-	while (it.hasNext())
-	{
-		obj = it.next();
-		((QPushButton*)obj)->setVisible(false);
-	}
+	QList<QPushButton *> b = fileDialog->findChildren<QPushButton *>();
+	QListIterator<QPushButton *> i(b);
+	while (i.hasNext())
+		i.next()->setVisible(false);
 	fileDialog->setWindowFlags(Qt::Widget);
 	openDocLayout->addWidget(fileDialog);
 #if QT_VERSION  >= 0x040300
@@ -399,7 +395,7 @@ void NewDoc::setWidth(double)
 	marginGroup->setPageWidth(pageWidth);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
 }
 
 void NewDoc::setHeight(double)
@@ -408,7 +404,7 @@ void NewDoc::setHeight(double)
 	marginGroup->setPageHeight(pageHeight);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
 }
 
 void NewDoc::selectItem(uint nr)
@@ -424,13 +420,13 @@ void NewDoc::selectItem(uint nr)
 		QStringList::Iterator pNames;
 		for(pNames = prefsManager->appPrefs.pageSets[nr].pageNames.begin(); pNames != prefsManager->appPrefs.pageSets[nr].pageNames.end(); ++pNames )
 		{
-			firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
+			firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
 	}
 	else
 	{
 		firstPage->clear();
-		firstPage->insertItem(" ");
+		firstPage->addItem(" ");
 		firstPage->setEnabled(false);
 	}
 	layoutsView->setCurrentRow(nr);
@@ -559,9 +555,9 @@ void NewDoc::setOrien(int ori)
 	if (pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
 	{
 		if (widthSpinBox->value() > heightSpinBox->value())
-			pageOrientationComboBox->setCurrentItem(landscapePage);
+			pageOrientationComboBox->setCurrentIndex(landscapePage);
 		else
-			pageOrientationComboBox->setCurrentItem(portraitPage);
+			pageOrientationComboBox->setCurrentIndex(portraitPage);
 	}
 	// end of #869
 	marginGroup->setPageHeight(pageHeight);
@@ -577,7 +573,7 @@ void NewDoc::setPGsize(const QString &size)
 	else
 	{
 		setSize(size);
-		setOrien(pageOrientationComboBox->currentItem());
+		setOrien(pageOrientationComboBox->currentIndex());
 	}
 	marginGroup->setPageSize(size);
 }
@@ -597,7 +593,7 @@ void NewDoc::setSize(QString gr)
 	else
 	{
 		PageSize *ps2=new PageSize(gr);
-		if (pageOrientationComboBox->currentItem() == portraitPage)
+		if (pageOrientationComboBox->currentIndex() == portraitPage)
 		{
 			pageWidth = ps2->width();
 			pageHeight = ps2->height();
@@ -619,7 +615,7 @@ void NewDoc::setDS(int layout)
 {
 	marginGroup->setFacingPages(!(layout == singlePage));
 	choosenLayout = layout;
-	firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
+	firstPage->setCurrentIndex(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }
 
 void NewDoc::recentDocListBox_doubleClicked()

@@ -30,7 +30,7 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	double m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString m_suffix = unitGetSuffixFromIndex(unitIndex);
 	setWindowTitle( titel );
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setSpacing( 5 );
 	queryLayout->setMargin( 10 );
@@ -185,14 +185,14 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 		linkSize->setCheckable( true );
 		linkSize->setAutoRaise( true );
 		linkSize->setMaximumSize( QSize( 15, 32767 ) );
-		SizeGroupLayout->addMultiCellWidget( linkSize, 0, 1, 2, 2 );
+		SizeGroupLayout->addWidget( linkSize, 0, 2, 2, 1 );
 	}
 	editLayout->addWidget( SizeGroup, 0, 1 );
 
 	checkRemember = new QCheckBox(this);
 	checkRemember->setText( tr("Remember Values"));
 	checkRemember->setChecked(remember);
-	editLayout->addMultiCellWidget( checkRemember, 1, 1, 0, 1 );
+	editLayout->addWidget( checkRemember, 1, 0, 1, 2 );
 
 	queryLayout->addLayout( editLayout );
 	okCancelLayout = new QHBoxLayout;

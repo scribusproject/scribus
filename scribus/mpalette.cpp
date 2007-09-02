@@ -130,7 +130,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	HaveItem = false;
 	RoVal = 0;
 	m_unitRatio = 1.0;
-	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
+	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
 	_userActionOn = false;
 	userActionSniffer = new UserActionSniffer();
@@ -145,9 +145,9 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	f.setPointSize(f.pointSize()-1);
 	setFont(f);
 
-	TabStack = new QToolBox( this, "TabStack" );
+	TabStack = new QToolBox( this );
 
-	page = new QWidget( TabStack, "page" );
+	page = new QWidget( TabStack );
 	pageLayout = new QVBoxLayout( page );
 	pageLayout->setMargin(0);
 	pageLayout->setSpacing(5);
@@ -181,25 +181,30 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	installSniffer(Height);
 	GeoGroupLayout->addWidget( Height, 3, 1 );
 
-	xposLabel = new QLabel( Xpos, "&X-Pos:", GeoGroup );
+	xposLabel = new QLabel( "&X-Pos:", GeoGroup );
+	xposLabel->setBuddy(Xpos);
 	GeoGroupLayout->addWidget( xposLabel, 0, 0 );
-	yposLabel = new QLabel( Ypos, "&Y-Pos:", GeoGroup );
+	yposLabel = new QLabel( "&Y-Pos:", GeoGroup );
+	yposLabel->setBuddy(Ypos);
 	GeoGroupLayout->addWidget( yposLabel, 1, 0 );
-	widthLabel = new QLabel( Width, "&Width:", GeoGroup );
+	widthLabel = new QLabel( "&Width:", GeoGroup );
+	widthLabel->setBuddy(Width);
 	GeoGroupLayout->addWidget( widthLabel, 2, 0 );
-	heightLabel = new QLabel( Height, "&Height:", GeoGroup );
+	heightLabel = new QLabel( "&Height:", GeoGroup );
+	heightLabel->setBuddy(Height);
 	GeoGroupLayout->addWidget( heightLabel, 3, 0 );
 
 	keepFrameWHRatioButton = new LinkButton( GeoGroup );
 	keepFrameWHRatioButton->setCheckable( true );
 	keepFrameWHRatioButton->setAutoRaise( true );
 	keepFrameWHRatioButton->setMaximumSize( QSize( 15, 32767 ) );
-	keepFrameWHRatioButton->setOn(true);
+	keepFrameWHRatioButton->setChecked(true);
 	GeoGroupLayout->addWidget( keepFrameWHRatioButton, 2, 2, 2, 1 );
 	Rot = new ScrSpinBox( GeoGroup, 6);
 	Rot->setWrapping( true );
 	installSniffer(Rot);
-	rotationLabel = new QLabel( Rot, "&Rotation:", GeoGroup );
+	rotationLabel = new QLabel( "&Rotation:", GeoGroup );
+	rotationLabel->setBuddy(Rot);
 	GeoGroupLayout->addWidget( rotationLabel, 4, 0 );
 	GeoGroupLayout->addWidget( Rot, 4, 1 );
 	basepointLabel = new QLabel( "Basepoint:", GeoGroup );
@@ -376,7 +381,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout13->setMargin( 0 );
 
 	RoundRect = new ScrSpinBox( page_2, 0 );
-	rndcornersLabel = new QLabel( RoundRect, "R&ound\nCorners:", page_2 );
+	rndcornersLabel = new QLabel( "R&ound\nCorners:", page_2 );
+	rndcornersLabel->setBuddy(RoundRect);
 	Layout13->addWidget( rndcornersLabel );
 	Layout13->addWidget( RoundRect );
 	pageLayout_2->addLayout( Layout13 );
@@ -422,11 +428,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	textFlowUsesImageClipping->setIcon(QIcon(loadIcon("flow-contour.png")));
 	textFlowOptionsLayout->addWidget( textFlowUsesImageClipping );
 	pageLayout_2->addWidget( textFlowOptions  );
-	textFlowDisabled->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
-	textFlowUsesFrameShape->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
-	textFlowUsesBoundingBox->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
-	textFlowUsesContourLine->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
-	textFlowUsesImageClipping->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowDisabled->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	textFlowUsesFrameShape->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	textFlowUsesBoundingBox->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	textFlowUsesContourLine->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	textFlowUsesImageClipping->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	textFlowOptionsB = new QButtonGroup( page_2 );
 	textFlowOptionsB->addButton(textFlowDisabled, 0);
 	textFlowOptionsB->addButton(textFlowUsesFrameShape, 1);
@@ -446,10 +452,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	DistanceLayout->setMargin( 5 );
 	DistanceLayout->setAlignment( Qt::AlignTop );
 
-	DCol = new QSpinBox(Distance, "Cols" );
-    DCol->setMaximum( 3000 );
-    DCol->setMinimum( 1 );
-	columnsLabel = new QLabel( DCol, "Colu&mns:", Distance );
+	DCol = new QSpinBox(Distance );
+	DCol->setMaximum( 3000 );
+	DCol->setMinimum( 1 );
+	columnsLabel = new QLabel( "Colu&mns:", Distance );
+	columnsLabel->setBuddy(DCol);
 	DistanceLayout->addWidget( columnsLabel, 0, 0 );
 	DistanceLayout->addWidget( DCol, 0, 1 );
 
@@ -461,27 +468,31 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	DistanceLayout->addWidget( dGap, 1, 1 );
 
 	DTop = new ScrSpinBox( 0, 300, Distance, 0 );
-	topLabel = new QLabel( DTop, "To&p:", Distance );
+	topLabel = new QLabel( "To&p:", Distance );
+	topLabel->setBuddy(DTop);
 	DistanceLayout->addWidget( topLabel, 2, 0 );
 	DistanceLayout->addWidget( DTop, 2, 1 );
 
 	DBottom = new ScrSpinBox( 0, 300, Distance, 0 );
-	bottomLabel = new QLabel( DBottom, "&Bottom:", Distance );
+	bottomLabel = new QLabel( "&Bottom:", Distance );
+	bottomLabel->setBuddy(DBottom);
 	DistanceLayout->addWidget( bottomLabel, 3, 0 );
 	DistanceLayout->addWidget( DBottom, 3, 1 );
 
 	DLeft = new ScrSpinBox( 0, 300, Distance, 0 );
-	leftLabel = new QLabel( DLeft, "&Left:", Distance, "leftLabel" );
+	leftLabel = new QLabel( "&Left:", Distance );
+	leftLabel->setBuddy(DLeft);
 	DistanceLayout->addWidget( leftLabel, 4, 0 );
 	DistanceLayout->addWidget( DLeft, 4, 1 );
 
 	DRight = new ScrSpinBox( 0, 300, Distance, 0 );
-	rightLabel = new QLabel( DRight, "&Right:", Distance );
+	rightLabel = new QLabel( "&Right:", Distance );
+	rightLabel->setBuddy(DRight);
 	DistanceLayout->addWidget( rightLabel, 5, 0 );
 	DistanceLayout->addWidget( DRight, 5, 1 );
 
-	TabsButton = new QToolButton( Distance, "T&abulators..." );
-	TabsButton->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	TabsButton = new QToolButton( Distance );
+	TabsButton->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	DistanceLayout->addWidget( TabsButton, 6, 0, 1, 2 );
 	pageLayout_2a->addWidget(Distance);
 	TabStack2->addWidget( page_2a );
@@ -563,8 +574,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	SCustom2 = new Autoforms( ShapeGroup2 );
 	ShapeGroupLayout2->addWidget( SCustom2 );
 	page_group_layout->addWidget( ShapeGroup2 );
-	EditShape2 = new QToolButton( page_group, "EditShape" );
-	EditShape2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	EditShape2 = new QToolButton( page_group );
+	EditShape2->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	page_group_layout->addWidget( EditShape2 );
 
 	textFlowOptions2 = new QGroupBox( page_group );
@@ -608,11 +619,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	textFlowUsesImageClipping2->setIcon(QIcon(loadIcon("flow-contour.png")));
 	textFlowOptionsLayout2->addWidget( textFlowUsesImageClipping2 );
 	page_group_layout->addWidget( textFlowOptions2  );
-	textFlowDisabled2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
-	textFlowUsesFrameShape2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
-	textFlowUsesBoundingBox2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
-	textFlowUsesContourLine2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
-	textFlowUsesImageClipping2->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(5), static_cast<QSizePolicy::Policy>(5)));
+	textFlowDisabled2->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	textFlowUsesFrameShape2->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	textFlowUsesBoundingBox2->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	textFlowUsesContourLine2->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+	textFlowUsesImageClipping2->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 	textFlowOptionsB2 = new QButtonGroup( page_group );
 	textFlowOptionsB2->addButton(textFlowDisabled2, 0);
 	textFlowOptionsB2->addButton(textFlowUsesFrameShape2, 1);
@@ -630,7 +641,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	TransSpin = new QSpinBox( TransGroup );
 	TransSpin->setMinimum(0);
 	TransSpin->setMaximum(100);
-	TransSpin->setLineStep(10);
+	TransSpin->setSingleStep(10);
 	TransSpin->setValue(100);
 	Layout1t->addWidget(TransSpin, 0, 1);
 	TransTxt2 = new QLabel( TransGroup );
@@ -673,7 +684,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout41->addWidget( Size, 1, 1 );
 	ChBase = new ScrSpinBox( -100, 100, page_3, 0 );
 	ChBase->setValue( 0 );
-	ChBaseTxt = new QLabel("", page_3, "ChBaseTxt" );
+	ChBaseTxt = new QLabel("", page_3 );
 	ChBaseTxt->setPixmap(loadIcon("textbase.png"));
 	layout41->addWidget( ChBaseTxt, 1, 2 );
 	layout41->addWidget( ChBase, 1, 3 );
@@ -683,28 +694,28 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	lineSpacingPop->addAction( tr("Fixed Linespacing"));
 	lineSpacingPop->addAction( tr("Automatic Linespacing"));
 	lineSpacingPop->addAction( tr("Align to Baseline Grid"));
-	linespacingButton = new QToolButton(page_3, "linespacingButton" );
+	linespacingButton = new QToolButton(page_3 );
 	linespacingButton->setText("");
-	linespacingButton->setPixmap(loadIcon("linespacing.png"));
-	linespacingButton->setPopup(lineSpacingPop);
-	linespacingButton->setPopupDelay(400);
+	linespacingButton->setIcon(loadIcon("linespacing.png"));
+	linespacingButton->setMenu(lineSpacingPop);
+	linespacingButton->setPopupMode(QToolButton::DelayedPopup);
 	linespacingButton->setAutoRaise(true);
 	layout41->addWidget( linespacingButton, 2, 0 );
 	Extra = new ScrSpinBox( page_3, 0 );
 	layout41->addWidget( Extra, 2, 3 );
-	trackingLabel = new QLabel( "", page_3, "trackingLabel" );
+	trackingLabel = new QLabel( "", page_3 );
 	trackingLabel->setText("");
 	trackingLabel->setPixmap(loadIcon("textkern.png"));
 	layout41->addWidget( trackingLabel, 2, 2 );
 	ChScale = new ScrSpinBox( 10, 400, page_3, 0 );
 	ChScale->setValue( 100 );
-	ScaleTxt = new QLabel("", page_3, "ScaleTxt" );
+	ScaleTxt = new QLabel("", page_3 );
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
 	layout41->addWidget( ScaleTxt, 3, 0 );
 	layout41->addWidget( ChScale, 3 , 1 );
 	ChScaleV = new ScrSpinBox( 10, 400, page_3, 0 );
 	ChScaleV->setValue( 100 );
-	ScaleTxtV = new QLabel("", page_3, "ScaleTxtV" );
+	ScaleTxtV = new QLabel("", page_3 );
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
 	layout41->addWidget( ScaleTxtV, 3, 2 );
 	layout41->addWidget( ChScaleV, 3, 3 );
@@ -715,13 +726,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout23->setSpacing( 5 );
 	layout23->setMargin( 0 );
 	layout23->setAlignment( Qt::AlignLeft );
-	StrokeIcon = new QLabel( "", page_3, "StrokeIcon" );
+	StrokeIcon = new QLabel( "", page_3 );
 	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
 	StrokeIcon->setScaledContents( false );
 	layout23->addWidget( StrokeIcon );
 	TxStroke = new ColorCombo( false, page_3);
 	layout23->addWidget( TxStroke );
-	ShadeTxt1 = new QLabel( "", page_3, "ShadeTxt" );
+	ShadeTxt1 = new QLabel( "", page_3 );
 	ShadeTxt1->setPixmap(loadIcon("shade.png"));
 	layout23->addWidget( ShadeTxt1 );
 	PM1 = new ShadeButton(page_3);
@@ -731,12 +742,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout24->setSpacing( 5 );
 	layout24->setMargin( 0 );
 	layout24->setAlignment( Qt::AlignLeft );
-	FillIcon = new QLabel( "", page_3, "FillIcon" );
+	FillIcon = new QLabel( "", page_3 );
 	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
 	layout24->addWidget( FillIcon );
 	TxFill = new ColorCombo( false, page_3);
 	layout24->addWidget( TxFill );
-	ShadeTxt2 = new QLabel("", page_3, "ShadeTxt" );
+	ShadeTxt2 = new QLabel("", page_3 );
 	ShadeTxt2->setPixmap(loadIcon("shade.png"));
 	layout24->addWidget( ShadeTxt2 );
 	PM2 = new ShadeButton(page_3);
@@ -749,10 +760,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout1->setAlignment( Qt::AlignLeft );
 	SeStyle = new StyleSelect(page_3);
 	Layout1->addWidget(SeStyle);
-	Revert = new QToolButton( page_3, "Bold" );
+	Revert = new QToolButton( page_3 );
 	Revert->setMaximumSize( QSize( 22, 22 ) );
 	Revert->setText("");
-	Revert->setPixmap(loadIcon("Revers.png"));
+	Revert->setIcon(loadIcon("Revers.png"));
 	Revert->setCheckable( true );
 	Layout1->addWidget( Revert );
 	QSpacerItem* spacer7 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -776,58 +787,65 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBox3aLayout->setMargin( 0 );
 	GroupBox3aLayout->setAlignment( Qt::AlignLeft );
 	paraStyleCombo = new ParaStyleComboBox(page_3);
-	paraStyleLabel = new QLabel( paraStyleCombo, "Paragraph St&yle:", page_3, "parastyleLabel" );
-	paraStyleClear = new QToolButton( page_3, "Clear_PStyle" );
+	paraStyleLabel = new QLabel( "Paragraph St&yle:", page_3 );
+	paraStyleLabel->setBuddy(paraStyleCombo);
+	paraStyleClear = new QToolButton( page_3 );
 	paraStyleClear->setMaximumSize( QSize( 22, 22 ) );
 	paraStyleClear->setText("");
-	paraStyleClear->setPixmap(loadIcon("16/edit-clear.png"));
+	paraStyleClear->setIcon(loadIcon("16/edit-clear.png"));
 	GroupBox3aLayout->addWidget( paraStyleLabel, 0, 0 );
 	GroupBox3aLayout->addWidget( paraStyleCombo, 0, 1 );
 	GroupBox3aLayout->addWidget( paraStyleClear, 0, 2 );
 	charStyleCombo = new CharStyleComboBox(page_3);
-	charStyleLabel = new QLabel( charStyleCombo, "Character St&yle:", page_3, "charstyleLabel" );
-	charStyleClear = new QToolButton( page_3, "Clear_CStyle" );
+	charStyleLabel = new QLabel( "Character St&yle:", page_3 );
+	charStyleLabel->setBuddy(charStyleCombo);
+	charStyleClear = new QToolButton( page_3 );
 	charStyleClear->setMaximumSize( QSize( 22, 22 ) );
 	charStyleClear->setText("");
-	charStyleClear->setPixmap(loadIcon("16/edit-clear.png"));
+	charStyleClear->setIcon(loadIcon("16/edit-clear.png"));
 	GroupBox3aLayout->addWidget( charStyleLabel, 1, 0 );
 	GroupBox3aLayout->addWidget( charStyleCombo, 1, 1 );
 	GroupBox3aLayout->addWidget( charStyleClear, 1, 2 );
 	optMarginCombo = new QComboBox(page_3);
-	optMarginLabel = new QLabel( optMarginCombo, "Optical Margins:", page_3, "optMarginLabel" );
+	optMarginLabel = new QLabel( "Optical Margins:", page_3 );
+	optMarginLabel->setBuddy(optMarginCombo);
 	GroupBox3aLayout->addWidget( optMarginLabel, 2, 0 );
 	GroupBox3aLayout->addWidget( optMarginCombo, 2, 1 );
 	
-	wordTrackingLabel = new QLabel( "Word Spacing", page_3, "wordTrackingLabel" );
+	wordTrackingLabel = new QLabel( "Word Spacing", page_3 );
 	GroupBox3aLayout->addWidget( wordTrackingLabel, 3, 0 );
 	wordTrackingHLayout = new QHBoxLayout;
 	wordTrackingHLayout->setSpacing( 5 );
 	wordTrackingHLayout->setMargin( 0 );
 	wordTrackingHLayout->setAlignment(Qt::AlignLeft);
 	minWordTrackingSpinBox = new ScrSpinBox( 1, 200, page_3, 0 );
-	minWordTrackingLabel = new QLabel( minWordTrackingSpinBox, "Min:", page_3, "wordTrackingMinLabel" );
-	wordTrackingHLayout->add(minWordTrackingLabel);
-	wordTrackingHLayout->add(minWordTrackingSpinBox);
+	minWordTrackingLabel = new QLabel( "Min:", page_3 );
+	minWordTrackingLabel->setBuddy(minWordTrackingSpinBox);
+	wordTrackingHLayout->addWidget(minWordTrackingLabel);
+	wordTrackingHLayout->addWidget(minWordTrackingSpinBox);
 	normWordTrackingSpinBox = new ScrSpinBox( 1, 200, page_3, 0 );
-	normWordTrackingLabel = new QLabel( normWordTrackingSpinBox, "Norm:", page_3, "wordTrackingNormLabel" );
-	wordTrackingHLayout->add(normWordTrackingLabel);
-	wordTrackingHLayout->add(normWordTrackingSpinBox);
+	normWordTrackingLabel = new QLabel( "Norm:", page_3 );
+	normWordTrackingLabel->setBuddy(normWordTrackingSpinBox);
+	wordTrackingHLayout->addWidget(normWordTrackingLabel);
+	wordTrackingHLayout->addWidget(normWordTrackingSpinBox);
 	GroupBox3aLayout->addLayout(wordTrackingHLayout, 4, 0, 1, 2);
 	
-	glyphExtensionLabel = new QLabel( "Glyph Extension", page_3, "glyphExtensionLabel" );
+	glyphExtensionLabel = new QLabel( "Glyph Extension", page_3 );
 	GroupBox3aLayout->addWidget( glyphExtensionLabel, 5, 0 );
 	glyphExtensionHLayout = new QHBoxLayout;
 	glyphExtensionHLayout->setSpacing( 5 );
 	glyphExtensionHLayout->setMargin( 0 );
 	glyphExtensionHLayout->setAlignment(Qt::AlignLeft);
 	minGlyphExtSpinBox = new ScrSpinBox( 90, 110, page_3, 0 );
-	minGlyphExtensionLabel = new QLabel( minGlyphExtSpinBox, "Min:", page_3, "glyphExtensionMinLabel" );
-	glyphExtensionHLayout->add(minGlyphExtensionLabel);
-	glyphExtensionHLayout->add(minGlyphExtSpinBox);
+	minGlyphExtensionLabel = new QLabel( "Min:", page_3 );
+	minGlyphExtensionLabel->setBuddy(minGlyphExtSpinBox);
+	glyphExtensionHLayout->addWidget(minGlyphExtensionLabel);
+	glyphExtensionHLayout->addWidget(minGlyphExtSpinBox);
 	maxGlyphExtSpinBox = new ScrSpinBox( 90, 110, page_3, 0 );
-	maxGlyphExtensionLabel = new QLabel( maxGlyphExtSpinBox, "Max:", page_3, "glyphExtensionMaxLabel" );
-	glyphExtensionHLayout->add(maxGlyphExtensionLabel);
-	glyphExtensionHLayout->add(maxGlyphExtSpinBox);
+	maxGlyphExtensionLabel = new QLabel( "Max:", page_3 );
+	maxGlyphExtensionLabel->setBuddy(maxGlyphExtSpinBox);
+	glyphExtensionHLayout->addWidget(maxGlyphExtensionLabel);
+	glyphExtensionHLayout->addWidget(maxGlyphExtSpinBox);
 	GroupBox3aLayout->addLayout(glyphExtensionHLayout, 6, 0, 1, 2);
 	
 /*	langCombo = new ScComboBox( page_3 );
@@ -840,12 +858,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	pageLayout_3->addItem( spacer8 );
 	idTextItem=TabStack->addItem( page_3, "&Text" );
 
-	page_4 = new QWidget( TabStack, "page_4" );
+	page_4 = new QWidget( TabStack );
 	pageLayout_4 = new QVBoxLayout( page_4 );
 	pageLayout_4->setSpacing( 5 );
 	pageLayout_4->setMargin( 0 );
 
-	FreeScale = new QRadioButton( "&Free Scaling", page_4, "FreeScale" );
+	FreeScale = new QRadioButton( "&Free Scaling", page_4 );
 	FreeScale->setChecked( true );
 	pageLayout_4->addWidget( FreeScale );
 
@@ -854,22 +872,26 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout43->setMargin( 0 );
 	imageXOffsetSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageXOffsetSpinBox);
-	xposImgLabel = new QLabel( imageXOffsetSpinBox, "&X-Pos:", page_4, "xposImgLabel" );
+	xposImgLabel = new QLabel( "&X-Pos:", page_4 );
+	xposImgLabel->setBuddy(imageXOffsetSpinBox);
 	layout43->addWidget( xposImgLabel, 0, 0 );
 	layout43->addWidget( imageXOffsetSpinBox, 0, 1 );
 	imageYOffsetSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageYOffsetSpinBox);
-	yposImgLabel = new QLabel( imageYOffsetSpinBox, "&Y-Pos:", page_4, "yposImgLabel" );
+	yposImgLabel = new QLabel( "&Y-Pos:", page_4 );
+	yposImgLabel->setBuddy(imageYOffsetSpinBox);
 	layout43->addWidget( yposImgLabel, 1, 0 );
 	layout43->addWidget( imageYOffsetSpinBox, 1, 1 );
 	imageXScaleSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageXScaleSpinBox);
-	xscaleLabel = new QLabel( imageXScaleSpinBox, "X-Sc&ale:", page_4, "xscaleLabel" );
+	xscaleLabel = new QLabel( "X-Sc&ale:", page_4 );
+	xscaleLabel->setBuddy(imageXScaleSpinBox);
 	layout43->addWidget( xscaleLabel, 2, 0 );
 	layout43->addWidget( imageXScaleSpinBox, 2, 1 );
 	imageYScaleSpinBox = new ScrSpinBox( page_4, 0 );
 	installSniffer(imageYScaleSpinBox);
-	yscaleLabel = new QLabel( imageYScaleSpinBox, "Y-Scal&e:", page_4, "yscaleLabel" );
+	yscaleLabel = new QLabel( "Y-Scal&e:", page_4 );
+	yscaleLabel->setBuddy(imageYScaleSpinBox);
 	layout43->addWidget( yscaleLabel, 3, 0 );
 	layout43->addWidget( imageYScaleSpinBox, 3, 1 );
 	keepImageWHRatioButton = new LinkButton( page_4 );
@@ -879,12 +901,14 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout43->addWidget( keepImageWHRatioButton, 2, 2, 2, 1 );
 	imgDpiX = new ScrSpinBox( page_4, 0 );
 	installSniffer(imgDpiX);
-	imgDPIXLabel = new QLabel( imgDpiX, "Actual X-DPI:", page_4, "imgDPIYLabel" );
+	imgDPIXLabel = new QLabel( "Actual X-DPI:", page_4 );
+	imgDPIXLabel->setBuddy(imgDpiX);
 	layout43->addWidget( imgDPIXLabel, 4, 0 );
 	layout43->addWidget( imgDpiX, 4, 1 );
 	imgDpiY = new ScrSpinBox( page_4, 0 );
 	installSniffer(imgDpiY);
-	imgDPIYLabel = new QLabel( imgDpiY, "Actual Y-DPI:", page_4, "imgDPIYLabel" );
+	imgDPIYLabel = new QLabel( "Actual Y-DPI:", page_4 );
+	imgDPIYLabel->setBuddy(imgDpiY);
 	layout43->addWidget( imgDPIYLabel, 5, 0 );
 	layout43->addWidget( imgDpiY, 5, 1 );
 	keepImageDPIRatioButton = new LinkButton( page_4 );
@@ -898,7 +922,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout24->setSpacing( 3 );
 	Layout24->setMargin( 0 );
 
-	FrameScale = new QRadioButton( page_4, "FixedScale" );
+	FrameScale = new QRadioButton( page_4 );
 	FrameScale->setText( "Scale &To Frame Size" );
 	Layout24->addWidget( FrameScale );
 
@@ -906,14 +930,14 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout18->setSpacing( 5 );
 	Layout18->setMargin( 0 );
 
-	Frame4 = new QFrame( page_4, "Frame4" );
+	Frame4 = new QFrame( page_4 );
 	Frame4->setMinimumSize( QSize( 15, 2 ) );
 	Frame4->setMaximumSize( QSize( 15, 10 ) );
 	Frame4->setFrameShape( QFrame::NoFrame );
 	Frame4->setFrameShadow( QFrame::Plain );
 	Layout18->addWidget( Frame4 );
 
-	Aspect = new QCheckBox( page_4, "Aspect" );
+	Aspect = new QCheckBox( page_4 );
 	Aspect->setEnabled( false );
 	Aspect->setText( "P&roportional" );
 	Aspect->setChecked( true );
@@ -922,10 +946,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout24->addLayout( Layout18 );
 	pageLayout_4->addLayout( Layout24 );
 
-	EditEffects = new QToolButton( page_4, "EditEffects");
+	EditEffects = new QToolButton( page_4);
 	pageLayout_4->addWidget( EditEffects );
 
-	EditPSDProps = new QToolButton( page_4, "EditPSDProps");
+	EditPSDProps = new QToolButton( page_4);
 	pageLayout_4->addWidget( EditPSDProps );
 
 	GroupBoxCM = new QFrame( page_4 );
@@ -935,11 +959,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	GroupBoxCMLayout->setSpacing( 2 );
 	GroupBoxCMLayout->setMargin( 5 );
 	GroupBoxCMLayout->setAlignment( Qt::AlignTop );
-	TextCms1 = new QLabel( GroupBoxCM, "xposLabel" );
+	TextCms1 = new QLabel( GroupBoxCM );
 	GroupBoxCMLayout->addWidget( TextCms1 );
 	InputP = new ScComboBox( GroupBoxCM );
 	GroupBoxCMLayout->addWidget(InputP);
-	TextCms2 = new QLabel( GroupBoxCM, "TextCms2" );
+	TextCms2 = new QLabel( GroupBoxCM );
 	GroupBoxCMLayout->addWidget(TextCms2);
 	MonitorI = new ScComboBox( GroupBoxCM );
 	GroupBoxCMLayout->addWidget(MonitorI);
@@ -961,30 +985,37 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout12_2->setMargin( 0 );
 	LStyle = new LineCombo(page_5);
 	LineMode = new ScComboBox( page_5 );
-	LineModeT = new QLabel( LineMode, "&Basepoint:", page_5, "LModeText" );
+	LineModeT = new QLabel( "&Basepoint:", page_5 );
+	LineModeT->setBuddy(LineMode);
 	Layout12_2->addWidget( LineModeT, 0, 0 );
 	Layout12_2->addWidget( LineMode, 0, 1 );
-	linetypeLabel = new QLabel( LStyle, "T&ype of Line:", page_5, "linetypeLabel" );
+	linetypeLabel = new QLabel( "T&ype of Line:", page_5 );
+	linetypeLabel->setBuddy(LStyle);
 	Layout12_2->addWidget( linetypeLabel, 1, 0 );
 	Layout12_2->addWidget( LStyle, 1, 1 );
 	startArrow = new ArrowChooser(page_5, true);
 	Layout12_2->addWidget( startArrow, 3, 0 );
 	endArrow = new ArrowChooser(page_5, false);
 	Layout12_2->addWidget( endArrow, 3, 1 );
-	startArrowText = new QLabel( startArrow, "Start Arrow:", page_5, "startArrowText" );
+	startArrowText = new QLabel( "Start Arrow:", page_5 );
+	startArrowText->setBuddy(startArrow);
 	Layout12_2->addWidget( startArrowText, 2, 0 );
-	endArrowText = new QLabel( endArrow, "End Arrow:", page_5, "endArrowText" );
+	endArrowText = new QLabel( "End Arrow:", page_5 );
+	endArrowText->setBuddy(endArrow);
 	Layout12_2->addWidget( endArrowText, 2, 1 );
 	LSize = new ScrSpinBox( page_5, 0 );
-	linewidthLabel = new QLabel(LSize, "Line &Width:", page_5, "linewidthLabel" );
+	linewidthLabel = new QLabel( "Line &Width:", page_5 );
+	linewidthLabel->setBuddy(LSize);
 	Layout12_2->addWidget( linewidthLabel, 4, 0 );
 	Layout12_2->addWidget( LSize, 4, 1 );
 	LJoinStyle = new ScComboBox( page_5 );
-	edgesLabel = new QLabel( LJoinStyle, "Ed&ges:", page_5, "edgesLabel" );
+	edgesLabel = new QLabel( "Ed&ges:", page_5 );
+	edgesLabel->setBuddy(LJoinStyle);
 	Layout12_2->addWidget( edgesLabel, 5, 0 );
 	Layout12_2->addWidget( LJoinStyle, 5, 1 );
 	LEndStyle = new ScComboBox( page_5 );
-	endingsLabel = new QLabel( LEndStyle, "&Endings:", page_5, "endingsLabel" );
+	endingsLabel = new QLabel( "&Endings:", page_5 );
+	endingsLabel->setBuddy(LEndStyle);
 	Layout12_2->addWidget( endingsLabel, 6, 0 );
 	Layout12_2->addWidget( LEndStyle, 6, 1 );
 	pageLayout_5->addLayout( Layout12_2 );
@@ -997,12 +1028,11 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	pageLayout_5a->setSpacing( 5 );
 	pageLayout_5a->setMargin( 0 );
 	StyledLine = new QListWidget(page_5a);
-	StyledLine->setName("StyledL");
 	StyledLine->addItem( "No Style" );
 	pageLayout_5a->addWidget(StyledLine);
 	TabStack3->addWidget( page_5a );
 
-	page_5b = new QWidget( TabStack3, "page" );
+	page_5b = new QWidget( TabStack3 );
 	pageLayout_5b = new QVBoxLayout( page_5b );
 	pageLayout_5b->setSpacing( 5 );
 	pageLayout_5b->setMargin( 0 );
@@ -1011,16 +1041,16 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	TLineLayout->setSpacing( 2 );
 	TLineLayout->setMargin( 5 );
 	TLineLayout->setAlignment( Qt::AlignTop );
-	TopLine = new QCheckBox( TLines, "TopLine" );
+	TopLine = new QCheckBox( TLines );
 	TopLine->setText( "Line at Top" );
 	TLineLayout->addWidget(TopLine);
-	LeftLine = new QCheckBox( TLines, "TopLine" );
+	LeftLine = new QCheckBox( TLines );
 	LeftLine->setText( "Line at the Left" );
 	TLineLayout->addWidget(LeftLine);
-	RightLine = new QCheckBox( TLines, "TopLine" );
+	RightLine = new QCheckBox( TLines );
 	RightLine->setText( "Line at the Right " );
 	TLineLayout->addWidget(RightLine);
-	BottomLine = new QCheckBox( TLines, "TopLine" );
+	BottomLine = new QCheckBox( TLines );
 	BottomLine->setText( "Line at Bottom" );
 	TLineLayout->addWidget(BottomLine);
 	pageLayout_5b->addWidget(TLines);
@@ -1041,9 +1071,9 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	OverPLayout->setSpacing( 2 );
 	OverPLayout->setMargin( 5 );
 	OverPLayout->setAlignment( Qt::AlignTop );
-	KnockOut = new QRadioButton( "Knockout", OverP, "KnockOut" );
+	KnockOut = new QRadioButton( "Knockout", OverP );
 	OverPLayout->addWidget( KnockOut );
-	Overprint = new QRadioButton( "Overprint", OverP, "Overprint" );
+	Overprint = new QRadioButton( "Overprint", OverP );
 	OverPLayout->addWidget( Overprint );
 	KnockOut->setChecked( true );
 	pageLayout_6->addWidget(OverP);
@@ -1171,7 +1201,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	for (int ws = 1; ws < 7; ++ws)
 		TabStack->setItemEnabled(ws, false);
 	TabStack->setCurrentIndex(0);
-	TabStack->item(0)->setEnabled(false);
+	TabStack->widget(0)->setEnabled(false);
 	TabStack->setItemEnabled(0, false);
 	StrokeIcon->setEnabled(false);
 	TxStroke->setEnabled(false);
@@ -1184,7 +1214,7 @@ void Mpalette::closeEvent(QCloseEvent *closeEvent)
 	{
 		if ((HaveDoc) && (HaveItem))
 		{
-			if (Cpal->gradEditButton->isOn())
+			if (Cpal->gradEditButton->isChecked())
 			{
 				m_ScMW->setAppMode(modeNormal);
 				m_ScMW->view->RefreshGradient(CurItem);
@@ -1354,15 +1384,15 @@ void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
 	if (CurItem->isGroupControl)
 	{
 		if (mode == PageItem::TextFlowDisabled)
-			textFlowDisabled2->setOn(true);
+			textFlowDisabled2->setChecked(true);
 		else if (mode == PageItem::TextFlowUsesFrameShape)
-			textFlowUsesFrameShape2->setOn(true);
+			textFlowUsesFrameShape2->setChecked(true);
 		else if (mode == PageItem::TextFlowUsesBoundingBox)
-			textFlowUsesBoundingBox2->setOn(true);
+			textFlowUsesBoundingBox2->setChecked(true);
 		else if (mode == PageItem::TextFlowUsesContourLine)
-			textFlowUsesContourLine2->setOn(true);
+			textFlowUsesContourLine2->setChecked(true);
 		else if (mode == PageItem::TextFlowUsesImageClipping)
-			textFlowUsesImageClipping2->setOn(true);
+			textFlowUsesImageClipping2->setChecked(true);
 		if ((CurItem->asImageFrame()) && (CurItem->imageClip.size() != 0))
 			textFlowUsesImageClipping2->setEnabled(true);
 		else
@@ -1371,15 +1401,15 @@ void Mpalette::setTextFlowMode(PageItem::TextFlowMode mode)
 	else
 	{
 		if (mode == PageItem::TextFlowDisabled)
-			textFlowDisabled->setOn(true);
+			textFlowDisabled->setChecked(true);
 		else if (mode == PageItem::TextFlowUsesFrameShape)
-			textFlowUsesFrameShape->setOn(true);
+			textFlowUsesFrameShape->setChecked(true);
 		else if (mode == PageItem::TextFlowUsesBoundingBox)
-			textFlowUsesBoundingBox->setOn(true);
+			textFlowUsesBoundingBox->setChecked(true);
 		else if (mode == PageItem::TextFlowUsesContourLine)
-			textFlowUsesContourLine->setOn(true);
+			textFlowUsesContourLine->setChecked(true);
 		else if (mode == PageItem::TextFlowUsesImageClipping)
-			textFlowUsesImageClipping->setOn(true);
+			textFlowUsesImageClipping->setChecked(true);
 		if ((CurItem->asImageFrame()) && (CurItem->imageClip.size() != 0))
 			textFlowUsesImageClipping->setEnabled(true);
 		else
@@ -1414,17 +1444,17 @@ void Mpalette::SetCurItem(PageItem *i)
 	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 	Cpal->gradEdit->Preview->updateDisplay(); */
 	if (CurItem->FrameType == 0)
-		SCustom->setPixmap(SCustom->getIconPixmap(0));
+		SCustom->setIcon(SCustom->getIconPixmap(0));
 	if (CurItem->FrameType == 1)
-		SCustom->setPixmap(SCustom->getIconPixmap(1));
+		SCustom->setIcon(SCustom->getIconPixmap(1));
 	if (CurItem->FrameType > 3)
-		SCustom->setPixmap(SCustom->getIconPixmap(CurItem->FrameType-2));
+		SCustom->setIcon(SCustom->getIconPixmap(CurItem->FrameType-2));
 	if ((CurItem->asLine()) || (CurItem->asPolyLine()))
 	{
 		startArrow->setEnabled(true);
 		endArrow->setEnabled(true);
-		startArrow->setCurrentItem(CurItem->startArrowIndex());
-		endArrow->setCurrentItem(CurItem->endArrowIndex());
+		startArrow->setCurrentIndex(CurItem->startArrowIndex());
+		endArrow->setCurrentIndex(CurItem->endArrowIndex());
 	}
 	else
 	{
@@ -1443,7 +1473,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		DCol->setValue(i2->Cols);
 		dGap->setMinimum(0);
 //		if (colgapLabel->getState())
-		if (colgapLabel->currentItem() == 0)
+		if (colgapLabel->currentIndex() == 0)
 		{
 			dGap->setMaximum(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*m_unitRatio, 0.0));
 			dGap->setValue(i2->ColGap*m_unitRatio);
@@ -1458,7 +1488,7 @@ void Mpalette::SetCurItem(PageItem *i)
 		DBottom->setValue(i2->textToFrameDistBottom()*m_unitRatio);
 		DRight->setValue(i2->textToFrameDistRight()*m_unitRatio);
 	}
-	Revert->setOn(CurItem->reversed());
+	Revert->setChecked(CurItem->reversed());
 	setTextFlowMode(CurItem->textFlowMode());
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
@@ -1525,13 +1555,13 @@ void Mpalette::SetCurItem(PageItem *i)
 		TabStack->setItemEnabled(idTextItem, false);
 		TabStack->setItemEnabled(idImageItem, false);
 		if (CurItem->FrameType == 0)
-			SCustom2->setPixmap(SCustom2->getIconPixmap(0));
+			SCustom2->setIcon(SCustom2->getIconPixmap(0));
 		if (CurItem->FrameType == 1)
-			SCustom2->setPixmap(SCustom2->getIconPixmap(1));
+			SCustom2->setIcon(SCustom2->getIconPixmap(1));
 		if (CurItem->FrameType > 3)
-			SCustom2->setPixmap(SCustom2->getIconPixmap(CurItem->FrameType-2));
+			SCustom2->setIcon(SCustom2->getIconPixmap(CurItem->FrameType-2));
 		TransSpin->setValue(qRound(100 - (CurItem->fillTransparency() * 100)));
-		blendMode->setCurrentItem(CurItem->fillBlendmode());
+		blendMode->setCurrentIndex(CurItem->fillBlendmode());
 	}
 	else
 		TabStack->setItemEnabled(idGroupItem, false);
@@ -1545,7 +1575,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	if (CurItem->asPathText())
 	{
 		TabStack2->setCurrentIndex(1);
-		pathTextType->setCurrentItem(CurItem->textPathType);
+		pathTextType->setCurrentIndex(CurItem->textPathType);
 		flippedPathText->setChecked(CurItem->textPathFlipped);
 		showcurveCheckBox->setChecked(CurItem->PoShow);
 		LineW->setValue(CurItem->BaseOffs * -1);
@@ -1701,15 +1731,15 @@ void Mpalette::NewSel(int nr)
 		Height->setEnabled(true);
 		Rot->setEnabled(true);
 // 		TabStack->setCurrentIndex(0);
-		TabStack->item(0)->setEnabled(true);
+		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
 		NameEdit->setEnabled(false);
 		TabStack->setItemEnabled(idLineItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
 		FlipH->setCheckable( false );
 		FlipV->setCheckable( false );
-		FlipH->setOn(false);
-		FlipV->setOn(false);
+		FlipH->setChecked(false);
+		FlipV->setChecked(false);
 	}
 	else
 	{
@@ -1737,8 +1767,8 @@ void Mpalette::NewSel(int nr)
 		BottomLeft->setEnabled(true);
 		BottomRight->setEnabled(true);
 		Center->setEnabled(true);
-		visID = TabStack->currentIndex ();
-		TabStack->item(0)->setEnabled(true);
+		visID = TabStack->currentIndex();
+		TabStack->widget(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
 		/*
@@ -1756,8 +1786,8 @@ void Mpalette::NewSel(int nr)
 		{
 			FlipH->setCheckable(true);
 			FlipV->setCheckable(true);
-			FlipH->setOn(false);
-			FlipV->setOn(false);
+			FlipH->setChecked(false);
+			FlipV->setChecked(false);
 		}
 		FlipH->setCheckable((nr>=0) && (nr<5));
 		FlipV->setCheckable((nr>=0) && (nr<5));
@@ -1786,7 +1816,7 @@ void Mpalette::NewSel(int nr)
 			for (int ws = 1; ws < 7; ++ws)
 				TabStack->setItemEnabled(ws, false);
 // 			TabStack->setCurrentIndex(0);
-			TabStack->item(0)->setEnabled(false);
+			TabStack->widget(0)->setEnabled(false);
 			TabStack->setItemEnabled(idXYZItem, false);
 			Cpal->ChooseGrad(0);
 			break;
@@ -2131,7 +2161,7 @@ void Mpalette::setCols(int r, double g)
 		{
 			DCol->setMaximum(qMax(qRound(i2->width() / qMax(i2->ColGap, 10.0)), 1));
 //			if (colgapLabel->getState())
-			if (colgapLabel->currentItem() == 0)
+			if (colgapLabel->currentIndex() == 0)
 			{
 				dGap->setMaximum(qMax((i2->width() / i2->Cols - i2->textToFrameDistLeft() - i2->textToFrameDistRight())*m_unitRatio, 0.0));
 				dGap->setValue(i2->ColGap*m_unitRatio);
@@ -2153,7 +2183,8 @@ void Mpalette::setLspMode(int id)
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-		doc->itemSelection_SetLineSpacingMode(lineSpacingPop->indexOf(id));
+//		doc->itemSelection_SetLineSpacingMode(lineSpacingPop->actions().indexOf(id));
+		doc->itemSelection_SetLineSpacingMode(id);
 		updateStyle(doc->appMode == modeEdit? CurItem->currentStyle() : CurItem->itemText.defaultStyle());
 	}
 }
@@ -2182,11 +2213,12 @@ void Mpalette::setLsp(double r)
 			LineSp->setMinimum(1);
 			LineSp->setValue(r);
 		}
-		for (uint al = 0; al < lineSpacingPop->count(); ++al)
+		QList<QAction*> actList = lineSpacingPop->actions();
+		for (int al = 0; al < actList.count(); ++al)
 		{
-			lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
+			actList[al]->setChecked(false);
 		}
-		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(curStyle.lineSpacingMode()), true);
+		actList[curStyle.lineSpacingMode()]->setChecked(true);
 	}
 	HaveItem = tmp;
 }
@@ -2320,52 +2352,52 @@ void Mpalette::setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle p
 	switch (p)
 	{
 	case Qt::SolidLine:
-		LStyle->setCurrentItem(0);
+		LStyle->setCurrentIndex(0);
 		break;
 	case Qt::DashLine:
-		LStyle->setCurrentItem(1);
+		LStyle->setCurrentIndex(1);
 		break;
 	case Qt::DotLine:
-		LStyle->setCurrentItem(2);
+		LStyle->setCurrentIndex(2);
 		break;
 	case Qt::DashDotLine:
-		LStyle->setCurrentItem(3);
+		LStyle->setCurrentIndex(3);
 		break;
 	case Qt::DashDotDotLine:
-		LStyle->setCurrentItem(4);
+		LStyle->setCurrentIndex(4);
 		break;
 	default:
-		LStyle->setCurrentItem(0);
+		LStyle->setCurrentIndex(0);
 		break;
 	}
 	switch (pc)
 	{
 	case Qt::FlatCap:
-		LEndStyle->setCurrentItem(0);
+		LEndStyle->setCurrentIndex(0);
 		break;
 	case Qt::SquareCap:
-		LEndStyle->setCurrentItem(1);
+		LEndStyle->setCurrentIndex(1);
 		break;
 	case Qt::RoundCap:
-		LEndStyle->setCurrentItem(2);
+		LEndStyle->setCurrentIndex(2);
 		break;
 	default:
-		LEndStyle->setCurrentItem(0);
+		LEndStyle->setCurrentIndex(0);
 		break;
 	}
 	switch (pj)
 	{
 	case Qt::MiterJoin:
-		LJoinStyle->setCurrentItem(0);
+		LJoinStyle->setCurrentIndex(0);
 		break;
 	case Qt::BevelJoin:
-		LJoinStyle->setCurrentItem(1);
+		LJoinStyle->setCurrentIndex(1);
 		break;
 	case Qt::RoundJoin:
-		LJoinStyle->setCurrentItem(2);
+		LJoinStyle->setCurrentIndex(2);
 		break;
 	default:
-		LJoinStyle->setCurrentItem(0);
+		LJoinStyle->setCurrentIndex(0);
 		break;
 	}
 	HaveItem = tmp;
@@ -2392,11 +2424,12 @@ void Mpalette::updateStyle(const ParagraphStyle& newCurrent)
 		LineSp->setMinimum(1);
 		LineSp->setValue(newCurrent.lineSpacing());
 	}
-	for (uint al = 0; al < lineSpacingPop->count(); ++al)
+	QList<QAction*> actList = lineSpacingPop->actions();
+	for (int al = 0; al < actList.count(); ++al)
 	{
-		lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
+		actList[al]->setChecked(false);
 	}
-	lineSpacingPop->setItemChecked(lineSpacingPop->idAt(newCurrent.lineSpacingMode()), true);
+	actList[newCurrent.lineSpacingMode()]->setChecked(true);
 	GroupAlign->setStyle(newCurrent.alignment());
 	minWordTrackingSpinBox->setValue(newCurrent.minWordTracking() * 100.0);
 	normWordTrackingSpinBox->setValue(newCurrent.charStyle().wordTracking() * 100.0);
@@ -2730,7 +2763,7 @@ void Mpalette::NewW()
 		if (doc->m_Selection->isMultipleSelection())
 		{
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			if (keepFrameWHRatioButton->isOn())
+			if (keepFrameWHRatioButton->isChecked())
 			{
 				m_ScMW->view->frameResizeHandle = 1;
 				m_ScMW->view->scaleGroup(w / gw, w / gw);
@@ -2796,17 +2829,17 @@ void Mpalette::NewW()
 					}
 					doc->MoveSizeItem(FPoint(0, 0), FPoint(-dist, 0), bb->ItemNr, true);
 					doc->RotMode = rmo;
-					if (keepFrameWHRatioButton->isOn())
+					if (keepFrameWHRatioButton->isChecked())
 					{
-						keepFrameWHRatioButton->setOn(false);
+						keepFrameWHRatioButton->setChecked(false);
 						setBH(w, (w / oldW) * CurItem->height());
 						NewH();
-						keepFrameWHRatioButton->setOn(true);
+						keepFrameWHRatioButton->setChecked(true);
 					}
 				}
 				else
 				{
-					if (keepFrameWHRatioButton->isOn())
+					if (keepFrameWHRatioButton->isChecked())
 					{
 						setBH(w, (w / CurItem->width()) * CurItem->height());
 						doc->SizeItem(w, (w / CurItem->width()) * CurItem->height(), CurItem->ItemNr, true);
@@ -2835,7 +2868,7 @@ void Mpalette::NewH()
 		if (doc->m_Selection->isMultipleSelection())
 		{
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-			if (keepFrameWHRatioButton->isOn())
+			if (keepFrameWHRatioButton->isChecked())
 			{
 				m_ScMW->view->frameResizeHandle = 1;
 				m_ScMW->view->scaleGroup(h / gh, h / gh);
@@ -2901,17 +2934,17 @@ void Mpalette::NewH()
 					}
 					doc->MoveSizeItem(FPoint(0, 0), FPoint(0, -dist), bb->ItemNr, true);
 					doc->RotMode = rmo;
-					if (keepFrameWHRatioButton->isOn())
+					if (keepFrameWHRatioButton->isChecked())
 					{
-						keepFrameWHRatioButton->setOn(false);
+						keepFrameWHRatioButton->setChecked(false);
 						setBH((h / oldH) * CurItem->width(), h);
 						NewW();
-						keepFrameWHRatioButton->setOn(true);
+						keepFrameWHRatioButton->setChecked(true);
 					}
 				}
 				else
 				{
-					if (keepFrameWHRatioButton->isOn())
+					if (keepFrameWHRatioButton->isChecked())
 					{
 						setBH((h / CurItem->height()) * CurItem->width(), h);
 						doc->SizeItem((h / CurItem->height()) * CurItem->width(), h, CurItem->ItemNr, true);
@@ -2982,7 +3015,7 @@ void Mpalette::HandleGapSwitch()
 		setCols(CurItem->Cols, CurItem->ColGap);
 		dGap->setToolTip("");
 //		if (colgapLabel->getState())
-		if (colgapLabel->currentItem() == 0)
+		if (colgapLabel->currentIndex() == 0)
 			dGap->setToolTip( tr( "Distance between columns" ) );
 		else
 			dGap->setToolTip( tr( "Column width" ) );
@@ -3009,7 +3042,7 @@ void Mpalette::NewGap()
 	if ((HaveDoc) && (HaveItem))
 	{
 //		if (colgapLabel->getState())
-		if (colgapLabel->currentItem() == 0)
+		if (colgapLabel->currentIndex() == 0)
 			CurItem->ColGap = dGap->value() / m_unitRatio;
 		else
 		{
@@ -3151,7 +3184,7 @@ void Mpalette::NewLSty()
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	Qt::PenStyle c = Qt::SolidLine;
-	switch (LStyle->currentItem())
+	switch (LStyle->currentIndex())
 	{
 	case 0:
 		c = Qt::SolidLine;
@@ -3180,7 +3213,7 @@ void Mpalette::NewLMode()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if (LineMode->currentItem() == 0)
+	if (LineMode->currentIndex() == 0)
 	{
 		xposLabel->setText( tr( "&X-Pos:" ) );
 		widthLabel->setText( tr( "&Width:" ) );
@@ -3211,7 +3244,7 @@ void Mpalette::NewLJoin()
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	Qt::PenJoinStyle c = Qt::MiterJoin;
-	switch (LJoinStyle->currentItem())
+	switch (LJoinStyle->currentIndex())
 	{
 	case 0:
 		c = Qt::MiterJoin;
@@ -3235,7 +3268,7 @@ void Mpalette::NewLEnd()
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	Qt::PenCapStyle c = Qt::FlatCap;
-	switch (LEndStyle->currentItem())
+	switch (LEndStyle->currentIndex())
 	{
 	case 0:
 		c = Qt::FlatCap;
@@ -3260,14 +3293,14 @@ void Mpalette::ToggleKette()
 		return;
 	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	if (keepImageWHRatioButton->isOn())
+	if (keepImageWHRatioButton->isChecked())
 	{
 		imageYScaleSpinBox->setValue(imageXScaleSpinBox->value());
 		NewLocalSC();
-		keepImageDPIRatioButton->setOn(true);
+		keepImageDPIRatioButton->setChecked(true);
 	}
 	else
-		keepImageDPIRatioButton->setOn(false);
+		keepImageDPIRatioButton->setChecked(false);
 	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	connect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
 }
@@ -3276,7 +3309,7 @@ void Mpalette::HChange()
 {
 	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	if (keepImageWHRatioButton->isOn())
+	if (keepImageWHRatioButton->isChecked())
 		imageYScaleSpinBox->setValue(imageXScaleSpinBox->value());
 	NewLocalSC();
 	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
@@ -3287,7 +3320,7 @@ void Mpalette::VChange()
 {
 	disconnect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
 	disconnect(imageYScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(VChange()));
-	if (keepImageWHRatioButton->isOn())
+	if (keepImageWHRatioButton->isChecked())
 		imageXScaleSpinBox->setValue(imageYScaleSpinBox->value());
 	NewLocalSC();
 	connect(imageXScaleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(HChange()));
@@ -3300,14 +3333,14 @@ void Mpalette::ToggleKetteD()
 		return;
 	disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
 	disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
-	if (keepImageDPIRatioButton->isOn())
+	if (keepImageDPIRatioButton->isChecked())
 	{
 		imgDpiY->setValue(imgDpiX->value());
 		NewLocalDpi();
-		keepImageWHRatioButton->setOn(true);
+		keepImageWHRatioButton->setChecked(true);
 	}
 	else
-		keepImageWHRatioButton->setOn(false);
+		keepImageWHRatioButton->setChecked(false);
 	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
 	connect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
 }
@@ -3316,7 +3349,7 @@ void Mpalette::HChangeD()
 {
 	disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
 	disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
-	if (keepImageDPIRatioButton->isOn())
+	if (keepImageDPIRatioButton->isChecked())
 		imgDpiY->setValue(imgDpiX->value());
 	NewLocalDpi();
 	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
@@ -3327,7 +3360,7 @@ void Mpalette::VChangeD()
 {
 	disconnect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
 	disconnect(imgDpiY, SIGNAL(valueChanged(double)), this, SLOT(VChangeD()));
-	if (keepImageDPIRatioButton->isOn())
+	if (keepImageDPIRatioButton->isChecked())
 		imgDpiX->setValue(imgDpiY->value());
 	NewLocalDpi();
 	connect(imgDpiX, SIGNAL(valueChanged(double)), this, SLOT(HChangeD()));
@@ -3591,28 +3624,28 @@ void Mpalette::DoFlow()
 	{
 		if (CurItem->isGroupControl)
 		{
-			if (textFlowDisabled2->isOn())
+			if (textFlowDisabled2->isChecked())
 				mode = PageItem::TextFlowDisabled;
-			if (textFlowUsesFrameShape2->isOn())
+			if (textFlowUsesFrameShape2->isChecked())
 				mode = PageItem::TextFlowUsesFrameShape;
-			if (textFlowUsesBoundingBox2->isOn())
+			if (textFlowUsesBoundingBox2->isChecked())
 				mode = PageItem::TextFlowUsesBoundingBox;
-			if (textFlowUsesContourLine2->isOn())
+			if (textFlowUsesContourLine2->isChecked())
 				mode = PageItem::TextFlowUsesContourLine;
-			if (textFlowUsesImageClipping2->isOn())
+			if (textFlowUsesImageClipping2->isChecked())
 				mode = PageItem::TextFlowUsesImageClipping;
 		}
 		else
 		{
-			if (textFlowDisabled->isOn())
+			if (textFlowDisabled->isChecked())
 				mode = PageItem::TextFlowDisabled;
-			if (textFlowUsesFrameShape->isOn())
+			if (textFlowUsesFrameShape->isChecked())
 				mode = PageItem::TextFlowUsesFrameShape;
-			if (textFlowUsesBoundingBox->isOn())
+			if (textFlowUsesBoundingBox->isChecked())
 				mode = PageItem::TextFlowUsesBoundingBox;
-			if (textFlowUsesContourLine->isOn())
+			if (textFlowUsesContourLine->isChecked())
 				mode = PageItem::TextFlowUsesContourLine;
-			if (textFlowUsesImageClipping->isOn())
+			if (textFlowUsesImageClipping->isChecked())
 				mode = PageItem::TextFlowUsesImageClipping;
 		}
 		CurItem->setTextFlowMode(mode);
@@ -3720,7 +3753,7 @@ void Mpalette::toggleGradientEdit()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		if (Cpal->gradEditButton->isOn())
+		if (Cpal->gradEditButton->isChecked())
 			m_ScMW->setAppMode(modeEditGradientVectors);
 		else
 			m_ScMW->setAppMode(modeNormal);
@@ -3742,7 +3775,7 @@ void Mpalette::DoRevert()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		bool setter=Revert->isOn();
+		bool setter=Revert->isChecked();
 		CurItem->setImageFlippedH(setter);
 		CurItem->setReversed(setter);
 		m_ScMW->view->RefreshItem(CurItem);
@@ -3848,19 +3881,19 @@ void Mpalette::updateCmsList()
 				ProfilesL::Iterator itPend=ScCore->InputProfilesCMYK.end();
 				for (itP = ScCore->InputProfilesCMYK.begin(); itP != itPend; ++itP)
 				{
-					InputP->insertItem(itP.key());
+					InputP->addItem(itP.key());
 					if (itP.key() == CurItem->IProfile)
-						InputP->setCurrentItem(InputP->count()-1);
+						InputP->setCurrentIndex(InputP->count()-1);
 				}
 				if (!ScCore->InputProfilesCMYK.contains(CurItem->IProfile))
 				{
-					InputP->insertItem(CurItem->IProfile);
-					InputP->setCurrentItem(InputP->count()-1);
+					InputP->addItem(CurItem->IProfile);
+					InputP->setCurrentIndex(InputP->count()-1);
 				}
 				else
 				{
 					if (!CurItem->EmProfile.isEmpty())
-						InputP->insertItem(CurItem->EmProfile);
+						InputP->addItem(CurItem->EmProfile);
 				}
 			}
 			else
@@ -3869,22 +3902,22 @@ void Mpalette::updateCmsList()
 				ProfilesL::Iterator itPend=ScCore->InputProfiles.end();
 				for (itP = ScCore->InputProfiles.begin(); itP != itPend; ++itP)
 				{
-					InputP->insertItem(itP.key());
+					InputP->addItem(itP.key());
 					if (itP.key() == CurItem->IProfile)
-						InputP->setCurrentItem(InputP->count()-1);
+						InputP->setCurrentIndex(InputP->count()-1);
 				}
 				if (!ScCore->InputProfiles.contains(CurItem->IProfile))
 				{
-					InputP->insertItem(CurItem->IProfile);
-					InputP->setCurrentItem(InputP->count()-1);
+					InputP->addItem(CurItem->IProfile);
+					InputP->setCurrentIndex(InputP->count()-1);
 				}
 				else
 				{
 					if (!CurItem->EmProfile.isEmpty())
-						InputP->insertItem(CurItem->EmProfile);
+						InputP->addItem(CurItem->EmProfile);
 				}
 			}
-			MonitorI->setCurrentItem(CurItem->IRender);
+			MonitorI->setCurrentIndex(CurItem->IRender);
 		}
 		connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
 		connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
@@ -3913,7 +3946,7 @@ void Mpalette::ChIntent()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->IRender = MonitorI->currentItem();
+		CurItem->IRender = MonitorI->currentIndex();
 		doc->LoadPict(CurItem->Pfile, CurItem->ItemNr, true);
 		m_ScMW->view->RefreshItem(CurItem);
 	}
@@ -3992,7 +4025,7 @@ void Mpalette::setActFarben(QString p, QString b, double shp, double shb)
 			c++;
 		}
 	}
-	TxFill->setCurrentItem(c);
+	TxFill->setCurrentIndex(c);
 	c = 0;
 	if ((p != CommonStrings::None) && (!p.isEmpty()))
 	{
@@ -4004,7 +4037,7 @@ void Mpalette::setActFarben(QString p, QString b, double shp, double shb)
 			c++;
 		}
 	}
-	TxStroke->setCurrentItem(c);
+	TxStroke->setCurrentIndex(c);
 }
 
 void Mpalette::handleLock()
@@ -4069,7 +4102,7 @@ void Mpalette::handlePathType()
 		return;
 	if ((HaveDoc) && (HaveItem))
 	{
-		CurItem->textPathType = pathTextType->currentItem();
+		CurItem->textPathType = pathTextType->currentIndex();
 		m_ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();
 	}
@@ -4193,7 +4226,7 @@ void Mpalette::fillLangCombo(QMap<QString,QString> langMap)
 	langCombo->clear();
 	for (it = langMap.begin(); it != langMap.end(); ++it)
 		sortList.push_back(it.value());
-	langCombo->insertStringList(sortQStringList(sortList));
+	langCombo->addItems(sortQStringList(sortList));
 	QListView *tmpView = dynamic_cast<QListView*>(langCombo->view()); Q_ASSERT(tmpView);
 	int tmpWidth = tmpView->sizeHintForColumn(0);
 	if (tmpWidth > 0)
@@ -4286,13 +4319,13 @@ void Mpalette::languageChange()
 {
 	setWindowTitle( tr("Properties"));
 
-	TabStack->setItemLabel(idXYZItem, tr("X, Y, &Z"));
-	TabStack->setItemLabel(idTextItem, tr("&Text"));
-	TabStack->setItemLabel(idImageItem, tr("&Image"));
-	TabStack->setItemLabel(idShapeItem, tr("&Shape"));
-	TabStack->setItemLabel(idLineItem, tr("&Line"));
-	TabStack->setItemLabel(idColorsItem, tr("&Colors"));
-	TabStack->setItemLabel(idGroupItem, tr("&Group"));
+	TabStack->setItemText(idXYZItem, tr("X, Y, &Z"));
+	TabStack->setItemText(idTextItem, tr("&Text"));
+	TabStack->setItemText(idImageItem, tr("&Image"));
+	TabStack->setItemText(idShapeItem, tr("&Shape"));
+	TabStack->setItemText(idLineItem, tr("&Line"));
+	TabStack->setItemText(idColorsItem, tr("&Colors"));
+	TabStack->setItemText(idGroupItem, tr("&Group"));
 
 	NameGroup->setTitle( tr("Name"));
 	GeoGroup->setTitle( tr("Geometry"));
@@ -4311,29 +4344,29 @@ void Mpalette::languageChange()
 	TransTxt->setText( tr( "Opacity:" ) );
 	TransTxt2->setText( tr( "Blend Mode:" ) );
 	blendMode->clear();
-	blendMode->insertItem( tr("Normal"));
-	blendMode->insertItem( tr("Darken"));
-	blendMode->insertItem( tr("Lighten"));
-	blendMode->insertItem( tr("Multiply"));
-	blendMode->insertItem( tr("Screen"));
-	blendMode->insertItem( tr("Overlay"));
-	blendMode->insertItem( tr("Hard Light"));
-	blendMode->insertItem( tr("Soft Light"));
-	blendMode->insertItem( tr("Difference"));
-	blendMode->insertItem( tr("Exclusion"));
-	blendMode->insertItem( tr("Color Dodge"));
-	blendMode->insertItem( tr("Color Burn"));
-	blendMode->insertItem( tr("Hue"));
-	blendMode->insertItem( tr("Saturation"));
-	blendMode->insertItem( tr("Color"));
+	blendMode->addItem( tr("Normal"));
+	blendMode->addItem( tr("Darken"));
+	blendMode->addItem( tr("Lighten"));
+	blendMode->addItem( tr("Multiply"));
+	blendMode->addItem( tr("Screen"));
+	blendMode->addItem( tr("Overlay"));
+	blendMode->addItem( tr("Hard Light"));
+	blendMode->addItem( tr("Soft Light"));
+	blendMode->addItem( tr("Difference"));
+	blendMode->addItem( tr("Exclusion"));
+	blendMode->addItem( tr("Color Dodge"));
+	blendMode->addItem( tr("Color Burn"));
+	blendMode->addItem( tr("Hue"));
+	blendMode->addItem( tr("Saturation"));
+	blendMode->addItem( tr("Color"));
 	rndcornersLabel->setText( tr("R&ound\nCorners:"));
 	Distance->setTitle( tr("Distance of Text"));
 	columnsLabel->setText( tr("Colu&mns:"));
-	int oldcolgapLabel = colgapLabel->currentItem();
+	int oldcolgapLabel = colgapLabel->currentIndex();
 	colgapLabel->clear();
-	colgapLabel->insertItem( tr("Gap:"));
-	colgapLabel->insertItem( tr("Width:"));
-	colgapLabel->setCurrentItem(oldcolgapLabel);
+	colgapLabel->addItem( tr("Gap:"));
+	colgapLabel->addItem( tr("Width:"));
+	colgapLabel->setCurrentIndex(oldcolgapLabel);
 //	colgapLabel->setTexts( tr("&Gap:"), tr("&Width:"));
 	topLabel->setText( tr("To&p:"));
 	bottomLabel->setText( tr("&Bottom:"));
@@ -4342,9 +4375,9 @@ void Mpalette::languageChange()
 	TabsButton->setText( tr("T&abulators..."));
 	Distance2->setTitle( tr("Path Text Properties"));
 	pathTextType->clear();
-	pathTextType->insertItem( tr("Default"));
-	pathTextType->insertItem( tr("Stair Step"));
-	pathTextType->insertItem( tr("Skew"));
+	pathTextType->addItem( tr("Default"));
+	pathTextType->addItem( tr("Stair Step"));
+	pathTextType->addItem( tr("Skew"));
 	flippedPathText->setText( tr("Flip Text"));
 	showcurveCheckBox->setText( tr("Show Curve"));
 	pathTextTypeLabel->setText( tr("Type:"));
@@ -4368,16 +4401,16 @@ void Mpalette::languageChange()
 	paraStyleLabel->setText( tr("Paragraph St&yle:"));
 	charStyleLabel->setText( tr("Character St&yle:"));
 	optMarginLabel->setText( tr("Optical Margins:"));
-	int c=optMarginCombo->currentItem();
+	int c=optMarginCombo->currentIndex();
 	optMarginCombo->clear();
-	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsNone );
+	optMarginCombo->addItem( CommonStrings::trOpticalMarginsNone );
 //	Out for 1.3.4
 // 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsLeftProtruding );
 // 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsRightProtruding );
 // 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsLeftHangPunct );
 // 	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsRightHangPunct );
-	optMarginCombo->insertItem( CommonStrings::trOpticalMarginsDefault );
-	optMarginCombo->setCurrentItem(c);
+	optMarginCombo->addItem( CommonStrings::trOpticalMarginsDefault );
+	optMarginCombo->setCurrentIndex(c);
 	wordTrackingLabel->setText( tr("Word Tracking"));
 	minWordTrackingLabel->setText( tr("Min:"));
 	normWordTrackingLabel->setText( tr("Norm:"));
@@ -4397,49 +4430,50 @@ void Mpalette::languageChange()
 	EditPSDProps->setText( tr("Extended Image Properties"));
 	TextCms1->setText( tr("Input Profile:"));
 	TextCms2->setText( tr("Rendering Intent:"));
-	lineSpacingPop->changeItem(lineSpacingPop->idAt(0), tr("Fixed Linespacing"));
-	lineSpacingPop->changeItem(lineSpacingPop->idAt(1), tr("Automatic Linespacing"));
-	lineSpacingPop->changeItem(lineSpacingPop->idAt(2), tr("Align to Baseline Grid"));
-	int oldMonitorI=MonitorI->currentItem();
+	QList<QAction*> actList = lineSpacingPop->actions();
+	actList[0]->setText( tr("Fixed Linespacing"));
+	actList[1]->setText( tr("Automatic Linespacing"));
+	actList[2]->setText( tr("Align to Baseline Grid"));
+	int oldMonitorI=MonitorI->currentIndex();
 	MonitorI->clear();
-	MonitorI->insertItem( tr("Perceptual"));
-	MonitorI->insertItem( tr("Relative Colorimetric"));
-	MonitorI->insertItem( tr("Saturation"));
-	MonitorI->insertItem( tr("Absolute Colorimetric"));
-	MonitorI->setCurrentItem(oldMonitorI);
-	int oldLineMode=LineMode->currentItem();
+	MonitorI->addItem( tr("Perceptual"));
+	MonitorI->addItem( tr("Relative Colorimetric"));
+	MonitorI->addItem( tr("Saturation"));
+	MonitorI->addItem( tr("Absolute Colorimetric"));
+	MonitorI->setCurrentIndex(oldMonitorI);
+	int oldLineMode=LineMode->currentIndex();
 	LineMode->clear();
-	LineMode->insertItem( tr("Left Point"));
-	LineMode->insertItem( tr("End Points"));
-	LineMode->setCurrentItem(oldLineMode);
+	LineMode->addItem( tr("Left Point"));
+	LineMode->addItem( tr("End Points"));
+	LineMode->setCurrentIndex(oldLineMode);
 	LineModeT->setText( tr("&Basepoint:"));
 	linetypeLabel->setText( tr("T&ype of Line:"));
 	startArrowText->setText( tr("Start Arrow:"));
 	endArrowText->setText( tr("End Arrow:"));
 	if (HaveDoc)
 	{
-		int arrowItem=startArrow->currentItem();
+		int arrowItem=startArrow->currentIndex();
 		startArrow->rebuildList(&doc->arrowStyles);
-		startArrow->setCurrentItem(arrowItem);
-		arrowItem=endArrow->currentItem();
+		startArrow->setCurrentIndex(arrowItem);
+		arrowItem=endArrow->currentIndex();
 		endArrow->rebuildList(&doc->arrowStyles);
-		endArrow->setCurrentItem(arrowItem);
+		endArrow->setCurrentIndex(arrowItem);
 	}
 	linewidthLabel->setText( tr("Line &Width:"));
 	edgesLabel->setText( tr("Ed&ges:"));
-	int oldLJoinStyle=LJoinStyle->currentItem();
+	int oldLJoinStyle=LJoinStyle->currentIndex();
 	LJoinStyle->clear();
-	LJoinStyle->insertItem(loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
-	LJoinStyle->insertItem(loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
-	LJoinStyle->insertItem(loadIcon("16/stroke-join-round.png"), tr("Round Join"));
-	LJoinStyle->setCurrentItem(oldLJoinStyle);
+	LJoinStyle->addItem(loadIcon("16/stroke-join-miter.png"), tr("Miter Join"));
+	LJoinStyle->addItem(loadIcon("16/stroke-join-bevel.png"), tr("Bevel Join"));
+	LJoinStyle->addItem(loadIcon("16/stroke-join-round.png"), tr("Round Join"));
+	LJoinStyle->setCurrentIndex(oldLJoinStyle);
 
-	int oldLEndStyle=LEndStyle->currentItem();
+	int oldLEndStyle=LEndStyle->currentIndex();
 	LEndStyle->clear();
-	LEndStyle->insertItem(loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
-	LEndStyle->insertItem(loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
-	LEndStyle->insertItem(loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
-	LEndStyle->setCurrentItem(oldLEndStyle);
+	LEndStyle->addItem(loadIcon("16/stroke-cap-butt.png"), tr("Flat Cap"));
+	LEndStyle->addItem(loadIcon("16/stroke-cap-square.png"), tr("Square Cap"));
+	LEndStyle->addItem(loadIcon("16/stroke-cap-round.png"), tr("Round Cap"));
+	LEndStyle->setCurrentIndex(oldLEndStyle);
 	endingsLabel->setText( tr("&Endings:"));
 
 	TLines->setTitle( tr("Cell Lines"));
@@ -4686,7 +4720,7 @@ const VGradient Mpalette::getFillGradient()
 
 void Mpalette::setGradientEditMode(bool on)
 {
-	Cpal->gradEditButton->setOn(on);
+	Cpal->gradEditButton->setChecked(on);
 }
 
 void Mpalette::updateColorSpecialGradient()
@@ -4751,7 +4785,8 @@ void Mpalette::setLocked(bool isLocked)
 	Rot->setReadOnly(isLocked);
 	if (isLocked)
 	{
-		QPalette pal(qApp->palette().disabled(), qApp->palette().disabled(), qApp->palette().disabled());
+		QPalette pal(qApp->palette());
+		pal.setCurrentColorGroup(QPalette::Disabled);
 		Xpos->setPalette(pal);
 		Ypos->setPalette(pal);
 		Width->setPalette(pal);
@@ -4768,7 +4803,7 @@ void Mpalette::setLocked(bool isLocked)
 	}
 	EditShape->setEnabled(!isLocked);
 	LayerGroup->setEnabled(!isLocked);
-	Locked->setOn(isLocked);
+	Locked->setChecked(isLocked);
 	if ((HaveDoc) && (HaveItem))
 	{
 		ShapeGroup->setEnabled(!CurItem->asLine() && !CurItem->asPolyLine() && !CurItem->asPathText() && !isLocked);
@@ -4788,7 +4823,8 @@ void Mpalette::setSizeLocked(bool isSizeLocked)
 	Height->setReadOnly(b);
 	if (b)
 	{
-		QPalette pal(qApp->palette().disabled(), qApp->palette().disabled(), qApp->palette().disabled());
+		QPalette pal(qApp->palette());
+		pal.setCurrentColorGroup(QPalette::Disabled);
 		Width->setPalette(pal);
 		Height->setPalette(pal);
 	}
@@ -4797,22 +4833,22 @@ void Mpalette::setSizeLocked(bool isSizeLocked)
 		Width->setPalette(qApp->palette());
 		Height->setPalette(qApp->palette());
 	}
-	NoResize->setOn(isSizeLocked);
+	NoResize->setChecked(isSizeLocked);
 }
 
 void Mpalette::setPrintingEnabled(bool isPrintingEnabled)
 {
-	NoPrint->setOn(!isPrintingEnabled);
+	NoPrint->setChecked(!isPrintingEnabled);
 }
 
 void Mpalette::setFlippedH(bool isFlippedH)
 {
-	FlipH->setOn(isFlippedH);
+	FlipH->setChecked(isFlippedH);
 }
 
 void Mpalette::setFlippedV(bool isFlippedV)
 {
-	FlipV->setOn(isFlippedV);
+	FlipV->setChecked(isFlippedV);
 }
 
 void Mpalette::setGroupTransparency(int trans)
