@@ -77,12 +77,12 @@ void DelPages::toChanged(int pageNumber)
 		fromPageData->setValue(2);
 }
 
-const int DelPages::getFromPage()
+int DelPages::getFromPage() const
 {
 	return fromPageData->value();
 }
 
-const int DelPages::getToPage()
+int DelPages::getToPage() const
 {
 	return toPageData->value();
 }

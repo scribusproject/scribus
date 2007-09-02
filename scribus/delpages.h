@@ -24,8 +24,8 @@ public:
 	DelPages( QWidget* parent, int currentPage, int maxPage );
 	~DelPages() {};
 
-	const int getFromPage();
-	const int getToPage();
+	int getFromPage() const;
+	int getToPage() const;
 
 private:
 	QVBoxLayout* dialogLayout;
