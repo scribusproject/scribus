@@ -334,12 +334,12 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		newY = m->y();
 		double dx = abs(Mxp - newX) + 5;
 		double dy = abs(Myp - newY) + 5;
-		if (m->state() == Qt::LeftButton)
+		if (m->buttons() & Qt::LeftButton)
 		{
 			currItem->GrStartX -= (Mxp - newX) / m_canvas->scale();
 			currItem->GrStartY -= (Myp - newY) / m_canvas->scale();
 		}
-		if (m->state() == Qt::RightButton)
+		if (m->buttons() & Qt::RightButton)
 		{
 			currItem->GrEndX -= (Mxp - newX) / m_canvas->scale();
 			currItem->GrEndY -= (Myp - newY) / m_canvas->scale();
@@ -371,7 +371,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 */
 		return;
 	}
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->state() & Qt::RightButton) && (m->state() & Qt::ControlButton))
+	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
 	{
 		m_ScMW->setAppMode(modePanning);
 	}
@@ -415,7 +415,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		newX = qRound(m_view->translateToDoc(m->x(), m->y()).x());
 		newY = qRound(m_view->translateToDoc(m->x(), m->y()).y());
-		if ((((m_view->dragTimerFired) && (m->state() == Qt::LeftButton)) || (m_view->moveTimerElapsed() && (m->state() == Qt::RightButton)))
+		if ((((m_view->dragTimerFired) && (m->buttons() & Qt::LeftButton)) || (m_view->moveTimerElapsed() && (m->buttons() & Qt::RightButton)))
 			&& (m_canvas->m_viewMode.m_MouseButtonPressed)
 			&& (!m_doc->DragP) 
 			&& (m_doc->appMode == modeNormal) 
@@ -469,7 +469,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			m_view->dragTimer->stop();
 			double newW = xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
-			if (m->state() & Qt::ControlButton)
+			if (m->modifiers() & Qt::ControlModifier)
 			{
 				newW=constrainAngle(newW, m_doc->toolSettings.constrain);
 				m_view->oldW=constrainAngle(m_view->oldW, m_doc->toolSettings.constrain);
@@ -503,7 +503,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		}
 		if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeDrawRegularPolygon))
 		{
-			if (m->state() & Qt::ShiftButton)
+			if (m->modifiers() & Qt::ShiftModifier)
 			{
 				mop = QPoint(m->x(), static_cast<int>((currItem->yPos() + (newX - currItem->xPos())) * sc));
 				QCursor::setPos(m_view->mapToGlobal(mop));
@@ -535,7 +535,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			}
 			double newRot=xy2Deg(newX - currItem->xPos(), newY - currItem->yPos());
 			//Constrain rotation angle, when the mouse is being dragged around for a new line
-			if (m->state() & Qt::ControlButton)
+			if (m->modifiers() & Qt::ControlModifier)
 			{
 				//Flip our angles around here
 				if (newRot<0.0)
@@ -596,7 +596,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		}
 		//Operations run here:
 		//Item resize, esp after creating a new one
-		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->state() & Qt::LeftButton) && ((m_doc->appMode == modeNormal) || ((m_doc->appMode == modeEdit) && m_canvas->m_viewMode.operItemResizeInEditMode)) && (!currItem->locked()))
+		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && ((m_doc->appMode == modeNormal) || ((m_doc->appMode == modeEdit) && m_canvas->m_viewMode.operItemResizeInEditMode)) && (!currItem->locked()))
 		{
 			m_view->dragTimer->stop();
 			if (m_doc->appMode == modeEditClip)
@@ -629,7 +629,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					switch (frameResizeHandle)
 					{
 					case 1:
-						if (m->state() & Qt::ControlButton)
+						if (m->modifiers() & Qt::ControlModifier)
 							np2 = QPoint(qRound(newX), qRound(gy+(gh * ((newX-gx) / gw))));
 						else
 							np2 = QPoint(qRound(newX), qRound(newY));
@@ -681,24 +681,24 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 //								mp.translate(-m_doc->minCanvasCoordinate.x() * m_canvas->scale(),-m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 								m_canvas->Transform(currItem, mp);
 								//Shift proportional square resize
-								if ((m->state() & Qt::ShiftButton) && (!(m->state() & Qt::ControlButton)))
+								if ((m->modifiers() & Qt::ShiftModifier) && (!(m->modifiers() & Qt::ControlModifier)))
 								{
 									QMatrix ma;
 									ma.translate(currItem->xPos(), currItem->yPos());
 									ma.rotate(currItem->rotation());
-									ma = ma.invert();
+									ma = ma.inverted();
 									nh = ma.m11() * newX + ma.m21() * newY + ma.dx();
 									mop = QPoint(m->x(), m->y());
 								}
 								else
 								{
 									//Control proportional resize
-									if ((m->state() & Qt::ControlButton) && (!(m->state() & Qt::ShiftButton)))
+									if ((m->modifiers() & Qt::ControlModifier) && (!(m->modifiers() & Qt::ShiftModifier)))
 									{
 										QMatrix ma;
 										ma.translate(currItem->xPos(), currItem->yPos());
 										ma.rotate(currItem->rotation());
-										ma = ma.invert();
+										ma = ma.inverted();
 										double nX = ma.m11() * newX + ma.m21() * newY + ma.dx();
 										nh = nX / currItem->OldB2 * currItem->OldH2;
 										mop = QPoint(m->x(), m->y());
@@ -727,7 +727,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 										nx -= currItem->xPos();
 										ny -= currItem->yPos();
 									}
-									if ((m->state() & Qt::ControlButton) || ((m->state() & Qt::ShiftButton)))
+									if ((m->modifiers() & Qt::ControlModifier) || ((m->modifiers() & Qt::ShiftModifier)))
 										erf = m_doc->SizeItem(nx, nh, currItem->ItemNr);
 									else
 										erf = m_doc->SizeItem(nx, ny, currItem->ItemNr);
@@ -750,7 +750,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 									np = QPoint(m->x(), m->y()) * mp.inverted();
 									double sizeItemX=np.x(), sizeItemY=np.y();
 									//Constrain rotation angle, when the mouse is moving the non-origin point of a line
-									if (m->state() & Qt::ControlButton)
+									if (m->modifiers() & Qt::ControlModifier)
 									{
 										double newRot=xy2Deg(np.x(), np.y());
 										rba=constrainAngle(newRot, m_doc->toolSettings.constrain);
@@ -774,7 +774,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 									double sav = m_doc->SnapGuides;
 									npf2 = FPoint(newX-Mxp, newY-Myp);
 									//Constrain rotation on left point move, disabled for now in movesizeitem
-									erf = m_doc->MoveSizeItem(npf2, FPoint(0, 0), currItem->ItemNr, false, (m->state() & Qt::ControlButton));
+									erf = m_doc->MoveSizeItem(npf2, FPoint(0, 0), currItem->ItemNr, false, (m->modifiers() & Qt::ControlModifier));
 									m_doc->SnapGuides = sav;
 									if (sav)
 										currItem->Sizing = true;
@@ -863,7 +863,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					erf=true;
 					currItem = m_doc->m_Selection->itemAt(0);
 					//Control Alt drag image in frame without being in edit mode
-					if ((currItem->asImageFrame()) && (m->state() & Qt::ControlButton) && (m->state() & Qt::AltButton))
+					if ((currItem->asImageFrame()) && (m->modifiers() & Qt::ControlModifier) && (m->modifiers() & Qt::AltModifier))
 					{
 						currItem->moveImageInFrame(dX/currItem->imageXScale(),dY/currItem->imageYScale());
 						m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
@@ -872,7 +872,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					else
 					{
 						//Dragging orthogonally - Ctrl Drag
-						if ((m->state() & Qt::ControlButton) && !(m->state() & Qt::ShiftButton) && !(m->state() & Qt::AltButton))
+						if ((m->modifiers() & Qt::ControlModifier) && !(m->modifiers() & Qt::ShiftModifier) && !(m->modifiers() & Qt::AltModifier))
 						{
 							if (abs(dX)>abs(dY))
 								dY=0;
@@ -932,7 +932,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					int dX=newX-Mxp, dY=newY-Myp;
 					erf = true;
-					if (m->state() & Qt::ControlButton)
+					if (m->modifiers() & Qt::ControlModifier)
 					{
 						if (abs(dX)>abs(dY))
 							dY=0;
@@ -1162,7 +1162,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->state() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
+		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
 		{
 			newX = qRound(m_view->translateToDoc(m->x(), m->y()).x());
 			if (m_doc->appMode == modeMagnifier)
@@ -1309,7 +1309,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					mpo = QRect(qRound(m->x() / m_canvas->scale()) - m_doc->guidesSettings.grabRad, qRound(m->y() / m_canvas->scale()) - m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //					mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
 					if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
-					      && (m->state() != (Qt::ControlButton | Qt::AltButton)) && (m->state() != Qt::ShiftButton))
+					      && (m->modifiers() != (Qt::ControlModifier | Qt::AltModifier)) && (m->modifiers() != Qt::ShiftModifier))
 					{
 						frameResizeHandle = 0;
 						QMap<double,int> distance;
@@ -1376,7 +1376,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					}
 					else
 						shiftSel = m_view->SeleItem(m);
-					if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->state() == Qt::ShiftButton))
+					if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
 					{
 						shiftSelItems = true;
 						Mxp = qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
@@ -1464,7 +1464,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			switch (m_doc->SubMode)
 			{
 			case 0:
-				if (m->state() == Qt::ShiftButton)
+				if (m->modifiers() == Qt::ShiftModifier)
 				{
 					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Rectangle, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					m_doc->Items->at(z)->FrameType = 0;
@@ -1479,7 +1479,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				}
 				break;
 			case 1:
-				if (m->state() == Qt::ShiftButton)
+				if (m->modifiers() == Qt::ShiftModifier)
 				{
 					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Ellipse, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					m_doc->Items->at(z)->FrameType = 1;
@@ -1494,7 +1494,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				}
 				break;
 			default:
-				if (m->state() == Qt::ShiftButton)
+				if (m->modifiers() == Qt::ShiftModifier)
 				{
 					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 					m_doc->Items->at(z)->SetFrameShape(m_doc->ValCount, m_doc->ShapeValues);
@@ -1518,7 +1518,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			if (m->button() != Qt::LeftButton)
 				break;
 			m_view->selectPage(m);
-			if (m->state() == Qt::ShiftButton)
+			if (m->modifiers() == Qt::ShiftModifier)
 			{
 				z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDrawNoResize(z);
@@ -1534,7 +1534,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			if (m->button() != Qt::LeftButton)
 				break;
 			m_view->selectPage(m);
-			if (m->state() == Qt::ShiftButton)
+			if (m->modifiers() == Qt::ShiftModifier)
 			{
 				z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDrawNoResize(z);
@@ -1550,7 +1550,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			if (m->button() != Qt::LeftButton)
 				break;
 			m_view->selectPage(m);
-			if (m->state() == Qt::ShiftButton)
+			if (m->modifiers() == Qt::ShiftModifier)
 			{
 				z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDrawNoResize(z);
@@ -1564,7 +1564,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			break;
 		case modeMagnifier:
 			m_canvas->m_viewMode.m_MouseButtonPressed = true;
-			if ((m->state() == Qt::ShiftButton) || (m->button() == Qt::RightButton))
+			if ((m->modifiers() == Qt::ShiftModifier) || (m->button() == Qt::RightButton))
 			{
 				m_view->Magnify = false;
 				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
@@ -1625,7 +1625,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					return;
 				}
 				//<<CB Add in shift select to text frames
-				if (m->state() & Qt::ShiftButton)
+				if (m->modifiers() & Qt::ShiftModifier)
 				{
 					int dir=1;
 					if (oldCp>currItem->CPos)
@@ -1858,7 +1858,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				if (m->button() != Qt::LeftButton)
 					break;
 				m_view->selectPage(m);
-				if (m->state() == Qt::ShiftButton)
+				if (m->modifiers() == Qt::ShiftModifier)
 					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				else
 				{
@@ -1885,7 +1885,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				m_view->updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 				inItemCreation = true;
 				m_canvas->m_viewMode.operItemResizing = true;
-				if (m->state() == Qt::ShiftButton)
+				if (m->modifiers() == Qt::ShiftModifier)
 				{
 					m_view->requestMode(modeNormal);
 // itemAdd calls PageItem::update					emit DocChanged();
@@ -2130,7 +2130,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	}
 	if (m_doc->appMode == modePanning)
 	{
-		if ((m->state() & Qt::RightButton) && (m->state() & Qt::ControlButton))
+		if ((m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
 		{
 			m_ScMW->setAppMode(modeNormal);
 		}
@@ -2425,12 +2425,12 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				QObject::connect(pmen3, SIGNAL(activated(int)), m_view, SLOT(PasteRecentToPage(int)));
 				pmen->insertItem( ScribusView::ScribusView::tr("Paste Recent"), pmen3);
 			}
-			pmen->insertSeparator();
+			pmen->addSeparator();
 		}
 		m_view->setObjectUndoMode();
 		pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
 		pmen->addAction(m_ScMW->scrActions["editRedoAction"]);
-		pmen->insertSeparator();
+		pmen->addSeparator();
 		pmen->addAction(m_ScMW->scrActions["viewShowMargins"]);
 		pmen->addAction(m_ScMW->scrActions["viewShowFrames"]);
 		pmen->addAction(m_ScMW->scrActions["viewShowLayerMarkers"]);
@@ -2440,7 +2440,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		pmen->addAction(m_ScMW->scrActions["viewShowBaseline"]);
 		pmen->addAction(m_ScMW->scrActions["viewShowTextChain"]);
 		pmen->addAction(m_ScMW->scrActions["viewRulerMode"]);
-		pmen->insertSeparator();
+		pmen->addSeparator();
 		pmen->addAction(m_ScMW->scrActions["viewSnapToGrid"]);
 		pmen->addAction(m_ScMW->scrActions["viewSnapToGuides"]);
 		int pgNum = -1;
@@ -2485,11 +2485,11 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		if (pgNum != -1)
 		{
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			pmen->addAction(m_ScMW->scrActions["pageApplyMasterPage"]);
 			pmen->addAction(m_ScMW->scrActions["pageManageGuides"]);
 			pmen->addAction(m_ScMW->scrActions["pageManageMargins"]);
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			pmen->addAction(m_ScMW->scrActions["pageDelete"]);
 		}
 		pmen->exec(QCursor::pos());
@@ -2526,19 +2526,19 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				InfoGroupLayout->setSpacing( 2 );
 				InfoGroupLayout->setMargin( 0 );
 				QString txtC, txtC2;
-				QLabel *InfoT = new QLabel(InfoGroup, "ct");
-				QLabel *LinCT = new QLabel(InfoGroup, "lt");
-				QLabel *LinC = new QLabel(InfoGroup, "lc");
-				QLabel *ParCT = new QLabel(InfoGroup, "pt");
-				QLabel *ParC = new QLabel(InfoGroup, "pc");
-				QLabel *WordCT = new QLabel(InfoGroup, "wt");
-				QLabel *WordC = new QLabel(InfoGroup, "wc");
-				QLabel *CharCT = new QLabel(InfoGroup, "ct");
-				QLabel *CharC = new QLabel(InfoGroup, "cc");
-				QLabel *ColCT = new QLabel(InfoGroup, "ct");
-				QLabel *ColC = new QLabel(InfoGroup, "cc");
-				QLabel *PrintCT = new QLabel(InfoGroup, "nt"); // <a.l.e>
-				QLabel *PrintC = new QLabel(InfoGroup, "nc"); // </a.l.e>
+				QLabel *InfoT = new QLabel(InfoGroup);
+				QLabel *LinCT = new QLabel(InfoGroup);
+				QLabel *LinC = new QLabel(InfoGroup);
+				QLabel *ParCT = new QLabel(InfoGroup);
+				QLabel *ParC = new QLabel(InfoGroup);
+				QLabel *WordCT = new QLabel(InfoGroup);
+				QLabel *WordC = new QLabel(InfoGroup);
+				QLabel *CharCT = new QLabel(InfoGroup);
+				QLabel *CharC = new QLabel(InfoGroup);
+				QLabel *ColCT = new QLabel(InfoGroup);
+				QLabel *ColC = new QLabel(InfoGroup);
+				QLabel *PrintCT = new QLabel(InfoGroup); // <a.l.e>
+				QLabel *PrintC = new QLabel(InfoGroup); // </a.l.e>
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					LinC->hide();
@@ -2563,7 +2563,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 						ColCT->setText( ScribusView::tr("Colorspace: "));
 						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 						QString cSpace;
-						QString ext = fi.extension(false).lower();
+						QString ext = fi.suffix().toLower();
 						if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != 7))
 							cSpace = ScribusView::tr("Unknown");
 						else
@@ -2652,14 +2652,14 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					pmen4->addAction(m_ScMW->scrActions["itemImageInfo"]);
 				pmen->insertItem( ScribusView::tr("In&fo"), pmen4);
 			}
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
 			pmen->addAction(m_ScMW->scrActions["editRedoAction"]);
 			if (currItem->itemType() == PageItem::ImageFrame ||
 				currItem->itemType() == PageItem::TextFrame ||
 				currItem->itemType() == PageItem::PathText)
 			{
-				pmen->insertSeparator();
+				pmen->addSeparator();
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					pmen->addAction(m_ScMW->scrActions["fileImportImage"]);
@@ -2673,7 +2673,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					}
 					pmen->insertItem( ScribusView::tr("Preview Settings"), pmenResolution);
 					pmenResolution->addAction(m_ScMW->scrActions["itemImageIsVisible"]);
-					pmenResolution->insertSeparator();
+					pmenResolution->addSeparator();
 					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewLow"]);
 					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewNormal"]);
 					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewFull"]);
@@ -2695,7 +2695,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			}
 			if (m_doc->m_Selection->count() == 1)
 			{
-				pmen->insertSeparator();
+				pmen->addSeparator();
 				m_ScMW->scrActions["itemAttributes"]->addTo(pmen);
 			}	
 			if (currItem->itemType() == PageItem::TextFrame)
@@ -2714,7 +2714,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				}
 				pmen->insertItem( ScribusView::tr("&PDF Options"), pmenPDF);
 			}
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			pmen->addAction(m_ScMW->scrActions["itemLock"]);
 			pmen->addAction(m_ScMW->scrActions["itemLockSize"]);
 			if (!currItem->isSingleSel)
@@ -2820,7 +2820,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				if ((insertConvertToMenu) && (insertedMenusEnabled))
 					pmen->insertItem( ScribusView::tr("Conve&rt to"), pmen2);
 			}
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			if (!currItem->locked() && !(currItem->isSingleSel))
 				pmen->addAction(m_ScMW->scrActions["editCut"]);
 			if (!(currItem->isSingleSel))
@@ -2854,7 +2854,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					}
 				}
 			}
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			m_ScMW->scrActions["toolsProperties"]->addTo(pmen);
 
 			pmen->exec(QCursor::pos());
@@ -2937,7 +2937,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				}
 				bool doRemember = sizes->getBool("Remember", true);
 				bool doCreate = false;
-				if (m->state() & (Qt::ShiftButton | Qt::ControlButton))
+				if (m->modifiers() & (Qt::ShiftModifier | Qt::ControlModifier))
 					doCreate = true;
 				else
 				{
@@ -3098,7 +3098,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			np = m_doc->ApplyGrid(np);
 			double newRot=xy2Deg(np.x(), np.y());
 			//Constrain rotation angle, when the mouse is released from drawing a line
-			if (m->state() & Qt::ControlButton)
+			if (m->modifiers() & Qt::ControlModifier)
 				newRot=constrainAngle(newRot, m_doc->toolSettings.constrain);
 			currItem->setRotation(newRot);
 			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
@@ -3168,7 +3168,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					QPoint np2;
 					double newXF = m_view->translateToDoc(m->x(), m->y()).x();
 					double newYF = m_view->translateToDoc(m->x(), m->y()).y();
-					if (m->state() & Qt::ControlButton)
+					if (m->modifiers() & Qt::ControlModifier)
 						np2 = QPoint(qRound(newXF), qRound(gy+(gh * ((newXF-gx) / gw))));
 					else
 						np2 = QPoint(qRound(newXF), qRound(newYF));
@@ -3218,7 +3218,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					RotMode = m_doc->RotMode;
 					m_doc->RotMode = 0;
 					//CB #3012 only scale text in a group if alt is pressed
-					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & Qt::AltButton))
+					if ((currItem->itemType() == PageItem::TextFrame) && (m->modifiers() & Qt::AltModifier))
 						m_view->scaleGroup(scx, scy, true);
 					else
 						m_view->scaleGroup(scx, scy, false);
@@ -3839,9 +3839,9 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					//alt resize, free resize with text scaling
 					//shift alt, square resize with text scaling
 					//control alt, proportional resize with text scaling
-					//if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & Qt::ShiftButton) && (m->state() & Qt::ControlButton))
+					//if ((currItem->itemType() == PageItem::TextFrame) && (m->modifiers() & Qt::ShiftModifier) && (m->modifiers() & Qt::ControlModifier))
 					//NOTE: this does not cover groups, strangely enough. Thats done in scaleGroup()
-					if ((currItem->itemType() == PageItem::TextFrame) && (m->state() & Qt::AltButton))
+					if ((currItem->itemType() == PageItem::TextFrame) && (m->modifiers() & Qt::AltModifier))
 					{
 						double scx = currItem->width() / currItem->OldB2;
 						double scy = currItem->height() / currItem->OldH2;
@@ -4175,7 +4175,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			}
 			else
 			{
-				if (m->state() & Qt::ShiftButton)
+				if (m->modifiers() & Qt::ShiftModifier)
 					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
 				else
 					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
@@ -4429,10 +4429,10 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		}
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
-	if (m->state() == (Qt::ControlButton | Qt::AltButton))
+	if (m->modifiers() == (Qt::ControlModifier | Qt::AltModifier))
 		m_view->Deselect(false);
 
-	if ((m->state() == (Qt::ShiftButton | Qt::AltButton)) && (!m_doc->masterPageMode()) && (m_doc->currentPage()->FromMaster.count() != 0))
+	if ((m->modifiers() == (Qt::ShiftModifier | Qt::AltModifier)) && (!Doc->masterPageMode()) && (Doc->currentPage()->FromMaster.count() != 0))
 	{
 		Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->MPageNam]);
 		currItem = m_doc->currentPage()->FromMaster.at(m_doc->currentPage()->FromMaster.count()-1);
@@ -4455,7 +4455,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 					m_doc->m_Selection->setIsGUISelection(false);
 					if (!currItem->isSelected())
 					{
-						if ((m->state() != Qt::ShiftButton) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
+						if ((m->modifiers() != Qt::ShiftModifier) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 							m_view->Deselect(false);
 						if (currItem->Groups.count() != 0)
 						{
@@ -4466,7 +4466,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 							}
 							else
 								m_doc->m_Selection->addItem(currItem, true);
-							if (m->state() != (Qt::ControlButton | Qt::AltButton))
+							if (m->modifiers() != (Qt::ControlModifier | Qt::AltModifier))
 							{
 								for (int ga=0; ga<m_doc->Items->count(); ++ga)
 								{
@@ -4551,11 +4551,11 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	}
 	if (m_doc->Items->count() == 0)
 		return false;
-	if ((m_doc->m_Selection->count() != 0) && (m->state() == Qt::ControlButton))
+	if ((m_doc->m_Selection->count() != 0) && (m->modifiers() == Qt::ControlModifier))
 		currItem = m_doc->m_Selection->itemAt(0);
 	else
 		currItem = m_doc->Items->at(m_doc->Items->count()-1);
-	if ((m->state() == (Qt::ControlButton | Qt::ShiftButton)) && (m_doc->m_Selection->count() != 0))
+	if ((m->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier)) && (m_doc->m_Selection->count() != 0))
 	{
 		int currNr = m_doc->Items->count();
 		for (a = 0; a < m_doc->Items->count(); ++a)
@@ -4600,7 +4600,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 				//If the clicked on item is not tagged as selected
 				if (!currItem->isSelected())
 				{
-					if ((m->state() != Qt::ShiftButton) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
+					if ((m->modifiers() != Qt::ShiftModifier) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 						m_view->Deselect(false);
 					//If we are selecting an item that is part of a group...
 					if (currItem->Groups.count() != 0)
@@ -4613,7 +4613,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 						else
 							m_doc->m_Selection->addItem(currItem, true);
 						//CB This is where we add the items of an unselected group
-						if (m->state() != (Qt::ControlButton | Qt::AltButton))
+						if (m->modifiers() != (Qt::ControlModifier | Qt::AltModifier))
 						{
 							for (int ga=0; ga<m_doc->Items->count(); ++ga)
 							{
@@ -4754,7 +4754,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	}
 	m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();
-	if ((m->state() != Qt::ShiftButton) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
+	if ((m->modifiers() != Qt::ShiftModifier) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 		m_view->Deselect(true);
 	return false;
 }

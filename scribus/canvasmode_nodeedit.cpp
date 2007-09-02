@@ -113,7 +113,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			return;
 		}
 	}
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->state() & Qt::RightButton) && (m->state() & Qt::ControlButton))
+	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
 	{
 		m_ScMW->setAppMode(modePanning);
 	}
@@ -126,7 +126,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 		//Operations run here:
 		//Item resize, esp after creating a new one
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed 
-			&& (m->state() & Qt::LeftButton) &&  (!currItem->locked()))
+			&& (m->buttons() & Qt::LeftButton) &&  (!currItem->locked()))
 		{
 			qDebug() << "node edit drag 1";
 			m_view->dragTimer->stop();
@@ -150,7 +150,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->state() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
+		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
 		{
 			newX = qRound(m_view->translateToDoc(m->x(), m->y()).x());
 			newY = qRound(m_view->translateToDoc(m->x(), m->y()).y());
@@ -427,7 +427,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 			Mxp = m->x();
 			Myp = m->y();
 			if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")))
-				pmen->insertItem( ScribusView::tr("&Paste") , m_view, SLOT(PasteToPage()));
+				pmen->addAction( ScribusView::tr("&Paste") , m_view, SLOT(PasteToPage()));
 			if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
 			{
 				pmen3 = new QMenu();
@@ -445,12 +445,12 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 				QObject::connect(pmen3, SIGNAL(activated(int)), m_view, SLOT(PasteRecentToPage(int)));
 				pmen->insertItem( ScribusView::tr("Paste Recent"), pmen3);
 			}
-			pmen->insertSeparator();
+			pmen->addSeparator();
 		}
 		m_view->setObjectUndoMode();
 		pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
 		pmen->addAction(m_ScMW->scrActions["editRedoAction"]);
-		pmen->insertSeparator();
+		pmen->addSeparator();
 		pmen->addAction(m_ScMW->scrActions["viewShowMargins"]);
 		pmen->addAction(m_ScMW->scrActions["viewShowFrames"]);
 		pmen->addAction(m_ScMW->scrActions["viewShowLayerMarkers"]);
@@ -460,7 +460,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		pmen->addAction(m_ScMW->scrActions["viewShowBaseline"]);
 		pmen->addAction(m_ScMW->scrActions["viewShowTextChain"]);
 		pmen->addAction(m_ScMW->scrActions["viewRulerMode"]);
-		pmen->insertSeparator();
+		pmen->addSeparator();
 		pmen->addAction(m_ScMW->scrActions["viewSnapToGrid"]);
 		pmen->addAction(m_ScMW->scrActions["viewSnapToGuides"]);
 		int pgNum = -1;
@@ -505,11 +505,11 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		}
 		if (pgNum != -1)
 		{
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			pmen->addAction(m_ScMW->scrActions["pageApplyMasterPage"]);
 			pmen->addAction(m_ScMW->scrActions["pageManageGuides"]);
 			pmen->addAction(m_ScMW->scrActions["pageManageMargins"]);
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			pmen->addAction(m_ScMW->scrActions["pageDelete"]);
 		}
 		pmen->exec(QCursor::pos());
@@ -589,7 +589,7 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect mpo)
 				m_doc->nodeEdit.ClRe = a;
 				if ((m_doc->nodeEdit.EdPoints) && (m_doc->nodeEdit.SelNode.contains(a) == 0))
 				{
-					if (m->state() == Qt::ShiftButton)
+					if (m->modifiers() == Qt::ShiftModifier)
 						m_doc->nodeEdit.SelNode.append(a);
 					else
 					{
