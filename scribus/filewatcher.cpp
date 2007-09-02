@@ -47,7 +47,7 @@ void FileWatcher::setTimeOut(const int newTimeOut, const bool restartTimer)
 		start();
 }
 
-const int FileWatcher::timeOut()
+int FileWatcher::timeOut() const
 {
 	return m_timeOut;
 }

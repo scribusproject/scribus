@@ -27,7 +27,7 @@ public:
 	// Set the timer length in milliseconds
 	void setTimeOut(const int newTimeOut, const bool restartTimer=false);
 	// Get the timer length
-	const int timeOut();
+	int timeOut() const;
 	QList<QString> files();
 	
 public slots:

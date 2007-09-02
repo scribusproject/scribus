@@ -48,9 +48,9 @@ public:
 
 	const QStringList getMasterPages();
 	const QString getMasterPageN(uint n);
-	const int getWhere();
-	const int getWherePage();
-	const int getCount();
+	int getWhere() const;
+	int getWherePage() const;
+	int getCount() const;
 
 private:
 	QLabel* insCountLabel;

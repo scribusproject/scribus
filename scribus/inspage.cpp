@@ -330,17 +330,17 @@ const QString InsPage::getMasterPageN(uint n)
 	return masterPageCombos.at(n)->currentText();
 }
 
-const int InsPage::getWhere()
+int InsPage::getWhere() const
 {
 	return insWhereData->currentIndex();
 }
 
-const int InsPage::getWherePage()
+int InsPage::getWherePage() const
 {
 	return insWherePageData->value();
 }
 
-const int InsPage::getCount()
+int InsPage::getCount() const
 {
 	return insCountData->value();
 }
