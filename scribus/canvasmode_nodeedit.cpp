@@ -43,6 +43,7 @@ CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view)
 	Dyp = -1;
 	GxM = -1;
 	GyM = -1;
+	MoveGX = MoveGY = false;
 	m_SnapCounter = 0;
 	m_ScMW = m_view->m_ScMW;
 }
@@ -102,12 +103,12 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 	qDebug() << "nodedit move event:" << m->x() << m->y();
 	if (m_doc->guidesSettings.guidesShown)
 	{
-		if (m_view->MoveGY)
+		if (MoveGY)
 		{
 			m_view->FromHRuler(m);
 			return;
 		}
-		if (m_view->MoveGX)
+		if (MoveGX)
 		{
 			m_view->FromVRuler(m);
 			return;
@@ -173,7 +174,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 								   ((*it)+m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.y() > ((m->y()-m_doc->guidesSettings.grabRad) / sc)))
 				{
 					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GyM != -1))
-						m_view->MoveGY = true;
+						MoveGY = true;
 					if (((m->x()/sc) < m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x()) || ((m->x()/sc) >= m_doc->currentPage()->width()-1+m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x()))
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					else
@@ -189,7 +190,7 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 								   ((*it)+m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x() > ((m->x()-m_doc->guidesSettings.grabRad) / sc)))
 				{
 					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GxM != -1))
-						m_view->MoveGX = true;
+						MoveGX = true;
 					if (((m->y()/sc) < m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.x()) || ((m->y()/sc) >= m_doc->currentPage()->height()-1+m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.y()))
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 					else
@@ -219,6 +220,7 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
+	MoveGX = MoveGY = false;
 //	oldClip = 0;
 	m->accept();
 	m_view->moveTimer.start();
@@ -282,24 +284,24 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 		if ((foundGuide) && (m->button() == Qt::RightButton) && (!GetItem(&currItem)))
 		{
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			m_view->MoveGY = false;
-			m_view->MoveGX = false;
+			MoveGY = false;
+			MoveGX = false;
 			return;
 		}
-		if (m_view->MoveGY)
+		if (MoveGY)
 		{
 			m_view->SetYGuide(m, GyM);
-			m_view->MoveGY = false;
+			MoveGY = false;
 			m_view->redrawMarker->hide();
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			m_view->updateContents();
 			GyM = -1;
 			return;
 		}
-		if (m_view->MoveGX)
+		if (MoveGX)
 		{
 			m_view->SetXGuide(m, GxM);
-			m_view->MoveGX = false;
+			MoveGX = false;
 			m_view->redrawMarker->hide();
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			m_view->updateContents();

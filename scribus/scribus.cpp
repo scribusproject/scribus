@@ -1851,7 +1851,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						currItem->update();
 					}*/
 				}
-				view->oldCp = currItem->CPos;
+//FIXME:av				view->oldCp = currItem->CPos;
 				if (currItem->itemType() == PageItem::TextFrame)
 				{
 					bool kr=keyrep;

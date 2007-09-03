@@ -3950,12 +3950,20 @@ void ScribusDoc::GroupOnPage(PageItem* currItem)
 }
 
 
+struct oldPageVar
+{
+	uint newPg;
+	double oldXO;
+	double oldYO;
+};
+
+
 //CB TODO make a function to determine the place of the page.. ie, so we know the left and right margins
 // without running this monster
 void ScribusDoc::reformPages(bool moveObjects)
 {
-	QMap<uint, ScribusView::oldPageVar> pageTable;
-	struct ScribusView::oldPageVar oldPg;
+	QMap<uint, oldPageVar> pageTable;
+	struct oldPageVar oldPg;
 	int counter = pageSets[currentPageLayout].FirstPage;
 	int rowcounter = 0;
 	double maxYPos=0.0, maxXPos=0.0;
@@ -8534,11 +8542,10 @@ void ScribusDoc::createNewDocPages(int pageCount)
 }
 
 
-void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout)
+void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *yout, int *GxM, int *GyM)
 {
-	//FIXME: stop using m_View
-	m_View->GxM = -1;
-	m_View->GyM = -1;
+	*GxM = -1;
+	*GyM = -1;
 	QMap<double, uint> tmpGuidesSel;
 	Guides tmpGuides = currentPage()->guides.horizontals(GuideManagerCore::Standard);
 	Guides::iterator it;
@@ -8552,8 +8559,8 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		m_View->GyM = tmpGuidesSel.begin().value();
-		*yout = tmpGuides[m_View->GyM];
+		*GyM = tmpGuidesSel.begin().value();
+		*yout = tmpGuides[*GyM];
 	}
 	tmpGuidesSel.clear();
 	tmpGuides = currentPage()->guides.verticals(GuideManagerCore::Standard);
@@ -8564,8 +8571,8 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		m_View->GxM = tmpGuidesSel.begin().value();
-		*xout = tmpGuides[m_View->GxM];
+		*GxM = tmpGuidesSel.begin().value();
+		*xout = tmpGuides[*GxM];
 	}
 	yg = 0;
 	xg = 0;
@@ -8578,8 +8585,8 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		m_View->GyM = tmpGuidesSel.begin().value();
-		*yout = tmpGuides[m_View->GyM];
+		*GyM = tmpGuidesSel.begin().value();
+		*yout = tmpGuides[*GyM];
 	}
 	tmpGuidesSel.clear();
 	tmpGuides = currentPage()->guides.verticals(GuideManagerCore::Auto);
@@ -8590,8 +8597,8 @@ void ScribusDoc::getClosestGuides(double xin, double yin, double *xout, double *
 	}
 	if (tmpGuidesSel.count() != 0)
 	{
-		m_View->GxM = tmpGuidesSel.begin().value();
-		*xout = tmpGuides[m_View->GxM];
+		*GxM = tmpGuidesSel.begin().value();
+		*xout = tmpGuides[*GxM];
 	}
 }
 
@@ -8603,10 +8610,11 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 	if (pg == -1)
 		return;
 	Page* page = Pages->at(pg);
-
+	int GxM, GyM;
+	
 	//FIXME: stop using m_View
-	getClosestGuides(0, currItem->yPos(), &xout, &yout);
-	if (m_View->GyM != -1)
+	getClosestGuides(0, currItem->yPos(), &xout, &yout, &GxM, &GyM);
+	if (GyM != -1)
 		currItem->setYPos(yout+page->yOffset());
 	if (currItem->asLine())
 	{
@@ -8615,18 +8623,18 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 		ma.rotate(currItem->rotation());
 //		double my = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
 		double my = ma.m12() * currItem->width() + ma.dy();
-		getClosestGuides(0, my, &xout, &yout);
-		if (m_View->GyM != -1)
+		getClosestGuides(0, my, &xout, &yout, &GxM, &GyM);
+		if (GyM != -1)
 			currItem->moveBy(0.0, yout - my + page->yOffset());
 	}
 	else
 	{
-		getClosestGuides(0, currItem->yPos()+currItem->height(), &xout, &yout);
-		if (m_View->GyM != -1)
+		getClosestGuides(0, currItem->yPos()+currItem->height(), &xout, &yout, &GxM, &GyM);
+		if (GyM != -1)
 			currItem->setYPos(yout-currItem->height()+page->yOffset());
 	}
-	getClosestGuides(currItem->xPos(), 0, &xout, &yout);
-	if (m_View->GxM != -1)
+	getClosestGuides(currItem->xPos(), 0, &xout, &yout, &GxM, &GyM);
+	if (GxM != -1)
 		currItem->setXPos(xout+page->xOffset());
 	if (currItem->asLine())
 	{
@@ -8635,14 +8643,14 @@ void ScribusDoc::SnapToGuides(PageItem *currItem)
 		ma.rotate(currItem->rotation());
 		double mx = ma.m11() * currItem->width() + ma.dx();
 //		double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
-		getClosestGuides(mx,  0, &xout, &yout);
-		if (m_View->GxM != -1)
+		getClosestGuides(mx,  0, &xout, &yout, &GxM, &GyM);
+		if (GxM != -1)
 			currItem->moveBy(xout - mx + page->xOffset(), 0.0);
 	}
 	else
 	{
-		getClosestGuides(currItem->xPos()+currItem->width(), 0, &xout, &yout);
-		if (m_View->GxM != -1)
+		getClosestGuides(currItem->xPos()+currItem->width(), 0, &xout, &yout, &GxM, &GyM);
+		if (GxM != -1)
 			currItem->setXPos(xout-currItem->width()+page->xOffset());
 	}
 }
@@ -8657,18 +8665,19 @@ bool ScribusDoc::ApplyGuides(double *x, double *y)
 	if (pg == -1)
 		return ret;
 	Page* page = Pages->at(pg);
-//	if ((SnapGuides) && (m_SnapCounter > 1))
+	int GxM, GyM;
+
+	//	if ((SnapGuides) && (m_SnapCounter > 1))
 	if (SnapGuides)
 	{
 //		m_SnapCounter = 0;
-		getClosestGuides(*x, *y, &xout, &yout);
-		//FIXME: stop using m_View
-		if (m_View->GxM != -1)
+		getClosestGuides(*x, *y, &xout, &yout, &GxM, &GyM);
+		if (GxM != -1)
 		{
 			*x = xout+page->xOffset();
 			ret = true;
 		}
-		if (m_View->GyM != -1)
+		if (GyM != -1)
 		{
 			*y = yout+page->yOffset();
 			ret = true;
@@ -8886,8 +8895,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 //		if ((m_View->frameResizeHandle == 1) && !(currItem->asLine()))
 //			currItem->paintObj();
 
-		//FIXME: stop using m_View
-		if ((currItem->FrameType == 0) || (currItem->asLine()) || (m_View->frameResizeHandle != 1))
+		if (currItem->FrameType == 0 || currItem->asLine())
 			return true;
 		
 //		QPainter p;

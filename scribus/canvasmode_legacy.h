@@ -48,6 +48,7 @@ private:
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
 	void SetupDrawNoResize(int nr);
+	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 
 	int Cp, oldCp;
 	int m_SnapCounter;

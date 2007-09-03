@@ -123,6 +123,7 @@ public:
 	double OldScale;
 	double dragX,dragY,dragW,dragH;
 	double oldW;
+	/*
 	int oldCp; // -> CanvasMode
 	int Mxp; // -> CanvasMode
 	int Myp; // -> CanvasMode
@@ -131,28 +132,34 @@ public:
 	int Dxp; // -> CanvasMode
 	int Dyp; // -> CanvasMode
 	int m_SnapCounter; // -> CanvasMode
+	 */
 	/*!
 	 * Frame handle used for resize
 	 * 283
 	 * 7 6
 	 * 451
 	 */
+	/*
 	int frameResizeHandle; // -> CanvasMode
 	int SeRx; // -> CanvasMode
 	int SeRy; // -> CanvasMode
 	int GyM; // -> CanvasMode
 	int GxM; // -> CanvasMode
+	 */
 	int RotMode;
 	int DrHY;
 	int DrVX;
+	/*
 	bool shiftSelItems; // -> CanvasMode
 	bool MoveGY; // -> CanvasMode
 	bool MoveGX; // -> CanvasMode
+	 bool inItemCreation; // -> CanvasMode
+	 FPointArray RecordP; // -> CanvasMode
+	 */
 	bool HaveSelRect;
 	//bool GroupSel;
 	bool DraggedGroup;
 	bool DraggedGroupFirst;
-	bool inItemCreation; // -> CanvasMode
 	bool MidButt;
 	bool updateOn;
 	bool FirstPoly;
@@ -164,19 +171,11 @@ public:
 	PageItem *redrawItem;
 	QRubberBand *redrawMarker;
 	FPoint RCenter;
-	FPointArray RecordP; // -> CanvasMode
 	void updatesOn(bool on);
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.
 	Page* addPage(int nr, bool mov = true);
 
-	
-	struct oldPageVar
-	{
-		uint newPg;
-		double oldXO;
-		double oldYO;
-	};
 	void reformPages(bool moveObjects = true);
 	void updateLayerMenu();
 	void showMasterPage(int nr);
@@ -220,15 +219,15 @@ public:
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void HandleCurs(PageItem *currItem, QRect mpo);
-	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
+//	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
 	void SelectItemNr(uint nr, bool draw = true, bool single = false);
 	void SelectItem(PageItem *pi, bool draw = true, bool single = false);
-	void selectPage(QMouseEvent *m);
-	bool SeleItem(QMouseEvent *m);
-	void SetupDraw(int Nr);
-	void SetupDrawNoResize(int nr);
+//	void selectPage(QMouseEvent *m);
+//	bool SeleItem(QMouseEvent *m);
+//	void SetupDraw(int Nr);
+//	void SetupDrawNoResize(int nr);
 	void SetFrameRect();
 	void SetFrameRounded();
 	void SetFrameOval();
@@ -240,7 +239,6 @@ public:
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
 	double scale() const;
-	void normalizeSelectionRect();
 	FPoint translateToView(double x, double y);
 	FPoint translateToView(FPoint in);
 	FPoint translateToDoc(double x, double y);
@@ -318,8 +316,8 @@ public slots: // Public slots
 // 	void UniteObj();
 // 	void SplitObj();
 	void Bezier2Poly();
-	void PasteToPage();
-	void PasteRecentToPage(int id);
+//	void PasteToPage();
+//	void PasteRecentToPage(int id);
 	void TextToPath();
 	void blinkCursor();
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);

@@ -2765,13 +2765,13 @@ void Mpalette::NewW()
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isChecked())
 			{
-				m_ScMW->view->frameResizeHandle = 1;
+//				m_ScMW->view->frameResizeHandle = 1;
 				m_ScMW->view->scaleGroup(w / gw, w / gw);
 				setBH(w, (w / gw) * gh);
 			}
 			else
 			{
-				m_ScMW->view->frameResizeHandle = 6;
+//				m_ScMW->view->frameResizeHandle = 6;
 				m_ScMW->view->scaleGroup(w / gw, 1.0);
 				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				setBH(gw, gh);
@@ -2870,13 +2870,13 @@ void Mpalette::NewH()
 			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isChecked())
 			{
-				m_ScMW->view->frameResizeHandle = 1;
+//				m_ScMW->view->frameResizeHandle = 1;
 				m_ScMW->view->scaleGroup(h / gh, h / gh);
 				setBH((h / gh) * gw, h);
 			}
 			else
 			{
-				m_ScMW->view->frameResizeHandle = 5;
+//				m_ScMW->view->frameResizeHandle = 5;
 				m_ScMW->view->scaleGroup(1.0, h / gh);
 				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				setBH(gw, gh);

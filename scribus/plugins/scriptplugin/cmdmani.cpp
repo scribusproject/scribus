@@ -277,10 +277,10 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 		return NULL;
 	ScCore->primaryMainWindow()->view->Deselect();
 	ScCore->primaryMainWindow()->view->SelectItemNr(i->ItemNr);
-	int h = ScCore->primaryMainWindow()->view->frameResizeHandle;
-	ScCore->primaryMainWindow()->view->frameResizeHandle = 1;
+//	int h = ScCore->primaryMainWindow()->view->frameResizeHandle;
+//	ScCore->primaryMainWindow()->view->frameResizeHandle = 1;
 	ScCore->primaryMainWindow()->view->scaleGroup(sc, sc);
-	ScCore->primaryMainWindow()->view->frameResizeHandle = h;
+//	ScCore->primaryMainWindow()->view->frameResizeHandle = h;
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;

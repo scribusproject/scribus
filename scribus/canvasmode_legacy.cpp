@@ -288,12 +288,12 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 	if (m_doc->guidesSettings.guidesShown)
 	{
-		if (m_view->MoveGY)
+		if (MoveGY)
 		{
 			m_view->FromHRuler(m);
 			return;
 		}
-		if (m_view->MoveGX)
+		if (MoveGX)
 		{
 			m_view->FromVRuler(m);
 			return;
@@ -1237,6 +1237,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;
 	m_doc->leaveDrag = false;
+	MoveGX = MoveGY = false;
 	inItemCreation = false;
 //	oldClip = 0;
 	m->accept();
@@ -1354,7 +1355,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							m_canvas->m_viewMode.operItemResizing = true;
 					}
 					else
-						shiftSel = m_view->SeleItem(m);
+						shiftSel = SeleItem(m);
 					if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
 					{
 						shiftSelItems = true;
@@ -1371,13 +1372,13 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				{
 					dragConstrainInitPtX = qRound(currItem->xPos());
 					dragConstrainInitPtY = qRound(currItem->yPos());
-					m_view->SeleItem(m); //Where we send the mouse press event to select an item
+					SeleItem(m); //Where we send the mouse press event to select an item
 					if (m_doc->m_Selection->count() != 0)
 					{
 						currItem = m_doc->m_Selection->itemAt(0);
 						if (!currItem->locked())
 						{
-							frameResizeHandle = m_view->HandleSizer(currItem, mpo, m);
+							frameResizeHandle = HandleSizer(currItem, mpo, m);
 							if (frameResizeHandle != 0)
 							{
 								if (!currItem->asLine())
@@ -1398,7 +1399,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			}
 			else
 			{
-				m_view->SeleItem(m);
+				SeleItem(m);
 				if (m_doc->m_Selection->count() == 0)
 				{
 					Mxp = qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
@@ -1439,7 +1440,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeDrawShapes:
 			if (m->button() != Qt::LeftButton)
 				break;
-			m_view->selectPage(m);
+			selectPage(m);
 			switch (m_doc->SubMode)
 			{
 			case 0:
@@ -1496,7 +1497,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeDrawLatex:
 			if (m->button() != Qt::LeftButton)
 				break;
-			m_view->selectPage(m);
+			selectPage(m);
 			if (m->modifiers() == Qt::ShiftModifier)
 			{
 				z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
@@ -1512,7 +1513,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeDrawPicture:
 			if (m->button() != Qt::LeftButton)
 				break;
-			m_view->selectPage(m);
+			selectPage(m);
 			if (m->modifiers() == Qt::ShiftModifier)
 			{
 				z = m_doc->itemAddArea(PageItem::ImageFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
@@ -1528,7 +1529,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeDrawText:
 			if (m->button() != Qt::LeftButton)
 				break;
-			m_view->selectPage(m);
+			selectPage(m);
 			if (m->modifiers() == Qt::ShiftModifier)
 			{
 				z = m_doc->itemAddArea(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, !m_canvas->m_viewMode.m_MouseButtonPressed);
@@ -1569,7 +1570,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					m_view->slotDoCurs(false);
 					if (!currItem->locked())
 					{
-						frameResizeHandle = m_view->HandleSizer(currItem, mpo, m);
+						frameResizeHandle = HandleSizer(currItem, mpo, m);
 						if (frameResizeHandle != 0)
 						{
 							m_canvas->m_viewMode.operItemResizeInEditMode = true;
@@ -1620,7 +1621,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				if ((!inText) && ((currItem->asTextFrame()) || (currItem->asImageFrame())))
 				{
 					m_view->Deselect(true);
-					if (m_view->SeleItem(m))
+					if (SeleItem(m))
 					{
 						currItem = m_doc->m_Selection->itemAt(0);
 						if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
@@ -1666,7 +1667,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					if (currItem->asImageFrame() && !tx.contains(m->x(), m->y()))
 					{
 						m_view->Deselect(true);
-						if (m_view->SeleItem(m))
+						if (SeleItem(m))
 						{
 							currItem = m_doc->m_Selection->itemAt(0);
 							if ((currItem->asTextFrame()) || (currItem->asImageFrame()))
@@ -1689,7 +1690,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeDrawLine:
 			if (m->button() != Qt::LeftButton)
 				break;
-			m_view->selectPage(m);
+			selectPage(m);
 			m_doc->ApplyGuides(&Rxp, &Ryp);
 			z = m_doc->itemAdd(PageItem::Line, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, Rypd, m_doc->toolSettings.dWidthLine, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_canvas->m_viewMode.m_MouseButtonPressed);
 			currItem = m_doc->Items->at(z);
@@ -1778,7 +1779,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			currItem = m_doc->ElemToLink;
 			if (currItem==NULL)
 				break;
-			m_view->SeleItem(m);
+			SeleItem(m);
 			if (GetItem(&bb) && (bb->asTextFrame()))
 			{
 				PageItem* bblast = bb;
@@ -1821,7 +1822,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeUnlinkFrames:
 			if (m->button() != Qt::LeftButton)
 				break;
-			m_view->SeleItem(m);
+			SeleItem(m);
 			if (GetItem(&currItem) && (currItem->asTextFrame()))
 			{
 				if (currItem->prevInChain() != 0)
@@ -1836,7 +1837,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			{
 				if (m->button() != Qt::LeftButton)
 					break;
-				m_view->selectPage(m);
+				selectPage(m);
 				if (m->modifiers() == Qt::ShiftModifier)
 					z = m_doc->itemAddArea(PageItem::Polygon, PageItem::Unspecified, Rxp, Ryp, m_doc->toolSettings.dWidth, m_doc->toolSettings.dBrush, m_doc->toolSettings.dPen, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				else
@@ -1884,7 +1885,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				break;
 			if (FirstPoly)
 			{
-				m_view->selectPage(m);
+				selectPage(m);
 				z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenLine, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				currItem = m_doc->Items->at(z);
 				m_doc->m_Selection->clear();
@@ -1922,7 +1923,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeInsertPDFLinkAnnotation:
 			if (m->button() != Qt::LeftButton)
 				break;
-			m_view->selectPage(m);
+			selectPage(m);
 			m_doc->ApplyGuides(&Rxp, &Ryp);
 			z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, m_doc->toolSettings.dWidth, CommonStrings::None, m_doc->toolSettings.dPenText, !m_canvas->m_viewMode.m_MouseButtonPressed);
 			currItem = m_doc->Items->at(z);
@@ -2010,7 +2011,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 		case modeCopyProperties:
 			if (m->button() != Qt::LeftButton)
 				break;
-			m_view->SeleItem(m);
+			SeleItem(m);
 			if (GetItem(&currItem))
 			{
 				currItem->ColGap = m_doc->ElemToLink->ColGap;
@@ -4567,7 +4568,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 // 				}
 				if (m_doc->m_Selection->count() == 1)
 				{
-					frameResizeHandle = m_view->HandleSizer(currItem, mpo.toRect(), m);
+					frameResizeHandle = HandleSizer(currItem, mpo.toRect(), m);
 					if ((frameResizeHandle == 0) && (!currItem->locked()))
 						qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
 				}
@@ -4683,4 +4684,74 @@ void LegacyMode::SetupDrawNoResize(int nr)
 }
 
 
+//CB Fix item->old* stuff
+int LegacyMode::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m)
+{
+	currItem->OldB = currItem->width();
+	currItem->OldH = currItem->height();
+	currItem->OldB2 = currItem->width();
+	currItem->OldH2 = currItem->height();
+	frameResizeHandle = 0;
+	if (currItem->sizeLocked())
+		return 0;
+	m_canvas->PaintSizeRect(QRect());
+	double d1;
+	QMap<double,int> distance;
+	FPoint n1(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
+	//	n1 -= QPoint(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
+	d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
+	if (d1 < m_doc->guidesSettings.grabRad)
+		distance.insert(d1, 1);
+	n1 = FPoint(0, 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
+	//	n1 -= QPoint(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
+	d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
+	if (d1 < m_doc->guidesSettings.grabRad)
+		distance.insert(d1, 2);
+	if (!currItem->asLine())
+	{
+		QPoint docMinCanvasCoordinate(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
+		n1 = FPoint(currItem->width(), 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
+		//		n1 -= docMinCanvasCoordinate;
+		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
+		if (d1 < m_doc->guidesSettings.grabRad)
+			distance.insert(d1, 3);
+		n1 = FPoint(0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
+		//		n1 -= docMinCanvasCoordinate;
+		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
+		if (d1 < m_doc->guidesSettings.grabRad)
+			distance.insert(d1, 4);
+		n1 = FPoint(currItem->width()/2, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
+		//		n1 -= docMinCanvasCoordinate;
+		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
+		if (d1 < m_doc->guidesSettings.grabRad)
+			distance.insert(d1, 5);
+		n1 = FPoint(currItem->width(), currItem->height()/2, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
+		//		n1 -= docMinCanvasCoordinate;
+		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
+		if (d1 < m_doc->guidesSettings.grabRad)
+			distance.insert(d1, 6);
+		n1 = FPoint(0, currItem->height()/2, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
+		//		n1 -= docMinCanvasCoordinate;
+		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
+		if (d1 < m_doc->guidesSettings.grabRad)
+			distance.insert(d1, 7);
+		n1 = FPoint(currItem->width()/2, 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
+		//		n1 -= docMinCanvasCoordinate;
+		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
+		if (d1 < m_doc->guidesSettings.grabRad)
+			distance.insert(d1, 8);
+	}
+	QList<int> result = distance.values();
+	if (result.count() != 0)
+		frameResizeHandle = result[0];
+	//	mpo.moveBy(qRound(-m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
+	m_view->HandleCurs(currItem, mpo);
+	if (frameResizeHandle != 0)
+	{
+		if (!currItem->asLine())
+			currItem->Sizing = true;
+		m_canvas->m_viewMode.operItemResizing = true;
+	}
+	return frameResizeHandle;
+}
 

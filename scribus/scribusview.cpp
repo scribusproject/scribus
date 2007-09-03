@@ -131,10 +131,10 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	undoManager(UndoManager::instance()),
 	OldScale(0),
 	dragX(0), dragY(0), dragW(0), dragH(0),
-	oldW(-1), oldCp(-1),
-	Mxp(-1), Myp(-1), Dxp(-1), Dyp(-1),
-	frameResizeHandle(-1),
-	SeRx(-1), SeRy(-1), GyM(-1), GxM(-1),
+	oldW(-1), // oldCp(-1),
+//	Mxp(-1), Myp(-1), Dxp(-1), Dyp(-1),
+//	frameResizeHandle(-1),
+//	SeRx(-1), SeRy(-1), GyM(-1), GxM(-1),
 //	ClRe(-1), ClRe2(-1),
 //	SegP1(-1), SegP2(-1),
 	RotMode(0),
@@ -142,7 +142,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 //	EdPoints(true),
 //	m_MouseButtonPressed(false),	
 //	operItemMoving(false),
-	MoveGY(false), MoveGX(false),
+//	MoveGY(false), MoveGX(false),
 	HaveSelRect(false),
 //	operItemResizing(false),
 //	EditContour(false),
@@ -157,7 +157,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 //	MoveSym(false),
 //	previewMode(false),
 	RCenter(-1,-1),
-	RecordP(),
+//	RecordP(),
 	Ready(false),
 	oldX(0), oldY(0),
 	_groupTransactionStarted(false),
@@ -272,9 +272,9 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	vertRuler->setGeometry(1, m_vhRulerHW, m_vhRulerHW, height()-m_vhRulerHW-1);
 	rulerMover->setGeometry(1, 1, m_vhRulerHW, m_vhRulerHW);
 	Ready = true;
-	viewport()->setMouseTracking(true);
+	m_canvas->setMouseTracking(true);
 	setAcceptDrops(true);
-	viewport()->setAcceptDrops(true);
+	m_canvas->setAcceptDrops(true);
 	// FIXME setDragAutoScroll(false);
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
@@ -283,8 +283,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	storedShowControls = Doc->guidesSettings.showControls;
 	m_canvas->m_viewMode.viewAsPreview = false;
 	m_canvas->setPreviewVisual(-1);
-	shiftSelItems = false;
-	inItemCreation = false;
+//	shiftSelItems = false;
+//	inItemCreation = false;
 	m_previousMode = -1;
 	redrawMode = 0;
 	redrawCount = 0;
@@ -293,7 +293,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_canvas->newRedrawPolygon();
 	m_canvas->resetRenderMode();
 	m_ScMW->scrActions["viewFitPreview"]->setOn(m_canvas->m_viewMode.viewAsPreview);
-	m_SnapCounter = 0;
+//	m_SnapCounter = 0;
 	
 	Doc->regionsChanged()->connectObserver(this);
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
@@ -421,7 +421,7 @@ void ScribusView::requestMode(int appMode)
 			appMode = m_previousMode < 0 ? modeNormal : m_previousMode;
 			m_previousMode = -1;
 			updateNecessary = true;
-			return;
+			break;
 			/*
 			 case submodeToggleNodeEdit:
 				 if (Doc->appMode == modeEditClip)
@@ -1089,7 +1089,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 }
 
 
-
+/*
 void ScribusView::normalizeSelectionRect() // unsused
 {
 	if(Mxp > SeRx)
@@ -1105,7 +1105,7 @@ void ScribusView::normalizeSelectionRect() // unsused
 		Myp = tmp;
 	}
 }
-
+*/
 
 
 void ScribusView::getDragRectScreen(double *x, double *y, double *w, double *h)
@@ -2060,6 +2060,7 @@ void ScribusView::selectionChanged()
 	}
 }
 
+#if 0
 void ScribusView::selectPage(QMouseEvent *m)
 {
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -2105,6 +2106,7 @@ void ScribusView::selectPage(QMouseEvent *m)
 		setRulerPos(contentsX(), contentsY());
 	}
 }
+
 
 //CB-->Doc/Fix
 bool ScribusView::SeleItem(QMouseEvent *m)
@@ -2507,76 +2509,9 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	return false;
 }
 
-//CB Fix item->old* stuff
-int ScribusView::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m)
-{
-	currItem->OldB = currItem->width();
-	currItem->OldH = currItem->height();
-	currItem->OldB2 = currItem->width();
-	currItem->OldH2 = currItem->height();
-	frameResizeHandle = 0;
-	if (currItem->sizeLocked())
-		return 0;
-	m_canvas->PaintSizeRect(QRect());
-	double d1;
-	QMap<double,int> distance;
-	FPoint n1(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-//	n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
-	d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-	if (d1 < Doc->guidesSettings.grabRad)
-		distance.insert(d1, 1);
-	n1 = FPoint(0, 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-//	n1 -= QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
-	d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-	if (d1 < Doc->guidesSettings.grabRad)
-		distance.insert(d1, 2);
-	if (!currItem->asLine())
-	{
-		QPoint docMinCanvasCoordinate(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
-		n1 = FPoint(currItem->width(), 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < Doc->guidesSettings.grabRad)
-			distance.insert(d1, 3);
-		n1 = FPoint(0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < Doc->guidesSettings.grabRad)
-			distance.insert(d1, 4);
-		n1 = FPoint(currItem->width()/2, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < Doc->guidesSettings.grabRad)
-			distance.insert(d1, 5);
-		n1 = FPoint(currItem->width(), currItem->height()/2, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < Doc->guidesSettings.grabRad)
-			distance.insert(d1, 6);
-		n1 = FPoint(0, currItem->height()/2, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < Doc->guidesSettings.grabRad)
-			distance.insert(d1, 7);
-		n1 = FPoint(currItem->width()/2, 0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1);
-//		n1 -= docMinCanvasCoordinate;
-		d1 = sqrt(pow(n1.x() * m_canvas->scale() - m->x(),2)+pow(n1.y() * m_canvas->scale() - m->y(),2));
-		if (d1 < Doc->guidesSettings.grabRad)
-			distance.insert(d1, 8);
-	}
-	QList<int> result = distance.values();
-	if (result.count() != 0)
-		frameResizeHandle = result[0];
-//	mpo.moveBy(qRound(-Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(Doc->minCanvasCoordinate.y() * m_canvas->scale()));
-	HandleCurs(currItem, mpo);
-	if (frameResizeHandle != 0)
-	{
-		if (!currItem->asLine())
-			currItem->Sizing = true;
-		m_canvas->m_viewMode.operItemResizing = true;
-	}
-	return frameResizeHandle;
-}
+
+#endif
+
 
 bool ScribusView::GetItem(PageItem **currItem, int nr)
 {
@@ -2620,6 +2555,7 @@ void ScribusView::Deselect(bool prop)
 		emit HaveSel(-1);
 }
 
+#if 0
 void ScribusView::SetupDraw(int nr)
 {
 	PageItem* currItem = Doc->Items->at(nr);
@@ -2659,6 +2595,8 @@ void ScribusView::SetupDrawNoResize(int nr)
 	inItemCreation = false;
 	moveTimer = moveTimer.addSecs(1500);
 }
+
+#endif
 
 //CB-->Doc/Fix
 void ScribusView::ToggleBookmark()
@@ -2872,6 +2810,7 @@ void ScribusView::RaiseItem()
 	}
 }
 
+#if 0 // FIXME:av -> CanvasMode_legacy / Doc
 //CB Remove emit/start pasting objects
 void ScribusView::PasteToPage()
 {
@@ -3044,7 +2983,7 @@ void ScribusView::PasteRecentToPage(int id)
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
-
+#endif
 
 void ScribusView::resizeEvent ( QResizeEvent * event )
 {
@@ -3164,8 +3103,8 @@ Page* ScribusView::addPage(int nr, bool mov)
 	Doc->nodeEdit.EdPoints = true;
 	//GroupSel = false;
 	DraggedGroup = false;
-	MoveGY = false;
-	MoveGX = false;
+//FIXME:av	MoveGY = false;
+//FIXME:av	MoveGX = false;
 	Doc->nodeEdit.isContourLine = false;
 	return fe;
 }
@@ -4971,10 +4910,6 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 //	if (obj == horizRuler || obj == vertRuler || obj == rulerMover)
 //		return true; // FIXME:av
 	
-	if (obj == this)
-	{
-		obj = widget();
-	}
 	if (obj == widget() && event->type() == QEvent::MouseMove)
 	{
 		QMouseEvent* m = static_cast<QMouseEvent*> (event);
@@ -5128,6 +5063,6 @@ void ScribusView::stopAllDrags()
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_canvas->m_viewMode.operItemResizing = false;
-	inItemCreation = false;
+//FIXME:av	inItemCreation = false;
 	MidButt = false;
 }

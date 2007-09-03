@@ -1427,7 +1427,7 @@ QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 // 	m_Doc->m_Selection->addItem(ite);
 	tmpSel->addItem(ite);
-	m_Doc->view()->frameResizeHandle = 1;
+//	m_Doc->view()->frameResizeHandle = 1;
 // 	m_Doc->m_Selection->setGroupRect();
 	tmpSel->setGroupRect();
 // 	m_Doc->view()->scaleGroup(scalex, scaley);

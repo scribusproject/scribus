@@ -63,6 +63,7 @@ private:
 	ScribusMainWindow* m_ScMW;
 	
 	int Mxp, Myp, Dxp, Dyp, SeRx, SeRy, GxM, GyM, m_SnapCounter;
+	bool MoveGX, MoveGY;
 };
 
 
