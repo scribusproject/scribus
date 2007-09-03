@@ -1033,7 +1033,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect mpo, PageItem
 	}
 	if ((m_doc->nodeEdit.submode == NodeEditContext::ADD_POINT) || 
 		(m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) || 
-		(m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH) && (m_doc->nodeEdit.EdPoints))
+		(m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH && m_doc->nodeEdit.EdPoints))
 	{
 		for (uint poi=0; poi<Clip.size()-3; poi += 4)
 		{

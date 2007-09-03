@@ -760,7 +760,7 @@ void PrefsManager::setupMainWindow(ScribusMainWindow* mw)
 	mw->move(appPrefs.mainWinSettings.xPosition, appPrefs.mainWinSettings.yPosition);
 	mw->resize(appPrefs.mainWinSettings.width, appPrefs.mainWinSettings.height);
 	if (appPrefs.mainWinSettings.maximized)
-		mw->setWindowState(ScCore->primaryMainWindow()->windowState() & ~Qt::WindowMinimized | Qt::WindowMaximized);
+		mw->setWindowState((ScCore->primaryMainWindow()->windowState() & ~Qt::WindowMinimized) | Qt::WindowMaximized);
 	ReadPrefsXML();
 	if (appPrefs.checkerProfiles.count() == 0)
 	{

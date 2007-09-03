@@ -156,11 +156,6 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m_view->dragTimer->stop();
 	PageItem *currItem = 0;
-	if (m_doc->appMode == modeEditClip)
-	{
-		m_view->requestMode(submodeEndNodeEdit);
-		return;
-	}
 	if ((m_doc->m_Selection->isMultipleSelection()) || (m_doc->appMode != modeNormal))
 	{
 		if ((m_doc->m_Selection->isMultipleSelection()) && (m_doc->appMode == modeNormal))
@@ -599,11 +594,6 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && ((m_doc->appMode == modeNormal) || ((m_doc->appMode == modeEdit) && m_canvas->m_viewMode.operItemResizeInEditMode)) && (!currItem->locked()))
 		{
 			m_view->dragTimer->stop();
-			if (m_doc->appMode == modeEditClip)
-			{
-//				m_view->handleNodeEditDrag(m, currItem);
-				return;
-			}
 			if (m_canvas->m_viewMode.operItemResizing)
 			{
 				newX = static_cast<int>(m->x()/sc);
@@ -1100,10 +1090,6 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				m_canvas->Transform(currItem, p);
 				QRect mpo = QRect(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-				if (m_doc->appMode == modeEditClip)
-				{
-//					m_view->handleNodeEditMove(m, mpo, currItem, p);
-				}
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo))
 					&& ((m_doc->appMode == modeNormal) || (m_doc->appMode == modeRotation) || (m_doc->appMode == modeEdit)))
 				{
@@ -1191,7 +1177,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			m_view->HaveSelRect = true;
 			return;
 		}
-		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal || m_doc->appMode == modeEditClip) && (!m_doc->GuideLock) && (m_doc->OnPage(m->x()/sc, m->y()/sc) != -1) && (!GetItem(&currItem)))
+		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(m->x()/sc, m->y()/sc) != -1) && (!GetItem(&currItem)))
 		{
 			Guides::iterator it;
 			Guides tmpGuides = m_doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
@@ -1285,17 +1271,10 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 	switch (m_doc->appMode)
 	{
 		case modeNormal:
-		case modeEditClip:
 			Mxp = qRound(m->x()/m_canvas->scale());
 			Myp = qRound(m->y()/m_canvas->scale());
 			SeRx = Mxp;
 			SeRy = Myp;
-			if ((m_doc->appMode == modeEditClip) && (m_doc->m_Selection->count() != 0))
-			{
-//				m_view->handleNodeEditPress(m, mpo);
-				return;
-			}			
-			
 			if (GetItem(&currItem))
 			{
 				if (m_doc->m_Selection->isMultipleSelection())
@@ -2079,7 +2058,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	m_canvas->resetRenderMode();
 	m->accept();
 	m_view->dragTimer->stop();
-	if ((m_doc->appMode == modeEditClip || m_doc->appMode == modeNormal) && m_doc->guidesSettings.guidesShown)
+	if ((m_doc->appMode == modeNormal) && m_doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
 		double nx = m_view->translateToDoc(m->x(), m->y()).x();
@@ -2287,119 +2266,9 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 // itemAdd calls PageItem::update		emit DocChanged();
 		return;
 	}
-	if ((m_doc->appMode == modeEditClip) && !m_doc->nodeEdit.hasNodeSelected() && (m_view->HaveSelRect))
-	{
-		double sc = m_canvas->scale();
-		currItem = m_doc->m_Selection->itemAt(0);
-		m_doc->nodeEdit.SelNode.clear();
-		QRect Sele = QRect(Dxp, Dyp, SeRx-Dxp, SeRy-Dyp).normalized();
-		FPointArray Clip;
-		m_canvas->setScale(1.0);
-		if (m_doc->nodeEdit.isContourLine)
-			Clip = currItem->ContourLine;
-		else
-			Clip = currItem->PoLine;
-		for (uint a = 0; a < Clip.size(); ++a)
-		{
-			if (Clip.point(a).x() > 900000)
-				continue;
-			FPoint np = Clip.point(a);
-			FPoint npf2 = np.transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, false);
-			QPoint npf = QPoint(qRound(npf2.x()), qRound(npf2.y()));
-			if ((Sele.contains(npf)) && ((a == 0) || (((a-2) % 4) == 0)))
-			{
-				m_doc->nodeEdit.ClRe = a;
-				m_doc->nodeEdit.SelNode.append(a);
-				m_doc->nodeEdit.update(QPointF(Clip.point(a).x(), Clip.point(a).y()));
-			}
-		}
-		m_canvas->setScale(sc);
-		m_view->HaveSelRect = false;
-		m_view->redrawMarker->hide();
-		m_view->RefreshItem(currItem);
-		m_doc->nodeEdit.finishTransaction(currItem);
-		m_SnapCounter = 0;
-		return;
-	}
-/*	if (m_view->moveTimerElapsed() && (m_doc->appMode == modeEditClip) && (SegP1 == -1) && (SegP2 == -1))
-	{
-		currItem = m_doc->m_Selection->itemAt(0);
-		if (operItemMoving)
-		{
-			currItem->OldB2 = currItem->width();
-			currItem->OldH2 = currItem->height();
-			double nx = m->x()/m_canvas->scale() + m_doc->minCanvasCoordinate.x();
-			double ny = m->y()/m_canvas->scale() + m_doc->minCanvasCoordinate.y();
-			if (!m_doc->ApplyGuides(&nx, &ny))
-			{
-				FPoint npg(ApplyGridF(FPoint(nx, ny)));
-				nx = npg.x();
-				ny = npg.y();
-			}
-			FPoint np(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
-			m_doc->nodeEdit.moveClipPoint(currItem, np);
-		}
-		m_doc->AdjustItemSize(currItem);
-		emit DocChanged();
-		updateContents();
-		operItemMoving = false;
-		return;
-	}
-	if (m_view->moveTimerElapsed() && (m_doc->appMode == modeEditClip) && (SegP1 != -1) && (SegP2 != -1)) */
-	if (m_view->moveTimerElapsed() && (m_doc->appMode == modeEditClip))
-	{
-		m_view->dragTimer->stop();
-		m_doc->nodeEdit.SegP1 = -1;
-		m_doc->nodeEdit.SegP2 = -1;
-		currItem = m_doc->m_Selection->itemAt(0);
-		m_canvas->m_viewMode.operItemMoving = false;
-		double xposOrig = currItem->xPos();
-		double yposOrig = currItem->yPos();
-
-		ItemState<QPair<FPointArray, FPointArray> > *state = NULL;
-		
-		state = m_doc->nodeEdit.finishTransaction1(currItem);
-		xposOrig = currItem->xPos();
-		yposOrig = currItem->yPos();
-		if (m_doc->nodeEdit.hasNodeSelected())
-		{
-			double newX = m->x();
-			double newY = m->y();
-			FPoint np(newX-Mxp, newY-Myp, 0, 0, currItem->rotation(), 1, 1, true);
-			currItem->OldB2 = currItem->width();
-			currItem->OldH2 = currItem->height();
-			FPointArray Clip;
-			if (m_doc->nodeEdit.isContourLine)
-				Clip = currItem->ContourLine;
-			else
-				Clip = currItem->PoLine;
-			FPoint npf = FPoint(Clip.point(m_doc->nodeEdit.ClRe).x() + np.x() / m_canvas->scale(), Clip.point(m_doc->nodeEdit.ClRe).y() + np.y() / m_canvas->scale());
-			double nx = npf.x();
-			double ny = npf.y();
-			nx += currItem->xPos();
-			ny += currItem->yPos();
-			if (!m_doc->ApplyGuides(&nx, &ny))
-				npf = m_doc->ApplyGridF(FPoint(nx, ny));
-			else
-				npf = FPoint(nx, ny);
-			npf = FPoint(npf.x() - currItem->xPos(), npf.y() - currItem->yPos());
-			m_doc->nodeEdit.moveClipPoint(currItem, npf);
-		}
-
-		m_doc->AdjustItemSize(currItem);
-		if (!m_doc->nodeEdit.isContourLine)
-			currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
-		currItem->update();
-//		emit DocChanged();
-//		m_view->updateContents();
-		if (state)
-		{
-			m_doc->nodeEdit.finishTransaction2(currItem, state);
-		}
-		m_SnapCounter = 0;
-		return;
-	}
-	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) && (m_doc->appMode == modeNormal))
+	
+	if ((!GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP) 
+		&& (m_doc->appMode == modeNormal))
 	{
 		QMenu *pmen = new QMenu();
 		if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")) || (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0))
@@ -2503,7 +2372,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		return;
 	}
-	if ((m_doc->appMode != modeMagnifier) && (m_doc->appMode != modeEditClip) && (m_doc->appMode != modeDrawBezierLine))
+	if ((m_doc->appMode != modeMagnifier) && (m_doc->appMode != modeDrawBezierLine))
 	{
 		if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 		{

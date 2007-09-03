@@ -124,7 +124,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 			{
 				docItem = m_Doc->MasterItems.at(a);
 				LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
-				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev) && (m_Doc->layerFlow(docItem->LayerNr)))
+				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerNr)))
 				{
 					if (docItem->textFlowAroundObject())
 					{
@@ -154,7 +154,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 			{
 				docItem = m_Doc->Items->at(a);
 				LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
-				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev) && (m_Doc->layerFlow(docItem->LayerNr)))
+				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerNr)))
 				{
 					 if (docItem->textFlowAroundObject())
 						result = result.subtract(itemShape(docItem, m_Doc->view(), 0, 0));
@@ -946,7 +946,7 @@ void PageItem_TextFrame::layout()
 			if (current.itemsInLine == 0)
 			{
  				// more about par gap and dropcaps
-				if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) || ((a == 0) && (BackBox == 0)) && (!current.startOfCol)) // after || always evaluates to false? FIXME
+				if ((a > firstInFrame() && itemText.text(a-1) == SpecialChars::PARSEP) || (a == 0 && BackBox == 0 && !current.startOfCol)) // after || always evaluates to false? FIXME
 				{
 //					qDebug(QString("gap before2: y=%1+%2").arg(current.yPos).arg(style.gapBefore()));
 					current.yPos += style.gapBefore();
@@ -1394,8 +1394,8 @@ void PageItem_TextFrame::layout()
 			
 			//FIXME: asce / desc set correctly?
 			if (legacy && 
-				((hl->ch == '-' || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  
-				|| hl->ch == SpecialChars::SHYPHEN)
+				(((hl->ch == '-' || (hl->effects() & ScStyle_HyphenationPossible)) && (current.hyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  
+				|| hl->ch == SpecialChars::SHYPHEN))
 			{
 				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch == SpecialChars::SHYPHEN)
 				{

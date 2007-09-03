@@ -335,7 +335,7 @@ void ScribusQApp::installTranslators(const QStringList & langs)
 		lang=(*it).left(5);
 		if (lang == "en")
 			break;
-		else if (loaded = trans->load(QString(path + '.' + lang), "."))
+		else if (trans->load(QString(path + '.' + lang), "."))
 			loaded = true;
 	}
 	if (loaded)
