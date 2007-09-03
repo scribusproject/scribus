@@ -2,26 +2,26 @@
 <title>GIMP 2.x</title>
 <h2>GIMP 2.x</h2>
 
-<p>There is not much to say about the best image application for Linux. GIMP 2.x has too many improvements to list. </p>
+<p>Es gibt nicht viel zu sagen &uuml;ber die beste Grafikanwendung f&uuml;r Linux. Und die vielen Verbesserungen der Version 2.x lie&szlig;en sich kaum alle aufz&auml;hlen. </p>
 
-<p>However, setting up GIMP for print work with Scribus requires some adjustments to the defaults as shown below: </p>
+<p>Damit GIMP f&uuml;r Druckauftr&auml;ge von Scribus optimal eingerichtet ist, m&uuml;ssen einige der Voreinstellungen ge&auml;ndert werden, wie im folgenden zu sehen ist: </p>
 
 <ul>
-<li>Some distributions do not install the "Separate" plug-in which enables you to export CMYK TIFF and duotones. If you want to use duotones, it is recommended.</li>
-<li>Make sure you have the latest 2.x.x stable version. There were some important bug fixes made after 2.0.1.</li>
-<li>GIMP now can work with CMYK colors. While the color model internally is still RGBplus alpha channels, you can use CMYK measurements and CMYK color definitions. To supplement this, there is a third party plug-in called Separate, which can export CMYK TIFF, using a neat trick with alpha layers. The separate plug-in can also embed ICC profiles into the exported TIFF.</li>
-<li>One of the really appreciated improvements is the text handling. GIMP 2.x uses <code>fontconfig</code>, so finding the fonts on your system are much less of an issue. Text can be kept in a separate layer to ease editing and correcting. In the 1.2.x versions certain type of handling were difficult, but there is little to complain about now. It is a pleasure to use the new text controls. In addition, there is also a separate freetype plug-in for GIMP, which allows you to manipulate type in the same means Scribus and Inkscape do. Recommended. You can find this on the ftp.gimp.org site.</li>
-<li>The way that pixels are adjusted (interpolated) in filters and effects are applied use Linear as the default. This is a good compromise for speed vs. accuracy.  Cubic should almost always be the default for print work, but do expect many operations, (re-scaling, filter application) to run slower. Using Cubic can make sometimes a dramatic difference in the perceived print quality of an image.</li>
+<li>Einige Distributionen verzichten darauf, das &quot;Separate&quot;-Zusatzmodul zu installieren, das es erm&ouml;glicht, CMYK-TIFF und Duoton zu exportieren. Wenn Sie Duoton verwenden m&ouml;chten, ist es empfehlenswert.</li>
+<li>Stellen Sie sicher, da&szlig; Sie &uuml;ber die neueste stabile Version 2.x.x verf&uuml;gen. Nach Version 2.0.1 haben einige wichtige Fehlerbehebungen stattgefunden.</li>
+<li>GIMP ist jetzt in der Lage, CMYK-Farben umzugehen. Das interne Farbmodell ist zwar immer noch RGB plus Alpha-Kan&auml;le, aber Sie k&ouml;nnen nun CMYK-Werte und CMYK-Farbdefinitionen verwenden. Um das noch aufzubessern, gibt es als Fremdsoftware ein Zusatzmodul namens &quot;Separate&quot;, mit dem sich CMYK-TIFF exportieren l&auml;&szlig;t, und zwar durch einen eleganten Trick mit Alpha-Ebenen. Das Separate-Modul kann au&szlig;erdem ICC-Profile in die exportierte TIFF-Datei einbetten.</li>
+<li>Eine der wirklich sch&auml;tzenswerten Verbesserungen betrifft den Umgang mit Texten. GIMP 2.x verwendet <code>fontconfig</code>, und so ist das Auffinden der Schriftarten in Ihrem System eigentlich unproblematisch. Text l&auml;&szlig;t sich in einer separaten Ebene unterbringen, was dessen Eingabe und Korrektur vereinfacht. W&auml;hrend in den 1.2er Versionen einige Bearbeitungsformen noch umst&auml;ndlich waren, wird sich heute niemand mehr dar&uuml;ber beschweren. Es macht Spa&szlig;, die neue Textsteuerung zu benutzen. Au&szlig;erdem gibt es ein separates FreeType-Zusatzmodul f&uuml;r GIMP, mit dem Sie Zeichen ebenso bearbeiten k&ouml;nnen, wie Scribus und Inkscape es machen. Empfehlenswert! Und hier k&ouml;nnen Sie es finden: ftp.gimp.org</li>
+<li>Die Art der Pixelangleichung (Interpolation) in Filtern und Effekten nutzt &quot;Linear&quot; als Voreinstellung. Dies ist ein guter Kompromi&szlig; zwischen Geschwindigkeit und Pr&auml;zision. &quot;Kubisch&quot; ist wohl die beste Voreinstellung f&uuml;r professionellen Druck, doch sollten Sie ber&uuml;cksichtigen, da&szlig; einige Abl&auml;ufe (wie Neuskalierung oder Filteranwendung) langsamer erfolgen. Diese Einstellung kann manchmal dazu f&uuml;hren, da&szlig; ein immenser Unterschied in der Druckqualit&auml;t eines Bildes wahrgenommen wird.</li>
 </ul>
 
-<table width="100%"><tr><td align="center"><img alt="Cubic Interpolation" src="../en/images/gimpoptions1.png" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img alt="Cubic Interpolation" src="images/gimpoptions1.png" /></td></tr></table>
 
-<p>Like most image editors, GIMP's defaults are setup primarily for web site images, meaning waaaay too little resolution for print. So first thing, set the defaults to a <strong>minimum</strong> of 144 dpi in resolution. Remember using these higher resolutions will result in much larger size files, so you might also need to adjust maximum settings for memory usage as well in GIMP preferences. </p>
+<p>Wie bei den meisten Bildbearbeitungsprogrammen sind die Voreinstellungen in GIMP haupts&auml;chlich f&uuml;r Webseiten-Bilder gedacht, d.h. f&uuml;r eine Aufl&ouml;sung, die himmelweit unter Druckniveau liegt. Als erstes wird also die Aufl&ouml;sung auf ein <strong>Minimum</strong> von 144 dpi eingestellt. Denken Sie daran, da&szlig; eine h&ouml;here Aufl&ouml;sung auch zu deutlich gr&ouml;&szlig;eren Dateien f&uuml;hrt, so da&szlig; Sie eventuell auch die Maximalwerte f&uuml;r die Speichernutzung in GIMP anpassen m&uuml;ssen. </p>
 
-<table width="100%"><tr><td align="center"><img alt="DPI Defaults" src="../en/images/gimpoptions3.png" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img alt="DPI Defaults" src="images/gimpoptions3.png" /></td></tr></table>
 
-<p>The other notable addition is the beginnings of some  very basic color managed “soft proofs” of your images. This is available via littlecms also used by Scribus. Accessing the controls is simple via View > Display Filters. This can be considered experimental at the moment, but expect a more complete color managed view in GIMP 2.4.</p>
+<p>Die andere beachtenswerte Erg&auml;nzung ist der Ansatz eines sehr einfachen, am Farbmanagement orientierten "Softproofs" Ihrer Bilder. Dieses steht dank LittleCMS zur Verf&uuml;gung, das auch von Scribus genutzt wird. Die Steuerung ist leicht zu finden, &uuml;ber Ansicht &gt; Bildschirmfilter. Momentan muß dies noch als experimentiell gelten, doch ist f&uuml;r GIMP 2.4 eine vollst&auml;ndigere Implementierung des Farbmanagements zu erwarten.</p>
 
-<table width="100%"><tr><td align="center"><img alt="Display Filter" src="../en/images/gimpoptions2.png" /></td></tr></table>
+<table width="100%"><tr><td align="center"><img alt="Display Filter" src="images/gimpoptions2.png" /></td></tr></table>
 
 </qt>
