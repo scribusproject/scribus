@@ -309,7 +309,8 @@ private:
                  const QString &actionDescription,
                  QPixmap *targetPixmap,
                  QPixmap *actionPixmap,
-		         bool isUndoAction);
+		         bool isUndoAction,
+	             QListWidget * parent = 0);
 		~UndoItem();
 		void paint(QPainter *painter);
 		int height(const QListWidget*) const;

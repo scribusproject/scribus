@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
-
+#include <QtDebug>
 #include <QPushButton>
 #include <QCheckBox>
 #include <QVBoxLayout>
@@ -270,18 +270,22 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 
 void UndoPalette::clear()
 {
+	qDebug() << "UndoPalette::clear start";
 	disconnect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
 	undoList->clear();
 	undoList->addItem( tr("Initial State"));
 	undoButton->setEnabled(false);
 	redoButton->setEnabled(false);
 	connect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
+	qDebug() << "UndoPalette::clear end";
 }
 
 void UndoPalette::updateFromPrefs()
 {
+	qDebug() << "UndoPalette::updateFromPrefs start";
 	undoButton->setAccel(ScCore->primaryMainWindow()->scrActions["editUndoAction"]->accel());
 	redoButton->setAccel(ScCore->primaryMainWindow()->scrActions["editRedoAction"]->accel());
+	qDebug() << "UndoPalette::updateFromPrefs end";
 }
 
 void UndoPalette::languageChange()
@@ -294,18 +298,22 @@ void UndoPalette::languageChange()
 
 void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 {
+	qDebug() << "UndoPalette::insertUndoItem start";
 	clearRedo();
 	undoList->addItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap(), true));
 	currentSelection = undoList->count() - 1;
 	updateList();
+	qDebug() << "UndoPalette::insertUndoItem end";
 }
 
 void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 {
+	qDebug() << "UndoPalette::insertRedoItem start";
 	if (undoList->count() == 1)
 	{
+		qDebug() << "UndoPalette::insertRedoItem undoList->count == 1";
 // 		undoList->setSelected(0, true);
 		undoList->setCurrentItem(undoList->item(0));
 		currentSelection = 0;
@@ -314,38 +322,46 @@ void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
                          state->getDescription(), target->getUPixmap(),
                          state->getPixmap(), false));
 	updateList();
+	qDebug() << "UndoPalette::insertRedoItem end";
 }
 
 void UndoPalette::updateUndo(int steps)
 {
+	qDebug() << "UndoPalette::updateUndo start";
 	if (undoList->row(undoList->currentItem()) == currentSelection)
 	{
 		currentSelection -= steps;
 		updateList();
 	}
+	qDebug() << "UndoPalette::updateUndo end";
 }
 
 void UndoPalette::updateRedo(int steps)
 {
+	qDebug() << "UndoPalette::updateRedo start";
 	if (undoList->row(undoList->currentItem()) == currentSelection)
 	{
 		currentSelection += steps;
 		updateList();
 	}
+	qDebug() << "UndoPalette::updateRedo end";
 }
 
 void UndoPalette::popBack()
 {
+	qDebug() << "UndoPalette::popBack start";
 	if (undoList->count() > 1)
 	{
 // 		undoList->removeItem(0);
 		delete undoList->takeItem(0);
 		currentSelection = undoList->count() - 1;
 	}
+	qDebug() << "UndoPalette::popBack end";
 }
 
 void UndoPalette::updateList()
 {
+	qDebug() << "UndoPalette::updateList start";
 // 	undoList->setCurrentItem(currentSelection);
 	undoList->setCurrentRow(currentSelection);
 // 	undoList->setSelected(currentSelection, true);
@@ -362,6 +378,7 @@ void UndoPalette::updateList()
 
 		item->setUndoAction(currentSelection >= i);
 	}
+	qDebug() << "UndoPalette::updateList end";
 }
 
 void UndoPalette::updateUndoActions()
@@ -372,23 +389,28 @@ void UndoPalette::updateUndoActions()
 
 void UndoPalette::clearRedo()
 {
+	qDebug() << "UndoPalette::clearRedo start";
 	for (int i = (undoList->count() - 1); i > currentSelection; --i)
 // 		undoList->removeItem(i);
 		delete undoList->takeItem(i);
+	qDebug() << "UndoPalette::clearRedo end";
 }
 
 void UndoPalette::undoClicked()
 {
+	qDebug() << "UndoPalette::undoClicked emitted";
 	emit undo(1);
 }
 
 void UndoPalette::redoClicked()
 {
+	qDebug() << "UndoPalette::redoClicked emitted";
 	emit redo(1);
 }
 
 void UndoPalette::undoListClicked(int i)
 {
+	qDebug() << "UndoPalette::undoListClicked start";
 	if (i == currentSelection || (i == 0 && undoList->count() == 1))
 		return;
 	if (i > currentSelection)
@@ -397,15 +419,19 @@ void UndoPalette::undoListClicked(int i)
 		emit undo(currentSelection - i);
 	currentSelection = i;
 	updateList();
+	qDebug() << "UndoPalette::undoListClicked end";
 }
 
 void UndoPalette::objectCheckBoxClicked(bool on)
 {
+	qDebug() << "UndoPalette::objectCheckBoxClicked start";
 	emit objectMode(on);
+	qDebug() << "UndoPalette::objectCheckBoxClicked end";
 }
 
 void UndoPalette::showToolTip(QListWidgetItem *i)
 {
+	qDebug() << "UndoPalette::showToolTip start";
 	UndoItem *item = dynamic_cast<UndoItem*>(i);
 	if (item)
 	{
@@ -415,11 +441,14 @@ void UndoPalette::showToolTip(QListWidgetItem *i)
 	}
 	else
 		removeToolTip();
+	qDebug() << "UndoPalette::showToolTip end";
 }
 
 void UndoPalette::removeToolTip()
 {
+	qDebug() << "UndoPalette::removeToolTip start";
 	undoList->setToolTip("");
+	qDebug() << "UndoPalette::removeToolTip end";
 }
 
 UndoPalette::~UndoPalette()
@@ -454,8 +483,10 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
                                 const QString &actionDescription,
                                 QPixmap *targetPixmap,
                                 QPixmap *actionPixmap,
-                                bool isUndoAction)
-	: QListWidgetItem(),
+                                bool isUndoAction,
+                                QListWidget * parent
+							   )
+	: QListWidgetItem(parent),
 	targetpixmap(targetPixmap),
 	actionpixmap(actionPixmap),
 	target(targetName),
@@ -463,32 +494,36 @@ UndoPalette::UndoItem::UndoItem(const QString &targetName,
 	description(actionDescription),
 	isUndoAction_(isUndoAction)
 {
-
+	qDebug() << "UndoItem::contructor";
+/*	QFont f;
+	f.setItalic(!isUndoAction_);
+	setFont(f);*/
+	setText(QString("%1 - %2\n%3").arg(targetName).arg(actionName).arg(actionDescription));
 }
 
 void UndoPalette::UndoItem::paint(QPainter *painter)
 {
-	if (targetpixmap)
-		painter->drawPixmap(5, 5, *targetpixmap);
-	if (actionpixmap)
-		painter->drawPixmap(5, 5, *actionpixmap);
-	QPen  p = QPen(painter->pen());
-	QFont f = QFont(painter->font());
-	painter->setFont(f);
-	if (isUndoAction_)
-	{
-		p.setColor(QColor("black"));
-		f.setItalic(false);
-	}
-	else
-	{
-		p.setColor(QColor("darkGray"));
-		f.setItalic(true);
-	}
-	painter->setPen(p);
-	painter->setFont(f);
-	painter->drawText(32, QFontMetrics(f).height(), target);
-	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
+// 	if (targetpixmap)
+// 		painter->drawPixmap(5, 5, *targetpixmap);
+// 	if (actionpixmap)
+// 		painter->drawPixmap(5, 5, *actionpixmap);
+// 	QPen  p = QPen(painter->pen());
+// 	QFont f = QFont(painter->font());
+// 	painter->setFont(f);
+// 	if (isUndoAction_)
+// 	{
+// 		p.setColor(QColor("black"));
+// 		f.setItalic(false);
+// 	}
+// 	else
+// 	{
+// 		p.setColor(QColor("darkGray"));
+// 		f.setItalic(true);
+// 	}
+// 	painter->setPen(p);
+// 	painter->setFont(f);
+// 	painter->drawText(32, QFontMetrics(f).height(), target);
+// 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
 }
 
 int UndoPalette::UndoItem::height(const QListWidget *lb) const
