@@ -2423,7 +2423,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					it--;
 				}
 				QObject::connect(pmen3, SIGNAL(activated(int)), m_view, SLOT(PasteRecentToPage(int)));
-				pmen->insertItem( ScribusView::ScribusView::tr("Paste Recent"), pmen3);
+				pmen->insertItem( ScribusView::tr("Paste Recent"), pmen3);
 			}
 			pmen->addSeparator();
 		}
@@ -2503,7 +2503,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		return;
 	}
-	if ((m_doc->appMode != modeMagnifier) && (!m_doc->appMode != modeEditClip) && (m_doc->appMode != modeDrawBezierLine))
+	if ((m_doc->appMode != modeMagnifier) && (m_doc->appMode != modeEditClip) && (m_doc->appMode != modeDrawBezierLine))
 	{
 		if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 		{
@@ -2546,9 +2546,9 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					if (currItem->PicAvail)
 					{
 						QFileInfo fi = QFileInfo(currItem->Pfile);
-						InfoT->setText( ScribusView::ScribusView::tr("Picture"));
+						InfoT->setText( ScribusView::tr("Picture"));
 						InfoGroupLayout->addWidget( InfoT, 0, 0, 1, 2, Qt::AlignHCenter );
-						ParCT->setText( ScribusView::ScribusView::tr("File: "));
+						ParCT->setText( ScribusView::tr("File: "));
 						InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
 						ParC->setText(fi.fileName());
 						InfoGroupLayout->addWidget( ParC, 1, 1 );

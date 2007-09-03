@@ -31,12 +31,10 @@ class QMouseEvent;
 class QKeyEvent;
 class QPainter;
 
-class Canvas;
-class CanvasViewMode;
-class ScribusDoc;
-class ScribusView;
-
-
+class  Canvas;
+struct CanvasViewMode;
+class  ScribusDoc;
+class  ScribusView;
 
 /** These aren't real appmodes but open a new window or override behaviour for a short time */
 enum SubMode

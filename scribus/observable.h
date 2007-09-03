@@ -86,7 +86,7 @@ public:
  MassObservable does not inherit QObject since that makes it difficult to use it as a mixin class.
  */
 template<class OBSERVED>
-class SCRIBUS_API MassObservable : public UpdateManaged 
+class MassObservable : public UpdateManaged 
 {	
 	friend class UpdateManager;
 	
