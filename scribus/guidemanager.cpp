@@ -454,14 +454,14 @@ Guides GuideManager::getAutoVerticals()
 		newPageWidth = currentPage->guides.gw;
 	}
 
-	if (verticalAutoGapSpin->value() > 0.0)
+	if (verticalAutoGapSpin->value() > 0.0 && verticalAutoGapCheck->isChecked())
 		columnSize = (newPageWidth - (value - 1) * verticalAutoGapSpin->value()) / value;
 	else
 		columnSize = newPageWidth / value;
 
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
-		if (verticalAutoGapSpin->value() > 0.0)
+		if (verticalAutoGapSpin->value() > 0.0 && verticalAutoGapCheck->isChecked())
 		{
 			retval.append(offset + i * columnSize + gapCount * verticalAutoGapSpin->value());
 			++gapCount;
@@ -496,14 +496,14 @@ Guides GuideManager::getAutoHorizontals()
 		newPageHeight = currentPage->guides.gh;
 	}
 
-	if (horizontalAutoGapSpin->value() > 0.0)
+	if (horizontalAutoGapSpin->value() > 0.0 && horizontalAutoGapCheck->isChecked())
 		rowSize = (newPageHeight - (value - 1) * horizontalAutoGapSpin->value()) / value;
 	else
 		rowSize = newPageHeight / value;
 
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
-		if (horizontalAutoGapSpin->value() > 0.0)
+		if (horizontalAutoGapSpin->value() > 0.0&& horizontalAutoGapCheck->isChecked())
 		{
 			retval.append(offset + i * rowSize + gapCount * horizontalAutoGapSpin->value());
 			++gapCount;
