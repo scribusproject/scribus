@@ -67,7 +67,7 @@ void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	menuMgr = mw->scrMenuMgr;
 	menuMgr->createMenu("Scripter", QObject::tr("&Script"));
-	menuMgr->addMenuToMenuBarAfter("Scripter","Extras");
+	menuMgr->addMenuToMenuBarBefore("Scripter","Windows");
 	menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
 	menuMgr->addMenuItem(scrScripterActions["scripterExecuteScript"], "Scripter");
 	menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter");

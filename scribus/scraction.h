@@ -87,7 +87,7 @@ public:
 		\brief Return the stored menuIndex as QActions cannot deal with these well
 		\retval int Index of menu the action was inserted into
 	*/	
-	const int getMenuIndex();
+	int getMenuIndex() const;
 			
 	/*!
 		\author Craig Bradney
@@ -103,7 +103,7 @@ public:
 		\brief Return true if action is a DLL
 		\retval bool True if action is from a DLL
 	 */
-	const bool isDLLAction();
+	bool isDLLAction() const;
 	
 	/*!
 		\author Craig Bradney
@@ -111,7 +111,7 @@ public:
 		\brief Return DLL ID if the action is from a DLL, otherwise return -1
 		\retval int DLL ID or -1
 	 */
-	const int dllID();
+	int dllID() const;
 	
 	/*!
 	 *	\author Craig Bradney
@@ -145,8 +145,8 @@ public:
 		\date Apr 2005
 		\brief Return the action data of int action type
 	 */		
-	const int actionInt();	
-	const double actionDouble();	
+	int actionInt() const;
+	double actionDouble() const;
 	const QString actionQString();
 	void setActionQString(const QString &);
 	

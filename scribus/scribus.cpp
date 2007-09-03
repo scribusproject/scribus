@@ -590,7 +590,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileNew"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileOpen"], "File");
 	recentFileMenuName="FileOpenRecent";
-	scrMenuMgr->createMenu(recentFileMenuName, QIcon(noIcon), tr("Open &Recent"), "File");
+	scrMenuMgr->createMenu(recentFileMenuName, tr("Open &Recent"), "File");
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->addMenuItem(scrActions["fileClose"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileSave"], "File");
@@ -598,12 +598,12 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["fileRevert"], "File");
 	scrMenuMgr->addMenuItem(scrActions["fileCollect"], "File");
 	scrMenuMgr->addMenuSeparator("File");
-	scrMenuMgr->createMenu("FileImport", QIcon(noIcon), tr("&Import"), "File");
+	scrMenuMgr->createMenu("FileImport", tr("&Import"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileImportText"], "FileImport");
 // 	scrMenuMgr->addMenuItem(scrActions["fileImportText2"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
-	scrMenuMgr->createMenu("FileExport", QIcon(noIcon), tr("&Export"), "File");
+	scrMenuMgr->createMenu("FileExport", tr("&Export"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileExportText"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsEPS"], "FileExport");
 	scrMenuMgr->addMenuItem(scrActions["fileExportAsPDF"], "FileExport");
@@ -644,8 +644,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editCopy"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
 	recentPasteMenuName="EditPasteRecent";
-	scrMenuMgr->createMenu(recentPasteMenuName, QIcon(noIcon), tr("Paste Recent"), "Edit");
-	scrMenuMgr->createMenu("EditContents", QPixmap(noIcon), tr("Contents"), "Edit");
+	scrMenuMgr->createMenu(recentPasteMenuName, tr("Paste Recent"), "Edit");
+	scrMenuMgr->createMenu("EditContents", tr("Contents"), "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopyContents"], "EditContents");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "EditContents");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContentsAbs"], "EditContents");
@@ -761,7 +761,7 @@ void ScribusMainWindow::initMenuBar()
 //Qt4	scrMenuMgr->addMenuItem(SCustom, "ItemShapes");
 //Qt4	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
 //Qt4	scrMenuMgr->addMenuItem(scrActions["itemShapeEdit"], "ItemShapes");
-	scrMenuMgr->createMenu("ItemConvertTo", QPixmap(noIcon), tr("C&onvert To"), "Item");
+	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"), "Item");
 	//scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"));
 	//scrMenuMgr->addMenuToMenu("ItemConvertTo", "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToBezierCurve"], "ItemConvertTo");
@@ -810,7 +810,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertGlyph"], "Insert");
 
-	scrMenuMgr->createMenu("InsertChar", QPixmap(noIcon), tr("&Character"), "Insert");
+	scrMenuMgr->createMenu("InsertChar", tr("&Character"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodePageNumber"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeSmartHyphen"], "InsertChar");
@@ -828,7 +828,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeDashFigure"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeDashQuotation"], "InsertChar");
 
-	scrMenuMgr->createMenu("InsertQuote", QPixmap(noIcon), tr("&Quote"), "Insert");
+	scrMenuMgr->createMenu("InsertQuote", tr("&Quote"), "Insert");
 	//scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteApostrophe"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteStraight"], "InsertQuote");
@@ -854,7 +854,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKDoubleLeft"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteCJKDoubleRight"], "InsertQuote");
 
-	scrMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("S&paces && Breaks"), "Insert");
+	scrMenuMgr->createMenu("InsertSpace", tr("S&paces && Breaks"), "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeNonBreakingSpace"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceEN"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeSpaceEM"], "InsertSpace");
@@ -868,7 +868,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeColumnBreak"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeZerowidthSpace"], "InsertSpace");
 
-	scrMenuMgr->createMenu("InsertLigature", QPixmap(noIcon), tr("Liga&ture"), "Insert");
+	scrMenuMgr->createMenu("InsertLigature", tr("Liga&ture"), "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ff"], "InsertLigature");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_fi"], "InsertLigature");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_fl"], "InsertLigature");
@@ -974,7 +974,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["helpOnlineWWW"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpOnlineDocs"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpOnlineWiki"], "Help");
-	scrMenuMgr->createMenu("HelpOnlineTutorials", QPixmap(noIcon), tr("Online &Tutorials"), "Help");
+	scrMenuMgr->createMenu("HelpOnlineTutorials", tr("Online &Tutorials"), "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpOnlineTutorial1"], "HelpOnlineTutorials");
 	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");

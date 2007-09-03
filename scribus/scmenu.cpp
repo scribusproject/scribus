@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QString pMenuText, const QString parentName, bool pCheckable ) : QObject(parent, name)
+ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const QString pMenuName, const QString pMenuText, const QString parentName, bool pCheckable ) : QObject(parent)
 {
 	parentMenuName=parentName;
 	parentMenuID=-1;
@@ -40,21 +40,6 @@ ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString 
 //	localPopupMenu->setCheckable(pCheckable);
 	enabled=true;
 	checkable = pCheckable;
-}
-
-ScrPopupMenu::ScrPopupMenu ( QWidget * parent, const char * name, const QString pMenuName, const QIcon pMenuIcon, const QString pMenuText, const QString parentName, bool pCheckable ) : QObject(parent, name)
-{
-	parentMenuName=parentName;
-	parentMenuID=-1;
-	menuIcon=pMenuIcon;
-	menuText=pMenuText;
-	menuName=pMenuName;
-	menuBarID=-1;
-	menuItemList.clear();
-	localPopupMenu=new QMenu(parent);//, name);
-//	localPopupMenu->setCheckable(pCheckable);
-	enabled=true;
-	checkable=pCheckable;
 }
 
 ScrPopupMenu::~ScrPopupMenu()
@@ -92,15 +77,15 @@ const QString ScrPopupMenu::getParentMenuName()
 	return parentMenuName;
 }
 
-void ScrPopupMenu::setMenuBarID(int id)
-{
-	menuBarID=id;
-}
-
-int ScrPopupMenu::getMenuBarID()
-{
-	return menuBarID;
-}
+// void ScrPopupMenu::setMenuBarID(int id)
+// {
+// 	menuBarID=id;
+// }
+// 
+// int ScrPopupMenu::getMenuBarID()
+// {
+// 	return menuBarID;
+// }
 
 QMenu *ScrPopupMenu::getLocalPopupMenu()
 {

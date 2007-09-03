@@ -46,7 +46,6 @@ public:
 	enum MenuType {Normal, DLL};
 
 	bool createMenu(const QString &menuName, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false);
-	bool createMenu(const QString &menuName, const QIcon menuIcon, const QString &menuText = QString::null, const QString parent = QString::null, bool checkable = false);
 	bool addMenuToMenu(const QString & child, const QString &parent);
 	bool deleteMenu(const QString &menuName, const QString &parent = QString::null);
 	bool clearMenu(const QString &menuName);
@@ -55,14 +54,12 @@ public:
 	QMenu *getLocalPopupMenu(const QString &menuName);
 	void setMenuEnabled(const QString &menuName, const bool enabled);
 	bool addMenuToMenuBar(const QString &menuName);
-	bool addMenuToMenuBarAfter(const QString &, const QString &);
+	bool addMenuToMenuBarBefore(const QString &, const QString &);
 	bool removeMenuFromMenuBar(const QString &menuName);
 	bool addMenuToWidgetOfAction(const QString &menuName, ScrAction *action);
 
 	bool addMenuItem(ScrAction *menuAction, const QString &parent);
-	//Qt4 bool addMenuItem(QWidget * widget, const QString &parent);
 	bool addMenuItemAfter(ScrAction *menuAction, const QString &parent, ScrAction *afterMenuAction);
-// 	bool addMenuItemAfter(ScrAction *menuAction, const QString &parent, const QString &afterMenuName);
 	bool addMenuSeparator(const QString &parent);
 
 	bool removeMenuItem(ScrAction *menuAction, const QString &parent);

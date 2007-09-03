@@ -1467,7 +1467,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["editUpdateFrame"], "Edit");
 	seMenuMgr->createMenu("Insert", tr("&Insert"));
 	seMenuMgr->addMenuItem(seActions["insertGlyph"], "Insert");
-	seMenuMgr->createMenu("InsertChar", QPixmap(noIcon), tr("Character"), "Insert");
+	seMenuMgr->createMenu("InsertChar", tr("Character"), "Insert");
 	seMenuMgr->addMenuItem(seActions["unicodePageNumber"], "InsertChar");
 	//seMenuMgr->addMenuItem(seActions["unicodeSmartHyphen"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeNonBreakingHyphen"], "InsertChar");
@@ -1483,7 +1483,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["unicodeDashEn"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeDashFigure"], "InsertChar");
 	seMenuMgr->addMenuItem(seActions["unicodeDashQuotation"], "InsertChar");
-	seMenuMgr->createMenu("InsertQuote", QPixmap(noIcon), tr("Quote"), "Insert");
+	seMenuMgr->createMenu("InsertQuote", tr("Quote"), "Insert");
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteApostrophe"], "InsertQuote");
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteStraight"], "InsertQuote");
 	seMenuMgr->addMenuSeparator("InsertQuote");
@@ -1507,7 +1507,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKSingleRight"], "InsertQuote");
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKDoubleLeft"], "InsertQuote");
 	seMenuMgr->addMenuItem(seActions["unicodeQuoteCJKDoubleRight"], "InsertQuote");
-	seMenuMgr->createMenu("InsertSpace", QPixmap(noIcon), tr("Spaces && Breaks"), "Insert");
+	seMenuMgr->createMenu("InsertSpace", tr("Spaces && Breaks"), "Insert");
 	seMenuMgr->addMenuItem(seActions["unicodeNonBreakingSpace"], "InsertSpace");
 	seMenuMgr->addMenuItem(seActions["unicodeSpaceEN"], "InsertSpace");
 	seMenuMgr->addMenuItem(seActions["unicodeSpaceEM"], "InsertSpace");
@@ -1519,7 +1519,7 @@ void StoryEditor::buildMenus()
 	seMenuMgr->addMenuItem(seActions["unicodeNewLine"], "InsertSpace");
 	seMenuMgr->addMenuItem(seActions["unicodeFrameBreak"], "InsertSpace");
 	seMenuMgr->addMenuItem(seActions["unicodeColumnBreak"], "InsertSpace");
-	seMenuMgr->createMenu("InsertLigature", QPixmap(noIcon), tr("Ligature"), "Insert");
+	seMenuMgr->createMenu("InsertLigature", tr("Ligature"), "Insert");
 	seMenuMgr->addMenuItem(seActions["unicodeLigature_ff"], "InsertLigature");
 	seMenuMgr->addMenuItem(seActions["unicodeLigature_fi"], "InsertLigature");
 	seMenuMgr->addMenuItem(seActions["unicodeLigature_fl"], "InsertLigature");

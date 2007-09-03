@@ -183,17 +183,17 @@ QString ScrAction::cleanMenuText()
 	return menuText().remove('&').remove("...");
 }
 
-const int ScrAction::getMenuIndex()
+int ScrAction::getMenuIndex() const
 {
 	return menuIndex;
 }
 
-const bool ScrAction::isDLLAction()
+bool ScrAction::isDLLAction() const
 {
 	return _actionType==ScrAction::DLL;
 }
 
-const int ScrAction::dllID()
+int ScrAction::dllID() const
 {
 	if (_actionType==ScrAction::DLL)
 		return pluginID;
@@ -240,12 +240,12 @@ ScrAction::ActionType ScrAction::actionType()
 	return _actionType;
 }
 
-const int ScrAction::actionInt()
+int ScrAction::actionInt() const
 {
 	return _dataInt;
 }
 
-const double ScrAction::actionDouble()
+double ScrAction::actionDouble() const
 {
 	return _dataDouble;
 }
