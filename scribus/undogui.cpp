@@ -24,22 +24,12 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-// #include <QLayout>
-// #include <QPixmap>
 #include <QPushButton>
-// #include <QRect>
-// #include <QStyle>
-// #include <QToolTip>
 #include <QCheckBox>
-// #include <QFont>
-// #include <QFontMetrics>
-// #include <QHBoxLayout>
 #include <QVBoxLayout>
 
 #include "undogui.h"
 #include "prefsmanager.h"
-// #include "prefsfile.h"
-// #include "prefscontext.h"
 #include "scribuscore.h"
 #include "menumanager.h"
 #include "scraction.h"
@@ -280,10 +270,12 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 
 void UndoPalette::clear()
 {
+	disconnect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
 	undoList->clear();
 	undoList->addItem( tr("Initial State"));
 	undoButton->setEnabled(false);
 	redoButton->setEnabled(false);
+	connect(undoList, SIGNAL(currentRowChanged(int)), this, SLOT(undoListClicked(int)));
 }
 
 void UndoPalette::updateFromPrefs()
