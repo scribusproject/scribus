@@ -285,7 +285,7 @@ void Preferences::setDS(int layout)
 {
 	tabDocument->marginGroup->setFacingPages(!(layout == singlePage));
 	tabDocument->choosenLayout = layout;
-	tabDocument->docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage);
+	tabDocument->docLayout->firstPage->setCurrentIndex(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage);
 	tabView->gapHorizontal->setValue(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal * unitRatio);
 	tabView->gapVertical->setValue(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapVertical * unitRatio);
 }
@@ -293,7 +293,7 @@ void Preferences::setDS(int layout)
 void Preferences::unitChange()
 {
 	double oldUnitRatio = unitRatio;
-	docUnitIndex = tabDocument->unitCombo->currentItem();
+	docUnitIndex = tabDocument->unitCombo->currentIndex();
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
@@ -334,7 +334,7 @@ void Preferences::showWidgetInStack(QWidget *widgetToShow)
 
 void Preferences::updatePreferences()
 {
-	double prefsUnitRatio = unitGetRatioFromIndex(tabDocument->unitCombo->currentItem());
+	double prefsUnitRatio = unitGetRatioFromIndex(tabDocument->unitCombo->currentIndex());
 
 	prefsManager->appPrefs.AppFontSize = tabGeneral->GFsize->value();
 	prefsManager->appPrefs.PaletteFontSize = tabGeneral->GTFsize->value();
@@ -386,7 +386,7 @@ void Preferences::updatePreferences()
 	tabTools->polyWidget->getValues(&prefsManager->appPrefs.toolSettings.polyC, &prefsManager->appPrefs.toolSettings.polyFd, &prefsManager->appPrefs.toolSettings.polyF, &prefsManager->appPrefs.toolSettings.polyS, &prefsManager->appPrefs.toolSettings.polyR);
 
 	prefsManager->appPrefs.pageSize = tabDocument->prefsPageSizeName;
-	prefsManager->appPrefs.pageOrientation = tabDocument->pageOrientationComboBox->currentItem();
+	prefsManager->appPrefs.pageOrientation = tabDocument->pageOrientationComboBox->currentIndex();
 	prefsManager->appPrefs.PageWidth = tabDocument->pageW;
 	prefsManager->appPrefs.PageHeight = tabDocument->pageH;
 
@@ -399,7 +399,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.bleeds.Top = tabDocument->marginGroup->topBleed();
 	prefsManager->appPrefs.bleeds.Left = tabDocument->marginGroup->leftBleed();
 	prefsManager->appPrefs.bleeds.Right = tabDocument->marginGroup->rightBleed();
-	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage = tabDocument->docLayout->firstPage->currentItem();
+	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage = tabDocument->docLayout->firstPage->currentIndex();
 
 	prefsManager->setImageEditorExecutable(tabExtTools->newImageTool());
 	prefsManager->setExtBrowserExecutable(tabExtTools->newExtBrowserTool());
@@ -424,7 +424,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.useStandardLI = tabMiscellaneous->useStandardLI->isChecked();
 	prefsManager->appPrefs.paragraphsLI = tabMiscellaneous->paragraphsLI->value();
 
-	prefsManager->appPrefs.docUnitIndex = tabDocument->unitCombo->currentItem();
+	prefsManager->appPrefs.docUnitIndex = tabDocument->unitCombo->currentIndex();
 
 	prefsManager->appPrefs.toolSettings.defFont = tabTools->fontComboText->currentText();
 	prefsManager->appPrefs.toolSettings.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
@@ -483,7 +483,7 @@ void Preferences::updatePreferences()
 		prefsManager->appPrefs.toolSettings.dBrush = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dShade = tabTools->shadingFillShape->value();
 	prefsManager->appPrefs.toolSettings.dShade2 = tabTools->shadingLineShape->value();
-	switch (tabTools->tabFillCombo->currentItem())
+	switch (tabTools->tabFillCombo->currentIndex())
 	{
 		case 0:
 			prefsManager->appPrefs.toolSettings.tabFillChar = "";
@@ -501,7 +501,7 @@ void Preferences::updatePreferences()
 			prefsManager->appPrefs.toolSettings.tabFillChar = tabTools->tabFillCombo->currentText().right(1);
 			break;
 	}
-	switch (tabTools->comboStyleShape->currentItem())
+	switch (tabTools->comboStyleShape->currentIndex())
 	{
 		case 0:
 			prefsManager->appPrefs.toolSettings.dLineArt = Qt::SolidLine;
@@ -524,7 +524,7 @@ void Preferences::updatePreferences()
 	if (prefsManager->appPrefs.toolSettings.dPenLine == CommonStrings::tr_NoneColor)
 		prefsManager->appPrefs.toolSettings.dPenLine = CommonStrings::None;
 	prefsManager->appPrefs.toolSettings.dShadeLine = tabTools->shadingLine->value();
-	switch (tabTools->comboStyleLine->currentItem())
+	switch (tabTools->comboStyleLine->currentIndex())
 	{
 	case 0:
 		prefsManager->appPrefs.toolSettings.dLstyleLine = Qt::SolidLine;
@@ -543,8 +543,8 @@ void Preferences::updatePreferences()
 		break;
 	}
 	prefsManager->appPrefs.toolSettings.dWidthLine = tabTools->lineWidthLine->value();
-	prefsManager->appPrefs.toolSettings.dStartArrow = tabTools->startArrow->currentItem();
-	prefsManager->appPrefs.toolSettings.dEndArrow = tabTools->endArrow->currentItem();
+	prefsManager->appPrefs.toolSettings.dStartArrow = tabTools->startArrow->currentIndex();
+	prefsManager->appPrefs.toolSettings.dEndArrow = tabTools->endArrow->currentIndex();
 	prefsManager->appPrefs.toolSettings.magMin = tabTools->minimumZoom->value();
 	prefsManager->appPrefs.toolSettings.magMax = tabTools->maximumZoom->value();
 	prefsManager->appPrefs.toolSettings.magStep = tabTools->zoomStep->value();
@@ -594,16 +594,16 @@ void Preferences::updatePreferences()
 		prefsManager->appPrefs.GFontSub[itfsu.key()] = tabFonts->FlagsRepl.at(a++)->currentText();
 	prefsManager->appPrefs.PDF_Options.Thumbnails = tabPDF->CheckBox1->isChecked();
 	prefsManager->appPrefs.PDF_Options.Compress = tabPDF->Compression->isChecked();
-	prefsManager->appPrefs.PDF_Options.CompressMethod = tabPDF->CMethod->currentItem();
-	prefsManager->appPrefs.PDF_Options.Quality = tabPDF->CQuality->currentItem();
+	prefsManager->appPrefs.PDF_Options.CompressMethod = tabPDF->CMethod->currentIndex();
+	prefsManager->appPrefs.PDF_Options.Quality = tabPDF->CQuality->currentIndex();
 	prefsManager->appPrefs.PDF_Options.Resolution = tabPDF->Resolution->value();
 	prefsManager->appPrefs.PDF_Options.RecalcPic = tabPDF->DSColor->isChecked();
 	prefsManager->appPrefs.PDF_Options.PicRes = tabPDF->ValC->value();
 	prefsManager->appPrefs.PDF_Options.Bookmarks = tabPDF->CheckBM->isChecked();
-	prefsManager->appPrefs.PDF_Options.Binding = tabPDF->ComboBind->currentItem();
-	prefsManager->appPrefs.PDF_Options.MirrorH = tabPDF->MirrorH->isOn();
-	prefsManager->appPrefs.PDF_Options.MirrorV = tabPDF->MirrorV->isOn();
-	prefsManager->appPrefs.PDF_Options.RotateDeg = tabPDF->RotateDeg->currentItem() * 90;
+	prefsManager->appPrefs.PDF_Options.Binding = tabPDF->ComboBind->currentIndex();
+	prefsManager->appPrefs.PDF_Options.MirrorH = tabPDF->MirrorH->isChecked();
+	prefsManager->appPrefs.PDF_Options.MirrorV = tabPDF->MirrorV->isChecked();
+	prefsManager->appPrefs.PDF_Options.RotateDeg = tabPDF->RotateDeg->currentIndex() * 90;
 	prefsManager->appPrefs.PDF_Options.Articles = tabPDF->Article->isChecked();
 	prefsManager->appPrefs.PDF_Options.Encrypt = tabPDF->Encry->isChecked();
 	prefsManager->appPrefs.PDF_Options.UseLPI = tabPDF->UseLPI->isChecked();
@@ -618,7 +618,7 @@ void Preferences::updatePreferences()
 	if (tabPDF->Encry->isChecked())
 	{
 		int Perm = -64;
-		if (tabPDF->PDFVersionCombo->currentItem() == 1)
+		if (tabPDF->PDFVersionCombo->currentIndex() == 1)
 			Perm &= ~0x00240000;
 		if (tabPDF->PrintSec->isChecked())
 			Perm += 4;
@@ -632,15 +632,15 @@ void Preferences::updatePreferences()
 		prefsManager->appPrefs.PDF_Options.PassOwner = tabPDF->PassOwner->text();
 		prefsManager->appPrefs.PDF_Options.PassUser = tabPDF->PassUser->text();
 	}
-	if (tabPDF->PDFVersionCombo->currentItem() == 0)
+	if (tabPDF->PDFVersionCombo->currentIndex() == 0)
 		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_13;
-	if (tabPDF->PDFVersionCombo->currentItem() == 1)
+	if (tabPDF->PDFVersionCombo->currentIndex() == 1)
 		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_14;
-	if (tabPDF->PDFVersionCombo->currentItem() == 2)
+	if (tabPDF->PDFVersionCombo->currentIndex() == 2)
 		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_15;
-	if (tabPDF->PDFVersionCombo->currentItem() == 3)
+	if (tabPDF->PDFVersionCombo->currentIndex() == 3)
 		prefsManager->appPrefs.PDF_Options.Version = PDFOptions::PDFVersion_X3;
-	if (tabPDF->OutCombo->currentItem() == 0)
+	if (tabPDF->OutCombo->currentIndex() == 0)
 	{
 		prefsManager->appPrefs.PDF_Options.isGrayscale = false;
 		prefsManager->appPrefs.PDF_Options.UseRGB = true;
@@ -649,7 +649,7 @@ void Preferences::updatePreferences()
 	}
 	else
 	{
-		if (tabPDF->OutCombo->currentItem() == 2)
+		if (tabPDF->OutCombo->currentIndex() == 2)
 		{
 			prefsManager->appPrefs.PDF_Options.isGrayscale = true;
 			prefsManager->appPrefs.PDF_Options.UseRGB = false;
@@ -664,8 +664,8 @@ void Preferences::updatePreferences()
 			{
 				prefsManager->appPrefs.PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
 				prefsManager->appPrefs.PDF_Options.UseProfiles2 = tabPDF->EmbedProfs2->isChecked();
-				prefsManager->appPrefs.PDF_Options.Intent = tabPDF->IntendS->currentItem();
-				prefsManager->appPrefs.PDF_Options.Intent2 = tabPDF->IntendI->currentItem();
+				prefsManager->appPrefs.PDF_Options.Intent = tabPDF->IntendS->currentIndex();
+				prefsManager->appPrefs.PDF_Options.Intent2 = tabPDF->IntendI->currentIndex();
 				prefsManager->appPrefs.PDF_Options.EmbeddedI = tabPDF->NoEmbedded->isChecked();
 				prefsManager->appPrefs.PDF_Options.SolidProf = tabPDF->SolidPr->currentText();
 				prefsManager->appPrefs.PDF_Options.ImageProf = tabPDF->ImageP->currentText();

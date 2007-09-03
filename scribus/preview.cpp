@@ -272,20 +272,20 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	scaleBox = new QComboBox(this);
 	scaleBox->setEditable(false);
 	scaleBox->setFocusPolicy(Qt::NoFocus);
-	scaleBox->insertItem("50%");
-	scaleBox->insertItem("100%");
-	scaleBox->insertItem("150%");
-	scaleBox->insertItem("200%");
-	scaleBox->insertItem( tr("Fit to Width"));
-	scaleBox->insertItem( tr("Fit to Height"));
-	scaleBox->insertItem( tr("Fit to Page"));
-	scaleBox->setCurrentItem(1);
+	scaleBox->addItem("50%");
+	scaleBox->addItem("100%");
+	scaleBox->addItem("150%");
+	scaleBox->addItem("200%");
+	scaleBox->addItem( tr("Fit to Width"));
+	scaleBox->addItem( tr("Fit to Height"));
+	scaleBox->addItem( tr("Fit to Page"));
+	scaleBox->setCurrentIndex(1);
 	Layout6->addWidget(scaleLabel);
 	Layout6->addWidget(scaleBox);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer );
 	PGSel = new PageSelector(this, doc->DocPages.count());
-	PGSel->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, PGSel->sizePolicy().hasHeightForWidth() ) );
+	PGSel->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 	Layout6->addWidget(PGSel);
 	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout6->addItem( spacer2 );
@@ -776,7 +776,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	double b = doc->Pages->at(Seite)->width() * Res / 72.0;
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
+	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
 	        || (AntiAlias->isChecked() != GsAl) || ((AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
 			|| (EnableOverprint->isChecked() != OMode) && (!EnableCMYK->isChecked()))
 			 || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
@@ -800,7 +800,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		bool loaderror;
 		if (HaveTiffSep == 0)
 		{
-			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
+			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentIndex())
 	       	 || (AntiAlias->isChecked() != GsAl) || (AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
 	       	 || (EnableOverprint->isChecked() != OMode) || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor)
 	       	 || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
@@ -816,7 +816,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			bool mode;
 			int w = qRound(b);
 			int h2 = qRound(h);
-			image = QImage(w, h2, 32);
+			image = QImage(w, h2, QImage::Format_ARGB32);
 			QRgb clean = qRgba(0, 0, 0, 0);
 			for( int yi=0; yi < h2; ++yi )
 			{
@@ -955,8 +955,8 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			int w = qRound(b);
 			int w2 = 4*w;
 			int h2 = qRound(h);
-			image = QImage(w, h2, 32);
-			QByteArray imgc(w2);
+			image = QImage(w, h2, QImage::Format_ARGB32);
+			QByteArray imgc(w2, ' ');
 			QFile f(ScPaths::getTempFileDir()+"/sc.png");
 			if (f.open(QIODevice::ReadOnly))
 			{
@@ -968,7 +968,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					for (int y=0; y < h2; ++y )
 					{
 						LPBYTE ptr = image.scanLine( y );
-						f.readBlock(imgc.data(), w2);
+						f.read(imgc.data(), w2);
 						p = (uint *)image.scanLine( y );
 						for (int x=0; x < w2; x += 4 )
 						{
@@ -1012,7 +1012,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					for (int y=0; y < h2; ++y )
 					{
 						p = (uint *)image.scanLine( y );
-						f.readBlock(imgc.data(), w2);
+						f.read(imgc.data(), w2);
 						for (int x=0; x < w2; x += 4 )
 						{
 							cyan = uchar(imgc[x]);
@@ -1052,7 +1052,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			imageLoadError(Bild, Seite);
 			return Bild;
 		}
-		image = image.convertDepth(32);
+		image = image.convertToFormat(QImage::Format_ARGB32);
 		if ((AliasTr->isChecked()) && (HavePngAlpha == 0))
 		{
 			int wi = image.width();
@@ -1069,7 +1069,6 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 		}
 	}
-	image.setAlphaBuffer(true);
 	if (AliasTr->isChecked())
 	{
 		Bild = QPixmap(image.width(), image.height());
@@ -1081,7 +1080,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		p.end();
 	}
 	else
-		Bild=QPixmap::fromImage(image);
+		Bild = QPixmap::fromImage(image);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	getUserSelection(Seite);
 	return Bild;
@@ -1112,7 +1111,7 @@ void PPreview::getUserSelection(int page)
 	GsAl = AntiAlias->isChecked();
 	Trans = AliasTr->isChecked();
 	GMode = EnableGCR->isChecked();
-	SMode = scaleBox->currentItem();
+	SMode = scaleBox->currentIndex();
 	OMode = EnableOverprint->isChecked();
 	mHor = MirrorHor->isChecked();
 	mVer = MirrorVert->isChecked();
@@ -1124,7 +1123,7 @@ void PPreview::getUserSelection(int page)
 
 void PPreview::imageLoadError(QPixmap &Bild, int page)
 {
-	Bild.resize(1,1);
+	Bild = QPixmap(1,1);
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	getUserSelection(page);
 }

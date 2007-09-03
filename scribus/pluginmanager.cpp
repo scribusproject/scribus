@@ -49,7 +49,7 @@ void* PluginManager::loadDLL( QString plugin )
 	void* lib = NULL;
 #ifdef HAVE_DLFCN_H
 	QString libpath = QDir::convertSeparators( plugin );
-	lib = dlopen(libpath, RTLD_LAZY | RTLD_GLOBAL);
+	lib = dlopen(libpath.toLocal8Bit().data(), RTLD_LAZY | RTLD_GLOBAL);
 	if (!lib)
 	{
 		const char* error = dlerror();
@@ -135,7 +135,7 @@ QString PluginManager::getPluginName(QString fileName)
 					fileName.toLocal8Bit().data());
 			return QString();
 		}
-	return baseName.latin1();
+	return baseName.toLatin1();
 }
 
 int PluginManager::initPlugin(const QString fileName)
@@ -205,7 +205,7 @@ void PluginManager::initPlugs()
 			{
 				++loaded;
 				++changes;
-				failedPlugs.remove(it.key());
+				failedPlugs.removeAll(it.key());
 			}
 		}
 	}
@@ -358,7 +358,7 @@ bool PluginManager::loadPlugin(PluginData & pda)
 		return false;
 
 	getPluginAPIVersion = (getPluginAPIVersionPtr)
-		resolveSym(pda.pluginDLL, pda.pluginName + "_getPluginAPIVersion");
+		resolveSym(pda.pluginDLL, QString(pda.pluginName + "_getPluginAPIVersion").toLocal8Bit().data());
 	if (getPluginAPIVersion)
 	{
 		int gotVersion = (*getPluginAPIVersion)();
@@ -370,7 +370,7 @@ bool PluginManager::loadPlugin(PluginData & pda)
 		else
 		{
 			getPlugin = (getPluginPtr)
-				resolveSym(pda.pluginDLL, pda.pluginName + "_getPlugin");
+				resolveSym(pda.pluginDLL, QString(pda.pluginName + "_getPlugin").toLocal8Bit().data());
 			if (getPlugin)
 			{
 				pda.plugin = (*getPlugin)();
@@ -406,7 +406,7 @@ void PluginManager::finalizePlug(PluginData & pda)
 			disablePlugin(pda);
 		Q_ASSERT(!pda.enabled);
 		freePluginPtr freePlugin =
-			(freePluginPtr) resolveSym(pda.pluginDLL, pda.pluginName + "_freePlugin");
+			(freePluginPtr) resolveSym(pda.pluginDLL, QString(pda.pluginName + "_freePlugin").toLocal8Bit().data());
 		if ( freePlugin )
 			(*freePlugin)( pda.plugin );
 		pda.plugin = 0;

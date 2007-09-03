@@ -61,13 +61,13 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	PDFExportLayout = new QVBoxLayout( this );
 	PDFExportLayout->setSpacing( 5 );
 	PDFExportLayout->setMargin( 10 );
-	Name = new QGroupBox( this, "GroupBox" );
+	Name = new QGroupBox( this );
 	Name->setTitle( tr( "O&utput to File:" ) );
 	NameLayout = new QGridLayout( Name );
 	NameLayout->setSpacing( 5 );
 	NameLayout->setMargin( 10 );
 	NameLayout->setAlignment( Qt::AlignTop );
-	fileNameLineEdit = new QLineEdit( Name, "fileNameLineEdit" );
+	fileNameLineEdit = new QLineEdit( Name );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
 	if (!Opts.Datei.isEmpty())
 		fileNameLineEdit->setText( QDir::convertSeparators(Opts.Datei) );
@@ -76,13 +76,13 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 		QFileInfo fi(docFileName);
 		if (fi.exists())
 		{
-			QString fileName(fi.dirPath()+"/"+fi.baseName()+".pdf");
+			QString fileName(fi.path()+"/"+fi.baseName()+".pdf");
 			fileNameLineEdit->setText( QDir::convertSeparators(fileName) );
 		}
 		else
 		{
 			PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-			QString pdfdir = dirs->get("pdf", fi.dirPath());
+			QString pdfdir = dirs->get("pdf", fi.path());
 			if (pdfdir.right(1) != "/")
 				pdfdir += "/";
 			QString fileName(pdfdir+fi.baseName()+".pdf");
@@ -90,11 +90,11 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 		}
 	}
 	NameLayout->addWidget( fileNameLineEdit, 0, 0 );
-	FileC = new QToolButton( Name, "FileC" );
+	FileC = new QToolButton( Name );
 	FileC->setText( tr( "Cha&nge..." ) );
 	FileC->setMinimumSize( QSize( 88, 24 ) );
 	NameLayout->addWidget( FileC, 0, 1 );
-	multiFile = new QCheckBox( tr( "Output one file for eac&h page" ), Name, "multiFile" );
+	multiFile = new QCheckBox( tr( "Output one file for eac&h page" ), Name );
 	multiFile->setChecked(Opts.doMultiFile);
 	NameLayout->addWidget( multiFile, 1, 0 );
 	PDFExportLayout->addWidget( Name );
@@ -107,11 +107,11 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	Layout7->setMargin( 0 );
 	QSpacerItem* spacer_2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout7->addItem( spacer_2 );
-	OK = new QPushButton( tr( "&Save" ), this, "OK" );
+	OK = new QPushButton( tr( "&Save" ), this );
 	OK->setAutoDefault( true );
 	OK->setDefault( true );
 	Layout7->addWidget( OK );
-	Cancel = new QPushButton( CommonStrings::tr_Cancel, this, "Cancel" );
+	Cancel = new QPushButton( CommonStrings::tr_Cancel, this );
 	Layout7->addWidget( Cancel );
 	PDFExportLayout->addLayout( Layout7 );
 	if ((Opts.Version == PDFOptions::PDFVersion_X3) && (Options->InfoString->text().isEmpty()))
@@ -146,8 +146,8 @@ void PDFExportDialog::DoExport()
 	QString fn = ScPaths::separatorsToSlashes(fileNameLineEdit->text());
 	// Checking if the path exists
 	QFileInfo fi(fn);
-	QString dirPath = QDir::convertSeparators(fi.dirPath(true));
-	if (!QFile::exists(fi.dirPath(true)))
+	QString dirPath = QDir::convertSeparators(fi.absolutePath());
+	if (!QFile::exists(fi.absolutePath()))
 	{
 		if (QMessageBox::question(this, tr( "Save as PDF" ),
 									tr("%1 does not exists and will be created, continue?").arg(dirPath),
@@ -159,7 +159,7 @@ void PDFExportDialog::DoExport()
 	}
 	// NOTE: Qt4 contains QDir::mkpath()
 	QDir d(fn);
-	QStringList dirList = QStringList::split(QDir::separator(), dirPath);
+	QStringList dirList = dirPath.split(QDir::separator());
 	QString existingPath;
 #ifndef _WIN32
 	existingPath = QDir::separator();
@@ -190,13 +190,13 @@ void PDFExportDialog::DoExport()
 		EffVal = Options->EffVal;
 		EffVal[Options->PgSel].pageViewDuration = Options->PageTime->value();
 		EffVal[Options->PgSel].pageEffectDuration = Options->EffectTime->value();
-		EffVal[Options->PgSel].effectType = Options->EffectType->currentItem();
-		EffVal[Options->PgSel].Dm = Options->EDirection->currentItem();
-		EffVal[Options->PgSel].M = Options->EDirection_2->currentItem();
-		EffVal[Options->PgSel].Di = Options->EDirection_2_2->currentItem();
+		EffVal[Options->PgSel].effectType = Options->EffectType->currentIndex();
+		EffVal[Options->PgSel].Dm = Options->EDirection->currentIndex();
+		EffVal[Options->PgSel].M = Options->EDirection_2->currentIndex();
+		EffVal[Options->PgSel].Di = Options->EDirection_2_2->currentIndex();
 		Opts.LPISettings[Options->SelLPIcolor].Frequency = Options->LPIfreq->value();
 		Opts.LPISettings[Options->SelLPIcolor].Angle = Options->LPIangle->value();
-		Opts.LPISettings[Options->SelLPIcolor].SpotFunc = Options->LPIfunc->currentItem();
+		Opts.LPISettings[Options->SelLPIcolor].SpotFunc = Options->LPIfunc->currentIndex();
 		accept();
 	}
 	else
@@ -233,19 +233,19 @@ void PDFExportDialog::updateDocOptions()
 	Opts.doMultiFile = multiFile->isChecked();
 	Opts.Thumbnails = Options->CheckBox1->isChecked();
 	Opts.Compress = Options->Compression->isChecked();
-	Opts.CompressMethod = Options->CMethod->currentItem();
-	Opts.Quality = Options->CQuality->currentItem();
+	Opts.CompressMethod = Options->CMethod->currentIndex();
+	Opts.Quality = Options->CQuality->currentIndex();
 	Opts.Resolution = Options->Resolution->value();
 	Opts.EmbedList = Options->FontsToEmbed;
 	Opts.SubsetList = Options->FontsToOutline;
 	Opts.RecalcPic = Options->DSColor->isChecked();
 	Opts.PicRes = Options->ValC->value();
 	Opts.Bookmarks = Options->CheckBM->isChecked();
-	Opts.Binding = Options->ComboBind->currentItem();
-	Opts.MirrorH = Options->MirrorH->isOn();
-	Opts.MirrorV = Options->MirrorV->isOn();
+	Opts.Binding = Options->ComboBind->currentIndex();
+	Opts.MirrorH = Options->MirrorH->isChecked();
+	Opts.MirrorV = Options->MirrorV->isChecked();
 	Opts.doClip = Options->ClipMarg->isChecked();
-	Opts.RotateDeg = Options->RotateDeg->currentItem() * 90;
+	Opts.RotateDeg = Options->RotateDeg->currentIndex() * 90;
 	Opts.PresentMode = Options->CheckBox10->isChecked();
 	Opts.PresentVals = EffVal;
 	Opts.Articles = Options->Article->isChecked();
@@ -285,14 +285,14 @@ void PDFExportDialog::updateDocOptions()
 	else if (Options->doublePageRight->isChecked())
 		pgl = PDFOptions::TwoColumnRight;
 	Opts.PageLayout = pgl;
-	if (Options->actionCombo->currentItem() != 0)
+	if (Options->actionCombo->currentIndex() != 0)
 		Opts.openAction = Options->actionCombo->currentText();
 	else
 		Opts.openAction = "";
 	if (Options->Encry->isChecked())
 	{
 		int Perm = -64;
-		if (Options->PDFVersionCombo->currentItem() == 1)
+		if (Options->PDFVersionCombo->currentIndex() == 1)
 			Perm &= ~0x00240000;
 		if (Options->PrintSec->isChecked())
 			Perm += 4;
@@ -306,15 +306,15 @@ void PDFExportDialog::updateDocOptions()
 		Opts.PassOwner = Options->PassOwner->text();
 		Opts.PassUser = Options->PassUser->text();
 	}
-	if (Options->PDFVersionCombo->currentItem() == 0)
+	if (Options->PDFVersionCombo->currentIndex() == 0)
 		Opts.Version = PDFOptions::PDFVersion_13;
-	if (Options->PDFVersionCombo->currentItem() == 1)
+	if (Options->PDFVersionCombo->currentIndex() == 1)
 		Opts.Version = PDFOptions::PDFVersion_14;
-	if (Options->PDFVersionCombo->currentItem() == 2)
+	if (Options->PDFVersionCombo->currentIndex() == 2)
 		Opts.Version = PDFOptions::PDFVersion_15;
-	if (Options->PDFVersionCombo->currentItem() == 3)
+	if (Options->PDFVersionCombo->currentIndex() == 3)
 		Opts.Version = PDFOptions::PDFVersion_X3;
-	if (Options->OutCombo->currentItem() == 0)
+	if (Options->OutCombo->currentIndex() == 0)
 	{
 		Opts.UseRGB = true;
 		Opts.isGrayscale = false;
@@ -323,7 +323,7 @@ void PDFExportDialog::updateDocOptions()
 	}
 	else
 	{
-		if (Options->OutCombo->currentItem() == 2)
+		if (Options->OutCombo->currentIndex() == 2)
 		{
 			Opts.isGrayscale = true;
 			Opts.UseRGB = false;
@@ -338,8 +338,8 @@ void PDFExportDialog::updateDocOptions()
 			{
 				Opts.UseProfiles = Options->EmbedProfs->isChecked();
 				Opts.UseProfiles2 = Options->EmbedProfs2->isChecked();
-				Opts.Intent = Options->IntendS->currentItem();
-				Opts.Intent2 = Options->IntendI->currentItem();
+				Opts.Intent = Options->IntendS->currentIndex();
+				Opts.Intent2 = Options->IntendI->currentIndex();
 				Opts.EmbeddedI = Options->NoEmbedded->isChecked();
 				Opts.SolidProf = Options->SolidPr->currentText();
 				Opts.ImageProf = Options->ImageP->currentText();

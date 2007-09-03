@@ -76,7 +76,7 @@ PageLayouts::PageLayouts( QWidget* parent, QList<PageSet> pSets, bool mode )  : 
 		layoutsCombo = new ScComboBox( this );
 		layoutGroupLayout->addWidget( layoutsCombo );
 	}
-	layoutLabel1 = new QLabel( this, "layoutLabel1" );
+	layoutLabel1 = new QLabel( this );
 	layoutGroupLayout->addWidget( layoutLabel1 );
 	firstPage = new ScComboBox( this );
 	layoutGroupLayout->addWidget( firstPage );
@@ -99,15 +99,15 @@ void PageLayouts::updateLayoutSelector(QList<PageSet> pSets)
 	{
 		QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 		if (pg == 0)
-			layoutsCombo->insertItem(loadIcon("16/page-simple.png"), psname);
+			layoutsCombo->addItem(loadIcon("16/page-simple.png"), psname);
 		else if (pg == 1)
-			layoutsCombo->insertItem(loadIcon("16/page-doublesided.png"), psname);
+			layoutsCombo->addItem(loadIcon("16/page-doublesided.png"), psname);
 		else if (pg == 2)
-			layoutsCombo->insertItem(loadIcon("16/page-3fold.png"), psname);
+			layoutsCombo->addItem(loadIcon("16/page-3fold.png"), psname);
 		else if (pg == 3)
-			layoutsCombo->insertItem(loadIcon("16/page-4fold.png"), psname);
+			layoutsCombo->addItem(loadIcon("16/page-4fold.png"), psname);
 		else
-			layoutsCombo->insertItem(loadIcon("16/page-simple.png"), psname);
+			layoutsCombo->addItem(loadIcon("16/page-simple.png"), psname);
 	}
 	connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 }
@@ -115,7 +115,7 @@ void PageLayouts::updateLayoutSelector(QList<PageSet> pSets)
 void PageLayouts::selectFirstP(int nr)
 {
 	disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
-	firstPage->setCurrentItem(nr);
+	firstPage->setCurrentIndex(nr);
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 }
 
@@ -133,13 +133,13 @@ void PageLayouts::selectItem(uint nr)
 		QStringList::Iterator pNames;
 		for(pNames = pageSets[nr].pageNames.begin(); pNames != pageSets[nr].pageNames.end(); ++pNames )
 		{
-			firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
+			firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
 	}
 	else
 	{
 		firstPage->clear();
-		firstPage->insertItem(" ");
+		firstPage->addItem(" ");
 		firstPage->setEnabled(false);
 	}
 	if (modus)
@@ -166,13 +166,13 @@ void PageLayouts::itemSelectedPost(int choosen)
 		QStringList::Iterator pNames;
 		for(pNames = pageSets[choosen].pageNames.begin(); pNames != pageSets[choosen].pageNames.end(); ++pNames )
 		{
-			firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
+			firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 		}
 	}
 	else
 	{
 		firstPage->clear();
-		firstPage->insertItem(" ");
+		firstPage->addItem(" ");
 		firstPage->setEnabled(false);
 	}
 	connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
@@ -233,34 +233,34 @@ void PageLayouts::languageChange()
 	else
 	{
 		disconnect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
-		int currIndex=layoutsCombo->currentItem();
+		int currIndex=layoutsCombo->currentIndex();
 		layoutsCombo->clear();
 		for (int pg = 0; pg < pageSets.count(); ++pg)
 		{
 			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)
-				layoutsCombo->insertItem(loadIcon("16/page-simple.png"), psname);
+				layoutsCombo->addItem(loadIcon("16/page-simple.png"), psname);
 			else if (pg == 1)
-				layoutsCombo->insertItem(loadIcon("16/page-doublesided.png"), psname);
+				layoutsCombo->addItem(loadIcon("16/page-doublesided.png"), psname);
 			else if (pg == 2)
-				layoutsCombo->insertItem(loadIcon("16/page-3fold.png"), psname);
+				layoutsCombo->addItem(loadIcon("16/page-3fold.png"), psname);
 			else if (pg == 3)
-				layoutsCombo->insertItem(loadIcon("16/page-4fold.png"), psname);
+				layoutsCombo->addItem(loadIcon("16/page-4fold.png"), psname);
 			else
-				layoutsCombo->insertItem(loadIcon("16/page-simple.png"), psname);
+				layoutsCombo->addItem(loadIcon("16/page-simple.png"), psname);
 		}
-		layoutsCombo->setCurrentItem(currIndex);
+		layoutsCombo->setCurrentIndex(currIndex);
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 		
 		disconnect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
-		int currFirstPageIndex=firstPage->currentItem();
+		int currFirstPageIndex=firstPage->currentIndex();
 		firstPage->clear();
 		if (currIndex>=0 && currIndex<pageSets.count())
 			for(QStringList::Iterator pNames = pageSets[currIndex].pageNames.begin(); pNames != pageSets[currIndex].pageNames.end(); ++pNames )
 			{
-				firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
+				firstPage->addItem(CommonStrings::translatePageSetLocString((*pNames)));
 			}
-		firstPage->setCurrentItem(currFirstPageIndex);
+		firstPage->setCurrentIndex(currFirstPageIndex);
 		connect(firstPage, SIGNAL(activated(int)), this, SIGNAL(selectedFirstPage(int)));
 	}
 	layoutLabel1->setText( tr( "First Page is:" ) );

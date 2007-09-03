@@ -37,11 +37,11 @@ bool PDFOptionsIO::writeTo(QString outFileName, bool includePasswords)
 	if (!f.open(QIODevice::WriteOnly|QIODevice::Truncate))
 	{
 		m_error = QObject::tr("Could not open output file %1")
-			.arg(qApp->translate("QFile",f.errorString()));
+			.arg(qApp->translate("QFile",f.errorString().toLatin1().constData()));
 		return false;
 	}
 	QTextStream ts(&f);
-	ts.setEncoding(QTextStream::UnicodeUTF8);
+	ts.setCodec("UTF-8");
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
 	m_error = QString::null;
@@ -60,7 +60,7 @@ bool PDFOptionsIO::writeTo(QIODevice& outDevice, bool includePasswords)
 	if (xml.isNull())
 		return false;
 	QTextStream ts(&outDevice);
-	ts.setEncoding(QTextStream::UnicodeUTF8);
+	ts.setCodec("UTF-8");
 	ts << xml;
 	m_includePasswords = false; // just to be paranoid
 	m_error = QString::null;
@@ -278,7 +278,7 @@ bool PDFOptionsIO::readFrom(QString inFileName)
 	if (!f.open(QIODevice::ReadOnly))
 	{
 		m_error = QObject::tr("Could not open input file %1")
-			.arg(qApp->translate("QFile",f.errorString()));
+			.arg(qApp->translate("QFile",f.errorString().toLatin1().constData()));
 		return false;
 	}
 	return readFrom(f);

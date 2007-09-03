@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <vector>
 #include <utility>
 
-#include <Q3TextStream>
+#include <QTextStream>
 #include <QFile>
 #include <QList>
 #include <QPen>
@@ -148,7 +148,7 @@ class SCRIBUS_API PSLib : public QObject
 		QMap<QString, GListe> GlyphsOfFont;
 		bool isPDF;
 		QFile Spool;
-		Q3TextStream spoolStream;
+		QTextStream spoolStream;
 		bool CompAvail;
 		int Plate;
 		bool DoSep;

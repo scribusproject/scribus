@@ -85,11 +85,11 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	ResCount(0),
 	NDnam("LI"),
 	NDnum(0),
-	KeyGen(32),
-	OwnerKey(32),
-	UserKey(32),
-	FileID(16),
-	EncryKey(5),
+	KeyGen(""),
+	OwnerKey(""),
+	UserKey(""),
+	FileID(""),
+	EncryKey(""),
 	Encrypt(0),
 	KeyLen(5),
 	colorsToUse(),
@@ -99,6 +99,11 @@ PDFLibCore::PDFLibCore(ScribusDoc & docu)
 	abortExport(false),
 	usingGUI(ScCore->usingGUI())
 {
+	KeyGen.resize(32);
+	OwnerKey.resize(32);
+	UserKey.resize(32);
+	FileID.resize(16);
+	EncryKey.resize(5);
 	Catalog.Outlines = 2;
 	Catalog.PageTree = 3;
 	Catalog.Dest = 4;
@@ -272,11 +277,11 @@ QString PDFLibCore::EncStream(const QString & in, int ObjNum)
 	rc4_context_t rc4;
 	int dlen = 0;
 	QString tmp(in);
-	QByteArray us(tmp.length());
-	QByteArray ou(tmp.length());
+	QByteArray us(tmp.length(), ' ');
+	QByteArray ou(tmp.length(), ' ');
 	for (int a = 0; a < tmp.length(); ++a)
 		us[a] = QChar(tmp.at(a)).cell();
-	QByteArray data(10);
+	QByteArray data(10, ' ');
 	if (KeyLen > 5)
 		data.resize(21);
 	for (int cd = 0; cd < KeyLen; ++cd)
@@ -289,7 +294,7 @@ QString PDFLibCore::EncStream(const QString & in, int ObjNum)
 	data[dlen++] = ObjNum >> 16;
 	data[dlen++] = 0;
 	data[dlen++] = 0;
-	QByteArray step1(16);
+	QByteArray step1(16, ' ');
 	step1 = ComputeMD5Sum(&data);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
@@ -307,8 +312,8 @@ QByteArray PDFLibCore::EncStreamArray(const QByteArray & in, int ObjNum)
 		return in;
 	rc4_context_t rc4;
 	int dlen = 0;
-	QByteArray out(in.size());
-	QByteArray data(10);
+	QByteArray out(in.size(), ' ');
+	QByteArray data(10, ' ');
 	if (KeyLen > 5)
 		data.resize(21);
 	for (int cd = 0; cd < KeyLen; ++cd)
@@ -321,7 +326,7 @@ QByteArray PDFLibCore::EncStreamArray(const QByteArray & in, int ObjNum)
 	data[dlen++] = ObjNum >> 16;
 	data[dlen++] = 0;
 	data[dlen++] = 0;
-	QByteArray step1(16);
+	QByteArray step1(16, ' ');
 	step1 = ComputeMD5Sum(&data);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<const uchar*>(in.constData()), reinterpret_cast<uchar*>(out.data()), in.size());
@@ -338,11 +343,11 @@ QString PDFLibCore::EncString(const QString & in, int ObjNum)
 	if (in.length() < 3)
 		return "<>";
 	tmp = in.mid(1, in.length()-2);
-	QByteArray us(tmp.length());
-	QByteArray ou(tmp.length());
+	QByteArray us(tmp.length(), ' ');
+	QByteArray ou(tmp.length(), ' ');
 	for (int a = 0; a < tmp.length(); ++a)
 		us[a] = static_cast<uchar>(QChar(tmp.at(a)).cell());
-	QByteArray data(10);
+	QByteArray data(10, ' ');
 	if (KeyLen > 5)
 		data.resize(21);
 	for (int cd = 0; cd < KeyLen; ++cd)
@@ -355,7 +360,7 @@ QString PDFLibCore::EncString(const QString & in, int ObjNum)
 	data[dlen++] = ObjNum >> 16;
 	data[dlen++] = 0;
 	data[dlen++] = 0;
-	QByteArray step1(16);
+	QByteArray step1(16, ' ');
 	step1 = ComputeMD5Sum(&data);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
@@ -384,8 +389,8 @@ QString PDFLibCore::EncStringUTF16(const QString & in, int ObjNum)
 	int dlen = 0;
 	tmp = in.mid(1, in.length()-2);
 	QByteArray us = EncodeUTF16(tmp);
-	QByteArray ou(us.size());
-	QByteArray data(10);
+	QByteArray ou(us.size(), ' ');
+	QByteArray data(10, ' ');
 	if (KeyLen > 5)
 		data.resize(21);
 	for (int cd = 0; cd < KeyLen; ++cd)
@@ -398,7 +403,7 @@ QString PDFLibCore::EncStringUTF16(const QString & in, int ObjNum)
 	data[dlen++] = ObjNum >> 16;
 	data[dlen++] = 0;
 	data[dlen++] = 0;
-	QByteArray step1(16);
+	QByteArray step1(16, ' ');
 	step1 = ComputeMD5Sum(&data);
 	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), qMin(KeyLen+5, 16));
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), ou.size());
@@ -428,15 +433,15 @@ void PDFLibCore::CalcOwnerKey(const QString & Owner, const QString & User)
 	rc4_context_t rc4;
 	QString pw(FitKey(User));
 	QString pw2(FitKey(Owner.isEmpty() ? User : Owner));
-	QByteArray step1(16);
+	QByteArray step1(16, ' ');
 	step1 = ComputeMD5(pw2);
 	if (KeyLen > 5)
 	{
 		for (int kl = 0; kl < 50; ++kl)
 			step1 = ComputeMD5Sum(&step1);
 	}
-	QByteArray us(32);
-	QByteArray enk(16);
+	QByteArray us(32, ' ');
+	QByteArray enk(16, ' ');
 	if (KeyLen > 5)
 	{
 		for (uint a2 = 0; a2 < 32; ++a2)
@@ -464,8 +469,8 @@ void PDFLibCore::CalcUserKey(const QString & User, int Permission)
 {
 	rc4_context_t	rc4;
 	QString pw(FitKey(User));
-	QByteArray step1(16);
-	QByteArray perm(4);
+	QByteArray step1(16, ' ');
+	QByteArray perm(4, ' ');
 	uint perm_value = static_cast<uint>(Permission);
 	perm[0] = perm_value;
 	perm[1] = perm_value >> 8;
@@ -494,7 +499,7 @@ void PDFLibCore::CalcUserKey(const QString & User, int Permission)
 		for (uint a4 = 0; a4 < 16; ++a4)
 			pr2 += QChar(FileID[a4]);
 		step1 = ComputeMD5(pr2);
-		QByteArray enk(16);
+		QByteArray enk(16, ' ');
 		for (uint a3 = 0; a3 < 16; ++a3)
 			UserKey[a3] = step1[a3];
 		for (int rl = 0; rl < 20; rl++)
@@ -515,7 +520,7 @@ void PDFLibCore::CalcUserKey(const QString & User, int Permission)
 QByteArray PDFLibCore::ComputeMD5(const QString& in)
 {
 	uint inlen=in.length();
-	QByteArray TBytes(inlen);
+	QByteArray TBytes(inlen, ' ');
 	for (uint a = 0; a < inlen; ++a)
 		TBytes[a] = static_cast<uchar>(QChar(in.at(a)).cell());
 	return ComputeMD5Sum(&TBytes);
@@ -523,7 +528,7 @@ QByteArray PDFLibCore::ComputeMD5(const QString& in)
 
 bool PDFLibCore::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi)
 {
-	Spool.setName(fn);
+	Spool.setFileName(fn);
 	if (!Spool.open(QIODevice::WriteOnly))
 		return false;
 	outStream.setDevice(&Spool);
@@ -2099,7 +2104,7 @@ void PDFLibCore::PDF_Begin_Page(const Page* pag, QPixmap pm)
 	Seite.AObjects.clear();
 	if (Options.Thumbnails)
 	{
-		ScImage img(pm.convertToImage());
+		ScImage img(pm.toImage());
 		QByteArray array = img.ImageToArray();
 		if ((Options.Compress) && (CompAvail))
 			array = CompressArray(&array);
@@ -4546,14 +4551,14 @@ QString PDFLibCore::SetFarbe(const ScColor& farbe, double Shade)
 	if (Options.isGrayscale)
 	{
 		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
-		tmpR.rgb(&h, &s, &v);
+		tmpR.getRgb(&h, &s, &v);
 		tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
 		return tmp;
 	}
 	if (Options.UseRGB)
 	{
 		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
-		tmpR.rgb(&h, &s, &v);
+		tmpR.getRgb(&h, &s, &v);
 		tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
 	}
 	else
@@ -4603,14 +4608,14 @@ QString PDFLibCore::SetFarbeGrad(const QString& farbe, double Shade)
 	if (Options.isGrayscale)
 	{
 		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
-		tmpR.rgb(&h, &s, &v);
+		tmpR.getRgb(&h, &s, &v);
 		tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
 		return tmp;
 	}
 	if (Options.UseRGB)
 	{
 		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
-		tmpR.rgb(&h, &s, &v);
+		tmpR.getRgb(&h, &s, &v);
 		tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
 	}
 	else

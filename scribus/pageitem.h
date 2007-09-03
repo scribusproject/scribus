@@ -274,7 +274,7 @@ public:
 		@param scale scale of the vport
 	 * @return bool true if the x, y is in the bounds 
 	 */
-	bool mouseWithinItem(QWidget* vport, const int x, const int y, double scale) const;
+	bool mouseWithinItem(const int x, const int y, double scale) const;
 	void copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer);
 	
 	virtual void handleModeEditKey(QKeyEvent *k, bool &keyRepeat);

@@ -1962,7 +1962,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 		for (QList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
 		{
 			if (NamedLStyle.isEmpty())
-				p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
+				p->drawPolyline(pts.constData() + FirstVal, (*it2)-FirstVal);
 			else
 			{
 				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
@@ -1974,13 +1974,13 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 									 static_cast<Qt::PenStyle>(ml[it].Dash),
 									 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 									 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-					p->drawPolyline(pts, FirstVal, (*it2)-FirstVal);
+					p->drawPolyline(pts.constData() + FirstVal, (*it2)-FirstVal);
 				}
 			}
 			FirstVal = (*it2);
 		}
 		if (NamedLStyle.isEmpty())
-			p->drawPolyline(pts, FirstVal);
+			p->drawPolyline(pts.constData() + FirstVal, pts.size() - FirstVal);
 		else
 		{
 			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
@@ -1992,7 +1992,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
 								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-				p->drawPolyline(pts, FirstVal);
+				p->drawPolyline(pts.constData() + FirstVal, pts.size() - FirstVal);
 			}
 		}
 	}
@@ -2767,7 +2767,6 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	bool SnapGuidesBackup = m_Doc->SnapGuides;
 	m_Doc->useRaster = false;
 	m_Doc->SnapGuides = false;
-	ScribusView* view = m_Doc->view();
 	SimpleState *ss = dynamic_cast<SimpleState*>(state);
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!OnMasterPage.isEmpty());
@@ -3384,7 +3383,7 @@ QString PageItem::generateUniqueCopyName(const QString originalName) const
 		//     Copy of fred (5)
 		//     ^^^^^^^^^^^^  ^   (where ^ means captured)
 		static QRegExp rx("^(.*)\\s+\\((\\d+)\\)$");
-		int numMatches = rx.searchRev(newname);
+		int numMatches = rx.lastIndexIn(newname);
 		// Add a (number) suffix to the end of the name. We start at the
 		// old suffix's value if there was one, or at 2 if there was not.
 		int suffixnum = 2;
@@ -3746,16 +3745,14 @@ bool PageItem::pointWithinItem(const int x, const int y) const
 	return itemRect.contains(x, y);
 }
 
-bool PageItem::mouseWithinItem(QWidget* vport, const int x, const int y, double scale) const
+bool PageItem::mouseWithinItem(const int x, const int y, double scale) const
 {
-	QPainter p;
-	QRect transRect;
-	p.begin(vport);
-	p.translate(static_cast<int>(Xpos * scale), static_cast<int>(Ypos*scale));
+	QMatrix p;
+	QRectF transRect;
+	p.translate(Xpos * scale, Ypos*scale);
 	p.scale(scale, scale);
 	p.rotate(rotation());
-	transRect = p.xForm(QRect(0, 0, static_cast<int>(width()), static_cast<int>(height())));
-	p.end();
+	transRect = p.mapRect(QRectF(0.0, 0.0, width(), height()));
 	return transRect.contains(x, y);
 }
 
@@ -3779,7 +3776,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	CMSettings cms(m_Doc, IProfile, IRender);
 	if (!pixm.LoadPicture(filename, cms, UseEmbedded, true, ScImage::RGBProof, gsRes, &dummy, showMsg))
 	{
-		Pfile = fi.absFilePath();
+		Pfile = fi.absoluteFilePath();
 		PicAvail = false;
 //		PicArt = false;
 		return false;
@@ -3822,7 +3819,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			}
 		}
 		
-		Pfile = fi.absFilePath();
+		Pfile = fi.absoluteFilePath();
 		if (reload && pixm.imgInfo.PDSpathData.contains(clPath))
 		{
 			imageClip = pixm.imgInfo.PDSpathData[clPath].copy();
@@ -3836,7 +3833,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 		BBoxH = pixm.imgInfo.BBoxH;
 		OrigW = pixm.width();
 		OrigH = pixm.height();
-		QString ext = fi.extension(false).toLower();
+		QString ext = fi.suffix().toLower();
 		isRaster = !(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext));
 		UseEmbedded=pixm.imgInfo.isEmbedded;
 		if (pixm.imgInfo.isEmbedded)

@@ -246,7 +246,9 @@ PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString,
 
 void PSLib::PutSeite(QString c)
 {
-	spoolStream.writeRawBytes(c, c.length());
+	spoolStream.flush();
+	spoolStream.device()->write(c.toUtf8().data(), c.length());
+//	spoolStream.writeRawBytes(c, c.length());
 }
 
 void PSLib::PutSeite(QByteArray& array, bool hexEnc)
@@ -266,7 +268,11 @@ void PSLib::PutSeite(QByteArray& array, bool hexEnc)
 		}
 	}
 	else
-		spoolStream.writeRawBytes(array, array.size());
+	{
+		spoolStream.flush();
+		spoolStream.device()->write(array.data(), array.size());
+	}
+//		spoolStream.writeRawBytes(array, array.size());
 }
 
 void PSLib::PutSeite(const char* array, int length, bool hexEnc)
@@ -286,12 +292,18 @@ void PSLib::PutSeite(const char* array, int length, bool hexEnc)
 		}
 	}
 	else
-		spoolStream.writeRawBytes(array, length);
+	{
+		spoolStream.flush();
+		spoolStream.device()->write(array, length);
+	}
+//		spoolStream.writeRawBytes(array, length);
 }
 
 void PSLib::PutDoc(QString c)
 {
-	spoolStream.writeRawBytes(c, c.length());
+	spoolStream.flush();
+	spoolStream.device()->write(c.toUtf8().data(), c.length());
+//	spoolStream.writeRawBytes(c, c.length());
 }
 
 void PSLib::PutDoc(QByteArray& array, bool hexEnc)
@@ -311,7 +323,11 @@ void PSLib::PutDoc(QByteArray& array, bool hexEnc)
 		}
 	}
 	else
-		spoolStream.writeRawBytes(array, array.size());
+	{
+		spoolStream.flush();
+		spoolStream.device()->write(array.data(), array.size());
+	}
+//		spoolStream.writeRawBytes(array, array.size());
 }
 
 void PSLib::PutDoc(const char* array, int length, bool hexEnc)
@@ -331,7 +347,11 @@ void PSLib::PutDoc(const char* array, int length, bool hexEnc)
 		}
 	}
 	else
-		spoolStream.writeRawBytes(array, length);
+	{
+		spoolStream.flush();
+		spoolStream.device()->write(array, length);
+	}
+//		spoolStream.writeRawBytes(array, length);
 }
 
 QString PSLib::ToStr(double c)
@@ -358,7 +378,7 @@ void PSLib::PS_set_Info(QString art, QString was)
 
 bool PSLib::PS_set_file(QString fn)
 {
-	Spool.setName(fn);
+	Spool.setFileName(fn);
 	if (Spool.exists())
 		Spool.remove();
 	bool ret = Spool.open(QIODevice::WriteOnly);
@@ -1074,8 +1094,8 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QList<do
 		if (DoSep)
 		{
 			int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-			QStringList cols1 = QStringList::split(" ", Colors[c+1]);
-			QStringList cols2 = QStringList::split(" ", Colors[c]);
+			QStringList cols1 = Colors[c+1].split(" ");
+			QStringList cols2 = Colors[c].split(" ");
 			PutSeite("/C1 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
 			PutSeite("/C0 ["+ToStr(1-cols2[pla].toDouble())+"]\n");
 		}
@@ -1234,8 +1254,8 @@ void PSLib::PS_MultiLinGradient(double w, double h, QList<double> Stops, QString
 		if (DoSep)
 		{
 			int pla = Plate - 1 < 0 ? 3 : Plate - 1;
-			QStringList cols1 = QStringList::split(" ", Colors[c]);
-			QStringList cols2 = QStringList::split(" ", Colors[c+1]);
+			QStringList cols1 = Colors[c].split(" ");
+			QStringList cols2 = Colors[c+1].split(" ");
 			PutSeite("/C1 ["+ToStr(1-cols1[pla].toDouble())+"]\n");
 			PutSeite("/C0 ["+ToStr(1-cols2[pla].toDouble())+"]\n");
 		}
@@ -1305,7 +1325,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	bool dummy;
 	QByteArray tmp;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != 7))
@@ -1374,7 +1394,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 	bool dummy;
 	QByteArray tmp;
 	QFileInfo fi = QFileInfo(fn);
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(fn);
 	if (extensionIndicatesEPS(ext) && (c->pixm.imgInfo.type != 7))

@@ -13,12 +13,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QString text, QString titel )
-		: QDialog( parent, name, modal, fl )
+		: QDialog( parent )
 {
-	if ( !name )
-		setName( "Query" );
 	setWindowTitle( titel );
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	setModal(modal);
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setMargin(5);
@@ -26,8 +24,9 @@ Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QSt
 	editLayout = new QHBoxLayout;
 	editLayout->setSpacing( 5 );
 	editLayout->setMargin( 0 );
-	answerEdit = new QLineEdit( this, "answerEdit" );
-	questionLabel = new QLabel( answerEdit, text, this, "questionLabel" );
+	answerEdit = new QLineEdit( this );
+	questionLabel = new QLabel( text, this );
+	questionLabel->setBuddy(answerEdit);
 //Qt4	questionLabel->setFrameShape( QLabel::MShape );
 //Qt4	questionLabel->setFrameShadow( QLabel::MShadow );
 	questionLabel->adjustSize();
@@ -39,10 +38,10 @@ Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QSt
 	okCancelLayout->setMargin( 0 );
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	okCancelLayout->addItem( spacer );
-	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
+	okButton = new QPushButton( CommonStrings::tr_OK, this);
 	okButton->setDefault( true );
 	okCancelLayout->addWidget( okButton );
-	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this, "cancelButton" );
+	cancelButton = new QPushButton( CommonStrings::tr_Cancel, this );
 	okCancelLayout->addWidget( cancelButton );
 	queryLayout->addLayout( okCancelLayout );
 	setMaximumSize(sizeHint());

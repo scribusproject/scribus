@@ -35,9 +35,10 @@ for which a new license (GPL+exception) is in place.
 //#include "picsearchoptions.moc"
 #include "filesearch.h"
 
-PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, const QString & searchBase) : QDialog( parent, "PicSearchOptions", true, 0 )
+PicSearchOptions::PicSearchOptions(QWidget* parent, const QString & fileName, const QString & searchBase) : QDialog( parent )
 {
 	setupUi(this);
+	setModal(true);
 	m_fileName = fileName;
 	fileEdit->setText(fileName);
 	directoryEdit->setText(searchBase);
@@ -79,7 +80,7 @@ void PicSearchOptions::changeSearchDir()
 	workDir = QDir::homePath();
 #endif
 	QString searchBase;
-	searchBase = QFileDialog::getExistingDirectory( workDir, NULL, NULL, tr("Select a base directory for search"));
+	searchBase = QFileDialog::getExistingDirectory( this, workDir, tr("Select a base directory for search"));
 	if( searchBase.isEmpty() || !QDir().exists(searchBase) )
 		return;
 	directoryEdit->setText(searchBase);

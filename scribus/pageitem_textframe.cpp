@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMatrix>
 #include <QPoint>
 #include <QRegion>
-
+#include <QPalette>
 #include <cmath>
 #include <cassert>
 
@@ -205,7 +205,7 @@ void PageItem_TextFrame::setShadow()
 
 static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 {
-	qDebug(QString("%6%1/%2 @ %3: %4--%5 linespa%6: %7 align%8")
+	QString db = QString("%6%1/%2 @ %3: %4--%5 linespa%6: %7 align%8")
 		   .arg(pstyle.name())
 		   .arg(pstyle.parent())
 		   .arg( (unsigned long int) &pstyle)
@@ -214,7 +214,8 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 		   .arg(indent)
 		   .arg(pstyle.lineSpacingMode())
 		   .arg(pstyle.lineSpacing())
-		   .arg(pstyle.alignment()));
+		   .arg(pstyle.alignment());
+	qDebug(db.toLatin1().constData());
 	static QString more("  ");
 	if (pstyle.hasParent())
 		dumpIt(*dynamic_cast<const ParagraphStyle*>(pstyle.parentStyle()), more + indent);
@@ -223,11 +224,11 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 
 static const bool legacy = true;
 
-
+/*
 static void layoutDropCap(GlyphLayout layout, double curX, double curY, double offsetX, double offsetY, double dropCapDrop) 
 {	
 }
-
+*/
 
 /**
  Clones the tab fill char as often as necssary after all distances are known
@@ -730,7 +731,7 @@ void PageItem_TextFrame::layout()
 		invalid = false;
 		PageItem_TextFrame* prevInChain = dynamic_cast<PageItem_TextFrame*>(BackBox);
 		if (!prevInChain)
-			qDebug(QString("layout(): backBox=%1 is no textframe!!").arg((ulong)BackBox));
+			qDebug(QString("layout(): backBox=%1 is no textframe!!").arg((ulong)BackBox).toLatin1().constData());
 		else 
 			BackBox->layout();
 		return;
@@ -2339,7 +2340,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					{
 						wide = hl->glyph.xadvance;
 						p->setFillMode(1);
-						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::Highlight));
+						p->setBrush(qApp->palette().color(QPalette::Active, QPalette::Highlight));
 						p->setLineWidth(0);
 //						if ((a > 0) && (QChar(hl->glyph.glyph) == SpecialChars::TAB))
 //						{
@@ -2348,7 +2349,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 //						}
 						if (!m_Doc->RePos)
 							p->drawRect(xcoZli, ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV, wide+1, (asce+desc) * (hl->glyph.scaleV));
-						p->setBrush(qApp->palette().color(QPalette::Active, QColorGroup::HighlightedText));
+						p->setBrush(qApp->palette().color(QPalette::Active, QPalette::HighlightedText));
 					}
 					// FIXME temporary solution to have at least something like a cursor
 					if ((a == CPos-1) && (m_Doc->appMode == modeEdit))
@@ -2547,7 +2548,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 {
 	int oldPos = CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
 	int kk = k->key();
-	int as = k->ascii();
+	int as = k->text()[0].unicode();
 	QString uc = k->text();
 	QString cr, Tcha, Twort;
 	uint Tcoun;
@@ -2570,8 +2571,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	view->slotDoCurs(false);
 	switch (kk)
 	{
-	case Qt::Key_Prior:
-	case Qt::Key_Next:
+	case Qt::Key_PageDown:
+	case Qt::Key_PageUp:
 	case Qt::Key_End:
 	case Qt::Key_Home:
 	case Qt::Key_Right:
@@ -2781,13 +2782,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 //			view->RefreshItem(this);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Qt::Key_Prior:
+	case Qt::Key_PageUp:
 		CPos = itemText.startOfFrame(CPos);
 		if ( buttonModifiers & Qt::ShiftModifier )
 			ExpandSel(-1, oldPos);
 		m_Doc->scMW()->setTBvals(this);
 		break;
-	case Qt::Key_Next:
+	case Qt::Key_PageDown:
 		CPos = itemText.endOfFrame(CPos);
 		if ( buttonModifiers & Qt::ShiftModifier )
 			ExpandSel(1, oldPos);

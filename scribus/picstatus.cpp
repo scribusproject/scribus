@@ -83,7 +83,7 @@ QPixmap PicStatus::createImgIcon(PageItem* item)
 	p.begin(&pm);
 	p.fillRect(0, 0, 128, 128, imageViewArea->palette().window());
 	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	p.setBrush(paletteBackgroundColor());
+	p.setBrush(palette().window());
 	p.drawRoundRect(0, 0, 127, 127, 10, 10);
 	p.setPen(Qt::NoPen);
 	p.setBrush(b);
@@ -146,9 +146,9 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 		if (currItem->PicAvail)
 		{
 			QFileInfo fi = QFileInfo(currItem->Pfile);
-			QString ext = fi.extension(false).toLower();
+			QString ext = fi.suffix().toLower();
 			displayName->setText(fi.fileName());
-			displayPath->setText(QDir::convertSeparators(fi.dirPath()));
+			displayPath->setText(QDir::convertSeparators(fi.path()));
 			QString format = "";
 			switch (currItem->pixm.imgInfo.type)
 			{
@@ -201,7 +201,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			{
 				QFileInfo fi = QFileInfo(currItem->Pfile);
 				displayName->setText(fi.fileName());
-				displayPath->setText(QDir::convertSeparators(fi.dirPath()));
+				displayPath->setText(QDir::convertSeparators(fi.path()));
 			}
 			else
 			{

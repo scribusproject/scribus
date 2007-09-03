@@ -78,7 +78,7 @@ void PatternDialog::updatePatternList()
 		else
 			pm=QPixmap::fromImage(it.value().getPattern()->scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
-		pm2.fill(palette().base());
+		pm2.fill(palette().color(QPalette::Base));
 		QPainter p;
 		p.begin(&pm2);
 		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
@@ -92,7 +92,7 @@ void PatternDialog::loadPatternDir()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterns", ".");
-	QString fileName = QFileDialog::getExistingDirectory(wdir, this, "d", tr("Choose a Directory"), true);
+	QString fileName = QFileDialog::getExistingDirectory(this, wdir, tr("Choose a Directory"));
 	if (!fileName.isEmpty())
 	{
 		QStringList formats;
@@ -124,22 +124,22 @@ void PatternDialog::loadPatternDir()
 			mainWin->mainWindowProgressBar->reset();
 			mainWin->mainWindowProgressBar->setMaximum(d.count() * 2);
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-			qApp->processEvents(QEventLoop::ExcludeUserInput);
+			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
 				mainWin->mainWindowProgressBar->setValue(dc);
-				qApp->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
-				QString ext = fi.extension(true).toLower();
+				QString ext = fi.suffix().toLower();
 				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
 					loadVectors(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 			}
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
 				mainWin->mainWindowProgressBar->setValue(d.count() + dc);
-				qApp->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 				QFileInfo fi(QDir::cleanPath(QDir::convertSeparators(fileName + "/" + d[dc])));
-				QString ext = fi.extension(true).toLower();
+				QString ext = fi.suffix().toLower();
 				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
 					continue;
 				else if (formats.contains(ext))
@@ -157,7 +157,7 @@ void PatternDialog::loadPatternDir()
 					continue;
 			}
 			d.cdUp();
-			dirs->set("patterns", d.absPath());
+			dirs->set("patterns", d.absolutePath());
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			mainWin->setStatusBarInfoText("");
 			mainWin->mainWindowProgressBar->reset();
@@ -207,7 +207,7 @@ void PatternDialog::loadPattern()
 	{
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.lastIndexOf("/")));
 		QFileInfo fi(fileName);
-		if ((fi.extension(true).toLower() == "sml") || (fi.extension(true).lower() == "shape") || (fi.extension(true).lower() == "sce"))
+		if ((fi.suffix().toLower() == "sml") || (fi.suffix().toLower() == "shape") || (fi.suffix().toLower() == "sce"))
 		{
 			loadVectors(fileName);
 			updatePatternList();
@@ -231,7 +231,7 @@ void PatternDialog::loadVectors(QString data)
 {
 	QFileInfo fi(data);
 	QString patNam = fi.baseName().trimmed().simplified().replace(" ", "_");
-	if (fi.extension(true).toLower() == "sml")
+	if (fi.suffix().toLower() == "sml")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -239,7 +239,7 @@ void PatternDialog::loadVectors(QString data)
 		data = pre->createObjects(f);
 		delete pre;
 	}
-	else if (fi.extension(true).toLower() == "shape")
+	else if (fi.suffix().toLower() == "shape")
 	{
 		QString f = "";
 		loadText(data, &f);
@@ -247,7 +247,7 @@ void PatternDialog::loadVectors(QString data)
 		data = pre->createShape(f);
 		delete pre;
 	}
-	else if (fi.extension(true).toLower() == "sce")
+	else if (fi.suffix().toLower() == "sce")
 	{
 		QString f = "";
 		loadText(data, &f);

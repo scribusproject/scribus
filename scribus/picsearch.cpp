@@ -18,11 +18,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles)
-	: QDialog( parent, "PicSearch", true, 0 ),
-	currentImage(QString())
+PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringList & avalableFiles) : QDialog(parent), currentImage(QString())
 {
 	setupUi(this);
+	setModal(true);
 	cancelButton->setText(CommonStrings::tr_Cancel);
 	previewLabel->hide();
 	fileNameLabel->setText(fileName);
@@ -66,7 +65,7 @@ void PicSearch::createPreview()
 	int w = 200;
 	int h = 200;
 	bool mode = false;
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	if (ext.isEmpty())
 		ext = getImageType(currentImage);
 	ScImage im;

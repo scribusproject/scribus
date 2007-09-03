@@ -718,7 +718,7 @@ void PrefsManager::convert12Preferences()
 		QTextStream tsx(&fontPrefsFile12);
 		QString extraPath = tsx.readAll();
 		fontPrefsFile12.close();
-		QStringList extraFonts = QStringList::split("\n",extraPath);
+		QStringList extraFonts = extraPath.split("\n");
 		for (int i = 0; i < extraFonts.count(); ++i)
 			fontPrefs->set(i, 0, extraFonts[i]);
 	}
@@ -1046,7 +1046,7 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 			appPrefs.KeyActions.insert(actName, ke);
 		}
 		else
-			qDebug("%s", QString("Action Name: %1 does not exist").arg(actName).ascii());
+			qDebug("%s", QString("Action Name: %1 does not exist").arg(actName).toAscii().constData());
 	}
 }
 
@@ -1533,7 +1533,7 @@ bool PrefsManager::WritePref(QString ho)
 	if(!f.open(QIODevice::WriteOnly))
 	{
 		m_lastError = tr("Could not open preferences file \"%1\" for writing: %2")
-			.arg(ho).arg(qApp->translate("QFile",f.errorString()));
+			.arg(ho).arg(qApp->translate("QFile",f.errorString().toLatin1().constData()));
 	}
 	else
 	{
@@ -1546,7 +1546,7 @@ bool PrefsManager::WritePref(QString ho)
 		else
 			m_lastError = tr("Writing to preferences file \"%1\" failed: "
 				             "QIODevice status code %2")
-				.arg(ho).arg(f.status());
+				.arg(ho).arg(f.errorString());
 	}
 	if (f.isOpen())
 		f.close();
@@ -1560,7 +1560,7 @@ bool PrefsManager::ReadPref(QString ho)
 	if(!f.open(QIODevice::ReadOnly))
 	{
 		m_lastError = tr("Failed to open prefs file \"%1\": %2")
-			.arg(ho).arg( qApp->translate("QFile",f.errorString()) );
+			.arg(ho).arg( qApp->translate("QFile",f.errorString().toLatin1().constData()) );
 		return false;
 	}
 	QTextStream ts(&f);
@@ -2168,7 +2168,7 @@ bool PrefsManager::ReadPref(QString ho)
 	}
 	QFont apf = qApp->font();
 	apf.setPointSize(appPrefs.AppFontSize);
-	qApp->setFont(apf,true);
+	qApp->setFont(apf);
 	return true;
 }
 
