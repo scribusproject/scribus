@@ -115,7 +115,8 @@ void SampleItem::setLoremIpsum(int para)
 {
 	LoremParser *m = new LoremParser("loremipsum.xml");
 	text = m->createLorem(para);
-	text = QString::fromUtf8(text);
+// really needed ??
+//	text = QString::fromUtf8(text);
 	delete m;
 }
 

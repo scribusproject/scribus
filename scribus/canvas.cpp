@@ -89,7 +89,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			m_viewMode.m_bufferRect = m_viewMode.m_bufferRect.united(p->rect());
 		else
 			m_viewMode.m_bufferRect = p->rect();
-		m_viewMode.m_buffer.resize(m_viewMode.m_bufferRect.width(), m_viewMode.m_bufferRect.height());
+		m_viewMode.m_buffer = QPixmap(m_viewMode.m_bufferRect.width(), m_viewMode.m_bufferRect.height());
 		QPainter bufp(&m_viewMode.m_buffer);
 		bufp.translate(-m_viewMode.m_bufferRect.x(), -m_viewMode.m_bufferRect.y());
 		qDebug() << "fill Buffer:" << m_viewMode.m_bufferRect << "special:" << m_viewMode.specialRendering;
@@ -165,7 +165,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	ScPainter *painter=0;
 	QImage img = QImage(clipw, cliph, QImage::Format_ARGB32);
 	painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
-	painter->clear(paletteBackgroundColor());
+	painter->clear(palette().color(QPalette::Window));
 	painter->newPath();
 	painter->moveTo(0, 0);
 	painter->lineTo(clipw, 0);
@@ -542,7 +542,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
  */
 void Canvas::drawControlsHighlightRect(QPainter* pp)
 {
-	QColor drawColor = qApp->palette().color(QPalette::Active, QColorGroup::Highlight);
+	QColor drawColor = qApp->palette().color(QPalette::Active, QPalette::Highlight);
 	pp->setPen(QPen(drawColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 	drawColor.setAlpha(64);
 //	pp->resetMatrix();
@@ -1518,8 +1518,8 @@ void Canvas::MarkClip(QPainter *p, PageItem *currItem, FPointArray cli, bool)
 			Bez.cubicTo(a2.x(), a2.y(), a3.x(), a3.y(), a4.x(), a4.y());
 			p->drawPath(Bez);
 			p->setPen(QPen(Qt::blue, 1 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
-			p->drawLine(a1.x(), a1.y(), a2.x(), a2.y());
-			p->drawLine(a3.x(), a3.y(), a4.x(), a4.y());
+			p->drawLine(QPointF(a1.x(), a1.y()), QPointF(a2.x(), a2.y()));
+			p->drawLine(QPointF(a3.x(), a3.y()), QPointF(a4.x(), a4.y()));
 		}
 	}
 	for (uint a=0; a<cli.size()-1; a += 2)

@@ -1093,7 +1093,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				if ((QRegion(p.map(QPolygon(QRect(-3, -3, static_cast<int>(currItem->width()+6), static_cast<int>(currItem->height()+6))))).contains(mpo))
 					&& ((m_doc->appMode == modeNormal) || (m_doc->appMode == modeRotation) || (m_doc->appMode == modeEdit)))
 				{
-					tx = p.map(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
+					tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
 					{
 						if (m_doc->appMode == modeRotation)
@@ -1102,7 +1102,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 						if (m_doc->appMode == modeEdit)
 						{
 							if (currItem->asTextFrame())
-								qApp->changeOverrideCursor(QCursor(Qt::ibeamCursor));
+								qApp->changeOverrideCursor(QCursor(Qt::IBeamCursor));
 							if (currItem->asImageFrame())
 								qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
 						}
@@ -1741,25 +1741,25 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 //					{
 						if (QRegion(mat.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo))
 						{
-							if (mat.map(QRect(0, 0, 6, 6)).intersects(mpo))
+							if (mat.mapRect(QRect(0, 0, 6, 6)).intersects(mpo))
 							{
 //								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
 								m_view->RCenter = FPoint(currItem->width(), currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
 								m_doc->RotMode = 4;
 							}
-							else if (mat.map(QRect(static_cast<int>(currItem->width())-6, 0, 6, 6)).intersects(mpo))
+							else if (mat.mapRect(QRect(static_cast<int>(currItem->width())-6, 0, 6, 6)).intersects(mpo))
 							{
 //								RCenter = FPoint(currItem->xPos(), currItem->yPos()+currItem->height(), 0, 0, currItem->rotation(), 1, 1, true);
 								m_view->RCenter = FPoint(0, currItem->height(), 0, 0, currItem->rotation(), 1, 1, false);
 								m_doc->RotMode = 3;
 							}
-							else if (mat.map(QRect(static_cast<int>(currItem->width())-6, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
+							else if (mat.mapRect(QRect(static_cast<int>(currItem->width())-6, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
 							{
 //								RCenter = FPoint(currItem->xPos(), currItem->yPos());
 								m_view->RCenter = FPoint(0, 0);
 								m_doc->RotMode = 0;
 							}
-							else if (mat.map(QRect(0, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
+							else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height())-6, 6, 6)).intersects(mpo))
 							{
 //								RCenter = FPoint(currItem->xPos()+currItem->width(), currItem->yPos(), 0, 0, currItem->rotation(), 1, 1, true);
 								m_view->RCenter = FPoint(currItem->width(), 0, 0, 0, currItem->rotation(), 1, 1, false);
@@ -2276,7 +2276,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			Mxp = m->x();
 			Myp = m->y();
 			if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")))
-				pmen->insertItem( ScribusView::tr("&Paste") , m_view, SLOT(PasteToPage()));
+				pmen->addAction( ScribusView::tr("&Paste") , m_view, SLOT(PasteToPage()));
 			if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
 			{
 				pmen3 = new QMenu();
@@ -2292,7 +2292,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					it--;
 				}
 				QObject::connect(pmen3, SIGNAL(activated(int)), m_view, SLOT(PasteRecentToPage(int)));
-				pmen->insertItem( ScribusView::tr("Paste Recent"), pmen3);
+				QAction *act = pmen->addMenu(pmen3);
+				act->setText( ScribusView::tr("Paste Recent"));
 			}
 			pmen->addSeparator();
 		}
@@ -2519,7 +2520,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 // Qt4				pmen4->insertItem(InfoGroup);
 				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
 					pmen4->addAction(m_ScMW->scrActions["itemImageInfo"]);
-				pmen->insertItem( ScribusView::tr("In&fo"), pmen4);
+				QAction *act = pmen->addMenu(pmen4);
+				act->setText( ScribusView::tr("In&fo"));
 			}
 			pmen->addSeparator();
 			pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
@@ -2540,7 +2542,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 							pmen->addAction(m_ScMW->scrActions["itemExtendedImageProperties"]);
 						pmen->addAction(m_ScMW->scrActions["itemUpdateImage"]);
 					}
-					pmen->insertItem( ScribusView::tr("Preview Settings"), pmenResolution);
+					QAction *act = pmen->addMenu(pmenResolution);
+					act->setText( ScribusView::tr("Preview Settings"));
 					pmenResolution->addAction(m_ScMW->scrActions["itemImageIsVisible"]);
 					pmenResolution->addSeparator();
 					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewLow"]);
@@ -2581,7 +2584,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 							pmenPDF->addAction(m_ScMW->scrActions["itemPDFFieldProps"]);
 					}
 				}
-				pmen->insertItem( ScribusView::tr("&PDF Options"), pmenPDF);
+				QAction *act = pmen->addMenu(pmenPDF);
+				act->setText( ScribusView::tr("&PDF Options"));
 			}
 			pmen->addSeparator();
 			pmen->addAction(m_ScMW->scrActions["itemLock"]);
@@ -2604,8 +2608,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 							m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
 						m_ScMW->scrLayersActions[QString::number(layerMap[i--])]->addTo(pmen3);
 					}
-
-					pmen->insertItem( ScribusView::tr("Send to La&yer"), pmen3);
+					QAction *act = pmen->addMenu(pmen3);
+					act->setText( ScribusView::tr("Send to La&yer"));
 				}
 			}
 			if (m_doc->m_Selection->count() > 1)
@@ -2633,7 +2637,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			{
 				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
 				{
-					pmen->insertItem( ScribusView::tr("Le&vel"), pmenLevel);
+					QAction *act = pmen->addMenu(pmenLevel);
+					act->setText( ScribusView::tr("Le&vel"));
 					pmenLevel->addAction(m_ScMW->scrActions["itemRaiseToTop"]);
 					pmenLevel->addAction(m_ScMW->scrActions["itemRaise"]);
 					pmenLevel->addAction(m_ScMW->scrActions["itemLower"]);
@@ -2687,7 +2692,10 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 						insertedMenusEnabled = true;
 				}
 				if ((insertConvertToMenu) && (insertedMenusEnabled))
-					pmen->insertItem( ScribusView::tr("Conve&rt to"), pmen2);
+				{
+					QAction *act = pmen->addMenu(pmen2);
+					act->setText( ScribusView::tr("Conve&rt to"));
+				}
 			}
 			pmen->addSeparator();
 			if (!currItem->locked() && !(currItem->isSingleSel))
@@ -2697,7 +2705,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			if ((m_doc->appMode == modeEdit) && (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
 				pmen->addAction(m_ScMW->scrActions["editPaste"]);
 			if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
-				pmen->insertItem( ScribusView::tr("&Delete"), m_doc, SLOT(itemSelection_DeleteItem()));
+				pmen->addAction( ScribusView::tr("&Delete"), m_doc, SLOT(itemSelection_DeleteItem()));
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 			{
 				if (currItem->itemType() == PageItem::ImageFrame)
@@ -2712,14 +2720,18 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					if (currItem->PicAvail)
 						pmenEditContents->addAction(m_ScMW->scrActions["editClearContents"]);
 					if ((currItem->PicAvail) || (m_ScMW->contentsBuffer.sourceType==PageItem::ImageFrame))
-						pmen->insertItem( ScribusView::tr("Contents"), pmenEditContents);
+					{
+						QAction *act = pmen->addMenu(pmenEditContents);
+						act->setText( ScribusView::tr("Contents"));
+					}
 				}
 				else
 				{
 					if (currItem->itemText.lines() != 0)
 					{
 						pmenEditContents->addAction(m_ScMW->scrActions["editClearContents"]);
-						pmen->insertItem( ScribusView::tr("Contents"), pmenEditContents);
+						QAction *act = pmen->addMenu(pmenEditContents);
+						act->setText( ScribusView::tr("Contents"));
 					}
 				}
 			}

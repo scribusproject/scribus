@@ -177,7 +177,7 @@ void ScColorEngine::getShadeColorRGB(const ScColor& color, const ScribusDoc* doc
 	{
 		int h, s, v, snew, vnew;
 		QColor tmpR(color.CR, color.MG, color.YB);
-		tmpR.hsv(&h, &s, &v);
+		tmpR.getHsv(&h, &s, &v);
 		snew = qRound(s * level / 100.0);
 		vnew = 255 - qRound(((255 - v) * level / 100.0));
 		tmpR.setHsv(h, snew, vnew);

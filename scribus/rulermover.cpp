@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QMouseEvent>
 #include <QPixmap>
+#include <QPalette>
 
 #include "scribusview.h"
 #include "scribusdoc.h"
@@ -40,8 +41,9 @@ RulerMover::RulerMover(ScribusView *pa) : QWidget(pa)
 	setAutoFillBackground(true);
 	QPalette palette;
 	palette.setBrush(QPalette::Window, QColor(255, 255, 255));
+	palette.setBrush(backgroundRole(), QBrush(loadIcon("mover.png")));
 	setPalette(palette);
- 	setErasePixmap(loadIcon("mover.png"));
+//	setErasePixmap(loadIcon("mover.png"));
 	currView = pa;
 	Mpressed = false;
 }

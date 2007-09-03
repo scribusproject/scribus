@@ -163,7 +163,7 @@ void ReformDoc::restoreDefaults()
 void ReformDoc::unitChange()
 {
 	double oldUnitRatio = unitRatio;
-	docUnitIndex = tabPage->unitCombo->currentItem();
+	docUnitIndex = tabPage->unitCombo->currentIndex();
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
@@ -178,7 +178,7 @@ void ReformDoc::setDS(int layout)
 {
 	tabPage->marginGroup->setFacingPages(!(layout == singlePage));
 	tabPage->choosenLayout = layout;
-	tabPage->docLayout->firstPage->setCurrentItem(currDoc->pageSets[tabPage->choosenLayout].FirstPage);
+	tabPage->docLayout->firstPage->setCurrentIndex(currDoc->pageSets[tabPage->choosenLayout].FirstPage);
 	tabView->gapHorizontal->setValue(currDoc->pageSets[tabPage->choosenLayout].GapHorizontal * unitRatio);
 	tabView->gapVertical->setValue(currDoc->pageSets[tabPage->choosenLayout].GapBelow * unitRatio);
 }
@@ -199,7 +199,7 @@ void ReformDoc::showWidgetInStack(QWidget *widgetToShow)
 
 const int ReformDoc::getSelectedUnit()
 {
-	return tabPage->unitCombo->currentItem();
+	return tabPage->unitCombo->currentIndex();
 }
 
 const bool ReformDoc::colorManagementSettingsChanged()
@@ -220,12 +220,12 @@ void ReformDoc::updateDocumentSettings()
 	lr2 = tabPage->marginGroup->left();
 	rr2 = tabPage->marginGroup->right();
 	int fp = tabPage->choosenLayout;
-	currDoc->pageSets[fp].FirstPage = tabPage->docLayout->firstPage->currentItem();
+	currDoc->pageSets[fp].FirstPage = tabPage->docLayout->firstPage->currentIndex();
 	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
 	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
-	currDoc->PageOri = tabPage->pageOrientationComboBox->currentItem();
+	currDoc->PageOri = tabPage->pageOrientationComboBox->currentIndex();
 	currDoc->m_pageSize = tabPage->prefsPageSizeName;
 	currDoc->pageWidth = tabPage->pageW;
 	currDoc->pageHeight = tabPage->pageH;
@@ -328,7 +328,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->toolSettings.defFont = tabTools->fontComboText->currentText();
 	currDoc->toolSettings.defSize = tabTools->sizeComboText->currentText().left(2).toInt() * 10;
 	currDoc->toolSettings.dStrokeText = tabTools->colorComboStrokeText->currentText();
-	switch (tabTools->tabFillCombo->currentItem())
+	switch (tabTools->tabFillCombo->currentIndex())
 	{
 		case 0:
 			currDoc->toolSettings.tabFillChar = "";
@@ -372,7 +372,7 @@ void ReformDoc::updateDocumentSettings()
 		currDoc->toolSettings.dBrush = CommonStrings::None;
 	currDoc->toolSettings.dShade = tabTools->shadingFillShape->value();
 	currDoc->toolSettings.dShade2 = tabTools->shadingLineShape->value();
-	switch (tabTools->comboStyleShape->currentItem())
+	switch (tabTools->comboStyleShape->currentIndex())
 	{
 	case 0:
 		currDoc->toolSettings.dLineArt = Qt::SolidLine;
@@ -391,8 +391,8 @@ void ReformDoc::updateDocumentSettings()
 		break;
 	}
 	currDoc->toolSettings.dWidth = tabTools->lineWidthShape->value();
-	currDoc->toolSettings.dStartArrow = tabTools->startArrow->currentItem();
-	currDoc->toolSettings.dEndArrow = tabTools->endArrow->currentItem();
+	currDoc->toolSettings.dStartArrow = tabTools->startArrow->currentIndex();
+	currDoc->toolSettings.dEndArrow = tabTools->endArrow->currentIndex();
 	currDoc->toolSettings.magMin = tabTools->minimumZoom->value();
 	currDoc->toolSettings.magMax = tabTools->maximumZoom->value();
 	currDoc->toolSettings.magStep = tabTools->zoomStep->value();
@@ -400,7 +400,7 @@ void ReformDoc::updateDocumentSettings()
 	if (currDoc->toolSettings.dPenLine == CommonStrings::tr_NoneColor)
 		currDoc->toolSettings.dPenLine = CommonStrings::None;
 	currDoc->toolSettings.dShadeLine = tabTools->shadingLine->value();
-	switch (tabTools->comboStyleLine->currentItem())
+	switch (tabTools->comboStyleLine->currentIndex())
 	{
 	case 0:
 		currDoc->toolSettings.dLstyleLine = Qt::SolidLine;
@@ -544,16 +544,16 @@ void ReformDoc::updateDocumentSettings()
 
 	currDoc->PDF_Options.Thumbnails = tabPDF->CheckBox1->isChecked();
 	currDoc->PDF_Options.Compress = tabPDF->Compression->isChecked();
-	currDoc->PDF_Options.CompressMethod = tabPDF->CMethod->currentItem();
-	currDoc->PDF_Options.Quality = tabPDF->CQuality->currentItem();
+	currDoc->PDF_Options.CompressMethod = tabPDF->CMethod->currentIndex();
+	currDoc->PDF_Options.Quality = tabPDF->CQuality->currentIndex();
 	currDoc->PDF_Options.Resolution = tabPDF->Resolution->value();
 	currDoc->PDF_Options.RecalcPic = tabPDF->DSColor->isChecked();
 	currDoc->PDF_Options.PicRes = tabPDF->ValC->value();
 	currDoc->PDF_Options.Bookmarks = tabPDF->CheckBM->isChecked();
-	currDoc->PDF_Options.Binding = tabPDF->ComboBind->currentItem();
-	currDoc->PDF_Options.MirrorH = tabPDF->MirrorH->isOn();
-	currDoc->PDF_Options.MirrorV = tabPDF->MirrorV->isOn();
-	currDoc->PDF_Options.RotateDeg = tabPDF->RotateDeg->currentItem() * 90;
+	currDoc->PDF_Options.Binding = tabPDF->ComboBind->currentIndex();
+	currDoc->PDF_Options.MirrorH = tabPDF->MirrorH->isChecked();
+	currDoc->PDF_Options.MirrorV = tabPDF->MirrorV->isChecked();
+	currDoc->PDF_Options.RotateDeg = tabPDF->RotateDeg->currentIndex() * 90;
 	currDoc->PDF_Options.Articles = tabPDF->Article->isChecked();
 	currDoc->PDF_Options.Encrypt = tabPDF->Encry->isChecked();
 	currDoc->PDF_Options.UseLPI = tabPDF->UseLPI->isChecked();
@@ -586,7 +586,7 @@ void ReformDoc::updateDocumentSettings()
 	if (tabPDF->Encry->isChecked())
 	{
 		int Perm = -64;
-		if (tabPDF->PDFVersionCombo->currentItem() == 1)
+		if (tabPDF->PDFVersionCombo->currentIndex() == 1)
 			Perm &= ~0x00240000;
 		if (tabPDF->PrintSec->isChecked())
 			Perm += 4;
@@ -600,15 +600,15 @@ void ReformDoc::updateDocumentSettings()
 		currDoc->PDF_Options.PassOwner = tabPDF->PassOwner->text();
 		currDoc->PDF_Options.PassUser = tabPDF->PassUser->text();
 	}
-	if (tabPDF->PDFVersionCombo->currentItem() == 0)
+	if (tabPDF->PDFVersionCombo->currentIndex() == 0)
 		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_13;
-	if (tabPDF->PDFVersionCombo->currentItem() == 1)
+	if (tabPDF->PDFVersionCombo->currentIndex() == 1)
 		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_14;
-	if (tabPDF->PDFVersionCombo->currentItem() == 2)
+	if (tabPDF->PDFVersionCombo->currentIndex() == 2)
 		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_15;
-	if (tabPDF->PDFVersionCombo->currentItem() == 3)
+	if (tabPDF->PDFVersionCombo->currentIndex() == 3)
 		currDoc->PDF_Options.Version = PDFOptions::PDFVersion_X3;
-	if (tabPDF->OutCombo->currentItem() == 0)
+	if (tabPDF->OutCombo->currentIndex() == 0)
 	{
 		currDoc->PDF_Options.isGrayscale = false;
 		currDoc->PDF_Options.UseRGB = true;
@@ -617,7 +617,7 @@ void ReformDoc::updateDocumentSettings()
 	}
 	else
 	{
-		if (tabPDF->OutCombo->currentItem() == 3)
+		if (tabPDF->OutCombo->currentIndex() == 3)
 		{
 			currDoc->PDF_Options.isGrayscale = true;
 			currDoc->PDF_Options.UseRGB = false;
@@ -632,8 +632,8 @@ void ReformDoc::updateDocumentSettings()
 			{
 				currDoc->PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
 				currDoc->PDF_Options.UseProfiles2 = tabPDF->EmbedProfs2->isChecked();
-				currDoc->PDF_Options.Intent = tabPDF->IntendS->currentItem();
-				currDoc->PDF_Options.Intent2 = tabPDF->IntendI->currentItem();
+				currDoc->PDF_Options.Intent = tabPDF->IntendS->currentIndex();
+				currDoc->PDF_Options.Intent2 = tabPDF->IntendI->currentIndex();
 				currDoc->PDF_Options.EmbeddedI = tabPDF->NoEmbedded->isChecked();
 				currDoc->PDF_Options.SolidProf = tabPDF->SolidPr->currentText();
 				currDoc->PDF_Options.ImageProf = tabPDF->ImageP->currentText();

@@ -443,7 +443,8 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 					it--;
 				}
 				QObject::connect(pmen3, SIGNAL(activated(int)), m_view, SLOT(PasteRecentToPage(int)));
-				pmen->insertItem( ScribusView::tr("Paste Recent"), pmen3);
+				QAction *act = pmen->addMenu(pmen3);
+				act->setText( ScribusView::tr("Paste Recent"));
 			}
 			pmen->addSeparator();
 		}
@@ -1016,7 +1017,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect mpo, PageItem
 		{
 			if (((m_doc->nodeEdit.EdPoints) && (a % 2 != 0)) || ((!m_doc->nodeEdit.EdPoints) && (a % 2 == 0)))
 				continue;
-			FPoint np = p.map(Clip.pointQ(a));
+			QPoint np = p.map(Clip.pointQ(a));
 			QRect tx = QRect(np.x()-3, np.y()-3, 6, 6);
 			if (tx.intersects(mpo))
 			{
@@ -1047,7 +1048,7 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect mpo, PageItem
 			QPolygon cli = Bez.toFillPolygon().toPolygon();
 			for (int clp = 0; clp < cli.size()-1; ++clp)
 			{
-				if (m_view->PointOnLine(cli.point(clp), cli.point(clp+1), p.inverted().map(mpo)))
+				if (m_view->PointOnLine(cli.point(clp), cli.point(clp+1), p.inverted().mapRect(mpo)))
 				{
 					if (m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT)
 						qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
