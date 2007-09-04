@@ -42,8 +42,7 @@ bool ScImgDataLoader_QT::loadPicture(const QString& fn, int /*res*/, bool /*thum
 		float xres = m_image.dotsPerMeterX() * 0.0254;
 		float yres = m_image.dotsPerMeterY() * 0.0254;
 		int resInf = m_imageInfoRecord.lowResType;
-		m_image = m_image.convertDepth(32);
-		m_image.setAlphaBuffer(true);
+		m_image = m_image.convertToFormat(QImage::Format_ARGB32);
 		m_image.setDotsPerMeterX (qMax(2834, (int) (xres / 0.0254)));
 		m_image.setDotsPerMeterY (qMax(2834, (int) (yres / 0.0254)));
 		m_imageInfoRecord.colorspace = 0;
@@ -63,13 +62,9 @@ void ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int res)
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	if ((ext == "jpg") || (ext == "jpeg"))
 		return;
 	if (m_image.load(fn))
-	{
-		m_image = m_image.convertDepth(32);
- 		if (m_image.hasAlphaBuffer())
-			m_image.setAlphaBuffer(true);
-	}
+		m_image = m_image.convertToFormat(QImage::Format_ARGB32);
 }

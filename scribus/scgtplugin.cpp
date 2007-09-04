@@ -49,7 +49,7 @@ void ScGTPluginManager::registerGTPlugin(ScGTPlugin *plugin)
 
 void ScGTPluginManager::unRegisterGTPlugin(ScGTPlugin *plugin)
 {
-	plugins_.remove(plugin);
+	plugins_.removeAll(plugin);
 }
 
 void ScGTPluginManager::run()
@@ -134,8 +134,8 @@ void ScGTFileDialog::customize()
 
 	QHBoxLayout *layout = new QHBoxLayout;
 	layout->setSpacing(5);
-	layout->add(appendBox_);
-	layout->add(showOptionsBox_);
+	layout->addWidget(appendBox_);
+	layout->addWidget(showOptionsBox_);
 
 	diaExtension_->setLayout(layout);
 

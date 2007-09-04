@@ -51,8 +51,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumb
 	if (retg == 0)
 	{
 		m_image.load(tmpFile);
-		unlink(tmpFile);
-		m_image.setAlphaBuffer(true);
+		QFile::remove(tmpFile);
 		if (ScCore->havePNGAlpha() != 0)
 		{
 			for( int yi=0; yi < m_image.height(); ++yi )
@@ -87,7 +86,6 @@ void ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes)
 	if (!fi.exists())
 		return;
 	QString tmp, BBox;
-	QString ext = fi.extension(false).toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	QStringList args;
@@ -104,8 +102,7 @@ void ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes)
 	if (retg == 0)
 	{
 		m_image.load(tmpFile);
-		unlink(tmpFile);
-		m_image.setAlphaBuffer(true);
+		QFile::remove(tmpFile);
 		if (ScCore->havePNGAlpha() != 0)
 		{
 			QRgb *s;

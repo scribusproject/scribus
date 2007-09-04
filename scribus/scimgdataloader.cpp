@@ -50,7 +50,7 @@ QString ScImgDataLoader::getPascalString(QDataStream & s)
 		ret += QChar(tmp);
 	}
 	adj = (ret.length()+1) % 2;
-	s.device()->at( s.device()->at() + adj );
+	s.device()->seek( s.device()->pos() + adj );
 	return ret;
 }
 
@@ -112,13 +112,13 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 			break;
 		s >> resID;
 		offset += 2;
-		adj = s.device()->at();
+		adj = s.device()->pos();
 		resName = getPascalString(s);
-		offset += s.device()->at() - adj;
+		offset += s.device()->pos() - adj;
 		s >> resSize;
 		if(offset + resSize > size)
 			break;
-		resBase = s.device()->at();
+		resBase = s.device()->pos();
 		if ( (resID >= 0x07d0) && (resID <= 0x0bb6) )
 		{
 			QString db1, db2;
@@ -210,9 +210,9 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 			switch (resID)
 			{
 			case 0x0bb7:
-				adj = s.device()->at();
+				adj = s.device()->pos();
 				m_imageInfoRecord.clipPath = getPascalString(s);
-				offset += s.device()->at() - adj;
+				offset += s.device()->pos() - adj;
 				break;
 			case 0x03ed:
 				s >> hRes;
@@ -226,7 +226,7 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 				break;
 			case 0x040f:
 				m_embeddedProfile.resize(resSize);
-				s.readRawBytes(m_embeddedProfile.data(), resSize);
+				s.readRawData(m_embeddedProfile.data(), resSize);
 				break;
 			case 0x0409:
 			case 0x040C:
@@ -240,12 +240,12 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 					s >> thsize;
 					s >> thdummy;
 					char* buffer = (char*)malloc(thsize);
-					s.readRawBytes(buffer, thsize);
+					s.readRawData(buffer, thsize);
 					QImage imth;
 					imth.loadFromData((const uchar*)buffer, thsize, "JPEG");
-					imth.convertDepth(32);
+					imth.convertToFormat(QImage::Format_ARGB32);
 					if (resID == 0x0409)
-						m_imageInfoRecord.exifInfo.thumbnail = imth.swapRGB();
+						m_imageInfoRecord.exifInfo.thumbnail = imth.rgbSwapped();
 					else
 						m_imageInfoRecord.exifInfo.thumbnail = imth;
 					m_imageInfoRecord.exifInfo.width = imth.width();
@@ -258,7 +258,7 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 			}
 		}
 		if (resBase + resSize <= size) {
-			s.device()->at( resBase + resSize );
+			s.device()->seek( resBase + resSize );
 			offset += resSize;
 		}
 		if (resSize & 1)
@@ -268,5 +268,5 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 		}
 	}
 	if(offset<size)
-		s.device()->at( size );
+		s.device()->seek( size );
 }

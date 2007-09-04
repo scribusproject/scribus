@@ -67,7 +67,7 @@ ScImage::ScImage() : QImage()
 	initialize();
 }
 
-ScImage::ScImage( int width, int height ) : QImage( width, height, 32 )
+ScImage::ScImage( int width, int height ) : QImage( width, height, QImage::Format_ARGB32 )
 {
 	initialize();
 }
@@ -643,8 +643,8 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 	normal_kernel = (double *)malloc(widthk*widthk*sizeof(double));
 	if(!normal_kernel)
 		return(false);
-	dest->reset();
-	dest->create(width(), height(), 32);
+	*dest = QImage();
+	*dest = QImage(width(), height(), QImage::Format_ARGB32);
 	normalize=0.0;
 	for(i=0; i < (widthk*widthk); i++)
 		normalize += kernel[i];
@@ -653,7 +653,6 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 	normalize=1.0/normalize;
 	for(i=0; i < (widthk*widthk); i++)
 		normal_kernel[i] = normalize*kernel[i];
-	unsigned int **jumpTablek = (unsigned int **)jumpTable();
 	for(y=0; y < dest->height(); ++y)
 	{
 		sy = y-(widthk/2);
@@ -670,10 +669,10 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 				for(mcx=0; mcx < widthk; ++mcx, ++sx)
 				{
 					mx = sx < 0 ? 0 : sx > width()-1 ? width()-1 : sx;
-					red += (*k)*(qRed(jumpTablek[my][mx])*257);
-					green += (*k)*(qGreen(jumpTablek[my][mx])*257);
-					blue += (*k)*(qBlue(jumpTablek[my][mx])*257);
-					alpha += (*k)*(qAlpha(jumpTablek[my][mx])*257);
+					red += (*k)*(qRed(scanLine(my)[mx])*257);
+					green += (*k)*(qGreen(scanLine(my)[mx])*257);
+					blue += (*k)*(qBlue(scanLine(my)[mx])*257);
+					alpha += (*k)*(qAlpha(scanLine(my)[mx])*257);
 					++k;
 				}
 			}
@@ -873,7 +872,7 @@ void ScImage::colorize(ScribusDoc* doc, ScColor color, int shade, bool cmyk)
 			{
 				k2 = 255 - qMin(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
 				tmpR.setRgb(cc, cm, cy);
-				tmpR.hsv(&hu, &sa, &v);
+				tmpR.getHsv(&hu, &sa, &v);
 				tmpR.setHsv(hu, sa * k2 / 255, 255 - ((255 - v) * k2 / 255));
 				tmpR.getRgb(&cc2, &cm2, &cy2);
 				*s = qRgba(cc2, cm2, cy2, qAlpha(r));
@@ -1170,10 +1169,9 @@ void ScImage::createLowRes(double scale)
 {
 	int w = qRound(width() / scale);
 	int h = qRound(height() / scale);
-	QImage tmp = smoothScale(w, h);
-	create(w, h, 32);
-	setAlphaBuffer(true);
-	tmp = tmp.convertDepth(32);
+	QImage tmp = scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+	*this = QImage(w, h, QImage::Format_ARGB32);
+	tmp = tmp.convertToFormat(QImage::Format_ARGB32);
 	QRgb *s;
 	QRgb *d;
 	for( int yi=0; yi < tmp.height(); ++yi )
@@ -1290,7 +1288,7 @@ QByteArray ScImage::ImageToArray()
 	unsigned char u;
 	QRgb *s;
 	QRgb r;
-	QByteArray imgArray(3 * h * w);
+	QByteArray imgArray(3 * h * w, ' ');
 	for( int yi=0; yi < h; ++yi )
 	{
 		s = (QRgb*)(scanLine( yi ));
@@ -1315,7 +1313,7 @@ QByteArray ScImage::ImageToGray()
 	int w = width();
 	QRgb *s;
 	QRgb r;
-	QByteArray imgArray(h * w);
+	QByteArray imgArray(h * w, ' ');
 	int k;
 	for( int yi=0; yi < h; ++yi )
 	{
@@ -1340,7 +1338,7 @@ QByteArray ScImage::ImageToCMYK_PDF(bool pre)
 	QRgb *s;
 	QRgb r;
 	int c, m, y, k;
-	QByteArray imgArray( 4 * h * w );
+	QByteArray imgArray( 4 * h * w, ' ' );
 	if (pre)
 	{
 		for( int yi=0; yi < h; ++yi )
@@ -1468,8 +1466,7 @@ QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 
 void ScImage::scaleImage(int nwidth, int nheight)
 {
-	QImage dst;
-	dst.create(nwidth, nheight,32);
+	QImage dst(nwidth, nheight, QImage::Format_ARGB32);
 	QRgb* xelrow = 0;
 	QRgb* tempxelrow = 0;
 	register QRgb* xP;
@@ -1660,7 +1657,7 @@ void ScImage::scaleImage(int nwidth, int nheight)
 		delete [] gs;
 	if ( bs )				// Robust, bs might be 0 one day
 		delete [] bs;
-	create(nwidth, nheight,32);
+	*this = QImage(nwidth, nheight, QImage::Format_ARGB32);
 	for( int yi=0; yi < dst.height(); ++yi )
 	{
 		QRgb *s = (QRgb*)(dst.scanLine( yi ));
@@ -1687,7 +1684,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 	if (!fi.exists())
 		return retArray;
 	QString tmp, BBox, tmp2;
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	if (extensionIndicatesJPEG(ext))
 		return retArray;
 	if (extensionIndicatesPDF(ext))
@@ -1736,7 +1733,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int sc
 			return retArray;
 		}
 		if ((scaleXSize != 0) && (scaleYSize != 0))
-			rImage = rImage.smoothScale(scaleXSize, scaleYSize);
+			rImage = rImage.scaled(scaleXSize, scaleYSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		int i = 0;
 		unsigned char u;
 		int hm = rImage.height();
@@ -1796,7 +1793,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 
 	if (extensionIndicatesPSD(ext))
 		pDataLoader = new ScImgDataLoader_PSD();
@@ -1851,7 +1848,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return ret;
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
 	QChar tc;
 	QString profileName = "";
@@ -2080,8 +2077,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		{
 			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 			{
-				create(pDataLoader->r_image.width(), pDataLoader->r_image.height(), 32);
-				setAlphaBuffer( true );
+				*this = QImage(pDataLoader->r_image.width(), pDataLoader->r_image.height(), QImage::Format_ARGB32);
 				profileName = imgInfo.profileName;
 				imgInfo = pDataLoader->imageInfoRecord();
 				imgInfo.profileName = profileName;
@@ -2281,8 +2277,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			break;
 		}
 	}
-	if (((reqType == CMYKData) || ((reqType == RawData) && isCMYK)) && !bilevel)
-		setAlphaBuffer(false);
+//	if (((reqType == CMYKData) || ((reqType == RawData) && isCMYK)) && !bilevel)
+//		setAlphaBuffer(false);
 	setDotsPerMeterX (qMax(2834, (int) (imgInfo.xres / 0.0254)));
 	setDotsPerMeterY (qMax(2834, (int) (imgInfo.yres / 0.0254)));
 	if	(ScCore->usingGUI() && pDataLoader->issuedWarningMsg() && showMsg)

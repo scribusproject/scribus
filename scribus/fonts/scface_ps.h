@@ -46,34 +46,34 @@ class ScFace_postscript : public FtFace
 			if (!face)
 			{
 				const_cast<ScFace_postscript*>(this)->usable = false;
-				qDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontFile));
+				qDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontFile).toLatin1().constData());
 				return;
 			}
 			QString afnm = fontFile.left(fontFile.length()-3);
 			QFile afm(afnm+"afm");
 			if(!(afm.exists()))
 			{
-				afm.setName(afnm+"Afm");
+				afm.setFileName(afnm+"Afm");
 			}
 			if(!(afm.exists()))
 			{
-				afm.setName(afnm+"AFM");
+				afm.setFileName(afnm+"AFM");
 			}
 			if(!(afm.exists()))
 			{
-				afm.setName(afnm+"pfm");
+				afm.setFileName(afnm+"pfm");
 			}
 			if(!(afm.exists()))
 			{
-				afm.setName(afnm+"Pfm");
+				afm.setFileName(afnm+"Pfm");
 			}
 			if(!(afm.exists())) {
-				afm.setName(afnm+"PFM");
+				afm.setFileName(afnm+"PFM");
 			}
 			if (afm.exists())
 			{
-				if (FT_Attach_File(face, afm.name()))
-					qDebug(QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontFile).arg(afm.name()));
+				if (FT_Attach_File(face, afm.fileName().toLatin1().constData()))
+					qDebug(QObject::tr("Font %1 has broken metrics in file %2, ignoring metrics").arg(fontFile).arg(afm.fileName()).toLatin1().constData());
 				else
 					// re-initialize: ScFaceData::load() just clears caches,
 					// FtFace::load() skips FT_New_Face if m_face is already defined.
@@ -203,7 +203,7 @@ class ScFace_pfb : public ScFace_postscript
 			}
 			else 
 			{
-				qDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile));
+				qDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
 				return false;
 			}
 		}
@@ -233,7 +233,7 @@ class ScFace_pfa : public ScFace_postscript
 				str.append(bb);
 				return true; 
 			}
-			qDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile));
+			qDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile).toLatin1().constData());
 			return false;
 		}
 };

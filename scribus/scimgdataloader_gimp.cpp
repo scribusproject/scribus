@@ -51,10 +51,10 @@ bool ScImgDataLoader_GIMP::loadPicture(const QString& fn, int /*res*/, bool /*th
 		}
 		if (magic != "GPAT")
 			return false;
-		s.device()->at( headersize );
-		if( !m_image.create( patternWidth, patternHeight, 32 ))
+		s.device()->seek( headersize );
+		m_image = QImage(patternWidth, patternHeight, QImage::Format_ARGB32);
+		if (m_image.isNull())
 			return false;
-		m_image.setAlphaBuffer( true );
 		QRgb *d;
 		for (uint y = 0; y < patternHeight; y++)
 		{

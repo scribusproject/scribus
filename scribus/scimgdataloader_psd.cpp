@@ -50,7 +50,7 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
-	QString ext = fi.extension(false).toLower();
+	QString ext = fi.suffix().toLower();
 	if (ext == "psd")
 	{
 		QFile f(fn);
@@ -68,7 +68,7 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 			// Check if it's a supported format.
 			if( !IsSupported( header ) )
 				return;
-			if( !LoadPSDResources(s, header, s.device()->at()) )
+			if( !LoadPSDResources(s, header, s.device()->pos()) )
 				return;
 			if (m_embeddedProfile.size() > 0)
 			{
@@ -263,16 +263,16 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	uint ressourceDataLen;
 	uint startRessource;
 
-	cresStart = s.device()->at();
+	cresStart = s.device()->pos();
 	// Skip mode data. FIX: this is incorrect, it's the Colormap Data for indexed Images
 	s >> tmp;
-	cdataStart = s.device()->at();
+	cdataStart = s.device()->pos();
 
 	LoadPSDResources(s, header, cresStart); 
 	
-	s.device()->at( cdataStart + tmp );
+	s.device()->seek( cdataStart + tmp );
 	s >> ressourceDataLen;
-	startRessource = s.device()->at();
+	startRessource = s.device()->pos();
 
 	if  ((!m_imageInfoRecord.exifInfo.thumbnail.isNull()) && (header.reserved[0] == 't'))
 		return true;
@@ -290,7 +290,7 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 	uint ressourceDataLen;
 	uint startRessource;
 
-	s.device()->at( dataOffset );
+	s.device()->seek( dataOffset );
 
 	srand(314159265);
 	for (int i = 0; i < 4096; i++)
@@ -306,7 +306,7 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 	}
 	// Skip mode data. FIX: this is incorrect, it's the Colormap Data for indexed Images
 	s >> tmp;
-	cdataStart = s.device()->at();
+	cdataStart = s.device()->pos();
 	if (tmp != 0)
 	{
 		if ((header.color_mode == CM_DUOTONE))
@@ -318,7 +318,7 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 			ScColor col;
 			s >> signature;
 			s >> count;
-			uint duodataStart = s.device()->at();
+			uint duodataStart = s.device()->pos();
 			bool specialColour = false;
 			for (int cda = 0; cda < count; cda++)
 			{
@@ -362,15 +362,15 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 			}
 			if (specialColour) // we will only load the grayscale image data and do the colorizing with the Image Effects;
 			{
-				s.device()->at( duodataStart + 40 );
-				uint duoNameStart = s.device()->at();
+				s.device()->seek( duodataStart + 40 );
+				uint duoNameStart = s.device()->pos();
 				uint duoCurveStart = duoNameStart+256;
 				for (int cda = 0; cda < count; cda++)
 				{
 					QString colName;
-					s.device()->at( duoNameStart + (64 * static_cast<uint>(cda)) );
+					s.device()->seek( duoNameStart + (64 * static_cast<uint>(cda)) );
 					colName = getPascalString(s);
-					s.device()->at( duoCurveStart + (28 * static_cast<uint>(cda)) );
+					s.device()->seek( duoCurveStart + (28 * static_cast<uint>(cda)) );
 					FPointArray tmcu;
 					tmcu.resize(0);
 					for (int cu = 0; cu < 13; cu++)
@@ -401,12 +401,12 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 			}
 			else
 			{
-				s.device()->at( duodataStart + 40 );
-				uint duoNameStart = s.device()->at();
+				s.device()->seek( duodataStart + 40 );
+				uint duoNameStart = s.device()->pos();
 				uint duoCurveStart = duoNameStart+256;
 				for (int cda = 0; cda < count; cda++)
 				{
-					s.device()->at( duoCurveStart + (28 * static_cast<uint>(cda)) );
+					s.device()->seek( duoCurveStart + (28 * static_cast<uint>(cda)) );
 					FPointArray tmcu;
 					tmcu.resize(0);
 					for (int cu = 0; cu < 13; cu++)
@@ -482,9 +482,9 @@ bool ScImgDataLoader_PSD::LoadPSDResources( QDataStream & s, const PSDHeader & h
 			}
 		}
 	}
-	s.device()->at( cdataStart + tmp );
+	s.device()->seek( cdataStart + tmp );
 	s >> ressourceDataLen;
-	startRessource = s.device()->at();
+	startRessource = s.device()->pos();
 	if (ressourceDataLen != 0)
 		parseRessourceData(s, header, ressourceDataLen);
 	return true;
@@ -494,10 +494,10 @@ bool ScImgDataLoader_PSD::LoadPSDImgData( QDataStream & s, const PSDHeader & hea
 {
 	uint layerDataLen;
 	uint startLayers;
-	s.device()->at( dataOffset );
+	s.device()->seek( dataOffset );
 	// Skip the reserved data. FIX: Also incorrect, this is the actual Layer Data for Images with Layers
 	s >> layerDataLen;
-	startLayers = s.device()->at();
+	startLayers = s.device()->pos();
 	if (layerDataLen != 0)
 	{
 		bool re = parseLayer(s, header);
@@ -509,7 +509,7 @@ bool ScImgDataLoader_PSD::LoadPSDImgData( QDataStream & s, const PSDHeader & hea
 		else
 		{
 			// Try to decode simple psd file, no layers
-			s.device()->at(startLayers + layerDataLen);
+			s.device()->seek(startLayers + layerDataLen);
 			if(s.atEnd())
 				return false;
 			return loadLayer( s, header);
@@ -518,7 +518,7 @@ bool ScImgDataLoader_PSD::LoadPSDImgData( QDataStream & s, const PSDHeader & hea
 	else
 	{
 		// Decoding simple psd file, no layers
-		s.device()->at( s.device()->at() + layerDataLen );
+		s.device()->seek( s.device()->pos() + layerDataLen );
 		loadLayer( s, header);
 	}
 	return true;
@@ -607,7 +607,7 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 				s >> dummy;
 			}
 			s >> layerRange;
-			s.device()->at( s.device()->at() + layerRange );
+			s.device()->seek( s.device()->pos() + layerRange );
 			lay.layerName = getLayerString(s);
 			m_imageInfoRecord.layerInfo.append(lay);
 			s >> signature;
@@ -617,14 +617,14 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 				{
 					s >> signature;
 					s >> addRes;
-					s.device()->at( s.device()->at() + addRes );
+					s.device()->seek( s.device()->pos() + addRes );
 					s >> signature;
 				}
-				s.device()->at( s.device()->at() - 4 );
+				s.device()->seek( s.device()->pos() - 4 );
 			}
 			else
 			{
-				s.device()->at( s.device()->at() - 2 );
+				s.device()->seek( s.device()->pos() - 2 );
 				s >> signature;
 				if( signature == 0x3842494D )
 				{
@@ -632,13 +632,13 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 					{
 						s >> signature;
 						s >> addRes;
-						s.device()->at( s.device()->at() + addRes );
+						s.device()->seek( s.device()->pos() + addRes );
 						s >> signature;
 					}
-					s.device()->at( s.device()->at() - 4 );
+					s.device()->seek( s.device()->pos() - 4 );
 				}
 				else
-					s.device()->at( s.device()->at() - 6 );
+					s.device()->seek( s.device()->pos() - 6 );
 			}
 		}
 		bool firstLayer = true;
@@ -657,7 +657,7 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 
 bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
 {
-	uint base = s.device()->at();
+	uint base = s.device()->pos();
 	uchar cbyte;
 	ushort compression;
 	s >> compression;
@@ -707,7 +707,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 	}
 	else
 	{
-		s.device()->at( s.device()->at() + tmpImg.height() * 2 );
+		s.device()->seek( s.device()->pos() + tmpImg.height() * 2 );
 		uint pixel_count = tmpImg.width();
 		uchar *ptr;
 		uchar *ptr2;
@@ -821,7 +821,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 			}
 		}
 	}
-	s.device()->at( base+layerInfo[layer].channelLen[channel] );
+	s.device()->seek( base+layerInfo[layer].channelLen[channel] );
 	return true;
 }
 
@@ -831,7 +831,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	// Known values:
 	//   0: no compression
 	//   1: RLE compressed
-	uint base = s.device()->at();
+	uint base = s.device()->pos();
 	uint base2 = base;
 	uint channel_num = layerInfo[layer].channelLen.count();
 	bool hasMask = false;
@@ -855,7 +855,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		{
 			base2 += layerInfo[layer].channelLen[channel];
 		}
-		s.device()->at( base2 );
+		s.device()->seek( base2 );
 		return false;
 	}
 	channel_num = qMin(channel_num, (uint)39);
@@ -938,7 +938,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		cmsCloseProfile(hsRGB);
 		cmsCloseProfile(hLab);
 	}
-	s.device()->at( base2 );
+	s.device()->seek( base2 );
 	QImage tmpImg2;
 	if (header.color_mode == CM_CMYK)
 		tmpImg2 = r2_image.convertToQImage(true);
@@ -947,8 +947,8 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	QImage imt;
 	double sx = tmpImg2.width() / 40.0;
 	double sy = tmpImg2.height() / 40.0;
-	imt = sy < sx ?  tmpImg2.smoothScale(qRound(tmpImg2.width() / sx), qRound(tmpImg2.height() / sx)) :
-	      tmpImg2.smoothScale(qRound(tmpImg2.width() / sy), qRound(tmpImg2.height() / sy));
+	imt = sy < sx ?  tmpImg2.scaled(qRound(tmpImg2.width() / sx), qRound(tmpImg2.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
+	      tmpImg2.scaled(qRound(tmpImg2.width() / sy), qRound(tmpImg2.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	layerInfo[layer].thumb = imt.copy();
 	if (hasMask)
 	{
@@ -957,8 +957,8 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		tmpImg = mask.convertToQImage(true);
 		double sx = tmpImg.width() / 40.0;
 		double sy = tmpImg.height() / 40.0;
-		imt2 = sy < sx ?  tmpImg.smoothScale(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx)) :
-	      tmpImg.smoothScale(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy));
+		imt2 = sy < sx ?  tmpImg.scaled(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
+	      tmpImg.scaled(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		imt2.invertPixels();
 		layerInfo[layer].thumb_mask = imt2.copy();
 	}
@@ -1553,7 +1553,7 @@ QString ScImgDataLoader_PSD::getLayerString(QDataStream & s)
 	adj = 0;
 	if (((ret.length()+1) % 4) != 0)
 		adj = 4 - ((ret.length()+1) % 4);
-	s.device()->at( s.device()->at() + adj );
+	s.device()->seek( s.device()->pos() + adj );
 	return ret;
 }
 

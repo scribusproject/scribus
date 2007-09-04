@@ -83,7 +83,7 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn)
 				m_profileComponents = 3;
 			if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
 				m_profileComponents = 4;
-			m_embeddedProfile.duplicate((const char*) EmbedBuffer, EmbedLen);
+			m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
 		}
 		cmsCloseProfile(prof);
 		free(EmbedBuffer);
@@ -219,7 +219,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		const char *Descriptor;
 		cmsHPROFILE prof = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
 		Descriptor = cmsTakeProductDesc(prof);
-		m_embeddedProfile.duplicate((const char*) EmbedBuffer, EmbedLen);
+		m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
 		m_imageInfoRecord.profileName = QString(Descriptor);
 		m_imageInfoRecord.isEmbedded = true;
 		free(EmbedBuffer);
@@ -279,8 +279,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		if (PhotoshopLen != 0)
 		{
 			bool savEx = m_imageInfoRecord.exifDataValid;
-			QByteArray arrayPhot(PhotoshopLen);
-			arrayPhot.setRawData((const char*)PhotoshopBuffer,PhotoshopLen);
+			QByteArray arrayPhot(PhotoshopLen, ' ');
+			arrayPhot = QByteArray::fromRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 			QDataStream strPhot(&arrayPhot,QIODevice::ReadOnly);
 			strPhot.setByteOrder( QDataStream::BigEndian );
 			PSDHeader fakeHeader;
@@ -312,12 +312,11 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			}
 			if (m_imageInfoRecord.exifDataValid && thumbnail)
 			{
-				m_image.create(m_imageInfoRecord.exifInfo.width, m_imageInfoRecord.exifInfo.height, 32 );
+				m_image = QImage(m_imageInfoRecord.exifInfo.width, m_imageInfoRecord.exifInfo.height, QImage::Format_ARGB32 );
 				m_imageInfoRecord.exifInfo.width = cinfo.output_width;
 				m_imageInfoRecord.exifInfo.height = cinfo.output_height;
 				if (cinfo.output_components == 4)
 				{
-					m_image.setAlphaBuffer(false);
 					QRgb *d;
 					QRgb *s;
 					unsigned char cc, cm, cy, ck;
@@ -341,7 +340,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 					m_image = m_imageInfoRecord.exifInfo.thumbnail.copy();
 			}
 			m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false; // The only interest is vectormask
-			arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
+			arrayPhot.clear();
 			free( PhotoshopBuffer );
 			if (m_imageInfoRecord.exifDataValid && thumbnail)
 			{
@@ -355,18 +354,22 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		}
 	}
 	if ( cinfo.output_components == 3 || cinfo.output_components == 4)
-		m_image.create( cinfo.output_width, cinfo.output_height, 32 );
+		m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_ARGB32 );
 	else if ( cinfo.output_components == 1 )
 	{
-		m_image.create( cinfo.output_width, cinfo.output_height, 8, 256 );
+		m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8 );
 		for (int i=0; i<256; i++)
 			m_image.setColor(i, qRgb(i,i,i));
 	}
 	if (!m_image.isNull())
 	{
-		uchar** lines = m_image.jumpTable();
+		uchar* data = m_image.bits();
+		int bpl = m_image.bytesPerLine();
 		while (cinfo.output_scanline < cinfo.output_height)
-			(void) jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline, cinfo.output_height);
+		{
+			uchar *d = data + cinfo.output_scanline * bpl;
+			(void) jpeg_read_scanlines(&cinfo, &d, 1);
+		}
 		if ( cinfo.output_components == 3 )
 		{
 			uchar *in;
@@ -446,8 +449,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			isCMYK = false;
 		if ( cinfo.output_components == 1 )
 		{
-			QImage tmpImg = m_image.convertDepth(32);
-			m_image.create( cinfo.output_width, cinfo.output_height, 32 );
+			QImage tmpImg = m_image.convertToFormat(QImage::Format_ARGB32);
+			m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_ARGB32 );
 			QRgb *s;
 			QRgb *d;
 			for( int yi=0; yi < tmpImg.height(); ++yi )
@@ -462,7 +465,6 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 				}
 			}
 		}
-		m_image.setAlphaBuffer(true);
 	}
 	(void) jpeg_finish_decompress(&cinfo);
 	fclose (infile);
