@@ -90,7 +90,7 @@ ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, double tra
 	imageMode = false;
 	svgMode = true;
 	m_matrix = QMatrix();
-	cairo_surface_t *img = cairo_svg_surface_create(target, w, h);
+	cairo_surface_t *img = cairo_svg_surface_create(target.toLocal8Bit().constData(), w, h);
 	m_cr = cairo_create(img);
 	cairo_save( m_cr );
 	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
@@ -963,7 +963,7 @@ void ScPainter::drawVPath( int mode )
 				qStopColor = colorStops[ offset ]->color;
 				int h, s, v, sneu, vneu;
 				int shad = colorStops[offset]->shade;
-				qStopColor.hsv(&h, &s, &v);
+				qStopColor.getHsv(&h, &s, &v);
 				sneu = s * shad / 100;
 				vneu = 255 - ((255 - v) * shad / 100);
 				qStopColor.setHsv(h, sneu, vneu);
@@ -986,7 +986,7 @@ void ScPainter::drawVPath( int mode )
 			cairo_surface_t *image3;
 			if (fill_trans != 1.0)
 			{
-				mask.create(m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), 8);
+				mask = QImage(m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), QImage::Format_Indexed8);
 				QRgb * s;
 				unsigned char *d;
 				for( int yi = 0; yi < m_pattern->getPattern()->height(); ++yi )

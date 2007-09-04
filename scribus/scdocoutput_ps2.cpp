@@ -20,7 +20,7 @@ using namespace std;
 ScDocOutput_Ps2::ScDocOutput_Ps2(ScribusDoc* doc, QString fileName, vector<int>& pageNumbers, QRect& clip, ScPs2OutputParams& options)
 {
 	m_doc = doc;
-	m_file.setName(fileName);
+	m_file.setFileName(fileName);
 	m_device = &m_file;
 	m_pageNumbers = pageNumbers;
 	m_clip = clip;
@@ -39,7 +39,7 @@ ScDocOutput_Ps2::~ScDocOutput_Ps2()
 
 void ScDocOutput_Ps2::begin(void)
 {
-	m_file.open(IO_WriteOnly);
+	m_file.open(QIODevice::WriteOnly);
 	m_stream.setDevice(&m_file);
 
 	m_stream << "%!PS-Adobe-2.0\n";

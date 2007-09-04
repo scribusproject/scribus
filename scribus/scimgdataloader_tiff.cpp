@@ -56,7 +56,7 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
 					m_profileComponents = 3;
 				if (static_cast<int>(cmsGetColorSpace(tiffProf)) == icSigCmykData)
 					m_profileComponents = 4;
-				m_embeddedProfile.duplicate((const char*) EmbedBuffer, EmbedLen);
+				m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
 			}
 			cmsCloseProfile(tiffProf);
 		}
@@ -126,9 +126,6 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn)
 
 bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK)
 {
-	bool endian;
-	int wordsize;
-	qSysInfo(&wordsize, &endian);
 	uint32 *bits = 0;
 	if (photometric == PHOTOMETRIC_SEPARATED)
 	{
@@ -142,7 +139,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 					for(unsigned int y = 0; y < heightt; y++)
 					{
 						memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
-						if (endian)
+						if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
 						{
 							unsigned char *s = image->scanLine( heightt - 1 - y );
 							unsigned char r, g, b, a;
@@ -233,7 +230,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 				for(unsigned int y = 0; y < heightt; y++)
 				{
 					memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
-					if (endian)
+					if (QSysInfo::ByteOrder==QSysInfo::BigEndian)
 					{
 						unsigned char *s = image->scanLine( heightt - 1 - y );
 						unsigned char r, g, b, a;
@@ -521,11 +518,11 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
 		return false;
-	QByteArray byteOrder(2);
+	QByteArray byteOrder(2, ' ');
 	QFile fo(fn);
 	if (fo.open(QIODevice::ReadOnly))
 	{
-		fo.readBlock(byteOrder.data(), 1);
+		fo.read(byteOrder.data(), 1);
 		fo.close();
 	}
 	srand(314159265);
@@ -592,7 +589,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			const char *Descriptor;
 			cmsHPROFILE tiffProf = cmsOpenProfileFromMem(EmbedBuffer, EmbedLen);
 			Descriptor = cmsTakeProductDesc(tiffProf);
-			m_embeddedProfile.duplicate((const char*) EmbedBuffer, EmbedLen);
+			m_embeddedProfile = QByteArray((const char*) EmbedBuffer, EmbedLen);
 			m_imageInfoRecord.profileName = QString(Descriptor);
 			m_imageInfoRecord.isEmbedded = true;
 			cmsCloseProfile(tiffProf);
@@ -608,8 +605,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		{
 			if (PhotoshopLen != 0)
 			{
-				QByteArray arrayPhot(PhotoshopLen);
-				arrayPhot.duplicate((const char*)PhotoshopBuffer,PhotoshopLen);
+				QByteArray arrayPhot = QByteArray((const char*)PhotoshopBuffer,PhotoshopLen);
 				QDataStream strPhot(&arrayPhot,QIODevice::ReadOnly);
 				strPhot.setByteOrder( QDataStream::BigEndian );
 				PSDHeader fakeHeader;
@@ -684,7 +680,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			{
 				m_imageInfoRecord.layerInfo.clear();
 				QByteArray arrayPhot;
-				arrayPhot.setRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
+				arrayPhot.fromRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
 				QDataStream s(&arrayPhot,QIODevice::ReadOnly);
 				if (byteOrder[0] == 'M')
 					s.setByteOrder( QDataStream::BigEndian );
@@ -787,7 +783,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 								s >> dummy;
 							}
 							s >> layerRange;
-							s.device()->at( s.device()->at() + layerRange );
+							s.device()->seek( s.device()->pos() + layerRange );
 							lay.layerName = getLayerString(s);
 							m_imageInfoRecord.layerInfo.append(lay);
 							s >> signature;
@@ -797,14 +793,14 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 								{
 									s >> signature;
 									s >> addRes;
-									s.device()->at( s.device()->at() + addRes );
+									s.device()->seek( s.device()->pos() + addRes );
 									s >> signature;
 								}
-								s.device()->at( s.device()->at() - 4 );
+								s.device()->seek( s.device()->pos() - 4 );
 							}
 							else
 							{
-								s.device()->at( s.device()->at() - 2 );
+								s.device()->seek( s.device()->pos() - 2 );
 								s >> signature;
 								if( signature == 0x3842494D )
 								{
@@ -812,13 +808,13 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 									{
 										s >> signature;
 										s >> addRes;
-										s.device()->at( s.device()->at() + addRes );
+										s.device()->seek( s.device()->pos() + addRes );
 										s >> signature;
 									}
-									s.device()->at( s.device()->at() - 4 );
+									s.device()->seek( s.device()->pos() - 4 );
 								}
 								else
-									s.device()->at( s.device()->at() - 6 );
+									s.device()->seek( s.device()->pos() - 6 );
 							}
 						}
 					}
@@ -852,7 +848,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 					{
 						loadLayerChannels( s, fakeHeader, m_imageInfoRecord.layerInfo, layer, &firstLayer );
 					}
-					arrayPhot.resetRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
+					arrayPhot.clear();
 					TIFFClose(tif);
 					foundPS = true;
 					if (m_imageInfoRecord.layerInfo.count() == 1)
@@ -860,7 +856,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				}
 				else
 				{
-					arrayPhot.resetRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
+					arrayPhot.clear();
 					getLayers(fn);
 				}
 			}
@@ -928,8 +924,8 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 						imt = tmpImg.convertToQImage(false);
 					double sx = tmpImg.width() / 40.0;
 					double sy = tmpImg.height() / 40.0;
-					imt = sy < sx ?	imt.smoothScale(qRound(imt.width() / sx), qRound(imt.height() / sx)) :
-												imt.smoothScale(qRound(imt.width() / sy), qRound(imt.height() / sy));
+					imt = sy < sx ?	imt.scaled(qRound(imt.width() / sx), qRound(imt.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
+												imt.scaled(qRound(imt.width() / sy), qRound(imt.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 					m_imageInfoRecord.layerInfo[layerNum].thumb = imt.copy();
 					if (chans > 4)
 					{
@@ -1000,13 +996,13 @@ QString ScImgDataLoader_TIFF::getLayerString(QDataStream & s)
 	adj = 0;
 	if (((ret.length()+1) % 4) != 0)
 		adj = 4 - ((ret.length()+1) % 4);
-	s.device()->at( s.device()->at() + adj );
+	s.device()->seek( s.device()->pos() + adj );
 	return ret;
 }
 
 bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & header, QList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
 {
-	uint base = s.device()->at();
+	uint base = s.device()->pos();
 	uchar cbyte;
 	ushort compression;
 	s >> compression;
@@ -1035,7 +1031,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 	}
 	else
 	{
-		s.device()->at( s.device()->at() + tmpImg.height() * 2 );
+		s.device()->seek( s.device()->pos() + tmpImg.height() * 2 );
 		uint pixel_count = tmpImg.width();
 		for (int hh = 0; hh < tmpImg.height(); hh++)
 		{
@@ -1094,7 +1090,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 			}
 		}
 	}
-	s.device()->at( base+layerInfo[layer].channelLen[channel] );
+	s.device()->seek( base+layerInfo[layer].channelLen[channel] );
 	return true;
 }
 
@@ -1104,7 +1100,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	// Known values:
 	//   0: no compression
 	//   1: RLE compressed
-	uint base = s.device()->at();
+	uint base = s.device()->pos();
 	uint base2 = base;
 	uint channel_num = layerInfo[layer].channelLen.count();
 	bool hasMask = false;
@@ -1128,7 +1124,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		{
 			base2 += layerInfo[layer].channelLen[channel];
 		}
-		s.device()->at( base2 );
+		s.device()->seek( base2 );
 		return false;
 	}
 	channel_num = qMin(channel_num, (uint) 39);
@@ -1191,7 +1187,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	{
 		base2 += layerInfo[layer].channelLen[channel];
 	}
-	s.device()->at( base2 );
+	s.device()->seek( base2 );
 	QImage tmpImg2;
 	if (header.color_mode == CM_CMYK)
 		tmpImg2 = r2_image.convertToQImage(true);
@@ -1200,8 +1196,8 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	QImage imt;
 	double sx = tmpImg2.width() / 40.0;
 	double sy = tmpImg2.height() / 40.0;
-	imt = sy < sx ?  tmpImg2.smoothScale(qRound(tmpImg2.width() / sx), qRound(tmpImg2.height() / sx)) :
-	      tmpImg2.smoothScale(qRound(tmpImg2.width() / sy), qRound(tmpImg2.height() / sy));
+	imt = sy < sx ?  tmpImg2.scaled(qRound(tmpImg2.width() / sx), qRound(tmpImg2.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
+	      tmpImg2.scaled(qRound(tmpImg2.width() / sy), qRound(tmpImg2.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 	layerInfo[layer].thumb = imt.copy();
 	if (hasMask)
 	{
@@ -1210,8 +1206,8 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		tmpImg = mask.convertToQImage(true);
 		double sx = tmpImg.width() / 40.0;
 		double sy = tmpImg.height() / 40.0;
-		imt2 = sy < sx ?  tmpImg.smoothScale(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx)) :
-	      tmpImg.smoothScale(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy));
+		imt2 = sy < sx ?  tmpImg.scaled(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx), Qt::IgnoreAspectRatio, Qt::SmoothTransformation) :
+	      tmpImg.scaled(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
 		imt2.invertPixels();
 		layerInfo[layer].thumb_mask = imt2.copy();
 	}

@@ -88,8 +88,8 @@ public:
 	virtual void clear( ScColorShade & );
 
 	// matrix manipulation
-	virtual void setWorldMatrix( const QWMatrix & );
-	virtual const QWMatrix worldMatrix();
+	virtual void setWorldMatrix( const QMatrix & );
+	virtual const QMatrix worldMatrix();
 	virtual void translate( double, double );
 	virtual void rotate( double );
 	virtual void scale( double, double );
@@ -109,7 +109,7 @@ public:
 	virtual void setFillMode( int fill );
 	virtual int  fillMode() { return m_fillMode; }
 	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
-	virtual void setPattern ( ScPattern* pattern, QWMatrix& patternTransform );
+	virtual void setPattern ( ScPattern* pattern, QMatrix& patternTransform );
 	virtual void setClipPath();
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode );
@@ -180,8 +180,8 @@ private:
 	unsigned int m_height;
 	unsigned int m_x;
 	unsigned int m_y;
-	QWMatrix m_pageTrans;
-	QWMatrix m_matrix;
+	QMatrix m_pageTrans;
+	QMatrix m_matrix;
 	QFont m_font;
 /* Filling */
 	ScColorShade m_fillColor;

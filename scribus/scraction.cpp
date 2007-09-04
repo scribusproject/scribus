@@ -134,7 +134,7 @@ void ScrAction::activatedToActivatedData()
 	if (_actionType==ScrAction::RecentPaste)
 		emit activatedData(_dataQString);
 	if (_actionType==ScrAction::RecentScript)
-		emit activatedData(menuText());
+		emit activatedData(text());
 	if (_actionType==ScrAction::UnicodeChar)
 		activatedUnicodeShortcut(_dataQString, _dataInt);
 	if (_actionType==ScrAction::Layer)
@@ -145,7 +145,7 @@ void ScrAction::activatedToActivatedData()
 
 void ScrAction::toggledToToggledData(bool ison)
 {
-	if (isToggleAction())
+	if (isCheckable())
 	{
 		if (_actionType==ScrAction::DataInt)
 			emit toggledData(ison, _dataInt);
@@ -162,7 +162,7 @@ void ScrAction::toggledToToggledData(bool ison)
 		if (_actionType==ScrAction::RecentPaste)
 			emit toggledData(ison, _dataQString);
 		if (_actionType==ScrAction::RecentScript)
-			emit toggledData(ison, menuText());
+			emit toggledData(ison, text());
 		if (_actionType==ScrAction::Layer)
 			emit toggledData(ison, layerID);
 		// no toggle for UnicodeChar
@@ -180,7 +180,7 @@ void ScrAction::addedTo ( int index, QMenu * menu )
 
 QString ScrAction::cleanMenuText()
 {
-	return menuText().remove('&').remove("...");
+	return text().remove('&').remove("...");
 }
 
 int ScrAction::getMenuIndex() const
@@ -209,7 +209,7 @@ void ScrAction::setToggleAction(bool isToggle, bool isFakeToggle)
 		else
 			disconnect(this, SIGNAL(toggled(bool)), this, SLOT(toggledToToggledData(bool)));
 	}
-	QAction::setToggleAction(isToggle);
+	QAction::setCheckable(isToggle);
 	fakeToggle=isFakeToggle;
 	//if (fakeToggle)
 		//connect(this, toggled(bool), this, activated());
@@ -219,8 +219,8 @@ void ScrAction::saveShortcut()
 {
 	if(!shortcutSaved)
 	{
-		savedKeySequence=accel();
-		setAccel(QKeySequence(""));
+		savedKeySequence=shortcut();
+		setShortcut(QKeySequence(""));
 		shortcutSaved=true;
 	}
 }
@@ -229,7 +229,7 @@ void ScrAction::restoreShortcut()
 {
 	if (shortcutSaved)
 	{
-		setAccel(savedKeySequence);
+		setShortcut(savedKeySequence);
 		savedKeySequence=QKeySequence("");
 		shortcutSaved=false;
 	}
@@ -266,7 +266,7 @@ void ScrAction::toggle()
 {
 	QAction::toggle();
 	if (fakeToggle)
-		emit activated();
+		emit triggered();
 }
 
 void ScrAction::setActionQString(const QString &s)
