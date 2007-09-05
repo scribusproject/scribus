@@ -141,7 +141,7 @@ localization = {
       'Október', 'November', 'December'],
       ['Po','Ut','St','Št','Pi','So', 'Ne']],
 'Spanish' :
-    [['Enero', 'Febrero', 'Marco', 'Abril', 'Mayo',
+    [['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo',
       'Junio', 'Julio', 'Agosto', 'Septiembre',
       'Octubre', 'Noviembre', 'Diciembre'],
      ['Lunes', 'Martes', u'Mi\xe9rcoles', 'Jueves', 'Viernes', u'S\xe1bado', 'Domingo']],
@@ -350,9 +350,17 @@ class TkCalendar(Frame):
         self.statusLabel = Label(self, textvariable=self.statusVar)
         self.statusVar.set('Select Options and Values')
         # langs
-	# change the height = to match number of langs.
+        # change the height = to match number of langs.
         self.langLabel = Label(self, text='Select language:')
-        self.langListbox = Listbox(self, selectmode=SINGLE, height=16)
+
+        self.langFrame = Frame(self)
+        self.langFrame.pack()
+        self.langScrollbar = Scrollbar(self.langFrame)
+        self.langScrollbar.pack(fill=Y, side=RIGHT)
+        self.langListbox = Listbox(self.langFrame, selectmode=SINGLE, height=10, yscrollcommand=self.langScrollbar.set)
+        self.langListbox.pack(fill=X,side=LEFT)
+        self.langScrollbar.config(command=self.langListbox.yview)
+
         keys = localization.keys()
         keys.sort()
         for i in keys:
@@ -398,7 +406,7 @@ class TkCalendar(Frame):
         self.langLabel.grid(column=0, row=currRow, sticky=W)
         self.monthLabel.grid(column=3, row=currRow, sticky=W)
         currRow += 1
-        self.langListbox.grid(column=0, row=currRow, rowspan=6, sticky=N)
+        self.langFrame.grid(column=0, row=currRow, rowspan=6, sticky=N)
         self.typeLabel.grid(column=1, row=currRow, sticky=E)
         self.typeClRadio.grid(column=2, row=currRow, sticky=W)
         self.monthListbox.grid(column=3, row=currRow, rowspan=8)
