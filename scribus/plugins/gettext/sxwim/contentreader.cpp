@@ -45,6 +45,8 @@ ContentReader::ContentReader(QString documentName, StyleReader *s, gtWriter *w, 
 	currentStyle = NULL;
 	append = false;
 	inList = false;
+	inNote = false;
+	inNoteBody = false;
 	isOrdered = false;
 	inSpan = false;
 	listIndex = 0;
@@ -140,6 +142,10 @@ bool ContentReader::startElement(const QString&, const QString&, const QString &
 		else
 			write("- ");
 	}
+	else if (name == "text:note")
+		inNote = true;
+	else if (name == "text:note-body")
+		inNoteBody = true;
 	else if (name == "style:style")
 	{
 		QString sname = "";
@@ -203,7 +209,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 	{
 		write("\n");
 		append = false;
-		if (inList)
+		if (inList || inNote || inNoteBody)
 		{
 			if (styleNames.size() != 0)
 				styleNames.pop_back();
@@ -219,6 +225,10 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 			styleNames.pop_back();	
 		currentStyle = sreader->getStyle(getName());
 	}
+	else if (name == "text:note")
+		inNote = false;
+	else if (name == "text:note-body")
+		inNoteBody = false;
 	else if (name == "text:line-break")
 		write(QChar(28));
 	else if (name == "text:tab-stop")
@@ -248,12 +258,15 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 
 void ContentReader::write(const QString& text)
 {
-	if (importTextOnly)
-		writer->append(text);
-	else if (inSpan)
-		writer->append(text, currentStyle, false);
-	else
-		writer->append(text, currentStyle);
+	if (!inNote && !inNoteBody) // Disable notes import for now
+	{
+		if (importTextOnly)
+			writer->append(text);
+		else if (inSpan)
+			writer->append(text, currentStyle, false);
+		else
+			writer->append(text, currentStyle);
+	}
 	lastStyle = currentStyle;
 }
 
