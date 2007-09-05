@@ -1989,7 +1989,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 				int row = InfoGroupLayout->numRows(); // <a.l.e>
 
-				PrintCT->setText( tr("Print: "));
+				PrintCT->setText( tr("Export: "));
 				InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
 				if (currItem->printEnabled())
 					PrintC->setText( tr("Enabled"));

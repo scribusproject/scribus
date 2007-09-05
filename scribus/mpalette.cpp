@@ -3973,7 +3973,7 @@ void Mpalette::languageChange()
 	QToolTip::add(LevelTxt, tr("Indicates the level the object is on, 0 means the object is at the bottom"));
 	QToolTip::add(Locked, tr("Lock or unlock the object"));
 	QToolTip::add(NoResize, tr("Lock or unlock the size of the object"));
-	QToolTip::add(NoPrint, tr("Enable or disable printing of the object"));
+	QToolTip::add(NoPrint, tr("Enable or disable exporting of the object"));
 	QToolTip::add(textFlowsAroundFrame, "<qt>" +  tr("Make text in lower frames flow around the object. The options below define how this is enabled.") + "</qt>" ); 
 	QToolTip::add(textFlowUsesBoundingBox, "<qt>" +  tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
 	QToolTip::add(textFlowUsesContourLine, "<qt>" +  tr("Use a second line originally based on the frame's shape for text flow of text frames below the object. ") + "</qt>" );
