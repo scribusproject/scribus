@@ -62,6 +62,8 @@ private:
 	bool importTextOnly;
 	bool append;
 	bool inList;
+	bool inNote;
+	bool inNoteBody;
 	bool isOrdered;
 	bool inSpan;
 	int listLevel;
