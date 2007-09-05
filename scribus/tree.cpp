@@ -377,7 +377,7 @@ void Tree::slotRightClick(QPoint point)
 					InfoGroupLayout->addWidget( CharC, 4, 1 );
 				}
 				int row = InfoGroupLayout->rowCount();
-				PrintCT->setText( tr("Print: "));
+				PrintCT->setText( tr("Export: "));
 				InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
 				if (currItem->printEnabled())
 					PrintC->setText( tr("Enabled"));

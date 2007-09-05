@@ -4641,7 +4641,7 @@ void Mpalette::languageChange()
 	LevelTxt->setToolTip( tr("Indicates the level the object is on, 0 means the object is at the bottom"));
 	Locked->setToolTip( tr("Lock or unlock the object"));
 	NoResize->setToolTip( tr("Lock or unlock the size of the object"));
-	NoPrint->setToolTip( tr("Enable or disable printing of the object"));
+	NoPrint->setToolTip( tr("Enable or disable exporting of the object"));
 	/*textFlowOptions->setToolTip( tr("Make text in lower frames flow around the object shape")); */
 	textFlowDisabled->setToolTip( tr("Disable text flow from lower frames around object"));
 	textFlowUsesFrameShape->setToolTip( tr("Use the frame shape for text flow of text frames below the object."));
