@@ -39,7 +39,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, Qt::WFlags f) : QDialog ( parent, name, modal, f | Qt::WStyle_Tool | Qt::WStyle_Title | Qt::WStyle_MinMax | Qt::WStyle_SysMenu ),
+ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, Qt::WFlags f)
+: QDialog ( parent, f | Qt::Tool | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint | Qt::WindowSystemMenuHint ),
 palettePrefs(0),
 prefsContextName(QString::null),
 visibleOnStartup(false)
@@ -57,8 +58,9 @@ visibleOnStartup(false)
 	}
 	originalParent=parent;
 	tempParent=0;
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	setPrefsContext(name);
+	setModal(modal);
 	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
 }
 
@@ -97,7 +99,7 @@ void ScrPaletteBase::setPaletteShown(bool visible)
 		show();
 	else
 		hide();
-	setActiveWindow();
+	activateWindow();
 }
 
 void ScrPaletteBase::setFontSize()
@@ -196,7 +198,7 @@ void ScrPaletteBase::show()
 
 void ScrPaletteBase::hide()
 {
-	if (isShown())
+	if (isVisible())
 	{
 		storePosition();
 		storeSize();
@@ -253,9 +255,9 @@ int ScrPaletteBase::exec(QWidget* newParent)
 	Q_ASSERT(tempParent==0 && newParent!=0);
 	tempParent=newParent;
 	Qt::WindowFlags wflags = windowFlags();
-	reparent(newParent, wflags , QPoint(0,0), false);
+	setParent(newParent, wflags);
 	int i=QDialog::exec();
-	reparent(originalParent, wflags , QPoint(0,0), false);
+	setParent(originalParent, wflags);
 	tempParent=0;
 	return i;
 }

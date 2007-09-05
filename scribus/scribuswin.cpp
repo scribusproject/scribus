@@ -34,9 +34,10 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_icon.h"
 
-ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent, "", Qt::WDestructiveClose)
+ScribusWin::ScribusWin(QWidget* parent, ScribusDoc* doc) : QMainWindow(parent)
 {
-	setIcon(loadIcon("AppIcon2.png"));
+	setWindowIcon(loadIcon("AppIcon2.png"));
+	setAttribute(Qt::WA_DeleteOnClose);
 	m_Doc = doc;
 	m_masterPagesPalette = NULL;
 	currentDir = QDir::currentPath();
@@ -52,19 +53,20 @@ void ScribusWin::setView(ScribusView* newView)
 	m_View = newView;
 	++m_Doc->viewCount;
 	winIndex = ++m_Doc->viewID;
-	QPoint point(0,0);
-	statusFrame = new QFrame(this, "newDocFrame");
-	statusFrameLayout = new QHBoxLayout( statusFrame, 0, 0, "statusFrame");
-	m_View->unitSwitcher->reparent(statusFrame, point);
-	m_View->layerMenu->reparent(statusFrame, point);
-	m_View->zoomOutToolbarButton->reparent(statusFrame, point);
-	m_View->zoomDefaultToolbarButton->reparent(statusFrame, point);
-	m_View->zoomInToolbarButton->reparent(statusFrame, point);
-	m_View->pageSelector->reparent(statusFrame, point);
-	m_View->zoomSpinBox->reparent(statusFrame, point);
-	m_View->cmsToolbarButton->reparent(statusFrame, point);
-	m_View->previewToolbarButton->reparent(statusFrame, point);
-	m_View->visualMenu->reparent(statusFrame, point);
+	statusFrame = new QFrame(this);
+	statusFrameLayout = new QHBoxLayout(statusFrame);
+	statusFrameLayout->setMargin(0);
+	statusFrameLayout->setSpacing(0);
+	m_View->unitSwitcher->setParent(statusFrame);
+	m_View->layerMenu->setParent(statusFrame);
+	m_View->zoomOutToolbarButton->setParent(statusFrame);
+	m_View->zoomDefaultToolbarButton->setParent(statusFrame);
+	m_View->zoomInToolbarButton->setParent(statusFrame);
+	m_View->pageSelector->setParent(statusFrame);
+	m_View->zoomSpinBox->setParent(statusFrame);
+	m_View->cmsToolbarButton->setParent(statusFrame);
+	m_View->previewToolbarButton->setParent(statusFrame);
+	m_View->visualMenu->setParent(statusFrame);
 	statusFrameLayout->addWidget(m_View->unitSwitcher);
 	statusFrameLayout->addWidget(m_View->zoomSpinBox);
 	statusFrameLayout->addWidget(m_View->zoomOutToolbarButton);
@@ -72,12 +74,12 @@ void ScribusWin::setView(ScribusView* newView)
 	statusFrameLayout->addWidget(m_View->zoomInToolbarButton);
 	statusFrameLayout->addWidget(m_View->pageSelector);
 	statusFrameLayout->addWidget(m_View->layerMenu);
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	statusFrameLayout->addItem( spacer );
 	statusFrameLayout->addWidget(m_View->cmsToolbarButton);
 	statusFrameLayout->addWidget(m_View->previewToolbarButton);
 	statusFrameLayout->addWidget(m_View->visualMenu);
-	statusBar()->addWidget(statusFrame, 4, true);
+	statusBar()->addPermanentWidget(statusFrame, 4);
 	currentDir = QDir::currentPath();
 }
 

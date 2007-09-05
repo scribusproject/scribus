@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QDir>
 #include <QTextCodec>
+#include <QLocale>
 #include <QTextStream>
 
 #include "scribusapp.h"
@@ -207,7 +208,7 @@ void ScribusQApp::parseCommandLine()
 			} else {
 				++i;
 			}
-		} else if (strncmp(arg,"-psn_",4) == 0)
+		} else if (strncmp(arg.toLocal8Bit().data(),"-psn_",4) == 0)
 		{
 			// Andreas Vox: Qt/Mac has -psn_blah flags that must be accepted.
 		} else {
@@ -305,12 +306,16 @@ QStringList ScribusQApp::getLang(QString lang)
 	}
 #endif
 
-	langs.push_back(QString(QTextCodec::locale()));
+	langs.push_back(QString(QLocale::system().name()));
 
 	// remove duplicate entries...
-	for (QStringList::Iterator it = langs.fromLast(); it != langs.begin(); --it)
+	QStringList::Iterator it = langs.end();
+	while (it != langs.begin())
+	{
+		--it;
 		if (langs.count(*it) > 1)
-			it = langs.remove(it);
+			it = langs.erase(it);
+	}
 
 	return langs;
 }
@@ -392,7 +397,7 @@ static void printArgLine(QTextStream & ts, const char * smallArg,
 void ScribusQApp::showUsage()
 {
 	QFile f;
-	f.open(QIODevice::WriteOnly, stderr);
+	f.open(stderr, QIODevice::WriteOnly);
 	QTextStream ts(&f);
 	ts << tr("Usage: scribus [option ... ] [file]") ; endl(ts);
 	ts << tr("Options:") ; endl(ts);
@@ -402,7 +407,7 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_AVAILLANG_SHORT, ARG_AVAILLANG, tr("List the currently installed interface languages") );
 	printArgLine(ts, ARG_NOSPLASH_SHORT, ARG_NOSPLASH, tr("Do not show the splashscreen on startup") );
 	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH, tr("Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.") );
-	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" "+ tr("filename"), tr("Use filename as path for user given preferences") );
+	printArgLine(ts, ARG_PREFS_SHORT, QString(QString(ARG_PREFS) + QString(" ") + tr("filename")).toLocal8Bit().constData(), tr("Use filename as path for user given preferences") );
 	printArgLine(ts, ARG_PROFILEINFO_SHORT, ARG_PROFILEINFO, tr("Show location ICC profile information on console while starting") );
 	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS, tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
 	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version.") );
@@ -423,7 +428,7 @@ void ScribusQApp::showUsage()
 void ScribusQApp::showAvailLangs()
 {
 	QFile f;
-	f.open(QIODevice::WriteOnly, stderr);
+	f.open(stderr, QIODevice::WriteOnly);
 	QTextStream ts(&f);
 	ts << tr("Installed interface languages for Scribus are as follows:"); endl(ts);
 	endl(ts);
@@ -445,7 +450,7 @@ void ScribusQApp::showVersion()
 void ScribusQApp::showHeader()
 {
 	QFile f;
-	f.open(QIODevice::WriteOnly, stderr);
+	f.open(stderr, QIODevice::WriteOnly);
 	QTextStream ts(&f);
 	endl(ts);
 	QString heading( tr("Scribus, Open Source Desktop Publishing") );

@@ -116,7 +116,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 		return(EXIT_FAILURE);
 	closeSplash();
 	m_ScribusInitialized=true;
-	ScQApp->setMainWidget(scribus);
+//	ScQApp->setMainWidget(scribus);
 	connect(ScQApp, SIGNAL(lastWindowClosed()), ScQApp, SLOT(quit()));
 
 	scribus->show();
@@ -238,7 +238,7 @@ void ScribusCore::initSplash(bool showSplash)
 	if (showSplash)
 	{
 		m_SplashScreen = new SplashScreen();
-		if (m_SplashScreen != NULL && m_SplashScreen->isShown())
+		if (m_SplashScreen != NULL && m_SplashScreen->isVisible())
 			setSplashStatus(QObject::tr("Initializing..."));
 	}
 	else
@@ -256,14 +256,14 @@ void ScribusCore::setSplashStatus(const QString& newText)
 
 void ScribusCore::showSplash(bool shown)
 {
-	if (m_SplashScreen!=NULL && shown!=m_SplashScreen->isShown())
-		m_SplashScreen->setShown(shown);
+	if (m_SplashScreen!=NULL && shown!=m_SplashScreen->isVisible())
+		m_SplashScreen->setVisible(shown);
 }
 
 bool ScribusCore::splashShowing() const
 {
 	if (m_SplashScreen != NULL)
-		return m_SplashScreen->isShown();
+		return m_SplashScreen->isVisible();
 	return false;
 }
 
@@ -395,12 +395,12 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 			}
 
 			QFile f(fi.filePath());
-			QByteArray bb(40);
+			QByteArray bb(40, ' ');
 			if (!f.open(QIODevice::ReadOnly)) {
 				sDebug(QString("couldn't open %1 as color profile").arg(fi.filePath()));
 				continue;
 			}
-			int len = f.readBlock(bb.data(), 40);
+			int len = f.read(bb.data(), 40);
 			f.close();
 			if (len == 40 && bb[36] == 'a' && bb[37] == 'c' && bb[38] == 's' && bb[39] == 'p')
 			{
@@ -430,31 +430,48 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 				{
 				case icSigInputClass:
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-						InputProfiles.insert(nam, pfad + d[dc], false);
+					{
+						if (!InputProfiles.contains(nam))
+							InputProfiles.insert(nam, pfad + d[dc]);
+					}
 					break;
 				case icSigColorSpaceClass:
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-						InputProfiles.insert(nam, pfad + d[dc], false);
+					{
+						if (!InputProfiles.contains(nam))
+							InputProfiles.insert(nam, pfad + d[dc]);
+					}
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-						InputProfilesCMYK.insert(nam, pfad + d[dc], false);
+					{
+						if (!InputProfilesCMYK.contains(nam))
+							InputProfilesCMYK.insert(nam, pfad + d[dc]);
+					}
 					break;
 				case icSigDisplayClass:
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
 					{
-						MonitorProfiles.insert(nam, pfad + d[dc], false);
-						InputProfiles.insert(nam, pfad + d[dc], false);
+						if (!MonitorProfiles.contains(nam))
+							MonitorProfiles.insert(nam, pfad + d[dc]);
+						if (!InputProfiles.contains(nam))
+							InputProfiles.insert(nam, pfad + d[dc]);
 					}
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-						InputProfilesCMYK.insert(nam, pfad + d[dc], false);
+					{
+						if (!InputProfilesCMYK.contains(nam))
+							InputProfilesCMYK.insert(nam, pfad + d[dc]);
+					}
 					break;
 				case icSigOutputClass:
 					// Disable rgb printer profile detection until effective support
 					// PrinterProfiles.insert(nam, pfad + d[dc], false);
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
 					{
-						PDFXProfiles.insert(nam, pfad + d[dc], false);
-						InputProfilesCMYK.insert(nam, pfad + d[dc], false);
-						PrinterProfiles.insert(nam, pfad + d[dc], false);
+						if (!PDFXProfiles.contains(nam))
+							PDFXProfiles.insert(nam, pfad + d[dc]);
+						if (!InputProfilesCMYK.contains(nam))
+							InputProfilesCMYK.insert(nam, pfad + d[dc]);
+						if (!PrinterProfiles.contains(nam))
+							PrinterProfiles.insert(nam, pfad + d[dc]);
 					}
 					break;
 				}

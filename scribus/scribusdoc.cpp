@@ -97,12 +97,12 @@ public:
 	
 	void changed(Page* pg)
 	{
-		doc->regionsChanged()->update(QRect(pg->xOffset(), pg->yOffset(), pg->width(), pg->height()));
+		doc->regionsChanged()->update(QRect(qRound(pg->xOffset()), qRound(pg->yOffset()), qRound(pg->width()), qRound(pg->height())));
 	}
 	
 	void changed(PageItem* it)
 	{
-		doc->regionsChanged()->update(QRect(it->xPos(), it->yPos(), it->width(), it->height()));
+		doc->regionsChanged()->update(QRect(qRound(it->xPos()), qRound(it->yPos()), qRound(it->width()), qRound(it->height())));
 	}
 };
 
@@ -967,7 +967,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 	for (it = docPatterns.begin(); it != docPatterns.end(); ++it)
 	{
 		if (newNames.patterns().contains(it.key()))
-			docPatterns.remove(it);
+			docPatterns.erase(it);
 		else
 		{
 			ScPattern pa = *it;
@@ -2975,7 +2975,7 @@ void ScribusDoc::reorganiseFonts()
 		if (!Really.contains(itfo.key()))
 		{
 			(*AllFonts)[itfo.key()].decreaseUsage();
-			UsedFonts.remove(itfo);
+			UsedFonts.erase(itfo);
 		}
 	}
 	PrefsManager* prefsManager=PrefsManager::instance();
@@ -3509,7 +3509,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 					currItem->IProfile = CMSSettings.DefaultImageRGBProfile;
 					currItem->IRender = CMSSettings.DefaultIntentImages;
 					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
-					qApp->processEvents(QEventLoop::ExcludeUserInput);
+					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					loadPict(iafData.source, currItem, false, true);
 					if (iafData.sizeType==3) //Frame is size of imported image
 					{
@@ -3519,7 +3519,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 						currItem->OldH2 = currItem->height();
 						currItem->updateClip();
 					}
-					qApp->processEvents(QEventLoop::ExcludeUserInput);
+					qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 					qApp->restoreOverrideCursor();
 				}
 			}
@@ -4478,7 +4478,7 @@ bool ScribusDoc::deleteSection(const uint number)
 		++itnext;
 		itnext.value().fromindex=it.value().fromindex;
 	}
-	sections.remove(it);
+	sections.erase(it);
 	return true;
 }
 
@@ -6263,7 +6263,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->AdjustPictScale();
 			ca++;
 			m_ScMW->mainWindowProgressBar->setValue(ca);
-			qApp->processEvents(QEventLoop::ExcludeUserInput);
+			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 		}
 	}
 	for (int a = 0; a < MasterItems.count(); ++a)
@@ -6281,7 +6281,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->AdjustPictScale();
 			ca++;
 			m_ScMW->mainWindowProgressBar->setValue(ca);
-			qApp->processEvents(QEventLoop::ExcludeUserInput);
+			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 		}
 	}
 	for (int a = 0; a < FrameItems.count(); ++a)
@@ -6299,7 +6299,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			currItem->AdjustPictScale();
 			ca++;
 			m_ScMW->mainWindowProgressBar->setValue(ca);
-			qApp->processEvents(QEventLoop::ExcludeUserInput);
+			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 		}
 	}
 	for (int c = 0; c < patterns.count(); ++c)
@@ -6320,7 +6320,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				currItem->AdjustPictScale();
 				ca++;
 				m_ScMW->mainWindowProgressBar->setValue(ca);
-				qApp->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 			}
 		}
 		PageItem *ite = pa.items.at(0);
@@ -6862,7 +6862,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		if (currItem->isBookmark)
 			//CB From view   emit DelBM(currItem);
 			m_ScMW->DelBookMark(currItem);
-		Items->remove(currItem);
+		Items->removeAll(currItem);
 		delItems.removeLast();
 		// send the undo action to the UndoManager
 		if (UndoManager::undoEnabled())
@@ -7799,8 +7799,10 @@ void ScribusDoc::itemSelection_DistributeLeft()
 		return;
 	QMap<double,uint> Xsorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
-		Xsorted.insert(AObjects[a].x1, a, false);
-		
+	{
+		if (!Xsorted.contains(AObjects[a].x1))
+			Xsorted.insert(AObjects[a].x1, a);
+	}
 	QMap<double,uint>::Iterator it = Xsorted.begin();
 	QMap<double,uint>::Iterator itend = Xsorted.end();
 	double minX=it.key();
@@ -7837,8 +7839,10 @@ void ScribusDoc::itemSelection_DistributeCenterH()
 		return;
 	QMap<double,uint> Xsorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
-		Xsorted.insert(AObjects[a].x1+(AObjects[a].width)/2, a, false);
-		
+	{
+		if (!Xsorted.contains(AObjects[a].x1+(AObjects[a].width)/2))
+			Xsorted.insert(AObjects[a].x1+(AObjects[a].width)/2, a);
+	}
 	QMap<double,uint>::Iterator it = Xsorted.begin();
 	QMap<double,uint>::Iterator itend = Xsorted.end();
 	double minX=it.key();
@@ -7875,8 +7879,10 @@ void ScribusDoc::itemSelection_DistributeRight()
 		return;
 	QMap<double,uint> Xsorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
-		Xsorted.insert(AObjects[a].x2, a, false);
-		
+	{
+		if (!Xsorted.contains(AObjects[a].x2))
+			Xsorted.insert(AObjects[a].x2, a);
+	}
 	QMap<double,uint>::Iterator it = Xsorted.begin();
 	QMap<double,uint>::Iterator itend = Xsorted.end();
 	double minX=it.key();
@@ -7914,8 +7920,10 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 	QMap<double,uint> X1sorted, X2sorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
-		X1sorted.insert(AObjects[a].x1, a, false);
-		X2sorted.insert(AObjects[a].x2, a, false);
+		if (!X1sorted.contains(AObjects[a].x1))
+			X1sorted.insert(AObjects[a].x1, a);
+		if (!X2sorted.contains(AObjects[a].x2))
+			X2sorted.insert(AObjects[a].x2, a);
 	}	
 	uint left=X1sorted.begin().value();
 	uint right=X2sorted[X2sorted.keys().back()];
@@ -7968,8 +7976,10 @@ void ScribusDoc::itemSelection_DistributeBottom()
 		return;
 	QMap<double,uint> Ysorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
-		Ysorted.insert(AObjects[a].y2, a, false);
-		
+	{
+		if (!Ysorted.contains(AObjects[a].y2))
+			Ysorted.insert(AObjects[a].y2, a);
+	}
 	QMap<double,uint>::Iterator it = Ysorted.begin();
 	QMap<double,uint>::Iterator itend = Ysorted.end();
 	double minY=it.key();
@@ -8006,8 +8016,10 @@ void ScribusDoc::itemSelection_DistributeCenterV()
 		return;
 	QMap<double,uint> Ysorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
-		Ysorted.insert(AObjects[a].y1+(AObjects[a].height)/2, a, false);
-		
+	{
+		if (!Ysorted.contains(AObjects[a].y1+(AObjects[a].height)/2))
+			Ysorted.insert(AObjects[a].y1+(AObjects[a].height)/2, a);
+	}
 	QMap<double,uint>::Iterator it = Ysorted.begin();
 	QMap<double,uint>::Iterator itend = Ysorted.end();
 	double minY=it.key();
@@ -8044,8 +8056,10 @@ void ScribusDoc::itemSelection_DistributeTop()
 		return;
 	QMap<double,uint> Ysorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
-		Ysorted.insert(AObjects[a].y1, a, false);
-		
+	{
+		if (!Ysorted.contains(AObjects[a].y1))
+			Ysorted.insert(AObjects[a].y1, a);
+	}
 	QMap<double,uint>::Iterator it = Ysorted.begin();
 	QMap<double,uint>::Iterator itend = Ysorted.end();
 	double minY=it.key();
@@ -8083,8 +8097,10 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 	QMap<double,uint> Y1sorted, Y2sorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
-		Y1sorted.insert(AObjects[a].y1, a, false);
-		Y2sorted.insert(AObjects[a].y2, a, false);
+		if (!Y1sorted.contains(AObjects[a].y1))
+			Y1sorted.insert(AObjects[a].y1, a);
+		if (!Y2sorted.contains(AObjects[a].y2))
+			Y2sorted.insert(AObjects[a].y2, a);
 	}	
 	uint top=Y1sorted.begin().value();
 	uint bottom=Y2sorted[Y2sorted.keys().back()];
@@ -8139,8 +8155,10 @@ void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 	QMap<double,uint> X1sorted, X2sorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
-		X1sorted.insert(AObjects[a].x1, a, false);
-		X2sorted.insert(AObjects[a].x2, a, false);
+		if (!X1sorted.contains(AObjects[a].x1))
+			X1sorted.insert(AObjects[a].x1, a);
+		if (!X2sorted.contains(AObjects[a].x2))
+			X2sorted.insert(AObjects[a].x2, a);
 	}	
 	
 	double totalSpace=0.0;
@@ -8189,8 +8207,10 @@ void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 	QMap<double,uint> Y1sorted, Y2sorted;
 	for (uint a = 0; a < alignObjectsCount; ++a)
 	{
-		Y1sorted.insert(AObjects[a].y1, a, false);
-		Y2sorted.insert(AObjects[a].y2, a, false);
+		if (!Y1sorted.contains(AObjects[a].y1))
+			Y1sorted.insert(AObjects[a].y1, a);
+		if (!Y2sorted.contains(AObjects[a].y2))
+			Y2sorted.insert(AObjects[a].y2, a);
 	}	
 	
 	double totalSpace=0.0;
@@ -9125,7 +9145,7 @@ void ScribusDoc::rotateGroup(double angle, FPoint RCenter)
 //	gyS -= minCanvasCoordinate.y();
 	QRect oldR = QRect(static_cast<int>(gxS*sc-5), static_cast<int>(gyS*sc-5), static_cast<int>(gwS*sc+10), static_cast<int>(ghS*sc+10));
 	FPoint n;
-	for (uint a = 0; a < m_Selection->count(); ++a)
+	for (int a = 0; a < m_Selection->count(); ++a)
 	{
 		currItem = m_Selection->itemAt(a);
 		n = FPoint(currItem->xPos() - RCenter.x(), currItem->yPos() - RCenter.y());
@@ -9507,7 +9527,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 			QMatrix ma2;
 			ma2.translate(currItem->xPos(), currItem->yPos());
 			ma2.rotate(currItem->rotation());
-			ma2 = ma2.invert();
+			ma2 = ma2.inverted();
 			bb->PoLine.map(ma2);
 			currItem->PoLine.setMarker();
 			currItem->PoLine.putPoints(currItem->PoLine.size(), bb->PoLine.size(), bb->PoLine);
