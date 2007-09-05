@@ -79,6 +79,9 @@ public:
 	/*! \brief Return file extension used for shared libs on this platform */
 	static QCString platformDllExtension();
 
+	/*! \brief Return flags used searching for shared libs on this platform */
+	static int platformDllSearchFlags();
+
 	/* \brief  Call the named plugin with "arg" and return true for success, storing the return string in retval
 	 *
 	 * This is a lot of a compatibility kludge for the font preview plugin.
