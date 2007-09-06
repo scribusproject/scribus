@@ -4,7 +4,7 @@ EXTRA_DIST = about1.html about2.html cms.html cms2.html cms3.html cms4.html codi
 cross-platform.html cups.html  developers.html  doccopyright.html docinfo.html download.html faq1.html faq2.html \
 faq3.html fonts1.html fonts2.html fonts3.html fonts4.html fonts5.html gettexthowto.html gsfont.html hyphenator.html \
 importhints2.html importhints.html importhints3.html index.html irc.html install1.html install2.html install3.html \
-install.html install-dpkg.html intro.html javascriptpdf.html keys.html machints1.html machints2.html menu.xml moncal.html \
+install.html install4.html install-dpkg.html intro.html javascriptpdf.html keys.html machints1.html machints2.html menu.xml moncal.html \
 mouse.html pagetemplate1.html parallel-install.html pdfexport1.html pdfexport2.html pdfexport3.html pdfexport4.html \
 pdflavor.html pdfx3.html pdf_form.html plugin_howto.html prepress.html print1.html print2.html print3.html  readme.html \
 resources.html scprinters.html scribuscopyright.html scribusfileformat.html scribus-svg.html scripter1.html \
@@ -52,6 +52,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/install1.html $(prefix)/share/doc/scribus-$(VERSION)/de/install1.html
 	$(INSTALL_DATA) $(srcdir)/install2.html $(prefix)/share/doc/scribus-$(VERSION)/de/install2.html
 	$(INSTALL_DATA) $(srcdir)/install3.html $(prefix)/share/doc/scribus-$(VERSION)/de/install3.html
+	$(INSTALL_DATA) $(srcdir)/install4.html $(prefix)/share/doc/scribus-$(VERSION)/de/install4.html
 	$(INSTALL_DATA) $(srcdir)/install.html $(prefix)/share/doc/scribus-$(VERSION)/de/install.html
 	$(INSTALL_DATA) $(srcdir)/install-dpkg.html $(prefix)/share/doc/scribus-$(VERSION)/de/install-dpkg.html
 	$(INSTALL_DATA) $(srcdir)/intro.html $(prefix)/share/doc/scribus-$(VERSION)/de/intro.html
@@ -165,6 +166,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/install1.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/install2.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/install3.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/install4.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/install.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/intro.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/de/irc.html
