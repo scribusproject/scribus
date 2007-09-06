@@ -15,7 +15,7 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
 					   QList<ParagraphStyle::TabRecord> Tabs, double wid)
 : Tabruler(parent, haveFirst, dEin, Tabs, wid)
 {
-	parentButton_ = new QToolButton(this, "parentButton_");
+	parentButton_ = new QToolButton(this);
 	Q_CHECK_PTR(parentButton_);
 	parentButton_->setText( tr(" Parent Tabs "));
 	indentLayout->addWidget(parentButton_);

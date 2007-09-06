@@ -170,8 +170,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_cursorVisible(false),
 	m_ScMW(mw)
 {
-		setName("s");
-		setAttribute(Qt::WA_StaticContents);
+		setObjectName("s");
+	setAttribute(Qt::WA_StaticContents);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setViewportMargins(m_vhRulerHW, m_vhRulerHW, 0, 0);
@@ -184,7 +184,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	QFont fo = QFont(font());
 	int posi = fo.pointSize()-2;
 	fo.setPointSize(posi);
-	unitSwitcher = new QComboBox( false, this, "unitSwitcher" );
+	unitSwitcher = new QComboBox( this );
 	unitSwitcher->setFocusPolicy(Qt::NoFocus);
 	unitSwitcher->setFont(fo);
 	int maxUindex = unitGetMaxIndex() - 2;
@@ -207,13 +207,13 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	cmsToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
-	cmsToolbarButton->setToggleButton(true);
+	cmsToolbarButton->setCheckable(true);
 	QIcon ic2;
 	ic2.addPixmap(loadIcon("cmsOff.png"), QIcon::Normal, QIcon::Off);
 	ic2.addPixmap(loadIcon("cmsOn.png"), QIcon::Normal, QIcon::On);
 	cmsToolbarButton->setIcon(ic2);
 	previewToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
-	previewToolbarButton->setToggleButton(true);
+	previewToolbarButton->setCheckable(true);
 	QIcon ic;
 	ic.addPixmap(loadIcon("previewOff.png"), QIcon::Normal, QIcon::Off);
 	ic.addPixmap(loadIcon("previewOn.png"), QIcon::Normal, QIcon::On);
@@ -248,17 +248,17 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	previewToolbarButton->setPixmap(loadIcon("previewOn.png"));
 #endif
 	//zoomDefaultToolbarButton->setText("1:1");
-	zoomDefaultToolbarButton->setPixmap(loadIcon("16/zoom-original.png"));
-	zoomOutToolbarButton->setPixmap(loadIcon("16/zoom-out.png"));
-	zoomInToolbarButton->setPixmap(loadIcon("16/zoom-in.png"));
+	zoomDefaultToolbarButton->setIcon(QIcon(loadIcon("16/zoom-original.png")));
+	zoomOutToolbarButton->setIcon(QIcon(loadIcon("16/zoom-out.png")));
+	zoomInToolbarButton->setIcon(QIcon(loadIcon("16/zoom-in.png")));
 	pageSelector = new PageSelector(this, Doc->Pages->count());
 	pageSelector->setFont(fo);
 	pageSelector->setFocusPolicy(Qt::ClickFocus);
-	layerMenu = new QComboBox( true, this, "LY" );
+	layerMenu = new QComboBox( this );
 	layerMenu->setEditable(false);
 	layerMenu->setFont(fo);
 	layerMenu->setFocusPolicy(Qt::NoFocus);
-	visualMenu = new QComboBox( false, this, "visualMenu" );
+	visualMenu = new QComboBox( this );
 	visualMenu->setFocusPolicy(Qt::NoFocus);
 	visualMenu->setFont(fo);
 	visualMenu->setEnabled(false);
@@ -292,7 +292,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	redrawMarker->hide();
 	m_canvas->newRedrawPolygon();
 	m_canvas->resetRenderMode();
-	m_ScMW->scrActions["viewFitPreview"]->setOn(m_canvas->m_viewMode.viewAsPreview);
+	m_ScMW->scrActions["viewFitPreview"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 //	m_SnapCounter = 0;
 	
 	Doc->regionsChanged()->connectObserver(this);
@@ -369,7 +369,7 @@ void ScribusView::togglePreview()
 		Doc->guidesSettings.framesShown = storedFramesShown;
 		Doc->guidesSettings.showControls = storedShowControls;
 	}
-	m_ScMW->scrActions["viewFitPreview"]->setOn(m_canvas->m_viewMode.viewAsPreview);
+	m_ScMW->scrActions["viewFitPreview"]->setChecked(m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowMargins"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowFrames"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowLayerMarkers"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
@@ -380,7 +380,7 @@ void ScribusView::togglePreview()
 	m_ScMW->scrActions["viewShowTextChain"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
 	m_ScMW->scrActions["viewShowTextControls"]->setEnabled(!m_canvas->m_viewMode.viewAsPreview);
 #if OPTION_USE_QTOOLBUTTON
-	previewToolbarButton->setOn(m_canvas->m_viewMode.viewAsPreview);
+	previewToolbarButton->setChecked(m_canvas->m_viewMode.viewAsPreview);
 #endif
 	visualMenu->setEnabled(m_canvas->m_viewMode.viewAsPreview);
 	Doc->recalculateColors();
@@ -743,7 +743,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//>>
 		QUrl ur(text);
 		QFileInfo fi = QFileInfo(ur.path());
-		QString ext = fi.extension(false).toUpper();
+		QString ext = fi.suffix().toUpper();
 		QStringList imfo;
 		QList<QByteArray> imgs = QImageReader::supportedImageFormats();
 		for (int i = 0; i < imgs.count(); ++i )
@@ -871,7 +871,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				if ((fi.exists()) && (!img))
 				{
 					QString data;
-					if (fi.extension(true).toLower() == "sml")
+					if (fi.suffix().toLower() == "sml")
 					{
 						QString f = "";
 						loadText(ur.path(), &f);
@@ -880,7 +880,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						delete pre;
 						emit LoadElem(data, ex, ey, false, false, Doc, this);
 					}
-					else if (fi.extension(true).toLower() == "shape")
+					else if (fi.suffix().toLower() == "shape")
 					{
 						QString f = "";
 						loadText(ur.path(), &f);
@@ -3913,7 +3913,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 					continue;
 				QStringList wt;
 				QStringList::Iterator it;
-				wt = QStringList::split("\t", cc);
+				wt = cc.split("\t");
 				it = wt.begin();
 				CharStyle nstyle;
 				QString ch = (*it);
@@ -4830,7 +4830,7 @@ void ScribusView::setObjectUndoMode()
 	if (m_ScMW->HaveDoc)
 	{
 		//qDebug(QString("%1 %2").arg((int)m_ScMW).arg(m_ScMW->scrActions.contains("editActionMode")));
-		m_ScMW->scrActions["editActionMode"]->setOn(true);
+		m_ScMW->scrActions["editActionMode"]->setChecked(true);
 		uint docSelectionCount=Doc->m_Selection->count();
 		if (docSelectionCount == 1)
 			undoManager->showObject(Doc->m_Selection->itemAt(0)->getUId());
@@ -4845,7 +4845,7 @@ void ScribusView::setGlobalUndoMode()
 {
 	if (m_ScMW->HaveDoc)
 	{
-		m_ScMW->scrActions["editActionMode"]->setOn(!_isGlobalMode);
+		m_ScMW->scrActions["editActionMode"]->setChecked(!_isGlobalMode);
 		if (_isGlobalMode)
 			undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 		else

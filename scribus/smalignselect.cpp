@@ -14,7 +14,7 @@ SMAlignSelect::SMAlignSelect(QWidget *parent)
   useParentStyle_(false),
   pStyle_(0)
 {
-	parentButton = new QToolButton(this, "parentButton");
+	parentButton = new QToolButton(this);
 	parentButton->setMaximumSize( QSize( 22, 22 ) );
 	parentButton->setCheckable( true );
 	parentButton->setText( tr("P", "P as in Parent"));

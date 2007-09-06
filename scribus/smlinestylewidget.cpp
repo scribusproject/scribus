@@ -18,8 +18,8 @@ for which a new license (GPL+exception) is in place.
 SMLineStyleWidget::SMLineStyleWidget() : QWidget()
 {
 	setupUi(this);
-	addButton->setPixmap(loadIcon("penciladd.png"));
-	removeButton->setPixmap(loadIcon("pencilsub.png"));
+	addButton->setIcon(QIcon(loadIcon("penciladd.png")));
+	removeButton->setIcon(QIcon(loadIcon("pencilsub.png")));
 
 	dashCombo = new LineCombo(this);
 	gridLayout->addWidget(dashCombo, 0, 0);

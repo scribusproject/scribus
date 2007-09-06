@@ -14,7 +14,7 @@ SMStyleSelect::SMStyleSelect(QWidget *parent)
   useParentStyle_(false),
   pStyle_(0)
 {
-	parentButton = new QToolButton(this, "parentButton");
+	parentButton = new QToolButton(this);
 	parentButton->setMaximumSize(QSize(22, 22));
 	parentButton->setMinimumSize(QSize(22, 22));
 	parentButton->setText( tr("P", "P as in Parent"));

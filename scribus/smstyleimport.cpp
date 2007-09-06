@@ -14,10 +14,10 @@ SMStyleImport::SMStyleImport(QWidget* parent,
 							 StyleSet<ParagraphStyle> *pstyleList,
 							 StyleSet<CharStyle> *cstyleList,
 							 QMap<QString, multiLine> *lstyleList)
-	: QDialog( parent, "SMStyleImport", true, 0 )
+	: QDialog( parent, 0 )
 {
 	setupUi(this);
-
+	setModal(true);
 	cstyleItem = new QTreeWidgetItem(styleWidget);
 	cstyleItem->setText(0, tr("Character Styles"));
 	for (int x = 0; x < cstyleList->count(); ++x)

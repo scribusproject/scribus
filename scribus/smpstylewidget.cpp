@@ -62,9 +62,9 @@ void SMPStyleWidget::languageChange()
 	dropCapLines_->setToolTip(    tr("Drop Cap Lines"));
 	dropCapOffset_->setToolTip(   tr("Drop Cap Offset"));
 	alignement_->setToolTip(      tr("Alignment"));
-	QToolTip::add(tabList_->first_, tr("First Line Indent"));
-	QToolTip::add(tabList_->left_,  tr("Left Indent"));
-	QToolTip::add(tabList_->right_, tr("Right Indent"));
+	tabList_->first_->setToolTip( tr("First Line Indent"));
+	tabList_->left_->setToolTip(  tr("Left Indent"));
+	tabList_->right_->setToolTip( tr("Right Indent"));
 	//CB Unneeded, gets in the way of single widget tooltips
 	//tabList_->setToolTip(         tr("Tabulators"));
 

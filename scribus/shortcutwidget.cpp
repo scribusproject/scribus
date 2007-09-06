@@ -10,8 +10,8 @@ for which a new license (GPL+exception) is in place.
 #include "shortcutwidget.h"
 
 
-ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name)
-	: QWidget(parent, name)
+ShortcutWidget::ShortcutWidget(QWidget *parent)
+	: QWidget(parent)
 {
 	setupUi(this);
 
@@ -30,21 +30,9 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name)
 
 void ShortcutWidget::languageChange()
 {
-/***********************************/
-/*      Begin Tooltips             */
-/***********************************/
-
 	noKey->setToolTip(        tr("No shortcut for the style")); // set no shortcut for this style
 	userDef->setToolTip(      tr("Style has user defined shortcut")); // not sure what this thing does
 	setKeyButton->setToolTip( tr("Assign a shortcut for the style")); // activate shorcut assigning
-
-/***********************************/
-/*      End Tooltips               */
-/***********************************/
-
-// 	noKey->setText( tr("&No Key"));
-// 	userDef->setText( tr("&User Defined Key"));
-// 	setKeyButton->setText( tr("Set &Key"));
 }
 
 bool ShortcutWidget::event( QEvent* ev )
@@ -64,7 +52,7 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 		QStringList tl;
 		if (!keyDisplay->text().isEmpty())
 		{
-			tl = tl.split("+", keyDisplay->text());
+			tl = keyDisplay->text().split("+");
 			Part4 = tl[tl.count()-1];
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 				Part4 = "";
@@ -92,26 +80,6 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 			default:
 				keyCode |= k->key();
 				keyDisplay->setText(getKeyText(keyCode));
-// 				if (checkKey(keyCode))
-// 				{
-// 					QMessageBox::information(this,
-// 											CommonStrings::trWarning,
-// 											tr("This key sequence is already in use"),
-// 											CommonStrings::tr_OK);
-// 					keyTable->setText(currRow, 1, "");
-// 					keyDisplay->setText("");
-// 					if (currentKeyMapRow!=NULL)
-// 						currentKeyMapRow.data().keySequence=QKeySequence();
-// 					noKey->setChecked(true);
-// 				}
-// 				else
-// 				{
-// 					QKeySequence newKeySequence(keyCode);
-// 					keyTable->setText(currRow, 1, QString(newKeySequence));
-// 					if (currentKeyMapRow!=NULL)
-// 						currentKeyMapRow.data().keySequence=newKeySequence;
-// 					userDef->setChecked(true);
-// 				}
 				setKeyButton->setOn(false);
 				userDef->setChecked(true);
 				releaseKeyboard();
@@ -131,7 +99,7 @@ void ShortcutWidget::keyReleaseEvent(QKeyEvent *k)
 		if (!keyDisplay->text().isEmpty())
 		{
 			QStringList tl;
-			tl = tl.split("+", keyDisplay->text());
+			tl = keyDisplay->text().split("+");
 			Part4 = tl[tl.count()-1];
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 				Part4 = "";

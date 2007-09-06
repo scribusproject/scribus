@@ -97,16 +97,16 @@ bool ScrPopupMenu::hasSubMenu(ScrPopupMenu* subMenu)
 	return menuItemList.contains(QPointer<QObject>(subMenu));
 }
 
-void ScrPopupMenu::setParentMenuID(int id)
-{
-	parentMenuID=id;
-}
-
-
-const int ScrPopupMenu::getParentMenuID()
-{
-	return parentMenuID;
-}
+// void ScrPopupMenu::setParentMenuID(int id)
+// {
+// 	parentMenuID=id;
+// }
+// 
+// 
+// const int ScrPopupMenu::getParentMenuID()
+// {
+// 	return parentMenuID;
+// }
 
 bool ScrPopupMenu::insertSubMenu(ScrPopupMenu* newSubMenu)
 {

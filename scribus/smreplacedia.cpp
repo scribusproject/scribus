@@ -14,10 +14,10 @@ for which a new license (GPL+exception) is in place.
 SMRowWidget::SMRowWidget(const QString &toBeDeleted, QStringList replaceOptions, QWidget *parent)
 : QWidget(parent, "SMRowWidget")
 {
-	layout = new QHBoxLayout(this, 0, 5, "layout");
-	deleteLabel = new QLabel(toBeDeleted, this, "deleteLabel");
+	layout = new QHBoxLayout(this, 0, 5);
+	deleteLabel = new QLabel(toBeDeleted, this);
 	layout->addWidget(deleteLabel);
-	optionsCombo = new QComboBox(this, "optionsCombo");
+	optionsCombo = new QComboBox(this);
 	optionsCombo->insertStringList(replaceOptions);
 	optionsCombo->insertItem( tr("No Style"), 0);
 	layout->addWidget(optionsCombo);
@@ -56,8 +56,8 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 			options << replaceOptions[i];
 	}
 
-	layout = new QVBoxLayout(mainFrame, 0, 5, "layout");
-	headerLayout = new QHBoxLayout(layout, 5, "headerLayout");
+	layout = new QVBoxLayout(mainFrame, 0, 5);
+	headerLayout = new QHBoxLayout(layout, 5);
 	deleteHeader = new QLabel("<b>" + tr("Remove") + "</b>", mainFrame);
 	optionsHeader = new QLabel("<b>" + tr("Replace with") + "</b>", mainFrame);
 	headerLayout->addWidget(deleteHeader);

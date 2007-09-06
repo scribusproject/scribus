@@ -20,18 +20,14 @@ class ShortcutWidget : public QWidget, public Ui::ShortcutWidget
 	Q_OBJECT
 
 public:
-	ShortcutWidget(QWidget *parent = 0, const char *name = 0);
+	ShortcutWidget(QWidget *parent = 0);
 	~ShortcutWidget();
 
 	bool event( QEvent* ev );
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
-// 	void setKeyMap(const QMap<QString,Keys> &keymap);
-
 	void setShortcut(const QString &shortcut);
-
 	static QString getKeyText(int KeyC);
-
 	void languageChange();
 
 public slots:
