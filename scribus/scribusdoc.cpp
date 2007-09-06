@@ -6393,6 +6393,7 @@ void ScribusDoc::updatePic()
 		for (uint i = 0; i < docSelectionCount; ++i)
 		{
 			if (m_Selection->itemAt(i)!=NULL)
+			{
 				if (m_Selection->itemAt(i)->asLatexFrame()) {
 					PageItem_LatexFrame *latexframe =
 						m_Selection->itemAt(i)->asLatexFrame();
@@ -6412,6 +6413,7 @@ void ScribusDoc::updatePic()
 						toUpdate=true;
 					}
 				}
+			}
 		}
 		if (toUpdate)
 			regionsChanged()->update(QRect());
