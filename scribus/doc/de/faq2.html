@@ -1,55 +1,48 @@
 <qt>
-<title>Miscellaneous Questions</title>
+<title>Vermischte Fragen</title>
 <a name="top"></a>
-<h2>Miscellaneous Questions</h2>
+<h2>Vermischte Fragen</h2>
 <ul>
-	<li><a href="#9">Why is Scribus built with Qt and not some other toolkit?</a></li>
-	<li><a href="#10">Where does the name &quot;Scribus&quot; derive from ?</a></li>
-	<li><a href="#19">Why are there no import filters for Quark, Indesign or other commerical DTP applications?</a></li>
-	<li><a href="#20">So, how can I work with others who might have other DTP applications?</a></li>
-	<li><a href="#23">Will there be a windows version of Scribus?</a></li>
-	<li><a href="#31">Why does Scribus not remember the window positions when I close the application?</a></li>
+	<li><a href="#9">Warum verwendet Scribus Qt und kein anderes Toolkit?</a></li>
+	<li><a href="#10">Woher stammt der Name &quot;Scribus&quot;?</a></li>
+	<li><a href="#19">Warum gibt es keine Importfilter f&#252;r QuarkXPress, InDesign oder andere kommerzielle DTP-Anwendungen?</a></li>
+	<li><a href="#20">Wie kann mit anderen zusammenarbeiten die ein anderes Programm f&#252;r das Seitenlayout verwenden?</a></li>
+		<li><a href="#31">Gibt es einen Microsoft-Publisher-Importfilter oder wird es einen geben?</a></li>
 </ul>
 
-<h3>Answers</h3>
+<h3>Antworten</h3>
 
-<ul>
+<ol>
 	<li><a name="9"></a>
-		<p class="faqquestion">Why is Scribus built with Qt and not some other toolkit?</p>
-		<p>When Franz Schmid launched the project, it was originally written in Python, but for performance reasons he decided to port it to C++. The toolkit with the most complete documentation at the time was Qt 2.2. The first Qt 2 release was 0.3 in 2001. Scribus was ported to Qt 3, after Scribus 0.6 was released.</p>
-		<a href="#top">Back to top</a><hr/>
+		<p class="faqquestion">Warum verwendet Scribus Qt und kein anderes Toolkit??</p>
+Als Franz Schmid das Projekt gestartet hat, verwendete er zun&#228;chst Python. Aus Performancegr&#252;nden hat er sich entschieden, Scribus nach C++ zu portieren. Das Toolkit mit der umfangreichsten Dokumentation war zu dieser Zeit Qt 2.2. Die erste Version, die Qt2 verwendet hat, war 0.3 (2001). Scribus wurde nach der Ver&#246;ffentlichung auf Qt 3 portiert. Ab Version 1.3.5 wird Scribus Qt4 benutzen.</p></br>
+		<a href="#top">Nach oben</a><hr/>
 	</li>
 	<li><a name="10"></a>
-		<p class="faqquestion">Where does the name &quot;Scribus&quot; derive from ?</p>
-		<p>When Franz Schmid launched the project, the first working name was &quot;Open Page&quot;, but thought to be too generic. Scribus derives from the latin name of the official writers in Roman times, from which we get <i>scribe</i> or writer. This translates well in to many languages besides English. The German word is <i>schrift</i>, for example.</p>
-		<a href="#top">Back to top</a><hr/>
+		<p class="faqquestion">Woher stammt der Name &quot;Scribus&quot;?</p>
+	<p>Als Franz Schmid das Projekt gestartet hat, lautete der Arbeitstitel &quot;Open Page&quot;, aber er hielt ihn f&#252;r zu allgemein. Scribus ist von der lateinischen Bezeichnung f&#252;r Schreiber im alten Rom (Scriba) abgeleitet. Dieses Wort hat sich in vielen Sprachen erhalten, etwa im englischen &quot;scribe&quot; oder im deutschen &quot;Schreiber&quot;. Scribus wird entweder englisch oder lateinisch ausgesprochen.</p>
+		<a href="#top">Nach oben</a><hr/>
 	</li>
 	<li><a name="19"></a>
-		<p class="faqquestion">Why are there no import filters for Quark, Indesign or other commerical DTP applications?</p>
-		<p>There are several reasons why there are no import filters for commercial DTP applications.</p>
+		<p class="faqquestion">Warum gibt es keine Importfilter f&#252;r QuarkXPress, InDesign oder andere kommerzielle DTP-Anwendungen?</p>
+		<p>Es gibt verschiedene Gr&#252;nde f&#252;r fehlende Importfilter f&#252;r die Dateiformate kommerzieller DTP-Anwendungen</p>
 		<ol>
-			<li>DTP file formats are very complex internally - problably the most complex on a PC. Creating import/export filters is a task far more complex than importing a spreadsheet or simpler word processing file formats. An engineer familiar with the internal file format of Pagemaker compared it to a 2m x 3m flow chart diagram with 6 point type. It was not until the arrival of Indesign 2.0 that reliable Pagemaker file import was possible in another DTP application, even though Adobe had the file format specs. Note: Not even Indesign CS can save to Indesign 2.0 format.</li>
-			<li>The file formats are sometimes protected by patents and are not documented publically.</li>
-			<li>So, is it unethical/illegal to apply hexedit to an InDesign file to reverse engineer the file format with hexedit or others for the purpose of creating the export/import plugins for Scribus?<br/>Possibly not, but given its a closed format we would expect to receive a warning from Adobe, as we did from Quark when there was a Quark importer in testing. We do not have the legal resources to challenge large proprietary software companies. Only one developer has been sucessful at reverse engineering Quark's software and it took a long legal case to succeed.</li>
-			<li>Developer constraints. It is the considered judgement of the development team that efforts to improve Scribus is a more valuable use of time.</li>
+	<li>DTP-Dateiformate sind intern &#228;u&#223;erst komplex &ndash; wahrscheinlich sind es die komplexesten Formate &#252;berhaupt. Importfilter zu schreiben, ist wesentlich schwieriger als f&#252;r Tabellenkalkulationen oder Textverarbeitungen. Ein Programmierer, der mit dem Dateiformat von PageMaker vertraut ist, hat es einmal mit einem Flu&#223;diagramm verglichen, das zwei mal drei Meter gro&#223; ist und eine Schriftgr&#246;&#223;e von 6 Punkt verwendet. Bis zum Erscheinen von InDesign 2 war es unm&#246;glich, PageMaker-Dateien in einer anderen Anwendung zu importieren, obwohl Adobe &#252;ber die Beschreibung verf&#252;gte. Beachten Sie: Nicht einmal InDesign CS kann im InDesign-2-Format speichern.</li>
+			<li>Die Dateiformate sind manchmal patentgesch&#252;tzt und nicht &#246;ffentlich dokumentiert.</li>
+	<li>Ist es also unmoralisch oder illegal, eine InDesign-Datei in einem Hex-Editor zu &#246;ffenen, um ein Import-/Export-Plug-in f&#252;r Scribus zu schreiben?<br/>M&#246;glicherweise nicht, aber weil es sich um ein geschlossenes Format handelt, w&#252;rden wir vermutlich eine Warnung von Adobe erhalten. &#196;hnliches ist passiert, als ein Importfilter f&#252;r QuarkXPress-Dateien getestet wurde. Wir verf&#252;gen nicht &#252;ber die notwendigen juristischen Ressourcen, um gro&#223;e propriet&#228;re Softwarefirmen herauszufordern. Nur ein Entwickler hat das XPress-Dateiformat erfolgreich entschl&#252;sselt, und er hat erst nach einem langen Gerichtsverfahren recht bekommen.</li>
+			<li>Beschr&#228;nkte Entwicklerkapazit&#228;ten. Es ist die einhellige Meinung des Entwicklerteams, da&#223; es seine Zeit besser in die Weiterentwicklung von Scribus investiert.</li>
 		</ol>
-		<a href="#top">Back to top</a><hr/>
+		<a href="#top">Nach oben</a><hr/>
 	</li>
 	<li><a name="20"></a>
-		<p class="faqquestion">So, how can I work with others who might have other DTP applications?</p>
-		<p>Use EPS, SVG or PDF as an exchange format. Scribus created PDFs can be easily imported into a number of commerical applications. SVG import is excellent for vector artwork. Scribus can import EPS files as long as they are conformant to the specs - this includes spot colors in DCS 2.0 files. The documentation has detailed notes covering these subjects. </p>
-		<a href="#top">Back to top</a><hr/>
+		<p class="faqquestion">Wie kann mit Leuten zusammenarbeiten, die ein anderes Programm f&#252;r das Seitenlayout verwenden?</p>
+		<p>Verwenden Sie EPS, SVG oder PDF als Austauschformat. PDF-Dateien, die mit Scribus erzeugt wurden, k&#246;nnen problemlos von kommerziellen Programmen importiert werden. Der SVG-Import ist hervorragend f&#252;r Vektorgrafiken geeignet. Scribus kann EPS-Dateien importieren, wenn Sie sich an die Spezifikationen halten. Das gilt auch f&#252;r Schmuckfarben in DCS-2.0-Dateien. Das Handbuch enth&#228;lt detaillierte Informationen zu diesen Themen.</p>
+		<a href="#top">Nach oben</a><hr/>
 	</li>
-	<li><a name="23"></a>
-		<p class="faqquestion">Will there be a windows version of Scribus ?</p>
-		<p>A native Win32 port was underway by one of the Scribus developers but this has been put on hold for the moment. There is no targeted date for completion.</p>
-		<p>It is possible, but not really easy to build Scribus with Cygwin and the KDE-Cygwin packages from source, but there are still issues to solve.</p>
-		<a href="#top">Back to top</a><hr/>
+		<li><a name="31"></a>
+		<p class="faqquestion">Gibt es einen Microsoft-Publisher-Importfilter oder wird es einen geben?</p>
+		<p>Es gibt keinen, und es wird wahrscheinlich vom Scribus-Team auch keiner bereitgestellt. Genau wie bei InDesign und QuarkXPress ist das Dateiformat nicht dokumentiert und schwer, vielleicht gar nicht zu entschl&#252;sseln. Selbst zwischen unterschiedlichen Publisher-Versionen ist ein reibungsloser Austausch von *.pub-Dateien problematisch.</p>
+		<a href="#top">Nach oben</a><hr/>
 	</li>
-	<li><a name="31"></a>
-		<p class="faqquestion">Why does Scribus not remember the window positions when I close the application?</p>
-		<p>Scribus does remember them and will attempt to put them back in the correct place, but depending on the window manager, or on various Qt bugs, it may not work. Eg, it works on Qt 3.1.x, but not on all versions of Qt 3.2.x and Qt 3.3.x</p>
-		<a href="#top">Back to top</a><hr/>
-	</li>
-</ul>
+</ol>
 </qt>

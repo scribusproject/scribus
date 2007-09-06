@@ -1,0 +1,56 @@
+<qt>
+<title>Scribus 1.3.5svn+ unter Mac OS X kompilieren und installieren</title>
+<h2>Scribus 1.3.5svn+ unter Mac OS X kompilieren und installieren</h2>
+<p>Dieses Dokument beschreibt, wie man Scribus 1.3.5 oder höher aus den SVN-Quellen unter Mac OS X installiert.  Momentan enthält es (noch) keine Informationen darüber, wie man ein Installationspaket baut.</p>
+<h3>Was Sie benötigen: </h3>
+<ul>
+<li>Den MacPorts-Installer (bis zur Version 1.5 darwinports)</li>
+<li>Qt 4.3.x von Trolltech </li>
+
+<li>XCode von Apple, entweder von der OS-X-Installations-CD oder von http://www.apple.com. </li>
+<li>Scribus-SVN-Quellen</li>
+</ul>
+<h3>Kompilieren und installieren</h3>
+<p>Die notwendigen Schritte, um 1.3.5 unter OS X/Aqua zu installieren:</p>
+<ul>
+<li> Installieren Sie X11 (von den Installations-CDs für OS X oder von der Apple-Entwickler-Website).</li>
+<li> Installieren Sie <a href="http://developer.apple.com/tools/xcode/">XCode</a>. () </li>
+
+<li> Installieren Sie MacPorts (auf <a href="http://www.macports.org">www.macports.org</a> erhältlich). </li>
+<li> Installieren Qt4 4.3.0+ für OSX (auf <a href="http://www.trolltech.com">www.trolltech.com</a> erhältlich).
+</li> 
+</ul>	
+<p>Installieren Sie einige portierte Programme von MacPorts (alle Abhängigkeiten werden automatisch aufgelöst).</p>
+<ul>
+<li> Installieren Sie CMake: <code>sudo port install cmake</code>.</li>
+
+<li> Installieren Sie freetype2: <code>sudo port install freetype</code>. Die Version, die in OSX 10.4.9 enthalten ist, ist nicht so gut wie diejenige von MacPorts.
+</li>
+<li> Installieren Sie lcms: (<code>sudo port install lcms</code>. Dadurch werden auch libjpeg, zlib und libtiff installiert.
+</li>
+<li> Installieren Sie cairo: (<code>sudo port install cairo</code>. Dadurch wird auch fontconfig installiert.
+</li>
+<li> Installieren Sie libxml2: (<code>sudo port install libxml2</code>.
+
+</li>
+<li> Installieren Sie subversion: (<code>sudo port install subversion</code> ODER installieren Sie subversion aus einer anderen Quelle
+</li>
+<li> Optional (empfohlen):<code>sudo port install ghostscript</code></li>
+<li> Erstellen Sie ein Verzeichnis, in das Sie die Quellen herunterladen wollen, zum Beispiel in einem Terminal: <code>mkdir -p ~/scribus/135</code>)
+</li>
+<li> Wechseln Sie in dieses Verzeichnis: <code>cd ~/scribus/135</code></li></ul>
+
+<p>Holen Sie sich die Quellen aus SVN:</p>
+<ul>
+<li> <code>svn co svn://scribus.info/Scribus/trunk/</code></li>
+<li> Erstellen Sie ein Verzeichnis zum Kompilieren: <code>mkdir builddir</code></li>
+<li> Wechseln Sie in das neue Verzeichnis: <code>cd builddir</code></li>
+<li> Rufen Sie den CMake-Befehl auf: <code>cmake -DBUILD_OSX_BUNDLE=1 -DWANT_CAIRO=1 -DCMAKE_INSTALL_PREFIX:PATH=/Users/username/Applications/Scribus.App/Contents/ ../trunk/Scribus/</code>
+
+</li>
+<li> <code>make</code>
+</li>
+<li> make install
+</li></ul>
+<p>Wenn alles gutgegangen ist, können Sie Scribus 1.3.5+ nun unter OS X benutzen.</p>
+</qt>
