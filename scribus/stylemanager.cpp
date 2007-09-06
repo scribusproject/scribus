@@ -904,7 +904,7 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 	{
 		if (!shortcutWidget_)
 		{
-			shortcutWidget_ = new ShortcutWidget(0, "shortcutWidget_");
+			shortcutWidget_ = new ShortcutWidget(0);
 			connect(shortcutWidget_, SIGNAL(newKey(const QString&)),
 					this, SLOT(slotShortcutChanged(const QString&)));
 		}
