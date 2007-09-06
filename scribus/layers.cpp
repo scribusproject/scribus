@@ -335,7 +335,7 @@ void LayerPalette::visibleLayer()
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->metaObject()->className()=="QCheckBox")
+	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
 		m_Doc->setLayerVisible(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
@@ -349,7 +349,7 @@ void LayerPalette::printLayer()
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->metaObject()->className()=="QCheckBox")
+	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 		m_Doc->setLayerPrintable(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 }
 
@@ -360,7 +360,7 @@ void LayerPalette::lockLayer()
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->metaObject()->className()=="QCheckBox")
+	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
 		m_Doc->setLayerLocked(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		deleteLayerButton->setEnabled(!((QCheckBox*)(senderBox))->isChecked());
@@ -375,7 +375,7 @@ void LayerPalette::flowToggleLayer()
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->metaObject()->className()=="QCheckBox")
+	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 		m_Doc->setLayerFlow(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 }
 
@@ -386,7 +386,7 @@ void LayerPalette::outlineToggleLayer()
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->metaObject()->className()=="QCheckBox")
+	if (strcmp(senderBox->metaObject()->className(), "QCheckBox") == 0)
 	{
 		m_Doc->setLayerOutline(layerNumber,((QCheckBox*)(senderBox))->isChecked());
 		emit LayerChanged();
@@ -400,7 +400,7 @@ void LayerPalette::markLayer()
 	if (layerNumber==-1)
 		return;
 	const QObject* senderBox=sender();
-	if (senderBox->metaObject()->className()=="QToolButton")
+	if (strcmp(senderBox->metaObject()->className(), "QToolButton") == 0)
 	{
 		QColor neu = QColor();
 		neu = QColorDialog::getColor(m_Doc->layerMarker(layerNumber), this);
