@@ -113,7 +113,10 @@ bool ScrPopupMenu::insertSubMenu(ScrPopupMenu* newSubMenu)
 	if (newSubMenu)
 	{
 		menuItemList.append(newSubMenu);
-		localPopupMenu->insertItem(newSubMenu->getMenuIcon(), newSubMenu->getMenuText(), newSubMenu->getLocalPopupMenu());
+// 		localPopupMenu->insertItem(newSubMenu->getMenuIcon(), newSubMenu->getMenuText(), newSubMenu->getLocalPopupMenu());
+		QAction *m=localPopupMenu->addMenu(newSubMenu->getLocalPopupMenu());
+		if (m)
+			m->setText(newSubMenu->getMenuText());
 		return true;
 	}
 	else
@@ -122,7 +125,7 @@ bool ScrPopupMenu::insertSubMenu(ScrPopupMenu* newSubMenu)
 
 bool ScrPopupMenu::removeSubMenu(ScrPopupMenu* subMenu)
 {
-	if (menuItemList.remove(subMenu))
+	if (menuItemList.removeAll(subMenu))
 	{
 		repopulateLocalMenu();
 		return true;
@@ -197,8 +200,8 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 		newMenuAction->setIconSet(loadIcon("noicon.xpm"));
 #endif
 		
-	QList< QPointer<QObject> >::Iterator it=menuItemList.find(QPointer<QObject>(afterMenuAction));
-	menuItemList.insert(++it, QPointer<QObject>(newMenuAction));
+	int pos=menuItemList.indexOf(QPointer<QObject>(afterMenuAction));
+	menuItemList.insert(++pos, QPointer<QObject>(newMenuAction));
 	/*
 	if (index==-1)
 		return false;
@@ -213,7 +216,7 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 
 bool ScrPopupMenu::removeMenuItem(ScrAction *menuAction)
 {
-	if (menuItemList.remove(menuAction))
+	if (menuItemList.removeAll(menuAction))
 	{
 		repopulateLocalMenu();
 		return true;
@@ -275,11 +278,11 @@ bool ScrPopupMenu::repopulateLocalMenu()
 		{
 			QList< QPointer<QObject> >::Iterator menuItemListItToDelete = menuItemListIt;
 			++menuItemListIt;
-			menuItemList.remove(*menuItemListItToDelete);
+			menuItemList.removeAll(*menuItemListItToDelete);
 			continue;
 		}
 		
-		QString menuItemListClassName=listObj->className();
+		QString menuItemListClassName=listObj->metaObject()->className();
 		if (menuItemListClassName=="ScrAction")
 		{
 			ScrAction * act = dynamic_cast<ScrAction *>(listObj);
@@ -292,10 +295,15 @@ bool ScrPopupMenu::repopulateLocalMenu()
 			{
 				ScrPopupMenu * men = dynamic_cast<ScrPopupMenu *>(listObj);
 				if (men!=NULL)
-					localPopupMenu->insertItem(men->getMenuIcon(), men->getMenuText(), men->getLocalPopupMenu());
+				{
+// 					localPopupMenu->insertItem(men->getMenuIcon(), men->getMenuText(), men->getLocalPopupMenu());
+					QAction *m=localPopupMenu->addMenu(men->getLocalPopupMenu());
+					if (m)
+						m->setText(men->getMenuText());
+				}
 			}
 			else
-				sDebug(QString("Alien found: %1").arg((*menuItemListIt)->className()));
+				sDebug(QString("Alien found: %1").arg((*menuItemListIt)->metaObject()->className()));
 		}
 		++menuItemListIt;
 	}
@@ -312,16 +320,16 @@ bool ScrPopupMenu::generateEntryList(QStringList *actNames)
 		{
 			QList< QPointer<QObject> >::Iterator menuItemListItToDelete = menuItemListIt;
 			++menuItemListIt;
-			menuItemList.remove(*menuItemListItToDelete);
+			menuItemList.removeAll(*menuItemListItToDelete);
 			continue;
 		}
 		
-		QString menuItemListClassName=listObj->className();
+		QString menuItemListClassName=listObj->metaObject()->className();
 		if (menuItemListClassName=="ScrAction")
 		{
 			ScrAction *sca=dynamic_cast<ScrAction *>(listObj);
 			if (sca!=NULL)
-				actNames->append(sca->name());
+				actNames->append(sca->objectName());
 		}
 		else 
 		if (menuItemListClassName=="ScrPopupMenu")
@@ -348,7 +356,7 @@ bool ScrPopupMenu::insertMenuSeparator()
 	ScrAction *sepAction = new ScrAction( NULL );
 	sepAction->setSeparator(true);
 	menuItemList.append(sepAction);
-	localPopupMenu->insertSeparator();
+	localPopupMenu->addSeparator();
 	return true;
 }
 

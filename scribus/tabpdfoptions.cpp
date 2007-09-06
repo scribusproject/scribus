@@ -999,8 +999,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	PageNr->setEnabled(false);
 	pageNrButton->setEnabled(false);
 	RotateDeg->setCurrentItem(Opts.RotateDeg / 90);
-	MirrorH->setOn(Opts.MirrorH);
-	MirrorV->setOn(Opts.MirrorV);
+	MirrorH->setChecked(Opts.MirrorH);
+	MirrorV->setChecked(Opts.MirrorV);
 	ClipMarg->setChecked(Opts.doClip);
 	bool cmsUse = mdoc ? (ScCore->haveCMS() && mdoc->HasCMS) : false;
 	if (cmsUse)
@@ -1622,8 +1622,8 @@ void TabPDFOptions::EffectOnAll()
 void TabPDFOptions::PDFMirror()
 {
 	// XXX Optionen or Opts changed here
-	Opts.MirrorH = MirrorH->isOn();
-	Opts.MirrorV = MirrorV->isOn();
+	Opts.MirrorH = MirrorH->isChecked();
+	Opts.MirrorV = MirrorV->isChecked();
 }
 
 void TabPDFOptions::Rotation( int value )

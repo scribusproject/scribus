@@ -437,7 +437,7 @@ int SeView::GetPage(int r, int c, bool *last)
 }
 
 /* Der Muelleimer */
-TrashBin::TrashBin(QWidget * parent) : QLabel(parent, "Trash")
+TrashBin::TrashBin(QWidget * parent) : QLabel(parent)
 {
 	Normal = loadIcon("trashcan.png");
 	Offen = loadIcon("trashcan2.png");
@@ -487,19 +487,19 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	PagePaletteLayout = new QVBoxLayout( this );
 	PagePaletteLayout->setSpacing( 5 );
 	PagePaletteLayout->setMargin( 5 );
-	Splitter1 = new QSplitter( this, "Splitter1" );
+	Splitter1 = new QSplitter( this );
 	Splitter1->setOrientation( Qt::Vertical );
-	QWidget* privateLayoutWidget = new QWidget( Splitter1, "Layout2" );
-	Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5, "Layout2");
-	TextLabel1 = new QLabel( privateLayoutWidget, "TextLabel1" );
+	QWidget* privateLayoutWidget = new QWidget( Splitter1 );
+	Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5);
+	TextLabel1 = new QLabel( privateLayoutWidget );
 	Layout2->addWidget( TextLabel1 );
 	masterPageList = new SeList(privateLayoutWidget);
 	masterPageList->setMinimumSize(QSize(130,70));
 	masterPageList->Thumb = false;
 	Layout2->addWidget( masterPageList );
-	QWidget* privateLayoutWidget_2 = new QWidget( Splitter1, "Layout3" );
-	Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5, "Layout3");
-	TextLabel2 = new QLabel( privateLayoutWidget_2, "TextLabel2" );
+	QWidget* privateLayoutWidget_2 = new QWidget( Splitter1 );
+	Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5);
+	TextLabel2 = new QLabel( privateLayoutWidget_2 );
 	Layout3->addWidget( TextLabel2 );
 	pageView = new SeView(privateLayoutWidget_2);
 	pageView->setLeftMargin(0);

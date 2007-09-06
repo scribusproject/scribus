@@ -39,7 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const char * name, bool modal, Qt::WFlags f)
+ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, bool modal, Qt::WFlags f)
 : QDialog ( parent, f | Qt::Tool | Qt::WindowTitleHint | Qt::WindowMinMaxButtonsHint | Qt::WindowSystemMenuHint ),
 palettePrefs(0),
 prefsContextName(QString::null),
@@ -59,7 +59,7 @@ visibleOnStartup(false)
 	originalParent=parent;
 	tempParent=0;
 	setWindowIcon(loadIcon("AppIcon.png"));
-	setPrefsContext(name);
+	setPrefsContext(prefsContext);
 	setModal(modal);
 	connect(PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));
 }

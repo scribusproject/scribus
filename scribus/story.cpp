@@ -372,8 +372,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				break;
 			case Qt::Key_Left:
 			case Qt::Key_Right:
-			case Qt::Key_Prior:
-			case Qt::Key_Next:
+			case Qt::Key_PageUp:
+			case Qt::Key_PageDown:
 			case Qt::Key_Up:
 			case Qt::Key_Down:
 			case Qt::Key_Home:
@@ -1165,7 +1165,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	Size->setValue(prefsManager->appPrefs.toolSettings.defSize / 10.0);
 	sizeAction=addWidget(Size);
 	sizeAction->setVisible(true);
-	ScaleTxt = new QLabel("", this, "ScaleTxt" );
+	ScaleTxt = new QLabel("", this);
 	ScaleTxt->setPixmap(loadIcon("textscaleh.png"));
 	scaleTxtAction=addWidget(ScaleTxt);
 	scaleTxtAction->setVisible(true);
@@ -1174,7 +1174,7 @@ SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), par
 	ChScale->setSuffix( tr( " %" ) );
 	chScaleAction=addWidget(ChScale);
 	chScaleAction->setVisible(true);
-	ScaleTxtV = new QLabel("", this, "ScaleTxtV" );
+	ScaleTxtV = new QLabel("", this);
 	ScaleTxtV->setPixmap(loadIcon("textscalev.png"));
 	scaleTxtVAction=addWidget(ScaleTxtV);
 	scaleTxtVAction->setVisible(true);
@@ -1424,7 +1424,7 @@ void StoryEditor::initActions()
 	seActions.insert("settingsDisplayFont", new ScrAction("", QKeySequence(), this));
 	seActions.insert("settingsSmartTextSelection", new ScrAction("", QKeySequence(), this));
 	smartSelection = false;
-	seActions["settingsSmartTextSelection"]->setOn(false);
+	seActions["settingsSmartTextSelection"]->setChecked(false);
 	seActions["settingsSmartTextSelection"]->setToggleAction(true);
 
 	connect( seActions["settingsBackground"], SIGNAL(activated()), this, SLOT(setBackPref()) );
@@ -1626,37 +1626,37 @@ void StoryEditor::buildGUI()
 	ButtonGroup1Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup1Layout->setSpacing( 2 );
 	ButtonGroup1Layout->setMargin( 0 );
-	WordCT1 = new QLabel(ButtonGroup1, "wt");
+	WordCT1 = new QLabel(ButtonGroup1);
 	ButtonGroup1Layout->addWidget( WordCT1, 0, 0, 1, 3 );
-	WordCT = new QLabel(ButtonGroup1, "wt");
+	WordCT = new QLabel(ButtonGroup1);
 	ButtonGroup1Layout->addWidget( WordCT, 1, 0 );
-	WordC = new QLabel(ButtonGroup1, "wc");
+	WordC = new QLabel(ButtonGroup1);
 	ButtonGroup1Layout->addWidget( WordC, 1, 1 );
-	CharCT = new QLabel(ButtonGroup1, "ct");
+	CharCT = new QLabel(ButtonGroup1);
 	ButtonGroup1Layout->addWidget( CharCT, 1, 2 );
-	CharC = new QLabel(ButtonGroup1, "cc");
+	CharC = new QLabel(ButtonGroup1);
 	ButtonGroup1Layout->addWidget( CharC, 1, 3 );
 	statusBar()->addWidget(ButtonGroup1, 1, true);
-	ButtonGroup2 = new QFrame( statusBar(), "ButtonGroup2" );
+	ButtonGroup2 = new QFrame( statusBar() );
 	ButtonGroup2->setFrameShape( QFrame::NoFrame );
 	ButtonGroup2->setFrameShadow( QFrame::Plain );
 	ButtonGroup2Layout = new QGridLayout( ButtonGroup2 );
 	ButtonGroup2Layout->setAlignment( Qt::AlignTop );
 	ButtonGroup2Layout->setSpacing( 2 );
 	ButtonGroup2Layout->setMargin( 0 );
-	WordCT3 = new QLabel(ButtonGroup2, "wt");
+	WordCT3 = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( WordCT3, 0, 0, 1, 5 );
-	ParCT = new QLabel(ButtonGroup2, "pt");
+	ParCT = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( ParCT, 1, 0 );
-	ParC = new QLabel(ButtonGroup2, "pc");
+	ParC = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( ParC, 1, 1 );
-	WordCT2 = new QLabel(ButtonGroup2, "wt");
+	WordCT2 = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( WordCT2, 1, 2 );
-	WordC2 = new QLabel(ButtonGroup2, "wc");
+	WordC2 = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( WordC2, 1, 3 );
-	CharCT2 = new QLabel(ButtonGroup2, "ct");
+	CharCT2 = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( CharCT2, 1, 4 );
-	CharC2 = new QLabel(ButtonGroup2, "cc");
+	CharC2 = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( CharC2, 1, 5 );
 	statusBar()->addWidget(ButtonGroup2, 1, true);
 	setCentralWidget( vb );
@@ -1716,7 +1716,7 @@ void StoryEditor::languageChange()
 	//Unicode Actions
 	ActionManager::languageChangeUnicodeActions(&seActions);
 
-	FileTools->setLabel( tr("File"));
+	FileTools->setWindowTitle( tr("File"));
 
 	WordCT1->setText( tr("Current Paragraph:"));
 	WordCT->setText( tr("Words: "));
@@ -2317,7 +2317,7 @@ void StoryEditor::updateStatus()
 	int counter2 = Editor->StyledText.length() > 0? 1 : 0;
 	while ( pos >= 0 )
 	{
-		pos = rx.search( txt, pos );
+		pos = rx.indexIn( txt, pos );
 		if ( pos > -1 )
 		{
 			if (pos > start && pos < end)
@@ -2336,7 +2336,7 @@ void StoryEditor::Do_insSp()
 {
 	//ScCore->primaryMainWindow()->charPalette->show();
 	charSelectUsed = true;
-	if (charSelect->isShown())
+	if (charSelect->isVisible())
 		return;
 	charSelect->setEnabled(true, 0);
 	charSelect->setDoc(currDoc);

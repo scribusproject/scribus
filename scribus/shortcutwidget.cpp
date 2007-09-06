@@ -47,7 +47,7 @@ bool ShortcutWidget::event( QEvent* ev )
 
 void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 {
-	if (setKeyButton->isOn())
+	if (setKeyButton->isChecked())
 	{
 		QStringList tl;
 		if (!keyDisplay->text().isEmpty())
@@ -80,13 +80,13 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 			default:
 				keyCode |= k->key();
 				keyDisplay->setText(getKeyText(keyCode));
-				setKeyButton->setOn(false);
+				setKeyButton->setChecked(false);
 				userDef->setChecked(true);
 				releaseKeyboard();
 				emit newKey(keyDisplay->text());
 		}
 	}
-	if (setKeyButton->isOn())
+	if (setKeyButton->isChecked())
 	{
 		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
 	}
@@ -94,7 +94,7 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 
 void ShortcutWidget::keyReleaseEvent(QKeyEvent *k)
 {
-	if (setKeyButton->isOn())
+	if (setKeyButton->isChecked())
 	{
 		if (!keyDisplay->text().isEmpty())
 		{
@@ -150,7 +150,7 @@ QString ShortcutWidget::getKeyText(int KeyC)
 
 void ShortcutWidget::setKeyText()
 {
-	if (setKeyButton->isOn())
+	if (setKeyButton->isChecked())
 	{
 		keyCode = 0;
 		Part0 = "";
@@ -169,7 +169,7 @@ void ShortcutWidget::setShortcut(const QString &shortcut)
 	disconnect(noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
 	disconnect(setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
 
-	setKeyButton->setOn(false);
+	setKeyButton->setChecked(false);
 	if (shortcut.length() > 0)
 	{
 		userDef->setChecked(true);

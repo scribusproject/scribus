@@ -883,19 +883,19 @@ void TabTools::setFillChar(int act)
 
 void TabTools::toggleChain()
 {
-	if (chainButton->isOn())
+	if (chainButton->isChecked())
 		scalingVertical->setValue(scalingHorizontal->value());
 }
 
 void TabTools::hChange()
 {
-	if (chainButton->isOn())
+	if (chainButton->isChecked())
 		scalingVertical->setValue(scalingHorizontal->value());
 }
 
 void TabTools::vChange()
 {
-	if (chainButton->isOn())
+	if (chainButton->isChecked())
 		scalingHorizontal->setValue(scalingVertical->value());
 }
 

@@ -308,10 +308,10 @@ void TabKeyboardShortcutsWidget::setKeyText()
 {
 	if (keyTable->currentItem()==0)
 	{
-		setKeyButton->setOn(false);
+		setKeyButton->setChecked(false);
 		return;
 	}
-	if (setKeyButton->isOn())
+	if (setKeyButton->isChecked())
 	{
 		keyCode = 0;
 		Part0 = "";
@@ -459,7 +459,7 @@ bool TabKeyboardShortcutsWidget::event( QEvent* ev )
 
 void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 {
-	if (setKeyButton->isOn())
+	if (setKeyButton->isChecked())
 	{
 		QStringList tl;
 		if (!keyDisplay->text().isEmpty())
@@ -508,16 +508,16 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 					keyMap[lviToActionMap[selectedLVI]].keySequence=newKeySequence;
 					userDef->setChecked(true);
 				}
-				setKeyButton->setOn(false);
+				setKeyButton->setChecked(false);
 		}
 	}
-	if (setKeyButton->isOn())
+	if (setKeyButton->isChecked())
 		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
 }
 
 void TabKeyboardShortcutsWidget::keyReleaseEvent(QKeyEvent *k)
 {
-	if (setKeyButton->isOn())
+	if (setKeyButton->isChecked())
 	{
 		if (!keyDisplay->text().isEmpty())
 		{

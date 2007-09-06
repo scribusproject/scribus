@@ -745,7 +745,7 @@ void Biblio::Import()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString s = QFileDialog::getOpenFileName(this, dirs->get("old_scrap_load", "."),
-	                                         tr("Scrapbook (*.scs)"),
+	                                         tr("Scrapbook (*.scs *.SCS)"),
 	                                         tr("Choose a scrapbook file to import"));
 	
 	if (!s.isEmpty())

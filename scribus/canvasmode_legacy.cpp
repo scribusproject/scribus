@@ -2569,7 +2569,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			if (m_doc->m_Selection->count() == 1)
 			{
 				pmen->addSeparator();
-				m_ScMW->scrActions["itemAttributes"]->addTo(pmen);
+				pmen->addAction(m_ScMW->scrActions["itemAttributes"]);
 			}	
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
@@ -2607,7 +2607,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 							m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
 						else
 							m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
-						m_ScMW->scrLayersActions[QString::number(layerMap[i--])]->addTo(pmen3);
+						pmen3->addAction(m_ScMW->scrLayersActions[QString::number(layerMap[i--])]);
 					}
 					QAction *act = pmen->addMenu(pmen3);
 					act->setText( ScribusView::tr("Send to La&yer"));
@@ -2687,7 +2687,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					pmen2->addAction(m_ScMW->scrActions["itemConvertToTextFrame"]);
 				}
 				bool insertedMenusEnabled = false;
-				for (uint pc = 0; pc < pmen2->count(); pc++)
+				for (int pc = 0; pc < pmen2->actions().count(); pc++)
 				{
 					if (pmen2->isItemEnabled(pmen2->idAt(pc)))
 						insertedMenusEnabled = true;
@@ -2737,7 +2737,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				}
 			}
 			pmen->addSeparator();
-			m_ScMW->scrActions["toolsProperties"]->addTo(pmen);
+			pmen->addAction(m_ScMW->scrActions["toolsProperties"]);
 
 			pmen->exec(QCursor::pos());
 			m_view->setGlobalUndoMode();

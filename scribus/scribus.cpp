@@ -403,9 +403,9 @@ void ScribusMainWindow::initToolBars()
 	addToolBar(mainToolBar);
 	addToolBar(pdfToolBar);
 
-// 	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setOn(bool)));
+// 	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setChecked(bool)));
 	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setShown(bool)));
-// 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setOn(bool)));
+// 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setChecked(bool)));
 	connect(scrActions["toolsToolbarTools"], SIGNAL(toggled(bool)), mainToolBar, SLOT(setShown(bool)) );
 }
 
@@ -453,11 +453,11 @@ void ScribusMainWindow::initPalettes()
 	outlinePalette = new Tree(this);
 	outlinePalette->setMainWindow(this);
 	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(setPaletteShown(bool)) );
-	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setOn(bool)));
+	connect( outlinePalette, SIGNAL(paletteShown(bool)), scrActions["toolsOutline"], SLOT(setChecked(bool)));
 	propertiesPalette = new Mpalette(this);
 	propertiesPalette->setMainWindow(this);
 	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(setPaletteShown(bool)) );
-	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setOn(bool)));
+	connect( propertiesPalette, SIGNAL(paletteShown(bool)), scrActions["toolsProperties"], SLOT(setChecked(bool)));
 
 	//CB dont need this until we have a doc...
 	//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
@@ -469,39 +469,39 @@ void ScribusMainWindow::initPalettes()
 	guidePalette = new GuideManager(this);
 	charPalette = new CharSelect(this);
 	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(setPaletteShown(bool)) );
-	connect( layerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setOn(bool)));
+	connect( layerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setChecked(bool)));
 	layerPalette->installEventFilter(this);
 	layerPalette->Table->installEventFilter(this);
 	scrapbookPalette = new Biblio(this);
 	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(setPaletteShown(bool)) );
-	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setOn(bool)));
+	connect( scrapbookPalette, SIGNAL(paletteShown(bool)), scrActions["toolsScrapbook"], SLOT(setChecked(bool)));
 	scrapbookPalette->installEventFilter(this);
 	pagePalette = new PagePalette(this);
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , this, SLOT(setPagePalette(bool)) );
-	connect( pagePalette, SIGNAL(paletteShown(bool)), scrActions["toolsPages"], SLOT(setOn(bool)));
+	connect( pagePalette, SIGNAL(paletteShown(bool)), scrActions["toolsPages"], SLOT(setChecked(bool)));
 	pagePalette->installEventFilter(this);
 	bookmarkPalette = new BookPalette(this);
 	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , bookmarkPalette, SLOT(setPaletteShown(bool)) );
-	connect( bookmarkPalette, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setOn(bool)));
+	connect( bookmarkPalette, SIGNAL(paletteShown(bool)), scrActions["toolsBookmarks"], SLOT(setChecked(bool)));
 	bookmarkPalette->installEventFilter(this);
 	measurementPalette = new Measurements(this);
 	connect( scrActions["toolsMeasurements"], SIGNAL(toggled(bool)) , measurementPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsMeasurements"], SIGNAL(toggledData(bool, int)) , this, SLOT(setAppModeByToggle(bool, int)) );
-	connect( measurementPalette, SIGNAL(paletteShown(bool)), scrActions["toolsMeasurements"], SLOT(setOn(bool)));
+	connect( measurementPalette, SIGNAL(paletteShown(bool)), scrActions["toolsMeasurements"], SLOT(setChecked(bool)));
 	measurementPalette->installEventFilter(this);
 	measurementPalette->hide();
 	docCheckerPalette = new CheckDocument(this, false);
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , docCheckerPalette, SLOT(setPaletteShown(bool)) );
 	connect( scrActions["toolsPreflightVerifier"], SIGNAL(toggled(bool)) , this, SLOT(docCheckToggle(bool)) );
-	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsPreflightVerifier"], SLOT(setOn(bool)));
+	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsPreflightVerifier"], SLOT(setChecked(bool)));
 	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), this, SLOT(docCheckToggle(bool)));
 	docCheckerPalette->installEventFilter(this);
 	docCheckerPalette->hide();
 
 	alignDistributePalette = new AlignDistributePalette(this, "AlignDistributePalette", false);
 	connect( scrActions["toolsAlignDistribute"], SIGNAL(toggled(bool)) , alignDistributePalette, SLOT(setPaletteShown(bool)) );
-	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setOn(bool)));
+	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setChecked(bool)));
 	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
 	alignDistributePalette->installEventFilter(this);
 
@@ -518,7 +518,7 @@ void ScribusMainWindow::initPalettes()
 	styleManager->addStyle(new SMParagraphStyle(tmpCS->tmpStyles()));
 	styleManager->addStyle(tmpCS);
 	connect( scrActions["editStyles"], SIGNAL(toggled(bool)) , styleManager, SLOT(setPaletteShown(bool)) );
-	connect( styleManager, SIGNAL(paletteShown(bool)), scrActions["editStyles"], SLOT(setOn(bool)));
+	connect( styleManager, SIGNAL(paletteShown(bool)), scrActions["editStyles"], SLOT(setChecked(bool)));
 	styleManager->installEventFilter(this);
 
 	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));
@@ -539,10 +539,10 @@ void ScribusMainWindow::initPalettes()
 	connect(bookmarkPalette->BView, SIGNAL(SelectElement(PageItem *)), this, SLOT(selectItemsFromOutlines(PageItem *)));
 	// guides
 	connect(scrActions["pageManageGuides"], SIGNAL(toggled(bool)), guidePalette, SLOT(setPaletteShown(bool)));
-	connect(guidePalette, SIGNAL(paletteShown(bool)), scrActions["pageManageGuides"], SLOT(setOn(bool)));
+	connect(guidePalette, SIGNAL(paletteShown(bool)), scrActions["pageManageGuides"], SLOT(setChecked(bool)));
 	// char palette
 	connect(scrActions["insertGlyph"], SIGNAL(toggled(bool)), charPalette, SLOT(setPaletteShown(bool)));
-	connect(charPalette, SIGNAL(paletteShown(bool)), scrActions["insertGlyph"], SLOT(setOn(bool)));
+	connect(charPalette, SIGNAL(paletteShown(bool)), scrActions["insertGlyph"], SLOT(setChecked(bool)));
 }
 
 
@@ -5318,7 +5318,7 @@ void ScribusMainWindow::slotOnlineHelpClosed()
 
 void ScribusMainWindow::ToggleTips()
 {
-	//qt4 consume in event filter QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isOn());
+	//qt4 consume in event filter QToolTip::setGloballyEnabled(scrActions["helpTooltips"]->isChecked());
 	prefsManager->appPrefs.showToolTips = scrActions["helpTooltips"]->isChecked();
 }
 

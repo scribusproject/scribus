@@ -209,7 +209,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 		initScrapbook();
 		setSplashStatus( tr("Setting up Shortcuts") );
 		SetShortCut();
-		scrActions["helpTooltips"]->setOn(prefsManager->appPrefs.showToolTips);
+		scrActions["helpTooltips"]->setChecked(prefsManager->appPrefs.showToolTips);
 		ToggleTips();
 
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));

@@ -253,7 +253,7 @@ void Tree::slotRightClick(QPoint point)
 			QMenu *pmenPDF = new QMenu();
 			QMenu *pmenResolution = new QMenu();
 			bool _isGlobalMode = currDoc->view()->undoManager->isGlobalMode();
-			m_MainWindow->scrActions["editActionMode"]->setOn(true);
+			m_MainWindow->scrActions["editActionMode"]->setChecked(true);
 			uint docSelectionCount = currDoc->m_Selection->count();
 			if (docSelectionCount == 1)
 				currDoc->view()->undoManager->showObject(currDoc->m_Selection->itemAt(0)->getUId());
@@ -577,7 +577,7 @@ void Tree::slotRightClick(QPoint point)
 				}
 			}
 			pmen->exec(QCursor::pos());
-			m_MainWindow->scrActions["editActionMode"]->setOn(!_isGlobalMode);
+			m_MainWindow->scrActions["editActionMode"]->setChecked(!_isGlobalMode);
 			if (_isGlobalMode)
 				currDoc->view()->undoManager->showObject(Um::GLOBAL_UNDO_MODE);
 			else

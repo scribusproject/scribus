@@ -265,7 +265,7 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	connect(ScCore->primaryMainWindow()->scrActions["editActionMode"], SIGNAL(toggled(bool)),
 	        objectBox, SLOT(setChecked(bool)));
 	connect(objectBox, SIGNAL(toggled(bool)), 
-			ScCore->primaryMainWindow()->scrActions["editActionMode"], SLOT(setOn(bool)));
+			ScCore->primaryMainWindow()->scrActions["editActionMode"], SLOT(setChecked(bool)));
 }
 
 void UndoPalette::clear()

@@ -75,10 +75,10 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SEffect = new QCheckBox( Search );
 	SEffect->setText( tr( "Font Effects" ) );
 	SearchLayout->addWidget( SEffect );
-	SFill = new QCheckBox( Search, "SFill" );
+	SFill = new QCheckBox( Search);
 	SFill->setText( tr( "Fill Color" ) );
 	SearchLayout->addWidget( SFill );
-	SFillS = new QCheckBox( Search, "SFillS" );
+	SFillS = new QCheckBox( Search );
 	SFillS->setText( tr( "Fill Shade" ) );
 	SearchLayout->addWidget( SFillS );
 	SStroke = new QCheckBox( Search );

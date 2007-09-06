@@ -1493,8 +1493,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
-	FlipH->setOn(i->imageFlippedH());
-	FlipV->setOn(i->imageFlippedV());
+	FlipH->setChecked(i->imageFlippedH());
+	FlipV->setChecked(i->imageFlippedV());
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
@@ -1522,7 +1522,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
 	//CB not needed, done from pageitem->emitalltogui or individual emit.
-	//NoPrint->setOn(!i->printEnabled());
+	//NoPrint->setChecked(!i->printEnabled());
 	//setLocked(i->locked());
 	//setSizeLocked(i->sizeLocked());
 	if ((CurItem->isTableItem) && (CurItem->isSingleSel))
@@ -1645,8 +1645,8 @@ void Mpalette::SetCurItem(PageItem *i)
 //CB Why do we need this? Setting it too much here
 // 			if (setter == true)
 // 			{
-// 				keepImageWHRatioButton->setOn(setter);
-// 				keepImageDPIRatioButton->setOn(setter);
+// 				keepImageWHRatioButton->setChecked(setter);
+// 				keepImageDPIRatioButton->setChecked(setter);
 // 			}
 			Aspect->setEnabled(!setter);
 			Aspect->setChecked(CurItem->AspectRatio);
@@ -1774,8 +1774,8 @@ void Mpalette::NewSel(int nr)
 		/*
 		disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 		disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
-		FlipH->setOn(false);
-		FlipV->setOn(false);
+		FlipH->setChecked(false);
+		FlipV->setChecked(false);
 		connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 		connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 		*/

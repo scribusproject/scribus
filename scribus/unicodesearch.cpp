@@ -31,7 +31,7 @@ UnicodeChooseButton::UnicodeChooseButton(QWidget * parent)
 	Q_CHECK_PTR(m_searchDialog);
 
 	connect(this, SIGNAL(toggled(bool)), this, SLOT(self_toggled(bool)));
-	connect(m_searchDialog, SIGNAL(setVisibleState(bool)), this, SLOT(setOn(bool)));
+	connect(m_searchDialog, SIGNAL(setVisibleState(bool)), this, SLOT(setChecked(bool)));
 	//
 	// listview user inputs
 	connect(m_searchDialog->unicodeList, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), this, SLOT(unicodeList_chosen(QTableWidgetItem *)));

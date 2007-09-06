@@ -60,7 +60,7 @@ void SMStyleSelect::setStyle(int i, bool isParentValue)
 		parentButton->hide();
 	else
 		parentButton->show();
-	parentButton->setOn(true);
+	parentButton->setChecked(true);
 	StyleSelect::setStyle(i);
 	connect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
 	connect(ShadowVal->Xoffset, SIGNAL(valueChanged(double)),this, SLOT(styleChanged()));
