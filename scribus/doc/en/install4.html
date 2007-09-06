@@ -59,15 +59,15 @@
 
 <h3>Specifying Library Locations</h3>
 <p>Whenever your distribution releases their package for a library Scribus depends on, it may still not be the very latest stable or unstable version from the writers of the library. In some cases, the Scribus developers have had to rely on the very latest code to further some parts of Scribus. In this case it is necessary to build your own version of such a library.</p>
-<p>On example of this is the cairo graphics library. Right now, 1.3.4+ has the capability to use the very very latest code from the just released cairo 1.4.10 or later and we recommend it for performance reasons as well. </p>
+<!--<p>One example of this is the cairo graphics library. Right now, 1.3.4+ has the capability to use the very very latest code from the just released cairo and we recommend it for performance reasons as well. </p>-->
 <p>To specify a new cairo install path, other than your system's default add this to the cmake command line: <code>-DPREFIX_CAIRO:PATH=/path/to/your/cairo/install</code></p>
 
-<h3>When system has both Qt3 and Qt4 installed</h3>
-<p>Systems with both Qt3 and Qt4 installed: You have <code>uic</code> and <code>moc</code> from Qt4 in the path and it may results to the compilation crash. This should NOT be the case with CMake 2.4.2 and higher, or when using current Scribus SVM. However, this might be a useful workaround:</p>
+<h3>When your system has both Qt3 and Qt4 installed</h3>
+<p>Systems with both Qt3 and Qt4 installed: You have <code>uic</code> and <code>moc</code> from Qt4 in the path and it may result in a compilation failure. This should NOT be the case with CMake 2.4.2 and higher, or when using current Scribus SVM. However, this might be a useful workaround:</p>
 <p>Remove cached options from previous cmake configuration run from your build location: <code>rm CMakeCache.txt</code></p>
-<p>Then change PATH variable (for my Gentoo) e.g.:</p>
+<p>Then change PATH variable. For example, on my Gentoo box:</p>
 <pre>export PATH=/usr/qt/3/bin/:$PATH</pre>
-<p>And run cmake config phase again:</p>
+<p>Rerun the cmake configuration phase:</p>
 <pre>/usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/</pre>
 
 <h3>Making a tarball for distribution</h3>
