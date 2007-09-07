@@ -13,19 +13,17 @@ ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent)
 	QString tmp[] = {"0 %", "10 %", "20 %", "30 %", "40 %", "50 %", "60 %", "70 %", "80 %", "90 %", "100 %"};
 	size_t array = sizeof(tmp) / sizeof(*tmp);
 	FillSh = new QMenu();
-	FillSh->addAction( tr("Other..."));
+	FillSh->addAction( tr("Other..."))->setCheckable(true);
 	for (uint a = 0; a < array; ++a)
-		FillSh->addAction(tmp[a]);
-//	setBackgroundMode(Qt::PaletteBackground);
+		FillSh->addAction(tmp[a])->setCheckable(true);
 	setMenu(FillSh);
 	setPopupMode(QToolButton::InstantPopup);
 	setText("100 %");
 	FillSh->actions()[11]->setChecked(true);
-// 	setAutoRaise(true);
-	connect( FillSh, SIGNAL(activated(int)), this, SLOT(setShade(int)));
+	connect( FillSh, SIGNAL(triggered(QAction *)), this, SLOT(setShade(QAction *)));
 }
 
-void ShadeButton::setShade(int id)
+void ShadeButton::setShade(QAction *act)
 {
 	bool ok = false;
 	int a;
@@ -35,10 +33,11 @@ void ShadeButton::setShade(int id)
 	{
 		FillSh->actions()[a]->setChecked(false);
 	}
-	c = id; // FillSh->indexOf(id);
+	act->setChecked(true);
+	QList<QAction*> actList = FillSh->actions();
+	c = actList.indexOf(act);
 	if (c < 0)
 		return;
-	FillSh->actions()[id]->setChecked(true);
 	if (c > 0)
 		b = (c-1) * 10;
 

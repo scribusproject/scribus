@@ -24,7 +24,7 @@ public:
 	void setValue(int val);
 
 private slots:
-	virtual void setShade(int id);
+	virtual void setShade(QAction *act);
 };
 #endif
 
