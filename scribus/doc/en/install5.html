@@ -18,23 +18,23 @@
 <li> Install Qt4 4.3.0+ for OSX (downloadable from <a href="http://www.trolltech.com">www.trolltech.com</a>)
 </li> 
 </ul>	
-<p>Install a few ports from MacPorts (any dependencies not already installed will be installed automatically)</p>
+<p>Install a few ports from MacPorts. Any other required dependencies will be installed automatically if they are not already. </p>
 <ul>
-<li> Install CMake <code>sudo port install cmake</code></li>
-<li> Install freetype2 <code>sudo port install freetype</code> The one included with OSX 10.4.9 is not as good as available from darwinports.
+<li> Install CMake (<code>sudo port install cmake</code>)</li>
+<li> Install freetype2 (<code>sudo port install freetype</code>) The one included with OSX 10.4.9 is not as good as available from darwinports.
 </li>
-<li> Install lcms (<code>sudo port install lcms</code>. This will also install jpeg, zlib, tiff
+<li> Install lcms (<code>sudo port install lcms</code>). This will also install jpeg, zlib, tiff
 </li>
-<li> Install cairo (<code>sudo port install cairo</code>. This will install fontconfig too.
+<li> Install cairo (<code>sudo port install cairo</code>). This will install fontconfig too.
 </li>
-<li> Install libxml2 (<code>sudo port install libxml2</code>.
+<li> Install libxml2 (<code>sudo port install libxml2</code>).
 </li>
-<li> Install subversion (<code>sudo port install subversion</code> OR optionally install subversion from another source.
+<li> Install subversion (<code>sudo port install subversion</code>) OR optionally install subversion from another source.
 </li>
 <li> Optionally (recommended)<code>sudo port install ghostscript</code></li>
 <li> Make a directory where you want to download to (eg, in Terminal, <code>mkdir -p ~/scribus/135</code>)
 </li>
-<li> Change to this directory (<code>cd ~/scribus/135</code></li></ul>
+<li> Change to this directory (<code>cd ~/scribus/135</code>)</li></ul>
 <p>Check out Scribus from SVN</p>
 <ul>
 <li> <code>svn co svn://scribus.info/Scribus/trunk/</code></li>
@@ -42,9 +42,8 @@
 <li> Change to the build directory (<code>cd builddir</code>)</li>
 <li> Run the cmake command: <code>cmake -DBUILD_OSX_BUNDLE=1 -DWANT_CAIRO=1 -DCMAKE_INSTALL_PREFIX:PATH=/Users/username/Applications/Scribus.App/Contents/ ../trunk/Scribus/</code>
 </li>
-<li> <code>make</code>
-</li>
-<li> make install
-</li></ul>
+<li> <code>make</code></li>
+<li><code>make install</code></li></ul>
 <p>Now you can run Scribus 1.3.5+ from OSX if all has gone well.</p>
+
 </qt>

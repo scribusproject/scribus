@@ -53,7 +53,7 @@ which is admittedly less than helpful.</p>
 
 <p>For most scripting tasks, building a simple GUI in Tkinter is your best choices at present. If you're looking to extend the user interface or provide palettes the user can work with while they continue to work in Scribus, you'll need to look into writing an 'extension script' with PyQt.
 
-<p>In most cases it's recommended to just choose Tkinter. It's the only GUI toolkit that works reliably in normal Scribus scripts due to the way they're executed in sub-interpreters. It's also almost universally packaged in Linux distros, though not all install it by default, and it's highly portable. Users may not particularly love the appearance of Tkinter, but it works well.</p>
+<p>In most cases it's recommended to just choose Tkinter. It's the only GUI toolkit that works reliably in normal Scribus scripts due to the way they're executed in sub-interpreters. It's also almost universally packaged in Linux distributions, though not all install it by default. Tkinter is highly portable. Tkinter is also bundled with the Windows installer for Scribus, along with being included with the python on Mac OS X 10.4.x.   Users may not particularly love the appearance of Tkinter, but it works well.</p>
 
 <p>If you're looking to write more advanced GUIs, the best choice is currently PyQt. You can write your own custom dialogs and palettes using PyQt, giving you the ability to extend the Scribus interface to a limited extent. PyQt will not work reliably from a normal script, but works fine from scripts that are run using the &quot;Load Extension Script...&quot; menu item. Please see the advanced section of the scripter manual for more details on this.</p>
 
@@ -126,4 +126,3 @@ which is admittedly less than helpful.</p>
 	<li>Offering to pay somebody to do it. This is probably only practical for larger amounts of work that would require quite a bit of time and effort (and money), but it's there as an option if you really need something.</li>
 </ul>
 </qt>
-
