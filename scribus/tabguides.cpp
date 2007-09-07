@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "units.h"
 
-TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex) : QWidget( parent, "tabguide", 0 )
+TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex) : QWidget( parent )
 {
 	double unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString unit = unitGetSuffixFromIndex(unitIndex);
@@ -32,62 +32,62 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	tabGuidesLayout->setMargin(0);
 	tabGuidesLayout->setSpacing(5);
 
-	commonBox = new QGroupBox( this, "commonBox" );
+	commonBox = new QGroupBox( this );
 	commonBox->setTitle( tr( "Common Settings" ) );
 	commonBoxLayout = new QHBoxLayout( commonBox );
 	commonBoxLayout->setMargin(10);
 	commonBoxLayout->setSpacing(5);
 
-	buttonGroup1 = new QGroupBox( commonBox, "buttonGroup1" );
+	buttonGroup1 = new QGroupBox( commonBox );
 	buttonGroup1->setTitle( tr( "Placing in Documents" ) );
 	buttonGroup1Layout = new QVBoxLayout( buttonGroup1 );
 	buttonGroup1Layout->setMargin(10);
 	buttonGroup1Layout->setSpacing(5);
 	buttonGroup1Layout->setAlignment( Qt::AlignTop );
-	inBackground = new QRadioButton( buttonGroup1, "inBackground" );
+	inBackground = new QRadioButton( buttonGroup1 );
 	inBackground->setText( tr( "In the Background" ) );
 	buttonGroup1Layout->addWidget( inBackground );
-	inForeground = new QRadioButton( buttonGroup1, "inForeground" );
+	inForeground = new QRadioButton( buttonGroup1 );
 	inForeground->setText( tr( "In the Foreground" ) );
 	buttonGroup1Layout->addWidget( inForeground );
 	commonBoxLayout->addWidget( buttonGroup1 );
 
-	snapBox = new QGroupBox( commonBox, "snapBox" );
+	snapBox = new QGroupBox( commonBox );
 	snapBox->setTitle( tr( "Snapping" ) );
 	snapBoxLayout = new QGridLayout( snapBox );
 	snapBoxLayout->setMargin(10);
 	snapBoxLayout->setSpacing(5);
-	textLabel8 = new QLabel( snapBox, "textLabel8" );
+	textLabel8 = new QLabel( snapBox );
 	textLabel8->setText( tr( "Snap Distance:" ) );
 	snapBoxLayout->addWidget( textLabel8, 0, 0 );
-	snapDistance = new QSpinBox( snapBox, "snapDistance" );
+	snapDistance = new QSpinBox( snapBox );
 	snapDistance->setMaximum( 1000 );
 	snapDistance->setMinimum( 1 );
-	snapDistance->setLineStep( 1 );
+	snapDistance->setSingleStep( 1 );
 	snapBoxLayout->addWidget( snapDistance, 0, 1 );
-	textLabel82 = new QLabel( snapBox, "textLabel8" );
+	textLabel82 = new QLabel( snapBox );
 	textLabel82->setText( tr( "Grab Radius:" ) );
 	snapBoxLayout->addWidget( textLabel82, 1, 0 );
-	grabDistance = new QSpinBox( snapBox, "grabDistance" );
+	grabDistance = new QSpinBox( snapBox );
 	grabDistance->setMaximum( 1000 );
 	grabDistance->setMinimum( 1 );
-	grabDistance->setLineStep( 1 );
+	grabDistance->setSingleStep( 1 );
 	snapBoxLayout->addWidget( grabDistance, 1, 1 );
 	commonBoxLayout->addWidget( snapBox );
 	tabGuidesLayout->addWidget( commonBox );
 	layout9 = new QHBoxLayout;
 	layout9->setMargin(0);
 	layout9->setSpacing(5);
-	guideBox = new QGroupBox( this, "guideBox" );
+	guideBox = new QGroupBox( this );
 	guideBox->setTitle( tr( "Show Guides" ) );
 	guideBox->setCheckable( true );
 	guideBoxLayout = new QHBoxLayout( guideBox );
 	guideBoxLayout->setMargin(10);
 	guideBoxLayout->setSpacing(5);
-	checkGuides = new QLabel( guideBox, "checkGuides" );
+	checkGuides = new QLabel( guideBox );
 	checkGuides->setText( tr( "Color:" ) );
 	guideBoxLayout->addWidget( checkGuides );
-	guideColor = new QPushButton( guideBox, "guideColor" );
+	guideColor = new QPushButton( guideBox );
 	guideColor->setMinimumSize( QSize( 60, 20 ) );
 	guideColor->setMaximumSize( QSize( 60, 20 ) );
 	guideColor->setFlat( false );
@@ -95,16 +95,16 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	guideColor->setText( QString::null );
 	guideBoxLayout->addWidget( guideColor );
 	layout9->addWidget( guideBox );
-	marginBox = new QGroupBox( this, "guideBox" );
+	marginBox = new QGroupBox( this );
 	marginBox->setCheckable( true );
 	marginBox->setTitle( tr( "Show Margins" ) );
 	marginBoxLayout = new QHBoxLayout( marginBox );
 	marginBoxLayout->setMargin(10);
 	marginBoxLayout->setSpacing(5);
-	checkMargin = new QLabel( marginBox, "checkMargin" );
+	checkMargin = new QLabel( marginBox );
 	checkMargin->setText( tr( "Color:" ) );
 	marginBoxLayout->addWidget( checkMargin );
-	marginColor = new QPushButton( marginBox, "marginColor" );
+	marginColor = new QPushButton( marginBox );
 	marginColor->setMinimumSize( QSize( 60, 20 ) );
 	marginColor->setMaximumSize( QSize( 60, 20 ) );
 	marginColor->setAutoDefault( false );
@@ -114,52 +114,52 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	layout9->addWidget( marginBox );
 	tabGuidesLayout->addLayout( layout9 );
 
-	checkGrid = new QGroupBox( this, "checkGrid" );
+	checkGrid = new QGroupBox( this );
 	checkGrid->setTitle( tr( "Show Page Grid" ) );
 	checkGrid->setCheckable( true );
 	checkGridLayout = new QGridLayout( checkGrid );
 	checkGridLayout->setMargin(10);
 	checkGridLayout->setSpacing(5);
 	checkGridLayout->setAlignment( Qt::AlignTop );
-	groupBox1 = new QGroupBox( checkGrid, "groupBox1" );
+	groupBox1 = new QGroupBox( checkGrid );
 	groupBox1->setTitle( tr( "Major Grid" ) );
 	groupBox1Layout = new QGridLayout( groupBox1 );
 	groupBox1Layout->setMargin(10);
 	groupBox1Layout->setSpacing(5);
 	groupBox1Layout->setAlignment( Qt::AlignTop );
-	majorGridColor = new QPushButton( groupBox1, "majorGridColor" );
+	majorGridColor = new QPushButton( groupBox1 );
 	majorGridColor->setMinimumSize( QSize( 60, 20 ) );
 	majorGridColor->setMaximumSize( QSize( 60, 20 ) );
 	majorGridColor->setFlat( false );
 	majorGridColor->setAutoDefault( false );
 	majorGridColor->setText( QString::null );
 	groupBox1Layout->addWidget( majorGridColor, 1, 1 );
-	textLabel4 = new QLabel( groupBox1, "textLabel4" );
+	textLabel4 = new QLabel( groupBox1 );
 	textLabel4->setText( tr( "Color:" ) );
 	groupBox1Layout->addWidget( textLabel4, 1, 0 );
-	textLabel6 = new QLabel( groupBox1, "textLabel6" );
+	textLabel6 = new QLabel( groupBox1 );
 	textLabel6->setText( tr( "Spacing:" ) );
 	groupBox1Layout->addWidget( textLabel6, 0, 0 );
 	majorSpace = new ScrSpinBox( 10 * unitRatio, 1000 * unitRatio, groupBox1, unitIndex );
 	groupBox1Layout->addWidget( majorSpace, 0, 1 );
 	checkGridLayout->addWidget( groupBox1, 0, 0 );
-	groupBox2 = new QGroupBox( checkGrid, "groupBox2" );
+	groupBox2 = new QGroupBox( checkGrid );
 	groupBox2->setTitle( tr( "Minor Grid" ) );
 	groupBox2Layout = new QGridLayout( groupBox2 );
 	groupBox2Layout->setMargin(10);
 	groupBox2Layout->setSpacing(5);
 	groupBox2Layout->setAlignment( Qt::AlignTop );
-	textLabel5 = new QLabel( groupBox2, "textLabel5" );
+	textLabel5 = new QLabel( groupBox2 );
 	textLabel5->setText( tr( "Color:" ) );
 	groupBox2Layout->addWidget( textLabel5, 1, 0 );
-	minorGridColor = new QPushButton( groupBox2, "minorGridColor" );
+	minorGridColor = new QPushButton( groupBox2 );
 	minorGridColor->setMinimumSize( QSize( 60, 20 ) );
 	minorGridColor->setMaximumSize( QSize( 60, 20 ) );
 	minorGridColor->setFlat( false );
 	minorGridColor->setAutoDefault( false );
 	minorGridColor->setText( QString::null );
 	groupBox2Layout->addWidget( minorGridColor, 1, 1 );
-	textLabel7 = new QLabel( groupBox2, "textLabel7" );
+	textLabel7 = new QLabel( groupBox2 );
 	textLabel7->setText( tr( "Spacing:" ) );
 	groupBox2Layout->addWidget( textLabel7, 0, 0 );
 	minorSpace = new ScrSpinBox( unitRatio, 1000 * unitRatio, groupBox2, unitIndex );
@@ -170,17 +170,17 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	layout9a = new QHBoxLayout;
 	layout9a->setMargin(0);
 	layout9a->setSpacing(5);
-	baselineBox = new QGroupBox( this, "baselineBox" );
+	baselineBox = new QGroupBox( this );
 	baselineBox->setTitle( tr( "Show Baseline Grid" ) );
 	baselineBox->setCheckable( true );
 	baselineBoxLayout = new QGridLayout( baselineBox );
 	baselineBoxLayout->setMargin(10);
 	baselineBoxLayout->setSpacing(5);
 	baselineBoxLayout->setAlignment( Qt::AlignTop );
-	checkBaseline = new QLabel( baselineBox, "checkBaseline" );
+	checkBaseline = new QLabel( baselineBox );
 	checkBaseline->setText( tr( "Color:" ) );
 	baselineBoxLayout->addWidget( checkBaseline, 0, 0 );
-	baselineColor = new QPushButton( baselineBox, "baselineColor" );
+	baselineColor = new QPushButton( baselineBox );
 	baselineColor->setMinimumSize( QSize( 60, 20 ) );
 	baselineColor->setMaximumSize( QSize( 60, 20 ) );
 	baselineColor->setFlat( false );
@@ -189,7 +189,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baselineBoxLayout->addWidget( baselineColor, 0, 1 );
 	layout9a->addWidget( baselineBox );
 
-	baseGridBox = new QGroupBox( this, "baseGridBox" );
+	baseGridBox = new QGroupBox( this );
 	baseGridBox->setTitle( tr( "Baseline Settings" ) );
 	baseGridBoxLayout = new QGridLayout( baseGridBox );
 	baseGridBoxLayout->setMargin(10);
@@ -197,11 +197,13 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	baseGridBoxLayout->setAlignment( Qt::AlignTop );
 	baseGrid = new ScrSpinBox( 1.0, 1000.0, baseGridBox, 0 );
 	baseGridBoxLayout->addWidget( baseGrid, 0, 1 );
-	textLabel6a = new QLabel(baseGrid, tr( "Baseline &Grid:" ), baseGridBox, "textLabel6a" );
+	textLabel6a = new QLabel( tr( "Baseline &Grid:" ), baseGridBox);
+	textLabel6a->setBuddy(baseGrid);
 	baseGridBoxLayout->addWidget( textLabel6a, 0, 0 );
 	baseOffset = new ScrSpinBox( 1.0, 1000.0, baseGridBox, 0 );
 	baseGridBoxLayout->addWidget( baseOffset, 1, 1 );
-	textLabel7a = new QLabel(baseOffset, tr( "Baseline &Offset:" ), baseGridBox, "textLabel7a" );
+	textLabel7a = new QLabel( tr( "Baseline &Offset:" ), baseGridBox );
+	textLabel7a->setBuddy(baseOffset);
 	baseGridBoxLayout->addWidget( textLabel7a, 1, 0 );
 	layout9a->addWidget( baseGridBox );
 	tabGuidesLayout->addLayout( layout9a );
@@ -242,23 +244,23 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	QPixmap pm3(54, 14);
 	pm3.fill(prefsData->guideColor);
 	colorGuides = prefsData->guideColor;
-	guideColor->setPixmap(pm3);
+	guideColor->setIcon(pm3);
 	QPixmap pm6(54, 14);
 	pm6.fill(prefsData->margColor);
 	colorMargin = prefsData->margColor;
-	marginColor->setPixmap(pm6);
+	marginColor->setIcon(pm6);
 	QPixmap pm1(54, 14);
 	pm1.fill(prefsData->majorColor);
 	colorMajorGrid = prefsData->majorColor;
-	majorGridColor->setPixmap(pm1);
+	majorGridColor->setIcon(pm1);
 	QPixmap pm(54, 14);
 	pm.fill(prefsData->minorColor);
 	colorMinorGrid = prefsData->minorColor;
-	minorGridColor->setPixmap(pm);
+	minorGridColor->setIcon(pm);
 	QPixmap pm4(54, 14);
 	pm4.fill(prefsData->baseColor);
 	colorBaselineGrid = prefsData->baseColor;
-	baselineColor->setPixmap(pm4);
+	baselineColor->setIcon(pm4);
 	minorSpace->setDecimals( decimals );
 	minorSpace->setValue(prefsData->minorGrid  * unitRatio);
 	minorSpace->setSuffix( unit );
@@ -288,7 +290,7 @@ void TabGuides::changeMajorColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorMajorGrid = neu;
-		majorGridColor->setPixmap(pm);
+		majorGridColor->setIcon(pm);
 	}
 }
 
@@ -301,7 +303,7 @@ void TabGuides::changeMinorColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorMinorGrid = neu;
-		minorGridColor->setPixmap(pm);
+		minorGridColor->setIcon(pm);
 	}
 }
 
@@ -314,7 +316,7 @@ void TabGuides::changeBaselineColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorBaselineGrid = neu;
-		baselineColor->setPixmap(pm);
+		baselineColor->setIcon(pm);
 	}
 }
 
@@ -327,7 +329,7 @@ void TabGuides::changeGuideColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorGuides = neu;
-		guideColor->setPixmap(pm);
+		guideColor->setIcon(pm);
 	}
 }
 
@@ -340,7 +342,7 @@ void TabGuides::changeMarginColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorMargin = neu;
-		marginColor->setPixmap(pm);
+		marginColor->setIcon(pm);
 	}
 }
 

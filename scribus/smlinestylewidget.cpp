@@ -30,13 +30,13 @@ SMLineStyleWidget::SMLineStyleWidget() : QWidget()
 	colorCombo = new ColorCombo(this);
 	gridLayout1->addWidget(colorCombo, 1, 0);
 
-	endCombo->insertItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
-	endCombo->insertItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
-	endCombo->insertItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
+	endCombo->addItem(loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
+	endCombo->addItem(loadIcon("SquareCap.png"), tr( "Square Cap" ) );
+	endCombo->addItem(loadIcon("RoundCap.png"), tr( "Round Cap" ) );
 
-	joinCombo->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
-	joinCombo->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
-	joinCombo->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
+	joinCombo->addItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
+	joinCombo->addItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
+	joinCombo->addItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
 
 	languageChange();
 }
@@ -92,60 +92,60 @@ void SMLineStyleWidget::slotEditNewLine(int i)
 		return;
 
 	lineWidth->setValue(currentStyle[i].Width);
-	colorCombo->setCurrentText(currentStyle[i].Color);
+	colorCombo->setItemText(colorCombo->currentIndex(), currentStyle[i].Color);
 	shadeBox->setValue(currentStyle[i].Shade);
 	
 	switch (static_cast<Qt::PenStyle>(currentStyle[i].Dash))
 	{
 	case Qt::SolidLine:
-		dashCombo->setCurrentItem(0);
+		dashCombo->setCurrentIndex(0);
 		break;
 	case Qt::DashLine:
-		dashCombo->setCurrentItem(1);
+		dashCombo->setCurrentIndex(1);
 		break;
 	case Qt::DotLine:
-		dashCombo->setCurrentItem(2);
+		dashCombo->setCurrentIndex(2);
 		break;
 	case Qt::DashDotLine:
-		dashCombo->setCurrentItem(3);
+		dashCombo->setCurrentIndex(3);
 		break;
 	case Qt::DashDotDotLine:
-		dashCombo->setCurrentItem(4);
+		dashCombo->setCurrentIndex(4);
 		break;
 	default:
-		dashCombo->setCurrentItem(0);
+		dashCombo->setCurrentIndex(0);
 		break;
 	}
 
 	switch (static_cast<Qt::PenCapStyle>(currentStyle[i].LineEnd))
 	{
 	case Qt::FlatCap:
-		endCombo->setCurrentItem(0);
+		endCombo->setCurrentIndex(0);
 		break;
 	case Qt::SquareCap:
-		endCombo->setCurrentItem(1);
+		endCombo->setCurrentIndex(1);
 		break;
 	case Qt::RoundCap:
-		endCombo->setCurrentItem(2);
+		endCombo->setCurrentIndex(2);
 		break;
 	default:
-		endCombo->setCurrentItem(0);
+		endCombo->setCurrentIndex(0);
 		break;
 	}
 
 	switch (static_cast<Qt::PenJoinStyle>(currentStyle[i].LineJoin))
 	{
 	case Qt::MiterJoin:
-		joinCombo->setCurrentItem(0);
+		joinCombo->setCurrentIndex(0);
 		break;
 	case Qt::BevelJoin:
-		joinCombo->setCurrentItem(1);
+		joinCombo->setCurrentIndex(1);
 		break;
 	case Qt::RoundJoin:
-		joinCombo->setCurrentItem(2);
+		joinCombo->setCurrentIndex(2);
 		break;
 	default:
-		joinCombo->setCurrentItem(0);
+		joinCombo->setCurrentIndex(0);
 		break;
 	}
 }

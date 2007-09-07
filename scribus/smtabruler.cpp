@@ -34,17 +34,17 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
 	right_ = new SMScrSpinBox(0, 4000, this, 1);
 	Q_CHECK_PTR(right_);
 
-	indentLayout->remove(firstLineData);
+	indentLayout->removeWidget(firstLineData);
 	firstLineData->hide();
 	indentLayout->insertWidget(1, first_);
 	first_->show();
 
-	layout4->remove(leftIndentData);
+	layout4->removeWidget(leftIndentData);
 	leftIndentData->hide();
 	layout4->insertWidget(1, left_);
 	left_->show();
 
-	indentLayout->remove(rightIndentData);
+	indentLayout->removeWidget(rightIndentData);
 	rightIndentData->hide();
 	indentLayout->insertWidget(3, right_);
 	right_->show();

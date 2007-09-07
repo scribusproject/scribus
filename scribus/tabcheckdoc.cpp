@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefsstructs.h"
 
-TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString prefProfile ) : QWidget( parent, "tabcheckDoc", 0 )
+TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString prefProfile ) : QWidget( parent )
 {
 	TabCheckDocLayout = new QVBoxLayout(this);
 	TabCheckDocLayout->setMargin(0);
@@ -30,61 +30,61 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	curCheckProfile->setDuplicatesEnabled(false);
 
 	TabCheckDocLayout->addWidget( curCheckProfile );
-	ignoreErrors = new QCheckBox( this, "ignoreErrors" );
+	ignoreErrors = new QCheckBox( this );
 	ignoreErrors->setText( tr( "Ignore all errors" ) );
 	TabCheckDocLayout->addWidget( ignoreErrors );
-	automaticCheck = new QCheckBox( this, "automaticCheck" );
+	automaticCheck = new QCheckBox( this );
 	automaticCheck->setText( tr( "Automatic check before printing or exporting" ) );
 	TabCheckDocLayout->addWidget( automaticCheck );
-	missingGlyphs = new QCheckBox( this, "missingGlyphs" );
+	missingGlyphs = new QCheckBox( this );
 	missingGlyphs->setText( tr( "Check for missing glyphs" ) );
 	TabCheckDocLayout->addWidget( missingGlyphs );
-	checkOrphans = new QCheckBox( this, "checkOrphans" );
+	checkOrphans = new QCheckBox( this );
 	checkOrphans->setText( tr( "Check for items not on a page" ) );
 	TabCheckDocLayout->addWidget( checkOrphans );
-	textOverflow = new QCheckBox( this, "textOverflow" );
+	textOverflow = new QCheckBox( this );
 	textOverflow->setText( tr( "Check for overflow in text frames" ) );
 	TabCheckDocLayout->addWidget( textOverflow );
-	tranparentObjects = new QCheckBox( this, "tranparentObjects" );
+	tranparentObjects = new QCheckBox( this );
 	tranparentObjects->setText( tr( "Check for used transparencies" ) );
 	TabCheckDocLayout->addWidget( tranparentObjects );
-	missingPictures = new QCheckBox( this, "missingPictures" );
+	missingPictures = new QCheckBox( this );
 	missingPictures->setText( tr( "Check for missing images" ) );
 	TabCheckDocLayout->addWidget( missingPictures );
-	pictResolution = new QGroupBox( this, "pictResolution" );
+	pictResolution = new QGroupBox( this );
 	pictResolution->setTitle( tr( "Check image resolution" ) );
 	pictResolution->setCheckable( true );
 	pictResolutionLayout = new QGridLayout(pictResolution);
 	pictResolutionLayout->setMargin(10);
 	pictResolutionLayout->setSpacing(5);
 	pictResolutionLayout->setAlignment( Qt::AlignTop );
-	textLabel1 = new QLabel( pictResolution, "textLabel1" );
+	textLabel1 = new QLabel( pictResolution );
 	textLabel1->setText( tr( "Lowest allowed resolution" ) );
 	pictResolutionLayout->addWidget( textLabel1, 0, 0 );
-	resolutionValue = new QSpinBox( pictResolution, "resolutionValue" );
+	resolutionValue = new QSpinBox( pictResolution );
 	resolutionValue->setMaximum( 4800 );
 	resolutionValue->setMinimum( 10 );
 	resolutionValue->setSuffix( tr( " dpi" ) );
 	pictResolutionLayout->addWidget( resolutionValue, 0, 1 );
-	textLabel1m = new QLabel( pictResolution, "textLabel1m" );
+	textLabel1m = new QLabel( pictResolution );
 	textLabel1m->setText( tr( "Highest allowed resolution" ) );
 	pictResolutionLayout->addWidget( textLabel1m, 0, 2 );
-	resolutionValueM = new QSpinBox( pictResolution, "resolutionValue" );
+	resolutionValueM = new QSpinBox( pictResolution );
 	resolutionValueM->setMaximum( 4800 );
 	resolutionValueM->setMinimum( 10 );
 	resolutionValueM->setSuffix( tr( " dpi" ) );
 	pictResolutionLayout->addWidget( resolutionValueM, 0, 3 );
 	TabCheckDocLayout->addWidget( pictResolution );
-	rasterPDF = new QCheckBox( this, "rasterPDF" );
+	rasterPDF = new QCheckBox( this );
 	rasterPDF->setText( tr( "Check for placed PDF Files" ) );
 	TabCheckDocLayout->addWidget( rasterPDF );
-	checkForGIF = new QCheckBox(this, "checkForGIF");
+	checkForGIF = new QCheckBox(this);
 	checkForGIF->setText( tr("Check for GIF images"));
 	TabCheckDocLayout->addWidget(checkForGIF);
-	useAnnotations = new QCheckBox( this, "useAnnotations" );
+	useAnnotations = new QCheckBox( this );
 	useAnnotations->setText( tr( "Check for PDF Annotations and Fields" ) );
 	TabCheckDocLayout->addWidget( useAnnotations );
-	ignoreOffLayers = new QCheckBox( this, "ignoreOffLayers" );
+	ignoreOffLayers = new QCheckBox( this );
 	ignoreOffLayers->setText( tr( "Ignore non-printable Layers" ) );
 	TabCheckDocLayout->addWidget( ignoreOffLayers );
 	layout1 = new QHBoxLayout;
@@ -92,9 +92,9 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	layout1->setSpacing(5);
 	QSpacerItem* spacer = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
-	addProfile = new QPushButton( tr( "Add Profile" ), this, "addProfile" );
+	addProfile = new QPushButton( tr( "Add Profile" ), this );
 	layout1->addWidget( addProfile );
-	removeProfile = new QPushButton( tr( "Remove Profile" ), this, "removeProfile" );
+	removeProfile = new QPushButton( tr( "Remove Profile" ), this );
 	layout1->addWidget( removeProfile );
 	QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer2 );
@@ -133,7 +133,7 @@ void TabCheckDoc::restoreDefaults(CheckerPrefsList *prefsData, QString prefProfi
 	curCheckProfile->clear();
 	for (it = checkerProfile.begin(); it != checkerProfile.end(); ++it)
 		curCheckProfile->addItem(it.key());
-	curCheckProfile->setCurrentText(prefProfile);
+	curCheckProfile->setItemText(curCheckProfile->currentIndex(), prefProfile);
 	ignoreErrors->setChecked(checkerProfile[prefProfile].ignoreErrors);
 	automaticCheck->setChecked(checkerProfile[prefProfile].autoCheck);
 	missingGlyphs->setChecked(checkerProfile[prefProfile].checkGlyphs);
@@ -271,7 +271,7 @@ void TabCheckDoc::addProf()
 		if (it.key()==currentProfile)
 			i=j;
 	}
-	curCheckProfile->setCurrentItem(i);
+	curCheckProfile->setCurrentIndex(i);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	tempNewProfileName="";
@@ -288,7 +288,7 @@ void TabCheckDoc::delProf()
 	CheckerPrefsList::Iterator itend=checkerProfile.end();
 	for (it = checkerProfile.begin(); it != itend; ++it)
 		curCheckProfile->addItem(it.key());
-	curCheckProfile->setCurrentText(currentProfile);
+	curCheckProfile->setItemText(curCheckProfile->currentIndex(), currentProfile);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	if (checkerProfile.count() == 1)

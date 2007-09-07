@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 
 TabDisplay::TabDisplay(QWidget* parent, const char* name)
-	: QWidget(parent, name, 0)
+	: QWidget(parent)
 {
 	setupUi(this);
 	backColor->setToolTip( "<qt>" + tr( "Color for paper" ) + "</qt>");
@@ -65,40 +65,40 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	QPixmap pm(54, 14);
 	pm.fill(prefsData->DpapColor);
 	colorPaper = prefsData->DpapColor;
-	backColor->setPixmap(pm);
+	backColor->setIcon(pm);
 	backColor->setText( QString::null );
 	pm.fill(prefsData->DFrameColor);
 	colorFrame = prefsData->DFrameColor;
 	buttonFrameSelected->setText( QString::null );
-	buttonFrameSelected->setPixmap(pm);
+	buttonFrameSelected->setIcon(pm);
 	pm.fill(prefsData->DFrameNormColor);
 	colorFrameNorm = prefsData->DFrameNormColor;
 	buttonFrameNormal->setText( QString::null );
-	buttonFrameNormal->setPixmap(pm);
+	buttonFrameNormal->setIcon(pm);
 	pm.fill(prefsData->DFrameGroupColor);
 	colorFrameGroup = prefsData->DFrameGroupColor;
 	buttonFrameGrouped->setText( QString::null );
-	buttonFrameGrouped->setPixmap(pm);
+	buttonFrameGrouped->setIcon(pm);
 	pm.fill(prefsData->DFrameLinkColor);
 	colorFrameLinked = prefsData->DFrameLinkColor;
 	buttonFrameLinked->setText( QString::null );
-	buttonFrameLinked->setPixmap(pm);
+	buttonFrameLinked->setIcon(pm);
 	pm.fill(prefsData->DFrameLockColor);
 	colorFrameLocked = prefsData->DFrameLockColor;
 	buttonFrameLocked->setText( QString::null );
-	buttonFrameLocked->setPixmap(pm);
+	buttonFrameLocked->setIcon(pm);
 	pm.fill(prefsData->DFrameAnnotationColor);
 	colorFrameAnnotation = prefsData->DFrameAnnotationColor;
 	buttonFrameAnnotation->setText( QString::null );
-	buttonFrameAnnotation->setPixmap(pm);
+	buttonFrameAnnotation->setIcon(pm);
 	pm.fill(prefsData->DPageBorderColor);
 	colorPageBorder = prefsData->DPageBorderColor;
 	buttonSelectedPage->setText( QString::null );
-	buttonSelectedPage->setPixmap(pm);
+	buttonSelectedPage->setIcon(pm);
 	pm.fill(prefsData->DControlCharColor);
 	colorControlChars = prefsData->DControlCharColor;
 	buttonControlChars->setText( QString::null );
-	buttonControlChars->setPixmap(pm);
+	buttonControlChars->setIcon(pm);
 
 	checkUnprintable->setChecked( prefsData->marginColored );
 	checkPictures->setChecked(guidesSettings.showPic);
@@ -158,7 +158,7 @@ void TabDisplay::changePaperColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorPaper = neu;
-		backColor->setPixmap(pm);
+		backColor->setIcon(pm);
 	}
 }
 
@@ -169,7 +169,7 @@ void TabDisplay::setPaperColor(QColor neu)
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorPaper = neu;
-		backColor->setPixmap(pm);
+		backColor->setIcon(pm);
 	}
 }
 
@@ -271,7 +271,7 @@ void TabDisplay::changeFrameColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorFrame = neu;
-		buttonFrameSelected->setPixmap(pm);
+		buttonFrameSelected->setIcon(pm);
 	}
 }
 
@@ -284,7 +284,7 @@ void TabDisplay::changeNormFrameColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorFrameNorm = neu;
-		buttonFrameNormal->setPixmap(pm);
+		buttonFrameNormal->setIcon(pm);
 	}
 }
 
@@ -297,7 +297,7 @@ void TabDisplay::changeGroupFrameColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorFrameGroup = neu;
-		buttonFrameGrouped->setPixmap(pm);
+		buttonFrameGrouped->setIcon(pm);
 	}
 }
 
@@ -310,7 +310,7 @@ void TabDisplay::changeChainFrameColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorFrameLinked = neu;
-		buttonFrameLinked->setPixmap(pm);
+		buttonFrameLinked->setIcon(pm);
 	}
 }
 
@@ -323,7 +323,7 @@ void TabDisplay::changeLockFrameColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorFrameLocked = neu;
-		buttonFrameLocked->setPixmap(pm);
+		buttonFrameLocked->setIcon(pm);
 	}
 }
 
@@ -336,7 +336,7 @@ void TabDisplay::changeAnnotFrameColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorFrameAnnotation = neu;
-		buttonFrameAnnotation->setPixmap(pm);
+		buttonFrameAnnotation->setIcon(pm);
 	}
 }
 
@@ -349,7 +349,7 @@ void TabDisplay::changePageBorderColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorPageBorder = neu;
-		buttonSelectedPage->setPixmap(pm);
+		buttonSelectedPage->setIcon(pm);
 	}
 }
 
@@ -362,6 +362,6 @@ void TabDisplay::changeControlCharsColor()
 		QPixmap pm(54, 14);
 		pm.fill(neu);
 		colorControlChars = neu;
-		buttonControlChars->setPixmap(pm);
+		buttonControlChars->setIcon(pm);
 	}
 }

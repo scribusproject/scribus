@@ -54,9 +54,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKeyMap, QWidget *parent, const char *name)
-    :QWidget(parent, name)
+    :QWidget(parent)
 {
 	setupUi(this);
+	setObjectName(name);
 	ActionManager::createDefaultMenus();
 	ActionManager::createDefaultNonMenuActions();
 	defMenus=ActionManager::defaultMenus();
@@ -76,7 +77,7 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 	keyDisplay->setMinimumWidth(fontMetrics().width("CTRL+ALT+SHIFT+W"));
 	keyDisplay->setText("");
 
-	clearSearchButton->setPixmap(loadIcon("clear_right.png"));
+	clearSearchButton->setIcon(loadIcon("clear_right.png"));
 	// signals and slots connections
 	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem *, QTreeWidgetItem *)),
 			 this, SLOT(dispKey(QTreeWidgetItem *, QTreeWidgetItem *)));
@@ -93,7 +94,7 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
 void TabKeyboardShortcutsWidget::restoreDefaults()
 {
 	loadableSets->clear();
-	loadableSets->insertStringList(scanForSets());
+	loadableSets->addItems(scanForSets());
 	insertActions();
 	dispKey(0);
 }
@@ -127,7 +128,7 @@ void TabKeyboardShortcutsWidget::importKeySetFile()
 {
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath = dirs->get("keymapprefs_import", ".");
-	QString s = QFileDialog::getOpenFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "load open file dialog", "Choose a file to open" );
+	QString s = QFileDialog::getOpenFileName(this, tr("Choose a file to read"), tr("Key Set XML Files (*.ksxml)"), currentPath);
 	if (!s.isEmpty())
 		importKeySet(s);
 }
@@ -135,7 +136,7 @@ void TabKeyboardShortcutsWidget::exportKeySetFile()
 {   
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString currentPath= dirs->get("keymapprefs_export", ".");
-	QString s = QFileDialog::getSaveFileName(currentPath, tr("Key Set XML Files (*.ksxml)"), this, "save open file dialog", "Choose a file to save" );
+	QString s = QFileDialog::getSaveFileName(this, tr("Choose a file to save"), tr("Key Set XML Files (*.ksxml)"), currentPath );
 	if (!s.isEmpty())
 		exportKeySet(s);
 }
@@ -152,13 +153,13 @@ void TabKeyboardShortcutsWidget::importKeySet(QString filename)
 		if ( !file1.open( QIODevice::ReadOnly ) )
 			return;
 		QTextStream ts(&file1);
-		ts.setEncoding(QTextStream::UnicodeUTF8);
+		ts.setCodec("UTF-8");
 		QString errorMsg;
 		int eline;
 		int ecol;
-		if ( !doc.setContent( ts.read(), &errorMsg, &eline, &ecol )) 
+		if ( !doc.setContent( ts.readAll(), &errorMsg, &eline, &ecol )) 
 		{
-			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol).ascii());
+			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol).toAscii().constData());
 			file1.close();
 			return;
 		}
@@ -206,7 +207,7 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 	if (overwrite(this, exportFileName))
 	{
 		bool ok;
-		QString setName = QInputDialog::getText("Export Keyboard Shortcuts to File", "Enter the name of the shortcut set:", QLineEdit::Normal, QString::null, &ok, this );
+		QString setName = QInputDialog::getText(this, tr("Export Keyboard Shortcuts to File"), tr("Enter the name of the shortcut set:"), QLineEdit::Normal, QString::null, &ok);
 		if (!( ok && !setName.isEmpty()) ) 
 			return false;
 		
@@ -228,10 +229,10 @@ bool TabKeyboardShortcutsWidget::exportKeySet(QString filename)
 		if(!f.open(QIODevice::WriteOnly))
 			return false;
 		QDataStream s(&f);
-		QString xmltag("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-		s.writeRawBytes(xmltag, xmltag.length());
-		QString xmldoc = doc.toString(4);
-		s.writeRawBytes(xmldoc, xmldoc.length());
+		QByteArray xmltag("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+		s.writeRawData(xmltag.data(), xmltag.length());
+		QByteArray xmldoc = doc.toByteArray(4);
+		s.writeRawData(xmldoc, xmldoc.length());
 		f.close();
 	}
 	return true;
@@ -267,7 +268,7 @@ QStringList TabKeyboardShortcutsWidget::scanForSets()
 			
 			if ( !doc.setContent( &file, &errorMsg, &eline, &ecol )) 
 			{
-				qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).ascii());
+				qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter]).arg(errorMsg).arg(eline).arg(ecol).toAscii().constData());
 				file.close();
 				continue;
 			}
@@ -418,7 +419,7 @@ void TabKeyboardShortcutsWidget::applySearch( const QString & newss )
 	//Seem to need to do this.. isOpen doesnt seem to do what it says
 	for (QMap<QTreeWidgetItem*, QString>::iterator it=lviToActionMap.begin(); it!=lviToActionMap.end(); ++it)
 	{
-		if (it.key()->text(0).contains(newss, false))
+		if (it.key()->text(0).contains(newss, Qt::CaseInsensitive))
 			it.key()->setHidden(false);
 		else
 			it.key()->setHidden(true);
@@ -464,7 +465,7 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 		QStringList tl;
 		if (!keyDisplay->text().isEmpty())
 		{
-			tl = tl.split("+", keyDisplay->text());
+			tl = keyDisplay->text().split("+");
 			Part4 = tl[tl.count()-1];
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 				Part4 = "";
@@ -522,7 +523,7 @@ void TabKeyboardShortcutsWidget::keyReleaseEvent(QKeyEvent *k)
 		if (!keyDisplay->text().isEmpty())
 		{
 			QStringList tl;
-			tl = tl.split("+", keyDisplay->text());
+			tl = keyDisplay->text().split("+");
 			Part4 = tl[tl.count()-1];
 			if (Part4 == tr("Alt") || Part4 == tr("Ctrl") || Part4 == tr("Shift") || Part4 == tr("Meta"))
 				Part4 = "";

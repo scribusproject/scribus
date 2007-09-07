@@ -34,7 +34,7 @@ void SMColorCombo::setCurrentItem(int i)
 	hasParent_ = false;
 	pItem_ = 0;
 	pText_ = QString::null;
-	ColorCombo::setCurrentItem(i);
+	ColorCombo::setCurrentIndex(i);
 }
 
 void SMColorCombo::setCurrentItem(int i, bool isParentValue)
@@ -43,7 +43,7 @@ void SMColorCombo::setCurrentItem(int i, bool isParentValue)
 	hasParent_ = true;
 	pItem_ = i;
 	pText_ = QString::null;
-	ColorCombo::setCurrentItem(i);
+	ColorCombo::setCurrentIndex(i);
 	setFont(!isParentValue);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
@@ -55,7 +55,7 @@ void SMColorCombo::setCurrentText(const QString &s)
 	hasParent_ = false;
 	pItem_ = -1;
 	pText_ = s;
-	ColorCombo::setCurrentText(s);
+	ColorCombo::setItemText(ColorCombo::currentIndex(), s);
 }
 
 void SMColorCombo::setCurrentText(const QString &s, bool isParentValue)
@@ -64,7 +64,7 @@ void SMColorCombo::setCurrentText(const QString &s, bool isParentValue)
 	hasParent_ = true;
 	pItem_ = -1;
 	pText_ = s;
-	ColorCombo::setCurrentText(s);
+	ColorCombo::setItemText(ColorCombo::currentIndex(), s);
 	setFont(!isParentValue);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
@@ -88,7 +88,7 @@ bool SMColorCombo::useParentValue()
 
 	if (useParentValue_ && hasParent_)
 	{
-		ret = currentItem() == (count() - 1);
+		ret = currentIndex() == (count() - 1);
 		if (ret)
 		{
 			removeItem(count() - 1);
@@ -116,7 +116,7 @@ void SMColorCombo::currentChanged()
 	if (hasParent_ && !useParentValue_)
 	{
 		setFont(true);
-		insertItem( tr("Use Parent Value"));
+		addItem( tr("Use Parent Value"));
 		useParentValue_ = true;
 	}
 }

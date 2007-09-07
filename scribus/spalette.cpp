@@ -28,13 +28,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "page.h"
 
-ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(true, parent, "Sfloat")
+ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 //	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
 //	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0,
 //  										 sizePolicy().hasHeightForWidth() ) );
 	setEditable(false);
-	insertItem( tr("No Style"));
+	addItem( tr("No Style"));
 	currentDoc = NULL;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
@@ -47,7 +47,7 @@ void ParaStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 
 void ParaStyleComboBox::setFormat(QString name)
 {
-	setCurrentText(name.isEmpty() ? tr("No Style") : name);
+	setItemText(currentIndex(), name.isEmpty() ? tr("No Style") : name);
 }
 
 void ParaStyleComboBox::updateFormatList()
@@ -58,12 +58,12 @@ void ParaStyleComboBox::updateFormatList()
 	{
 		QStringList st;
 		st.clear();
-		insertItem( tr("No Style"));
+		addItem( tr("No Style"));
 		for (int x = 0; x < currentDoc->paragraphStyles().count(); ++x)
 			if ( !currentDoc->paragraphStyles()[x].name().isEmpty() )
 				st.append(currentDoc->paragraphStyles()[x].name());
 		st.sort();
-		insertStringList(st);
+		addItems(st);
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(view());
 	int tmpWidth = tmpView->sizeHintForColumn(0);
@@ -84,13 +84,13 @@ void ParaStyleComboBox::selFormat(int e)
 	}
 }
 
-CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(true, parent, "Sfloat")
+CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
 //	setMinimumSize(QSize(10,static_cast<int>(font().pointSize()*2.5)));
 //	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)1, 0, 0,
 //  										 sizePolicy().hasHeightForWidth() ) );
 	setEditable(false);
-	insertItem( tr("No Style"));
+	addItem( tr("No Style"));
 	currentDoc = NULL;
 	connect(this, SIGNAL(activated(int)), this, SLOT(selFormat(int)));
 }
@@ -103,7 +103,7 @@ void CharStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 
 void CharStyleComboBox::setFormat(QString name)
 {
-	setCurrentText(name.isEmpty() ? tr("No Style") : name);
+	setItemText(currentIndex(), name.isEmpty() ? tr("No Style") : name);
 }
 
 void CharStyleComboBox::updateFormatList()
@@ -114,12 +114,12 @@ void CharStyleComboBox::updateFormatList()
 	{
 		QStringList st;
 		st.clear();
-		insertItem( tr("No Style"));
+		addItem( tr("No Style"));
 		for (int x = 0; x < currentDoc->charStyles().count(); ++x)
 			if ( !currentDoc->charStyles()[x].name().isEmpty() )
 				st.append(currentDoc->charStyles()[x].name());
 		st.sort();
-		insertStringList(st);
+		addItems(st);
 	}
 	QListView *tmpView = dynamic_cast<QListView*>(view());
 	int tmpWidth = tmpView->sizeHintForColumn(0);

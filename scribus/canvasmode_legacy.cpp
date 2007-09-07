@@ -2687,9 +2687,10 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					pmen2->addAction(m_ScMW->scrActions["itemConvertToTextFrame"]);
 				}
 				bool insertedMenusEnabled = false;
-				for (int pc = 0; pc < pmen2->actions().count(); pc++)
+				QList<QAction*> actList = pmen2->actions();
+				for (int pc = 0; pc < actList.count(); pc++)
 				{
-					if (pmen2->isItemEnabled(pmen2->idAt(pc)))
+					if (actList[pc]->isEnabled())
 						insertedMenusEnabled = true;
 				}
 				if ((insertConvertToMenu) && (insertedMenusEnabled))

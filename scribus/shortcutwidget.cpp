@@ -20,7 +20,7 @@ ShortcutWidget::ShortcutWidget(QWidget *parent)
 	Part2 = "";
 	Part3 = "";
 	keyCode = 0;
-	setKeyButton->setToggleButton(true);
+	setKeyButton->setCheckable(true);
 
 	languageChange();
 

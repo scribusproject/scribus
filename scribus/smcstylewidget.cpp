@@ -47,8 +47,8 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent) : QWidget()
 	strokeColor_->clear();
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
-	fillColor_->insertItem(CommonStrings::tr_NoneColor);
-	strokeColor_->insertItem(CommonStrings::tr_NoneColor);
+	fillColor_->addItem(CommonStrings::tr_NoneColor);
+	strokeColor_->addItem(CommonStrings::tr_NoneColor);
 	StrokeIcon->setEnabled(false);
 	strokeShade_->setEnabled(false);
 	strokeColor_->setEnabled(false);
@@ -102,7 +102,7 @@ void SMCStyleWidget::fillLangCombo(QMap<QString,QString> langMap)
 	for (it = langMap.begin(); it != langMap.end(); ++it)
 		sortList.push_back(it.value());
 
-	language_->insertStringList(sortQStringList(sortList));
+	language_->addItems(sortQStringList(sortList));
 
 	QListView *tmpView = dynamic_cast<QListView*>(language_->view()); Q_ASSERT(tmpView);
 	int tmpWidth = tmpView->sizeHintForColumn(0);
@@ -115,8 +115,8 @@ void SMCStyleWidget::fillColorCombo(ColorList &colors)
 	fillColor_->clear();
 	strokeColor_->clear();
 
-	fillColor_->insertItem(CommonStrings::tr_NoneColor);
-	strokeColor_->insertItem(CommonStrings::tr_NoneColor);
+	fillColor_->addItem(CommonStrings::tr_NoneColor);
+	strokeColor_->addItem(CommonStrings::tr_NoneColor);
 	ColorList::Iterator itend=colors.end();
 	ScribusDoc* doc = colors.document();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
@@ -194,11 +194,11 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	slotColorChange();
 
 	parentCombo->clear();
-	parentCombo->insertItem("");
+	parentCombo->addItem("");
 	for (int i = 0; i < cstyles.count(); ++i)
 	{
 		if (cstyles[i].name() != cstyle->name())
-			parentCombo->insertItem(cstyles[i].name());
+			parentCombo->addItem(cstyles[i].name());
 	}
 
 	if (hasParent)
@@ -206,16 +206,16 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
 		{
-			if (parentCombo->text(i) == cstyle->parentStyle()->name())
+			if (parentCombo->itemText(i) == cstyle->parentStyle()->name())
 			{
 				index = i;
 				break;
 			}
 		}
-		parentCombo->setCurrentItem(index);
+		parentCombo->setCurrentIndex(index);
 	}
 	else
-		parentCombo->setCurrentItem(0);
+		parentCombo->setCurrentIndex(0);
 
 	QString clang = cstyle->language().isNull() || cstyle->language().isEmpty() ?
 	                                      defLang : cstyle->language();
@@ -227,13 +227,13 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	int ci = -1, pi = -1, di = -1;
 	for (int i = 0; i < language_->count(); ++i)
 	{
-		if (language_->text(i) == langMap_[clang])
+		if (language_->itemText(i) == langMap_[clang])
 			ci = i;
 		
-		if (hasParent && language_->text(i) == langMap_[plang])
+		if (hasParent && language_->itemText(i) == langMap_[plang])
 			pi = i;
 
-		if (language_->text(i) == defLang || language_->text(i) == langMap_[defLang])
+		if (language_->itemText(i) == defLang || language_->itemText(i) == langMap_[defLang])
 			di = i;
 	}
 
@@ -252,9 +252,9 @@ void SMCStyleWidget::show(CharStyle *cstyle, QList<CharStyle> &cstyles, const QS
 	else
 	{
 		if (ci == -1)
-			language_->setCurrentItem(di);
+			language_->setCurrentIndex(di);
 		else
-			language_->setCurrentItem(ci);
+			language_->setCurrentIndex(ci);
 	}
 
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
@@ -442,9 +442,9 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 	}
 	if (s.isEmpty())
 	{
-		if (fillColor_->text(fillColor_->count() - 1) != "")
-			fillColor_->insertItem("");
-		fillColor_->setCurrentItem(fillColor_->count() - 1);
+		if (fillColor_->itemText(fillColor_->count() - 1) != "")
+			fillColor_->addItem("");
+		fillColor_->setCurrentIndex(fillColor_->count() - 1);
 	}
 	else
 		fillColor_->setCurrentText(s);
@@ -462,9 +462,9 @@ void SMCStyleWidget::showColors(const QList<CharStyle*> &cstyles)
 	}
 	if (s.isEmpty())
 	{
-		if (strokeColor_->text(strokeColor_->count() - 1) != "")
-			strokeColor_->insertItem("");
-		strokeColor_->setCurrentItem(fillColor_->count() - 1);
+		if (strokeColor_->itemText(strokeColor_->count() - 1) != "")
+			strokeColor_->addItem("");
+		strokeColor_->setCurrentIndex(fillColor_->count() - 1);
 	}
 	else
 		strokeColor_->setCurrentText(s);
@@ -487,14 +487,14 @@ void SMCStyleWidget::showLanguage(const QList<CharStyle*> &cstyles, const QStrin
 
 	if (s.isEmpty())
 	{
-		if (language_->text(language_->count() - 1) != "")
-			language_->insertItem("");
-		language_->setCurrentItem(language_->count() - 1);
+		if (language_->itemText(language_->count() - 1) != "")
+			language_->addItem("");
+		language_->setCurrentIndex(language_->count() - 1);
 	}
 	else
 	{
 		Q_ASSERT(langMap_.contains(s));
-		language_->setCurrentText(langMap_[s]);
+		language_->setItemText(language_->currentIndex(), langMap_[s]);
 	}
 }
 

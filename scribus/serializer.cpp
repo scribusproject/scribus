@@ -112,7 +112,7 @@ class CollectSingleLine_body : public Action_body
 	void end (const Xml_string& tagname)
 	{
 //		qDebug(QString("collect %1").arg(tagname));
-		Collection* coll  = this->dig->lookup<Collection>("<collection>");
+//		Collection* coll  = this->dig->lookup<Collection>("<collection>");
 		multiLine*  mline = this->dig->lookup<multiLine>("<multiline>");
 		SingleLine* sline = this->dig->top<SingleLine>();
 		mline->append(*sline);
@@ -378,12 +378,12 @@ bool Serializer::writeWithEncoding(const QString& filename, const QString& encod
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding);
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
 	QByteArray dec = codec->fromUnicode( txt );
 	QFile f(filename);
 	if (f.open(QIODevice::WriteOnly))
 	{
-		f.writeBlock(dec, dec.length());
+		f.write(dec, dec.length());
 		f.close();
 		return true;
 	}
@@ -399,7 +399,7 @@ bool Serializer::readWithEncoding(const QString& filename, const QString& encodi
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding);
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
 	if (loadRawText(filename, file))
 	{
 		txt = codec->toUnicode( file.data() );

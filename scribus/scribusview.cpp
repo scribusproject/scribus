@@ -170,7 +170,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	m_cursorVisible(false),
 	m_ScMW(mw)
 {
-		setObjectName("s");
+	setObjectName("s");
 	setAttribute(Qt::WA_StaticContents);
 	setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -180,7 +180,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	setWidget(m_canvas);
 	//already done by QScrollArea: widget()->installEventFilter(this);
 	installEventFilter(this); // FIXME:av
-	viewport()->setBackgroundMode(Qt::PaletteBackground);
+//	viewport()->setBackgroundMode(Qt::PaletteBackground);
 	QFont fo = QFont(font());
 	int posi = fo.pointSize()-2;
 	fo.setPointSize(posi);
@@ -189,7 +189,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	unitSwitcher->setFont(fo);
 	int maxUindex = unitGetMaxIndex() - 2;
 	for (int i = 0; i <= maxUindex; ++i)
-		unitSwitcher->insertItem(unitGetStrFromIndex(i));
+		unitSwitcher->addItem(unitGetStrFromIndex(i));
 	zoomSpinBox = new ScrSpinBox( 10, 3200, this, 6 );
 	zoomSpinBox->setTabAdvance(false);
 	zoomSpinBox->setFont(fo);
@@ -325,12 +325,12 @@ void ScribusView::languageChange()
 	visualMenu->setToolTip( tr("Here you can select the visual appearance of the display\nYou can choose between normal and several color blindness forms"));
 	disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	visualMenu->clear();
-	visualMenu->insertItem(CommonStrings::trVisionNormal);
-	visualMenu->insertItem(CommonStrings::trVisionProtanopia);
-	visualMenu->insertItem(CommonStrings::trVisionDeuteranopia);
-	visualMenu->insertItem(CommonStrings::trVisionTritanopia);
-	visualMenu->insertItem(CommonStrings::trVisionFullColorBlind);
-	visualMenu->setCurrentItem(m_canvas->previewVisual());
+	visualMenu->addItem(CommonStrings::trVisionNormal);
+	visualMenu->addItem(CommonStrings::trVisionProtanopia);
+	visualMenu->addItem(CommonStrings::trVisionDeuteranopia);
+	visualMenu->addItem(CommonStrings::trVisionTritanopia);
+	visualMenu->addItem(CommonStrings::trVisionFullColorBlind);
+	visualMenu->setCurrentIndex(m_canvas->previewVisual());
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 }
 
@@ -736,7 +736,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		e->acceptProposedAction();
 		text = e->mimeData()->text();
 		//<<#3524
-		setActiveWindow();
+		activateWindow();
 		raise();
 		m_ScMW->newActWin(Doc->WinHan);
 		updateContents();
@@ -915,14 +915,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					{
 						QMenu *pmen = new QMenu();
 						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						pmen->insertItem( tr("Copy Here"));
-						int mov = pmen->insertItem( tr("Move Here"));
-						pmen->insertItem( tr("Cancel"));
+						pmen->addAction( tr("Copy Here"));
+						QAction* mov = pmen->addAction( tr("Move Here"));
+						pmen->addAction( tr("Cancel"));
 						for (int dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
 							if (Doc->Items->at(Doc->DragElements[dre])->locked())
 							{
-								pmen->setItemEnabled(mov, false);
+								mov->setEnabled(false);
 								break;
 							}
 						}
@@ -3058,7 +3058,7 @@ void ScribusView::setRulerPos(int x, int y)
 	vertRuler->repaint();
 	evSpon = true;
 	QString newStatusBarText(" ");
-	if ((verticalScrollBar()->draggingSlider()) || (horizontalScrollBar()->draggingSlider()))
+	if ((verticalScrollBar()->isSliderDown()) || (horizontalScrollBar()->isSliderDown()))
 	{
 		QList<int> pag;
 		pag.clear();
@@ -3320,7 +3320,7 @@ void ScribusView::updateLayerMenu()
 	QStringList newNames;
 	Doc->orderedLayerList(&newNames);
 	for (QStringList::Iterator it=newNames.begin(); it!=newNames.end(); ++it)
-        layerMenu->insertItem(*it);
+		layerMenu->addItem(*it);
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 
@@ -3328,7 +3328,7 @@ void ScribusView::setLayerMenuText(const QString &layerName)
 {
 	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	if (layerMenu->count() != 0)
-		layerMenu->setCurrentText(layerName);
+		layerMenu->setItemText(layerMenu->currentIndex(), layerName);
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 

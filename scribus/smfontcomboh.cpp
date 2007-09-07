@@ -51,8 +51,8 @@ bool SMFontComboH::useParentFont()
 
 	if (useParentValue_ && hasParent_)
 	{
-		ret = fontFamily->currentItem() == (fontFamily->count() - 1) ||
-				fontStyle->currentItem() == (fontStyle->count() - 1);
+		ret = fontFamily->currentIndex() == (fontFamily->count() - 1) ||
+				fontStyle->currentIndex() == (fontStyle->count() - 1);
 
 		if (ret)
 		{
@@ -80,8 +80,8 @@ void SMFontComboH::currentChanged()
 	if (hasParent_ && !useParentValue_)
 	{
 		setFont(true);
-		fontFamily->insertItem(usePFont_);
-		fontStyle->insertItem(usePFont_);
+		fontFamily->addItem(usePFont_);
+		fontStyle->addItem(usePFont_);
 		useParentValue_ = true;
 	}
 	else if (hasParent_)
@@ -92,7 +92,7 @@ void SMFontComboH::checkStyle()
 {
 	if (hasParent_ && useParentValue_)
 	{
-		if (fontStyle->text(fontStyle->count() - 1) != usePFont_)
-			fontStyle->insertItem(usePFont_);
+		if (fontStyle->itemText(fontStyle->count() - 1) != usePFont_)
+			fontStyle->addItem(usePFont_);
 	}
 }

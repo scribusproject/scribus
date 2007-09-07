@@ -23,7 +23,7 @@ void SMScComboBox::setCurrentItem(int i)
 	setFont(false);
 	hasParent_ = false;
 	pItem_ = 0;
-	ScComboBox::setCurrentItem(i);
+	ScComboBox::setCurrentIndex(i);
 }
 
 void SMScComboBox::setCurrentItem(int i, bool isParentValue)
@@ -35,10 +35,10 @@ void SMScComboBox::setCurrentItem(int i, bool isParentValue)
 	if (!isParentValue)
 	{
 		useParentValue_ = true;
-		insertItem( tr("Use Parent Value"));
+		addItem( tr("Use Parent Value"));
 	}
 
-	ScComboBox::setCurrentItem(i);
+	ScComboBox::setCurrentIndex(i);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
 
@@ -54,7 +54,7 @@ bool SMScComboBox::useParentValue()
 
 	if (useParentValue_ && hasParent_)
 	{
-		ret = currentItem() == (count() - 1);
+		ret = currentIndex() == (count() - 1);
 		if (ret)
 		{
 			removeItem(count() - 1);
@@ -79,7 +79,7 @@ void SMScComboBox::currentChanged()
 	if (hasParent_ && !useParentValue_)
 	{
 		setFont(true);
-		insertItem( tr("Use Parent Value"));
+		addItem( tr("Use Parent Value"));
 		useParentValue_ = true;
 	}
 }

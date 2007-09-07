@@ -53,11 +53,11 @@ private:
 	QMenu              *newPopup_;
 	QMenu              *rightClickPopup_;
 
-	int                 rcpNewId_;
-	int                 rcpDeleteId_;
-	int                 rcpEditId_;
-	int                 rcpCloneId_;
-	int                 rcpToScrapId_;
+	QAction            *rcpNewId_;
+	QAction            *rcpDeleteId_;
+	QAction            *rcpEditId_;
+	QAction            *rcpCloneId_;
+	QAction            *rcpToScrapId_;
 
 	bool                isEditMode_;
 	bool                isStoryEditMode_;

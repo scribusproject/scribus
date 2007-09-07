@@ -17,9 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-SplashScreen::SplashScreen() 
-	: QWidget( 0, 0, Qt::WStyle_Customize | Qt::WStyle_NoBorder | Qt::WStyle_StaysOnTop | Qt::WStyle_Tool |
-	Qt::WStyle_Splash)
+SplashScreen::SplashScreen() : QWidget( 0, Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint | Qt::Tool | Qt::SplashScreen)
 	 //WX11BypassWM )
 {
 	pix = loadIcon("Splash.png", true);
@@ -28,7 +26,9 @@ SplashScreen::SplashScreen()
 		pix = QPixmap(360, 200);
 		pix.fill(Qt::darkGray);
 	}
-	setErasePixmap( pix );
+	QPalette palette;
+	palette.setBrush(backgroundRole(), QBrush(pix));
+	setPalette(palette);
 	resize( pix.size() );
 	QRect scr = QApplication::desktop()->screenGeometry();
 	move( scr.center() - rect().center() );
@@ -76,6 +76,8 @@ void SplashScreen::setStatus( const QString &message )
 	//painter.setRasterOp(NotROP);
 	painter.drawText( 315, textPix.height()-8, tmp );
 	painter.end();
-	setErasePixmap( textPix );
+	QPalette palette;
+	palette.setBrush(backgroundRole(), QBrush(textPix));
+	setPalette(palette);
 	repaint();
 }

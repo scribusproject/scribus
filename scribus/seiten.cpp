@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 /* Code fuer DragObjekt */
 SeDrag::SeDrag(QString secret, QWidget * parent, const char * name): Q3StoredDrag("page/magic", parent, name)
 {
-	QByteArray data(secret.length());
+	QByteArray data(secret.length(), ' ');
 	for (int a = 0; a < secret.length(); ++a)
 		data[a] = secret.at(a).toAscii();// Qt4 QChar(secret[a]); maybe there is no loop required
 	setEncodedData( data );
@@ -38,7 +38,7 @@ bool SeDrag::canDecode( QDragMoveEvent* e )
 
 bool SeDrag::decode( QDropEvent* e, QString& str )
 {
-	QByteArray payload = e->data("page/magic");
+	QByteArray payload = e->mimeData()->data("page/magic");
 	if (payload.size())
 	{
 		e->accept();
@@ -78,9 +78,9 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 	{
 		QMenu *pmen = new QMenu();
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		int px = pmen->insertItem( tr("Show Page Previews"), this, SLOT(ToggleTh()));
+		QAction *px = pmen->addAction( tr("Show Page Previews"), this, SLOT(ToggleTh()));
 		if (Thumb)
-			pmen->setItemChecked(px, true);
+			px->setChecked(true);
 		pmen->exec(QCursor::pos());
 		delete pmen;
 	}
@@ -490,7 +490,9 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	Splitter1 = new QSplitter( this );
 	Splitter1->setOrientation( Qt::Vertical );
 	QWidget* privateLayoutWidget = new QWidget( Splitter1 );
-	Layout2 = new QVBoxLayout( privateLayoutWidget, 0, 5);
+	Layout2 = new QVBoxLayout( privateLayoutWidget );
+	Layout2->setMargin(0);
+	Layout2->setSpacing(5);
 	TextLabel1 = new QLabel( privateLayoutWidget );
 	Layout2->addWidget( TextLabel1 );
 	masterPageList = new SeList(privateLayoutWidget);
@@ -498,7 +500,9 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	masterPageList->Thumb = false;
 	Layout2->addWidget( masterPageList );
 	QWidget* privateLayoutWidget_2 = new QWidget( Splitter1 );
-	Layout3 = new QVBoxLayout( privateLayoutWidget_2, 0, 5);
+	Layout3 = new QVBoxLayout( privateLayoutWidget_2);
+	Layout3->setMargin(0);
+	Layout3->setSpacing(5);
 	TextLabel2 = new QLabel( privateLayoutWidget_2 );
 	Layout3->addWidget( TextLabel2 );
 	pageView = new SeView(privateLayoutWidget_2);
@@ -699,7 +703,7 @@ void PagePalette::RebuildPage()
 	}
 	pageLayout->updateLayoutSelector(currView->Doc->pageSets);
 	pageLayout->selectItem(currView->Doc->currentPageLayout);
-	pageLayout->firstPage->setCurrentItem(currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage);
+	pageLayout->firstPage->setCurrentIndex(currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage);
 	pageView->MaxC = currView->Doc->Pages->count()-1;
 	int counter, rowcounter, colmult, rowmult, coladd,rowadd;
 	counter = currView->Doc->pageSets[currView->Doc->currentPageLayout].FirstPage;
@@ -821,7 +825,7 @@ QPixmap PagePalette::CreateIcon(int nr, QPixmap pixin)
 //		if( !pixin.mask().isNull() )
 //			ret.setMask( pixin.mask() );
 		p.setBrush(Qt::white);
-		p.setBackgroundColor(Qt::white);
+		p.setBackground(Qt::white);
 		p.setBackgroundMode(Qt::OpaqueMode);
 		p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		p.setFont(QFont("Helvetica", 12, QFont::Bold));

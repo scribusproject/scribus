@@ -21,9 +21,10 @@ for which a new license (GPL+exception) is in place.
 
 
 TabPrinter::TabPrinter(QWidget* parent, const char* name)
-	: QWidget(parent, name, 0)
+	: QWidget(parent)
 {
 	setupUi(this);
+	setObjectName(name);
 	bleedTop->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
 	bleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
 	bleedLeft->setToolTip( "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
@@ -76,16 +77,16 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 	for( int i = 0; i < numPrinters; i++)
 	{
 		printerName = printerNames[i];
-		defaultPrinter->insertItem(printerName);
+		defaultPrinter->addItem(printerName);
 	}
 
-	defaultPrinter->insertItem( tr("File"));
+	defaultPrinter->addItem( tr("File"));
 
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 
 	int selectedDest = prefs->getInt("PrintDest", 0);
 	if ((selectedDest > -1) && (selectedDest < defaultPrinter->count()))
-		defaultPrinter->setCurrentItem(selectedDest);
+		defaultPrinter->setCurrentIndex(selectedDest);
 	useAltPrintCommand->setChecked(prefs->getBool("OtherCom", false));
 	if (useAltPrintCommand->isChecked())
 	{
@@ -108,7 +109,7 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 	bool color = static_cast<bool>(prefs->getInt("PrintColor", 0));
 	printGray->setChecked(color);
 	printColor->setChecked(!color);
-	psLevel->setCurrentItem(prefs->getInt("PSLevel", 3)-1);
+	psLevel->setCurrentIndex(prefs->getInt("PSLevel", 3)-1);
 	mirrorH->setChecked(prefs->getBool("MirrorH", false));
 	mirrorV->setChecked(prefs->getBool("MirrorV", false));
 	setMedia->setChecked(prefs->getBool("doDev", false));
@@ -129,7 +130,7 @@ void TabPrinter::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 void TabPrinter::storeValues()
 {
-	prefs->set("PrintDest", defaultPrinter->currentItem());
+	prefs->set("PrintDest", defaultPrinter->currentIndex());
 	prefs->set("CurrentPrn", defaultPrinter->currentText());
 	prefs->set("OtherCom", useAltPrintCommand->isChecked());
 	prefs->set("Command", printerCommand->text());
@@ -145,7 +146,7 @@ void TabPrinter::storeValues()
 	prefs->set("MirrorV", mirrorV->isChecked());
 	prefs->set("DoGCR", doGCR->isChecked());
 	prefs->set("Clip", setClip->isChecked());
-	prefs->set("PSLevel", psLevel->currentItem() + 1);
+	prefs->set("PSLevel", psLevel->currentIndex() + 1);
 	prefs->set("doDev", setMedia->isChecked());
 	prefs->set("doSpot", !convertSpots->isChecked());
 	prefs->set("doOverprint", doOverprint->isChecked());

@@ -223,7 +223,7 @@ void Tree::slotRightClick(QPoint point)
 			pmen->addAction(m_MainWindow->scrActions["viewShowBaseline"]);
 			pmen->addAction(m_MainWindow->scrActions["viewShowTextChain"]);
 			pmen->addAction(m_MainWindow->scrActions["viewRulerMode"]);
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			pmen->addAction(m_MainWindow->scrActions["viewSnapToGrid"]);
 			pmen->addAction(m_MainWindow->scrActions["viewSnapToGuides"]);
 			pmen->addAction(m_MainWindow->scrActions["pageManageGuides"]);
@@ -231,7 +231,7 @@ void Tree::slotRightClick(QPoint point)
 			if (item->type == 2)
 			{
 				pmen->addAction(m_MainWindow->scrActions["pageApplyMasterPage"]);
-				pmen->insertSeparator();
+				pmen->addSeparator();
 				pmen->addAction(m_MainWindow->scrActions["pageDelete"]);
 			}
 			pmen->exec(QCursor::pos());
@@ -269,19 +269,19 @@ void Tree::slotRightClick(QPoint point)
 				InfoGroupLayout->setSpacing( 2 );
 				InfoGroupLayout->setMargin( 0 );
 				QString txtC, txtC2;
-				QLabel *InfoT = new QLabel(InfoGroup, "ct");
-				QLabel *LinCT = new QLabel(InfoGroup, "lt");
-				QLabel *LinC = new QLabel(InfoGroup, "lc");
-				QLabel *ParCT = new QLabel(InfoGroup, "pt");
-				QLabel *ParC = new QLabel(InfoGroup, "pc");
-				QLabel *WordCT = new QLabel(InfoGroup, "wt");
-				QLabel *WordC = new QLabel(InfoGroup, "wc");
-				QLabel *CharCT = new QLabel(InfoGroup, "ct");
-				QLabel *CharC = new QLabel(InfoGroup, "cc");
-				QLabel *ColCT = new QLabel(InfoGroup, "ct");
-				QLabel *ColC = new QLabel(InfoGroup, "cc");
-				QLabel *PrintCT = new QLabel(InfoGroup, "nt"); // <a.l.e>
-				QLabel *PrintC = new QLabel(InfoGroup, "nc"); // </a.l.e>
+				QLabel *InfoT = new QLabel(InfoGroup);
+				QLabel *LinCT = new QLabel(InfoGroup);
+				QLabel *LinC = new QLabel(InfoGroup);
+				QLabel *ParCT = new QLabel(InfoGroup);
+				QLabel *ParC = new QLabel(InfoGroup);
+				QLabel *WordCT = new QLabel(InfoGroup);
+				QLabel *WordC = new QLabel(InfoGroup);
+				QLabel *CharCT = new QLabel(InfoGroup);
+				QLabel *CharC = new QLabel(InfoGroup);
+				QLabel *ColCT = new QLabel(InfoGroup);
+				QLabel *ColC = new QLabel(InfoGroup);
+				QLabel *PrintCT = new QLabel(InfoGroup); // <a.l.e>
+				QLabel *PrintC = new QLabel(InfoGroup); // </a.l.e>
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					LinC->hide();
@@ -306,7 +306,7 @@ void Tree::slotRightClick(QPoint point)
 						ColCT->setText( tr("Colorspace: "));
 						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 						QString cSpace;
-						QString ext = fi.extension(false).toLower();
+						QString ext = fi.suffix().toLower();
 						if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != 7))
 							cSpace = tr("Unknown");
 						else
@@ -389,16 +389,17 @@ void Tree::slotRightClick(QPoint point)
 				pmen4->addAction(MenAct);
 				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
 					pmen4->addAction(m_MainWindow->scrActions["itemImageInfo"]);
-				pmen->insertItem( tr("In&fo"), pmen4);
+				QAction *sub = pmen->addMenu(pmen4);
+				sub->setText( tr("In&fo"));
 			}
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			pmen->addAction(m_MainWindow->scrActions["editUndoAction"]);
 			pmen->addAction(m_MainWindow->scrActions["editRedoAction"]);
 			if (currItem->itemType() == PageItem::ImageFrame ||
 				currItem->itemType() == PageItem::TextFrame ||
 				currItem->itemType() == PageItem::PathText)
 			{
-				pmen->insertSeparator();
+				pmen->addSeparator();
 				if (currItem->asLatexFrame())
 				{
 					pmen->addAction(m_MainWindow->scrActions["itemAdjustFrameToImage"]);
@@ -415,9 +416,10 @@ void Tree::slotRightClick(QPoint point)
 							pmen->addAction(m_MainWindow->scrActions["itemExtendedImageProperties"]);
 						pmen->addAction(m_MainWindow->scrActions["itemUpdateImage"]);
 					}
-					pmen->insertItem( tr("Preview Settings"), pmenResolution);
+					QAction *sub = pmen->addMenu(pmenResolution);
+					sub->setText( tr("Preview Settings"));
 					pmenResolution->addAction(m_MainWindow->scrActions["itemImageIsVisible"]);
-					pmenResolution->insertSeparator();
+					pmenResolution->addSeparator();
 					pmenResolution->addAction(m_MainWindow->scrActions["itemPreviewLow"]);
 					pmenResolution->addAction(m_MainWindow->scrActions["itemPreviewNormal"]);
 					pmenResolution->addAction(m_MainWindow->scrActions["itemPreviewFull"]);
@@ -439,7 +441,7 @@ void Tree::slotRightClick(QPoint point)
 			}
 			if (currDoc->m_Selection->count() == 1)
 			{
-				pmen->insertSeparator();
+				pmen->addSeparator();
 				pmen->addAction(m_MainWindow->scrActions["itemAttributes"]);
 			}	
 			if (currItem->itemType() == PageItem::TextFrame)
@@ -456,9 +458,9 @@ void Tree::slotRightClick(QPoint point)
 							pmenPDF->addAction(m_MainWindow->scrActions["itemPDFFieldProps"]);
 					}
 				}
-				pmen->insertItem( tr("&PDF Options"), pmenPDF);
+				pmen->addMenu(pmenPDF)->setText( tr("&PDF Options"));
 			}
-			pmen->insertSeparator();
+			pmen->addSeparator();
 			pmen->addAction(m_MainWindow->scrActions["itemLock"]);
 			pmen->addAction(m_MainWindow->scrActions["itemLockSize"]);
 			if (!currItem->isSingleSel)
@@ -480,7 +482,7 @@ void Tree::slotRightClick(QPoint point)
 						pmen3->addAction(m_MainWindow->scrLayersActions[QString::number(layerMap[i--])]);
 					}
 
-					pmen->insertItem( tr("Send to La&yer"), pmen3);
+					pmen->addMenu(pmen3)->setText( tr("Send to La&yer"));
 				}
 			}
 			if ((currItem->Groups.count() != 0) && (currItem->isGroupControl))
@@ -489,7 +491,7 @@ void Tree::slotRightClick(QPoint point)
 			{
 				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
 				{
-					pmen->insertItem( tr("Le&vel"), pmenLevel);
+					pmen->addMenu(pmenLevel)->setText( tr("Le&vel"));
 					pmenLevel->addAction(m_MainWindow->scrActions["itemRaiseToTop"]);
 					pmenLevel->addAction(m_MainWindow->scrActions["itemRaise"]);
 					pmenLevel->addAction(m_MainWindow->scrActions["itemLower"]);
@@ -533,16 +535,17 @@ void Tree::slotRightClick(QPoint point)
 					pmen2->addAction(m_MainWindow->scrActions["itemConvertToTextFrame"]);
 				}
 				bool insertedMenusEnabled = false;
-				for (uint pc = 0; pc < pmen2->count(); pc++)
+				QList<QAction*> actList = pmen2->actions();
+				for (int pc = 0; pc < actList.count(); pc++)
 				{
-					if (pmen2->isItemEnabled(pmen2->idAt(pc)))
+					if (actList[pc]->isEnabled())
 						insertedMenusEnabled = true;
 				}
 				if ((insertConvertToMenu) && (insertedMenusEnabled))
-					pmen->insertItem( tr("Conve&rt to"), pmen2);
+					pmen->addMenu(pmen2)->setText( tr("Conve&rt to"));
 			}
-			pmen->insertSeparator();
-			pmen->insertItem( tr("Rename") , this, SLOT(slotRenameItem()));
+			pmen->addSeparator();
+			pmen->addAction( tr("Rename") , this, SLOT(slotRenameItem()));
 			if (!currItem->locked() && !(currItem->isSingleSel))
 				pmen->addAction(m_MainWindow->scrActions["editCut"]);
 			if (!(currItem->isSingleSel))
@@ -550,7 +553,7 @@ void Tree::slotRightClick(QPoint point)
 			if ((currDoc->appMode == modeEdit) && (m_MainWindow->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
 				pmen->addAction(m_MainWindow->scrActions["editPaste"]);
 			if (!currItem->locked() && (currDoc->appMode != modeEdit) && (!(currItem->isSingleSel)))
-				pmen->insertItem( tr("&Delete"), currDoc, SLOT(itemSelection_DeleteItem()));
+				pmen->addAction( tr("&Delete"), currDoc, SLOT(itemSelection_DeleteItem()));
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 			{
 				if (currItem->itemType() == PageItem::ImageFrame)
@@ -565,14 +568,14 @@ void Tree::slotRightClick(QPoint point)
 					if (currItem->PicAvail)
 						pmenEditContents->addAction(m_MainWindow->scrActions["editClearContents"]);
 					if ((currItem->PicAvail) || (m_MainWindow->contentsBuffer.sourceType==PageItem::ImageFrame))
-						pmenEditContents->insertItem( tr("Contents"), pmenEditContents);
+						pmen->addMenu(pmenEditContents)->setText( tr("Contents"));
 				}
 				else
 				{
 					if (currItem->itemText.lines() != 0)
 					{
 						pmenEditContents->addAction(m_MainWindow->scrActions["editClearContents"]);
-						pmen->insertItem( tr("Contents"), pmenEditContents);
+						pmen->addMenu(pmenEditContents)->setText( tr("Contents"));
 					}
 				}
 			}

@@ -41,9 +41,10 @@ for which a new license (GPL+exception) is in place.
 *  name 'name' and widget flags set to 'f'.
 */
 TOCIndexPrefs::TOCIndexPrefs( QWidget* parent, const char* name, Qt::WFlags fl )
-	: QWidget( parent, name, fl )
+	: QWidget( parent, fl )
 {
 	setupUi(this);
+	setObjectName(name);
 	languageChange();
 	itemDestFrameComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
 	itemAttrComboBox->setMaximumWidth(fontMetrics().width( "This is a very long Name" ));
@@ -80,9 +81,9 @@ void TOCIndexPrefs::languageChange()
 {
 	setWindowTitle( tr( "Table of Contents and Indexes" ) );
 	tocAddButton->setText( tr( "&Add" ) );
-	tocAddButton->setAccel( QKeySequence( tr( "Alt+A" ) ) );
+	tocAddButton->setShortcut( QKeySequence( tr( "Alt+A" ) ) );
 	tocDeleteButton->setText( tr( "&Delete" ) );
-	tocDeleteButton->setAccel( QKeySequence( tr( "Alt+D" ) ) );
+	tocDeleteButton->setShortcut( QKeySequence( tr( "Alt+D" ) ) );
 	itemDestFrameComboBox->setToolTip( tr( "The frame the table of contents will be placed into" ) );
 	tocNumberPlacementLabel->setText( tr( "Page Numbers Placed:" ) );
 	tocItemAttrLabel->setText( tr( "Item Attribute Name:" ) );
@@ -93,7 +94,7 @@ void TOCIndexPrefs::languageChange()
 	itemParagraphStyleComboBox->setToolTip( tr( "The paragraph style used for the entry lines" ) );
 	tocParagraphStyleLabel->setText( tr( "Paragraph Style:" ) );
 	tocDestFrameLabel->setText( tr( "Destination Frame:" ) );
-	tabTOCIndexWidget->changeTab( tab, tr( "Table Of Contents" ) );
+	tabTOCIndexWidget->setTabText( tabTOCIndexWidget->indexOf(tab), tr( "Table Of Contents" ) );
 // 	tabTOCIndexWidget->changeTab( tab_2, tr( "Inde&x" ) );
 }
 
@@ -110,10 +111,10 @@ void TOCIndexPrefs::init()
 	strPNNotShown="Not Shown";
 
 	itemNumberPlacementComboBox->clear();
-	itemNumberPlacementComboBox->insertItem(trStrPNEnd);
-	itemNumberPlacementComboBox->insertItem(trStrPNBeginning);
-	itemNumberPlacementComboBox->insertItem(trStrPNNotShown);
-	itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
+	itemNumberPlacementComboBox->addItem(trStrPNEnd);
+	itemNumberPlacementComboBox->addItem(trStrPNBeginning);
+	itemNumberPlacementComboBox->addItem(trStrPNNotShown);
+	itemNumberPlacementComboBox->setItemText(itemNumberPlacementComboBox->currentIndex(), trStrPNEnd);
 	numSelected=999;
 }
 
@@ -145,13 +146,13 @@ void TOCIndexPrefs::setup( ToCSetupVector* tocsetups, ScribusDoc *doc)
 void TOCIndexPrefs::generatePageItemList()
 {
 	itemDestFrameComboBox->clear();
-	itemDestFrameComboBox->insertItem(trStrNone);
+	itemDestFrameComboBox->addItem(trStrNone);
 	if (currDoc!=NULL)
 	{
 		for (int d = 0; d < currDoc->DocItems.count(); ++d)
 		{
 			if (currDoc->DocItems.at(d)->itemType()==PageItem::TextFrame)
-				itemDestFrameComboBox->insertItem(currDoc->DocItems.at(d)->itemName());
+				itemDestFrameComboBox->addItem(currDoc->DocItems.at(d)->itemName());
 		}
 	}
 	else
@@ -163,14 +164,14 @@ void TOCIndexPrefs::setupItemAttrs( QStringList newNames )
 {
 	disconnect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
 	itemAttrComboBox->clear();
-	itemAttrComboBox->insertItem(trStrNone);
-	itemAttrComboBox->insertStringList(newNames);
+	itemAttrComboBox->addItem(trStrNone);
+	itemAttrComboBox->addItems(newNames);
 	if (numSelected!=999)
 	{
 		if (localToCSetupVector[numSelected].itemAttrName==strNone)
-			itemAttrComboBox->setCurrentText(trStrNone);
+			itemAttrComboBox->setItemText(itemAttrComboBox->currentIndex(), trStrNone);
 		else
-			itemAttrComboBox->setCurrentText(localToCSetupVector[numSelected].itemAttrName);
+			itemAttrComboBox->setItemText(itemAttrComboBox->currentIndex(), localToCSetupVector[numSelected].itemAttrName);
 	}
 	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
 }
@@ -191,31 +192,31 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 	disconnect( tocNameLineEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( setToCName(const QString&) ) );
 	disconnect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
 	if (localToCSetupVector[numSelected].itemAttrName==strNone)
-		itemAttrComboBox->setCurrentText(trStrNone);
+		itemAttrComboBox->setItemText(itemAttrComboBox->currentIndex(), trStrNone);
 	else
-		itemAttrComboBox->setCurrentText(localToCSetupVector[numSelected].itemAttrName);
+		itemAttrComboBox->setItemText(itemAttrComboBox->currentIndex(), localToCSetupVector[numSelected].itemAttrName);
 	if (localToCSetupVector[numSelected].pageLocation==NotShown)
-		itemNumberPlacementComboBox->setCurrentText(trStrPNNotShown);
+		itemNumberPlacementComboBox->setItemText(itemNumberPlacementComboBox->currentIndex(), trStrPNNotShown);
 	else
 		if (localToCSetupVector[numSelected].pageLocation==Beginning)
-		itemNumberPlacementComboBox->setCurrentText(trStrPNBeginning);
+		itemNumberPlacementComboBox->setItemText(itemNumberPlacementComboBox->currentIndex(), trStrPNBeginning);
 	else
-		itemNumberPlacementComboBox->setCurrentText(trStrPNEnd);
+		itemNumberPlacementComboBox->setItemText(itemNumberPlacementComboBox->currentIndex(), trStrPNEnd);
 
 	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[numSelected].listNonPrintingFrames);
 	if (currDoc!=NULL)
 	{
 		if (localToCSetupVector[numSelected].frameName==strNone)
-			itemDestFrameComboBox->setCurrentText(trStrNone);
+			itemDestFrameComboBox->setItemText(itemDestFrameComboBox->currentIndex(), trStrNone);
 		else
-			itemDestFrameComboBox->setCurrentText(localToCSetupVector[numSelected].frameName);
+			itemDestFrameComboBox->setItemText(itemDestFrameComboBox->currentIndex(), localToCSetupVector[numSelected].frameName);
 
 		if (itemParagraphStyleComboBox->count()>0)
 		{
 			if (!paragraphStyleList.contains(localToCSetupVector[numSelected].textStyle) || localToCSetupVector[numSelected].textStyle==strNone)
-				itemParagraphStyleComboBox->setCurrentText(trStrNone);
+				itemParagraphStyleComboBox->setItemText(itemParagraphStyleComboBox->currentIndex(), trStrNone);
 			else
-				itemParagraphStyleComboBox->setCurrentText(localToCSetupVector[numSelected].textStyle);
+				itemParagraphStyleComboBox->setItemText(itemParagraphStyleComboBox->currentIndex(), localToCSetupVector[numSelected].textStyle);
 		}
 	}
 
@@ -282,7 +283,7 @@ void TOCIndexPrefs::updateParagraphStyleComboBox()
 			paragraphStyleList.append(currDoc->paragraphStyles()[i].name());
 	}
 	itemParagraphStyleComboBox->clear();
-	itemParagraphStyleComboBox->insertStringList(paragraphStyleList);
+	itemParagraphStyleComboBox->addItems(paragraphStyleList);
 }
 
 

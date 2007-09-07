@@ -359,7 +359,7 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 		if ((*it).second == oldName)
 		{
 			oldName = (*it).first;
-			deleted_.remove(it);
+			deleted_.erase(it);
 			break;
 		}
 	}
@@ -1179,7 +1179,7 @@ SMCharacterStyle::SMCharacterStyle() : StyleItem(), widget_(0), page_(0), doc_(0
 {
 	widget_ = new QTabWidget();
 	Q_CHECK_PTR(widget_);
-	widget_->setMargin(5);//CB the SMCStylePage parent has a 0 value to fit properly onto the pstyle page, so add it here
+	widget_->setContentsMargins(5, 5, 5, 5);//CB the SMCStylePage parent has a 0 value to fit properly onto the pstyle page, so add it here
 	page_ = new SMCStyleWidget();
 	Q_CHECK_PTR(page_);
 	widget_->addTab(page_, tr("Properties"));
@@ -1473,7 +1473,7 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 		if ((*it).second == oldName)
 		{
 			oldName = (*it).first;
-			deleted_.remove(it);
+			deleted_.erase(it);
 			break;
 		}
 	}
@@ -1491,7 +1491,7 @@ void SMCharacterStyle::languageChange()
 {
 	if (widget_ && page_)
 	{
-		widget_->setTabLabel(page_, tr("Properties"));
+		widget_->setTabText(widget_->indexOf(page_), tr("Properties"));
 		page_->languageChange();
 	}
 }

@@ -117,7 +117,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	paraStyleAct->setDefaultWidget(paraStyleCombo);
 	pmen->addAction(paraStyleAct);
 //qt4 FIXME	pmen->insertItem(paraStyleCombo);
-	pmen->insertItem( tr("Edit Styles..."), this, SLOT(editStyles()));
+	pmen->addAction( tr("Edit Styles..."), this, SLOT(editStyles()));
 	pmen->exec(QCursor::pos());
 }
 
@@ -129,7 +129,8 @@ void SideBar::editStyles()
 void SideBar::setPStyle(const QString& name)
 {
 	emit ChangeStyle(CurrentPar, name);
-	pmen->activateItemAt(0);
+//	QList<QAction*> actList = pmen->actions();
+//	actList[0]->activate();
 }
 
 void SideBar::paintEvent(QPaintEvent *e)
@@ -146,7 +147,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 			if (!re.isValid())
 				break;
 			re.setWidth(width()-5);
-			re.moveBy(5, 0);
+			re.translate(5, 0);
 			if (((re.y()+re.height())-offs < height()) && ((re.y()+re.height())-offs > 0))
 				p.drawLine(0, (re.y()+re.height())-offs, width()-1, (re.y()+re.height())-offs);
 			if ((re.y()-offs < height()) && (re.y()-offs > 0))
@@ -854,7 +855,7 @@ void SEditor::paste()
 	emit SideBarUp(true);
 	emit SideBarUpdate();
 }
-
+/*
 Q3PopupMenu* SEditor::createPopupMenu(const QPoint & pos)
 {
 	Q3PopupMenu *p = Q3TextEdit::createPopupMenu(pos);
@@ -864,7 +865,7 @@ Q3PopupMenu* SEditor::createPopupMenu(const QPoint & pos)
 	p->removeItemAt(3);
 	return p;
 }
-
+*/
 void SEditor::SelClipChange()
 {
 	ClipData = 3;
@@ -911,7 +912,7 @@ void SToolBColorF::languageChange()
 void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 {
 	TxFill->clear();
-	TxFill->insertItem(CommonStrings::tr_NoneColor);
+	TxFill->addItem(CommonStrings::tr_NoneColor);
 	if (doc!=NULL)
 		TxFill->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
 	resize(minimumSizeHint());
@@ -920,7 +921,7 @@ void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 void SToolBColorF::SetColor(int c)
 {
 	disconnect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
-	TxFill->setCurrentItem(c);
+	TxFill->setCurrentIndex(c);
 	connect(TxFill, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 }
 
@@ -933,7 +934,7 @@ void SToolBColorF::SetShade(double s)
 
 void SToolBColorF::newShadeHandler()
 {
-	emit NewColor(TxFill->currentItem(), PM2->getValue());
+	emit NewColor(TxFill->currentIndex(), PM2->getValue());
 }
 
 /* Toolbar for Stroke Colour */
@@ -969,7 +970,7 @@ void SToolBColorS::languageChange()
 void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 {
 	TxStroke->clear();
-	TxStroke->insertItem(CommonStrings::tr_NoneColor);
+	TxStroke->addItem(CommonStrings::tr_NoneColor);
 	if (doc!=NULL)
 		TxStroke->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
 	resize(minimumSizeHint());
@@ -978,7 +979,7 @@ void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 void SToolBColorS::SetColor(int c)
 {
 	disconnect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
-	TxStroke->setCurrentItem(c);
+	TxStroke->setCurrentIndex(c);
 	connect(TxStroke, SIGNAL(activated(int)), this, SLOT(newShadeHandler()));
 }
 
@@ -991,7 +992,7 @@ void SToolBColorS::SetShade(double s)
 
 void SToolBColorS::newShadeHandler()
 {
-	emit NewColor(TxStroke->currentItem(), PM1->getValue());
+	emit NewColor(TxStroke->currentIndex(), PM1->getValue());
 }
 
 /* Toolbar for Character Style Settings */
@@ -1205,7 +1206,7 @@ void SToolBFont::languageChange()
 void SToolBFont::SetFont(QString f)
 {
 	disconnect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
-	Fonts->setCurrentText(f);
+	Fonts->setItemText(Fonts->currentIndex(), f);
 	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
 }
 
@@ -1265,7 +1266,7 @@ void SToolBFont::newSizeHandler()
 // }
 
 /* Main Story Editor Class, no current document */
-StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", Qt::WType_TopLevel), // WType_Dialog) //WShowModal |
+StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // WType_Dialog) //WShowModal |
 	activFromApp(true),
 	currDoc(NULL),
 	currItem(NULL),
@@ -1300,25 +1301,19 @@ StoryEditor::~StoryEditor()
 void StoryEditor::showEvent(QShowEvent *)
 {
 	charSelect = new CharSelect(this);
-	charSelect->userTableModel()->setCharacters(
-						  ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
-	connect(charSelect, SIGNAL(insertSpecialChar()),
-			this, SLOT(slot_insertSpecialChar()));
-	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
-			this, SLOT(slot_insertUserSpecialChar(QChar)));
+	charSelect->userTableModel()->setCharacters( ScCore->primaryMainWindow()->charPalette->userTableModel()->characters());
+	connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
+	connect(charSelect, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
 }
 
 void StoryEditor::hideEvent(QHideEvent *)
 {
 	if (charSelectUsed)
-		ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharacters(
-								charSelect->userTableModel()->characters());
-	if (charSelect->isShown())
+		ScCore->primaryMainWindow()->charPalette->userTableModel()->setCharacters( charSelect->userTableModel()->characters());
+	if (charSelect->isVisible())
 		charSelect->close();
-	disconnect(charSelect, SIGNAL(insertSpecialChar()),
-			   this, SLOT(slot_insertSpecialChar()));
-	disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar)),
-			   this, SLOT(slot_insertUserSpecialChar(QChar)));
+	disconnect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
+	disconnect(charSelect, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
 	delete charSelect;
 	charSelect = NULL;
 }
@@ -1361,7 +1356,7 @@ void StoryEditor::loadPrefs()
 		vheight = qMax( gStrut.height(), scr.height() - vtop );
 	setGeometry(vleft, vtop, vwidth, vheight);
 	QByteArray state = "";
-	state = prefs->get("winstate","");
+	state = prefs->get("winstate","").toAscii();
 	if (!state.isEmpty())
 		restoreState(QByteArray::fromBase64(state));
 	int side = prefs->getInt("side", -1);
@@ -1548,7 +1543,7 @@ void StoryEditor::buildGUI()
 	seActions["unicodeSmartHyphen"]->setEnabled(false);//CB TODO doesnt work in SE yet.
 	buildMenus();
 
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	Q3HBox* vb = new Q3HBox( this );
 	StoryEd2Layout = new QHBoxLayout;
 	StoryEd2Layout->setSpacing( 5 );
@@ -1636,7 +1631,7 @@ void StoryEditor::buildGUI()
 	ButtonGroup1Layout->addWidget( CharCT, 1, 2 );
 	CharC = new QLabel(ButtonGroup1);
 	ButtonGroup1Layout->addWidget( CharC, 1, 3 );
-	statusBar()->addWidget(ButtonGroup1, 1, true);
+	statusBar()->addPermanentWidget(ButtonGroup1, 1);
 	ButtonGroup2 = new QFrame( statusBar() );
 	ButtonGroup2->setFrameShape( QFrame::NoFrame );
 	ButtonGroup2->setFrameShadow( QFrame::Plain );
@@ -1658,7 +1653,7 @@ void StoryEditor::buildGUI()
 	ButtonGroup2Layout->addWidget( CharCT2, 1, 4 );
 	CharC2 = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( CharC2, 1, 5 );
-	statusBar()->addWidget(ButtonGroup2, 1, true);
+	statusBar()->addPermanentWidget(ButtonGroup2, 1);
 	setCentralWidget( vb );
 	//Final setup
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
@@ -1943,7 +1938,7 @@ void StoryEditor::setFontPref()
 void StoryEditor::newTxFill(int c, int s)
 {
 	if (c != -1)
-		Editor->CurrTextFill = FillTools->TxFill->text(c);
+		Editor->CurrTextFill = FillTools->TxFill->itemText(c);
 	if (s != -1)
 		Editor->CurrTextFillSh = s;
 	CharStyle charStyle;
@@ -1957,7 +1952,7 @@ void StoryEditor::newTxFill(int c, int s)
 void StoryEditor::newTxStroke(int c, int s)
 {
 	if (c != -1)
-		Editor->CurrTextStroke = StrokeTools->TxStroke->text(c);
+		Editor->CurrTextStroke = StrokeTools->TxStroke->itemText(c);
 	if (s != -1)
 		Editor->CurrTextStrokeSh = s;
 	CharStyle charStyle;

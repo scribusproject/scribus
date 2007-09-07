@@ -44,7 +44,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	layout_ = new QGridLayout(mainFrame);
 	newPopup_ = new QMenu(newButton);
 	rightClickPopup_ = new QMenu(styleView);
-	newButton->setPopup(newPopup_);
+	newButton->setMenu(newPopup_);
 	QString pname(name);
 	if (pname.isEmpty())
 		pname = "styleManager";
@@ -132,7 +132,7 @@ void StyleManager::languageChange()
 	}
 	popupStrings.sort();
 	for (int i = 0; i < popupStrings.count(); ++i)
-		newPopup_->insertItem(popupStrings[i]);
+		newPopup_->addAction(popupStrings[i]);
 
 	styleView->clear();
 	for (int i = 0; i < items_.count(); ++i)
@@ -140,14 +140,15 @@ void StyleManager::languageChange()
 	styleView->resizeColumnToContents(0);
 
 	rightClickPopup_->clear();
-	rcpNewId_ = rightClickPopup_->insertItem( tr("New"), newPopup_);
-	rightClickPopup_->insertItem( tr("Import"), this, SLOT(slotImport()));
-	rightClickPopup_->insertSeparator();
-	rcpEditId_ = rightClickPopup_->insertItem( tr("Edit"), this, SLOT(slotEdit()));
-	rcpCloneId_ = rightClickPopup_->insertItem( tr("Clone"), this, SLOT(slotClone()));
-	rcpToScrapId_ = rightClickPopup_->insertItem( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
-	rightClickPopup_->insertSeparator();
-	rcpDeleteId_ = rightClickPopup_->insertItem( tr("Delete"), this, SLOT(slotDelete()));
+	rcpNewId_ = rightClickPopup_->addMenu(newPopup_);
+	rcpNewId_->setText( tr("New"));
+	rightClickPopup_->addAction( tr("Import"), this, SLOT(slotImport()));
+	rightClickPopup_->addSeparator();
+	rcpEditId_ = rightClickPopup_->addAction( tr("Edit"), this, SLOT(slotEdit()));
+	rcpCloneId_ = rightClickPopup_->addAction( tr("Clone"), this, SLOT(slotClone()));
+	rcpToScrapId_ = rightClickPopup_->addAction( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
+	rightClickPopup_->addSeparator();
+	rcpDeleteId_ = rightClickPopup_->addAction( tr("Delete"), this, SLOT(slotDelete()));
 }
 
 void StyleManager::unitChange()
@@ -545,7 +546,7 @@ void StyleManager::slotNewPopup(int i)
 
 	QString typeName = rcType_;
 	if (typeName.isNull())
-		typeName = newPopup_->text(i);
+		typeName = newPopup_->actions()[i]->text();
 	else if (typeName.isNull() && i < 0)
 		return; // nothing to create
 
@@ -570,37 +571,38 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 
 	if (item && !item->isRoot())
 	{
-		rightClickPopup_->removeItem(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->insertItem( tr("New %1").arg(styleClassesPS_[item->rootName()]),
-		                                         this, SLOT(slotNewPopup(int)), 0, -1, 0);
-		rightClickPopup_->setItemEnabled(rcpDeleteId_, true);
-		rightClickPopup_->setItemEnabled(rcpEditId_, true);
-		rightClickPopup_->setItemEnabled(rcpCloneId_, true);
-		rightClickPopup_->setItemEnabled(rcpToScrapId_, true);
+		rightClickPopup_->removeAction(rcpNewId_);
+		rcpNewId_ = rightClickPopup_->addAction( tr("New %1").arg(styleClassesPS_[item->rootName()]),
+		                                         this, SLOT(slotNewPopup(int)));
+		rcpDeleteId_->setEnabled(true);
+		rcpEditId_->setEnabled(true);
+		rcpCloneId_->setEnabled(true);
+		rcpToScrapId_->setEnabled(true);
 		rcStyle_ = item->text(0);
 		rcType_ = styleClassesPS_[item->rootName()];
 		loadType(styleClassesPS_[item->rootName()]);
 	}
 	else if (item && item->isRoot())
 	{
-		rightClickPopup_->removeItem(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->insertItem( tr("New %1").arg(styleClassesPS_[item->text(0)]),
-		                                         this, SLOT(slotNewPopup(int)), 0, -1, 0);
-		rightClickPopup_->setItemEnabled(rcpDeleteId_, false);
-		rightClickPopup_->setItemEnabled(rcpEditId_, false);
-		rightClickPopup_->setItemEnabled(rcpCloneId_, false);
-		rightClickPopup_->setItemEnabled(rcpToScrapId_, false);
+		rightClickPopup_->removeAction(rcpNewId_);
+		rcpNewId_ = rightClickPopup_->addAction( tr("New %1").arg(styleClassesPS_[item->text(0)]),
+		                                         this, SLOT(slotNewPopup(int)));
+		rcpDeleteId_->setEnabled(false);
+		rcpEditId_->setEnabled(false);
+		rcpCloneId_->setEnabled(false);
+		rcpToScrapId_->setEnabled(false);
 		rcType_ = styleClassesPS_[item->text(0)];
 		loadType(rcType_);
 	}
 	else
 	{
-		rightClickPopup_->removeItem(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->insertItem( tr("New"), newPopup_, -1, 0);
-		rightClickPopup_->setItemEnabled(rcpDeleteId_, false);
-		rightClickPopup_->setItemEnabled(rcpEditId_, false);
-		rightClickPopup_->setItemEnabled(rcpCloneId_, false);
-		rightClickPopup_->setItemEnabled(rcpToScrapId_, false);
+		rightClickPopup_->removeAction(rcpNewId_);
+		rcpNewId_ = rightClickPopup_->addMenu(newPopup_);
+		rcpNewId_->setText( tr("New"));
+		rcpDeleteId_->setEnabled(false);
+		rcpEditId_->setEnabled(false);
+		rcpCloneId_->setEnabled(false);
+		rcpToScrapId_->setEnabled(false);
 	}
 
 	rightClickPopup_->exec(styleView->mapToGlobal(point));
@@ -784,7 +786,7 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 					continue;
 				else 
 				{
-					qDebug(QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second).arg(item_->typeName()).arg(styles[i].first));
+					qDebug(QString("stylemanager: unknown parent '%1' of %2 style '%3'").arg(styles[i].second).arg(item_->typeName()).arg(styles[i].first).toLatin1().constData());
 					sitem = new StyleViewItem(rootItem, styles[i].first, item_->typeName());
 				}
 			}
@@ -952,7 +954,7 @@ void StyleManager::updateActionName(const QString &oldName, const QString &newNa
 		ScrAction *a = styleActions_[oldKey];
 		disconnect(a, SIGNAL(activatedData(QString)), this, SLOT(slotApplyStyle(QString)));
 		ScrAction *b = new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "",
-			               a->accel(), doc_->view(), 0, 0.0, newKey);
+			               a->shortcut(), doc_->view(), 0, 0.0, newKey);
 		styleActions_.remove(oldKey);
 		delete a;
 		styleActions_[newKey] = b;
@@ -981,7 +983,7 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 	sitem->setText(SHORTCUT_COL, shortcut.isNull() ? "" : shortcut);
 	QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
 	if (styleActions_.contains(key))
-		styleActions_[key]->setAccel(shortcut);
+		styleActions_[key]->setShortcut(shortcut);
 	else
 	{
 		styleActions_[key] =
@@ -1001,7 +1003,7 @@ bool StyleManager::shortcutExists(const QString &keys)
 	QMap<QString, QPointer<ScrAction> >::iterator it;
 	for (it = styleActions_.begin(); it != styleActions_.end(); ++it)
 	{
-		if ((*it)->accel() == key)
+		if ((*it)->shortcut() == key)
 			return true;
 	}
 
@@ -1021,7 +1023,7 @@ void StyleManager::slotApplyStyle(QString keyString)
 	if (isEditMode_)
 		return;
 
-	QStringList slist = QStringList::split(SEPARATOR, keyString);
+	QStringList slist = keyString.split(SEPARATOR);
 	Q_ASSERT(slist.count() == 2);
 
 	loadType(slist[0]);
@@ -1219,15 +1221,15 @@ void StyleManager::loadType(const QString &name)
 	if (widget_)
 	{   // remove the old style type's widget
 		widget_->hide();
-		layout_->remove(widget_);
-		widget_->reparent(0,0, QPoint(0,0), false);
+		layout_->removeWidget(widget_);
+//		widget_->reparent(0,0, QPoint(0,0), false);
 		// show the widget for the new style type
 		if (shortcutWidget_)
 			widget_->removeTab(widget_->indexOf(shortcutWidget_));
 	}
 	widget_ = item_->widget(); // show the widget for the style type
 	insertShortcutPage(widget_);
-	widget_->reparent(mainFrame, 0, QPoint(0,0), true);
+	widget_->setParent(mainFrame);
 	layout_->addWidget(widget_, 0, 0);
 	layout()->activate();
 }

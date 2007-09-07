@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 
 
-StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent, "StrikeValues" )
+StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
@@ -20,14 +20,14 @@ StrikeValues::StrikeValues( QWidget* parent ) : QFrame( parent, "StrikeValues" )
 	LPos->setValue( -0.1 );
 	LPos->setWrapping(true);
 	LPos->setSpecialValueText( tr( "Auto" ) );
-	LPosTxt = new QLabel( "Displacement", this, "XoffsetTxt" );
+	LPosTxt = new QLabel( "Displacement", this );
 	group1Layout->addWidget( LPos, 0, 1 );
 	group1Layout->addWidget( LPosTxt, 0 , 0 );
 	LWidth = new ScrSpinBox( -0.1, 100, this, 0 );
 	LWidth->setValue( -0.1 );
 	LWidth->setWrapping(true);
 	LWidth->setSpecialValueText( tr( "Auto" ) );
-	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
+	LWidthTxt = new QLabel( "Linewidth", this );
 	group1Layout->addWidget( LWidth, 1, 1 );
 	group1Layout->addWidget( LWidthTxt, 1 , 0 );
 	languageChange();
@@ -43,7 +43,7 @@ void StrikeValues::languageChange()
 	LWidthTxt->adjustSize();
 }
 
-UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent, "ShadowValues" )
+UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout(this);
 	group1Layout->setSpacing( 3 );
@@ -53,14 +53,14 @@ UnderlineValues::UnderlineValues( QWidget* parent ) : QFrame( parent, "ShadowVal
 	LPos->setValue( -0.1 );
 	LPos->setWrapping(true);
 	LPos->setSpecialValueText( tr( "Auto" ) );
-	LPosTxt = new QLabel( "Displacement", this, "XoffsetTxt" );
+	LPosTxt = new QLabel( "Displacement", this );
 	group1Layout->addWidget( LPos, 0, 1 );
 	group1Layout->addWidget( LPosTxt, 0 , 0 );
 	LWidth = new ScrSpinBox( -0.1, 100, this, 0 );
 	LWidth->setValue( -0.1 );
 	LWidth->setWrapping(true);
 	LWidth->setSpecialValueText( tr( "Auto" ) );
-	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
+	LWidthTxt = new QLabel( "Linewidth", this );
 	group1Layout->addWidget( LWidth, 1, 1 );
 	group1Layout->addWidget( LWidthTxt, 1 , 0 );
 	languageChange();
@@ -76,7 +76,7 @@ void UnderlineValues::languageChange()
 	LWidthTxt->adjustSize();
 }
 
-OutlineValues::OutlineValues( QWidget* parent ) : QFrame( parent, "ShadowValues" )
+OutlineValues::OutlineValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
@@ -84,7 +84,7 @@ OutlineValues::OutlineValues( QWidget* parent ) : QFrame( parent, "ShadowValues"
 	group1Layout->setAlignment( Qt::AlignTop );
 	LWidth = new ScrSpinBox( 0, 100, this, 0 );
 	LWidth->setValue( 1 );
-	LWidthTxt = new QLabel( "Linewidth", this, "LWidthTxt" );
+	LWidthTxt = new QLabel( "Linewidth", this );
 	group1Layout->addWidget( LWidth, 0, 1 );
 	group1Layout->addWidget( LWidthTxt, 0 , 0 );
 	languageChange();
@@ -97,7 +97,7 @@ void OutlineValues::languageChange()
 	LWidthTxt->adjustSize();
 }
 
-ShadowValues::ShadowValues( QWidget* parent ) : QFrame( parent, "ShadowValues" )
+ShadowValues::ShadowValues( QWidget* parent ) : QFrame( parent )
 {
 	group1Layout = new QGridLayout( this );
 	group1Layout->setSpacing( 3 );
@@ -105,12 +105,12 @@ ShadowValues::ShadowValues( QWidget* parent ) : QFrame( parent, "ShadowValues" )
 	group1Layout->setAlignment( Qt::AlignTop );
 	Xoffset = new ScrSpinBox( -100, 100, this, 0 );
 	Xoffset->setValue( 5 );
-	XoffsetTxt = new QLabel( "X-Offset", this, "XoffsetTxt" );
+	XoffsetTxt = new QLabel( "X-Offset", this );
 	group1Layout->addWidget( Xoffset, 0, 1 );
 	group1Layout->addWidget( XoffsetTxt, 0 , 0 );
 	Yoffset = new ScrSpinBox( -100, 100, this, 0 );
 	Yoffset->setValue( 5 );
-	YoffsetTxt = new QLabel( "Y-Offset", this, "YoffsetTxt" );
+	YoffsetTxt = new QLabel( "Y-Offset", this );
 	group1Layout->addWidget( Yoffset, 1, 1 );
 	group1Layout->addWidget( YoffsetTxt, 1 , 0 );
 	languageChange();
@@ -126,58 +126,54 @@ void ShadowValues::languageChange()
 	YoffsetTxt->adjustSize();
 }
 
-StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
+StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent)
 {
 	ssLayout = new QHBoxLayout(this);
 	ssLayout->setSpacing( 0 );
 	ssLayout->setMargin( 0 );
 
 	UnderlineVal = new UnderlineValues( NULL );
-//<< widget in menu change
-//	UnderlinePop = new WidgetPopupMenu();
-//	UnderlinePop->insertItem(UnderlineVal);
-//>> widget in menu change
 	UnderlinePop = new QMenu();
 	UnderlineValAct = new QWidgetAction(this);
 	UnderlineValAct->setDefaultWidget(UnderlineVal);
 	UnderlinePop->addAction(UnderlineValAct);
-	underlineButton = new QToolButton( this, "underlineButton" );
+	underlineButton = new QToolButton( this );
 	underlineButton->setText( "" );
 	underlineButton->setMaximumSize( QSize( 22, 22 ) );
 	underlineButton->setIcon(QIcon(loadIcon("Unter.xpm")));
 	underlineButton->setCheckable( true );
 	underlineButton->setMenu(UnderlinePop);
-	underlineButton->setPopupDelay(400);
+	underlineButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( underlineButton );
-	underlineWordButton = new QToolButton( this, "underlineButton" );
+	underlineWordButton = new QToolButton( this );
 	underlineWordButton->setText( "" );
 	underlineWordButton->setMaximumSize( QSize( 22, 22 ) );
 	underlineWordButton->setIcon(QIcon(loadIcon("wordsOnly.png")));
 	underlineWordButton->setCheckable( true );
 	underlineWordButton->setMenu(UnderlinePop);
-	underlineWordButton->setPopupDelay(400);
+	underlineWordButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( underlineWordButton );
 
-	subscriptButton = new QToolButton( this, "subscriptButton" );
+	subscriptButton = new QToolButton( this );
 	subscriptButton->setText( "" );
 	subscriptButton->setMaximumSize( QSize( 22, 22 ) );
 	subscriptButton->setIcon(QIcon(loadIcon("Tief.xpm")));
 	subscriptButton->setCheckable( true );
 	ssLayout->addWidget( subscriptButton );
-	superscriptButton = new QToolButton( this, "superscriptButton" );
+	superscriptButton = new QToolButton( this );
 	superscriptButton->setText( "" );
 	superscriptButton->setMaximumSize( QSize( 22, 22 ) );
 	superscriptButton->setIcon(QIcon(loadIcon("Hoch.xpm")));
 	superscriptButton->setCheckable( true );
 	ssLayout->addWidget( superscriptButton );
 
-	allcapsButton = new QToolButton( this, "allcapsButton" );
+	allcapsButton = new QToolButton( this );
 	allcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	allcapsButton->setText("");
 	allcapsButton->setIcon(QIcon(loadIcon("AllCaps.png")));
 	allcapsButton->setCheckable( true );
 	ssLayout->addWidget( allcapsButton );
-	smallcapsButton = new QToolButton( this, "smallcapsButton" );
+	smallcapsButton = new QToolButton( this );
 	smallcapsButton->setMaximumSize( QSize( 22, 22 ) );
 	smallcapsButton->setText("");
 	smallcapsButton->setIcon(QIcon(loadIcon("Kapital.xpm")));
@@ -189,53 +185,41 @@ StyleSelect::StyleSelect(QWidget* parent) : QWidget(parent, "StyleSelect")
 	StrikeValAct = new QWidgetAction(this);
 	StrikeValAct->setDefaultWidget(StrikeVal);
 	StrikePop->addAction(StrikeValAct);
-//<< widget in menu change
-//	StrikePop = new WidgetPopupMenu();
-//	StrikePop->insertItem(StrikeVal);
-//>> widget in menu change
-	strikeoutButton = new QToolButton( this, "strikeoutButton" );
+	strikeoutButton = new QToolButton( this );
 	strikeoutButton->setText( "" );
 	strikeoutButton->setMaximumSize( QSize( 22, 22 ) );
 	strikeoutButton->setIcon(QIcon(loadIcon("Strike.xpm")));
 	strikeoutButton->setCheckable( true );
 	strikeoutButton->setMenu(StrikePop);
-	strikeoutButton->setPopupDelay(400);
+	strikeoutButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( strikeoutButton );
 
 	OutlineVal = new OutlineValues( NULL );
-//<< widget in menu change
-//	OutlinePop = new WidgetPopupMenu();
-//	OutlinePop->insertItem(OutlineVal);
-//>> widget in menu change
 	OutlinePop = new QMenu();
 	OutlineValAct = new QWidgetAction(this);
 	OutlineValAct->setDefaultWidget(OutlineVal);
 	OutlinePop->addAction(OutlineValAct);
-	outlineButton = new QToolButton( this, "outlineButton" );
+	outlineButton = new QToolButton( this );
 	outlineButton->setText( "" );
 	outlineButton->setMaximumSize( QSize( 22, 22 ) );
 	outlineButton->setIcon(QIcon(loadIcon("outlined.png")));
 	outlineButton->setCheckable( true );
 	outlineButton->setMenu(OutlinePop);
-	outlineButton->setPopupDelay(400);
+	outlineButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( outlineButton );
 
 	ShadowVal = new ShadowValues( NULL );
-//<< widget in menu change
-//	ShadowPop = new WidgetPopupMenu();
-//	ShadowPop->insertItem(ShadowVal);
-//>> widget in menu change
 	ShadowPop = new QMenu();
 	ShadowValAct = new QWidgetAction(this);
 	ShadowValAct->setDefaultWidget(ShadowVal);
 	ShadowPop->addAction(ShadowValAct);
-	shadowButton = new QToolButton( this, "shadowButton" );
+	shadowButton = new QToolButton( this );
 	shadowButton->setText( "" );
 	shadowButton->setMaximumSize( QSize( 22, 22 ) );
 	shadowButton->setIcon(QIcon(loadIcon("shadow.png")));
 	shadowButton->setCheckable( true );
 	shadowButton->setMenu(ShadowPop);
-	shadowButton->setPopupDelay(400);
+	shadowButton->setPopupMode(QToolButton::DelayedPopup);
 	ssLayout->addWidget( shadowButton );
 	
 	languageChange();

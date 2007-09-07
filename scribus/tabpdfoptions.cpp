@@ -51,7 +51,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const QList<PDFPresentationData> & Eff,
                                 int unitIndex, double PageH, double PageB,
                                 ScribusDoc * mdoc, bool exporting )
-	: QTabWidget( parent, "pdf" ),
+	: QTabWidget( parent ),
 	// Initialize all those darn pointer members so we catch unitialized
 	// accesses. I (CR) use the following command to generate these based on
 	// the header excerpt:
@@ -245,7 +245,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	cms(false)
 {
 
-	tabGeneral = new QWidget( this, "tabGeneral" );
+	tabGeneral = new QWidget( this );
 	tabLayout = new QVBoxLayout( tabGeneral );
 	tabLayout->setSpacing( 5 );
 	tabLayout->setMargin( 10 );
@@ -268,7 +268,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
  	pageNumberSelectorLayout = new QHBoxLayout;
 	pageNumberSelectorLayout->setSpacing( 5 );
 	pageNumberSelectorLayout->setMargin( 0 );
-	PageNr = new QLineEdit( RangeGroup, "PageNr" );
+	PageNr = new QLineEdit( RangeGroup );
  	pageNumberSelectorLayout->addWidget( PageNr );
  	pageNrButton = new QPushButton( RangeGroup );
  	pageNrButton->setIcon(QIcon(loadIcon("ellipsis.png")));
@@ -296,7 +296,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	MirrorH->setIcon(QIcon(loadIcon("16/flip-object-horizontal.png")));
 	MirrorH->setCheckable( true );
 	Layout11a->addWidget( MirrorH, 0, 0 );
-	MirrorV = new QToolButton( RangeGroup, "MirrorH" );
+	MirrorV = new QToolButton( RangeGroup );
 	MirrorV->setIcon(QIcon(loadIcon("16/flip-object-vertical.png")));
 	MirrorV->setCheckable( true );
 	Layout11a->addWidget( MirrorV, 0, 1 );
@@ -344,7 +344,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	Resolution->setMaximum( 4000 );
 	Resolution->setMinimum( 35 );
 	Resolution->setSuffix( tr( " dpi" ) );
-	TextLabel2 = new QLabel( Resolution, tr( "&Resolution for EPS Graphics:" ), GroupBox1 );
+	TextLabel2 = new QLabel( tr( "&Resolution for EPS Graphics:" ), GroupBox1 );
+	TextLabel2->setBuddy(Resolution);
 	TextLabel2->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 	GroupBox1Layout->addWidget( TextLabel2, 6, 0 );
 	GroupBox1Layout->addWidget( Resolution, 6, 1, Qt::AlignLeft );
@@ -364,7 +365,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CMethod->addItem( tr( "Lossless - Zip" ) );
 	CMethod->addItem( tr( "None" ) );
 	CMethod->setEditable(false);
-	TextCom1 = new QLabel( CMethod, tr( "Compression Metho&d:" ), CBox );
+	TextCom1 = new QLabel( tr( "Compression Metho&d:" ), CBox );
+	TextCom1->setBuddy(CMethod);
 	CBoxLayout->addWidget( TextCom1, 0, 0 );
 	CBoxLayout->addWidget( CMethod, 0, 1 );
 	CQuality = new QComboBox(CBox);
@@ -375,7 +377,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CQuality->addItem( tr( "Low" ) );
 	CQuality->addItem( tr( "Minimum" ) );
 	CQuality->setEditable(false);
-	TextCom2 = new QLabel( CQuality, tr( "Compression &Quality:" ), CBox );
+	TextCom2 = new QLabel( tr( "Compression &Quality:" ), CBox );
+	TextCom2->setBuddy(CQuality);
 	CBoxLayout->addWidget( TextCom2, 1, 0 );
 	CBoxLayout->addWidget( CQuality, 1, 1 );
 	DSColor = new QCheckBox( tr( "Maximum Image Resolution:" ), CBox );
@@ -530,7 +533,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		tabLayout_5->addWidget( Effects, 1, 1, 2, 1 );
 		addTab( tabPresentation, tr( "E&xtras" ) );
 		tabSpecial = new QWidget( this );
-		tabSpecialLayout = new QVBoxLayout( tabSpecial, 11, 6, "tabSpecialLayout");
+		tabSpecialLayout = new QVBoxLayout( tabSpecial );
 		tabSpecialLayout->setSpacing( 5 );
 		tabSpecialLayout->setMargin( 10 );
 		groupDisplay = new QGroupBox( tabSpecial );
@@ -602,7 +605,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		groupJavaLayout->addWidget( actionLabel );
 		actionCombo = new QComboBox(groupJava);
 		actionCombo->setEditable(false);
-		actionCombo->insertItem( tr("No Script"));
+		actionCombo->addItem( tr("No Script"));
 		groupJavaLayout->addWidget( actionCombo );
 		tabSpecialLayout->addWidget( groupJava );
 		addTab( tabSpecial, tr("Viewer") );
@@ -615,8 +618,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	Encry = new QCheckBox( tr( "&Use Encryption" ), tabSecurity);
 	tabSecurityLayout->addWidget( Encry );
 	GroupPass = new QGroupBox( tr( "Passwords" ), tabSecurity );
-	GroupPass->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)1, 0, 0,
-	                                       GroupPass->sizePolicy().hasHeightForWidth() ) );
+	GroupPass->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	GroupPassLayout = new QGridLayout( GroupPass );
 	GroupPassLayout->setSpacing( 5 );
 	GroupPassLayout->setMargin( 10 );
@@ -629,15 +631,14 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	PassOwner->setEchoMode( QLineEdit::Password );
 	TextSec1->setBuddy(PassOwner);
 	GroupPassLayout->addWidget( PassOwner, 0, 1 );
-	PassUser = new QLineEdit( GroupPass, "PassUser" );
+	PassUser = new QLineEdit( GroupPass );
 	PassUser->setEchoMode( QLineEdit::Password );
 	TextSec2->setBuddy(PassUser);
 	GroupPassLayout->addWidget( PassUser, 1, 1 );
 	tabSecurityLayout->addWidget( GroupPass );
 
 	GroupSecSet = new QGroupBox( tr( "Settings" ), tabSecurity);
-	GroupSecSet->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)5, (QSizePolicy::SizeType)7, 0, 0,
-	                            GroupSecSet->sizePolicy().hasHeightForWidth() ) );
+	GroupSecSet->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	GroupSecSetLayout = new QVBoxLayout( GroupSecSet );
 	GroupSecSetLayout->setSpacing( 5 );
 	GroupSecSetLayout->setMargin( 10 );
@@ -844,9 +845,11 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	X3GroupLayout->addWidget( PrintProfC, 0, 1 );
 	InfoString = new QLineEdit( X3Group );
 	X3GroupLayout->addWidget( InfoString, 1, 1 );
-	PDFX2 = new QLabel( InfoString, tr( "&Info String:" ), X3Group );
+	PDFX2 = new QLabel( tr( "&Info String:" ), X3Group );
+	PDFX2->setBuddy(InfoString);
 	X3GroupLayout->addWidget( PDFX2, 1, 0 );
-	PDFX1 = new QLabel( PrintProfC, tr( "Output &Profile:" ), X3Group );
+	PDFX1 = new QLabel( tr( "Output &Profile:" ), X3Group );
+	PDFX1->setBuddy(PrintProfC);
 	X3GroupLayout->addWidget( PDFX1, 0, 0 );
 	tabPDFXLayout->addWidget( X3Group );
 
@@ -998,7 +1001,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	AllPages->setChecked( true );
 	PageNr->setEnabled(false);
 	pageNrButton->setEnabled(false);
-	RotateDeg->setCurrentItem(Opts.RotateDeg / 90);
+	RotateDeg->setCurrentIndex(Opts.RotateDeg / 90);
 	MirrorH->setChecked(Opts.MirrorH);
 	MirrorV->setChecked(Opts.MirrorV);
 	ClipMarg->setChecked(Opts.doClip);
@@ -1006,17 +1009,17 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	if (cmsUse)
 	{
 		if (Opts.Version == PDFOptions::PDFVersion_X3)
-			PDFVersionCombo->setCurrentItem(3);
+			PDFVersionCombo->setCurrentIndex(3);
 	}
 	else
-		PDFVersionCombo->setCurrentItem(0);
+		PDFVersionCombo->setCurrentIndex(0);
 	if (Opts.Version == PDFOptions::PDFVersion_13)
-		PDFVersionCombo->setCurrentItem(0);
+		PDFVersionCombo->setCurrentIndex(0);
 	if (Opts.Version == PDFOptions::PDFVersion_14)
-		PDFVersionCombo->setCurrentItem(1);
+		PDFVersionCombo->setCurrentIndex(1);
 	if (Opts.Version == PDFOptions::PDFVersion_15)
-		PDFVersionCombo->setCurrentItem(2);
-	ComboBind->setCurrentItem(Opts.Binding);
+		PDFVersionCombo->setCurrentIndex(2);
+	ComboBind->setCurrentIndex(Opts.Binding);
 	CheckBox1->setChecked(Opts.Thumbnails);
 	Article->setChecked(Opts.Articles);
 	CheckBM->setChecked(Opts.Bookmarks);
@@ -1027,8 +1030,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		useLayers->setEnabled(false);
 	Resolution->setValue(Opts.Resolution);
 	Compression->setChecked( Opts.Compress );
-	CMethod->setCurrentItem(Opts.CompressMethod);
-	CQuality->setCurrentItem(Opts.Quality);
+	CMethod->setCurrentIndex(Opts.CompressMethod);
+	CQuality->setCurrentIndex(Opts.Quality);
 	DSColor->setChecked(Opts.RecalcPic);
 	ValC->setValue(Opts.PicRes);
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
@@ -1103,7 +1106,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 				}
 				if (FontsToOutline.contains(itAnn.key()) != 0)
 				{
-					FontsToOutline.remove(itAnn.key());
+					FontsToOutline.removeAll(itAnn.key());
 					QList<QListWidgetItem *> itR = OutlineList->findItems(itAnn.key(), Qt::MatchExactly);
 					delete OutlineList->takeItem(OutlineList->row(itR.at(0)));
 				}
@@ -1162,11 +1165,11 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		fitWindow->setChecked(Opts.fitWindow);
 		QMap<QString,QString>::Iterator itja;
 		actionCombo->clear();
-		actionCombo->insertItem( tr("No Script"));
+		actionCombo->addItem( tr("No Script"));
 		for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
-			actionCombo->insertItem(itja.key());
+			actionCombo->addItem(itja.key());
 		if (doc->JavaScripts.contains(Opts.openAction))
-			actionCombo->setCurrentText(Opts.openAction);
+			actionCombo->setItemText(actionCombo->currentIndex(), Opts.openAction);
 		if (Opts.PageLayout == PDFOptions::SinglePage)
 			singlePage->setChecked(true);
 		else if (Opts.PageLayout == PDFOptions::OneColumn)
@@ -1195,13 +1198,13 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	}
 
 	if (Opts.UseRGB)
-		OutCombo->setCurrentItem(0);
+		OutCombo->setCurrentIndex(0);
 	else
 	{
 		if (Opts.isGrayscale)
-			OutCombo->setCurrentItem(2);
+			OutCombo->setCurrentIndex(2);
 		else
-			OutCombo->setCurrentItem(1);
+			OutCombo->setCurrentIndex(1);
 	}
 	useSpot->setChecked(!Opts.UseSpotColors);
 	overprintMode->setChecked(Opts.doOverprint);
@@ -1209,12 +1212,12 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	QMap<QString,LPIData>::Iterator itlp;
 	LPIcolor->clear();
 	for (itlp = Opts.LPISettings.begin(); itlp != Opts.LPISettings.end(); ++itlp)
-		LPIcolor->insertItem( itlp.key() );
-	LPIcolor->setCurrentItem(0);
+		LPIcolor->addItem( itlp.key() );
+	LPIcolor->setCurrentIndex(0);
 
 	LPIfreq->setValue(Opts.LPISettings[LPIcolor->currentText()].Frequency);
 	LPIangle->setValue(Opts.LPISettings[LPIcolor->currentText()].Angle);
-	LPIfunc->setCurrentItem(Opts.LPISettings[LPIcolor->currentText()].SpotFunc);
+	LPIfunc->setCurrentIndex(Opts.LPISettings[LPIcolor->currentText()].SpotFunc);
 	EmbedProfs->setChecked(Opts.UseProfiles);
 	EmbedProfs2->setChecked(Opts.UseProfiles2);
 	NoEmbedded->setChecked(Opts.EmbeddedI);
@@ -1241,7 +1244,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	SolidPr->clear();
 	for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 	{
-		SolidPr->insertItem(itp.key());
+		SolidPr->addItem(itp.key());
 		if (itp.key() == tp)
 		{
 			if (cmsUse)
@@ -1263,7 +1266,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	ImageP->clear();
 	for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 	{
-		ImageP->insertItem(itp2.key());
+		ImageP->addItem(itp2.key());
 		if (itp2.key() == tp1)
 		{
 			if (cmsUse)
@@ -1290,7 +1293,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	PrintProfC->clear();
 	for (itp3 = PDFXProfiles.constBegin(); itp3 != PDFXProfiles.constEnd(); ++itp3)
 	{
-		PrintProfC->insertItem(itp3.key());
+		PrintProfC->addItem(itp3.key());
 		if (itp3.key() == tp3)
 			PrintProfC->setCurrentIndex(PrintProfC->count()-1);
 	}
@@ -1329,11 +1332,11 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		{
 			PageTime->setValue(EffVal[0].pageViewDuration);
 			EffectTime->setValue(EffVal[0].pageEffectDuration);
-			EffectType->setCurrentItem(EffVal[0].effectType);
-			EDirection->setCurrentItem(EffVal[0].Dm);
-			EDirection_2->setCurrentItem(EffVal[0].M);
-			EDirection_2_2->setCurrentItem(EffVal[0].Di);
-			SetEffOpts(EffectType->currentItem());
+			EffectType->setCurrentIndex(EffVal[0].effectType);
+			EDirection->setCurrentIndex(EffVal[0].Dm);
+			EDirection_2->setCurrentIndex(EffVal[0].M);
+			EDirection_2_2->setCurrentIndex(EffVal[0].Di);
+			SetEffOpts(EffectType->currentIndex());
 		}
 		if (mdoc->currentPageLayout != 0)
 		{
@@ -1376,7 +1379,7 @@ void TabPDFOptions::doDocBleeds()
 
 void TabPDFOptions::checkInfo()
 {
-	if ((PDFVersionCombo->currentItem() == 3) && (InfoString->text().isEmpty()))
+	if ((PDFVersionCombo->currentIndex() == 3) && (InfoString->text().isEmpty()))
 		emit noInfo();
 	else
 		emit hasInfo();
@@ -1392,17 +1395,17 @@ void TabPDFOptions::ToggleEncr()
 void TabPDFOptions::enableCMS(bool enable)
 {
 	disconnect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
-	int a = PDFVersionCombo->currentItem();
+	int a = PDFVersionCombo->currentIndex();
 	PDFVersionCombo->clear();
-	PDFVersionCombo->insertItem("PDF 1.3 (Acrobat 4)");
-	PDFVersionCombo->insertItem("PDF 1.4 (Acrobat 5)");
-	PDFVersionCombo->insertItem("PDF 1.5 (Acrobat 6)");
+	PDFVersionCombo->addItem("PDF 1.3 (Acrobat 4)");
+	PDFVersionCombo->addItem("PDF 1.4 (Acrobat 5)");
+	PDFVersionCombo->addItem("PDF 1.5 (Acrobat 6)");
 	cms=enable;
 	if (enable)
-		PDFVersionCombo->insertItem("PDF/X-3");
+		PDFVersionCombo->addItem("PDF/X-3");
 	else
 		a = qMin(a, 3);
-	PDFVersionCombo->setCurrentItem(a);
+	PDFVersionCombo->setCurrentIndex(a);
 	EnablePr(1);
 	connect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
 }
@@ -1430,7 +1433,7 @@ void TabPDFOptions::EnablePDFX(int a)
 		return;
 	}
 	disconnect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
-	OutCombo->setCurrentItem(1);
+	OutCombo->setCurrentIndex(1);
 	OutCombo->setEnabled(false);
 	EnablePr(1);
 	EmbedProfs2->setChecked(true);
@@ -1519,15 +1522,15 @@ void TabPDFOptions::EnableLPI(int a)
 		ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
 		for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 		{
-			SolidPr->insertItem(itp.key());
+			SolidPr->addItem(itp.key());
 			if (itp.key() == tp)
 			{
 				if (cms)
-					SolidPr->setCurrentItem(SolidPr->count()-1);
+					SolidPr->setCurrentIndex(SolidPr->count()-1);
 			}
 		}
 		if (cms)
-			IntendS->setCurrentItem(Opts.Intent);
+			IntendS->setCurrentIndex(Opts.Intent);
 		QString tp1 = Opts.ImageProf;
 		if (!ScCore->InputProfiles.contains(tp1))
 		{
@@ -1541,15 +1544,15 @@ void TabPDFOptions::EnableLPI(int a)
 		ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
 		for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 		{
-			ImageP->insertItem(itp2.key());
+			ImageP->addItem(itp2.key());
 			if (itp2.key() == tp1)
 			{
 				if (cms)
-					ImageP->setCurrentItem(ImageP->count()-1);
+					ImageP->setCurrentIndex(ImageP->count()-1);
 			}
 		}
 		if (cms)
-			IntendI->setCurrentItem(Opts.Intent2);
+			IntendI->setCurrentIndex(Opts.Intent2);
 		if (cms)
 		{
 			GroupBox9->show();
@@ -1590,11 +1593,11 @@ void TabPDFOptions::SelLPIcol(int c)
 	// XXX Optionen or Opts changed here
 	Opts.LPISettings[SelLPIcolor].Frequency = LPIfreq->value();
 	Opts.LPISettings[SelLPIcolor].Angle = LPIangle->value();
-	Opts.LPISettings[SelLPIcolor].SpotFunc = LPIfunc->currentItem();
-	LPIfreq->setValue(Opts.LPISettings[LPIcolor->text(c)].Frequency);
-	LPIangle->setValue(Opts.LPISettings[LPIcolor->text(c)].Angle);
-	LPIfunc->setCurrentItem(Opts.LPISettings[LPIcolor->text(c)].SpotFunc);
-	SelLPIcolor = LPIcolor->text(c);
+	Opts.LPISettings[SelLPIcolor].SpotFunc = LPIfunc->currentIndex();
+	LPIfreq->setValue(Opts.LPISettings[LPIcolor->itemText(c)].Frequency);
+	LPIangle->setValue(Opts.LPISettings[LPIcolor->itemText(c)].Angle);
+	LPIfunc->setCurrentIndex(Opts.LPISettings[LPIcolor->itemText(c)].SpotFunc);
+	SelLPIcolor = LPIcolor->itemText(c);
 }
 
 void TabPDFOptions::SelRange(bool e)
@@ -1612,10 +1615,10 @@ void TabPDFOptions::EffectOnAll()
 	{
 		EffVal[pg].pageViewDuration = PageTime->value();
 		EffVal[pg].pageEffectDuration = EffectTime->value();
-		EffVal[pg].effectType = EffectType->currentItem();
-		EffVal[pg].Dm = EDirection->currentItem();
-		EffVal[pg].M = EDirection_2->currentItem();
-		EffVal[pg].Di = EDirection_2_2->currentItem();
+		EffVal[pg].effectType = EffectType->currentIndex();
+		EffVal[pg].Dm = EDirection->currentIndex();
+		EffVal[pg].M = EDirection_2->currentIndex();
+		EffVal[pg].Di = EDirection_2_2->currentIndex();
 	}
 }
 
@@ -1644,7 +1647,7 @@ void TabPDFOptions::ValidDI(int nr)
 	// Qt4 if (!EDirection_2_2->listBox()->item(nr)->isSelectable())
 	QStandardItem* si = dynamic_cast<QStandardItem*>(EDirection_2_2->view()->children().at(nr));
 	if ( !(si && si->isSelectable()) )
-		EDirection_2_2->setCurrentItem(0);
+		EDirection_2_2->setCurrentIndex(0);
 }
 
 void TabPDFOptions::SetPgEff()
@@ -1654,17 +1657,17 @@ void TabPDFOptions::SetPgEff()
 		return;
 	EffVal[PgSel].pageViewDuration = PageTime->value();
 	EffVal[PgSel].pageEffectDuration = EffectTime->value();
-	EffVal[PgSel].effectType = EffectType->currentItem();
-	EffVal[PgSel].Dm = EDirection->currentItem();
-	EffVal[PgSel].M = EDirection_2->currentItem();
-	EffVal[PgSel].Di = EDirection_2_2->currentItem();
+	EffVal[PgSel].effectType = EffectType->currentIndex();
+	EffVal[PgSel].Dm = EDirection->currentIndex();
+	EffVal[PgSel].M = EDirection_2->currentIndex();
+	EffVal[PgSel].Di = EDirection_2_2->currentIndex();
 	SetEffOpts(EffVal[nr].effectType);
 	PageTime->setValue(EffVal[nr].pageViewDuration);
 	EffectTime->setValue(EffVal[nr].pageEffectDuration);
-	EffectType->setCurrentItem(EffVal[nr].effectType);
-	EDirection->setCurrentItem(EffVal[nr].Dm);
-	EDirection_2->setCurrentItem(EffVal[nr].M);
-	EDirection_2_2->setCurrentItem(EffVal[nr].Di);
+	EffectType->setCurrentIndex(EffVal[nr].effectType);
+	EDirection->setCurrentIndex(EffVal[nr].Dm);
+	EDirection_2->setCurrentIndex(EffVal[nr].M);
+	EDirection_2_2->setCurrentIndex(EffVal[nr].Di);
 	PgSel = nr;
 }
 
@@ -1784,7 +1787,7 @@ void TabPDFOptions::DoDownsample()
 
 void TabPDFOptions::RemoveEmbed()
 {
-	FontsToEmbed.remove(EmbedList->currentItem()->text());
+	FontsToEmbed.removeAll(EmbedList->currentItem()->text());
 	delete EmbedList->takeItem(EmbedList->currentRow());
 	EmbedList->clearSelection();
 	if (EmbedList->count() == 0)
@@ -1863,7 +1866,7 @@ void TabPDFOptions::PutToEmbed()
 
 void TabPDFOptions::RemoveOutline()
 {
-	FontsToOutline.remove(OutlineList->currentItem()->text());
+	FontsToOutline.removeAll(OutlineList->currentItem()->text());
 	if ((AllFonts[OutlineList->currentItem()->text()].type() != ScFace::OTF) && (!AllFonts[OutlineList->currentItem()->text()].subset()))
 	{
 		FontsToEmbed.append(OutlineList->currentItem()->text());
@@ -1890,7 +1893,7 @@ void TabPDFOptions::PutToOutline()
 		FontsToOutline.append(EmbedList->currentItem()->text());
 		OutlineList->addItem(EmbedList->currentItem()->text());
 	}
-	FontsToEmbed.remove(EmbedList->currentItem()->text());
+	FontsToEmbed.removeAll(EmbedList->currentItem()->text());
 	delete EmbedList->takeItem(EmbedList->currentRow());
 	EmbedList->clearSelection();
 	if (EmbedList->count() == 0)

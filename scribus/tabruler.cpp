@@ -29,7 +29,9 @@ for which a new license (GPL+exception) is in place.
 
 RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
 {
-	setEraseColor(QColor(255,255,255));
+	QPalette palette;
+	palette.setColor(backgroundRole(), QColor(255,255,255));
+	setPalette(palette);
 	unitIndex = ein;
 	iter=unitRulerGetIter1FromIndex(unitIndex);
 	iter2=unitRulerGetIter2FromIndex(unitIndex);
@@ -456,67 +458,81 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	docUnitRatio=unitGetRatioFromIndex(dEin);
 	double ww;
 	ww = (wid < 0) ? 4000 : wid;
-	setName( "tabruler" );
-	tabrulerLayout = new QVBoxLayout( this, 0, 6, "tabrulerLayout");
-	layout2 = new QHBoxLayout( 0, 0, 6, "layout2");
+	tabrulerLayout = new QVBoxLayout( this );
+	tabrulerLayout->setMargin(0);
+	tabrulerLayout->setSpacing(5);
+	layout2 = new QHBoxLayout;
+	layout2->setMargin(0);
+	layout2->setSpacing(5);
 
-	rulerScrollL = new QToolButton( Qt::LeftArrow, this, "rulerScrollL" );
+	rulerScrollL = new QToolButton(this);
+	rulerScrollL->setArrowType(Qt::LeftArrow);
 	rulerScrollL->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollL );
 	ruler = new RulerT( this, dEin, Tabs, haveFirst, wid );
-	ruler->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)5, 0, 0, ruler->sizePolicy().hasHeightForWidth() ) );
+	ruler->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
 	layout2->addWidget( ruler );
-	rulerScrollR = new QToolButton( Qt::RightArrow, this, "RulserScrollR" );
+	rulerScrollR = new QToolButton(this);
+	rulerScrollR->setArrowType(Qt::RightArrow);
 	rulerScrollR->setAutoRepeat( true );
 	layout2->addWidget( rulerScrollR );
 
-	layout1 = new QHBoxLayout( 0, 0, 6, "layout1" );
+	layout1 = new QHBoxLayout;
+	layout1->setMargin(0);
+	layout1->setSpacing(5);
 	layout1->setAlignment( Qt::AlignTop );
-	TypeCombo = new QComboBox( false, this, "TypeCombo" );
+	TypeCombo = new QComboBox(this);
+	TypeCombo->setEditable(false);
 	TypeCombo->clear();
-	TypeCombo->insertItem( tr( "Left" ) );
-	TypeCombo->insertItem( tr( "Right" ) );
-	TypeCombo->insertItem( tr( "Full Stop" ) );
-	TypeCombo->insertItem( tr( "Comma" ) );
-	TypeCombo->insertItem( tr( "Center" ) );
+	TypeCombo->addItem( tr( "Left" ) );
+	TypeCombo->addItem( tr( "Right" ) );
+	TypeCombo->addItem( tr( "Full Stop" ) );
+	TypeCombo->addItem( tr( "Comma" ) );
+	TypeCombo->addItem( tr( "Center" ) );
 	layout1->addWidget( TypeCombo );
 	tabData = new ScrSpinBox( 0, ww / docUnitRatio, this, 1 );
 	tabData->setValue(0);
-	positionLabel = new QLabel( tabData, tr("&Position:"), this, "positionLabel" );
+	positionLabel = new QLabel( tr("&Position:"), this );
+	positionLabel->setBuddy(tabData);
 	layout1->addWidget( positionLabel );
 	layout1->addWidget( tabData );
-	tabFillCombo = new QComboBox( true, this, "tabFillCombo" );
+	tabFillCombo = new QComboBox(this);
 	tabFillCombo->setEditable(false);
-	tabFillCombo->insertItem( tr("None", "tab fill"));
-	tabFillCombo->insertItem( tr("Dot"));
-	tabFillCombo->insertItem( tr("Hyphen"));
-	tabFillCombo->insertItem( tr("Underscore"));
-	tabFillCombo->insertItem( tr("Custom"));
-	tabFillComboT = new QLabel(tabFillCombo, tr( "Fill Char:" ), this, "tabFillComboT" );
+	tabFillCombo->addItem( tr("None", "tab fill"));
+	tabFillCombo->addItem( tr("Dot"));
+	tabFillCombo->addItem( tr("Hyphen"));
+	tabFillCombo->addItem( tr("Underscore"));
+	tabFillCombo->addItem( tr("Custom"));
+	tabFillComboT = new QLabel( tr( "Fill Char:" ), this );
+	tabFillComboT->setBuddy(tabFillCombo);
 	layout1->addWidget( tabFillComboT );
 	layout1->addWidget( tabFillCombo );
 
-	layout4 = new QHBoxLayout(0, 0, 6, "layout3");
+	layout4 = new QHBoxLayout;
+	layout4->setMargin(0);
+	layout4->setSpacing(5);
 
-	indentLayout = new QHBoxLayout(0, 0, 6, "indentLayout");
+	indentLayout = new QHBoxLayout;
+	indentLayout->setMargin(0);
+	indentLayout->setSpacing(5);
 	if (haveFirst)
 	{
 		firstLineData = new ScrSpinBox( -3000, ww / docUnitRatio, this, 1);
 		firstLineData->setValue(0);
-		firstLineLabel = new QLabel( "", this, "firstLineLabel" );
+		firstLineLabel = new QLabel(this);
 		firstLineLabel->setText("");
 		firstLineLabel->setPixmap(loadIcon("firstline.png"));
 		indentLayout->addWidget( firstLineLabel );
 		indentLayout->addWidget( firstLineData );
 		leftIndentData = new ScrSpinBox( 0, ww / docUnitRatio, this, 1 );
 		leftIndentData->setValue(0);
-		leftIndentLabel = new QLabel( "", this, "leftIndentLabel" );
+		leftIndentLabel = new QLabel(this);
 		leftIndentLabel->setText("");
 		leftIndentLabel->setPixmap(loadIcon("leftindent.png"));
 		layout4->addWidget( leftIndentLabel );
 		layout4->addWidget( leftIndentData );
 		layout4->addStretch(10);
-		rightIndentLabel = new QLabel("", this, "rightIndentLabel");
+		rightIndentLabel = new QLabel(this);
 		rightIndentLabel->setText("");
 		rightIndentLabel->setPixmap(loadIcon("rightindent.png"));
 		rightIndentData = new ScrSpinBox(0, ww / docUnitRatio, this, 1);
@@ -524,7 +540,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 		indentLayout->addWidget(rightIndentLabel);
 		indentLayout->addWidget(rightIndentData);
 	}
-	clearButton = new QPushButton( this, "clearButton" );
+	clearButton = new QPushButton( this );
 	clearButton->setText( tr( "Delete All" ) );
 	indentLayout->addSpacing(20);
 	indentLayout->addWidget( clearButton);
@@ -665,7 +681,7 @@ void Tabruler::setFillChar()
 	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
 	QChar ret;
-	switch (tabFillCombo->currentItem())
+	switch (tabFillCombo->currentIndex())
 	{
 		case 0:
 			tabFillCombo->setEditable(false);
@@ -688,7 +704,7 @@ void Tabruler::setFillChar()
 			tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill);
 			break;
 	}
-	if (tabFillCombo->currentItem() != 4)
+	if (tabFillCombo->currentIndex() != 4)
 		ruler->changeTabChar(ret);
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
 	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
@@ -711,26 +727,26 @@ void Tabruler::setTabFillChar(QChar t)
 	if (t.isNull())
 	{
 		tabFillCombo->setEditable(false);
-		tabFillCombo->setCurrentItem(0);
+		tabFillCombo->setCurrentIndex(0);
 	}
 	else if (t == '.')
 	{
 		tabFillCombo->setEditable(false);
-		tabFillCombo->setCurrentItem(1);
+		tabFillCombo->setCurrentIndex(1);
 	}
 	else if (t == '-')
 	{
 		tabFillCombo->setEditable(false);
-		tabFillCombo->setCurrentItem(2);
+		tabFillCombo->setCurrentIndex(2);
 	}
 	else if (t == '_')
 	{
 		tabFillCombo->setEditable(false);
-		tabFillCombo->setCurrentItem(3);
+		tabFillCombo->setCurrentIndex(3);
 	}
 	else
 	{
-		tabFillCombo->setCurrentItem(4);
+		tabFillCombo->setCurrentIndex(4);
 		tabFillCombo->setEditable(true);
 		tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill+QString(t));
 	}
@@ -740,7 +756,7 @@ void Tabruler::setTabFillChar(QChar t)
 
 void Tabruler::setTabType(int t)
 {
-	TypeCombo->setCurrentItem(t);
+	TypeCombo->setCurrentIndex(t);
 	emit tabrulerChanged();
 	emit tabsChanged();
 }
@@ -748,7 +764,7 @@ void Tabruler::setTabType(int t)
 void Tabruler::setType()
 {
 	disconnect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
-	ruler->changeTab(TypeCombo->currentItem());
+	ruler->changeTab(TypeCombo->currentIndex());
 	connect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
 	emit tabrulerChanged();
 	emit tabsChanged();

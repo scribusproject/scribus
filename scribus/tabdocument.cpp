@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 
 TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
-	: QWidget(parent, name, 0)
+	: QWidget(parent)
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	unitRatio = unitGetRatioFromIndex(prefsData->docUnitIndex);
@@ -75,7 +75,8 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 		pageSizeComboBox->setCurrentIndex(sizeIndex);
 	else
 		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
-	GZText1 = new QLabel( pageSizeComboBox, tr( "&Size:" ), GroupSize );
+	GZText1 = new QLabel( tr( "&Size:" ), GroupSize );
+	GZText1->setBuddy(pageSizeComboBox);
 	Layout6->addWidget( GZText1, 0, 0 );
 	Layout6->addWidget( pageSizeComboBox, 0, 1 );
 
@@ -83,13 +84,15 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	pageOrientationComboBox->addItem( tr( "Portrait" ) );
 	pageOrientationComboBox->addItem( tr( "Landscape" ) );
 	pageOrientationComboBox->setEditable(false);
-	GZText2 = new QLabel( pageOrientationComboBox, tr( "Orie&ntation:" ), GroupSize );
+	GZText2 = new QLabel( tr( "Orie&ntation:" ), GroupSize );
+	GZText2->setBuddy(pageOrientationComboBox);
 	Layout6->addWidget( GZText2, 1, 0 );
 	Layout6->addWidget( pageOrientationComboBox, 1, 1 );
 	unitCombo = new QComboBox( GroupSize );
 	unitCombo->addItems(unitGetTextUnitList());
 	unitCombo->setEditable(false);
-	unitComboText = new QLabel( unitCombo, tr( "Units:" ), GroupSize );
+	unitComboText = new QLabel( tr( "Units:" ), GroupSize );
+	unitComboText->setBuddy(unitCombo);
 	Layout6->addWidget( unitComboText, 2, 0 );
 	Layout6->addWidget( unitCombo, 2, 1 );
 	GroupSizeLayout->addLayout( Layout6 );
@@ -100,13 +103,15 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 
 	pageWidth = new ScrSpinBox( 1, 100000, GroupSize, prefsData->docUnitIndex );
 	pageWidth->setMinimumSize( QSize( 90, 20 ) );
-	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize );
+	GZText3 = new QLabel( tr( "&Width:" ), GroupSize );
+	GZText3->setBuddy(pageWidth);
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
 
 	pageHeight = new ScrSpinBox( 1, 100000, GroupSize, prefsData->docUnitIndex );
 	pageHeight->setMinimumSize( QSize( 90, 20 ) );
-	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize );
+	GZText4 = new QLabel( tr( "&Height:" ), GroupSize );
+	GZText4->setBuddy(pageHeight);
 	Layout5_2->addWidget( GZText4 );
 	Layout5_2->addWidget( pageHeight );
 	GroupSizeLayout->addLayout( Layout5_2 );
@@ -151,7 +156,8 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	ASTime->setMaximum( 60 );
 	ASTime->setMinimum( 1 );
 	ASTime->setSuffix( " " + tr("min") );
-	ASText = new QLabel( ASTime, tr( "&Interval:" ), GroupAS);
+	ASText = new QLabel( tr( "&Interval:" ), GroupAS);
+	ASText->setBuddy(ASTime);
 	GroupASLayout->addWidget( ASText);
 	GroupASLayout->addWidget( ASTime );
 	asurLayout->addWidget(GroupAS);
@@ -170,7 +176,8 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 		urSpinBox->setEnabled(false);
 	else
 		urSpinBox->setValue(urSBValue);
-	urLabel = new QLabel(urSpinBox, tr("Action history length"), urGroup);
+	urLabel = new QLabel( tr("Action history length"), urGroup);
+	urLabel->setBuddy(urSpinBox);
 	urGroupLayout->addWidget(urLabel, 0, 0);
 	urGroupLayout->addWidget(urSpinBox, 0, 1);
 	asurLayout->addWidget(urGroup);
@@ -206,16 +213,16 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 //	setSize(prefsData->pageSize);
 	if (prefsData->pageSize == CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentText(CommonStrings::trCustomPageSize);
+		pageSizeComboBox->setItemText(pageSizeComboBox->currentIndex(), CommonStrings::trCustomPageSize);
 	else
-		pageSizeComboBox->setCurrentText(prefsData->pageSize);
+		pageSizeComboBox->setItemText(pageSizeComboBox->currentIndex(), prefsData->pageSize);
 	prefsPageSizeName = prefsData->pageSize;
 //	setOrien(prefsData->pageOrientation);
 
 	docLayout->selectItem(prefsData->FacingPages);
-	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
-	pageOrientationComboBox->setCurrentItem(prefsData->pageOrientation);
-	unitCombo->setCurrentItem(prefsData->docUnitIndex);
+	docLayout->firstPage->setCurrentIndex(prefsData->pageSets[prefsData->FacingPages].FirstPage);
+	pageOrientationComboBox->setCurrentIndex(prefsData->pageOrientation);
+	unitCombo->setCurrentIndex(prefsData->docUnitIndex);
 	pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	pageHeight->setValue(prefsData->PageHeight * unitRatio);
 	pageW = prefsData->PageWidth;
@@ -242,16 +249,16 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 
 //	setSize(prefsData->m_pageSize);
 	if (prefsData->m_pageSize == CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentText(CommonStrings::trCustomPageSize);
+		pageSizeComboBox->setItemText(pageSizeComboBox->currentIndex(), CommonStrings::trCustomPageSize);
 	else
-		pageSizeComboBox->setCurrentText(prefsData->m_pageSize);
+		pageSizeComboBox->setItemText(pageSizeComboBox->currentIndex(), prefsData->m_pageSize);
 	prefsPageSizeName = prefsData->m_pageSize;
 //	setOrien(prefsData->PageOri);
 
 	docLayout->selectItem(prefsData->currentPageLayout);
-	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->currentPageLayout].FirstPage);
-	pageOrientationComboBox->setCurrentItem(prefsData->PageOri);
-	unitCombo->setCurrentItem(prefsData->unitIndex());
+	docLayout->firstPage->setCurrentIndex(prefsData->pageSets[prefsData->currentPageLayout].FirstPage);
+	pageOrientationComboBox->setCurrentIndex(prefsData->PageOri);
+	unitCombo->setCurrentIndex(prefsData->unitIndex());
 	pageWidth->setValue(prefsData->pageWidth * unitRatio);
 	pageHeight->setValue(prefsData->pageHeight * unitRatio);
 	pageW = prefsData->pageWidth;
@@ -273,7 +280,7 @@ void TabDocument::unitChange()
 	disconnect(pageWidth, SIGNAL(valueChanged(double)), this, SLOT(setPageWidth(double)));
 	disconnect(pageHeight, SIGNAL(valueChanged(double)), this, SLOT(setPageHeight(double)));
 
-	int docUnitIndex = unitCombo->currentItem();
+	int docUnitIndex = unitCombo->currentIndex();
 	pageWidth->setNewUnit(docUnitIndex);
 	pageHeight->setNewUnit(docUnitIndex);
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);	
@@ -293,7 +300,7 @@ void TabDocument::setPageWidth(double)
 	marginGroup->setPageWidth(pageW);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
 }
 
 void TabDocument::setPageHeight(double)
@@ -302,7 +309,7 @@ void TabDocument::setPageHeight(double)
 	marginGroup->setPageHeight(pageH);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
 }
 
 void TabDocument::setSize(const QString & gr)
@@ -360,7 +367,7 @@ void TabDocument::setOrien(int ori)
 
 void TabDocument::setPageSize()
 {
-	setOrien(pageOrientationComboBox->currentItem());
+	setOrien(pageOrientationComboBox->currentIndex());
 }
 
 void TabDocument::hideReform()

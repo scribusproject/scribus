@@ -20,8 +20,8 @@ SMRowWidget::SMRowWidget(const QString &toBeDeleted, QStringList replaceOptions,
 	deleteLabel = new QLabel(toBeDeleted, this);
 	layout->addWidget(deleteLabel);
 	optionsCombo = new QComboBox(this);
-	optionsCombo->insertStringList(replaceOptions);
-	optionsCombo->insertItem( tr("No Style"), 0);
+	optionsCombo->addItem( tr("No Style"));
+	optionsCombo->addItems(replaceOptions);
 	layout->addWidget(optionsCombo);
 }
 
@@ -32,7 +32,7 @@ QString SMRowWidget::toBeDeleted()
 
 QString SMRowWidget::replaceWith()
 {
-	return optionsCombo->currentItem() == 0 ? "" : optionsCombo->currentText();
+	return optionsCombo->currentIndex() == 0 ? "" : optionsCombo->currentText();
 }
 
 SMRowWidget::~SMRowWidget()
@@ -61,12 +61,13 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 	layout = new QVBoxLayout(mainFrame);
 	layout->setMargin(0);
 	layout->setSpacing(5);
-	headerLayout = new QHBoxLayout(layout, 5);
-	layout->setMargin(5);
+	headerLayout = new QHBoxLayout();
+	headerLayout->setMargin(5);
 	deleteHeader = new QLabel("<b>" + tr("Remove") + "</b>", mainFrame);
 	optionsHeader = new QLabel("<b>" + tr("Replace with") + "</b>", mainFrame);
 	headerLayout->addWidget(deleteHeader);
 	headerLayout->addWidget(optionsHeader);
+	layout->addLayout(headerLayout);
 
 	for (int i = 0; i < toBeDeleted.count(); ++i)
 	{
@@ -74,7 +75,6 @@ SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &re
 		layout->addWidget(tmp);
 		rowWidgets.append(tmp);
 	}
-
 	layout->addStretch(10);
 }
 

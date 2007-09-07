@@ -30,14 +30,16 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	subDisplacement->setMaximum( 100 );
 	subDisplacement->setSuffix( tr( " %" ) );
 	groupBox1aLayout->addWidget( subDisplacement, 0, 1, Qt::AlignLeft );
-	textLabel1a = new QLabel(subDisplacement, tr( "&Displacement:" ), groupBox1a );
+	textLabel1a = new QLabel( tr( "&Displacement:" ), groupBox1a );
+	textLabel1a->setBuddy(subDisplacement);
 	groupBox1aLayout->addWidget( textLabel1a, 0, 0 );
 	subScaling = new QSpinBox( groupBox1a );
 	subScaling->setMaximum( 100 );
 	subScaling->setMinimum( 1 );
 	subScaling->setSuffix( tr( " %" ) );
 	groupBox1aLayout->addWidget( subScaling, 0, 3, Qt::AlignLeft );
-	textLabel2a = new QLabel(subScaling, tr( "&Scaling:" ), groupBox1a );
+	textLabel2a = new QLabel( tr( "&Scaling:" ), groupBox1a );
+	textLabel2a->setBuddy(subScaling);
 	groupBox1aLayout->addWidget( textLabel2a, 0, 2 );
 	tabTypoLayout->addWidget( groupBox1a, 0, 0, 1, 2 );
 
@@ -51,14 +53,16 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	superDisplacement->setMaximum( 100 );
 	superDisplacement->setSuffix( tr( " %" ) );
 	groupBox2aLayout->addWidget( superDisplacement, 0, 1, Qt::AlignLeft );
-	textLabel3a = new QLabel(superDisplacement, tr( "D&isplacement:" ), groupBox2a );
+	textLabel3a = new QLabel( tr( "D&isplacement:" ), groupBox2a );
+	textLabel3a->setBuddy(superDisplacement);
 	groupBox2aLayout->addWidget( textLabel3a, 0, 0 );
 	superScaling = new QSpinBox( groupBox2a );
 	superScaling->setMaximum( 100 );
 	superScaling->setMinimum( 1 );
 	superScaling->setSuffix( tr( " %" ) );
 	groupBox2aLayout->addWidget( superScaling, 0, 3, Qt::AlignLeft );
-	textLabel4a = new QLabel(superScaling, tr( "S&caling:" ), groupBox2a );
+	textLabel4a = new QLabel( tr( "S&caling:" ), groupBox2a );
+	textLabel4a->setBuddy(superScaling);
 	groupBox2aLayout->addWidget( textLabel4a, 0, 2 );
 	tabTypoLayout->addWidget( groupBox2a, 1, 0, 1, 2 );
 
@@ -121,7 +125,8 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	capsScaling->setMinimum( 1 );
 	capsScaling->setSuffix( tr( " %" ) );
 	groupBox3aLayout->addWidget( capsScaling, 0, 1, Qt::AlignLeft );
-	textLabel5a = new QLabel(capsScaling, tr( "Sc&aling:" ), groupBox3a );
+	textLabel5a = new QLabel( tr( "Sc&aling:" ), groupBox3a );
+	textLabel5a->setBuddy(capsScaling);
 	groupBox3aLayout->addWidget( textLabel5a, 0, 0 );
 	tabTypoLayout->addWidget( groupBox3a, 4, 0 );
 
@@ -136,7 +141,8 @@ TabTypograpy::TabTypograpy( QWidget* parent, struct typoPrefs *prefsData) : QWid
 	autoLine->setMinimum( 1 );
 	autoLine->setSuffix( tr( " %" ) );
 	groupBox4aLayout->addWidget( autoLine, 1, 1, Qt::AlignLeft );
-	textLabel8a = new QLabel( autoLine, tr( "Line Spacing:" ), groupBox4a );
+	textLabel8a = new QLabel( tr( "Line Spacing:" ), groupBox4a );
+	textLabel8a->setBuddy(autoLine);
 	groupBox4aLayout->addWidget( textLabel8a, 1, 0 );
 	tabTypoLayout->addWidget( groupBox4a, 4, 1 );
 	// switched off as it's called in main prefs classes - PV

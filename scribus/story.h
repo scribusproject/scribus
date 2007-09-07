@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef STORY_H
 #define STORY_H
 
-#include <Q3PopupMenu>
+// #include <Q3PopupMenu>
 #include <Q3TextEdit>
 #include <QAction>
 #include <QCheckBox>
@@ -143,7 +143,7 @@ protected:
 	void inputMethodEvent(QInputMethodEvent *event);
 	void focusOutEvent(QFocusEvent *e);
 	void focusInEvent(QFocusEvent *e);
-	Q3PopupMenu* createPopupMenu(const QPoint & pos);
+//	Q3PopupMenu* createPopupMenu(const QPoint & pos);
 	StoryEditor* parentStoryEditor;
 
 public slots:

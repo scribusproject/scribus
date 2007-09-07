@@ -289,8 +289,8 @@ void SMLineStyle::deleteStyles(const QList<RemoveItem> &removeList)
 {
 	for (int i = 0; i < removeList.count(); ++i)
 	{
-		selection_.remove(selection_.find(removeList[i].first));
-		tmpLines.remove(tmpLines.find(removeList[i].first));
+		selection_.erase(selection_.find(removeList[i].first));
+		tmpLines.erase(tmpLines.find(removeList[i].first));
 		deleted_.append(removeList[i]);
 	}
 }
@@ -299,7 +299,7 @@ void SMLineStyle::nameChanged(const QString &newName)
 {
 	if (selection_.count() != 1)
 	{
-		qDebug(QString("SMLineStyle::nameChanged #selection=%1").arg(selection_.count()));
+		qDebug(QString("SMLineStyle::nameChanged #selection=%1").arg(selection_.count()).toLatin1().constData());
 		return;
 	}
 	QString oldName = selection_.begin().key();
@@ -307,7 +307,7 @@ void SMLineStyle::nameChanged(const QString &newName)
 	multiLine newLine(*tmpLine);
 	
 	selection_.clear();
-	tmpLines.erase(oldName);
+	tmpLines.remove(oldName);
 
 	tmpLines.insert(newName, newLine);
 	selection_[newName] = &tmpLines[newName];
@@ -318,7 +318,7 @@ void SMLineStyle::nameChanged(const QString &newName)
 		if ((*it).second == oldName)
 		{
 			oldName = (*it).first;
-			deleted_.remove(it);
+			deleted_.erase(it);
 			break;
 		}
 	}

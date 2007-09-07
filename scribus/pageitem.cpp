@@ -1962,7 +1962,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 		for (QList<uint>::Iterator it2 = Segments.begin(); it2 != it2end; ++it2)
 		{
 			if (NamedLStyle.isEmpty())
-				p->drawPolyline(pts.constData() + FirstVal, (*it2)-FirstVal);
+				p->drawPolygon(pts.constData() + FirstVal, (*it2)-FirstVal);
 			else
 			{
 				multiLine ml = m_Doc->MLineStyles[NamedLStyle];
@@ -1974,13 +1974,13 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 									 static_cast<Qt::PenStyle>(ml[it].Dash),
 									 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 									 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-					p->drawPolyline(pts.constData() + FirstVal, (*it2)-FirstVal);
+					p->drawPolygon(pts.constData() + FirstVal, (*it2)-FirstVal);
 				}
 			}
 			FirstVal = (*it2);
 		}
 		if (NamedLStyle.isEmpty())
-			p->drawPolyline(pts.constData() + FirstVal, pts.size() - FirstVal);
+			p->drawPolygon(pts.constData() + FirstVal, pts.size() - FirstVal);
 		else
 		{
 			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
@@ -1992,14 +1992,14 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
 								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-				p->drawPolyline(pts.constData() + FirstVal, pts.size() - FirstVal);
+				p->drawPolygon(pts.constData() + FirstVal, pts.size() - FirstVal);
 			}
 		}
 	}
 	else
 	{
 		if (NamedLStyle.isEmpty())
-			p->drawPolyline(pts);
+			p->drawPolygon(pts);
 		else
 		{
 			multiLine ml = m_Doc->MLineStyles[NamedLStyle];
@@ -2011,7 +2011,7 @@ void PageItem::DrawPolyL(QPainter *p, QPolygon pts)
 								 static_cast<Qt::PenStyle>(ml[it].Dash),
 								 static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
 								 static_cast<Qt::PenJoinStyle>(ml[it].LineJoin)));
-				p->drawPolyline(pts);
+				p->drawPolygon(pts);
 			}
 		}
 	}

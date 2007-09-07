@@ -28,9 +28,9 @@ SMPStyleWidget::SMPStyleWidget() : QWidget()
 	pixmapLabel3->setPixmap( loadIcon("above.png") );
 	pixmapLabel4->setPixmap( loadIcon("below.png") );
 
-	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
-	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
+	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
+	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
+	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
 	connect(lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
 
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
@@ -73,9 +73,9 @@ void SMPStyleWidget::languageChange()
 /***********************************/
 
 	lineSpacingMode_->clear();
-	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
-	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
+	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
+	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
+	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
 	lineSpacing_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceAbove_->setSuffix(unitGetSuffixFromIndex(0));
 	spaceBelow_->setSuffix(unitGetSuffixFromIndex(0));
@@ -83,8 +83,8 @@ void SMPStyleWidget::languageChange()
 	distancesBox->setTitle( tr("Distances and Alignment"));
 	dropCapsBox->setTitle( tr("Drop Caps"));
 	tabsBox->setTitle( tr("Tabulators and Indentation"));
-	tabWidget->setTabLabel(tabWidget->page(0), tr("Properties"));
-	tabWidget->setTabLabel(tabWidget->page(1), tr("Character Style"));
+	tabWidget->setTabText(0, tr("Properties"));
+	tabWidget->setTabText(1, tr("Character Style"));
 }
 
 void SMPStyleWidget::unitChange(double oldRatio, double newRatio, int unitIndex)
@@ -103,9 +103,9 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	hasParent_ = pstyle->hasParent() && parent != NULL && parent->hasName() && pstyle->parent() != "";
 
 	lineSpacingMode_->clear();
-	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
-	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
+	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
+	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
+	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
 
 	if (hasParent_)
 	{
@@ -160,7 +160,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	}
 	else
 	{
-		lineSpacingMode_->setCurrentItem(pstyle->lineSpacingMode());
+		lineSpacingMode_->setCurrentIndex(pstyle->lineSpacingMode());
 		lineSpacing_->setValue(pstyle->lineSpacing());
 		spaceAbove_->setValue(pstyle->gapBefore());
 		spaceBelow_->setValue(pstyle->gapAfter());
@@ -189,12 +189,12 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	cpage->show(&pstyle->charStyle(), cstyles, defLang, unitIndex);
 
 	parentCombo->clear();
-	parentCombo->insertItem("");
+	parentCombo->addItem("");
 
 	for (int i = 0; i < pstyles.count(); ++i)
 	{
 		if (pstyles[i].hasName() && pstyles[i].name() != pstyle->name())
-			parentCombo->insertItem(pstyles[i].name());
+			parentCombo->addItem(pstyles[i].name());
 	}
 
 	if (hasParent_)
@@ -202,16 +202,16 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
 		{
-			if (parentCombo->text(i) == parent->name())
+			if (parentCombo->itemText(i) == parent->name())
 			{
 				index = i;
 				break;
 			}
 		}
-		parentCombo->setCurrentItem(index);
+		parentCombo->setCurrentIndex(index);
 	}
 	else
-		parentCombo->setCurrentItem(0);
+		parentCombo->setCurrentIndex(0);
 
 	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 }
@@ -235,9 +235,9 @@ void SMPStyleWidget::show(QList<ParagraphStyle*> &pstyles, QList<ParagraphStyle>
 void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 {
 	lineSpacingMode_->clear();
-	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
-	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
-	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
+	lineSpacingMode_->addItem( tr("Fixed Linespacing"));
+	lineSpacingMode_->addItem( tr("Automatic Linespacing"));
+	lineSpacingMode_->addItem( tr("Align to Baseline Grid"));
 
 	int tmpLP = -1;
 	for (int i = 0; i < pstyles.count(); ++i)
@@ -253,12 +253,12 @@ void SMPStyleWidget::showLineSpacing(QList<ParagraphStyle*> &pstyles)
 
 	if (tmpLP == -1)
 	{
-		if (lineSpacingMode_->text(lineSpacingMode_->count() - 1) != "")
-			lineSpacingMode_->insertItem("");
-		lineSpacingMode_->setCurrentItem(lineSpacingMode_->count() - 1);
+		if (lineSpacingMode_->itemText(lineSpacingMode_->count() - 1) != "")
+			lineSpacingMode_->addItem("");
+		lineSpacingMode_->setCurrentIndex(lineSpacingMode_->count() - 1);
 	}
 	else
-		lineSpacingMode_->setCurrentItem(tmpLP);
+		lineSpacingMode_->setCurrentIndex(tmpLP);
 
 	double tmpLS = -1.0;
 	for (int i = 0; i < pstyles.count(); ++i)

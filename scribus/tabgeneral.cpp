@@ -25,21 +25,22 @@ extern ScribusQApp* ScQApp;
 
 
 TabGeneral::TabGeneral(QWidget* parent, const char* name)
-	: QWidget(parent, name, 0)
+	: QWidget(parent)
 {
 	setupUi(this);
+	setObjectName(name);
 	// languages
 	langMgr.init();
 	QStringList languageList;
 	langMgr.fillInstalledStringList(&languageList, true);
 	languageList.sort();
-	guiLangCombo->insertStringList( languageList );
+	guiLangCombo->addItems( languageList );
 
 	// qt styles
 	QStringList STtest;
 	STtest = QStyleFactory::keys();
 	for (int stt = 0; stt < STtest.count(); ++stt)
-		GUICombo->insertItem(STtest[stt]);
+		GUICombo->addItem(STtest[stt]);
 	//GUICombo->setEditable(false);
 
 	if (ScCore->primaryMainWindow()->HaveDoc)
@@ -82,8 +83,8 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	selectedGUILang = prefsData->guiLanguage;
-	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(selectedGUILang));
-	GUICombo->setCurrentText(prefsData->GUI);
+	guiLangCombo->setItemText(guiLangCombo->currentIndex(), langMgr.getLangFromAbbrev(selectedGUILang));
+	GUICombo->setItemText(GUICombo->currentIndex(), prefsData->GUI);
 	GFsize->setValue( prefsData->AppFontSize );
 	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
 	wheelJumpSpin->setValue( prefsData->Wheelval );
@@ -105,28 +106,28 @@ void TabGeneral::setSelectedGUILang( const QString &newLang )
 
 void TabGeneral::changeDocs()
 {
-	QString s = QFileDialog::getExistingDirectory(Docs->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), Docs->text());
 	if (!s.isEmpty())
 		Docs->setText( QDir::convertSeparators(s) );
 }
 
 void TabGeneral::changeProfs()
 {
-	QString s = QFileDialog::getExistingDirectory(ProPfad->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), ProPfad->text());
 	if (!s.isEmpty())
 		ProPfad->setText( QDir::convertSeparators(s) );
 }
 
 void TabGeneral::changeScripts()
 {
-	QString s = QFileDialog::getExistingDirectory(ScriptPfad->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), ScriptPfad->text());
 	if (!s.isEmpty())
 		ScriptPfad->setText( QDir::convertSeparators(s) );
 }
 
 void TabGeneral::changeDocumentTemplates()
 {
-	QString s = QFileDialog::getExistingDirectory(DocumentTemplateDir->text(), this, "d", tr("Choose a Directory"), true);
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), DocumentTemplateDir->text());
 	if (!s.isEmpty())
 		DocumentTemplateDir->setText( QDir::convertSeparators(s) );
 }

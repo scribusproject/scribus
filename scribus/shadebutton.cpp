@@ -16,11 +16,11 @@ ShadeButton::ShadeButton(QWidget* parent) : QToolButton(parent)
 	FillSh->addAction( tr("Other..."));
 	for (uint a = 0; a < array; ++a)
 		FillSh->addAction(tmp[a]);
-	setBackgroundMode(Qt::PaletteBackground);
-	setPopup(FillSh);
-	setPopupDelay(1);
+//	setBackgroundMode(Qt::PaletteBackground);
+	setMenu(FillSh);
+	setPopupMode(QToolButton::InstantPopup);
 	setText("100 %");
-	FillSh->setItemChecked(FillSh->idAt(11), true);
+	FillSh->actions()[11]->setChecked(true);
 // 	setAutoRaise(true);
 	connect( FillSh, SIGNAL(activated(int)), this, SLOT(setShade(int)));
 }
@@ -33,12 +33,12 @@ void ShadeButton::setShade(int id)
 	int b = 100;
 	for (a = 0; a < FillSh->actions().count(); ++a)
 	{
-		FillSh->setItemChecked(FillSh->idAt(a), false);
+		FillSh->actions()[a]->setChecked(false);
 	}
-	c = FillSh->indexOf(id);
+	c = id; // FillSh->indexOf(id);
 	if (c < 0)
 		return;
-	FillSh->setItemChecked(id, true);
+	FillSh->actions()[id]->setChecked(true);
 	if (c > 0)
 		b = (c-1) * 10;
 
@@ -78,12 +78,12 @@ void ShadeButton::setValue(int val)
 {
 	for (int a = 0; a < FillSh->actions().count(); ++a)
 	{
-		FillSh->setItemChecked(FillSh->idAt(a), false);
+		FillSh->actions()[a]->setChecked(false);
 	}
 	if ((val % 10) == 0)
-		FillSh->setItemChecked(FillSh->idAt(val/10+1), true);
+		FillSh->actions()[val/10+1]->setChecked(true);
 	else
-		FillSh->setItemChecked(FillSh->idAt(0), true);
+		FillSh->actions()[0]->setChecked(true);
 	setText(QString::number(val)+" %");
 }
 
