@@ -128,18 +128,18 @@ bool UpgradeChecker::process( QFile& dataFile )
 {
 	
 	QTextStream ts(&dataFile);
-	ts.setEncoding(QTextStream::UnicodeUTF8);
+	ts.setCodec(QTextCodec::codecForName("UTF-8"));
 	QString errorMsg;
 	int eline;
 	int ecol;
 	QDomDocument doc( "scribusversions" );
-	QString data(ts.read());
+	QString data(ts.readAll());
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
 		if (data.toLower().contains("404 not found"))
 			outputText("<b>"+ tr("File not found on server")+"</b>");
 		else
-			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(dataFile.name()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
+			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(dataFile.fileName()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
 		return false;
 	}
 	
@@ -276,7 +276,7 @@ void UpgradeCheckerGUI::outputText(QString text)
 	ScTextBrowser* w=outputWidget;
 	if (w)
 	{
-		QString wText(w->text());
+		QString wText(w->toPlainText());
 		wText.replace("\n","<br>");
 		wText.remove("<qt>");
 		wText.remove("</qt>");
