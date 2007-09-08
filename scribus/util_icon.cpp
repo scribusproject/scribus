@@ -42,12 +42,12 @@ QPixmap loadIcon(const QString nam, bool forceUseColor)
 	QPixmap *pm = new QPixmap();
 	
 	if (!QFile::exists(iconFilePath))
-		qWarning("Unable to load icon %s: File not found", iconFilePath.ascii());
+		qWarning("Unable to load icon %s: File not found", iconFilePath.toAscii().constData());
 	else
 	{
 		pm->load(iconFilePath);
 		if (pm->isNull())
-			qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.ascii());
+			qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.toAscii().constData());
 		if (PrefsManager::instance()->appPrefs.grayscaleIcons && !forceUseColor)
 		{
 			QImage qi(pm->toImage());

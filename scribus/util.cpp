@@ -55,7 +55,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "prefsmanager.h"
 #include <QProcess>
-#include <Q3Process>
 #include "scmessagebox.h"
 #include "scpixmapcache.h"
 #include "scpaths.h"
@@ -85,39 +84,52 @@ using namespace std;
 
 void sDebug(QString message)
 {
-	qDebug("%s", message.ascii());
+	qDebug("%s", message.toAscii().constData());
 }
 
 int System(const QString exename, const QStringList & args, const QString fileStdErr, const QString fileStdOut)
 {
 	QStringList stdErrData;
 	QStringList stdOutData;
-	QStringList exeArgs;
-	exeArgs<<exename<<args;
-	Q3Process proc(exeArgs);
-	if ( !proc.start() )
-		return 1;
-	/* start was OK */
-	/* wait a little bit */
-	while( proc.isRunning() || proc.canReadLineStdout() || proc.canReadLineStderr() )
+//	QStringList exeArgs;
+	QProcess proc;
+	proc.start(exename.toLocal8Bit(), args);
+	if (proc.waitForStarted(5000))
 	{
-		// Otherwise Scribus will sleep a *lot* when proc has huge std output
-		if ( !proc.canReadLineStdout() && !proc.canReadLineStderr()) {
-#ifndef _WIN32
-			usleep(5000);
-#else
-			Sleep(5);
-#endif
+		while (!proc.waitForFinished(5000))
+		{
+			qApp->processEvents();
 		}
-		// Some configurations needs stdout and stderr to be read
-		// if needed before the created process can exit
-		if ( proc.canReadLineStdout() ) 
-			stdOutData.append( proc.readLineStdout() ); 
-		if ( proc.canReadLineStderr() ) 
-			stdErrData.append( proc.readLineStderr() ); 
 	}
-	// TODO: What about proc.normalExit() ?
-	int ex = proc.exitStatus();
+	QString gsVer;
+	stdOutData.append(proc.readAllStandardOutput());
+	stdErrData.append(proc.readAllStandardError());
+
+//	exeArgs<<exename<<args;
+//	Q3Process proc(exeArgs);
+//	if ( !proc.start() )
+//		return 1;
+//	/* start was OK */
+//	/* wait a little bit */
+//	while( proc.isRunning() || proc.canReadLineStdout() || proc.canReadLineStderr() )
+//	{
+//		// Otherwise Scribus will sleep a *lot* when proc has huge std output
+//		if ( !proc.canReadLineStdout() && !proc.canReadLineStderr()) {
+//#ifndef _WIN32
+//			usleep(5000);
+//#else
+//			Sleep(5);
+//#endif
+//		}
+//		// Some configurations needs stdout and stderr to be read
+//		// if needed before the created process can exit
+//		if ( proc.canReadLineStdout() ) 
+//			stdOutData.append( proc.readLineStdout() ); 
+//		if ( proc.canReadLineStderr() ) 
+//			stdErrData.append( proc.readLineStderr() ); 
+//	}
+//	// TODO: What about proc.normalExit() ?
+	int ex = proc.exitCode();
 	QStringList::iterator pIterator;
 	QStringList::iterator pEnd;
 	if ( !fileStdErr.isEmpty() )
@@ -179,16 +191,16 @@ int copyFile(QString source, QString target)
 	if (!s.exists())
 		return -1;
 	QFile t(target);
-	QByteArray bb( 65536 );
+	QByteArray bb( 65536, ' ' );
 	if (s.open(QIODevice::ReadOnly))
 	{
 		if (t.open(QIODevice::WriteOnly))
 		{
-			bytesread = s.readBlock( bb.data(), bb.size() );
+			bytesread = s.read( bb.data(), bb.size() );
 			while( bytesread > 0 )
 			{
-				t.writeBlock( bb.data(), bytesread );
-				bytesread = s.readBlock( bb.data(), bb.size() );
+				t.write( bb.data(), bytesread );
+				bytesread = s.read( bb.data(), bb.size() );
 			}
 			t.close();
 		}
@@ -226,10 +238,10 @@ bool loadText(QString filename, QString *Buffer)
 	if (!fi.exists())
 		return false;
 	bool ret;
-	QByteArray bb(f.size());
+	QByteArray bb(f.size(), ' ');
 	if (f.open(QIODevice::ReadOnly))
 	{
-		f.readBlock(bb.data(), f.size());
+		f.read(bb.data(), f.size());
 		f.close();
 		for (int posi = 0; posi < bb.size(); ++posi)
 			*Buffer += QChar(bb[posi]);
@@ -258,10 +270,10 @@ bool loadRawText(const QString & filename, QByteArray & buf)
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		QByteArray tempBuf(f.size() + 1);
+		QByteArray tempBuf(f.size() + 1, ' ');
 		if (f.open(QIODevice::ReadOnly))
 		{
-			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
+			unsigned int bytesRead = f.read(tempBuf.data(), f.size());
 			tempBuf[bytesRead] = '\0';
 			ret = bytesRead == f.size();
 			if (ret)
@@ -280,10 +292,10 @@ bool loadRawBytes(const QString & filename, QByteArray & buf)
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		QByteArray tempBuf(f.size());
+		QByteArray tempBuf(f.size(), ' ');
 		if (f.open(QIODevice::ReadOnly))
 		{
-			unsigned int bytesRead = f.readBlock(tempBuf.data(), f.size());
+			unsigned int bytesRead = f.read(tempBuf.data(), f.size());
 			ret = bytesRead == f.size();
 			if (ret)
 				buf = tempBuf; // sharing makes this efficient
@@ -298,7 +310,7 @@ bool loadRawBytes(const QString & filename, QByteArray & buf)
 QString CompressStr(QString *in)
 {
 	QString out = "";
-	QByteArray bb(in->length());
+	QByteArray bb(in->length(), ' ');
 	if (bb.size() == in->length())
 	{
 		for (int ax = 0; ax < in->length(); ++ax)
@@ -308,7 +320,7 @@ QString CompressStr(QString *in)
 			assert(in->at(ax).row() == 0);
 		}
 		uLong exlen = (uLong)(bb.size() * 0.001 + 16) + bb.size();
-		QByteArray bc(exlen);
+		QByteArray bc(exlen, ' ');
 		if( bc.size() == static_cast<qint32>(exlen) )
 		{
 			int errcode = compress2((Byte *)bc.data(), &exlen, (Byte *)bb.data(), uLong(bb.size()), 9);
@@ -340,7 +352,7 @@ QByteArray CompressArray(QByteArray *in)
 {
 	QByteArray out;
 	uLong exlen = uint(in->size() * 0.001 + 16) + in->size();
-	QByteArray temp(exlen);
+	QByteArray temp(exlen, ' ');
 	int errcode = compress2((Byte *)temp.data(), &exlen, (Byte *)in->data(), uLong(in->size()), 9);
 	if (errcode != Z_OK)
 	{
@@ -392,7 +404,7 @@ QString String2Hex(QString *in, bool lang)
 
 QByteArray ComputeMD5Sum(QByteArray *in)
 {
-	QByteArray MDsum(16);
+	QByteArray MDsum(16, ' ');
 	md5_buffer (in->data(), in->size(), reinterpret_cast<void*>(MDsum.data()));
 	return MDsum;
 }
@@ -583,7 +595,7 @@ QString checkFileExtension(const QString &currName, const QString &extension)
 	}
 	//If filename doesnt end with the period+extension, add it on
 	QString dotExt("." + extension.toLower());
-	if (!newName.endsWith(dotExt,false))
+	if (!newName.endsWith(dotExt, Qt::CaseInsensitive))
 		newName+=dotExt;
 	return newName;
 }
@@ -851,10 +863,12 @@ int findParagraphStyle(ScribusDoc* doc, const QString &name)
 // FIXME: to be removed in full Qt4 port!
 QPixmap getQCheckBoxPixmap(const bool checked, const QColor background)
 {
-	QCheckBox *tmpItem = new QCheckBox("", 0, "tmpItem");
+	QCheckBox *tmpItem = new QCheckBox("", 0);
 	tmpItem->setMaximumSize(QSize(30, 30));
 	tmpItem->setMinimumSize(QSize(30, 30));
-	tmpItem->setPaletteBackgroundColor(background);
+	QPalette pal;
+	pal.setBrush(QPalette::Window, background);
+	tmpItem->setPalette(pal);
 	tmpItem->setChecked(checked);
 	QPixmap pm = QPixmap::grabWidget(tmpItem);
 	pm.setMask(pm.createHeuristicMask());
@@ -866,7 +880,7 @@ QPixmap getQCheckBoxPixmap(const bool checked, const QColor background)
 void tDebug(QString message)
 {
 	QDateTime debugTime;
-	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message).ascii());
+	qDebug("%s", QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message).toAscii().constData());
 }
 
 

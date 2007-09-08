@@ -136,7 +136,7 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 	bool retVal=false;
 #if defined(HAVE_CUPS)
 	const char *filename; // tmp PPD filename
-	filename=cupsGetPPD(printerName);
+	filename=cupsGetPPD(printerName.toLocal8Bit().constData());
 	if (filename!=NULL)
 	{
 		ppd_file_t *ppd; // PPD data
@@ -144,7 +144,7 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 		if (ppd!=NULL)
 		{
 			ppd_size_t *size; // page size data, null if printer doesnt support selected size
-			size = ppdPageSize(ppd, pageSize);
+			size = ppdPageSize(ppd, pageSize.toLocal8Bit().constData());
 			if (size!=NULL)
 			{
 				//Store in pts for returning via getNewPrinterMargins in pts

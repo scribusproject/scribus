@@ -358,7 +358,7 @@ QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 	{
 		QImage image;
 		image.load(tmpFile);
-		unlink(tmpFile);
+		QFile::remove(tmpFile);
 		QImage im2;
 		*h = image.height();
 		*w = image.width();

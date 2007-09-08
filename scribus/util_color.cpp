@@ -116,7 +116,7 @@ QColor getOldColorShade(uchar red, uchar green, uchar blue, int shade)
 {
 	int h, s, v, snew;
 	QColor color(red, green, blue);
-	color.hsv(&h, &s, &v);
+	color.getHsv(&h, &s, &v);
 	if (red == green && green == blue)
 	{
 		snew = 255 - ((255 - v) * shade / 100);
@@ -205,9 +205,9 @@ QPixmap * getWidePixmap(QColor rgb)
 	return pm;
 }
 
-static Q_UINT64 code64(const ScColor & col) {
+static quint64 code64(const ScColor & col) {
 	int C, M, Y, K, R, G, B;
-	Q_UINT64 result=0;
+	quint64 result=0;
 	col.getRGB( &R, &G, &B );
 	col.getCMYK( &C, &M, &Y, &K );
 	result |= col.getColorModel() == colorModelRGB ? 1 : 0;
@@ -231,7 +231,7 @@ static Q_UINT64 code64(const ScColor & col) {
 }
 
 QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc) {
-	static ScPixmapCache<Q_UINT64> pxCache;
+	static ScPixmapCache<quint64> pxCache;
 
 	static QPixmap alertIcon;
 	static QPixmap cmykIcon;
@@ -249,7 +249,7 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc) {
 		iconsInitialized = true;
 	}
 
-	Q_UINT64 res=code64(col);
+	quint64 res=code64(col);
 	if (pxCache.contains(res))
 		return pxCache[res];
 
@@ -275,11 +275,11 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc) {
 void paintAlert(QPixmap &toPaint, QPixmap &target, int x, int y, bool useMask)
 {
 	// there is no alpha mask in the beginning
-	if (useMask)
-	{
-		if (target.mask().isNull())
-			target.setMask(QBitmap(target.width(), target.height(), useMask));
-	}
+//	if (useMask)
+//	{
+//		if (target.mask().isNull())
+//			target.setMask(QBitmap(target.width(), target.height(), useMask));
+//	}
 	QPainter p;
 	p.begin(&target);
 	p.drawPixmap(x, y, toPaint);

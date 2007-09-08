@@ -79,7 +79,7 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 //	m_ScMW->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
 //	insertPolygonButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertPolygonButtonMenu");
 	insertPolygonButtonMenu = new QMenu();
-	insertPolygonButtonMenu->addAction( "Properties...", this, SLOT(GetPolyProps()));
+	idInsertPolygonButtonMenu = insertPolygonButtonMenu->addAction( "Properties...", this, SLOT(GetPolyProps()));
 	m_ScMW->scrActions["toolsInsertPolygon"]->setMenu(insertPolygonButtonMenu);
 //	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertPolygonButtonMenu", m_ScMW->scrActions["toolsInsertPolygon"]);
 //	idInsertPolygonButtonMenu=insertPolygonButtonMenu->insertItem( "Properties...", this, SLOT(GetPolyProps()));
@@ -127,7 +127,7 @@ void ModeToolBar::SelShape(int s, int c, double *vals)
 
 void ModeToolBar::languageChange()
 {
-	insertPolygonButtonMenu->changeItem(idInsertPolygonButtonMenu, tr("Properties..."));
+	idInsertPolygonButtonMenu->setText( tr("Properties..."));
 	ScToolBar::languageChange();
 }
 

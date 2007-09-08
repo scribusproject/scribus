@@ -88,8 +88,8 @@ UndoWidget::UndoWidget(QWidget* parent, const char* name)
 	connect(undoButton, SIGNAL(clicked()), this, SLOT(undoClicked()));
 	connect(redoButton, SIGNAL(clicked()), this, SLOT(redoClicked()));
 	*/
-	connect(undoMenu, SIGNAL(activated(int)), this, SLOT(undoMenuClicked(int)));
-	connect(redoMenu, SIGNAL(activated(int)), this, SLOT(redoMenuClicked(int)));
+	connect(undoMenu, SIGNAL(triggered(QAction *)), this, SLOT(undoMenuClicked(QAction *)));
+	connect(redoMenu, SIGNAL(triggered(QAction *)), this, SLOT(redoMenuClicked(QAction *)));
 }
 
 void UndoWidget::clear()
@@ -120,15 +120,15 @@ void UndoWidget::redoClicked()
 		emit redo(1);
 }
 
-void UndoWidget::undoMenuClicked(int id)
+void UndoWidget::undoMenuClicked(QAction *id)
 {
-	int steps = undoMenu->indexOf(id) + 1;
+	int steps = undoMenu->actions().indexOf(id) + 1;
 	emit undo(steps);
 }
 
-void UndoWidget::redoMenuClicked(int id)
+void UndoWidget::redoMenuClicked(QAction *id)
 {
-	int steps = redoMenu->indexOf(id) + 1;
+	int steps = redoMenu->actions().indexOf(id) + 1;
 	emit redo(steps);
 }
 
@@ -159,7 +159,7 @@ void UndoWidget::updateUndoMenu()
 {
 	undoMenu->clear();
 	for (uint i = 0; i < MENU_HEIGHT && i < undoItems.size(); ++i)
-		undoMenu->insertItem(undoItems[i]);
+		undoMenu->addAction(undoItems[i]);
 	//BnF
 	//undoButton->setEnabled(undoMenu->count() != 0);
 	//SCribus
@@ -171,7 +171,7 @@ void UndoWidget::updateRedoMenu()
 {
 	redoMenu->clear();
 	for (uint i = 0; i < MENU_HEIGHT && i < redoItems.size(); ++i)
-		redoMenu->insertItem(redoItems[i]);
+		redoMenu->addAction(redoItems[i]);
 	//BnF
 	//redoButton->setEnabled(redoMenu->count() != 0);
 	//Scribus
@@ -181,8 +181,8 @@ void UndoWidget::updateRedoMenu()
 
 void UndoWidget::updateUndoActions()
 {
-	ScCore->primaryMainWindow()->scrActions["editUndoAction"]->setEnabled(undoMenu->count() != 0);
-	ScCore->primaryMainWindow()->scrActions["editRedoAction"]->setEnabled(redoMenu->count() != 0);
+	ScCore->primaryMainWindow()->scrActions["editUndoAction"]->setEnabled(undoMenu->actions().count() != 0);
+	ScCore->primaryMainWindow()->scrActions["editRedoAction"]->setEnabled(redoMenu->actions().count() != 0);
 }
 
 void UndoWidget::updateUndo(int steps)
@@ -228,9 +228,10 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 {
 	currentSelection = 0;
 	redoItems = 0;
-	QVBoxLayout* layout = new QVBoxLayout(this, 5, 5, "layout");
-
-	objectBox = new QCheckBox(this, "objectBox");
+	QVBoxLayout* layout = new QVBoxLayout(this);
+	layout->setMargin(5);
+	layout->setSpacing(5);
+	objectBox = new QCheckBox(this);
 	layout->addWidget(objectBox);
 // 	objectBox->setEnabled(false);
 
@@ -240,14 +241,16 @@ UndoPalette::UndoPalette(QWidget* parent, const char* name)
 	undoList->setSelectionMode(QAbstractItemView::SingleSelection);
 	layout->addWidget(undoList);
 	
-	QHBoxLayout* buttonLayout = new QHBoxLayout(0, 0, 5, "buttonLayout"); 
-	undoButton = new QPushButton(loadIcon("16/edit-undo.png"), "", this, "undoButton");
+	QHBoxLayout* buttonLayout = new QHBoxLayout;
+	buttonLayout->setMargin(0);
+	buttonLayout->setSpacing(5);
+	undoButton = new QPushButton(loadIcon("16/edit-undo.png"), "", this);
 	buttonLayout->addWidget(undoButton);
-	redoButton = new QPushButton(loadIcon("16/edit-redo.png"), "", this, "redoButton");
+	redoButton = new QPushButton(loadIcon("16/edit-redo.png"), "", this);
 	buttonLayout->addWidget(redoButton);
 	//Save the translated key sequence - hopefully we get the translated one here!
-	initialUndoKS = undoButton->accel();
-	initialRedoKS = redoButton->accel();
+	initialUndoKS = undoButton->shortcut();
+	initialRedoKS = redoButton->shortcut();
 	layout->addLayout(buttonLayout);
 
 	updateFromPrefs();
@@ -283,8 +286,8 @@ void UndoPalette::clear()
 void UndoPalette::updateFromPrefs()
 {
 	qDebug() << "UndoPalette::updateFromPrefs start";
-	undoButton->setAccel(ScCore->primaryMainWindow()->scrActions["editUndoAction"]->accel());
-	redoButton->setAccel(ScCore->primaryMainWindow()->scrActions["editRedoAction"]->accel());
+	undoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editUndoAction"]->shortcut());
+	redoButton->setShortcut(ScCore->primaryMainWindow()->scrActions["editRedoAction"]->shortcut());
 	qDebug() << "UndoPalette::updateFromPrefs end";
 }
 

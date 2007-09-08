@@ -173,8 +173,8 @@ public:
 private slots:
 	void undoClicked();
 	void redoClicked();
-	void undoMenuClicked(int id);
-	void redoMenuClicked(int id);
+	void undoMenuClicked(QAction *id);
+	void redoMenuClicked(QAction *id);
 public slots:
 	/**
 	 * @brief Insert a new undo item.

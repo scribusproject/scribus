@@ -86,7 +86,7 @@ extern "C"
 
 uint getDouble(QString in, bool raw)
 {
-	QByteArray bb(4);
+	QByteArray bb(4, ' ');
 	if (raw)
 	{
 		// Qt4

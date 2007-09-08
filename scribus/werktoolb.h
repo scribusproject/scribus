@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "sctoolbar.h"
-//Added by qt3to4:
+#include <QAction>
 #include <QMenu>
 #include <QMenu>
 #include <QWidgetAction>
@@ -61,7 +61,7 @@ protected:
 	QWidgetAction* insertShapeButtonAct;
 	QMenu* insertShapeButtonMenu;
 	QMenu* insertPolygonButtonMenu;
-	int idInsertPolygonButtonMenu;
+	QAction* idInsertPolygonButtonMenu;
 	ScribusMainWindow* m_ScMW;
 };
 
