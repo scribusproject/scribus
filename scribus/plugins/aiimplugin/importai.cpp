@@ -70,7 +70,7 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 	convertedPDF = false;
 	CustColors.clear();
 	QFileInfo fi = QFileInfo(fName);
-	QString ext = fi.extension(false).toLower();
+//	QString ext = fi.suffix().toLower();
 	if ( !ScCore->usingGUI() )
 	{
 		interactive = false;
@@ -81,8 +81,8 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 	QFile fT(fName);
 	if (fT.open(QIODevice::ReadOnly))
 	{
-		QByteArray tempBuf(9);
-		fT.readBlock(tempBuf.data(), 8);
+		QByteArray tempBuf(9, ' ');
+		fT.read(tempBuf.data(), 8);
 		fT.close();
 		if (tempBuf.startsWith("%PDF"))
 		{
@@ -97,8 +97,8 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 	QFile fT2(fName);
 	if (fT2.open(QIODevice::ReadOnly))
 	{
-		QByteArray tempBuf(25);
-		fT2.readBlock(tempBuf.data(), 20);
+		QByteArray tempBuf(25, ' ');
+		fT2.read(tempBuf.data(), 20);
 		fT2.close();
 		/* Illustrator CS files might be compressed
 			the compressed Data starts right after the "%AI12_CompressedData" comment
@@ -198,7 +198,7 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
-	QDir::setCurrent(fi.dirPath());
+	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
 		tmpSel->clear();
@@ -436,9 +436,9 @@ bool AIPlug::extractFromPDF(QString infile, QString outfile)
 bool AIPlug::decompressAIData(QString &fName)
 {
 	QString f2 = fName+"_decom.ai";
-	FILE *source = fopen(fName, "rb");
+	FILE *source = fopen(fName.toLocal8Bit().constData(), "rb");
 	fseek(source, 20, SEEK_SET);
-	FILE *dest = fopen(f2, "wb");
+	FILE *dest = fopen(f2.toLocal8Bit().constData(), "wb");
 	int ret;
 	unsigned have;
 	z_stream strm;
@@ -612,7 +612,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 		f.close();
 		if (found)
 		{
-			QStringList bb = QStringList::split(" ", BBox);
+			QStringList bb = BBox.split(" ");
 			if (bb.count() == 4)
 			{
 				QTextStream ts2(&BBox, QIODevice::ReadOnly);

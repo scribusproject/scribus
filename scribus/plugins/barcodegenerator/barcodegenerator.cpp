@@ -32,10 +32,11 @@ BarcodeType::BarcodeType(QString cmd, QString exa,
 }
 
 BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
-	: QDialog(parent, name, true)
+	: QDialog(parent)
 {
 	ui.setupUi(this);
-
+	setObjectName(name);
+	setModal(true);
 	map["EAN-13"] = BarcodeType("ean13", "9781860742712", tr("12 or 13 digits"),
 								"[0-9]{12,13}");
 	map["EAN-8"] = BarcodeType("ean8", "12345678", tr("8 digits"),
@@ -99,11 +100,11 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	//    "Symbol"] = "symbol"
 
 	useSamples = true;
-	guiColor = ui.codeEdit->paletteBackgroundColor();
-	ui.bcCombo->insertStringList(map.keys());
+	guiColor = ui.codeEdit->palette().color(QPalette::Window);
+	ui.bcCombo->addItems(map.keys());
 	ui.okButton->setText(CommonStrings::tr_OK);
 	ui.cancelButton->setText(CommonStrings::tr_Cancel);
-	ui.resetButton->setPixmap(loadIcon("u_undo16.png"));
+	ui.resetButton->setIcon(loadIcon("u_undo16.png"));
 	lnColor = Qt::black;
 	txtColor = Qt::black;
 	bgColor = Qt::white;
@@ -119,7 +120,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	QFile f( ScPaths::instance().shareDir() + QString("/plugins/barcode.ps") );
 	f.open(QIODevice::ReadOnly);
 	QTextStream ts(&f);
-	QString s = ts.read();
+	QString s = ts.readAll();
 	int begin = s.indexOf("% --BEGIN TEMPLATE--");
 	int end = s.indexOf("% --END TEMPLATE--");
 	psCommand.append(s.mid(begin, end));
@@ -157,7 +158,7 @@ void BarcodeGenerator::bcComboChanged()
 
 void BarcodeGenerator::textCheck_changed()
 {
-	bool s = ui.textCheck->state();
+	bool s = ui.textCheck->checkState();
 	ui.txtColorButton->setEnabled(s);
 	ui.includeCheckInText->setEnabled(s);
 	paintBarcode();
@@ -223,7 +224,7 @@ void BarcodeGenerator::okButton_pressed()
 	hide();
 	const FileFormat * fmt = LoadSavePlugin::getFormatById(FORMATID_PSIMPORT);
 	if( fmt )
-		fmt->loadFile(QString::fromUtf8(psFile), LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
+		fmt->loadFile(psFile, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive);
 	accept();
 }
 

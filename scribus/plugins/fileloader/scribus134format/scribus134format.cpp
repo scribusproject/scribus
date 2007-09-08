@@ -82,7 +82,7 @@ void Scribus134Format::registerFormats()
 	fmt.load = true;
 	fmt.save = true;
 	fmt.filter = fmt.trName + " (*.sla *.SLA *.sla.gz *.SLA.GZ *.scd *.SCD *.scd.gz *.SCD.GZ)";
-	fmt.nameMatch = QRegExp("\\.(sla|scd)(\\.gz)?", false);
+	fmt.nameMatch = QRegExp("\\.(sla|scd)(\\.gz)?", Qt::CaseInsensitive);
 	fmt.mimeTypes = QStringList();
 	fmt.mimeTypes.append("application/x-scribus");
 	fmt.priority = 64;
@@ -109,8 +109,8 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 	}
 //	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && docBytes.left(35).contains("Version=\"1.3.4"))
 //		return true;
-	int startElemPos = docBytes.left(512).find("<SCRIBUSUTF8NEW ");
-	return startElemPos >= 0 && ((docBytes.mid(startElemPos, 64).find("Version=\"1.3.4") >= 0) || (docBytes.mid(startElemPos, 64).find("Version=\"1.3.5") >= 0));
+	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
+	return startElemPos >= 0 && ((docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.4") >= 0) || (docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.5") >= 0));
 }
 
 QString Scribus134Format::readSLA(const QString & fileName)
@@ -132,8 +132,8 @@ QString Scribus134Format::readSLA(const QString & fileName)
 		loadRawText(fileName, docBytes);
 	}
 	QString docText("");
-	int startElemPos = docBytes.left(512).find("<SCRIBUSUTF8NEW ");
-	if (startElemPos >= 0 && ((docBytes.mid(startElemPos, 64).find("Version=\"1.3.4") >= 0) || (docBytes.mid(startElemPos, 64).find("Version=\"1.3.5") >= 0)))
+	int startElemPos = docBytes.left(512).indexOf("<SCRIBUSUTF8NEW ");
+	if (startElemPos >= 0 && ((docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.4") >= 0) || (docBytes.mid(startElemPos, 64).indexOf("Version=\"1.3.5") >= 0)))
 		docText = QString::fromUtf8(docBytes);
 	else
 		return QString::null;
@@ -187,7 +187,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
-	QString fileDir = QFileInfo(fileName).dirPath(true);
+	QString fileDir = QFileInfo(fileName).absolutePath();
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
 	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
 	if (!docu.setContent(f))
@@ -1598,7 +1598,7 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 		newStyle.setFeatures(static_cast<StyleFlag>(it->attribute("EFFECT").toInt()).featureList());
 	
 	if (it->hasAttribute("FEATURES"))
-		newStyle.setFeatures(QStringList::split( " ", it->attribute("FEATURES")));
+		newStyle.setFeatures(it->attribute("FEATURES").split( " "));
 	
 	if (it->hasAttribute("SCOLOR"))
 		newStyle.setStrokeColor(it->attribute("SCOLOR", CommonStrings::None));
@@ -2119,14 +2119,14 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
 	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles.size())))
 	{
-		qDebug(QString("scribus134format: invalid arrow index: %").arg(startArrowIndex));
+		qDebug(QString("scribus134format: invalid arrow index: %").arg(startArrowIndex).toAscii().constData());
 		startArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
 	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
 	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles.size())))
 	{
-		qDebug(QString("scribus134format: invalid arrow index: %").arg(endArrowIndex));
+		qDebug(QString("scribus134format: invalid arrow index: %").arg(endArrowIndex).toAscii().constData());
 		endArrowIndex = 0;
 	}
 	currItem->setEndArrowIndex(endArrowIndex);
@@ -2236,7 +2236,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 	if ((!currItem->annotation().Extern().isEmpty()) && (currItem->annotation().ActionType() != 8))
 	{
 		QFileInfo efp(currItem->annotation().Extern());
-		currItem->annotation().setExtern(efp.absFilePath());
+		currItem->annotation().setExtern(efp.absoluteFilePath());
 	}
 	currItem->annotation().setZiel(obj->attribute("ANZIEL", "0").toInt());
 	currItem->annotation().setToolTip(obj->attribute("ANTOOLTIP",""));
@@ -2544,7 +2544,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		return false;
 	if(!docu.setContent(f))
 		return false;
-	QString fileDir = QFileInfo(fileName).dirPath(true);
+	QString fileDir = QFileInfo(fileName).absolutePath();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;

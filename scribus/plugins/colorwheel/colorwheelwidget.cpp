@@ -14,8 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 
 
-ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, Qt::WNoAutoErase)
+ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent)
 {
+	setObjectName(name);
 	pointList.clear();
 	currentDoc = NULL;
 	currentColorSpace = colorModelRGB;
@@ -102,7 +103,7 @@ void ColorWheel::paintWheel()
 {
 	int h, s, v;
 	QColor col(ScColorEngine::getDisplayColor(actualColor, currentDoc ));
-	col.hsv(&h, &s, &v);
+	col.getHsv(&h, &s, &v);
 	int width = this->width();
 	int height = this->height();
 	QPainter p;
@@ -310,12 +311,12 @@ bool ColorWheel::recomputeColor(ScColor col)
 	QColor c(ScColorEngine::getRGBColor(col, currentDoc));
 	QColor act(ScColorEngine::getRGBColor(actualColor, currentDoc));
 
-	c.hsv(&origh, &origs, &origv);
+	c.getHsv(&origh, &origs, &origv);
 	for (it = colorMap.begin(); it != colorMap.end(); ++it)
 	{
 		int tmph, tmps, tmpv;
 		QColor col(ScColorEngine::getRGBColor(it.value(), currentDoc));
-		col.hsv(&tmph, &tmps, &tmpv);
+		col.getHsv(&tmph, &tmps, &tmpv);
 		if (origh == tmph)
 		{
 			act.setHsv(tmph, origs, origv);

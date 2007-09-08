@@ -20,40 +20,42 @@ for which a new license (GPL+exception) is in place.
 
 
 CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, Qt::WFlags fl)
-	: QDialog (parent, name, modal, fl),
+	: QDialog (parent, fl),
 	  m_Doc(doc)
 {
 	setupUi(this);
+	setObjectName(name);
+	setModal(modal);
 	int h, s, v;
 	ScColor color;
 	QString colorName;
 	connectSlots(false);
 	// setup combobox
-	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Monochromatic), colorWheel->Monochromatic);
-	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Analogous), colorWheel->Analogous);
-	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Complementary), colorWheel->Complementary);
-	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Split), colorWheel->Split);
-	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Triadic), colorWheel->Triadic);
-	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Tetradic), colorWheel->Tetradic);
+	typeCombo->addItem(colorWheel->getTypeDescription(colorWheel->Monochromatic), colorWheel->Monochromatic);
+	typeCombo->addItem(colorWheel->getTypeDescription(colorWheel->Analogous), colorWheel->Analogous);
+	typeCombo->addItem(colorWheel->getTypeDescription(colorWheel->Complementary), colorWheel->Complementary);
+	typeCombo->addItem(colorWheel->getTypeDescription(colorWheel->Split), colorWheel->Split);
+	typeCombo->addItem(colorWheel->getTypeDescription(colorWheel->Triadic), colorWheel->Triadic);
+	typeCombo->addItem(colorWheel->getTypeDescription(colorWheel->Tetradic), colorWheel->Tetradic);
 	// defects
-	defectCombo->insertItem(CommonStrings::trVisionNormal);
-	defectCombo->insertItem(CommonStrings::trVisionProtanopia);
-	defectCombo->insertItem(CommonStrings::trVisionDeuteranopia);
-	defectCombo->insertItem(CommonStrings::trVisionTritanopia);
-	defectCombo->insertItem(CommonStrings::trVisionFullColorBlind);
+	defectCombo->addItem(CommonStrings::trVisionNormal);
+	defectCombo->addItem(CommonStrings::trVisionProtanopia);
+	defectCombo->addItem(CommonStrings::trVisionDeuteranopia);
+	defectCombo->addItem(CommonStrings::trVisionTritanopia);
+	defectCombo->addItem(CommonStrings::trVisionFullColorBlind);
 	// document colors
 	documentColorList->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
 	// preferences
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
-	typeCombo->setCurrentItem(prefs->getInt("cw_type", 0));
+	typeCombo->setCurrentIndex(prefs->getInt("cw_type", 0));
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
 	colorWheel->currentDoc = m_Doc;
 	colorWheel->angle = angleSpin->value();
 	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
-	colorspaceTab->setCurrentPage(prefs->getInt("cw_space", 0));
+	colorspaceTab->setCurrentIndex(prefs->getInt("cw_space", 0));
 	color.setNamedColor(prefs->get("cw_color", "#00000000"));
 	// Handle color previously selected in the document tab
-	if (colorspaceTab->currentPage() == tabDocument)
+	if (colorspaceTab->currentWidget() == tabDocument)
 	{
 		colorName = prefs->get("cw_colorname", "");
 		if (!colorName.isEmpty() && m_Doc->PageColors.contains(colorName))
@@ -69,9 +71,9 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 		colorWheel->baseAngle = 0;
 		colorWheel->currentColorSpace = colorModelCMYK;
 		colorWheel->actualColor = colorWheel->colorByAngle(0);
-		colorspaceTab->setCurrentPage(0);
+		colorspaceTab->setCurrentIndex(0);
 	}
-	else if (colorspaceTab->currentPage() == tabDocument)
+	else if (colorspaceTab->currentWidget() == tabDocument)
 	{
 		colorWheel->actualColor = color;
 		QList<QListWidgetItem*> results = documentColorList->findItems(colorName, Qt::MatchFixedString|Qt::MatchCaseSensitive);
@@ -112,13 +114,13 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 CWDialog::~CWDialog()
 {
 	// preferences
-	QString colorName = (colorspaceTab->currentPage() == tabDocument) ? documentColorList->currentColor() : "";
-	prefs->set("cw_type", typeCombo->currentItem());
+	QString colorName = (colorspaceTab->currentWidget() == tabDocument) ? documentColorList->currentColor() : "";
+	prefs->set("cw_type", typeCombo->currentIndex());
 	prefs->set("cw_angle", angleSpin->value());
 	prefs->set("cw_baseangle", colorWheel->baseAngle);
 	prefs->set("cw_color", colorWheel->actualColor.name());
 	prefs->set("cw_colorname", colorName);
-	prefs->set("cw_space", colorspaceTab->currentPageIndex());
+	prefs->set("cw_space", colorspaceTab->currentIndex());
 	// GUI settings
 	prefs->set("cw_width", width());
 	prefs->set("cw_height", height());
@@ -181,7 +183,7 @@ void CWDialog::colorspaceTab_currentChanged(int index)
 		}
 		documentColorList_currentChanged(documentColorList->currentItem());
 	}
-	processColors(typeCombo->currentItem(), true);
+	processColors(typeCombo->currentIndex(), true);
 }
 
 void CWDialog::typeCombo_activated(int index)
@@ -235,13 +237,13 @@ void CWDialog::processColors(int index, bool updateSpins)
 
 void CWDialog::colorWheel_clicked(int, const QPoint&)
 {
-	processColors(typeCombo->currentItem(), true);
+	processColors(typeCombo->currentIndex(), true);
 }
 
 void CWDialog::angleSpin_valueChanged(int value)
 {
 	colorWheel->angle = value;
-	processColors(typeCombo->currentItem(), false);
+	processColors(typeCombo->currentIndex(), false);
 }
 
 void CWDialog::setPreview()
@@ -280,10 +282,10 @@ void CWDialog::setPreview()
 
 QColor CWDialog::computeDefect(QColor c)
 {
-	if (defectCombo->currentItem() == VisionDefectColor::normalVision)
+	if (defectCombo->currentIndex() == VisionDefectColor::normalVision)
 		return c;
 	VisionDefectColor *defect = new VisionDefectColor(c);
-	defect->deficiency = defectCombo->currentItem();
+	defect->deficiency = defectCombo->currentIndex();
 	defect->convertDefect();
 	QColor nc = defect->getColor();
 	delete defect;
@@ -444,7 +446,7 @@ void CWDialog::setupHSVComponent(ScColor col)
 void CWDialog::setupColorComponents()
 {
 	ScColor c;
-	if (colorspaceTab->currentPage() == tabCMYK)
+	if (colorspaceTab->currentWidget() == tabCMYK)
 	{
 		c = ScColor(qRound(cSpin->value() * 2.55), qRound(mSpin->value() * 2.55),
 					qRound(ySpin->value() * 2.55), qRound(kSpin->value() * 2.55));
@@ -452,14 +454,14 @@ void CWDialog::setupColorComponents()
 		setupRGBComponent(c);
 		setupHSVComponent(c);
 	}
-	if (colorspaceTab->currentPage() == tabRGB)
+	if (colorspaceTab->currentWidget() == tabRGB)
 	{
 		c = ScColor(rSpin->value(), gSpin->value(), bSpin->value());
 		c = ScColorEngine::convertToModel(c, m_Doc, colorModelRGB);
 		setupCMYKComponent(c);
 		setupHSVComponent(c);
 	}
-	if (colorspaceTab->currentPage() == tabHSV)
+	if (colorspaceTab->currentWidget() == tabHSV)
 	{
 		QColor qc;
 		qc.setHsv(hSpin->value(), sSpin->value(), vSpin->value());
@@ -468,7 +470,7 @@ void CWDialog::setupColorComponents()
 		setupCMYKComponent(c);
 		setupRGBComponent(c);
 	}
-	if (colorspaceTab->currentPage() == tabDocument)
+	if (colorspaceTab->currentWidget() == tabDocument)
 	{
 		c = m_Doc->PageColors[documentColorList->currentColor()];
 		setupRGBComponent(c);
@@ -477,11 +479,11 @@ void CWDialog::setupColorComponents()
 	}
 
 	if (colorWheel->recomputeColor(c))
-		processColors(typeCombo->currentItem(), false);
+		processColors(typeCombo->currentIndex(), false);
 	else
 	{
 		colorList->clear();
-		QMessageBox::information(this, caption(),
+		QMessageBox::information(this, windowTitle(),
 								 "<qt>" + tr("Unable to find the requested color. "
 										 "You have probably selected black, gray or white. "
 										 "There is no way to process this color.") + "</qt>");

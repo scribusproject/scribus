@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
 {
 	QString text, tf, tf2, tc, tc2;
-	QString fileDir = QFileInfo(fileName).dirPath(true);
+	QString fileDir = QFileInfo(fileName).absolutePath();
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSUTF8NEW></SCRIBUSUTF8NEW>";
 	docu.setContent(st);
@@ -230,8 +230,8 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		if(!f.open(QIODevice::WriteOnly))
 			return false;
 		QDataStream s(&f);
-		s.writeRawBytes(xmlpi, strlen(xmlpi));
-		s.writeRawBytes(cs, cs.length());
+		s.writeRawData(xmlpi, strlen(xmlpi));
+		s.writeRawData(cs, cs.length());
 		f.close();
 	}
 	return true;

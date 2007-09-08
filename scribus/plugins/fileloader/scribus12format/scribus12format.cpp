@@ -224,7 +224,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 	if (!docu.setContent(f))
 		return false;
 	// Get file directory
-	QString fileDir = QFileInfo(fileName).dirPath(true);
+	QString fileDir = QFileInfo(fileName).absolutePath();
 	// and begin loading the doc
 	m_Doc->PageColors.clear();
 	m_Doc->Layers.clear();
@@ -735,7 +735,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 			m_Doc->FirstAuto = m_Doc->FirstAuto->prevInChain();
 	}
 	
-	m_View->unitSwitcher->setCurrentText(unitGetStrFromIndex(m_Doc->unitIndex()));
+	m_View->unitSwitcher->setItemText(m_View->unitSwitcher->currentIndex(), unitGetStrFromIndex(m_Doc->unitIndex()));
 	if (m_mwProgressBar!=0)
 		m_mwProgressBar->setValue(DOC.childNodes().count());
 	return true;
@@ -856,7 +856,7 @@ void Scribus12Format::GetItemProps(QDomElement *obj, struct CopyPasteBuffer *OB,
 	if ((!OB->m_annotation.Extern().isEmpty()) && (OB->m_annotation.ActionType() != 8))
 	{
 		QFileInfo efp(OB->m_annotation.Extern());
-		OB->m_annotation.setExtern(efp.absFilePath());
+		OB->m_annotation.setExtern(efp.absoluteFilePath());
 	}
 	OB->m_annotation.setZiel(obj->attribute("ANZIEL", "0").toInt());
 	OB->AnName=obj->attribute("ANNAME","");
@@ -1149,7 +1149,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		return false;
 	if(!docu.setContent(f))
 		return false;
-	QString fileDir = QFileInfo(fileName).dirPath(true);
+	QString fileDir = QFileInfo(fileName).absolutePath();
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUS") && (elem.tagName() != "SCRIBUSUTF8"))

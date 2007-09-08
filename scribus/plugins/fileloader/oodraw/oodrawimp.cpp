@@ -126,7 +126,7 @@ void OODrawImportPlugin::registerFormats()
 	odtformat.trName = odtName; // Human readable name
 	odtformat.formatId = FORMATID_ODGIMPORT;
 	odtformat.filter = odtName + " (*.odg *.ODG)"; // QFileDialog filter
-	odtformat.nameMatch = QRegExp("\\.odg$", false);
+	odtformat.nameMatch = QRegExp("\\.odg$", Qt::CaseInsensitive);
 	odtformat.load = true;
 	odtformat.save = false;
 	odtformat.mimeTypes = QStringList("application/vnd.oasis.opendocument.graphics"); // MIME types
@@ -138,7 +138,7 @@ void OODrawImportPlugin::registerFormats()
 	sxdformat.trName = sxdName; // Human readable name
 	sxdformat.formatId = FORMATID_SXDIMPORT;
 	sxdformat.filter = sxdName + " (*.sxd *.SXD)"; // QFileDialog filter
-	sxdformat.nameMatch = QRegExp("\\.sxd$", false);
+	sxdformat.nameMatch = QRegExp("\\.sxd$", Qt::CaseInsensitive);
 	sxdformat.load = true;
 	sxdformat.save = false;
 	sxdformat.mimeTypes = QStringList("application/vnd.sun.xml.draw"); // MIME types
@@ -265,7 +265,7 @@ bool OODPlug::import( QString fileName, int flags )
 	}
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fileName);
-	QDir::setCurrent(efp.dirPath());
+	QDir::setCurrent(efp.path());
 	importDone = convert(flags);
 	QDir::setCurrent(CurDirP);
 	return importDone;
@@ -343,29 +343,29 @@ bool OODPlug::convert(int flags)
 		QDomElement mp = metaElem.namedItem( "office:meta" ).toElement();
 		mpg = mp.namedItem( "dc:title" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setTitle(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setTitle(mpg.toElement().text());
 		mpg = mp.namedItem( "meta:initial-creator" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setAuthor(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setAuthor(mpg.toElement().text());
 		mpg = mp.namedItem( "dc:description" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setComments(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setComments(mpg.toElement().text());
 		mpg = mp.namedItem( "dc:language" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setLangInfo(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setLangInfo(mpg.toElement().text());
 		mpg = mp.namedItem( "meta:creation-date" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setDate(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setDate(mpg.toElement().text());
 		mpg = mp.namedItem( "dc:creator" );
 		if (!mpg.isNull())
-			m_Doc->documentInfo.setContrib(QString::fromUtf8(mpg.toElement().text()));
+			m_Doc->documentInfo.setContrib(mpg.toElement().text());
 		mpg = mp.namedItem( "meta:keywords" );
 		if (!mpg.isNull())
 		{
 			QString Keys = "";
 			for( QDomNode n = mpg.firstChild(); !n.isNull(); n = n.nextSibling() )
 			{
-				Keys += QString::fromUtf8(n.toElement().text())+", ";
+				Keys += n.toElement().text()+", ";
 			}
 			if (Keys.length() > 2)
 				m_Doc->documentInfo.setKeywords(Keys.left(Keys.length()-2));
@@ -1124,7 +1124,7 @@ PageItem* OODPlug::parseTextP (const QDomElement& elm, PageItem* item)
 				parseParagraphStyle(newStyle, e);
 				item->itemText.applyStyle(-1, newStyle);
 			}
-			item->itemText.insertChars(-2, QString::fromUtf8(e.text()) );
+			item->itemText.insertChars(-2, e.text() );
 			if (!item->asPolyLine() && !item->asTextFrame())
 				item = m_Doc->convertItemTo(item, PageItem::TextFrame);
 		}
@@ -1406,7 +1406,7 @@ QString OODPlug::parseColor( const QString &s )
 	if( s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.trimmed();
-		QStringList colors = QStringList::split( ',', parse );
+		QStringList colors = parse.split( ',' );
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
@@ -1469,16 +1469,16 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform)
 {
 	double dx, dy;
 	QMatrix result;
-	QStringList subtransforms = QStringList::split(')', transform);
+	QStringList subtransforms = transform.split(')');
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
 	for (; it != end; ++it)
 	{
-		QStringList subtransform = QStringList::split('(', (*it));
+		QStringList subtransform = (*it).split('(');
 		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
-		QStringList params = QStringList::split(reg, subtransform[1]);
+		QStringList params = subtransform[1].split(reg);
 		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
 		if(subtransform[0] == "rotate")
@@ -1523,7 +1523,7 @@ void OODPlug::parseViewBox( const QDomElement& object, double *x, double *y, dou
 	if( !object.attribute( "svg:viewBox" ).isEmpty() )
 	{
 		QString viewbox( object.attribute( "svg:viewBox" ) );
-		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplified() );
+		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ' );
 		*x = points[0].toDouble();
 		*y = points[1].toDouble();
 		*w = points[2].toDouble();
@@ -1542,7 +1542,7 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	double vw = 1;
 	double vh = 1;
 	parseViewBox(object, &vx, &vy, &vw, &vh);
-	QStringList ptList = QStringList::split( ' ', object.attribute( "draw:points" ) );
+	QStringList ptList = object.attribute( "draw:points" ).split( ' ' );
 	FPoint point, firstP;
 	bool bFirst = true;
 	for( QStringList::Iterator it = ptList.begin(); it != ptList.end(); ++it )
@@ -1645,8 +1645,8 @@ bool OODPlug::parseSVG( const QString &s, FPointArray *ite )
 	if( !d.isEmpty() )
 	{
 		d = d.simplified();
-		const char *ptr = d.latin1();
-		const char *end = d.latin1() + d.length() + 1;
+		const char *ptr = d.toLatin1().constData();
+		const char *end = d.toLatin1().constData() + d.length() + 1;
 		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
 		double px1, py1, px2, py2, px3, py3;
 		bool relative;

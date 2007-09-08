@@ -186,7 +186,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
 		return false;
-	QString fileDir = QFileInfo(fileName).dirPath(true);
+	QString fileDir = QFileInfo(fileName).absolutePath();
 	/* 2004/10/02 - petr vanek - bug #1092 - missing <PAGE> crash Scribus. The check constraint moved into IsScribus()
 	FIXME: I've add test on containig tag PAGE but returning false freezes S. in scribus.cpp need some hack too...  */
 	if (!docu.setContent(f))
@@ -1619,7 +1619,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 		m_mwProgressBar->setMaximum(m_Doc->DocPages.count()+m_Doc->MasterPages.count()+m_Doc->DocItems.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count());
 		m_mwProgressBar->setValue(0);
 	}
-	QString baseDir = QFileInfo(fileName).dirPath(true);;
+	QString baseDir = QFileInfo(fileName).absolutePath();;
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, 0, true);
 	WritePages(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count(), false);
 	WriteObjects(m_Doc, &docu, &dc, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count(), 2);
@@ -2119,14 +2119,14 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	int startArrowIndex = obj->attribute("startArrowIndex", "0").toInt();
 	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles.size())))
 	{
-		qDebug(QString("scribus13format: invalid arrow index: %").arg(startArrowIndex));
+		qDebug(QString("scribus13format: invalid arrow index: %").arg(startArrowIndex).toAscii().constData());
 		startArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
 	int endArrowIndex = obj->attribute("endArrowIndex", "0").toInt();
 	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles.size())))
 	{
-		qDebug(QString("scribus13format: invalid arrow index: %").arg(endArrowIndex));
+		qDebug(QString("scribus13format: invalid arrow index: %").arg(endArrowIndex).toAscii().constData());
 		endArrowIndex = 0;
 	}
 	currItem->setEndArrowIndex(endArrowIndex);
@@ -2254,7 +2254,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	if ((!currItem->annotation().Extern().isEmpty()) && (currItem->annotation().ActionType() != 8))
 	{
 		QFileInfo efp(currItem->annotation().Extern());
-		currItem->annotation().setExtern(efp.absFilePath());
+		currItem->annotation().setExtern(efp.absoluteFilePath());
 	}
 	currItem->annotation().setZiel(obj->attribute("ANZIEL", "0").toInt());
 	currItem->annotation().setToolTip(obj->attribute("ANTOOLTIP",""));
@@ -2453,7 +2453,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 
 bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName)
 {
-	qDebug(QString("loading page %2 from file '%1' from 1.3.3.x plugin").arg(fileName).arg(pageNumber));
+	qDebug(QString("loading page %2 from file '%1' from 1.3.3.x plugin").arg(fileName).arg(pageNumber).toAscii().constData());
 	if (m_Doc==0 || m_AvailableFonts==0)
 	{
 		Q_ASSERT(m_Doc==0 || m_AvailableFonts==0);
@@ -2499,7 +2499,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		return false;
 	if(!docu.setContent(f))
 		return false;
-	QString fileDir = QFileInfo(fileName).dirPath(true);
+	QString fileDir = QFileInfo(fileName).absolutePath();
 	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
