@@ -2,18 +2,20 @@
 <title>Scribus Specifications</title>
 <h2>Scribus Specifications</h2>
 <h3>Summary:</h3>
-<p>Scribus is an open source cross-platform page layout (DTP) program.Originally developed on Linux, Scribus also runs natively on MacOSX and Windows 2000 and XP. The goals of the Scribus Team is to make professional page layout accessible for beginners without limiting support for professional publishing features such as: spot color support, CMYK color, high grade PDF creation, Encapsulated PostScript import/export and creation of color separations.</p>
+<p>Scribus is an open source cross-platform page layout (DTP) program. Originally developed on Linux, Scribus also runs natively on Mac OS X, OS/2 and Windows 2000 or later. The goal of the Scribus Team is to make professional page layout accessible for beginners, without limiting support for professional publishing features such as: spot color support, CMYK color, high grade PDF creation, Encapsulated PostScript import/export and creation of color separations.</p>
 <h3>Document Features:</h3>
 <ul>
 	<li>Scribus imports many common text formats including OASIS (Open Document) and MS Word docs (via antiword).</li>
 	<li>Supports Unicode text and fonts including right to left text for Arabic and Hebrew script via freetype2.</li>
 	<li>Frames, visible and hidden with support for rounded edges and corners for text and objects, rotatable and scalable</li>
-	<li>Page Templates - Page Palettes allow for easy page management</li>
-	<li>Document-wide layers - editable and items can be moved</li>
+	<li>Page Templates and Page Palettes allow for easy page management</li>
+	<li>Document-wide layers - editable and items can be moved within layers. </li>
 	<li>Paragraph styles with numerous paragraph and text style options (alignment, fonts)</li>
-	<li>Manual kerning of type and embedding fonts allowed in all documents including PDFs.</li>
+	<li>Integrated Style Manager for managing Paragraph, Character and Line Styles.</li>
 	<li>Object linking, grouping, moving, locking, resizing and converting to different object types.</li>
 	<li>Margins, guides and snap to grid which can be user defined, as well as hidden or visible.</li>
+<li>Sophisticated type handling including manual kerning of type, optical margins and word and glyph spacing options. </li>
+<li>New with the 1.3.5 release will be LaTeX frames; enabling you to import LaTeX formulas and other content directly into frames.</li>
 </ul>
 
 <h3>Professional Publishing Features:</h3>
@@ -24,9 +26,11 @@
 	<li>The ability to output to professional quality image-setting equipment including advanced Level 3/PDF 1.4 PostScript devices.</li>
 	<li>Encapsulated PostScript import with previews on the page canvas / EPS export.</li>
 	<li>Full support for Level 2 PostScript output, a very large subset of Level 3 and support for PDF 1.4 features including transparency, gradients and 128 bit security.</li>
-	<li>Full Compliance with PDF/X-3, an ISO standard for creating &#034;press ready&#034; PDFs - a first for any page layout application.</li>
+	<li>Full Compliance with PDF/X-3, an ISO standard for creating &#034;press ready&#034; PDFs - a first for <strong>any</strong> page layout application.</li>
 	<li>Supports font embedding and sub-setting in both PostScript and PDF export.</li>
 	<li>Scribus can convert all supported fonts into PostScript outlines, which can be further edited in Scribus.</li>
+	<li>Scribus imports a wide range of bitmap formats including extensive support for Photoshop PSD and layered Tiffs. Layer blending modes and clipping paths are supported which can be then manipulated with Extended Image Effects. Photoshop Duo, Tri and Quadtones are similarly well supported. Layers . 16-bit TIFF and PSD support is in testing. </li>
+	<li>Scribus imports the most important vector formats including AI (Adobe Illustrator), EPS and SVG (Scalable Vector Graphics). When compiled with <a href="http://podofo.sf.net">Podofo</a> support Scribus can handle the latest versions of Adobe Illustrator files which are PDF based. </li> 
 </ul>
 
 <h3>Ease of use features:</h3>
@@ -36,15 +40,15 @@
 	<li>Easy to use tools and palettes for measurement, rotation and other object properties</li>
 	<li>Full support for both TrueType, Type 1 PostScript and OpenType fonts.</li>
 	<li>User configurable keyboard shortcuts.</li>
-	<li>Ability to run in 27 different languages without recompilation.</li>
+	<li>Ability to run in 27 different languages without recompilation or application re-start.</li>
 	<li>Sophisticated automatic hyphenation engine with several languages available.</li>
-	<li>Easy to use drawing tools for custom shapes including: freehand lines, lines, curves, ellipses, bezier curves, polygons, etc.</li>
+	<li>Easy to use drawing tools for custom shapes including: freehand lines, lines, curves, ellipses, bezier curves, polygons, patterns etc.</li>
 	<li>Detailed and flexible user preferences for document and application defaults</li>
 </ul>
 
 <h3>File Formats:</h3>
 <ul>
-	<li>Scribus 1.2.x native file format is fully documented and XML based. The current 1.3.x format is a transitional format which will have a full DTD before the next stable release. </li>
+	<li>Scribus 1.2.x native file format is fully documented and XML based. The current 1.3.x format is a transitional format which will be fully XML conformant and have a full DTD before the next stable release. </li>
 	<li>EPS (Encapsulated PostScript), JPEG (Joint Photographic Experts Group), PNG (Portable Network Graphics), TIFF (Tag Image File Format), and XPM (XpixMap). PSD support includes duo/tri/quadtones, layers and clipping paths. 16-bit TIFF and PSD support is in testing.</li>
 	<li>Scribus can also import and export well-formed SVG 1.0 (Scalable Vector Graphics) including text on a path, images and text. Scribus can export all features of a Scribus document as SVG. Images are converted to PNG when exporting SVG.</li>
 	<li>Scribus can import text with many different encodings including Unicode, as well as support for OpenOffice.org 1.x and OASIS Open Document Writer and Draw files. Styles and formatting are retained on import. </li>
@@ -52,7 +56,7 @@
 
 <h3>Architecture:</h3>
 <ul>
-	<li>Developed with GPL QT 3 for Linux and &#034;Unix like&#034; operating systems. Scribus has been ported to Fink and is actively maintained for X11 applications on Mac OS X. Scribus 1.3.x is actively being ported to native Win32 and MacOSX.</li>
+	<li>Originally developed with GPL QT 3 for Linux and &#034;Unix like&#034; operating systems. Scribus runs natively on Mac OS X, OS/2 and Windows 2000 or newer (Win9x and WinMe are not nor will be supported.</li>
 	<li>Plug-in support and API including import and export plug-ins. </li>
 	<li>Powerful Python Scripting Plug-in for extending Scribus functions and automating tasks, as well as calling external applications within Scribus.</li>
 </ul>
@@ -60,6 +64,6 @@
 <ul>
 	<li>Layouts for newsletters, corporate stationery, posters, training manuals, technical documentation, business cards and other documents which need flexible layout and/or sophisticated image handling, as well as precise typography controls and image sizing not available in current word processors.</li>
 	<li>Users needing the ability to output to professional quality image setting equipment, as well as re-purposing for internal printing, web distributed PDFs or presentations.</li>
-	<li>Users needing to create interactive PDF forms for presentations and cgi-form submission via PDF.</li>
+	<li>Users needing to create interactive PDF forms for presentations and cgi/php form submission via PDF.</li>
 </ul>
 </qt>
