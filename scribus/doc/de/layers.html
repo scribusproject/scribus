@@ -1,0 +1,53 @@
+<qt>
+<title>Ebenen und Transparenzmodi</title>
+<h2>Ebenen und Transparenzmodi</h2>
+<h3>Grundlagen</h3>
+<p>Ebenen sind leicht zu verwenden und k&#246;nnen manches Problem beim Umgang mit Dokumenten, Texten, Zeichnungen oder Bildern l&#246;sen, ohne andere Objekte zu beeinflussen.</p>
+<ul><li>Sie k&#246;nnen Ebenen verwenden, um verschiedene Versionen eines Dokuments mit demselben Layout zu verwenden, zum Beispiel mehrsprachige Varianten. Sie k&#246;nnen f&#252;r jede Sprache eine eigene Ebene verwenden und zum Drucken jeweils alle anderen deaktivieren.</li>
+<li>Ebenen k&#246;nnen auch beim Import von komplexen Objekten helfen, die das &#252;brige Layout nicht beeinflussen sollen.</li>
+<li>Ebenen k&#246;nnen dazu verwendet werden, Objekte zu verdecken oder mehrere Objekte so "&#252;bereinanderzulegen", da&#223; alle sichtbar sind.</li>
+<li>PDF-Versionen ab 1.5 unterst&#252;tzen Ebenen. Zur Zeit k&#246;nnen Ebenen nur im Adobe Reader ab Version 7 dargestellt werden.</li>
+</ul>
+<table width="100%"><tr><td align="center"><img src="images/layers1.png" title="Der Ebenendialog" alt="Der Ebenendialog" /></td></tr></table><br />
+<p></p>
+<h3>Transparenzmodi in Scribus</h3>
+<p><strong>Beachten Sie: Dieses Feature k&#246;nnen Sie erst ab Scribus 1.3.4 verwenden, und nur, wenn Scribus mit einer Cairo-Version ab 1.2 kompiliert wurde.</strong></p>
+
+<p>Scribus verf&#252;gt &#252;ber ein m&#228;chtiges und vielseitiges Werkzeug zum Umgang mit Ebenen. Ebenen k&#246;nnen nicht nur transparent sein und ihre Deckkraft &#228;ndern, sondern es gibt auch sogenannte <strong>Transparenzmodi</strong>. Damit l&#228;&#223;t sich die Art der Transparenz steuern. Mit Hilfe von Transparenzmodi k&#246;nnen Sie bestimmen, wie die Pixel der einzelnen Ebenen kombiniert werden. Wenn eine Ebene ausgew&#228;hlt ist, wirkt sich der ausgew&#228;hlte Transparenzmodus nur auf die <em>darunterliegenden</em> Ebenen aus. Die einzelnen Ebenen lassen sich weiterhin bearbeiten und werden in der vorgegebenen Transparenz nur auf dem Bildschirm oder beim Druck bzw. Export kombiniert. Beachten Sie auch, da&#223;, von wenigen Ausnahmen unter Windows abgesehen, diese Art von Transparenz beim Drucken nicht gut oder gar nicht funktioniert. Es ist besser, in eine PDF-Version ab 1.4 zu exportieren, weil diese Formate die Funktion unterst&#252;tzen.</p>
+
+
+<h4>Verf&#252;gbare Transparenzmodi in Scribus:</h4>
+<ul>
+<li><strong>Normal:</strong> Pixel der aktiven Ebene werden mit den Pixeln der darunterliegenden Ebene kombiniert. Der einzige Unterschied ergibt sicht aus der Deckkraft.</li>
+<li><strong>Abdunkeln:</strong> Pixel in der aktiven Ebene, die dunkler sind als auf den darunterliegenden Ebenen, werden verwendet. Hellere Pixel werden &#252;berdeckt oder werden unsichtbar</li> 
+<li><strong>Aufhellen:</strong> Pixel in der aktiven Ebene, die heller sind als auf den darunterliegenden Ebenen, werden verwendet. Dunklere Pixel werden unsichtbar.</li>
+<li><strong>Multiplizieren:</strong> Kombiniert die Farben der ausgew&#228;hlten Ebene mit den Farben der darunterliegenden Ebenen, um dunklere Farben zu erzeugen. Farben, die mit Schwarz multipliziert werden, werden schwarz, Farben, die mit Wei&#223; kombiniert werden, zeigen keine Ver&#228;nderung.</li>
+<li><strong>Farbton:</strong> Wendet den Farbton der aktiven Ebene auf die darunterliegenden an.</li>
+
+<li><strong>S&#228;ttigung:</strong> Wendet die S&#228;ttigung der aktiven Ebene auf die darunterliegenden an.</li>
+
+<li><strong>Farbe:</strong> Wendet Farbton und S&#228;ttigung der aktiven Ebene auf die darunterliegenden an, ohne die Helligkeit zu ver&#228;ndern.</li>
+
+<li><strong>Luminanz:</strong> Wendet die Helligkeitswerte der aktiven Ebene auf die darunterliegenden an, ohne die Farbe zu ver&#228;ndern.</li>
+
+<li><strong>Negativ multiplizieren:</strong> Mulitipliziert den umgekehrten Wert der aktiven Ebene mit den darunterliegenden. Dadurch erh&#228;lt man eine Farbe, die dieselbe oder heller ist als auf den unteren Ebenen.</li>
+<!--
+This is for the PSD importer only
+<li><strong>Dissolve</strong> - Adds random pixels from the selected layer on  top the layers below, resulting in specks of color. You can use the opacity percentage spinbox to regulate the level of speckles.</li>
+
+-->
+
+<li><strong>Ineinander kopieren:</strong> Kombiniert die Funktionen von "Multiplizieren" und "Negativ multiplizieren". Es zeigt die Muster oder die Farbe der aktiven Ebene, erh&#228;lt aber Schatten und Schlaglichter der unteren Ebenen.</li>
+
+<li><strong>Hartes Licht:</strong> Kombiniert ebenfalls die Funktionen von "Multiplizieren" und "Negativ multiplizieren". Es wird verwendet, um Schlaglichter und Schatten zu zeigen.</li>
+
+<li><strong>Weiches Licht:</strong> Kombiniert die Funktionen von "Farbig abwedeln" und "Farbig nachbelichten". Es erzeugt weiche Schatten und Schlaglichter.</li>
+
+<li><strong>Differenz:</strong> Subtrahiert die Farbe der aktiven Ebene von denen der darunterliegenden, je nachdem, welche heller ist.</li>
+
+<li><strong>Farbig abwedeln:</strong> Die Helligkeitswerte der Farben der aktiven Ebene ver&#228;ndern die Farben der darunterliegenden Ebenen und hellen sie auf. Schwarz erzeugt keine Ver&#228;nderung.</li>
+<li><strong>Farbig nachbelichten:</strong> Die Helligkeitswerte der Farben der aktiven Ebene ver&#228;ndern die Farben der darunterliegenden Ebenen und dunkeln sie ab.</li>
+
+<li><strong>Ausschlu&#223;:</strong> &#196;hnlich wie "Differenz", aber weicher.</li>
+</ul>
+</qt>
