@@ -42,7 +42,7 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 	// checking the bounds
 	if (pagesType < firstPageOrder)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("firstPageOrder is bigger than allowed.","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("firstPageOrder is bigger than allowed.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 
@@ -149,7 +149,7 @@ PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
 	bool ret = ScCore->primaryMainWindow()->loadDoc(QString::fromUtf8(Name));
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to open document.","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Failed to open document.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 //	Py_INCREF(Py_True); // compatibility: return true, not none, on success
@@ -177,7 +177,7 @@ PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)
 	bool ret = ScCore->primaryMainWindow()->DoFileSave(QString::fromUtf8(Name));
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to save document.","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Failed to save document.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 //	Py_INCREF(Py_True); // compatibility: return true, not none, on success
@@ -214,7 +214,7 @@ PyObject *scribus_setunit(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if ((e < 0) || (e > 3))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Unit out of range. Use one of the scribus.UNIT_* constants.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Unit out of range. Use one of the scribus.UNIT_* constants.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	ScCore->primaryMainWindow()->slotChangeUnit(e);

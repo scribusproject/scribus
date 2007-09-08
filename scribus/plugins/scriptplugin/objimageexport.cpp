@@ -72,12 +72,12 @@ static PyObject *ImageExport_getName(ImageExport *self, void */*closure*/)
 static int ImageExport_setName(ImageExport *self, PyObject *value, void */*closure*/)
 {
 	if (!PyString_Check(value)) {
-		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename must be a string.", "python error"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename must be a string.", "python error").toLocal8Bit().constData());
 		return -1;
 	}
 	if (PyString_Size(value) < 1)
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename should not be empty string.", "python error"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename should not be empty string.", "python error").toLocal8Bit().constData());
 		return -1;
 	}
 	Py_DECREF(self->name);
@@ -95,11 +95,11 @@ static PyObject *ImageExport_getType(ImageExport *self, void */*closure*/)
 static int ImageExport_setType(ImageExport *self, PyObject *value, void */*closure*/)
 {
 	if (value == NULL) {
-		PyErr_SetString(PyExc_TypeError, QObject::tr("Cannot delete image type settings.", "python error"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Cannot delete image type settings.", "python error").toLocal8Bit().constData());
 		return -1;
 	}
 	if (!PyString_Check(value)) {
-		PyErr_SetString(PyExc_TypeError, QObject::tr("The image type must be a string.", "python error"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("The image type must be a string.", "python error").toLocal8Bit().constData());
 		return -1;
 	}
 	Py_DECREF(self->type);
@@ -116,7 +116,7 @@ static PyObject *ImageExport_getAllTypes(ImageExport */*self*/, void */*closure*
 	l = PyList_New(list.count());
 	for (QList<QByteArray>::Iterator it = list.begin(); it != list.end(); ++it)
 	{
-		PyList_SetItem(l, pos, PyString_FromString(QString((*it)).latin1()));
+		PyList_SetItem(l, pos, PyString_FromString(QString((*it)).toLatin1().constData()));
 		++pos;
 	}
 	return l;
@@ -124,7 +124,7 @@ static PyObject *ImageExport_getAllTypes(ImageExport */*self*/, void */*closure*
 
 static int ImageExport_setAllTypes(ImageExport */*self*/, PyObject */*value*/, void */*closure*/)
 {
-	PyErr_SetString(PyExc_ValueError, QObject::tr("'allTypes' attribute is READ-ONLY", "python error"));
+	PyErr_SetString(PyExc_ValueError, QObject::tr("'allTypes' attribute is READ-ONLY", "python error").toLocal8Bit().constData());
 	return -1;
 }
 
@@ -154,7 +154,7 @@ static PyObject *ImageExport_save(ImageExport *self)
 	im.setDotsPerMeterX(dpi);
 	if (!im.save(PyString_AsString(self->name), PyString_AsString(self->type)))
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
 		return NULL;
 	}
 // 	Py_INCREF(Py_True); // return True not None for backward compat
@@ -184,7 +184,7 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	im.setDotsPerMeterX(dpi);
 	if (!im.save(value, PyString_AsString(self->type)))
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
 		return NULL;
 	}
 // 	Py_INCREF(Py_True); // return True not None for backward compat

@@ -210,17 +210,17 @@ PyObject *scribus_polyline(PyObject* /* self */, PyObject* args)
 	int len = PyList_Size(il);
 	if (len < 4)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least two points (four values).","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least two points (four values).","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	if ((len % 2) != 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 //	if (ItemExists(QString::fromUtf8(Name)))
 //	{
-//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toLocal8Bit().constData());
 //		return NULL;
 //	}
 	double x, y, w, h;
@@ -290,17 +290,17 @@ PyObject *scribus_polygon(PyObject* /* self */, PyObject* args)
 	int len = PyList_Size(il);
 	if (len < 6)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least three points (six values).","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least three points (six values).","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	if ((len % 2) != 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 //	if (ItemExists(QString::fromUtf8(Name)))
 //	{
-//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toLocal8Bit().constData());
 //		return NULL;
 //	}
 	double x, y, w, h;
@@ -372,17 +372,17 @@ PyObject *scribus_bezierline(PyObject* /* self */, PyObject* args)
 	int len = PyList_Size(il);
 	if (len < 8)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least four points (eight values).","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least four points (eight values).","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	if ((len % 6) != 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must have a multiple of six values.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must have a multiple of six values.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 //	if (ItemExists(QString::fromUtf8(Name)))
 //	{
-//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error"));
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toLocal8Bit().constData());
 //		return NULL;
 //	}
 	double x, y, w, h, kx, ky, kx2, ky2;
@@ -476,7 +476,7 @@ PyObject *scribus_pathtext(PyObject* /* self */, PyObject* args)
 	int ii = GetItem(QString::fromUtf8(PolyB));
 	if ((i == -1) || (ii == -1))
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Object not found.","python error"));
+		PyErr_SetString(NotFoundError, QObject::tr("Object not found.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
@@ -602,7 +602,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		}
 		if (!found) {
 			// whoops, the user specified an invalid style, complain loudly.
-			PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error"));
+			PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error").toLocal8Bit().constData());
 			return NULL;
 		}
 		// for current item only
@@ -628,7 +628,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.","python error"));
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 //	Py_INCREF(Py_None);

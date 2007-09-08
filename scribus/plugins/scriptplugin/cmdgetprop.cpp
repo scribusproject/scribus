@@ -62,7 +62,7 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 	}
 	else
 		return PyString_FromString(it->lineColor().toUtf8());
-	PyErr_SetString(NotFoundError, QObject::tr("Color not found - python error", "python error"));
+	PyErr_SetString(NotFoundError, QObject::tr("Color not found - python error", "python error").toLocal8Bit().constData());
 	return NULL;
 }
 

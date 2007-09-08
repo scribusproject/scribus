@@ -90,7 +90,7 @@ void ScripterCore::buildScribusScriptsMenu()
 		for (uint dc = 0; dc < ds.count(); ++dc)
 		{
 			QFileInfo fs(ds[dc]);
-			QString strippedName=fs.baseName(false);
+			QString strippedName=fs.baseName();
 			scrScripterActions.insert(strippedName, new ScrAction( ScrAction::RecentScript, QPixmap(), QPixmap(), strippedName, QKeySequence(), this));
 			connect( scrScripterActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(StdScript(QString)) );
 			menuMgr->addMenuItem(scrScripterActions[strippedName], "ScribusScripts");
@@ -215,7 +215,7 @@ void ScripterCore::runScriptDialog()
 			RecentScripts.prepend(fileName);
 		else
 		{
-			RecentScripts.remove(fileName);
+			RecentScripts.removeAll(fileName);
 			RecentScripts.prepend(fileName);
 		}
 		rebuildRecentScriptsMenu();
@@ -242,7 +242,7 @@ void ScripterCore::RecentScript(QString fn)
 	QFileInfo fd(fn);
 	if (!fd.exists())
 	{
-		RecentScripts.remove(fn);
+		RecentScripts.removeAll(fn);
 		rebuildRecentScriptsMenu();
 		return;
 	}
@@ -255,7 +255,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 	PyThreadState *stateo = NULL;
 	PyThreadState *state = NULL;
 	QFileInfo fi(fileName);
-	QByteArray na = fi.fileName().latin1();
+	QByteArray na = fi.fileName().toLatin1();
 	// Set up a sub-interpreter if needed:
 	if (!inMainInterpreter)
 	{
@@ -266,7 +266,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		stateo = PyEval_SaveThread();
 		state = Py_NewInterpreter();
 		// Chdir to the dir the script is in
-		QDir::setCurrent(fi.dirPath(true));
+		QDir::setCurrent(fi.absolutePath());
 		// Init the scripter module in the sub-interpreter
 		initscribus(ScCore->primaryMainWindow());
 	}
@@ -296,7 +296,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		 * for output settings. I use ugly hack to stop freezing calling help()
 		 * in script. pv. */
 		cm        += QString("import os\nos.environ['PAGER'] = '/bin/false'\n"); // HACK
-		cm        += QString("sys.path[0] = \"%1\"\n").arg(fi.dirPath(true));
+		cm        += QString("sys.path[0] = \"%1\"\n").arg(fi.absolutePath());
 		// Replace sys.stdin with a dummy StringIO that always returns
 		// "" for read
 		cm        += QString("sys.stdin = cStringIO.StringIO()\n");
@@ -317,7 +317,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 		// the fact that an exception has ocurred.
 		cm        += QString("    raise\n");
 		// FIXME: if cmd contains chars outside 7bit ascii, might be problems
-		QByteArray cmd = cm.latin1();
+		QByteArray cmd = cm.toLatin1();
 		// Now run the script in the interpreter's global scope. It'll run in a
 		// sub-interpreter if we created and switched to one earlier, otherwise
 		// it'll run in the main interpreter.
@@ -427,7 +427,7 @@ void ScripterCore::slotInteractiveScript(bool visible)
 {
 	QObject::disconnect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
 
-	scrScripterActions["scripterShowConsole"]->setOn(visible);
+	scrScripterActions["scripterShowConsole"]->setChecked(visible);
 	pcon->setFonts();
 	pcon->setShown(visible);
 
@@ -534,7 +534,7 @@ void ScripterCore::runStartupScript()
 			this->slotRunScriptFile(this->m_startupScript, true);
 		}
 		else
-			qDebug("Startup script enabled, but couln't find script %s.", m_startupScript.ascii());
+			qDebug("Startup script enabled, but couln't find script %s.", m_startupScript.toAscii().constData());
 	}
 }
 

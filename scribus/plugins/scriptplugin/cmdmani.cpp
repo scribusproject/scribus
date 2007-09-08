@@ -23,7 +23,7 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if (!item->asImageFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error"));
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	ScCore->primaryMainWindow()->doc->LoadPict(QString::fromUtf8(Image), item->ItemNr);
@@ -45,7 +45,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if (! item->asImageFrame())
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	item->setImageXYScale(x, y);
@@ -202,7 +202,7 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		if (len < 2)
 		{
 			// We can't very well group only one item
-			PyErr_SetString(NoValidObjectError, QObject::tr("Cannot group less than two items", "python error"));
+			PyErr_SetString(NoValidObjectError, QObject::tr("Cannot group less than two items", "python error").toLocal8Bit().constData());
 			return NULL;
 		}
 		QStringList oldSelection = getSelectedItemsByName();
@@ -227,7 +227,7 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 		if (ScCore->primaryMainWindow()->doc->m_Selection->count() < 2)
 		{
 			// We can't very well group only one item
-			PyErr_SetString(NoValidObjectError, QObject::tr("Can't group less than two items", "python error"));
+			PyErr_SetString(NoValidObjectError, QObject::tr("Can't group less than two items", "python error").toLocal8Bit().constData());
 			return NULL;
 		}
 		ScCore->primaryMainWindow()->GroupObj();
@@ -235,7 +235,7 @@ PyObject *scribus_groupobj(PyObject* /* self */, PyObject* args)
 	}
 	else
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("Need selection or argument list of items to group", "python error"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Need selection or argument list of items to group", "python error").toLocal8Bit().constData());
 		return NULL;
 	}
 //	Py_INCREF(Py_None);
@@ -269,7 +269,7 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if (sc == 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot scale by 0%.","python error"));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot scale by 0%.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
@@ -381,7 +381,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 		return NULL;
 	if (! item->asImageFrame())
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	// Set the item to scale if appropriate. ScaleType 1 is free

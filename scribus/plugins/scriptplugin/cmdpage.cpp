@@ -38,7 +38,7 @@ PyObject *scribus_pageposition(PyObject* /* self */, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->locationOfPage(e)));
@@ -54,7 +54,7 @@ PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 	bool ret = ScCore->primaryMainWindow()->DoSaveAsEps(QString::fromUtf8(Name));
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to save EPS.","python error"));
+		PyErr_SetString(ScribusException, QObject::tr("Failed to save EPS.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 // 	Py_INCREF(Py_True); // return True not None for backward compat
@@ -72,7 +72,7 @@ PyObject *scribus_deletepage(PyObject* /* self */, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	ScCore->primaryMainWindow()->DeletePage2(e);
@@ -91,7 +91,7 @@ PyObject *scribus_gotopage(PyObject* /* self */, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	ScCore->primaryMainWindow()->view->GotoPage(e);
@@ -131,7 +131,7 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 
 	if (!ScCore->primaryMainWindow()->doc->MasterNames.contains(qName))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Given master page name does not match any existing.","python error"));
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Given master page name does not match any existing.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	if (e < 0)
@@ -141,7 +141,7 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 		e--;
 		if ((e < 0) || (e > static_cast<int>(loc - 1)))
 		{
-			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
+			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
 			return NULL;
 		}
 		ScCore->primaryMainWindow()->slotNewPageP(e, qName);
@@ -192,7 +192,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 		if (pageNr == ScCore->primaryMainWindow()->doc->Items->at(i)->OwnPage)
 		{
 			row = Py_BuildValue((char*)"(sii)",
-			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().ascii(),
+			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemName().toAscii().constData(),
 			                    ScCore->primaryMainWindow()->doc->Items->at(i)->itemType(),
 			                    ScCore->primaryMainWindow()->doc->Items->at(i)->ItemNr
 			                   );
@@ -233,7 +233,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if (!PyList_Check(l))
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values.","python error"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	int i, n;
@@ -244,7 +244,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
 		{
-			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains non-numeric values: must be list of float values.","python error"));
+			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains non-numeric values: must be list of float values.","python error").toLocal8Bit().constData());
 			return NULL;
 		}
 		ScCore->primaryMainWindow()->doc->currentPage()->guides.addHorizontal(ValueToPoint(guide), GuideManagerCore::Standard);
@@ -284,7 +284,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 		return NULL;
 	if (!PyList_Check(l))
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values.","python error"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values.","python error").toLocal8Bit().constData());
 		return NULL;
 	}
 	int i, n;
@@ -295,7 +295,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
 		{
-			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains no-numeric values: must be list of float values.","python error"));
+			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains no-numeric values: must be list of float values.","python error").toLocal8Bit().constData());
 			return NULL;
 		}
 		ScCore->primaryMainWindow()->doc->currentPage()->guides.addVertical(ValueToPoint(guide), GuideManagerCore::Standard);
@@ -323,5 +323,12 @@ PV */
 void cmdpagedocwarnings()
 {
     QStringList s;
-    s << scribus_newpage__doc__ << scribus_pageposition__doc__ << scribus_actualpage__doc__ << scribus_redraw__doc__ << scribus_savepageeps__doc__ << scribus_deletepage__doc__ << scribus_gotopage__doc__ << scribus_pagecount__doc__ << scribus_getHguides__doc__ <<scribus_setHguides__doc__ <<scribus_getVguides__doc__ <<scribus_setVguides__doc__ <<scribus_pagedimension__doc__ <<scribus_getpageitems__doc__ <<scribus_getpagemargins__doc__;
+    s << scribus_newpage__doc__       << scribus_pageposition__doc__
+	  << scribus_actualpage__doc__    << scribus_redraw__doc__
+	  << scribus_savepageeps__doc__   << scribus_deletepage__doc__
+	  << scribus_gotopage__doc__      << scribus_pagecount__doc__
+	  << scribus_getHguides__doc__    << scribus_setHguides__doc__
+	  << scribus_getVguides__doc__    << scribus_setVguides__doc__
+	  << scribus_pagedimension__doc__ <<scribus_getpageitems__doc__
+	  << scribus_getpagemargins__doc__;
 }

@@ -253,10 +253,10 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	QString tf = ScCore->primaryMainWindow()->doc->PDF_Options.Datei;
 	if (tf.isEmpty()) {
 		QFileInfo fi = QFileInfo(ScCore->primaryMainWindow()->doc->DocName);
-		tf = fi.dirPath()+"/"+fi.baseName()+".pdf";
+		tf = fi.path()+"/"+fi.baseName()+".pdf";
 	}
 	PyObject *file = NULL;
-	file = PyString_FromString(tf.ascii());
+	file = PyString_FromString(tf.toAscii());
 	if (file){
 		Py_DECREF(self->file);
 		self->file = file;
@@ -282,9 +282,9 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	QList<QString>::Iterator itef;
 	for (itef = tmpEm.begin(); itef != tmpEm.end(); ++itef) {
 // AV: dunno what this is for, but it looks as if it's the only place where HasMetrics is used...
-//		if (PrefsManager::instance()->appPrefs.AvailFonts[(*itef).ascii()]->HasMetrics) {
+//		if (PrefsManager::instance()->appPrefs.AvailFonts[(*itef).toAscii()]->HasMetrics) {
 			PyObject *tmp= NULL;
-			tmp = PyString_FromString((*itef).ascii());
+			tmp = PyString_FromString((*itef).toAscii());
 			if (tmp) {
 				PyList_Append(self->fonts, tmp);
 // do i need Py_DECREF(tmp) here?
@@ -408,7 +408,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	QMap<QString,LPIData>::Iterator it = ScCore->primaryMainWindow()->doc->PDF_Options.LPISettings.begin();
 	while (it != ScCore->primaryMainWindow()->doc->PDF_Options.LPISettings.end()) {
 		PyObject *tmp;
-		tmp = Py_BuildValue(const_cast<char*>("[siii]"), it.key().ascii(), it.value().Frequency, it.value().Angle, it.value().SpotFunc);
+		tmp = Py_BuildValue(const_cast<char*>("[siii]"), it.key().toAscii().constData(), it.value().Frequency, it.value().Angle, it.value().SpotFunc);
 		if (!tmp) {
 			PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
 			return -1;
@@ -421,7 +421,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	self->lpival = lpival;
 // set owner's password
 	PyObject *owner = NULL;
-	owner = PyString_FromString(ScCore->primaryMainWindow()->doc->PDF_Options.PassOwner.ascii());
+	owner = PyString_FromString(ScCore->primaryMainWindow()->doc->PDF_Options.PassOwner.toAscii());
 	if (owner){
 		Py_DECREF(self->owner);
 		self->owner = owner;
@@ -431,7 +431,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	}
 // set user'a password
 	PyObject *user = NULL;
-	user = PyString_FromString(ScCore->primaryMainWindow()->doc->PDF_Options.PassUser.ascii());
+	user = PyString_FromString(ScCore->primaryMainWindow()->doc->PDF_Options.PassUser.toAscii());
 	if (user){
 		Py_DECREF(self->user);
 		self->user = user;
@@ -461,7 +461,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	if (!ScCore->InputProfiles.contains(tp))
 		tp = ScCore->primaryMainWindow()->view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
 	PyObject *solidpr = NULL;
-	solidpr = PyString_FromString(tp.ascii());
+	solidpr = PyString_FromString(tp.toAscii());
 	if (solidpr){
 		Py_DECREF(self->solidpr);
 		self->solidpr = solidpr;
@@ -473,7 +473,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	if (!ScCore->InputProfiles.contains(tp2))
 		tp2 = ScCore->primaryMainWindow()->view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
 	PyObject *imagepr = NULL;
-	imagepr = PyString_FromString(tp2.ascii());
+	imagepr = PyString_FromString(tp2.toAscii());
 	if (imagepr){
 		Py_DECREF(self->imagepr);
 		self->imagepr = imagepr;
@@ -485,7 +485,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	if (!ScCore->PDFXProfiles.contains(tp3))
 		tp3 = ScCore->primaryMainWindow()->view->Doc->CMSSettings.DefaultPrinterProfile;
 	PyObject *printprofc = NULL;
-	printprofc = PyString_FromString(tp3.ascii());
+	printprofc = PyString_FromString(tp3.toAscii());
 	if (printprofc){
 		Py_DECREF(self->printprofc);
 		self->printprofc = printprofc;
@@ -495,7 +495,7 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 	}
 	QString tinfo = ScCore->primaryMainWindow()->doc->PDF_Options.Info;
 	PyObject *info = NULL;
-	info = PyString_FromString(tinfo.ascii());
+	info = PyString_FromString(tinfo.toAscii());
 	if (info){
 		Py_DECREF(self->info);
 		self->info = info;
@@ -1109,7 +1109,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 // Where does compiler find cms function when I have not included header for it
 				const char *Descriptor;
 				cmsHPROFILE hIn;
-				hIn = cmsOpenProfileFromFile(ScCore->PrinterProfiles[ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf], "r");
+				hIn = cmsOpenProfileFromFile(ScCore->PrinterProfiles[ScCore->primaryMainWindow()->doc->PDF_Options.PrintProf].toLocal8Bit().constData(), "r");
 				Descriptor = cmsTakeProductDesc(hIn);
 				nam = QString(Descriptor);
 				if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
@@ -1144,13 +1144,13 @@ static PyObject *PDFfile_save(PDFfile *self)
 	{
 		QPixmap pm(10,10);
 		if (ScCore->primaryMainWindow()->doc->PDF_Options.Thumbnails)
-			pm = ScCore->primaryMainWindow()->view->PageToPixmap(pageNs[ap]-1, 100);
+			pm = QPixmap::fromImage(ScCore->primaryMainWindow()->view->PageToPixmap(pageNs[ap]-1, 100));
 		thumbs.insert(pageNs[ap], pm);
 	}
 	ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
 	if (!ScCore->primaryMainWindow()->getPDFDriver(fn, nam, Components, pageNs, thumbs)) {
 		fn = "Cannot write the File: " + fn;
-		PyErr_SetString(PyExc_SystemError, fn.ascii());
+		PyErr_SetString(PyExc_SystemError, fn.toAscii());
 		return NULL;
 	}
 //	Py_INCREF(Py_None);

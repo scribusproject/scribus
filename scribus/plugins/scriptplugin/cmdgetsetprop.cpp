@@ -36,8 +36,7 @@ QObject* getQObjectFromPyArg(PyObject* arg)
 	else
 	{
 		// It's not a type we know what to do with
-		PyErr_SetString(PyExc_TypeError,
-			QObject::tr("Argument must be page item name, or PyCObject instance"));
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Argument must be page item name, or PyCObject instance").toLocal8Bit().constData());
 		return NULL;
 	}
 }
@@ -88,7 +87,7 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 	const char* type = getpropertytype( (QObject*)obj, propertyname, includesuper);
 	if (type == NULL)
 	{
-		PyErr_SetString(PyExc_KeyError, QObject::tr("Property not found"));
+		PyErr_SetString(PyExc_KeyError, QObject::tr("Property not found").toLocal8Bit().constData());
 		return NULL;
 	}
 	return PyString_FromString(type);
@@ -199,7 +198,7 @@ PyObject* scribus_getchild(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	QObject* child = obj->child(childname, ofclass, recursive);
 	if (child == NULL)
 	{
-		PyErr_SetString(PyExc_KeyError, QObject::tr("Child not found"));
+		PyErr_SetString(PyExc_KeyError, QObject::tr("Child not found").toLocal8Bit().constData());
 		return NULL;
 	}
 
@@ -273,22 +272,22 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	PyObject* resultobj = NULL;
 	// NUMERIC TYPES
 	if (prop.type() == QVariant::Int)
-		resultobj = PyLong_FromLong(prop.asInt());
+		resultobj = PyLong_FromLong(prop.toInt());
 	else if (prop.type() == QVariant::Double)
-		resultobj = PyFloat_FromDouble(prop.asDouble());
+		resultobj = PyFloat_FromDouble(prop.toDouble());
 	// BOOLEAN
 	else if (prop.type() == QVariant::Bool)
-		resultobj = PyBool_FromLong(prop.asBool());
+		resultobj = PyBool_FromLong(prop.toBool());
 	// STRING TYPES
-	else if (prop.type() == QVariant::CString)
-		resultobj = PyString_FromString(prop.asCString().data());
+	else if (prop.type() == QVariant::ByteArray)
+		resultobj = PyString_FromString(prop.toByteArray().data());
 	else if (prop.type() == QVariant::String)
-		resultobj = PyString_FromString(prop.asString().toUtf8().data());
+		resultobj = PyString_FromString(prop.toString().toUtf8().data());
 	// HIGHER ORDER TYPES
 	else if (prop.type() == QVariant::Point)
 	{
 		// Return a QPoint as an (x,y) tuple.
-		QPoint pt = prop.asPoint();
+		QPoint pt = prop.toPoint();
 		return Py_BuildValue("(ii)", pt.x(), pt.y());
 	}
 	else if (prop.type() == QVariant::Rect)
@@ -297,16 +296,17 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		// FIXME: We should really construct and return an object that
 		// matches the API of QRect and has properties to keep
 		// left/top/right/bottom and x/y/width/height in sync.
-		QRect r = prop.asRect();
+		QRect r = prop.toRect();
 		return Py_BuildValue("(iiii)", r.x(), r.y(), r.width(), r.height());
 	}
 	else if (prop.type() == QVariant::StringList)
+	{
 		return convert_QStringList_to_PyListObject(prop.asStringList());
+	}
 	// UNHANDLED TYPE
 	else
 	{
-		PyErr_SetString(PyExc_TypeError,
-				QObject::tr("Couldn't convert result type '%1'.").arg(prop.typeName()) );
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Couldn't convert result type '%1'.").arg(prop.typeName()).toLocal8Bit().constData() );
 		return NULL;
 	}
 
@@ -407,7 +407,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 			// Get a pointer to the internal buffer of the Py_Unicode object, which is UCS2 formatted
 			const unsigned short * ucs2Data = (const unsigned short *)PyUnicode_AS_UNICODE(objValue);
 			// and make a new QString from it (the string is copied)
-			success = obj->setProperty(propertyName, QString::fromUcs2(ucs2Data));
+			success = obj->setProperty(propertyName, QString::fromUtf16(ucs2Data));
 		}
 		else
 			matched = false;
@@ -420,14 +420,14 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 			// FIXME: should raise an exception instead of mangling the string when
 			// out of charset chars present.
 			QString utfString = QString::fromUtf8(PyString_AsString(objValue));
-			success = obj->setProperty(propertyName, utfString.ascii());
+			success = obj->setProperty(propertyName, utfString.toAscii());
 		}
 		else if (PyUnicode_Check(objValue))
 		{
 			// Get a pointer to the internal buffer of the Py_Unicode object, which is UCS2 formatted
-			const unsigned short * ucs2Data = (const unsigned short *)PyUnicode_AS_UNICODE(objValue);
+			const unsigned short * utf16Data = (const unsigned short *)PyUnicode_AS_UNICODE(objValue);
 			// and make a new QString from it (the string is copied)
-			success = obj->setProperty(propertyName, QString::fromUcs2(ucs2Data).ascii());
+			success = obj->setProperty(propertyName, QString::fromUtf16(utf16Data).toAscii());
 		}
 		else
 			matched = false;
@@ -438,7 +438,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	{
 		Py_DECREF(objValue);
 		PyErr_SetString(PyExc_TypeError,
-				QObject::tr("Property type '%1' not supported").arg(propertyType));
+				QObject::tr("Property type '%1' not supported").arg(propertyType).toLocal8Bit().constData());
 		return NULL;
 	}
 
@@ -457,8 +457,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 		// And return an error
 		PyErr_SetString(PyExc_TypeError,
-				QObject::tr("Couldn't convert '%1' to property type '%2'")
-				.arg(reprString).arg(propertyType));
+				QObject::tr("Couldn't convert '%1' to property type '%2'").arg(reprString).arg(propertyType).toLocal8Bit().constData());
 		return NULL;
 	}
 
@@ -466,8 +465,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (!success)
 	{
 		Py_DECREF(objValue);
-		PyErr_SetString(PyExc_ValueError,
-				QObject::tr("Types matched, but setting property failed."));
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Types matched, but setting property failed.").toLocal8Bit().constData());
 		return NULL;
 	}
 

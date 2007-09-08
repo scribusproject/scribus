@@ -141,7 +141,7 @@ PageItem* GetUniqueItem(QString name)
 			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
 		else
 		{
-			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection"));
+			PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection").toLocal8Bit().constData());
 			return NULL;
 		}
 	else
@@ -152,7 +152,7 @@ PageItem* getPageItemByName(QString name)
 {
 	if (name.length() == 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem"));
+		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem").toLocal8Bit().constData());
 		return NULL;
 	}
 	for (int j = 0; j<ScCore->primaryMainWindow()->doc->Items->count(); j++)
@@ -160,7 +160,7 @@ PageItem* getPageItemByName(QString name)
 		if (name==ScCore->primaryMainWindow()->doc->Items->at(j)->itemName())
 			return ScCore->primaryMainWindow()->doc->Items->at(j);
 	} // for items
-	PyErr_SetString(NoValidObjectError, QString("Object not found"));
+	PyErr_SetString(NoValidObjectError, QString("Object not found").toLocal8Bit().constData());
 	return NULL;
 }
 
@@ -195,7 +195,7 @@ bool checkHaveDocument()
         return true;
     // Caller is required to check for false return from this function
     // and return NULL.
-    PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document"));
+    PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document").toLocal8Bit().constData());
     return false;
 }
 

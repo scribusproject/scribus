@@ -141,7 +141,7 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 		QString prn = printers[i];
 		if (prn.isEmpty())
 			continue;
-		PyObject *tmppr = PyString_FromString(prn);
+		PyObject *tmppr = PyString_FromString(prn.toLocal8Bit().constData());
 		if (tmppr){
 			PyList_Append(self->allPrinters, tmppr);
 			Py_DECREF(tmppr);
@@ -161,10 +161,10 @@ static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
 	QString tf = ScCore->primaryMainWindow()->doc->PDF_Options.Datei;
 	if (tf.isEmpty()) {
 		QFileInfo fi = QFileInfo(ScCore->primaryMainWindow()->doc->DocName);
-		tf = fi.dirPath()+"/"+fi.baseName()+".pdf";
+		tf = fi.path()+"/"+fi.baseName()+".pdf";
 	}
 	PyObject *file = NULL;
-	file = PyString_FromString(tf.ascii());
+	file = PyString_FromString(tf.toAscii());
 	if (file){
 		Py_DECREF(self->file);
 		self->file = file;
@@ -496,8 +496,8 @@ static PyObject *Printer_print(Printer *self)
 #endif
 					cmd += " "+fna;
 				}
-				system(cmd);
-				unlink(fna);
+				system(cmd.toLocal8Bit().constData());
+				unlink(fna.toLocal8Bit().constData());
 			}
 		}
 		else {

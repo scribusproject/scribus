@@ -645,7 +645,7 @@ void initscribus(ScribusMainWindow *pl)
 		if (unitGetStrFromIndex(i) == "in")
 			name = PyString_FromString("inch");
 		else
-			name = PyString_FromString(unitGetStrFromIndex(i).ascii());
+			name = PyString_FromString(unitGetStrFromIndex(i).toAscii().constData());
 		if (!name)
 		{
 			initscribus_failed(__FILE__, __LINE__);
@@ -663,7 +663,7 @@ void initscribus(ScribusMainWindow *pl)
 	// Now build a version tuple like that provided by Python in sys.version_info
 	// The tuple is of the form (major, minor, patchlevel, extraversion, reserved)
 	QRegExp version_re("(\\d+)\\.(\\d+)\\.(\\d+)(.*)");
-	int pos = version_re.search(QString(VERSION));
+	int pos = version_re.indexIn(QString(VERSION));
 	// We ignore errors, causing the scribus_version_info attribute to simply not be created.
 	// This will make acceses raise AttrbuteError.
 	if (pos > -1)
