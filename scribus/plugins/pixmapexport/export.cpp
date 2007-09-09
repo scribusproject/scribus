@@ -186,11 +186,11 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 				(single == true) ? QMessageBox::Yes | QMessageBox::No : QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll);
 		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		if (over == QMessageBox::Yes)
-			return im.save(fileName, bitmapType, quality);
+			return im.save(fileName, bitmapType.toLocal8Bit().constData(), quality);
 		if (over == QMessageBox::YesToAll)
 			overwrite = true;
 	}
-	return im.save(fileName, bitmapType, quality);
+	return im.save(fileName, bitmapType.toLocal8Bit().constData(), quality);
 }
 
 bool ExportBitmap::exportCurrent(ScribusDoc* doc)

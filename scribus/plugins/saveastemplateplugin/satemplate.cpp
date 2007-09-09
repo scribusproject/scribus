@@ -286,10 +286,10 @@ QString sat::getTemplateTag()
 	QString colors = QString(dia->colorsEdit->text());
 	replaceIllegalChars(colors);
 	tag += "\t\t<color>"+colors+"</color>\n";
-	QString descr = QString(dia->descrEdit->text());
+	QString descr = QString(dia->descrEdit->toPlainText());
 	replaceIllegalChars(descr);
 	tag += "\t\t<descr>"+descr+"</descr>\n";
-	QString usage = QString(dia->usageEdit->text());
+	QString usage = QString(dia->usageEdit->toPlainText());
 	replaceIllegalChars(usage);
 	tag += "\t\t<usage>"+usage+"</usage>\n";
 	QString scribus_version = QString(VERSION);

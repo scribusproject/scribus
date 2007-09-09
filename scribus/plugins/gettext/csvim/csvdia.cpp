@@ -34,7 +34,7 @@ CsvDialog::CsvDialog() : QDialog(0)
 	QBoxLayout* flayout = new QHBoxLayout;
 	flayout->setMargin(5);
 	flayout->setSpacing(5);
-	QLabel* fdlabel = new QLabel( tr("Field delimiter:"), this, "fdlabel", 0);
+	QLabel* fdlabel = new QLabel( tr("Field delimiter:"), this);
 	fdlabel->setMinimumWidth(120);
 	flayout->addWidget(fdlabel,1);
 	fdelimCombo = new QComboBox(this);
@@ -50,7 +50,7 @@ CsvDialog::CsvDialog() : QDialog(0)
 	QBoxLayout* vlayout = new QHBoxLayout;
 	vlayout->setMargin(5);
 	vlayout->setSpacing(5);
-	QLabel* vdlabel = new QLabel( tr("Value delimiter:"), this, "fdlabel", 0);
+	QLabel* vdlabel = new QLabel( tr("Value delimiter:"), this);
 	vdlabel->setMinimumWidth(120);
 	vlayout->addWidget(vdlabel,1);
 	vdelimCombo = new QComboBox(this);
@@ -65,7 +65,7 @@ CsvDialog::CsvDialog() : QDialog(0)
 	QBoxLayout* hlayout = new QHBoxLayout;
 	hlayout->setMargin(5);
 	hlayout->setSpacing(5);
-	headerCheck = new QCheckBox( tr("First row is a header"), this, "headerCheck");
+	headerCheck = new QCheckBox( tr("First row is a header"), this);
 	hlayout->addWidget(headerCheck);
 	layout->addLayout(hlayout);
 
@@ -73,10 +73,10 @@ CsvDialog::CsvDialog() : QDialog(0)
 	blayout->setMargin(5);
 	blayout->setSpacing(5);
 	blayout->addStretch(10);
-	okButton = new QPushButton( tr("OK"), this, "okButton");
+	okButton = new QPushButton( tr("OK"), this);
 	blayout->addWidget(okButton);
 
-	cancelButton = new QPushButton( tr("Cancel"), this, "cancelButton");
+	cancelButton = new QPushButton( tr("Cancel"), this);
 	blayout->addWidget(cancelButton);
 	layout->addLayout(blayout);
 

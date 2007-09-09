@@ -64,7 +64,7 @@ void tfDia::createLayout()
 	filtersCombo->setDuplicatesEnabled(false);
 	filtersCombo->setToolTip( tr("Choose a previously saved filter"));
 	PrefsTable* filterNames = prefs->getTable("tf_Filters");
-	filtersCombo->insertItem("");
+	filtersCombo->addItem("");
 	for (int i = 0; i < filterNames->height(); ++i)
 	{
 		QString fname = filterNames->get(i, 0, "");
@@ -77,7 +77,7 @@ void tfDia::createLayout()
 	QBoxLayout* flayout = new QHBoxLayout;
 	flayout->setMargin(0);
 	flayout->setSpacing(0);
-	QFrame* f = new QFrame(this, "f");
+	QFrame* f = new QFrame(this);
 	f->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 	flayout->addWidget(f);
 	layout->addLayout(flayout);
@@ -104,7 +104,7 @@ void tfDia::createLayout()
 	QBoxLayout* flayout2 = new QHBoxLayout;
 	flayout2->setMargin(0);
 	flayout2->setSpacing(0);
-	QFrame* f2 = new QFrame(this, "f2");
+	QFrame* f2 = new QFrame(this);
 	f2->setFrameStyle(QFrame::HLine | QFrame::Sunken);
 	flayout2->addWidget(f2);
 	layout->addLayout(flayout2);
@@ -112,7 +112,7 @@ void tfDia::createLayout()
 	QBoxLayout* layout2 = new QHBoxLayout;
 	layout2->setMargin(5);
 	layout2->setSpacing(5);
-	saveEdit = new QLineEdit(this, "saveEdit");
+	saveEdit = new QLineEdit(this);
 	saveEdit->setToolTip( tr("Give a name to this filter for saving"));
 	layout2->addWidget(saveEdit, 10);
 	if (prefs->getBool("save_hint", true))
@@ -224,8 +224,8 @@ void tfDia::removeRow(tfFilter* tff)
 
 void tfDia::saveTextChanged(const QString& text)
 {
-	filtersCombo->setCurrentItem(0);
-	filtersCombo->setCurrentText(text);
+	filtersCombo->setCurrentIndex(0);
+	filtersCombo->setItemText(filtersCombo->currentIndex(), text);
 }
 
 void tfDia::clearClicked()
@@ -286,7 +286,7 @@ void tfDia::loadFilter(const QString& name)
 {
 	if (currentFilter == "tf_lastUsed")
 		storeLastFilter();
-	if (filtersCombo->currentItem() == 0)
+	if (filtersCombo->currentIndex() == 0)
 	{
 		deleteButton->setEnabled(false);
 		clear();
@@ -300,7 +300,7 @@ void tfDia::loadFilter(const QString& name)
 		clear();
 		createFilter(prefs->getTable("tf_"+name));
 		currentFilter = "tf_" + name;
-		currentIndex = filtersCombo->currentItem();
+		currentIndex = filtersCombo->currentIndex();
 	}
 	saveEdit->setText(name);
 }
@@ -313,7 +313,7 @@ void tfDia::deleteClicked()
 		t->removeRow(0, currentFilter);
 		prefs->removeTable(currentFilter);
 		filtersCombo->removeItem(currentIndex);
-		filtersCombo->setCurrentItem(0);
+		filtersCombo->setCurrentIndex(0);
 		clear();
 		saveEdit->setText("");
 		deleteButton->setEnabled(false);

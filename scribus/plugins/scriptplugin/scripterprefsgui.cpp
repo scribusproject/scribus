@@ -76,34 +76,46 @@ void ScripterPrefsGui::apply()
 	scripterCore->setStartupScript(startupScriptEdit->text());
 	// colors
 	SyntaxColors *syntax = new SyntaxColors();
-	syntax->textColor = textButton->paletteBackgroundColor();
-	syntax->commentColor = commentButton->paletteBackgroundColor();
-	syntax->keywordColor = keywordButton->paletteBackgroundColor();
-	syntax->errorColor = errorButton->paletteBackgroundColor();
-	syntax->signColor = signButton->paletteBackgroundColor();
-	syntax->stringColor = stringButton->paletteBackgroundColor();
-	syntax->numberColor = numberButton->paletteBackgroundColor();
+	syntax->textColor = textButton->palette().color(QPalette::Window);
+	syntax->commentColor = commentButton->palette().color(QPalette::Window);
+	syntax->keywordColor = keywordButton->palette().color(QPalette::Window);
+	syntax->errorColor = errorButton->palette().color(QPalette::Window);
+	syntax->signColor = signButton->palette().color(QPalette::Window);
+	syntax->stringColor = stringButton->palette().color(QPalette::Window);
+	syntax->numberColor = numberButton->palette().color(QPalette::Window);
 	delete(syntax);
 }
 
 void ScripterPrefsGui::setColor()
 {
+	QPalette palette;
 	QPushButton* button = (QPushButton*)sender();
-	QColor color = QColorDialog::getColor(button->paletteBackgroundColor(), this, tr("Select Color"));
+	QColor color = QColorDialog::getColor(button->palette().color(QPalette::Window), this);
 	if (color.isValid())
-		button->setPaletteBackgroundColor(color);
+	{
+		palette.setColor(button->backgroundRole(), color);
+ 		button->setPalette(palette);
+	}
 }
 
 void ScripterPrefsGui::setupSyntaxColors()
 {
+	QPalette palette;
 	SyntaxColors *syntax = new SyntaxColors();
-	textButton->setPaletteBackgroundColor(syntax->textColor);
-	commentButton->setPaletteBackgroundColor(syntax->commentColor);
-	keywordButton->setPaletteBackgroundColor(syntax->keywordColor);
-	errorButton->setPaletteBackgroundColor(syntax->errorColor);
-	signButton->setPaletteBackgroundColor(syntax->signColor);
-	stringButton->setPaletteBackgroundColor(syntax->stringColor);
-	numberButton->setPaletteBackgroundColor(syntax->numberColor);
+	palette.setColor(textButton->backgroundRole(), syntax->textColor);
+ 	textButton->setPalette(palette);
+	palette.setColor(commentButton->backgroundRole(), syntax->commentColor);
+ 	commentButton->setPalette(palette);
+	palette.setColor(keywordButton->backgroundRole(), syntax->keywordColor);
+ 	keywordButton->setPalette(palette);
+	palette.setColor(errorButton->backgroundRole(), syntax->errorColor);
+ 	errorButton->setPalette(palette);
+	palette.setColor(signButton->backgroundRole(), syntax->signColor);
+ 	signButton->setPalette(palette);
+	palette.setColor(stringButton->backgroundRole(), syntax->stringColor);
+ 	stringButton->setPalette(palette);
+	palette.setColor(numberButton->backgroundRole(), syntax->numberColor);
+ 	numberButton->setPalette(palette);
 	delete(syntax);
 }
 
@@ -114,7 +126,7 @@ void ScripterPrefsGui::changeStartupScript()
 	if (!fi.exists())
 		currentScript = QDir::homePath();
 
-	QString s = QFileDialog::getOpenFileName(currentScript, "Python Scripts (*.py *.PY)", this, "d", tr("Locate Startup Script"));
+	QString s = QFileDialog::getOpenFileName(this, tr("Locate Startup Script"), currentScript, "Python Scripts (*.py *.PY)");
 	if (!s.isEmpty())
 		startupScriptEdit->setText(s);
 }

@@ -66,10 +66,10 @@ void TextFilter::loadText()
 	if (!fi.exists())
 		return;
 //	bool ret;
-	QByteArray bb(f.size());
+	QByteArray bb(f.size(), ' ');
 	if (f.open(QIODevice::ReadOnly))
 	{
-		f.readBlock(bb.data(), f.size());
+		f.read(bb.data(), f.size());
 		f.close();
 		for (int posi = 0; posi < bb.size(); ++posi)
 			text += QChar(bb[posi]);
@@ -82,8 +82,8 @@ void TextFilter::toUnicode()
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding);
-	QString dec = codec->toUnicode(text);
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+	QString dec = codec->toUnicode(text.toLocal8Bit());
 	text = dec;
 }
 
@@ -129,7 +129,7 @@ void TextFilter::write()
 		writer->append(text);
 	else
 	{
-		QStringList list = QStringList::split("\n", text, true);
+		QStringList list = text.split("\n", QString::KeepEmptyParts);
 		gtParagraphStyle *useStyle = NULL;
 		for (int i = 0; i < static_cast<int>(list.size()); ++i)
 		{

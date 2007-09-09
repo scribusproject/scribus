@@ -93,7 +93,7 @@ DocIm::DocIm(const QString& fname, const QString& enc, bool textO, gtWriter *w) 
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding);
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
 	QTextCodec::setCodecForCStrings(codec);
 	text = "";
 	error = "";
@@ -179,8 +179,8 @@ void DocIm::toUnicode()
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding);
-	QString dec = codec->toUnicode( text );
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+	QString dec = codec->toUnicode( text.toLocal8Bit() );
 	text = dec;
 }
 

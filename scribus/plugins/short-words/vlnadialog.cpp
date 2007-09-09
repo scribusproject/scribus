@@ -88,11 +88,11 @@ SWDialog::SWDialog(QWidget* parent) : QDialog(parent)
 	layout1->setSpacing(5);
 
 	okButton = new QPushButton(this);
-	okButton->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)0, 0, 0, okButton->sizePolicy().hasHeightForWidth()));
+	okButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
 	layout1->addWidget(okButton);
 
 	cancelButton = new QPushButton(this);
-	cancelButton->setSizePolicy(QSizePolicy((QSizePolicy::SizeType)1, (QSizePolicy::SizeType)0, 0, 0, cancelButton->sizePolicy().hasHeightForWidth()));
+	cancelButton->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
 	layout1->addWidget(cancelButton);
 
 	layout2->addLayout(layout1);

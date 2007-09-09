@@ -18,7 +18,7 @@ satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : 
 	setupUi(this);
 	setModal(true);
 	setWindowTitle( tr("Save as Template"));
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 	readPrefs();
 	
 	nameEdit->setText(tmplName);
@@ -123,9 +123,9 @@ void satdialog::setupCategories()
 	for (uint i = 0; i < cats.size(); ++i)
 		list->append(*cats[i]->second);
 	list->sort();
+	catsCombo->addItem("");
 	QStringList list2 = *list;
-	catsCombo->insertStringList(list2);
-	catsCombo->insertItem("",0);
+	catsCombo->addItems(list2);
 	catsCombo->setEditable(true);
 }
 

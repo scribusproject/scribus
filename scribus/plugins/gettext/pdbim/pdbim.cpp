@@ -69,8 +69,8 @@ void PdbIm::write()
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding);
-	data = codec->toUnicode(data);
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+	data = codec->toUnicode(data.toLocal8Bit());
 	gtParagraphStyle *pstyle = new gtParagraphStyle(*(writer->getDefaultStyle()));
 	pstyle->setName(writer->getFrameName() + "-" + QObject::tr("PDB_data", "PDB Importer"));
 	writer->append(data, pstyle);
@@ -79,7 +79,7 @@ void PdbIm::write()
 
 void PdbIm::loadFile(QString fname)
 {
-	FILE *m_pdfp = fopen(fname, "rb");
+	FILE *m_pdfp = fopen(fname.toLocal8Bit(), "rb");
 	pdb_header m_header;
 	DWord file_size, offset;
 	doc_record0 m_rec0;

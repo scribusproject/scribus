@@ -24,10 +24,10 @@ the Free Software Foundation; either version 2 of the License, or
 
 
 PythonConsole::PythonConsole( QWidget* parent)
-	: QMainWindow( parent, "PythonConsole", Qt::WType_TopLevel )
+	: QMainWindow( parent )
 {
 	setupUi(this);
-	setIcon(loadIcon("AppIcon.png"));
+	setWindowIcon(loadIcon("AppIcon.png"));
 
 	changedLabel = new QLabel(this);
 	cursorTemplate = tr("Col: %1 Row: %2/%3");
@@ -46,7 +46,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	action_Run->setShortcut(Qt::Key_F9);
 	actionRun_As_Console->setShortcut(Qt::CTRL + Qt::Key_F9);
 
-	commandEdit->setTabStopWidth(commandEdit->pointSize() * 4);
+	commandEdit->setTabStopWidth(qRound(commandEdit->fontPointSize() * 4));
 
 	// install syntax highlighter.
 	//SyntaxHighlighter *sxHigh =
@@ -138,12 +138,12 @@ void PythonConsole::slot_runScriptAsConsole()
 
 void PythonConsole::parsePythonString()
 {
-	if (commandEdit->hasSelectedText())
-		m_command = commandEdit->selectedText();
+	if (commandEdit->textCursor().hasSelection())
+		m_command = commandEdit->textCursor().selectedText();
 	else
 	{
 		commandEdit->selectAll();
-		m_command = commandEdit->selectedText();
+		m_command = commandEdit->textCursor().selectedText();
 	}
 	// prevent user's wrong selection
 	m_command += '\n';
@@ -154,18 +154,17 @@ void PythonConsole::parsePythonString()
  */
 void PythonConsole::slot_open()
 {
-	filename = QFileDialog::getOpenFileName(".",
-			tr("Python Scripts (*.py *.PY)"),
-			this,
-			"ofdialog",
-			tr("Open Python Script File"));
+	filename = QFileDialog::getOpenFileName(this,
+			tr("Open Python Script File"),
+			".",
+			tr("Python Scripts (*.py *.PY)"));
 	if (filename.isNull())
 		return;
 	QFile file(filename);
 	if (file.open(QIODevice::ReadOnly))
 	{
 		QTextStream stream(&file);
-		commandEdit->setText(stream.read());
+		commandEdit->setPlainText(stream.readAll());
 		file.close();
 	}
 }
@@ -181,7 +180,7 @@ void PythonConsole::slot_save()
 	if (f.open(QIODevice::WriteOnly))
 	{
 		QTextStream stream(&f);
-		stream << commandEdit->text();
+		stream << commandEdit->toPlainText();
 		f.close();
 	}
 }
@@ -189,11 +188,10 @@ void PythonConsole::slot_save()
 void PythonConsole::slot_saveAs()
 {
 	QString oldFname = filename;
-	filename = QFileDialog::getSaveFileName(".",
-			tr("Python Scripts (*.py *.PY)"),
-			this,
-			"sfdialog",
-			tr("Save the Python Commands in File"));
+	filename = QFileDialog::getSaveFileName(this,
+			tr("Save the Python Commands in File"),
+			".",
+			tr("Python Scripts (*.py *.PY)"));
 	if (filename.isNull())
 		return;
 	QFile f(filename);
@@ -201,7 +199,7 @@ void PythonConsole::slot_saveAs()
 	{
 		QString fn = QDir::convertSeparators(filename);
 		if (ScMessageBox::warning(this, CommonStrings::trWarning,
-			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(fn)) + "</qt>",
+			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(fn).toLocal8Bit().constData()) + "</qt>",
 			QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
 		{
 			filename = oldFname;
@@ -213,11 +211,10 @@ void PythonConsole::slot_saveAs()
 
 void PythonConsole::slot_saveOutput()
 {
-	QString fname = QFileDialog::getSaveFileName(".",
-			tr("Text Files (*.txt)"),
-			this,
-			"sfdialog",
-			tr("Save Current Output"));
+	QString fname = QFileDialog::getSaveFileName(this,
+			tr("Save Current Output"),
+			".",
+			tr("Text Files (*.txt)"));
 	if (fname == QString::null)
 		return;
 	QFile f(fname);
@@ -225,7 +222,7 @@ void PythonConsole::slot_saveOutput()
 	{
 		QString fn = QDir::convertSeparators(filename);
 		if (QMessageBox::warning(this, CommonStrings::trWarning,
-			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(fn)) + "</qt>",
+			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(fn).toLocal8Bit().constData()) + "</qt>",
 			QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
 			return;
 	}
@@ -233,7 +230,7 @@ void PythonConsole::slot_saveOutput()
 	if (f.open(QIODevice::WriteOnly))
 	{
 		QTextStream stream(&f);
-		stream << outputEdit->text();
+		stream << outputEdit->toPlainText();
 		f.close();
 	}
 }

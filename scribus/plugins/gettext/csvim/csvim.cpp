@@ -93,16 +93,16 @@ void CsvIm::loadFile()
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return;
-	QByteArray bb(f.size());
+	QByteArray bb(f.size(), ' ');
 	if (f.open(QIODevice::ReadOnly))
 	{
-		f.readBlock(bb.data(), f.size());
+		f.read(bb.data(), f.size());
 		f.close();
 		for (int posi = 0; posi < bb.size(); ++posi)
 			text += QChar(bb[posi]);
 	}
 	text = toUnicode(text);
-	QStringList lines = QStringList::split("\n", text);
+	QStringList lines = text.split("\n");
 	uint i;
 	if (hasHeader)
 	{
@@ -130,7 +130,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 {
 	if ((line.indexOf(valueDelimiter) < 0) || (!useVDelim))
 	{
-		QStringList l = QStringList::split(fieldDelimiter, line);
+		QStringList l = line.split(fieldDelimiter);
 		for (int i = 0; i < l.size(); ++i)
 		{
 			++colIndex;
@@ -221,8 +221,8 @@ QString CsvIm::toUnicode(const QString& text)
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding);
-	QString dec = codec->toUnicode(text);
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+	QString dec = codec->toUnicode(text.toLocal8Bit());
 	return dec;
 }
 

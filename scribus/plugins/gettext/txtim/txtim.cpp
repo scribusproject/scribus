@@ -54,10 +54,10 @@ void TxtIm::loadText()
 	QFileInfo fi(f);
 	if (!fi.exists())
 		return;
-	QByteArray bb(f.size());
+	QByteArray bb(f.size(), ' ');
 	if (f.open(QIODevice::ReadOnly))
 	{
-		f.readBlock(bb.data(), f.size());
+		f.read(bb.data(), f.size());
 		f.close();
 		for (int posi = 0; posi < bb.size(); ++posi)
 			text += QChar(bb[posi]);
@@ -70,8 +70,8 @@ void TxtIm::toUnicode()
 	if (encoding.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
-		codec = QTextCodec::codecForName(encoding);
-	QString dec(codec->toUnicode( text ));
+		codec = QTextCodec::codecForName(encoding.toLocal8Bit());
+	QString dec(codec->toUnicode( text.toLocal8Bit() ));
 	text = dec;
 }
 

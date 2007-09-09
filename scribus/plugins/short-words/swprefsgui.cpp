@@ -124,7 +124,7 @@ void SWPrefsGui::okButton_pressed()
 	}
 	QTextStream stream(&f);
 	stream.setCodec("UTF-8");
-	stream << cfgEdit->text();
+	stream << cfgEdit->toPlainText();
 	f.close();
 	titleLabel->setText( tr("User settings saved"));
 	okButton->setEnabled(false);
@@ -151,7 +151,7 @@ bool SWPrefsGui::loadCfgFile(QString filename)
 	QFile f(filename);
 	if (!f.open(QIODevice::ReadOnly))
 	{
-		titleLabel->setText( tr("Cannot open file %1").arg(f.name()));
+		titleLabel->setText( tr("Cannot open file %1").arg(f.fileName()));
 		return false;
 	}
 	cfgEdit->clear();

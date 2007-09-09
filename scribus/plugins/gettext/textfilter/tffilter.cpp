@@ -25,21 +25,21 @@ for which a new license (GPL+exception) is in place.
 tfFilter::tfFilter(QWidget *parent, const char *name,
                    int action, QString regExp, QString replace, QString pstyleName,
                    int less, int more, int style, bool match, bool enabled, bool regexp)
-                   : QWidget(parent, name)
+                   : QWidget(parent)
 {
 	createWidget();
-
+	setObjectName(name);
 	firstChanged(action);
 	currentAction = action;
-	firstCombo->setCurrentItem(action);
+	firstCombo->setCurrentIndex(action);
 	if (action == APPLY)
 	{
-		thirdCombo->setCurrentText(pstyleName);
+		thirdCombo->setItemText(thirdCombo->currentIndex(), pstyleName);
 		fourthChanged(style);
 		fourthCombo->setCurrentIndex(style);
 		if (style == STARTS_WITH)
 		{
-			fifthCombo->setCurrentText(regExp);
+			fifthCombo->setItemText(fifthCombo->currentIndex(), regExp);
 			fifthRegexpCheck->setChecked(regexp);
 			if (match)
 				sixthCombo->setCurrentIndex(0);
@@ -49,32 +49,33 @@ tfFilter::tfFilter(QWidget *parent, const char *name,
 		else if (style == LESS_THAN)
 		{
 			if (less > 0)
-				fifthCombo->setCurrentText(QString("%1").arg(less));
+				fifthCombo->setItemText(fifthCombo->currentIndex(), QString("%1").arg(less));
 		}
 		else if (style == MORE_THAN)
 		{
 			if (more > 0)
-				fifthCombo->setCurrentText(QString("%1").arg(more));
+				fifthCombo->setItemText(fifthCombo->currentIndex(), QString("%1").arg(more));
 		}
 	}
 	else if (action == REMOVE) 
 	{
-		secondCombo->setCurrentText(regExp);
+		secondCombo->setItemText(secondCombo->currentIndex(), regExp);
 		secondRegexpCheck->setChecked(regexp);
 	}
 	else if (action == REPLACE)
 	{
-		secondCombo->setCurrentText(regExp);
+		secondCombo->setItemText(secondCombo->currentIndex(), regExp);
 		secondRegexpCheck->setChecked(regexp);
-		thirdCombo->setCurrentText(replace);
+		thirdCombo->setItemText(thirdCombo->currentIndex(), replace);
 	}
 	enableCheck->setChecked(enabled);
 	enableToggled(enabled);
 }
 
-tfFilter::tfFilter(QWidget *parent, const char *name) : QWidget(parent, name)
+tfFilter::tfFilter(QWidget *parent, const char *name) : QWidget(parent)
 {
 	createWidget();
+	setObjectName(name);
 }
 
 void tfFilter::createWidget()
@@ -130,12 +131,12 @@ void tfFilter::createWidget()
 // 	layout->addStretch(10);
 
 	layout->addSpacing(20);
-	removeButton = new QPushButton(loadIcon("22/list-remove.png"), 0, this, "removeButton");
+	removeButton = new QPushButton(loadIcon("22/list-remove.png"), 0, this);
 	removeButton->setToolTip( tr("Remove this filter row"));
 	removeButton->setMaximumSize(QSize(25,25));
 	removeButton->setMinimumSize(QSize(25,25));
 	layout->addWidget(removeButton);
-	addButton = new QPushButton(loadIcon("22/list-add.png"), 0, this, "addButton");
+	addButton = new QPushButton(loadIcon("22/list-add.png"), 0, this);
 	addButton->setToolTip( tr("Add a new filter row"));
 	addButton->setMaximumSize(QSize(25,25));
 	addButton->setMinimumSize(QSize(25,25));
@@ -319,7 +320,7 @@ void tfFilter::getSecondCombo()
 			secondRegexpCheck->show();
 			break;
 	}
-	getThirdCombo(secondCombo->currentItem());
+	getThirdCombo(secondCombo->currentIndex());
 }
 
 void tfFilter::getThirdCombo(int)
@@ -485,7 +486,7 @@ void tfFilter::resetBRow()
 
 void tfFilter::getParagraphStyles()
 {
-	thirdCombo->insertItem("");
+	thirdCombo->addItem("");
 	for (int i = 0; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
 	{
 		thirdCombo->addItem(ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name());
@@ -550,14 +551,14 @@ int tfFilter::getStyle()
 {
 	if (!fourthCombo)
 		return 0;
-	return fourthCombo->currentItem();
+	return fourthCombo->currentIndex();
 }
 
 bool tfFilter::removeMatch()
 {
 	if (!sixthCombo)
 		return false;
-	return sixthCombo->currentItem() == 0;
+	return sixthCombo->currentIndex() == 0;
 }
 
 int tfFilter::getMoreThan()

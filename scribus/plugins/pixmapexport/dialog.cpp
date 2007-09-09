@@ -19,9 +19,10 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 
 ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, QString type)
-	: QDialog(parent, "ExportForm", true, 0), m_doc(doc), m_PageCount(doc->DocPages.count())
+	: QDialog(parent, 0), m_doc(doc), m_PageCount(doc->DocPages.count())
 {
 	setupUi(this);
+	setModal(true);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("pixmapexport");
 	
 	outputDirectory->setText( QDir::convertSeparators(prefs->get("wdir", QDir::currentPath())) );
@@ -30,12 +31,12 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	{
 		bitmapType->addItem(imgs[a]);
 	}
-	bitmapType->setCurrentText(type.toLower());
+	bitmapType->setItemText(bitmapType->currentIndex(), type.toLower());
 	qualityBox->setValue(quality);
 	DPIBox->setValue(size);
 	enlargementBox->setValue(size);
 	onePageRadio->setChecked( true );
- 	pageNrButton->setPixmap(loadIcon("ellipsis.png"));
+ 	pageNrButton->setIcon(loadIcon("ellipsis.png"));
 	rangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
 
@@ -55,8 +56,8 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 void ExportForm::computeSize()
 {
 	double pixmapSize;
-	double pw = (onePageRadio->isOn() && m_doc->currentPage()) ? m_doc->currentPage()->width() : m_doc->pageWidth;
-	double ph = (onePageRadio->isOn() && m_doc->currentPage()) ? m_doc->currentPage()->height() : m_doc->pageHeight;
+	double pw = (onePageRadio->isChecked() && m_doc->currentPage()) ? m_doc->currentPage()->width() : m_doc->pageWidth;
+	double ph = (onePageRadio->isChecked() && m_doc->currentPage()) ? m_doc->currentPage()->height() : m_doc->pageHeight;
 	(ph > pw) ? pixmapSize = ph : pixmapSize = pw;
 	int maxGr = qRound(pixmapSize * enlargementBox->value() * (DPIBox->value() / 72.0) / 100.0);
 	double sc = qMin(maxGr / pw, maxGr / ph);
@@ -66,7 +67,7 @@ void ExportForm::computeSize()
 void ExportForm::OutputDirectoryButton_pressed()
 {
 	QString lastDir = prefs->get("wdir", ".");
-	QString d = QFileDialog::getExistingDirectory(lastDir, this, "d", tr("Choose a Export Directory"), true);
+	QString d = QFileDialog::getExistingDirectory(this, tr("Choose a Export Directory"), lastDir);
 	if (d.length()>0)
 	{
 		d = QDir::convertSeparators(d);
@@ -131,7 +132,7 @@ void ExportForm::readConfig()
 	rangeVal->setEnabled(b==2);
 	pageNrButton->setEnabled(b==2);
 
-	bitmapType->setCurrentItem(prefs->getInt("BitmapType", 4));
+	bitmapType->setCurrentIndex(prefs->getInt("BitmapType", 4));
 	rangeVal->setText(prefs->get("RangeVal", ""));
 }
 
@@ -148,7 +149,7 @@ void ExportForm::writeConfig()
 	else
 		b = 2;
 	prefs->set("ButtonGroup1", b);
-	prefs->set("BitmapType", bitmapType->currentItem());
+	prefs->set("BitmapType", bitmapType->currentIndex());
 	prefs->set("RangeVal", rangeVal->text());
 }
 
