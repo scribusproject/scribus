@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "missing.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
+#include "scpattern.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "sccolorengine.h"
