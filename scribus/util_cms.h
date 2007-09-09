@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "scribusapi.h"
-#if defined(HAVE_CMS)
 #include CMS_INC
 
 cmsHTRANSFORM scCmsCreateTransform(cmsHPROFILE Input, DWORD InputFormat,
@@ -21,5 +20,4 @@ cmsHTRANSFORM scCmsCreateProofingTransform(cmsHPROFILE Input, DWORD InputFormat,
 								cmsHPROFILE Proofing,int Intent, 
 								int ProofingIntent, DWORD dwFlags);
 
-#endif
 #endif
