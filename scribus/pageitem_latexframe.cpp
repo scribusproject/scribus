@@ -582,7 +582,7 @@ bool PageItem_LatexFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGr
 	commandT->setText(getRealApplication());
 	infoGroupLayout->addWidget( commandT, 1, 1 );
 	
-	dpiCT->setText(tr(tr("DPI: ")));
+	dpiCT->setText(tr("DPI: "));
 	infoGroupLayout->addWidget( dpiCT, 2, 0, Qt::AlignRight );
 	dpiT->setText(QString::number(getRealDpi()));
 	infoGroupLayout->addWidget( dpiT, 2, 1 );
