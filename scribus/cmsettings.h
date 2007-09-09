@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 class ScribusDoc;
 
-#include "lcms.h"
+#include CMS_INC
 
 class SCRIBUS_API CMSettings
 {

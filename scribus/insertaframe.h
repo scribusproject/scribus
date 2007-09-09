@@ -24,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 
 class ScribusDoc;
-class InsertAFrameData;
+struct InsertAFrameData;
 
 class SCRIBUS_API InsertAFrame : public QDialog, Ui::InsertAFrame
 {

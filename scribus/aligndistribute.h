@@ -44,7 +44,7 @@ class ScrSpinBox;
 class ScribusMainWindow;
 class ScribusDoc;
 class UndoManager;
-class AlignObjs;
+struct AlignObjs;
 
 class SCRIBUS_API AlignDistributePalette : public ScrPaletteBase, Ui::AlignDistribute
 {

@@ -18,7 +18,7 @@ class QComboBox;
 class QGroupBox;
 class QLabel;
 class ScribusDoc;
-class CMSData;
+struct CMSData;
 typedef QMap<QString,QString> ProfilesL;
 
 class SCRIBUS_API CMSPrefs : public QWidget

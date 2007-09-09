@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include <QList>
 
-class ArrowDesc;
+struct ArrowDesc;
 
 class SCRIBUS_API ArrowChooser : public QComboBox
 {
