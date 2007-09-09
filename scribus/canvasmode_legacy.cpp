@@ -2079,7 +2079,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
 		{
-			m_view->requestMode(submodePaintingDone);
+			m_view->requestMode(modeNormal);
+//			m_view->requestMode(submodePaintingDone);
 		}
 		else
 			m_view->requestMode(m_doc->appMode);
@@ -2123,7 +2124,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
 		{
-			m_view->requestMode(submodePaintingDone);
+			m_view->requestMode(modeNormal);
+//			m_view->requestMode(submodePaintingDone);
 		}
 		else
 			m_view->requestMode(m_doc->appMode);
@@ -2417,7 +2419,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					m_doc->SnapGuides = oldSnap;
 					if (!PrefsManager::instance()->appPrefs.stickyTools)
 					{
-						m_view->requestMode(submodePaintingDone);
+						m_view->requestMode(modeNormal);
+//						m_view->requestMode(submodePaintingDone);
 					}
 					else
 					{
@@ -3441,7 +3444,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			if (!PrefsManager::instance()->appPrefs.stickyTools)
 			{
 //				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				m_view->requestMode(submodePaintingDone);
+				m_view->requestMode(modeNormal);
+//				m_view->requestMode(submodePaintingDone);
 			}
 			else
 			{
@@ -3630,7 +3634,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		if (!PrefsManager::instance()->appPrefs.stickyTools)
 		{
 //			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			m_view->requestMode(submodePaintingDone);
+			m_view->requestMode(modeNormal);
+//			m_view->requestMode(submodePaintingDone);
 		}
 		else
 			m_view->requestMode(m_doc->appMode);

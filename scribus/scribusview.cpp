@@ -484,6 +484,8 @@ void ScribusView::requestMode(int appMode)
 		}
 		updateNecessary = true;
 	}
+	else
+		m_ScMW->setAppMode(appMode);
 	if (updateNecessary)
 		updateContents();
 }
