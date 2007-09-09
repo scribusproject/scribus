@@ -127,7 +127,7 @@ public:
 	/*!
 	* \retval 0 - ok, 1 - no fonts, ...
 	*/
-	int initScribus(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile);
+	int initScribus(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	void showSplash(bool);
 	bool splashShowing() const;
 	void closeSplash();
@@ -160,8 +160,8 @@ public:
 	QString CFileDialog(QString wDir = ".", QString caption = "", QString filter = "", QString defNa = "",
 						bool Pre = false, bool mod = true, bool comp = false, bool cod = false,
 						bool onlyDirs = false, bool *docom = 0, bool *doFont = 0);
-	void GetCMSProfiles();
-	void GetCMSProfilesDir(QString pfad);
+	void GetCMSProfiles(bool showInfo);
+	void GetCMSProfilesDir(QString pfad, bool showInfo);
 	void InitDefaultColorTransforms(void);
 	void TermDefaultColorTransforms(void);
 #ifdef HAVE_CMS

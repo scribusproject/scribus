@@ -229,7 +229,7 @@ ScribusMainWindow::ScribusMainWindow()
 /*
  * retval 0 - ok, 1 - no fonts, ...
  */
-int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QString /*newGuiLanguage*/, const QString prefsUserFile)
+int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString /*newGuiLanguage*/, const QString prefsUserFile)
 {
 	CommonStrings::languageChange();
 	int retVal=0;
@@ -315,7 +315,7 @@ int ScribusMainWindow::initScribus(bool showSplash, bool showFontInfo, const QSt
 
 		setSplashStatus( tr("Reading ICC Profiles") );
 		CMSavail = false;
-		GetCMSProfiles();
+		GetCMSProfiles(showProfileInfo);
 		initCMS();
 
 		setSplashStatus( tr("Initializing Hyphenator") );
@@ -7028,7 +7028,7 @@ void ScribusMainWindow::slotPrefsOrg()
 		FontSub->RebuildList(0);
 		propertiesPalette->Fonts->RebuildList(0);
 
-		GetCMSProfiles();
+		GetCMSProfiles(false);
 		SetShortCut();
 		emit prefsChanged();
 	}
@@ -8027,7 +8027,7 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 	return retval;
 }
 
-void ScribusMainWindow::GetCMSProfiles()
+void ScribusMainWindow::GetCMSProfiles(bool showInfo)
 {
 	QString profDir;
 	QStringList profDirs;
@@ -8047,7 +8047,7 @@ void ScribusMainWindow::GetCMSProfiles()
 		{
 			if(profDir.right(1) != "/")
 				profDir += "/";
-			GetCMSProfilesDir(profDir);
+			GetCMSProfilesDir(profDir, showInfo);
 		}
 	}
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
@@ -8056,7 +8056,7 @@ void ScribusMainWindow::GetCMSProfiles()
 		CMSavail = false;
 }
 
-void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
+void ScribusMainWindow::GetCMSProfilesDir(QString pfad, bool showInfo)
 {
 #ifdef HAVE_CMS
 	QDir d(pfad, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoSymLinks);
@@ -8071,7 +8071,7 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 			QFileInfo fi(pfad + "/" + d[dc]);
 			if (fi.isDir() && d[dc][0] != '.')
 			{
-				GetCMSProfilesDir(fi.filePath()+"/");
+				GetCMSProfilesDir(fi.filePath()+"/", showInfo);
 				continue;
 			}
 
@@ -8094,6 +8094,9 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 				const QCString profilePath( QString(pfad + d[dc]).local8Bit() );
 				if (setjmp(cmsJumpBuffer))
 				{
+					// Profile is broken, show info if necessary
+					if (showInfo)
+						sDebug(QString("Color profile %s is broken").arg(fi.filePath()));
 					// Reset to the default handler otherwise may enter a loop
 					// if an error occur in cmsCloseProfile()
 					cmsSetErrorHandler(NULL);
@@ -8139,6 +8142,8 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 				}
 				cmsCloseProfile(hIn);
 				hIn = NULL;
+				if (showInfo)
+					sDebug( QString("Color profile %1 loaded from %2").arg(nam).arg(pfad + d[dc]) );
 			}
 		}
 		cmsSetErrorHandler(NULL);

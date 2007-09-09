@@ -54,6 +54,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_NOGUI "--no-gui"
 #define ARG_DISPLAY "--display"
 #define ARG_FONTINFO "--font-info"
+#define ARG_PROFILEINFO "--profile-info"
 #define ARG_SWAPDIABUTTONS "--swap-buttons"
 #define ARG_PREFS "--prefs"
 
@@ -65,6 +66,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_NOGUI_SHORT "-g"
 #define ARG_DISPLAY_SHORT "-d"
 #define ARG_FONTINFO_SHORT "-fi"
+#define ARG_PROFILEINFO_SHORT "-pi"
 #define ARG_SWAPDIABUTTONS_SHORT "-sb"
 #define ARG_PREFS_SHORT "-pr"
 
@@ -109,6 +111,7 @@ void ScribusQApp::parseCommandLine()
 	bool availlangs=false;
 	bool version=false;
 	showFontInfo=false;
+	showProfileInfo=false;
 	swapDialogButtonOrder=false;
 
 	//Parse for command line information options, and lang
@@ -160,6 +163,8 @@ void ScribusQApp::parseCommandLine()
 			useGUI=false;
 		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
 			showFontInfo=true;
+		} else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT) {
+			showProfileInfo=true;
 		} else if (arg == ARG_SWAPDIABUTTONS || arg == ARG_SWAPDIABUTTONS_SHORT) {
 			swapDialogButtonOrder=true;
 		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argc()) {
@@ -210,7 +215,7 @@ int ScribusQApp::init()
 		ScMW=scribus;
 		if (!scribus)
 			exit(EXIT_FAILURE);
-		int scribusRetVal = scribus->initScribus(showSplash, showFontInfo, lang, prefsUserFile);
+		int scribusRetVal = scribus->initScribus(showSplash, showFontInfo, showProfileInfo, lang, prefsUserFile);
 		if (scribusRetVal == 1)
 			return(EXIT_FAILURE);
 
@@ -407,6 +412,8 @@ void ScribusQApp::showUsage()
 		tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
 	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" " + tr("filename"),
 		tr("Use filename as path for user given preferences") );
+	printArgLine(ts, ARG_PROFILEINFO_SHORT, ARG_PROFILEINFO, 
+		tr("Show location ICC profile information on console while starting") );
 #if defined(_WIN32) && !defined(_CONSOLE)
 	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE,
 		tr("Display a console window") );
