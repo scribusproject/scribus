@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "importai.h"
 
 #include "scconfig.h"
+#include "scpattern.h"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "commonstrings.h"
