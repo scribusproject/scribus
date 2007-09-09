@@ -37,11 +37,11 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include <QDebug>
 
-Imposition::Imposition(QWidget* parent, ScribusDoc* doc)
-  : QDialog(parent,"Imposition", true, 0)
+Imposition::Imposition(QWidget* parent, ScribusDoc* doc) : QDialog(parent)
 {
 	UndoManager::instance()->setUndoEnabled(false);
 	setupUi(this);
+	setModal(true);
 
 	languageChange();
 	
@@ -58,19 +58,19 @@ Imposition::Imposition(QWidget* parent, ScribusDoc* doc)
 	pageHeightBox->setSuffix(unitSuffix);
 
 	//fill Page Size combobox
-	PageSize ps(tr(doc->m_pageSize));
-	pageSizeComboBox->insertStringList(ps.sizeTRList());
-	pageSizeComboBox->insertItem( CommonStrings::trCustomPageSize);
+	PageSize ps( tr(doc->m_pageSize.toLocal8Bit().constData()));
+	pageSizeComboBox->addItems(ps.sizeTRList());
+	pageSizeComboBox->addItem( CommonStrings::trCustomPageSize);
 	
 	QStringList pageSizes=ps.sizeList();
 	int sizeIndex=pageSizes.indexOf(ps.nameTR());
 	if (sizeIndex!=-1)
-		pageSizeComboBox->setCurrentItem(sizeIndex);
+		pageSizeComboBox->setCurrentIndex(sizeIndex);
 	else
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+		pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
 
-	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
-	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
+	pageOrientationComboBox->addItem( tr( "Portrait" ) );
+	pageOrientationComboBox->addItem( tr( "Landscape" ) );
 
 	//put page dimensions to boxes
 	pageWidthBox->setValue(ps.width() * unitRatio);
@@ -79,20 +79,20 @@ Imposition::Imposition(QWidget* parent, ScribusDoc* doc)
 	//fill grid pages boxes with pagelists
 	for (int i = 1; i <= (int)(doc->Pages->count()); i++)
 	{
-		cbFront->insertItem(QString::number(i));
-		cbBack->insertItem(QString::number(i));
+		cbFront->addItem(QString::number(i));
+		cbBack->addItem(QString::number(i));
 	}
 	
 	//fill folds pages boxes with pagelists
-	foldFrontPage->insertItem(QString::number(1));
-	foldBackPage->insertItem(QString::number(1));
+	foldFrontPage->addItem(QString::number(1));
+	foldBackPage->addItem(QString::number(1));
 	
 	for (int i = 1; i < (int)(srcDoc->Pages->count()); i++)
 	{
 		if (srcDoc->locationOfPage(i) == LeftPage)
 		{
-			foldFrontPage->insertItem(QString::number(i+1));
-			foldBackPage->insertItem(QString::number(i+1));
+			foldFrontPage->addItem(QString::number(i+1));
+			foldBackPage->addItem(QString::number(i+1));
 		}
 	}
 
@@ -140,7 +140,7 @@ void Imposition::setPageSize(const QString &size)
 	disconnect(pageWidthBox, SIGNAL(valueChanged(double)), this, SLOT(customizeSize()));
 	disconnect(pageHeightBox, SIGNAL(valueChanged(double)), this, SLOT(customizeSize()));
 	
-	PageSize* ps = new PageSize(tr(size));
+	PageSize* ps = new PageSize( tr(size.toLocal8Bit().constData()));
 	
 	pageWidthBox->setValue(ps->width() * unitRatio);
 	pageHeightBox->setValue(ps->height() * unitRatio);
@@ -1412,7 +1412,7 @@ void Imposition::changePage()
 	targetDoc->setGUI(true,ScCore->primaryMainWindow(),view);
 	
 	//update
-	switch (impositionTabWidget->currentPageIndex())
+	switch (impositionTabWidget->currentIndex())
 	{
 		case 0:	changeDocGrid();
 		break;
@@ -1427,7 +1427,7 @@ void Imposition::changePage()
 bool Imposition::verifyPage()
 {
 	bool result = false;
-	switch (impositionTabWidget->currentPageIndex())
+	switch (impositionTabWidget->currentIndex())
 	{
 		case 0: 
 			result = verifyGrid();
@@ -1491,7 +1491,7 @@ bool Imposition::verifyFold()
 
 void Imposition::customizeSize()
 {
-	pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+	pageSizeComboBox->setCurrentIndex(pageSizeComboBox->count()-1);
 }
 
 void Imposition::change2SidesBox(int state)

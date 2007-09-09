@@ -118,7 +118,7 @@ void SVGImportPlugin::registerFormats()
 	fmt.trName = FormatsManager::instance()->nameOfFormat(FormatsManager::SVG);
 	fmt.formatId = FORMATID_SVGIMPORT;
 	fmt.filter = FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG);
- 	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::SVG, 1)+"$", false);
+ 	fmt.nameMatch = QRegExp("\\."+FormatsManager::instance()->extensionListForFormat(FormatsManager::SVG, 1)+"$", Qt::CaseInsensitive);
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = FormatsManager::instance()->mimetypeOfFormat(FormatsManager::SVG);
@@ -206,7 +206,7 @@ bool SVGPlug::import(QString fname, int flags)
 		return false;
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
-	QDir::setCurrent(efp.dirPath());
+	QDir::setCurrent(efp.path());
 	convert(flags);
 	QDir::setCurrent(CurDirP);
 	return true;
@@ -216,11 +216,11 @@ bool SVGPlug::loadData(QString fName)
 {
 	QString f("");
 	bool isCompressed = false;
-	QByteArray bb(3);
+	QByteArray bb(3, ' ');
 	QFile fi(fName);
 	if (fi.open(QIODevice::ReadOnly))
 	{
-		fi.readBlock(bb.data(), 2);
+		fi.read(bb.data(), 2);
 		fi.close();
 		// Qt4 bb[0]->QChar(bb[0])
 		if ((QChar(bb[0]) == QChar(0x1F)) && (QChar(bb[1]) == QChar(0x8B)))
@@ -231,7 +231,7 @@ bool SVGPlug::loadData(QString fName)
 		gzFile gzDoc;
 		char buff[4097];
 		int i;
-		gzDoc = gzopen(fName.latin1(),"rb");
+		gzDoc = gzopen(fName.toLatin1().constData(),"rb");
 		if(gzDoc == NULL)
 			return false;
 		while((i = gzread(gzDoc,&buff,4096)) > 0)
@@ -301,7 +301,7 @@ void SVGPlug::convert(int flags)
 		double h2 = wh2.height();
 		addGraphicContext();
 		QString viewbox( docElem.attribute( "viewBox" ) );
-		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplified() );
+		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ' );
 		viewTransformX = points[0].toDouble();
 		viewTransformY = points[1].toDouble();
 		viewScaleX = w2 / points[2].toDouble();
@@ -654,13 +654,13 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e)
 	if ( xatt.contains(',') || xatt.contains(' ') )
 	{
 		xatt.replace(QChar(','), QChar(' '));
-		QStringList xl(QStringList::split(QChar(' '), xatt));
+		QStringList xl(xatt.split(QChar(' ')));
 		xatt = xl.first();
 	}
 	if ( yatt.contains(',') || yatt.contains(' ') )
 	{
 		yatt.replace(QChar(','), QChar(' '));
-		QStringList yl(QStringList::split(QChar(' '), yatt));
+		QStringList yl(yatt.split(QChar(' ')));
 		yatt = yl.first();
 	}
 	double x = parseUnit( xatt );
@@ -709,7 +709,7 @@ QRect SVGPlug::parseViewBox(const QDomElement &e)
 	if ( !e.attribute( "viewBox" ).isEmpty() )
 	{
 		QString viewbox( e.attribute( "viewBox" ) );
-		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplified() );
+		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ' );
 		double left = points[0].toDouble();
 		double bottom  = points[1].toDouble();
 		double width = points[2].toDouble();
@@ -1030,7 +1030,7 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 	else if(!isIgnorableNodeName(STag) )
 	{
 		// warn if unsupported SVG feature are encountered
-		qDebug(QString("unsupported SVG feature: %1").arg(STag));
+		qDebug(QString("unsupported SVG feature: %1").arg(STag).toLocal8Bit().constData());
 		unsupported = true;
 	}
 	return GElements;
@@ -1177,7 +1177,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 	{
 		QString STag = e.tagName();
 		points = points.simplified().replace(',', " ");
-		QStringList pointList = QStringList::split( ' ', points );
+		QStringList pointList = points.split( ' ' );
 		if (( e.tagName() == "polygon" ) && (pointList.count() > 4))
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 		else
@@ -1294,7 +1294,7 @@ QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement
 	int desc = fontMetrics.descent();
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
-	QString Text = QString::fromUtf8(e.text()).trimmed();
+	QString Text = e.text().trimmed();
 	QDomNode c = e.firstChild();
 	if ( e.tagName() == "tspan" && e.text().isNull() )
 			Text = " ";

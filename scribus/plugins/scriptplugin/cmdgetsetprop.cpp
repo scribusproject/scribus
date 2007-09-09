@@ -301,7 +301,8 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	}
 	else if (prop.type() == QVariant::StringList)
 	{
-		return convert_QStringList_to_PyListObject(prop.asStringList());
+		QStringList tmp = prop.toStringList();
+		return convert_QStringList_to_PyListObject(tmp);
 	}
 	// UNHANDLED TYPE
 	else
