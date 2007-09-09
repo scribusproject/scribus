@@ -55,7 +55,7 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7))
 	{
 		QString tm = item->annotation().Action();
-		tl = tm.split(" ");
+		tl = tm.split(" ", QString::SkipEmptyParts);
 	}
 	else
 	{

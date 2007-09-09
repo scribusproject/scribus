@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "missing.h"
 #include "rawimage.h"
+#include "scpattern.h"
 #include <tiffio.h>
 #include <zlib.h>
 #ifdef HAVE_PODOFO
@@ -612,7 +613,7 @@ bool AIPlug::parseHeader(QString fName, double &x, double &y, double &b, double 
 		f.close();
 		if (found)
 		{
-			QStringList bb = BBox.split(" ");
+			QStringList bb = BBox.split(" ", QString::SkipEmptyParts);
 			if (bb.count() == 4)
 			{
 				QTextStream ts2(&BBox, QIODevice::ReadOnly);
@@ -1019,7 +1020,7 @@ void AIPlug::processData(QString data)
 		Cdata = da[a];
 		if ((Cdata.startsWith("%")) || (Cdata.startsWith(" %")))
 			continue;
-		QStringList da2 = Cdata.split(" ");
+		QStringList da2 = Cdata.split(" ", QString::SkipEmptyParts);
 		if (da2.count() == 0)
 			return;
 		command = da2[da2.count()-1];
@@ -1674,7 +1675,7 @@ void AIPlug::processGradientData(QString data)
 	for (int a = 0; a < da.count(); a++)
 	{
 		Cdata = da[a];
-		QStringList da2 = Cdata.split(" ");
+		QStringList da2 = Cdata.split(" ", QString::SkipEmptyParts);
 		command = da2[da2.count()-1];
 		if (command == "Bd")
 		{

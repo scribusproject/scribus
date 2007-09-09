@@ -162,7 +162,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 			f.close();
 			if (found)
 			{
-				QStringList bb = BBox.split(" ");
+				QStringList bb = BBox.split(" ", QString::SkipEmptyParts);
 				if (bb.count() == 4)
 				{
 					QTextStream ts2(&BBox, QIODevice::ReadOnly);

@@ -379,7 +379,7 @@ void ColorManager::loadDefaults(const QString &txt)
 					}
 					else
 					{
-						QStringList fields = ColorEn.split(QChar(9));
+						QStringList fields = ColorEn.split(QChar(9), QString::SkipEmptyParts);
 						if (fields.count() != 5)
 							continue;
 						Cname = fields[0];

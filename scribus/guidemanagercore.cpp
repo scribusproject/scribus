@@ -577,7 +577,7 @@ double GuideManagerCore::closestVertRight(double x)// const
 
 void GuideManagerIO::readVerticalGuides(const QString guideString, Page *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
-	QStringList gVal(guideString.split(' '));
+	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
 			page->guides.addHorizontal((*it).toDouble(), type) :
@@ -586,7 +586,7 @@ void GuideManagerIO::readVerticalGuides(const QString guideString, Page *page, G
 
 void GuideManagerIO::readHorizontalGuides(const QString guideString, Page *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
-	QStringList gVal(guideString.split(' '));
+	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
 			page->guides.addVertical((*it).toDouble(), type):
@@ -631,7 +631,7 @@ void GuideManagerIO::readSelection(const QString guideString, Page *page)
 	// TODO: examine this check in 134vs.134qt4 - PV
 	if (guideString.isNull() || guideString.isEmpty())
 		return;
-	QStringList gVal(guideString.split(' '));
+	QStringList gVal(guideString.split(' ', QString::SkipEmptyParts));
 	page->guides.gx = gVal[0].toDouble();
 	page->guides.gy = gVal[1].toDouble();
 	page->guides.gw = gVal[2].toDouble();

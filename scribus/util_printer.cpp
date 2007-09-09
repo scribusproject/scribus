@@ -66,7 +66,7 @@ QStringList PrinterUtil::getPrinterNames()
 			{
 				tmp = tmp.trimmed();
 				tmp = tmp.left(tmp.length() - (tmp.right(2) == ":\\" ? 2 : 1));
-				wt = QStringList::split("|", tmp);
+				wt = tmp.split("|", QString::SkipEmptyParts);
 				printerName = wt[0];
 				printerNames.append(printerName);
 			}

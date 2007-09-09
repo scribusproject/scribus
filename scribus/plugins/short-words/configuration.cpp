@@ -79,7 +79,7 @@ QStringList SWConfig::getShortWordsFromFile(QString lang, QString filename)
 		f.close();
 	}
 	if (success)
-		return shorts.split(",");
+		return shorts.split(",", QString::SkipEmptyParts);
 	return QStringList();
 }
 

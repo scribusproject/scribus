@@ -146,7 +146,7 @@ Xml_string toXMLString(const QList<double>& doublelist)
 
 QList<double> parseDoubleList(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ');
+	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
 	QList<double> result;
 	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseDouble(*it));
@@ -166,7 +166,7 @@ Xml_string toXMLString(const QList<int>& intlist)
 
 QList<int> parseIntList(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ');
+	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
 	QList<int> result;
 	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseInt(*it));
@@ -176,7 +176,7 @@ QList<int> parseIntList(const Xml_string& str)
 
 QStack<int> parseIntStack(const Xml_string& str)
 {
-	QStringList strlist = str.split(' ');
+	QStringList strlist = str.split(' ', QString::SkipEmptyParts);
 	QStack<int> result;
 	for (QStringList::iterator it=strlist.begin(); it != strlist.end(); ++it)
 		result.append(parseInt(*it));
@@ -196,7 +196,7 @@ Xml_string toXMLString(const QStringList& list)
 
 QStringList parseStringList(const Xml_string&  str)
 {
-	return str.split(' ');
+	return str.split(' ', QString::SkipEmptyParts);
 }
 
 

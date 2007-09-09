@@ -301,7 +301,7 @@ void SVGPlug::convert(int flags)
 		double h2 = wh2.height();
 		addGraphicContext();
 		QString viewbox( docElem.attribute( "viewBox" ) );
-		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ' );
+		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
 		viewTransformX = points[0].toDouble();
 		viewTransformY = points[1].toDouble();
 		viewScaleX = w2 / points[2].toDouble();
@@ -654,13 +654,13 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e)
 	if ( xatt.contains(',') || xatt.contains(' ') )
 	{
 		xatt.replace(QChar(','), QChar(' '));
-		QStringList xl(xatt.split(QChar(' ')));
+		QStringList xl(xatt.split(QChar(' '), QString::SkipEmptyParts));
 		xatt = xl.first();
 	}
 	if ( yatt.contains(',') || yatt.contains(' ') )
 	{
 		yatt.replace(QChar(','), QChar(' '));
-		QStringList yl(yatt.split(QChar(' ')));
+		QStringList yl(yatt.split(QChar(' '), QString::SkipEmptyParts));
 		yatt = yl.first();
 	}
 	double x = parseUnit( xatt );
@@ -709,7 +709,7 @@ QRect SVGPlug::parseViewBox(const QDomElement &e)
 	if ( !e.attribute( "viewBox" ).isEmpty() )
 	{
 		QString viewbox( e.attribute( "viewBox" ) );
-		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ' );
+		QStringList points = viewbox.replace( QRegExp(","), " ").simplified().split( ' ', QString::SkipEmptyParts );
 		double left = points[0].toDouble();
 		double bottom  = points[1].toDouble();
 		double width = points[2].toDouble();
@@ -1177,7 +1177,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 	{
 		QString STag = e.tagName();
 		points = points.simplified().replace(',', " ");
-		QStringList pointList = points.split( ' ' );
+		QStringList pointList = points.split( ' ', QString::SkipEmptyParts );
 		if (( e.tagName() == "polygon" ) && (pointList.count() > 4))
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 		else
@@ -1613,17 +1613,17 @@ QMatrix SVGPlug::parseTransform( const QString &transform )
 {
 	QMatrix ret;
 	// Split string for handling 1 transform statement at a time
-	QStringList subtransforms = transform.split(')');
+	QStringList subtransforms = transform.split(')', QString::SkipEmptyParts);
 	QStringList::ConstIterator it = subtransforms.begin();
 	QStringList::ConstIterator end = subtransforms.end();
 	for(; it != end; ++it)
 	{
 		QMatrix result;
-		QStringList subtransform = (*it).split('(');
+		QStringList subtransform = (*it).split('(', QString::SkipEmptyParts);
 		subtransform[0] = subtransform[0].trimmed().toLower();
 		subtransform[1] = subtransform[1].simplified();
 		QRegExp reg("[,( ]");
-		QStringList params = subtransform[1].split(reg);
+		QStringList params = subtransform[1].split(reg, QString::SkipEmptyParts);
 		if(subtransform[0].startsWith(";") || subtransform[0].startsWith(","))
 			subtransform[0] = subtransform[0].right(subtransform[0].length() - 1);
 		if(subtransform[0] == "rotate")
@@ -1754,7 +1754,7 @@ QString SVGPlug::parseColor( const QString &s )
 	if( s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.trimmed();
-		QStringList colors = parse.split(',');
+		QStringList colors = parse.split(',', QString::SkipEmptyParts);
 		QString r = colors[0].right( ( colors[0].length() - 4 ) );
 		QString g = colors[1];
 		QString b = colors[2].left( ( colors[2].length() - 1 ) );
@@ -1956,7 +1956,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		if(params != "none")
 		{
 			QString params2 = params.simplified().replace(',', " ");
-			QStringList dashes = params2.split(' ');
+			QStringList dashes = params2.split(' ', QString::SkipEmptyParts);
 			for( QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it )
 				array.append( (*it).toDouble() );
 		}
@@ -2042,10 +2042,10 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 	if( !e.attribute( "text-anchor" ).isEmpty() )
 		parsePA( obj, "text-anchor", e.attribute( "text-anchor" ) );
 	QString style = e.attribute( "style" ).simplified();
-	QStringList substyles = style.split(';');
+	QStringList substyles = style.split(';', QString::SkipEmptyParts);
 	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 	{
-		QStringList substyle = (*it).split(':');
+		QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
 		QString command(substyle[0].trimmed());
 		QString params(substyle[1].trimmed());
 		parsePA( obj, command, params );
@@ -2086,10 +2086,10 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 			else
 			{
 				QString style = stop.attribute( "style" ).simplified();
-				QStringList substyles = style.split(';');
+				QStringList substyles = style.split(';', QString::SkipEmptyParts);
 				for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 				{
-					QStringList substyle = (*it).split(':');
+					QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
 					QString command(substyle[0].trimmed());
 					QString params(substyle[1].trimmed());
 					if( command == "stop-color" )

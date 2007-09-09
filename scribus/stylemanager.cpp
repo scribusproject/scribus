@@ -1023,7 +1023,7 @@ void StyleManager::slotApplyStyle(QString keyString)
 	if (isEditMode_)
 		return;
 
-	QStringList slist = keyString.split(SEPARATOR);
+	QStringList slist = keyString.split(SEPARATOR, QString::SkipEmptyParts);
 	Q_ASSERT(slist.count() == 2);
 
 	loadType(slist[0]);

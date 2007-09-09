@@ -373,7 +373,7 @@ QPixmap ScPreview::createPreview(QString data)
 						continue;
 					QStringList wt;
 					QStringList::Iterator it;
-					wt = cc.split("\t");
+					wt = cc.split("\t", QString::SkipEmptyParts);
 					it = wt.begin();
 					hg = new ScText;
 					hg->ch = it->at(0);

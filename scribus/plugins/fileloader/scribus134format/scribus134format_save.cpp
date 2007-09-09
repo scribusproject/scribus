@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_color.h"
 #include "scgzfile.h"
+#include "scpattern.h"
 #include <QCursor>
 #include <QFileInfo>
 #include <QList>

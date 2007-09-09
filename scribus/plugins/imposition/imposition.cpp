@@ -371,16 +371,16 @@ QList<int>* Imposition::parsePages(QString pageslist)
 {
 	QList<int>* li = new QList<int>();
 	
-	QStringList spages = pageslist.split(",");
+	QStringList spages = pageslist.split(",", QString::SkipEmptyParts);
 	for (int i = 0; i < spages.count(); i++) 
 	{
-		if (spages.at(i).split("-").count() == 1)
+		if (spages.at(i).split("-", QString::SkipEmptyParts).count() == 1)
 		{
 			li->append(spages.at(i).toInt());
 		}
-		if (spages.at(i).split("-").count() == 2)
+		if (spages.at(i).split("-", QString::SkipEmptyParts).count() == 2)
 		{
-			QStringList range = spages.at(i).split("-");
+			QStringList range = spages.at(i).split("-", QString::SkipEmptyParts);
 			for (int j = range.at(0).toInt(); j <= range.at(1).toInt(); j++)
 				li->append(j);
 			

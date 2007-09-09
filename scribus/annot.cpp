@@ -71,7 +71,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	if ((item->annotation().ActionType() == 2) || (item->annotation().ActionType() == 7))
 	{
 		QString tm = item->annotation().Action();
-		tl = tm.split(" ");
+		tl = tm.split(" ", QString::SkipEmptyParts);
 	}
 	else
 	{
@@ -1453,7 +1453,7 @@ void Annot::DecodeVali()
 	int ss = pfor.indexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
 	QStringList pfol;
-	pfol = pfo.split(",");
+	pfol = pfo.split(",", QString::SkipEmptyParts);
 	MinValid->setText(pfol[1].simplified());
 	MaxValid->setText(pfol[3].simplified());
 }
@@ -1466,7 +1466,7 @@ void Annot::DecodeCalc()
 	int ss = pfor.lastIndexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-3);
 	QStringList pfol;
-	pfol = pfo.split(",");
+	pfol = pfo.split(",", QString::SkipEmptyParts);
 	if (pfol.count() > 1)
 	{
 		tm2 = pfol[0].simplified();
@@ -1480,7 +1480,7 @@ void Annot::DecodeCalc()
 	CalcFields->setText(tm);
 	ss = pfor.indexOf("(");
 	pfo = pfor.mid(ss+1, pfor.length()-ss-3);
-	pfol = pfo.split(",");
+	pfol = pfo.split(",", QString::SkipEmptyParts);
 	/* PFJ - 28/02/04 - Let's get rid of lots of ifs.... */
 	QString pf[] = {"\"SUM\"", "\"PRD\"", "\"AVG\"", "\"MIN\"", "\"MAX\""};
 	size_t pfTest = sizeof(pf) / sizeof(*pf);
@@ -1497,7 +1497,7 @@ void Annot::DecodeNum()
 	int ss = pfor.indexOf("(");
 	QString pfo = pfor.mid(ss+1, pfor.length()-ss-2);
 	QStringList pfol;
-	pfol = pfo.split(",");
+	pfol = pfo.split(",", QString::SkipEmptyParts);
 	if (item->annotation().Format() == 1)
 		{
 		Decim->setValue(pfol[0].toInt());
@@ -1864,7 +1864,7 @@ void Annot::SetVals()
 			}
 			tmpCact += "new Array (";
 			QStringList pfol;
-			pfol = CalcFields->text().split(",");
+			pfol = CalcFields->text().split(",", QString::SkipEmptyParts);
 			if (pfol.count() > 1)
 			{
 				tmpCact += "\""+pfol[0].simplified()+"\"";

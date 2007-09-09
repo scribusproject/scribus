@@ -97,13 +97,13 @@ void UnicodeSearch::readUnicodeMap()
 	QFile file(ScPaths::instance().shareDir() + "unicodenameslist.txt");
 	if (file.open( QIODevice::ReadOnly ) )
 	{
-		QStringList list = QString(file.readAll()).split('\n');
+		QStringList list = QString(file.readAll()).split('\n', QString::SkipEmptyParts);
 		file.close();
 
 		QStringList line;
 		for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
 		{
-			line = (*it).split(':');
+			line = (*it).split(':', QString::SkipEmptyParts);
 			m_unicodeMap[line[0]] = line[1].toLower();
 		}
 	}

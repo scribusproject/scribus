@@ -102,7 +102,7 @@ void CsvIm::loadFile()
 			text += QChar(bb[posi]);
 	}
 	text = toUnicode(text);
-	QStringList lines = text.split("\n");
+	QStringList lines = text.split("\n", QString::SkipEmptyParts);
 	uint i;
 	if (hasHeader)
 	{
@@ -130,7 +130,7 @@ void CsvIm::parseLine(const QString& line, bool isHeader)
 {
 	if ((line.indexOf(valueDelimiter) < 0) || (!useVDelim))
 	{
-		QStringList l = line.split(fieldDelimiter);
+		QStringList l = line.split(fieldDelimiter, QString::SkipEmptyParts);
 		for (int i = 0; i < l.size(); ++i)
 		{
 			++colIndex;

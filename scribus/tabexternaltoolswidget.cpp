@@ -152,7 +152,7 @@ bool TabExternalToolsWidget::fileInPath(QString file)
 {
 	if (file.isEmpty()) 
 		return false;
-	file = file.split(' ').at(0); //Ignore parameters
+	file = file.split(' ', QString::SkipEmptyParts).at(0); //Ignore parameters
 	
 	file = ScPaths::separatorsToSlashes(file);
 	if (file.indexOf('/') >= 0) {
@@ -173,9 +173,9 @@ bool TabExternalToolsWidget::fileInPath(QString file)
 	QStringList splitpath;
 	//TODO: Check this again! OS2?
 	#ifdef _WIN32
-		splitpath = path.split(';');
+		splitpath = path.split(';', QString::SkipEmptyParts);
 	#else
-		splitpath = path.split(':');
+		splitpath = path.split(':', QString::SkipEmptyParts);
 	#endif
 	foreach (QString dir, splitpath) {
 		QFileInfo info(dir, file);

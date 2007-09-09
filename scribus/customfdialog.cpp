@@ -438,7 +438,7 @@ void CustomFDialog::handleCompress()
 	QFileInfo tmp;
 	tmp.setFile(selectedFile());
 	QString e(tmp.completeSuffix());
-	QStringList ex = e.split(".");
+	QStringList ex = e.split(".", QString::SkipEmptyParts);
 	QString baseExt = "";
 	for (int a = 0; a < ex.count(); a++)
 	{

@@ -79,7 +79,7 @@ SelectFields::SelectFields(QWidget* parent, QString Felder, QString Own, Scribus
 		SelFields = new QListWidget( this );
 		SelFields->setMinimumSize( QSize( 130, 180 ) );
 		QStringList pfol;
-		pfol = Felder.split(",");
+		pfol = Felder.split(",", QString::SkipEmptyParts);
 		if (pfol.count() > 0)
 		{
 			for (int cfx = 0; cfx < pfol.count(); ++cfx)

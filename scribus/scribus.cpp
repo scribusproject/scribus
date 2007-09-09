@@ -8363,7 +8363,7 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 	int wo    = state->getInt("PAGE");
 	int where = state->getInt("WHERE");
 	int count = state->getInt("COUNT");
-	QStringList based = state->get("BASED").split("|");
+	QStringList based = state->get("BASED").split("|", QString::SkipEmptyParts);
 	double height = state->getDouble("HEIGHT");
 	double width = state->getDouble("WIDTH");
 	int orient = state->getInt("ORIENT");
@@ -8972,11 +8972,11 @@ void ScribusMainWindow::callImageEditor()
 			{
 				int diffLength = imageEditorExecutable.length() - imEditor.length();
 				QString cmdStr = imageEditorExecutable.right( diffLength );
-				QStringList cmd1 = cmdStr.split( " ");
+				QStringList cmd1 = cmdStr.split( " ", QString::SkipEmptyParts);
 				cmd += cmd1;
 			}
 		#else
-			cmd = imageEditorExecutable.split(" ");
+			cmd = imageEditorExecutable.split(" ", QString::SkipEmptyParts);
 			if ( cmd.count() > 0 )
 				imEditor = cmd[0];
 		#endif

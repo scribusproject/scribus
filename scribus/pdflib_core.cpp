@@ -5405,7 +5405,7 @@ void PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 		bm += cc;
 	}
 	QString anTitle = ite->itemName().replace(".", "_" );
-	QStringList bmst = bm.split("\\r");
+	QStringList bmst = bm.split("\\r", QString::SkipEmptyParts);
 	const QString m[] = {"4", "5", "F", "l", "H", "n"};
 	QString ct(m[ite->annotation().ChkStil()]);
 	StartObj(ObjCounter);

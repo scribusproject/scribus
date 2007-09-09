@@ -3914,7 +3914,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 					continue;
 				QStringList wt;
 				QStringList::Iterator it;
-				wt = cc.split("\t");
+				wt = cc.split("\t", QString::SkipEmptyParts);
 				it = wt.begin();
 				CharStyle nstyle;
 				QString ch = (*it);

@@ -181,10 +181,10 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 		{
 			FillCol = "None";
 			strokewidth = 0.1;
-			QStringList substyles = style.split(';');
+			QStringList substyles = style.split(';', QString::SkipEmptyParts);
 			for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 			{
-				QStringList substyle = (*it).split(':');
+				QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
 				QString command(substyle[0].trimmed());
 				QString params(substyle[1].trimmed());
 				if (command == "fill")
@@ -287,7 +287,7 @@ void StencilReader::parseGroup(QDomDocument &data, QDomElement &group, QDomNode 
 			double x = 0.0;
 			double y = 0.0;
 			QString points = pg.attribute( "points" ).simplified().replace(',', " ");
-			QStringList pointList = points.split(' ');
+			QStringList pointList = points.split(' ', QString::SkipEmptyParts);
 			FirstM = true;
 			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
 			{
@@ -454,10 +454,10 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 		QString style = pg.attribute( "style", "" ).simplified();
 		if (style.isEmpty())
 			style = pg.attribute( "svg:style", "" ).simplified();
-		QStringList substyles = style.split(';');
+		QStringList substyles = style.split(';', QString::SkipEmptyParts);
 		for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
 		{
-			QStringList substyle = (*it).split(':');
+			QStringList substyle = (*it).split(':', QString::SkipEmptyParts);
 			QString command(substyle[0].trimmed());
 			QString params(substyle[1].trimmed());
 			if (command == "fill")
@@ -547,7 +547,7 @@ void StencilReader::parseGroupProperties(QDomDocument &data, QDomElement &group,
 			double x = 0.0;
 			double y = 0.0;
 			QString points = pg.attribute( "points" ).simplified().replace(',', " ");
-			QStringList pointList = points.split(' ');
+			QStringList pointList = points.split(' ', QString::SkipEmptyParts);
 			FirstM = true;
 			for( QStringList::Iterator it1 = pointList.begin(); it1 != pointList.end(); it1++ )
 			{

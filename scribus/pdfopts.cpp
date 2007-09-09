@@ -159,7 +159,7 @@ void PDFExportDialog::DoExport()
 	}
 	// NOTE: Qt4 contains QDir::mkpath()
 	QDir d(fn);
-	QStringList dirList = dirPath.split(QDir::separator());
+	QStringList dirList = dirPath.split(QDir::separator(), QString::SkipEmptyParts);
 	QString existingPath;
 #ifndef _WIN32
 	existingPath = QDir::separator();

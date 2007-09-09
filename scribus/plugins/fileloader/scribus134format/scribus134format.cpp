@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "util_color.h"
 #include "scgzfile.h"
+#include "scpattern.h"
 #include <QCursor>
 #include <QFileInfo>
 #include <QList>
@@ -1598,7 +1599,7 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 		newStyle.setFeatures(static_cast<StyleFlag>(it->attribute("EFFECT").toInt()).featureList());
 	
 	if (it->hasAttribute("FEATURES"))
-		newStyle.setFeatures(it->attribute("FEATURES").split( " "));
+		newStyle.setFeatures(it->attribute("FEATURES").split( " ", QString::SkipEmptyParts));
 	
 	if (it->hasAttribute("SCOLOR"))
 		newStyle.setStrokeColor(it->attribute("SCOLOR", CommonStrings::None));
