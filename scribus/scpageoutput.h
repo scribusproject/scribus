@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 class Page;
 class CharStyle;
-class GlyphLayout;
+struct GlyphLayout;
 
 class PageItem;
 class PageItem_ImageFrame;
