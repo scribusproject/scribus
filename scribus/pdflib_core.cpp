@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QByteArray>
 #include <QPixmap>
+#include <QTextCodec>
 #include <cstdlib>
 #include <cmath>
 #include <QStack>
