@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <cstdlib>
 
+#include "cmsettings.h"
 #include "missing.h"
 #include "sccolor.h"
 #include "scribus.h"

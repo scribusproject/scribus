@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_icon.h"
 #include "scpaths.h"
 #include "chartableview.h"
+#include "pageitem_textframe.h"
 
 #include "charselect.h"
 

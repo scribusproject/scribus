@@ -16,7 +16,6 @@ class QPushButton;
 class QLabel;
 
 #include "scribusapi.h"
-#include "pageitem.h"
 #include "scribusview.h"
 
 class SCRIBUS_API SelectFields : public QDialog

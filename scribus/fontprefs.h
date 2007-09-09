@@ -22,7 +22,6 @@ class QWidget;
 class QPixmap;
 
 #include "scribusapi.h"
-#include "scribusstructs.h"
 #include "prefsmanager.h"
 
 class ScribusDoc;

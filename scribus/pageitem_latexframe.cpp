@@ -25,8 +25,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDebug>
 #include <QTemporaryFile>
+#include <QGridLayout>
+#include <QLabel>
 
 #include "prefsmanager.h"
+#include "scpainter.h"
+#include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
@@ -527,8 +531,17 @@ QString PageItem_LatexFrame::getApplication()
 	return PrefsManager::instance()->latexExecutable();
 }
 
+QString PageItem_LatexFrame::getRealApplication()
+{
+	return PrefsManager::instance()->latexExecutable();
+}
 
 int PageItem_LatexFrame::getDpi()
+{
+	return PrefsManager::instance()->latexResolution();
+}
+
+int PageItem_LatexFrame::getRealDpi()
 {
 	return PrefsManager::instance()->latexResolution();
 }
@@ -550,6 +563,66 @@ void PageItem_LatexFrame::restore(UndoState *state, bool isUndo)
 		PageItem_ImageFrame::restore(state, isUndo);
 	}
 }
+
+bool PageItem_LatexFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGroupLayout)
+{
+	QLabel *infoCT = new QLabel(infoGroup);
+	QLabel *commandCT = new QLabel(infoGroup);
+	QLabel *commandT = new QLabel(infoGroup);
+	QLabel *dpiCT = new QLabel(infoGroup);
+	QLabel *dpiT = new QLabel(infoGroup);
+	QLabel *statusT = new QLabel(infoGroup);
+	QLabel *statusCT = new QLabel(infoGroup);
+	
+	infoCT->setText(tr("Latex-Frame"));
+	infoGroupLayout->addWidget( infoCT, 0, 0, 1, 2, Qt::AlignHCenter );
+	
+	commandCT->setText(tr("Command: "));
+	infoGroupLayout->addWidget( commandCT, 1, 0, Qt::AlignRight );
+	commandT->setText(getRealApplication());
+	infoGroupLayout->addWidget( commandT, 1, 1 );
+	
+	dpiCT->setText(tr(tr("DPI: ")));
+	infoGroupLayout->addWidget( dpiCT, 2, 0, Qt::AlignRight );
+	dpiT->setText(QString::number(getRealDpi()));
+	infoGroupLayout->addWidget( dpiT, 2, 1 );
+	
+	statusCT->setText(tr("Status: "));
+	infoGroupLayout->addWidget( statusCT, 3, 0, Qt::AlignRight );
+	if (imgValid) {
+		statusT->setText(tr("OK"));
+	} else if (latex->state() != QProcess::NotRunning) {
+		statusT->setText(tr("Running"));
+	} else {
+		statusT->setText(tr("Errorcode ")+QString::number(err));
+	}
+	infoGroupLayout->addWidget( statusT, 3, 1 );
+	return true;
+}
+
+bool PageItem_LatexFrame::createContextMenu(QMenu *menu, int step)
+{
+	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
+	
+	if (menu == 0) {
+		PageItem_ImageFrame::createContextMenu(0, 0);
+		return false;
+	}
+	switch(step) {
+		case 10:
+			menu->addSeparator();
+			/*if (PicAvail && !isTableItem)
+				menu->addAction(actions["itemAdjustFrameToImage"]);*/
+			menu->addAction(actions["itemUpdateImage"]);
+			menu->addAction(actions["editEditWithLatexEditor"]);
+			PageItem_ImageFrame::createContextMenu(menu, 11);
+		break;
+		default:
+			return false;
+	}
+	return true;
+}
+
 
 const QString PageItem_LatexFrame::defaultApp = "pdflatex  --interaction nonstopmode";
 const QString PageItem_LatexFrame::defaultPre = 

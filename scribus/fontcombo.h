@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 #include <QComboBox>
 #include "scribusapi.h"
-#include "scribusstructs.h"
 class QFont;
 class QGridLayout;
 class QPixmap;

@@ -27,7 +27,9 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 
 #include "scribusapi.h"
-#include "pageitem.h"
+#include "styles/paragraphstyle.h"
+
+class PageItem;
 
 class QPaintEvent;
 class QMouseEvent;

@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "picsearchoptions.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "units.h"
 #include "util_color.h"
 #include "util_formats.h"
 #include "util_icon.h"

@@ -40,7 +40,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "util.h"
 
+#include "scpainter.h"
 #include "scconfig.h"
+#include "pageitem_textframe.h"
 
 #if defined(_WIN32)
 #if defined(_MSC_VER)

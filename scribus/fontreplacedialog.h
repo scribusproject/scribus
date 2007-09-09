@@ -19,7 +19,6 @@ class QPushButton;
 class QCloseEvent;
 
 #include "scribusapi.h"
-#include "scribusstructs.h"
 
 class SCRIBUS_API FontReplaceDialog : public QDialog
 {

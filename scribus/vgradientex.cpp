@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include <QtAlgorithms>
 
 #include "vgradientex.h"
+#include "vgradient.h"
+#include "scribusdoc.h"
 
 // comparison function for use with stable_sort
 bool compareStopsEx( const VColorStopEx* item1, const VColorStopEx* item2 )

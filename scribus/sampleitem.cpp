@@ -8,9 +8,11 @@ for which a new license (GPL+exception) is in place.
 #include "sampleitem.h"
 //#include "sampleitem.moc"
 #include "loremipsum.h"
+#include "scpainter.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
 #include "commonstrings.h"
+#include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include <QColor>
 #include <QString>

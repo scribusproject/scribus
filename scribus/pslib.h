@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 
 #include "page.h"
-#include "pageitem.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include CMS_INC
@@ -45,6 +44,7 @@ class ScribusDoc;
 class ScText;
 #endif
 
+class PageItem;
 class MultiProgressDialog;
 
 /**

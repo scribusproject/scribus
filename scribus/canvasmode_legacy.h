@@ -20,11 +20,10 @@
 
 #include "canvasmode.h"
 #include "fpointarray.h"
-#include "scribusview.h"
 
 class PageItem;
 class ScribusMainWindow;
-
+class ScribusView;
 
 
 // This class encapsulate the old code for mouse interaction from scribusview.cpp
@@ -42,12 +41,17 @@ public:
 	virtual void mouseMoveEvent(QMouseEvent *m);
 	virtual void mousePressEvent(QMouseEvent *m);
 	
+protected:
+	void setModeCursor();
+	void setResizeCursor(int);
+	
 private:
 	inline bool GetItem(PageItem** pi); 
 	void selectPage(QMouseEvent *m);
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
 	void SetupDrawNoResize(int nr);
+	void createContextMenu(PageItem *);
 	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 
 	int Cp, oldCp;

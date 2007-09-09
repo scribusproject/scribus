@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SCGUARDEDPTR_H
 
 #include "scribusapi.h"
-
+#include "assert.h"
 /*
 A replacement for QPointer
 Does not rely on QObject, and provides faster destructor

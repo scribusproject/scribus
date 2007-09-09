@@ -21,8 +21,8 @@ class QListWidgetItem;
 
 #include "colorsetmanager.h"
 #include "scribusapi.h"
-#include "scribusstructs.h"
 #include "query.h"
+#include "sccolor.h" 
 
 class ScribusDoc;
 class ColorListBox;

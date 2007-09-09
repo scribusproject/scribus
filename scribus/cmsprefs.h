@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QWidget>
 #include "scribusapi.h"
-#include "scribusstructs.h"
 
 class QGridLayout;
 class QHBoxLayout;
@@ -19,6 +18,8 @@ class QComboBox;
 class QGroupBox;
 class QLabel;
 class ScribusDoc;
+class CMSData;
+typedef QMap<QString,QString> ProfilesL;
 
 class SCRIBUS_API CMSPrefs : public QWidget
 {

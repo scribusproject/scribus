@@ -27,15 +27,9 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 
 #include "scribusapi.h"
-#include "undoobject.h"
-#include "scimage.h"
-#include "pagestructs.h"
 #include "pageitem.h"
 class ScPainter;
 class ScribusDoc;
-class UndoManager;
-class UndoState;
-struct CopyPasteBuffer;
 
 class SCRIBUS_API PageItem_ImageFrame : public PageItem
 {
@@ -49,6 +43,9 @@ public:
 	virtual PageItem_ImageFrame * asImageFrame() { return this; }
 	virtual void handleModeEditKey(QKeyEvent *k, bool& keyRepeat);
 	virtual void clearContents();
+	
+	virtual bool createInfoGroup(QFrame *, QGridLayout *);
+	virtual bool createContextMenu(QMenu *, int);
 	
 protected:
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc);

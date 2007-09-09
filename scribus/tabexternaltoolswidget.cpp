@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 #include "pageitem_latexframe.h"
 #include "scpaths.h"
+#include "prefsstructs.h"
 
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent)
 : QWidget(parent)

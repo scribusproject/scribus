@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scfonts.h"
 #include "scimage.h"
+#include "scpattern.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "util.h"

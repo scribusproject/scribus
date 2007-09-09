@@ -38,8 +38,8 @@ class QListWidget;
 class QListWidgetItem;
 class QFrame;
 class QPixmap;
+class QComboBox;
 #include "scribusapi.h"
-#include "scribusstructs.h"
 #include "gradienteditor.h"
 #include "scribusdoc.h"
 

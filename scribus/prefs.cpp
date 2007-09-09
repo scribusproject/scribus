@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanager.h"
 #include "pluginmanagerprefsgui.h"
 #include "prefsfile.h"
+#include "scpaths.h"
 #include "scplugin.h"
 #include "sccombobox.h"
 #include "colorcombo.h"

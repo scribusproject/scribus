@@ -6,6 +6,8 @@ for which a new license (GPL+exception) is in place.
 */
 #include "createrange.h"
 
+#include "usertaskstructs.h"
+
 #include <QGroupBox>
 #include <QLabel>
 #include <QListWidget>

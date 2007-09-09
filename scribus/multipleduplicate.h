@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define MULTIPLEDUPLICATE
 
 #include "ui_multipleduplicate.h"
-#include "usertaskstructs.h"
+struct ItemMultipleDuplicateData;
 
 class MultipleDuplicate : public QDialog, Ui::MultipleDuplicate
 {

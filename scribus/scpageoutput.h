@@ -12,10 +12,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "sccolor.h"
 #include "scpainterexbase.h"
-#include "scribusstructs.h"
 
 class ScribusDoc;
 class Page;
+class CharStyle;
+class GlyphLayout;
 
 class PageItem;
 class PageItem_ImageFrame;

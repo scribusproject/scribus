@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPair>
 
-#include "scribusstructs.h"
 #include "undoobject.h"
 #include "scribusapi.h"
 
@@ -18,7 +17,8 @@ class QColor;
 class Page;
 class ScPainter;
 class UndoManager;
-
+class ScribusDoc;
+typedef QList<double> Guides;
 
 /*! \brief Core manipulation with the guides.
 Basic idea:

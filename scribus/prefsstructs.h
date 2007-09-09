@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QSet>
 #include <QHash>
-#include "scribusstructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
 

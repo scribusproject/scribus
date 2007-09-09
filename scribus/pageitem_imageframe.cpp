@@ -31,7 +31,9 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "pageitem.h"
 #include "prefsmanager.h"
+#include "scraction.h"
 #include "scpaths.h"
+#include "scpainter.h"
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
@@ -39,10 +41,11 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "scconfig.h"
+#include "util_formats.h"
+#include "util_color.h"
 
 #include "util.h"
 
-using namespace std;
 
 PageItem_ImageFrame::PageItem_ImageFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline)
 	: PageItem(pa, PageItem::ImageFrame, x, y, w, h, w2, fill, outline)
@@ -230,4 +233,125 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 		update();	
 	}
+}
+
+bool PageItem_ImageFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGroupLayout)
+{
+	QLabel *infoCT, *fileT, *fileCT, *oPpiT, *oPpiCT, *aPpiT, *aPpiCT, *colT, *colCT;
+	infoCT = new QLabel(infoGroup);
+	fileCT = new QLabel(infoGroup);
+	
+	infoCT->setText(tr("Picture"));
+	infoGroupLayout->addWidget( infoCT, 0, 0, 1, 2, Qt::AlignHCenter );
+	
+	if (PicAvail)
+	{
+		fileT = new QLabel(infoGroup);
+		oPpiT = new QLabel(infoGroup);
+		oPpiCT = new QLabel(infoGroup);
+		aPpiT = new QLabel(infoGroup);
+		aPpiCT = new QLabel(infoGroup);
+		colT = new QLabel(infoGroup);
+		colCT = new QLabel(infoGroup);
+		QFileInfo fi = QFileInfo(Pfile);
+		fileCT->setText( ScribusView::tr("File: "));
+		infoGroupLayout->addWidget( fileCT, 1, 0, Qt::AlignRight );
+		fileT->setText(fi.fileName());
+		infoGroupLayout->addWidget( fileT, 1, 1 );
+		
+		oPpiCT->setText( ScribusView::tr("Original PPI: "));
+		infoGroupLayout->addWidget( oPpiCT, 2, 0, Qt::AlignRight );
+		oPpiT->setText(QString::number(qRound(pixm.imgInfo.xres))+" x "+QString::number(qRound(pixm.imgInfo.yres)));
+		infoGroupLayout->addWidget( oPpiT, 2, 1 );
+		
+		aPpiCT->setText( ScribusView::tr("Actual PPI: "));
+		infoGroupLayout->addWidget( aPpiCT, 3, 0, Qt::AlignRight );
+		aPpiT->setText(QString::number(qRound(72.0 / imageXScale()))+" x "+ QString::number(qRound(72.0 / imageYScale())));
+		infoGroupLayout->addWidget( aPpiT, 3, 1 );
+		
+		colCT->setText( ScribusView::tr("Colorspace: "));
+		infoGroupLayout->addWidget( colCT, 4, 0, Qt::AlignRight );
+		QString cSpace;
+		QString ext = fi.suffix().toLower();
+		if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (pixm.imgInfo.type != 7))
+			cSpace = ScribusView::tr("Unknown");
+		else
+			cSpace=colorSpaceText(pixm.imgInfo.colorspace);
+		colT->setText(cSpace);
+		infoGroupLayout->addWidget( colT, 4, 1 );
+	} else {
+		fileCT->setText( ScribusView::tr("No Image Loaded"));
+		infoGroupLayout->addWidget( fileCT, 1, 0, 1, 2, Qt::AlignHCenter );
+	}
+	return true;
+}
+
+
+bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
+{
+	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
+	static QMenu* menuResolution = 0;
+	QAction *act;
+	
+	if (menu == 0) {
+		if (menuResolution) delete menuResolution;
+		menuResolution = 0;
+		return true;
+	}
+	
+	switch (step) {
+		case 5:
+			if (pixm.imgInfo.exifDataValid)
+				menu->addAction(actions["itemImageInfo"]);
+		break;
+		case 10:
+			menu->addSeparator();
+			menu->addAction(actions["fileImportImage"]);
+			if (PicAvail)
+			{
+				if (!isTableItem)
+					menu->addAction(actions["itemAdjustFrameToImage"]);
+				if (pixm.imgInfo.valid)
+					menu->addAction(actions["itemExtendedImageProperties"]);
+				menu->addAction(actions["itemUpdateImage"]);
+			}
+			createContextMenu(menu, 11);
+			if (PicAvail && isRaster)
+			{
+				menu->addAction(actions["styleImageEffects"]);
+				menu->addAction(actions["editEditWithImageEditor"]);
+			}
+		break;
+		case 11:
+			Q_ASSERT(menuResolution == 0);
+			menuResolution = new QMenu();
+			act = menu->addMenu(menuResolution);
+			act->setText(tr("Preview Settings"));
+			menuResolution->addAction(actions["itemImageIsVisible"]);
+			menuResolution->addSeparator();
+			menuResolution->addAction(actions["itemPreviewLow"]);
+			menuResolution->addAction(actions["itemPreviewNormal"]);
+			menuResolution->addAction(actions["itemPreviewFull"]);
+		break;
+		case 30:
+			actions["itemConvertToTextFrame"]->setEnabled(true);
+			menu->addAction(actions["itemConvertToTextFrame"]);
+			if (!isTableItem)
+				menu->addAction(actions["itemConvertToPolygon"]);
+		break;
+		case 40:
+			if (PicAvail)
+				menu->addAction(actions["editCopyContents"]);
+			if (doc()->scMW()->contentsBuffer.sourceType==PageItem::ImageFrame)
+			{
+				menu->addAction(actions["editPasteContents"]);
+				menu->addAction(actions["editPasteContentsAbs"]);
+			}
+			if (PicAvail)
+				menu->addAction(actions["editClearContents"]);
+			return (PicAvail) || (doc()->scMW()->contentsBuffer.sourceType==PageItem::ImageFrame);
+		default:
+			return false;
+	}
+	return true;
 }

@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusdoc.h"
 #include "scribus.h"
+#include "scpattern.h"
 
 class SCRIBUS_API PatternDialog : public QDialog, Ui::PatternDialog
 {

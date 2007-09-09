@@ -38,12 +38,11 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "scribusapi.h"
-#include "gtdialogs.h"
-#include "gtwriter.h"
 #include "scfonts.h"
 
 class PageItem;
 class ScribusDoc;
+class gtDialogs;
 
 struct ImporterData {
 	QString     soFilePath;

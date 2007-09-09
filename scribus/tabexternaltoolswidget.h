@@ -27,10 +27,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABEXTERNALTOOLSWIDGET_H
 #define TABEXTERNALTOOLSWIDGET_H
 
-#include "scpaths.h"
 #include "ui_tabexternaltoolswidget.h"
-#include "prefsstructs.h"
 #include "scribusapi.h"
+
+struct ApplicationPrefs;
 
 class SCRIBUS_API TabExternalToolsWidget : public QWidget, Ui::TabExternalToolsWidget
 {

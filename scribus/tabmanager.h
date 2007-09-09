@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDialog>
 
 #include "scribusapi.h"
-#include "pageitem.h"
+#include "styles/paragraphstyle.h"
 
 class QVBoxLayout;
 class QHBoxLayout;

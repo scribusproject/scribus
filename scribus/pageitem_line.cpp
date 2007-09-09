@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_line.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
+#include "scpainter.h"
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"

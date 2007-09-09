@@ -9,10 +9,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "ui_createrange.h"
-#include "usertaskstructs.h"
 
 #include <QString>
 #include <QWidget>
+struct CreateRangeData;
 
 class SCRIBUS_API CreateRange : public QDialog, Ui::CreateRange
 {

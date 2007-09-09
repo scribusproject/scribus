@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QPainter>
 
+#include "cmsettings.h"
 #include "commonstrings.h"
 #include "scimage.h"
 #include "scpaths.h"

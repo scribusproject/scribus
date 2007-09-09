@@ -53,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "linkbutton.h"
 #include "sccolorengine.h"
+#include "scpattern.h"
 
 
 Cpalette::Cpalette(QWidget* parent) : QWidget(parent)

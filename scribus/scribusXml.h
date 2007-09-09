@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QProgressBar>
 
-#include "pageitem.h"
 #include "scfonts.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -29,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 
 class QXmlStreamAttributes;
 class QXmlStreamWriter;
+class PageItem;
 class PrefsManager;
 class ScribusView;
 class SCFonts;

@@ -38,6 +38,7 @@
 #include "insertTable.h"
 #include "mpalette.h"
 #include "oneclick.h"
+#include "pageitem_textframe.h"
 #include "pageselector.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -50,9 +51,8 @@
 #include "scribusXml.h"
 #include "selection.h"
 #include "undomanager.h"
+#include "units.h"
 #include "util.h"
-#include "util_color.h"
-#include "util_formats.h"
 #include "util_icon.h"
 #include "util_math.h"
 
@@ -89,54 +89,7 @@ void LegacyMode::enterEvent(QEvent *)
 {
 	if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 	{
-		switch (m_doc->appMode)
-		{
-			case modeDrawShapes:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
-				break;
-			case modeDrawPicture:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
-				break;
-			case modeDrawText:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
-				break;
-			case modeDrawTable:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
-				break;
-			case modeDrawRegularPolygon:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
-				break;
-			case modeDrawLine:
-			case modeDrawBezierLine:
-				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-				break;
-			case modeDrawFreehandLine:
-				qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
-				break;
-			case modeMagnifier:
-				if (m_view->Magnify)
-					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
-				else
-					qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
-				break;
-			case modePanning:
-				qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
-				break;
-			case modeMeasurementTool:
-			case modeEditGradientVectors:
-			case modeInsertPDFButton:
-			case modeInsertPDFTextfield:
-			case modeInsertPDFCheckbox:
-			case modeInsertPDFCombobox:
-			case modeInsertPDFListbox:
-			case modeInsertPDFTextAnnotation:
-			case modeInsertPDFLinkAnnotation:
-				qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-				break;
-			default:
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				break;
-		}
+		setModeCursor();
 	}
 }
 
@@ -186,7 +139,14 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 	}
 	if (GetItem(&currItem))
 	{
-		if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
+		if (currItem->asLatexFrame()) {
+			if ((currItem->locked()) || (!currItem->ScaleType))
+			{
+				return;
+			}
+			if (currItem->imageShown())
+				m_view->requestMode(modeEdit);
+		} else if ((currItem->itemType() == PageItem::Polygon) || (currItem->itemType() == PageItem::PolyLine) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
 		{
 			if ((currItem->locked()) || (!currItem->ScaleType))
 			{
@@ -1020,28 +980,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					if (result.count() != 0)
 					{
 						how = result[0];
-						switch (how)
-						{
-							case 1:
-							case 2:
-								qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-								break;
-							case 3:
-							case 4:
-								qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
-								break;
-							case 5:
-							case 8:
-								qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
-								break;
-							case 6:
-							case 7:
-								qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-								break;
-							default:
-								qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-								break;
-						}
+						setResizeCursor(how);
 					}
 					else
 						qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
@@ -1050,34 +989,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					switch (m_doc->appMode)
-					{
-						case modeDrawShapes:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
-							break;
-						case modeDrawPicture:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
-							break;
-						case modeDrawText:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
-							break;
-						case modeDrawTable:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
-							break;
-						case modeDrawRegularPolygon:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
-							break;
-						case modeDrawLine:
-						case modeDrawBezierLine:
-							qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-							break;
-						case modeDrawFreehandLine:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
-							break;
-						default:
-							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						break;
-					}
+					setModeCursor();
 				}
 				return;
 			}
@@ -1114,34 +1026,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					switch (m_doc->appMode)
-					{
-						case modeDrawShapes:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
-							break;
-						case modeDrawPicture:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
-							break;
-						case modeDrawText:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
-							break;
-						case modeDrawTable:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
-							break;
-						case modeDrawRegularPolygon:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
-							break;
-						case modeDrawLine:
-						case modeDrawBezierLine:
-							qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-							break;
-						case modeDrawFreehandLine:
-							qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
-							break;
-						default:
-							qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						break;
-					}
+					setModeCursor();
 				}
 			}
 		}
@@ -1323,28 +1208,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 						if (result.count() != 0)
 						{
 							frameResizeHandle = result[0];
-							switch (frameResizeHandle)
-							{
-								case 1:
-								case 2:
-									qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
-									break;
-								case 3:
-								case 4:
-									qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
-									break;
-								case 5:
-								case 8:
-									qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
-									break;
-								case 6:
-								case 7:
-									qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
-									break;
-								default:
-									qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
-									break;
-							}
+							setResizeCursor(frameResizeHandle);
 						}
 						if (currItem->sizeLocked())
 						{
@@ -1503,13 +1367,13 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				z = m_doc->itemAddArea(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
 				SetupDrawNoResize(z);
 			}
-				else
-				{
-					m_doc->ApplyGuides(&Rxp, &Ryp);
-					z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
-					SetupDraw(z);
-				}
-				break;
+			else
+			{
+				m_doc->ApplyGuides(&Rxp, &Ryp);
+				z = m_doc->itemAdd(PageItem::LatexFrame, PageItem::Unspecified, Rxp, Ryp, 1+Rxpd, 1+Rypd, 1, m_doc->toolSettings.dBrushPict, CommonStrings::None, !m_canvas->m_viewMode.m_MouseButtonPressed);
+				SetupDraw(z);
+			}
+			break;
 		case modeDrawPicture:
 			if (m->button() != Qt::LeftButton)
 				break;
@@ -2053,7 +1917,6 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 {
 	QMenu* pmen3 = NULL;
-	QMenu* pmenResolution;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
@@ -2378,386 +2241,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 		{
-			QMenu *pmen = new QMenu();
-			QMenu *pmen2 = new QMenu();
-			pmen3 = new QMenu();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			QMenu *pmen4 = new QMenu();
-			QMenu *pmenEditContents = new QMenu();
-			QMenu *pmenLevel = new QMenu();
-			QMenu *pmenPDF = new QMenu();
-			pmenResolution = new QMenu();
-			m_view->setObjectUndoMode();
-			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::PathText))
-			{
-				QFrame *InfoGroup = new QFrame( m_view );
-				InfoGroup->setFrameShape( QFrame::NoFrame );
-				QGridLayout *InfoGroupLayout = new QGridLayout( InfoGroup );
-				InfoGroupLayout->setAlignment( Qt::AlignTop );
-				InfoGroupLayout->setSpacing( 2 );
-				InfoGroupLayout->setMargin( 0 );
-				QString txtC, txtC2;
-				QLabel *InfoT = new QLabel(InfoGroup);
-				QLabel *LinCT = new QLabel(InfoGroup);
-				QLabel *LinC = new QLabel(InfoGroup);
-				QLabel *ParCT = new QLabel(InfoGroup);
-				QLabel *ParC = new QLabel(InfoGroup);
-				QLabel *WordCT = new QLabel(InfoGroup);
-				QLabel *WordC = new QLabel(InfoGroup);
-				QLabel *CharCT = new QLabel(InfoGroup);
-				QLabel *CharC = new QLabel(InfoGroup);
-				QLabel *ColCT = new QLabel(InfoGroup);
-				QLabel *ColC = new QLabel(InfoGroup);
-				QLabel *PrintCT = new QLabel(InfoGroup); // <a.l.e>
-				QLabel *PrintC = new QLabel(InfoGroup); // </a.l.e>
-				if (currItem->itemType() == PageItem::ImageFrame)
-				{
-					LinC->hide();
-					LinCT->hide();
-					if (currItem->PicAvail)
-					{
-						QFileInfo fi = QFileInfo(currItem->Pfile);
-						InfoT->setText( ScribusView::tr("Picture"));
-						InfoGroupLayout->addWidget( InfoT, 0, 0, 1, 2, Qt::AlignHCenter );
-						ParCT->setText( ScribusView::tr("File: "));
-						InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
-						ParC->setText(fi.fileName());
-						InfoGroupLayout->addWidget( ParC, 1, 1 );
-						WordCT->setText( ScribusView::tr("Original PPI: "));
-						InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
-						WordC->setText(txtC.setNum(qRound(currItem->pixm.imgInfo.xres))+" x "+txtC2.setNum(qRound(currItem->pixm.imgInfo.yres)));
-						InfoGroupLayout->addWidget( WordC, 2, 1 );
-						CharCT->setText( ScribusView::tr("Actual PPI: "));
-						InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
-						CharC->setText(txtC.setNum(qRound(72.0 / currItem->imageXScale()))+" x "+ txtC2.setNum(qRound(72.0 / currItem->imageYScale())));
-						InfoGroupLayout->addWidget( CharC, 3, 1 );
-						ColCT->setText( ScribusView::tr("Colorspace: "));
-						InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
-						QString cSpace;
-						QString ext = fi.suffix().toLower();
-						if ((extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext)) && (currItem->pixm.imgInfo.type != 7))
-							cSpace = ScribusView::tr("Unknown");
-						else
-							cSpace=colorSpaceText(currItem->pixm.imgInfo.colorspace);
-						ColC->setText(cSpace);
-						InfoGroupLayout->addWidget( ColC, 4, 1 );
-					}
-					else
-					{
-						InfoT->setText( ScribusView::tr("Picture"));
-						InfoGroupLayout->addWidget( InfoT, 0, 0, 1, 2, Qt::AlignHCenter );
-						ParCT->setText( ScribusView::tr("No Image Loaded"));
-						InfoGroupLayout->addWidget( ParCT, 1, 0, 1, 2, Qt::AlignHCenter );
-						ParC->hide();
-						WordCT->hide();
-						WordC->hide();
-						CharCT->hide();
-						CharC->hide();
-						ColCT->hide();
-						ColC->hide();
-					}
-				}
-				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-				{
-					int Parag = 0;
-					int Words = 0;
-					int Chara = 0;
-					int ParagN = 0;
-					int WordsN = 0;
-					int CharaN = 0;
-					ColC->hide();
-					ColCT->hide();
-					if (currItem->itemType() == PageItem::TextFrame)
-					{
-						if ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0))
-							InfoT->setText( ScribusView::tr("Linked Text"));
-						else
-							InfoT->setText( ScribusView::tr("Text Frame"));
-					}
-					else
-						InfoT->setText( ScribusView::tr("Text on a Path"));
-					InfoGroupLayout->addWidget( InfoT, 0, 0, 1, 2, Qt::AlignCenter );
-					WordAndPara(currItem, &Words, &Parag, &Chara, &WordsN, &ParagN, &CharaN);
-					ParCT->setText( ScribusView::tr("Paragraphs: "));
-					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
-					if (ParagN != 0)
-						ParC->setText(txtC.setNum(Parag+ParagN)+" ("+txtC2.setNum(ParagN)+")");
-					else
-						ParC->setText(txtC.setNum(Parag));
-					InfoGroupLayout->addWidget( ParC, 1, 1 );
-					LinCT->setText( ScribusView::tr("Lines: "));
-					InfoGroupLayout->addWidget( LinCT, 2, 0, Qt::AlignRight );
-					LinC->setText(txtC.setNum(currItem->itemText.lines()));
-					InfoGroupLayout->addWidget( LinC, 2, 1 );
-					WordCT->setText( ScribusView::tr("Words: "));
-					InfoGroupLayout->addWidget( WordCT, 3, 0, Qt::AlignRight );
-					if (WordsN != 0)
-						WordC->setText(txtC.setNum(Words+WordsN)+" ("+txtC2.setNum(WordsN)+")");
-					else
-						WordC->setText(txtC.setNum(Words));
-					InfoGroupLayout->addWidget( WordC, 3, 1 );
-					CharCT->setText( ScribusView::tr("Chars: "));
-					InfoGroupLayout->addWidget( CharCT, 4, 0, Qt::AlignRight );
-					if (CharaN != 0)
-						CharC->setText(txtC.setNum(Chara+CharaN)+" ("+txtC2.setNum(CharaN)+")");
-					else
-						CharC->setText(txtC.setNum(Chara));
-					InfoGroupLayout->addWidget( CharC, 4, 1 );
-				}
-
-				int row = InfoGroupLayout->rowCount(); // <a.l.e>
-
-				PrintCT->setText( ScribusView::tr("Print: "));
-				InfoGroupLayout->addWidget( PrintCT, row, 0, Qt::AlignRight );
-				if (currItem->printEnabled())
-					PrintC->setText( ScribusView::tr("Enabled"));
-				else
-					PrintC->setText( ScribusView::tr("Disabled"));
-				InfoGroupLayout->addWidget( PrintC, row, 1 ); // </a.l.e>
-				QWidgetAction* MenAct = new QWidgetAction(m_view);
-				MenAct->setDefaultWidget(InfoGroup);
-				pmen4->addAction(MenAct);
-
-// Qt4				pmen4->insertItem(InfoGroup);
-				if ((currItem->itemType() == PageItem::ImageFrame) && (currItem->pixm.imgInfo.exifDataValid))
-					pmen4->addAction(m_ScMW->scrActions["itemImageInfo"]);
-				QAction *act = pmen->addMenu(pmen4);
-				act->setText( ScribusView::tr("In&fo"));
-			}
-			pmen->addSeparator();
-			pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
-			pmen->addAction(m_ScMW->scrActions["editRedoAction"]);
-			if (currItem->itemType() == PageItem::ImageFrame ||
-				currItem->itemType() == PageItem::TextFrame ||
-				currItem->itemType() == PageItem::PathText)
-			{
-				pmen->addSeparator();
-				if (currItem->itemType() == PageItem::ImageFrame)
-				{
-					pmen->addAction(m_ScMW->scrActions["fileImportImage"]);
-					if (currItem->PicAvail)
-					{
-						if (!currItem->isTableItem)
-							pmen->addAction(m_ScMW->scrActions["itemAdjustFrameToImage"]);
-						if (currItem->pixm.imgInfo.valid)
-							pmen->addAction(m_ScMW->scrActions["itemExtendedImageProperties"]);
-						pmen->addAction(m_ScMW->scrActions["itemUpdateImage"]);
-					}
-					QAction *act = pmen->addMenu(pmenResolution);
-					act->setText( ScribusView::tr("Preview Settings"));
-					pmenResolution->addAction(m_ScMW->scrActions["itemImageIsVisible"]);
-					pmenResolution->addSeparator();
-					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewLow"]);
-					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewNormal"]);
-					pmenResolution->addAction(m_ScMW->scrActions["itemPreviewFull"]);
-					if (currItem->PicAvail && currItem->isRaster)
-					{
-						pmen->addAction(m_ScMW->scrActions["styleImageEffects"]);
-						pmen->addAction(m_ScMW->scrActions["editEditWithImageEditor"]);
-					}
-				}
-				if (currItem->itemType() == PageItem::TextFrame)
-				{
-					pmen->addAction(m_ScMW->scrActions["fileImportText"]);
-					pmen->addAction(m_ScMW->scrActions["fileImportAppendText"]);
-					pmen->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
-					pmen->addAction(m_ScMW->scrActions["insertSampleText"]);
-				}
-				if (currItem->itemType() == PageItem::PathText)
-					pmen->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
-			}
-			if (m_doc->m_Selection->count() == 1)
-			{
-				pmen->addSeparator();
-				pmen->addAction(m_ScMW->scrActions["itemAttributes"]);
-			}	
-			if (currItem->itemType() == PageItem::TextFrame)
-			{
-				if (m_doc->currentPage()->pageName().isEmpty())
-				{
-					pmenPDF->addAction(m_ScMW->scrActions["itemPDFIsAnnotation"]);
-					pmenPDF->addAction(m_ScMW->scrActions["itemPDFIsBookmark"]);
-					if (currItem->isAnnotation())
-					{
-						if ((currItem->annotation().Type() == 0) || (currItem->annotation().Type() == 1) || (currItem->annotation().Type() > 9))
-							pmenPDF->addAction(m_ScMW->scrActions["itemPDFAnnotationProps"]);
-						else
-							pmenPDF->addAction(m_ScMW->scrActions["itemPDFFieldProps"]);
-					}
-				}
-				QAction *act = pmen->addMenu(pmenPDF);
-				act->setText( ScribusView::tr("&PDF Options"));
-			}
-			pmen->addSeparator();
-			pmen->addAction(m_ScMW->scrActions["itemLock"]);
-			pmen->addAction(m_ScMW->scrActions["itemLockSize"]);
-			if (!currItem->isSingleSel)
-			{
-				pmen->addAction(m_ScMW->scrActions["itemSendToScrapbook"]);
-				pmen->addAction(m_ScMW->scrActions["itemSendToPattern"]);
-				if (m_doc->layerCount() > 1)
-				{
-					QMap<int,int> layerMap;
-					for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
-						layerMap.insert((*it).Level, (*it).LNr);
-					int i=layerMap.count()-1;
-					while (i>=0)
-					{
-						if (m_doc->layerLocked(layerMap[i]))
-							m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
-						else
-							m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
-						pmen3->addAction(m_ScMW->scrLayersActions[QString::number(layerMap[i--])]);
-					}
-					QAction *act = pmen->addMenu(pmen3);
-					act->setText( ScribusView::tr("Send to La&yer"));
-				}
-			}
-			if (m_doc->m_Selection->count() > 1)
-			{
-				bool isGroup = true;
-				int firstElem = -1;
-				if (currItem->Groups.count() != 0)
-					firstElem = currItem->Groups.top();
-				for (int bx = 0; bx < m_doc->m_Selection->count(); ++bx)
-				{
-					if (m_doc->m_Selection->itemAt(bx)->Groups.count() != 0)
-					{
-						if (m_doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
-							isGroup = false;
-					}
-					else
-						isGroup = false;
-				}
-				if (!isGroup)
-					pmen->addAction(m_ScMW->scrActions["itemGroup"]);
-			}
-			if (currItem->Groups.count() != 0)
-				pmen->addAction(m_ScMW->scrActions["itemUngroup"]);
-			if (!currItem->locked())
-			{
-				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
-				{
-					QAction *act = pmen->addMenu(pmenLevel);
-					act->setText( ScribusView::tr("Le&vel"));
-					pmenLevel->addAction(m_ScMW->scrActions["itemRaiseToTop"]);
-					pmenLevel->addAction(m_ScMW->scrActions["itemRaise"]);
-					pmenLevel->addAction(m_ScMW->scrActions["itemLower"]);
-					pmenLevel->addAction(m_ScMW->scrActions["itemLowerToBottom"]);
-				}
-			}
-			if (m_doc->appMode != modeEdit && (m_doc->m_Selection->itemsAreSameType() || currItem->isSingleSel)) //Create convertTo Menu
-			{
-				bool insertConvertToMenu=false;
-				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-				{
-					insertConvertToMenu=true;
-					if (currItem->itemType() == PageItem::PathText)
-						pmen2->addAction(m_ScMW->scrActions["itemConvertToOutlines"]);
-					else
-					{
-						if (currItem->isTableItem)
-						{
-							m_ScMW->scrActions["itemConvertToImageFrame"]->setEnabled(true);
-							pmen2->addAction(m_ScMW->scrActions["itemConvertToImageFrame"]);
-						}
-						if (!currItem->isTableItem)
-						{
-							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
-								pmen->addAction(m_ScMW->scrActions["itemConvertToImageFrame"]);
-							pmen2->addAction(m_ScMW->scrActions["itemConvertToOutlines"]);
-							if ((currItem->prevInChain() == 0) && (currItem->nextInChain() == 0))
-								pmen2->addAction(m_ScMW->scrActions["itemConvertToPolygon"]);
-						}
-					}
-				}
-				if (currItem->itemType() == PageItem::ImageFrame)
-				{
-					insertConvertToMenu=true;
-					m_ScMW->scrActions["itemConvertToTextFrame"]->setEnabled(true);
-					pmen2->addAction(m_ScMW->scrActions["itemConvertToTextFrame"]);
-					if (!currItem->isTableItem)
-						pmen2->addAction(m_ScMW->scrActions["itemConvertToPolygon"]);
-				}
-				if (currItem->itemType() == PageItem::Polygon)
-				{
-					insertConvertToMenu=true;
-					pmen2->addAction(m_ScMW->scrActions["itemConvertToBezierCurve"]);
-					pmen2->addAction(m_ScMW->scrActions["itemConvertToImageFrame"]);
-					pmen2->addAction(m_ScMW->scrActions["itemConvertToTextFrame"]);
-				}
-				bool insertedMenusEnabled = false;
-				QList<QAction*> actList = pmen2->actions();
-				for (int pc = 0; pc < actList.count(); pc++)
-				{
-					if (actList[pc]->isEnabled())
-						insertedMenusEnabled = true;
-				}
-				if ((insertConvertToMenu) && (insertedMenusEnabled))
-				{
-					QAction *act = pmen->addMenu(pmen2);
-					act->setText( ScribusView::tr("Conve&rt to"));
-				}
-			}
-			pmen->addSeparator();
-			if (!currItem->locked() && !(currItem->isSingleSel))
-				pmen->addAction(m_ScMW->scrActions["editCut"]);
-			if (!(currItem->isSingleSel))
-				pmen->addAction(m_ScMW->scrActions["editCopy"]);
-			if ((m_doc->appMode == modeEdit) && (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
-				pmen->addAction(m_ScMW->scrActions["editPaste"]);
-			if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
-				pmen->addAction( ScribusView::tr("&Delete"), m_doc, SLOT(itemSelection_DeleteItem()));
-			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
-			{
-				if (currItem->itemType() == PageItem::ImageFrame)
-				{
-					if (currItem->PicAvail)
-						pmenEditContents->addAction(m_ScMW->scrActions["editCopyContents"]);
-					if (m_ScMW->contentsBuffer.sourceType==PageItem::ImageFrame)
-					{
-						pmenEditContents->addAction(m_ScMW->scrActions["editPasteContents"]);
-						pmenEditContents->addAction(m_ScMW->scrActions["editPasteContentsAbs"]);
-					}
-					if (currItem->PicAvail)
-						pmenEditContents->addAction(m_ScMW->scrActions["editClearContents"]);
-					if ((currItem->PicAvail) || (m_ScMW->contentsBuffer.sourceType==PageItem::ImageFrame))
-					{
-						QAction *act = pmen->addMenu(pmenEditContents);
-						act->setText( ScribusView::tr("Contents"));
-					}
-				}
-				else
-				{
-					if (currItem->itemText.lines() != 0)
-					{
-						pmenEditContents->addAction(m_ScMW->scrActions["editClearContents"]);
-						QAction *act = pmen->addMenu(pmenEditContents);
-						act->setText( ScribusView::tr("Contents"));
-					}
-				}
-			}
-			pmen->addSeparator();
-			pmen->addAction(m_ScMW->scrActions["toolsProperties"]);
-
-			pmen->exec(QCursor::pos());
-			m_view->setGlobalUndoMode();
-			delete pmen;
-			delete pmen2;
-			delete pmen3;
-			delete pmen4;
-			delete pmenEditContents;
-			delete pmenLevel;
-			delete pmenPDF;
-			delete pmenResolution;
-			pmen=NULL;
-			pmen2=NULL;
-			pmen3=NULL;
-			pmen4=NULL;
-			pmenEditContents=NULL;
-			pmenLevel=NULL;
-			pmenPDF=NULL;
-			pmenResolution=NULL;
+			createContextMenu(currItem);
 		}
 		if ((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 		{
@@ -4756,3 +4240,243 @@ int LegacyMode::HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m)
 	return frameResizeHandle;
 }
 
+void LegacyMode::setModeCursor()
+{
+	//NOTE: Merge with similar code in ScribusMainWindow::setAppMode()
+	switch (m_doc->appMode)
+	{
+		case modeDrawShapes:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")));
+			break;
+		case modeDrawPicture:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")));
+			break;
+		case modeDrawLatex:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawLatexFrame.xpm")));
+			break;
+		case modeDrawText:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")));
+			break;
+		case modeDrawTable:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawTable.xpm")));
+			break;
+		case modeDrawRegularPolygon:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")));
+			break;
+		case modeDrawLine:
+		case modeDrawBezierLine:
+			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			break;
+		case modeDrawFreehandLine:
+			qApp->changeOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32));
+			break;
+		case modeMagnifier:
+			if (m_view->Magnify)
+				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
+			else
+				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZm.xpm")));
+			break;
+		case modePanning:
+			qApp->changeOverrideCursor(QCursor(loadIcon("HandC.xpm")));
+			break;
+		case modeEyeDropper:
+			qApp->changeOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32));
+			break;
+		case modeMeasurementTool:
+		case modeEditGradientVectors:
+		case modeInsertPDFButton:
+		case modeInsertPDFTextfield:
+		case modeInsertPDFCheckbox:
+		case modeInsertPDFCombobox:
+		case modeInsertPDFListbox:
+		case modeInsertPDFTextAnnotation:
+		case modeInsertPDFLinkAnnotation:
+			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
+			break;
+		default:
+			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			break;
+	}
+}
+
+void LegacyMode::setResizeCursor(int how)
+{
+	switch (how)
+	{
+		case 1:
+		case 2:
+			qApp->changeOverrideCursor(QCursor(Qt::SizeFDiagCursor));
+			break;
+		case 3:
+		case 4:
+			qApp->changeOverrideCursor(QCursor(Qt::SizeBDiagCursor));
+			break;
+		case 5:
+		case 8:
+			qApp->changeOverrideCursor(QCursor(Qt::SizeVerCursor));
+			break;
+		case 6:
+		case 7:
+			qApp->changeOverrideCursor(QCursor(Qt::SizeHorCursor));
+			break;
+		default:
+			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			break;
+	}
+}
+
+void LegacyMode::createContextMenu(PageItem* currItem)
+{
+	QMenu *pmen = new QMenu();
+	QMenu *menuConvertTo = new QMenu();
+	QMenu *menuLayer = new QMenu();
+	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QMenu *menuInfo = new QMenu();
+	QMenu *menuEditContents = new QMenu();
+	QMenu *menuLevel = new QMenu();
+	m_view->setObjectUndoMode();
+			
+	QFrame *infoGroup = new QFrame( m_view );
+	infoGroup->setFrameShape( QFrame::NoFrame );
+	QGridLayout *infoGroupLayout = new QGridLayout( infoGroup );
+	infoGroupLayout->setAlignment( Qt::AlignTop );
+	infoGroupLayout->setSpacing( 2 );
+	infoGroupLayout->setMargin( 0 );
+	if (currItem->createInfoGroup(infoGroup, infoGroupLayout)) {
+		int row = infoGroupLayout->rowCount(); // <a.l.e>
+
+		QLabel *printCT = new QLabel(infoGroup);
+		QLabel *printT = new QLabel(infoGroup);
+		printCT->setText( ScribusView::tr("Print: "));
+		infoGroupLayout->addWidget( printCT, row, 0, Qt::AlignRight );
+		if (currItem->printEnabled())
+			printT->setText( ScribusView::tr("Enabled"));
+		else
+			printT->setText( ScribusView::tr("Disabled"));
+		infoGroupLayout->addWidget( printT, row, 1 ); // </a.l.e>
+				
+		QWidgetAction* MenAct = new QWidgetAction(m_view);
+		MenAct->setDefaultWidget(infoGroup);
+		menuInfo->addAction(MenAct);
+
+// Qt4				menuInfo->insertItem(infoGroup);
+		currItem->createContextMenu(menuInfo, 5);
+		QAction *act = pmen->addMenu(menuInfo);
+		act->setText( ScribusView::tr("In&fo"));
+	} else	{
+		delete infoGroupLayout;
+		delete infoGroup;
+	}
+	pmen->addSeparator();
+	pmen->addAction(m_ScMW->scrActions["editUndoAction"]);
+	pmen->addAction(m_ScMW->scrActions["editRedoAction"]);
+	currItem->createContextMenu(pmen, 10);
+	if (m_doc->m_Selection->count() == 1)
+	{
+		pmen->addSeparator();
+		pmen->addAction(m_ScMW->scrActions["itemAttributes"]);
+	}
+	currItem->createContextMenu(pmen, 20);
+	pmen->addSeparator();
+	pmen->addAction(m_ScMW->scrActions["itemLock"]);
+	pmen->addAction(m_ScMW->scrActions["itemLockSize"]);
+	if (!currItem->isSingleSel)
+	{
+		pmen->addAction(m_ScMW->scrActions["itemSendToScrapbook"]);
+		pmen->addAction(m_ScMW->scrActions["itemSendToPattern"]);
+		if (m_doc->layerCount() > 1)
+		{
+			QMap<int,int> layerMap;
+			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
+				layerMap.insert((*it).Level, (*it).LNr);
+			int i=layerMap.count()-1;
+			while (i>=0)
+			{
+				if (m_doc->layerLocked(layerMap[i]))
+					m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
+				else
+					m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
+				menuLayer->addAction(m_ScMW->scrLayersActions[QString::number(layerMap[i--])]);
+			}
+			QAction *act = pmen->addMenu(menuLayer);
+			act->setText( ScribusView::tr("Send to La&yer"));
+		}
+	}
+	if (m_doc->m_Selection->count() > 1)
+	{
+		bool isGroup = true;
+		int firstElem = -1;
+		if (currItem->Groups.count() != 0)
+			firstElem = currItem->Groups.top();
+		for (int bx = 0; bx < m_doc->m_Selection->count(); ++bx)
+		{
+			if (m_doc->m_Selection->itemAt(bx)->Groups.count() != 0)
+			{
+				if (m_doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
+					isGroup = false;
+			}
+			else
+				isGroup = false;
+		}
+		if (!isGroup)
+			pmen->addAction(m_ScMW->scrActions["itemGroup"]);
+	}
+	if (currItem->Groups.count() != 0)
+		pmen->addAction(m_ScMW->scrActions["itemUngroup"]);
+	if (!currItem->locked())
+	{
+		if ((!currItem->isTableItem) && (!currItem->isSingleSel))
+		{
+			QAction *act = pmen->addMenu(menuLevel);
+			act->setText( ScribusView::tr("Le&vel"));
+			menuLevel->addAction(m_ScMW->scrActions["itemRaiseToTop"]);
+			menuLevel->addAction(m_ScMW->scrActions["itemRaise"]);
+			menuLevel->addAction(m_ScMW->scrActions["itemLower"]);
+			menuLevel->addAction(m_ScMW->scrActions["itemLowerToBottom"]);
+		}
+	}
+	if (m_doc->appMode != modeEdit && (m_doc->m_Selection->itemsAreSameType() || currItem->isSingleSel)) //Create convertTo Menu
+	{
+		bool insertConvertToMenu = currItem->createContextMenu(menuConvertTo, 30);
+		bool insertedMenusEnabled = false;
+		QList<QAction*> actList = menuConvertTo->actions();
+		for (int pc = 0; pc < actList.count(); pc++)
+		{
+			if (actList[pc]->isEnabled())
+				insertedMenusEnabled = true;
+		}
+		if ((insertConvertToMenu) && (insertedMenusEnabled))
+		{
+			QAction *act = pmen->addMenu(menuConvertTo);
+			act->setText( ScribusView::tr("Conve&rt to"));
+		}
+	}
+	pmen->addSeparator();
+	if (!currItem->locked() && !(currItem->isSingleSel))
+		pmen->addAction(m_ScMW->scrActions["editCut"]);
+	if (!(currItem->isSingleSel))
+		pmen->addAction(m_ScMW->scrActions["editCopy"]);
+	if ((m_doc->appMode == modeEdit) && (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
+		pmen->addAction(m_ScMW->scrActions["editPaste"]);
+	if (!currItem->locked() && (m_doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
+		pmen->addAction( ScribusView::tr("&Delete"), m_doc, SLOT(itemSelection_DeleteItem()));
+	
+	if (currItem->createContextMenu(menuEditContents, 40))
+	{
+		QAction *act = pmen->addMenu(menuEditContents);
+		act->setText( ScribusView::tr("Contents"));
+	}
+	
+	pmen->addSeparator();
+	pmen->addAction(m_ScMW->scrActions["toolsProperties"]);
+
+	pmen->exec(QCursor::pos());
+	m_view->setGlobalUndoMode();
+	delete pmen;
+	delete menuConvertTo;
+	delete menuLayer;
+	delete menuInfo;
+	delete menuEditContents;
+	delete menuLevel;
+	currItem->createContextMenu(0, 0); //Free memory
+}

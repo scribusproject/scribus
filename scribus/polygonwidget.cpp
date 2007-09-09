@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCheckBox>
 #include <cmath>
 #include "util_math.h"
+#include "prefsstructs.h"
 
 using namespace std;
 

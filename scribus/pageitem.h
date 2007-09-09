@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QList>
 #include <QKeyEvent>
+#include <QMenu>
 
 #include "scribusapi.h"
 #include "annotation.h"
@@ -48,6 +49,8 @@ class ScribusDoc;
 class UndoManager;
 class UndoState;
 class ResourceCollection;
+class QFrame;
+class QGridLayout;
 
 class PageItem_ImageFrame;
 class PageItem_Line;
@@ -229,6 +232,10 @@ public:
 	 */
 	ObjectAttribute getObjectAttribute(QString) const;
 	void setObjectAttributes(ObjAttrVector*);
+	
+	virtual bool createInfoGroup(QFrame *, QGridLayout *) {return false;}
+	virtual bool createContextMenu(QMenu *, int step) {return false;}
+	
   /** Zeichnet das Item */
 	void paintObj(QPainter *p);
 	void DrawObj(ScPainter *p, QRect e);

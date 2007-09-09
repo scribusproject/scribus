@@ -8,7 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSpinBox>
 
 #include "tabscrapbook.h"
-//#include "tabscrapbook.moc"
+#include "prefsstructs.h"
 
 TabScrapbook::TabScrapbook(QWidget* parent)
 	: QWidget(parent, 0)

@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          pageitem.h  -  description
+                          pageitem_polyline.h  -  description
                              -------------------
     copyright            : Scribus Team
  ***************************************************************************/
@@ -26,15 +26,9 @@ for which a new license (GPL+exception) is in place.
 #include <QRect>
 
 #include "scribusapi.h"
-#include "undoobject.h"
-#include "scimage.h"
-#include "pagestructs.h"
 #include "pageitem.h"
 class ScPainter;
 class ScribusDoc;
-class UndoManager;
-class UndoState;
-struct CopyPasteBuffer;
 
 class SCRIBUS_API PageItem_PolyLine : public PageItem
 {

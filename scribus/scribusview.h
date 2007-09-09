@@ -59,8 +59,6 @@ for which a new license (GPL+exception) is in place.
 #include "observable.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
-#include "scribusstructs.h"
-#include "scpainter.h"
 #include "scrspinbox.h"
 
 class Canvas;

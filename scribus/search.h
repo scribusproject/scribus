@@ -19,7 +19,6 @@ class QPushButton;
 class QLabel;
 
 #include "scribusapi.h"
-#include "scribusstructs.h"
 class ScrSpinBox;
 class FontCombo;
 class StyleSelect;

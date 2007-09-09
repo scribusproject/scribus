@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
 #define PREFS_H
 
 #include "scribusapi.h"
-#include "scribusstructs.h"
 #include "scribus.h"
 #include "prefsdialogbase.h"
 

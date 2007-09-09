@@ -67,7 +67,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusview.h"
 #include "scribusdoc.h"
-#include "scribusstructs.h"
 #include "customfdialog.h"
 
 // class LineFormate;

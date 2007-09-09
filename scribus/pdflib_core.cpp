@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          pdflib.cpp  -  description
+                          pdflib_core.cpp  -  description
                              -------------------
     begin                : Sat Jan 19 2002
     copyright            : (C) 2002 by Franz Schmid
@@ -48,10 +48,12 @@ for which a new license (GPL+exception) is in place.
 
 #include "bookmwin.h"
 #include "bookpalette.h"
+#include "cmsettings.h"
 #include "commonstrings.h"
 #include "multiprogressdialog.h"
 #include "page.h"
 #include "pageitem.h"
+#include "pageitem_textframe.h"
 #include "pdfoptions.h"
 #include "prefscontext.h"
 #include "prefsmanager.h"

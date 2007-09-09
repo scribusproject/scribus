@@ -22,8 +22,8 @@ class QPixmap;
 class QListWidgetItem;
 
 #include "colorsetmanager.h"
+#include "sccolor.h"
 #include "scribusapi.h"
-#include "scribusstructs.h"
 
 class ScColor;
 class ScribusDoc;

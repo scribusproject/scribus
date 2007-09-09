@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "fontcombo.h"
 #include "commonstrings.h"
 #include "util_icon.h"
+#include "scribusstructs.h"
 
 FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *RList) : QDialog( parent )
 {

@@ -26,15 +26,9 @@ for which a new license (GPL+exception) is in place.
 #include <QRect>
 
 #include "scribusapi.h"
-#include "undoobject.h"
-#include "scimage.h"
-#include "pagestructs.h"
 #include "pageitem.h"
 class ScPainter;
 class ScribusDoc;
-class UndoManager;
-class UndoState;
-struct CopyPasteBuffer;
 
 class SCRIBUS_API PageItem_Line : public PageItem
 {

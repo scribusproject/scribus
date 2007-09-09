@@ -34,6 +34,8 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "prefsmanager.h"
 #include "scpaths.h"
+#include "scpainter.h"
+#include "scraction.h"
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
@@ -42,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "undostate.h"
 #include "scconfig.h"
 
+#include "util.h"
 #include "util_math.h"
 
 #include "text/nlsconfig.h"
@@ -358,4 +361,80 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect e, double sc)
 //		   .arg(p->worldMatrix().m11()).arg(p->worldMatrix().m12()).arg(p->worldMatrix().m21()).arg(p->worldMatrix().m22()).arg(p->worldMatrix().dx()).arg(p->worldMatrix().dy())
 //		   .arg(QString("pen %1 brush%2 device%3 isPainting=%4").arg(p->pen().rgb()).arg(p->brush().rgb()).arg(p->device()? p->device()->paintingActive() : -999))
 //		   );
+}
+
+bool PageItem_PathText::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGroupLayout)
+{
+	int Parag = 0;
+	int Words = 0;
+	int Chara = 0;
+	int ParagN = 0;
+	int WordsN = 0;
+	int CharaN = 0;
+	
+	QLabel *infoCT = new QLabel(infoGroup);
+	QLabel *linesCT = new QLabel(infoGroup);
+	QLabel *linesT = new QLabel(infoGroup);
+	QLabel *parCT = new QLabel(infoGroup);
+	QLabel *parT = new QLabel(infoGroup);
+	QLabel *wordCT = new QLabel(infoGroup);
+	QLabel *wordT = new QLabel(infoGroup);
+	QLabel *charCT = new QLabel(infoGroup);
+	QLabel *charT = new QLabel(infoGroup);
+	
+	
+	infoCT->setText("Text on a Path");
+	infoGroupLayout->addWidget( infoCT, 0, 0, 1, 2, Qt::AlignCenter );
+	
+	WordAndPara(this, &Words, &Parag, &Chara, &WordsN, &ParagN, &CharaN);
+	parCT->setText(tr("Paragraphs: "));
+	infoGroupLayout->addWidget( parCT, 1, 0, Qt::AlignRight );
+	if (ParagN != 0)
+		parT->setText(QString::number(Parag+ParagN)+" ("+QString::number(ParagN)+")");
+	else
+		parT->setText(QString::number(Parag));
+	infoGroupLayout->addWidget( parT, 1, 1 );
+	
+	linesCT->setText(tr("Lines: "));
+	infoGroupLayout->addWidget( linesCT, 2, 0, Qt::AlignRight );
+	linesT->setText(QString::number(itemText.lines()));
+	infoGroupLayout->addWidget( linesT, 2, 1 );
+	
+	
+	wordCT->setText(tr("Words: "));
+	infoGroupLayout->addWidget( wordCT, 3, 0, Qt::AlignRight );
+	if (WordsN != 0)
+		wordT->setText(QString::number(Words+WordsN)+" ("+QString::number(WordsN)+")");
+	else
+		wordT->setText(QString::number(Words));
+	infoGroupLayout->addWidget( wordT, 3, 1 );
+	
+	charCT->setText(tr("Chars: "));
+	infoGroupLayout->addWidget(charCT, 4, 0, Qt::AlignRight );
+	if (CharaN != 0)
+		charT->setText(QString::number(Chara+CharaN)+" ("+QString::number(CharaN)+")");
+	else
+		charT->setText(QString::number(Chara));
+	infoGroupLayout->addWidget( charT, 4, 1 );
+	return true;
+}
+
+bool PageItem_PathText::createContextMenu(QMenu *menu, int step)
+{
+	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
+	
+	if (menu == 0) return false;
+	
+	switch(step) {
+		case 10:
+			menu->addSeparator();
+			menu->addAction(actions["toolsEditWithStoryEditor"]);
+			break;
+		case 30:
+			menu->addAction(actions["itemConvertToOutlines"]);
+		break;
+		default:
+			return false;
+	}
+	return true;
 }

@@ -59,9 +59,9 @@ class QHBoxLayout;
 class QFrame;
 
 #include "scribusapi.h"
-#include "pageitem.h"
 #include "text/storytext.h"
 
+class PageItem;
 class MenuManager;
 class ScrSpinBox;
 class ParaStyleComboBox;

@@ -9,7 +9,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_tabmiscellaneous.h"
 #include "scribusapi.h"
-#include "prefsstructs.h"
+
+struct ApplicationPrefs;
 
 /*! \brief Miscellaneous panel for preferences dialog.
 This class is inherited from UI base class.

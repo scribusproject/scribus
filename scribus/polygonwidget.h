@@ -16,8 +16,7 @@ class QPixmap;
 class QHBoxLayout;
 class QVBoxLayout;
 #include "scribusapi.h"
-#include "prefsstructs.h"
-
+struct toolPrefs;
 class SCRIBUS_API PolygonWidget : public QWidget
 {
 	Q_OBJECT

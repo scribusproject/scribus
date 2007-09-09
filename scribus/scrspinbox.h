@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include <QWidget>
 
 #include "scribusapi.h"
-#include "fparser.h"
 
 //!\brief ScrSpinBox is a Qt4 replacement for our old ScrSpinBox using Qt3
 class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox

@@ -31,7 +31,6 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 #include "scribusapi.h"
-#include "scribusstructs.h"
 #include "scribusview.h"
 #include "scrpalettebase.h"
 
@@ -45,6 +44,7 @@ class ScrSpinBox;
 class ScribusMainWindow;
 class ScribusDoc;
 class UndoManager;
+class AlignObjs;
 
 class SCRIBUS_API AlignDistributePalette : public ScrPaletteBase, Ui::AlignDistribute
 {

@@ -38,20 +38,15 @@ for which a new license (GPL+exception) is in place.
 
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"
-#include "scribusstructs.h"
 #include "observable.h"
-#include "pagesize.h"
 #include "prefsstructs.h"
 #include "documentinformation.h"
 #include "undoobject.h"
 #include "page.h"
 #include "pageitem.h"
-#include "pageitem_line.h"
-#include "pageitem_textframe.h"
 #include "pagestructs.h"
 #include "usertaskstructs.h"
 #include "styles/styleset.h"
-#include "scpattern.h"
 #include "scguardedptr.h"
 #include "updatemanager.h"
 #include "sclayer.h"
@@ -70,6 +65,8 @@ class Selection;
 class ScribusView;
 class ScribusMainWindow;
 class ResourceCollection;
+class PageSize;
+class ScPattern;
 
 class QProgressBar;
 

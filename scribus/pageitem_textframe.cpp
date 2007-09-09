@@ -40,7 +40,9 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
+#include "scpainter.h"
 #include "scpaths.h"
+#include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusstructs.h"
@@ -48,6 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 #include "undomanager.h"
 #include "undostate.h"
+#include "util.h"
 #include "util_math.h"
 
 
@@ -3287,3 +3290,123 @@ void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
 }
 
 #endif  //NLS_PROTO
+
+bool PageItem_TextFrame::createInfoGroup(QFrame *infoGroup, QGridLayout *infoGroupLayout)
+{
+	int Parag = 0;
+	int Words = 0;
+	int Chara = 0;
+	int ParagN = 0;
+	int WordsN = 0;
+	int CharaN = 0;
+	
+	QLabel *infoCT = new QLabel(infoGroup);
+	QLabel *linesCT = new QLabel(infoGroup);
+	QLabel *linesT = new QLabel(infoGroup);
+	QLabel *parCT = new QLabel(infoGroup);
+	QLabel *parT = new QLabel(infoGroup);
+	QLabel *wordCT = new QLabel(infoGroup);
+	QLabel *wordT = new QLabel(infoGroup);
+	QLabel *charCT = new QLabel(infoGroup);
+	QLabel *charT = new QLabel(infoGroup);
+	
+	if ((nextInChain() != 0) || (prevInChain() != 0))
+		infoCT->setText(tr("Linked Text"));
+	else
+		infoCT->setText(tr("Text Frame"));
+	infoGroupLayout->addWidget( infoCT, 0, 0, 1, 2, Qt::AlignCenter );
+	
+	WordAndPara(this, &Words, &Parag, &Chara, &WordsN, &ParagN, &CharaN);
+	parCT->setText(tr("Paragraphs: "));
+	infoGroupLayout->addWidget( parCT, 1, 0, Qt::AlignRight );
+	if (ParagN != 0)
+		parT->setText(QString::number(Parag+ParagN)+" ("+QString::number(ParagN)+")");
+	else
+		parT->setText(QString::number(Parag));
+	infoGroupLayout->addWidget( parT, 1, 1 );
+	
+	linesCT->setText(tr("Lines: "));
+	infoGroupLayout->addWidget( linesCT, 2, 0, Qt::AlignRight );
+	linesT->setText(QString::number(itemText.lines()));
+	infoGroupLayout->addWidget( linesT, 2, 1 );
+	
+	
+	wordCT->setText(tr("Words: "));
+	infoGroupLayout->addWidget( wordCT, 3, 0, Qt::AlignRight );
+	if (WordsN != 0)
+		wordT->setText(QString::number(Words+WordsN)+" ("+QString::number(WordsN)+")");
+	else
+		wordT->setText(QString::number(Words));
+	infoGroupLayout->addWidget( wordT, 3, 1 );
+	
+	charCT->setText(tr("Chars: "));
+	infoGroupLayout->addWidget(charCT, 4, 0, Qt::AlignRight );
+	if (CharaN != 0)
+		charT->setText(QString::number(Chara+CharaN)+" ("+QString::number(CharaN)+")");
+	else
+		charT->setText(QString::number(Chara));
+	infoGroupLayout->addWidget( charT, 4, 1 );
+	return true;
+}
+
+bool PageItem_TextFrame::createContextMenu(QMenu *menu, int step)
+{
+	static QMenu *menuPDF = 0;
+	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
+	QAction *act;
+	
+	if (menu == 0) {
+		if (menuPDF) delete menuPDF;
+		return true;
+	}
+	switch(step) {
+		case 10:
+			menu->addSeparator();
+			menu->addAction(actions["fileImportText"]);
+			menu->addAction(actions["fileImportAppendText"]);
+			menu->addAction(actions["toolsEditWithStoryEditor"]);
+			menu->addAction(actions["insertSampleText"]);
+			break;
+		case 20:
+			if (doc()->currentPage()->pageName().isEmpty())
+			{
+				menuPDF = new QMenu();
+				menuPDF->addAction(actions["itemPDFIsAnnotation"]);
+				menuPDF->addAction(actions["itemPDFIsBookmark"]);
+				if (isAnnotation())
+				{
+					if ((annotation().Type() == 0) || (annotation().Type() == 1) || (annotation().Type() > 9))
+						menuPDF->addAction(actions["itemPDFAnnotationProps"]);
+					else
+						menuPDF->addAction(actions["itemPDFFieldProps"]);
+				}
+			}
+			act = menu->addMenu(menuPDF);
+			act->setText( ScribusView::tr("&PDF Options"));
+			break;
+		case 30:
+			if (isTableItem)
+			{
+				actions["itemConvertToImageFrame"]->setEnabled(true);
+				menu->addAction(actions["itemConvertToImageFrame"]);
+				//TODO: ConvertToLatexFrame
+			} else {
+				if ((prevInChain() == 0) && (nextInChain() == 0))
+					menu->addAction(actions["itemConvertToImageFrame"]);
+				menu->addAction(actions["itemConvertToOutlines"]);
+				if ((prevInChain() == 0) && (nextInChain() == 0))
+					menu->addAction(actions["itemConvertToPolygon"]);
+			}
+			break;
+		case 40:
+			if (itemText.lines() != 0) {
+				menu->addAction(actions["editClearContents"]);
+			} else {
+				return false;
+			}
+			break;
+		default:
+			return false;
+	}
+	return true;
+}

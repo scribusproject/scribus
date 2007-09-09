@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribusdoc.h"
+#include "units.h"
 #include "util.h"
 #include "util_formats.h"
 #include "util_icon.h"

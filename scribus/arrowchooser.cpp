@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpainter.h"
 #include "util_math.h"
 #include "commonstrings.h"
+#include "scribusstructs.h"
 
 ArrowChooser::ArrowChooser(QWidget* pa, bool direction)  : QComboBox(pa)
 {

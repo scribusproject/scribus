@@ -30,6 +30,8 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "scribusdoc.h"
 #include "selection.h"
+#include "gtdialogs.h"
+#include "gtwriter.h"
 //Added by qt3to4:
 #include <QPixmap>
 #include "util_icon.h"

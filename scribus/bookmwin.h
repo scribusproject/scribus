@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QTreeWidget>
 
-#include "pageitem.h"
+class PageItem;
 #include "scribusapi.h"
 #include "scribusdoc.h"
 

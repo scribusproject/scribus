@@ -59,8 +59,10 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		the image.*/
 		void runApplication();
 		QString getApplication();
+		QString getRealApplication();
 		void setApplication(QString app) { /*TODO */ }
 		int getDpi();
+		int getRealDpi();
 		void setDpi(int dpi) { /*TODO*/ }
 		
 		int getError() { return err; }
@@ -72,6 +74,10 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		static const QString defaultApp;
 		static const QString defaultPre;
 		static const QString defaultPost;
+		
+		virtual bool createInfoGroup(QFrame *, QGridLayout *);
+		virtual bool createContextMenu(QMenu *, int);
+		
 	protected:
 		/* DrawObj_Item is defined in ImageFrame and should be usable for
 		displaying images created by latex too in most cases */

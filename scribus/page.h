@@ -31,9 +31,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "undoobject.h"
 #include "scribusstructs.h"
-#include "pageitem.h"
 #include "guidemanagercore.h"
 
+class PageItem;
 class QString;
 class UndoManager;
 class UndoState;

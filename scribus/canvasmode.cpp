@@ -20,6 +20,9 @@
 #include "canvasmode_legacy.h"
 #include "canvasmode_nodeedit.h"
 #include "selection.h"
+#include "scribusview.h"
+
+#include <QPainter>
 
 
 CanvasMode::CanvasMode (ScribusView* view) :

@@ -20,6 +20,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
+struct PDFPresentationData;
+struct LPIData;
+struct MarginStruct;
+
 /**
  * @brief PDF Options struture. Capable of verifying its self, but otherwise largely
  *        a dumb struct.

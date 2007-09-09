@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorlistbox.h"
 #include "sccolorengine.h"
 #include "cpalette.h"
+#include "pageitem_textframe.h"
 #include "sccombobox.h"
 #include "scfonts.h"
 #include "scribus.h"

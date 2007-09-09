@@ -9,9 +9,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 #include <QMap>
+#include <QTime>
 
 #include "scribusapi.h"
-#include "pageitem.h"
+#include "scimage.h"
+
+class PageItem;
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
@@ -27,7 +30,6 @@ class QSlider;
 class QMenu;
 class QWidgetAction;
 class QToolButton;
-class QTime;
 class QListWidgetItem;
 class QListWidget;
 class ScrSpinBox;

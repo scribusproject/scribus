@@ -42,7 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "units.h"
 #include "util_icon.h"
-
+#include "scribusstructs.h"
 
 //TODO Distribute with 
 

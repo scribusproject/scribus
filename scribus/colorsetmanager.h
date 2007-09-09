@@ -12,8 +12,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef COLORSETMANAGER_H
 #define COLORSETMANAGER_H
 
-#include "prefsstructs.h"
 #include "scribusapi.h"
+#include <QMap>
+#include <QString>
+#include <QStringList>
+
+struct ApplicationPrefs;
 
 class SCRIBUS_API ColorSetManager
 {

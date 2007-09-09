@@ -99,6 +99,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "rulermover.h"
 #include "scmessagebox.h"
+#include "scpainter.h"
 #include "scpaths.h"
 #include "scrap.h"
 #include "scribusXml.h"

@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include "tabmiscellaneous.h"
 //#include "tabmiscellaneous.moc"
 #include "scribusapp.h"
+#include "prefsstructs.h"
+
 extern ScribusQApp* ScQApp;
 
 TabMiscellaneous::TabMiscellaneous(QWidget* parent)

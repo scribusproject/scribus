@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include <QBuffer>
 #include <QStack>
 
+#include "cmsettings.h"
 #include "commonstrings.h"
 #include "scconfig.h"
 #include "pluginapi.h"

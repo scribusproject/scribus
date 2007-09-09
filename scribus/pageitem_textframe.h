@@ -28,16 +28,10 @@ for which a new license (GPL+exception) is in place.
 #include <QKeyEvent>
 
 #include "scribusapi.h"
-#include "undoobject.h"
-#include "scimage.h"
-#include "pagestructs.h"
 #include "pageitem.h"
 
 class ScPainter;
 class ScribusDoc;
-class UndoManager;
-class UndoState;
-struct CopyPasteBuffer;
 
 #include "text/nlsconfig.h"
 
@@ -97,6 +91,9 @@ protected:
 	bool unicodeTextEditMode;
 	int unicodeInputCount;
 	QString unicodeInputString;
+	
+	virtual bool createInfoGroup(QFrame *, QGridLayout *);
+	virtual bool createContextMenu(QMenu *, int);
 	
 private:
 	bool cursorBiasBackward;

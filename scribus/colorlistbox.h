@@ -14,10 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include "colorsetmanager.h"
 #include "commonstrings.h"
 #include "scribusapi.h"
-#include "scribusstructs.h"
 #include "sclistboxpixmap.h"
 #include "scguardedptr.h"
-
+#include "sccolor.h"
 
 struct SCRIBUS_API ColorPixmapValue
 {

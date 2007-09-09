@@ -29,7 +29,9 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_polygon.h"
 #include "prefsmanager.h"
+#include "scpainter.h"
 #include "scpaths.h"
+#include "scraction.h"
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
@@ -56,3 +58,20 @@ void PageItem_Polygon::DrawObj_Item(ScPainter *p, QRect /*e*/, double /*sc*/)
 	}
 }
 
+bool PageItem_Polygon::createContextMenu(QMenu *menu, int step)
+{
+	QMap<QString, QPointer<ScrAction> > actions = doc()->scMW()->scrActions;
+	
+	if (menu == 0) return false;
+	switch(step) {
+		case 30:
+			menu->addSeparator();
+			menu->addAction(actions["itemConvertToBezierCurve"]);
+			menu->addAction(actions["itemConvertToImageFrame"]);
+			menu->addAction(actions["itemConvertToTextFrame"]);
+		break;
+		default:
+			return false;
+	}
+	return true;
+}

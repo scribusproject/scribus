@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #define SMCSTYLEWIDGET_H
 
 #include "ui_smcstylewidget.h"
-
+#include "styles/charstyle.h"
 // #include "styles/styleset.h"
 
 

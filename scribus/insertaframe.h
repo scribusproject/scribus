@@ -16,15 +16,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef INSERTAFRAME_H
 #define INSERTAFRAME_H
 
-#include "usertaskstructs.h"
+#include "gtgettext.h"
 #include "ui_insertaframe.h"
 #include "scribusapi.h"
-#include "pageitem.h"
 
 #include <QButtonGroup>
 #include <QString>
 
 class ScribusDoc;
+class InsertAFrameData;
 
 class SCRIBUS_API InsertAFrame : public QDialog, Ui::InsertAFrame
 {

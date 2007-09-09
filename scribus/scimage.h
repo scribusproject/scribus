@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QStringList>
 
-#include "cmsettings.h"
 #include "fpointarray.h"
 #include "sccolor.h"
 extern "C"
@@ -45,6 +44,7 @@ extern "C"
 }
 
 class ScribusDoc;
+class CMSettings;
 
 class SCRIBUS_API ScImage : private QImage
 {

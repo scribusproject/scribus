@@ -9,8 +9,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "ui_tabscrapbook.h"
 #include "scribusapi.h"
-#include "prefsstructs.h"
 
+struct ApplicationPrefs;
 /*! \brief Scrapbook panel for preferences dialog.
 This class is inherited from UI base class.
 \author Petr Vanek <petr@scribus.info>

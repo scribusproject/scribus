@@ -52,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "layers.h"
 #include "page.h"
+#include "pagesize.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
 #include "pageitem_line.h"

@@ -28,9 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QString>
 
-#include "pageitem.h"
 #include "scribusapi.h"
 
+class PageItem;
 class ScribusDoc;
 
 class SCRIBUS_API ScPattern

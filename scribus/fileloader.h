@@ -13,8 +13,9 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 
 #include "scribusapi.h"
-#include "scribusstructs.h"
 #include "styles/styleset.h"
+#include "styles/paragraphstyle.h"
+#include "styles/charstyle.h"
 
 class QDomElement;
 class QProgressBar;
@@ -23,6 +24,7 @@ class ScribusView;
 class SCFonts;
 class PrefsManager;
 class FileFormat;
+class multiLine;
 
 class SCRIBUS_API FileLoader : public QObject
 {

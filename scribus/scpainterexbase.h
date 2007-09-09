@@ -44,6 +44,8 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorshade.h"
 #include "scimage.h"
 
+class ScPattern;
+
 class SCRIBUS_API ScPainterExBase
 {
 protected:

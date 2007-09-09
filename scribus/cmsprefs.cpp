@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmsprefs.h"
 #include "scribusdoc.h"
+#include "scribusstructs.h"
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>

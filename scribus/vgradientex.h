@@ -32,7 +32,8 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "sccolor.h"
 #include "scribusapi.h"
-#include "scribusdoc.h"
+class ScribusDoc;
+class VGradient;
 
 class SCRIBUS_API VColorStopEx
 {

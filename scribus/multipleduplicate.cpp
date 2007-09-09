@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scrspinbox.h"
 #include "units.h"
+#include "usertaskstructs.h"
 
 MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, Qt::WFlags fl )
 	: QDialog(parent, fl),

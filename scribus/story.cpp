@@ -59,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "menumanager.h"
 #include "scrspinbox.h"
 #include "pageitem.h"
+#include "pageitem_textframe.h"
 #include "pluginmanager.h"
 #include "prefscontext.h"
 #include "prefsmanager.h"

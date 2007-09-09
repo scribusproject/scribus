@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_polyline.h"
 #include "prefsmanager.h"
+#include "scpainter.h"
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusstructs.h"

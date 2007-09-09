@@ -4,9 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-/***************************************************************************
-*   Copyright (C) 2006 by Franz Schmid                                   *
-*   franz.schmid@altmuehlnet.de                                                   *
+/**************************************************************************
+*   Copyright (C) 2006 by Franz Schmid                                    *
+*   franz.schmid@altmuehlnet.de                                           *
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
 *   it under the terms of the GNU General Public License as published by  *
@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "patterndialog.h"
 #include "customfdialog.h"
+#include "pageitem_textframe.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "util.h"
