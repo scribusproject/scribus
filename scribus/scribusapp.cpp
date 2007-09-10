@@ -36,7 +36,6 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 
 #include "scribusapp.h"
-//#include "scribusapp.moc"
 #include "scribuscore.h"
 #include "scpaths.h"
 #include "prefsfile.h"

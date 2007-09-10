@@ -537,7 +537,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	currView = 0;
 	Rebuild();
 	languageChange();
-	connect(masterPageList, SIGNAL(doubleClicked(QListWidgetItem*)), this, SLOT(selMasterPage()));
+	connect(masterPageList, SIGNAL(itemDoubleClicked(QListWidgetItem*)), this, SLOT(selMasterPage()));
 	connect(masterPageList, SIGNAL(ThumbChanged()), this, SLOT(RebuildTemp()));
 	connect(pageView, SIGNAL(Click(int, int, int)), this, SLOT(GotoPage(int, int, int)));
 	connect(pageView, SIGNAL(MovePage(int, int)), this, SLOT(MPage(int, int)));
