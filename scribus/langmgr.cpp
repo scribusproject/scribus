@@ -121,19 +121,20 @@ void LanguageManager::generateInstalledLangList()
 	QString path = ScPaths::instance().libDir();
 	QString langAbbrev;
 	QMap<QString, langPair>::Iterator it;
-
 	QDir dir(path , "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if (dir.exists() && (dir.count() != 0))
+	{
 		for (uint i = 0; i < dir.count(); ++i) 
 		{
 			QFileInfo file(path + dir[i]);
-			if (file.suffix().toLower() == "qm") 
+			if (file.suffix().toLower() == "qm")
 			{
-				langAbbrev = file.suffix().remove(".qm");
+				langAbbrev = file.completeSuffix().remove(".qm");
 				if ((it=langList.find(langAbbrev))!=langList.end())
 						installedLangList.insert(it.key(), it.value().second);
 			}
 		}
+	}
 }
 
 const QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTranslated)
