@@ -7,9 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef SEITENPAL_H
 #define SEITENPAL_H
 
-#include <Q3DragObject>
-#include <Q3ListBox>
-#include <Q3Table>
+#include <QListWidget>
+#include <QTableWidgetItem>
+#include <QTableWidget>
 #include <QCheckBox>
 #include <QDialog>
 #include <QDragEnterEvent>
@@ -36,17 +36,7 @@ class ScribusView;
 class ScribusMainWindow;
 class PageLayouts;
 
-class SCRIBUS_API SeDrag : public Q3StoredDrag
-{
-public:
-	SeDrag( QString s, QWidget * parent = 0, const char * name = 0 );
-	~SeDrag() {};
-
-	static bool canDecode( QDragMoveEvent* e );
-	static bool decode( QDropEvent* e, QString& s );
-};
-
-class SCRIBUS_API SeItem : public Q3TableItem
+class SCRIBUS_API SeItem : public QTableWidgetItem
 {
 
 friend class PagePalette;
@@ -54,7 +44,7 @@ friend class SeView;
 
 
 public:
-	SeItem(Q3Table* parent, QString text, uint pgnr, const QPixmap& Pix);
+	SeItem(QString text, uint pgnr, const QPixmap& Pix);
 	~SeItem() {};
 
 	const QString& getPageName();
@@ -64,7 +54,7 @@ protected:
 	QString pageName;
 };
 
-class SCRIBUS_API SeList : public Q3ListBox
+class SCRIBUS_API SeList : public QListWidget
 {
 friend class PagePalette;
 
@@ -86,13 +76,13 @@ protected:
 	void mouseMoveEvent(QMouseEvent* e);
 	
 	QPoint Mpos;
-	Q3ListBoxItem *CurItem;
+	QListWidgetItem *CurItem;
 	bool Mpressed;
 	bool Thumb;
 
 };
 
-class SCRIBUS_API SeView : public Q3Table
+class SCRIBUS_API SeView : public QTableWidget
 {
 	Q_OBJECT
 	
@@ -114,13 +104,13 @@ signals:
 	void Click(int, int, int);
 
 protected:
-	virtual void contentsDropEvent(QDropEvent * e);
-	virtual void contentsDragEnterEvent(QDragEnterEvent *e);
-	virtual void contentsDragLeaveEvent(QDragLeaveEvent *e);
-	virtual void contentsDragMoveEvent(QDragMoveEvent *e);
-	virtual void contentsMouseReleaseEvent(QMouseEvent *m);
-	virtual void contentsMousePressEvent(QMouseEvent* e);
-	virtual void contentsMouseMoveEvent(QMouseEvent* e);
+	virtual void dropEvent(QDropEvent * e);
+	virtual void dragEnterEvent(QDragEnterEvent *e);
+	virtual void dragLeaveEvent(QDragLeaveEvent *e);
+	virtual void dragMoveEvent(QDragMoveEvent *e);
+	virtual void mouseReleaseEvent(QMouseEvent *m);
+	virtual void mousePressEvent(QMouseEvent* e);
+	virtual void mouseMoveEvent(QMouseEvent* e);
 	
 	QPoint Mpos;
 	bool Mpressed;

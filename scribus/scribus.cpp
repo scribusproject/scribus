@@ -9289,14 +9289,13 @@ void ScribusMainWindow::updateActiveWindowCaption(const QString &newCaption)
 void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 {
 	bool accepted = false;
-	if ( e->provides("text/uri-list") && Q3UriDrag::canDecode(e) )
+	if ( e->mimeData()->hasFormat("text/uri-list"))
 	{
 		QString fileUrl;
-		QStringList fileUrls;
-		Q3UriDrag::decodeLocalFiles(e, fileUrls);
+		QList<QUrl> fileUrls = e->mimeData()->urls();
 		for( int i = 0; i < fileUrls.count(); ++i )
 		{
-			fileUrl = fileUrls[i].toLower();
+			fileUrl = fileUrls[i].toLocalFile().toLower();
 			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
 			{
 				accepted = true;;
@@ -9311,14 +9310,13 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 void ScribusMainWindow::dropEvent ( QDropEvent * e)
 {
 	bool accepted = false;
-	if ( e->provides("text/uri-list") && Q3UriDrag::canDecode(e) )
+	if ( e->mimeData()->hasFormat("text/uri-list"))
 	{
 		QString fileUrl;
-		QStringList fileUrls;
-		Q3UriDrag::decodeLocalFiles(e, fileUrls);
+		QList<QUrl> fileUrls = e->mimeData()->urls();
 		for( int i = 0; i < fileUrls.count(); ++i )
 		{
-			fileUrl = fileUrls[i].toLower();
+			fileUrl = fileUrls[i].toLocalFile().toLower();
 			if ( fileUrl.endsWith(".sla") || fileUrl.endsWith(".sla.gz") )
 			{
 				QUrl url( fileUrls[i] );
