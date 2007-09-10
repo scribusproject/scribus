@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_ghostscript.h"
 #include "pageitem_latexframe.h"
 #include "scpaths.h"
+#include "latexhighlighter.h"
 #include "prefsstructs.h"
 
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent)
@@ -45,10 +46,18 @@ TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsDat
 	connect(latexToolChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexTool()));
 	connect(latexEditorChangeButton, SIGNAL(clicked()), this, SLOT(changeLatexEditor()));
 	connect(rescanButton, SIGNAL(clicked()), this, SLOT(rescanForTools()));
+	connect(latexEmbeddedEditorCheckBox, SIGNAL(stateChanged(int)), 
+			this, SLOT(changeLatexEmbeddedActive(int)));
+	
+	highlighter_pre = new LatexHighlighter(latexPreTextEdit->document());
+	highlighter_post = new LatexHighlighter(latexPostTextEdit->document());
+	
 }
 
 TabExternalToolsWidget::~TabExternalToolsWidget()
 {
+	delete highlighter_pre;
+	delete highlighter_post;
 }
 
 const QString TabExternalToolsWidget::newPSTool() const 
@@ -104,6 +113,8 @@ void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 	latexResolutionSpinBox->setValue(prefsData->latexResolution);
 	latexEditorLineEdit->setText(prefsData->latexEditorExecutable);
 	latexForceDpiCheckBox->setCheckState(prefsData->latexForceDpi?Qt::Checked:Qt::Unchecked);
+	latexEmbeddedEditorCheckBox->setCheckState(prefsData->latexUseEmbeddedEditor?Qt::Checked:Qt::Unchecked);
+	latexEmptyFrameCheckBox->setCheckState(prefsData->latexStartWithEmptyFrames?Qt::Checked:Qt::Unchecked);
 	latexPreTextEdit->setPlainText(prefsData->latexPre);
 	latexPostTextEdit->setPlainText(prefsData->latexPost);
 }
@@ -206,7 +217,7 @@ void TabExternalToolsWidget::rescanForTools()
 		QStringList editors;
 		editors << 
 				/*Linux */ "kwrite" << "kate" << "gedit" << "gvim" <<
-				/*Windows TODO*/ "notepad" << 
+				/*Windows */ "notepad" << 
 				/*Mac OS*/ "open";
 		foreach (QString editor, editors) {
 			if (fileInPath(editor)) {
@@ -215,4 +226,11 @@ void TabExternalToolsWidget::rescanForTools()
 			}
 		}
 	}
+}
+
+void TabExternalToolsWidget::changeLatexEmbeddedActive(int state)
+{
+	bool enable = state == Qt::Unchecked;
+	latexEditorLineEdit->setEnabled(enable);
+	latexEditorChangeButton->setEnabled(enable);
 }

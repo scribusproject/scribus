@@ -33,6 +33,8 @@ copyright            : Scribus Team
 
 class FileWatcher;
 class QTemporaryFile;
+class LatexEditor;
+class QTimer;
 
 class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 {
@@ -52,22 +54,24 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		void runEditor();
 		/*TODO*/
 		void convertToVector();
-		/* Sets the formula text and forces rerunning latex at the next update */
-		void setFormula(QString formula, bool undoable=true);
-		QString getFormula() { return formulaText; }
+		/* Sets the formula text and forces rerunning latex at the next update 
+			Returns true if the frame has to be updated*/
+		bool setFormula(QString formula, bool undoable=true);
+		QString getFormula() const { return formulaText; }
 		/* Runs the external application and sets internal vars and loads
 		the image.*/
 		void runApplication();
-		QString getApplication();
-		QString getRealApplication();
-		void setApplication(QString app) { /*TODO */ }
-		int getDpi();
-		int getRealDpi();
-		void setDpi(int dpi) { /*TODO*/ }
+		QString getApplication() const;
+		QString getRealApplication() const;
+		int getDpi() const;
+		int getRealDpi() const;
+		const QString getOutput() const { return appStdout; }
+		QProcess::ProcessState getState() const { return latex->state(); }
+		bool getUsePreamble() const { return usePreamble; }
 		
-		int getError() { return err; }
+		int getError() const { return err; }
 		
-		void rerunApplication();
+		void rerunApplication(bool updateDisplay=false);
 		
 		void restore(UndoState *state, bool isUndo);
 		
@@ -93,19 +97,33 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		int err;
 		int dpi;
 		
-		QString ImageFile, editorFile, tempFileBase;
+		QString imageFile, editorFile, tempFileBase;
 		QString appStdout;
-		QString appStderr;
 		
 		QProcess *latex, *editor;
+		QTimer *timer;
+		LatexEditor *internalEditor;
 		FileWatcher *fileWatcher;
 		bool imgValid;
+		bool usePreamble;
+		
+	signals:
+		void formulaAutoUpdate(QString oldText, QString newText);
+		void latexFinished();
+		void stateChanged(QProcess::ProcessState state);
 	protected slots:
 		void updateImage(int exitCode, QProcess::ExitStatus exitStatus);
 		void editorFinished(int exitCode, QProcess::ExitStatus exitStatus);
 		void editorFileChanged(QString filename);
 		void editorError(QProcess::ProcessError error);
 		void latexError(QProcess::ProcessError error);
+		void sizeChanged(double, double);
+		void sizeChangeTimer();
+	public slots:
+		void killProcess();
+		void setDpi(int dpi);
+		void setApplication(QString app);
+		void setUsePreamble(bool);
 };
 
 #endif

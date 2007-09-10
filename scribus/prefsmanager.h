@@ -137,6 +137,8 @@ public:
 	QString latexEditorExecutable() const {return appPrefs.latexEditorExecutable;}
 	QString latexPre() const {return appPrefs.latexPre;}
 	QString latexPost() const {return appPrefs.latexPost;}
+	const bool latexUseEmbeddedEditor() {return appPrefs.latexUseEmbeddedEditor;}
+	const bool latexStartWithEmptyFrames() {return appPrefs.latexStartWithEmptyFrames;}
 	//! \brief Get the users preferred preview resolution
 	int gsResolution();
 	int latexResolution() {return appPrefs.latexResolution;}

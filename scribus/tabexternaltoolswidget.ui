@@ -411,6 +411,13 @@
          </spacer>
         </item>
         <item>
+         <widget class="QCheckBox" name="latexEmptyFrameCheckBox" >
+          <property name="text" >
+           <string>Start with empty frame</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QCheckBox" name="latexForceDpiCheckBox" >
           <property name="toolTip" >
            <string>Always use the configured DPI setting for calculating the size, even if the image file reports something different.</string>
@@ -492,6 +499,19 @@
           </property>
           <property name="shortcut" >
            <string>Alt+C</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="latexEmbeddedEditorCheckBox" >
+          <property name="enabled" >
+           <bool>true</bool>
+          </property>
+          <property name="text" >
+           <string>Use Embedded Editor</string>
+          </property>
+          <property name="icon" >
+           <iconset/>
           </property>
          </widget>
         </item>
@@ -622,10 +642,12 @@
   <tabstop>latexToolLineEdit</tabstop>
   <tabstop>latexToolChangeButton</tabstop>
   <tabstop>latexExtensionLineEdit</tabstop>
+  <tabstop>latexEmptyFrameCheckBox</tabstop>
   <tabstop>latexForceDpiCheckBox</tabstop>
   <tabstop>latexResolutionSpinBox</tabstop>
   <tabstop>latexEditorLineEdit</tabstop>
   <tabstop>latexEditorChangeButton</tabstop>
+  <tabstop>latexEmbeddedEditorCheckBox</tabstop>
   <tabstop>latexPreTextEdit</tabstop>
   <tabstop>latexPostTextEdit</tabstop>
   <tabstop>rescanButton</tabstop>

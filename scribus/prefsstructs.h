@@ -244,6 +244,8 @@ struct ApplicationPrefs
 	QString latexPost;
 	int latexResolution;
 	bool latexForceDpi;
+	bool latexUseEmbeddedEditor;
+	bool latexStartWithEmptyFrames;
 	QString latexExtension;
 	bool ClipMargin;
 	bool GCRMode;
