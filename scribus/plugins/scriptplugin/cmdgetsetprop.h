@@ -173,6 +173,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw);
  *
  * @sa QObject::children(), scribus_getchild()
  */
+/*Qt4
 PyDoc_STRVAR(scribus_getchildren__doc__,
 QT_TR_NOOP("getChildren(object, ofclass=None, ofname=None, regexpmatch=False, recursive=True)\n\
 \n\
@@ -183,7 +184,7 @@ search recursively through children, grandchildren, etc.\n\
 See QObject::children() in the Qt docs for more information.\n\
 "));
 PyObject* scribus_getchildren(PyObject* self, PyObject* args, PyObject* kw);
-
+*/
 
 /**
  * @brief Return a wrapped PyObject* for the named child, if found.
@@ -192,6 +193,7 @@ PyObject* scribus_getchildren(PyObject* self, PyObject* args, PyObject* kw);
  *
  * @sa QObject::child(), scribus_children()
  */
+/*Qt4
 PyDoc_STRVAR(scribus_getchild__doc__,
 QT_TR_NOOP("getChild(object, childname, ofclass=None, recursive=True)\n\
 \n\
@@ -200,5 +202,5 @@ the search to children of type name `ofclass'. If `recursive' is true,\n\
 search recursively through children, grandchildren, etc.\n\
 "));
 PyObject* scribus_getchild(PyObject* self, PyObject* args, PyObject* kw);
-
+*/
 #endif

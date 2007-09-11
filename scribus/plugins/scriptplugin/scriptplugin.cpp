@@ -465,8 +465,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getPropertyNames"), (PyCFunction)scribus_getpropertynames, METH_KEYWORDS, tr(scribus_getpropertynames__doc__)},
 	{const_cast<char*>("getProperty"), (PyCFunction)scribus_getproperty, METH_KEYWORDS, tr(scribus_getproperty__doc__)},
 	{const_cast<char*>("setProperty"), (PyCFunction)scribus_setproperty, METH_KEYWORDS, tr(scribus_setproperty__doc__)},
-	{const_cast<char*>("getChildren"), (PyCFunction)scribus_getchildren, METH_KEYWORDS, tr(scribus_getchildren__doc__)},
-	{const_cast<char*>("getChild"), (PyCFunction)scribus_getchild, METH_KEYWORDS, tr(scribus_getchild__doc__)},
+// 	{const_cast<char*>("getChildren"), (PyCFunction)scribus_getchildren, METH_KEYWORDS, tr(scribus_getchildren__doc__)},
+// 	{const_cast<char*>("getChild"), (PyCFunction)scribus_getchild, METH_KEYWORDS, tr(scribus_getchild__doc__)},
 	// by Christian Hausknecht
 	{const_cast<char*>("duplicateObject"), scribus_duplicateobject, METH_VARARGS, tr(scribus_duplicateobject__doc__)},
 	// Internal methods - Not for public use

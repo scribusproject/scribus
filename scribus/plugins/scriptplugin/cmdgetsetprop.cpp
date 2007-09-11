@@ -133,9 +133,9 @@ PyObject* convert_QObjectList_to_PyListObject(QObjectList* origlist)
 	return resultList;
 }
 
+/*Qt4 we either need to copy QObject::qChildHelper or rewrite this
 
-
-PyObject* scribus_getchildren(PyObject* /*self*/, PyObject* args, PyObject* kw)
+PyObject* scribus_getchildren(PyObject* , PyObject* args, PyObject* kw)
 {
 	PyObject* objArg = NULL;
 	char* ofclass = NULL;
@@ -169,9 +169,9 @@ PyObject* scribus_getchildren(PyObject* /*self*/, PyObject* args, PyObject* kw)
 }
 
 
-/* Perform a recursive (by default) search for the named child, possibly of a
- * select class. */
-PyObject* scribus_getchild(PyObject* /*self*/, PyObject* args, PyObject* kw)
+// Perform a recursive (by default) search for the named child, possibly of a
+// select class.
+PyObject* scribus_getchild(PyObject* , PyObject* args, PyObject* kw)
 {
 	PyObject* objArg = NULL;
 	char* childname = NULL;
@@ -204,7 +204,7 @@ PyObject* scribus_getchild(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 	return wrapQObject(child);
 }
-
+*/
 
 PyObject* scribus_getpropertynames(PyObject* /*self*/, PyObject* args, PyObject* kw)
 {
@@ -482,5 +482,6 @@ PV */
 void cmdgetsetpropdocwarnings()
 {
     QStringList s;
-    s << scribus_propertyctype__doc__ << scribus_getpropertynames__doc__ << scribus_getproperty__doc__ << scribus_setproperty__doc__ << scribus_getchildren__doc__ << scribus_getchild__doc__;
+    s << scribus_propertyctype__doc__ << scribus_getpropertynames__doc__ << scribus_getproperty__doc__ << scribus_setproperty__doc__;
+	//Qt4 << scribus_getchildren__doc__ << scribus_getchild__doc__;
 }
