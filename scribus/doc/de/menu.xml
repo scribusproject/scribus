@@ -12,6 +12,7 @@
       <submenuitem file="install1.html" text="Scribus-Quellen und CVS" />
       <submenuitem file="install2.html" text="Systemanforderungen" />
       <submenuitem file="install3.html" text="Kompilieren und Installieren" />
+      <submenuitem file="install4.html" text="Kompilieren und Installieren" />
       <submenuitem file="parallel-install.html" text="Parallelinstallationen" />
       <submenuitem file="install-dpkg.html" text="Debian-Repositorien" />
     </submenuitem>
