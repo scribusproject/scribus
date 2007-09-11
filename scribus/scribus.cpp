@@ -506,7 +506,7 @@ void ScribusMainWindow::initPalettes()
 	SMCharacterStyle *tmpCS = new SMCharacterStyle();
 	styleManager->addStyle(new SMParagraphStyle(tmpCS->tmpStyles()));
 	styleManager->addStyle(tmpCS);
-	connect( scrActions["editStyles"], SIGNAL(toggled(bool)) , styleManager, SLOT(setPaletteShown(bool)) );
+	connect( scrActions["editStyles"], SIGNAL(toggled(bool)), styleManager, SLOT(setPaletteShown(bool)) );
 	connect( styleManager, SIGNAL(paletteShown(bool)), scrActions["editStyles"], SLOT(setChecked(bool)));
 	styleManager->installEventFilter(this);
 
@@ -2594,7 +2594,6 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["pageDelete"]->setEnabled(setter);
 	scrActions["pageMove"]->setEnabled(setter);
 
-//qt4	updateColorMenu();
 	//Update palettes
 	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setChecked(true);
@@ -7113,7 +7112,6 @@ void ScribusMainWindow::slotEditColors()
 			doc->recalcPicturesRes();
 			propertiesPalette->updateColorList();
 			styleManager->updateColorList();
-//qt4			updateColorMenu();
 			if (doc->m_Selection->count() != 0)
 				doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
@@ -7131,12 +7129,6 @@ void ScribusMainWindow::slotEditColors()
 		prefsManager->appPrefs.CustomColorSets = dia->customColSet;
 	delete dia;
 }
-
-// void ScribusMainWindow::slotStyleManager()
-// {
-// 	styleManager->setDoc(HaveDoc ? doc : 0);
-// 	styleManager->setShown(!styleManager->isVisible());
-// }
 
 void ScribusMainWindow::updtGradFill()
 {
@@ -8362,7 +8354,6 @@ void ScribusMainWindow::recalcColors(QProgressBar *dia)
 	if (HaveDoc)
 	{
 		doc->recalculateColors();
-//qt4		updateColorMenu(dia);
 		propertiesPalette->updateColorList();
 	}
 }

@@ -230,7 +230,6 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editEditWithLatexEditor"], SIGNAL(activated()), mainWindow, SLOT(callImageEditor()) );
 	connect( (*scrActions)["editColors"], SIGNAL(activated()), mainWindow, SLOT(slotEditColors()) );
 	connect( (*scrActions)["editPatterns"], SIGNAL(activated()), mainWindow, SLOT(managePatterns()) );
-// 	connect( (*scrActions)["editStyles"], SIGNAL(activated()), mainWindow, SLOT(slotStyleManager()) );
 	connect( (*scrActions)["editMasterPages"], SIGNAL(activated()), mainWindow, SLOT(manageMasterPages()) );
 	connect( (*scrActions)["editJavascripts"], SIGNAL(activated()), mainWindow, SLOT(ManageJava()) );
 }
