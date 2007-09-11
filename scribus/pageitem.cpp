@@ -4258,10 +4258,8 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(textKerning(double)), pp, SLOT(setExtra(double)));
 	connect(this, SIGNAL(textStyle(int)), pp, SLOT(setStil(int)));
 	connect(this, SIGNAL(textStyle(int)), m_Doc->scMW(), SLOT(setStilvalue(int)));
-	//Qt4 connect(this, SIGNAL(textFont(const QString&)), m_Doc->scMW(), SLOT(AdjustFontMenu(const QString&)));
 	connect(this, SIGNAL(textFont(const QString&)), pp, SLOT(setFontFace(const QString&)));
 	connect(this, SIGNAL(textSize(double)), pp, SLOT(setSize(double)));
-//	connect(this, SIGNAL(textSize(int)), m_Doc->scMW(), SLOT(setFSizeMenu(int)));
 	connect(this, SIGNAL(textWidthScale(double)), pp, SLOT(setTScale(double)));
 	connect(this, SIGNAL(textHeightScale(double)), pp, SLOT(setTScaleV(double)));
 	connect(this, SIGNAL(textBaseLineOffset(double)), pp, SLOT(setTBase(double)));

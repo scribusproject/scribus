@@ -193,12 +193,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	getCMSProfiles(showProfileInfo);
 	initCMS();
 	/*
-
-		buildFontMenu();
-
-
 		initPalettes();
-
 
 		setSplashStatus( tr("Initializing Hyphenator") );
 		QString preLang = prefsManager->appPrefs.Language;
@@ -213,9 +208,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 		ToggleTips();
 
 		connect(fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
-		connect(this, SIGNAL(TextIFont(const QString&)), this, SLOT(AdjustFontMenu(const QString&)));
 		connect(this, SIGNAL(TextIFont(const QString&)), propertiesPalette, SLOT(setFontFace(const QString&)));
-		connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 		connect(this, SIGNAL(TextISize(int)), propertiesPalette, SLOT(setSize(int)));
 		connect(this, SIGNAL(TextUSval(int)), propertiesPalette, SLOT(setExtra(int)));
 		connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));

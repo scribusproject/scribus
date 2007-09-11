@@ -69,8 +69,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "customfdialog.h"
 
-// class LineFormate;
-// class StilFormate;
 class ActionManager;
 class AlignDistributePalette;
 class Autoforms;
@@ -164,7 +162,6 @@ public:
 	void recalcColors(QProgressBar *dia = 0);
 	void SwitchWin();
 	void RestoreBookMarks();
-// 	void ReorgFonts();
 
 	void emergencySave();
 
@@ -229,7 +226,6 @@ public:
 	QClipboard *ClipB;
 	QString LoadEnc;
 	bool ScriptRunning;
-	//Qt4 Autoforms* SCustom;
 	ModeToolBar* mainToolBar;
 
 	QMap<QString, QStringList> InstLang;
@@ -268,7 +264,6 @@ public slots:
 	void setStatusBarInfoText(QString newText);
 	bool DoFileClose();
 	//bool DoSaveClose();
-	void fontMenuAboutToShow();
 	void windowsMenuAboutToShow();
 	void newActWin(QWidget *w);
 	void closeActiveWindowMasterPageEditor();
@@ -430,14 +425,10 @@ public slots:
 	/** Setzt die Abstufung */
 	void setItemShade(int id);
 	/** Setzt den Font */
-//Qt4	void setItemFont(int id);
-//Qt4	void setItemFont2(int id);
 	/** Korrigiert das FontMenu */
-//Qt4	void AdjustFontMenu(const QString& nf);
 	void SetNewFont(const QString& nf);
 	/** Setz die Zeichensatzgroesse */
 	void setItemFSize(int id);
-	void setFSizeMenu(int size);
 	/** Farbeditor */
 	void slotEditColors();
 	/** Style Manager */
@@ -473,7 +464,6 @@ public slots:
 	void objectAttributes();
 	void getImageInfo();
 	void generateTableOfContents();
-//Qt4	void buildFontMenu();
 	/*! \brief Change Preferences dialog.
 	See prefsOrg for more info. It's very similar to docSetup/slotDocSetup. */
 	void slotPrefsOrg();
@@ -588,10 +578,6 @@ private:
 	QString recentPasteMenuName;
 	QString layerMenuName;
 	QPixmap noIcon;
-	//qt4 ColorCombo *ColorMenC;
-	/** FontMenu enthaelt die Fonts */
-	QMenu *FontMenu;
-	FontCombo* FontSub;
 	ScToolBar *fileToolBar;
 	ScToolBar *editToolBar;
 	PDFToolBar* pdfToolBar;
@@ -623,7 +609,6 @@ private:
 	bool objectSpecificUndo;
 
 	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0);
-//Qt4	QMap<int,QString> FontID;
 
 	void *PSDriver;
 	int DocNr;
@@ -643,7 +628,6 @@ private:
 	UndoManager *undoManager;
 	PrefsManager *prefsManager;
 	FormatsManager *formatsManager;
-	QString currentFontForFontMenu;
 
 	HelpBrowser* helpBrowser;
 };

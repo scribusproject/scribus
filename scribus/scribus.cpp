@@ -95,11 +95,9 @@ for which a new license (GPL+exception) is in place.
 #include "documentchecker.h"
 #include "documentinformation.h"
 #include "druck.h"
-// #include "editformats.h"
 #include "effectsdialog.h"
 #include "fileloader.h"
 #include "filewatcher.h"
-//#include "fmitem.h"
 #include "fontcombo.h"
 #include "fontprefs.h"
 #include "fpoint.h"
@@ -117,7 +115,6 @@ for which a new license (GPL+exception) is in place.
 #include "javadocs.h"
 #include "langmgr.h"
 #include "layers.h"
-// #include "lineformats.h"
 #include "loremipsum.h"
 #include "marginWidget.h"
 #include "margindialog.h"
@@ -233,7 +230,6 @@ bool printDinUse;
 QString DocDir;
 
 
-//extern ScribusCore* ScCore;
 extern ScribusQApp* ScQApp;
 extern bool emergencyActivated;
 
@@ -250,8 +246,7 @@ ScribusMainWindow::ScribusMainWindow()
 #ifdef Q_WS_MAC
 	noIcon = loadIcon("noicon.xpm");
 #endif
-} // ScribusMainWindow::ScribusMainWindow()
-
+}
 
 
 /*
@@ -267,12 +262,9 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		qApp->setStyleSheet(QString(stylesheet));
 	}
 	
-//	CommonStrings::languageChange();
 	previewDinUse = false;
 	printDinUse = false;
 	internalCopy = false;
-//	guiLanguage = newGuiLanguage;
-//	initSplash(showSplash);
 //qt4 	setUsesBigPixmaps(true);
 	CurrStED = NULL;
 	setWindowTitle( tr("Scribus " VERSION));
@@ -307,7 +299,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	actionManager->init(this);
 	initMenuBar();
 	initToolBars();
-	//Qt4 buildFontMenu();
  	ScCore->pluginManager->setupPluginActions(this);
  	ScCore->pluginManager->languageChange();
 	initKeyboardShortcuts();
@@ -351,10 +342,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
-	//Qt4 connect(this, SIGNAL(TextIFont(const QString&)), this, SLOT(AdjustFontMenu(const QString&)));
 	connect(this, SIGNAL(TextStyle(const ParagraphStyle&)), propertiesPalette, SLOT(updateStyle(const ParagraphStyle&)));
 	connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
-//	connect(this, SIGNAL(TextISize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(this, SIGNAL(TextISize(double)), propertiesPalette, SLOT(setSize(double)));
 	connect(this, SIGNAL(TextUSval(double)), propertiesPalette, SLOT(setExtra(double)));
 	connect(this, SIGNAL(TextStil(int)), propertiesPalette, SLOT(setStil(int)));
@@ -688,33 +677,6 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editEditWithImageEditor"]->setEnabled(false);
 	scrActions["editEditWithLatexEditor"]->setEnabled(false);
 
-/*Qt4
-	//Style Menu
-	scrMenuMgr->createMenu("Style", tr("St&yle"));
-	//Color menu
-	// CB TODO
-	scrMenuMgr->createMenu("Color", tr("&Color"));
-	ColorMenC = new ColorCombo(false);
-	ColorMenC->setEditable(false);
-	scrMenuMgr->addMenuItem(ColorMenC, "Color");
-
-	//Text size menu
-	scrMenuMgr->createMenu("FontSize", tr("&Size"));
-	scrActionGroups["fontSize"]->addTo(scrMenuMgr->getLocalPopupMenu("FontSize"));
-
-	//Shade menu
-	scrMenuMgr->createMenu("Shade", tr("&Shade"));
-	scrActionGroups["shade"]->addTo(scrMenuMgr->getLocalPopupMenu("Shade"));
-
-	//Font menu
-	scrMenuMgr->createMenu("Font", tr("&Font"));
-	FontMenu = scrMenuMgr->getLocalPopupMenu("Font");
-
-	//Type style menu
-	scrMenuMgr->createMenu("TypeEffects", tr("&Effects"));
-	scrActionGroups["typeEffects"]->addTo(scrMenuMgr->getLocalPopupMenu("TypeEffects"));
-*/
-
 	//Item Menu
 	scrMenuMgr->createMenu("Item", tr("&Item"));
 	scrMenuMgr->addMenuItem(scrActions["itemDuplicate"], "Item");
@@ -756,15 +718,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemPDFAnnotationProps"], "ItemPDFOptions");
 	scrMenuMgr->addMenuItem(scrActions["itemPDFFieldProps"], "ItemPDFOptions");
 	scrMenuMgr->createMenu("ItemShapes", tr("&Shape"), "Item");
-	// CB TODO
-	//Shape menu
-//Qt4	SCustom = new Autoforms(0);
-//Qt4	scrMenuMgr->addMenuItem(SCustom, "ItemShapes");
-//Qt4	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeFrame(int, int, double *)));
-//Qt4	scrMenuMgr->addMenuItem(scrActions["itemShapeEdit"], "ItemShapes");
 	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"), "Item");
-	//scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert To"));
-	//scrMenuMgr->addMenuToMenu("ItemConvertTo", "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToBezierCurve"], "ItemConvertTo");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToImageFrame"], "ItemConvertTo");
 	scrMenuMgr->addMenuItem(scrActions["itemConvertToOutlines"], "ItemConvertTo");
@@ -812,7 +766,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["insertGlyph"], "Insert");
 
 	scrMenuMgr->createMenu("InsertChar", tr("&Character"), "Insert");
-	//scrMenuMgr->addMenuToMenu("InsertChar", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodePageNumber"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeSmartHyphen"], "InsertChar");
 	scrMenuMgr->addMenuItem(scrActions["unicodeNonBreakingHyphen"], "InsertChar");
@@ -830,7 +783,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeDashQuotation"], "InsertChar");
 
 	scrMenuMgr->createMenu("InsertQuote", tr("&Quote"), "Insert");
-	//scrMenuMgr->addMenuToMenu("InsertQuote", "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteApostrophe"], "InsertQuote");
 	scrMenuMgr->addMenuItem(scrActions["unicodeQuoteStraight"], "InsertQuote");
 	scrMenuMgr->addMenuSeparator("InsertQuote");
@@ -961,7 +913,6 @@ void ScribusMainWindow::initMenuBar()
 
 	//Window menu
 	 scrMenuMgr->createMenu("Windows", tr("&Windows"), QString::null, true);
-	//Qt4 connect(FontMenu, SIGNAL(aboutToShow()), this, SLOT(fontMenuAboutToShow()));
 	connect(scrMenuMgr->getLocalPopupMenu("Windows"), SIGNAL(aboutToShow()), this, SLOT(windowsMenuAboutToShow()));
 	addDefaultWindowMenuItems();
 
@@ -1009,9 +960,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["alignRight"], "Alignment");
 	scrMenuMgr->addMenuItem(scrActions["alignBlock"], "Alignment");
 	scrMenuMgr->addMenuItem(scrActions["alignForced"], "Alignment");
-
-//Qt4	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-//Qt4	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
 }
 
 
@@ -2298,25 +2246,6 @@ void ScribusMainWindow::newView()
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
 
-void ScribusMainWindow::fontMenuAboutToShow()
-{
-/* Qt4
-	QString df;
-	if (doc->m_Selection->count() != 0)
-	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		FontSub->RebuildList(doc, currItem->isAnnotation());
-	}
-	FontSub->setCurrentText(currentFontForFontMenu);
-	//propertiesPalette->Fonts->setCurrentFont(nf);
-	for (uint a = 2; a < FontMenu->count(); ++a)
-	{
-		df = FontID[FontMenu->idAt(a)];
-		FontMenu->setItemChecked(FontMenu->idAt(a), (df == currentFontForFontMenu));
-	}
-*/
-}
-
 void ScribusMainWindow::windowsMenuAboutToShow()
 {
 	for( QMap<QString, QPointer<ScrAction> >::Iterator it = scrWindowsActions.begin(); it!=scrWindowsActions.end(); ++it )
@@ -2478,8 +2407,6 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();
 	}
-// Qt4
-//	FontSub->RebuildList(doc);
 	propertiesPalette->Fonts->RebuildList(doc);
 	scrActions["viewShowMargins"]->setChecked(doc->guidesSettings.marginsShown);
 	scrActions["viewShowBleeds"]->setChecked(doc->guidesSettings.showBleed);
@@ -2528,15 +2455,11 @@ bool ScribusMainWindow::slotDocSetup()
 
 void ScribusMainWindow::SwitchWin()
 {
-//qt4	updateColorMenu();
-	//Qt4 buildFontMenu();
 	propertiesPalette->Cpal->ChooseGrad(0);
 	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setChecked(true);
 	propertiesPalette->setDoc(doc);
 	pagePalette->setView(view);
-// Qt4
-//	FontSub->RebuildList(doc);
 	propertiesPalette->Fonts->RebuildList(doc);
 	layerPalette->setDoc(doc);
 	guidePalette->setDoc(doc);
@@ -2689,7 +2612,6 @@ void ScribusMainWindow::HaveNewDoc()
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
 	slotChangeUnit(doc->unitIndex());
-	//Qt4 buildFontMenu();
 	windowsMenuAboutToShow();
 	connect(view, SIGNAL(changeUN(int)), this, SLOT(slotChangeUnit(int)));
 	connect(view, SIGNAL(changeLA(int)), layerPalette, SLOT(markActiveLayer(int)));
@@ -2716,7 +2638,6 @@ void ScribusMainWindow::HaveNewDoc()
 //	connect(view, SIGNAL(ItemTextCols(int, double)), propertiesPalette, SLOT(setCols(int, double)));
 	connect(view, SIGNAL(SetDistValues(double, double, double, double)), propertiesPalette, SLOT(setDvals(double, double, double, double)));
 	connect(view, SIGNAL(ItemTextAbs(int)), propertiesPalette, SLOT(setAli(int)));
-	//Qt4 connect(view, SIGNAL(ItemTextFont(const QString&)), this, SLOT(AdjustFontMenu(const QString&)));
 	connect(view, SIGNAL(ItemTextFont(const QString&)), propertiesPalette, SLOT(setFontFace(const QString&)));
 	connect(view, SIGNAL(ItemTextSize(double)), propertiesPalette, SLOT(setSize(double)));
 	//connect(view, SIGNAL(ItemRadius(double)), propertiesPalette, SLOT(setRR(double)));
@@ -2734,7 +2655,6 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(ItemTextUnderline(double, double)), propertiesPalette, SLOT(setUnderline(double, double)));
 	connect(view, SIGNAL(ItemTextStrike(double, double)), propertiesPalette, SLOT(setStrike(double, double)));
 	connect(view, SIGNAL(ItemTextOutline(double)), propertiesPalette, SLOT(setOutlineW(double)));
-//	connect(view, SIGNAL(ItemTextSize(int)), this, SLOT(setFSizeMenu(int)));
 	connect(view, SIGNAL(ItemTextStil(int)), this, SLOT(setStilvalue(int)));
 	connect(view, SIGNAL(ItemTextAbs(int)), this, SLOT(setAbsValue(int)));
 	connect(view, SIGNAL(ItemTextFarben(QString, QString, double, double)), propertiesPalette, SLOT(setActFarben(QString, QString, double, double)));
@@ -2894,7 +2814,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 
 		break;
 	case PageItem::TextFrame: //Text Frame
-//		FontSub->RebuildList(doc, currItem->isAnnotation());
 		propertiesPalette->Fonts->RebuildList(doc, currItem->isAnnotation());
 		scrActions["fileImportText"]->setEnabled(true);
 		scrActions["fileImportText2"]->setEnabled(true);
@@ -2997,7 +2916,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 
 		break;
 	case PageItem::PathText: //Path Text
-//		FontSub->RebuildList(doc, currItem->isAnnotation());
 		propertiesPalette->Fonts->RebuildList(doc, currItem->isAnnotation());
 		scrActions["fileImportText"]->setEnabled(true);
 		scrActions["fileImportText2"]->setEnabled(true);
@@ -4212,7 +4130,6 @@ bool ScribusMainWindow::DoFileSave(QString fn)
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
 	doc->reorganiseFonts();
-	//qt4 buildFontMenu();
 	mainWindowStatusLabel->setText( tr("Saving..."));
 	mainWindowProgressBar->reset();
 	bool ret=doc->save(fn);
@@ -4398,7 +4315,6 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["toolsPDFListBox"]->setEnabled(false);
 		scrActions["toolsPDFAnnotText"]->setEnabled(false);
 		scrActions["toolsPDFAnnotLink"]->setEnabled(false);
-		//qt4ColorMenC->clear();
 		//CB dont need this until we have a doc...
 		//propertiesPalette->Cpal->SetColors(prefsManager->colorSet());
 		propertiesPalette->Cpal->ChooseGrad(0);
@@ -6689,28 +6605,6 @@ void ScribusMainWindow::changePageMargins()
 	delete dia;
 }
 
-/*Qt4
-void ScribusMainWindow::setItemFont2(int id)
-{
-	disconnect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-	SetNewFont(FontSub->text(id));
-	FontMenu->activateItemAt(0);
-	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-}
-
-void ScribusMainWindow::setItemFont(int id)
-{
-	QString nf;
-	int a = FontMenu->indexOf(id);
-	if (a == 1)
-		return;
-	disconnect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-	nf = FontID[id];
-	SetNewFont(nf);
-	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-}
-*/
-
 void ScribusMainWindow::SetNewFont(const QString& nf)
 {
 	setMainWindowActive();
@@ -6719,8 +6613,6 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 	{
 		if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 		{
-//Qt4			int a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
-//Qt4			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf].scName());
 		}
 		else
 		{//CB FIXME: to doc?
@@ -6729,38 +6621,13 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 				PageItem *currItem = doc->m_Selection->itemAt(0);
 				nf2 = currItem->currentCharStyle().font().scName();
 			}
-//			propertiesPalette->Fonts->RebuildList(doc);
-//Qt4		buildFontMenu();
 		}
 	}
-//Qt4	AdjustFontMenu(nf2);
 	doc->itemSelection_SetFont(nf2);
 //	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
 	view->DrawNew();
 	slotDocCh();
 }
-
-/*Qt4
-void ScribusMainWindow::AdjustFontMenu(const QString& nf)
-{
-	currentFontForFontMenu=nf;
-
-//	QString df;
-//	if (doc->m_Selection->count() != 0)
-//	{
-//		PageItem *currItem = doc->m_Selection->itemAt(0);
-//		FontSub->RebuildList(doc, currItem->isAnnotation());
-//	}
-//	FontSub->setCurrentText(nf);
-//	//propertiesPalette->Fonts->setCurrentFont(nf);
-//	for (uint a = 2; a < FontMenu->count(); ++a)
-//	{
-//		df = FontID[FontMenu->idAt(a)];
-//		FontMenu->setItemChecked(FontMenu->idAt(a), (df == nf));
-//	}
-
-}
-*/
 
 void ScribusMainWindow::setItemFSize(int id)
 {
@@ -6783,28 +6650,6 @@ void ScribusMainWindow::setItemFSize(int id)
 	slotDocCh();
 }
 
-void ScribusMainWindow::setFSizeMenu(int size)
-{
-	if (scrActions[QString("fontSize%1").arg(size/10)])
-		scrActions[QString("fontSize%1").arg(size/10)]->setChecked(true);
-}
-
-//CB-->Doc
-/*qt4
-void ScribusMainWindow::setItemFarbe(int id)
-{
-	if (doc->m_Selection->count() != 0)
-	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-			doc->itemSelection_SetFillColor(ColorMenC->text(id));
-		else
-			doc->ItemBrush(ColorMenC->text(id));
-	}
-	scrMenuMgr->getLocalPopupMenu("Color")->activateItemAt(0);
-	slotDocCh();
-}
-*/
 //CB-->Doc partly
 void ScribusMainWindow::setItemShade(int id)
 {
@@ -6869,12 +6714,6 @@ void ScribusMainWindow::setCSMenu()
 	}
 	if (la == CommonStrings::None)
 		la = CommonStrings::tr_NoneColor;
-/* qt4	for (uint a = 0; a < static_cast<uint>(ColorMenC->count()); ++a)
-	{
-		if (ColorMenC->text(a) == la)
-			ColorMenC->setCurrentItem(a);
-	}
-*/
 	if (scrActions[QString("shade%1").arg(lb)])
 		scrActions[QString("shade%1").arg(lb)]->setChecked(true);
 }
@@ -7165,8 +7004,6 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 			{
 				if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 				{
-//Qt4					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
-//Qt4					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf].scName());
 				}
 //				else
 //FIXME					doc->paragraphStyles()[a].charStyle().setFont((prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]));
@@ -7177,9 +7014,6 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 	propertiesPalette->paraStyleCombo->updateFormatList();
 	propertiesPalette->charStyleCombo->updateFormatList();
 	propertiesPalette->updateColorList();
-	//qt4 disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-	ColorList::Iterator it;
-	//qt4 updateColorMenu();
 	view->DrawNew();
 	slotDocCh();
 }
@@ -7453,38 +7287,6 @@ void ScribusMainWindow::selectPagesFromOutlines(int Page)
 	view->GotoPage(Page);
 }
 
-/* Qt4
-void ScribusMainWindow::buildFontMenu()
-{
-	FontID.clear();
-	FontMenu->clear();
-	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
-	FontSub = new FontCombo(0);
-	FontMenu->insertItem(FontSub);
-	connect(FontSub, SIGNAL(activated(int)), this, SLOT(setItemFont2(int)));
-	FontMenu->insertSeparator();
-	int a=0;
-	if (!HaveDoc)
-	{
-		a = FontMenu->insertItem(new FmItem(it.currentKey(), it.current()));
-		FontMenu->setItemChecked(a, true);
-		FontID.insert(a, it.current().scName());
-	}
-	else
-	{
-		QMap<QString,int>::Iterator it3;
-		for (it3 = doc->UsedFonts.begin(); it3 != doc->UsedFonts.end(); ++it3)
-		{
-			a = FontMenu->insertItem(new FmItem(it3.key(), prefsManager->appPrefs.AvailFonts[it3.key()]));
-			if (it3.key() == doc->toolSettings.defFont)
-				FontMenu->setItemChecked(a, true);
-			FontID.insert(a, it3.key());
-		}
-	}
-	connect(FontMenu, SIGNAL(activated(int)), this, SLOT(setItemFont(int)));
-}
-*/
-
 void ScribusMainWindow::prefsOrg(Preferences *dia)
 {
 	//reset the appMode so we restore our tools shortcuts
@@ -7513,8 +7315,6 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 		apf.setPointSize(prefsManager->appPrefs.AppFontSize);
 		qApp->setFont(apf);
 	}
-// qt4
-//	FontSub->RebuildList(0);
 	propertiesPalette->Fonts->RebuildList(0);
 	ScCore->getCMSProfiles(false);
 	ScCore->recheckGS();
@@ -8051,7 +7851,6 @@ void ScribusMainWindow::slotElemRead(QString xml, double x, double y, bool art, 
 		vie->DrawNew();
 		if (doc == docc)
 		{
-			//Qt4 buildFontMenu();
 			propertiesPalette->updateColorList();
 			propertiesPalette->paraStyleCombo->updateFormatList();
 			propertiesPalette->charStyleCombo->updateFormatList();
@@ -8779,13 +8578,7 @@ QString ScribusMainWindow::Collect(bool compress, bool withFonts, const bool wit
 	CollectForOutput c(doc, withFonts, withProfiles, compress);
 	return c.collect();
 }
-/*
-void ScribusMainWindow::ReorgFonts()
-{
-	doc->reorganiseFonts();
-	//Qt4 buildFontMenu();
-}
-*/
+
 void ScribusMainWindow::docCheckToggle(bool visible)
 {
 	if (!visible)
@@ -9241,32 +9034,6 @@ void ScribusMainWindow::getDefaultPrinter(QString *name, QString *file, QString 
 	*file=PDef.Dname;
 	*command=PDef.Command;
 }
-
-/*qt4
-void ScribusMainWindow::updateColorMenu(QProgressBar* progressBar)
-{
-	disconnect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-	ColorMenC->clear();
-	ColorMenC->insertItem(CommonStrings::tr_NoneColor);
-	if (HaveDoc)
-	{
-		if (doc->toolSettings.dBrush == CommonStrings::tr_NoneColor)
-			ColorMenC->setCurrentItem(0);
-		int a = 1;
-		ColorList::Iterator itend=doc->PageColors.end();
-		for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
-		{
-			ColorMenC->insertSmallItem( it.data(), doc, it.key() );
-			if (it.key() == doc->toolSettings.dBrush)
-				ColorMenC->setCurrentItem(a);
-			++a;
-			if (progressBar != NULL)
-				progressBar->setProgress(a);
-		}
-	}
-	connect(ColorMenC, SIGNAL(activated(int)), this, SLOT(setItemFarbe(int)));
-}
-*/
 
 void ScribusMainWindow::closeActiveWindowMasterPageEditor()
 {
