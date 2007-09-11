@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #define STORY_H
 
 // #include <Q3PopupMenu>
-#include <Q3TextEdit>
+#include <QTextEdit>
 #include <QAction>
 #include <QCheckBox>
 #include <QCloseEvent>
@@ -77,7 +77,7 @@ class ColorCombo;
 class CharSelect;
 
 
-class SCRIBUS_API SEditor : public Q3TextEdit
+class SCRIBUS_API SEditor : public QTextEdit
 {
 	Q_OBJECT
 
@@ -401,6 +401,8 @@ protected slots:
 	void newTxtOutline(double o);
 	void newTxtUnderline(double p, double w);
 	void newTxtStrike(double p, double w);
+	void updateProps();
+	void updateProps(QTextCursor &cur);
 	void updateProps(int p, int ch);
 
 	void newStyle(const QString&);

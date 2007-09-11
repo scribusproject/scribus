@@ -513,8 +513,8 @@ void SearchReplace::slotDoSearch()
 	{
 		if (Doc->scMW()->CurrStED != NULL)
 		{
-			int p, i;
-			Doc->scMW()->CurrStED->Editor->getCursorPosition(&p, &i);
+		//	int p, i;
+		//	Doc->scMW()->CurrStED->Editor->getCursorPosition(&p, &i);
 /* Related to the FIXME below
 			uint inde = 0;
 			int as = i;
@@ -804,13 +804,15 @@ void SearchReplace::slotDoReplace()
 			if (RText->isChecked())
 			{
 				disconnect(se->Editor, SIGNAL(cursorPositionChanged(int, int)), se, SLOT(updateProps(int, int)));
-				int PStart, PEnd, SelStart, SelEnd;
-				se->Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+				int SelStart, SelEnd;
+				SelStart = se->Editor->textCursor().selectionStart();
+				SelEnd = se->Editor->textCursor().selectionEnd();
 				se->Editor->insChars(RTextVal->text());
-				se->Editor->setSelection(PStart, SelStart, PEnd, SelEnd);
-				se->Editor->removeSelectedText();
+				se->Editor->textCursor().setPosition(SelStart);
+				se->Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
+				se->Editor->textCursor().removeSelectedText();
 //FIXME				se->Editor->setStyle(se->Editor->CurrentStyle);
-				se->Editor->insert(RTextVal->text());
+				se->Editor->insertPlainText(RTextVal->text());
 				connect(se->Editor, SIGNAL(cursorPositionChanged(int, int)), se, SLOT(updateProps(int, int)));
 //				se->newAlign(se->Editor->currentParaStyle);
 			}

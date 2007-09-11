@@ -27,7 +27,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QComboBox>
 #include <QRegExp>
-#include <Q3HBox>
 #include <QColorDialog>
 #include <QFontDialog>
 #include <QCursor>
@@ -95,11 +94,12 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 
 void SideBar::mouseReleaseEvent(QMouseEvent *m)
 {
-	CurrentPar = editor->paragraphAt(QPoint(2, m->y()+offs));
-	int p=0, i=0;
-	editor->getCursorPosition(&p, &i);
-	int pos = editor->StyledText.startOfParagraph(p) + i;
-	
+//	CurrentPar = editor->paragraphAt(QPoint(2, m->y()+offs));
+//	int p=0, i=0;
+//	editor->getCursorPosition(&p, &i);
+//	int pos = editor->StyledText.startOfParagraph(p) + i;
+	int pos = editor->textCursor().position();
+/*
 	ParaStyleComboBox* paraStyleCombo = new ParaStyleComboBox(this);
 	paraStyleCombo->setDoc(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
@@ -116,10 +116,10 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	pmen->clear();
 	paraStyleAct = new QWidgetAction(this);
 	paraStyleAct->setDefaultWidget(paraStyleCombo);
-	pmen->addAction(paraStyleAct);
+	pmen->addAction(paraStyleAct); */
 //qt4 FIXME	pmen->insertItem(paraStyleCombo);
-	pmen->addAction( tr("Edit Styles..."), this, SLOT(editStyles()));
-	pmen->exec(QCursor::pos());
+//	pmen->addAction( tr("Edit Styles..."), this, SLOT(editStyles()));
+//	pmen->exec(QCursor::pos());
 }
 
 void SideBar::editStyles()
@@ -138,7 +138,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 {
 	inRep = true;
 	QLabel::paintEvent(e);
-	QPainter p;
+/*	QPainter p;
 	p.begin(this);
 	if ((editor != 0) && (noUpdt))
 	{
@@ -161,7 +161,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 			}
 		}
 	}
-	p.end();
+	p.end(); */
 	inRep = false;
 }
 
@@ -183,7 +183,7 @@ void SideBar::setRepaint(bool r)
 	noUpdt = r;
 }
 
-SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : Q3TextEdit(parent)
+SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTextEdit(parent)
 {
 	setCurrentDocument(docc);
 	parentStoryEditor=parentSE;
@@ -193,12 +193,13 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : Q3T
 	SelParaStart = 0;
 	StyledText.clear();
 	cBuffer.clear();
-	setUndoRedoEnabled(true);
-	setUndoDepth(0);
-	setTextFormat(Qt::PlainText);
+	document()->setUndoRedoEnabled(true);
+//	setUndoDepth(0);
+//	setTextFormat(Qt::PlainText);
 	viewport()->setAcceptDrops(false);
 	ClipData = 0;
 	unicodeTextEditMode = false;
+	setAutoFillBackground(true);
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 //	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 }
@@ -215,7 +216,7 @@ void SEditor::inputMethodEvent(QInputMethodEvent *event)
 	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 	{
 		insChars(event->commitString());
-		Q3TextEdit::inputMethodEvent(event);
+		QTextEdit::inputMethodEvent(event);
 		emit SideBarUp(true);
 		emit SideBarUpdate();
 	}
@@ -224,9 +225,10 @@ void SEditor::inputMethodEvent(QInputMethodEvent *event)
 void SEditor::keyPressEvent(QKeyEvent *k)
 {
 	emit SideBarUp(false);
-	int p=0, i=0;
-	getCursorPosition(&p, &i);
-	int pos = StyledText.startOfParagraph(p) + i;
+//	int p=0, i=0;
+//	getCursorPosition(&p, &i);
+//	int pos = StyledText.startOfParagraph(p) + i;
+	int pos = textCursor().position();
 	int keyMod=0;
 	if (k->modifiers() & Qt::ShiftModifier)
 		keyMod |= Qt::SHIFT;
@@ -245,24 +247,26 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		switch (k->key())
 		{
 			case Qt::Key_Delete:
-				moveCursor(Q3TextEdit::MoveWordForward, true);
+				moveCursor(QTextCursor::NextWord, QTextCursor::KeepAnchor);
 				deleteSel();
 				break;
 			case Qt::Key_Backspace:
-				moveCursor(Q3TextEdit::MoveWordBackward, true);
+				moveCursor(QTextCursor::PreviousWord, QTextCursor::KeepAnchor);
 				deleteSel();
 				break;
 			case Qt::Key_K:
-				moveCursor(Q3TextEdit::MoveLineEnd, true);
+				moveCursor(QTextCursor::EndOfLine, QTextCursor::KeepAnchor);
 				deleteSel();
 				break;
 			case Qt::Key_D:
-				moveCursor(Q3TextEdit::MoveForward, true);
+				moveCursor(QTextCursor::NextCharacter, QTextCursor::KeepAnchor);
 				deleteSel();
+				textCursor().removeSelectedText();
 				break;
 			case Qt::Key_H:
-				moveCursor(Q3TextEdit::MoveBackward, true);
+				moveCursor(QTextCursor::PreviousCharacter, QTextCursor::KeepAnchor);
 				deleteSel();
+				textCursor().removeSelectedText();
 				break;
 			case Qt::Key_X:
 				cut();
@@ -282,7 +286,6 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				break;
 		}
 	}
-	
 	if ((k->modifiers() == Qt::NoModifier) ||
 		(k->modifiers() == Qt::KeypadModifier) ||
 		(k->modifiers() == Qt::ShiftModifier) ||
@@ -314,7 +317,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					if (conv < 31)
 						conv = 32;
 					insChars(QString(QChar(conv)));
-					insert(QString(QChar(conv)));
+					insertPlainText(QString(QChar(conv)));
 					emit SideBarUp(true);
 					emit SideBarUpdate();
 					return;
@@ -345,7 +348,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				return;
 				break;
 			case Qt::Key_Delete:
-				if (!hasSelectedText())
+				if (!textCursor().hasSelection())
 				{
 					if (pos < StyledText.length())
 						StyledText.removeChars(pos, 1);
@@ -354,7 +357,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 					deleteSel();
 				break;
 			case Qt::Key_Backspace:
-				if (!hasSelectedText())
+				if (!textCursor().hasSelection())
 				{
 					if (pos > 0)
 						StyledText.removeChars(pos-1, 1);
@@ -365,7 +368,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 			case Qt::Key_Return:
 			case Qt::Key_Enter:
 				{
-					if (hasSelectedText()) {
+					if (textCursor().hasSelection())
+					{
 						pos = StyledText.startOfSelection();
 						deleteSel();
 					}
@@ -385,7 +389,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 				{
 					insChars(k->text());
-					Q3TextEdit::keyPressEvent(k);
+					QTextEdit::keyPressEvent(k);
 					emit SideBarUp(true);
 					emit SideBarUpdate();
 				}
@@ -393,53 +397,62 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				break;
 		}
 	}
-	Q3TextEdit::keyPressEvent(k);
+	QTextEdit::keyPressEvent(k);
 	emit SideBarUp(true);
 	emit SideBarUpdate();
 }
 
 void SEditor::focusOutEvent(QFocusEvent *e)
 {
-	int p,c;
-	getCursorPosition(&p, &c);
+//	int p,c;
+//	getCursorPosition(&p, &c);
 	//qDebug(QString("SE focusOut: %1/%2 (%3 %4/%5)").arg(p).arg(c).arg(StoredSel).arg(SelParaStart).arg(SelCharStart));
-	if (hasSelectedText())
+	if (textCursor().hasSelection())
 	{
-		getSelection(&SelParaStart, &SelCharStart, &SelParaEnd, &SelCharEnd);
+//		getSelection(&SelParaStart, &SelCharStart, &SelParaEnd, &SelCharEnd);
+		SelParaStart = textCursor().selectionStart();
+		SelParaEnd = textCursor().selectionEnd();
 		StoredSel = true;
 	}
-	else {
-		getCursorPosition(&SelParaStart, &SelCharStart);
+	else
+	{
+		SelParaStart = textCursor().position();
+//		getCursorPosition(&SelParaStart, &SelCharStart);
 		StoredSel = false;
 	}
-	Q3TextEdit::focusOutEvent(e);
+	QTextEdit::focusOutEvent(e);
 }
 
 void SEditor::focusInEvent(QFocusEvent *e)
 {
-	int p,c;
-	getCursorPosition(&p, &c);
+//	int p,c;
+//	getCursorPosition(&p, &c);
 	//qDebug(QString("SE focusIn: %1/%2 (%3 %4/%5)").arg(p).arg(c).arg(StoredSel).arg(SelParaStart).arg(SelCharStart));
 	if (StoredSel)
 	{
-		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
+//		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
+		textCursor().setPosition(SelParaStart);
 		StoredSel = false;
 	}
-	else {
-		setCursorPosition(SelParaStart, SelCharStart);
+	else
+	{
+		textCursor().setPosition(SelParaStart);
+		textCursor().setPosition(SelParaEnd, QTextCursor::KeepAnchor);
+//		setCursorPosition(SelParaStart, SelCharStart);
 		StoredSel = false;
 	}
 		
-	Q3TextEdit::focusInEvent(e);
+	QTextEdit::focusInEvent(e);
 }
 
 void SEditor::insChars(QString t)
 {
-	int p=0, i=0;
-	if (hasSelectedText())
+//	int p=0, i=0;
+	if (textCursor().hasSelection())
 		deleteSel();
-	getCursorPosition(&p, &i);
-	int pos = qMin(StyledText.startOfParagraph(p) + i, StyledText.length());
+//	getCursorPosition(&p, &i);
+//	int pos = qMin(StyledText.startOfParagraph(p) + i, StyledText.length());
+	int pos = qMin(textCursor().position(), StyledText.length());
 	StyledText.insertChars(pos, t, true);
 }
 
@@ -447,20 +460,23 @@ void SEditor::insStyledText()
 {
 	if (cBuffer.length() == 0)
 		return;
-	int p=0, i=0;
-	if (hasSelectedText())
+//	int p=0, i=0;
+	if (textCursor().hasSelection())
 		deleteSel();
-	getCursorPosition(&p, &i);
-	int pos = qMin(StyledText.startOfParagraph(p) + i, StyledText.length());
+//	getCursorPosition(&p, &i);
+//	int pos = qMin(StyledText.startOfParagraph(p) + i, StyledText.length());
+	int pos = qMin(textCursor().position(), StyledText.length());
 	StyledText.insert(pos, cBuffer);
 }
 
 void SEditor::copyStyledText()
 {
-	int PStart, PEnd, SelStart, SelEnd, start, end;
-	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-	start = StyledText.startOfParagraph(PStart) + SelStart;
-	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+//	int PStart, PEnd, SelStart, SelEnd, start, end;
+//	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+//	start = StyledText.startOfParagraph(PStart) + SelStart;
+//	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+	int start = textCursor().selectionStart();
+	int end = textCursor().selectionEnd();
 	if (start < 0 || end <= start)
 		return;
 	StyledText.select(start, end-start);
@@ -540,7 +556,7 @@ void SEditor::loadItemText(PageItem *currItem)
 	SelCharStart -= currItem->itemText.startOfParagraph(SelParaStart);
 	StoredSel = false;
 	//qDebug("SE::loadItemText: cursor");
-	setCursorPosition(SelParaStart, SelCharStart);
+//	setCursorPosition(SelParaStart, SelCharStart);
 	emit setProps(SelParaStart, SelCharStart);
 }
 
@@ -555,7 +571,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 	if (StyledText.length() != 0)
 		emit setProps(0, 0);
 	//qDebug("SE::loadText: cursor");
-	setCursorPosition(0, 0);
+	textCursor().setPosition(0);
 }
 
 void SEditor::updateAll()
@@ -564,8 +580,7 @@ void SEditor::updateAll()
 	if (StyledText.length() == 0)
 		return;
 	setUpdatesEnabled(false);
-	int p=0, i=0;
-	getCursorPosition(&p, &i);
+	int pos = textCursor().position();
 	QString Text = "";
 	QString chars;
 	int Csty = StyledText.charStyle(0).effects();
@@ -599,7 +614,7 @@ void SEditor::updateAll()
 			{
 				setAlign(Ali);
 				setStyle(Csty);
-				insert(Text);
+				insertPlainText(Text);
 				Text = "";
 				Csty = cstyle.effects();
 			}
@@ -607,43 +622,43 @@ void SEditor::updateAll()
 			if (ch == SpecialChars::OBJECT)
 			{
 				setFarbe(true);
-				insert("@");
+				insertPlainText("@");
 				setFarbe(false);
 			}
 			else if (ch == SpecialChars::PAGENUMBER)
 			{
 				setFarbe(true);
-				insert("#");
+				insertPlainText("#");
 				setFarbe(false);
 			}
 			else if (ch == SpecialChars::NBSPACE)
 			{
 				setFarbe(true);
-				insert("_");
+				insertPlainText("_");
 				setFarbe(false);
 			}
 			else if (ch == SpecialChars::FRAMEBREAK)
 			{
 				setFarbe(true);
-				insert("|");
+				insertPlainText("|");
 				setFarbe(false);
 			}
 			else if (ch == SpecialChars::COLBREAK)
 			{
 				setFarbe(true);
-				insert("^");
+				insertPlainText("^");
 				setFarbe(false);
 			}
 			else if (ch == SpecialChars::NBHYPHEN)
 			{
 				setFarbe(true);
-				insert("=");
+				insertPlainText("=");
 				setFarbe(false);
 			}
 			else if (ch == SpecialChars::LINEBREAK)
 			{
 				setFarbe(true);
-				insert("*");
+				insertPlainText("*");
 				setFarbe(false);
 			}
 			else
@@ -654,8 +669,8 @@ void SEditor::updateAll()
 	}
 	setAlign(Ali);
 	setStyle(Csty);
-	insert(Text);
-	setCursorPosition(p, i);
+	insertPlainText(Text);
+	textCursor().setPosition(pos);
 	setUpdatesEnabled(true);
 	//CB Removed to fix 2083 setCursorPosition(p, i);
 }
@@ -668,11 +683,12 @@ void SEditor::updateFromChars(int pa)
 	if (start >= end)
 		return;
 	setUpdatesEnabled(false);
-	int SelStart = 0;
+	int SelStart = start;
 	int SelEnd = 0;
-	int p=0, i=0;
-	getCursorPosition(&p, &i);
-	removeSelection();
+//	int p=0, i=0;
+//	getCursorPosition(&p, &i);
+	int pos = textCursor().position();
+	textCursor().clearSelection();
 	int Csty = StyledText.charStyle(start).effects();
 	for (int a = start; a < end; ++a)
 	{
@@ -680,21 +696,26 @@ void SEditor::updateFromChars(int pa)
 			SelEnd++;
 		else
 		{
-			setSelection(pa, SelStart, pa, SelEnd);
+//			setSelection(pa, SelStart, pa, SelEnd);
+			textCursor().setPosition(SelStart);
+			textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
 			setStyle(Csty);
-			removeSelection();
+			textCursor().clearSelection();
 			Csty = StyledText.charStyle(a).effects();
 			SelStart = SelEnd;
 			SelEnd++;
 		}
 	}
-	setSelection(pa, SelStart, pa, SelEnd);
+//	setSelection(pa, SelStart, pa, SelEnd);
+	textCursor().setPosition(SelStart);
+	textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
 	setStyle(Csty);
-	removeSelection();
+	textCursor().clearSelection();
 	setAlign(StyledText.paragraphStyle(start).alignment());
 	setUpdatesEnabled(true);
 	//qDebug(QString("SE::updateFromChars: cursor %1/%2").arg(p).arg(i));
-	setCursorPosition(p, i);
+//	setCursorPosition(p, i);
+	textCursor().setPosition(pos);
 }
 
 /* updates the internal StyledText structure, applies 'newStyle' to the selection */
@@ -703,29 +724,36 @@ void SEditor::updateSel(const ParagraphStyle& newStyle)
 	int PStart, PEnd, SelStart, SelEnd, start;
 	if (StoredSel)
 	{
-		//qDebug("SE::updateSel: setsel");
-		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
+		textCursor().setPosition(SelParaStart);
+		textCursor().setPosition(SelParaEnd, QTextCursor::KeepAnchor);
 		StoredSel = false;
 	}
-	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-	for (int pa=PStart; pa <= PEnd; ++pa)
+	SelStart = textCursor().selectionStart();
+	PStart = StyledText.nrOfParagraph(SelStart);
+	SelEnd = textCursor().selectionEnd();
+	PEnd = StyledText.nrOfParagraph(SelEnd);
+	for (int pa = PStart; pa <= PEnd; ++pa)
 	{
-		start = StyledText.startOfParagraph(PStart) + SelStart;
+		start = StyledText.startOfParagraph(pa);
 		StyledText.applyStyle(start, newStyle);
 	}
 }
 
 void SEditor::updateSel(const CharStyle& newStyle)
 {
-	int PStart, PEnd, SelStart, SelEnd, start, end;
+//	int PStart, PEnd, SelStart, SelEnd, start, end;
 	if (StoredSel)
 	{
-		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
+		textCursor().setPosition(SelParaStart);
+		textCursor().setPosition(SelParaEnd, QTextCursor::KeepAnchor);
+//		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
 		StoredSel = false;
 	}
-	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-	start = StyledText.startOfParagraph(PStart) + SelStart;
-	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+//	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+//	start = StyledText.startOfParagraph(PStart) + SelStart;
+//	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+	int start = textCursor().selectionStart();
+	int end = textCursor().selectionEnd();
 	if (start >= 0 && start < end)
 		StyledText.applyCharStyle(start, end-start, newStyle);
 }
@@ -733,34 +761,36 @@ void SEditor::updateSel(const CharStyle& newStyle)
 
 void SEditor::deleteSel()
 {
-	int PStart, PEnd, SelStart, SelEnd, start, end;
-	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-	start = StyledText.startOfParagraph(PStart) + SelStart;
-	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+//	int PStart, PEnd, SelStart, SelEnd, start, end;
+//	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+//	start = StyledText.startOfParagraph(PStart) + SelStart;
+//	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+	int start = textCursor().selectionStart();
+	int end = textCursor().selectionEnd();
 	if (end > start)
 		StyledText.removeChars(start, end-start);
 	//qDebug("SE::deleteSel: cursor");
-	setCursorPosition(PStart, SelStart);
+	textCursor().setPosition(start);
 }
 
 void SEditor::setStyle(int Csty)
 {
+	QTextCharFormat charF;
 	if (Csty & 8)
-		setUnderline(true);
+		charF.setFontUnderline(true);
 	else
-		setUnderline(false);
-	QFont f = currentFont();
+		charF.setFontUnderline(false);
 	if (Csty & 16)
-		f.setStrikeOut(true);
+		charF.setFontStrikeOut(true);
 	else
-		f.setStrikeOut(false);
-	setCurrentFont(f);
+		charF.setFontStrikeOut(false);
 	if (Csty & 1)
-		setVerticalAlignment(AlignSuperScript);
+		charF.setVerticalAlignment(QTextCharFormat::AlignSuperScript);
 	else if (Csty & 2)
-		setVerticalAlignment(AlignSubScript);
+		charF.setVerticalAlignment(QTextCharFormat::AlignSubScript);
 	else
-		setVerticalAlignment(AlignNormal);
+		charF.setVerticalAlignment(QTextCharFormat::AlignNormal);
+	textCursor().setCharFormat(charF);
 }
 
 void SEditor::setFarbe(bool marker)
@@ -770,13 +800,13 @@ void SEditor::setFarbe(bool marker)
 		tmp = QColor(Qt::red);
 	else
 		tmp = QColor(Qt::black);
-	setColor(tmp);
+	setTextColor(tmp);
 }
 
 void SEditor::copy()
 {
 	emit SideBarUp(false);
-	if ((hasSelectedText()) && (!selectedText().isEmpty()))
+	if ((textCursor().hasSelection()) && (!textCursor().selectedText().isEmpty()))
 	{
 		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
 //		disconnect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
@@ -794,10 +824,10 @@ void SEditor::cut()
 {
 	copy();
 	emit SideBarUp(false);
-	if (hasSelectedText())
+	if (textCursor().hasSelection())
 	{
 		deleteSel();
-		removeSelectedText();
+		textCursor().removeSelectedText();
 	}
 	emit SideBarUp(true);
 	emit SideBarUpdate();
@@ -806,12 +836,13 @@ void SEditor::cut()
 void SEditor::paste()
 {
 	emit SideBarUp(false);
-	int currentPara, currentCharPos;
+//	int currentPara, currentCharPos;
 	QString data = "";
 	int newParaCount, lengthLastPara;
 	int advanceLen = 0;
 //	bool inserted=false;
-	getCursorPosition(&currentPara, &currentCharPos);
+//	getCursorPosition(&currentPara, &currentCharPos);
+	int pos = textCursor().position();
 	if (ClipData == 1)
 	{
 		advanceLen = cBuffer.length();
@@ -843,16 +874,17 @@ void SEditor::paste()
 	updateAll();
 	setUpdatesEnabled(false);
 	//qDebug("SE::paste: cursor");
-	setCursorPosition(currentPara, currentCharPos);
+//	setCursorPosition(currentPara, currentCharPos);
+	textCursor().setPosition(pos);
 	for (int a = 0; a < advanceLen; ++a)
 	{
-		moveCursor(Q3TextEdit::MoveForward, false);
+		moveCursor(QTextCursor::Right, QTextCursor::MoveAnchor);
 	}
 	setUpdatesEnabled(true);
 //	if (inserted)
 //		setCursorPosition(currentPara+newParaCount,(newParaCount==0?currentCharPos:0)+lengthLastPara-1);
 	sync();
-	repaintContents();
+	repaint();
 	emit SideBarUp(true);
 	emit SideBarUpdate();
 }
@@ -912,10 +944,15 @@ void SToolBColorF::languageChange()
 
 void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 {
-	TxFill->clear();
-	TxFill->addItem(CommonStrings::tr_NoneColor);
 	if (doc!=NULL)
-		TxFill->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
+		TxFill->updateBox(doc->PageColors, ColorCombo::smallPixmaps, true);
+	else
+	{
+		TxFill->clear();
+		TxFill->addItem(CommonStrings::tr_NoneColor);
+	}
+//	if (doc!=NULL)
+//		TxFill->insertItems(doc->PageColors, ColorCombo::smallPixmaps);
 	resize(minimumSizeHint());
 }
 
@@ -1545,7 +1582,6 @@ void StoryEditor::buildGUI()
 	buildMenus();
 
 	setWindowIcon(loadIcon("AppIcon.png"));
-	Q3HBox* vb = new Q3HBox( this );
 	StoryEd2Layout = new QHBoxLayout;
 	StoryEd2Layout->setSpacing( 5 );
 	StoryEd2Layout->setMargin( 5 );
@@ -1607,7 +1643,7 @@ void StoryEditor::buildGUI()
 	addToolBar(StrokeTools);
 	addToolBar(FillTools);
 
-	EdSplit = new QSplitter(vb);
+	EdSplit = new QSplitter(this);
 /* SideBar Widget */
 	EditorBar = new SideBar(EdSplit);
 /* Editor Widget, subclass of QTextEdit */
@@ -1655,13 +1691,13 @@ void StoryEditor::buildGUI()
 	CharC2 = new QLabel(ButtonGroup2);
 	ButtonGroup2Layout->addWidget( CharC2, 1, 5 );
 	statusBar()->addPermanentWidget(ButtonGroup2, 1);
-	setCentralWidget( vb );
+	setCentralWidget( EdSplit );
 	//Final setup
 	resize( QSize(660, 500).expandedTo(minimumSizeHint()) );
 	if (prefsManager==NULL)
 		sDebug(QString("%1").arg("prefsmgr null"));
 
-	Editor->setPaper(prefsManager->appPrefs.STEcolor);
+//	Editor->setPaper(prefsManager->appPrefs.STEcolor);
 	QFont fo;
 	fo.fromString(prefsManager->appPrefs.STEfont);
 	Editor->setFont(fo);
@@ -1740,7 +1776,7 @@ void StoryEditor::connectSignals()
 	connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
 	connect(Editor, SIGNAL(clicked(int, int)), this, SLOT(updateProps(int, int)));
 	connect(Editor, SIGNAL(setProps(int, int)), this, SLOT(updateProps(int, int)));
-	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+	connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 	connect(Editor, SIGNAL(copyAvailable(bool)), this, SLOT(CopyAvail(bool )));
 	connect(Editor, SIGNAL(PasteAvail()), this, SLOT(PasteAvail()));
 	connect(Editor, SIGNAL(contentsMoving(int, int)), EditorBar, SLOT(doMove(int, int )));
@@ -1783,9 +1819,9 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 		firstSet = false;
 		FontTools->Fonts->RebuildList(currDoc, currItem->isAnnotation());
 		Editor->loadItemText(currItem);
-		Editor->getCursorPosition(&CurrPara, &CurrChar);
+//		Editor->getCursorPosition(&CurrPara, &CurrChar);
 		Editor->sync();
-		Editor->repaintContents();
+		Editor->repaint();
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();
 		updateProps(0,0);
@@ -1809,16 +1845,19 @@ whitespaces on the tail) - select only one word - return
 controlling back to story editor - have rest */
 void StoryEditor::doubleClick(int para, int position)
 {
-	int paraFrom=0, indexFrom=0, paraTo=0, indexTo=0;
+	int indexFrom=0, indexTo=0;
 	QString selText = Editor->selectedText();
 	if (selText.length() == 0 || !smartSelection)
 	{
 		updateProps(para, position);
 		return;
 	}
-	Editor->getSelection(&paraFrom, &indexFrom, &paraTo, &indexTo);
+	indexFrom = Editor->textCursor().selectionStart();
+	indexTo = Editor->textCursor().selectionEnd();
 	selText =  selText.trimmed();
-	Editor->setSelection(paraFrom, indexFrom, paraFrom, indexFrom + selText.length());
+	Editor->textCursor().clearSelection();
+	Editor->textCursor().setPosition(indexFrom);
+	Editor->textCursor().setPosition(indexFrom + selText.length(), QTextCursor::KeepAnchor);
 	updateProps(para, position);
 }
 
@@ -1879,7 +1918,7 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 		if ((currItem!=NULL) && (!blockUpdate))
 			updateTextFrame();
 		activFromApp = false;
-		Editor->getCursorPosition(&CurrPara, &CurrChar);
+//		Editor->getCursorPosition(&CurrPara, &CurrChar);
 	}
 	if ( ev->type() == QEvent::WindowActivate )
 	{
@@ -1899,12 +1938,12 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				textChanged = false;
 				FontTools->Fonts->RebuildList(currDoc, currItem->isAnnotation());
 				Editor->loadItemText(currItem);
-				Editor->getCursorPosition(&CurrPara, &CurrChar);
+//				Editor->getCursorPosition(&CurrPara, &CurrChar);
 				updateStatus();
 				textChanged = false;
 				Editor->sync();
-				Editor->repaintContents();
-				EditorBar->doMove(0, Editor->contentsY());
+				Editor->repaint();
+//				EditorBar->doMove(0, Editor->contentsY());
 				EditorBar->setRepaint(true);
 				EditorBar->doRepaint();
 				connectSignals();
@@ -1918,10 +1957,14 @@ void StoryEditor::setBackPref()
 {
 	blockUpdate = true;
 	QColor neu = QColor();
-	neu = QColorDialog::getColor(Editor->paper().color(), this);
+	neu = QColorDialog::getColor(Editor->palette().color(QPalette::Base), this);
 	if (neu.isValid())
 	{
-		Editor->setPaper(neu);
+		QPalette pal;
+		pal.setColor(QPalette::Active, QPalette::Base, neu);
+		pal.setColor(QPalette::Inactive, QPalette::Base, neu);
+		pal.setColor(QPalette::Disabled, QPalette::Base, neu);
+		Editor->setPalette(pal);
 		prefsManager->appPrefs.STEcolor = neu;
 	}
 	blockUpdate = false;
@@ -2092,6 +2135,20 @@ void StoryEditor::newTxtStrike(double p, double w)
 	Editor->setFocus();
 }
 
+void StoryEditor::updateProps()
+{
+	QTextCursor cur = Editor->textCursor();
+	updateProps(cur);
+}
+
+void StoryEditor::updateProps(QTextCursor &cur)
+{
+	int pos = cur.position();
+	int para = Editor->StyledText.nrOfParagraph(pos);
+	int start = Editor->StyledText.startOfParagraph(para);
+	updateProps(para, pos - start);
+}
+
 void StoryEditor::updateProps(int p, int ch)
 {
 	ColorList::Iterator it;
@@ -2205,16 +2262,17 @@ void StoryEditor::updateProps(int p, int ch)
 	else
 	{
 		int start;
-		if (Editor->hasSelectedText())
-		{
-			int PStart=0, PEnd=0, SelStart=0, SelEnd=0;
-			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-			start = Editor->StyledText.startOfParagraph(PStart);
-			if (SelStart >= 0 && start + SelStart < Editor->StyledText.endOfParagraph(PStart))
-				start = qMin(start + SelStart, Editor->StyledText.endOfParagraph(PStart)-1);
-			else
-				start = qMin(start + qMax(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
-		}
+		if (Editor->textCursor().hasSelection())
+//		{
+//			int PStart=0, PEnd=0, SelStart=0, SelEnd=0;
+			start = Editor->textCursor().selectionStart();
+//			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+//			start = Editor->StyledText.startOfParagraph(PStart);
+//			if (SelStart >= 0 && start + SelStart < Editor->StyledText.endOfParagraph(PStart))
+//				start = qMin(start + SelStart, Editor->StyledText.endOfParagraph(PStart)-1);
+//			else
+//				start = qMin(start + qMax(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
+//		}
 		else
 			start = qMin(Editor->StyledText.startOfParagraph(p) + qMax(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
 		if (start >= Editor->StyledText.length())
@@ -2297,15 +2355,14 @@ void StoryEditor::updateProps(int p, int ch)
 void StoryEditor::updateStatus()
 {
 	QString tmp;
-	int p=0, i=0;
-	Editor->getCursorPosition(&p, &i);
+	int p = Editor->StyledText.nrOfParagraph(Editor->textCursor().position());
 	int start = Editor->StyledText.startOfParagraph(p);
 	int end = Editor->StyledText.endOfParagraph(p);
 
 	ParC->setText(tmp.setNum(Editor->StyledText.nrOfParagraphs()));
-	CharC->setText(tmp.setNum(end - start));
 	CharC2->setText(tmp.setNum(Editor->StyledText.length()));
 
+	CharC->setText(tmp.setNum(end - start));
 	QRegExp rx( "(\\w+)\\b" );
 	const QString& txt(Editor->StyledText.text(0, Editor->StyledText.length()));
 	int pos = 1;
@@ -2345,7 +2402,7 @@ void StoryEditor::slot_insertSpecialChar()
 	if (!charSelect->getCharacters().isEmpty())
 	{
 		Editor->insChars(charSelect->getCharacters());
-		Editor->insert(charSelect->getCharacters());
+		Editor->insertPlainText(charSelect->getCharacters());
 	}
 	blockUpdate = false;
 }
@@ -2354,7 +2411,7 @@ void StoryEditor::slot_insertUserSpecialChar(QChar c)
 {
 	blockUpdate = true;
 	Editor->insChars(c);
-	Editor->insert(c);
+	Editor->insertPlainText(c);
 	blockUpdate = false;
 }
 
@@ -2423,7 +2480,7 @@ void StoryEditor::Do_saveDocument()
 
 bool StoryEditor::Do_new()
 {
-	if (Editor->length() != 0)
+	if (!Editor->document()->isEmpty())
 	{
 		blockUpdate = true;
 		int t = ScMessageBox::warning(this, CommonStrings::trWarning,
@@ -2441,7 +2498,7 @@ bool StoryEditor::Do_new()
 	Editor->setUndoRedoEnabled(false);
 	Editor->setUndoRedoEnabled(true);
 	//qDebug("SE::Do_new: cursor");
-	Editor->setCursorPosition(0, 0);
+	Editor->textCursor().setPosition(0);
 	seActions["fileRevert"]->setEnabled(false);
 	seActions["editCopy"]->setEnabled(false);
 	seActions["editCut"]->setEnabled(false);
@@ -2460,12 +2517,12 @@ void StoryEditor::slotFileRevert()
 	if (Do_new())
 	{
 		Editor->loadItemText(currItem);
-		Editor->getCursorPosition(&CurrPara, &CurrChar);
+//		Editor->getCursorPosition(&CurrPara, &CurrChar);
 		updateStatus();
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();
 		Editor->sync();
-		Editor->repaintContents();
+		Editor->repaint();
 	}
 }
 
@@ -2473,8 +2530,8 @@ void StoryEditor::Do_selectAll()
 {
 	if (Editor->StyledText.length() == 0)
 		return;
-
-	int lastPar = Editor->StyledText.nrOfParagraphs()-1;
+	Editor->selectAll();
+/*	int lastPar = Editor->StyledText.nrOfParagraphs()-1;
 	if (lastPar > 0)
 	{
 		int lastParStart = Editor->StyledText.startOfParagraph(lastPar);
@@ -2484,7 +2541,7 @@ void StoryEditor::Do_selectAll()
 	else
 	{
 		Editor->setSelection(0, 0, 0, Editor->StyledText.length());
-	}
+	} */
 }
 
 void StoryEditor::Do_copy()
@@ -2507,10 +2564,10 @@ void StoryEditor::Do_del()
 	if (Editor->StyledText.length() == 0)
 		return;
 	EditorBar->setRepaint(false);
-	if (Editor->hasSelectedText())
+	if (Editor->textCursor().hasSelection())
 	{
 		Editor->deleteSel();
-		Editor->removeSelectedText();
+		Editor->textCursor().removeSelectedText();
 	}
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
@@ -2668,7 +2725,7 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 
 	if (Editor->StyledText.length() != 0)
 	{
-		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		disconnect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		disconnect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
 		disconnect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 
@@ -2685,7 +2742,7 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 //		updateProps(pa, 0);
 		Editor->ensureCursorVisible();
 		EditorBar->doRepaint();
-		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		connect(Editor, SIGNAL(cursorPositionChanged()), this, SLOT(updateProps()));
 		connect(Editor, SIGNAL(textChanged()), this, SLOT(modifiedText()));
 		connect(Editor, SIGNAL(textChanged()), EditorBar, SLOT(doRepaint()));
 	}
@@ -2719,19 +2776,19 @@ void StoryEditor::changeStyleSB(int pa, const QString& name)
 			StrokeTools->PM1->setEnabled(false);
 		}
 		//qDebug("SE::changeStyleSB: cursor");
-		Editor->setCursorPosition(0, 0);
+		Editor->textCursor().setPosition(0);
 		updateProps(0, 0);
 	}
 
 	Editor->sync();
-	Editor-> repaintContents();
+	Editor-> repaint();
 	modifiedText();
 	Editor->setFocus();
 }
 
 void StoryEditor::changeStyle()
 {
-	int p=0, i=0;
+/*	int p=0, i=0;
 	bool sel = false;
 	ParagraphStyle newStyle;
 	newStyle.setParent(Editor->currentParaStyle);
@@ -2750,7 +2807,7 @@ void StoryEditor::changeStyle()
 		int PEnd2 = 0;
 		int SelStart2 = 0;
 		int SelEnd2 = 0;
-		if (Editor->hasSelectedText())
+		if (Editor->textCursor().hasSelection())
 		{
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 			PStart2 = PStart;
@@ -2771,7 +2828,6 @@ void StoryEditor::changeStyle()
 		}
 		if (sel)
 			Editor->setSelection(PStart2, SelStart2, PEnd2, SelEnd2);
-		//qDebug("SE::changeStyle: cursor");
 		Editor->setCursorPosition(p, i);
 		Editor->ensureCursorVisible();
 		updateProps(p, i);
@@ -2809,20 +2865,19 @@ void StoryEditor::changeStyle()
 			StrokeTools->TxStroke->setEnabled(false);
 			StrokeTools->PM1->setEnabled(false);
 		}
-		//qDebug("SE::changeStyle00: cursor");
-		Editor->setCursorPosition(0, 0);
+		Editor->textCursor().setPosition(0);
 		updateProps(0, 0);
 	}
 	modifiedText();
 	Editor->sync();
-	Editor-> repaintContents();
-	Editor->setFocus();
+	Editor-> repaint();
+	Editor->setFocus(); */
 }
 
 
 void StoryEditor::changeAlign(int )
 {
-	int p=0, i=0;
+/*	int p=0, i=0;
 	bool sel = false;
 	ParagraphStyle newStyle;
 	newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(Editor->CurrAlign));
@@ -2841,7 +2896,7 @@ void StoryEditor::changeAlign(int )
 		int PEnd2 = 0;
 		int SelStart2 = 0;
 		int SelEnd2 = 0;
-		if (Editor->hasSelectedText())
+		if (Editor->textCursor().hasSelection())
 		{
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 			PStart2 = PStart;
@@ -2873,8 +2928,8 @@ void StoryEditor::changeAlign(int )
 	}
 	modifiedText();
 	Editor->sync();
-	Editor->repaintContents();
-	Editor->setFocus();
+	Editor->repaint();
+	Editor->setFocus(); */
 }
 
 
@@ -2923,7 +2978,7 @@ void StoryEditor::LoadTextFile()
 		EditorBar->doRepaint();
 	}
 	Editor->sync();
-	Editor-> repaintContents();
+	Editor-> repaint();
 }
 
 void StoryEditor::SaveTextFile()
