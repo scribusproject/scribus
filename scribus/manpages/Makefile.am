@@ -1,11 +1,13 @@
-EXTRA_DIST = scribus.1 scribus.1.pl CMakeLists.txt
+EXTRA_DIST = scribus.1 scribus.1.pl CMakeLists.txt scribus.1.de
 
 install-data-local:
 	$(mkinstalldirs) $(mandir)/man1
 	$(mkinstalldirs) $(mandir)/pl/man1
 	$(INSTALL_DATA) $(srcdir)/scribus.1 $(mandir)/man1/scribus.1
+	$(INSTALL_DATA) $(srcdir)/scribus.1.de $(mandir)/man1/scribus.1.de
 	$(INSTALL_DATA) $(srcdir)/scribus.1.pl $(mandir)/pl/man1/scribus.1
 
 uninstall-local:
 	-rm -f $(mandir)/man1/scribus.1
+	-rm -f $(mandir)/man1/scribus.1.de
 	-rm -f $(mandir)/pl/man1/scribus.1

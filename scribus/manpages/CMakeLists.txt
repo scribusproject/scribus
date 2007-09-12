@@ -4,6 +4,7 @@ INCLUDE_DIRECTORIES(
 
 INSTALL(FILES
 scribus.1
+scribus.1.de
   DESTINATION ${MANDIR}man1
 )
 
