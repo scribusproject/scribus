@@ -1,5 +1,5 @@
 Generic build instructions are available in the INSTALL file. Please read these
-notes below for Scribus-specifc information plus notes about compiling Scribus on
+notes below for Scribus-specific information plus notes about compiling Scribus on
 particular distributions and operating systems.
 
 CMake Build
@@ -10,6 +10,7 @@ replaces the traditionally used so called autotools. CMake (cmake.org) is
 a modern, cross-platform replacement for autotools. 
 
 Please see install4.html or http://docs.scribus.net/index.php?lang=en&page=install4
+and for Mac OS X http://docs.scribus.net/index.php?lang=en&page=install5 
 for details *after* reviewing the build requirements below.
 
  
@@ -21,12 +22,12 @@ You must install the libraries listed below BEFORE running configure or
 compiling Scribus:
 
 Requirements:
-	Qt >= 3.3 (3.3.7+ recommended) and not Qt4.x Scribus 1.3.3.x will not
+	Qt >= 3.3 (3.3.8+ recommended) and not Qt4.x Scribus 1.3.3.x will not
 	compile with Qt 4.x 
-	Freetype >= 2.1.3 (2.2.1+ strongly recommended)
+	Freetype >= 2.1.3 (2.3.x+ strongly recommended)
 	libart >= 2.3.10+ (2.3.17+ recommended)
 	libtiff >= 3.6.0
-	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
+	LittleCMS (liblcms) = 1.12 (1.17+ recommended)
 	libjpeg (depending on how Qt is packaged)
 	libpng
 
@@ -39,7 +40,7 @@ Recommended:
 	CUPS
 	Fontconfig >= 2.0
 	LibXML2 >= 2.6.0
-	GhostScript >= 8.0 (8.15 or greater preferred)
+	GhostScript >= 8.0 (8.60 or greater preferred)
 	Python >= 2.3
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
@@ -51,6 +52,15 @@ If any recommended libraries (and their dev/devel packages or headers) are not
 installed, some features will be disabled by configure. If you later install
 any of these dependencies, you will have to re-run configure and re-compile
 Scribus before the features are enabled.
+
+CAIRO RENDERING
+===============
+
+Scribus 1.3.3.x has a compile time option to use the cairo graphics library
+in place of libart_lgpl as a renderer for the canvas. This is _stricly_ optional. 
+However there are are some minor display issues which cairo fixes, especially
+gradients display on canvas. For performance reasons, we recommned using Cairo
+1.4.10 or newer. To enable using the cairo renderer simply 
 
 LIBRARIES IN NON-STANDARD LOCATIONS
 ===================================
@@ -105,14 +115,14 @@ http://bugs.scribus.net/ .
 REQUIREMENTS - DETAILS
 ======================
 
-We strongly recommend having Qt 3.3.6+. Qt 3.3 is now the *minimum*. Older
+We strongly recommend having Qt 3.3.8+. Qt 3.3 is now the *minimum*. Older
 versions of Qt are *not* supported. If you build Qt from sources, the
 recommended ./configure switches are the same as used by KDE. Use of other
 switches aside from those used by distro packages can make trouble shooting
 issues very difficult at times.
 See: http://developer.kde.org/build/compile_kde3_3.html
 
-Scribus requires Freetype. If you are compiling from source, you will need to
+Scribus requires Freetype2. If you are compiling from source, you will need to
 have the freetype headers installed - these can usually be found in a -devel
 package for your distro.
 
@@ -203,7 +213,7 @@ It's best if you do a search of the mailing list archives and/or
 bugs.scribus.net before reporting a problem, too. This is doubly true for
 development versions of Scribus.
 
-DISTRO SPECIFIC BUILD INFORMATION
+LINUX DISTRO SPECIFIC BUILD INFORMATION
 =================================
 
 This section contains information about compiling Scribus that's specific to
@@ -234,7 +244,7 @@ More info can be found in the README.
 Red Hat / Fedora
 ================
 
-Recommended packages for compiling from source on FC4 / FC5
+Recommended packages for compiling from source on FC4+
 	libstdc++-devel (Required)
 	gcc-c++ (Required)
 	qt-devel (Required)
@@ -282,13 +292,16 @@ Recommended packages for compiling from source on SuSE 9.x/10.x:
 	python-imaging
 
 You can install these packages using YaST. You may find it difficult to compile Scribus 1.3.x
-on anything older than Suse 9.1. In addtion, you are recommended to have the updated KDE/Qt
+on anything older than Suse 9.1. In addition, you are recommended to have the updated KDE/Qt
 packages which are provided as supplemental from ftp.suse.com or mirrors.
+
+We frequently provide rpms of svn snapshots in between releases for Mandriva 2007, Fedora's latest 2
+releases and all supported Suse versions (10.0+) and SLES via the Open Suse Build Service. You can
+access these packages using yum, smart or yast: 
 
 Mac OS X
 ========
 
-No detailed build instructions yet. Please see the README for info on MacOS/X.
 
 Fink or a similar package collection will generally be required for compiling
 Scribus. Scribus requires several libraries that do not come with Mac OS X,
@@ -303,6 +316,10 @@ need to compile your own copy of Freetype, then use --with-extra-includes and
 See `LIBRARIES IN NON-STANDARD LOCATIONS' for additional instructions. /sw is
 a "non standard location" that won't be searched by most of the tools configure
 uses, so you must tell Scribus about it.
+
+For the development branch of Scribus on OSC see : 
+http://docs.scribus.net/index.php?lang=en&page=install5 
+
 
 Microsoft Windows
 =================
