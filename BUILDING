@@ -51,7 +51,7 @@ Recommended:
 If any recommended libraries (and their dev/devel packages or headers) are not
 installed, some features will be disabled by configure. If you later install
 any of these dependencies, you will have to re-run configure and re-compile
-Scribus before the features are enabled.
+Scribus before the features are enabled. 
 
 CAIRO RENDERING
 ===============
@@ -60,7 +60,8 @@ Scribus 1.3.3.x has a compile time option to use the cairo graphics library
 in place of libart_lgpl as a renderer for the canvas. This is _stricly_ optional. 
 However there are are some minor display issues which cairo fixes, especially
 gradients display on canvas. For performance reasons, we recommned using Cairo
-1.4.10 or newer. To enable using the cairo renderer simply 
+1.4.10 or newer. To enable using the cairo renderer simply pass "--enable-cairo"
+to ./configure or "-DWANT_CAIRO=1" to cmake command line.
 
 LIBRARIES IN NON-STANDARD LOCATIONS
 ===================================
