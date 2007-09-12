@@ -1,8 +1,8 @@
 <qt>
 <title>Scribus 1.3.3.6+ und 1.3.4+ mit CMake kompilieren</title>
 <h2>Scribus 1.3.3.6+ und 1.3.4+ mit CMake kompilieren</h2>
-<p>Nachdem viele Jahre lang das Autotools-Buildsystem benutz wurde, haben sich die Scribus-Entwickler für CMake als Ersatz entschieden. Es ermöglicht eine wesentlich flexiblere Konfiguration und ist weniger komplex. Darüber hinaus ist es kompatibel mit Build-Werkzeugen unter Linux, verschiedenen Unix-Varianten, Windows und MacOS X.</p>
-<p>Um mit Hilfe von CMake zu kompilieren, brauchen Sie natürlich zunächst CMake selbst. Die meisten Linux- und einige Unix-Distributionen enthalten es als Standardpaket. Falls nicht, können Sie es <a href="http://www.cmake.org">hier</a> herunterladen. Sie sollten unbedingt eine aktuelle Version verwenden, also 2.4.3 oder neuer. MacOS-X-Anwender finden dort auch einen Installer für ihr System. Scribus verwendet CMake noch nicht für Windows, obwohl sich das in Zukunft ändern könnte. </p>
+<p>Nachdem viele Jahre lang das Autotools-Buildsystem benutzt wurde, haben sich die Scribus-Entwickler für CMake als Ersatz entschieden. Es ermöglicht eine wesentlich flexiblere Konfiguration und ist weniger komplex. Darüber hinaus ist es kompatibel mit Build-Werkzeugen unter Linux, verschiedenen UNIX-Varianten, Windows und MacOS X.</p>
+<p>Um mit Hilfe von CMake zu kompilieren, brauchen Sie natürlich zunächst CMake selbst. Die meisten Linux- und einige UNIX-Distributionen enthalten es als Standardpaket. Falls nicht, können Sie es <a href="http://www.cmake.org">hier</a> herunterladen. Sie sollten unbedingt eine aktuelle Version verwenden, also 2.4.3 oder neuer. MacOS-X-Anwender finden dort auch einen Installer für ihr System. Scribus verwendet CMake noch nicht für Windows, obwohl sich das in Zukunft ändern könnte. </p>
 <p>Einer der Vorteile von CMake ist, daß es möglich ist, "außerhalb der Quellen" zu kompilieren. Das bedeutet, daß wenn ein Programm kompiliert wird, die temporären Dateien und die Anwendungsdateien nicht im selben Verzeichnis gespeichert werden wie die Dateien mit den Quelltexten. Dadurch bleiben die Verzeichnisstrukturen "sauber", und die Zeit für eine Aktualisierung der Quellen reduziert sich. Dies ist die empfohlene Methode, aber wir werden beide Möglichkeiten beschreiben, die es gibt.</p>
 
 <h3>Vorbereitungen</h3>
@@ -17,7 +17,7 @@
 <pre>cd /home/username/scribussource/</pre>
 <p>Dann führen Sie folgenden Befehl aus:</p>
 <pre>/usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/</pre>
-<p>Falls dies das Installationsziel ist, können Sie unter <strong>Kompilieren</strong> weiterlesen</p>
+<p>Falls dies das Installationsziel ist, können Sie unter <strong>Kompilieren</strong> weiterlesen.</p>
 
 <h3>Einen "Out-of-Source Build" starten</h3>
 <p>Wechseln Sie ins Quellverzeichnis:</p>
@@ -30,7 +30,7 @@
 <pre>/usr/bin/cmake ../Scribus -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/</pre>
 
 <h3>Kompilieren</h3>
-<p>Wenn der CMakeBefehl, für den Sie sich entschieden haben, erfolgreich ausgeführt wurde (er muß alle Abhängigkeiten finden und deren Installationsort speichern), dann führen Sie folgenden Befehle aus:</p>
+<p>Wenn der CMakeBefehl, für den Sie sich entschieden haben, erfolgreich ausgeführt wurde (er muß alle Abhängigkeiten finden und deren Installationsort speichern), dann führen Sie folgenden Befehl aus:</p>
 <pre>make &#038;&#038; make install</pre>
 
 <h2>Erweiterte Optionen</h2>
@@ -38,10 +38,10 @@
 <p>Einige Optionen, die CMake kennt (es werden Zukunft noch mehr!):</p>
 <ul>
 <li>
-<strong>WANT_VERSIONING=1</strong>: Hängt die Versionsnummer an die Installationsverzeichnisse und die Binärdatei. Damit können Sie mehrere Scribus-Versionen in einem Verzeichnis nebeneinander installieren.
+<strong>WANT_VERSIONING=1</strong>: Hängt die Versionsnummer an die Installationsverzeichnisse und die Binärdatei an. Damit können Sie mehrere Scribus-Versionen in einem Verzeichnis nebeneinander installieren.
 </li>
 <li>
-<strong>WANT_DEBUG=1</strong>: Kompiliert eine Debug-Version und verwendet-O0 -g3 anstatt -O2 (Dies ist momentan die Standardeinstellung, die nur geändert werden kann, wenn Sie die Datei CMakeFiles.txt bearbeiten).
+<strong>WANT_DEBUG=1</strong>: Kompiliert eine Debug-Version und verwendet-O0 -g3 anstatt -O2 (dies ist momentan die Standardeinstellung, die nur geändert werden kann, wenn Sie die Datei CMakeFiles.txt bearbeiten).
 </li>
 <li>
 <strong>WANT_CAIRO=1:</strong>: Läßt Scribus nach der Cairo-Bibliothek anstelle von LibArt_LGPL suchen.
@@ -62,7 +62,7 @@
 <p>Um einen neuen Installationspfad für Cairo anzugeben, fügen Sie folgendes auf der Kommandozeile hinzu: <code>-DPREFIX_CAIRO:PATH=/path/to/your/cairo/install</code></p>
 
 <h3>Wenn auf einem System sowohl Qt3 als auch Qt4 installiert sind</h3>
-<p>Systeme, auf denen Qt3 und Qt4 installiert sind: <code>uic</code> und <code>moc</code> aus Qt4 sind in Ihrem Pfad und es kann passieren, daß das Kompilieren fehlschlägt. Das sollte mit einer CMake-Version höher als 2.4.2 oder einer aktuellen Scribus-SVN-Version NICHT passieren. Für alle Fälle hier eine nützliche Lösung:</p>
+<p>Systeme, auf denen Qt3 und Qt4 installiert sind: <code>uic</code> und <code>moc</code> aus Qt4 sind in Ihrem Pfad, und es kann passieren, daß das Kompilieren fehlschlägt. Das sollte mit einer CMake-Version höher als 2.4.2 oder einer aktuellen Scribus-SVN-Version NICHT passieren. Für alle Fälle hier eine nützliche Lösung:</p>
 <p>Löschen Sie alle Spuren früherer CMake-Konfigurationen aus Ihrem Kompilierungsverzeichnis: <code>rm CMakeCache.txt</code></p>
 <p>Dann ändern Sie die PATH-Variable &ndash; für mein Gentoo beispielsweise:</p>
 <pre>export PATH=/usr/qt/3/bin/:$PATH</pre>
