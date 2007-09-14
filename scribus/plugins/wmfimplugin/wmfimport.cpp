@@ -185,7 +185,10 @@ void WMFImport::pointsToAngle( double xStart, double yStart, double xEnd, double
 bool WMFImport::import(QString fname, int flags)
 {
 	if (!loadWMF(fname))
+	{
+		importFailed = true;
 		return false;
+	}
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fname);
 	QDir::setCurrent(efp.path());
@@ -644,17 +647,6 @@ QList<PageItem*> WMFImport::parseWmfCommands(void)
             cerr << str.toAscii().data() << endl;
         }
     }
-/*
-    // TODO: cleanup this code when QPicture::setBoundingBox() is possible in KOClipart (QT31)
-    // because actually QPicture::boundingBox() != mBBox()
-    mWindowsCoord += 1;
-    if ( mWindowsCoord == 2 )  {
-        kdDebug() << "DRAW ANGLES " << endl;
-        mPainter.setPen( Qt::white );
-        mPainter.drawPoint( mBBox.left(), mBBox.top()  );
-        mPainter.drawPoint( mBBox.right(), mBBox.bottom() );
-    }
-*/
 	return elements;
 }
 
@@ -746,8 +738,8 @@ void WMFImport::ellipse( QList<PageItem*>& items, long, short* params )
 	double py = (params[ 0 ] + params[ 2 ]) / 2.0 - ry;
 	bool   doFill = m_context.brush().style() != Qt::NoBrush;
 	bool   doStroke = m_context.pen().style() != Qt::NoPen;
-	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : "None";
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : "None";
+	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, lineWidth, fillColor, strokeColor, true);
 	PageItem* ite = m_Doc->Items->at(z);
@@ -776,15 +768,26 @@ void WMFImport::polygon( QList<PageItem*>& items, long, short* params )
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor, true);
 		PageItem* ite = m_Doc->Items->at(z);
 		ite->PoLine = points;
-		ite->fillRule = m_context.windingFill();
+		ite->fillRule = !m_context.windingFill();
 		finishCmdParsing(ite);
 		items.append(ite);
 	}
 }
 
-void WMFImport::polyPolygon( QList<PageItem*>& /*items*/, long, short* /*params*/ )
+void WMFImport::polyPolygon( QList<PageItem*>& items, long num, short* params )
 {
-	cerr << "WMFImport::polyPolygon unimplemented" << endl;
+	int numPolys   = params[0];
+	int pointIndex = params[0] + 1;
+	for (int i = 0; i < numPolys; ++i)
+	{
+		short  numPoints  = params[i + 1];
+		short* paramArray = new short[1 + 2 * numPoints];
+		paramArray[0] = numPoints;
+		memcpy(&paramArray[1], &params[pointIndex], 2 * numPoints * sizeof(short));
+		polygon(items, num, paramArray);
+		delete[] paramArray;
+		pointIndex += (2 * numPoints);
+	}
 }
 
 void WMFImport::polyline( QList<PageItem*>& items, long, short* params )
@@ -970,7 +973,6 @@ void WMFImport::pie( QList<PageItem*>& items, long, short* params )
 
 void WMFImport::setPolyFillMode( QList<PageItem*>& /*items*/, long, short* params )
 {
-	//cerr << "WMFImport::setPolyFillMode unimplemented" << endl;
 	m_context.setWindingFill( params[0] );
 }
 
@@ -1005,7 +1007,7 @@ void WMFImport::intersectClipRect( QList<PageItem*>& /*items*/, long, short* /*p
 
 void WMFImport::excludeClipRect( QList<PageItem*>& /*items*/, long, short* /*params*/ )
 {
-	cerr << "WMFImport::intersectClipRect unimplemented" << endl;
+	cerr << "WMFImport::excludeClipRect unimplemented" << endl;
 }
 
 void WMFImport::setTextColor( QList<PageItem*>& /*items*/, long, short* params )
@@ -1228,7 +1230,7 @@ void WMFImport::createFontIndirect( QList<PageItem*>& /*items*/, long , short* p
     handle->font.setFixedPitch( ((params[ 8 ] & 0x01) == 0) );
     // TODO: investigation why some test case need -2. (size of font in logical point)
 	int fontSize = (params[0] != 0) ? (qAbs(params[0]) - 2) : 12;
-	handle->font.setPointSize( fontSize );
+	handle->font.setPixelSize( fontSize );
     handle->font.setWeight( (params[ 4 ] >> 3) );
     handle->font.setItalic( (params[ 5 ] & 0x01) );
     handle->font.setUnderline( (params[ 5 ] & 0x100) );

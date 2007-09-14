@@ -157,9 +157,9 @@ bool WMFImportPlugin::import(QString filename, int flags)
 	/*if (UndoManager::undoEnabled() && m_Doc)
 	{
 		UndoManager::instance()->beginTransaction(m_Doc->currentPage()->getUName(),Um::IImageFrame,Um::ImportWMF, filename, Um::IWMF);
-	}*/
+	}
 	else if (UndoManager::undoEnabled() && !m_Doc)
-		UndoManager::instance()->setUndoEnabled(false);
+		UndoManager::instance()->setUndoEnabled(false);*/
 	WMFImport *dia = new WMFImport(mw, flags);
 	dia->import(filename, flags);
 	Q_CHECK_PTR(dia);
@@ -175,6 +175,7 @@ bool WMFImportPlugin::import(QString filename, int flags)
 			QMessageBox::warning(mw, CommonStrings::trWarning, tr("WMF file contains some unsupported features"), 1, 0, 0);
 	}
 
+	bool success = !dia->importFailed;
 	delete dia;
-	return true;
+	return success;
 }
