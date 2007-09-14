@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFile>
 #include <QList>
 #include <QMimeData>
+#include <QPainterPath>
 #include <QRegExp>
 #include <cmath>
 #include <zlib.h>
@@ -41,6 +42,8 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 using namespace std;
+
+#define IMPORT_TEXT_AS_VECTOR 1
 
 int svgimplugin_getPluginAPIVersion()
 {
@@ -285,7 +288,7 @@ void SVGPlug::convert(int flags)
 	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
-	gc->Family = m_Doc->toolSettings.defFont;
+	gc->FontFamily = m_Doc->toolSettings.defFont;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	m_gc.push( gc );
@@ -1286,9 +1289,54 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 
 QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement &e)
 {
+#if defined(IMPORT_TEXT_AS_VECTOR) && IMPORT_TEXT_AS_VECTOR
+	QList<PageItem*> GElements;
+	double BaseX  = m_Doc->currentPage()->xOffset();
+	double BaseY  = m_Doc->currentPage()->yOffset();
+	double StartX = x, StartY = y;
+	QString textString = e.text().trimmed();
+	QDomNode c   = e.firstChild();
+	if ( e.tagName() == "tspan" && e.text().isNull() )
+			textString = " ";
+
+	SvgStyle *gc   = m_gc.top();
+	QFont textFont = getFontFromStyle(*gc);
+	QFontMetrics fm(textFont);
+    double width   = fm.width(textString);
+
+	if( (!e.attribute("x").isEmpty()) && (!e.attribute("y").isEmpty()) )
+	{
+		FPoint p = parseTextPosition(e);
+		StartX = p.x();
+		StartY = p.y();
+	}
+	if( gc->textAnchor == "middle" )
+		StartX -= width / 2.0;
+	else if( gc->textAnchor == "end")
+		StartX -= width;
+
+	FPointArray textPath;
+	QString textFillColor   = gc->FillCol;
+	QString textStrokeColor = gc->StrokeCol;
+	QPainterPath painterPath;
+	painterPath.addText( StartX, StartY, textFont, textString );
+	textPath.fromQPainterPath(painterPath);
+	if (textPath.size() > 0)
+	{
+		double  lineWidth = 0.0;
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor, true);
+		PageItem* ite = m_Doc->Items->at(z);
+		if( !e.attribute("id").isEmpty() )
+			ite->setItemName(" "+e.attribute("id"));
+		ite->PoLine = textPath;
+		finishNode(e, ite);
+		GElements.append(ite);
+	}
+	return GElements;
+#else
 	QList<PageItem*> GElements;
 //	QFont ff(m_Doc->UsedFonts[m_gc.current()->Family]);
-	QFont ff(m_gc.top()->Family);
+	QFont ff(m_gc.top()->FontFamily);
 	ff.setPointSize(qMax(qRound(m_gc.top()->FontSize / 10.0), 1));
 	QFontMetrics fontMetrics(ff);
 	int desc = fontMetrics.descent();
@@ -1309,7 +1357,7 @@ QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement
 //FIXME:av			ite->setLineSpacing(gc->FontSize / 10.0 + 2);
 	const double lineSpacing = gc->FontSize / 10.0 + 2;
 	ite->setHeight(lineSpacing +desc+2);
-	m_Doc->scMW()->SetNewFont(gc->Family);
+	m_Doc->scMW()->SetNewFont(gc->FontFamily);
 	QMatrix mm = gc->matrix;
 	double scalex = sqrt(mm.m11() * mm.m11() + mm.m12() * mm.m12());
 	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
@@ -1331,8 +1379,7 @@ QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement
 	}
 	ite->setFillColor(CommonStrings::None);
 	ite->setLineColor(CommonStrings::None);
-	/*
-	ite->setFont(gc->Family);
+	/*ite->setFont(gc->Family);
 	ite->TxtFill = gc->FillCol;
 	ite->ShTxtFill = 100;
 	ite->TxtStroke = gc->StrokeCol;
@@ -1348,13 +1395,12 @@ QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement
 	ite->TxtUnderPos = -1;
 	ite->TxtUnderWidth = -1;
 	ite->TxtStrikePos = -1;
-	ite->TxtStrikeWidth = -1;
-		*/
+	ite->TxtStrikeWidth = -1;*/
 	for (int tt = 0; tt < Text.length(); ++tt)
 	{
 		CharStyle nstyle;
 		QString ch = Text.mid(tt,1);
-		nstyle.setFont((*m_Doc->AllFonts)[gc->Family]);
+		nstyle.setFont((*m_Doc->AllFonts)[gc->FontFamily]);
 		nstyle.setFontSize(gc->FontSize);
 		nstyle.setFillColor(gc->FillCol);
 		nstyle.setTracking(0);
@@ -1448,15 +1494,16 @@ QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	ite->DashOffset = gc->dashOffset;
 	ite->DashValues = gc->dashArray;
-	/*			if (gc->Gradient != 0)
-				{
-					ite->fill_gradient = gc->GradCo;
-					m_Doc->view()->SelItem.append(ite);
-					m_Doc->view()->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
-					m_Doc->view()->SelItem.clear();
-				} */
+	/*if (gc->Gradient != 0)
+	{
+		ite->fill_gradient = gc->GradCo;
+		m_Doc->view()->SelItem.append(ite);
+		m_Doc->view()->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
+		m_Doc->view()->SelItem.clear();
+	}*/
 	GElements.append(ite);
 	return GElements;
+#endif
 }
 
 QList<PageItem*> SVGPlug::parseSwitch(const QDomElement &e)
@@ -1522,6 +1569,83 @@ QList<PageItem*> SVGPlug::parseUse(const QDomElement &e)
 	return UElements;
 }
 
+QFont SVGPlug::getFontFromStyle(SvgStyle& style)
+{
+	QFont font(QApplication::font());
+	font.setStyleStrategy( QFont::PreferOutline );
+
+	if (!style.FontFamily.isEmpty())
+		font.setFamily(style.FontFamily);
+
+	if (!style.FontStyle.isEmpty())
+	{
+		if (style.FontStyle == "normal")
+			font.setStyle(QFont::StyleNormal);
+		else if (style.FontStyle == "italic")
+			font.setStyle(QFont::StyleItalic);
+		else if (style.FontStyle == "oblique")
+			font.setStyle(QFont::StyleOblique);
+	}
+
+	if (!style.FontWeight.isEmpty())
+	{
+		if (style.FontWeight == "normal")
+			font.setWeight(QFont::Normal);
+		else if (style.FontWeight == "bold")
+			font.setWeight(QFont::Bold);
+		else if (style.FontWeight == "bolder")
+			font.setWeight(QFont::DemiBold);
+		else if (style.FontWeight == "lighter")
+			font.setWeight(QFont::Light);
+		else
+		{
+			bool weightIsNum = false;
+			int  fontWeight  = style.FontWeight.toInt(&weightIsNum);
+			if (weightIsNum)
+			{
+				if (fontWeight == 100 || fontWeight == 200)
+					font.setWeight(QFont::Light);
+				else if (fontWeight == 300 || fontWeight == 400)
+					font.setWeight(QFont::Normal);
+				else if (fontWeight == 500 || fontWeight == 600)
+					font.setWeight(QFont::DemiBold);
+				else if (fontWeight == 700 || fontWeight == 800)
+					font.setWeight(QFont::Bold);
+				else if (fontWeight == 900)
+					font.setWeight(QFont::Black);
+			}
+		}
+	}
+
+	if (!style.FontStretch.isEmpty())
+	{
+		if (style.FontStretch == "normal")
+			font.setStretch(QFont::Unstretched);
+		else if (style.FontStretch == "ultra-condensed")
+			font.setStretch(QFont::UltraCondensed);
+		else if (style.FontStretch == "extra-condensed")
+			font.setStretch(QFont::ExtraCondensed);
+		else if (style.FontStretch == "condensed")
+			font.setStretch(QFont::Condensed);
+		else if (style.FontStretch == "semi-condensed")
+			font.setStretch(QFont::SemiCondensed);
+		else if (style.FontStretch == "semi-expanded")
+			font.setStretch(QFont::SemiExpanded);
+		else if (style.FontStretch == "expanded")
+			font.setStretch(QFont::Expanded);
+		else if (style.FontStretch == "extra-expanded")
+			font.setStretch(QFont::ExtraExpanded);
+		else if (style.FontStretch == "ultra-expanded")
+			font.setStretch(QFont::UltraExpanded);
+		else if (style.FontStretch == "narrower")
+			font.setStretch(QFont::SemiCondensed);
+		else if (style.FontStretch == "wider")
+			font.setStretch(QFont::SemiExpanded);
+	}
+	font.setPointSize(style.FontSize / 10);
+	return font;
+}
+
 QDomElement SVGPlug::getNodeFromUseElement(const QDomElement &e)
 {
 	QDomElement ret;
@@ -1575,6 +1699,21 @@ double SVGPlug::fromPercentage( const QString &s )
 	}
 	else
 		return s.toDouble();
+}
+
+double SVGPlug::parseFontSize(const QString& fsize)
+{
+	bool noUnit  = true;
+	QString unit = fsize.right(2);
+	if (unit == "pt" || unit == "cm" || unit == "mm" || 
+		unit == "in" || unit == "px")
+	{
+		noUnit = false;
+	}
+	double value = parseUnit(fsize);
+	if (noUnit)
+		value *= 0.8;
+	return value;
 }
 
 double SVGPlug::parseUnit(const QString &unit)
@@ -1964,12 +2103,16 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	}
 	else if( command == "stroke-dashoffset" )
 		obj->dashOffset = params.toDouble();
+#if defined(IMPORT_TEXT_AS_VECTOR) && IMPORT_TEXT_AS_VECTOR
+	else if( command == "font-family" )
+		obj->FontFamily = params;
+#else
 	else if( command == "font-family" )
 	{
 		QString family = params;
 		QString ret = "";
 		family.replace( QRegExp( "'" ) , QChar( ' ' ) );
-		obj->Family = m_Doc->toolSettings.defFont; // family;
+		obj->FontFamily = m_Doc->toolSettings.defFont; // family;
 		bool found = false;
 		SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
 		for ( ; it.hasNext(); it.next())
@@ -1985,12 +2128,24 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			}
 		}
 		if (found)
-			obj->Family = ret;
+			obj->FontFamily = ret;
 		else
-			obj->Family = m_Doc->toolSettings.defFont;
+			obj->FontFamily = m_Doc->toolSettings.defFont;
 	}
+#endif
+	else if( command == "font-style" )
+		obj->FontStyle = params;
+	else if( command == "font-weight" )
+		obj->FontWeight = params;
+	else if( command == "font-stretch" )
+		obj->FontStretch = params;
+#if defined(IMPORT_TEXT_AS_VECTOR) && IMPORT_TEXT_AS_VECTOR
+	else if( command == "font-size" )
+		obj->FontSize = static_cast<int>(parseFontSize(params) * 10.0);
+#else
 	else if( command == "font-size" )
 		obj->FontSize = static_cast<int>(parseUnit(params) * 10.0);
+#endif
 	else if( command == "text-anchor" )
 		obj->textAnchor = params;
 	else if( !isIgnorableNodeName(command) )
@@ -2037,6 +2192,12 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		parsePA( obj, "opacity", e.attribute( "opacity" ) );
 	if( !e.attribute( "font-family" ).isEmpty() )
 		parsePA( obj, "font-family", e.attribute( "font-family" ) );
+	if( !e.attribute( "font-style" ).isEmpty() )
+		parsePA( obj, "font-style", e.attribute( "font-style" ) );
+	if( !e.attribute( "font-weight" ).isEmpty() )
+		parsePA( obj, "font-weight", e.attribute( "font-weight" ) );
+	if( !e.attribute( "font-stretch" ).isEmpty() )
+		parsePA( obj, "font-stretch", e.attribute( "font-stretch" ) );
 	if( !e.attribute( "font-size" ).isEmpty() )
 		parsePA( obj, "font-size", e.attribute( "font-size" ) );
 	if( !e.attribute( "text-anchor" ).isEmpty() )

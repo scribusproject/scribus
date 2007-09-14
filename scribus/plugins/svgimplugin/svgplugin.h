@@ -8,8 +8,9 @@ for which a new license (GPL+exception) is in place.
 #define SVGPLUG_H
 
 #include <QDomElement>
-#include <QSize>
+#include <QFont>
 #include <QList>
+#include <QSize>
 #include <QStack>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
@@ -112,9 +113,12 @@ public:
 		CSpace(false),
 		CurCol("None"),
 		dashOffset(0),
-		Family(""),
-		FillCol("Black"),
+		FontFamily(""),
+		FontStyle("normal"),
+		FontWeight("normal"),
+		FontStretch("normal"),
 		FontSize(12),
+		FillCol("Black"),
 		GCol1("Black"),
 		GCol2("Black"),
 		GradCo(VGradient::linear),
@@ -142,10 +146,13 @@ public:
 	QString CurCol;
 	QList<double> dashArray;
 	double dashOffset;
-	QString Family;
+	QString FontFamily;
+	QString FontStyle;
+	QString FontWeight;
+	QString FontStretch;
+	int FontSize;
 	QString FillCol;
 	QString fillRule;
-	int FontSize;
 	QString GCol1;
 	QString GCol2;
 	VGradient	GradCo;
@@ -210,19 +217,16 @@ public:
 	QList<PageItem*> parseSwitch(const QDomElement &e);
 	QList<PageItem*> parseSymbol(const QDomElement &e);
 	QList<PageItem*> parseUse(const QDomElement &e);
+	QFont       getFontFromStyle(SvgStyle& style);
 	QDomElement getNodeFromUseElement(const QDomElement &e);
 	QDomElement getReferencedNode(const QDomElement &e);
-	double fromPercentage( const QString &s );
+	double fromPercentage(const QString &s );
+	double parseFontSize(const QString& fsize);
 	double parseUnit(const QString &unit);
 	QMatrix parseTransform(const QString &transform);
 	const char * getCoord( const char *ptr, double &number );
 	bool parseSVG( const QString &s, FPointArray *ite );
-	void calculateArc(FPointArray *ite, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
-	void svgClosePath(FPointArray *i);
-	void svgMoveTo(double x1, double y1);
-	void svgLineTo(FPointArray *i, double x1, double y1);
-	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
-	QColor parseColorN( const QString &rgbColor );
+	QColor  parseColorN( const QString &rgbColor );
 	QString parseColor( const QString &s );
 	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
 	void parseStyle( SvgStyle *obj, const QDomElement &e );
