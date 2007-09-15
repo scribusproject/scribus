@@ -1,5 +1,9 @@
-<qt>
-<title>Mac OSX Hints and Notes</title>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Mac OSX Hints and Notes</title>
+</head>
+<body>
 <h2>Mac OSX Hints and Notes</h2>
 
 <p><strong>Editor's Note:</strong> These notes are based on advice and notes kindly provided by Martin Costabel. He has done a terrific job of maintaining the Scribus fink package, as well as, providing assistance to fink users on the mailing list. Some of these hints are directed to DTP users who might not have much experience with the vagaries of X11 or its font handling.</p>
@@ -41,4 +45,5 @@
 <p>In addition, Scribus supports OpenType Fonts, but not in the DFONT format that MacOSX uses. You can use <a href="http://fondu.sourceforge.net/">fondu</a>, a tool to convert fonts with resource forks, into a format which can be understood by X11. You are recommended to convert OpenType fonts into TrueType/ OpenType fonts, to preserve all the glyphs. (Type 1 fonts are limited to 256 gylphs per font.) </p>
 <p>Newer X windows system with the so-called <strong>fontconfig</strong> system have the concept of a personal fonts directory, usually in a hidden directory named <code>.fonts</code>. Scribus can add this and any other directories which contain Type 1 (PC) or TrueType / OpenType fonts. Scribus does not need the <code>.afm</code> files for a Type 1 font, just the <code>.pfm</code> files. Scribus obtains the font metrics via freetype2.</p>
 <p>To build the latest greatest CVS version, look here: <a href="machints2.html">Mac OSX/Fink &#038; CVS</a></p>
-</qt>
+</body>
+</html>

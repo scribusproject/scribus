@@ -1,5 +1,9 @@
-<qt>
-<title>Color management with Scribus, an Introduction Part 2</title>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Color management with Scribus, an Introduction Part 2</title>
+</head>
+<body>
 <h2>Color management with Scribus, an Introduction Part 2</h2>
 <p><strong>Getting good previews from color management depends on these steps from the user:</strong></p>
 
@@ -39,4 +43,5 @@
 
 <p><strong>Activate Color Management</strong> enables color management globally within the document. Scribus will remember the settings from file to file. Note: Saving and closing the file with color management on will slow them on reopening, as Scribus must not only open the files but the littlecms must reading and perform the corrections between the profiles. Color conversions make multiple floating point calculations for each color, so be patient. littlecms has to be extremely stable so far, with only a couple of small bugs for profile handling. There is a second check mark to simulate the printer on the screen. This tells Scribus and littlecms to do an on the fly conversion from the image color space to your monitor profile to simulate your chosen printer's profile. The check mark for <strong>Mark Colors out of Gamut</strong> will show warnings because the colors might not print accurately, based on the printer profile you have chosen. Typically, when colors are shown out of gamut, they will print darker, lighter or have a color shift when printing. The last option, <strong>Use Black Point Compensation</strong>, is a way to help rendering shadows within color pictures. Experimentation is needed to see if it improves your pictures.</p>
 
-</qt>
+</body>
+</html>

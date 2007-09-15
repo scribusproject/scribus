@@ -1,5 +1,9 @@
-<qt>
-<title>PDF Exporting from Scribus</title>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>PDF Exporting from Scribus</title>
+</head>
+<body>
 <h2>PDF Exporting from Scribus</h2>
 <h3>Screen Display and On-line PDF Forms</h3>
 <p>Choose these settings when downloading speed or small size is important.</p>
@@ -22,4 +26,5 @@
 really an issue not embedding fonts and using only the 'base 14" fonts which all PDF readers should have. Those fonts include bold and italic variants of Courier, Helvetica or ArialMT, and Times. </p>
 
 <p>The second is the perceived download times when the PDF is visible in the viewer. Ghostscript has a command line utility,<strong> pdfopt</strong>,  which can 'linearize' a PDF and allow a PDF reader to display the first page of the PDF, then subsequent pages to load in the background. This is very useful for longer documents. Note this tool does not shrink the PDF, but actually may increase the size as it undoes the non-linear way objects are stored in PDF. The use.html in the Ghostscript documentation for details. Note also that the apache web server needs to be set up with a feature which is call 'byte-serving'. </p>
-</qt>
+</body>
+</html>

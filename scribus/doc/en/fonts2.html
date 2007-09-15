@@ -1,5 +1,9 @@
-<qt>
-<title>Fonts in Depth</title>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Fonts in Depth</title>
+</head>
+<body>
 <h2>Fonts in Depth</h2>
 
 <p>Fonts are often where the trouble starts and often ends in page layout. They are in my experience one of the leading troubles in pre-press in general and one of the sources of constant questions on the mailing list and IRC. A rough guess is 50% of the bug reports which are font related are problems with the fonts themselves. A typical question or complaint on IRC is:  "Scribus won't use font X, but application blah and blahblah use it just fine. Why is this?"</p>
@@ -40,4 +44,5 @@ Scribus does an initial "self-defense" test when starting to see if the availabl
 <p>On Linux, installation, if you use <code>$home/.fonts</code> directory for adding fonts, Scribus should find them just fine. For those leery of messing around with the command line tools for font installation, KDE 3.2+ includes an improved version of Keith Drummond's kfontinstaller program. The one in KDE 3.3+ works superbly and you can even preview fonts within Konqueror. In my opinion, it is one of the most user friendly font installers I have seen on any platform. It also automatically will create Ghostscript Fontmap files for use with GSview and Ghostscript. Highly recommended. </p>
 
 <p>Scribus also makes it easy to add additional font paths. Simply, close all documents, then select Settings > Fonts > Additional Paths. Select the new path and click OK. If fonts, still do not show up, you may need to add these to either your <code>$home/.fonts.conf</code> file or other method depending on your distribution. If some still fail to show up, it is possibly Scribus's font checking mechanism has disabled them. You can make some basic checks by following the hints in: <a href="fonts4.html">Basic Font Tests</a> </p>
-</qt>
+</body>
+</html>
