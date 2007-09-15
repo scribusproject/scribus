@@ -724,7 +724,7 @@ void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
 
 int StoryText::nrOfParagraph(uint index) const
 {
-	int result = 1;
+	int result = 0;
 	StoryText* that = const_cast<StoryText *>(this);
 	bool lastWasPARSEP = true;
 	for (int i=0; i < index; ++i) {

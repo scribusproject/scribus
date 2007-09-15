@@ -355,7 +355,7 @@ bool EPSPlug::import(QString fName, int flags, bool showProgress)
 				dr->setDragCursor(dragCursor, Qt::CopyAction);
 				dr->setDragCursor(dragCursor, Qt::MoveAction);
 				dr->setDragCursor(dragCursor, Qt::LinkAction);
-				dr->start();
+				dr->exec();
 #if 0
 			qDebug("psimport: data");
 			QString data(dr->encodedData("text/plain"));

@@ -100,7 +100,7 @@ BibView::BibView(QWidget* parent) : QListWidget(parent)
 	QDrag *drag = new QDrag(this);
 	drag->setMimeData(mimeData);
 	drag->setPixmap(objectMap[currentItem()->text()].Preview);
-	drag->start(Qt::CopyAction);
+	drag->exec(Qt::CopyAction);
 	clearSelection();
  }
  
@@ -134,35 +134,6 @@ void BibView::dropEvent(QDropEvent *e)
 	}
 	else
 		e->ignore();
-/*	bool img;
-	QString text, nam, tmp = "";
-	if (Q3TextDrag::decode(e, text))
-	{
-		Q3Url ur(text);
-		QFileInfo fi = QFileInfo(ur.path());
-		QString ext = fi.extension(false).toLower();
-		img = (extensionIndicatesEPSorPS(ext)||(ext=="png")||(ext=="gif")||(ext=="jpg")||(ext=="xpm"));
-		if ((fi.exists()) && (!img))
-		{
-			QByteArray rawText;
-			if (loadRawText(ur.path(), rawText))
-			{
-				if (rawText.left(16) == "<SCRIBUSELEMUTF8")
-					tmp = QString::fromUtf8(rawText.data());
-				else if (rawText.left(13) == "<SCRIBUSELEM>")
-					tmp = rawText;
-			}
-		}
-		else
-		{
-			if (text.startsWith("<SCRIBUSELEM"))
-			{
-				tmp = text;
-			}
-		}
-		text = tmp;
-		emit objDropped(text);
-	} */
 }
 
 void BibView::AddObj(QString name, QString daten, QPixmap Bild)

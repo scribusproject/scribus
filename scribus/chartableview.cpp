@@ -104,7 +104,7 @@ void CharTableView::mouseMoveEvent(QMouseEvent* e)
 		QString s("%1");
 		mimeData->setText(s.arg(model()->characters()[currentValue()]));
 		drag->setMimeData(mimeData);
-		drag->start(Qt::CopyAction);
+		drag->exec(Qt::CopyAction);
 		mPressed = false;
 	}
 	QTableView::mouseMoveEvent(e);

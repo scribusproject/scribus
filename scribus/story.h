@@ -143,6 +143,7 @@ protected:
 	void inputMethodEvent(QInputMethodEvent *event);
 	void focusOutEvent(QFocusEvent *e);
 	void focusInEvent(QFocusEvent *e);
+	void scrollContentsBy(int dx, int dy);
 //	Q3PopupMenu* createPopupMenu(const QPoint & pos);
 	StoryEditor* parentStoryEditor;
 
@@ -158,6 +159,7 @@ signals:
 	void SideBarUp(bool);
 	void SideBarUpdate();
 	void PasteAvail();
+	void contentsMoving(int, int);
 };
 
 class SCRIBUS_API SideBar : public QLabel
@@ -295,7 +297,7 @@ public:
 
 public slots:
 	void SetAlign(int s);
-	void SetParaStyle(int s);
+	void SetParaStyle(QString s);
 	void languageChange();
 
 signals:

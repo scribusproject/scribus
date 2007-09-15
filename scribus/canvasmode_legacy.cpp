@@ -394,7 +394,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				QDrag* dr = new QDrag(m_view);
 				dr->setMimeData(md);
 				dr->setDragCursor(loadIcon("DragPix.xpm"), Qt::ActionMask);
-				dr->start();
+				dr->exec();
 //				QImage drImg = currItem->DrawObj_toImage();
 //				QPixmap pm;
 //				pm.convertFromImage(drImg);

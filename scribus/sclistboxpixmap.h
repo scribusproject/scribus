@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <memory>
 
-#include <Q3ListBox>
 #include <QApplication>
 #include <QDebug>
 #include <QPainter>
@@ -33,8 +32,6 @@ class ScListBoxPixmap : public QAbstractItemDelegate, public ScListBoxDelegate
 {
 public:
 	ScListBoxPixmap(void);
-//	virtual int	width(const Q3ListBox *)  const;
-//	virtual int	height(const Q3ListBox *) const;
 	virtual QSize sizeHint (const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 	virtual void paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const;
 protected:
@@ -55,27 +52,6 @@ ScListBoxPixmap<pixWidth, pixHeight>::ScListBoxPixmap(void) : QAbstractItemDeleg
 		pmap.reset( new QPixmap(pixWidth, pixHeight) );
 	}
 };
-
-/*
-template<unsigned int pixWidth, unsigned int pixHeight>
-int	ScListBoxPixmap<pixWidth, pixHeight>::width(const Q3ListBox* lb)  const
-{
-	if ( text().isEmpty() )
-		return qMax( pmap->width() + 6, QApplication::globalStrut().width() );
-    return qMax( pmap->width() + lb->fontMetrics().width(text()) + 6,QApplication::globalStrut().width() );
-};
-
-template<unsigned int pixWidth, unsigned int pixHeight>
-int	ScListBoxPixmap<pixWidth, pixHeight>::height(const Q3ListBox* lb) const
-{
-	int h;
-	if ( text().isEmpty() )
-		h = pmap->height();
-    else
-		h = qMax( pmap->height(), lb->fontMetrics().lineSpacing() + 2 );
-    return qMax( h, QApplication::globalStrut().height() );
-};
-*/
 
 
 template<unsigned int pixWidth, unsigned int pixHeight>

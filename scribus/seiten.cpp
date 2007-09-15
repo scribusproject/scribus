@@ -96,7 +96,7 @@ void SeList::mouseMoveEvent(QMouseEvent* e)
 			QDrag *dr = new QDrag(this);
 			dr->setMimeData(mimeData);
 			dr->setPixmap(loadIcon("doc.png"));
-			dr->start(Qt::CopyAction | Qt::MoveAction);
+			dr->exec(Qt::CopyAction | Qt::MoveAction);
 		}
 	}
 }
@@ -106,7 +106,8 @@ SeView::SeView(QWidget* parent) : QTableWidget(parent)
 {
 	setDragEnabled(true);
 	setAcceptDrops(true);
-	viewport()->setAcceptDrops(true);
+    setDropIndicatorShown(true);
+//	viewport()->setAcceptDrops(true);
 	setShowGrid(false);
 	setWordWrap(true);
 	Mpressed = false;
@@ -119,6 +120,7 @@ void SeView::mousePressEvent(QMouseEvent* e)
 	e->accept();
 	Mpos = e->pos();
 	Mpressed = true;
+	QTableWidget::mousePressEvent(e);
 }
 
 void SeView::mouseReleaseEvent(QMouseEvent* e)
@@ -136,6 +138,7 @@ void SeView::mouseReleaseEvent(QMouseEvent* e)
 		delete pmen;
 	} */
 	emit Click(rowAt(e->pos().y()), columnAt(e->pos().x()), e->button());
+	QTableWidget::mouseReleaseEvent(e);
 }
 
 void SeView::ToggleNam()
@@ -173,7 +176,7 @@ void SeView::mouseMoveEvent(QMouseEvent* e)
 			QDrag *dr = new QDrag(this);
 			dr->setMimeData(mimeData);
 			dr->setPixmap(loadIcon("doc.png"));
-			dr->start(Qt::CopyAction | Qt::MoveAction);
+			dr->exec(Qt::CopyAction | Qt::MoveAction);
 		}
 	}
 	QTableWidget::mouseMoveEvent(e);
@@ -185,6 +188,7 @@ void SeView::dropEvent(QDropEvent * e)
 	bool lastPage = false;
 	if (e->mimeData()->hasFormat("page/magic"))
 	{
+        e->setDropAction(Qt::MoveAction);
 		e->accept();
 		str = e->mimeData()->text();
 		ClearPix();
@@ -296,7 +300,7 @@ void SeView::dropEvent(QDropEvent * e)
 void SeView::dragEnterEvent(QDragEnterEvent *e)
 {
 	if (e->mimeData()->hasFormat("page/magic"))
-		e->accept();
+		e->acceptProposedAction();
 }
 
 void SeView::dragLeaveEvent(QDragLeaveEvent *)
@@ -309,7 +313,7 @@ void SeView::dragMoveEvent(QDragMoveEvent *e)
 	QString str, tmp;
 	if (e->mimeData()->hasFormat("page/magic"))
 	{
-		e->accept();
+		e->acceptProposedAction();
 		str = e->mimeData()->text();
 		int a = rowAt(e->pos().y());
 		int b = columnAt(e->pos().x());

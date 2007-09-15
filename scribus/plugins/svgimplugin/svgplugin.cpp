@@ -460,7 +460,7 @@ void SVGPlug::convert(int flags)
 			dr->setDragCursor(dragCursor, Qt::CopyAction);
 			dr->setDragCursor(dragCursor, Qt::MoveAction);
 			dr->setDragCursor(dragCursor, Qt::LinkAction);
-			dr->start();
+			dr->exec();
 			/* JG : incorrect, see the Qt Reference: "The function returns TRUE if the caller should 
 			delete the original copy of the dragged data */
 			/*importCanceled = dr->drag();

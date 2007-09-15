@@ -576,7 +576,7 @@ bool WMFImport::importWMF(int flags)
 			dr->setDragCursor(dragCursor, Qt::CopyAction);
 			dr->setDragCursor(dragCursor, Qt::MoveAction);
 			dr->setDragCursor(dragCursor, Qt::LinkAction);
-			dr->start();
+			dr->exec();
 			delete ss;
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = 0;

@@ -123,7 +123,6 @@ bool ScGTFileDialog::append() const
 
 void ScGTFileDialog::customize()
 {
-	//diaExtension_ = new Q3HBox(this, "diaExtension_");
 	diaExtension_ = new QWidget(this);
 	diaExtension_->setObjectName("diaExtension_");
 
