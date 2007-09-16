@@ -795,7 +795,7 @@ void PSLib::PS_end_page()
 
 void PSLib::PS_curve(double x1, double y1, double x2, double y2, double x3, double y3)
 {
-	PutSeite(ToStr(x1) + " " + ToStr(y1) + " " + ToStr(x2) + " " + ToStr(y2) + " " + ToStr(x3) + " " + ToStr(y3) + " curveto\n");
+	PutSeite(ToStr(x1) + " " + ToStr(y1) + " " + ToStr(x2) + " " + ToStr(y2) + " " + ToStr(x3) + " " + ToStr(y3) + " cu\n");
 }
 
 void PSLib::PS_moveto(double x, double y)
@@ -4012,7 +4012,7 @@ void PSLib::putColor(const QString& color, double shade, bool fill)
 
 void PSLib::SetClipPath(FPointArray *c, bool poly)
 {
-	FPoint np, np1, np2;
+	FPoint np, np1, np2, np3;
 	bool nPath = true;
 	if (c->size() > 3)
 	{
@@ -4031,10 +4031,18 @@ void PSLib::SetClipPath(FPointArray *c, bool poly)
 				PS_moveto(np.x(), -np.y());
 				nPath = false;
 			}
-			np = c->point(poi+1);
+			np = c->point(poi);
+			np1 = c->point(poi+1);
+			np2 = c->point(poi+3);
+			np3 = c->point(poi+2);
+			if ((np == np1) && (np2 == np3))
+				PS_lineto(np3.x(), -np3.y());
+			else
+				PS_curve(np1.x(), -np1.y(), np2.x(), -np2.y(), np3.x(), -np3.y());
+/*			np = c->point(poi+1);
 			np1 = c->point(poi+3);
 			np2 = c->point(poi+2);
-			PS_curve(np.x(), -np.y(), np1.x(), -np1.y(), np2.x(), -np2.y());
+			PS_curve(np.x(), -np.y(), np1.x(), -np1.y(), np2.x(), -np2.y()); */
 		}
 	}
 }

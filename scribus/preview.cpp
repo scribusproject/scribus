@@ -700,8 +700,11 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		{
 			Sname = tsC.readLine();
 			QString tt = Sname.remove("%%SeparationName:").trimmed();
-			sepsToFileNum.insert(tt, counter);
-			counter++;
+			if (!tt.isEmpty())
+			{
+				sepsToFileNum.insert(tt, counter);
+				counter++;
+			}
 		}
 	}
 	sepInfo.close();
@@ -867,22 +870,25 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				}
 				blendImages(image, im, ScColor(0, 0, 255, 0));
 			}
-			QMap<QString, int>::Iterator sepit;
-			for (sepit = sepsToFileNum.begin(); sepit != sepsToFileNum.end(); ++sepit)
+			if (!sepsToFileNum.isEmpty())
 			{
-				if (flagsVisible[sepit.key()]->isChecked())
+				QMap<QString, int>::Iterator sepit;
+				for (sepit = sepsToFileNum.begin(); sepit != sepsToFileNum.end(); ++sepit)
 				{
-					QString fnam;
-					if (GsMinor < 54)
-						fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
-					else
-						fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.value());
-					if (!im.LoadPicture(fnam, cms, false, false, ScImage::RGBData, 72, &mode))
+					if (flagsVisible[sepit.key()]->isChecked())
 					{
-						imageLoadError(Bild, Seite);
-						return Bild;
+						QString fnam;
+						if (GsMinor < 54)
+							fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.value());
+						else
+							fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.value());
+						if (!im.LoadPicture(fnam, cms, false, false, ScImage::RGBData, 72, &mode))
+						{
+							imageLoadError(Bild, Seite);
+							return Bild;
+						}
+						blendImages(image, im, doc->PageColors[sepit.key()]);
 					}
-					blendImages(image, im, doc->PageColors[sepit.key()]);
 				}
 			}
 			if (flagsVisible["Black"]->isChecked())
