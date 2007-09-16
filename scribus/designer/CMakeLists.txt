@@ -8,7 +8,6 @@ ${CMAKE_SOURCE_DIR}/scribus
 SET(SCRIBUS_SCRSPINBOX_PLUGIN_MOC_CLASSES
 scrspinboxplugin.h
 ../scrspinbox.h
-../units.h
 )
 
 SET(SCRIBUS_SCRSPINBOX_PLUGIN_SOURCES
