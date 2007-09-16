@@ -21,44 +21,17 @@ extern "C" PLUGIN_API QString FileFormatName();
 extern "C" PLUGIN_API QStringList FileExtensions();
 
 
-/*! \brief Define integral type Byte, Word, and DWord to match those on the
-Pilot being 8, 16, and 32 bits, respectively. Max  8-bit unsigned */
-#define U8_MAX 255u
-#if	UCHAR_MAX == U8_MAX
-typedef unsigned char	Byte;
-#else
-// #error machine does not seem to support an 8-bit integral type
-// FIXME: for gcc4.3
-typedef unsigned char	Byte;
-#endif
 
-/*! \brief max 16-bit unsigned */
-#define	U16_MAX 65535u
-#if	USHRT_MAX == U16_MAX
-typedef unsigned short	Word;
-#else
-// #error machine does not seem to support a 16-bit integral type
-// FIXME: for gcc4.3
-typedef unsigned short	Word;
-#endif
-
-/*! \brief max 32-bit unsigned */
-#define	U32_MAX 4294967295ul
-#if	USHRT_MAX == U32_MAX
-typedef unsigned short	DWord;
-#elif	UINT_MAX  == U32_MAX
-typedef unsigned int	DWord;
-#elif	ULONG_MAX == U32_MAX
-typedef unsigned long	DWord;
-#else
-// #error machine does not seem to support a 32-bit integral type
-// FIXME: for gcc4.3
-typedef unsigned long	DWord;
-#endif
 
 /*! \brief Abiword's internal data types */
 typedef unsigned int UT_uint32;
 typedef unsigned short UT_uint16;
+
+/*! \brief Define integral type Byte, Word, and DWord to match those on the
+Pilot being 8, 16, and 32 bits, respectively. Max  8-bit unsigned */
+typedef unsigned char Byte;
+typedef UT_uint16 Word;
+typedef UT_uint32 DWord;
 
 /*! \brief Pilots have a fixed 4K record size */
 #define RECORD_SIZE_MAX	4096
