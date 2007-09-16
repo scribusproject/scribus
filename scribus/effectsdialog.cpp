@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "shadebutton.h"
 #include "util_color.h"
 #include "util_icon.h"
+#include "util.h"
 
 
 EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent )
@@ -983,7 +984,7 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			QTextStream fp(&tmpstr, QIODevice::ReadOnly);
 			fp >> col;
 			fp >> shading;
-			colData->setItemText(colData->currentIndex(), col);
+			setCurrentComboItem(colData, col);
 			shade->setValue(shading);
 			optionStack->setCurrentIndex(1);
 			connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
@@ -1005,9 +1006,9 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			col2 = fp.readLine();
 			fp >> shading1;
 			fp >> shading2;
-			colData1->setItemText(colData1->currentIndex(), col1);
+			setCurrentComboItem(colData1, col1);
 			shade1->setValue(shading1);
-			colData2->setItemText(colData2->currentIndex(), col2);
+			setCurrentComboItem(colData2, col2);
 			shade2->setValue(shading2);
 			int numVals;
 			double xval, yval;
@@ -1064,11 +1065,11 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> shading1;
 			fp >> shading2;
 			fp >> shading3;
-			colDatat1->setItemText(colDatat1->currentIndex(), col1);
+			setCurrentComboItem(colDatat1, col1);
 			shadet1->setValue(shading1);
-			colDatat2->setItemText(colDatat2->currentIndex(), col2);
+			setCurrentComboItem(colDatat2, col2);
 			shadet2->setValue(shading2);
-			colDatat3->setItemText(colDatat3->currentIndex(), col3);
+			setCurrentComboItem(colDatat3, col3);
 			shadet3->setValue(shading3);
 			int numVals;
 			double xval, yval;
@@ -1144,13 +1145,13 @@ void EffectsDialog::selectEffect(QListWidgetItem* c)
 			fp >> shading2;
 			fp >> shading3;
 			fp >> shading4;
-			colDataq1->setItemText(colDataq1->currentIndex(), col1);
+			setCurrentComboItem(colDataq1, col1);
 			shadeq1->setValue(shading1);
-			colDataq2->setItemText(colDataq2->currentIndex(), col2);
+			setCurrentComboItem(colDataq2, col2);
 			shadeq2->setValue(shading2);
-			colDataqc3->setItemText(colDataqc3->currentIndex(), col3);
+			setCurrentComboItem(colDataqc3, col3);
 			shadeqc3->setValue(shading3);
-			colDataq4->setItemText(colDataq4->currentIndex(), col4);
+			setCurrentComboItem(colDataq4, col4);
 			shadeq4->setValue(shading4);
 			int numVals;
 			double xval, yval;

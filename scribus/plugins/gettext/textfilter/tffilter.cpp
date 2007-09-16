@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "util_icon.h"
+#include "util.h"
 
 tfFilter::tfFilter(QWidget *parent, const char *name,
                    int action, QString regExp, QString replace, QString pstyleName,
@@ -34,12 +35,12 @@ tfFilter::tfFilter(QWidget *parent, const char *name,
 	firstCombo->setCurrentIndex(action);
 	if (action == APPLY)
 	{
-		thirdCombo->setItemText(thirdCombo->currentIndex(), pstyleName);
+		setCurrentComboItem(thirdCombo, pstyleName);
 		fourthChanged(style);
 		fourthCombo->setCurrentIndex(style);
 		if (style == STARTS_WITH)
 		{
-			fifthCombo->setItemText(fifthCombo->currentIndex(), regExp);
+			setCurrentComboItem(fifthCombo, regExp);
 			fifthRegexpCheck->setChecked(regexp);
 			if (match)
 				sixthCombo->setCurrentIndex(0);
@@ -49,24 +50,24 @@ tfFilter::tfFilter(QWidget *parent, const char *name,
 		else if (style == LESS_THAN)
 		{
 			if (less > 0)
-				fifthCombo->setItemText(fifthCombo->currentIndex(), QString("%1").arg(less));
+				setCurrentComboItem(fifthCombo, QString("%1").arg(less));
 		}
 		else if (style == MORE_THAN)
 		{
 			if (more > 0)
-				fifthCombo->setItemText(fifthCombo->currentIndex(), QString("%1").arg(more));
+				setCurrentComboItem(fifthCombo, QString("%1").arg(more));
 		}
 	}
 	else if (action == REMOVE) 
 	{
-		secondCombo->setItemText(secondCombo->currentIndex(), regExp);
+		setCurrentComboItem(secondCombo, regExp);
 		secondRegexpCheck->setChecked(regexp);
 	}
 	else if (action == REPLACE)
 	{
-		secondCombo->setItemText(secondCombo->currentIndex(), regExp);
+		setCurrentComboItem(secondCombo, regExp);
 		secondRegexpCheck->setChecked(regexp);
-		thirdCombo->setItemText(thirdCombo->currentIndex(), replace);
+		setCurrentComboItem(thirdCombo, replace);
 	}
 	enableCheck->setChecked(enabled);
 	enableToggled(enabled);

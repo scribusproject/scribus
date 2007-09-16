@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "usertaskstructs.h"
 #include "util_icon.h"
+#include "util.h"
 #include "commonstrings.h"
 
 ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, QString type)
@@ -31,7 +32,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	{
 		bitmapType->addItem(imgs[a]);
 	}
-	bitmapType->setItemText(bitmapType->currentIndex(), type.toLower());
+	setCurrentComboItem(bitmapType, type.toLower());
 	qualityBox->setValue(quality);
 	DPIBox->setValue(size);
 	enlargementBox->setValue(size);

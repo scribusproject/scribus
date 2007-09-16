@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListView>
 
 #include "page.h"
+#include "util.h"
 
 ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(parent)
 {
@@ -47,7 +48,7 @@ void ParaStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 
 void ParaStyleComboBox::setFormat(QString name)
 {
-	setItemText(currentIndex(), name.isEmpty() ? tr("No Style") : name);
+	setCurrentComboItem(this, name.isEmpty() ? tr("No Style") : name);
 }
 
 void ParaStyleComboBox::updateFormatList()
@@ -103,7 +104,7 @@ void CharStyleComboBox::setDoc(ScribusDoc *newCurrentDoc)
 
 void CharStyleComboBox::setFormat(QString name)
 {
-	setItemText(currentIndex(), name.isEmpty() ? tr("No Style") : name);
+	setCurrentComboItem(this, name.isEmpty() ? tr("No Style") : name);
 }
 
 void CharStyleComboBox::updateFormatList()

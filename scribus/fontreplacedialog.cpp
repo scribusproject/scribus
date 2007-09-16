@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "fontcombo.h"
 #include "commonstrings.h"
 #include "util_icon.h"
+#include "util.h"
 #include "scribusstructs.h"
 
 FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *RList) : QDialog( parent )
@@ -58,7 +59,7 @@ FontReplaceDialog::FontReplaceDialog( QWidget* parent, QMap<QString, QString> *R
 	{
 		replacementTable->setItem(a, 0, new QTableWidgetItem(itfsu.key()));
 		FontCombo* item = new FontCombo(this);
-		item->setItemText(item->currentIndex(), itfsu.value());
+		setCurrentComboItem(item, itfsu.value());
 		replacementTable->setCellWidget(a, 1, item);
 		a++;
 	}

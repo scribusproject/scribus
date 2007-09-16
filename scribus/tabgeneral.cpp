@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
+#include "util.h"
 
 extern ScribusQApp* ScQApp;
 
@@ -83,8 +84,8 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	selectedGUILang = prefsData->guiLanguage;
-	guiLangCombo->setItemText(guiLangCombo->currentIndex(), langMgr.getLangFromAbbrev(selectedGUILang));
-	GUICombo->setItemText(GUICombo->currentIndex(), prefsData->GUI);
+	setCurrentComboItem(guiLangCombo, langMgr.getLangFromAbbrev(selectedGUILang));
+	setCurrentComboItem(GUICombo, prefsData->GUI);
 	GFsize->setValue( prefsData->AppFontSize );
 	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
 	wheelJumpSpin->setValue( prefsData->Wheelval );

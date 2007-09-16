@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "util_icon.h"
+#include "util.h"
 
 tfDia::tfDia() : QDialog()
 {
@@ -224,8 +225,7 @@ void tfDia::removeRow(tfFilter* tff)
 
 void tfDia::saveTextChanged(const QString& text)
 {
-	filtersCombo->setCurrentIndex(0);
-	filtersCombo->setItemText(filtersCombo->currentIndex(), text);
+	setCurrentComboItem(filtersCombo, text);
 }
 
 void tfDia::clearClicked()

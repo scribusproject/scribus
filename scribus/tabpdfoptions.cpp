@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "util_icon.h"
 #include "scribuscore.h"
+#include "util.h"
 
 TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const SCFonts &AllFonts,
@@ -1169,7 +1170,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
 			actionCombo->addItem(itja.key());
 		if (doc->JavaScripts.contains(Opts.openAction))
-			actionCombo->setItemText(actionCombo->currentIndex(), Opts.openAction);
+			setCurrentComboItem(actionCombo, Opts.openAction);
 		if (Opts.PageLayout == PDFOptions::SinglePage)
 			singlePage->setChecked(true);
 		else if (Opts.PageLayout == PDFOptions::OneColumn)

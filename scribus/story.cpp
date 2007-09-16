@@ -1263,7 +1263,7 @@ void SToolBFont::languageChange()
 void SToolBFont::SetFont(QString f)
 {
 	disconnect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
-	Fonts->setItemText(Fonts->currentIndex(), f);
+	setCurrentComboItem(Fonts, f);
 	connect(Fonts, SIGNAL(activated(const QString &)), this, SIGNAL(NewFont(const QString &)));
 }
 

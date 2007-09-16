@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagesize.h"
 #include "commonstrings.h"
 #include "util_icon.h"
+#include "util.h"
 
 InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int maxPages)
 		: QDialog( parent, 0 )
@@ -101,7 +102,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					}
 				}
 				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
-					pageData->setItemText(pageData->currentIndex(), CommonStrings::trMasterPageNormalLeft);
+					setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalLeft);
 			}
 			else if (mp == 1)
 			{
@@ -119,7 +120,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 						}
 					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
-						pageData->setItemText(pageData->currentIndex(), CommonStrings::trMasterPageNormalMiddle);
+						setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalMiddle);
 				}
 				else
 				{
@@ -135,7 +136,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 						}
 					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
-						pageData->setItemText(pageData->currentIndex(), CommonStrings::trMasterPageNormalRight);
+						setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalRight);
 				}
 			}
 			else if (mp == 2)
@@ -154,7 +155,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 						}
 					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
-						pageData->setItemText(pageData->currentIndex(), CommonStrings::trMasterPageNormalMiddle);
+						setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalMiddle);
 				}
 				else
 				{
@@ -170,7 +171,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 						}
 					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
-						pageData->setItemText(pageData->currentIndex(), CommonStrings::trMasterPageNormalRight);
+						setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalRight);
 				}
 			}
 			else if (mp == 3)
@@ -187,7 +188,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					}
 				}
 				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
-					pageData->setItemText(pageData->currentIndex(), CommonStrings::trMasterPageNormalRight);
+					setCurrentComboItem(pageData, CommonStrings::trMasterPageNormalRight);
 			}
 			QString transLabel = currentDoc->pageSets[currentDoc->currentPageLayout].pageNames[mp];
 			QLabel* pageLabel = new QLabel(CommonStrings::translatePageSetLocString(transLabel), masterPageGroup);

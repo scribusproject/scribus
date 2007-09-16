@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "selfield.h"
 #include "util_formats.h"
 #include "util_icon.h"
+#include "util.h"
 
 Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
 		: QDialog( parent )
@@ -1566,7 +1567,7 @@ void Annot::DecodeNum()
 		}
 	if (item->annotation().Format() == 3)
 	{
-		Format0c->setItemText(Format0c->currentIndex(), pfol[0].remove("\""));
+		setCurrentComboItem(Format0c, pfol[0].remove("\""));
 		setDateSample(pfol[0]);
 	}
 	if (item->annotation().Format() == 4)

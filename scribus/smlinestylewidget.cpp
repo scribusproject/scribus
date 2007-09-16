@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "util_color.h"
 #include "util_icon.h"
+#include "util.h"
 
 
 SMLineStyleWidget::SMLineStyleWidget() : QWidget()
@@ -92,7 +93,7 @@ void SMLineStyleWidget::slotEditNewLine(int i)
 		return;
 
 	lineWidth->setValue(currentStyle[i].Width);
-	colorCombo->setItemText(colorCombo->currentIndex(), currentStyle[i].Color);
+	setCurrentComboItem(colorCombo, currentStyle[i].Color);
 	shadeBox->setValue(currentStyle[i].Shade);
 	
 	switch (static_cast<Qt::PenStyle>(currentStyle[i].Dash))

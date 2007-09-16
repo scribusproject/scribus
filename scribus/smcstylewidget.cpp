@@ -494,7 +494,7 @@ void SMCStyleWidget::showLanguage(const QList<CharStyle*> &cstyles, const QStrin
 	else
 	{
 		Q_ASSERT(langMap_.contains(s));
-		language_->setItemText(language_->currentIndex(), langMap_[s]);
+		setCurrentComboItem(language_, langMap_[s]);
 	}
 }
 

@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "prefsfile.h"
 #include "scribusdoc.h"
+#include "util.h"
 
 
 TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
@@ -213,9 +214,9 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 
 //	setSize(prefsData->pageSize);
 	if (prefsData->pageSize == CommonStrings::customPageSize)
-		pageSizeComboBox->setItemText(pageSizeComboBox->currentIndex(), CommonStrings::trCustomPageSize);
+		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
 	else
-		pageSizeComboBox->setItemText(pageSizeComboBox->currentIndex(), prefsData->pageSize);
+		setCurrentComboItem(pageSizeComboBox, prefsData->pageSize);
 	prefsPageSizeName = prefsData->pageSize;
 //	setOrien(prefsData->pageOrientation);
 
@@ -249,9 +250,9 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 
 //	setSize(prefsData->m_pageSize);
 	if (prefsData->m_pageSize == CommonStrings::customPageSize)
-		pageSizeComboBox->setItemText(pageSizeComboBox->currentIndex(), CommonStrings::trCustomPageSize);
+		setCurrentComboItem(pageSizeComboBox, CommonStrings::trCustomPageSize);
 	else
-		pageSizeComboBox->setItemText(pageSizeComboBox->currentIndex(), prefsData->m_pageSize);
+		setCurrentComboItem(pageSizeComboBox, prefsData->m_pageSize);
 	prefsPageSizeName = prefsData->m_pageSize;
 //	setOrien(prefsData->PageOri);
 

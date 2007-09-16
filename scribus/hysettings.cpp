@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "scribusdoc.h"
 #include "util_icon.h"
+#include "util.h"
 #include "QHeaderView"
 #include <QInputDialog>
 
@@ -43,7 +44,7 @@ void HySettings::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	verbose->setChecked(!prefsData->Automatic);
 	input->setChecked(prefsData->AutoCheck);
-	language->setItemText(language->currentIndex(), langsMap[prefsData->Language]);
+	setCurrentComboItem(language, langsMap[prefsData->Language]);
 	wordLen->setValue(prefsData->MinWordLen);
 	maxCount->setValue(prefsData->HyCount);
 	ignoreList->addItems(prefsData->ignoredWords.toList());
@@ -56,7 +57,7 @@ void HySettings::restoreDefaults(ScribusDoc *prefsData)
 {
 	verbose->setChecked(!prefsData->Automatic);
 	input->setChecked(prefsData->AutoCheck);
-	language->setItemText(language->currentIndex(), langsMap[prefsData->Language]);
+	setCurrentComboItem(language, langsMap[prefsData->Language]);
 	wordLen->setValue(prefsData->MinWordLen);
 	maxCount->setValue(prefsData->HyCount);
 	ignoreList->addItems(prefsData->docHyphenator->ignoredWords.toList());

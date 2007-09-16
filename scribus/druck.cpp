@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "util_printer.h"
 #include "util_icon.h"
+#include "util.h"
 #include "units.h"
 #include "usertaskstructs.h"
 #include "scrspinbox.h"
@@ -578,9 +579,9 @@ void Druck::SelPrinter(const QString& prn)
 	else
 	{
 		psLevel->setEnabled( false );
-		PrintSep->setItemText(PrintSep->currentIndex(), tr("Print Normal"));
+		setCurrentComboItem(PrintSep, tr("Print Normal"));
 		PrintSep->setEnabled( false );
-		SepArt->setItemText(SepArt->currentIndex(), tr("All"));
+		setCurrentComboItem(SepArt, tr("All"));
 		SepArt->setEnabled( false );
 		ToSeparation = false;
 		if (m_doc->HasCMS)

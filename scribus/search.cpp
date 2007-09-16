@@ -110,7 +110,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SStyleVal, 1, 1 );
 	SFontVal = new FontCombo(Search);
 	SFontVal->setMaximumSize(190, 30);
-	SFontVal->setItemText(SFontVal->currentIndex(), doc->currentStyle.charStyle().font().scName());
+	setCurrentComboItem(SFontVal, doc->currentStyle.charStyle().font().scName());
 	SFontVal->setEnabled(false);
 	SearchLayout->addWidget( SFontVal, 2, 1 );
 	SSizeVal = new ScrSpinBox( 0.5, 2048, Search, 1 );
@@ -125,7 +125,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SFillVal->setEditable(false);
 	SFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	SFillVal->setMinimumWidth(SFillVal->view()->maximumViewportSize().width() + 24);
-	SFillVal->setItemText(SFillVal->currentIndex(), doc->currentStyle.charStyle().fillColor());
+	setCurrentComboItem(SFillVal, doc->currentStyle.charStyle().fillColor());
 	SFillVal->setEnabled(false);
 	SearchLayout->addWidget( SFillVal, 5, 1 );
 	SFillSVal = new ShadeButton(Search);
@@ -135,7 +135,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SStrokeVal->setEditable(false);
 	SStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	SStrokeVal->view()->setMinimumWidth(SStrokeVal->view()->maximumViewportSize().width() + 24);
-	SStrokeVal->setItemText(SStrokeVal->currentIndex(), doc->currentStyle.charStyle().strokeColor());
+	setCurrentComboItem(SStrokeVal, doc->currentStyle.charStyle().strokeColor());
 	SStrokeVal->setEnabled(false);
 	SearchLayout->addWidget( SStrokeVal, 7, 1 );
 	SStrokeSVal =  new ShadeButton(Search);
@@ -197,7 +197,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	ReplaceLayout->addWidget( RStyleVal, 1, 1 );
 	RFontVal = new FontCombo(Replace);
 	RFontVal->setMaximumSize(190, 30);
-	RFontVal->setItemText(RFontVal->currentIndex(), doc->currentStyle.charStyle().font().scName());
+	setCurrentComboItem(RFontVal, doc->currentStyle.charStyle().font().scName());
 	RFontVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFontVal, 2, 1 );
 	RSizeVal = new ScrSpinBox( 0.5, 2048, Replace, 1 );
@@ -212,7 +212,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RFillVal->setEditable(false);
 	RFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	RFillVal->view()->setMinimumWidth(RFillVal->view()->maximumViewportSize().width() + 24);
-	RFillVal->setItemText(RFillVal->currentIndex(), doc->currentStyle.charStyle().fillColor());
+	setCurrentComboItem(RFillVal, doc->currentStyle.charStyle().fillColor());
 	RFillVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFillVal, 5, 1 );
 	RFillSVal = new ShadeButton(Replace);
@@ -222,7 +222,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RStrokeVal->setEditable(false);
 	RStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	RStrokeVal->view()->setMinimumWidth(RStrokeVal->view()->maximumViewportSize().width() + 24);
-	RStrokeVal->setItemText(RStrokeVal->currentIndex(), doc->currentStyle.charStyle().strokeColor());
+	setCurrentComboItem(RStrokeVal, doc->currentStyle.charStyle().strokeColor());
 	RStrokeVal->setEnabled(false);
 	ReplaceLayout->addWidget( RStrokeVal, 7, 1 );
 	RStrokeSVal = new ShadeButton(Replace);;
@@ -957,9 +957,9 @@ void SearchReplace::clear()
 	STextVal->setText("");
 	int currentParaStyle = findParagraphStyle(Doc, Doc->currentStyle);
 	SStyleVal->setCurrentIndex(currentParaStyle);
-	SFontVal->setItemText(SFontVal->currentIndex(), Doc->currentStyle.charStyle().font().scName());
-	SFillVal->setItemText(SFillVal->currentIndex(), Doc->currentStyle.charStyle().fillColor());
-	SStrokeVal->setItemText(SStrokeVal->currentIndex(), Doc->currentStyle.charStyle().strokeColor());
+	setCurrentComboItem(SFontVal, Doc->currentStyle.charStyle().font().scName());
+	setCurrentComboItem(SFillVal, Doc->currentStyle.charStyle().fillColor());
+	setCurrentComboItem(SStrokeVal, Doc->currentStyle.charStyle().strokeColor());
 	SSizeVal->setValue(Doc->currentStyle.charStyle().fontSize() / 10.0);
 	RStroke->setChecked(false);
 	RStrokeS->setChecked(false);
@@ -971,9 +971,9 @@ void SearchReplace::clear()
 	RText->setChecked(false);
 	RTextVal->setText("");
 	RStyleVal->setCurrentIndex(currentParaStyle);
-	RFontVal->setItemText(RFontVal->currentIndex(), Doc->currentStyle.charStyle().font().scName());
-	RFillVal->setItemText(RFillVal->currentIndex(), Doc->currentStyle.charStyle().fillColor());
-	RStrokeVal->setItemText(RStrokeVal->currentIndex(), Doc->currentStyle.charStyle().strokeColor());
+	setCurrentComboItem(RFontVal, Doc->currentStyle.charStyle().font().scName());
+	setCurrentComboItem(RFillVal, Doc->currentStyle.charStyle().fillColor());
+	setCurrentComboItem(RStrokeVal, Doc->currentStyle.charStyle().strokeColor());
 	RSizeVal->setValue(Doc->currentStyle.charStyle().fontSize() / 10.0);
 	Word->setChecked(false);
 	CaseIgnore->setChecked(false);
@@ -1016,9 +1016,9 @@ void SearchReplace::readPrefs()
 	else
 		SStyleVal->setCurrentIndex(tmp);
 
-	SFontVal->setItemText(SFontVal->currentIndex(), prefs->get("SFontVal", Doc->currentStyle.charStyle().font().scName()));
-	SFillVal->setItemText(SFillVal->currentIndex(), prefs->get("SFillVal", Doc->currentStyle.charStyle().fillColor()));
-	SStrokeVal->setItemText(SStrokeVal->currentIndex(), prefs->get("SStrokeVal", Doc->currentStyle.charStyle().strokeColor()));
+	setCurrentComboItem(SFontVal, prefs->get("SFontVal", Doc->currentStyle.charStyle().font().scName()));
+	setCurrentComboItem(SFillVal, prefs->get("SFillVal", Doc->currentStyle.charStyle().fillColor()));
+	setCurrentComboItem(SStrokeVal, prefs->get("SStrokeVal", Doc->currentStyle.charStyle().strokeColor()));
 	SSizeVal->setValue(prefs->getDouble("SSizeVal", Doc->currentStyle.charStyle().fontSize() / 10.0));
 	RStroke->setChecked(prefs->getBool("RStroke", false));
 	RStrokeS->setChecked(prefs->getBool("RStrokeS", false));
@@ -1034,9 +1034,9 @@ void SearchReplace::readPrefs()
 		RStyleVal->setCurrentIndex(0);
 	else
 		RStyleVal->setCurrentIndex(tmp);
-	RFontVal->setItemText(RFontVal->currentIndex(), prefs->get("RFontVal", Doc->currentStyle.charStyle().font().scName()));
-	RFillVal->setItemText(RFillVal->currentIndex(), prefs->get("RFillVal", Doc->currentStyle.charStyle().fillColor()));
-	RStrokeVal->setItemText(RStrokeVal->currentIndex(), prefs->get("RStrokeVal", Doc->currentStyle.charStyle().strokeColor()));
+	setCurrentComboItem(RFontVal, prefs->get("RFontVal", Doc->currentStyle.charStyle().font().scName()));
+	setCurrentComboItem(RFillVal, prefs->get("RFillVal", Doc->currentStyle.charStyle().fillColor()));
+	setCurrentComboItem(RStrokeVal, prefs->get("RStrokeVal", Doc->currentStyle.charStyle().strokeColor()));
 	RSizeVal->setValue(prefs->getDouble("RSizeVal", Doc->currentStyle.charStyle().fontSize() / 10.0));
 	Word->setChecked(prefs->getBool("Word", false));
 	CaseIgnore->setChecked(prefs->getBool("CaseIgnore", false));

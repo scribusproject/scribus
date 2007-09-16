@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "util_icon.h"
 #include "util_math.h"
+#include "util.h"
 
 ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent )
 {
@@ -149,12 +150,12 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			if ((info->isRequest) && (info->RequestProps.contains(0)))
 			{
 				opacitySpinBox->setValue(qRound(info->RequestProps[0].opacity / 255.0 * 100));
-				blendMode->setItemText(blendMode->currentIndex(), blendModes[info->RequestProps[0].blend]);
+				setCurrentComboItem(blendMode, blendModes[info->RequestProps[0].blend]);
 			}
 			else
 			{
 				opacitySpinBox->setValue(qRound(info->layerInfo[0].opacity / 255.0 * 100));
-				blendMode->setItemText(blendMode->currentIndex(), blendModes[info->layerInfo[0].blend]);
+				setCurrentComboItem(blendMode, blendModes[info->layerInfo[0].blend]);
 			}
 			opacitySpinBox->setEnabled(true);
 			blendMode->setEnabled(true);
@@ -309,12 +310,12 @@ void ExtImageProps::selLayer(int layer)
 	if ((currentItem->pixm.imgInfo.isRequest) && (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->rowCount() - layer - 1)))
 	{
 		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setItemText(blendMode->currentIndex(), blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].blend]);
+		setCurrentComboItem(blendMode, blendModes[currentItem->pixm.imgInfo.RequestProps[layerTable->rowCount() - layer - 1].blend]);
 	}
 	else
 	{
 		opacitySpinBox->setValue(qRound(currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].opacity / 255.0 * 100));
-		blendMode->setItemText(blendMode->currentIndex(), blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].blend]);
+		setCurrentComboItem(blendMode, blendModes[currentItem->pixm.imgInfo.layerInfo[layerTable->rowCount() - layer - 1].blend]);
 	}
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);

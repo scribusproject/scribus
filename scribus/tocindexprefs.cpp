@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "scribusdoc.h"
 #include "commonstrings.h"
+#include "util.h"
 
 /*!
 *  \brief Constructs a TOCIndexPrefs as a child of 'parent', with the
@@ -114,7 +115,7 @@ void TOCIndexPrefs::init()
 	itemNumberPlacementComboBox->addItem(trStrPNEnd);
 	itemNumberPlacementComboBox->addItem(trStrPNBeginning);
 	itemNumberPlacementComboBox->addItem(trStrPNNotShown);
-	itemNumberPlacementComboBox->setItemText(itemNumberPlacementComboBox->currentIndex(), trStrPNEnd);
+	setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 	numSelected=999;
 }
 
@@ -169,9 +170,9 @@ void TOCIndexPrefs::setupItemAttrs( QStringList newNames )
 	if (numSelected!=999)
 	{
 		if (localToCSetupVector[numSelected].itemAttrName==strNone)
-			itemAttrComboBox->setItemText(itemAttrComboBox->currentIndex(), trStrNone);
+			setCurrentComboItem(itemAttrComboBox, trStrNone);
 		else
-			itemAttrComboBox->setItemText(itemAttrComboBox->currentIndex(), localToCSetupVector[numSelected].itemAttrName);
+			setCurrentComboItem(itemAttrComboBox, localToCSetupVector[numSelected].itemAttrName);
 	}
 	connect( itemAttrComboBox, SIGNAL( activated(const QString&) ), this, SLOT( itemAttributeSelected(const QString&) ) );
 }
@@ -192,31 +193,31 @@ void TOCIndexPrefs::selectToC( int numberSelected )
 	disconnect( tocNameLineEdit, SIGNAL( textChanged(const QString&) ), this, SLOT( setToCName(const QString&) ) );
 	disconnect( itemListNonPrintingCheckBox, SIGNAL( toggled(bool) ), this, SLOT( nonPrintingFramesSelected(bool) ) );
 	if (localToCSetupVector[numSelected].itemAttrName==strNone)
-		itemAttrComboBox->setItemText(itemAttrComboBox->currentIndex(), trStrNone);
+		setCurrentComboItem(itemAttrComboBox, trStrNone);
 	else
-		itemAttrComboBox->setItemText(itemAttrComboBox->currentIndex(), localToCSetupVector[numSelected].itemAttrName);
+		setCurrentComboItem(itemAttrComboBox, localToCSetupVector[numSelected].itemAttrName);
 	if (localToCSetupVector[numSelected].pageLocation==NotShown)
-		itemNumberPlacementComboBox->setItemText(itemNumberPlacementComboBox->currentIndex(), trStrPNNotShown);
+		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNNotShown);
 	else
 		if (localToCSetupVector[numSelected].pageLocation==Beginning)
-		itemNumberPlacementComboBox->setItemText(itemNumberPlacementComboBox->currentIndex(), trStrPNBeginning);
+		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNBeginning);
 	else
-		itemNumberPlacementComboBox->setItemText(itemNumberPlacementComboBox->currentIndex(), trStrPNEnd);
+		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 
 	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[numSelected].listNonPrintingFrames);
 	if (currDoc!=NULL)
 	{
 		if (localToCSetupVector[numSelected].frameName==strNone)
-			itemDestFrameComboBox->setItemText(itemDestFrameComboBox->currentIndex(), trStrNone);
+			setCurrentComboItem(itemDestFrameComboBox, trStrNone);
 		else
-			itemDestFrameComboBox->setItemText(itemDestFrameComboBox->currentIndex(), localToCSetupVector[numSelected].frameName);
+			setCurrentComboItem(itemDestFrameComboBox, localToCSetupVector[numSelected].frameName);
 
 		if (itemParagraphStyleComboBox->count()>0)
 		{
 			if (!paragraphStyleList.contains(localToCSetupVector[numSelected].textStyle) || localToCSetupVector[numSelected].textStyle==strNone)
-				itemParagraphStyleComboBox->setItemText(itemParagraphStyleComboBox->currentIndex(), trStrNone);
+				setCurrentComboItem(itemParagraphStyleComboBox, trStrNone);
 			else
-				itemParagraphStyleComboBox->setItemText(itemParagraphStyleComboBox->currentIndex(), localToCSetupVector[numSelected].textStyle);
+				setCurrentComboItem(itemParagraphStyleComboBox, localToCSetupVector[numSelected].textStyle);
 		}
 	}
 

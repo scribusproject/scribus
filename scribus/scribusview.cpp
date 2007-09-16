@@ -3331,7 +3331,7 @@ void ScribusView::setLayerMenuText(const QString &layerName)
 {
 	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	if (layerMenu->count() != 0)
-		layerMenu->setItemText(layerMenu->currentIndex(), layerName);
+		setCurrentComboItem(layerMenu, layerName);
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 }
 

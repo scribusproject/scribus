@@ -907,3 +907,12 @@ QString readLinefromDataStream(QDataStream &s)
 	}
 	return ret.trimmed();
 }
+
+void setCurrentComboItem(QComboBox *box, QString text)
+{
+	box->blockSignals(true);
+	int ind = box->findText(text);
+	if (ind > -1)
+		box->setCurrentIndex(ind);
+	box->blockSignals(false);
+}

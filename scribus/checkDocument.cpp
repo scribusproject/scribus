@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "documentchecker.h"
 #include "util_icon.h"
+#include "util.h"
 
 
 static const unsigned char image0_data[] =
@@ -237,7 +238,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 	CheckerPrefsList::Iterator itend=doc->checkerProfiles.end();
 	for (it = doc->checkerProfiles.begin(); it != itend ; ++it)
 		curCheckProfile->addItem(it.key());
-	curCheckProfile->setItemText(curCheckProfile->currentIndex(), doc->curCheckProfile);
+	setCurrentComboItem(curCheckProfile, doc->curCheckProfile);
 
 	int minRes = qRound(doc->checkerProfiles[doc->curCheckProfile].minResolution);
 	int maxRes = qRound(doc->checkerProfiles[doc->curCheckProfile].maxResolution);

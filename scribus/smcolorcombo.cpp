@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "smcolorcombo.h"
+#include "util.h"
 
 
 SMColorCombo::SMColorCombo(QWidget *parent)
@@ -55,7 +56,8 @@ void SMColorCombo::setCurrentText(const QString &s)
 	hasParent_ = false;
 	pItem_ = -1;
 	pText_ = s;
-	ColorCombo::setItemText(ColorCombo::currentIndex(), s);
+	setCurrentComboItem(this, s);
+	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }
 
 void SMColorCombo::setCurrentText(const QString &s, bool isParentValue)
@@ -64,7 +66,7 @@ void SMColorCombo::setCurrentText(const QString &s, bool isParentValue)
 	hasParent_ = true;
 	pItem_ = -1;
 	pText_ = s;
-	ColorCombo::setItemText(ColorCombo::currentIndex(), s);
+	setCurrentComboItem(this, s);
 	setFont(!isParentValue);
 	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
 }

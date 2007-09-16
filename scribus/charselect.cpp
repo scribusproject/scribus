@@ -185,7 +185,7 @@ void CharSelect::setDoc(ScribusDoc* doc)
 	m_fontInUse = m_doc->currentStyle.charStyle().font().scName();
 	if (oldFont != m_fontInUse && !m_fontInUse.isEmpty())
 	{
-		fontSelector->setItemText(fontSelector->currentIndex(), m_fontInUse);
+		setCurrentComboItem(fontSelector, m_fontInUse);
 		newFont(fontSelector->currentIndex());
 		unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
 	}

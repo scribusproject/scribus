@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QByteArray>
 #include <QColor>
+#include <QComboBox>
 #include <QDir>
 #include <QList>
 #include <QPainterPath>
@@ -139,5 +140,6 @@ void tDebug(QString message);
 
 
 QString SCRIBUS_API readLinefromDataStream(QDataStream &s);
+void SCRIBUS_API setCurrentComboItem(QComboBox *box, QString text);
 
 #endif

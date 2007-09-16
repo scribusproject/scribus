@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "commonstrings.h"
 #include "util_icon.h"
+#include "util.h"
 
 static const char* const image100_data[] =
     {
@@ -323,12 +324,12 @@ MissingFont::MissingFont( QWidget* parent, QString fon, ScribusDoc* doc ) : QDia
 	replaceFontCombo = new FontCombo(this);
 	if (doc != 0)
 	{
-		replaceFontCombo->setItemText(replaceFontCombo->currentIndex(), doc->toolSettings.defFont);
+		setCurrentComboItem(replaceFontCombo, doc->toolSettings.defFont);
 		replacementFont = doc->toolSettings.defFont;
 	}
 	else
 	{
-		replaceFontCombo->setItemText(replaceFontCombo->currentIndex(), PrefsManager::instance()->appPrefs.toolSettings.defFont);
+		setCurrentComboItem(replaceFontCombo, PrefsManager::instance()->appPrefs.toolSettings.defFont);
 		replacementFont = PrefsManager::instance()->appPrefs.toolSettings.defFont;
 	}
 	missingFontGridLayout->addWidget( replaceFontCombo, 1, 2 );

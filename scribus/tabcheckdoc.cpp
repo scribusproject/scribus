@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSpinBox>
 
 #include "prefsstructs.h"
+#include "util.h"
 
 TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString prefProfile ) : QWidget( parent )
 {
@@ -133,7 +134,7 @@ void TabCheckDoc::restoreDefaults(CheckerPrefsList *prefsData, QString prefProfi
 	curCheckProfile->clear();
 	for (it = checkerProfile.begin(); it != checkerProfile.end(); ++it)
 		curCheckProfile->addItem(it.key());
-	curCheckProfile->setItemText(curCheckProfile->currentIndex(), prefProfile);
+	setCurrentComboItem(curCheckProfile, prefProfile);
 	ignoreErrors->setChecked(checkerProfile[prefProfile].ignoreErrors);
 	automaticCheck->setChecked(checkerProfile[prefProfile].autoCheck);
 	missingGlyphs->setChecked(checkerProfile[prefProfile].checkGlyphs);
@@ -288,7 +289,7 @@ void TabCheckDoc::delProf()
 	CheckerPrefsList::Iterator itend=checkerProfile.end();
 	for (it = checkerProfile.begin(); it != itend; ++it)
 		curCheckProfile->addItem(it.key());
-	curCheckProfile->setItemText(curCheckProfile->currentIndex(), currentProfile);
+	setCurrentComboItem(curCheckProfile, currentProfile);
 	connect(curCheckProfile, SIGNAL(activated(const QString&)), this, SLOT(setProfile(const QString&)));
 	connect(curCheckProfile, SIGNAL(textChanged(const QString&)), this, SLOT(setProfile(const QString&)));
 	if (checkerProfile.count() == 1)

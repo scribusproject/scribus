@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QValidator>
 #include "sccombobox.h"
 #include "util_icon.h"
+#include "util.h"
 
 class PageValidator : public QValidator
 {
@@ -176,7 +177,7 @@ void PageSelector::GotoPg(int a)
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 	PageCombo->setCurrentIndex(a);
-	PageCombo->setItemText(PageCombo->currentIndex(), tr( "%1 of %2" ).arg(a+1).arg(LastPG));
+	setCurrentComboItem(PageCombo, tr( "%1 of %2" ).arg(a+1).arg(LastPG));
 	APage = a+1;
 	Back->setEnabled(true);
 	Start->setEnabled(true);
@@ -206,7 +207,7 @@ void PageSelector::setMaximum(int a)
 	{
 		PageCombo->addItem(tmp.setNum(b+1));
 	}
-	PageCombo->setItemText(PageCombo->currentIndex(), tr( "%1 of %2" ).arg(APage).arg(LastPG));
+	setCurrentComboItem(PageCombo, tr( "%1 of %2" ).arg(APage).arg(LastPG));
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 
@@ -243,7 +244,7 @@ void PageSelector::goFw()
 void PageSelector::languageChange()
 {
 	disconnect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
-	PageCombo->setItemText(PageCombo->currentIndex(), tr( "%1 of %2" ).arg(APage).arg(LastPG));
+	setCurrentComboItem(PageCombo, tr( "%1 of %2" ).arg(APage).arg(LastPG));
 	connect( PageCombo, SIGNAL( activated(int) ), this, SLOT( GotoPgE(int) ) );
 }
 

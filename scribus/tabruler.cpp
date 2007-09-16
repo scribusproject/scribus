@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "scrspinbox.h"
 #include "util_icon.h"
+#include "util.h"
 
 RulerT::RulerT(QWidget *pa, int ein, QList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
 {
@@ -701,7 +702,7 @@ void Tabruler::setFillChar()
 			break;
 		case 4:
 			tabFillCombo->setEditable(true);
-			tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill);
+			setCurrentComboItem(tabFillCombo, CommonStrings::trCustomTabFill);
 			break;
 	}
 	if (tabFillCombo->currentIndex() != 4)
@@ -748,7 +749,7 @@ void Tabruler::setTabFillChar(QChar t)
 	{
 		tabFillCombo->setCurrentIndex(4);
 		tabFillCombo->setEditable(true);
-		tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill+QString(t));
+		setCurrentComboItem(tabFillCombo, CommonStrings::trCustomTabFill+QString(t));
 	}
 	emit tabrulerChanged();
 	emit tabsChanged();

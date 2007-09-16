@@ -3646,7 +3646,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 		outlinePalette->setDoc(doc);
 		fileLoader->informReplacementFonts();
-		view->unitSwitcher->setItemText(view->unitSwitcher->currentIndex(), unitGetStrFromIndex(doc->unitIndex()));
+		setCurrentComboItem(view->unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
 		view->unitChange();
 		ScriptRunning = false;
 		view->Deselect(true);
@@ -7863,7 +7863,7 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 	}
 	
 	doc->setUnitIndex(unitIndex);
-	view->unitSwitcher->setItemText(view->unitSwitcher->currentIndex(), unitGetStrFromIndex(doc->unitIndex()));
+	setCurrentComboItem(view->unitSwitcher, unitGetStrFromIndex(doc->unitIndex()));
 	propertiesPalette->unitChange();
 	nodePalette->unitChange();
 	alignDistributePalette->unitChange();

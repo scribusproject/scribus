@@ -35,6 +35,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "prefsmanager.h"
 #include "util_icon.h"
+#include "util.h"
 
 FontCombo::FontCombo(QWidget* pa) : QComboBox(pa)
 {
@@ -147,11 +148,11 @@ void FontComboH::familySelected(int id)
 	slist.sort();
 	fontStyle->addItems(slist);
 	if (slist.contains(curr))
-		fontStyle->setItemText(fontStyle->currentIndex(), curr);
+		setCurrentComboItem(fontStyle, curr);
 	else if (slist.contains("Regular"))
-		fontStyle->setItemText(fontStyle->currentIndex(), "Regular");
+		setCurrentComboItem(fontStyle, "Regular");
 	else if (slist.contains("Roman"))
-		fontStyle->setItemText(fontStyle->currentIndex(), "Roman");
+		setCurrentComboItem(fontStyle, "Roman");
 	emit fontSelected(fontFamily->itemText(id) + " " + fontStyle->currentText());
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
@@ -172,7 +173,7 @@ void FontComboH::setCurrentFont(QString f)
 	disconnect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 	QString family = prefsManager->appPrefs.AvailFonts[f].family();
 	QString style = prefsManager->appPrefs.AvailFonts[f].style();
-	fontFamily->setItemText(fontFamily->currentIndex(), family);
+	setCurrentComboItem(fontFamily, family);
 	fontStyle->clear();
 	QStringList slist = prefsManager->appPrefs.AvailFonts.fontMap[family];
 	slist.sort();
@@ -189,7 +190,7 @@ void FontComboH::setCurrentFont(QString f)
 	}
 	else
 		fontStyle->addItems(slist);
-	fontStyle->setItemText(fontStyle->currentIndex(), style);
+	setCurrentComboItem(fontStyle, style);
 	connect(fontFamily, SIGNAL(activated(int)), this, SLOT(familySelected(int)));
 	connect(fontStyle, SIGNAL(activated(int)), this, SLOT(styleSelected(int)));
 }
