@@ -809,12 +809,14 @@ void SEditor::setStyle(int Csty)
 
 void SEditor::setFarbe(bool marker)
 {
+	QTextCharFormat charF;
 	QColor tmp;
 	if (marker)
 		tmp = QColor(Qt::red);
 	else
 		tmp = QColor(Qt::black);
-	setTextColor(tmp);
+	charF.setForeground(tmp);
+	setCurrentCharFormat(charF);
 }
 
 void SEditor::copy()

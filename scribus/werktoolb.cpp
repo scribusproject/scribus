@@ -50,39 +50,22 @@ ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "T
 	this->addAction(m_ScMW->scrActions["toolsInsertTableFrame"]);
 	
 	this->addAction(m_ScMW->scrActions["toolsInsertShape"]);
-//	m_ScMW->scrMenuMgr->createMenu("insertShapeButtonMenu", "insertShapeButtonMenu");
-//	insertShapeButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertShapeButtonMenu");
-//	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertShapeButtonMenu", m_ScMW->scrActions["toolsInsertShape"]);
-	
 	insertShapeButtonMenu = new QMenu();
 	Rechteck = new AutoformButtonGroup( NULL );
 	insertShapeButtonAct = new QWidgetAction( this );
 	insertShapeButtonAct->setDefaultWidget(Rechteck);
 	insertShapeButtonMenu->addAction(insertShapeButtonAct);
 	m_ScMW->scrActions["toolsInsertShape"]->setMenu(insertShapeButtonMenu);
-
-//	QToolButton *isB = dynamic_cast<QToolButton*>(m_ScMW->scrActions["toolsInsertShape"]->getWidgetAddedTo());
-//	if (isB)
-//		isB->setPopupMode(QToolButton::MenuButtonPopup);
-//	{
-//		insertShapeButton->setPopupDelay(0);
-//		insertShapeButton->setPopup(insertShapeButtonMenu);
-//	}
-
-	//Qt4 insertShapeButtonMenu->insertItem( Rechteck );
-	//QImage newShapeIcon = Rechteck->getIconPixmap(0).convertToImage();
-	//newShapeIcon.smoothScale(16,16);
+	QToolButton* tb = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertShape"]));
+	tb->setPopupMode(QToolButton::MenuButtonPopup);
 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(0,16)));
-//qt4 fixme, Rechteck->getIconPixmap(0)));
 
 	this->addAction(m_ScMW->scrActions["toolsInsertPolygon"]);
-//	m_ScMW->scrMenuMgr->createMenu("insertPolygonButtonMenu", "insertPolygonButtonMenu");
-//	insertPolygonButtonMenu=m_ScMW->scrMenuMgr->getLocalPopupMenu("insertPolygonButtonMenu");
 	insertPolygonButtonMenu = new QMenu();
 	idInsertPolygonButtonMenu = insertPolygonButtonMenu->addAction( "Properties...", this, SLOT(GetPolyProps()));
 	m_ScMW->scrActions["toolsInsertPolygon"]->setMenu(insertPolygonButtonMenu);
-//	m_ScMW->scrMenuMgr->addMenuToWidgetOfAction("insertPolygonButtonMenu", m_ScMW->scrActions["toolsInsertPolygon"]);
-//	idInsertPolygonButtonMenu=insertPolygonButtonMenu->insertItem( "Properties...", this, SLOT(GetPolyProps()));
+	QToolButton* tb2 = dynamic_cast<QToolButton*>(this->widgetForAction(m_ScMW->scrActions["toolsInsertPolygon"]));
+	tb2->setPopupMode(QToolButton::MenuButtonPopup);
 		
 	this->addAction(m_ScMW->scrActions["toolsInsertLine"]);
 	this->addAction(m_ScMW->scrActions["toolsInsertBezier"]);
@@ -112,11 +95,7 @@ void ModeToolBar::GetPolyProps()
 
 void ModeToolBar::SelShape(int s, int c, double *vals)
 {
-	//const QPixmap* newIcon = Rechteck->find(s)->pixmap();
-	//QImage newShapeIcon = Rechteck->find(s)->pixmap()->convertToImage();
-	//newShapeIcon.smoothScale(16,16);
 	m_ScMW->scrActions["toolsInsertShape"]->setIcon(QIcon(Rechteck->getIconPixmap(s,16)));
-//qt4 fixme ,Rechteck->getIconPixmap(s)));
 	insertShapeButtonMenu->hide();
 	SubMode = s;
 	ValCount = c;
