@@ -1172,7 +1172,7 @@ void ScImage::createLowRes(double scale)
 	int w = qRound(width() / scale);
 	int h = qRound(height() / scale);
 	QImage tmp = scaled(w, h, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-	*this = QImage(w, h, QImage::Format_ARGB32);
+	QImage::operator=(QImage(w, h, QImage::Format_ARGB32));
 	tmp = tmp.convertToFormat(QImage::Format_ARGB32);
 	QRgb *s;
 	QRgb *d;
@@ -1659,7 +1659,7 @@ void ScImage::scaleImage(int nwidth, int nheight)
 		delete [] gs;
 	if ( bs )				// Robust, bs might be 0 one day
 		delete [] bs;
-	*this = QImage(nwidth, nheight, QImage::Format_ARGB32);
+	QImage::operator=(QImage(nwidth, nheight, QImage::Format_ARGB32));
 	for( int yi=0; yi < dst.height(); ++yi )
 	{
 		QRgb *s = (QRgb*)(dst.scanLine( yi ));
