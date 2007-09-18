@@ -4029,8 +4029,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			Doc->LoadPict(Doc->Items->at(z)->Pfile, z);
 		Doc->Items->at(z)->setImageXYScale(Buffer->LocalScX, Buffer->LocalScY);
 		Doc->Items->at(z)->setImageShown(Buffer->PicArt);
-		/*Doc->Items->at(z)->BBoxX = Buffer->BBoxX;
-		Doc->Items->at(z)->BBoxH = Buffer->BBoxH; */
 		Doc->Items->at(z)->ScaleType = Buffer->ScaleType;
 		Doc->Items->at(z)->AspectRatio = Buffer->AspectRatio;
 		Doc->Items->at(z)->setLineWidth(Buffer->Pwidth);

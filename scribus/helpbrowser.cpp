@@ -453,7 +453,7 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 	else
 		textBrowser->setText("<h2>"+ noHelpMsg +"</h2>");
 }
-
+#include <QDebug>
 void HelpBrowser::loadHelp(const QString& filename)
 {
 	struct histd2 his;
@@ -481,7 +481,17 @@ void HelpBrowser::loadHelp(const QString& filename)
 		Avail=false;
 	if (Avail)
 	{
+// 		QString textData;
+// 		QFile file1( toLoad );
+// 		if ( !file1.open( QIODevice::ReadOnly ) )
+// 			return;
+// 		QTextStream ts(&file1);
+// 		ts.setCodec("UTF-8");
+// 		textData=ts.readAll();
+//  		textBrowser->setHtml(textData);
+// 		file1.close();
 		textBrowser->setSource( QUrl::fromLocalFile(toLoad) );
+		
 		his.title = textBrowser->documentTitle();
 		if (his.title.isEmpty())
 			his.title = toLoad;

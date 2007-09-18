@@ -1188,10 +1188,8 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			PageItem_LatexFrame *latexitem = item->asLatexFrame();
 			latexinfo.setAttribute("APPLICATION", latexitem->getApplication());
 			latexinfo.setAttribute("DPI", latexitem->getDpi());
-			QString temp = latexitem->getFormula();
-			temp.replace("\\", "\\\\");
-			temp.replace("]", "\\]");
-			QDomCDATASection latextext = docu->createCDATASection(temp);
+			latexinfo.setAttribute("USE_PREAMBLE", latexitem->getUsePreamble());
+			QDomText latextext = docu->createTextNode(latexitem->getFormula());
 			latexinfo.appendChild(latextext);
 			ob.appendChild(latexinfo);
 		}
@@ -1223,11 +1221,7 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, const QStri
 	QString tmp, tmpy;
 	if (newFormat)
 		ob->setAttribute("OwnPage", item->OwnPage);
-	if (item->asLatexFrame()) {
-		ob->setAttribute("PTYPE", PageItem::LatexFrame);
-	} else {
-		ob->setAttribute("PTYPE",item->itemType());
-	}
+	ob->setAttribute("PTYPE",item->realItemType());
 	ob->setAttribute("XPOS",item->xPos());
 	ob->setAttribute("YPOS",item->yPos());
 	ob->setAttribute("WIDTH",item->width());

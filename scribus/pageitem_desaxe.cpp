@@ -15,11 +15,11 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
+#include "pageitem_latexframe.h"
 #include "scribusdoc.h"
 #include "util_color.h"
 #include "util_math.h"
 #include "util.h"
-
 
 using namespace desaxe;
 
@@ -45,7 +45,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 		result.insert("nextframe", "obj" + toXMLString(nxt->getUId())); 
 	result.insert("layer", toXMLString(item->LayerNr));
 	result.insert("level", toXMLString(item->ItemNr));
-	result.insert("itemtype", toXMLString(item->itemType()));
+	result.insert("itemtype", toXMLString(item->realItemType()));
 	
 	result.insert("is-annotation", toXMLString(item->isAnnotation()));
 	result.insert("is-bookmark", toXMLString(item->isPDFBookmark()));
@@ -158,13 +158,19 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	}
 	
 //	result.insert("ANNAME", !item->AutoName ? item->itemName() : QString(""));  // not used
+	const PageItem_LatexFrame *latexframe = dynamic_cast<const PageItem_LatexFrame*>(item);
 	
-	if ((item->itemType()==PageItem::ImageFrame || item->itemType()==PageItem::TextFrame) && (!item->externalFile().isEmpty()))
+	if ((item->itemType()==PageItem::ImageFrame || item->itemType()==PageItem::TextFrame) && (!item->externalFile().isEmpty()) && !latexframe)
 		result.insert("image-file", Path2Relative(item->externalFile()));
 	if (!item->fileIconPressed().isEmpty())
 		result.insert("icon-pressed-file", Path2Relative(item->fileIconPressed()));
 	if (!item->fileIconRollover().isEmpty())
 		result.insert("icon-rollover-file", Path2Relative(item->fileIconRollover()));	
+	if (latexframe) {
+		result.insert("latex-dpi", toXMLString(latexframe->getDpi()));
+		result.insert("latex-application", latexframe->getApplication());
+		result.insert("latex-use-preamble", toXMLString(latexframe->getUsePreamble()));
+	}
 	
 	if (item->dashes().count() > 0)
 		result.insert("line-dashes", toXMLString(item->dashes()));
@@ -177,7 +183,7 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 {
 	Xml_attr att(PageItemXMLAttributes(this));
-	Xml_attr dumm;
+	Xml_attr empty;
 //	qDebug(QString("PageItem::saxx %1 %2").arg((ulong) &handler));
 	handler.begin(elemtag, att);
 
@@ -258,6 +264,12 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	if (prevInChain() == NULL && itemText.length() > 0)
 	{
 		itemText.saxx(handler, "text-content");
+	}
+	const PageItem_LatexFrame *latexframe = dynamic_cast<const PageItem_LatexFrame*>(this);
+	if (latexframe) {
+		handler.begin("latex-source", empty);
+		handler.chars(latexframe->getFormula());
+		handler.end("latex-source");
 	}
 	handler.end(elemtag);
 }
@@ -461,6 +473,36 @@ class AdjustGroupIds : public MakeAction<AdjustGroupIds_body>
 {};
 
 
+class LatexSource_body : public Action_body
+{
+	public:	
+		void chars(const Xml_string& txt)
+		{
+			PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
+			obj->setFormula(txt);
+		}
+};
+
+struct  LatexSource : public MakeAction<LatexSource_body> 
+{};
+
+
+class LatexParams_body : public Action_body
+{
+	public:	
+		void begin(const Xml_string& tag, Xml_attr attr) 
+		{
+			PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
+			obj->setApplication(attr["latex-application"]);
+			obj->setDpi(parseInt(attr["latex-dpi"]));
+			obj->setUsePreamble(parseBool(attr["latex-use-preamble"]));
+			
+		}
+};
+
+struct  LatexParams : public MakeAction<LatexParams_body> 
+{};
+
 
 
 const Xml_string PageItem::saxxDefaultElem("item");
@@ -586,6 +628,8 @@ void PageItem::desaxeRules(const Xml_string& prefixPattern, Digester& ruleset, X
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setExternalFile, "image-file" ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconPressed, "icon-pressed-file" ));
 	ruleset.addRule(itemPrefix, SetAttribute<PageItem,QString>( & PageItem::setFileIconRollover, "icon-rollover-file" ));
+	ruleset.addRule("latex-source", LatexSource());
+	ruleset.addRule(itemPrefix, LatexParams());
 	
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,QList<double> >( & PageItem::setDashes, "line-dashes", &parseDoubleList ));
 	ruleset.addRule(itemPrefix, SetAttributeWithConversion<PageItem,double>( & PageItem::setDashOffset, "line-dash-offset", &parseDouble ));

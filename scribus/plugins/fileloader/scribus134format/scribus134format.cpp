@@ -1971,9 +1971,8 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const Q
 				{
 					latexitem->setApplication(it.attribute("APPLICATION"));
 					latexitem->setDpi(it.attribute("DPI").toInt());
+					latexitem->setUsePreamble(static_cast<bool>(it.attribute("USE_PREAMBLE").toInt()));
 					QString temp = it.text();
-					temp.replace("\\\\", "\\");
-					temp.replace("\\]", "]");
 					latexitem->setFormula(temp, false);
 				}
 				IT=IT.nextSibling();

@@ -323,7 +323,10 @@ bool PageItem_ImageFrame::createContextMenu(QMenu *menu, int step)
 			}
 		break;
 		case 11:
-			Q_ASSERT(menuResolution == 0);
+			if (menuResolution != 0) {
+				qDebug() << "New context menu created before old was destroyed."
+						"Loosing some bytes of memory!";
+			}
 			menuResolution = new QMenu();
 			act = menu->addMenu(menuResolution);
 			act->setText(tr("Preview Settings"));

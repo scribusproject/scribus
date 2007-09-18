@@ -80,7 +80,6 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_latex_XXXXXX");
 	tempfile->open();
 	tempFileBase = tempfile->fileName();
-	//TODO: Avoid races with file creation!
 	tempfile->close();
 	delete tempfile;
 	Q_ASSERT(!tempFileBase.isEmpty());
@@ -100,9 +99,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	pixm.imgInfo.lowResType = 0;
 	
 	
-	connect(this, SIGNAL(widthAndHeight(double, double)), this, SLOT(sizeChanged(double, double)));
-	timer = new QTimer(this);
-	connect(timer, SIGNAL(timeout()), this, SLOT(sizeChangeTimer()));
+	//connect(this, SIGNAL(widthAndHeight(double, double)), this, SLOT(sizeChanged(double, double)));
 }
 
 PageItem_LatexFrame::~PageItem_LatexFrame()
@@ -111,8 +108,6 @@ PageItem_LatexFrame::~PageItem_LatexFrame()
 	
 	//IMPORTANT: Make sure no signals are emitted which
 	// would cause crashes because the handlers access undefined memory.
-	timer->disconnect();
-	delete timer;
 	
 	fileWatcher->disconnect();
 	delete fileWatcher;
@@ -152,10 +147,6 @@ void PageItem_LatexFrame::clearContents()
 
 void PageItem_LatexFrame::deleteImageFile()
 {
-	if (imageFile.isEmpty()) {
-		return;
-	}
-	
 	QFileInfo fi(tempFileBase);
 	QDir dir = fi.absoluteDir();
 	QStringList filter;
@@ -164,14 +155,12 @@ void PageItem_LatexFrame::deleteImageFile()
 	Q_ASSERT(!fi.fileName().isEmpty());
 	Q_ASSERT(!fi.fileName().contains("/"));
 	Q_ASSERT(!fi.fileName().contains("\\"));
-	qDebug() << "Filter: " << filter << dir.absolutePath();
 	QStringList files;
 	files = dir.entryList(filter);
 	foreach (QString file, files) {
 		Q_ASSERT(file.startsWith("scribus_temp"));
-		qDebug() << "LATEX: Deleting " << file << 
-			" (please check that this file is correct!)";
-		//TODO dir.remove(file);
+		qDebug() << "LATEX: Deleting " << file;
+		dir.remove(file);
 	}
 	imgValid = false;
 }
@@ -179,7 +168,7 @@ void PageItem_LatexFrame::deleteImageFile()
 void PageItem_LatexFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 {
 		if (!imgValid && !err) {
-			if (latex->state() == QProcess::NotRunning && !timer->isActive()) {
+			if (latex->state() == QProcess::NotRunning) {
 				//We need to create the image
 				runApplication();
 			}
@@ -220,7 +209,9 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 		imgValid = false;
 		if (firstWarning)
 		{
-			QMessageBox::critical(0, tr("Error"), "<qt>" + tr("Running the external application failed!") + "</qt>", 1, 0, 0);
+			QMessageBox::critical(0, tr("Error"), "<qt>" + 
+				tr("Running the external application failed!")
+				+ "</qt>", 1, 0, 0);
 			firstWarning = false;
 		}
 		else
@@ -236,8 +227,6 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	}
 	imgValid = true;
 
-	//qDebug() << "LATEX: loading image file:" << qPrintable(imageFile);
-	
 	//Save state and restore afterwards
 	bool update = PicAvail;
 	double scaleX = 72.0, scaleY = 72.0, offX = 0.0, offY = 0.0;
@@ -341,7 +330,7 @@ void PageItem_LatexFrame::runApplication()
 	QString command = args.at(0);
 	args.removeAt(0);
 	
-	deleteImageFile();
+	//deleteImageFile();
 	imageFile = tempFileBase + PrefsManager::instance()->latexExtension();
 
 	writeFileContents(&tempfile);
@@ -537,7 +526,9 @@ void PageItem_LatexFrame::editorFileChanged(QString filename)
 
 void PageItem_LatexFrame::editorError(QProcess::ProcessError error)
 {
-	QMessageBox::critical(0, tr("Error"), "<qt>" + tr("Running the editor \"%1\" failed!").arg(PrefsManager::instance()->latexEditorExecutable())+ "</qt>", 1, 0, 0);
+	QMessageBox::critical(0, tr("Error"), "<qt>" +
+		tr("Running the editor \"%1\" failed!").
+			arg(PrefsManager::instance()->latexEditorExecutable())+ "</qt>", 1, 0, 0);
 }
 
 void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
@@ -545,7 +536,10 @@ void PageItem_LatexFrame::latexError(QProcess::ProcessError error)
 	static bool firstWarning = true;
 	if (firstWarning)
 	{
-		QMessageBox::critical(0, tr("Error"), "<qt>" + tr("Running the application \"%1\" failed!\n%2").arg(PrefsManager::instance()->latexExecutable())+ "</qt>", 1, 0, 0);
+		QMessageBox::critical(0, tr("Error"), "<qt>" +
+							  tr("Running the application \"%1\" failed!").
+							  arg(PrefsManager::instance()->latexExecutable()
+							  )+ "</qt>", 1, 0, 0);
 		firstWarning = false;
 	}
 	else
@@ -616,17 +610,11 @@ void PageItem_LatexFrame::sizeChanged(double w, double h)
 {
 	imgValid = false;
 	//TODO: With a signal from the UI this could be much easier
-	timer->stop();
-	timer->start(500);
 }
 
-void PageItem_LatexFrame::sizeChangeTimer()
+
+void PageItem_LatexFrame::setUsePreamble(bool useP) 
 {
-	timer->stop();
-	if (latex->state() == QProcess::NotRunning) rerunApplication(false);
-}
-
-void PageItem_LatexFrame::setUsePreamble(bool useP) {
 	usePreamble = useP;
 }
 

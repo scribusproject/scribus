@@ -3555,8 +3555,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber)
 {
 	PageItem* newItem=Items->at(itemNumber);
-	//LatexFrame is a subclass of ImageFrame and they share the same ID (except in a few places)
-	Q_ASSERT(newItem->itemType()==itemType || (newItem->itemType()==PageItem::ImageFrame && itemType==PageItem::LatexFrame));
+	Q_ASSERT(newItem->realItemType()==itemType);
 	switch( itemType )
 	{
 		case PageItem::ImageFrame:

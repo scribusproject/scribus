@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "missing.h"
 #include "page.h"
 #include "pageitem.h"
+#include "pageitem_latexframe.h"
 #include "units.h"
 #include "prefsmanager.h"
 #include "scribusview.h"
@@ -527,7 +528,7 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 		writer.writeAttribute("OwnPage", QString::number(item->OwnPage));
 	const ParagraphStyle& defaultStyle = item->itemText.defaultStyle();
 	const CharStyle&      charStyle    = item->itemText.defaultStyle().charStyle();
-	writer.writeAttribute("PTYPE"    ,QString::number(item->itemType()));
+	writer.writeAttribute("PTYPE"    ,QString::number(item->realItemType()));
 	writer.writeAttribute("XPOS"     ,QString::number(item->xPos() - doc->currentPage()->xOffset()));
 	writer.writeAttribute("YPOS"     ,QString::number(item->yPos() - doc->currentPage()->yOffset()));
 	writer.writeAttribute("WIDTH"    ,QString::number(item->width()));
@@ -639,7 +640,7 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 	writer.writeAttribute("TEXTRA"   , QString::number(item->textToFrameDistTop()));
 	writer.writeAttribute("BEXTRA"   , QString::number(item->textToFrameDistBottom()));
 	writer.writeAttribute("REXTRA"   , QString::number(item->textToFrameDistRight()));
-	if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
+	if (((item->asImageFrame() && !item->asLatexFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()))
 		writer.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
 	else
 		writer.writeAttribute("PFILE","");
@@ -667,6 +668,15 @@ void ScriXmlDoc::SetItemProps(QXmlStreamWriter& writer, ScribusDoc *doc, PageIte
 	writer.writeAttribute("LeftLine"   , QString::number(static_cast<int>(item->LeftLine)));
 	writer.writeAttribute("RightLine"  , QString::number(static_cast<int>(item->RightLine)));
 	writer.writeAttribute("BottomLine" , QString::number(static_cast<int>(item->BottomLine)));
+	if (item->asLatexFrame()) {
+		PageItem_LatexFrame *latexitem = item->asLatexFrame();
+		//NOTE: Even though these settings are written they can't be read back
+		// because CopyPasteBuffer does not support them
+		writer.writeAttribute("LatexDpi", QString::number(latexitem->getDpi()));
+		writer.writeAttribute("LatexApplication", latexitem->getApplication());
+		writer.writeAttribute("LatexUsePreamble",
+			QString::number(static_cast<int>(latexitem->getUsePreamble())));
+	}
 	if (item->isTableItem)
 	{
 		if (item->TopLink != 0)
@@ -1111,7 +1121,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 					break;
 				QString tagName1 = sReader1.name().toString();
 				QXmlStreamAttributes attrs1 = sReader1.attributes();
-
+				
 				if (tagName1 == "PatternItem" && sReader1.isStartElement())
 				{
 					iTextElems.clear();
@@ -1300,7 +1310,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		sReader.readNext();
 		QString tagName = sReader.name().toString();
 		QXmlStreamAttributes attrs = sReader.attributes();
-
+		
 		if (sReader.isStartElement() && tagName == "ITEM")
 		{
 			inItem = true;
@@ -1354,6 +1364,10 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		{
 			iTextElems.append(sReader.attributes());
 			continue;
+		}
+		if (inItem && sReader.isStartElement() && tagName == "LATEX-SOURCE")
+		{
+			OB.itemText = sReader.readElementText();
 		}
 		if (inItem && sReader.isStartElement() && tagName == "ImageEffect")
 		{
@@ -1882,6 +1896,9 @@ void ScriXmlDoc::WriteObject(QXmlStreamWriter& writer, ScribusDoc *doc, PageItem
 			// writer.writeAttribute("GRENDX"  , QString::number(item->GrEndX));
 			// writer.writeAttribute("GRENDY"  , QString::number(item->GrEndY));
 		}
+	}
+	if (item->asLatexFrame()) {
+		writer.writeTextElement("LATEX-SOURCE", item->asLatexFrame()->getFormula());
 	}
 	QDir::setCurrent(CurDirP);
 	for(int k=0;k<item->itemText.length();++k)

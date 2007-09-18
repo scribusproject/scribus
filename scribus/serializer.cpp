@@ -25,8 +25,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "pageitem.h"
-#include <QTextCodec>
-#include <QList>
 #include "sccolor.h"
 #include "scpattern.h"
 #include "util.h"
@@ -38,6 +36,9 @@ for which a new license (GPL+exception) is in place.
 #include "desaxe/saxXML.h"
 #include "desaxe/uniqueid.h"
 
+#include <QTextCodec>
+#include <QList>
+#include <QDebug>
 
 using namespace desaxe;
 

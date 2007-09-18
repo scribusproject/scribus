@@ -3464,7 +3464,7 @@ void PageItem::getNamedResources(ResourceCollection& lists) const
 
 void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 {
-	Buffer->PType = itemType();
+	Buffer->PType = realItemType();
 	Buffer->Xpos = Xpos;
 	Buffer->Ypos = Ypos;
 	Buffer->Width = Width;
@@ -3547,11 +3547,8 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 		}
 	}
 	if (asLatexFrame()) {
-		qDebug() << "Copying latex frame";
 		Buffer->itemText = asLatexFrame()->getFormula();
-		Buffer->PType = PageItem::LatexFrame;
 	} else {
-		qDebug() << "Copying normal frame";
 		Buffer->itemText = Text;
 	}
 	Buffer->Clip = Clip;

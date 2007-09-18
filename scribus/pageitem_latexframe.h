@@ -42,11 +42,11 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 
 	public:
 		PageItem_LatexFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, QString fill, QString outline);
-		/*PageItem_LatexFrame(const PageItem & p) : PageItem_ImageFrame(p) { }*/
 		~PageItem_LatexFrame();
 
 		virtual PageItem_LatexFrame * asLatexFrame() { return this; }
 		virtual void clearContents();
+		virtual ItemType realItemType() const { return PageItem::LatexFrame; }
 		
 		/* Called from UI callback 
 		UI-Handlers in other parts of the code should be as short as 
@@ -101,7 +101,6 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		QString appStdout;
 		
 		QProcess *latex, *editor;
-		QTimer *timer;
 		LatexEditor *internalEditor;
 		FileWatcher *fileWatcher;
 		bool imgValid;
@@ -118,7 +117,6 @@ class SCRIBUS_API PageItem_LatexFrame : public PageItem_ImageFrame
 		void editorError(QProcess::ProcessError error);
 		void latexError(QProcess::ProcessError error);
 		void sizeChanged(double, double);
-		void sizeChangeTimer();
 	public slots:
 		void killProcess();
 		void setDpi(int dpi);

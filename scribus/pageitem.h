@@ -857,6 +857,14 @@ public:
 	 *            on PageItems.
 	 */
 	ItemType itemType() const { return m_ItemType; }
+	/** @brief Get the subclass item type
+	 *
+	 * This function should be used everywhere, where a itemType is required, but
+	 * no C++ type informations is available. e.g. when saving files, etc.
+	 * It returns the same type as itemType() for the standard classes, but 
+	 * subclasses override it.
+	 */
+	virtual ItemType realItemType() const { return m_ItemType; }
 	/**
 	 * @brief Convert this PageItem to PageItem type <code>newType</code>
 	 * @param newType PageItem type for conversion
