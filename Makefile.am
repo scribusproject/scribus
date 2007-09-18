@@ -40,7 +40,7 @@ KDE_OPTIONS = noautodist
 EXTRA_DIST = AUTHORS \
 			 BUILDING \
 			 ChangeLog \
-			 ChangeLogCVS \
+			 ChangeLogSVN \
 			 COPYING \
 			 INSTALL \
 			 NEWS \
@@ -85,7 +85,7 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)
 	$(INSTALL_DATA) $(top_srcdir)/AUTHORS $(prefix)/share/doc/scribus-$(VERSION)/AUTHORS
 	$(INSTALL_DATA) $(top_srcdir)/BUILDING $(prefix)/share/doc/scribus-$(VERSION)/BUILDING
-	$(INSTALL_DATA) $(top_srcdir)/ChangeLogCVS $(prefix)/share/doc/scribus-$(VERSION)/ChangeLogCVS
+	$(INSTALL_DATA) $(top_srcdir)/ChangeLogSVN $(prefix)/share/doc/scribus-$(VERSION)/ChangeLogSVN
 	$(INSTALL_DATA) $(top_srcdir)/ChangeLog $(prefix)/share/doc/scribus-$(VERSION)/ChangeLog
 	$(INSTALL_DATA) $(top_srcdir)/COPYING $(prefix)/share/doc/scribus-$(VERSION)/COPYING
 	$(INSTALL_DATA) $(top_srcdir)/INSTALL $(prefix)/share/doc/scribus-$(VERSION)/INSTALL
