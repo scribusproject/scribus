@@ -1882,7 +1882,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 
 	if	(pDataLoader->loadPicture(fn, gsRes, (requestType == Thumbnail)))
 	{
-		*this = pDataLoader->image();
+		QImage::operator=(pDataLoader->image());
 		imgInfo = pDataLoader->imageInfoRecord();
 		if (requestType == Thumbnail)
 			reqType = RGBData;
@@ -2030,7 +2030,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			{
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
-					*this = pDataLoader->r_image.convertToQImage(false);
+					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
@@ -2066,7 +2066,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			xform = 0;
 			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 			{
-				*this = pDataLoader->r_image.convertToQImage(true, true);
+				QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 				profileName = imgInfo.profileName;
 				imgInfo = pDataLoader->imageInfoRecord();
 				imgInfo.profileName = profileName;
@@ -2079,7 +2079,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		{
 			if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 			{
-				*this = QImage(pDataLoader->r_image.width(), pDataLoader->r_image.height(), QImage::Format_ARGB32);
+				QImage::operator=(QImage(pDataLoader->r_image.width(), pDataLoader->r_image.height(), QImage::Format_ARGB32));
 				profileName = imgInfo.profileName;
 				imgInfo = pDataLoader->imageInfoRecord();
 				imgInfo.profileName = profileName;
@@ -2186,7 +2186,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			{
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
-					*this = pDataLoader->r_image.convertToQImage(false);
+					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
@@ -2212,7 +2212,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			{
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
-					*this = pDataLoader->r_image.convertToQImage(true, true);
+					QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 					profileName = imgInfo.profileName;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
@@ -2228,7 +2228,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			{
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
-					*this = pDataLoader->r_image.convertToQImage(true);
+					QImage::operator=(pDataLoader->r_image.convertToQImage(true));
 					profileName = imgInfo.profileName;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
@@ -2257,7 +2257,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			{
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
-					*this = pDataLoader->r_image.convertToQImage(false);
+					QImage::operator=(pDataLoader->r_image.convertToQImage(false));
 					profileName = imgInfo.profileName;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
@@ -2269,7 +2269,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		case RawData:
 				if (extensionIndicatesPSD(ext) || extensionIndicatesTIFF(ext))
 				{
-					*this = pDataLoader->r_image.convertToQImage(true, true);
+					QImage::operator=(pDataLoader->r_image.convertToQImage(true, true));
 					profileName = imgInfo.profileName;
 					imgInfo = pDataLoader->imageInfoRecord();
 					imgInfo.profileName = profileName;
