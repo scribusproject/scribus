@@ -659,20 +659,20 @@ void WMFImport::finishCmdParsing( PageItem* item )
 	{
 		item->moveBy(gcm.dx(), gcm.dy());
 		item->setWidthHeight(item->width() * gcm.m11(), item->height() * gcm.m22());
-		item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
+		item->setLineWidth(qMax(item->lineWidth() * (coeff1 + coeff2) / 2.0, 0.25));
 		if (item->PicAvail)
 			item->setImageXYScale(item->width() / item->pixm.width(), item->height() / item->pixm.height());
 	}
 	else if( item->asTextFrame() )
 	{
-		item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
+		item->setLineWidth(qMax(item->lineWidth() * (coeff1 + coeff2) / 2.0, 0.25));
 	}
 	else
 	{
 		item->ClipEdited = true;
 		item->FrameType = 3;
 		item->PoLine.map(gcm);
-		item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
+		item->setLineWidth(qMax(item->lineWidth() * (coeff1 + coeff2) / 2.0, 0.25));
 		FPoint wh = getMaxClipF(&item->PoLine);
 		item->setWidthHeight(wh.x(), wh.y());
 		m_Doc->AdjustItemSize(item);
@@ -882,13 +882,15 @@ void WMFImport::arc( QList<PageItem*>& items, long, short* params )
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
 	double  angleStart, angleLength;
+	double  x = ((params[7] - params[5]) > 0) ? params[5] : params[7];
+	double  y = ((params[6] - params[4]) > 0) ? params[4] : params[6];
 	double  xCenter = (params[5] + params[7]) / 2.0;
 	double  yCenter = (params[4] + params[6]) / 2.0;
-	double  xWidth  =  params[5] - params[7];
-	double  yHeight =  params[4] - params[6];
+	double  xWidth  =  fabs((double) params[5] - params[7]);
+	double  yHeight =  fabs((double) params[4] - params[6]);
 	pointsToAngle(params[3] - xCenter, yCenter - params[2], params[1] - xCenter, yCenter - params[0], angleStart, angleLength);
-	painterPath.arcMoveTo(params[7], params[6], xWidth, yHeight, angleStart);
-	painterPath.arcTo(params[7], params[6], xWidth, yHeight, angleStart, angleLength);
+	painterPath.arcMoveTo(x, y, xWidth, yHeight, angleStart);
+	painterPath.arcTo(x, y, xWidth, yHeight, angleStart, angleLength);
 	pointArray.fromQPainterPath(painterPath);
 	if( pointArray.size() > 0 )
 	{
@@ -915,14 +917,16 @@ void WMFImport::chord( QList<PageItem*>& items, long, short* params )
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
 	double  angleStart, angleLength;
+	double  x = ((params[7] - params[5]) > 0) ? params[5] : params[7];
+	double  y = ((params[6] - params[4]) > 0) ? params[4] : params[6];
 	double  xCenter = (params[5] + params[7]) / 2.0;
 	double  yCenter = (params[4] + params[6]) / 2.0;
-	double  xWidth  =  params[5] - params[7];
-	double  yHeight =  params[4] - params[6];
+	double  xWidth  =  fabs((double) params[5] - params[7]);
+	double  yHeight =  fabs((double) params[4] - params[6]);
 	pointsToAngle(params[3] - xCenter, yCenter - params[2], params[1] - xCenter, yCenter - params[0], angleStart, angleLength);
-	painterPath.arcMoveTo(params[7], params[6], xWidth, yHeight, angleStart);
+	painterPath.arcMoveTo(x, y, xWidth, yHeight, angleStart);
 	firstPoint = painterPath.currentPosition();
-	painterPath.arcTo (params[7], params[6], xWidth, yHeight, angleStart, angleLength);
+	painterPath.arcTo (x, y, xWidth, yHeight, angleStart, angleLength);
 	painterPath.lineTo(firstPoint);
 	pointArray.fromQPainterPath(painterPath);
 	if( pointArray.size() > 0 )
@@ -950,14 +954,16 @@ void WMFImport::pie( QList<PageItem*>& items, long, short* params )
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
 	double  angleStart, angleLength;
+	double  x = ((params[7] - params[5]) > 0) ? params[5] : params[7];
+	double  y = ((params[6] - params[4]) > 0) ? params[4] : params[6];
 	double  xCenter = (params[5] + params[7]) / 2.0;
 	double  yCenter = (params[4] + params[6]) / 2.0;
-	double  xWidth  =  params[5] - params[7];
-	double  yHeight =  params[4] - params[6];
+	double  xWidth  =  fabs((double) params[5] - params[7]);
+	double  yHeight =  fabs((double) params[4] - params[6]);
 	pointsToAngle(params[3] - xCenter, yCenter - params[2], params[1] - xCenter, yCenter - params[0], angleStart, angleLength);
-	painterPath.arcMoveTo(params[7], params[6], xWidth, yHeight, angleStart);
+	painterPath.arcMoveTo(x,y, xWidth, yHeight, angleStart);
 	firstPoint = painterPath.currentPosition();
-	painterPath.arcTo (params[7], params[6], xWidth, yHeight, angleStart, angleLength);
+	painterPath.arcTo (x, y, xWidth, yHeight, angleStart, angleLength);
 	painterPath.lineTo(xCenter, yCenter);
 	painterPath.lineTo(firstPoint);
 	pointArray.fromQPainterPath(painterPath);
