@@ -2160,7 +2160,7 @@ void PDFLibCore::PDF_End_Page()
 	}
 	double maxBoxX = ActPageP->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = ActPageP->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
-	// (JG) Fix #5977 and #6075 (invalid restore), one could also insert a PutPage("q\n") in PDF_Begin_Page()
+	// (JG) Fix #5977 and #6075 (invalid restore)
 	//PutPage("Q\n");
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
 	{
@@ -2473,6 +2473,7 @@ void PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	double markOffs = 0.0;
 	bleedDisplacementX = 0.0;
 	bleedDisplacementY = 0.0;
+	PutPage("q\n"); // Save
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks) || (Options.docInfoMarks))
 		markOffs = 20.0 + Options.markOffset;
 	if (!pag->MPageNam.isEmpty())
@@ -2896,6 +2897,7 @@ void PDFLibCore::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 			}
 		Lnr++;
 	}
+	PutPage("Q\n"); // Restore
 }
 
 QString PDFLibCore::Write_TransparencyGroup(double trans, int blend, QString &data)
