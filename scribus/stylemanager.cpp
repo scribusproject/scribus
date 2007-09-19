@@ -61,7 +61,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name)
 	rightClickPopup_->setEnabled(false);
 	newPopup_->setEnabled(false);
 
-	connect(newPopup_, SIGNAL(activated(int)), this, SLOT(slotNewPopup(int)));
+	connect(newPopup_, SIGNAL(triggered(QAction*)), this, SLOT(slotNewPopup(QAction*)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
 	connect(importButton, SIGNAL(clicked()), this, SLOT(slotImport()));
 	connect(resetButton, SIGNAL(clicked()), this, SLOT(slotClean()));
@@ -539,16 +539,16 @@ void StyleManager::slotNew()
 	newPopup_->exec(newButton->mapToGlobal(QPoint(0, newButton->height() + 2)));
 }
 
-void StyleManager::slotNewPopup(int i)
+void StyleManager::slotNewPopup(QAction *i)
 {
 	if (!isEditMode_)
 		slotOk(); // switch to edit mode for a new style
 
 	QString typeName = rcType_;
 	if (typeName.isNull())
-		typeName = newPopup_->actions()[i]->text();
-	else if (typeName.isNull() && i < 0)
-		return; // nothing to create
+		typeName = i->text();
+	else if (i->text().isNull())
+		return;
 
 	rcType_ = QString::null;
 	rcStyle_ = QString::null;
@@ -630,8 +630,9 @@ void StyleManager::slotDoubleClick(QTreeWidgetItem *item, /*const QPoint &point,
 	}
 	else if (sitem && sitem->isRoot())
 	{
-		rcType_ = sitem->text(0);
-		slotNewPopup(-1);
+		if (!isEditMode_)
+			slotOk();
+		createNewStyle(sitem->text(0));
 	}
 	rcStyle_ = QString::null;
 	rcType_ = QString::null;

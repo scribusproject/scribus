@@ -108,7 +108,7 @@ private slots:
 	void slotEdit();
 	void slotClone();
 	void slotNew();
-	void slotNewPopup(int);
+	void slotNewPopup(QAction *);
 	void slotScrap();
 	void slotRightClick(const QPoint &point);
 	void slotDoubleClick(QTreeWidgetItem * item, int column);
