@@ -692,9 +692,9 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	LineSp = new ScrSpinBox( page_3, 0 );
 	layout41->addWidget( LineSp, 2, 1 );
 	lineSpacingPop = new QMenu();
-	lineSpacingPop->addAction( tr("Fixed Linespacing"));
-	lineSpacingPop->addAction( tr("Automatic Linespacing"));
-	lineSpacingPop->addAction( tr("Align to Baseline Grid"));
+	lineSpacingPop->addAction( tr("Fixed Linespacing"))->setCheckable(true);
+	lineSpacingPop->addAction( tr("Automatic Linespacing"))->setCheckable(true);
+	lineSpacingPop->addAction( tr("Align to Baseline Grid"))->setCheckable(true);
 	linespacingButton = new QToolButton(page_3 );
 	linespacingButton->setText("");
 	linespacingButton->setIcon(loadIcon("linespacing.png"));
@@ -1176,7 +1176,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect( Cpal, SIGNAL(editGradient()), this, SLOT(toggleGradientEdit()));
 	connect(startArrow, SIGNAL(activated(int)), this, SLOT(setStartArrow(int )));
 	connect(endArrow, SIGNAL(activated(int)), this, SLOT(setEndArrow(int )));
-	connect(lineSpacingPop, SIGNAL(activated(int)), this, SLOT(setLspMode(int )));
+	connect(lineSpacingPop, SIGNAL(triggered(QAction *)), this, SLOT(setLspMode(QAction *)));
 	connect( EvenOdd, SIGNAL( clicked() ), this, SLOT(handleFillRule() ) );
 	connect( NonZero, SIGNAL( clicked() ), this, SLOT( handleFillRule() ) );
 	connect( KnockOut, SIGNAL( clicked() ), this, SLOT( handleOverprint() ) );
@@ -2180,12 +2180,11 @@ void Mpalette::setCols(int r, double g)
 }
 
 // NewLspMode?
-void Mpalette::setLspMode(int id)
+void Mpalette::setLspMode(QAction *id)
 {
 	if ((HaveDoc) && (HaveItem))
 	{
-//		doc->itemSelection_SetLineSpacingMode(lineSpacingPop->actions().indexOf(id));
-		doc->itemSelection_SetLineSpacingMode(id);
+		doc->itemSelection_SetLineSpacingMode(lineSpacingPop->actions().indexOf(id));
 		updateStyle(doc->appMode == modeEdit? CurItem->currentStyle() : CurItem->itemText.defaultStyle());
 	}
 }

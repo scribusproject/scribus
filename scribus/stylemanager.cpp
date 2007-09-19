@@ -626,7 +626,7 @@ void StyleManager::slotDoubleClick(QTreeWidgetItem *item, /*const QPoint &point,
 	{
 		rcType_ = sitem->rootName();
 		rcStyle_ = sitem->text(0);
-		slotOk(); // switch to edit mode
+		slotEdit(); // switch to edit mode
 	}
 	else if (sitem && sitem->isRoot())
 	{

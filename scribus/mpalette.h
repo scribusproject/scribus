@@ -182,7 +182,7 @@ public slots:
 	void setR(double r);
 	void setRR(double r);
 	void setCols(int r, double g);
-	void setLspMode(int id);
+	void setLspMode(QAction *);
 	void setLsp(double r);
 	void setSize(double s);
 	void setFontFace(const QString&);
