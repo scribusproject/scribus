@@ -1692,13 +1692,16 @@ QDomElement SVGPlug::getReferencedNode(const QDomElement &e)
 
 double SVGPlug::fromPercentage( const QString &s )
 {
-	if (s.endsWith( "%" ))
+	QString s1 = s;
+	if (s1.endsWith( ";" ))
+		s1 = s1.left(s1.length() - 1);
+	if (s1.endsWith( "%" ))
 	{
-		QString s1 = s.left(s.length() - 1);
+		s1 = s1.left(s1.length() - 1);
 		return s1.toDouble() / 100.0;
 	}
 	else
-		return s.toDouble();
+		return s1.toDouble();
 }
 
 double SVGPlug::parseFontSize(const QString& fsize)
