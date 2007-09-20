@@ -84,33 +84,32 @@ public:
 
 void ColorSmallItemDelegate::redraw(const QVariant& data) const
 {
-	if (!data.canConvert<ColorPixmapValue>())
-		return;
-	ColorPixmapValue item(data.value<ColorPixmapValue>());
-
 	QPixmap* pPixmap = ScListBoxPixmap<15,15>::pmap.get();
-	QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
-	ScColor varcol = item.m_color;
-//	qDebug() << "redraw:" << varcol.name() << (static_cast<ScribusDoc*>(item.m_doc) == NULL ) << rgb;
-	pPixmap->fill(rgb);
-	QPainter painter(pPixmap);
-	painter.setBrush(Qt::NoBrush);
-	QPen b(Qt::black, 1);
-	painter.setPen(b);
-	painter.drawRect(0, 0, 15, 15);
-	painter.end();
+	pPixmap->fill(Qt::transparent);
+	if (data.canConvert<ColorPixmapValue>())
+	{
+		ColorPixmapValue item(data.value<ColorPixmapValue>());
+		QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
+		pPixmap->fill(rgb);
+		QPainter painter(pPixmap);
+		painter.setBrush(Qt::NoBrush);
+		QPen b(Qt::black, 1);
+		painter.setPen(b);
+		painter.drawRect(0, 0, 15, 15);
+		painter.end();
+	}
 }
 
 void ColorWideItemDelegate::redraw(const QVariant& data) const
 {
-	if (!data.canConvert<ColorPixmapValue>())
-		return;
-	ColorPixmapValue item(data.value<ColorPixmapValue>());
-	
-	QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
-	ScColor varcol = item.m_color;
-//	qDebug() << "redraw:" << varcol.name() << (static_cast<ScribusDoc*>(item.m_doc) == NULL ) << rgb;
-	ScListBoxPixmap<30,15>::pmap->fill(rgb);
+	QPixmap* pPixmap = ScListBoxPixmap<30,15>::pmap.get();
+	pPixmap->fill(Qt::transparent);
+	if (data.canConvert<ColorPixmapValue>())
+	{
+		ColorPixmapValue item(data.value<ColorPixmapValue>());
+		QColor rgb = ScColorEngine::getDisplayColor(item.m_color, item.m_doc);
+		pPixmap->fill(rgb);
+	}
 }
 
 
