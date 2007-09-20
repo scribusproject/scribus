@@ -89,6 +89,9 @@ protected:
 	/*! \brief Reads saved history of browsing. */
 	void readHistory();
 
+	/*! \brief Tell the user there is no help available */
+	void displayNoHelp();
+	
 	QMenu* fileMenu;
 	QMenu* editMenu;
 	QMenu* bookMenu;
@@ -106,9 +109,10 @@ protected:
 
 	//! \brief Selected language is here. If there is no docs for this language, "en" is used.
 	QString language;
+	//! \brief QString holding location of menu.xml we are using, we load the help files from here
+	QString finalBaseDir;
 	/*! \brief Text to be found in document */
 	QString findText;
-	QString noHelpMsg;
 	/** \brief Configuration structure */
 	PrefsContext* prefs;
 	ScHelpTreeModel* menuModel;

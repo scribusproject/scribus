@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "helpbrowser.h"
 
 #include <QAction>
+#include <QDebug>
 #include <QDir>
 #include <QDomDocument>
 #include <QFileDialog>
@@ -111,6 +112,7 @@ class BookmarkParser2 : public QXmlDefaultHandler
 		{
 			if (qName == "item")
 			{
+				//TODO : This will dump items if bookmarks get loaded into a different GUI language
 				if (quickHelpIndex->contains(attrs.value(1)))
 				{
 					bookmarkIndex->insert(attrs.value(0), qMakePair(attrs.value(1), attrs.value(2)));
@@ -138,12 +140,20 @@ HelpBrowser::HelpBrowser( QWidget* parent, const QString& /*caption*/, const QSt
 	setupUi(this);
 	setupLocalUI();
 	language = guiLanguage.isEmpty() ? QString("en") : guiLanguage.left(2);
+	finalBaseDir = ScPaths::instance().docDir() + "en/"; //Sane default for help location
 	menuModel=NULL;
 	loadMenu();
-	readBookmarks();
-	readHistory();
-	jumpToHelpSection(jumpToSection, jumpToFile );
-	languageChange();
+	if (menuModel!=NULL)
+	{
+		readBookmarks();
+		readHistory();
+		jumpToHelpSection(jumpToSection, jumpToFile );
+		languageChange();
+	}
+	else
+	{
+		displayNoHelp();
+	}
 }
 
 HelpBrowser::~HelpBrowser()
@@ -261,7 +271,6 @@ void HelpBrowser::showLinkContents(const QString &link)
 void HelpBrowser::languageChange()
 {
 	setWindowTitle( tr( "Scribus Online Help" ) );
-	noHelpMsg=tr("Sorry, no manual available! Please see: http://docs.scribus.net for updated docs\nand www.scribus.net for downloads.");
 	
 	fileMenu->setTitle(tr("&File"));
 	editMenu->setTitle(tr("&Edit"));
@@ -287,7 +296,8 @@ void HelpBrowser::languageChange()
 		else
 			language=ScCore->getGuiLanguage();
 		loadMenu();
-		loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
+		if (menuModel!=NULL)
+			loadHelp(finalBaseDir + "/" + filename);
 	}
 	else
 		first=false;
@@ -304,10 +314,9 @@ void HelpBrowser::print()
 
 void HelpBrowser::searchingButton_clicked()
 {
-// 	searchingView->clear();
 	// root files
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
-	searchingInDirectory(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/"));
+	searchingInDirectory(finalBaseDir);
 	QApplication::restoreOverrideCursor();
 }
 
@@ -319,7 +328,7 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 	QStringList lst = dir.entryList(in);
 	for (QStringList::Iterator it = lst.begin(); it != lst.end(); ++it)
 	{
-		QString fname(aDir + (*it));
+		QString fname(aDir + "/" + (*it));
 		QFile f(fname);
 		if (f.open(QIODevice::ReadOnly))
 		{
@@ -329,9 +338,9 @@ void HelpBrowser::searchingInDirectory(const QString& aDir)
 			if (cnt > 0)
 			{
 				QString fullname = fname;
-				QString toFind(fname.remove(QDir::convertSeparators(ScPaths::instance().docDir()+language + "/")));
+				QString toFind(fname.remove(finalBaseDir + "/"));
 				QMapIterator<QString, QString> i(quickHelpIndex);
-				while (i.hasNext()) 
+				while (i.hasNext())
 				{
 					i.next();
 					if (i.value()==toFind)
@@ -383,12 +392,14 @@ void HelpBrowser::findPrevious()
 void HelpBrowser::bookmarkButton_clicked()
 {
 	QString title = textBrowser->documentTitle();
-	QString fname(QDir::cleanPath(textBrowser->source().toString()));
+	QString fname(QDir::cleanPath(textBrowser->source().toLocalFile()));
  	title = QInputDialog::getText(this, tr("New Bookmark"), tr("New Bookmark's Title:"), QLineEdit::Normal, title, 0);
 	// user cancel
  	if (title.isNull())
  		return;
-	QString toFind(fname.remove(QDir::convertSeparators(ScPaths::instance().docDir()+language + "/")));
+	//TODO: start storing full paths
+ 	QString toFind(fname.remove(QDir::convertSeparators(finalBaseDir)));
+	toFind=toFind.mid(1, toFind.length()-1);
 	QMapIterator<QString, QString> i(quickHelpIndex);
 	while (i.hasNext())
 	{
@@ -404,9 +415,12 @@ void HelpBrowser::bookmarkButton_clicked()
 void HelpBrowser::deleteBookmarkButton_clicked()
 {
 	QTreeWidgetItem *twi=bookmarksView->currentItem();
-	if (bookmarkIndex.contains(twi->text(0)))
-		bookmarkIndex.remove(twi->text(0));
-	delete twi;
+	if (twi!=NULL)
+	{
+		if (bookmarkIndex.contains(twi->text(0)))
+			bookmarkIndex.remove(twi->text(0));
+		delete twi;
+	}
 }
 
 void HelpBrowser::deleteAllBookmarkButton_clicked()
@@ -428,7 +442,7 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 
 	if (jumpToFile.isEmpty())
 	{
-		toLoad = ScPaths::instance().docDir() + language + "/"; //clean this later to handle 5 char locales
+		toLoad = finalBaseDir + "/"; //clean this later to handle 5 char locales
 		if (jumpToSection.isEmpty())
 		{
 			QModelIndex index=menuModel->index(0,1);
@@ -451,9 +465,9 @@ void HelpBrowser::jumpToHelpSection(const QString& jumpToSection, const QString&
 	if (!noDocs)
 		loadHelp(toLoad);
 	else
-		textBrowser->setText("<h2>"+ noHelpMsg +"</h2>");
+		displayNoHelp();
 }
-#include <QDebug>
+
 void HelpBrowser::loadHelp(const QString& filename)
 {
 	struct histd2 his;
@@ -472,7 +486,7 @@ void HelpBrowser::loadHelp(const QString& filename)
 			fi = QFileInfo(toLoad);
 			if (!fi.exists())
 			{
-				textBrowser->setText("<h2>"+ noHelpMsg +"</h2>");
+				displayNoHelp();
 				Avail = false;
 			}
 		}
@@ -481,15 +495,6 @@ void HelpBrowser::loadHelp(const QString& filename)
 		Avail=false;
 	if (Avail)
 	{
-// 		QString textData;
-// 		QFile file1( toLoad );
-// 		if ( !file1.open( QIODevice::ReadOnly ) )
-// 			return;
-// 		QTextStream ts(&file1);
-// 		ts.setCodec("UTF-8");
-// 		textData=ts.readAll();
-//  		textBrowser->setHtml(textData);
-// 		file1.close();
 		textBrowser->setSource( QUrl::fromLocalFile(toLoad) );
 		
 		his.title = textBrowser->documentTitle();
@@ -508,48 +513,74 @@ void HelpBrowser::loadHelp(const QString& filename)
 
 void HelpBrowser::loadMenu()
 {
-	QString pfad = ScPaths::instance().docDir();
-	QString toLoad;
-	QString pfad2 = QDir::convertSeparators(pfad + language + "/menu.xml");
-	QFileInfo fi = QFileInfo(pfad2);
-	if (fi.exists())
-		toLoad=pfad2;
-	else
+	QString baseHelpDir = ScPaths::instance().docDir();
+	QString altHelpDir  = ScPaths::instance().getApplicationDataDir();
+	QString baseHelpMenuFile = QDir::convertSeparators(baseHelpDir + language + "/menu.xml");
+	QString altHelpMenuFile = QDir::convertSeparators(altHelpDir + "doc/" + language + "/menu.xml");
+	QFileInfo baseFi = QFileInfo(baseHelpMenuFile);
+	QFileInfo altFi = QFileInfo(altHelpMenuFile);
+	QString toLoad = baseHelpMenuFile;
+	if (!baseFi.exists())
 	{
-		if (!language.isEmpty())
+		if (altFi.exists())
 		{
-			//Check if we can load, eg "de" when "de_CH" docs dont exist
-			QString pfad3 = QDir::convertSeparators(pfad + language.left(2) + "/menu.xml");
-			QFileInfo fi3 = QFileInfo(pfad3);
-			if (fi3.exists())
-				language=language.left(2);
+			toLoad=altHelpMenuFile;
+			baseFi=altFi;
+		}
+		else		
+		{
+			if (!language.isEmpty())
+			{
+				//Check if we can load, eg "de" when "de_CH" docs dont exist
+				QString baseHelpMenuFile3 = QDir::convertSeparators(baseHelpDir + language.left(2) + "/menu.xml");
+				QString altHelpMenuFile3 = QDir::convertSeparators(altHelpDir + "doc/" + language.left(2) + "/menu.xml");
+				QFileInfo fi3 = QFileInfo(baseHelpMenuFile3);
+				QFileInfo altfi3 = QFileInfo(altHelpMenuFile3);
+				if (fi3.exists())
+				{
+					language=language.left(2);
+					toLoad = QDir::convertSeparators(baseHelpMenuFile3);
+				}
+				else
+				if (altfi3.exists())
+				{
+					language=language.left(2);
+					toLoad = QDir::convertSeparators(altHelpMenuFile3);
+				}
+				else
+				{
+					//Fall back to English
+					sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
+					language="en";
+					toLoad = QDir::convertSeparators(baseHelpDir + language + "/menu.xml");
+				}
+			}
 			else
 			{
-				//Fall back to English
-				sDebug("Scribus help in your selected language does not exist, trying English. Otherwise, please visit http://docs.scribus.net.");
 				language="en";
+				toLoad = QDir::convertSeparators(baseHelpDir + language + "/menu.xml");
 			}
+			baseFi = QFileInfo(toLoad);
 		}
-		else
-			language="en";
-		toLoad = QDir::convertSeparators(pfad + language + "/menu.xml");
-		fi = QFileInfo(toLoad);
 	}
-
-	if (fi.exists())
+	//Set our final location for loading the help files
+	finalBaseDir=baseFi.path();
+	if (baseFi.exists())
 	{
 		if (menuModel!=NULL)
 			delete menuModel;
 		menuModel=new ScHelpTreeModel(toLoad, "Topic", "Location", &quickHelpIndex);
+	
+		listView->setModel(menuModel);
+		listView->setSelectionMode(QAbstractItemView::SingleSelection);
+		QItemSelectionModel *selectionModel = new QItemSelectionModel(menuModel);
+		listView->setSelectionModel(selectionModel);
+		connect(listView->selectionModel(), SIGNAL(selectionChanged( const QItemSelection &, const QItemSelection &)), this, SLOT(itemSelected( const QItemSelection &, const QItemSelection &)));
+	
+		listView->setColumnHidden(1,true);
 	}
-	listView->setModel(menuModel);
- 	listView->setSelectionMode(QAbstractItemView::SingleSelection);
- 	QItemSelectionModel *selectionModel = new QItemSelectionModel(menuModel);
- 	listView->setSelectionModel(selectionModel);
- 	connect(listView->selectionModel(), SIGNAL(selectionChanged( const QItemSelection &, const QItemSelection &)), this, SLOT(itemSelected( const QItemSelection &, const QItemSelection &)));
-
-	listView->setColumnHidden(1,true);
-
+	else
+		menuModel=NULL;
 }
 
 void HelpBrowser::readBookmarks()
@@ -595,7 +626,7 @@ void HelpBrowser::itemSelected(const QItemSelection & selected, const QItemSelec
 			QString filename(menuModel->data(index, Qt::DisplayRole).toString());
 			if (!filename.isEmpty())
 			{
-				loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
+				loadHelp(finalBaseDir + "/" + filename);
 			}
 		}
 		++i;
@@ -612,7 +643,7 @@ void HelpBrowser::itemSearchSelected(QTreeWidgetItem *twi, int i)
 		QString filename(quickHelpIndex.value(twi->text(0)));
 		if (!filename.isEmpty())
 		{
-			loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
+			loadHelp(finalBaseDir + "/" + filename);
 			findText = searchingEdit->text();
 			findNext();
 		}
@@ -628,7 +659,7 @@ void HelpBrowser::itemBookmarkSelected(QTreeWidgetItem *twi, int i)
 	{
 		QString filename(bookmarkIndex.value(twi->text(0)).second);
 		if (!filename.isEmpty())
-			loadHelp(QDir::convertSeparators(ScPaths::instance().docDir() + language + "/" + filename));
+			loadHelp(finalBaseDir + "/" + filename);
 	}
 }
 
@@ -663,4 +694,33 @@ QString HelpBrowser::historyFile()
 		d.mkdir("doc");
 	}
 	return fname;
+}
+
+void HelpBrowser::displayNoHelp()
+{
+	QString noHelpMsg=tr("<h2><p>Sorry, no manual is installed!</p><p>Please see:</p><ul><li>http://docs.scribus.net for updated documentation</li><li>http://www.scribus.net for downloads</li></ul></h2>",
+						 "HTML message for no documentation available to show");
+
+	textBrowser->setText(noHelpMsg);
+	
+	filePrint->setEnabled(false);
+	editFind->setEnabled(false);
+	editFindNext->setEnabled(false);
+	editFindPrev->setEnabled(false);
+	bookAdd->setEnabled(false);
+	bookDel->setEnabled(false);
+	bookDelAll->setEnabled(false);
+	goHome->setEnabled(false);
+	goBack->setEnabled(false);
+	goFwd->setEnabled(false);
+	
+	histMenu->disconnect();
+	searchingEdit->disconnect();
+	searchingButton->disconnect();
+	searchingView->disconnect();
+	bookmarkButton->disconnect();
+	deleteBookmarkButton->disconnect();
+	deleteAllBookmarkButton->disconnect();
+	bookmarksView->disconnect();
+	textBrowser->disconnect();
 }
