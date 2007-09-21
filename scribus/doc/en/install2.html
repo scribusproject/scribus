@@ -5,46 +5,76 @@
 </head>
 <body>
 <h2>Requirements</h2>
-<p>The programs you will need to compile Scribus are:</p>
+<p>The programs you will need to compile Scribus 1.3.5+ are:</p>
 <ol>
-	<li><strong>For Scribus 1.3.x+ GCC 3.x+ is required, GCC 3.3+ is strongly recommended</strong>. The Scribus Team has tested compiling with GCC 4.1 and recommends its use, if available, for the performance benefits.</li>
-	<li>autoconf 2.53+</li>
-	<li>automake 1.6.3+</li>
+	<li><strong>For Scribus 1.3.x+ GCC 3.x+ is required, GCC 3.3+ is strongly recommended</strong>. The Scribus Team has tested compiling with GCC 4.1, 4.2 and 4.3. We recommend the newest stable GCC 4.x release for the performance benefits.</li>
 	<li>GNU make</li>
 </ol>
 The dependencies for compilation, and also to run Scribus are:
 <ol>
-<li>Qt 3.3.4+, both the runtime libraries and development libraries. We recommend using Qt 3.3.6+. <strong>Qt =&#060; 3.2.x is not supported.</strong></li>
-<li>Python and python-devel libraries 2.3+. You can disable Python support with <code>configure --without-python</code>. Python 2.2 is not supported.</li>
+<li>Qt 4.3.0+, both the runtime libraries and development libraries. Qt 4.2.x is not supported as 1.3.5+ relies on functions only in 4.3.x.</li>
+<li>Python and python-devel libraries 2.3+. Python 2.2 is not supported.</li>
 <li>Freetype2 2.1.7+. Due to various freetype2 bugs, we recommend, if your distribution/OS allows, to use 2.3.x</li>
-<li>libart_lgpl 2.3.10+, 2.3.17+ recommended.</li>
+<li>cairo 1.4.x <strong>We recommend 1.4.10+</strong>for performance reasons.</li>
 <li>libxml2 2.6+.</li>
-<li>Ghostscript 8.15+ or GPL Ghostscript 8.56+ is highly recommended. Ubuntu users in particular are urged to update to a newer version if possible.</li>
+<li>Ghostscript 8.15+ or GPL Ghostscript 8.60+ is highly recommended. Ubuntu users in particular are urged to update to a newer version if possible.</li>
 <li>PostScript-Fonts. TrueType Fonts. Scribus also can support OpenType fonts, both TrueType and Type 1 Outline OpenType Fonts.</li>
-<li>Littlecms - also known as lcms in some distributions. Minimum 1.12, 1.15+ recommended. lcms 1.12+ has support for black point generation. 1.3.4svn+ requires this.</li>
+<li>Littlecms - also known as lcms in some distributions. Minimum 1.12, 1.17+ recommended. lcms 1.12+ has support for black point generation. 1.3.4svn+ requires this.</li>
 <li>libtiff 3.6.0+</li>
 <li>libjpeg</li>
 </ol>
 <h3>Optionally:</h3>
 <ul>
-<li>Cairo development libraries - You can optionally enable this in 1.3.3+ with <code> --enable-cairo.</code> For 1.3.3.x the mimnimum version is Cairo 1.2.6+.  Scribus 1.3.4svn <strong>requires</strong> a minimum of Cairo 1.4.0</li>
-
-<li>CUPS development libraries - Scribus directly supports printing with CUPS.</li>
-<li>Gimp Print development libraries - Scribus directly supports the Gimp Print plug-in with CUPS.</li>
+<li>CUPS development libraries - Scribus directly supports printing with CUPS.(Linux/Unix only).</li>
 <li>tkinter - for the font sampler script</li>
 <li>python-imaging libaries for font sampler script preview</li>
 <li>openssl-devel (Some linux distributions enable ssl support for CUPS, notably Suse Linux)</li>
 <li>fontconfig-devel - for auto discovery of fonts on Linux, MacOSX and Unix. Not needed on Windows.</li>
 <li>antiword - this is not needed at compile time for MS Word import. Scribus will detect this at run time however.</li>
+<li>Podofo 0.5 (svn does not currently work) - used to enhance the Adobe Illustrator importer.</li>
 </ul>
 <p>Scribus will run under most any window manager and does not require KDE itself. However, drag and drop functionality will be lost without KDE. One of the Scribus developers runs Gnome. The author of this documentation has made a point of testing each release of Scribus under Blackbox as well. This has shown no incompatibilities or problems for Scribus, except for the loss of drag and drop functionality.</p>
-<p>If color management does not work, you may not have installed the development libraries for littlecms. When downloading the package from littlecms the make files are already configured for Linux, so compiling is straight forward. You also need at least one RGB profile and one CMYK profile installed or the color preferences and options will not appear in the menus.</p>
+<p>If color management does not work, you also need at least one RGB profile and one CMYK profile installed or the color preferences and options will not appear in the menus. </p>
 <p>Testing suggests setting the correct &#034;-march=&#034; CXXFLAGS has a very beneficial effect on Scribus performance. For example, if you have a Duron or Athlon processor, using <code>export CXXFLAGS=&#034;-march=athlon&#034;</code> would be of benefit. Check if your distribution sets these for you and how they are set, and for further information see: 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>man gcc</pre>
 </td></tr></table></blockquote>
 for detailed options</p>
+<p>There are detailed notes in the BUILDING file and packagers should look at the PACKAGING file in the sources for more details.</p>
 <h4>Using CMake</h4>
-<p>In 1.3.3.6+, we have added support for using CMake as an alternative for traditional autotools. This is still experimental, but we do encourage willing testers to use CMake and report any issues to the mailing list or IRC. Our aim is to test this on as wide a variety of platforms as possible. Currently, Linux and MacOSX are working reliably. We are very encouraged with the progress of CMake and anticipate autotools support may be removed after the 1.3.4 release. Please see <a href="install4.html">CMake instructions</a> for instructions.</p>
+<p>In 1.3.3.6+, we have added support for using CMake as an alternative for traditional autotools. For 1.3.5+ it is now mandatory. Currently, Linux and MacOSX are working reliably. Please see <a href="install4.html">CMake instructions</a> for instructions.</p>
+
+<p>You can launch Scribus from the command line with the following options:</p>
+
+<pre>
+scribus --help
+</pre>
+
+<p>Output:</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>scribus -h
+
+Scribus, Open Source Desktop Publishing
+---------------------------------------
+Homepage:       http://www.scribus.net
+Documentation:  http://docs.scribus.net
+Wiki:           http://wiki.scribus.net
+Issues:         http://bugs.scribus.net
+
+Usage: scribus [option ... ] [file]
+Options:
+   -h, --help             Print help (this message) and exit
+   -l, --lang             Uses xx as shortcut for a language, eg `en' or `de'
+  -la, --langs-available  List the currently installed interface languages
+  -fi, --font-info        Show information on the console when fonts are being loaded
+  -ns, --no-splash        Do not show the splashscreen on startup
+  -v,  --version          Output version information and exit
+  -sb, --swap-buttons     Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)
+  -pr, --prefs filename   Use filename as path for user given preferences
+  -pi  --profile-info     Lists the installed profiles Scribus can access and diagnostics on loading them.
+</pre>
+</td></tr></table></blockquote>
+<p>The default location for the Scribus executable is located in <code>/usr/local/bin</code>. Documentation is located in <code>/usr/local/lib/scribus/doc</code></p>
+<p>In addition for Linux/Unix desktops, there is a <code>desktop.config</code> file named <code>scribus.desktop</code> which can be used for a menu shortcut or desktop shortcut. Simply copy this from the base directory of the installation source directory to your KDE desktop and this will launch Scribus. After dragging this to the desktop, right click and make sure the execute check box is checked. This file conforms to the latest <a href="http://www.freedesktop.org">www.freedesktop.org</a> specifications.</p>
 </body>
 </html>
