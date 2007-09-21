@@ -1,40 +1,35 @@
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>A little WINE with Scribus</title>
-</head>
-<body>
-<h2>A little WINE with Scribus</h2>
-<h3>Overview</h3>
-<p>One of the facts of life in the desktop publishing world, is the occasional need for working in a cross platform environment. Fortunately, for Linux users in particular, the Wine Project and Codeweavers have made much progress in being able to successfully run many Windows applications on top of Linux.</p>
-<p>My main interest and focus for these notes is being able to run the latest versions of Adobe Acrobat Reader and the full version of Acrobat, in order to test Scribus created PDF files, as well as occasionally running the odd Windows or DOS based utility.</p>
-<p>Since migrating my own personal workstation to Linux as my default environment, I have dabbled with installing various Windows apps and kept a eye on this project for several reasons:</p>
-<ol><li>Until the recent enhancements to Gnucash, I needed a Windows accounting application to run the books for my own company. </li>
-<li>Professionally, I have to test and build training materials for a number of Windows applications, thus I try to avoid have to reboot into Windows. </li>
-<li>I have run VMware in the past and it is superb, but is too resource intensive at times. </li>
-<li>Sadly, many kinds of multimedia on the net needs a Windows based media application. </li></ol>
-<h3>Hints and my experience</h3>
-<p>My experience is packaged versions of Wine rarely work well, with the exception of the Codeweavers wine preview releases. I always build from source. Typically the Wine project releases a snapshot tarball once a month. With Wine, there is a slightly different way of building Wine from the usual:</p>
+<qt>
+<title>Ein Gläschen WINE mit Scribus</title>
+<h2>Ein Gläschen WINE mit Scribus</h2>
+<h3>Übersicht</h3>
+<p>Es ist einfach eine Tatsache, daß man in der Welt des Desktop Publishing manchmal plattformübergreifend arbeiten muß. Glücklicherweise &ndash; vor allem für Linux-Anwender &ndash; haben das WINE-Projekt und die Firma Codeweavers große Fortschritte dabei gemacht, viele Windows-Programme unter Linux zum Laufen zu bringen.</p>
+<p>Mein Hauptinteresse und der Schwerpunkt dieser Bemerkungen ist es, die jeweils neuesten Versionen des Adobe Reader und der Acrobat-Vollversion zu verwenden, um PDF-Dateien zu testen, die mit Scribus erzeugt wurden. Außerdem verwende ich ab und zu das eine oder andere DOS- oder Windows-Dienstprogramm.</p>
+<p>Seit ich meinen Arbeitsrechner auf Linux als Standardplattform umgestellt habe, habe ich es mit verschiedenen Windows-Anwendungen versucht, und ich beobachte das Projekt aus verschiedenen Gründen:</p>
+<ol><li>Ich brauchte ein Buchhaltungsprogramm für Windows für meine eigene Firma, bis entsprechende Erweiterungen in GNUcash verfügbar waren.</li>
+<li>Ich muß beruflich Übungsmaterial für eine Reihe von Windows-Anwendungen testen und schreiben und versuche es zu vermeiden, deswegen Windows zu starten</li>
+<li>Ich habe in der Vergangenheit VMware verwendet, und es ist hervorragend, aber leider manchmal auch sehr ressourcenhungrig.</li>
+<li>Leider setzen viele Multimedia-Angebote im Internet eine Windows-Anwendung voraus.</li></ol>
+<h3>Hinwiese und meine Erfahrungen</h3>
+<p>Meiner Erfahrung nach funktionieren WINE-Pakete selten gut. Eine Ausnahme sind die Vorschauversionen von Codeweavers. Ich kompiliere WINE immer aus den Quelltexten. Normalerweise veröffentlicht das WINE-Projekt jeden Monat einen Schnappschuß. Das Kompilieren von WINE verläuft etwas anders als das gewohnte</p>
 <code>./configure &amp;&amp; make &amp;&amp; make install</code>
-<p>It is not quite obvious, but there is a way to use the Wine installer scripts which make installing much less difficult. To build the tarball from the root directory where you have un-tarred the source tarball, simply run ./tools/wineinstall and follow the instructions. Compiling from source, takes quite a while, so the ideal time for this is when your workstation will be idle. The benefit is the wine install will be carefully tailored to your setup, both software and hardware. I find it runs more reliably this way.</p>
-<p>If you really do not want to install from source, grab the latest Codeweavers rpm or deb. Their wine package also includes a nice graphical configuration tool for creating the wine.conf file, which is the the key to making Wine work well.</p>
-<p>After installation, you need a wine.conf file. This is hidden in .wine in your home directory. Open in a text editor and study it carefully, the slight adjustments you make here can make a big difference in its performance and reliability. This is well commented and documented in the docs as well.</p>
-<p>Sometimes, there are regressions: I will typically keep the previous snapshot source until I have found the newest one to work well as well as before. Once or twice in the past couple of years, I have reverted to a previous release because something was broken.</p>
-<p>Minuses: Printing support is weak. You can generate PostScript for later conversion via Distiller or GSview. Wine will support CUPS if you have the correct libraries installed, but in general it is nowhere a finished part of the code.</p>
-<p>The good stuff: The Wine snapshot releases in the past few months have run Adobe Acrobat 5: both the 5.1 reader and full 5.0.5 version very reliably. After installation, find the intertrust plug-in folder and delete it before launching Acrobat. This was a very buggy plug-in to enable on-line buying of PDFs. In corporate installs of Acrobat, I make sure this is never installed because it has caused so many problems. The distiller part of Acrobat from Versions 3 to 5 install and work flawlessly, as long as it can locate all your font paths correctly. I have distilled hi-res 35 MB "press-ready" composite CMYK PDFs with ease. I have also loaded the free PDFInspektor plug-in from Callas. I use this to test PDF/X-3 conformance of Scribus PDF/X-3 files (They passed the very first time ;))</p>
-<p>Installing applications has become much more reliable in the last year. Where Wine sometimes has troubles is custom installs. Sometimes, you just have to click through the defaults to get an application to install properly.</p>
-<h2>The Alternatives </h2>
-<h3>Crossover Office from <a href="http://www.codeweavers.com">Codeweavers</a></h3>
-<p>Versions 3.0+ run a number of applications quite well, including Photoshop 5,6,7, as well as in my tests, Illustrator 10 and Indesign 2.0.2. The last two can be taxing even on real Windows at times. I found the demo to have a very polished and easy to use installer, which makes configuration a snap. <a href="http://www.codeweavers.com">Codeweavers</a> has contributed a great deal to the success of the Wine project thus far.  You can also get Crossover Office with some versions of the Suse and Xandros distributions.</p>
-<h3>Win4Lin from <a href="http://www.netraverse.com">Netraverse</a></h3>
-<p><em>Disclaimer: <a href="http://www.netraverse.com">Netraverse</a> has provided the Scribus Team with in-kind sponsorship.</em> </p>
-<p>Win4Lin allows you to run Win9x natively on Linux with a translation layer, providing near native speeds and capabilities with few limitations. Basically, you need a licensed version of Win9x and run the installer. It looks and works well and most Win32 applications can run. </p>
+<p>Obwohl es nicht offensichtlich ist, kann man die WINE-Installationsscripte so verwenden, daß die Installation weit weniger schwierig ist. Wenn Sie das Tar-Archiv entpackt haben, wechseln Sie in das entsprechende Verzeichnis und führen Sie den Befehl <code>./tools/wineinstall</code> aus. Folgen Sie anschließend den Anweisungen. Das Kompilieren des Quellcodes dauert einige Zeit, und Sie tun es am besten, wenn Ihr Computer sonst nichts zu tun hat. Der Vorteil dieser Vorgehensweise ist, daß Ihre WINE-Installation Ihrer Soft- und Hardwareausstattung "auf den Leib geschneidert" ist. Meiner Meinung nach funktioniert WINE auf diese Weise zuverlässiger.</p>
+<p>Falls Sie partout nicht aus den Quellen kompilieren wollen, verwenden Sie RPM- oder DEB-Pakete von Codeweavers. Deren Version enthält auch ein nettes grafisches Konfigurationswerkzeug zum Erstellen der Datei wine.conf, die den Schlüssel zum guten Funktionieren von WINE darstellt.</p>
+<p>Nach der installation benötigen Sie eine Datei namens wine.conf. Diese liegt im versteckten Verzeichnis .wine in Ihrem Home-Verzeichnis. Öffnen Sie sie mit einem Texteditor und untersuchen Sie sie genau: kleine Änderungen, die Sie hier vornehmen, können erhebliche Auswirkungen auf Performance und Verläßlichkeit haben. All dies ist in er WINE-Dokumentation sorgfältig kommentiert und dokumentiert.</p>
+<p>Manchmal kann es passieren, daß eine neue Version Regressionen aufweist. Daher behalte ich normalerweise den alten Schnappschuß, bis ich mir sicher bin, daß der neue genausogut funktioniert. In den letzten Jahren bin ich ein- oder zweimal auf eine ältere Version umgestiegen, weil etwas nicht mehr funktioniert hat.</p>
+<p>Nachteile: Die Druckfunktionen sind schlecht. Sie können Postscript erzeugen, das später mit Hilfe von Ghostscript oder dem Distiller umgewandelt werden kann. WINE unterstützt CUPS, wenn Sie die richtigen Bibliotheken installiert haben, aber im allgemeinen ist dieser Teil des Codes ziemlich unausgereift.</p>
+<p>Die gute Nachricht: Mit den WINE-Schnappschüssen der letzten Monate läuft Adobe Acrobat. Entfernen Sie nach der Installation das Verzeichnis mit dem Intertrust-Plug-in, bevor Sie Acrobat starten. Es handelt sich dabei um ein ziemlich fehlerhaftes Plug-in, mit dem man PDFs online kaufen kann. Wenn ich Acrobat für Firmen installiere, achte ich darauf, daß es nicht mitinstalliert wird, weil es die Ursache für viele Probleme ist. Der Distiller der Versionen 3 bis 5 läßt sich problemlos installieren und funktioniert einwandfrei, solange alle Pfade zu den Schriften gefunden werden. Ich habe hochauflösende CMYK-PDF-Dateien von 35 MB Größe für den Druck ohne Probleme erzeugen können. Ich habe mir auch das kostenlose PDF-Inspektor-Plug-in von Callas-Software heruntergeladen. Ich verwende es, um zu testen, ob PDF/X-3-Dateien aus Scribus der Spezifikation entsprechen (sie taten das von Anfang an ;) )</p>
+<p>Das Installieren von Anwendungen ist in letzter Zeit wesentlich zuverlässiger geworden. Allerdings hat WINE manchmal Probleme mit benutzergesteuerten Installationen. Zuweilen müssen Sie die Standardeinstellungen verwenden, damit ein Programm richtig installiert wird.</p>
+<h2>Die Alternativen</h2>
+<h3>Crossover Office von <a href="http://www.codeweavers.com">Codeweavers</a></h3>
+<p>Unter Versionen ab 3.0+ laufen zahlreiche Anwendungen ausgesprochen gut, darunter Photoshop 5,6,7, Illustrator 10 und Indesign 2.0.2. Die beiden letztgenannten sind auch unter Windows ziemlich ressourcenhungrig. Meiner Meinung nach bietet die Demoversion ein ausgefeiltes und leicht zu bedienendes Installationsprogramm, das die Konfiguration zum Kinderspiel macht.<a href="http://www.codeweavers.com">Codeweavers</a> hat bislang sehr viel zum Erfolg des WINE-Projektes beigetragen. Sie erhalten Crossover Office auch mit einigen Versionen der SUSE- und Xandros-Distributionen.</p>
+<h3>Win4Lin von <a href="http://www.netraverse.com">Netraverse</a></h3>
+<p><em>Haftungsausschluß: <a href="http://www.netraverse.com">Netraverse</a> hat das Scribus-Team mit Sachleistungen gesponsert.</em> </p>
+<p>Win4Lin ermöglicht es Ihnen, Windows 9x unter Linux laufen zu lassen, indem es eine Abstraktionsebene verwendet, die eine fast native Geschwindigkeit bietet und nur wenige Beschränkungen aufweist. Sie benötigen außerdem eine lizenzierte Version von Windows 9x und starten das Installationsprogramm. Es funktioniert gut, und die meisten Win32-Anwendungen lassen sich damit ausführen.</p>
 
-<p>I would not discourage anyone from buying either. Both companies have been good citizens in the open source community.</p>
+<p>Ich möchte Sie nicht davon abhalten, beide Programme zu kaufen. Beide Firmen haben sich als anständige Mitglieder der Open-Source-Gemeinschaft erwiesen.</p>
 
-<h3>Success</h3>
-<table width="100%"><tr><td align="center"><img src="../en/images/acroreader5.1.png" alt="Acrobat Reader 5.1 under WINE" /></td></tr></table>
+<h3>Erfolg</h3>
+<table width="100%"><tr><td align="center"><img src="images/acroreader5.1.png" alt="Acrobat Reader 5.1 under WINE" /></td></tr></table>
 
-<p>Although Acrobat 5.0.5 is not officially supported by Codeweavers, it installs and runs very well. Until the day when Linux/Unix has the same parity in commercial application support, Wine is a good transition strategy. Hopefully, you will find these notes useful in supporting your use of Scribus.</p>
-</body>
-</html>
+<p>Auch wenn Acrobat 5.0.5 von Codeweavers offiziell nicht unterstützt wird, läßt er sich sehr gut installieren und anwenden. Solange Linux von Softwareherstellern noch nicht so gut unterstützt wird wie andere Plattformen, ist WINE eine gute Übergangslösung. Diese Bemerkungen waren hoffentlich nützlich für Ihre Arbeit mit Scribus.</p>
+</qt>
