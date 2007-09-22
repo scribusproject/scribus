@@ -373,8 +373,8 @@ void ScribusMainWindow::initToolBars()
 	fileToolBar = new ScToolBar( tr("File"), "File", this);
 	fileToolBar->addAction(scrActions["fileNew"]);
 	fileToolBar->addAction(scrActions["fileOpen"]);
-	scrActions["fileOpen"]->setMenu(scrMenuMgr->getLocalPopupMenu("FileOpenRecent"));
 	QToolButton* tb = dynamic_cast<QToolButton*>(fileToolBar->widgetForAction(scrActions["fileOpen"]));
+	tb->setMenu(scrMenuMgr->getLocalPopupMenu("FileOpenRecent"));
 	tb->setPopupMode(QToolButton::DelayedPopup);
 	fileToolBar->addAction(scrActions["fileSave"]);
 	fileToolBar->addAction(scrActions["fileClose"]);
