@@ -55,6 +55,7 @@ const QString ScrPopupMenu::getMenuText()
 void ScrPopupMenu::setText(const QString pMenuText)
 {
 	menuText=pMenuText;
+	localPopupMenu->menuAction()->setText(menuText);
 }
 
 const QIcon ScrPopupMenu::getMenuIcon()
