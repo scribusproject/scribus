@@ -116,7 +116,9 @@ void GuideManager::setupPage()
 	m_drawGuides = false;
 	setEnabled(true);
 	// store old values for current page (=page to leave)
-	storePageValues(currentPage);
+	if (currentPage)
+		storePageValues(currentPage);
+
 	currentPage = m_Doc->currentPage();
 	unitChange();
 	setupGui();
@@ -124,6 +126,11 @@ void GuideManager::setupPage()
 
 void GuideManager::setupGui()
 {
+	disconnect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)),
+			this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
+	disconnect(verticalAutoGapCheck, SIGNAL(stateChanged(int)),
+			this, SLOT(verticalAutoGapCheck_stateChanged(int)));
+
 	// restore values from new page
 	clearRestoreHorizontalList();
 	clearRestoreVerticalList();
@@ -156,6 +163,11 @@ void GuideManager::setupGui()
 	setVerticalRefer(currentPage->guides.verticalAutoRefer());
 	// allow the selection radio button?
 	verticalSelectionAutoButton->setEnabled(!m_Doc->m_Selection->isEmpty());
+
+	connect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)),
+			this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
+	connect(verticalAutoGapCheck, SIGNAL(stateChanged(int)),
+			this, SLOT(verticalAutoGapCheck_stateChanged(int)));
 
 	m_drawGuides = true;
 	drawGuides();
