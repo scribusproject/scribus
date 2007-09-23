@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QWidget>
 #include <QDir>
-
+#include <QCryptographicHash>
 
 #include <cmath>
 #include <algorithm>
@@ -52,7 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include <windows.h>
 #endif
 
-#include "md5.h"
+// #include "md5.h"
 
 #include "commonstrings.h"
 #include "prefsmanager.h"
@@ -406,9 +406,10 @@ QString String2Hex(QString *in, bool lang)
 
 QByteArray ComputeMD5Sum(QByteArray *in)
 {
-	QByteArray MDsum(16, ' ');
-	md5_buffer (in->data(), in->size(), reinterpret_cast<void*>(MDsum.data()));
-	return MDsum;
+	return QCryptographicHash::hash(*in, QCryptographicHash::Md5);
+//	QByteArray MDsum(16, ' ');
+//	md5_buffer (in->data(), in->size(), reinterpret_cast<void*>(MDsum.data()));
+//	return MDsum;
 }
 
 QString Path2Relative(QString Path, const QString& baseDir)

@@ -367,7 +367,6 @@ SET(SCRIBUS_SOURCES
   main.cpp
   margindialog.cpp
   marginWidget.cpp
-  md5.c
   measurements.cpp
   menumanager.cpp
   mergedoc.cpp
