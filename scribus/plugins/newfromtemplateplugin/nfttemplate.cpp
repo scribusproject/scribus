@@ -28,6 +28,7 @@ void nfttemplate::remove()
 		bool collect = false;
 		tmplXml->open(QIODevice::ReadOnly);
 		QTextStream stream(tmplXml);
+		stream.setCodec("UTF-8");
 		QString line = stream.readLine();
 		while (!line.isNull())
 		{
