@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QPaintEvent>
 #include <QRect>
+#include <QRectF>
 #include <QWheelEvent>
 #include <QRubberBand>
 #include <QList>
@@ -63,6 +64,7 @@ for which a new license (GPL+exception) is in place.
 
 class Canvas;
 class CanvasMode;
+class CanvasGesture;
 class Hruler;
 class Vruler;
 class Page;
@@ -76,7 +78,7 @@ class UndoManager;
  * This class provides an incomplete base for your application view.
  */
 
-class SCRIBUS_API ScribusView : public QScrollArea, public Observer<QRect>
+class SCRIBUS_API ScribusView : public QScrollArea, public Observer<QRectF>
 {
 	Q_OBJECT
 
@@ -88,6 +90,8 @@ public:
 	friend class CanvasMode_NodeEdit;
 	
 	void requestMode(int appMode);
+	void startGesture(CanvasGesture*);
+	void stopGesture();
 	
   /** Vergroesserungseingabefeld */
 	ScrSpinBox* zoomSpinBox; //zoom spinbox at bottom of view
@@ -114,46 +118,16 @@ public:
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc * const Doc;
 	Canvas * const m_canvas;
-	CanvasMode* m_canvasMode;
+	CanvasMode* m_canvasMode; // might be a CanvasGesture
 	QMap<int,CanvasMode*> modeInstances;
 	ApplicationPrefs * const Prefs;
 	UndoManager * const undoManager;
 	double OldScale;
 	double dragX,dragY,dragW,dragH;
 	double oldW;
-	/*
-	int oldCp; // -> CanvasMode
-	int Mxp; // -> CanvasMode
-	int Myp; // -> CanvasMode
-	int dragConstrainInitPtX; // -> CanvasMode
-	int dragConstrainInitPtY; // -> CanvasMode
-	int Dxp; // -> CanvasMode
-	int Dyp; // -> CanvasMode
-	int m_SnapCounter; // -> CanvasMode
-	 */
-	/*!
-	 * Frame handle used for resize
-	 * 283
-	 * 7 6
-	 * 451
-	 */
-	/*
-	int frameResizeHandle; // -> CanvasMode
-	int SeRx; // -> CanvasMode
-	int SeRy; // -> CanvasMode
-	int GyM; // -> CanvasMode
-	int GxM; // -> CanvasMode
-	 */
 	int RotMode;
 	int DrHY;
 	int DrVX;
-	/*
-	bool shiftSelItems; // -> CanvasMode
-	bool MoveGY; // -> CanvasMode
-	bool MoveGX; // -> CanvasMode
-	 bool inItemCreation; // -> CanvasMode
-	 FPointArray RecordP; // -> CanvasMode
-	 */
 	bool HaveSelRect;
 	//bool GroupSel;
 	bool DraggedGroup;
@@ -196,14 +170,14 @@ public:
 // 	void SnapToGuides(PageItem *currItem);
 	void getDragRectScreen(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
-	void ToView(QPainter *p);
-	void ToView(QMatrix& m);
+//	void ToView(QPainter *p);
+//	void ToView(QMatrix& m);
 // 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
-	void Reset1Control();
-	void ResetControl();
-	void MoveClipPoint(PageItem *currItem, FPoint np);
+//	void Reset1Control();
+//	void ResetControl();
+//	void MoveClipPoint(PageItem *currItem, FPoint np);
 // 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 // 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
@@ -237,18 +211,18 @@ public:
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
 	double scale() const;
-	FPoint translateToView(double x, double y);
-	FPoint translateToView(FPoint in);
-	FPoint translateToDoc(double x, double y);
-	FPoint translateToDoc(FPoint in);
-	FPoint translateFromViewport(double x, double y);
-	FPoint translateFromViewport(FPoint in);
-	FPoint translateToViewport(double x, double y);
-	FPoint translateToViewport(FPoint in);
 
-	virtual void changed(QRect re);
+	virtual void changed(QRectF re);
+
+	void updateCanvas(QRectF box = QRectF());
+	void updateCanvas(double x, double y, double width, double height) { updateCanvas(QRectF(x,y,width,height)); }
+	void setCanvasOrigin(double x, double y);
+	void setCanvasCenter(double x, double y);
+	void scrollCanvasBy(double deltaX, double deltaY);
+	FPoint canvasOrigin() const;
+	QRectF visibleCanvas() const;
 	
-//private:
+private:
 	// legacy:
 	void updateContents(QRect box = QRect());
 	void updateContents(int x, int y, int w, int h);
@@ -256,15 +230,16 @@ public:
 	void resizeContents(int w, int h);
 	QPoint contentsToViewport(QPoint p);
 	QPoint viewportToContents(QPoint p);
+public: // for now
 	int contentsX();
 	int contentsY();
 	int contentsWidth();
 	int contentsHeight();
 	void setContentsPos(int x, int y);
-	void scrollBy(int x, int y);
 	int visibleWidth() { return viewport()->size().width(); } ;
 	int visibleHeight() { return viewport()->size().height(); } ;
 	void stopAllDrags();
+	void scrollBy(int x, int y);
 
 public slots: // Public slots
 	void languageChange();
@@ -319,8 +294,6 @@ public slots: // Public slots
 	void TextToPath();
 	void blinkCursor();
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
-
-	void paintEvent ( QPaintEvent * p );
 	
 private: // Private attributes
 	int m_previousMode;
@@ -334,7 +307,6 @@ private: // Private attributes
 	int  oldY;
 	bool _groupTransactionStarted;
 	bool _isGlobalMode;
-	bool evSpon;
 	bool forceRedraw;
 
 	double oldItemX;

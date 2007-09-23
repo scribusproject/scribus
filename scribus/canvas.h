@@ -47,8 +47,6 @@ struct CanvasViewMode
 	void init();
 	
 	double scale;
-	double originX;
-	double originY;
 
 	bool previewMode;
 	bool viewAsPreview;
@@ -89,12 +87,43 @@ public:
 	friend class LegacyMode;
 	friend class CanvasMode_NodeEdit;
 	
+	/* Dont rely on these codes!
+	 * 283
+	 * 7 6
+	 * 451
+	 * But always OUTSIDE < 0, INSIDE >= 0 and any specific handle > 0.
+	 */
+	enum FrameHandle { 
+		OUTSIDE = -1,
+		INSIDE = 0,
+		NORTHWEST = 2,
+		NORTH = 8,
+		NORTHEAST = 3,
+		EAST = 6,
+		SOUTHEAST = 1,
+		SOUTH = 5,
+		SOUTHWEST = 4,
+		WEST = 7
+	};
+	
+	
 	void resetRenderMode() { m_viewMode.specialRendering = false; m_viewMode.firstSpecial = true; }
 	void setRenderModeFillBuffer() { m_viewMode.specialRendering = true; m_viewMode.firstSpecial = true; }
 	void setRenderModeUseBuffer(bool use) { m_viewMode.specialRendering = use; }
 
-	double scale() { return m_viewMode.scale; }
+	double scale() const { return m_viewMode.scale; }
 	void setScale(double scale) { m_viewMode.scale = scale; repaint(); }
+	QPoint canvasToLocal(FPoint p) const;
+	QPoint canvasToGlobal(FPoint p) const;
+	QPoint canvasToLocal(QPointF p) const;
+	QPoint canvasToGlobal(QPointF p) const;
+	FPoint localToCanvas(QPoint p) const;
+	FPoint globalToCanvas(QPoint p) const;
+	QRectF globalToCanvas(QRect p) const;
+	bool hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const;
+	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
+	FrameHandle frameHitTest(QPoint globalPoint, QRectF frame) const;
+	
 	const QPolygon& redrawPolygon() const { return m_viewMode.redrawPolygon; }
 	QPolygon& newRedrawPolygon() 
 	{
@@ -109,6 +138,9 @@ public:
 	
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
 	void DrawPageItems(ScPainter *painter, QRect clip);
+	virtual void paintEvent ( QPaintEvent * p );
+	
+private:
 	void DrawPageMarks(ScPainter *p, Page* page, QRect clip);
 	void drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &end);
 	void paintGroupRect(bool norm = true);
@@ -119,9 +151,7 @@ public:
 	void Transform(PageItem *currItem, QMatrix& m);
 	void TransformM(PageItem *currItem, QPainter *p);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
-	virtual void paintEvent ( QPaintEvent * p );
 
-private:
 	void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);

@@ -566,10 +566,12 @@ bool WMFImport::importWMF(int flags)
 // see #2526
 			m_Doc->itemSelection_DeleteItem(m_tmpSel);
 #endif
-			m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
-			m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
+//			m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
+//			m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
 			m_Doc->minCanvasCoordinate = minSize;
 			m_Doc->maxCanvasCoordinate = maxSize;
+			m_Doc->view()->adjustCanvas(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()), 0, 0);
+			m_Doc->view()->setCanvasOrigin(minSize.x(), minSize.y());
 			m_Doc->view()->updatesOn(true);
 			dr->setPixmap(loadIcon("DragPix.xpm"));
 			const QPixmap& dragCursor = loadIcon("DragPix.xpm");

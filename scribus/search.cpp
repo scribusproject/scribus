@@ -336,7 +336,7 @@ void SearchReplace::slotSearch()
 	if (SMode)
 	{
 		Doc->view()->slotDoCurs(true);
-		Doc->view()->RefreshItem(Item);
+		Item->update();
 	}
 }
 
@@ -501,7 +501,7 @@ void SearchReplace::slotDoSearch()
 		if ((!found) || (a == Item->itemText.length()))
 		{
 			Doc->DoDrawing = true;
-			Doc->view()->RefreshItem(Item);
+			Item->update();
 			DoReplace->setEnabled(false);
 			AllReplace->setEnabled(false);
 			QMessageBox::information(this, tr("Search/Replace"), tr("Search finished"), CommonStrings::tr_OK);
@@ -657,7 +657,7 @@ void SearchReplace::slotReplace()
 	if (SMode)
 	{
 		Doc->view()->slotDoCurs(true);
-		Doc->view()->RefreshItem(Item);
+		Item->update();
 	}
 }
 
@@ -840,7 +840,7 @@ void SearchReplace::slotReplaceAll()
 	{
 		Doc->DoDrawing = true;
 		Doc->view()->slotDoCurs(true);
-		Doc->view()->RefreshItem(Item);
+		Item->update();
 	}
 }
 

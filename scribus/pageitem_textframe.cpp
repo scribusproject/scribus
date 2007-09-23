@@ -68,7 +68,7 @@ PageItem_TextFrame::PageItem_TextFrame(ScribusDoc *pa, double x, double y, doubl
 }
 
 
-static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, double yOffset)
+static QRegion itemShape(PageItem* docItem, double xOffset, double yOffset)
 {
 	QRegion res;
 	QMatrix pp;
@@ -131,7 +131,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				{
 					if (docItem->textFlowAroundObject())
 					{
-						result = result.subtract(itemShape(docItem, m_Doc->view(),  Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
+						result = result.subtract(itemShape(docItem, Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
 					}
 				}
 			} // for all masterItems
@@ -160,7 +160,7 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev && m_Doc->layerFlow(docItem->LayerNr)))
 				{
 					 if (docItem->textFlowAroundObject())
-						result = result.subtract(itemShape(docItem, m_Doc->view(), 0, 0));
+						result = result.subtract(itemShape(docItem, 0, 0));
 				}
 			} // for all docItems
 			} // if(OnMasterPage.isEmpty()		
@@ -2628,7 +2628,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				CPos += 1;
 //				Tinput = true;
 				m_Doc->scMW()->setTBvals(this);
-				view->RefreshItem(this);
+				update();
 				keyRepeat = false;
 				return;
 			}
@@ -2889,7 +2889,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 		}
 		if ( itemText.lengthOfSelection() > 0 )
-			view->RefreshItem(this);
+			update();
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Qt::Key_Delete:
@@ -2929,7 +2929,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				deleteSelectedTextFromFrame();
 				m_Doc->scMW()->setTBvals(this);
-				view->RefreshItem(this);
+				update();
 			}
 			break;
 		}
@@ -2992,7 +2992,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		break;
 	}
-	view->RefreshItem(this);
+	update();
 //	view->slotDoCurs(true);
 	if ((kk == Qt::Key_Left) || (kk == Qt::Key_Right) || (kk == Qt::Key_Up) || (kk == Qt::Key_Down))
 	{
@@ -3090,7 +3090,6 @@ void PageItem_TextFrame::setNewPos(int oldPos, int len, int dir)
 void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 {
 	int len = itemText.length();
-	ScribusView* view = m_Doc->view();
 	bool rightSel = false; // assume left right and actual char not selected
 	bool leftSel  = false;
 	bool actSel   = false;
@@ -3145,7 +3144,7 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 		else if ( !selMode )
 		{
 			if (leftSel||actSel||rightSel)
-				view->RefreshItem(this);
+				update();
 		}
 	}
 	if ( !selMode )
@@ -3181,7 +3180,7 @@ void PageItem_TextFrame::ExpandSel(int dir, int oldPos)
 
 	cursorBiasBackward = (dir < 0);
 
-	view->RefreshItem(this);
+	update();
 }
 
 void PageItem_TextFrame::deselectAll()
@@ -3195,7 +3194,7 @@ void PageItem_TextFrame::deselectAll()
 		if ( item->itemText.lengthOfSelection() > 0 )
 		{
 			item->itemText.deselectAll();
-			m_Doc->view()->RefreshItem(this);
+			update();
 			item->HasSel = false;
 		}
 		item = item->nextInChain();

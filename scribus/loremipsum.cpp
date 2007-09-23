@@ -291,8 +291,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 	}
 // 	if (done)
 // 	{
-//		m_Doc->view()->updateContents();
- 		m_Doc->view()->DrawNew();
+ 		m_Doc->regionsChanged()->update(QRectF());
 		m_Doc->changed();
 // 	}
 }

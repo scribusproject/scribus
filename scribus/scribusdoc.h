@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QObject>
 #include <QPixmap>
+#include <QRectF>
 #include <QStringList>
 #include <QTimer>
 
@@ -152,7 +153,7 @@ public:
 	UpdateManager* updateManager() { return &m_updateManager; }
 	MassObservable<PageItem*> * itemsChanged() { return &m_itemsChanged; }
 	MassObservable<Page*>     * pagesChanged() { return &m_pagesChanged; }
-	MassObservable<QRect>     * regionsChanged() { return &m_regionsChanged; }
+	MassObservable<QRectF>    * regionsChanged() { return &m_regionsChanged; }
 	
 	// Add, delete and move pages
 	
@@ -1083,7 +1084,7 @@ private:
 	UpdateManager m_updateManager;
 	MassObservable<PageItem*> m_itemsChanged;
 	MassObservable<Page*> m_pagesChanged;
-	MassObservable<QRect> m_regionsChanged;
+	MassObservable<QRectF> m_regionsChanged;
 	DocUpdater* m_docUpdater;
 	
 signals:

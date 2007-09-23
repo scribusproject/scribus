@@ -205,6 +205,24 @@ QList<QPainterPath> decomposePath(QPainterPath &path)
 	return ret;
 }
 
+
+
+FPoint projectPointOnLine(FPoint p, QPointF lineStart, QPointF lineEnd)
+{
+	if (lineStart == lineEnd)
+		return FPoint(lineStart.x(), lineStart.y());
+	
+	// move lineStart to Origin
+	p -= FPoint(lineStart.x(), lineStart.y());
+	lineEnd -= lineStart;
+	// calc dot product
+	double lineLengthSquare = lineEnd.x() * lineEnd.x() + lineEnd.y() * lineEnd.y();
+	double partOfLine = p.x() * lineEnd.x() + p.y() * lineEnd.y() / lineLengthSquare;
+	// return point on line
+	return FPoint(lineStart.x() + partOfLine * lineEnd.x(), lineStart.y() + partOfLine * lineEnd.y());
+}
+
+
 QPolygon FlattenPath(FPointArray ina, QList<uint> &Segs)
 {
 	QPolygon cli, outa;

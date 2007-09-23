@@ -218,7 +218,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 		{
 			qDebug() << "LATEX:" << tr("Running the external application failed!");
 		}
-		doc()->view()->RefreshItem(this); //Show error marker
+		update(); //Show error marker
 		return;
 	}
 	else
@@ -228,9 +228,9 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	imgValid = true;
 
 	//Save state and restore afterwards
-	bool update = PicAvail;
+	bool do_update = PicAvail;
 	double scaleX = 72.0, scaleY = 72.0, offX = 0.0, offY = 0.0;
-	if (update) {
+	if (do_update) {
 		scaleX = LocalScX * pixm.imgInfo.xres;
 		scaleY = LocalScY * pixm.imgInfo.yres;
 		offX   = LocalX   / pixm.imgInfo.xres;
@@ -242,7 +242,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 		pixm.imgInfo.xres = pixm.imgInfo.yres = getRealDpi();
 	}
 	
-	if (update) 
+	if (do_update) 
 	{
 		//Restoring parameters
 		LocalScX = scaleX / pixm.imgInfo.xres; //Account for dpi changes!
@@ -259,7 +259,7 @@ void PageItem_LatexFrame::updateImage(int exitCode, QProcess::ExitStatus exitSta
 	}
 	emit imageOffsetScale(LocalScX, LocalScY, LocalX, LocalY );
 	
-	doc()->view()->RefreshItem(this);
+	update();
 }
 
 

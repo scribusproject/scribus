@@ -231,6 +231,10 @@ void LegacyMode::mouseDoubleClickEvent(QMouseEvent *m)
 
 void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 {
+	const double mouseX = m->globalX();
+	const double mouseY = m->globalY();
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	
 	int newX, newY;
 	double nx, ny;
 	PageItem *currItem;
@@ -343,8 +347,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		newX = m->x();
 		newY = m->y();
-		double newXF = m_view->translateToDoc(m->x(), m->y()).x();
-		double newYF = m_view->translateToDoc(m->x(), m->y()).y();
+		double newXF = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
+		double newYF = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
 		if (RecordP.size() > 0)
 		{
 			if (FPoint(newXF, newYF) != RecordP.point(RecordP.size()-1))
@@ -368,8 +372,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((GetItem(&currItem)) && (!shiftSelItems))
 	{
-		newX = qRound(m_view->translateToDoc(m->x(), m->y()).x());
-		newY = qRound(m_view->translateToDoc(m->x(), m->y()).y());
+		newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+		newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		if ((((m_view->dragTimerFired) && (m->buttons() & Qt::LeftButton)) || (m_view->moveTimerElapsed() && (m->buttons() & Qt::RightButton)))
 			&& (m_canvas->m_viewMode.m_MouseButtonPressed)
 			&& (!m_doc->DragP) 
@@ -542,7 +546,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 						currItem->HasSel = true;
 					}
 				}
-				m_view->RefreshItem(currItem);
+				currItem->update();
 				if(currItem->HasSel)
 					m_ScMW->EnableTxEdit();
 				else
@@ -561,8 +565,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				m_canvas->m_viewMode.operItemMoving = false;
 				if (m_doc->m_Selection->isMultipleSelection())
 				{
-					newX = qRound(m_view->translateToDoc(m->x(), m->y()).x());
-					newY = qRound(m_view->translateToDoc(m->x(), m->y()).y());
+					newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+					newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 					double gx, gy, gh, gw;
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					int ox1 = qRound(gx*sc);
@@ -736,8 +740,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 								}
 								else
 								{
-									newX = qRound(m_view->translateToDoc(m->x(), m->y()).x());
-									newY = qRound(m_view->translateToDoc(m->x(), m->y()).y());
+									newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+									newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 									np2 = QPoint(newX, newY);
 									np2 = m_doc->ApplyGrid(np2);
 									double nx = np2.x();
@@ -1035,11 +1039,11 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	{
 		if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (m->buttons() & Qt::LeftButton) && (GyM == -1) && (GxM == -1))
 		{
-			newX = qRound(m_view->translateToDoc(m->x(), m->y()).x());
+			newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
 			if (m_doc->appMode == modeMagnifier)
 				newY = qRound(Myp + ((SeRx - Mxp) * m_view->visibleHeight()) / m_view->visibleWidth());
 			else
-				newY = qRound(m_view->translateToDoc(m->x(), m->y()).y());
+				newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 			if (m_doc->appMode == modeDrawTable)
 			{
 				FPoint np2 = m_doc->ApplyGrid(QPoint(newX, newY));
@@ -1103,6 +1107,10 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 
 void LegacyMode::mousePressEvent(QMouseEvent *m)
 {
+	const double mouseX = m->globalX();
+	const double mouseY = m->globalY();
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	
 	m_SnapCounter = 0;
 	bool inText;
 	int z;
@@ -1457,7 +1465,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 						if (nextItem->nextInChain() != 0)
 						{
 							nextItem = nextItem->nextInChain();
-							m_view->RefreshItem(nextItem);
+							nextItem->update();
 						}
 						else
 							break;
@@ -1526,7 +1534,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							if (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT"))
 								m_ScMW->slotEditPaste();
 						}
-						m_view->RefreshItem(currItem);
+						currItem->update();
 					}
 					if (currItem->asImageFrame() && !tx.contains(m->x(), m->y()))
 					{
@@ -1916,6 +1924,10 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 
 void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 {
+	const double mouseX = m->globalX();
+	const double mouseY = m->globalY();
+	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	
 	QMenu* pmen3 = NULL;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
@@ -1925,8 +1937,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	if ((m_doc->appMode == modeNormal) && m_doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
-		double nx = m_view->translateToDoc(m->x(), m->y()).x();
-		double ny = m_view->translateToDoc(m->x(), m->y()).y();
+		double nx = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
+		double ny = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
 		double grabRadScale=m_doc->guidesSettings.grabRad / m_canvas->scale();
 		if (m_doc->currentPage()->guides.isMouseOnHorizontal(ny + grabRadScale, ny - grabRadScale, GuideManagerCore::Standard)
 			|| m_doc->currentPage()->guides.isMouseOnVertical(nx + grabRadScale, nx - grabRadScale, GuideManagerCore::Standard))
@@ -2186,8 +2198,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		double bleedBottom = 0.0;
 		double bleedTop = 0.0;
 		bool drawBleed = false;
-		int x2 = static_cast<int>(m_view->translateToDoc(m->x(), m->y()).x());
-		int y2 = static_cast<int>(m_view->translateToDoc(m->x(), m->y()).y());
+		int x2 = static_cast<int>(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+		int y2 = static_cast<int>(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		if (((m_doc->bleeds.Bottom != 0.0) || (m_doc->bleeds.Top != 0.0) || (m_doc->bleeds.Left != 0.0) || (m_doc->bleeds.Right != 0.0)) && (m_doc->guidesSettings.showBleed))
 			drawBleed = true;
 		for (int a = docPageCount; a > -1; a--)
@@ -2244,6 +2256,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 		{
 			createContextMenu(currItem);
+			return;
 		}
 		if ((m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 		{
@@ -2274,7 +2287,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			}
 			else if (m_doc->appMode == modeDrawRegularPolygon)
 			{
-				FPoint np1(m_view->translateToDoc(m->x(), m->y()));
+				FPoint np1(mousePointDoc); //m_view->translateToDoc(m->x(), m->y()));
 				np1 = m_doc->ApplyGridF(np1);
 				itemX = fabs(np1.x() - currItem->xPos());
 				itemY = fabs(np1.y() - currItem->yPos());
@@ -2483,7 +2496,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		if ((m_doc->appMode == modeDrawRegularPolygon) && (inItemCreation))
 		{
 			currItem = m_doc->m_Selection->itemAt(0);
-			FPoint np1(m_view->translateToDoc(m->x(), m->y()));
+			FPoint np1(mousePointDoc); //m_view->translateToDoc(m->x(), m->y()));
 			np1 = m_doc->ApplyGridF(np1);
 			double w = np1.x() - currItem->xPos();
 			double h = np1.y()- currItem->yPos();
@@ -2536,8 +2549,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 					scx = sc;
 					scy = sc;
 					QPoint np2;
-					double newXF = m_view->translateToDoc(m->x(), m->y()).x();
-					double newYF = m_view->translateToDoc(m->x(), m->y()).y();
+					double newXF = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
+					double newYF = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
 					if (m->modifiers() & Qt::ControlModifier)
 						np2 = QPoint(qRound(newXF), qRound(gy+(gh * ((newXF-gx) / gw))));
 					else
@@ -2612,8 +2625,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				if (currItem->Sizing)
 				{
 					FPoint npx;
-					double nx = m_view->translateToDoc(m->x(), m->y()).x();
-					double ny = m_view->translateToDoc(m->x(), m->y()).y();
+					double nx = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
+					double ny = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
 					if (m_doc->SnapGuides)
 					{
 						m_doc->ApplyGuides(&nx, &ny);
@@ -2727,8 +2740,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 						{
 							if (sav)
 							{
-								double nx = m_view->translateToDoc(m->x(), m->y()).x();
-								double ny = m_view->translateToDoc(m->x(), m->y()).y();
+								double nx = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
+								double ny = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
 								if (m_doc->useRaster)
 								{
 									FPoint ra(m_doc->ApplyGridF(FPoint(nx, ny)));
@@ -2831,8 +2844,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 						{
 							if (sav)
 							{
-								double nx = m_view->translateToDoc(m->x(), m->y()).x();
-								double ny = m_view->translateToDoc(m->x(), m->y()).y();
+								double nx = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
+								double ny = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
 								if (m_doc->useRaster)
 								{
 									FPoint ra(m_doc->ApplyGridF(FPoint(nx, ny)));
@@ -3504,7 +3517,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				currItem->itemText.deselectAll();
 				currItem->HasSel = false;
 				m_ScMW->DisableTxEdit();
-				m_view->RefreshItem(currItem);
+				currItem->update();
 			}
 		}
 		else
@@ -3517,8 +3530,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		if (m_view->HaveSelRect)
 		{
 			QRect geom = m_view->redrawMarker->geometry().normalized();
-			QPoint xp = m_view->viewport()->mapFromGlobal(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
-			FPoint nx = m_view->translateToDoc(xp.x()+m_view->contentsX(), xp.y()+m_view->contentsY());
+			//QPoint xp = m_view->viewport()->mapFromGlobal(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2));
+			FPoint nx = m_canvas->globalToCanvas(QPoint(geom.x() + geom.width() / 2, geom.y() + geom.height() / 2)); //m_view->translateToDoc(xp.x()+m_view->contentsX(), xp.y()+m_view->contentsY());
 			double scaleAdjust = m_view->visibleWidth() / static_cast<double>(qMax(geom.width(), 1));
 			m_view->setScale(m_canvas->scale() * scaleAdjust);
 			m_view->slotDoZoom();
@@ -3534,7 +3547,7 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-			FPoint nx = m_view->translateToDoc(m->x(), m->y());
+			FPoint nx = mousePointDoc; //m_view->translateToDoc(m->x(), m->y());
 			int mx = qRound(nx.x());
 			int my = qRound(nx.y());
 			m_view->Magnify ? m_view->slotZoomIn(mx,my) : m_view->slotZoomOut(mx,my);
@@ -3605,8 +3618,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 			m_view->repaintContents(currItem->getRedrawBounding(m_canvas->scale()));
 		}
 		m_canvas->setRenderModeFillBuffer();
-		int newX = qRound(m_view->translateToDoc(m->x(), m->y()).x());
-		int newY = qRound(m_view->translateToDoc(m->x(), m->y()).y());
+		int newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+		int newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 		m_canvas->newRedrawPolygon() << QPoint(newX - qRound(currItem->xPos()), newY - qRound(currItem->yPos()));
 		m_view->updateContents();
 	}

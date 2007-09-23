@@ -86,7 +86,7 @@ void Vruler::mouseReleaseEvent(QMouseEvent *m)
 		currView->redrawMarker->hide();
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	Mpressed = false;
-	currView->updateContents();
+	currView->updateCanvas();
 }
 
 void Vruler::mouseMoveEvent(QMouseEvent *m)

@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMatrix>
 #include <QPainterPath>
 #include <QPoint>
+#include <QPointF>
 #include <QVector>
 
 #include "fpoint.h"
@@ -54,6 +55,7 @@ public:
 	void point(uint i, double *x, double *y) const;
 	const FPoint & point(uint i)  const{ ConstIterator p = begin(); p+=i; return *p; };
 	QPoint pointQ(uint i) const;
+	QPointF pointQF(uint i) const;
 	void translate( double dx, double dy );
 	void scale( double sx, double sy );
 	FPoint WidthHeight() const;

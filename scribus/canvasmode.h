@@ -19,7 +19,6 @@
 #define CANVAS_MODE_H
 
 #include "scribusapi.h"
-#include <QMap>
 
 class QDragEnterEvent;
 class QDragMoveEvent;
@@ -62,6 +61,18 @@ protected:
 public:
 	static CanvasMode* createForAppMode(ScribusView* view, int appMode);
 	
+	/**
+	  Is called when this mode becomes active, either because it was selected by the user
+	  (fromgesture == false) or because a gesture completed and the canvas returns back to
+	  this mode (fromGesture == true)
+	 */
+	virtual void activate(bool fromGesture) {}
+	/**
+	  Is called when this mode becomes inactive, either because the canvas switches to
+	  another mode (forGesture == false) or because a gesture is activated (forGesture == true)
+	 */
+	virtual void deactivate(bool forGesture) {}
+	
 	virtual void enterEvent(QEvent *) {}
 	virtual void leaveEvent(QEvent *) {}
 
@@ -80,30 +91,29 @@ public:
 	virtual void inputMethodEvent(QInputMethodEvent *e) {}
 
 	/**
-		Sets appropiate values for this viewmode
+		Sets appropiate values for this canvas mode
 	 */
 	virtual void updateViewMode(CanvasViewMode* viewmode);
 	
-	virtual CanvasMode* nextCanvasMode() { return 0; }
-		
 	/**
-		Draws the selection marker. If viewmode.drawSelectionWithControls is true, also draws the selection contents first.
-		*/
-	virtual void drawSelection(QPainter* p);
-	
-	/**
-		Draws the controls for this mode
+		Draws the controls for this mode and the selection marker. 
+	 If viewmode.drawSelectionWithControls is true, also draws the selection contents first.
 	 */
-	virtual void drawControls(QPainter* p) {}
+	virtual void drawControls(QPainter* p) { drawSelection(p); }
 	
-	
+	/** Draws the regular selection marker */
+	void CanvasMode::drawSelection(QPainter* psx);
+
+	/** main canvas modes dont have a delegate */
+	virtual CanvasMode* delegate() { return 0; }
+	ScribusView* view() const { return m_view; }
 	virtual ~CanvasMode() {}
 	
+
 protected:
 	ScribusView * const m_view;	
 	Canvas * const m_canvas;
 	ScribusDoc * const m_doc;
-	static QMap<int,CanvasMode*> modeInstances;
 };
 
 

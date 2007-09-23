@@ -161,7 +161,7 @@ void SMLineStyle::toSelection(const QString &styleName) const
 		else
 			doc_->m_Selection->itemAt(i)->setCustomLineStyle(styleName);
 
-		doc_->view()->RefreshItem(doc_->m_Selection->itemAt(i));
+		doc_->m_Selection->itemAt(i)->update();
 	}
 }
 

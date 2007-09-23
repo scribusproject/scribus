@@ -532,12 +532,14 @@ bool OODPlug::convert(int flags)
 // see #2196, #2526
 			m_Doc->itemSelection_DeleteItem(tmpSel);
 #endif
-			m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
-			m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
+//			m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
+//			m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
 			m_Doc->minCanvasCoordinate = minSize;
 			m_Doc->maxCanvasCoordinate = maxSize;
+			m_Doc->view()->adjustCanvas(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()), 0, 0);
+			m_Doc->view()->setCanvasOrigin(minSize.x(), minSize.y());
 			m_Doc->view()->updatesOn(true);
-			m_Doc->view()->updateContents();
+			m_Doc->view()->updateCanvas();
 			const QPixmap& dragCursor = loadIcon("DragPix.xpm");
 			dr->setDragCursor(dragCursor, Qt::CopyAction);
 			dr->setDragCursor(dragCursor, Qt::MoveAction);

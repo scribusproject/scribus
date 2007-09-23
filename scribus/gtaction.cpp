@@ -659,7 +659,7 @@ void gtAction::finalize()
 {
 	if (textFrame->doc()->docHyphenator->AutoCheck)
 		textFrame->doc()->docHyphenator->slotHyphenate(textFrame);
-	textFrame->doc()->view()->DrawNew();
+	textFrame->doc()->regionsChanged()->update(QRectF());
 	textFrame->doc()->changed();
 }
 

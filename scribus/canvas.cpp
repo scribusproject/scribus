@@ -37,8 +37,6 @@ static QPoint contentsToViewport(QPoint p)
 void CanvasViewMode::init()
 {	
 	scale = 1;
-	originX = 0;
-	originY = 0;
 	
 	previewMode = false;
 	viewAsPreview = false;
@@ -68,6 +66,159 @@ Canvas::Canvas(ScribusDoc* doc, QWidget* parent) : QWidget(parent), m_doc(doc)
 }
 
 
+FPoint Canvas::localToCanvas(QPoint p) const
+{
+	return FPoint(p.x() * m_viewMode.scale - m_doc->minCanvasCoordinate.x() , 
+				  p.y() * m_viewMode.scale - m_doc->minCanvasCoordinate.y());	
+}
+
+
+FPoint Canvas::globalToCanvas(QPoint p) const
+{
+	return localToCanvas(p - mapToGlobal(QPoint(0,0)));
+}
+
+
+QPoint Canvas::canvasToLocal(FPoint p) const
+{
+	return 	QPoint(qRound((p.x() + m_doc->minCanvasCoordinate.x()) / m_viewMode.scale),
+				   qRound((p.y() + m_doc->minCanvasCoordinate.y()) / m_viewMode.scale));
+}
+
+QPoint Canvas::canvasToLocal(QPointF p) const
+{
+	return 	QPoint(qRound((p.x() + m_doc->minCanvasCoordinate.x()) / m_viewMode.scale),
+				   qRound((p.y() + m_doc->minCanvasCoordinate.y()) / m_viewMode.scale));
+}
+
+QPoint Canvas::canvasToGlobal(FPoint p) const
+{
+	return mapToGlobal(QPoint(0,0)) + canvasToLocal(p);
+}
+
+QPoint Canvas::canvasToGlobal(QPointF p) const
+{
+	return mapToGlobal(QPoint(0,0)) + canvasToLocal(p);
+}
+
+
+QRectF Canvas::globalToCanvas(QRect p) const
+{
+	FPoint org = globalToCanvas(p.topLeft());
+	return QRectF(org.x(), org.y(), p.width() * m_viewMode.scale, p.height() * m_viewMode.scale);
+}
+
+
+bool Canvas::hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const
+{
+	QPoint localPoint1 = globalPoint - mapToGlobal(QPoint(0,0));
+	QPoint localPoint2 = canvasToLocal(canvasPoint);
+	int radius = m_doc->guidesSettings.grabRad;
+	return qAbs(localPoint1.x() - localPoint2.x()) < radius
+		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
+}
+
+bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
+{
+	QPoint localPoint1 = globalPoint - mapToGlobal(QPoint(0,0));
+	QPoint localPoint2 = canvasToLocal(canvasPoint);
+	int radius = m_doc->guidesSettings.grabRad;
+	return qAbs(localPoint1.x() - localPoint2.x()) < radius
+		&& qAbs(localPoint1.y() - localPoint2.y()) < radius;
+}
+
+
+/*!
+  returns -1 if globalPoint is outside the frame + grabradius.
+  returns frameHandle if globalPoint is near a framehandle
+  otherwise 0
+ */
+Canvas::FrameHandle Canvas::frameHitTest(QPoint globalPoint, QRectF frame) const
+{
+	FrameHandle result = INSIDE;
+	const int radius = m_doc->guidesSettings.grabRad;
+	double resultDistance = radius * radius * 10.0; // far off
+	
+	const QPoint localPoint = globalPoint - mapToGlobal(QPoint(0,0));
+	const int localWidth = qRound(frame.width() * m_viewMode.scale);
+	const int localHeight = qRound(frame.height() * m_viewMode.scale);
+	const QPoint localFrameOrigin = canvasToLocal(FPoint(frame.left(),frame.top()));
+	
+	if (localPoint.x() < localFrameOrigin.x() - radius ||
+		localPoint.x() > localFrameOrigin.x() + localWidth + radius ||
+		localPoint.y() < localFrameOrigin.y() - radius ||
+		localPoint.y() > localFrameOrigin.y() + localHeight + radius)
+	{
+		return OUTSIDE;
+	}
+	
+	QPoint framePoint = localFrameOrigin;
+	double distance = (localPoint - framePoint).manhattanLength();
+	if (distance < radius && distance < resultDistance)
+	{
+		result = NORTHWEST;
+		resultDistance = distance;
+	}
+	
+	framePoint.setX(localFrameOrigin.x() + localWidth/2);
+	distance = (localPoint - framePoint).manhattanLength();
+	if (distance < radius && distance < resultDistance)
+	{
+		result = NORTH;
+		resultDistance = distance;
+	}
+	
+	framePoint.setX(localFrameOrigin.x() + localWidth);
+	distance = (localPoint - framePoint).manhattanLength();
+	if (distance < radius && distance < resultDistance)
+	{
+		result = NORTHEAST;
+		resultDistance = distance;
+	}
+	
+	framePoint.setY(localFrameOrigin.y() + localHeight/2);
+	distance = (localPoint - framePoint).manhattanLength();
+	if (distance < radius && distance < resultDistance)
+	{
+		result = EAST;
+		resultDistance = distance;
+	}
+	
+	framePoint.setY(localFrameOrigin.y() + localHeight);
+	distance = (localPoint - framePoint).manhattanLength();
+	if (distance < radius && distance < resultDistance)
+	{
+		result = SOUTHEAST;
+		resultDistance = distance;
+	}
+	
+	framePoint.setX(localFrameOrigin.x() + localWidth/2);
+	distance = (localPoint - framePoint).manhattanLength();
+	if (distance < radius && distance < resultDistance)
+	{
+		result = SOUTH;
+		resultDistance = distance;
+	}
+	
+	framePoint.setX(localFrameOrigin.x());
+	distance = (localPoint - framePoint).manhattanLength();
+	if (distance < radius && distance < resultDistance)
+	{
+		result = SOUTHWEST;
+		resultDistance = distance;
+	}
+	
+	framePoint.setY(localFrameOrigin.y() + localHeight/2);
+	distance = (localPoint - framePoint).manhattanLength();
+	if (distance < radius && distance < resultDistance)
+	{
+		result = WEST;
+		//resultDistance = distance;
+	}
+	
+	return result;
+}
+
 
 /**
   Actually we have at least three super-layers:
@@ -82,7 +233,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		return;
 
 	QPainter qp(this);
-
+	
 	if (m_viewMode.firstSpecial || !m_viewMode.m_bufferRect.contains(p->rect()) || m_doc->minCanvasCoordinate != m_viewMode.oldMinCanvasCoordinate)
 	{
 		if (m_viewMode.m_bufferRect.intersects(p->rect()))
@@ -93,7 +244,11 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		QPainter bufp(&m_viewMode.m_buffer);
 		bufp.translate(-m_viewMode.m_bufferRect.x(), -m_viewMode.m_bufferRect.y());
 		qDebug() << "fill Buffer:" << m_viewMode.m_bufferRect << "special:" << m_viewMode.specialRendering;
-		drawContents(&bufp, m_viewMode.m_bufferRect.x(), m_viewMode.m_bufferRect.y(), m_viewMode.m_bufferRect.width(), m_viewMode.m_bufferRect.height());
+		bufp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
+		drawContents(&bufp, 
+					 m_viewMode.m_bufferRect.x() + m_doc->minCanvasCoordinate.x() * m_viewMode.scale,
+					 m_viewMode.m_bufferRect.y() + m_doc->minCanvasCoordinate.y() * m_viewMode.scale, 
+					 m_viewMode.m_bufferRect.width(), m_viewMode.m_bufferRect.height());
 		bufp.end();
 		m_viewMode.firstSpecial = false;
 		m_viewMode.oldMinCanvasCoordinate = m_doc->minCanvasCoordinate;
@@ -105,6 +260,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		pixmapp.begin(&pixmap);
 		pixmapp.translate(-m_viewMode.m_bufferRect.x(), -m_viewMode.m_bufferRect.y());
 		pixmapp.setRenderHint(QPainter::Antialiasing, true);
+		pixmapp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 		drawControls(&pixmapp);
 #if DRAW_DEBUG_LINES
 		pixmapp.setPen(Qt::red);
@@ -152,6 +308,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 #endif
 		if ((m_doc->m_Selection->count() != 0) && !(m_viewMode.operItemMoving || m_viewMode.operItemResizing) && (m_doc->appMode != modeDrawBezierLine))
 		{
+			qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 			drawControlsSelection(&qp, m_doc->m_Selection->itemAt(0));
 		}		
 	}

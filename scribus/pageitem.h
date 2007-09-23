@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QKeyEvent>
 #include <QMenu>
+#include <QRectF>
 
 #include "scribusapi.h"
 #include "annotation.h"
@@ -264,6 +265,9 @@ public:
 	//QRect getRedrawBounding(const double);
 	//void setRedrawBounding();
 	void getBoundingRect(double *x1, double *y1, double *x2, double *y2) const;
+	QRectF getBoundingRect() const;
+	void getTransform(QMatrix& mat) const;
+	QMatrix getTransform() const;
 	/**
 	 * @brief Check if a QPoint is within the items boundaries
 	 * No coordinates transformation is performed

@@ -173,6 +173,15 @@ QPoint FPointArray::pointQ(uint i) const
 	return r;
 }
 
+QPointF FPointArray::pointQF(uint i) const
+{
+//	FPoint p = QMemArray<FPoint>::at(i);
+	ConstIterator p = begin();
+	p += i;
+	QPointF r(p->xp,p->yp);
+	return r;
+}
+
 void FPointArray::translate( double dx, double dy )
 {
 	FPoint pt( dx, dy );

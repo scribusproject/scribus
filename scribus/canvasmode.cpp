@@ -63,6 +63,7 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 
 void CanvasMode::drawSelection(QPainter* psx)
 {
+	psx->scale(m_canvas->scale(), m_canvas->scale());
 	if (m_doc->m_Selection->count() != 0)
 	{
 		uint docSelectionCount = m_doc->m_Selection->count();
@@ -71,7 +72,8 @@ void CanvasMode::drawSelection(QPainter* psx)
 		{
 			currItem = m_doc->m_Selection->itemAt(a);
 			psx->save();
-			m_canvas->Transform(currItem, psx);
+			psx->translate(static_cast<int>(currItem->xPos()), static_cast<int>(currItem->yPos()));
+			psx->rotate(currItem->rotation());			
 			currItem->paintObj(psx);
 			psx->restore();
 		}
@@ -81,10 +83,10 @@ void CanvasMode::drawSelection(QPainter* psx)
 		double x, y, w, h;
 		m_doc->m_Selection->setGroupRect();
 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
-		x *= m_canvas->scale();
-		y *= m_canvas->scale();
-		w *= m_canvas->scale();
-		h *= m_canvas->scale();
+//		x *= m_canvas->scale();
+//		y *= m_canvas->scale();
+//		w *= m_canvas->scale();
+//		h *= m_canvas->scale();
 		psx->setPen(QPen(Qt::red, 1, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		psx->setBrush(Qt::NoBrush);
 		psx->drawRect(QRectF(x, y, w, h));

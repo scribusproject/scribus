@@ -277,6 +277,7 @@ SET(SCRIBUS_SOURCES
   bookpalette.cpp
   buttonicon.cpp
   canvas.cpp
+  canvasgesture_rectselect.cpp
   canvasmode.cpp
   canvasmode_legacy.cpp
   canvasmode_nodeedit.cpp

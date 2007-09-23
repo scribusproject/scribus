@@ -2421,7 +2421,7 @@ void PageItem::setImageScalingMode(bool freeScale, bool keepRatio)
 	ScaleType = freeScale;
 	AspectRatio = keepRatio;
 	AdjustPictScale();
-	m_Doc->view()->RefreshItem(this);
+	update();
 }
 
 void PageItem::toggleLock()
@@ -3697,6 +3697,29 @@ void PageItem::SetFrameRound()
 	FrameType = 2;
 }
 
+
+
+void PageItem::getTransform(QMatrix& mat) const
+{
+	mat.translate(Xpos, Ypos);
+	mat.rotate(Rot);
+}
+
+QMatrix PageItem::getTransform() const
+{
+	QMatrix result;
+	getTransform(result);
+	return result;
+}
+
+QRectF PageItem::getBoundingRect() const
+{
+	double x,y,w,h;
+	getBoundingRect(&x, &y, &w, &h);
+	return QRectF(x,y,w,h);
+}
+
+
 void PageItem::getBoundingRect(double *x1, double *y1, double *x2, double *y2) const
 {
 	double minx = 99999.9;
@@ -4275,7 +4298,8 @@ bool PageItem::disconnectFromGUI()
 {
 	if (!ScCore->usingGUI())
 		return false;
-	disconnect(this, 0, 0, 0);
+	Mpalette* pp=m_Doc->scMW()->propertiesPalette;
+	disconnect(this, 0, pp, 0);
 	return true;
 }
 

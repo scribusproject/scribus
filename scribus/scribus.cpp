@@ -5021,8 +5021,8 @@ void ScribusMainWindow::slotEditPaste()
 				doc->m_Selection->clear();
 				//doc->m_Selection->restoreFromTempList(0, tempList);
 				*doc->m_Selection=tempSelection;
-				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->scale()), qRound((maxSize.y() - minSize.y()) * view->scale()));
-				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->scale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->scale()));
+//				view->resizeContents(qRound((maxSize.x() - minSize.x()) * view->scale()), qRound((maxSize.y() - minSize.y()) * view->scale()));
+//				view->scrollBy(qRound((doc->minCanvasCoordinate.x() - minSize.x()) * view->scale()), qRound((doc->minCanvasCoordinate.y() - minSize.y()) * view->scale()));
 				doc->minCanvasCoordinate = minSize;
 				doc->maxCanvasCoordinate = maxSize;
 				if (outlinePalette->isVisible())
@@ -7251,22 +7251,22 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 			double x2 = cos((rotation+90.0)*MPI180) * currItem->height();
 			double mx = currItem->xPos() + ((x1 + x2)/2.0);
 			double my = currItem->yPos() + ((y1 + y2)/2.0);
-			double viewScale=view->scale();
-			if ((qRound((currItem->xPos() + qMax(x1, x2)) * viewScale) > view->contentsWidth()) ||
-				(qRound((currItem->yPos() + qMax(y1, y2)) * viewScale) > view->contentsHeight()))
-				view->resizeContents(qMax(qRound((currItem->xPos() + qMax(x1, x2)) * viewScale),
-									view->contentsWidth()),
-									qMax(qRound((currItem->yPos() + qMax(y1, y2)) * viewScale), view->contentsHeight()));
+//			double viewScale=view->scale();
+//			if ((qRound((currItem->xPos() + qMax(x1, x2)) * viewScale) > view->contentsWidth()) ||
+//				(qRound((currItem->yPos() + qMax(y1, y2)) * viewScale) > view->contentsHeight()))
+//				view->resizeContents(qMax(qRound((currItem->xPos() + qMax(x1, x2)) * viewScale),
+//									view->contentsWidth()),
+//									qMax(qRound((currItem->yPos() + qMax(y1, y2)) * viewScale), view->contentsHeight()));
 			view->SetCCPo(mx, my);
 		}
 		else
 		{
-			double viewScale=view->scale();
-			if ((qRound((currItem->xPos() + currItem->width()) * viewScale) > view->contentsWidth()) ||
-				(qRound((currItem->yPos() + currItem->height()) * viewScale) > view->contentsHeight())
-				)
-				view->resizeContents(qMax(qRound((currItem->xPos() + currItem->width()) * viewScale), view->contentsWidth()),
-									 qMax(qRound((currItem->yPos() + currItem->height()) * viewScale), view->contentsHeight()));
+//			double viewScale=view->scale();
+//			if ((qRound((currItem->xPos() + currItem->width()) * viewScale) > view->contentsWidth()) ||
+//				(qRound((currItem->yPos() + currItem->height()) * viewScale) > view->contentsHeight())
+//				)
+//				view->resizeContents(qMax(qRound((currItem->xPos() + currItem->width()) * viewScale), view->contentsWidth()),
+//									 qMax(qRound((currItem->yPos() + currItem->height()) * viewScale), view->contentsHeight()));
 			view->SetCCPo(currItem->xPos() + currItem->width() / 2.0, currItem->yPos() + currItem->height() / 2.0);
 		}
 	}
@@ -8299,7 +8299,7 @@ void ScribusMainWindow::StatusPic()
 		connect(dia, SIGNAL(selectPage(int)), this, SLOT(selectPagesFromOutlines(int)));
 		connect(dia, SIGNAL(selectMasterPage(QString)), this, SLOT(manageMasterPages(QString)));
 		connect(dia, SIGNAL(selectElement(int, int, bool)), this, SLOT(selectItemsFromOutlines(int, int, bool)));
-		connect(dia, SIGNAL(refreshItem(PageItem*)), view, SLOT(RefreshItem(PageItem*)));
+//		connect(dia, SIGNAL(refreshItem(PageItem*)), view, SLOT(RefreshItem(PageItem*)));
 		dia->exec();
 		delete dia;
 	}

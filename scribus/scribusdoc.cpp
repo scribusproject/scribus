@@ -98,12 +98,14 @@ public:
 	
 	void changed(Page* pg)
 	{
-		doc->regionsChanged()->update(QRect(qRound(pg->xOffset()), qRound(pg->yOffset()), qRound(pg->width()), qRound(pg->height())));
+		doc->regionsChanged()->update(QRectF(pg->xOffset(), pg->yOffset(), pg->width(), pg->height()));
 	}
 	
 	void changed(PageItem* it)
 	{
-		doc->regionsChanged()->update(QRect(qRound(it->xPos()), qRound(it->yPos()), qRound(it->width()), qRound(it->height())));
+		double x,y,h,w;
+		it->getBoundingRect(&x, &y, &w, &h);
+		doc->regionsChanged()->update(QRectF(x, y, h, w));
 	}
 };
 
@@ -3547,7 +3549,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 	undoManager->commit();
 	setCurrentPage(oldCurrentPage);
 	changed();
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 	return z;
 }
 
@@ -4352,7 +4354,7 @@ PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newTy
 		//FIXME: Stop using the view here
 		m_View->SelectItem(secondaryItem);
 		itemSelection_DeleteItem();
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 		m_View->Deselect(true);
 	}
 	//Create the undo action for the new item
@@ -5614,7 +5616,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 	if (selectedItemCount > 1)
 		undoManager->commit();
 	changed();
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 }
 
 
@@ -5671,7 +5673,7 @@ void ScribusDoc::itemSelection_EraseParagraphStyle(Selection* customSelection)
 	if (selectedItemCount > 1)
 		undoManager->commit();
 	changed();
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 }
 
 
@@ -5737,7 +5739,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	if (selectedItemCount > 1)
 		undoManager->commit();
 	changed();
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 }
 
 
@@ -5793,7 +5795,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle, Select
 	if (selectedItemCount > 1)
 		undoManager->commit();
 	changed();
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 }
 
 
@@ -5849,7 +5851,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle, Selectio
 	if (selectedItemCount > 1)
 		undoManager->commit();
 	changed();
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 }
 
 
@@ -5927,7 +5929,7 @@ void ScribusDoc::itemSelection_EraseCharStyle(Selection* customSelection)
 	if (selectedItemCount > 1)
 		undoManager->commit();
 	changed();
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 }
 
 
@@ -6019,7 +6021,7 @@ void ScribusDoc::MirrorPolyH(PageItem* currItem)
 		ma.translate(qRound(tp.x()), 0);
 		ma.scale(-1, 1);
 		currItem->ContourLine.map(ma);
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 //		currItem->Tinput = true;
 //		currItem->FrameOnly = true;
 //		currItem->paintObj();
@@ -6068,7 +6070,7 @@ void ScribusDoc::MirrorPolyV(PageItem* currItem)
 		ma.translate(0, qRound(tp.y()));
 		ma.scale(1, -1);
 		currItem->ContourLine.map(ma);
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 //		currItem->Tinput = true;
 //		currItem->FrameOnly = true;
 //		currItem->paintObj();
@@ -6220,7 +6222,7 @@ void ScribusDoc::updatePict(QString name)
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
 	}
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 	changed();
 }
 
@@ -6339,7 +6341,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
 	}
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 	changed();
 	m_ScMW->mainWindowProgressBar->reset();
 }
@@ -6390,7 +6392,7 @@ void ScribusDoc::removePict(QString name)
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
 	}
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 	changed();
 }
 
@@ -6429,7 +6431,7 @@ void ScribusDoc::updatePic()
 			}
 		}
 		if (toUpdate)
-			regionsChanged()->update(QRect());
+			regionsChanged()->update(QRectF());
 	}
 }
 
@@ -6663,7 +6665,7 @@ void ScribusDoc::itemSelection_FlipH()
 				currItem->GrEndX = currItem->width() - currItem->GrEndX;
 			}
 		}
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
 	}
@@ -6703,7 +6705,7 @@ void ScribusDoc::itemSelection_FlipV()
 				currItem->GrStartY = currItem->height() - currItem->GrStartY;
 				currItem->GrEndY = currItem->height() - currItem->GrEndY;
 			}
-			regionsChanged()->update(QRect());
+			regionsChanged()->update(QRectF());
 			undoManager->commit();
 		}
 		else
@@ -6728,7 +6730,7 @@ void ScribusDoc::itemSelection_FlipV()
 				currItem->GrStartY = currItem->height() - currItem->GrStartY;
 				currItem->GrEndY = currItem->height() - currItem->GrEndY;
 			}
-			regionsChanged()->update(QRect());
+			regionsChanged()->update(QRectF());
 		}
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
@@ -6801,7 +6803,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 			currItem->clearContents();
 		}
 		updateFrameItems();
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 		changed();
 	}
 }
@@ -6899,7 +6901,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		undoManager->commit();
 	// JG resetting ElemToLink fixes #5629
 	ElemToLink = NULL;
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	//CB FIXME remove this and tree.h too
 //	m_ScMW->outlinePalette->BuildTree();
@@ -6930,7 +6932,7 @@ void ScribusDoc::itemSelection_SetItemFillTransparency(double t)
 				continue;
 			currItem->setFillTransparency(t);
 		}
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 		changed();
 	}
 }
@@ -6946,7 +6948,7 @@ void ScribusDoc::itemSelection_SetItemLineTransparency(double t)
 			PageItem *currItem = m_Selection->itemAt(i);
 			currItem->setLineTransparency(t);
 		}
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 		changed();
 	}
 }
@@ -6964,7 +6966,7 @@ void ScribusDoc::itemSelection_SetItemFillBlend(int t)
 				continue;
 			currItem->setFillBlendmode(t);
 		}
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 		changed();
 	}
 }
@@ -6980,7 +6982,7 @@ void ScribusDoc::itemSelection_SetItemLineBlend(int t)
 			PageItem *currItem = m_Selection->itemAt(i);
 			currItem->setLineBlendmode(t);
 		}
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 		changed();
 	}
 }
@@ -7013,7 +7015,7 @@ void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection
 			currItem->update();
 	}
 	if (selectedItemCount>1)
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 	changed();
 }
 
@@ -7098,7 +7100,7 @@ void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 	//Doc->m_Selection->clear();
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 	changed();
 }
 
@@ -7343,7 +7345,7 @@ void ScribusDoc::endAlign()
 	for (int i = 0; i < m_Selection->count(); ++i)
 		setRedrawBounding(m_Selection->itemAt(i));
 	undoManager->commit(); // commit and send the action to the UndoManager
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 }
 
 
@@ -8799,8 +8801,7 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 {
 	if (currItem->locked())
 		return;
-	//FIXME: stop using m_View
-	QRect oldR(currItem->getRedrawBounding(m_View->scale()));
+	QRectF oldR = currItem->getBoundingRect();
 //	if ((Doc->RotMode != 0) && (m_MouseButtonPressed))
 	if (RotMode != 0)
 	{
@@ -8843,8 +8844,7 @@ void ScribusDoc::RotateItem(double angle, PageItem *currItem)
 		currItem->setRotation(angle);
 		setRedrawBounding(currItem);
 	}
-	//FIXME: stop using m_View
-	QRect newR(currItem->getRedrawBounding(m_View->scale()));
+	QRectF newR(currItem->getBoundingRect());
 	regionsChanged()->update(newR.unite(oldR));
 	//emit SetAngle(currItem->rotation());
 }
@@ -8874,9 +8874,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 	if (currItem->locked())
 		return false;
 	QPainter p;
-	//FIXME: stop using m_View
-	double viewScale=m_View->scale();
-	QRect oldR(currItem->getRedrawBounding(viewScale));
+	QRectF oldR(currItem->getBoundingRect());
 	//Uncomment for stopping resize in any direction
 	//and remove the height/width <0 tests in item sizing switch
 	/*
@@ -8999,7 +8997,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 //	currItem->updateGradientVectors();
 	if (redraw)
 	{
-		QRect newR(currItem->getRedrawBounding(viewScale));
+		QRectF newR(currItem->getBoundingRect());
 		regionsChanged()->update(newR.unite(oldR));
 	}
 	if (!fromMP)
@@ -9021,9 +9019,7 @@ bool ScribusDoc::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, b
 bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bool constrainRotation)
 {
 	PageItem *currItem = Items->at(ite);
-	//FIXME: stop using m_View
-	double viewScale=m_View->scale();
-	QRect oldR(currItem->getRedrawBounding(viewScale));
+	QRectF oldR(currItem->getBoundingRect());
 	if (currItem->asLine())
 	{
 		QMatrix ma;
@@ -9040,7 +9036,7 @@ bool ScribusDoc::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, bo
 		currItem->setWidthHeight(sqrt(pow(mx - currItem->xPos(),2)+pow(my - currItem->yPos(),2)), 1.0);
 		currItem->updateClip();
 		setRedrawBounding(currItem);
-		QRect newR(currItem->getRedrawBounding(viewScale));
+		QRectF newR(currItem->getBoundingRect());
 		regionsChanged()->update(oldR);
 		regionsChanged()->update(newR);
 //		updateContents(newR.unite(oldR));
@@ -9122,10 +9118,10 @@ void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSel
 	double gx, gy, gw, gh;
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
-	QPoint in(qRound(gx*Scale), qRound(gy*Scale));
+	//QPoint in(qRound(gx*Scale), qRound(gy*Scale));
 	//in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
-	QPoint out = in;//contentsToViewport(in);
-	QRect OldRect = QRect(out.x(), out.y(), qRound(gw*Scale), qRound(gh*Scale));
+	//QPoint out = in;//contentsToViewport(in);
+	QRectF OldRect = QRectF(gx, gy, gw, gh); //out.x(), out.y(), qRound(gw*Scale), qRound(gh*Scale));
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		currItem = itemSelection->itemAt(a);
@@ -9141,7 +9137,7 @@ void ScribusDoc::moveGroup(double x, double y, bool fromMP, Selection* customSel
 	}
 	QPoint in2(qRound(gx*Scale), qRound(gy*Scale));
 	//in2 -= QPoint(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
-	OldRect = OldRect.united(QRect(in2.x()/*+contentsX()*/, in2.y()/*+contentsY()*/, qRound(gw*Scale), qRound(gh*Scale))); //FIXME:av
+	OldRect = OldRect.united(QRectF(in2.x()/*+contentsX()*/, in2.y()/*+contentsY()*/, qRound(gw*Scale), qRound(gh*Scale))); //FIXME:av
 	regionsChanged()->update(OldRect.adjusted(-10, -10, 20, 20));
 }
 
@@ -9174,7 +9170,7 @@ void ScribusDoc::rotateGroup(double angle, FPoint RCenter)
 	m_Selection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
 //	gxS -= minCanvasCoordinate.x();
 //	gyS -= minCanvasCoordinate.y();
-	regionsChanged()->update(QRect(static_cast<int>(gxS*sc-5), static_cast<int>(gyS*sc-5), static_cast<int>(gwS*sc+10), static_cast<int>(ghS*sc+10)).unite(oldR));
+	regionsChanged()->update(QRectF(gxS-5, gyS-5, gwS+10, ghS+10).unite(oldR));
 }
 
 void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* customSelection)
@@ -9318,7 +9314,7 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 //	gx -= minCanvasCoordinate.x();
 //	gy -= minCanvasCoordinate.y();
 	updateManager()->setUpdatesEnabled();
-	regionsChanged()->update(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)).unite(oldR));
+	regionsChanged()->update(QRectF(gx-5, gy-5, gw+10, gh+10).unite(oldR));
 	itemSelection->setGroupRect();
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	for (uint a = 0; a < selectedItemCount; ++a)
@@ -9461,7 +9457,7 @@ void ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Selectio
 			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
 		}
 		GroupCounter++;
-		regionsChanged()->update(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+		regionsChanged()->update(QRectF(x-5, y-5, w+10, h+10));
 		emit docChanged();
 		if (m_ScMW && ScCore->usingGUI())
 		{
@@ -9555,7 +9551,7 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		for (int c = 0; c < toDel.count(); ++c)
 			m_View->SelectItemNr(toDel.at(c));
 		itemSelection_DeleteItem();
-		regionsChanged()->update(QRect());
+		regionsChanged()->update(QRectF());
 	}
 }
 
@@ -9589,7 +9585,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 	currItem->ClipEdited = true;
 	//FIXME: stop using m_View
 	m_View->Deselect(true);
-	regionsChanged()->update(QRect());
+	regionsChanged()->update(QRectF());
 }
 
 //CB-->Doc
@@ -9632,7 +9628,7 @@ void ScribusDoc::itemSelection_adjustFrametoImageSize( Selection *customSelectio
 		}
 		if (toUpdate)
 		{
-			regionsChanged()->update(QRect());
+			regionsChanged()->update(QRectF());
 			changed();
 			undoManager->commit();
 		}
@@ -9957,7 +9953,7 @@ void NodeEditContext::reset1Control(PageItem* currItem)
 	if (Doc->nodeEdit.isContourLine)
 	{
 		currItem->ContourLine.setPoint(Doc->nodeEdit.ClRe, np);
-		Doc->regionsChanged()->update(QRect());
+		Doc->regionsChanged()->update(QRectF());
 		//		currItem->Tinput = true;
 		currItem->FrameOnly = true;
 		currItem->update();
@@ -10042,7 +10038,7 @@ void NodeEditContext::resetControl(PageItem* currItem)
 		Doc->AdjustItemSize(currItem);
 	else
 	{
-		Doc->regionsChanged()->update(QRect());
+		Doc->regionsChanged()->update(QRectF());
 		//		currItem->Tinput = true;
 		//		currItem->FrameOnly = true;
 		//		updateContents(currItem->getRedrawBounding(m_canvas->scale()));
