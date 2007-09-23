@@ -4039,6 +4039,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 								hl3.ch = hl2.ch;
 								hl3.glyph.glyph = hl2.glyph.glyph;
 								hl3.setFillColor(hl2.strokeColor());
+								hl3.setFillShade(hl2.strokeShade());
 								hl3.glyph.yoffset = hl2.glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 								hl3.glyph.xoffset = hl2.glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 								setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl3, pstyle, pag);
@@ -4064,6 +4065,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 					hl2.glyph.glyph = hl->glyph.glyph;
 					static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 					hl2.setFillColor(hl->strokeColor());
+					hl2.setFillShade(hl->strokeShade());
 					hl2.glyph.yoffset = hl->glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 					hl2.glyph.xoffset = hl->glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 					hl2.glyph.scaleH = hl->glyph.scaleH;
@@ -4122,6 +4124,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 							hl3.ch = hl2.ch;
 							hl3.glyph.glyph = hl2.glyph.glyph;
 							hl3.setFillColor(hl2.strokeColor());
+							hl3.setFillShade(hl2.strokeShade());
 							hl3.glyph.yoffset = hl2.glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 							hl3.glyph.xoffset = hl2.glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 							setTextCh(ite, PNr, 0, 0, d, tmp, tmp2, &hl3, pstyle, pag);
@@ -4147,6 +4150,7 @@ QString PDFLibCore::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				hl2.glyph.glyph = hl->glyph.glyph;
 				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 				hl2.setFillColor(hl->strokeColor());
+				hl2.setFillShade(hl->strokeShade());
 				hl2.glyph.yoffset = hl->glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 				hl2.glyph.xoffset = hl->glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 				hl2.glyph.scaleH = hl->glyph.scaleH;
