@@ -3629,6 +3629,10 @@ strings.
       <source>Show Text Frame Columns</source>
       <translation>Näytä tekstikehyksen palstat</translation>
     </message>
+    <message>
+      <source>&amp;400%</source>
+      <translation>&amp;400 %</translation>
+    </message>
   </context>
   <context>
     <name>AlignDistributePalette</name>
@@ -5942,6 +5946,10 @@ Sitä ei voi käyttää.</translation>
       <source>December</source>
       <translation>Joulukuu</translation>
     </message>
+    <message>
+      <source>PostScript</source>
+      <translation>PostScript</translation>
+    </message>
   </context>
   <context>
     <name>Cpalette</name>
@@ -7536,10 +7544,6 @@ joita on tarkoitus katsella näytöltä</translation>
       <translation>Po&amp;ista</translation>
     </message>
     <message>
-      <source>PostScript</source>
-      <translation>PostScript</translation>
-    </message>
-    <message>
       <source>Font Name</source>
       <comment>font preview</comment>
       <translation>Fontin nimi</translation>
@@ -8138,10 +8142,6 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
 converting their vector data into Scribus objects.</source>
       <translation>Tuo useimmat EPS-tiedostot asiakirjaan, muuttaen 
 vektoridatan Scribus-objekteiksi.</translation>
-    </message>
-    <message>
-      <source>PostScript</source>
-      <translation>PostScript</translation>
     </message>
     <message>
       <source>PDF</source>
@@ -9185,10 +9185,6 @@ vektoridatan Scribus-objekteiksi.</translation>
       <translation>Lukitse tai vapauta kohteen koko</translation>
     </message>
     <message>
-      <source>Enable or disable printing of the object</source>
-      <translation>Tulosta tai jätä kohde tulostamatta</translation>
-    </message>
-    <message>
       <source>Font of selected text or object</source>
       <translation>Valitun kohteen fontti</translation>
     </message>
@@ -9600,6 +9596,10 @@ Corners:</source>
     <message>
       <source>Click and hold down to select the line spacing mode.</source>
       <translation>Napsauta ja pidä painike painettuna valitaksesi rivivälin tyypin</translation>
+    </message>
+    <message>
+      <source>Enable or disable exporting of the object</source>
+      <translation>Salli tai estä kohteen vienti ja tulostus</translation>
     </message>
   </context>
   <context>
@@ -11303,18 +11303,6 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <message>
       <source>Postscript</source>
       <translation>Postscript</translation>
-    </message>
-    <message>
-      <source>PDF 1.3</source>
-      <translation>PDF 1.3</translation>
-    </message>
-    <message>
-      <source>PDF 1.4</source>
-      <translation>PDF 1.4</translation>
-    </message>
-    <message>
-      <source>PDF/X-3</source>
-      <translation>PDF/X-3</translation>
     </message>
     <message>
       <source>Migrate Old Scribus Settings?</source>
@@ -13380,6 +13368,10 @@ is not exhaustive due to exceptions from called functions.
       <source>German (Swiss)</source>
       <translation>saksa (Sveitsi)</translation>
     </message>
+    <message>
+      <source>Chinese (Trad.)</source>
+      <translation>kiina (trad.)</translation>
+    </message>
   </context>
   <context>
     <name>QTextEdit</name>
@@ -14365,10 +14357,6 @@ converting their vector data into Scribus objects.</source>
       <translation>Ladataan...</translation>
     </message>
     <message>
-      <source>PostScript</source>
-      <translation>PostScript</translation>
-    </message>
-    <message>
       <source>Some ICC profiles used by this document are not installed:</source>
       <translation>Joitain tämän asiakirjan käyttämiä ICC-profiileja ei ole asennettu:</translation>
     </message>
@@ -14718,6 +14706,10 @@ pystysuora siirtyminen: %3</translation>
       <source>Display a console window</source>
       <translation>Näytä konsoli-ikkuna</translation>
     </message>
+    <message>
+      <source>Show location ICC profile information on console while starting</source>
+      <translation>Näytä ICC-profiilien tiedot ja sijainti käynnistyksen yhteydessä</translation>
+    </message>
   </context>
   <context>
     <name>ScribusView</name>
@@ -14784,10 +14776,6 @@ pystysuora siirtyminen: %3</translation>
     <message>
       <source>Chars: </source>
       <translation>Merkit: </translation>
-    </message>
-    <message>
-      <source>Print: </source>
-      <translation>Tulosta:</translation>
     </message>
     <message>
       <source>Enabled</source>
@@ -14868,6 +14856,10 @@ pystysuora siirtyminen: %3</translation>
     <message>
       <source>Contents</source>
       <translation>Sisältö</translation>
+    </message>
+    <message>
+      <source>Export: </source>
+      <translation>Vie: </translation>
     </message>
   </context>
   <context>
