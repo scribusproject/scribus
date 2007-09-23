@@ -121,8 +121,10 @@ void nftdialog::setTNails()
 
 void nftdialog::setInfo() 
 {
-	QListWidgetItem* item = tnailGrid->currentItem();
-	getCurrentDocumentTemplate(item);
+	QList<QListWidgetItem *> items = tnailGrid->selectedItems();
+	if (items.count() <= 0)
+		return;
+	getCurrentDocumentTemplate(items.at(0));
 	QString infoText = "<b>"+ tr("Name")+"</b><br>";
 	infoText += currentDocumentTemplate->name + "<br>";
 	infoText += "<b>"+ tr("Page Size")+"</b><br>";
@@ -198,12 +200,14 @@ void nftdialog::removeTemplate()
 	buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
 	setupListItems();
 	setupCategories();
+	setTNails();
 }
 
 void nftdialog::getCurrentDocumentTemplate(QListWidgetItem* item)
 {
 	for (uint i = 0; i < iconItems.size(); ++i)
 	{
+		QListWidgetItem* second = iconItems[i]->second;
 		if (iconItems[i]->second == item)
 		{
 			currentDocumentTemplate = iconItems[i]->first;
