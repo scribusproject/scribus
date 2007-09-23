@@ -1561,6 +1561,7 @@ void StoryEditor::buildGUI()
 
 /* Setting up Toolbars */
 	FileTools = new QToolBar(this);
+	FileTools->setIconSize(QSize(16,16));
 	FileTools->setObjectName("File");
 	FileTools->addAction(seActions["fileNew"]);
 	FileTools->addAction(seActions["fileLoadFromFile"]);
@@ -1576,12 +1577,14 @@ void StoryEditor::buildGUI()
 	FileTools->setAllowedAreas(Qt::BottomToolBarArea);
 	FileTools->setAllowedAreas(Qt::TopToolBarArea);
 	FontTools = new SToolBFont(this);
+	FontTools->setIconSize(QSize(16,16));
 	FontTools->setObjectName("Font");
 	FontTools->setAllowedAreas(Qt::LeftToolBarArea);
 	FontTools->setAllowedAreas(Qt::RightToolBarArea);
 	FontTools->setAllowedAreas(Qt::BottomToolBarArea);
 	FontTools->setAllowedAreas(Qt::TopToolBarArea);
 	AlignTools = new SToolBAlign(this);
+	AlignTools->setIconSize(QSize(16,16));
 	AlignTools->setObjectName("Align");
 	AlignTools->setAllowedAreas(Qt::LeftToolBarArea);
 	AlignTools->setAllowedAreas(Qt::RightToolBarArea);
@@ -1589,12 +1592,14 @@ void StoryEditor::buildGUI()
 	AlignTools->setAllowedAreas(Qt::TopToolBarArea);
 	AlignTools->paraStyleCombo->setDoc(currDoc);
 	StyleTools = new SToolBStyle(this);
+	StyleTools->setIconSize(QSize(16,16));
 	StyleTools->setObjectName("Style");
 	StyleTools->setAllowedAreas(Qt::LeftToolBarArea);
 	StyleTools->setAllowedAreas(Qt::RightToolBarArea);
 	StyleTools->setAllowedAreas(Qt::BottomToolBarArea);
 	StyleTools->setAllowedAreas(Qt::TopToolBarArea);
 	StrokeTools = new SToolBColorS(this, currDoc);
+	StrokeTools->setIconSize(QSize(16,16));
 	StrokeTools->setObjectName("Strok");
 	StrokeTools->setAllowedAreas(Qt::LeftToolBarArea);
 	StrokeTools->setAllowedAreas(Qt::RightToolBarArea);
@@ -1603,6 +1608,7 @@ void StoryEditor::buildGUI()
 	StrokeTools->TxStroke->setEnabled(false);
 	StrokeTools->PM1->setEnabled(false);
 	FillTools = new SToolBColorF(this, currDoc);
+	FillTools->setIconSize(QSize(16,16));
 	FillTools->setObjectName("Fill");
 	FillTools->setAllowedAreas(Qt::LeftToolBarArea);
 	FillTools->setAllowedAreas(Qt::RightToolBarArea);

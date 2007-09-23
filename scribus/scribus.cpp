@@ -371,6 +371,7 @@ ScribusMainWindow::~ScribusMainWindow()
 void ScribusMainWindow::initToolBars()
 {
 	fileToolBar = new ScToolBar( tr("File"), "File", this);
+	fileToolBar->setIconSize(QSize(16,16));
 	fileToolBar->addAction(scrActions["fileNew"]);
 	fileToolBar->addAction(scrActions["fileOpen"]);
 	QToolButton* tb = dynamic_cast<QToolButton*>(fileToolBar->widgetForAction(scrActions["fileOpen"]));
@@ -383,6 +384,7 @@ void ScribusMainWindow::initToolBars()
 	fileToolBar->addAction(scrActions["fileExportAsPDF"]);
 
 	editToolBar = new ScToolBar( tr("Edit"), "Edit", this);
+	editToolBar->setIconSize(QSize(16,16));
 	UndoWidget* uWidget = new UndoWidget(editToolBar, "uWidget");
 	undoManager->registerGui(uWidget);
 
