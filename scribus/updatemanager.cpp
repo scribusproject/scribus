@@ -30,6 +30,7 @@ void UpdateManager::setUpdatesEnabled(bool val)
 				foreach(PendingUpdate pair, m_pending) {
 					pair.first->updateNow(pair.second);
 				}
+				m_pending.clear();
 			}
 		}
 	}
