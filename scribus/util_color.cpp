@@ -31,17 +31,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#if defined(_WIN32)
-#if defined(_MSC_VER)
-#define __STDC__ 1 // hack to get md5_buffer correctly identified
-#endif
-#include <valarray>
-#include <windows.h>
-#endif
-
-#include "md5.h"
-
-
 #include "scribusdoc.h"
 #include "scpixmapcache.h"
 #include "commonstrings.h"
