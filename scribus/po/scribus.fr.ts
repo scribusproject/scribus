@@ -13637,7 +13637,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>-Page%1</source>
-        <translation>- Page %1</translation>
+        <translation>-Page%1</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
