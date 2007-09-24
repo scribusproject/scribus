@@ -267,7 +267,7 @@ public slots: // Public slots
 	void SetCPo(double x, double y);
 	void SetCCPo(double x, double y);
 	void editExtendedImageProperties();
-	void RefreshItem(PageItem *currItem);
+	//void RefreshItem(PageItem *currItem);
 	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it

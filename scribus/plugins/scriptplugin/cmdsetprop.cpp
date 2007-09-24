@@ -76,7 +76,7 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 	}
 	//ScCore->primaryMainWindow()->view->updateGradientVectors(currItem);
 	currItem->updateGradientVectors();
-	ScCore->primaryMainWindow()->view->RefreshItem(currItem);
+	currItem->update();
 // 	Py_INCREF(Py_None);
 // 	return Py_None;
 	Py_RETURN_NONE;
