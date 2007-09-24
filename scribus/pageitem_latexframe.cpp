@@ -399,7 +399,7 @@ void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
 		}
 	}
 	runApplication();
-	if (updateDisplay) doc()->view()->RefreshItem(this);
+	if (updateDisplay) this->update();
 }
 
 
@@ -499,7 +499,7 @@ void PageItem_LatexFrame::loadEditorFile()
 	if (!new_formula.isEmpty()) {
 		setFormula(new_formula);
 	}
-	doc()->view()->RefreshItem(this);
+	this->update();
 }
 
 

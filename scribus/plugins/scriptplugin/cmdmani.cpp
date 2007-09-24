@@ -398,7 +398,7 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	item->AdjustPictScale();
 	//ScCore->primaryMainWindow()->view->AdjustPictScale(item);
 	
-	ScCore->primaryMainWindow()->view->RefreshItem(item);
+	item->update();
 //	Py_INCREF(Py_None);
 //	return Py_None;
 	Py_RETURN_NONE;
