@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1">
+<!DOCTYPE TS><TS version="1.1" language="fr_FR">
+<defaultcodec></defaultcodec>
 <context>
     <name></name>
     <message>
@@ -19541,7 +19542,7 @@ L&apos;image risque de ne pas être correcte</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../langmgr.cpp" line="91"/>
-        <source>Norwegian (Bokm�l)</source>
+        <source>Norwegian (Bokm�l)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -21386,7 +21387,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message>
         <location filename="../scribus.cpp" line="7971"/>
         <source>-Page%1</source>
-        <translation>- Page %1</translation>
+        <translation type="unfinished">-Page%1</translation>
     </message>
     <message>
         <location filename="../scribus.cpp" line="8340"/>
