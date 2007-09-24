@@ -102,7 +102,7 @@ public:
 	virtual void drawControls(QPainter* p) { drawSelection(p); }
 	
 	/** Draws the regular selection marker */
-	void CanvasMode::drawSelection(QPainter* psx);
+	void drawSelection(QPainter* psx);
 
 	/** main canvas modes dont have a delegate */
 	virtual CanvasMode* delegate() { return 0; }
