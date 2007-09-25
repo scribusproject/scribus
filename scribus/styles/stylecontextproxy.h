@@ -18,7 +18,6 @@
 #define STYLECONTEXTPROXY_H
 
 #include <cassert>
-#include <Q3Signal>
 #include <QString>
 #include "scfonts.h"
 #include "scribusapi.h"
