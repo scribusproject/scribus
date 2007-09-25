@@ -186,12 +186,9 @@ void nftrcreader::setSourceFile(QString sourceFile)
 
 QString nftrcreader::getCategory(QString cat) 
 {
-	for (uint i = 0; i < cats.size(); ++i)
-	{
-		if (cat == *cats[i]->first)
-			return *cats[i]->second;
-	}
-	
+	QMap<QString, QString>::iterator it = cats.find(cat);
+	if (it != cats.end())
+		return it.value();
 	return cat;
 }
 
@@ -199,56 +196,27 @@ void nftrcreader::setupCategories()
 {
 	// en will be used in template.xml and it will be then replaced with the lang when used for users
 	// to get the categories in their language.
-	QString* en = new QString("Newsletters"); QString* lang = new QString(QObject::tr("Newsletters"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Brochures"); lang = new QString(QObject::tr("Brochures"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Catalogs"); lang = new QString(QObject::tr("Catalogs"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Flyers"); lang = new QString(QObject::tr("Flyers"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Signs"); lang = new QString(QObject::tr("Signs"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Cards"); lang = new QString(QObject::tr("Cards"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Letterheads"); lang = new QString(QObject::tr("Letterheads"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Envelopes"); lang = new QString(QObject::tr("Envelopes"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Business Cards"); lang = new QString(QObject::tr("Business Cards"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Calendars"); lang = new QString(QObject::tr("Calendars"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Advertisements"); lang = new QString(QObject::tr("Advertisements"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Labels"); lang = new QString(QObject::tr("Labels"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Menus"); lang = new QString(QObject::tr("Menus"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Programs"); lang = new QString(QObject::tr("Programs"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("PDF Forms"); lang = new QString(QObject::tr("PDF Forms"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("PDF Presentations"); lang = new QString(QObject::tr("PDF Presentations"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Magazines"); lang = new QString(QObject::tr("Magazines"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Posters"); lang = new QString(QObject::tr("Posters"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Announcements"); lang = new QString(QObject::tr("Announcements"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Text Documents"); lang = new QString(QObject::tr("Text Documents"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Folds"); lang = new QString(QObject::tr("Folds"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Media Cases"); lang = new QString(QObject::tr("Media Cases"));
-	cats.push_back(new Pair(en,lang));
-	en = new QString("Own Templates"); lang = new QString(QObject::tr("Own Templates"));
-	cats.push_back(new Pair(en,lang));
-}
-
-nftrcreader::~nftrcreader()
-{
-	for (uint i = 0; i < cats.size(); ++i)
-		delete cats[i];
+	cats.insert(QString("Newsletters"), QObject::tr("Newsletters"));
+	cats.insert(QString("Brochures")  , QObject::tr("Brochures"));
+	cats.insert(QString("Catalogs")   , QObject::tr("Catalogs"));
+	cats.insert(QString("Flyers")     , QObject::tr("Flyers"));
+	cats.insert(QString("Signs")      , QObject::tr("Signs"));
+	cats.insert(QString("Cards")      , QObject::tr("Cards"));
+	cats.insert(QString("Letterheads"), QObject::tr("Letterheads"));
+	cats.insert(QString("Envelopes")  , QObject::tr("Envelopes"));
+	cats.insert(QString("Business Cards"), QObject::tr("Business Cards"));
+	cats.insert(QString("Calendars")  , QObject::tr("Calendars"));
+	cats.insert(QString("Advertisements"), QObject::tr("Advertisements"));
+	cats.insert(QString("Labels")     , QObject::tr("Labels"));
+	cats.insert(QString("Menus")      , QObject::tr("Menus"));
+	cats.insert(QString("Programs")   , QObject::tr("Programs"));
+	cats.insert(QString("PDF Forms")  , QObject::tr("PDF Forms"));
+	cats.insert(QString("PDF Presentations") , QObject::tr("PDF Presentations"));
+	cats.insert(QString("Magazines")  , QObject::tr("Magazines"));
+	cats.insert(QString("Posters")    , QObject::tr("Posters"));
+	cats.insert(QString("Announcements") , QObject::tr("Announcements"));
+	cats.insert(QString("Text Documents"), QObject::tr("Text Documents"));
+	cats.insert(QString("Folds")        , QObject::tr("Folds"));
+	cats.insert(QString("Media Cases")  , QObject::tr("Media Cases"));
+	cats.insert(QString("Own Templates"), QObject::tr("Own Templates"));
 }
