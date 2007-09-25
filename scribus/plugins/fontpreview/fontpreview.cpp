@@ -140,11 +140,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 		fontList->scrollTo(found.at(0)->index(), QAbstractItemView::PositionAtCenter);
 		fontList->selectRow(found.at(0)->index().row());
 	}
-	fontList->resizeColumnToContents(0);
-	fontList->resizeColumnToContents(1);
-	fontList->resizeColumnToContents(2);
-	fontList->resizeColumnToContents(3);
-	fontList->resizeColumnToContents(4);
+	fontList->resizeColumnsToContents();
 }
 
 FontPreview::~FontPreview()
