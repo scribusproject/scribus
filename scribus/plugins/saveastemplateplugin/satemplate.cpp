@@ -257,14 +257,16 @@ QString sat::getTemplateTag()
 		category = QObject::tr("Own Templates");
 	else
 	{
-		for (uint i = 0; i < dia->cats.size(); i++)
+		QMap<QString, QString>::ConstIterator it = dia->cats.begin();
+		while (it != dia->cats.end())
 		{
-			QString tmp = *dia->cats[i]->second;
+			QString tmp = it.data();
 			if (category == tmp)
 			{
-				category = *dia->cats[i]->first;
+				category = it.key();
 				break;
 			}
+			++it;
 		}
 	}
 	QDate now = QDate::currentDate();

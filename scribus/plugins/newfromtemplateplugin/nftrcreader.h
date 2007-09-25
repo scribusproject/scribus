@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <utility>
 #include <qobject.h>
 #include <qdir.h>
+#include <qmap.h>
 #include <qxml.h>
 #include <qstring.h>
 #include <qstringlist.h>
@@ -43,12 +44,11 @@ private:
 	QString templateCategory;
 	nfttemplate* tmpTemplate;
 	std::vector<nfttemplate*> *templates;
-	std::vector<Pair*> cats;
+	QMap<QString, QString> cats;
 	QString getCategory(QString cat);
 	void setupCategories();
 public:
 	nftrcreader(std::vector<nfttemplate*> *tmplts,QString sourceDir);
-	~nftrcreader();
 	bool startDocument();
 	bool startElement(const QString&, const QString&, const QString &name, const QXmlAttributes &attrs);
 	bool endElement(const QString&, const QString&, const QString &name);

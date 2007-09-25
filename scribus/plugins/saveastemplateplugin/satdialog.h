@@ -21,14 +21,13 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 #include <qlabel.h>
 #include <qlayout.h>
+#include <qmap.h>
 #include <qpushbutton.h>
 #include <qdialog.h>
 #include <qlineedit.h>
 #include <qtextedit.h>
 #include <qwidget.h>
 #include <prefscontext.h>
-
-typedef std::pair<QString*,QString*> Pair;
 
 class satdialog : public QDialog
 {
@@ -38,7 +37,7 @@ public:
 	satdialog(QWidget* parent, QString tmplName = "", int pageW = 0, int pageH = 0);
 	~satdialog();
 
-	std::vector<Pair*> cats;
+	QMap<QString, QString> cats;
 	QLineEdit* nameEdit;
 	QComboBox* catsCombo;
 	QLineEdit* psizeEdit;
