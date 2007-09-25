@@ -59,6 +59,12 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 		QStandardItem * col3 = new QStandardItem();
 		QStandardItem * col4 = new QStandardItem();
 
+		col0->setEditable(false);
+		col1->setEditable(false);
+		col2->setEditable(false);
+		col3->setEditable(false);
+		col4->setEditable(false);
+
 		col0->setText(fontIter.current().scName());
 
 		if (m_Doc->UsedFonts.contains(fontIter.current().scName()))
