@@ -11,9 +11,8 @@ for which a new license (GPL+exception) is in place.
 #define SATDIALOG_H
 
 #include "ui_satdialog.h"
+#include <QMap>
 #include <prefscontext.h>
-
-typedef std::pair<QString*,QString*> Pair;
 
 class satdialog : public QDialog, public Ui::satdialog
 {
@@ -23,7 +22,7 @@ public:
 	satdialog(QWidget* parent, QString tmplName = "", int pageW = 0, int pageH = 0);
 	~satdialog();
 
-	std::vector<Pair*> cats;
+	QMap<QString, QString> cats;
 private slots:
 	void detailClicked(int);
 
@@ -33,10 +32,13 @@ private:
 	QString email;
 	bool isFullDetail;
 
-	void readPrefs();
-	void writePrefs();
-	void setupCategories();
-	void setupPageSize(int w, int h);
+	QString findTemplateXml(QString dir);
+	void    readPrefs();
+	void    writePrefs();
+	void    addCategories(const QString& dir);
+	void    readCategories(const QString& fileName);
+	void    setupCategories();
+	void    setupPageSize(int w, int h);
 };
 
 #endif

@@ -259,17 +259,7 @@ QString sat::getTemplateTag()
 	if (category.isEmpty())
 		category = QObject::tr("Own Templates");
 	else
-	{
-		for (uint i = 0; i < dia->cats.size(); i++)
-		{
-			QString tmp = *dia->cats[i]->second;
-			if (category == tmp)
-			{
-				category = *dia->cats[i]->first;
-				break;
-			}
-		}
-	}
+		category = dia->cats.key(category, category);
 	QDate now = QDate::currentDate();
 	QString cat = QString(category);
 	replaceIllegalChars(cat);
