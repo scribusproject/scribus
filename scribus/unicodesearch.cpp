@@ -34,9 +34,12 @@ UnicodeChooseButton::UnicodeChooseButton(QWidget * parent)
 	connect(m_searchDialog, SIGNAL(setVisibleState(bool)), this, SLOT(setChecked(bool)));
 	//
 	// listview user inputs
-	connect(m_searchDialog->unicodeList, SIGNAL(itemDoubleClicked(QTableWidgetItem *)), this, SLOT(unicodeList_chosen(QTableWidgetItem *)));
+	connect(m_searchDialog->unicodeList, SIGNAL(itemDoubleClicked(QTableWidgetItem *)),
+			this, SLOT(unicodeList_chosen(QTableWidgetItem *)));
 // 	connect(m_searchDialog->unicodeList, SIGNAL(itemActivated(QTableWidgetItem *)), this, SLOT(unicodeList_chosen(QTableWidgetItem *)));
 // 	connect(m_searchDialog->unicodeList, SIGNAL(itemPressed(QTableWidgetItem *)), this, SLOT(unicodeList_chosen(QTableWidgetItem *)));
+	connect(m_searchDialog->unicodeList, SIGNAL(cellDoubleClicked(int, int)),
+			this, SLOT(unicodeList_chosen(int, int)));
 }
 
 void UnicodeChooseButton::languageChange()
@@ -48,9 +51,14 @@ void UnicodeChooseButton::languageChange()
 void UnicodeChooseButton::unicodeList_chosen(QTableWidgetItem *item)
 {
 	int r=item->row();
-	QTableWidgetItem *item2=m_searchDialog->unicodeList->item(r,0);
+	QTableWidgetItem *item2 = m_searchDialog->unicodeList->item(r,0);
 	emit chosenUnicode(item2->text());
 	emit toggled(false);
+}
+
+void UnicodeChooseButton::unicodeList_chosen(int row, int column)
+{
+	unicodeList_chosen(m_searchDialog->unicodeList->item(row, 0));
 }
 
 void UnicodeChooseButton::self_toggled(bool state)

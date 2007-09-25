@@ -116,6 +116,7 @@ private slots:
 	void self_toggled(bool);
 	//! \brief Handle various signals - user inputs (clicked, return pressed etc.)
 	void unicodeList_chosen(QTableWidgetItem *);
+	void unicodeList_chosen(int row, int column);
 
 };
 
