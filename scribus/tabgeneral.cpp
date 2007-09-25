@@ -40,6 +40,7 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 	// qt styles
 	QStringList STtest;
 	STtest = QStyleFactory::keys();
+	GUICombo->addItem("Default");
 	for (int stt = 0; stt < STtest.count(); ++stt)
 		GUICombo->addItem(STtest[stt]);
 	//GUICombo->setEditable(false);
