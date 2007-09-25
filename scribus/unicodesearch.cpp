@@ -130,13 +130,14 @@ void UnicodeSearch::query()
 	{
 		QTableWidgetItem *item = new QTableWidgetItem(it.key());
 		QTableWidgetItem *item2 = new QTableWidgetItem(it.value());
-		item->setFlags(Qt::ItemIsSelectable);
-		item2->setFlags(Qt::ItemIsSelectable);
+		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		item2->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		unicodeList->setItem(r,0,item);
 		unicodeList->setItem(r,1,item2);
 		delete unicodeList->takeVerticalHeaderItem(r);
 		++r;
 	}
+	unicodeList->resizeColumnsToContents();
 }
 
 void UnicodeSearch::query(QString filter)
@@ -157,11 +158,12 @@ void UnicodeSearch::query(QString filter)
 		QTableWidgetItem *item2 = new QTableWidgetItem(it.value());
 		unicodeList->setItem(r,0,item);
 		unicodeList->setItem(r,1,item2);
-		item->setFlags(Qt::ItemIsSelectable);
-		item2->setFlags(Qt::ItemIsSelectable);
+		item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+		item2->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 		delete unicodeList->takeVerticalHeaderItem(r);
 		++r;
 	}
+	unicodeList->resizeColumnsToContents();
 }
 
 void UnicodeSearch::searchEdit_returnPressed()
