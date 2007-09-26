@@ -839,17 +839,17 @@ void ScribusDoc::enableCMS(bool enable)
 	m_ScMW->mainWindowProgressBar->reset();
 	int cc = PageColors.count() + Items->count();
 	m_ScMW->mainWindowProgressBar->setMaximum(cc);
-	HasCMS = CMSSettings.CMSinUse;
-	BlackPoint   = CMSSettings.BlackPoint;
-	SoftProofing = CMSSettings.SoftProofOn;
-	Gamut        = CMSSettings.GamutCheck;
-	IntentColors = CMSSettings.DefaultIntentColors;
-	IntentImages = CMSSettings.DefaultIntentImages;
 	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 	bool oldCM = CMSSettings.CMSinUse;
 	bool newCM = enable;
 	CloseCMSProfiles();
 	CMSSettings.CMSinUse = newCM;
+	HasCMS       = CMSSettings.CMSinUse;
+	BlackPoint   = CMSSettings.BlackPoint;
+	SoftProofing = CMSSettings.SoftProofOn;
+	Gamut        = CMSSettings.GamutCheck;
+	IntentColors = CMSSettings.DefaultIntentColors;
+	IntentImages = CMSSettings.DefaultIntentImages;
 	if (!CMSSettings.CMSinUse)
 	{
 		HasCMS = false;

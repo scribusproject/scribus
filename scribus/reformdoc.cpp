@@ -472,17 +472,17 @@ void ReformDoc::updateDocumentSettings()
 			ScMW->mainWindowProgressBar->reset();
 			int cc = currDoc->PageColors.count() + currDoc->Items->count();
 			ScMW->mainWindowProgressBar->setMaximum(cc);
-			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
-			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
-			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
-			currDoc->IntentColors = currDoc->CMSSettings.DefaultIntentColors;
-			currDoc->IntentImages = currDoc->CMSSettings.DefaultIntentImages;
 			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			bool newCM  = currDoc->CMSSettings.CMSinUse;
 			bool updCol = false;
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
+			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
+			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
+			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
+			currDoc->IntentColors = currDoc->CMSSettings.DefaultIntentColors;
+			currDoc->IntentImages = currDoc->CMSSettings.DefaultIntentImages;
 			if (!currDoc->CMSSettings.CMSinUse)
 			{
 				currDoc->HasCMS = false;

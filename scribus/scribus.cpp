@@ -3749,7 +3749,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			}
 			doc->SoftProofing = doc->CMSSettings.SoftProofOn;
-			doc->Gamut = doc->CMSSettings.GamutCheck;
+			doc->Gamut        = doc->CMSSettings.GamutCheck;
 			doc->IntentColors = doc->CMSSettings.DefaultIntentColors;
 			doc->IntentImages = doc->CMSSettings.DefaultIntentImages;
 			if (doc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
