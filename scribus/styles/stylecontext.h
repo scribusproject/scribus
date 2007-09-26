@@ -18,11 +18,10 @@
 #define STYLECONTEXT_H
 
 #include <cassert>
-#include <Q3Signal>
 #include <QString>
 #include <QList>
 #include "scribusapi.h"
-
+#include "observable.h"
 
 class Style;
 
@@ -33,17 +32,17 @@ class Style;
  invalidate() to increase the version info. Styles using this StyleContext will then
  update their cached values the next time they are used.
  */
-class SCRIBUS_API StyleContext {
+class SCRIBUS_API StyleContext : public Observable<StyleContext> {
 	
 public:
 	StyleContext() 
-	: m_version(0), m_sig(), m_cnt(0)
+	: m_version(0), m_cnt(0)
 	{
 //		qDebug(QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
 
 	StyleContext(const StyleContext& o) 
-	: m_version(o.m_version), m_sig(), m_cnt(0)
+	: m_version(o.m_version), m_cnt(0)
 	{
 //		qDebug(QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
@@ -69,13 +68,12 @@ public:
 
 	void invalidate(); 
 	
-	bool connect(const QObject* receiver, const char *member ) const;
-	bool disconnect(const QObject* receiver, const char *member=0 ) const;
+	bool connect(QObject* receiver, const char *member ) const;
+	bool disconnect(QObject* receiver, const char *member=0 ) const;
 	
 	
 protected:
 	int m_version;
-	mutable Q3Signal m_sig;
 	mutable int m_cnt;
 };
 

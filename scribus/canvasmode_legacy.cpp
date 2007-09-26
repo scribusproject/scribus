@@ -392,7 +392,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				for (int dre=0; dre<m_doc->m_Selection->count(); ++dre)
 					m_doc->DragElements.append(m_doc->m_Selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
-				//Q3DragObject *dr = new Q3TextDrag(ss->WriteElem(Doc, this, m_doc->m_Selection), this);
+				//Q_3DragObject *dr = new Q_3TextDrag(ss->WriteElem(Doc, this, m_doc->m_Selection), this);
 				QMimeData* md = new QMimeData();
 				md->setText(ss->WriteElem(m_doc, m_view, m_doc->m_Selection));
 				QDrag* dr = new QDrag(m_view);

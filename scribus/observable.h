@@ -108,8 +108,8 @@ public:
 	void connectObserver(Observer<OBSERVED>* o);
 	void disconnectObserver(Observer<OBSERVED>* o);
 	
-	void connectObserver(QObject* o, const char* slot);
-	void disconnectObserver(QObject* o, const char* slot = 0);
+	bool connectObserver(QObject* o, const char* slot);
+	bool disconnectObserver(QObject* o, const char* slot = 0);
 	
 protected:
 	/**
@@ -213,7 +213,7 @@ template<class OBSERVED>
 inline void MassObservable<OBSERVED>::update(OBSERVED what)
 {
 	Private_Memento<OBSERVED>* memento = new Private_Memento<OBSERVED>(what);
-	if (m_um->requestUpdate(this, memento))
+	if (m_um == NULL || m_um->requestUpdate(this, memento))
 	{
 		updateNow(memento);
 	}
@@ -246,15 +246,15 @@ inline void MassObservable<OBSERVED>::disconnectObserver(Observer<OBSERVED>* o)
 }
 
 template<class OBSERVED>
-inline void MassObservable<OBSERVED>::connectObserver(QObject* o, const char* slot)
+inline bool MassObservable<OBSERVED>::connectObserver(QObject* o, const char* slot)
 {
-	QObject::connect(changedSignal, SIGNAL(changed(OBSERVED)), o, slot);
+	return QObject::connect(changedSignal, SIGNAL(changed(OBSERVED)), o, slot);
 }
 
 template<class OBSERVED>
-inline void MassObservable<OBSERVED>::disconnectObserver(QObject* o, const char* slot)
+inline bool MassObservable<OBSERVED>::disconnectObserver(QObject* o, const char* slot)
 {
-	QObject::disconnect(changedSignal, SIGNAL(changed(OBSERVED)), o, slot);
+	return QObject::disconnect(changedSignal, SIGNAL(changed(OBSERVED)), o, slot);
 }
 
 

@@ -856,9 +856,9 @@ void SEditor::paste()
 //	emit SideBarUpdate();
 }
 /*
-Q3PopupMenu* SEditor::createPopupMenu(const QPoint & pos)
+Q_3PopupMenu* SEditor::createPopupMenu(const QPoint & pos)
 {
-	Q3PopupMenu *p = Q3TextEdit::createPopupMenu(pos);
+	Q_3PopupMenu *p = Q_3TextEdit::createPopupMenu(pos);
 	p->removeItemAt(0);
 	p->removeItemAt(0);
 	p->removeItemAt(0);
