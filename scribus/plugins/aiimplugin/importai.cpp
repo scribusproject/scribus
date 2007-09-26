@@ -899,10 +899,12 @@ QStringList AIPlug::getStrings(QString data)
 {
 	QStringList result;
 	result.clear();
-	QString tmp;
+	QChar tmp;
 	QString tmp2 = "";
+	QString tmp3 = "";
 	bool paran = false;
 	bool skip = false;
+	int digitCount = 0;
 	for (int a = 0; a < data.count(); a++)
 	{
 		tmp = data[a];
@@ -910,26 +912,44 @@ QStringList AIPlug::getStrings(QString data)
 		{
 			if (paran)
 			{
-				if (tmp == "r")
-					tmp = SpecialChars::PARSEP;
-				tmp2 += tmp;
+				if (tmp.isDigit())
+				{
+					tmp3 += tmp;
+					digitCount++;
+					if (digitCount == 3)
+					{
+						bool ok = false;
+						int code = tmp3.toInt(&ok, 8);
+						if (ok)
+							tmp2 += QChar(code);
+						digitCount = 0;
+						tmp3 = "";
+						skip = false;
+					}
+				}
+				else
+				{
+					if (tmp == 'r')
+						tmp = SpecialChars::PARSEP;
+					tmp2 += tmp;
+					skip = false;
+				}
 			}
-			skip = false;
 			continue;
 		}
-		if (tmp == "(")
+		if (tmp == '(')
 		{
 			paran = true;
 			continue;
 		}
-		if (tmp == ")")
+		if (tmp == ')')
 		{
 			paran = false;
 			result.append(tmp2);
 			tmp2 = "";
 			continue;
 		}
-		if (tmp == "\\")
+		if (tmp == '\\')
 		{
 			skip = true;
 			continue;
