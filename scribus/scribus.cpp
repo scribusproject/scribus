@@ -3470,15 +3470,15 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			}
 #ifdef HAVE_CMS
-			doc->BlackPoint = doc->CMSSettings.BlackPoint;
-			doc->SoftProofing = doc->CMSSettings.SoftProofOn;
-			doc->Gamut = doc->CMSSettings.GamutCheck;
-			CMSuse = doc->CMSSettings.CMSinUse;
+			doc->BlackPoint    = doc->CMSSettings.BlackPoint;
+			doc->SoftProofing  = doc->CMSSettings.SoftProofOn;
+			doc->Gamut         = doc->CMSSettings.GamutCheck;
+			CMSuse             = doc->CMSSettings.CMSinUse;
 			doc->IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 			doc->IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
-			BlackPoint = doc->BlackPoint;
-			SoftProofing = doc->CMSSettings.SoftProofOn;
-			Gamut = doc->CMSSettings.GamutCheck;
+			BlackPoint    = doc->BlackPoint;
+			SoftProofing  = doc->CMSSettings.SoftProofOn;
+			Gamut         = doc->CMSSettings.GamutCheck;
 			IntentPrinter = doc->CMSSettings.DefaultIntentPrinter;
 			IntentMonitor = doc->CMSSettings.DefaultIntentMonitor;
 			if (doc->OpenCMSProfiles(InputProfiles, MonitorProfiles, PrinterProfiles))

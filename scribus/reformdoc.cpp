@@ -970,24 +970,24 @@ void ReformDoc::updateDocumentSettings()
 			int cc = currDoc->PageColors.count() + currDoc->Items->count();
 			ScMW->mainWindowProgressBar->setTotalSteps(cc);
 #ifdef HAVE_CMS
-			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
-			currDoc->BlackPoint = currDoc->CMSSettings.BlackPoint;
-			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
-			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
-			currDoc->IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
-			currDoc->IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
-			CMSuse = currDoc->CMSSettings.CMSinUse;
-			SoftProofing = currDoc->CMSSettings.SoftProofOn;
-			Gamut = currDoc->CMSSettings.GamutCheck;
-			BlackPoint = currDoc->CMSSettings.BlackPoint;
-			IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
-			IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
 			bool newCM  = currDoc->CMSSettings.CMSinUse;
 			bool updCol = false;
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
+			currDoc->HasCMS        = currDoc->CMSSettings.CMSinUse;
+			currDoc->BlackPoint    = currDoc->CMSSettings.BlackPoint;
+			currDoc->SoftProofing  = currDoc->CMSSettings.SoftProofOn;
+			currDoc->Gamut         = currDoc->CMSSettings.GamutCheck;
+			currDoc->IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
+			currDoc->IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
+			CMSuse        = currDoc->CMSSettings.CMSinUse;
+			SoftProofing  = currDoc->CMSSettings.SoftProofOn;
+			Gamut         = currDoc->CMSSettings.GamutCheck;
+			BlackPoint    = currDoc->CMSSettings.BlackPoint;
+			IntentPrinter = currDoc->CMSSettings.DefaultIntentPrinter;
+			IntentMonitor = currDoc->CMSSettings.DefaultIntentMonitor;
 			if (!currDoc->CMSSettings.CMSinUse)
 			{
 				currDoc->HasCMS = false;
