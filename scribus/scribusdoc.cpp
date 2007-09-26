@@ -8479,7 +8479,7 @@ void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, 
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		PageItem *currItem = itemSelection->itemAt(a);
-		if (!currItem->asLine())
+		if (!(currItem->asLine() || currItem->asPolyLine()))
 			continue;
 		if (startArrowID!=-1)
 		{
