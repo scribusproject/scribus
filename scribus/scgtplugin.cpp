@@ -24,7 +24,6 @@ ScGTPluginManager* ScGTPluginManager::instance_ = 0; // init static variables
 
 ScGTPluginManager::ScGTPluginManager()
 {
-//qt4 not supported and no longer needed with qlist 	plugins_.setAutoDelete(false);
 }
 
 ScGTPluginManager* ScGTPluginManager::instance()

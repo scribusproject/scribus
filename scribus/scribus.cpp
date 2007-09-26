@@ -265,7 +265,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	previewDinUse = false;
 	printDinUse = false;
 	internalCopy = false;
-//qt4 	setUsesBigPixmaps(true);
 	CurrStED = NULL;
 	setWindowTitle( tr("Scribus " VERSION));
 	setAttribute(Qt::WA_KeyCompression, false);
@@ -3114,14 +3113,6 @@ void ScribusMainWindow::HaveNewSel(int SelectedType)
 	{
 		//propertiesPalette->SetCurItem(currItem);
 		outlinePalette->slotShowSelect(currItem->OwnPage, currItem->ItemNr);
-/*Qt4
-		if (currItem->FrameType == 0)
-			SCustom->setPixmap(SCustom->getIconPixmap(0));
-		if (currItem->FrameType == 1)
-			SCustom->setPixmap(SCustom->getIconPixmap(1));
-		if (currItem->FrameType > 3)
-			SCustom->setPixmap(SCustom->getIconPixmap(currItem->FrameType-2));
-*/
 		actionManager->connectNewSelectionActions(view, doc);
 // 		propertiesPalette->NewSel(SelectedType);
 	}
@@ -6238,7 +6229,6 @@ void ScribusMainWindow::setAppMode(int mode)
 			doc->ShapeValues = mainToolBar->ShapeVals;
 			doc->ValCount = mainToolBar->ValCount;
 			propertiesPalette->SCustom->setIcon(propertiesPalette->SCustom->getIconPixmap(doc->SubMode));
-			//Qt4 SCustom->setPixmap(SCustom->getIconPixmap(doc->SubMode));
 		}
 		else
 			doc->SubMode = -1;

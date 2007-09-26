@@ -420,8 +420,6 @@ public slots:
 	void rebuildStyleMenu(int itemType);
 	/** Dokument ist geaendert worden */
 	void slotDocCh(bool reb = true);
-	/** Setzt die Farbe */
-	//qt4 void setItemFarbe(int id);
 	/** Setzt die Abstufung */
 	void setItemShade(int id);
 	/** Setzt den Font */

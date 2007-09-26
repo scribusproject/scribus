@@ -470,7 +470,7 @@ void ScribusQApp::showHeader()
 void ScribusQApp::neverSplash(bool splashOff)
 {
 	QString prefsDir = ScPaths::getApplicationDataDir();
-	QFile ns(prefsDir+"/.neversplash");
+	QFile ns(prefsDir + ".neversplash");
 	if (splashOff)
 	{
 		if (QFileInfo(QDir::homePath()).exists())

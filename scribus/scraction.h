@@ -190,13 +190,6 @@ protected:
 	*/
 	void addedTo( int index, QMenu * menu );
 				
-	/*!
-		\author Craig Bradney
-		\date Jan 2005
-		\brief Set the icon size for the actions that have them assigned. 16x16 for menus (small), 22x22 for toolbars.
-	*/
-	void setIconSizes();
-			
 private slots:
 	/*!
 		\author Craig Bradney

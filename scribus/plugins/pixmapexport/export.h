@@ -80,6 +80,4 @@ private:
 	bool exportPage(ScribusDoc* doc, uint pageNr, bool single);
 };
 
-//qt4 whats this for? ScrAction *fileNewFromTemplateAction;
-
 #endif

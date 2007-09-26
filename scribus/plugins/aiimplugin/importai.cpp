@@ -124,7 +124,7 @@ bool AIPlug::import(QString fNameIn, int flags, bool showProgress)
 		progressDialog->setOverallProgress(0);
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
-//qt4 FIXME 		connect(progressDialog->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));
+		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
 		qApp->processEvents();
 	}
 	else

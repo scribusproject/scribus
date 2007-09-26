@@ -27,8 +27,6 @@ Query::Query( QWidget* parent,  const char* name, bool modal, Qt::WFlags fl, QSt
 	answerEdit = new QLineEdit( this );
 	questionLabel = new QLabel( text, this );
 	questionLabel->setBuddy(answerEdit);
-//Qt4	questionLabel->setFrameShape( QLabel::MShape );
-//Qt4	questionLabel->setFrameShadow( QLabel::MShadow );
 	questionLabel->adjustSize();
 	editLayout->addWidget( questionLabel );
 	editLayout->addWidget( answerEdit );

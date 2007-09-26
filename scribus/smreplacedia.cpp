@@ -48,7 +48,6 @@ SMRowWidget::~SMRowWidget()
 SMReplaceDia::SMReplaceDia(const QStringList &toBeDeleted, const QStringList &replaceOptions, QWidget *parent) : QDialog(parent)
 {
 	setupUi(this);
-//qt4 replaced by manual delete in ~ 	rowWidgets.setAutoDelete(true);
 
 	QStringList options;
 

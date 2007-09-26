@@ -1544,7 +1544,6 @@ bool PrefsManager::WritePref(QString ho)
 		QTextStream s(&f);
 		s.setCodec("UTF-8");
 		s<<docu.toString();
-		//Qt4 if (f.status() == IO_Ok)
 		if (f.error()==QFile::NoError)
 			result = true;
 		else
