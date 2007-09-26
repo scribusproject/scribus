@@ -43,7 +43,7 @@ ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & 
 	_actionType=aType;
 
 	if (_actionType!=Normal)
-		connect (this, SIGNAL(activated()), this, SLOT(activatedToActivatedData()));
+		connect (this, SIGNAL(triggered()), this, SLOT(activatedToActivatedData()));
 	switch (_actionType)
 	{
 		case DataInt:
@@ -197,7 +197,7 @@ void ScrAction::setToggleAction(bool isToggle, bool isFakeToggle)
 	QAction::setCheckable(isToggle);
 	fakeToggle=isFakeToggle;
 	//if (fakeToggle)
-		//connect(this, toggled(bool), this, activated());
+		//connect(this, toggled(bool), this, triggered());
 }
 
 void ScrAction::saveShortcut()

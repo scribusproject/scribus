@@ -76,7 +76,7 @@ SVGImportPlugin::SVGImportPlugin() : LoadSavePlugin(),
 void SVGImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(activated()), SLOT(import()) );
+	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
 	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 

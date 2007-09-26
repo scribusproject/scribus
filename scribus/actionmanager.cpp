@@ -141,27 +141,27 @@ void ActionManager::initFileMenuActions()
 
 	//Connect our signals and slots
 	//File Menu
-	connect( (*scrActions)["fileNew"], SIGNAL(activated()), mainWindow, SLOT(slotFileNew()) );
-	connect( (*scrActions)["fileOpen"], SIGNAL(activated()), mainWindow, SLOT(slotDocOpen()) );
-	connect( (*scrActions)["fileClose"], SIGNAL(activated()), mainWindow, SLOT(slotFileClose()) );
-	connect( (*scrActions)["filePrint"], SIGNAL(activated()), mainWindow, SLOT(slotFilePrint()) );
-	connect( (*scrActions)["PrintPreview"], SIGNAL(activated()), mainWindow, SLOT(printPreview()) );
-	connect( (*scrActions)["fileSave"], SIGNAL(activated()), mainWindow, SLOT(slotFileSave()) );
-	connect( (*scrActions)["fileSaveAs"], SIGNAL(activated()), mainWindow, SLOT(slotFileSaveAs()) );
-	connect( (*scrActions)["fileDocSetup"], SIGNAL(activated()), mainWindow, SLOT(slotDocSetup()) );
-	connect( (*scrActions)["filePreferences"], SIGNAL(activated()), mainWindow, SLOT(slotPrefsOrg()) );
-	connect( (*scrActions)["fileRevert"], SIGNAL(activated()), mainWindow, SLOT(slotFileRevert()) );
-	connect( (*scrActions)["fileCollect"], SIGNAL(activated()), mainWindow, SLOT(Collect()) );
-	connect( (*scrActions)["fileQuit"], SIGNAL(activated()), mainWindow, SLOT(slotFileQuit()) );
+	connect( (*scrActions)["fileNew"], SIGNAL(triggered()), mainWindow, SLOT(slotFileNew()) );
+	connect( (*scrActions)["fileOpen"], SIGNAL(triggered()), mainWindow, SLOT(slotDocOpen()) );
+	connect( (*scrActions)["fileClose"], SIGNAL(triggered()), mainWindow, SLOT(slotFileClose()) );
+	connect( (*scrActions)["filePrint"], SIGNAL(triggered()), mainWindow, SLOT(slotFilePrint()) );
+	connect( (*scrActions)["PrintPreview"], SIGNAL(triggered()), mainWindow, SLOT(printPreview()) );
+	connect( (*scrActions)["fileSave"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSave()) );
+	connect( (*scrActions)["fileSaveAs"], SIGNAL(triggered()), mainWindow, SLOT(slotFileSaveAs()) );
+	connect( (*scrActions)["fileDocSetup"], SIGNAL(triggered()), mainWindow, SLOT(slotDocSetup()) );
+	connect( (*scrActions)["filePreferences"], SIGNAL(triggered()), mainWindow, SLOT(slotPrefsOrg()) );
+	connect( (*scrActions)["fileRevert"], SIGNAL(triggered()), mainWindow, SLOT(slotFileRevert()) );
+	connect( (*scrActions)["fileCollect"], SIGNAL(triggered()), mainWindow, SLOT(Collect()) );
+	connect( (*scrActions)["fileQuit"], SIGNAL(triggered()), mainWindow, SLOT(slotFileQuit()) );
 	//File Import Menu
-	connect( (*scrActions)["fileImportText"], SIGNAL(activated()), mainWindow, SLOT(slotGetContent()) );
-	connect( (*scrActions)["fileImportText2"], SIGNAL(activated()), mainWindow, SLOT(slotGetContent2()) );
-	connect( (*scrActions)["fileImportAppendText"], SIGNAL(activated()), mainWindow, SLOT(slotFileAppend()) );
-	connect( (*scrActions)["fileImportImage"], SIGNAL(activated()), mainWindow, SLOT(slotGetContent()) );
+	connect( (*scrActions)["fileImportText"], SIGNAL(triggered()), mainWindow, SLOT(slotGetContent()) );
+	connect( (*scrActions)["fileImportText2"], SIGNAL(triggered()), mainWindow, SLOT(slotGetContent2()) );
+	connect( (*scrActions)["fileImportAppendText"], SIGNAL(triggered()), mainWindow, SLOT(slotFileAppend()) );
+	connect( (*scrActions)["fileImportImage"], SIGNAL(triggered()), mainWindow, SLOT(slotGetContent()) );
 	//File Export Menu
-	connect( (*scrActions)["fileExportText"], SIGNAL(activated()), mainWindow, SLOT(SaveText()) );
-	connect( (*scrActions)["fileExportAsEPS"], SIGNAL(activated()), mainWindow, SLOT(SaveAsEps()) );
-	connect( (*scrActions)["fileExportAsPDF"], SIGNAL(activated()), mainWindow, SLOT(SaveAsPDF()) );
+	connect( (*scrActions)["fileExportText"], SIGNAL(triggered()), mainWindow, SLOT(SaveText()) );
+	connect( (*scrActions)["fileExportAsEPS"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsEps()) );
+	connect( (*scrActions)["fileExportAsPDF"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsPDF()) );
 	//The rest are plugins
 }
 
@@ -217,21 +217,21 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
 	connect( (*scrActions)["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
 	connect( (*scrActions)["editActionMode"], SIGNAL(toggled(bool)), mainWindow, SLOT(setUndoMode(bool)) );
-	connect( (*scrActions)["editCut"], SIGNAL(activated()), mainWindow, SLOT(slotEditCut()) );
-	connect( (*scrActions)["editCopy"], SIGNAL(activated()), mainWindow, SLOT(slotEditCopy()) );
-	connect( (*scrActions)["editPaste"], SIGNAL(activated()), mainWindow, SLOT(slotEditPaste()) );
-	connect( (*scrActions)["editCopyContents"], SIGNAL(activated()), mainWindow, SLOT(slotEditCopyContents()) );
+	connect( (*scrActions)["editCut"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCut()) );
+	connect( (*scrActions)["editCopy"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCopy()) );
+	connect( (*scrActions)["editPaste"], SIGNAL(triggered()), mainWindow, SLOT(slotEditPaste()) );
+	connect( (*scrActions)["editCopyContents"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCopyContents()) );
 	connect( (*scrActions)["editPasteContents"], SIGNAL(activatedData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
 	connect( (*scrActions)["editPasteContentsAbs"], SIGNAL(activatedData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
-	connect( (*scrActions)["editSelectAll"], SIGNAL(activated()), mainWindow, SLOT(SelectAll()) );
-	connect( (*scrActions)["editDeselectAll"], SIGNAL(activated()), mainWindow, SLOT(deselectAll()) );
-	connect( (*scrActions)["editSearchReplace"], SIGNAL(activated()), mainWindow, SLOT(SearchText()) );
-	connect( (*scrActions)["editEditWithImageEditor"], SIGNAL(activated()), mainWindow, SLOT(callImageEditor()) );
-	connect( (*scrActions)["editEditWithLatexEditor"], SIGNAL(activated()), mainWindow, SLOT(callImageEditor()) );
-	connect( (*scrActions)["editColors"], SIGNAL(activated()), mainWindow, SLOT(slotEditColors()) );
-	connect( (*scrActions)["editPatterns"], SIGNAL(activated()), mainWindow, SLOT(managePatterns()) );
-	connect( (*scrActions)["editMasterPages"], SIGNAL(activated()), mainWindow, SLOT(manageMasterPages()) );
-	connect( (*scrActions)["editJavascripts"], SIGNAL(activated()), mainWindow, SLOT(ManageJava()) );
+	connect( (*scrActions)["editSelectAll"], SIGNAL(triggered()), mainWindow, SLOT(SelectAll()) );
+	connect( (*scrActions)["editDeselectAll"], SIGNAL(triggered()), mainWindow, SLOT(deselectAll()) );
+	connect( (*scrActions)["editSearchReplace"], SIGNAL(triggered()), mainWindow, SLOT(SearchText()) );
+	connect( (*scrActions)["editEditWithImageEditor"], SIGNAL(triggered()), mainWindow, SLOT(callImageEditor()) );
+	connect( (*scrActions)["editEditWithLatexEditor"], SIGNAL(triggered()), mainWindow, SLOT(callImageEditor()) );
+	connect( (*scrActions)["editColors"], SIGNAL(triggered()), mainWindow, SLOT(slotEditColors()) );
+	connect( (*scrActions)["editPatterns"], SIGNAL(triggered()), mainWindow, SLOT(managePatterns()) );
+	connect( (*scrActions)["editMasterPages"], SIGNAL(triggered()), mainWindow, SLOT(manageMasterPages()) );
+	connect( (*scrActions)["editJavascripts"], SIGNAL(triggered()), mainWindow, SLOT(ManageJava()) );
 }
 
 void ActionManager::initStyleMenuActions()
@@ -338,8 +338,8 @@ void ActionManager::initStyleMenuActions()
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 	name="styleTabulators";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
-	connect( (*scrActions)["styleImageEffects"], SIGNAL(activated()), mainWindow, SLOT(ImageEffects()));
-	connect( (*scrActions)["styleTabulators"], SIGNAL(activated()), mainWindow, SLOT(EditTabs()));
+	connect( (*scrActions)["styleImageEffects"], SIGNAL(triggered()), mainWindow, SLOT(ImageEffects()));
+	connect( (*scrActions)["styleTabulators"], SIGNAL(triggered()), mainWindow, SLOT(EditTabs()));
 
 }
 
@@ -445,17 +445,17 @@ void ActionManager::initItemMenuActions()
 	name="itemConvertToTextFrame";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 
-	connect( (*scrActions)["itemDuplicate"], SIGNAL(activated()), mainWindow, SLOT(ObjektDup()) );
-	connect( (*scrActions)["itemMulDuplicate"], SIGNAL(activated()), mainWindow, SLOT(ObjektDupM()) );
-	connect( (*scrActions)["itemGroup"], SIGNAL(activated()), mainWindow, SLOT(GroupObj()) );
-	connect( (*scrActions)["itemUngroup"], SIGNAL(activated()), mainWindow, SLOT(UnGroupObj()) );
-	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(activated()), mainWindow, SLOT(ModifyAnnot()) );
-	connect( (*scrActions)["itemPDFFieldProps"], SIGNAL(activated()), mainWindow, SLOT(ModifyAnnot()) );
-	connect( (*scrActions)["itemSendToScrapbook"], SIGNAL(activated()), mainWindow, SLOT(PutScrap()) );
-	connect( (*scrActions)["itemSendToPattern"], SIGNAL(activated()), mainWindow, SLOT(PutToPatterns()) );
-	connect( (*scrActions)["itemAttributes"], SIGNAL(activated()), mainWindow, SLOT(objectAttributes()) );
-	connect( (*scrActions)["itemShapeEdit"], SIGNAL(activated()), mainWindow, SLOT(toggleNodeEdit()) );
-	connect( (*scrActions)["itemImageInfo"], SIGNAL(activated()), mainWindow, SLOT(getImageInfo()) );
+	connect( (*scrActions)["itemDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(ObjektDup()) );
+	connect( (*scrActions)["itemMulDuplicate"], SIGNAL(triggered()), mainWindow, SLOT(ObjektDupM()) );
+	connect( (*scrActions)["itemGroup"], SIGNAL(triggered()), mainWindow, SLOT(GroupObj()) );
+	connect( (*scrActions)["itemUngroup"], SIGNAL(triggered()), mainWindow, SLOT(UnGroupObj()) );
+	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(triggered()), mainWindow, SLOT(ModifyAnnot()) );
+	connect( (*scrActions)["itemPDFFieldProps"], SIGNAL(triggered()), mainWindow, SLOT(ModifyAnnot()) );
+	connect( (*scrActions)["itemSendToScrapbook"], SIGNAL(triggered()), mainWindow, SLOT(PutScrap()) );
+	connect( (*scrActions)["itemSendToPattern"], SIGNAL(triggered()), mainWindow, SLOT(PutToPatterns()) );
+	connect( (*scrActions)["itemAttributes"], SIGNAL(triggered()), mainWindow, SLOT(objectAttributes()) );
+	connect( (*scrActions)["itemShapeEdit"], SIGNAL(triggered()), mainWindow, SLOT(toggleNodeEdit()) );
+	connect( (*scrActions)["itemImageInfo"], SIGNAL(triggered()), mainWindow, SLOT(getImageInfo()) );
 }
 
 void ActionManager::initInsertMenuActions()
@@ -473,10 +473,10 @@ void ActionManager::initInsertMenuActions()
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 	(*scrActions)["stickyTools"]->setToggleAction(true);
 
-	connect( (*scrActions)["insertFrame"], SIGNAL(activated()), mainWindow, SLOT(slotInsertFrame()) );
-	connect( (*scrActions)["insertGlyph"], SIGNAL(activated()), mainWindow, SLOT(slotCharSelect()) );
-	connect( (*scrActions)["insertSampleText"], SIGNAL(activated()), mainWindow, SLOT(insertSampleText()) );
-	connect( (*scrActions)["stickyTools"], SIGNAL(activated()), mainWindow, SLOT(ToggleStickyTools()) );
+	connect( (*scrActions)["insertFrame"], SIGNAL(triggered()), mainWindow, SLOT(slotInsertFrame()) );
+	connect( (*scrActions)["insertGlyph"], SIGNAL(triggered()), mainWindow, SLOT(slotCharSelect()) );
+	connect( (*scrActions)["insertSampleText"], SIGNAL(triggered()), mainWindow, SLOT(insertSampleText()) );
+	connect( (*scrActions)["stickyTools"], SIGNAL(triggered()), mainWindow, SLOT(ToggleStickyTools()) );
 }
 
 void ActionManager::initPageMenuActions()
@@ -503,14 +503,14 @@ void ActionManager::initPageMenuActions()
 	name="pageManageMargins";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 
-	connect( (*scrActions)["pageInsert"], SIGNAL(activated()), mainWindow, SLOT(slotNewPageM()) );
-	connect( (*scrActions)["pageImport"], SIGNAL(activated()), mainWindow, SLOT(slotPageImport()) );
-	connect( (*scrActions)["pageDelete"], SIGNAL(activated()), mainWindow, SLOT(DeletePage()) );
-	connect( (*scrActions)["pageCopy"], SIGNAL(activated()), mainWindow, SLOT(CopyPage()) );
-	connect( (*scrActions)["pageMove"], SIGNAL(activated()), mainWindow, SLOT(MovePage()) );
-	connect( (*scrActions)["pageApplyMasterPage"], SIGNAL(activated()), mainWindow, SLOT(ApplyMasterPage()) );
-	connect( (*scrActions)["pageCopyToMasterPage"], SIGNAL(activated()), mainWindow, SLOT(duplicateToMasterPage()) );
-	connect( (*scrActions)["pageManageMargins"], SIGNAL(activated()), mainWindow, SLOT(changePageMargins()) );
+	connect( (*scrActions)["pageInsert"], SIGNAL(triggered()), mainWindow, SLOT(slotNewPageM()) );
+	connect( (*scrActions)["pageImport"], SIGNAL(triggered()), mainWindow, SLOT(slotPageImport()) );
+	connect( (*scrActions)["pageDelete"], SIGNAL(triggered()), mainWindow, SLOT(DeletePage()) );
+	connect( (*scrActions)["pageCopy"], SIGNAL(triggered()), mainWindow, SLOT(CopyPage()) );
+	connect( (*scrActions)["pageMove"], SIGNAL(triggered()), mainWindow, SLOT(MovePage()) );
+	connect( (*scrActions)["pageApplyMasterPage"], SIGNAL(triggered()), mainWindow, SLOT(ApplyMasterPage()) );
+	connect( (*scrActions)["pageCopyToMasterPage"], SIGNAL(triggered()), mainWindow, SLOT(duplicateToMasterPage()) );
+	connect( (*scrActions)["pageManageMargins"], SIGNAL(triggered()), mainWindow, SLOT(changePageMargins()) );
 }
 
 void ActionManager::initViewMenuActions()
@@ -599,22 +599,22 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewFit100"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit200"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit400"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
-	connect( (*scrActions)["viewShowMargins"], SIGNAL(activated()), mainWindow, SLOT(ToggleMarks()) );
-	connect( (*scrActions)["viewShowBleeds"], SIGNAL(activated()), mainWindow, SLOT(ToggleBleeds()) );
-	connect( (*scrActions)["viewShowFrames"], SIGNAL(activated()), mainWindow, SLOT(ToggleFrames()) );
-	connect( (*scrActions)["viewShowLayerMarkers"], SIGNAL(activated()), mainWindow, SLOT(ToggleLayerMarkers()) );
-	connect( (*scrActions)["viewShowImages"], SIGNAL(activated()), mainWindow, SLOT(TogglePics()) );
-	connect( (*scrActions)["viewShowGrid"], SIGNAL(activated()), mainWindow, SLOT(ToggleRaster()) );
-	connect( (*scrActions)["viewShowGuides"], SIGNAL(activated()), mainWindow, SLOT(ToggleGuides()) );
-	connect( (*scrActions)["viewShowColumnBorders"], SIGNAL(activated()), mainWindow, SLOT(ToggleColumnBorders()) );
-	connect( (*scrActions)["viewShowBaseline"], SIGNAL(activated()), mainWindow, SLOT(ToggleBase()) );
-	connect( (*scrActions)["viewShowTextChain"], SIGNAL(activated()), mainWindow, SLOT(ToggleTextLinks()) );
-	connect( (*scrActions)["viewShowTextControls"], SIGNAL(activated()), mainWindow, SLOT(ToggleTextControls()) );
-	connect( (*scrActions)["viewShowRulers"], SIGNAL(activated()), mainWindow, SLOT(ToggleRulers()) );
-	connect( (*scrActions)["viewRulerMode"], SIGNAL(activated()), mainWindow, SLOT(ToggleRulerMode()) );
-	connect( (*scrActions)["viewSnapToGrid"], SIGNAL(activated()), mainWindow, SLOT(ToggleURaster()) );
-	connect( (*scrActions)["viewSnapToGuides"], SIGNAL(activated()), mainWindow, SLOT(ToggleUGuides()) );
-//	connect( (*scrActions)["viewNewView"], SIGNAL(activated()), mainWindow, SLOT(newView()) );
+	connect( (*scrActions)["viewShowMargins"], SIGNAL(triggered()), mainWindow, SLOT(ToggleMarks()) );
+	connect( (*scrActions)["viewShowBleeds"], SIGNAL(triggered()), mainWindow, SLOT(ToggleBleeds()) );
+	connect( (*scrActions)["viewShowFrames"], SIGNAL(triggered()), mainWindow, SLOT(ToggleFrames()) );
+	connect( (*scrActions)["viewShowLayerMarkers"], SIGNAL(triggered()), mainWindow, SLOT(ToggleLayerMarkers()) );
+	connect( (*scrActions)["viewShowImages"], SIGNAL(triggered()), mainWindow, SLOT(TogglePics()) );
+	connect( (*scrActions)["viewShowGrid"], SIGNAL(triggered()), mainWindow, SLOT(ToggleRaster()) );
+	connect( (*scrActions)["viewShowGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleGuides()) );
+	connect( (*scrActions)["viewShowColumnBorders"], SIGNAL(triggered()), mainWindow, SLOT(ToggleColumnBorders()) );
+	connect( (*scrActions)["viewShowBaseline"], SIGNAL(triggered()), mainWindow, SLOT(ToggleBase()) );
+	connect( (*scrActions)["viewShowTextChain"], SIGNAL(triggered()), mainWindow, SLOT(ToggleTextLinks()) );
+	connect( (*scrActions)["viewShowTextControls"], SIGNAL(triggered()), mainWindow, SLOT(ToggleTextControls()) );
+	connect( (*scrActions)["viewShowRulers"], SIGNAL(triggered()), mainWindow, SLOT(ToggleRulers()) );
+	connect( (*scrActions)["viewRulerMode"], SIGNAL(triggered()), mainWindow, SLOT(ToggleRulerMode()) );
+	connect( (*scrActions)["viewSnapToGrid"], SIGNAL(triggered()), mainWindow, SLOT(ToggleURaster()) );
+	connect( (*scrActions)["viewSnapToGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleUGuides()) );
+//	connect( (*scrActions)["viewNewView"], SIGNAL(triggered()), mainWindow, SLOT(newView()) );
 
 }
 
@@ -786,8 +786,8 @@ void ActionManager::initExtrasMenuActions()
 	name="extrasGenerateTableOfContents";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow));
 
-	connect( (*scrActions)["extrasManagePictures"], SIGNAL(activated()), mainWindow, SLOT(StatusPic()) );
-	connect( (*scrActions)["extrasGenerateTableOfContents"], SIGNAL(activated()), mainWindow, SLOT(generateTableOfContents()) );
+	connect( (*scrActions)["extrasManagePictures"], SIGNAL(triggered()), mainWindow, SLOT(StatusPic()) );
+	connect( (*scrActions)["extrasGenerateTableOfContents"], SIGNAL(triggered()), mainWindow, SLOT(generateTableOfContents()) );
 }
 
 
@@ -829,11 +829,11 @@ void ActionManager::initHelpMenuActions()
 	(*scrActions)["helpTooltips"]->setToggleAction(true);
 	(*scrActions)["helpTooltips"]->setChecked(true);
 
-	connect( (*scrActions)["helpAboutScribus"], SIGNAL(activated()), mainWindow, SLOT(slotHelpAbout()) );
-	connect( (*scrActions)["helpAboutPlugins"], SIGNAL(activated()), mainWindow, SLOT(slotHelpAboutPlugins()) );
-	connect( (*scrActions)["helpAboutQt"], SIGNAL(activated()), mainWindow, SLOT(slotHelpAboutQt()) );
-	connect( (*scrActions)["helpTooltips"], SIGNAL(activated()), mainWindow, SLOT(ToggleTips()) );
-	connect( (*scrActions)["helpManual"], SIGNAL(activated()), mainWindow, SLOT(slotOnlineHelp()) );
+	connect( (*scrActions)["helpAboutScribus"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpAbout()) );
+	connect( (*scrActions)["helpAboutPlugins"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpAboutPlugins()) );
+	connect( (*scrActions)["helpAboutQt"], SIGNAL(triggered()), mainWindow, SLOT(slotHelpAboutQt()) );
+	connect( (*scrActions)["helpTooltips"], SIGNAL(triggered()), mainWindow, SLOT(ToggleTips()) );
+	connect( (*scrActions)["helpManual"], SIGNAL(triggered()), mainWindow, SLOT(slotOnlineHelp()) );
 	UrlLauncher* ul=UrlLauncher::instance();
 	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
@@ -993,8 +993,8 @@ void ActionManager::initSpecialActions()
 	name="specialToggleAllGuides";
 	scrActions->insert(name, new ScrAction(ScrAction::DataQString, QPixmap(), QPixmap(), "", defKeys[name], mainWindow, 0,0.0,name));
 
-	connect( (*scrActions)["specialToggleAllPalettes"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllPalettes()) );
-	connect( (*scrActions)["specialToggleAllGuides"], SIGNAL(activated()), mainWindow, SLOT(ToggleAllGuides()) );
+	connect( (*scrActions)["specialToggleAllPalettes"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllPalettes()) );
+	connect( (*scrActions)["specialToggleAllGuides"], SIGNAL(triggered()), mainWindow, SLOT(ToggleAllGuides()) );
 }
 
 void ActionManager::disconnectModeActions()
@@ -1030,18 +1030,18 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 {
 	if (currDoc==NULL)
 		return;
-	connect( (*scrActions)["itemLock"], SIGNAL(activated()), currDoc, SLOT(itemSelection_ToggleLock()) );
-	connect( (*scrActions)["itemLockSize"], SIGNAL(activated()), currDoc, SLOT(itemSelection_ToggleSizeLock()));
-	connect( (*scrActions)["itemPrintingEnabled"], SIGNAL(activated()), currDoc, SLOT(itemSelection_TogglePrintEnabled()));
-	connect( (*scrActions)["itemFlipH"], SIGNAL(activated()), currDoc, SLOT(itemSelection_FlipH()));
-	connect( (*scrActions)["itemFlipV"], SIGNAL(activated()), currDoc, SLOT(itemSelection_FlipV()));
-	connect( (*scrActions)["itemCombinePolygons"], SIGNAL(activated()), currDoc, SLOT(itemSelection_UniteItems()) );
-	connect( (*scrActions)["itemSplitPolygons"], SIGNAL(activated()), currDoc, SLOT(itemSelection_SplitItems()) );
-	connect( (*scrActions)["itemUpdateImage"], SIGNAL(activated()), currDoc, SLOT(updatePic()) );
-	connect( (*scrActions)["extrasHyphenateText"], SIGNAL(activated()), currDoc, SLOT(itemSelection_DoHyphenate()) );
-	connect( (*scrActions)["extrasDeHyphenateText"], SIGNAL(activated()), currDoc, SLOT(itemSelection_DoDeHyphenate()) );
-	connect( (*scrActions)["itemDelete"], SIGNAL(activated()), currDoc, SLOT(itemSelection_DeleteItem()) );
-	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(activated()), currDoc, SLOT(itemSelection_adjustFrametoImageSize()) );
+	connect( (*scrActions)["itemLock"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleLock()) );
+	connect( (*scrActions)["itemLockSize"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleSizeLock()));
+	connect( (*scrActions)["itemPrintingEnabled"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_TogglePrintEnabled()));
+	connect( (*scrActions)["itemFlipH"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_FlipH()));
+	connect( (*scrActions)["itemFlipV"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_FlipV()));
+	connect( (*scrActions)["itemCombinePolygons"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UniteItems()) );
+	connect( (*scrActions)["itemSplitPolygons"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SplitItems()) );
+	connect( (*scrActions)["itemUpdateImage"], SIGNAL(triggered()), currDoc, SLOT(updatePic()) );
+	connect( (*scrActions)["extrasHyphenateText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DoHyphenate()) );
+	connect( (*scrActions)["extrasDeHyphenateText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DoDeHyphenate()) );
+	connect( (*scrActions)["itemDelete"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteItem()) );
+	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_adjustFrametoImageSize()) );
 }
 
 void ActionManager::disconnectNewViewActions()
@@ -1070,21 +1070,21 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 {
 	if (currView==NULL)
 		return;
-	connect( (*scrActions)["viewFitPreview"], SIGNAL(activated()), currView, SLOT(togglePreview()) );
-	connect( (*scrActions)["toolsZoomIn"], SIGNAL(activated()) , currView, SLOT(slotZoomIn()) );
-	connect( (*scrActions)["toolsZoomOut"], SIGNAL(activated()) , currView, SLOT(slotZoomOut()) );
-	connect( (*scrActions)["itemLowerToBottom"], SIGNAL(activated()), currView, SLOT(ToBack()) );
-	connect( (*scrActions)["itemRaiseToTop"], SIGNAL(activated()), currView, SLOT(ToFront()) );
-	connect( (*scrActions)["itemRaise"], SIGNAL(activated()), currView, SLOT(RaiseItem()) );
-	connect( (*scrActions)["itemLower"], SIGNAL(activated()), currView, SLOT(LowerItem()) );
-	connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(activated()), currView, SLOT(ToBezierFrame()) );
-	connect( (*scrActions)["itemConvertToImageFrame"], SIGNAL(activated()), currView, SLOT(ToPicFrame()) );
-	connect( (*scrActions)["itemConvertToOutlines"], SIGNAL(activated()), currView, SLOT(TextToPath()) );
-	connect( (*scrActions)["itemConvertToPolygon"], SIGNAL(activated()), currView, SLOT(ToPolyFrame()) );
-	connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(activated()), currView, SLOT(ToTextFrame()) );
-	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(activated()), currView, SLOT(ToPathText()) );
-	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(activated()), currView, SLOT(FromPathText()) );
-	connect( (*scrActions)["itemExtendedImageProperties"], SIGNAL(activated()), currView, SLOT(editExtendedImageProperties()) );
+	connect( (*scrActions)["viewFitPreview"], SIGNAL(triggered()), currView, SLOT(togglePreview()) );
+	connect( (*scrActions)["toolsZoomIn"], SIGNAL(triggered()) , currView, SLOT(slotZoomIn()) );
+	connect( (*scrActions)["toolsZoomOut"], SIGNAL(triggered()) , currView, SLOT(slotZoomOut()) );
+	connect( (*scrActions)["itemLowerToBottom"], SIGNAL(triggered()), currView, SLOT(ToBack()) );
+	connect( (*scrActions)["itemRaiseToTop"], SIGNAL(triggered()), currView, SLOT(ToFront()) );
+	connect( (*scrActions)["itemRaise"], SIGNAL(triggered()), currView, SLOT(RaiseItem()) );
+	connect( (*scrActions)["itemLower"], SIGNAL(triggered()), currView, SLOT(LowerItem()) );
+	connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(triggered()), currView, SLOT(ToBezierFrame()) );
+	connect( (*scrActions)["itemConvertToImageFrame"], SIGNAL(triggered()), currView, SLOT(ToPicFrame()) );
+	connect( (*scrActions)["itemConvertToOutlines"], SIGNAL(triggered()), currView, SLOT(TextToPath()) );
+	connect( (*scrActions)["itemConvertToPolygon"], SIGNAL(triggered()), currView, SLOT(ToPolyFrame()) );
+	connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(triggered()), currView, SLOT(ToTextFrame()) );
+	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(triggered()), currView, SLOT(ToPathText()) );
+	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(triggered()), currView, SLOT(FromPathText()) );
+	connect( (*scrActions)["itemExtendedImageProperties"], SIGNAL(triggered()), currView, SLOT(editExtendedImageProperties()) );
 }
 
 void ActionManager::disconnectNewSelectionActions()
@@ -1103,7 +1103,7 @@ void ActionManager::connectNewSelectionActions(ScribusView* /*currView*/, Scribu
 	connect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	connect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
-	connect( (*scrActions)["editClearContents"], SIGNAL(activated()), currDoc, SLOT(itemSelection_ClearItem()) );
+	connect( (*scrActions)["editClearContents"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ClearItem()) );
 }
 
 void ActionManager::saveActionShortcutsPreEditMode()
@@ -1196,8 +1196,8 @@ void ActionManager::setPDFActions(ScribusView *currView)
 		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
 		(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
 	}
-	connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(activated()), currView, SLOT(ToggleAnnotation()) );
-	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(activated()), currView, SLOT(ToggleBookmark()) );
+	connect( (*scrActions)["itemPDFIsAnnotation"], SIGNAL(triggered()), currView, SLOT(ToggleAnnotation()) );
+	connect( (*scrActions)["itemPDFIsBookmark"], SIGNAL(triggered()), currView, SLOT(ToggleBookmark()) );
 }
 
 void ActionManager::languageChange()

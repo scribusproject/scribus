@@ -46,9 +46,9 @@ ScripterCore::ScripterCore(QWidget* parent)
 
 	scrScripterActions["scripterShowConsole"]->setToggleAction(true);
 
-	QObject::connect( scrScripterActions["scripterExecuteScript"], SIGNAL(activated()) , this, SLOT(runScriptDialog()) );
+	QObject::connect( scrScripterActions["scripterExecuteScript"], SIGNAL(triggered()) , this, SLOT(runScriptDialog()) );
 	QObject::connect( scrScripterActions["scripterShowConsole"], SIGNAL(toggled(bool)) , this, SLOT(slotInteractiveScript(bool)) );
-	QObject::connect( scrScripterActions["scripterAboutScript"], SIGNAL(activated()) , this, SLOT(aboutScript()) );
+	QObject::connect( scrScripterActions["scripterAboutScript"], SIGNAL(triggered()) , this, SLOT(aboutScript()) );
 
 	SavedRecentScripts.clear();
 	ReadPlugPrefs();

@@ -79,7 +79,7 @@ void OODrawImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	// Then hook up the action
 	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(activated()), SLOT(import()) );
+	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
 	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 

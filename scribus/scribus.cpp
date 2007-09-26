@@ -310,8 +310,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setCentralWidget( wsp );
 	connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 	//Connect windows cascade and tile actions to the workspace after its created. Only depends on wsp created.
-	connect( scrActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
-	connect( scrActions["windowsTile"], SIGNAL(activated()) , wsp, SLOT(tile()) );
+	connect( scrActions["windowsCascade"], SIGNAL(triggered()) , wsp, SLOT(cascade()) );
+	connect( scrActions["windowsTile"], SIGNAL(triggered()) , wsp, SLOT(tile()) );
 	initPalettes();
 
 	prefsManager->setupMainWindow(this);
@@ -7683,7 +7683,7 @@ void ScribusMainWindow::doSaveAsPDF()
 				if (doc->PDF_Options.Thumbnails)
 					pm=QPixmap::fromImage(view->PageToPixmap(pageNs[aa]-1, 100));
 				thumbs.insert(1, pm);
-				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa])+"."+ext);
+				QString realName = QDir::convertSeparators(path+"/"+name+ tr("-Page%1").arg(pageNs[aa], 3, 10, QChar('0'))+"."+ext);
 				if (!getPDFDriver(realName, nam, components, pageNs2, thumbs))
 				{
 					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -8742,7 +8742,7 @@ void ScribusMainWindow::callImageEditor()
 			ExternalApp = new QProcess(NULL);
 			QStringList cmd;
 		#if defined(_WIN32)
-			index = imageEditorExecutable.find( ".exe" );
+			index = imageEditorExecutable.indexOf( ".exe" );
 			if ( index >= 0 )
 				imEditor = imageEditorExecutable.left( index + 4 );
 			imEditor.replace( "\\", "/" );

@@ -1392,13 +1392,13 @@ void StoryEditor::initActions()
 	seActions.insert("fileUpdateAndExit", new ScrAction(loadIcon("ok.png"), loadIcon("ok22.png"), "", Qt::CTRL+Qt::Key_W,  this));
 	seActions.insert("fileExit", new ScrAction(loadIcon("exit.png"), loadIcon("exit22.png"), "", QKeySequence(),  this));
 
-	connect( seActions["fileNew"], SIGNAL(activated()), this, SLOT(Do_new()) );
-	connect( seActions["fileRevert"], SIGNAL(activated()), this, SLOT(slotFileRevert()) );
-	connect( seActions["fileSaveToFile"], SIGNAL(activated()), this, SLOT(SaveTextFile()) );
-	connect( seActions["fileLoadFromFile"], SIGNAL(activated()), this, SLOT(LoadTextFile()) );
-	connect( seActions["fileSaveDocument"], SIGNAL(activated()), this, SLOT(Do_saveDocument()) );
-	connect( seActions["fileUpdateAndExit"], SIGNAL(activated()), this, SLOT(Do_leave2()) );
-	connect( seActions["fileExit"], SIGNAL(activated()), this, SLOT(Do_leave()) );
+	connect( seActions["fileNew"], SIGNAL(triggered()), this, SLOT(Do_new()) );
+	connect( seActions["fileRevert"], SIGNAL(triggered()), this, SLOT(slotFileRevert()) );
+	connect( seActions["fileSaveToFile"], SIGNAL(triggered()), this, SLOT(SaveTextFile()) );
+	connect( seActions["fileLoadFromFile"], SIGNAL(triggered()), this, SLOT(LoadTextFile()) );
+	connect( seActions["fileSaveDocument"], SIGNAL(triggered()), this, SLOT(Do_saveDocument()) );
+	connect( seActions["fileUpdateAndExit"], SIGNAL(triggered()), this, SLOT(Do_leave2()) );
+	connect( seActions["fileExit"], SIGNAL(triggered()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
 	seActions.insert("editSelectAll", new ScrAction(loadIcon("16/edit-select-all.png"), QPixmap(), "", Qt::CTRL+Qt::Key_A, this));
@@ -1411,19 +1411,19 @@ void StoryEditor::initActions()
 	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editUpdateFrame", new ScrAction(loadIcon("compfile16.png"),loadIcon("compfile.png"), "", Qt::CTRL+Qt::Key_U, this));
 
-	connect( seActions["editSelectAll"], SIGNAL(activated()), this, SLOT(Do_selectAll()) );
-	connect( seActions["editCut"], SIGNAL(activated()), this, SLOT(Do_cut()) );
-	connect( seActions["editCopy"], SIGNAL(activated()), this, SLOT(Do_copy()) );
-	connect( seActions["editPaste"], SIGNAL(activated()), this, SLOT(Do_paste()) );
-	connect( seActions["editClear"], SIGNAL(activated()), this, SLOT(Do_del()) );
-	connect( seActions["editSearchReplace"], SIGNAL(activated()), this, SLOT(SearchText()) );
-	connect( seActions["editEditStyle"], SIGNAL(activated()), this, SLOT(slotEditStyles()) );
-	connect( seActions["editFontPreview"], SIGNAL(activated()), this, SLOT(Do_fontPrev()) );
-	connect( seActions["editUpdateFrame"], SIGNAL(activated()), this, SLOT(updateTextFrame()) );
+	connect( seActions["editSelectAll"], SIGNAL(triggered()), this, SLOT(Do_selectAll()) );
+	connect( seActions["editCut"], SIGNAL(triggered()), this, SLOT(Do_cut()) );
+	connect( seActions["editCopy"], SIGNAL(triggered()), this, SLOT(Do_copy()) );
+	connect( seActions["editPaste"], SIGNAL(triggered()), this, SLOT(Do_paste()) );
+	connect( seActions["editClear"], SIGNAL(triggered()), this, SLOT(Do_del()) );
+	connect( seActions["editSearchReplace"], SIGNAL(triggered()), this, SLOT(SearchText()) );
+	connect( seActions["editEditStyle"], SIGNAL(triggered()), this, SLOT(slotEditStyles()) );
+	connect( seActions["editFontPreview"], SIGNAL(triggered()), this, SLOT(Do_fontPrev()) );
+	connect( seActions["editUpdateFrame"], SIGNAL(triggered()), this, SLOT(updateTextFrame()) );
 
 	//Insert Menu
 	seActions.insert("insertGlyph", new ScrAction(QPixmap(), QPixmap(), "", QKeySequence(), this));
-	connect( seActions["insertGlyph"], SIGNAL(activated()), this, SLOT(Do_insSp()) );
+	connect( seActions["insertGlyph"], SIGNAL(triggered()), this, SLOT(Do_insSp()) );
 
 	//Settings Menu
 	seActions.insert("settingsBackground", new ScrAction("", QKeySequence(), this));
@@ -1433,8 +1433,8 @@ void StoryEditor::initActions()
 	seActions["settingsSmartTextSelection"]->setChecked(false);
 	seActions["settingsSmartTextSelection"]->setToggleAction(true);
 
-	connect( seActions["settingsBackground"], SIGNAL(activated()), this, SLOT(setBackPref()) );
-	connect( seActions["settingsDisplayFont"], SIGNAL(activated()), this, SLOT(setFontPref()) );
+	connect( seActions["settingsBackground"], SIGNAL(triggered()), this, SLOT(setBackPref()) );
+	connect( seActions["settingsDisplayFont"], SIGNAL(triggered()), this, SLOT(setFontPref()) );
 	connect( seActions["settingsSmartTextSelection"], SIGNAL(toggled(bool)), this, SLOT(setSmart(bool)) );
 
 
