@@ -226,9 +226,9 @@ void defaultCrashHandler(DWORD exceptionCode)
 		QString expHdr  = QObject::tr("Scribus Crash");
 		QString expLine = "-------------";
 		QString expMsg  = QObject::tr("Scribus crashes due to the following exception : %1").arg(expDesc);
-		std::cout << (const char*) expHdr << std::endl;
-		std::cout << (const char*) expLine << std::endl;
-		std::cout << (const char*) expMsg << std::endl;
+		std::cout << (const char*) expHdr.toAscii().data() << std::endl;
+		std::cout << (const char*) expLine.toAscii().data() << std::endl;
+		std::cout << (const char*) expMsg.toAscii().data() << std::endl;
 		if (ScribusQApp::useGUI)
 		{
 			ScCore->closeSplash();

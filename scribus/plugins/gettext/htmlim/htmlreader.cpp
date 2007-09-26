@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include <QObject>
-//Added by qt3to4:
 #include <QByteArray>
 #include "htmlreader.h"
 
@@ -555,7 +554,7 @@ void HTMLReader::parse(QString filename)
 {
 #if defined(_WIN32)
 	QString fname = QDir::convertSeparators(filename);
-	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
+	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
 #else
 	QByteArray fn(filename.toLocal8Bit());
 #endif

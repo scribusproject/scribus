@@ -185,7 +185,7 @@ bool PrinterUtil::getPrinterMarginValues(const QString& printerName, const QStri
 			{
 				// Retrieve DEVMODE structure for selected device
 				uint size = DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), NULL, NULL, 0);
-				QByteArray devModeW(size);
+				QByteArray devModeW(size, 0);
 				DEVMODEW* devMode = (DEVMODEW*) devModeW.data();
 				DocumentPropertiesW( ScCore->primaryMainWindow()->winId(), handle, (LPWSTR) printerName.utf16(), devMode, NULL, DM_OUT_BUFFER);
 				ClosePrinter( handle );
@@ -225,7 +225,7 @@ bool PrinterUtil::isPostscriptPrinter( QString printerName)
 	dc = CreateDCW( NULL, (LPCWSTR) printerName.utf16(), NULL, NULL );
 	if ( !dc )
 	{
-		qWarning( QString("isPostscriptPrinter() failed to create device context for %1").arg(printerName) );
+		qWarning("isPostscriptPrinter() failed to create device context for %s", printerName.toAscii().data());
 		return false;
 	}
 	// test if printer support the POSTSCRIPT_PASSTHROUGH escape code

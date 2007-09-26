@@ -567,7 +567,7 @@ void Druck::SelPrinter(const QString& prn)
 #if defined(_WIN32)
 	if ( !ToFile )
 		if( !PrinterUtil::getDefaultSettings(PrintDest->currentText(), DevMode) )
-			qWarning( tr("Failed to retrieve printer settings"));
+			qWarning( tr("Failed to retrieve printer settings").toAscii().data() );
 #endif
 	if ( ToFile || PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) )
 	{

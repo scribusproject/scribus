@@ -33,7 +33,6 @@ for which a new license (GPL+exception) is in place.
  #include <gtparagraphstyle.h>
  #include <gtframestyle.h>
  #include <gtfont.h>
-//Added by qt3to4:
 #include <QByteArray>
  
  StyleReader* StyleReader::sreader = NULL;
@@ -472,7 +471,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  {
 #if defined(_WIN32)
 	QString fname = QDir::convertSeparators(fileName);
-	QByteArray fn = (qWinVersion() & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
+	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
 #else
 	QByteArray fn(fileName.toLocal8Bit());
 #endif

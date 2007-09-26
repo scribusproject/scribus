@@ -107,7 +107,7 @@ bool ScWinPrint::print( ScribusDoc* doc, PrintOptions& options, QByteArray& devM
 	if ( toFile )
 	{
 		diaSelection = doc->DocName.right( doc->DocName.length() - doc->DocName.lastIndexOf("/") - 1 );
-		diaSelection = diaSelection.left( diaSelection.find(".") );
+		diaSelection = diaSelection.left( diaSelection.indexOf(".") );
 		diaSelection += ".prn";
 		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 		QString prefsDocDir = PrefsManager::instance()->documentDir();
@@ -185,8 +185,8 @@ bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, Pr
 	// Setup image
 	imagew = clipw * scale;
 	imageh = cliph * scale;
-	success = image->create( imagew, imageh, 32 );
-	if (!success)
+	*image = QImage( imagew, imageh, QImage::Format_ARGB32 );
+	if (image->width() <= 0 || image->height() <= 0)
 		return false;
 
 	// Create a memory device context
@@ -528,7 +528,7 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 		ret = convertPS2PS(tempFilePath, tempFilePath2, opts, options.PSLevel);
 		if ( ret == 0 )
 		{
-			unlink( tempFilePath );
+			QFile::remove( tempFilePath );
 			tempFilePath = tempFilePath2;
 		}
 		else
@@ -599,7 +599,7 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 	eBegin += "1 ne\n";
 	eBegin += "{false setstrokeadjust false setoverprint\n";
 	eBegin += "} if } if\n";
-	sprintf( (char*) sps.data, "%s", eBegin.latin1() );
+	sprintf( (char*) sps.data, "%s", eBegin.toLatin1().data() );
 	sps.numBytes = strlen( (char*) sps.data );
 	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
 		return false;
@@ -616,7 +616,7 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 		return false;
 	fileSize = file.size();
 	bw = 0; // bytes written
-	br = file.readBlock( (char*) sps.data, sizeof( sps.data ) );
+	br = file.read( (char*) sps.data, sizeof( sps.data ) );
 	while( br > 0 )
 	{
 		sps.numBytes = br;
@@ -624,7 +624,7 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 			bw += br;
 		else
 			break;
-		br = file.readBlock( (char*) sps.data, sizeof( sps.data ) );
+		br = file.read( (char*) sps.data, sizeof( sps.data ) );
 	}
 	file.close();
 
@@ -632,7 +632,7 @@ bool ScWinPrint::sendPSFile( QString filePath, HDC printerDC, int pageWidth, int
 	QString eEnd = "count op_count sub {pop} repeat\n";
 	eEnd += "countdictstack dict_count sub {end} repeat\n";
 	eEnd += "b4_Inc_state restore\n";
-	sprintf( (char*) sps.data, "%s", eEnd.latin1() );
+	sprintf( (char*) sps.data, "%s", eEnd.toLatin1().data() );
 	sps.numBytes = strlen( (char*) sps.data );
 	if( ExtEscape( printerDC, escape, sizeof(sps), (LPCSTR) &sps, 0, NULL) <= 0 )
 		return false;

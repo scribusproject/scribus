@@ -110,7 +110,7 @@ FILE* openfile(const QString& filename, const QString& mode)
 {
 	FILE* fout = NULL;
 #if defined(_WIN32) && defined(HAVE_UNICODE)
-	fout = _wfopen((const wchar_t*) filename.ucs2(), (const wchar_t*) mode.ucs2());
+	fout = _wfopen((const wchar_t*) filename.utf16(), (const wchar_t*) mode.utf16());
 #else
 	QByteArray fname = filename.toLocal8Bit();
 	QByteArray fmode  = mode.toLocal8Bit();
@@ -125,7 +125,7 @@ unzFile unzOpenFile(const QString& filename)
 #if defined(_WIN32) && defined(HAVE_UNICODE)
 	fill_fopen_filefunc(&file_api);
 	file_api.zopen_file = fopen_filefunc_unicode;
-	unz = unzOpen2((const char*)filename.ucs2(), &file_api); 
+	unz = unzOpen2((const char*)filename.utf16(), &file_api); 
 #else
 	QByteArray fname(filename.toLocal8Bit());
 	unz = unzOpen(fname.data()); 
@@ -154,7 +154,7 @@ int mymkdir(const QString& dirname)
 {
     int ret=0;
 #if defined(_WIN32) && defined(HAVE_UNICODE)
-	ret = _wmkdir((const wchar_t*) dirname.ucs2());
+	ret = _wmkdir((const wchar_t*) dirname.utf16());
 #elif defined(_WIN32)
 	QByteArray cdir = dirname.toLocal8Bit();
     ret = _mkdir(cdir.data());
@@ -331,7 +331,7 @@ void change_file_date(const QString& filename, uLong, tm_unz tmu_date)
 
 	ut.actime=ut.modtime=mktime(&newdate);
 #if defined(_WIN32) && defined(HAVE_UNICODE)
-	_wutime((const wchar_t*) filename.ucs2(), &ut);
+	_wutime((const wchar_t*) filename.utf16(), &ut);
 #else
 	QByteArray fname = filename.toLocal8Bit();
 	utime(fname.data(), &ut);

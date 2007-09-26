@@ -260,7 +260,7 @@ QString getGSDefaultExeName(void)
 		int version = it.key();
 		if (version > currentVer)
 		{
-			gsPath = it.data();
+			gsPath = it.value();
 			QFileInfo fInfo(gsPath);
 			if (fInfo.exists())
 			{

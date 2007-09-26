@@ -293,10 +293,10 @@ QStringList ScribusQApp::getLang(QString lang)
 	LCID lcIdn = MAKELCID(langId, sortId);
 	if ( GetLocaleInfoW(lcIdn, LOCALE_SISO639LANGNAME , out, 255) )
 	{
-		language = QString::fromUcs2( (ushort*)out );
+		language = QString::fromUtf16( (ushort*)out );
 		if ( GetLocaleInfoW(lcIdn, LOCALE_SISO3166CTRYNAME, out, 255) )
 		{
-			sublanguage = QString::fromUcs2( (ushort*)out ).toLower();
+			sublanguage = QString::fromUtf16( (ushort*)out ).toLower();
 			lang = language;
 			if ( sublanguage != language && !sublanguage.isEmpty() )
 				lang += "_" + sublanguage.toUpper();
