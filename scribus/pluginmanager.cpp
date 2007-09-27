@@ -294,7 +294,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			// then enable and connect up the action
 			mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
 			// Connect action's activated signal with the plugin's run method
-			it.value().enabled = connect( mw->scrActions[ai.name], SIGNAL(activatedData(ScribusDoc*)),
+			it.value().enabled = connect( mw->scrActions[ai.name], SIGNAL(triggeredData(ScribusDoc*)),
 							plugin, SLOT(run(ScribusDoc*)) );
 			//Get the menu manager to add the DLL's menu item to the right menu, after the chosen existing item
 			if ( ai.menuAfterName.isEmpty() )

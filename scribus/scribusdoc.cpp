@@ -6759,15 +6759,15 @@ void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
 		if (!found) //No image frames in the current selection!
 			return;
 		updatePic();
-		disconnect( m_ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0 );
-		disconnect( m_ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0 );
-		disconnect( m_ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0 );
+		disconnect( m_ScMW->scrActions["itemPreviewLow"], SIGNAL(triggeredData(int)) , 0, 0 );
+		disconnect( m_ScMW->scrActions["itemPreviewNormal"], SIGNAL(triggeredData(int)) , 0, 0 );
+		disconnect( m_ScMW->scrActions["itemPreviewFull"], SIGNAL(triggeredData(int)) , 0, 0 );
 		m_ScMW->scrActions["itemPreviewLow"]->setChecked(id==m_ScMW->scrActions["itemPreviewLow"]->actionInt());
 		m_ScMW->scrActions["itemPreviewNormal"]->setChecked(id==m_ScMW->scrActions["itemPreviewNormal"]->actionInt());
 		m_ScMW->scrActions["itemPreviewFull"]->setChecked(id==m_ScMW->scrActions["itemPreviewFull"]->actionInt());
-		connect( m_ScMW->scrActions["itemPreviewLow"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
-		connect( m_ScMW->scrActions["itemPreviewNormal"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
-		connect( m_ScMW->scrActions["itemPreviewFull"], SIGNAL(activatedData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
+		connect( m_ScMW->scrActions["itemPreviewLow"], SIGNAL(triggeredData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
+		connect( m_ScMW->scrActions["itemPreviewNormal"], SIGNAL(triggeredData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
+		connect( m_ScMW->scrActions["itemPreviewFull"], SIGNAL(triggeredData(int)), this, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	}
 }
 

@@ -214,15 +214,15 @@ void ActionManager::initEditMenuActions()
 
 	(*scrActions)["editStyles"]->setToggleAction(true);
 
-	connect( (*scrActions)["editUndoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(undo(int)) );
-	connect( (*scrActions)["editRedoAction"], SIGNAL(activatedData(int)) , undoManager, SLOT(redo(int)) );
+	connect( (*scrActions)["editUndoAction"], SIGNAL(triggeredData(int)) , undoManager, SLOT(undo(int)) );
+	connect( (*scrActions)["editRedoAction"], SIGNAL(triggeredData(int)) , undoManager, SLOT(redo(int)) );
 	connect( (*scrActions)["editActionMode"], SIGNAL(toggled(bool)), mainWindow, SLOT(setUndoMode(bool)) );
 	connect( (*scrActions)["editCut"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCut()) );
 	connect( (*scrActions)["editCopy"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCopy()) );
 	connect( (*scrActions)["editPaste"], SIGNAL(triggered()), mainWindow, SLOT(slotEditPaste()) );
 	connect( (*scrActions)["editCopyContents"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCopyContents()) );
-	connect( (*scrActions)["editPasteContents"], SIGNAL(activatedData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
-	connect( (*scrActions)["editPasteContentsAbs"], SIGNAL(activatedData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
+	connect( (*scrActions)["editPasteContents"], SIGNAL(triggeredData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
+	connect( (*scrActions)["editPasteContentsAbs"], SIGNAL(triggeredData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
 	connect( (*scrActions)["editSelectAll"], SIGNAL(triggered()), mainWindow, SLOT(SelectAll()) );
 	connect( (*scrActions)["editDeselectAll"], SIGNAL(triggered()), mainWindow, SLOT(deselectAll()) );
 	connect( (*scrActions)["editSearchReplace"], SIGNAL(triggered()), mainWindow, SLOT(SearchText()) );
@@ -241,7 +241,7 @@ void ActionManager::initStyleMenuActions()
 	(*scrActionGroups).insert("fontSize", new QActionGroup(mainWindow));
 	name="fontSizeOther";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("fontSize"), -1));
-	connect( (*scrActions)["fontSizeOther"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemFSize(int)));
+	connect( (*scrActions)["fontSizeOther"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemFSize(int)));
 
 	int font_sizes[] = {7, 9, 10, 11, 12, 14, 18, 24, 36, 48, 60, 72};
 	size_t f_size = sizeof(font_sizes) / sizeof(*font_sizes);
@@ -250,7 +250,7 @@ void ActionManager::initStyleMenuActions()
 		QString fontSizeName=QString("fontSize%1").arg(font_sizes[s]);
 		scrActions->insert(fontSizeName, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("fontSize"), font_sizes[s]));
 		(*scrActions)[fontSizeName]->setToggleAction(true);
-		connect( (*scrActions)[fontSizeName], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemFSize(int)));
+		connect( (*scrActions)[fontSizeName], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemFSize(int)));
 	}
 
 	//Alignment actions
@@ -271,23 +271,23 @@ void ActionManager::initStyleMenuActions()
 	(*scrActions)["alignBlock"]->setToggleAction(true);
 	(*scrActions)["alignForced"]->setToggleAction(true);
 
-	connect( (*scrActions)["alignLeft"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
-	connect( (*scrActions)["alignCenter"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
-	connect( (*scrActions)["alignRight"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
-	connect( (*scrActions)["alignBlock"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
-	connect( (*scrActions)["alignForced"], SIGNAL(activatedData(int)), mainWindow, SLOT(setNewAlignment(int)));
+	connect( (*scrActions)["alignLeft"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setNewAlignment(int)));
+	connect( (*scrActions)["alignCenter"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setNewAlignment(int)));
+	connect( (*scrActions)["alignRight"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setNewAlignment(int)));
+	connect( (*scrActions)["alignBlock"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setNewAlignment(int)));
+	connect( (*scrActions)["alignForced"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setNewAlignment(int)));
 
 	//Shade actions
 	scrActionGroups->insert("shade", new QActionGroup(mainWindow));
 	name="shadeOther";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("shade"), -1));
-	connect( (*scrActions)["shadeOther"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemShade(int)));
+	connect( (*scrActions)["shadeOther"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemShade(int)));
 	for (uint i=0; i<=100 ; i+=10)
 	{
 		QString shadeName=QString("shade%1").arg(i);
 		scrActions->insert(shadeName, new ScrAction(ScrAction::DataInt, QPixmap(), QPixmap(), "", defKeys[name], (*scrActionGroups).value("shade"), i));
 		(*scrActions)[shadeName]->setToggleAction(true);
-		connect( (*scrActions)[shadeName], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemShade(int)));
+		connect( (*scrActions)[shadeName], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemShade(int)));
 	}
 
 	//Type Effects actions
@@ -322,16 +322,16 @@ void ActionManager::initStyleMenuActions()
 	(*scrActions)["typeEffectSubscript"]->setToggleAction(true);
 	(*scrActions)["typeEffectOutline"]->setToggleAction(true);
 	(*scrActions)["typeEffectShadow"]->setToggleAction(true);
-	connect( (*scrActions)["typeEffectNormal"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-	connect( (*scrActions)["typeEffectUnderline"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-	connect( (*scrActions)["typeEffectUnderlineWords"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-	connect( (*scrActions)["typeEffectStrikeThrough"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-	connect( (*scrActions)["typeEffectSmallCaps"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-	connect( (*scrActions)["typeEffectAllCaps"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-	connect( (*scrActions)["typeEffectSuperscript"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-	connect( (*scrActions)["typeEffectSubscript"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-	connect( (*scrActions)["typeEffectOutline"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-	connect( (*scrActions)["typeEffectShadow"], SIGNAL(activatedData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectNormal"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectUnderline"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectUnderlineWords"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectStrikeThrough"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectSmallCaps"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectAllCaps"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectSuperscript"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectSubscript"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectOutline"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
+	connect( (*scrActions)["typeEffectShadow"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
 
 	//Other Style menu items that get added in various places
 	name="styleImageEffects";
@@ -592,13 +592,13 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewShowRulers"]->setChecked(true);
 	(*scrActions)["viewRulerMode"]->setChecked(true);
 
-	connect( (*scrActions)["viewFitInWindow"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
-	connect( (*scrActions)["viewFitWidth"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
-	connect( (*scrActions)["viewFit50"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
-	connect( (*scrActions)["viewFit75"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
-	connect( (*scrActions)["viewFit100"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
-	connect( (*scrActions)["viewFit200"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
-	connect( (*scrActions)["viewFit400"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFitInWindow"], SIGNAL(triggeredData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFitWidth"], SIGNAL(triggeredData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFit50"], SIGNAL(triggeredData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFit75"], SIGNAL(triggeredData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFit100"], SIGNAL(triggeredData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFit200"], SIGNAL(triggeredData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFit400"], SIGNAL(triggeredData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewShowMargins"], SIGNAL(triggered()), mainWindow, SLOT(ToggleMarks()) );
 	connect( (*scrActions)["viewShowBleeds"], SIGNAL(triggered()), mainWindow, SLOT(ToggleBleeds()) );
 	connect( (*scrActions)["viewShowFrames"], SIGNAL(triggered()), mainWindow, SLOT(ToggleFrames()) );
@@ -835,10 +835,10 @@ void ActionManager::initHelpMenuActions()
 	connect( (*scrActions)["helpTooltips"], SIGNAL(triggered()), mainWindow, SLOT(ToggleTips()) );
 	connect( (*scrActions)["helpManual"], SIGNAL(triggered()), mainWindow, SLOT(slotOnlineHelp()) );
 	UrlLauncher* ul=UrlLauncher::instance();
-	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
-	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
-	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
-	connect( (*scrActions)["helpOnlineTutorial1"], SIGNAL(activatedData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpOnlineWWW"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpOnlineDocs"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpOnlineWiki"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
+	connect( (*scrActions)["helpOnlineTutorial1"], SIGNAL(triggeredData(QString)), ul, SLOT(launchUrlExt(const QString)) );
 }
 
 void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *actionMap, QWidget *actionParent, QStringList *actionNamesList)
@@ -981,7 +981,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QPointer<ScrAction> > *acti
 	//Ligatures
 	*actionNamesList << "unicodeLigature_ff" << "unicodeLigature_fi" << "unicodeLigature_fl" << "unicodeLigature_ffi" << "unicodeLigature_ffl" << "unicodeLigature_ft" << "unicodeLigature_st";
 	for ( QStringList::Iterator it = actionNamesList->begin(); it != actionNamesList->end(); ++it )
-		connect( (*actionMap)[*it], SIGNAL(activatedUnicodeShortcut(const QString&, int)), actionParent, SLOT(specialActionKeyEvent(const QString&, int)) );
+		connect( (*actionMap)[*it], SIGNAL(triggeredUnicodeShortcut(const QString&, int)), actionParent, SLOT(specialActionKeyEvent(const QString&, int)) );
 }
 
 void ActionManager::initSpecialActions()
@@ -1051,9 +1051,9 @@ void ActionManager::disconnectNewViewActions()
 	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLowerToBottom"], 0, 0, 0);
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
-	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)), 0, 0 );
-	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)), 0,0 );
-	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)), 0, 0 );
+	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), 0, 0 );
+	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), 0,0 );
+	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)), 0, 0 );
 	disconnect( (*scrActions)["itemRaise"], 0, 0, 0);
 	disconnect( (*scrActions)["itemLower"], 0, 0, 0);
 	disconnect( (*scrActions)["itemConvertToBezierCurve"], 0, 0, 0);
@@ -1090,19 +1090,19 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 void ActionManager::disconnectNewSelectionActions()
 {
 	disconnect( (*scrActions)["itemImageIsVisible"], 0, 0, 0);
-	//Only disconnect activatedData for data based actions or you will disconnect the internal signal
-	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)) , 0, 0);
-	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)) , 0, 0);
-	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)) , 0, 0);
+	//Only disconnect triggeredData for data based actions or you will disconnect the internal signal
+	disconnect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)) , 0, 0);
+	disconnect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)) , 0, 0);
+	disconnect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)) , 0, 0);
 	disconnect( (*scrActions)["editClearContents"], 0, 0, 0);
 }
 
 void ActionManager::connectNewSelectionActions(ScribusView* /*currView*/, ScribusDoc* currDoc)
 {
 	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)), currDoc, SLOT(itemSelection_ToggleImageShown()) );
-	connect( (*scrActions)["itemPreviewLow"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
-	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
-	connect( (*scrActions)["itemPreviewFull"], SIGNAL(activatedData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	connect( (*scrActions)["editClearContents"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ClearItem()) );
 }
 

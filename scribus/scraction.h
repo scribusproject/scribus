@@ -157,14 +157,14 @@ public slots:
 	void toggle();
 	
 signals:
-	void activatedData(int);
-	void activatedData(double);
-	void activatedData(QString);
-	void activatedData(ScribusDoc*);
+	void triggeredData(int);
+	void triggeredData(double);
+	void triggeredData(QString);
+	void triggeredData(ScribusDoc*);
 	void toggledData(bool, int);
 	void toggledData(bool, double);
 	void toggledData(bool, QString);
-	void activatedUnicodeShortcut(const QString&, int);
+	void triggeredUnicodeShortcut(const QString&, int);
 	
 protected:
 	void initScrAction();
@@ -194,9 +194,9 @@ private slots:
 	/*!
 		\author Craig Bradney
 		\date Jan 2005
-		\brief This passed the activated() action signal in and back out but with some data, easier than 	overriding menu and menu bar classes for now.
+		\brief This passed the triggered() action signal in and back out but with some data, easier than 	overriding menu and menu bar classes for now.
 	 */
-	void activatedToActivatedData();
+	void triggeredToTriggeredData();
 	/*!
 		\author Craig Bradney
 		\date Jan 2005

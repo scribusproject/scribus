@@ -43,7 +43,7 @@ ScrAction::ScrAction( ActionType aType, const QPixmap & icon16, const QPixmap & 
 	_actionType=aType;
 
 	if (_actionType!=Normal)
-		connect (this, SIGNAL(triggered()), this, SLOT(activatedToActivatedData()));
+		connect (this, SIGNAL(triggered()), this, SLOT(triggeredToTriggeredData()));
 	switch (_actionType)
 	{
 		case DataInt:
@@ -102,30 +102,30 @@ ScrAction::~ScrAction()
 {
 }
 
-void ScrAction::activatedToActivatedData()
+void ScrAction::triggeredToTriggeredData()
 {
 	if (_actionType==ScrAction::DataInt)
-		emit activatedData(_dataInt);
+		emit triggeredData(_dataInt);
 	if (_actionType==ScrAction::DataDouble)
-		emit activatedData(_dataDouble);
+		emit triggeredData(_dataDouble);
 	if (_actionType==ScrAction::DataQString)
-		emit activatedData(_dataQString);
+		emit triggeredData(_dataQString);
 	if (_actionType==ScrAction::DLL)
-		emit activatedData(pluginID);
+		emit triggeredData(pluginID);
 	if (_actionType==ScrAction::Window)
-		emit activatedData(windowID);
+		emit triggeredData(windowID);
 	if (_actionType==ScrAction::RecentFile)
-		emit activatedData(_dataQString);
+		emit triggeredData(_dataQString);
 	if (_actionType==ScrAction::RecentPaste)
-		emit activatedData(_dataQString);
+		emit triggeredData(_dataQString);
 	if (_actionType==ScrAction::RecentScript)
-		emit activatedData(text());
+		emit triggeredData(text());
 	if (_actionType==ScrAction::UnicodeChar)
-		activatedUnicodeShortcut(_dataQString, _dataInt);
+		triggeredUnicodeShortcut(_dataQString, _dataInt);
 	if (_actionType==ScrAction::Layer)
-		emit activatedData(layerID);
+		emit triggeredData(layerID);
 	if (_actionType==ScrAction::ActionDLL)
-		emit activatedData(((ScribusMainWindow*)parent())->doc);
+		emit triggeredData(((ScribusMainWindow*)parent())->doc);
 }
 
 void ScrAction::toggledToToggledData(bool ison)
