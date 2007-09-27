@@ -5,14 +5,14 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include <QMenu>
 #include <QHeaderView>
 #include <QKeyEvent>
+#include <QMenu>
 
-#include "chartableview.h"
 #include "chartablemodel.h"
-#include "fonts/scface.h"
+#include "chartableview.h"
 #include "charzoom.h"
+#include "fonts/scface.h"
 
 
 CharTableView::CharTableView(QWidget * parent)
@@ -91,6 +91,8 @@ void CharTableView::mousePressEvent(QMouseEvent* e)
 
 void CharTableView::mouseMoveEvent(QMouseEvent* e)
 {
+	if (mPressed)
+		hideZoomedChar();
 	if (!currentIndex().isValid())
 		return;
 	int index = currentValue();
@@ -114,15 +116,8 @@ void CharTableView::mouseReleaseEvent(QMouseEvent* e)
 {
 	if (!currentIndex().isValid())
 		return;
-	if ((e->button() == Qt::RightButton) && (mPressed))
-	{
-		if (zoom)
-		{
-			zoom->close();
-			delete zoom;
-			zoom = 0;
-		}
-	}
+	if ((e->button() == Qt::RightButton) && mPressed)
+		hideZoomedChar();
 
 	if (e->button() == Qt::LeftButton)
 	{
@@ -166,4 +161,14 @@ void CharTableView::dragEnterEvent(QDragEnterEvent *e)
 int CharTableView::currentValue()
 {
 	return currentIndex().row() * model()->columnCount() + currentIndex().column();
+}
+
+void CharTableView::hideZoomedChar()
+{
+	if (zoom)
+	{
+		zoom->close();
+		delete zoom;
+		zoom = 0;
+	}
 }

@@ -52,6 +52,7 @@ class CharTableView : public QTableView
 		void dragMoveEvent(QDragMoveEvent *e);
 
 		int currentValue();
+		void hideZoomedChar();
 		
 
 	private slots:
