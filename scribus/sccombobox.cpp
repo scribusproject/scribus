@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
  *
  */
 
-#include <Q3ListBox>
 #include "sccombobox.h"
 
 #ifdef Q_WS_MAC
