@@ -573,7 +573,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QList<ParagraphSt
 	connect(ruler, SIGNAL(fillCharChanged(QChar)) , this, SLOT(setTabFillChar(QChar)));
 	connect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
-	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	connect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	connect(ruler, SIGNAL(tabMoved(double)) , this, SLOT(setTabData(double)));
 	connect(ruler, SIGNAL(tabSelected()), this, SLOT(tabAdded()));
 	connect(ruler, SIGNAL(newTab()), this, SLOT(tabAdded()));
@@ -679,7 +679,7 @@ void Tabruler::lastTabRemoved()
 
 void Tabruler::setFillChar()
 {
-	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	disconnect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
 	QChar ret;
 	switch (tabFillCombo->currentIndex())
@@ -708,19 +708,19 @@ void Tabruler::setFillChar()
 	if (tabFillCombo->currentIndex() != 4)
 		ruler->changeTabChar(ret);
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
-	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	connect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 }
 
 void Tabruler::setCustomFillChar(const QString &txt)
 {
 	if (txt == CommonStrings::trCustomTabFill)
 		return;
-	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	disconnect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
 	QChar ret = txt[txt.length()-1];
 	ruler->changeTabChar(ret);
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
-	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	connect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 }
 
 void Tabruler::setTabFillChar(QChar t)

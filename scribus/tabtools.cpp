@@ -882,7 +882,7 @@ void TabTools::setCustomFillChar(const QString &txt)
 {
 	if (txt == CommonStrings::trCustomTabFill)
 		return;
-	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	disconnect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
 	QString ret = txt.right(1);
 	if (tabFillCombo->isEditable())
@@ -890,13 +890,13 @@ void TabTools::setCustomFillChar(const QString &txt)
 		tabFillCombo->setCurrentIndex(4);
 		tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill + ret);
 	}
-	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	connect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
 }
 
 void TabTools::setFillChar(int act)
 {
-	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+	disconnect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
 	switch (act)
 	{
@@ -913,7 +913,7 @@ void TabTools::setFillChar(int act)
 			tabFillCombo->setItemText(tabFillCombo->currentIndex(), CommonStrings::trCustomTabFill);
 			tabFillCombo->lineEdit()->setFocus();
 			tabFillCombo->lineEdit()->setCursorPosition(CommonStrings::trCustomTabFill.length());
-			connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
+			connect(tabFillCombo, SIGNAL(editTextChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 			break;
 	}
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
