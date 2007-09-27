@@ -158,7 +158,10 @@ static Xml_attr PageItemXMLAttributes(const PageItem* item)
 	}
 	
 //	result.insert("ANNAME", !item->AutoName ? item->itemName() : QString(""));  // not used
-	const PageItem_LatexFrame *latexframe = dynamic_cast<const PageItem_LatexFrame*>(item);
+//	const PageItem_LatexFrame *latexframe = dynamic_cast<const PageItem_LatexFrame*>(item);
+	const PageItem_LatexFrame *latexframe = NULL;
+	if (item->itemType() == PageItem::LatexFrame)
+		latexframe = dynamic_cast<const PageItem_LatexFrame*>(item);
 	
 	if ((item->itemType()==PageItem::ImageFrame || item->itemType()==PageItem::TextFrame) && (!item->externalFile().isEmpty()) && !latexframe)
 		result.insert("image-file", Path2Relative(item->externalFile()));
@@ -265,7 +268,10 @@ void PageItem::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	{
 		itemText.saxx(handler, "text-content");
 	}
-	const PageItem_LatexFrame *latexframe = dynamic_cast<const PageItem_LatexFrame*>(this);
+//	const PageItem_LatexFrame *latexframe = dynamic_cast<const PageItem_LatexFrame*>(this);
+	const PageItem_LatexFrame *latexframe = NULL;
+	if (this->itemType() == PageItem::LatexFrame)
+		latexframe = dynamic_cast<const PageItem_LatexFrame*>(this);
 	if (latexframe) {
 		handler.begin("latex-source", empty);
 		handler.chars(latexframe->getFormula());
@@ -478,8 +484,11 @@ class LatexSource_body : public Action_body
 	public:	
 		void chars(const Xml_string& txt)
 		{
-			PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
-			obj->setFormula(txt);
+			if (this->dig->top<PageItem>()->itemType() == PageItem::LatexFrame)
+			{
+				PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
+				obj->setFormula(txt);
+			}
 		}
 };
 
@@ -492,11 +501,13 @@ class LatexParams_body : public Action_body
 	public:	
 		void begin(const Xml_string& tag, Xml_attr attr) 
 		{
-			PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
-			obj->setApplication(attr["latex-application"]);
-			obj->setDpi(parseInt(attr["latex-dpi"]));
-			obj->setUsePreamble(parseBool(attr["latex-use-preamble"]));
-			
+			if (this->dig->top<PageItem>()->itemType() == PageItem::LatexFrame)
+			{
+				PageItem_LatexFrame* obj = dynamic_cast<PageItem_LatexFrame *> (this->dig->top<PageItem>());
+				obj->setApplication(attr["latex-application"]);
+				obj->setDpi(parseInt(attr["latex-dpi"]));
+				obj->setUsePreamble(parseBool(attr["latex-use-preamble"]));
+			}
 		}
 };
 
