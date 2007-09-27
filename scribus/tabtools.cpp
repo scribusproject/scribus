@@ -457,7 +457,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	
 	zoomStep = new QSpinBox(subTabZoom);
 	zoomStep->setMaximum(500);
-	zoomStep->setMinimum(1101);
+	zoomStep->setMinimum(100);
 	zoomStep->setSuffix( tr( " %" ) );
 	subTabZoomLayout->addWidget( zoomStep, 3, 1, Qt::AlignLeft );
 	textLabel23b = new QLabel(tr( "&Stepping:" ), subTabZoom);
