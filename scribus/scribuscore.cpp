@@ -378,6 +378,8 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
+			if (d[dc] == "." ||  d[dc] == "..")
+				continue;
 			QFileInfo fi(pfad + "/" + d[dc]);
 			if (fi.isDir() && !recursive)
 				continue;
