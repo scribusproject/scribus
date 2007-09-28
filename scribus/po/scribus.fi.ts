@@ -48,7 +48,7 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
       <translation>moveObject(dx, dy [, &quot;name&quot;])
 
 Siirtää kohdetta &quot;name&quot; arvoilla dx ja dy  suhteessa nykyiseen sijaintiin. Etäisyydet
-ilmaistaan asikirjassa käytössä olevalla yksiköllä (katso UNIT-vakio). Jos &quot;name&quot; ei
+ilmaistaan asiakirjassa käytössä olevalla yksiköllä (katso UNIT-vakio). Jos &quot;name&quot; ei
 ole määritelty, käytetään valittuna olevaa kohdetta. Jos kohde &quot;name&quot; kuuluu 
 ryhmään, koko ryhmää siirretään.</translation>
     </message>
@@ -79,7 +79,7 @@ May raise NameExistsError if you explicitly pass a name that's already used.
       <translation>createRect(x, y, width, height, [&quot;name&quot;]) -> string
 
 Luo uuden nelikulmion nykyiselle sivulle ja palauttaa luodun kohteen nimen.
-Koordinaatit on annettava asikirjassa käytössä olevalla yksiköllä. Katso (UNIT vakiot).
+Koordinaatit on annettava asiakirjassa käytössä olevalla yksiköllä. Katso (UNIT vakiot).
 &quot;name&quot;:n tulee olla yksilöllinen tunniste kohteelle, koska tarvitset nimeä myöhemmin
 viitatessasi nelikulmioon. Jos &quot;name&quot;:a ei anneta Scribus luo sen.
 
@@ -94,7 +94,7 @@ available types (FILL_&lt;type>).
 </source>
       <translation>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
 
-Asettaa liukuväritäytön kohteelle &quot;name&quot;. Värin kuvukset ovat samat kuin
+Asettaa liukuväritäytön kohteelle &quot;name&quot;. Värin kuvaukset ovat samat kuin
 setFillColor():lla ja setFillShade():lla. Katso vakiot FILL_&lt;type>.</translation>
     </message>
     <message>
@@ -4488,7 +4488,7 @@ strings.
     </message>
     <message>
       <source>Apply the selected master page to even, odd or all pages within the following range</source>
-      <translation>Käytä valittua mallisivua parillisilla, parittomilla tai kaikkilla sivuilla</translation>
+      <translation>Käytä valittua mallisivua parillisilla, parittomilla tai kaikilla sivuilla</translation>
     </message>
   </context>
   <context>
@@ -4901,7 +4901,7 @@ Valitse toinen nimi.</translation>
     <name>CMSPrefs</name>
     <message>
       <source>Absolute Colorimetric</source>
-      <translation>Absolute Colorimetric</translation>
+      <translation>Absoluuttinen kolorimetrinen</translation>
     </message>
     <message>
       <source>System Profiles</source>
@@ -4913,15 +4913,15 @@ Valitse toinen nimi.</translation>
     </message>
     <message>
       <source>Perceptual</source>
-      <translation>Perceptual</translation>
+      <translation>Havainnollinen</translation>
     </message>
     <message>
       <source>Relative Colorimetric</source>
-      <translation>Relative Colorimetric</translation>
+      <translation>Suhteellinen kolorimetrinen</translation>
     </message>
     <message>
       <source>Saturation</source>
-      <translation>Saturaation</translation>
+      <translation>Kylläisyyden säilyttävä</translation>
     </message>
     <message>
       <source>Default color profile for solid colors on the page</source>
@@ -4949,13 +4949,13 @@ On suositeltavaa että valitsen tämän, jos asiakirjasi sisältää kuvia.</tra
       <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
       <translation>Sovitustapa näytöllesi. Ellet tiedä mikä tapa valita, tulisi käyttää 
-sovitustapoja Relative Colorimetric tai Perceptual.</translation>
+sovitustapoja suhteellinen kolorimetrinen tai havainnollinen.</translation>
     </message>
     <message>
       <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
       <translation>Sovitustapa tulostimellesi. Ellet tiedä mikä tapa valita, tulisi käyttää 
-sovitustapoja Relative Colorimetric tai Perceptual.</translation>
+sovitustapoja suhteellinen kolorimetrinen tai havainnollinen.</translation>
     </message>
     <message>
       <source>Enable 'soft proofing' of how your document colors will print,
@@ -5999,7 +5999,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
       <source>Saturation of color</source>
-      <translation>Värin kylläisyys</translation>
+      <translation>Värikylläisyys</translation>
     </message>
     <message>
       <source>Normal or gradient fill method</source>
@@ -6310,7 +6310,7 @@ Voit määrittää sen asetuksissa.</translation>
     <message>
       <source>Importing Word document failed 
 %1</source>
-      <translation>Word-asiakirjan tuonti epäonnnistui \n
+      <translation>Word-asiakirjan tuonti epäonnistui \n
 %1</translation>
     </message>
   </context>
@@ -6852,7 +6852,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-      <translation>Mahdollistaa ICC-profiilien upottamisen tulosteeseen värien hallinnan ollessa käytössä</translation>
+      <translation>Mahdollistaa ICC-profiilien upottamisen tulosteeseen värinhallinnan ollessa käytössä</translation>
     </message>
     <message>
       <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
@@ -9006,7 +9006,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Absolute Colorimetric</source>
-      <translation>Absolute Colorimetric</translation>
+      <translation>Absoluuttinen kolorimetrinen</translation>
     </message>
     <message>
       <source>No Style</source>
@@ -9058,11 +9058,11 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Perceptual</source>
-      <translation>Perceptual</translation>
+      <translation>Havainnollinen</translation>
     </message>
     <message>
       <source>Relative Colorimetric</source>
-      <translation>Relative Colorimetric</translation>
+      <translation>Suhteellinen kolorimetrinen</translation>
     </message>
     <message>
       <source>Bevel Join</source>
@@ -9194,11 +9194,11 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Saturation of color of text stroke</source>
-      <translation>Tekstin reunan värin kylläisyys</translation>
+      <translation>Tekstin reunan värikylläisyys</translation>
     </message>
     <message>
       <source>Saturation of color of text fill</source>
-      <translation>Tekstin täytön värin kylläisyys</translation>
+      <translation>Tekstin täytön värikylläisyys</translation>
     </message>
     <message>
       <source>Style of current paragraph</source>
@@ -11460,7 +11460,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
       <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-      <translation>Tämä on periytetty standardista Python-konsolista joten siinä on muutamia rajoituksia, erityisesti whitespace-merkkien käsitelyssä. Lisää tietoa löytyy dokumentaatiosta.</translation>
+      <translation>Tämä on periytetty standardista Python-konsolista joten siinä on muutamia rajoituksia, erityisesti whitespace-merkkien käsittelyssä. Lisää tietoa löytyy dokumentaatiosta.</translation>
     </message>
     <message>
       <source>Open Python Script File</source>
@@ -12413,7 +12413,7 @@ External Links
     <message>
       <source>Cannot scale by 0%.</source>
       <comment>python error</comment>
-      <translation>Kokoa ei voi skaalta 0 %:lla</translation>
+      <translation>Kokoa ei voi muuttaa 0 %:lla</translation>
     </message>
     <message>
       <source>Specified item not an image frame.</source>
@@ -13814,7 +13814,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Saturation of color of text fill</source>
-      <translation>Tekstin täytön värin kylläisyys</translation>
+      <translation>Tekstin täytön värikylläisyys</translation>
     </message>
     <message>
       <source>Fill Color Settings</source>
@@ -13829,7 +13829,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Saturation of color of text stroke</source>
-      <translation>Tekstin reunan värin kylläisyys</translation>
+      <translation>Tekstin reunan värikylläisyys</translation>
     </message>
     <message>
       <source>Stroke Color Settings</source>
@@ -13918,7 +13918,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>SVG file contains some unsupported features</source>
-      <translation>SVG-tiedosto sisältää joitain tomintoja, joita Scribus ei tue</translation>
+      <translation>SVG-tiedosto sisältää joitain toimintoja, joita Scribus ei tue</translation>
     </message>
   </context>
   <context>
@@ -16261,19 +16261,19 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>Perceptual</source>
-      <translation>Perceptual</translation>
+      <translation>Havainnollinen</translation>
     </message>
     <message>
       <source>Relative Colorimetric</source>
-      <translation>Relative Colorimetric</translation>
+      <translation>Suhteellinen kolorimetrinen</translation>
     </message>
     <message>
       <source>Saturation</source>
-      <translation>Kylläisyys</translation>
+      <translation>Kylläisyyden säilyttävä</translation>
     </message>
     <message>
       <source>Absolute Colorimetric</source>
-      <translation>Absolute Colorimetric</translation>
+      <translation>Absoluuttinen kolorimetrinen</translation>
     </message>
     <message>
       <source>Images:</source>
@@ -16907,7 +16907,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
       <source>Saturation of color</source>
-      <translation>Värin kylläisyys</translation>
+      <translation>Värikylläisyys</translation>
     </message>
     <message>
       <source>Style of lines</source>
