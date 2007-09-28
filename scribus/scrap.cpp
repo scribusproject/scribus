@@ -497,7 +497,7 @@ void BibView::ReadContents(QString name)
 		if (itf.value().Preview.height() > 60)
 			itf.value().Preview = itf.value().Preview.scaledToHeight(60, Qt::SmoothTransformation);
 		QPixmap pm(60, 60);
-		pm.fill(palette().color(QPalette::Window));
+		pm.fill(palette().color(QPalette::Base));
 		QPainter p;
 		p.begin(&pm);
 		p.drawPixmap(30 - itf.value().Preview.width() / 2, 30 - itf.value().Preview.height() / 2, itf.value().Preview);
@@ -908,7 +908,7 @@ bool Biblio::copyObj(int id)
 	if (pm.height() > 60)
 		pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
-	pm2.fill(palette().color(QPalette::Window));
+	pm2.fill(palette().color(QPalette::Base));
 	QPainter p;
 	p.begin(&pm2);
 	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
@@ -1159,7 +1159,7 @@ void Biblio::ObjFromMenu(QString text)
 	if (pm.height() > 60)
 		pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
-	pm2.fill(palette().color(QPalette::Window));
+	pm2.fill(palette().color(QPalette::Base));
 	QPainter p;
 	p.begin(&pm2);
 	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
@@ -1231,7 +1231,7 @@ void Biblio::ObjFromCopyAction(QString text)
 	if (pm.height() > 60)
 		pm = pm.scaledToHeight(60, Qt::SmoothTransformation);
 	QPixmap pm2(60, 60);
-	pm2.fill(palette().color(QPalette::Window));
+	pm2.fill(palette().color(QPalette::Base));
 	QPainter p;
 	p.begin(&pm2);
 	p.drawPixmap(30 - pm.width() / 2, 30 - pm.height() / 2, pm);
