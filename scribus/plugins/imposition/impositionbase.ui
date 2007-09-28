@@ -233,6 +233,19 @@
                </item>
               </layout>
              </item>
+             <item row="1" column="0" >
+              <spacer>
+               <property name="orientation" >
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" >
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
             </layout>
            </widget>
            <widget class="QWidget" name="booklet" >
@@ -391,7 +404,7 @@ p, li { white-space: pre-wrap; }
           </widget>
          </item>
          <item>
-          <widget class="Q3GroupBox" name="pageGroupBox" >
+          <widget class="QGroupBox" name="pageGroupBox" >
            <property name="sizePolicy" >
             <sizepolicy vsizetype="Expanding" hsizetype="Minimum" >
              <horstretch>0</horstretch>
@@ -401,11 +414,8 @@ p, li { white-space: pre-wrap; }
            <property name="title" >
             <string>Destination page</string>
            </property>
-           <property name="orientation" >
-            <enum>Qt::Vertical</enum>
-           </property>
-           <layout class="QGridLayout" >
-            <item row="0" column="0" >
+           <layout class="QVBoxLayout" >
+            <item>
              <layout class="QVBoxLayout" >
               <property name="spacing" >
                <number>6</number>
@@ -578,6 +588,19 @@ p, li { white-space: pre-wrap; }
               </item>
              </layout>
             </item>
+            <item>
+             <spacer>
+              <property name="orientation" >
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeHint" >
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
            </layout>
           </widget>
          </item>
@@ -670,14 +693,6 @@ p, li { white-space: pre-wrap; }
  </widget>
  <layoutdefault spacing="6" margin="11" />
  <pixmapfunction>qPixmapFromMimeSource</pixmapfunction>
- <customwidgets>
-  <customwidget>
-   <class>Q3GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>Qt3Support/Q3GroupBox</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>
