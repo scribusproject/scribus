@@ -1,41 +1,44 @@
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Systemanforderungen</title>
-</head>
-<body>
+<qt>
+<title>Systemanforderungen</title>
 <h2>Systemanforderungen</h2>
 <p>Um Scribus kompilieren zu k&ouml;nnen, ben&ouml;tigen Sie folgende Programme:</p>
 <ol>
-	<li><strong>Ab Scribus-Version 1.1.2 ist mindestens GCC 3.x erforderlich, GCC 3.2 oder dar&uuml;ber wird dringend empfohlen</strong>. Wir haben das Kompilieren mit GCC 3.4 bzw. GCC 4.0 getestet und Leistungssteigerungen festgestellt, so da&szlig; wir diese - falls verf&uuml;gbar - empfehlen k&ouml;nnen.</li>
+	<li><strong>Ab Scribus-Version 1.3.x ist mindestens GCC 3.x erforderlich, GCC 4.1 oder dar&uuml;ber wird dringend empfohlen</strong>. Wir haben das Kompilieren mit GCC 4.2 getestet und Leistungssteigerungen festgestellt, so da&szlig; wir diesen &ndash; falls verf&uuml;gbar &ndash; empfehlen k&ouml;nnen.</li>
 	<li>autoconf 2.53 und dar&uuml;ber</li>
 	<li>automake 1.6.3 und dar&uuml;ber</li>
+	<li>GNU make</li>
 </ol>
 Zum Kompilieren, aber auch zum Ausf&uuml;hren von Scribus bestehen folgende Abh&auml;ngigkeiten:
 <ol>
-	<li>Qt 3.3.0 und dar&uuml;ber, sowohl die Laufzeit- als auch die Entwickler-Bibliotheken. Wir empfehlen den Einsatz von Qt 3.3.4 und dar&uuml;ber. <strong>Qt-Versionen unterhalb 3.3. werden nicht unterst&uuml;tzt.</strong></li>
+	<li>Qt 3.3.4 und dar&uuml;ber, sowohl die Laufzeit- als auch die Entwicklerbibliotheken. Wir empfehlen den Einsatz von Qt 3.3.8 und dar&uuml;ber. <strong>Qt-Versionen unterhalb 3.3 werden nicht unterst&uuml;tzt.</strong></li>
 	<li>Python und Python-Entwicklerbibliotheken ab Version 2.3. Sie k&ouml;nnen die Unterst&uuml;tzung von Python mittels <code>configure --without-python</code> deaktivieren.</li>
-	<li>FreeType2 2.1.3 und dar&uuml;ber. Wegen der Fehleranf&auml;lligkeit von FreeType2 empfehlen wir den Einsatz der Versionen ab 2.1.9, falls Ihre Distribution bzw. Ihr System dies erlaubt.</li>
-	<li>libart_lgpl 2.3.10 und dar&uuml;ber bzw. 2.3.17 und dar&uuml;ber empfohlen.</li>
-	<li>libxml 2.6 und dar&uuml;ber.</li>
-	<li>Ghostscript 7.07 und dar&uuml;ber, oder AFPL Ghostscript 8.51 und dar&uuml;ber sind &uuml;beraus empfohlen.</li>
-	<li>PostScript-Schriftarten. TrueType-Schriftarten. Scribus unterst&uuml;tzt auch OpenType-Schriftarten (sowohl TrueType als auch Type-1-Outline) ab Version 1.1.1.</li>
+	<li>FreeType 2 2.1.7 und dar&uuml;ber. Wegen der Fehleranf&auml;lligkeit von FreeType2 empfehlen wir den Einsatz der Versionen ab 2.3 oder dar&uuml;ber, falls Ihre Distribution bzw. Ihr System dies erlaubt.</li>
+	<li>libart_lgpl 2.3.10 und dar&uuml;ber bzw. 2.3.17 und dar&uuml;ber werden empfohlen.</li>
+	<li>libxml 2.2.6 und dar&uuml;ber.</li>
+	<li>Ghostscript 8.15 und dar&uuml;ber oder GPL Ghostscript 8.57 und dar&uuml;ber werden ausdr&uuml;cklich empfohlen.</li>
+	<li>PostScript-Schriftarten. TrueType-Schriftarten. Scribus unterst&uuml;tzt auch OpenType-Schriftarten (sowohl TrueType als auch Type-1-Outline).</li>
+	<li>Littlecms &ndash; in manchen Distributionen auch lcms genannt. Das Minimum ist 1.12, Version 1.16+ oder dar&uuml;ber werden empfohlen. lcms ab Version 1.12 oder h&ouml; unterst&uuml;tzt Tiefenkpompensierung. Ab Version 1.3.4 ist dies erforderlich.</li>
+	<li>libtiff 3.6.0 oder dar&uuml;ber. Ab Version 1.3.4 ist dies erforderlich.</li>
+	<li>libjpeg</li>
 </ol>
-<p>Scribus ist unter fast jedem Window-Manager lauff&auml;hig und ben&ouml;tigt KDE selbst nicht. Ohne KDE gibt es allerdings kein Drag-and-Drop. Einer unserer Scribus-Entwickler verwendet Gnome. Der Autor dieser Dokumentation testet jede neue Scribus-Version zus&auml;tzlich unter Blackbox. Dabei sind noch keine Kompatiblit&auml;tsprobleme aufgetreten, abgesehen vom fehlenden Drag-and-Drop.</p>
-<p>Wenn die Farbverwaltung nicht funktioniert, liegt das m&ouml;glicherweise an den fehlenden Entwickler-Bibliotheken f&uuml;r littlecms. Falls Sie das Paket von littlecms heruntergeladen haben, so sind die make-Dateien bereits f&uuml;r Linux konfiguriert, und das Kompilieren kann gleich beginnen. Au&szlig;erdem ben&ouml;tigen Sie wenigstens ein RBG- und ein CMYK-Profil, damit die Farbpr&auml;ferenzen und Optionen &uuml;berhaupt in den Men&uuml;s angezeigt werden. Bei RedHat und Mandrake 9.x kann es sein, da&szlig; Sie vor dem Kompilieren erst export LDFLAGS=&quot;-lm&quot; eingeben m&uuml;ssen, damit littlecms auch korrekt mit Scribus verlinkt ist. Dieses Problem ist ab littlecms 1.10 und in Scribus ab Version 1.2.x behoben.</p>
+<h3>Optional:</h3>
+<ul>
+<li>Cairo-Entwicklerbibliotheken. Sie k&ouml;nnen ab 1.3.3x wahlweise mit Cairo statt mit libart kompilieren, indem Sie den Parameter <code> --enable-cairo.</code> verwenden. F&uuml;r 1.3.3.x ist die minimale Voraussetzung Cairo 1.2.6 oder dar&uuml;ber. Scribus 1.3.4 oder sp&auml;tere Versionen setzten 1.4.0 oder h&ouml;her voraus. Ab Version 1.3.4 kann Scribus fortgeschrittene Cairo-Funktionen, die mit 1.4.0 eingef&uuml;hrt wurden, nutzen. Außerdem empfehlen wir es, weil Scribus damit schneller arbeitet.</li>
+<li>CUPS Entwicklerbibliotheken &ndash; Scribus unterst&uuml;tzt direkt das Drucken mittels CUPS.</li>
+<li>tkinter &ndash; f&uuml;r das Fontsampler-Script</li>
+<li>Python-Imaging-Bibliotheken f&uuml;r die Fontsampler-Script-Vorschau</li>
+<li>openssl-devel (Einige Distributionen erm&ouml;glichen SSL-Unterst&uuml;tzung f&uuml;r CUPS, vor allem SUSE)</li>
+<li>fontconfig-devel, um Schriften unter Linux, Mac&nbsp;OS&nbsp;X und Unix automatisch zu finden. Für die Windows-Version nicht erforderlich</li>
+<li>antiword &ndash; wird nicht zum Kompilieren benötigt, ermöglicht aber den Import von Word-Dateien. Scribus findet das Programm von selbst.</li>
+<li>Scribus 1.3.5svn erfordert Qt 4.3.0. Qt 4.2.x wird nicht unterstützt. </li>
+</ul>
+<p>Scribus ist unter fast jedem Window-Manager lauff&auml;hig und ben&ouml;tigt kein KDE. Ohne KDE gibt es allerdings kein Drag-and-Drop. Einer unserer Scribus-Entwickler verwendet Gnome. Der Autor dieser Dokumentation testet jede neue Scribus-Version zus&auml;tzlich unter Blackbox. Dabei sind noch keine Kompatiblit&auml;tsprobleme aufgetreten, abgesehen vom fehlenden Drag-and-Drop.</p>
+<p>Wenn die Farbverwaltung nicht funktioniert, liegt das m&ouml;glicherweise an den fehlenden Entwickler-Bibliotheken f&uuml;r littlecms. Falls Sie das Littlecms-Paket heruntergeladen haben, so sind die make-Dateien bereits f&uuml;r Linux konfiguriert, und das Kompilieren kann gleich beginnen. Au&szlig;erdem ben&ouml;tigen Sie wenigstens ein RBG- und ein CMYK-Profil, damit die Farbpr&auml;ferenzen und Optionen &uuml;berhaupt in den Men&uuml;s angezeigt werden. Scribus installiert ein RGB- und ein CMYK-Profil, nur um die Aktivierung des Farbmanagements zu ermöglichen, aber einige Distributionen, vor allem Debian, haben diese Profile aus Lizenzgründen in ein Extrapaket ausgelagert.</p>
 <p>Testreihen lassen darauf schlie&szlig;en, da&szlig; sich das Setzen korrekter &quot;-march=&quot; CXXFLAGS sehr positiv auf die Leistung von Scribus auswirkt. Wenn Sie zum Beispiel bei einem Duron- oder Athlon-Prozessor <code>export CXXFLAGS=&quot;-march=athlon&quot;</code> eintragen, h&auml;tten Sie einen Vorteil. &Uuml;berpr&uuml;fen Sie, ob und wie Ihre Distribution dies f&uuml;r Sie macht, und zur n&auml;heren Information lesen Sie
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>man gcc</pre>
 </td></tr></table></blockquote>
 mit allen Optionen im Detail.</p>
-<h3>Optional:</h3>
-<ul>
-<li>CUPS Entwickler-Bibliotheken - Scribus unterst&uuml;tzt jetzt direkt das Drucken mittels CUPS.</li>
-<li>Gimp-Print Entwickler-Bibliotheken - Scribus unterst&uuml;tzt jetzt direkt das Gimp-Print Plug-in mit CUPS.</li>
-<li>Littlecms - in manchen Distributionen auch bekannt als lcms. Wenigstens Version 1.09, ab 1.12 empfohlen. lcms 1.12 (und dar&uuml;ber) unterst&uuml;tzt das Erzeugen von Black-Point.</li>
-<li>tkinter - f&uuml;r das Fontsampler-Script</li>
-<li>Python-Imaging-Bibliotheken f&uuml;r die Fontsampler-Script-Vorschau</li>
-<li>openssl-devel (Einige Distributionen erm&ouml;glichen SSL-Unterst&uuml;tzung f&uuml;r CUPS, vor allem Suse)</li>
-</ul>
-</body>
-</html>
+<h4>Die Verwendung von CMake</h4>
+<p>Ab 1.3.3.6 und 1.3.4 und h&ouml;her haben wir Unterst&uuml;tzung f&uuml;r CMake als Alternative zu den traditionellen Autotools eingef&uuml;hrt. Lesen Sie bitte die <a href="install4.html">CMake-Anweisungen</a>. Ab Version 1.3.5 verwendet Scribus aussschlie&szlig;lich CMake. </p>
+</qt>
