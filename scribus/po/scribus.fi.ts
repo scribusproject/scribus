@@ -52,7 +52,7 @@ If the object &quot;name&quot; belongs to a group, the whole group is moved.
         <translation>moveObject(dx, dy [, &quot;name&quot;])
 
 Siirtää kohdetta &quot;name&quot; arvoilla dx ja dy  suhteessa nykyiseen sijaintiin. Etäisyydet
-ilmaistaan asikirjassa käytössä olevalla yksiköllä (katso UNIT-vakio). Jos &quot;name&quot; ei
+ilmaistaan asiakirjassa käytössä olevalla yksiköllä (katso UNIT-vakio). Jos &quot;name&quot; ei
 ole määritelty, käytetään valittuna olevaa kohdetta. Jos kohde &quot;name&quot; kuuluu 
 ryhmään, koko ryhmää siirretään.</translation>
     </message>
@@ -85,7 +85,7 @@ May raise NameExistsError if you explicitly pass a name that&apos;s already used
         <translation>createRect(x, y, width, height, [&quot;name&quot;]) -&gt; string
 
 Luo uuden nelikulmion nykyiselle sivulle ja palauttaa luodun kohteen nimen.
-Koordinaatit on annettava asikirjassa käytössä olevalla yksiköllä. Katso (UNIT vakiot).
+Koordinaatit on annettava asiakirjassa käytössä olevalla yksiköllä. Katso (UNIT vakiot).
 &quot;name&quot;:n tulee olla yksilöllinen tunniste kohteelle, koska tarvitset nimeä myöhemmin
 viitatessasi nelikulmioon. Jos &quot;name&quot;:a ei anneta Scribus luo sen.
 
@@ -101,7 +101,7 @@ available types (FILL_&lt;type&gt;).
 </source>
         <translation>setGradientFill(type, &quot;color1&quot;, shade1, &quot;color2&quot;, shade2, [&quot;name&quot;])
 
-Asettaa liukuväritäytön kohteelle &quot;name&quot;. Värin kuvukset ovat samat kuin
+Asettaa liukuväritäytön kohteelle &quot;name&quot;. Värin kuvaukset ovat samat kuin
 setFillColor():lla ja setFillShade():lla. Katso vakiot FILL_&lt;type&gt;.</translation>
     </message>
     <message>
@@ -5095,7 +5095,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="" line="136965632"/>
         <source>Make horizontal gaps between objects and sides of page equal</source>
-        <translation type="obsolete">Tee kohteiden ja sivun reunojen vaaksuorat välit yhtä leveiksi</translation>
+        <translation type="obsolete">Tee kohteiden ja sivun reunojen vaakasuorat välit yhtä leveiksi</translation>
     </message>
     <message>
         <location filename="" line="136965632"/>
@@ -6054,7 +6054,7 @@ If loading was successful, the selection contains the imported ODG
     <message>
         <location filename="../applytemplatedialog.cpp" line="273"/>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
-        <translation>Käytä valittua mallisivua parillisilla, parittomilla tai kaikkilla sivuilla</translation>
+        <translation>Käytä valittua mallisivua parillisilla, parittomilla tai kaikilla sivuilla</translation>
     </message>
     <message>
         <location filename="../applytemplatedialog.cpp" line="51"/>
@@ -6861,7 +6861,7 @@ Sitä ei voi käyttää.</translation>
     <message>
         <location filename="../cmykfw.cpp" line="391"/>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation>Valitsemalla tämä tulostetaan väri kaikille painolevyille. Kohdistusvärejä käytetään tuottamaan mm. laikkaus- ja kohdistusmerkit. Kohdistusvärejä ei yleensä käytetä lopulliseen julkaisuun kuuluvissa osissa.</translation>
+        <translation>Valitsemalla tämä tulostetaan väri kaikille painolevyille. Kohdistusvärejä käytetään tuottamaan mm. leikkaus- ja kohdistusmerkit. Kohdistusvärejä ei yleensä käytetä lopulliseen julkaisuun kuuluvissa osissa.</translation>
     </message>
     <message>
         <location filename="../cmykfw.cpp" line="392"/>
@@ -9311,7 +9311,7 @@ Voit määrittää sen asetuksissa.</translation>
         <location filename="../plugins/gettext/docim/docim.cpp" line="172"/>
         <source>Importing Word document failed 
 %1</source>
-        <translation>Word-asiakirjan tuonti epäonnnistui \n
+        <translation>Word-asiakirjan tuonti epäonnistui \n
 %1</translation>
     </message>
 </context>
@@ -11579,7 +11579,7 @@ joita on tarkoitus katsella näytöltä</translation>
     <message>
         <location filename="../fontreplacedialog.cpp" line="82"/>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Peruuta fonttien korvaus ja keskeytä asikirjan lataaminen.</translation>
+        <translation>Peruuta fonttien korvaus ja keskeytä asiakirjan lataaminen.</translation>
     </message>
     <message>
         <location filename="../fontreplacedialog.cpp" line="83"/>
@@ -13672,7 +13672,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     <message>
         <location filename="../muster.cpp" line="38"/>
         <source>Edit Master Pages</source>
-        <translation>Muokka mallisivuja</translation>
+        <translation>Muokkaa mallisivuja</translation>
     </message>
     <message>
         <location filename="../muster.cpp" line="109"/>
@@ -17756,7 +17756,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     <message>
         <location filename="" line="136965632"/>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="obsolete">Tämä on periytetty standardista Python-konsolista joten siinä on muutamia rajoituksia, erityisesti whitespace-merkkien käsitelyssä. Lisää tietoa löytyy dokumentaatiosta.</translation>
+        <translation type="obsolete">Tämä on periytetty standardista Python-konsolista joten siinä on muutamia rajoituksia, erityisesti whitespace-merkkien käsittelyssä. Lisää tietoa löytyy dokumentaatiosta.</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/pconsole.cpp" line="163"/>
@@ -18900,7 +18900,7 @@ External Links
         <location filename="../plugins/scriptplugin/cmdmani.cpp" line="272"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation>Kokoa ei voi skaalta 0 %:lla</translation>
+        <translation>Kokoa ei voi skaalata 0 %:lla</translation>
     </message>
     <message>
         <location filename="../plugins/scriptplugin/cmdmani.cpp" line="384"/>
@@ -21415,7 +21415,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="179"/>
         <source>SVG file contains some unsupported features</source>
-        <translation>SVG-tiedosto sisältää joitain tomintoja, joita Scribus ei tue</translation>
+        <translation>SVG-tiedosto sisältää joitain toimintoja, joita Scribus ei tue</translation>
     </message>
     <message>
         <location filename="../plugins/svgimplugin/svgplugin.cpp" line="177"/>
@@ -22780,7 +22780,7 @@ Käytä tarkastustyökalua korjataksesi ne.</translation>
     <message>
         <location filename="../scribusview.cpp" line="308"/>
         <source>Switches Color Management on or off</source>
-        <translation>Ottaa värien hallinan käyttöön tai poistaa sen käytöstä</translation>
+        <translation>Ottaa värien hallinnan käyttöön tai poistaa sen käytöstä</translation>
     </message>
     <message>
         <location filename="../scribusview.cpp" line="309"/>
