@@ -766,7 +766,7 @@ void Hruler::drawNumber(QString txt, int x, int y0, QPainter & p)
 	QRect bbox = fm.boundingRect(txt);
 	static QPixmap pix;
 	if (pix.width() < bbox.width()*SCALE || pix.height() < bbox.height()*SCALE)
-		pix.resize(bbox.width()*SCALE, bbox.height()*SCALE);
+		pix = QPixmap(bbox.width()*SCALE, bbox.height()*SCALE);
 	QFont fnt = p.font();
 	QPainter p2;
 	pix.fill();
