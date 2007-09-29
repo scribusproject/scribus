@@ -108,7 +108,7 @@ void SWPrefsGui::okButton_pressed()
 	if (QFile::exists(RC_PATH_USR))
 	{
 		if ((ScMessageBox::warning(this, tr("Short Words"),
-				"<qt>" + tr("User configuration exists elready. "
+				"<qt>" + tr("User configuration exists already. "
 						"Do you really want to overwrite it?") + "</qt>",
 				CommonStrings::trYes,
 				CommonStrings::trNo, 0, 0, 1)

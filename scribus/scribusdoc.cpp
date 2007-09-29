@@ -21,46 +21,37 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "scribus.h"
-#include "scribuscore.h"
-#include "scribusdoc.h"
-#include "scribusview.h"
-#include "scribuswin.h"
-#include "guidemanager.h"
-#include "seiten.h"
-#include "canvas.h"
 
 #include <utility>
-#include <QEventLoop>
 
+#include <QByteArray>
 #include <QDebug>
+#include <QEventLoop>
 #include <QFile>
+#include <QList>
 #include <QPainter>
+#include <QPixmap>
 #include <QProgressBar>
 
-#include <QList>
-#include <QPixmap>
-#include <QByteArray>
-
-
-
+#include "canvas.h"
 #include "cmserrorhandling.h"
 #include "commonstrings.h"
 #include "fileloader.h"
 #include "filewatcher.h"
+#include "guidemanager.h"
 #include "hruler.h"
 #include "hyphenator.h"
 #include "layers.h"
 #include "page.h"
-#include "pagesize.h"
 #include "pageitem.h"
 #include "pageitem_imageframe.h"
+#include "pageitem_latexframe.h"
 #include "pageitem_line.h"
 #include "pageitem_pathtext.h"
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
-#include "pageitem_latexframe.h"
+#include "pagesize.h"
 #include "pagestructs.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -69,7 +60,13 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 #include "scpainter.h"
 #include "scraction.h"
+#include "scribus.h"
 #include "scribusXml.h"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "scribuswin.h"
+#include "seiten.h"
 #include "selection.h"
 #include "story.h"
 #include "text/nlsconfig.h"
@@ -80,6 +77,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_cms.h"
 #include "util_icon.h"
 #include "util_math.h"
+
 
 
 // static const bool FRAMESELECTION_EDITS_DEFAULTSTYLE = false;

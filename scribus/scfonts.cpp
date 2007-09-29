@@ -628,7 +628,7 @@ void SCFonts::AddFontconfigFonts()
 									NULL);
 	// The ObjectSet tells FontConfig what information about each match to return.
 	// We currently just need FC_FILE, but other info like font family and style
-	// is availible - see "man fontconfig".
+	// is available - see "man fontconfig".
 	FcObjectSet* os = FcObjectSetBuild (FC_FILE, (char *) 0);
 	// Now ask fontconfig to retrieve info as specified in 'os' about fonts
 	// matching pattern 'pat'.

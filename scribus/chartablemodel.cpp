@@ -125,7 +125,7 @@ bool CharTableModel::removeCharacter(int index)
 		reset();
 		return true;
 	}
-	qDebug("CharTable::deleteOwnCharacter: no char deleted - logical error propably");
+	qDebug("CharTable::deleteOwnCharacter: no char deleted - logical error probably");
 	return false;
 }
 

@@ -20,7 +20,7 @@ for i in f:
 
 f.close()
 
-print 'writting output'
+print 'writing output'
 
 f = open('unicodenameslist.txt', 'w')
 for i in out:

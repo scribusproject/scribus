@@ -94,7 +94,7 @@ PyObject *scribus_getlineshade(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinejoin__doc__,
-QT_TR_NOOP("getLineJoin([\"name\"]) -> integer (see contants)\n\
+QT_TR_NOOP("getLineJoin([\"name\"]) -> integer (see constants)\n\
 \n\
 Returns the line join style of the object \"name\". If \"name\" is not given\n\
 the currently selected item is used.  The join types are:\n\

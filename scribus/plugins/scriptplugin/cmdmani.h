@@ -42,7 +42,7 @@ QT_TR_NOOP("rotateObject(rot [, \"name\"])\n\
 \n\
 Rotates the object \"name\" by \"rot\" degrees relatively. The object is\n\
 rotated by the vertex that is currently selected as the rotation point - by\n\
-default, the top left vertext at zero rotation. Positive values mean counter\n\
+default, the top left vertex at zero rotation. Positive values mean counter\n\
 clockwise rotation when the default rotation point is used. If \"name\" is not\n\
 given the currently selected item is used.\n\
 "));

@@ -34,7 +34,7 @@ True for haspreview enables a small preview widget in the FileSelect box.  When\
 the issave parameter is set to True the dialog acts like a \"Save As\" dialog\n\
 otherwise it acts like a \"File Open Dialog\". When the isdir parameter is True\n\
 the dialog shows and returns only directories. The default for all of the\n\
-opional parameters is False.\n\
+optional parameters is False.\n\
 \n\
 The filter, if specified, takes the form 'comment (*.type *.type2 ...)'.\n\
 For example 'Images (*.png *.xpm *.jpg)'.\n\

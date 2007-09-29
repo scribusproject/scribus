@@ -30,7 +30,7 @@ to setup the GUI and compute guides itself. 2nd the horizontalAutoG etc. set
 with precomputed values from GUI actions for drawing.
 - user can move only Stnadard ones
 - Auto guides can be deleted only in manipulation dialog
-- Auto guides are painted in different color / (propably) with diff. line.
+- Auto guides are painted in different color / (probably) with diff. line.
 \author Petr vanek <petr@scribus.info>
 */
 class SCRIBUS_API GuideManagerCore

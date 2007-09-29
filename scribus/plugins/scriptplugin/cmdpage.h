@@ -84,7 +84,7 @@ PyDoc_STRVAR(scribus_gotopage__doc__,
 QT_TR_NOOP("gotoPage(nr)\n\
 \n\
 Moves to the page \"nr\" (that is, makes the current page \"nr\"). Note that\n\
-gotoPage doesn't (curently) change the page the user's view is displaying, it\n\
+gotoPage doesn't (currently) change the page the user's view is displaying, it\n\
 just sets the page that script commands will operates on.\n\
 \n\
 May raise IndexError if the page number is out of range.\n\

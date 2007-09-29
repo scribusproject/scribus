@@ -2044,7 +2044,7 @@ void OODPlug::svgClosePath(FPointArray *i)
 OODPlug::~OODPlug()
 {
 	delete tmpSel;
-	// it's propably needed as QHash() dos not support autocleaning
+	// it's probably needed as QHash() dos not support autocleaning
 	m_styles.clear();
 	m_draws.clear();
 }

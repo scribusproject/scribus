@@ -77,7 +77,7 @@ private:
 	bool collectProfiles();
 	/*! \brief Copy used file into new location with magic checks.
 	It looks into collectedFiles map. If there is newFile (key) already
-	found - it will construct new filename to prevent overwritting.
+	found - it will construct new filename to prevent overwriting.
 	E.g. newFile.png can be newFile_0.png.
 	It checks already collected files not to collect one item 2 times.
 	\param oldFile full path of the original file

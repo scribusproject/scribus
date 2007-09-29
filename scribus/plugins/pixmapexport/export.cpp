@@ -182,7 +182,7 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 		QApplication::restoreOverrideCursor();
 		over = QMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
 				fn +"\n"+ tr("exists already. Overwrite?"),
-				// hack for multiple overwritting (petr) 
+				// hack for multiple overwriting (petr) 
 				(single == true) ? QMessageBox::Yes | QMessageBox::No : QMessageBox::Yes | QMessageBox::No | QMessageBox::YesToAll);
 		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		if (over == QMessageBox::Yes)

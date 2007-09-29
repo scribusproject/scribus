@@ -130,7 +130,7 @@ void PythonConsole::slot_runScriptAsConsole()
 {
 	parsePythonString();
 	commandEdit->clear();
-	// content is destroyed. This is to prevent overwritting
+	// content is destroyed. This is to prevent overwriting
 	filename = QString::null;
 	outputEdit->append("\n>>> " + m_command);
 	emit runCommand();
