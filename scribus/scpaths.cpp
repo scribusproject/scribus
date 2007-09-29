@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scpaths.h"
 #include <QApplication>
+#include <QDebug>
 #include <QDir>
 
 #include "scconfig.h"
@@ -89,7 +90,7 @@ ScPaths::ScPaths() :
 		*p = '\0';
 	}
 
-	qDebug(QString("scpaths: bundle at %1:").arg(pathPtr));
+	qDebug() << QString("scpaths: bundle at %1:").arg(pathPtr);
 	m_shareDir = QString("%1/Contents/share/scribus/").arg(pathPtr);
 	m_docDir = QString("%1/Contents/share/scribus/doc/").arg(pathPtr);
 	m_iconDir = QString("%1/Contents/share/scribus/icons/").arg(pathPtr);
@@ -103,15 +104,15 @@ ScPaths::ScPaths() :
 	CFRelease(macPath);
 
 	// on OSX this goes to the sys console, so user only sees it when they care -- AV
-	qDebug(QString("scpaths: doc dir=%1").arg(m_docDir));
-	qDebug(QString("scpaths: icon dir=%1").arg(m_iconDir));
-	qDebug(QString("scpaths: font dir=%1").arg(m_fontDir));
-	qDebug(QString("scpaths: sample dir=%1").arg(m_sampleScriptDir));
-	qDebug(QString("scpaths: script dir=%1").arg(m_scriptDir));
-	qDebug(QString("scpaths: template dir=%1").arg(m_templateDir));
-	qDebug(QString("scpaths: lib dir=%1").arg(m_libDir));
-	qDebug(QString("scpaths: plugin dir=%1").arg(m_pluginDir));
-	qDebug(QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":")));
+	qDebug() << QString("scpaths: doc dir=%1").arg(m_docDir);
+	qDebug() << QString("scpaths: icon dir=%1").arg(m_iconDir);
+	qDebug() << QString("scpaths: font dir=%1").arg(m_fontDir);
+	qDebug() << QString("scpaths: sample dir=%1").arg(m_sampleScriptDir);
+	qDebug() << QString("scpaths: script dir=%1").arg(m_scriptDir);
+	qDebug() << QString("scpaths: template dir=%1").arg(m_templateDir);
+	qDebug() << QString("scpaths: lib dir=%1").arg(m_libDir);
+	qDebug() << QString("scpaths: plugin dir=%1").arg(m_pluginDir);
+	qDebug() << QString("scpaths: qtplugins=%1").arg(QApplication::libraryPaths().join(":"));
 
 #elif defined(_WIN32)
 	QString appPath = qApp->applicationDirPath();
