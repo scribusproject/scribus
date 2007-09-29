@@ -230,18 +230,46 @@ ENDIF(WANT_DEBUG)
 
 #Based on our build type, setup our build options
 IF(APPLE)
+  # gcc/mac
   SET( ENV{MACOSX_DEPLOYMENT_TARGET} 10.3 ) 
   SET( ENV{LD_PREBIND} 1 )
   SET( ENV{LD_PREBIND_ALLOW_OVERLAP} 1 )
   SET(CMAKE_CXX_FLAGS_DEBUG "-O2 -g3 -fno-inline-functions -Wall")
   SET(CMAKE_C_FLAGS_DEBUG "-O2 -g3 -fno-inline-functions -Wall")
 ELSE(APPLE)
-  SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
-  SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
+  IF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
+    # Windows build with Visual Studio
+    # Surely there's a better way to identify the compiler?
+    SET(CMAKE_CXX_FLAGS_DEBUG)
+    SET(CMAKE_C_FLAGS_DEBUG)
+  ELSE(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
+    # vanilla gcc
+    SET(CMAKE_CXX_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
+    SET(CMAKE_C_FLAGS_DEBUG "-O0 -g3 -Wall -fstrict-aliasing")
+  ENDIF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
 ENDIF(APPLE)
 
-SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall")
-SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall")
+IF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
+  SET(CMAKE_CXX_FLAGS_RELEASE)
+  SET(CMAKE_C_FLAGS_RELEASE)
+ELSE(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
+  SET(CMAKE_CXX_FLAGS_RELEASE "-O2 -Wall")
+  SET(CMAKE_C_FLAGS_RELEASE "-O2 -Wall")
+ENDIF(${CMAKE_GENERATOR} MATCHES "^(Visual Studio|NMake).*")
+
+IF(WIN32)
+  ADD_DEFINITIONS(-DWIN32_LEAN_AND_MEAN
+	          -DAVOID_WIN32_FILEIO
+                  -D_CRT_SECURE_NO_DEPRECATE
+		  -DCOMPILE_PLUGIN_AS_DLL
+		  )
+  SET(BUILD_WINDOWS_VERSION 1)
+  SET(SC_USE_GDI 1)
+  IF(NOT SC_SHOULD_NOT_USE_GDIPLUS)
+    SET(SC_USE_GDIPLUS 1)
+  ENDIF(NOT SC_SHOULD_NOT_USE_GDIPLUS)
+  SET(DLL_USE_NATIVE_API 1)
+ENDIF(WIN32)
 
 ##############################################################################################################
 ########## Find Dependencies                                                                        ##########

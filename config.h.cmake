@@ -11,6 +11,10 @@
 
 #cmakedefine VERSION "1.3.5svn"
 
+#cmakedefine BUILD_WINDOWS_VERSION 1
+#cmakedefine SC_USE_GDI 1
+#cmakedefine SC_USE_GDIPLUS 1
+#cmakedefine DLL_USE_NATIVE_API 1
 #cmakedefine BUILD_MAC_BUNDLE
 #cmakedefine HAVE_CMS 1
 #cmakedefine HAVE_XML 1
