@@ -105,7 +105,7 @@ public:
 	{
 		double x,y,h,w;
 		it->getBoundingRect(&x, &y, &w, &h);
-		doc->regionsChanged()->update(QRectF(x, y, h, w));
+		doc->regionsChanged()->update(QRectF(x, y, w, h));
 	}
 };
 
