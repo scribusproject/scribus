@@ -146,12 +146,12 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 		int s=menuItemList.size()-1; 
 		for (int i=s; i>=0; --i) {
 			QObject* menuItem = menuItemList[i];
-			QString menuItemListClassName = menuItemList[i]->className();
+			QString menuItemListClassName = menuItemList[i]->metaObject()->className();
 			if (menuItemListClassName == "ScrAction")
 			{
 				ScrAction * act = dynamic_cast<ScrAction *>(menuItem);
 				if (act!=NULL)
-					menuListHasNoIcons = act->iconSet().isNull();
+					menuListHasNoIcons = act->icon().isNull();
 				break;
 			}
 
@@ -163,8 +163,8 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 				break;
 			}
 		}
-		if (newMenuAction->iconSet().isNull() && ! menuListHasNoIcons)
-			newMenuAction->setIconSet(loadIcon("noicon.xpm"));
+		if (newMenuAction->icon().isNull() && ! menuListHasNoIcons)
+			newMenuAction->setIcon(loadIcon("noicon.xpm"));
 #endif
 		
 		menuItemList.append(newMenuAction);
@@ -197,8 +197,8 @@ bool ScrPopupMenu::insertMenuItemAfter(ScrAction *newMenuAction, ScrAction *afte
 	//	return false;
 	
 #ifdef Q_WS_MAC
-	if (newMenuAction->iconSet().isNull() && ! (afterMenuAction->iconSet().isNull()))
-		newMenuAction->setIconSet(loadIcon("noicon.xpm"));
+	if (newMenuAction->icon().isNull() && ! (afterMenuAction->icon().isNull()))
+		newMenuAction->setIcon(loadIcon("noicon.xpm"));
 #endif
 		
 	int pos=menuItemList.indexOf(QPointer<QObject>(afterMenuAction));
