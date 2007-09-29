@@ -19,13 +19,15 @@ for which a new license (GPL+exception) is in place.
 #include <QSpinBox>
 #include <QSlider>
 #include <QCheckBox>
+
+#if _MSC_VER
+#define _USE_MATH_DEFINES
+#endif
 #include <cmath>
+
 #include "util_math.h"
 #include "prefsstructs.h"
 
-#if _MSC_VER
-#define M_PI PI
-#endif
 
 using namespace std;
 
