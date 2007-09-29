@@ -24,7 +24,7 @@ FIND_PATH(LCMS_INCLUDE_DIR lcms.h
 )
 
 FIND_LIBRARY(LCMS_LIBRARY
-  NAMES lcms liblcms
+  NAMES lcms liblcms lcmsdll
   PATHS /usr/lib /usr/local/lib
 )
 
