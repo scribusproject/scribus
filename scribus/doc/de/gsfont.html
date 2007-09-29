@@ -1,12 +1,8 @@
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Tipps zu Ghostscript-Schriftarten</title>
-</head>
-<body>
-<h2>Tipps zu Ghostscript-Schriftarten</h2>
+<qt>
+<title>Tips zu Ghostscript-Schriftarten</title>
+<h2>Tips zu Ghostscript-Schriftarten</h2>
 
-<em>Diese Anmerkungen verdanken wir Craig Ringer und Russell Lang, den Betreibern von GSview.</em>
+<em>Diese Anmerkungen verdanken wir Craig Ringer und Russell Lang, dem Programmierer von GSview.</em>
 
 <p>Wenn Ghostscript eine Datei nicht rendern/importieren/konvertieren kann, liegt eine der h&auml;ufigsten Ursachen darin, da&szlig; Ghostscript die Schriftarten nicht findet, die zur Darstellung von EPS bzw. PS n&ouml;tig sind. Dies ist weder eine Schw&auml;che noch ein Fehler von Ghostscript, denn <strong>alle</strong> EPS/PS-Interpreter m&uuml;ssen auf die richtigen Schriftarten zugreifen k&ouml;nnen, die PostScript ihnen vorgibt.  Genau das kann sicher auch der Fall sein, wenn Sie versuchen EPS/PS-Dateien nach Scribus zu importieren. Einige Anwendungen betten die Schriftarten nicht korrekt ein, weshalb diese dann extern bereitgestellt werden m&uuml;ssen. </p>
 
@@ -24,13 +20,13 @@ Last OS error: No such file or directory
 und so weiter...
 </pre>
 
-<p>Der Fehler <strong>invalidfont</strong> bedeutet, da&szlig; a: Ghostscript die Schriftart(en) nicht finden kann, da&szlig; b: Ghostscript <strong>keinerlei</strong> Schriftarten finden kann, oder da&szlig; c: eine Schriftart im System besch&auml;digt oder verst&uuml;mmelt ist.</p>
+<p>Der Fehler <strong>invalidfont</strong> bedeutet, da&szlig; a) Ghostscript die Schriftart(en) nicht finden kann, da&szlig; b) Ghostscript <strong>keinerlei</strong> Schriftarten finden kann, oder da&szlig; c) eine Schriftart im System besch&auml;digt oder verst&uuml;mmelt ist.</p>
 
 <p>Die L&ouml;sung:</p>
 
 <h4>Erzeugen einer Fontmap-Datei </h4>
 
-In der GS-Quelldistribution verbirgt sich ein geheimer Juwel: <pre>$GS_SRC_DIR/toolbin/genfontmap.ps</pre> Dieser kann benutzt werden, um eine Fontmap-Datei zu erstellen - dasselbe machen &uuml;brigens jene furchterregenden Perl-Skripte, die im Internet zu finden sind. Diese GhostScript-Datei mu&szlig; sich nicht automatisch in Ihrer Distribution befinden, weshalb wir uns hier auf das noch gepackte tar-Quellvereichnis (f&uuml;r eine parallele GS-Installation) beziehen. Benutzen Sie m&ouml;glichst ein <em>genfontmap.ps</em> der von Ihnen verwendeten Ghostscript-Version. Andere funktionieren m&ouml;glicherweise nicht korrekt. Dies ist ein weiterer guter Grund, weshalb Sie eine neuere Version von Ghostscript beschaffen sollten.
+In der GS-Quelldistribution verbirgt sich ein geheimes Juwel: <pre>$GS_SRC_DIR/toolbin/genfontmap.ps</pre> Dieses kann benutzt werden, um eine Fontmap-Datei zu erstellen &ndash; dasselbe machen &uuml;brigens jene furchterregenden Perl-Skripte, die im Internet zu finden sind. Diese Ghostscript-Datei mu&szlig; sich nicht automatisch in Ihrer Distribution befinden, weshalb wir uns hier auf das noch gepackte tar-Quellvereichnis (f&uuml;r eine parallele GS-Installation) beziehen. Benutzen Sie m&ouml;glichst ein <em>genfontmap.ps</em> der von Ihnen verwendeten Ghostscript-Version. Andere funktionieren m&ouml;glicherweise nicht korrekt. Dies ist ein weiterer guter Grund, weshalb Sie sich eine neuere Version von Ghostscript beschaffen sollten.
 
 <pre>
   
@@ -42,7 +38,7 @@ In der GS-Quelldistribution verbirgt sich ein geheimer Juwel: <pre>$GS_SRC_DIR/t
   (Arial-Black)   (/usr/local/share/fonts/TrueType/AriBlk.TTF) ;
   (Arial-BoldItalicMT)    (/usr/local/share/fonts/TrueType/Arialbi.TTF) ;
   (Arial-BoldMT)  (/usr/local/share/fonts/TrueType/Arialbd.TTF) ;
-  ... blah blah blah ...
+  ... bla bla bla ...
   (Utopia-Regular)        (putr.pfa) ;
   (Verdana)       (/usr/local/share/fonts/TrueType/Verdana.TTF) ;
   (Verdana-Bold)  (/usr/local/share/fonts/TrueType/Verdanab.TTF) ;
@@ -56,7 +52,7 @@ In der GS-Quelldistribution verbirgt sich ein geheimer Juwel: <pre>$GS_SRC_DIR/t
   
 </pre>
 
-<p>Sie leiten also die Standardausgabe um oder &uuml;bertragen (mittels kopieren/einf&uuml;gen) alles aus der <code>% This Fontmap..</code>-Zeile in einen Texteditor, um die Fontmap zu speichern, kopieren die erstellte FontMap-Datei ins Schriftarten-Verzeichnis und f&uuml;gen das Verzeichnis dann Ihrer GS_LIB-Umgebungsvariablen hinzu:</p>
+<p>Sie leiten also die Standardausgabe um oder &uuml;bertragen (mittels kopieren/einf&uuml;gen) alles aus der <code>% This Fontmap..</code>-Zeile in einen Texteditor, um die Fontmap zu speichern. Kopieren die erstellte FontMap-Datei ins Schriftarten-Verzeichnis und f&uuml;gen das Verzeichnis dann Ihrer GS_LIB-Umgebungsvariablen hinzu:</p>
 
 <p>Die genaue Pfadbezeichnung kann variieren.</p>
 
@@ -69,13 +65,13 @@ In der GS-Quelldistribution verbirgt sich ein geheimer Juwel: <pre>$GS_SRC_DIR/t
 
 <p>Nun k&ouml;nnen Sie Scribus von der Konsole aus starten. GhostScript wird die Schriftarten finden und die EPS/PS-Dateien problemlos importieren.</p>
 
-<p>Alternativ k&ouml;nnen Sie Ihre GS-lib/Fontmap editieren und die neue Fontmap als Quelle eintragen - oder Sie h&auml;ngen die neuen Fontmap-Eintr&auml;ge an Ihre Main-lib/Fontmap an.</p>
+<p>Alternativ k&ouml;nnen Sie Ihre GS-lib/Fontmap editieren und die neue Fontmap als Quelle eintragen &ndash; oder Sie h&auml;ngen die neuen Fontmap-Eintr&auml;ge an Ihre bestehende lib/Fontmap an.</p>
 
-<h4>TrueType-Schriften nach Anlegen neuer Benutzer</h4>
+<h4>TrueType-Schriften nach dem Anlegen neuer Benutzer</h4>
 
-<p>Obwohl sich die Ghostscript-Dokumentation gr&ouml;&szlig;te M&uuml;he gibt, einen anderen Anschein zu erwecken, sind TrueType-Schriften in Ghostscript gut unterst&uuml;tzt und einfach zu verwenden.</p>
+<p>Obwohl sich die Ghostscript-Dokumentation gr&ouml;&szlig;te M&uuml;he gibt, einen anderen Anschein zu erwecken, werden TrueType-Schriften von Ghostscript gut unterst&uuml;tzt und sind einfach zu verwenden.</p>
 
-<p>Ganz wichtig ist hierbei, da&szlig; die Verzeichnisse, die in der GS_FONTPATH-Umgebungsvariablen und im -sFONTPATH-Argument stehen, alle Schriftart-Typen enthalten d&uuml;rfen, die unterst&uuml;tzt werden - und nicht allein PostScript-Schriftarten, wie es die Dokumentation darstellt.</p>
+<p>Ganz wichtig ist hierbei, da&szlig; die Verzeichnisse, die in der GS_FONTPATH-Umgebungsvariablen und im -sFONTPATH-Argument stehen, alle Schriftart-Typen enthalten d&uuml;rfen, die unterst&uuml;tzt werden &ndash; und nicht allein PostScript-Schriftarten, wie es die Dokumentation darstellt.</p>
 
 <pre>$ export GS_FONTPATH=$MY_FONT_DIR:$HOME/.fonts
 $ scribus</pre>
@@ -84,4 +80,4 @@ $ scribus</pre>
 
 <p>Der EPS-Import in Scribus ist verkn&uuml;pft mit dem Schriftarten-Pfad von Ghostscript. Wenn GS die Schriftarten nicht findet, so werden sie kommentarlos ersetzt. Wenn Sie das nicht m&ouml;chten, sorgen Sie also unbedingt daf&uuml;r, da&szlig; GS diese finden kann.</p>
 
-<p>Es ist zu empfehlen, da&szlig; Sie f&uuml;r Ihre Schriftarten-Verzeichnisse Fontmap-Dateien erstellen und diese der GS_LIB-Umgebungsvariablen hinzuf&uuml;gen, denn hierdurch kann GS seine Schriftarten k&uuml;nftig schneller laden. Tests haben best&auml;tigt, da&szlig; - sobald GS informiert ist, wo sich die Schriftarten befinden, der EPS-Import in Scribus munter auf lokale Schriftarten zugreift, um dort eine passende zu finden, die von EPS gew&uuml;nscht, jedoch nicht eingebettet wurde.</p>
+<p>Es ist zu empfehlen, da&szlig; Sie f&uuml;r Ihre Schriftarten-Verzeichnisse Fontmap-Dateien erstellen und diese der GS_LIB-Umgebungsvariablen hinzuf&uuml;gen, denn hierdurch kann GS seine Schriftarten k&uuml;nftig schneller laden. Tests haben best&auml;tigt, da&szlig; &ndash; sobald GS informiert ist, wo sich die Schriftarten befinden &ndash; der EPS-Import in Scribus munter auf lokale Schriftarten zugreift, um dort eine passende zu finden, die von EPS gew&uuml;nscht, jedoch nicht eingebettet wurde.</p>
