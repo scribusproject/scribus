@@ -23,6 +23,10 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 #include "prefsstructs.h"
 
+#if _MSC_VER
+#define M_PI PI
+#endif
+
 using namespace std;
 
 PolygonWidget::PolygonWidget(QWidget* parent, int polyC, int polyFd, double polyF, bool polyS, double polyR) : QWidget( parent )
@@ -224,7 +228,7 @@ void PolygonWidget::UpdatePreView()
 
 double PolygonWidget::GetZeroFaktor()
 {
-	return sqrt(pow(1.0,2.0)-pow(((sin((360.0/(Ecken->value()*2))/180*M_PI)* 2.0)/2.0),2.0));
+	return sqrt(pow(1.0,2.0)-pow(((sin((360.0/(Ecken->value()*2))/180* M_PI)* 2.0)/2.0),2.0));
 }
 
 double PolygonWidget::GetMaxFaktor()
