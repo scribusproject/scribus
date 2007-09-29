@@ -1962,7 +1962,7 @@ progressReset(). [based on info taken from Trolltech's Qt docs]</translation>
 </source>
       <translation>setCursor()
 
-[Ei tuettu!] Tämä saattaa rikkoa asoita. Eli älä käytä ainakaan vielä.</translation>
+[Ei tuettu!] Tämä saattaa rikkoa asioita. Eli älä käytä ainakaan vielä.</translation>
     </message>
     <message>
       <source>docChanged(bool)
@@ -4573,7 +4573,7 @@ strings.
     </message>
     <message>
       <source>12 or 13 digits with dashes. The legacy ISBN-10 format accepts 9 or 10 digits with dashes, but this standard was depreciated for public use after 1st January 2007. (Note: To convert an old ISBN-10 to a new ISBN-13, prefix 978- to the first 9 digits, e.g. 1-56592-479-7 -> 978-1-56592-479. The final check-digit will be calculated automatically.)</source>
-      <translation>12 tai 13 numeroa viivoilla. ISBN-10-muoto sallii 9 tai 10 numeroa viivojen kanssa, mutta tämä standardi merkattiin vanhenevaksi 1. tammikuuuta 2007 jälkeen. (Muuttaaksesi vanhan ISBN-10-numeron uudeksi ISBN-13-numeroksi sijoita 978 yhdeksännumeroisen ISBN-10-numerosi eteen. Esimerkiksi: 1-56592-479-7 -> 978-1-56592-479. Viimeinen tarkistusnumero lasketaan automaattisesti.</translation>
+      <translation>12 tai 13 numeroa viivoilla. ISBN-10-muoto sallii 9 tai 10 numeroa viivojen kanssa, mutta tämä standardi merkattiin vanhenevaksi 1. tammikuuta 2007 jälkeen. (Muuttaaksesi vanhan ISBN-10-numeron uudeksi ISBN-13-numeroksi sijoita 978 yhdeksännumeroisen ISBN-10-numerosi eteen. Esimerkiksi: 1-56592-479-7 -> 978-1-56592-479. Viimeinen tarkistusnumero lasketaan automaattisesti.</translation>
     </message>
   </context>
   <context>
@@ -5124,7 +5124,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
       <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-      <translation>Valitsemalla tämä väristä tehdään lisäväri (spot color), jolloin painoprosessiin lisätään uusi laatta tai erottelu kutakin lisäväriä varten. Lisävärejä käytetään useimmiten, kun esimerkiksi logon väri halutaan saada juuri oikeaksi eikä sitä voida esittää CMYK-musteilla. Metalli- ja hohtovärit ovat esimerkiksi tällaisia värejä.</translation>
+      <translation>Valitsemalla tämä väristä tehdään lisäväri (spot color), jolloin painoprosessiin lisätään uusi levy tai erottelu kutakin lisäväriä varten. Lisävärejä käytetään useimmiten, kun esimerkiksi logon väri halutaan saada juuri oikeaksi eikä sitä voida esittää CMYK-musteilla. Metalli- ja hohtovärit ovat esimerkiksi tällaisia värejä.</translation>
     </message>
   </context>
   <context>
@@ -5537,7 +5537,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
       <source>Split Complementary</source>
-      <translation>Jaettu komplimentaarinen</translation>
+      <translation>Jaettu komplementaarinen</translation>
     </message>
     <message>
       <source>Triadic</source>
@@ -13178,7 +13178,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File->Save As. Are you sure you wish to proceed with this operation?</source>
-      <translation>Käytät Scribuksen kehitysversiota 1.3.x. Asiakirja, jonka parissa työskentelet luotiin Scribuksen versiolla 1.2.3 tai aikaisempi. Jos tallennat asiakirjan sitä ei voi enää avata Scribuksen versiossa 1.2.3, ellet valitse Tiedost->Tallenna nimellä. Haluatko jatkaa tallentamista?</translation>
+      <translation>Käytät Scribuksen kehitysversiota 1.3.x. Asiakirja, jonka parissa työskentelet luotiin Scribuksen versiolla 1.2.3 tai aikaisempi. Jos tallennat asiakirjan sitä ei voi enää avata Scribuksen versiossa 1.2.3, ellet valitse Tiedosto->Tallenna nimellä. Haluatko jatkaa tallentamista?</translation>
     </message>
     <message>
       <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
@@ -16640,7 +16640,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
       <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
-      <translation>Muunna valitut fontit ääriviivoiksi. Ääriviivoiksi muunnettaessa valituilla fonteilla kirjoitetut tekstit muunnetaan vektoreiksi, jolloin fonttia ei tarvitse upottaa mukaan PDF-dokumenttiin. Joidenkin fonttien kohdalla tämä on ainoa mahdollisuus säilyttää dokumentin ulkonäkö, koska PDF-standardi ei salli esimerkikis Open Type -fonttien upottamista vasta kuin versiossa 1.6.</translation>
+      <translation>Muunna valitut fontit ääriviivoiksi. Ääriviivoiksi muunnettaessa valituilla fonteilla kirjoitetut tekstit muunnetaan vektoreiksi, jolloin fonttia ei tarvitse upottaa mukaan PDF-dokumenttiin. Joidenkin fonttien kohdalla tämä on ainoa mahdollisuus säilyttää dokumentin ulkonäkö, koska PDF-standardi ei salli esimerkiksi Open Type -fonttien upottamista vasta kuin versiossa 1.6.</translation>
     </message>
   </context>
   <context>
