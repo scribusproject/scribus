@@ -198,6 +198,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 		}
 		else
 		{
+			QString trNA = tr("n/a");
 			if (!currItem->Pfile.isEmpty())
 			{
 				QFileInfo fi = QFileInfo(currItem->Pfile);
@@ -206,16 +207,16 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			}
 			else
 			{
-				displayName->setText( tr("n/a"));
-				displayPath->setText( tr("n/a"));
+				displayName->setText(trNA);
+				displayPath->setText(trNA);
 			}
-			displayFormat->setText( tr("n/a"));
-			displayColorspace->setText( tr("n/a"));
-			displayDPI->setText( tr("n/a"));
-			displayEffDPI->setText( tr("n/a"));
-			displaySizePixel->setText( tr("n/a"));
-			displayScale->setText( tr("n/a"));
-			displayPrintSize->setText( tr("n/a"));
+			displayFormat->setText(trNA);
+			displayColorspace->setText(trNA);
+			displayDPI->setText(trNA);
+			displayEffDPI->setText(trNA);
+			displaySizePixel->setText(trNA);
+			displayScale->setText(trNA);
+			displayPrintSize->setText(trNA);
 			buttonEdit->setEnabled(false);
 			effectsButton->setEnabled(false);
 			buttonLayers->setEnabled(false);
