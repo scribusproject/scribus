@@ -42,7 +42,7 @@ class Imposition : public QDialog,Ui::ImpositionBase
 
 	public:
 		Imposition(QWidget* parent = 0, ScribusDoc* doc = 0);
-		~Imposition();
+		virtual ~Imposition();
 		
 		double unitRatio;
 		QString unitSuffix;
