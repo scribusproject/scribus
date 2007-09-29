@@ -66,7 +66,7 @@ void* PluginManager::loadDLL( QString plugin )
 	if( QFile::exists(plugin) )
 		lib = (void*) new QLibrary( plugin );
 	else
-		qDebug("%s \"%s\"", tr("Cannot find plugin", "plugin manager").local8Bit().data(), plugin.toLocal8Bit().data());
+		qDebug("%s \"%s\"", tr("Cannot find plugin", "plugin manager").toLocal8Bit().data(), plugin.toLocal8Bit().data());
 #endif
 	return lib;
 }
