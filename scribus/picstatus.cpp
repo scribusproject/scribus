@@ -63,8 +63,8 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	currItem = NULL;
 	setWindowIcon(QIcon(loadIcon ( "AppIcon.png" )));
 	fillTable();
+	workTab->setCurrentIndex(0);
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
-//	connect(imageViewArea, SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)), this, SLOT(imageSelected(QListWidgetItem *)));
 	connect(imageViewArea, SIGNAL(itemPressed(QListWidgetItem*)), this, SLOT(imageSelected(QListWidgetItem*)));
 	connect(isPrinting, SIGNAL(clicked()), this, SLOT(PrintPic()));
 	connect(isVisibleCheck, SIGNAL(clicked()), this, SLOT(visiblePic()));
@@ -192,9 +192,9 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 			displayPrintSize->setText(QString("%1 x %2%3").arg(currItem->OrigW * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(currItem->OrigH * currItem->imageXScale() * m_Doc->unitRatio(), 7, 'f', 2).arg(unitGetSuffixFromIndex(m_Doc->unitIndex())));
 			isPrinting->setChecked(currItem->printEnabled());
 			isVisibleCheck->setChecked(currItem->imageShown());
-			buttonEdit->setEnabled(true);
-			effectsButton->setEnabled(true);
-			buttonLayers->setEnabled(true);
+			buttonEdit->setEnabled(currItem->isRaster);
+			effectsButton->setEnabled(currItem->isRaster);
+			buttonLayers->setEnabled(currItem->pixm.imgInfo.valid);
 		}
 		else
 		{
