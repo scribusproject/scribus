@@ -199,7 +199,7 @@ public:
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	QPtrList<PageItem> parseElement(const QDomElement &e);
 	QPtrList<PageItem> parseText(const QDomElement &e);
-	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
+	QPtrList<PageItem> parseTextElement(const QDomElement &e, FPoint& currentPos);
 	QPtrList<PageItem> parseSwitch(const QDomElement &e);
 	QPtrList<PageItem> parseSymbol(const QDomElement &e);
 	QPtrList<PageItem> parseUse(const QDomElement &e);

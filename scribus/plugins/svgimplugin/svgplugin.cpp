@@ -886,8 +886,7 @@ QPtrList<PageItem> SVGPlug::parseText(const QDomElement &e)
 	QDomNode c = e.firstChild();
 	//double x = e.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(e.attribute("x"));
 	//double y = e.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(e.attribute("y"));
-	FPoint p = parseTextPosition(e);
-	double x = p.x(), y = p.y();
+	FPoint currentPos = parseTextPosition(e);
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
 	{
 		for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
@@ -898,7 +897,7 @@ QPtrList<PageItem> SVGPlug::parseText(const QDomElement &e)
 			parseStyle(gc, tspan);
 			if (!gc->Display)
 				continue;
-			QPtrList<PageItem> el = parseTextElement(x, y, tspan);
+			QPtrList<PageItem> el = parseTextElement(tspan, currentPos);
 			for (uint ec = 0; ec < el.count(); ++ec)
 				GElements.append(el.at(ec));
 			delete( m_gc.pop() );
@@ -907,14 +906,14 @@ QPtrList<PageItem> SVGPlug::parseText(const QDomElement &e)
 	else
 	{
 		SvgStyle *gc = m_gc.current();
-		QPtrList<PageItem> el = parseTextElement(x, y, e);
+		QPtrList<PageItem> el = parseTextElement(e, currentPos);
 		for (uint ec = 0; ec < el.count(); ++ec)
 			GElements.append(el.at(ec));
 	}
 	return GElements;
 }
 
-QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomElement &e)
+QPtrList<PageItem> SVGPlug::parseTextElement(const QDomElement &e, FPoint& currentPos)
 {
 	ScText *hg;
 	QPtrList<PageItem> GElements;
@@ -924,7 +923,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	int desc = fontMetrics.descent();
 	double BaseX = currDoc->currentPage->xOffset();
 	double BaseY = currDoc->currentPage->yOffset();
-	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
+	QString Text = e.text().simplifyWhiteSpace();
 	QDomNode c = e.firstChild();
 	if ( e.tagName() == "tspan" && e.text().isNull() )
 			Text = " ";
@@ -932,8 +931,8 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	double maxWidth = 0, maxHeight = 0;
 	double tempW = 0, tempH = 0;
 	SvgStyle *gc = m_gc.current();
-	int ity = (e.tagName() == "tspan") ? y : (y - qRound(gc->FontSize / 10.0));
-	int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, ity, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
+	int ity = (e.tagName() == "tspan") ? currentPos.y() : (currentPos.y() - qRound(gc->FontSize / 10.0));
+	int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, currentPos.x(), ity, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
 	PageItem* ite = currDoc->Items->at(z);
 	ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 	ite->setLineSpacing(gc->FontSize / 10.0 + 2);
@@ -944,8 +943,8 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
 	if( (!e.attribute("x").isEmpty()) && (!e.attribute("y").isEmpty()) )
 	{
-		FPoint p = parseTextPosition(e);
-		double x1 = p.x(), y1 = p.y();
+		currentPos = parseTextPosition(e);
+		double x1 = currentPos.x(), y1 = currentPos.y();
 		double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
 		double my = mm.m12() * x1 + mm.m22() * y1 + mm.dy();
 		ite->setXPos(mx + BaseX);
@@ -953,8 +952,8 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	}
 	else
 	{
-		double mx = mm.m11() * x + mm.m21() * y + mm.dx();
-		double my = mm.m12() * x + mm.m22() * y + mm.dy();
+		double mx = mm.m11() * currentPos.x() + mm.m21() * currentPos.y() + mm.dx();
+		double my = mm.m12() * currentPos.x() + mm.m22() * currentPos.y() + mm.dy();
 		ite->setXPos(mx + BaseX);
 		ite->setYPos(my + BaseY);
 	}
@@ -1015,12 +1014,8 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 		tempH  = RealCHeight(currDoc, hg->cfont, hg->ch, hg->csize)+1;
 		maxWidth  = (tempW > maxWidth) ? tempW : maxWidth;
 		maxHeight = (tempH > maxHeight) ? tempH : maxHeight;
-		if (hg->ch == QChar(13))
-		{
-			ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + ite->lineSpacing()+desc);
-			tempW = 0;
-		}
 	}
+	currentPos.setX( currentPos.x() + maxWidth );
 	double xpos = ite->xPos();
 	double ypos = ite->yPos();
 	ite->setWidthHeight(QMAX(ite->width(), maxWidth), QMAX(ite->height(), maxHeight));
