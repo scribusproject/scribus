@@ -1094,12 +1094,12 @@ void ScPainter::drawVPath(int mode)
 				pat = QRadialGradient(x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)), x1, y1);
 			QList<VColorStop*> colorStops = fill_gradient.colorStops();
 			QColor qStopColor;
-			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
+			for( int offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				qStopColor = colorStops[ offset ]->color;
 				int h, s, v, sneu, vneu;
 				int shad = colorStops[offset]->shade;
-				qStopColor.hsv(&h, &s, &v);
+				qStopColor.getHsv(&h, &s, &v);
 				sneu = s * shad / 100;
 				vneu = 255 - ((255 - v) * shad / 100);
 				qStopColor.setHsv(h, sneu, vneu);
