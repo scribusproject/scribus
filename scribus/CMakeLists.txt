@@ -572,10 +572,10 @@ QT4_WRAP_CPP(SCRIBUS_MOC_SOURCES
 	)
 
 LINK_DIRECTORIES(
-  ${scribus_BINARY_DIR}/desaxe
-  ${scribus_BINARY_DIR}/text
-  ${scribus_BINARY_DIR}/styles
-  ${scribus_BINARY_DIR}fonts
+  ${CMAKE_CURRENT_BINARY_DIR}/desaxe
+  ${CMAKE_CURRENT_BINARY_DIR}/text
+  ${CMAKE_CURRENT_BINARY_DIR}/styles
+  ${CMAKE_CURRENT_BINARY_DIR}/fonts
 )
 
 SET(SCRIBUS_TEXT_LIB "scribus_text_lib")
