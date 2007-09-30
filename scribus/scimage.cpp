@@ -21,8 +21,11 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 #include <QList>
 #include <QByteArray>
-#include <memory>
 #include <cassert>
+#include <cmath>
+#include <cstdlib>
+#include <memory>
+#include <setjmp.h>
 #include CMS_INC
 #include "util_cms.h"
 #include "commonstrings.h"
@@ -34,6 +37,19 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_formats.h"
 
+extern "C"
+{
+#define XMD_H           // shut JPEGlib up
+#if defined(Q_OS_UNIXWARE)
+#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
+#endif
+#include <jpeglib.h>
+#include <jerror.h>
+#undef HAVE_STDLIB_H
+#ifdef const
+#  undef const          // remove crazy C hackery in jconfig.h
+#endif
+}
 
 using namespace std;
 

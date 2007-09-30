@@ -11,9 +11,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scimagestructs.h"
 
-#include <setjmp.h>
-#include <cstdlib>
-#include <cmath>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
@@ -29,19 +26,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "fpointarray.h"
 #include "sccolor.h"
-extern "C"
-{
-#define XMD_H           // shut JPEGlib up
-#if defined(Q_OS_UNIXWARE)
-#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
-#endif
-#include <jpeglib.h>
-#include <jerror.h>
-#undef HAVE_STDLIB_H
-#ifdef const
-#  undef const          // remove crazy C hackery in jconfig.h
-#endif
-}
 
 class ScribusDoc;
 class CMSettings;
