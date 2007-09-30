@@ -212,7 +212,7 @@ bool SVGExPlug::doExport( QString fName )
 	{
 		// zipped saving
 		ScGzFile gzf(fName, docu.toString().toUtf8());
-		if (!gzf.write(vo))
+		if (!gzf.write(vo.toUtf8().data()))
 			return false;
 	}
 	else
