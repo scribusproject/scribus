@@ -4749,7 +4749,7 @@ void Mpalette::updateSpinBoxConstants()
 */
 }
 
-UserActionSniffer::UserActionSniffer() : QObject (this)
+UserActionSniffer::UserActionSniffer() : QObject (0)
 {
 
 }
