@@ -33,7 +33,7 @@ static void ImageExport_dealloc(ImageExport* self)
 	self->ob_type->tp_free((PyObject *)self);
 }
 
-static PyObject * ImageExport_new(PyTypeObject *type, PyObject */*args*/, PyObject */*kwds*/)
+static PyObject * ImageExport_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 	if(!checkHaveDocument())
 		return NULL;
@@ -51,7 +51,7 @@ static PyObject * ImageExport_new(PyTypeObject *type, PyObject */*args*/, PyObje
 	return (PyObject *) self;
 }
 
-static int ImageExport_init(ImageExport */*self*/, PyObject */*args*/, PyObject */*kwds*/)
+static int ImageExport_init(ImageExport * /*self*/, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 	return 0;
 }
@@ -63,13 +63,13 @@ static PyMemberDef ImageExport_members[] = {
 	{NULL, 0, 0, 0, NULL} // sentinel
 };
 
-static PyObject *ImageExport_getName(ImageExport *self, void */*closure*/)
+static PyObject *ImageExport_getName(ImageExport *self, void * /*closure*/)
 {
 	Py_INCREF(self->name);
 	return self->name;
 }
 
-static int ImageExport_setName(ImageExport *self, PyObject *value, void */*closure*/)
+static int ImageExport_setName(ImageExport *self, PyObject *value, void * /*closure*/)
 {
 	if (!PyString_Check(value)) {
 		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename must be a string.", "python error").toLocal8Bit().constData());
@@ -86,13 +86,13 @@ static int ImageExport_setName(ImageExport *self, PyObject *value, void */*closu
 	return 0;
 }
 
-static PyObject *ImageExport_getType(ImageExport *self, void */*closure*/)
+static PyObject *ImageExport_getType(ImageExport *self, void * /*closure*/)
 {
 	Py_INCREF(self->type);
 	return self->type;
 }
 
-static int ImageExport_setType(ImageExport *self, PyObject *value, void */*closure*/)
+static int ImageExport_setType(ImageExport *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, QObject::tr("Cannot delete image type settings.", "python error").toLocal8Bit().constData());
@@ -108,7 +108,7 @@ static int ImageExport_setType(ImageExport *self, PyObject *value, void */*closu
 	return 0;
 }
 
-static PyObject *ImageExport_getAllTypes(ImageExport */*self*/, void */*closure*/)
+static PyObject *ImageExport_getAllTypes(ImageExport * /*self*/, void * /*closure*/)
 {
 	PyObject *l;
 	int pos = 0;
@@ -122,7 +122,7 @@ static PyObject *ImageExport_getAllTypes(ImageExport */*self*/, void */*closure*
 	return l;
 }
 
-static int ImageExport_setAllTypes(ImageExport */*self*/, PyObject */*value*/, void */*closure*/)
+static int ImageExport_setAllTypes(ImageExport * /*self*/, PyObject * /*value*/, void * /*closure*/)
 {
 	PyErr_SetString(PyExc_ValueError, QObject::tr("'allTypes' attribute is READ-ONLY", "python error").toLocal8Bit().constData());
 	return -1;

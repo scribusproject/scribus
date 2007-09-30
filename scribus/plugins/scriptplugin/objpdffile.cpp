@@ -107,7 +107,7 @@ static void PDFfile_dealloc(PDFfile *self)
 	self->ob_type->tp_free((PyObject *)self);
 }
 
-static PyObject * PDFfile_new(PyTypeObject *type, PyObject */*args*/, PyObject */*kwds*/)
+static PyObject * PDFfile_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 // do not create new object if there is no opened document
 	if (!ScCore->primaryMainWindow()->HaveDoc) {
@@ -242,7 +242,7 @@ static PyObject * PDFfile_new(PyTypeObject *type, PyObject */*args*/, PyObject *
 	return (PyObject *) self;
 }
 
-static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
+static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 	int i;
 	if (!ScCore->primaryMainWindow()->HaveDoc) {
@@ -545,13 +545,13 @@ static PyMemberDef PDFfile_members[] = {
 
 /* Here begins Getter & Setter functions */
 
-static PyObject *PDFfile_getfile(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getfile(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->file);
 	return self->file;
 }
 
-static int PDFfile_setfile(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setfile(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'file' attribute.");
@@ -567,13 +567,13 @@ static int PDFfile_setfile(PDFfile *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *PDFfile_getfonts(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getfonts(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->fonts);
 	return self->fonts;
 }
 
-static int PDFfile_setfonts(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setfonts(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'fonts' attribute.");
@@ -600,13 +600,13 @@ static int PDFfile_setfonts(PDFfile *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *PDFfile_getpages(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getpages(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->pages);
 	return self->pages;
 }
 
-static int PDFfile_setpages(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setpages(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'pages' attribute.");
@@ -639,13 +639,13 @@ static int PDFfile_setpages(PDFfile *self, PyObject *value, void */*closure*/)
 }
 
 
-static PyObject *PDFfile_getresolution(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getresolution(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->resolution);
 	return self->resolution;
 }
 
-static int PDFfile_setresolution(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setresolution(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'resolution' attribute.");
@@ -666,13 +666,13 @@ static int PDFfile_setresolution(PDFfile *self, PyObject *value, void */*closure
 	return 0;
 }
 
-static PyObject *PDFfile_getdownsample(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getdownsample(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->downsample);
 	return self->downsample;
 }
 
-static int PDFfile_setdownsample(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setdownsample(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'downsample' attribute.");
@@ -693,13 +693,13 @@ static int PDFfile_setdownsample(PDFfile *self, PyObject *value, void */*closure
 	return 0;
 }
 
-static PyObject *PDFfile_geteffval(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_geteffval(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->effval);
 	return self->effval;
 }
 
-static int PDFfile_seteffval(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_seteffval(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'effval' attribute.");
@@ -734,13 +734,13 @@ static int PDFfile_seteffval(PDFfile *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *PDFfile_getlpival(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getlpival(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->lpival);
 	return self->lpival;
 }
 
-static int PDFfile_setlpival(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setlpival(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'lpival' attribute.");
@@ -780,13 +780,13 @@ static int PDFfile_setlpival(PDFfile *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *PDFfile_getowner(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getowner(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->owner);
 	return self->owner;
 }
 
-static int PDFfile_setowner(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setowner(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'owner' attribute.");
@@ -802,13 +802,13 @@ static int PDFfile_setowner(PDFfile *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *PDFfile_getuser(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getuser(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->user);
 	return self->user;
 }
 
-static int PDFfile_setuser(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setuser(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'user' attribute.");
@@ -824,13 +824,13 @@ static int PDFfile_setuser(PDFfile *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *PDFfile_getsolidpr(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getsolidpr(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->solidpr);
 	return self->solidpr;
 }
 
-static int PDFfile_setsolidpr(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setsolidpr(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'solidpr' attribute.");
@@ -846,13 +846,13 @@ static int PDFfile_setsolidpr(PDFfile *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *PDFfile_getimagepr(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getimagepr(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->imagepr);
 	return self->imagepr;
 }
 
-static int PDFfile_setimagepr(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setimagepr(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'imagepr' attribute.");
@@ -868,13 +868,13 @@ static int PDFfile_setimagepr(PDFfile *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *PDFfile_getprintprofc(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getprintprofc(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->printprofc);
 	return self->printprofc;
 }
 
-static int PDFfile_setprintprofc(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setprintprofc(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'printprofc' attribute.");
@@ -890,13 +890,13 @@ static int PDFfile_setprintprofc(PDFfile *self, PyObject *value, void */*closure
 	return 0;
 }
 
-static PyObject *PDFfile_getinfo(PDFfile *self, void */*closure*/)
+static PyObject *PDFfile_getinfo(PDFfile *self, void * /*closure*/)
 {
 	Py_INCREF(self->info);
 	return self->info;
 }
 
-static int PDFfile_setinfo(PDFfile *self, PyObject *value, void */*closure*/)
+static int PDFfile_setinfo(PDFfile *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'info' attribute.");

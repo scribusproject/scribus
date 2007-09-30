@@ -26,8 +26,6 @@ for which a new license (GPL+exception) is in place.
  
 #include "stylereader.h"
  
-#ifdef HAVE_XML
- 
 #include <scribusstructs.h>
 #include <gtmeasure.h>
 #include <gtparagraphstyle.h>
@@ -1102,5 +1100,3 @@ ListStyle::~ListStyle()
 		levels[i] = 0;
 	}
 }
-
-#endif

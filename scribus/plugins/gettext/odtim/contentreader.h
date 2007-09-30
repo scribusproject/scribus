@@ -29,8 +29,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#ifdef HAVE_XML
-
 #include <utility>
 #include <vector>
 #ifdef HAVE_XML26
@@ -87,7 +85,5 @@ public:
 	bool characters(const QString &ch);
 	void parse(QString fileName);
 };
-
-#endif // HAVE_XML
 
 #endif

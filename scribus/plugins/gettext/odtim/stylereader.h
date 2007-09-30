@@ -29,8 +29,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#ifdef HAVE_XML
-
 #ifdef HAVE_XML26
  #include <libxml/SAX2.h>
 #else
@@ -162,7 +160,5 @@ public:
 	QString getFont(const QString& key);
 	ListStyle *getList(const QString &name);
 };
-
-#endif // HAVE_XML
 
 #endif

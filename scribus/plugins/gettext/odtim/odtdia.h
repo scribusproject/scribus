@@ -29,9 +29,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#ifdef HAVE_XML
 #include <QDialog>
-class QCheckBox;
+class QCheckBox;	
 class QPushButton;
 
 class OdtDialog : public QDialog
@@ -53,7 +52,5 @@ private:
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 };
-
-#endif // HAVE_XML
 
 #endif // ODTDIA_H

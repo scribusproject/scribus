@@ -26,8 +26,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "odtdia.h"
 
-#ifdef HAVE_XML
-
 #include <QToolTip>
 #include <QBoxLayout>
 #include <QVBoxLayout>
@@ -123,5 +121,3 @@ OdtDialog::~OdtDialog()
 {
 
 }
-
-#endif // HAVE_XML

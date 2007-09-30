@@ -29,8 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include "contentreader.h"
 #include "scribusstructs.h"
 
-#ifdef HAVE_XML
-
 ContentReader* ContentReader::creader = NULL;
 
 extern xmlSAXHandlerPtr cSAXHandler;
@@ -368,5 +366,3 @@ ContentReader::~ContentReader()
 	creader = NULL;
 	delete defaultStyle;
 }
-
-#endif // HAVE_XML

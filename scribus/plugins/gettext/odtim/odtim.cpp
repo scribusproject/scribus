@@ -25,9 +25,12 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "odtim.h"
-#include <QStringList>
 
-#ifdef HAVE_XML
+#ifndef HAVE_XML
+#error The odtim plugin requires libxml to build
+#endif
+
+#include <QStringList>
 
 #include <scribusstructs.h>
 #include "prefsmanager.h"
@@ -124,5 +127,3 @@ OdtIm::~OdtIm()
 {
 
 }
-
-#endif

@@ -61,7 +61,7 @@ static void Printer_dealloc(Printer* self)
 	self->ob_type->tp_free((PyObject *)self);
 }
 
-static PyObject * Printer_new(PyTypeObject *type, PyObject */*args*/, PyObject */*kwds*/)
+static PyObject * Printer_new(PyTypeObject *type, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 // do not create new object if there is no opened document
 	if (!ScCore->primaryMainWindow()->HaveDoc) {
@@ -126,7 +126,7 @@ static PyObject * Printer_new(PyTypeObject *type, PyObject */*args*/, PyObject *
 	return (PyObject *) self;
 }
 
-static int Printer_init(Printer *self, PyObject */*args*/, PyObject */*kwds*/)
+static int Printer_init(Printer *self, PyObject * /*args*/, PyObject * /*kwds*/)
 {
 // pool system for installed printers
 // most code is stolen and little adopted from druck.cpp
@@ -235,25 +235,25 @@ static PyMemberDef Printer_members[] = {
 
 /* Here begins Getter & Setter functions */
 
-static PyObject *Printer_getallPrinters(Printer *self, void */*closure*/)
+static PyObject *Printer_getallPrinters(Printer *self, void * /*closure*/)
 {
 	Py_INCREF(self->allPrinters);
 	return self->allPrinters;
 }
 
-static int Printer_setallPrinters(Printer */*self*/, PyObject */*value*/, void */*closure*/)
+static int Printer_setallPrinters(Printer * /*self*/, PyObject * /*value*/, void * /*closure*/)
 {
 	PyErr_SetString(PyExc_ValueError, "'allPrinters' attribute is READ-ONLY");
 	return -1;
 }
 
-static PyObject *Printer_getprinter(Printer *self, void */*closure*/)
+static PyObject *Printer_getprinter(Printer *self, void * /*closure*/)
 {
 	Py_INCREF(self->printer);
 	return self->printer;
 }
 
-static int Printer_setprinter(Printer *self, PyObject *value, void */*closure*/)
+static int Printer_setprinter(Printer *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'printer' attribute.");
@@ -278,13 +278,13 @@ static int Printer_setprinter(Printer *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *Printer_getfile(Printer *self, void */*closure*/)
+static PyObject *Printer_getfile(Printer *self, void * /*closure*/)
 {
 	Py_INCREF(self->file);
 	return self->file;
 }
 
-static int Printer_setfile(Printer *self, PyObject *value, void */*closure*/)
+static int Printer_setfile(Printer *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'file' attribute.");
@@ -300,13 +300,13 @@ static int Printer_setfile(Printer *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *Printer_getcmd(Printer *self, void */*closure*/)
+static PyObject *Printer_getcmd(Printer *self, void * /*closure*/)
 {
 	Py_INCREF(self->cmd);
 	return self->cmd;
 }
 
-static int Printer_setcmd(Printer *self, PyObject *value, void */*closure*/)
+static int Printer_setcmd(Printer *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'cmd' attribute.");
@@ -322,13 +322,13 @@ static int Printer_setcmd(Printer *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *Printer_getpages(Printer *self, void */*closure*/)
+static PyObject *Printer_getpages(Printer *self, void * /*closure*/)
 {
 	Py_INCREF(self->pages);
 	return self->pages;
 }
 
-static int Printer_setpages(Printer *self, PyObject *value, void */*closure*/)
+static int Printer_setpages(Printer *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'pages' attribute.");
@@ -356,13 +356,13 @@ static int Printer_setpages(Printer *self, PyObject *value, void */*closure*/)
 	return 0;
 }
 
-static PyObject *Printer_getseparation(Printer *self, void */*closure*/)
+static PyObject *Printer_getseparation(Printer *self, void * /*closure*/)
 {
 	Py_INCREF(self->separation);
 	return self->separation;
 }
 
-static int Printer_setseparation(Printer *self, PyObject *value, void */*closure*/)
+static int Printer_setseparation(Printer *self, PyObject *value, void * /*closure*/)
 {
 	if (value == NULL) {
 		PyErr_SetString(PyExc_TypeError, "Cannot delete 'separation' attribute.");

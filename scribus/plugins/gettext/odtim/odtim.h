@@ -38,8 +38,6 @@ extern "C" PLUGIN_API QString FileFormatName();
 
 extern "C" PLUGIN_API QStringList FileExtensions();
 
-#ifdef HAVE_XML
-
 const QString STYLE   = "styles.xml";
 const QString CONTENT = "content.xml";
 
@@ -56,7 +54,5 @@ public:
 	OdtIm(QString fileName, QString encoding, gtWriter* w, bool textOnly);
 	~OdtIm();
 };
-
-#endif // HAVE_XML
 
 #endif // SXWIM_H
