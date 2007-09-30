@@ -599,7 +599,7 @@ class SCRIBUS_API UserActionSniffer : public QObject
 	Q_OBJECT
 
 public:
-	UserActionSniffer();
+	UserActionSniffer( QObject* parent );
 protected:
 	bool eventFilter( QObject *o, QEvent *e );
 signals:

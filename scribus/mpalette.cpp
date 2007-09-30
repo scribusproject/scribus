@@ -134,7 +134,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 
 	_userActionOn = false;
-	userActionSniffer = new UserActionSniffer();
+	userActionSniffer = new UserActionSniffer(this);
 	connect(userActionSniffer, SIGNAL(actionStart()), this, SLOT(spinboxStartUserAction()));
 	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(spinboxFinishUserAction()));
 
@@ -4749,7 +4749,7 @@ void Mpalette::updateSpinBoxConstants()
 */
 }
 
-UserActionSniffer::UserActionSniffer() : QObject (0)
+UserActionSniffer::UserActionSniffer(QObject* parent) : QObject (parent)
 {
 
 }
