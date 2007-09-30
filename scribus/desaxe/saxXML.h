@@ -14,8 +14,9 @@
 
 #include <fstream>
 #include "saxhandler.h"
+#include "scribusapi.h"
 
-class SaxXML : public SaxHandler {
+class SCRIBUS_API SaxXML : public SaxHandler {
 public:
 	SaxXML(std::ostream& file, bool pretty=false);
 	SaxXML(const char* filename, bool pretty=false);
