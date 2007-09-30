@@ -43,8 +43,6 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-#define IMPORT_TEXT_AS_VECTOR 1
-
 int svgimplugin_getPluginAPIVersion()
 {
 	return PLUGIN_API_VERSION;
@@ -516,7 +514,7 @@ void SVGPlug::setupTransform( const QDomElement &e )
 		gc->matrix = mat * gc->matrix;
 }
 
-void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
+void SVGPlug::finishNode( const QDomNode &e, PageItem* item)
 {
 	SvgStyle *gc = m_gc.top();
 	QMatrix gcm = gc->matrix;
@@ -568,8 +566,12 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 	}
 	item->setRedrawBounding();
 	item->OwnPage = m_Doc->OnPage(item);
-	if( !e.attribute("id").isEmpty() )
-		item->setItemName(" "+e.attribute("id"));
+	if (e.isElement())
+	{
+		QString nodeId = e.toElement().attribute("id");
+		if( !nodeId.isEmpty() )
+			item->setItemName(" "+nodeId);
+	}
 	item->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
 	item->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
 	item->PLineEnd = gc->PLineEnd;
@@ -1258,13 +1260,10 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 	QList<PageItem*> GElements;
 	setupNode(e);
 	QDomNode c = e.firstChild();
-	//double x = e.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(e.attribute("x"));
-	//double y = e.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(e.attribute("y"));
-	FPoint p = parseTextPosition(e);
-	double x = p.x(), y = p.y();
-	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
+	FPoint currentPos = parseTextPosition(e);
+	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
-		for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+		if (n.isElement() && (n.toElement().tagName() == "tspan"))
 		{
 			QDomElement tspan = n.toElement();
 			addGraphicContext();
@@ -1272,46 +1271,57 @@ QList<PageItem*> SVGPlug::parseText(const QDomElement &e)
 			parseStyle(gc, tspan);
 			if (!gc->Display)
 				continue;
-			QList<PageItem*> el = parseTextElement(x, y, tspan);
+			QList<PageItem*> el = parseTextNode(n, currentPos);
 			for (int ec = 0; ec < el.count(); ++ec)
 				GElements.append(el.at(ec));
 			delete( m_gc.pop() );
 		}
-	}
-	else
-	{
-//		SvgStyle *gc = m_gc.current();
-		QList<PageItem*> el = parseTextElement(x, y, e);
-		for (int ec = 0; ec < el.count(); ++ec)
-			GElements.append(el.at(ec));
+		if (n.isText())
+		{
+			QList<PageItem*> el = parseTextNode(n, currentPos);
+			for (int ec = 0; ec < el.count(); ++ec)
+				GElements.append(el.at(ec));
+		}
 	}
 	delete( m_gc.pop() );
 	return GElements;
 }
 
-QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement &e)
+QList<PageItem*> SVGPlug::parseTextNode(QDomNode& e, FPoint& currentPos)
 {
-#if defined(IMPORT_TEXT_AS_VECTOR) && IMPORT_TEXT_AS_VECTOR
 	QList<PageItem*> GElements;
+	QString nodeId;
 	double BaseX  = m_Doc->currentPage()->xOffset();
 	double BaseY  = m_Doc->currentPage()->yOffset();
-	double StartX = x, StartY = y;
-	QString textString = e.text().trimmed();
-	QDomNode c   = e.firstChild();
-	if ( e.tagName() == "tspan" && e.text().isNull() )
-			textString = " ";
+	double StartX = currentPos.x(), StartY = currentPos.y();
+	QString textString;
 
+	if ( e.isElement() )
+	{
+		QDomElement elem = e.toElement();
+		nodeId     = elem.attribute("id", "");
+		// FIXME we should respect xml:space="preserve" if specified
+		textString = elem.text().simplified();
+		if ( elem.tagName() == "tspan" && elem.text().isEmpty() )
+			textString = " ";
+		if( (!elem.attribute("x").isEmpty()) && (!elem.attribute("y").isEmpty()) )
+		{
+			currentPos = parseTextPosition(elem);
+			StartX = currentPos.x();
+			StartY = currentPos.y();
+		}
+	}
+	// FIXME we should respect xml:space="preserve" if specified
+	if ( e.isText() )
+		textString = e.toText().data().simplified();
+	if ( textString.isEmpty() )
+		return GElements;
+	
 	SvgStyle *gc   = m_gc.top();
 	QFont textFont = getFontFromStyle(*gc);
 	QFontMetrics fm(textFont);
     double width   = fm.width(textString);
 
-	if( (!e.attribute("x").isEmpty()) && (!e.attribute("y").isEmpty()) )
-	{
-		FPoint p = parseTextPosition(e);
-		StartX = p.x();
-		StartY = p.y();
-	}
 	if( gc->textAnchor == "middle" )
 		StartX -= width / 2.0;
 	else if( gc->textAnchor == "end")
@@ -1328,184 +1338,14 @@ QList<PageItem*> SVGPlug::parseTextElement(double x, double y, const QDomElement
 		double  lineWidth = 0.0;
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, textFillColor, textStrokeColor, true);
 		PageItem* ite = m_Doc->Items->at(z);
-		if( !e.attribute("id").isEmpty() )
-			ite->setItemName(" "+e.attribute("id"));
+		if( !nodeId.isEmpty() )
+			ite->setItemName(" "+nodeId);
 		ite->PoLine = textPath;
 		finishNode(e, ite);
 		GElements.append(ite);
 	}
+	currentPos.setX( currentPos.x() + width );
 	return GElements;
-#else
-	QList<PageItem*> GElements;
-//	QFont ff(m_Doc->UsedFonts[m_gc.current()->Family]);
-	QFont ff(m_gc.top()->FontFamily);
-	ff.setPointSize(qMax(qRound(m_gc.top()->FontSize / 10.0), 1));
-	QFontMetrics fontMetrics(ff);
-	int desc = fontMetrics.descent();
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
-	QString Text = e.text().trimmed();
-	QDomNode c = e.firstChild();
-	if ( e.tagName() == "tspan" && e.text().isNull() )
-			Text = " ";
-
-	double maxWidth = 0, maxHeight = 0;
-	double tempW = 0, tempH = 0;
-	SvgStyle *gc = m_gc.top();
-	double ity = (e.tagName() == "tspan") ? y : (y - qRound(gc->FontSize / 10.0));
-	int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, ity, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
-	PageItem* ite = m_Doc->Items->at(z);
-	ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
-//FIXME:av			ite->setLineSpacing(gc->FontSize / 10.0 + 2);
-	const double lineSpacing = gc->FontSize / 10.0 + 2;
-	ite->setHeight(lineSpacing +desc+2);
-	m_Doc->scMW()->SetNewFont(gc->FontFamily);
-	QMatrix mm = gc->matrix;
-	double scalex = sqrt(mm.m11() * mm.m11() + mm.m12() * mm.m12());
-	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
-	if( (!e.attribute("x").isEmpty()) && (!e.attribute("y").isEmpty()) )
-	{
-		FPoint p = parseTextPosition(e);
-		double x1 = p.x(), y1 = p.y();
-		double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
-		double my = mm.m12() * x1 + mm.m22() * y1 + mm.dy();
-		ite->setXPos(mx + BaseX);
-		ite->setYPos(my + BaseY);
-	}
-	else
-	{
-		double mx = mm.m11() * x + mm.m21() * y + mm.dx();
-		double my = mm.m12() * x + mm.m22() * y + mm.dy();
-		ite->setXPos(mx + BaseX);
-		ite->setYPos(my + BaseY);
-	}
-	ite->setFillColor(CommonStrings::None);
-	ite->setLineColor(CommonStrings::None);
-	/*ite->setFont(gc->Family);
-	ite->TxtFill = gc->FillCol;
-	ite->ShTxtFill = 100;
-	ite->TxtStroke = gc->StrokeCol;
-	ite->ShTxtStroke = 100;
-	ite->setFontSize(gc->FontSize);
-	ite->TxTStyle = 0;
-	ite->TxtScale = 1000;
-	ite->TxtScaleV = 1000;
-	ite->TxtBase = 0;
-	ite->TxtShadowX = 50;
-	ite->TxtShadowY = -50;
-	ite->TxtOutline = 10;
-	ite->TxtUnderPos = -1;
-	ite->TxtUnderWidth = -1;
-	ite->TxtStrikePos = -1;
-	ite->TxtStrikeWidth = -1;*/
-	for (int tt = 0; tt < Text.length(); ++tt)
-	{
-		CharStyle nstyle;
-		QString ch = Text.mid(tt,1);
-		nstyle.setFont((*m_Doc->AllFonts)[gc->FontFamily]);
-		nstyle.setFontSize(gc->FontSize);
-		nstyle.setFillColor(gc->FillCol);
-		nstyle.setTracking(0);
-		nstyle.setFillShade(100);
-		nstyle.setStrokeColor(gc->StrokeCol);
-		nstyle.setStrokeShade(100);
-		nstyle.setScaleH(1000);
-		nstyle.setScaleV(1000);
-		nstyle.setBaselineOffset(0);
-		nstyle.setShadowXOffset(50);
-		nstyle.setShadowYOffset(-50);
-		nstyle.setOutlineWidth(10);
-		nstyle.setUnderlineOffset(-1);
-		nstyle.setUnderlineWidth(-1);
-		nstyle.setStrikethruOffset(-1);
-		nstyle.setStrikethruWidth(-1);
-		if( !e.attribute( "stroke" ).isEmpty() )
-			nstyle.setFeatures(StyleFlag(ScStyle_Outline).featureList());
-		else
-			nstyle.setFeatures(StyleFlag(ScStyle_Default).featureList());
-		int pos = ite->itemText.length();
-		ite->itemText.insertChars(pos, ch);
-		ite->itemText.applyCharStyle(pos, 1, nstyle);
-		tempW += nstyle.font().realCharWidth(ch[0], nstyle.fontSize() / 10.0)+1;
-		tempH  = nstyle.font().realCharHeight(ch[0], nstyle.fontSize() / 10.0);
-		maxWidth  = (tempW > maxWidth) ? tempW : maxWidth;
-		maxHeight = (tempH > maxHeight) ? tempH : maxHeight;
-		if (ch == SpecialChars::PARSEP)
-		{
-			ite->setWidthHeight(qMax(ite->width(), tempW), ite->height() + lineSpacing+desc);
-			tempW = 0;
-		}
-	}
-	double xpos = ite->xPos();
-	double ypos = ite->yPos();
-	ite->setWidthHeight(qMax(ite->width(), maxWidth), qMax(ite->height(), maxHeight));
-	double xoffset = 0.0, yoffset = 0.0;
-	if( gc->textAnchor == "middle" )
-	{
-// 		m_Doc->m_Selection->clear();
-		tmpSel->clear();
-// 		m_Doc->m_Selection->addItem(ite, true);
-		tmpSel->addItem(ite, true);
-// 		m_Doc->itemSelection_SetAlignment(1);
-		m_Doc->itemSelection_SetAlignment(1, tmpSel);
-		xoffset = -ite->width() / 2;
-	}
-	else if( gc->textAnchor == "end")
-	{
-// 		m_Doc->m_Selection->clear();
-		tmpSel->clear();
-// 		m_Doc->m_Selection->addItem(ite, true);
-		tmpSel->addItem(ite, true);
-// 		m_Doc->itemSelection_SetAlignment(2);
-		m_Doc->itemSelection_SetAlignment(2, tmpSel);
-		xoffset = -ite->width();
-	}
-	double rotation = getRotationFromMatrix(gc->matrix, 0.0);
-	if (rotation != 0.0)
-	{
-		double temp = xoffset;
-		xoffset = cos(-rotation) * temp;
-		yoffset = sin(-rotation) * temp;
-	}
-	ite->setXPos(xpos + xoffset);
-	ite->setYPos(ypos + yoffset);
-	ite->setRotation(-rotation * 180 / M_PI);
-	ite->SetRectFrame();
-	m_Doc->setRedrawBounding(ite);
-	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-// 	m_Doc->m_Selection->addItem(ite);
-	tmpSel->addItem(ite);
-//	m_Doc->view()->frameResizeHandle = 1;
-// 	m_Doc->m_Selection->setGroupRect();
-	tmpSel->setGroupRect();
-// 	m_Doc->view()->scaleGroup(scalex, scaley);
-	m_Doc->view()->scaleGroup(scalex, scaley, true, tmpSel);
-	// scaleGroup scale may modify position... weird...
-	ite->setXYPos(xpos + xoffset, ypos + yoffset);
-	tmpSel->clear();
-// 	m_Doc->view()->Deselect();
-	// Probably some scalex and scaley to add somewhere
-	ite->moveBy(maxHeight * sin(-rotation) * scaley, -maxHeight * cos(-rotation) * scaley);
-	if( !e.attribute("id").isEmpty() )
-		ite->setItemName(" "+e.attribute("id"));
-	ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
-	ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
-	ite->PLineEnd = gc->PLineEnd;
-	ite->PLineJoin = gc->PLineJoin;
-	//ite->setTextFlowsAroundFrame(false);
-	ite->setTextFlowMode(PageItem::TextFlowDisabled);
-	ite->DashOffset = gc->dashOffset;
-	ite->DashValues = gc->dashArray;
-	/*if (gc->Gradient != 0)
-	{
-		ite->fill_gradient = gc->GradCo;
-		m_Doc->view()->SelItem.append(ite);
-		m_Doc->view()->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
-		m_Doc->view()->SelItem.clear();
-	}*/
-	GElements.append(ite);
-	return GElements;
-#endif
 }
 
 QList<PageItem*> SVGPlug::parseSwitch(const QDomElement &e)
