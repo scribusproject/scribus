@@ -41,6 +41,26 @@ void emitSignal(QVariant what)
 	emit changedData(what);
 }
 
+bool connectSignal(QObject*, QObject* o, const char* slot)
+{
+	return QObject::connect(this, SIGNAL(changedObject(QObject*)), o, slot);
+}
+
+bool disconnectSignal(QObject*, QObject* o, const char* slot)
+{
+	return QObject::disconnect(this, SIGNAL(changedObject(QObject*)), o, slot);
+}
+
+bool connectSignal(QVariant, QObject* o, const char* slot)
+{
+	return QObject::connect(this, SIGNAL(changedData(QVariant)), o, slot);
+}
+
+bool disconnectSignal(QVariant, QObject* o, const char* slot)
+{
+	return QObject::disconnect(this, SIGNAL(changedData(QVariant)), o, slot);
+}
+
 signals:
 void changedObject(QObject* what);
 void changedData(QVariant what);
@@ -248,13 +268,15 @@ inline void MassObservable<OBSERVED>::disconnectObserver(Observer<OBSERVED>* o)
 template<class OBSERVED>
 inline bool MassObservable<OBSERVED>::connectObserver(QObject* o, const char* slot)
 {
-	return QObject::connect(changedSignal, SIGNAL(changed(OBSERVED)), o, slot);
+	OBSERVED dummy;
+	return changedSignal->connectSignal(dummy, o, slot);
 }
 
 template<class OBSERVED>
 inline bool MassObservable<OBSERVED>::disconnectObserver(QObject* o, const char* slot)
 {
-	return QObject::disconnect(changedSignal, SIGNAL(changed(OBSERVED)), o, slot);
+	OBSERVED dummy;
+	return changedSignal->disconnectSignal(dummy, o, slot);
 }
 
 
