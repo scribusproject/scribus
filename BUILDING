@@ -12,6 +12,11 @@ Note that while a QMake project file (Scribus.pro) is provided in the Scribus
 source distribution, it is not possible to build Scribus with this project
 file.  It is only used for generating the translation template files.
 
+REQUIREMENTS AND BUILDING - Microsoft Windows
+=============================================
+
+See the separate file BUILDING_win32.txt
+
 REQUIREMENTS AND BUILDING - Geneiric *BSD/Linux/*nix
 ====================================================
 

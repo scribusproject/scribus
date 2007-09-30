@@ -1,0 +1,74 @@
+BUILDING SCRIBUS ON MICROSOFT WINDOWS
+=====================================
+
+This documentation is minimal, and will be replaced by more detailed
+information once the CMake-based win32 builds are better tested.
+
+You will need:
+	- Microsoft Windows XP (others may work but are untested)
+	- Microsoft Visual Studio Express Edition 8 2005
+	- The Microsoft Platform SDK
+	- CMake 2.5.x
+	- Qt 4.3 built with Visual Studio 8 2005
+	- libtiff and libjpeg from the GnuWin32 project
+	- libxml2 from the libxml project
+	- freetype sources
+	- LittleCMS sources
+	- PoDoFo 0.5.0 (and ONLY 0.5.0) sources.
+	- Python 2.5 . For debug builds, you'll need a release that
+	  contains the python25_d.dll .
+
+[TODO: add URLs]
+
+First, you must compile the freetype, lcms, and podofo libraries using Visual
+Studio 2005 . You may get away with using a freetype from gnuwin32, but
+this isn't recommended.
+
+You must modify lcms.h to prevent it from defining `cdecl'. [TODO: other changes] [ TODO: line numbers / patch ]. This is only required to use the header with Scribus; it's Ok to use a library built without these changes.
+
+[TODO: detail on building dependences]
+
+To build scribus its self, you should create a new empty build directory
+outside the Scribus source tree. In this directory, create a new text file and
+name it "build.cmd". Ignore the warning about changing the file extension.
+
+Open build.cmd in a text editor, and paste the following into it:
+
+---
+rem Dependency paths:
+set CMAKE=C:\Program Files\CMake 2.5\bin\cmake.exe
+set GNUWIN32DIR=c:\developer\gnuwin32\
+set QTDIR=C:\developer\Qt\qt-win-opensource-src-4.3.2-snapshot-20070929
+set LCMSDIR=c:\developer\libs\lcms-1.16
+set TIFFDIR=%GNUWIN32DIR%
+set JPEGDIR=%GNUWIN32DIR%
+set FREETYPEDIR=%GNUWIN32DIR%
+set PODOFODIR=c:\developer\podofo\050-vs-inst\
+set PODOFOSHARED=1
+set LIBXMLDIR=c:\developer\libs\libxml2-2.6.30.win32\
+set SCRIBUSINSTALLDIR=c:\developer\scribus-bin
+rem
+rem
+set PATH=%QTDIR%\bin;%PATH%
+del cmakecache.txt
+"%CMAKE%" -G "Visual Studio 8 2005" -DCMAKE_INCLUDE_PATH=%GNUWIN32DIR%\include;%LCMSDIR%\include;%TIFFDIR%\include;%JPEGDIR%\include;%FREETYPEDIR%\include;%PODOFODIR%\include;%LIBXMLDIR%\include -DCMAKE_LIBRARY_PATH=%GNUWIN32DIR%\lib;%LCMSDIR%\lib;%TIFFDIR%\lib;%JPEGDIR%\lib;%FREETYPEDIR%\lib;%PODOFODIR%\lib -DLIBPODOFO_SHARED=%PODOFOSHARED% -DCMAKE_INSTALL_PREFIX=c:\developer\scribus-bin ..\scribus-trunk
+---
+
+Update the dependency paths to match your system. Now open a cmd.exe window, cd into the build directory, and run build.cmd . If all goes well, it'll find your libraries and exit successfully.
+
+Open the solution that CMake generated in Visual Studio and build it. On
+Windows it's easier to do a release build as you don't need to build a debug
+Qt, python, etc. 
+
+If it all builds, manually build the INSTALL project to trigger an install. Now
+copy the DLLs from the qt, lcms, freetype, libtiff, libjpeg, libxml, and podofo
+directories into the Scribus install directory (where scribus.exe is). It
+should now run.
+
+Crash problems at runtime? Verify that Qt, freetype, lcms, and Scribus all use
+the same runtime, and that all were built for debugging or all for release not
+a mixture of the two. Windows does not permit you to mix debug and release
+executables like other platforms do.
+
+You can use depends.exe to check that the runtimes match.
+
