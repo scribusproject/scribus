@@ -23,7 +23,7 @@ must be UTF8 encoded or 'unicode' string(recommended).\n\
 Changes the status bar string.
 (Petr Vanek 02/19/04)
 */
-PyObject *scribus_messagebartext(PyObject */*self*/, PyObject* args);
+PyObject *scribus_messagebartext(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_progressreset__doc__,
@@ -36,7 +36,7 @@ new progress bar use. See progressSet.\n\
 Progressbar handling
 (Petr Vanek 02/19/04)
 */
-PyObject *scribus_progressreset(PyObject */*self*/);
+PyObject *scribus_progressreset(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_progresssettotalsteps__doc__,
@@ -45,7 +45,7 @@ QT_TR_NOOP("progressTotal(max)\n\
 Sets the progress bar's maximum steps value to the specified number.\n\
 See progressSet.\n\
 "));
-PyObject *scribus_progresssettotalsteps(PyObject */*self*/, PyObject* args);
+PyObject *scribus_progresssettotalsteps(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_progresssetprogress__doc__,
@@ -59,7 +59,7 @@ total number of steps with progressTotal(). The current number of steps is set\n
 with progressSet(). The progress bar can be rewound to the beginning with\n\
 progressReset(). [based on info taken from Trolltech's Qt docs]\n\
 "));
-PyObject *scribus_progresssetprogress(PyObject */*self*/, PyObject* args);
+PyObject *scribus_progresssetprogress(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setcursor__doc__,
@@ -71,7 +71,7 @@ QT_TR_NOOP("setCursor()\n\
 Cursor handling
 (Petr Vanek 02/19/04)
 */
-PyObject *scribus_setcursor(PyObject */*self*/, PyObject* args);
+PyObject *scribus_setcursor(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_docchanged__doc__,
@@ -85,7 +85,7 @@ won't automatically notice when you change the document using a script.\n\
 Enable/disable save icon
 (Petr Vanek 02/20/04)
 */
-PyObject *scribus_docchanged(PyObject */*self*/, PyObject* args);
+PyObject *scribus_docchanged(PyObject * /*self*/, PyObject* args);
 
 PyDoc_STRVAR(scribus_zoomdocument__doc__,
 QT_TR_NOOP("zoomDocument(double)\n\
@@ -97,6 +97,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.\n\
 Zooming the document
 \author Petr Vanek <petr@yarpen.cz>
 */
-PyObject *scribus_zoomdocument(PyObject */*self*/, PyObject* args);
+PyObject *scribus_zoomdocument(PyObject * /*self*/, PyObject* args);
 
 #endif

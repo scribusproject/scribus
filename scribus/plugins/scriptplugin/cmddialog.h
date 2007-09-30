@@ -21,7 +21,7 @@ accepts the settings. Does not create a document if the user presses cancel.\n\
 Returns true if a new document was created.\n\
 "));
 /** Raises the Scribus New Document dialog */
-PyObject *scribus_newdocdia(PyObject */*self*/);
+PyObject *scribus_newdocdia(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_filedia__doc__,
@@ -46,7 +46,7 @@ Example: fileDialog('Save report', defaultname='report.txt', issave=True)\n\
 "));
 /** Raises file dialog.
  Params - caption, filter, default name and opt. pre, mode. */
-PyObject *scribus_filedia(PyObject */*self*/, PyObject* args, PyObject* kw);
+PyObject *scribus_filedia(PyObject * /*self*/, PyObject* args, PyObject* kw);
 /* duplicity Sends a string into the Message Bar
 PyObject *scribus_mess(PyObject *self, PyObject* args);
 */
@@ -88,7 +88,7 @@ ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.\n\
 "));
 /** Displays a message box with - caption, message, icon, button
  and two more buttons optional. */
-PyObject *scribus_messdia(PyObject */*self*/, PyObject* args, PyObject* kw);
+PyObject *scribus_messdia(PyObject * /*self*/, PyObject* args, PyObject* kw);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_valdialog__doc__,
@@ -100,7 +100,7 @@ Parameters: window title, text in the window and optional 'default' value.\n\
 Example: valueDialog('title', 'text in the window', 'optional')\n\
 "));
 /* 09/24/2004 petr vanek */
-PyObject *scribus_valdialog(PyObject */*self*/, PyObject* args);
+PyObject *scribus_valdialog(PyObject * /*self*/, PyObject* args);
 
 
 PyDoc_STRVAR(scribus_newstyledialog__doc__,

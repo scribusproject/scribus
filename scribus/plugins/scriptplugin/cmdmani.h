@@ -22,7 +22,7 @@ UNIT constants). If \"name\" is not given the currently selected item is used.\n
 If the object \"name\" belongs to a group, the whole group is moved.\n\
 "));
 /*! Move REL the object */
-PyObject *scribus_moveobjrel(PyObject */*self*/, PyObject* args);
+PyObject *scribus_moveobjrel(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_moveobjabs__doc__,
@@ -34,7 +34,7 @@ is not given the currently selected item is used.  If the object \"name\"\n\
 belongs to a group, the whole group is moved.\n\
 "));
 /*! Move ABS the object */
-PyObject *scribus_moveobjabs(PyObject */*self*/, PyObject* args);
+PyObject *scribus_moveobjabs(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_rotobjrel__doc__,
@@ -47,7 +47,7 @@ clockwise rotation when the default rotation point is used. If \"name\" is not\n
 given the currently selected item is used.\n\
 "));
 /*! Rotate REL the object */
-PyObject *scribus_rotobjrel(PyObject */*self*/, PyObject* args);
+PyObject *scribus_rotobjrel(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_rotobjabs__doc__,
@@ -58,7 +58,7 @@ mean counter clockwise rotation. If \"name\" is not given the currently\n\
 selected item is used.\n\
 "));
 /*! Rotate ABS the object */
-PyObject *scribus_rotobjabs(PyObject */*self*/, PyObject* args);
+PyObject *scribus_rotobjabs(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_sizeobjabs__doc__,
@@ -68,7 +68,7 @@ Resizes the object \"name\" to the given width and height. If \"name\"\n\
 is not given the currently selected item is used.\n\
 "));
 /*! Resize ABS the object */
-PyObject *scribus_sizeobjabs(PyObject */*self*/, PyObject* args);
+PyObject *scribus_sizeobjabs(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getselobjnam__doc__,
@@ -79,7 +79,7 @@ of the selected object, e.g. 0 means the first selected object, 1 means the\n\
 second selected Object and so on.\n\
 "));
 /*! Returns name of the selected object */
-PyObject *scribus_getselobjnam(PyObject */*self*/, PyObject* args);
+PyObject *scribus_getselobjnam(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_selcount__doc__,
@@ -88,7 +88,7 @@ QT_TR_NOOP("selectionCount() -> integer\n\
 Returns the number of selected objects.\n\
 "));
 /*! Returns count of the selected object */
-PyObject *scribus_selcount(PyObject */*self*/);
+PyObject *scribus_selcount(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_selectobj__doc__,
@@ -97,7 +97,7 @@ QT_TR_NOOP("selectObject(\"name\")\n\
 Selects the object with the given \"name\".\n\
 "));
 /*! Count selection */
-PyObject *scribus_selectobj(PyObject */*self*/, PyObject* args);
+PyObject *scribus_selectobj(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_deselect__doc__,
@@ -106,7 +106,7 @@ QT_TR_NOOP("deselectAll()\n\
 Deselects all objects in the whole document.\n\
 "));
 /*! Remove all selection */
-PyObject *scribus_deselect(PyObject */*self*/);
+PyObject *scribus_deselect(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_groupobj__doc__,
@@ -117,7 +117,7 @@ of the objects to be grouped. If \"list\" is not given the currently selected\n\
 items are used.\n\
 "));
 /*! Group objects named in list. */
-PyObject *scribus_groupobj(PyObject */*self*/, PyObject* args);
+PyObject *scribus_groupobj(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_ungroupobj__doc__,
@@ -125,7 +125,7 @@ QT_TR_NOOP("unGroupObjects(\"name\")\n\n\
 Destructs the group the object \"name\" belongs to.\
 If \"name\" is not given the currently selected item is used."));
 /*! Ungroup objects named in list. */
-PyObject *scribus_ungroupobj(PyObject */*self*/, PyObject* args);
+PyObject *scribus_ungroupobj(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_scalegroup__doc__,
@@ -140,7 +140,7 @@ to 150 % of its original size.  The value for \"factor\" must be greater than\n\
 May raise ValueError if an invalid scale factor is passed.\n\
 "));
 /*! Scale group with object name */
-PyObject *scribus_scalegroup(PyObject */*self*/, PyObject* args);
+PyObject *scribus_scalegroup(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_loadimage__doc__,
@@ -152,7 +152,7 @@ not given the currently selected item is used.\n\
 May raise WrongFrameTypeError if the target frame is not an image frame\n\
 "));
 /*! Loads image file into frame. */
-PyObject *scribus_loadimage(PyObject */*self*/, PyObject* args);
+PyObject *scribus_loadimage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_scaleimage__doc__,
@@ -165,7 +165,7 @@ means 100 %.\n\
 May raise WrongFrameTypeError if the target frame is not an image frame\n\
 "));
 /*! Scale Image. */
-PyObject *scribus_scaleimage(PyObject */*self*/, PyObject* args);
+PyObject *scribus_scaleimage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_lockobject__doc__,
@@ -176,7 +176,7 @@ If \"name\" is not given the currently selected item is used. Returns true\n\
 if locked.\n\
 "));
 /*! (Un)Lock the object 2004/7/10 pv.*/
-PyObject *scribus_lockobject(PyObject */*self*/, PyObject* args);
+PyObject *scribus_lockobject(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_islocked__doc__,
@@ -186,7 +186,7 @@ Returns true if is the object \"name\" locked.  If \"name\" is not given the\n\
 currently selected item is used.\n\
 "));
 /*! Status of locking 2004/7/10 pv.*/
-PyObject *scribus_islocked(PyObject */*self*/, PyObject* args);
+PyObject *scribus_islocked(PyObject * /*self*/, PyObject* args);
 
 PyDoc_STRVAR(scribus_setscaleimagetoframe__doc__,
 QT_TR_NOOP("setScaleImageToFrame(scaletoframe, proportional=None, name=<selection>)\n\
@@ -197,6 +197,6 @@ Both `scaletoframe' and `proportional' are boolean.\n\
 \n\
 May raise WrongFrameTypeError.\n\
 "));
-PyObject *scribus_setscaleimagetoframe(PyObject */*self*/, PyObject* args, PyObject* kwargs);
+PyObject *scribus_setscaleimagetoframe(PyObject * /*self*/, PyObject* args, PyObject* kwargs);
 
 #endif

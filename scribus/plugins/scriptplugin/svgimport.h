@@ -20,7 +20,7 @@ x and y specify the coordinate of the topleft corner of the SVG placed on the pa
 If loading was successful, the selection contains the imported SVG\n\
 "));
 /*! Places an SVG file. */
-PyObject *scribus_placesvg(PyObject */*self*/, PyObject* args);
+PyObject *scribus_placesvg(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_placeeps__doc__,
@@ -32,7 +32,7 @@ x and y specify the coordinate of the topleft corner of the EPS placed on the pa
 If loading was successful, the selection contains the imported EPS\n\
 "));
 /*! Places an EPS file. */
-PyObject *scribus_placeeps(PyObject */*self*/, PyObject* args);
+PyObject *scribus_placeeps(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_placesxd__doc__,
@@ -44,7 +44,7 @@ x and y specify the coordinate of the topleft corner of the SXD placed on the pa
 If loading was successful, the selection contains the imported SXD\n\
 "));
 /*! Places an SXD file. */
-PyObject *scribus_placesxd(PyObject */*self*/, PyObject* args);
+PyObject *scribus_placesxd(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_placeodg__doc__,
@@ -56,6 +56,6 @@ x and y specify the coordinate of the topleft corner of the ODG placed on the pa
 If loading was successful, the selection contains the imported ODG\n\
 "));
 /*! Places an ODG file. */
-PyObject *scribus_placeodg(PyObject */*self*/, PyObject* args);
+PyObject *scribus_placeodg(PyObject * /*self*/, PyObject* args);
 
 #endif

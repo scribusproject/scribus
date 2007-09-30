@@ -25,7 +25,7 @@ master page for the new page.\n\
 May raise IndexError if the page number is out of range\n\
 "));
 /*! new page */
-PyObject *scribus_newpage(PyObject */*self*/, PyObject* args);
+PyObject *scribus_newpage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_actualpage__doc__,
@@ -35,7 +35,7 @@ Returns the number of the current working page. Page numbers are counted from 1\
 upwards, no matter what the displayed first page number of your document is.\n\
 "));
 /*! get actual page */
-PyObject *scribus_actualpage(PyObject */*self*/);
+PyObject *scribus_actualpage(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_redraw__doc__,
@@ -44,7 +44,7 @@ QT_TR_NOOP("redrawAll()\n\
 Redraws all pages.\n\
 "));
 /*! redraw all */
-PyObject *scribus_redraw(PyObject */*self*/);
+PyObject *scribus_redraw(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_pageposition__doc__,
@@ -53,7 +53,7 @@ QT_TR_NOOP("getPageType() -> integer\n\
 Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page\n\
 "));
 /*! Go to page */
-PyObject *scribus_pageposition(PyObject */*self*/, PyObject* args);
+PyObject *scribus_pageposition(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_savepageeps__doc__,
@@ -64,7 +64,7 @@ Saves the current page as an EPS to the file \"name\".\n\
 May raise ScribusError if the save failed.\n\
 "));
 /*! Export page as EPS file */
-PyObject *scribus_savepageeps(PyObject */*self*/, PyObject* args);
+PyObject *scribus_savepageeps(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_deletepage__doc__,
@@ -77,7 +77,7 @@ page number is.\n\
 May raise IndexError if the page number is out of range\n\
 "));
 /*! Delete page */
-PyObject *scribus_deletepage(PyObject */*self*/, PyObject* args);
+PyObject *scribus_deletepage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_gotopage__doc__,
@@ -90,7 +90,7 @@ just sets the page that script commands will operates on.\n\
 May raise IndexError if the page number is out of range.\n\
 "));
 /*! Go to page */
-PyObject *scribus_gotopage(PyObject */*self*/, PyObject* args);
+PyObject *scribus_gotopage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_pagecount__doc__,
@@ -99,7 +99,7 @@ QT_TR_NOOP("pageCount() -> integer\n\
 Returns the number of pages in the document.\n\
 "));
 /*! Go to page */
-PyObject *scribus_pagecount(PyObject */*self*/);
+PyObject *scribus_pagecount(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getHguides__doc__,
@@ -109,7 +109,7 @@ Returns a list containing positions of the horizontal guides. Values are in the\
 document's current units - see UNIT_<type> constants.\n\
 "));
 /*! get H guides */
-PyObject *scribus_getHguides(PyObject */*self*/);
+PyObject *scribus_getHguides(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setHguides__doc__,
@@ -122,7 +122,7 @@ Example: setHGuides(getHGuides() + [200.0, 210.0] # add new guides without any l
          setHGuides([90,250]) # replace current guides entirely\n\
 "));
 /*! set H guides */
-PyObject *scribus_setHguides(PyObject */*self*/, PyObject* args);
+PyObject *scribus_setHguides(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getVguides__doc__,
@@ -131,7 +131,7 @@ QT_TR_NOOP("getVGuides()\n\
 See getHGuides.\n\
 "));
 /*! get V guides */
-PyObject *scribus_getVguides(PyObject */*self*/);
+PyObject *scribus_getVguides(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setVguides__doc__,
@@ -140,7 +140,7 @@ QT_TR_NOOP("setVGuides()\n\
 See setHGuides.\n\
 "));
 /*! set V guides */
-PyObject *scribus_setVguides(PyObject */*self*/, PyObject* args);
+PyObject *scribus_setVguides(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_pagedimension__doc__,
@@ -154,7 +154,7 @@ returns a tuple with page domensions in used system
 e.g. when is the doc in picas returns picas ;)
 (Petr Vanek 02/17/04)
 */
-PyObject *scribus_pagedimension(PyObject */*self*/);
+PyObject *scribus_pagedimension(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getpageitems__doc__,
@@ -170,7 +170,7 @@ returns a list of tuples with items on the actual page
 TODO: solve utf/iso chars in object names
 (Petr Vanek 03/02/2004)
 */
-PyObject *scribus_getpageitems(PyObject */*self*/);
+PyObject *scribus_getpageitems(PyObject * /*self*/);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getpagemargins__doc__,
@@ -183,7 +183,7 @@ units. See UNIT_<type> constants and getPageSize().\n\
 returns a tuple with page margins
 Craig Ringer, Petr Vanek 09/25/2004
 */
-PyObject *scribus_getpagemargins(PyObject */*self*/);
+PyObject *scribus_getpagemargins(PyObject * /*self*/);
 
 #endif
 
