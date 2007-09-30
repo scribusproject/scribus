@@ -8591,8 +8591,7 @@ void ScribusMainWindow::docCheckToggle(bool visible)
 
 bool ScribusMainWindow::scanDocument()
 {
-	DocumentChecker docChecker;
-	return docChecker.checkDocument(doc);
+	return DocumentChecker().checkDocument(doc);
 }
 
 void ScribusMainWindow::HaveRaster(bool art)
