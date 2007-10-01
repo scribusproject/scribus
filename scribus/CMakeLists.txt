@@ -663,13 +663,11 @@ TARGET_LINK_LIBRARIES(${EXE_NAME}
 # Now build plugins
 SET(PLUGIN_LIBRARIES)
 IF(WIN32)
+  # IF your plugin needs more than this, please link them privately
+  # in the CMakeLists.txt for your plugin.
   SET(PLUGIN_LIBRARIES
     ${QT_LIBRARIES}
-    ${FREETYPE_LIBRARIES}
-    ${LCMS_LIBRARIES}
     ${LIBXML2_LIBRARIES}
-    ${TIFF_LIBRARIES}
-    ${JPEG_LIBRARIES}
     ${ZLIB_LIBRARIES}
     ${EXE_NAME}
     )
