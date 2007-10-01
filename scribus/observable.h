@@ -267,10 +267,10 @@ inline void MassObservable<OBSERVED>::disconnectObserver(Observer<OBSERVED>* o)
 
 
 template <typename T>
-void Private_Init(T& dummy) {}
+inline void Private_Init(T& dummy) {}
 
 template <>
-void Private_Init(QObject*& dummy) 
+inline void Private_Init(QObject*& dummy) 
 { 
 //	dummy->die_compiler_die(); 
 	dummy = 0;
