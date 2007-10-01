@@ -78,6 +78,8 @@ make &amp;&amp; make install
     <li><strong>WANT_CAIRO=1</strong>: Makes CMake search for cairo and build with cairo instead of LibArt_LGPL.</li>
 
     <li><strong>WANT_LIBART=1</strong>: (default): Makes CMake search for and build with LibArt_LGPL instead of cairo.</li>
+    
+    <li><strong>WANT_NOHEADERINSTALL=1</strong>: Do not install header files used for developers. Distributions should not use this if they split up Scribus into multiple packages.
   </ul>
 
   <p>For example: to make a cairo debug build, then something like this (all on one line):</p>
