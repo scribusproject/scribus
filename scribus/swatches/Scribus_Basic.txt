@@ -8,5 +8,5 @@
 	<COLOR CMYK="#0000ff00" NAME="Yellow" />
 	<COLOR CMYK="#ffffffff" NAME="Black" />
 	<COLOR CMYK="#00000000" NAME="White" />
-	<COLOR CMYK="#ff996666" NAME="Rich Black" />
+	<COLOR CMYK="#996666ff" NAME="Rich Black" />
 </swatch>
