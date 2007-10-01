@@ -268,14 +268,14 @@ inline void MassObservable<OBSERVED>::disconnectObserver(Observer<OBSERVED>* o)
 template<class OBSERVED>
 inline bool MassObservable<OBSERVED>::connectObserver(QObject* o, const char* slot)
 {
-	OBSERVED dummy(0);
+	QObject* dummy = NULL;
 	return changedSignal->connectSignal(dummy, o, slot);
 }
 
 template<class OBSERVED>
 inline bool MassObservable<OBSERVED>::disconnectObserver(QObject* o, const char* slot)
 {
-	OBSERVED dummy(0);
+	QObject* dummy = NULL;
 	return changedSignal->disconnectSignal(dummy, o, slot);
 }
 
