@@ -14533,7 +14533,7 @@ arr&amp;ondis :</translation>
     <message>
         <location filename="../newfile.cpp" line="251"/>
         <source>First Page is:</source>
-        <translation>PCopuremière page  :</translation>
+        <translation type="unfinished">Première page  :</translation>
     </message>
     <message>
         <location filename="../newfile.cpp" line="325"/>
