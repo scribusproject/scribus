@@ -5402,14 +5402,17 @@ void PDFLibCore::PDF_Annotation(PageItem *ite, uint)
 	double y2 = y-ite->height();
 	QString bm("");
 	QString cc;
-	for (uint d = 0; d < static_cast<uint>(ite->itemText.length()); ++d)
+	if (!((ite->itemText.length() == 1) && (ite->itemText.text(0, 1) == QChar(13))))
 	{
-		cc = ite->itemText.text(d, 1);
-		if ((cc == "(") || (cc == ")") || (cc == "\\"))
-			bm += "\\";
-		if (cc == QChar(13))
-			cc = "\\r";
-		bm += cc;
+		for (uint d = 0; d < static_cast<uint>(ite->itemText.length()); ++d)
+		{
+			cc = ite->itemText.text(d, 1);
+			if ((cc == "(") || (cc == ")") || (cc == "\\"))
+				bm += "\\";
+			if (cc == QChar(13))
+				cc = "\\r";
+			bm += cc;
+		}
 	}
 	QString anTitle = ite->itemName().replace(".", "_" );
 	QStringList bmst = bm.split("\\r", QString::SkipEmptyParts);
