@@ -265,17 +265,31 @@ inline void MassObservable<OBSERVED>::disconnectObserver(Observer<OBSERVED>* o)
 	m_observers.remove(o);
 }
 
+
+template <typename T>
+void Private_Init(T& dummy) {}
+
+template <>
+void Private_Init(QObject*& dummy) 
+{ 
+//	dummy->die_compiler_die(); 
+	dummy = 0;
+}
+
+
 template<class OBSERVED>
 inline bool MassObservable<OBSERVED>::connectObserver(QObject* o, const char* slot)
 {
-	QObject* dummy = NULL;
+	OBSERVED dummy;
+	Private_Init(dummy);
 	return changedSignal->connectSignal(dummy, o, slot);
 }
 
 template<class OBSERVED>
 inline bool MassObservable<OBSERVED>::disconnectObserver(QObject* o, const char* slot)
 {
-	QObject* dummy = NULL;
+	OBSERVED dummy;
+	Private_Init(dummy);
 	return changedSignal->disconnectSignal(dummy, o, slot);
 }
 
