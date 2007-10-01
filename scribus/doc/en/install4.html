@@ -1,89 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<title>Compiling and Installing Using CMake and Scribus 1.3.3.6+ and 1.3.4+</title>
-</head>
-<body>
-<h2>Compiling and Installing using CMake and Scribus 1.3.3.6 and 1.3.4 or higher</h2>
-<p>After many years of using the autotools build system, the developers of Scribus have selected CMake as a replacement system. It provides a much more flexible setup with a lot less complexity. It also provides compatibility with build tools on Linux and variants of Unix, Windows and Mac OS X.</p>
-<p>To build with the CMake build system you will of course need CMake itself. Most Linux and some Unix distributions provide it as a standard package. If not, please <a href="http://www.cmake.org">download it</a>, make sure you get a recent version, like 2.4.3 or higher. Mac OS X users can also find installers there, as well as, getting it from <a href="http://macports.org">macports.org</a>. Scribus does not yet use CMake for Windows, although this may be added in the future. </p>
-<p>One of the advantages of CMake is that we can build "out of source". By creating a separate directory where the  program is being being compiled, the temporary files and resulting application files are not stored in the same location as the Scribus source files. This helps keep directory structures clean and will also reduce the download time for updating your source tree a little. This is the preferred method and strongly recommended by our developers. CMake is also much simpler to maintain for developers and errors can be understood by mere mortals. <!--However, both methods are described below; the first is recommended.--></p>
+  <meta name="generator" content="HTML Tidy for Linux/x86 (vers 1 September 2005), see www.w3.org">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<h3>Preparation</h3>
-<p>Let's assume the following:<p>
-<ul>
-<li>Scribus source is in a directory like <code>/home/username/scribussource/</code> (where <em>username</em> is your username)</li>
-<li>CMake is in <code>/usr/bin/</code></li>
-<li>You want to install into <code>/home/username/scribusinstall/</code></li>
-</ul>
-<h3>Starting an Out-of-Source Build</h3>
-<p>Change to the source directory:</p>
-<pre>cd /home/username/scribussource/</pre>
-<p>Make a directory to build Scribus in:</p>
-<pre>mkdir builddir</pre>
-<p>Change to the build directory:</p>
-<pre>cd builddir</pre>
-<p>Then run:</p>
-<pre>/usr/bin/cmake ../Scribus -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/</pre>
-<p>If this is the build location you have chosen, please skip down to the <strong>Build Stage</strong> section</p>
-<!--<h3>Starting an In-Source Build</h3>
+  <title>Compiling and Installing Using CMake and Scribus 1.3.3.6+ and 1.3.4+</title>
+</head>
+
+<body>
+  <h2>Compiling and Installing using CMake and Scribus 1.3.3.6 and 1.3.4 or higher</h2>
+
+  <p>After many years of using the autotools build system, the developers of Scribus have selected CMake as a replacement system. It provides a much more flexible setup with a lot less complexity. It also provides compatibility with build tools on Linux and variants of Unix, Windows and Mac OS X.</p>
+
+  <p>To build with the CMake build system you will of course need CMake itself. Most Linux and some Unix distributions provide it as a standard package. If not, please <a href="http://www.cmake.org">download it</a>, make sure you get a recent version, like 2.4.3 or higher. Mac OS X users can also find installers there, as well as, getting it from <a href="http://macports.org">macports.org</a>. Scribus does not yet use CMake for Windows, although this may be added in the future.</p>
+
+  <p>One of the advantages of CMake is that we can build "out of source". By creating a separate directory where the program is being being compiled, the temporary files and resulting application files are not stored in the same location as the Scribus source files. This helps keep directory structures clean and will also reduce the download time for updating your source tree a little. This is the preferred method and strongly recommended by our developers. CMake is also much simpler to maintain for developers and errors can be understood by mere mortals. <!--However, both methods are described below; the first is recommended.--></p>
+
+  <h3>Preparation</h3>
+
+  <p>Let's assume the following:</p>
+
+  <ul>
+    <li>Scribus source is in a directory like <code>/home/username/scribussource/</code> (where <em>username</em> is your username)</li>
+
+    <li>CMake is in <code>/usr/bin/</code></li>
+
+    <li>You want to install into <code>/home/username/scribusinstall/</code></li>
+  </ul>
+
+  <h3>Starting an Out-of-Source Build</h3>
+
+  <p>Change to the source directory:</p>
+  <pre>
+cd /home/username/scribussource/
+</pre>
+
+  <p>Make a directory to build Scribus in:</p>
+  <pre>
+mkdir builddir
+</pre>
+
+  <p>Change to the build directory:</p>
+  <pre>
+cd builddir
+</pre>
+
+  <p>Then run:</p>
+  <pre>
+/usr/bin/cmake ../Scribus -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/
+</pre>
+
+  <p>If this is the build location you have chosen, please skip down to the <strong>Build Stage</strong> section</p><!--<h3>Starting an In-Source Build</h3>
 <p>Change to the source directory:</p>
 <pre>cd /home/username/scribussource/</pre>
 <p>Then run:</p>
 <pre>/usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/</pre>-->
 
+  <h3>Continuing onto the Build Stage</h3>
 
+  <p>Once the CMake command you have chosen above has completed successfully (remember it needs to find the dependencies of Scribus and record their locations), then you need to run:</p>
+  <pre>
+make &amp;&amp; make install
+</pre>
 
-<h3>Continuing onto the Build Stage</h3>
-<p>Once the CMake command you have chosen above has completed successfully (remember it needs to find the dependencies of Scribus and record their locations), then you need to run:</p>
-<pre>make &#038;&#038; make install</pre>
+  <h2>Advanced Options</h2>
 
-<h2>Advanced Options</h2>
-<h3>Build Options</h3>
-<p>Some options that the Scribus CMake files know about (more to come!):</p>
-<ul>
-<li>
-<strong>WANT_VERSIONING=1</strong>: Sets the build to use the VERSION setting as a suffix for the install directories and the binary. Eg, the binary could be scribus-1.3.4cvs. This should mean that you can install multiple versions with the same prefix with no clashes.
-</li>
-<li>
-<strong>WANT_DEBUG=1</strong>: Sets the build to be a debug release and use -O0 -g3, instead of -O2 (This is the default for now, and cannot be turned off unless you edit the CMakeFiles.txt file).
-</li>
-<li>
-<strong>WANT_CAIRO=1</strong>: Makes CMake search for cairo and build with cairo instead of LibArt_LGPL.
-</li>
-<li>
-<strong>WANT_LIBART=1</strong>: (default): Makes CMake search for and build with LibArt_LGPL instead of cairo.
-</li>
-</ul>
-<p>For example: to make a cairo debug build, then something like this  (all on one line):</p>
-<pre>
+  <h3>Build Options</h3>
+
+  <p>Some options that the Scribus CMake files know about (more to come!):</p>
+
+  <ul>
+    <li><strong>WANT_VERSIONING=1</strong>: Sets the build to use the VERSION setting as a suffix for the install directories and the binary. Eg, the binary could be scribus-1.3.4cvs. This should mean that you can install multiple versions with the same prefix with no clashes.</li>
+
+    <li><strong>WANT_DEBUG=1</strong>: Sets the build to be a debug release and use -O0 -g3, instead of -O2 (This is the default for now, and cannot be turned off unless you edit the CMakeFiles.txt file).</li>
+
+    <li><strong>WANT_CAIRO=1</strong>: Makes CMake search for cairo and build with cairo instead of LibArt_LGPL.</li>
+
+    <li><strong>WANT_LIBART=1</strong>: (default): Makes CMake search for and build with LibArt_LGPL instead of cairo.</li>
+  </ul>
+
+  <p>For example: to make a cairo debug build, then something like this (all on one line):</p>
+  <pre>
 /usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall
          -DWANT_CAIRO=1 -DWANT_DEBUG=1 -DWANT_VERSIONING=1
 </pre>
 
-<h3>Specifying Library Locations</h3>
-<p>Whenever your distribution releases their package for a library Scribus depends on, it may still not be the very latest stable or unstable version from the writers of the library. In some cases, the Scribus developers have had to rely on the very latest code to further some parts of Scribus. In this case it is necessary to build your own version of such a library.</p>
-<p>On example of this is the cairo graphics library. Right now, 1.3.4+ has the capability to use the very very latest code from the just released cairo 1.4.10 or later and we recommend it for performance reasons as well. </p>
-<p>To specify a new cairo install path, other than your system's default add this to the cmake command line: <code>-DPREFIX_CAIRO:PATH=/path/to/your/cairo/install</code></p>
+  <h3>Specifying Library Locations</h3>
 
-<h3>When system has both Qt3 and Qt4 installed</h3>
-<p>Systems with both Qt3 and Qt4 installed: You have <code>uic</code> and <code>moc</code> from Qt4 in the path and it may results to the compilation crash. This should NOT be the case with CMake 2.4.2 and higher, or when using current Scribus SVM. However, this might be a useful workaround:</p>
-<p>Remove cached options from previous cmake configuration run from your build location: <code>rm CMakeCache.txt</code></p>
-<p>Then change PATH variable (for my Gentoo) e.g.:</p>
-<pre>export PATH=/usr/qt/3/bin/:$PATH</pre>
-<p>And run cmake config phase again:</p>
-<pre>/usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/</pre>
+  <p>Whenever your distribution releases their package for a library Scribus depends on, it may still not be the very latest stable or unstable version from the writers of the library. In some cases, the Scribus developers have had to rely on the very latest code to further some parts of Scribus. In this case it is necessary to build your own version of such a library.</p>
 
-<h3>Making a tarball for distribution</h3>
-<p>To make a tarball for distribution, the old way would be to <code>make dist</code>.</p>
-<p>The new way is to run:</p>
-<pre>make package_source</pre>
-<p>or</p>
-<pre>/usr/bin/cpack -G TBZ2 --config CPackSourceConfig.cmake</pre>
-<p>to give you a bundle of the source.</p>
-<p><strong>Important:</strong> If you need to re-run cpack remove the <code>_CPack_Packages/</code> before running this a second time. </p>
-<p>You can also use svn export <pre>/path/to/scribus/svn</pre> in a temporary directory and then tar or zip the directory to create a tarball. </p>
-<h3>Troubleshooting and Success Stories</h3>
-<p>If after reading these instructions through and you still have issues, please join us on <a href="irc.html">IRC</a> or post a mail to our <a href="resources.html">mailing list</a> with specifics of your problem. We also are interested in hearing from folks who have successfully compiled Scribus on non-Linux platforms too. We know it is very reliable on Mac OS X as well.</p>
+  <p>On example of this is the cairo graphics library. Right now, 1.3.4+ has the capability to use the very very latest code from the just released cairo 1.4.10 or later and we recommend it for performance reasons as well.</p>
+
+  <p>To specify a new cairo install path, other than your system's default add this to the cmake command line: <code>-DPREFIX_CAIRO:PATH=/path/to/your/cairo/install</code></p>
+
+  <h3>When system has both Qt3 and Qt4 installed</h3>
+
+  <p>Systems with both Qt3 and Qt4 installed: You have <code>uic</code> and <code>moc</code> from Qt4 in the path and it may results to the compilation crash. This should NOT be the case with CMake 2.4.2 and higher, or when using current Scribus SVM. However, this might be a useful workaround:</p>
+
+  <p>Remove cached options from previous cmake configuration run from your build location: <code>rm CMakeCache.txt</code></p>
+
+  <p>Then change PATH variable (for my Gentoo) e.g.:</p>
+  <pre>
+export PATH=/usr/qt/3/bin/:$PATH
+</pre>
+
+  <p>And run cmake config phase again:</p>
+  <pre>
+/usr/bin/cmake . -DCMAKE_INSTALL_PREFIX:PATH=/home/username/scribusinstall/
+</pre>
+
+  <h3>Making a tarball for distribution</h3>
+
+  <p>To make a tarball for distribution, the old way would be to <code>make dist</code>.</p>
+
+  <p>The new way is to run:</p>
+  <pre>
+make package_source
+</pre>
+
+  <p>or</p>
+  <pre>
+/usr/bin/cpack -G TBZ2 --config CPackSourceConfig.cmake
+</pre>
+
+  <p>to give you a bundle of the source.</p>
+
+  <p><strong>Important:</strong> If you need to re-run cpack remove the <code>_CPack_Packages/</code> before running this a second time.</p>
+
+  <p>You can also use svn export</p>
+  <pre>
+/path/to/scribus/svn
+</pre>in a temporary directory and then tar or zip the directory to create a tarball.
+
+  <h3>Troubleshooting and Success Stories</h3>
+
+  <p>If after reading these instructions through and you still have issues, please join us on <a href="irc.html">IRC</a> or post a mail to our <a href="resources.html">mailing list</a> with specifics of your problem. We also are interested in hearing from folks who have successfully compiled Scribus on non-Linux platforms too. We know it is very reliable on Mac OS X as well.</p>
 </body>
 </html>
