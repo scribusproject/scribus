@@ -1,6 +1,26 @@
 BUILDING SCRIBUS ON MICROSOFT WINDOWS
 =====================================
 
+STATUS OF WIN32 CMAKE BUILDS
+============================
+
+Building Scribus on win32 with cmake is still rather poorly tested.
+It's getting there, but for now the Visual Studio project based builds
+maintained by Jean Ghali are much more stable.
+
+Known issues with this build:
+
+	- It's hard to ensure that debug libs are used for debug builds
+	  and release libs for release builds, as not all CMake scripts
+	  do this sensibly.
+
+	- The scripter isn't building yet.
+
+	- The sxwim plugin isn't building yet.
+
+HOW TO DO THE BUILD
+===================
+
 This documentation is minimal, and will be replaced by more detailed
 information once the CMake-based win32 builds are better tested.
 
@@ -8,25 +28,20 @@ You will need:
 	- Microsoft Windows XP (others may work but are untested)
 	- Microsoft Visual Studio Express Edition 8 2005
 	- The Microsoft Platform SDK
-	- CMake 2.5.x
-	- Qt 4.3 built with Visual Studio 8 2005
-	- libtiff and libjpeg from the GnuWin32 project
-	- libxml2 from the libxml project
+	- CMake 2.5.x (2.4.x WILL NOT WORK)
+	- A recent Qt 4.3 snapshot built with Visual Studio 8 2005
+	- libxml2 win32 binaries from the libxml project
+	- libjpeg sources from jig.org
+	- libtiff sources
+	- libpng sources
+	- zlib sources
 	- freetype sources
 	- LittleCMS sources
 	- PoDoFo 0.5.0 (and ONLY 0.5.0) sources.
-	- Python 2.5 . For debug builds, you'll need a release that
-	  contains the python25_d.dll .
+	- A Python 2.5 Windows binary build.
+          For debug builds, you'll need a release that contains the python25_d.dll .
 
-[TODO: add URLs]
-
-First, you must compile the freetype, lcms, and podofo libraries using Visual
-Studio 2005 . You may get away with using a freetype from gnuwin32, but
-this isn't recommended.
-
-You must modify lcms.h to prevent it from defining `cdecl'. [TODO: other changes] [ TODO: line numbers / patch ]. This is only required to use the header with Scribus; it's Ok to use a library built without these changes.
-
-[TODO: detail on building dependences]
+Some more details can be found below in the section entitled GETTING DEPENDENCIES.
 
 To build scribus its self, you should create a new empty build directory
 outside the Scribus source tree. In this directory, create a new text file and
@@ -37,33 +52,46 @@ Open build.cmd in a text editor, and paste the following into it:
 ---
 rem Dependency paths:
 set CMAKE=C:\Program Files\CMake 2.5\bin\cmake.exe
-set GNUWIN32DIR=c:\developer\gnuwin32\
+rem used for headers only; we get the lib from the libpng build
+set ZLIBDIR=c:\developer\lib\zlib
+rem provides both png and zlib .libs
+set PNGDIR=C:\developer\lib\lpng1220-vc\
 set QTDIR=C:\developer\Qt\qt-win-opensource-src-4.3.2-snapshot-20070929
-set LCMSDIR=c:\developer\libs\lcms-1.16
-set TIFFDIR=%GNUWIN32DIR%
-set JPEGDIR=%GNUWIN32DIR%
-set FREETYPEDIR=%GNUWIN32DIR%
-set PODOFODIR=c:\developer\podofo\050-vs-inst\
+set LCMSDIR=c:\developer\lib\lcms-1.16-vc
+set JPEGDIR=c:\developer\lib\jpeg-6b-vc
+set FREETYPEDIR=c:\developer\lib\freetype-2.3.5
+set TIFFDIR=c:\developer\lib\tiff-3.8.2-vc
+set PODOFODIR=c:\developer\podofo\050-vs-inst
 set PODOFOSHARED=1
-set LIBXMLDIR=c:\developer\libs\libxml2-2.6.30.win32\
+set LIBXMLDIR=c:\developer\lib\libxml2-2.6.30.win32
 set SCRIBUSINSTALLDIR=c:\developer\scribus-bin
 rem
 rem
-set PATH=%QTDIR%\bin;%PATH%
+set PATH=%SYSTEMROOT%;%SYSTEMROOT%\system32;%QTDIR%\bin
+set INCLUDE=
+set LIB=
+set SCPNGPROJ=%PNGDIR%\projects\visualc71\
 del cmakecache.txt
-"%CMAKE%" -G "Visual Studio 8 2005" -DCMAKE_INCLUDE_PATH=%GNUWIN32DIR%\include;%LCMSDIR%\include;%TIFFDIR%\include;%JPEGDIR%\include;%FREETYPEDIR%\include;%PODOFODIR%\include;%LIBXMLDIR%\include -DCMAKE_LIBRARY_PATH=%GNUWIN32DIR%\lib;%LCMSDIR%\lib;%TIFFDIR%\lib;%JPEGDIR%\lib;%FREETYPEDIR%\lib;%PODOFODIR%\lib -DLIBPODOFO_SHARED=%PODOFOSHARED% -DCMAKE_INSTALL_PREFIX=c:\developer\scribus-bin ..\scribus-trunk
+"%CMAKE%" -G "Visual Studio 8 2005" -DCMAKE_INCLUDE_PATH:PATH=%ZLIBDIR%;%ZLIBDIR%\include;%PNGDIR%;%PNGDIR%\include;%LCMSDIR%\include;%JPEGDIR%;%JPEGDIR%\include;%TIFFDIR%\libtiff;%TIFFDIR%\include;%FREETYPEDIR%\include;%FREETYPEDIR%\include\freetype2;%PODOFODIR%\include;%LIBXMLDIR%\include -DCMAKE_LIBRARY_PATH:PATH=%ZLIBDIR%\lib;%SCPNGPROJ%\Win32_DLL_Debug\Zlib;%SCPNGPROJ%\Win32_DLL_Release\Zlib;%PNGDIR%\lib;%SCPNGPROJ%\Win32_DLL_Debug;%SCPNGPROJ%\Win32_DLL_Release;%LCMSDIR%\lib;%LCMSDIR%\Lib\MS;%JPEGDIR%;%JPEGDIR%\lib;%TIFFDIR%\libtiff;%TIFFDIR%\lib;%FREETYPEDIR%\objs;%FREETYPEDIR%\lib;%PODOFODIR%\lib;%LIBXMLDIR%\lib -DLIBPODOFO_SHARED=%PODOFOSHARED% -DCMAKE_INSTALL_PREFIX=c:\developer\scribus-bin -DPNG_NAMES:STRING=libpng13 -DJPEG_NAMES:STRING=libjpeg -DFREETYPE_LIBRARY_NAMES=freetype235MT ..\scribus-trunk
 ---
 
-Update the dependency paths to match your system. Now open a cmd.exe window, cd into the build directory, and run build.cmd . If all goes well, it'll find your libraries and exit successfully.
+The above script is designed to work with common arrangements of library
+install directories, both build trees and installed copies. If you follow the
+instructions here about setting up the libraries scribus requires, you should
+be OK. [SEE: GETTING DEPENDENENCIES]
+
+Update the dependency paths to match your system.  Now open a cmd.exe window,
+cd into the build directory, and run build.cmd . If all goes well, it'll find
+your libraries and exit successfully.
 
 Open the solution that CMake generated in Visual Studio and build it. On
 Windows it's easier to do a release build as you don't need to build a debug
 Qt, python, etc. 
 
 If it all builds, manually build the INSTALL project to trigger an install. Now
-copy the DLLs from the qt, lcms, freetype, libtiff, libjpeg, libxml, and podofo
-directories into the Scribus install directory (where scribus.exe is). It
-should now run.
+copy the DLLs from the zlib, libpng, qt, lcms, freetype, libtiff, libjpeg,
+libxml, and podofo directories into the Scribus install directory (where
+scribus.exe is). It should now run.
 
 Crash problems at runtime? Verify that Qt, freetype, lcms, and Scribus all use
 the same runtime, and that all were built for debugging or all for release not
@@ -71,4 +99,128 @@ a mixture of the two. Windows does not permit you to mix debug and release
 executables like other platforms do.
 
 You can use depends.exe to check that the runtimes match.
+
+GETTING DEPENDENCIES
+====================
+
+This is a quick and dirty set of notes that will be filled out once everything's
+verified as correct and working. It asssumes that you'll be building all your
+dependencies at a single root, like C:\Developer. The root *MUST* not have spaces
+in its path.
+
+----
+Qt:
+
+\visual\studio\VC\vcvarsall.bat
+\platform\sdk\setenv.cmd
+configure -debug-and-release -fast -no-qt3support -platform win32-msvc2005
+
+----
+
+zlib:
+
+download the sources from from www.zlib.net and unpack.
+Use the directory name 'zlib' (just 'zlib') since libpng
+relies on this.
+
+Don't bother building it. libpng will do that for us.
+
+----
+
+libpng:
+
+get sources from:
+http://www.libpng.org/pub/png/libpng.html
+
+unpack with the same parent directory as zlib.
+
+open projects\visualc71\libpng.sln
+upgrade
+build all
+
+**WARNING**
+If you build libpng and zlib with Visual Studio 8, you will
+get DLLs with the official names, but they will not be fully
+binary compatible with the official DLLs. We can get away
+with using them privately for Scribus, but for a release
+it's recommended that you rebuild the DLLs with different
+names.
+**WARNING**
+
+----
+
+jpeg:
+
+Get jpeg sources setup from gnuwin32. Install.
+In %GNUWIN32%\src\jpeg\6b\jpeg-6b-src:
+
+copy Makefile.vc Makefile
+copy jconfig.vc jconfig.h
+nmake
+
+(you might have to use vcvars.bat from vc and setvars.bat from the platform sdk)
+
+
+----
+
+lcms:
+
+Get lcms sources.
+Build using VC project in Projects dir. Only build the DLL
+(right click -> build on lcmsdll).
+
+Now modify lcms.h and remove:
+
+#define unlink _unlink
+
+You must modify lcms.h to prevent it from defining `cdecl'. [TODO: other
+changes] [ TODO: line numbers / patch ]. This is only required to use the
+header with Scribus; it's Ok to use a library built without these changes.
+
+
+----
+
+Libtiff
+
+download and unpack libtiff
+
+in a vcvars/setenv window:
+
+set INCLUDE=%INCLUDE%;\path\to\jpeg\include;\path\to\zlib\include
+set LIB=%LIB%;\path\to\jpeg\lib;\path\to\zlib\lib
+
+cd %LIBTIFFDIR%\libtiff
+nmake /nologo /f Makefile.vc libtiff.lib
+
+----
+
+Freetype:
+
+unpack freetype
+open builds\win32\visualc
+upgrade
+build "Release Multithreaded" and "Debug Multithreaded"
+
+----
+
+libxml:
+
+download win32 binaries from libxml.org, unpack.
+Note that these binaries do not use the same runtime
+as the rest of the binaries we're building. Feel free to
+rebuild libxml to fix this, but in practice it doesn't
+matter since we never pass a FILE* nor do we allocate memory
+to be deallocated in libxml or vice versa.
+
+Remember that iconv from the same package must be on the
+header search path too. If in doubt, just drop iconv.h
+into the libxml tree.
+
+
+
+
+Notes:
+
+CMake doesn't find zlib; you have to tell it it's zlib1  by modifying FindZLIB.cmake
+
 
