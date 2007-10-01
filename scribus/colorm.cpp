@@ -200,7 +200,7 @@ void ColorManager::saveDefaults()
 	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir());
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
-	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
+	if ((Name == "Scribus Basic") || (Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
 	        || (Name == "X11 Grey-Set") || (Name == "Gnome-Set") || (Name == "SVG-Set"))
 		dia->setEditText("", false);
 	else
@@ -281,7 +281,7 @@ void ColorManager::loadDefaults(const QString &txt)
 	EditColors.clear();
 	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir()+txt);
 	QString pfadC = ScPaths::instance().libDir()+"swatches/";
-	QString pfadC2 = pfadC + "Scribus_X11.txt";
+	QString pfadC2 = pfadC + "Scribus_Basic.txt";
 	if (txt == "Scribus Small")
 	{
 		LoadColSet->setText("Scribus Small");

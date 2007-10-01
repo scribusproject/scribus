@@ -30,7 +30,7 @@ ColorSetManager::~ColorSetManager()
 void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 {
 	QString pfadC = ScPaths::instance().libDir()+"swatches/";
-	QString pfadC2 = pfadC + "Scribus_X11.txt";
+	QString pfadC2 = pfadC + "Scribus_Basic.txt";
 	QFile fiC(pfadC2);
 	if (!fiC.exists())
 	{
@@ -102,7 +102,7 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 			}
 			fiC.close();
 		}
-		appPrefs.DColorSet = "X11 RGB-Set";
+		appPrefs.DColorSet = "Scribus Basic";
 	}
 }
 

@@ -8,6 +8,7 @@ rgbscribusgreys.txt
 rgbscribusopenoffice.txt
 rgbscribus.txt
 rgbsvg.txt
+Scribus_Basic.txt
 Scribus_Gnome.txt
 Scribus_OpenOffice.txt
 Scribus_SVG.txt

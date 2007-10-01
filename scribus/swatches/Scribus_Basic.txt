@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swatch>
+	<COLOR RGB="#ff0000"    NAME="Red" />
+	<COLOR RGB="#00ff00"    NAME="Green" />
+	<COLOR RGB="#0000ff"    NAME="Blue" />
+	<COLOR CMYK="#ff000000" NAME="Cyan" />
+	<COLOR CMYK="#00ff0000" NAME="Magenta" />
+	<COLOR CMYK="#0000ff00" NAME="Yellow" />
+	<COLOR CMYK="#ffffffff" NAME="Black" />
+	<COLOR CMYK="#00000000" NAME="White" />
+	<COLOR CMYK="#ff996666" NAME="Rich Black" />
+</swatch>

@@ -604,7 +604,7 @@ void CMYKChoose::SelSwatch(int n)
 		CurrSwatch.clear();
 		QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + Swatches->currentText());
 		QString pfadC = ScPaths::instance().libDir()+"swatches/";
-		QString pfadC2 = pfadC + "Scribus_X11.txt";
+		QString pfadC2 = pfadC + "Scribus_Basic.txt";
 		switch (n)
 		{
 			/*
