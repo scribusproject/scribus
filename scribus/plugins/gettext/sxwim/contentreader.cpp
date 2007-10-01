@@ -198,7 +198,7 @@ bool ContentReader::characters(const QString &ch)
 	QString tmp = ch;
 	tmp = tmp.remove("\n");
 	tmp = tmp.remove(""); // Remove all OO.o hyphenation chars
-	tmp = tmp.replace(QChar(160), QChar(29)); // replace OO.o nbsp with Scribus nbsp
+	tmp = tmp.replace(QChar(160), SpecialChars::NBSPACE); // replace OO.o nbsp with Scribus nbsp
 	if (append)
 		write(tmp);
 	return true;
@@ -231,7 +231,7 @@ bool ContentReader::endElement(const QString&, const QString&, const QString &na
 	else if (name == "text:note-body")
 		inNoteBody = false;
 	else if (name == "text:line-break")
-		write(QChar(28));
+		write(SpecialChars::LINEBREAK);
 	else if (name == "text:tab-stop")
 		write("\t");
 	else if ((name == "text:unordered-list") || (name == "text:ordered-list"))
