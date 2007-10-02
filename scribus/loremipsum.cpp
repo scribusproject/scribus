@@ -77,7 +77,12 @@ LoremParser::LoremParser(QString fname)
 			if (element.tagName() == "url")
 				url = element.text();
 			if (element.tagName() == "p")
-				loremIpsum.append(element.text().simplified());
+			{
+				QString txt = element.text().simplified();
+				txt.replace(SpecialChars::OLD_NBSPACE, SpecialChars::NBSPACE);
+				txt.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);	
+				loremIpsum.append(txt);
+			}
 		}
 		node = node.nextSibling();
 	}
