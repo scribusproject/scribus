@@ -62,7 +62,7 @@ void MSpinBox::setParameters( int s )
 	if (s>=0 && s <=unitGetMaxIndex())
 	{
 		Width=s;
-		Decimals=static_cast<int>(pow(10, s));
+		Decimals=static_cast<int>(pow(10.0, s));
 	}
 	else
 	{
