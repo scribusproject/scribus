@@ -83,6 +83,8 @@ be OK. [SEE: GETTING DEPENDENENCIES]
 Update the dependency paths to match your system.  Now open a cmd.exe window,
 cd into the build directory, and run build.cmd . If all goes well, it'll find
 your libraries and exit successfully.
+(Note: Some systems could have some environment related problems running this
+from simple cmd.exe. Use SDK console instead then.)
 
 Open the solution that CMake generated in Visual Studio and build it. On
 Windows it's easier to do a release build as you don't need to build a debug
