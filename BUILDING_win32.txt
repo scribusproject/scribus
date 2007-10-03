@@ -113,19 +113,30 @@ in its path.
 ----
 Qt:
 
-\visual\studio\VC\vcvarsall.bat
-\platform\sdk\setenv.cmd
+Download the latest qt 4.3 snapshot for windows and unpack it to C:\Developer .
+Don't get the "all" snapshot, it lacks configure.exe  and can't easily be built
+on Windows.
+
+Start a command line and import your Visual Studio environment:
+\path\to\visual\studio\VC\vcvarsall.bat
+\path\to\platform\sdk\setenv.cmd
+
+now cd to C:\Developer\Qt-win-whatever and run configure:
 configure -debug-and-release -fast -no-qt3support -platform win32-msvc2005
+
+and nmake.
 
 ----
 
 zlib:
 
-download the sources from from www.zlib.net and unpack.
-Use the directory name 'zlib' (just 'zlib') since libpng
-relies on this.
+download the sources from from www.zlib.net and unpack to your main
+libraries directory. Rename the unpacked sources directory to "zlib".
+libpng relies on this.
 
 Don't bother building it. libpng will do that for us.
+
+[TODO: use Qt zlib]
 
 ----
 
@@ -138,7 +149,8 @@ unpack with the same parent directory as zlib.
 
 open projects\visualc71\libpng.sln
 upgrade
-build all
+build "Release DLL"
+build "Debug DLL"
 
 **WARNING**
 If you build libpng and zlib with Visual Studio 8, you will
@@ -149,13 +161,16 @@ it's recommended that you rebuild the DLLs with different
 names.
 **WARNING**
 
+[TODO: use Qt libpng]
+
 ----
 
 jpeg:
 
-Get jpeg sources setup from gnuwin32. Install.
-In %GNUWIN32%\src\jpeg\6b\jpeg-6b-src:
+Get jpeg sources from jig.org . Unpack to your libraries directory.
+Now, in a command prompt:
 
+cd 
 copy Makefile.vc Makefile
 copy jconfig.vc jconfig.h
 nmake
@@ -224,5 +239,3 @@ into the libxml tree.
 Notes:
 
 CMake doesn't find zlib; you have to tell it it's zlib1  by modifying FindZLIB.cmake
-
-
