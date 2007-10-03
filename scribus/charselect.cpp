@@ -6,13 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include <QFileDialog>
-#include <QGroupBox>
-#include <QGridLayout>
-#include <QLabel>
-#include <QPushButton>
-#include <QCheckBox>
-#include <QToolTip>
-#include <QTextStream>
 #include <QMessageBox>
 
 #include "scribusdoc.h"
@@ -34,111 +27,31 @@ for which a new license (GPL+exception) is in place.
 CharSelect::CharSelect(QWidget* parent)
 	: ScrPaletteBase(parent, "CharSelect"),
 	m_doc(0),
+	m_characterClass(0),
 	m_Item(0)
 {
-	setWindowTitle( tr("Character Palette"));
+	setupUi(this);
+// 	layout()->setSizeConstraint(QLayout::SetFixedSize |QLayout::SetDefaultConstraint);
+
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
-	QGridLayout * mainLayout = new QGridLayout(this);
-#ifndef Q_OS_MAC
-    mainLayout->setSpacing(6);
-    mainLayout->setMargin(9);
-#endif
-
-	// big table related
-	m_bigPalette = new QGroupBox(tr("Enhanced Palette"), this);
-	QGridLayout* bigLayout;
-    bigLayout = new QGridLayout(m_bigPalette);
-#ifndef Q_OS_MAC
-    bigLayout->setSpacing(6);
-    bigLayout->setMargin(9);
-#endif
-
-	fontLabel = new QLabel(m_bigPalette);
-	fontLabel->setText( tr("Font:"));
-	bigLayout->addWidget(fontLabel, 0, 0, 1, 1);
-
-	fontSelector = new FontCombo(m_bigPalette);
-	fontSelector->setMaximumSize(190, 30);
-	bigLayout->addWidget(fontSelector, 0, 1, 1, 1);
-
-	rangeLabel = new QLabel(m_bigPalette);
-	rangeLabel->setText( tr("Character Class:"));
-	bigLayout->addWidget(rangeLabel, 0, 2, 1, 2);
-
-	rangeSelector = new ScComboBox(m_bigPalette);
-	bigLayout->addWidget(rangeSelector, 0, 4, 1, 1);
-
-	m_characterClass = 0;
-
-	m_charTable = new CharTableView(m_bigPalette);
 	m_charTableModel = new CharTableModel(m_bigPalette, 16, m_doc, m_fontInUse);
 	m_charTable->setModel(m_charTableModel);
 	m_charTable->resizeColumnsToContents();
 	m_charTable->resizeRowsToContents();
-	m_charTable->setMinimumWidth(340);
 	m_charTable->setDragEnabled(true);
-	m_charTable->setDragDropMode(QAbstractItemView::DragOnly);
-	bigLayout->addWidget(m_charTable, 1, 0, 1, 5);
 
-	sample = new QLabel(m_bigPalette);
-	sample->setFrameShape(QFrame::Box);
-//	sample->setPaletteBackgroundColor(paletteBackgroundColor());
-	sample->setMinimumHeight(48);
-	sample->setMinimumWidth(460);
-	bigLayout->addWidget(sample, 2, 0, 1, 5);
-
-	insertButton = new QPushButton( tr("&Insert"), m_bigPalette);
-	deleteButton = new QPushButton( tr("C&lear"), m_bigPalette);
-	bigLayout->addItem(new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum), 3, 0, 1, 1);
-	bigLayout->addWidget(insertButton, 3, 1, 1, 2);
-	bigLayout->addWidget(deleteButton, 3, 3, 1, 2);
-
-	mainLayout->addWidget(m_bigPalette, 0, 0, 1, 1);
-
-	// quick table
-	m_quickPalette = new QGroupBox(tr("Quick Palette"), this);
-	QGridLayout* quickLayout = new QGridLayout(m_quickPalette);
-#ifndef Q_OS_MAC
-    quickLayout->setSpacing(6);
-    quickLayout->setMargin(9);
-#endif
-
-	hideCheck = new QCheckBox( tr("Hide Enhanced"), m_quickPalette);
-	quickLayout->addWidget(hideCheck, 0, 0, 1, 2);
-
-	unicodeButton = new UnicodeChooseButton(m_quickPalette);
-	quickLayout->addWidget(unicodeButton, 1, 0, 1, 1);
-
-	uniLoadButton = new QPushButton(m_quickPalette);
 	uniLoadButton->setIcon(loadIcon("22/document-open.png"));
-	uniSaveButton = new QPushButton(m_quickPalette);
 	uniSaveButton->setIcon(loadIcon("22/document-save.png"));
-	uniClearButton = new QPushButton(m_quickPalette);
 	uniClearButton->setIcon(loadIcon("22/document-new.png"));
 	
-	quickLayout->addWidget(uniLoadButton, 2, 0, 1, 1);
-	quickLayout->addWidget(uniSaveButton, 2, 1, 1, 1);
-	quickLayout->addWidget(uniClearButton, 2, 2, 1, 1);
-
-	m_userTable = new CharTableView(m_quickPalette);
 	m_userTableModel = new CharTableModel(m_quickPalette, 4, m_doc, m_fontInUse);
 	m_userTable->setModel(m_userTableModel);
-	m_userTable->setMaximumWidth(120);
-	m_userTable->setMinimumWidth(120);
 	m_userTable->setAcceptDrops(true);
-	m_userTable->setDragEnabled(true);
-	m_userTable->setDragDropMode(QAbstractItemView::DropOnly);
+// 	m_userTable->setDragEnabled(true);
 	m_userTable->resizeColumnsToContents();
 	m_userTable->resizeRowsToContents();
-	quickLayout->addWidget(m_userTable, 3, 0, 1, 3);
 
-	mainLayout->addWidget(m_quickPalette, 0, 1, 1, 1);
-
-	//tooltips
-	insertButton->setToolTip( "<qt>" + tr("Insert the characters at the cursor in the text") + "</qt>");
-	deleteButton->setToolTip( "<qt>" + tr("Delete the current selection(s).") + "</qt>");
-	m_charTable->setToolTip( "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
 	// signals and slots connections
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
@@ -155,7 +68,7 @@ CharSelect::CharSelect(QWidget* parent)
 	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
 	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
 	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
-	//
+
 	loadUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
 }
 
@@ -618,10 +531,15 @@ void CharSelect::slot_insertUserSpecialChar(QChar ch)
 
 void CharSelect::hideCheck_clicked()
 {
+	// megahact #1 to keep user palette unchanged after rasizing
+	QSize sz(m_quickPalette->size());
+// 
 	m_bigPalette->setShown(!hideCheck->isChecked());
-	resize(1, 1); // megahack to keep palette small
+	resize(sz); // megahack #2 to keep palette small
+	m_quickPalette->resize(sz);
 	updateGeometry();
 	adjustSize();
+	
 }
 
 void CharSelect::show()

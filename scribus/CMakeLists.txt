@@ -25,6 +25,7 @@ ENDIF (WANT_DESIGNER)
 SET(SCRIBUS_UI_SRC
   aboutplugins.ui
   aligndistribute.ui
+  charselect.ui
   createrange.ui
   docitemattrprefs.ui
   docsections.ui

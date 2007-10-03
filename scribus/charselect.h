@@ -10,23 +10,13 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scrpalettebase.h"
 #include "chartablemodel.h"
+#include "ui_charselect.h"
 
-class QLabel;
-class QPushbutton;
-class QComboBox;
-class QGroupBox;
-class QCheckBox;
-class QTableView;
-
-class FontCombo;
 class PageItem;
-class UnicodeChooseButton;
-class ScribusDoc;
-class CharTableView;
 
 
 /*! \brief Character Palette for direct chars inserting. */
-class SCRIBUS_API CharSelect : public ScrPaletteBase
+class SCRIBUS_API CharSelect : public ScrPaletteBase, public Ui::CharSelect
 {
 	Q_OBJECT
 
@@ -60,15 +50,15 @@ private:
 	int m_characterClass;
 
 	//! \brief A all font's character table widget.
-	CharTableView* m_charTable;
+// 	CharTableView* m_charTable;
 	//! \brief m_charTable model
 	CharTableModel * m_charTableModel;
 
 	//! \brief User's defined char palette
-	CharTableView* m_userTable;
+// 	CharTableView* m_userTable;
 	//! \brief m_userTable model
 	CharTableModel * m_userTableModel;
-	UnicodeChooseButton* unicodeButton;
+// 	UnicodeChooseButton* unicodeButton;
 
 	QList<CharClassDef> allClasses;
 	CharClassDef characters;
@@ -124,23 +114,23 @@ protected:
 	PageItem *m_Item;
 
 	// GUI
-	QGroupBox* m_bigPalette;
-	QGroupBox* m_quickPalette;
+// 	QGroupBox* m_bigPalette;
+// 	QGroupBox* m_quickPalette;
 
-	QLabel* insText;
-	QLabel* sample;
-	QLabel* fontLabel;
-	QLabel* rangeLabel;
+// 	QLabel* insText;
+// 	QLabel* sample;
+// 	QLabel* fontLabel;
+// 	QLabel* rangeLabel;
 
-	FontCombo* fontSelector;
-	QComboBox* rangeSelector;
-	QPushButton* insertButton;
-	QPushButton* deleteButton;
-	QCheckBox* hideCheck;
+// 	FontCombo* fontSelector;
+// 	QComboBox* rangeSelector;
+// 	QPushButton* insertButton;
+// 	QPushButton* deleteButton;
+// 	QCheckBox* hideCheck;
 
-	QPushButton *uniLoadButton;
-	QPushButton *uniSaveButton;
-	QPushButton *uniClearButton;
+// 	QPushButton *uniLoadButton;
+// 	QPushButton *uniSaveButton;
+// 	QPushButton *uniClearButton;
 
 	void saveUserContent(QString f);
 	void loadUserContent(QString f);
