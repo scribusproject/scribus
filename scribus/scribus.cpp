@@ -6013,7 +6013,7 @@ void ScribusMainWindow::slotSelect()
 void ScribusMainWindow::setAppModeByToggle(bool isOn, int newMode)
 {
 	keyrep=false;
-	if (isOn)
+	if (doc && isOn)
 		view->requestMode(newMode);
 	else
 		slotSelect();
