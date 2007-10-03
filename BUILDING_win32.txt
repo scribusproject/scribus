@@ -30,15 +30,14 @@ You will need:
 	- The Microsoft Platform SDK
 	- CMake 2.5.x (2.4.x WILL NOT WORK)
 	- A recent Qt 4.3 snapshot built with Visual Studio 8 2005
-          (see below)
 	- libxml2 win32 binaries from the libxml project
 	- libjpeg sources from jig.org
-	- libtiff sources from libtiff.org
-	- libpng sources from libpng.org
-	- zlib sources from zlib.org
-	- freetype sources from freetype.org
-	- LittleCMS sources from www.littlecms.com
-	- PoDoFo 0.5.0 (and ONLY 0.5.0) sources from podofo.sourceforge.net
+	- libtiff sources
+	- libpng sources
+	- zlib sources
+	- freetype sources
+	- LittleCMS sources
+	- PoDoFo 0.5.0 (and ONLY 0.5.0) sources.
 	- A Python 2.5 Windows binary build.
           For debug builds, you'll need a release that contains the python25_d.dll .
 
@@ -73,7 +72,7 @@ set INCLUDE=
 set LIB=
 set SCPNGPROJ=%PNGDIR%\projects\visualc71\
 del cmakecache.txt
-"%CMAKE%" -G "Visual Studio 8 2005" -DCMAKE_INCLUDE_PATH:PATH=%QTDIR%\src\3rdparty\zlib;%QTDIR%\src\3rdparty\libpng;%ZLIBDIR%;%ZLIBDIR%\include;%PNGDIR%;%PNGDIR%\include;%LCMSDIR%\include;%JPEGDIR%;%JPEGDIR%\include;%TIFFDIR%\libtiff;%TIFFDIR%\include;%FREETYPEDIR%\include;%FREETYPEDIR%\include\freetype2;%PODOFODIR%\include;%LIBXMLDIR%\include -DCMAKE_LIBRARY_PATH:PATH=%ZLIBDIR%\lib;%SCPNGPROJ%\Win32_DLL_Debug\Zlib;%SCPNGPROJ%\Win32_DLL_Release\Zlib;%PNGDIR%\lib;%SCPNGPROJ%\Win32_DLL_Debug;%SCPNGPROJ%\Win32_DLL_Release;%LCMSDIR%\lib;%LCMSDIR%\Lib\MS;%LCMSDIR%\Lib\MS\dll;%JPEGDIR%;%JPEGDIR%\lib;%TIFFDIR%\libtiff;%TIFFDIR%\lib;%FREETYPEDIR%\objs;%FREETYPEDIR%\lib;%PODOFODIR%\lib;%LIBXMLDIR%\lib -DLIBPODOFO_SHARED=%PODOFOSHARED% -DCMAKE_INSTALL_PREFIX=c:\developer\scribus-bin -DJPEG_NAMES:STRING=libjpeg -DFREETYPE_LIBRARY_NAMES_RELEASE=freetype235MT -DFREETYPE_LIBRARY_NAMES_DEBUG=freetype235MT_D -DUSE_QT_ZLIB_PNGLIB=1 ..\scribus-trunk
+"%CMAKE%" -G "Visual Studio 8 2005" -DCMAKE_INCLUDE_PATH:PATH=%ZLIBDIR%;%ZLIBDIR%\include;%PNGDIR%;%PNGDIR%\include;%LCMSDIR%\include;%JPEGDIR%;%JPEGDIR%\include;%TIFFDIR%\libtiff;%TIFFDIR%\include;%FREETYPEDIR%\include;%FREETYPEDIR%\include\freetype2;%PODOFODIR%\include;%LIBXMLDIR%\include -DCMAKE_LIBRARY_PATH:PATH=%ZLIBDIR%\lib;%SCPNGPROJ%\Win32_DLL_Debug\Zlib;%SCPNGPROJ%\Win32_DLL_Release\Zlib;%PNGDIR%\lib;%SCPNGPROJ%\Win32_DLL_Debug;%SCPNGPROJ%\Win32_DLL_Release;%LCMSDIR%\lib;%LCMSDIR%\Lib\MS;%JPEGDIR%;%JPEGDIR%\lib;%TIFFDIR%\libtiff;%TIFFDIR%\lib;%FREETYPEDIR%\objs;%FREETYPEDIR%\lib;%PODOFODIR%\lib;%LIBXMLDIR%\lib -DLIBPODOFO_SHARED=%PODOFOSHARED% -DCMAKE_INSTALL_PREFIX=c:\developer\scribus-bin -DPNG_NAMES:STRING=libpng13 -DJPEG_NAMES:STRING=libjpeg -DFREETYPE_LIBRARY_NAMES=freetype235MT ..\scribus-trunk
 ---
 
 The above script is designed to work with common arrangements of library
@@ -129,19 +128,44 @@ and nmake.
 
 ----
 
-Zlib and LibPNG are both embedded in the QtCore library with symbols exported
-for public use . If you're using a Qt binary redist you may still need to
-download these libraries sources for their headers. In most cases your
-copy of Qt will contain a directory called  %QTDIR%\src\3rdparty\zlib
-(and one for libpng), in which case you need not worry about these libraries at
-all.
+zlib:
+
+download the sources from from www.zlib.net and unpack to your main
+libraries directory. Rename the unpacked sources directory to "zlib".
+libpng relies on this.
+
+Don't bother building it. libpng will do that for us.
+
+[TODO: use Qt zlib]
+
+----
+
+libpng:
+
+get sources from:
+http://www.libpng.org/pub/png/libpng.html
+
+unpack with the same parent directory as zlib.
+
+open projects\visualc71\libpng.sln
+upgrade
+build "Release DLL"
+build "Debug DLL"
+
+**WARNING**
+If you build libpng and zlib with Visual Studio 8, you will
+get DLLs with the official names, but they will not be fully
+binary compatible with the official DLLs. We can get away
+with using them privately for Scribus, but for a release
+it's recommended that you rebuild the DLLs with different
+names.
+**WARNING**
+
+[TODO: use Qt libpng]
 
 ----
 
 jpeg:
-
-While Qt also bundles libjpeg, it's not linked to the main DLL but rather a plugin.
-As such, we need to link to it directly.
 
 Get jpeg sources from jig.org . Unpack to your libraries directory.
 Now, in a command prompt:
@@ -159,8 +183,8 @@ nmake
 lcms:
 
 Get lcms sources.
-Build using VC project in Projects dir. Build the DLL ("lcmsdll"
-project) in debug and release configurations.
+Build using VC project in Projects dir. Only build the DLL
+(right click -> build on lcmsdll).
 
 Now modify lcms.h and remove:
 
@@ -175,10 +199,7 @@ header with Scribus; it's Ok to use a library built without these changes.
 
 Libtiff
 
-While Qt also bundles libtiff, it's not linked to the main DLL but rather a plugin.
-As such, we need to link to it directly.
-
-Download libtiff sources from libtiff.org and unpack them.
+download and unpack libtiff
 
 in a vcvars/setenv window:
 
@@ -188,11 +209,6 @@ set LIB=%LIB%;\path\to\jpeg\lib;\path\to\zlib\lib
 cd %LIBTIFFDIR%\libtiff
 nmake /nologo /f Makefile.vc libtiff.lib
 
-Since we're building libtiff as a static library, there's no need to worry
-about which runtime it's linked to. You can build the DLL if you like
-(you need to specify LIBS= to include Qt [for zlib] and libjpeg) but
-the static library should be fine.
-
 ----
 
 Freetype:
@@ -201,9 +217,6 @@ unpack freetype
 open builds\win32\visualc
 upgrade
 build "Release Multithreaded" and "Debug Multithreaded"
-
-Note that if you're not using Freetype 2.3.5 exactly, you will have
-to change the freetype library names passed in the build.cmd script.
 
 ----
 
@@ -219,3 +232,10 @@ to be deallocated in libxml or vice versa.
 Remember that iconv from the same package must be on the
 header search path too. If in doubt, just drop iconv.h
 into the libxml tree.
+
+
+
+
+Notes:
+
+CMake doesn't find zlib; you have to tell it it's zlib1  by modifying FindZLIB.cmake
