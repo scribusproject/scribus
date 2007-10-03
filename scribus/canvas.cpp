@@ -68,8 +68,8 @@ Canvas::Canvas(ScribusDoc* doc, QWidget* parent) : QWidget(parent), m_doc(doc)
 
 FPoint Canvas::localToCanvas(QPoint p) const
 {
-	return FPoint(p.x() * m_viewMode.scale - m_doc->minCanvasCoordinate.x() , 
-				  p.y() * m_viewMode.scale - m_doc->minCanvasCoordinate.y());	
+	return FPoint(p.x() / m_viewMode.scale - m_doc->minCanvasCoordinate.x() , 
+				  p.y() / m_viewMode.scale - m_doc->minCanvasCoordinate.y());	
 }
 
 
@@ -81,14 +81,14 @@ FPoint Canvas::globalToCanvas(QPoint p) const
 
 QPoint Canvas::canvasToLocal(FPoint p) const
 {
-	return 	QPoint(qRound((p.x() + m_doc->minCanvasCoordinate.x()) / m_viewMode.scale),
-				   qRound((p.y() + m_doc->minCanvasCoordinate.y()) / m_viewMode.scale));
+	return 	QPoint(qRound((p.x() + m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+				   qRound((p.y() + m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
 }
 
 QPoint Canvas::canvasToLocal(QPointF p) const
 {
-	return 	QPoint(qRound((p.x() + m_doc->minCanvasCoordinate.x()) / m_viewMode.scale),
-				   qRound((p.y() + m_doc->minCanvasCoordinate.y()) / m_viewMode.scale));
+	return 	QPoint(qRound((p.x() + m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+				   qRound((p.y() + m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
 }
 
 QPoint Canvas::canvasToGlobal(FPoint p) const
@@ -105,7 +105,7 @@ QPoint Canvas::canvasToGlobal(QPointF p) const
 QRectF Canvas::globalToCanvas(QRect p) const
 {
 	FPoint org = globalToCanvas(p.topLeft());
-	return QRectF(org.x(), org.y(), p.width() * m_viewMode.scale, p.height() * m_viewMode.scale);
+	return QRectF(org.x(), org.y(), p.width() / m_viewMode.scale, p.height() / m_viewMode.scale);
 }
 
 

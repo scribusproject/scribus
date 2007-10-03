@@ -37,8 +37,8 @@
 
 CanvasMode_NodeEdit::CanvasMode_NodeEdit(ScribusView* view) : CanvasMode(view), m_rectangleSelect(NULL)
 {
-	SeRx = -1; // selected node
-	SeRy = -1;
+//	SeRx = -1; // selected pos
+//	SeRy = -1;
 	Mxp = -1;  // last mouse position
 	Myp = -1;
 	Dxp = -1;  // last mouse press position for rectangle select
@@ -60,6 +60,7 @@ void CanvasMode_NodeEdit::activate(bool fromGesture)
 {
 	if (fromGesture && m_rectangleSelect)
 	{
+		m_canvas->m_viewMode.m_MouseButtonPressed = false;
 		// handle rectangle select
 //	double sc = m_canvas->scale();
 		PageItem* currItem = m_doc->m_Selection->itemAt(0);
@@ -142,7 +143,10 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 	FPoint npf, npf2;
 	double sc = m_canvas->scale();
 	m->accept();
-	qDebug() << "nodedit move event:" << m->x() << m->y();
+	npf = m_canvas->globalToCanvas(m->globalPos());
+#ifdef MODEDEBUG
+	qDebug() << "nodedit move event:" << m->x() << m->y() << "canvas:" << npf.x() << npf.y() << "@" << m_canvas->scale();
+#endif
 	if (m_doc->guidesSettings.guidesShown)
 	{
 		if (MoveGY)
@@ -156,10 +160,10 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 			return;
 		}
 	}
-	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
-	{
-		m_ScMW->setAppMode(modePanning);
-	}
+//	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::RightButton) && (m->modifiers() & Qt::ControlModifier))
+//	{
+//		m_ScMW->setAppMode(modePanning);
+//	}
 	if (GetItem(&currItem))
 	{
 		if (m_doc->DragP)
@@ -169,22 +173,25 @@ void CanvasMode_NodeEdit::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed 
 			&& (m->buttons() & Qt::LeftButton) &&  (!currItem->locked()))
 		{
+#ifdef MODEDEBUG
 			qDebug() << "node edit drag 1";
+#endif
 			m_view->dragTimer->stop();
 			handleNodeEditDrag(m, currItem);
 		}
 		else if (!m_canvas->m_viewMode.m_MouseButtonPressed)
 		{
-			currItem = m_doc->m_Selection->itemAt(0);
 			if (!currItem->locked())
 			{
-				QMatrix p;
-				m_canvas->Transform(currItem, p);
-				QRect mpo = QRect(m->globalX()-m_doc->guidesSettings.grabRad, m->globalY()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+				QMatrix p; // = currItem->getTransform();
+				QRect mpo; // = QRect(m->globalX()-m_doc->guidesSettings.grabRad, m->globalY()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 				//				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 				handleNodeEditMove(m, mpo, currItem, p);
 			}
 		}
+		else
+			qDebug() << "node edit drag 9:" << (m->buttons() & Qt::LeftButton);
+
 	}
 	else // shouldnt be in nodeedit mode now, should it??
 	{
@@ -255,7 +262,7 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 	double Rypd = 0;
 	QPainter p;
 	m_canvas->PaintSizeRect(QRect());
-	FPoint npf, npf2;
+//	FPoint npf, npf2;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 //	m_view->HaveSelRect = false;
@@ -266,12 +273,12 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 	m->accept();
 	m_view->moveTimer.start();
 	m_view->dragTimerFired = false;
-	npf = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = qRound(npf.x()); // WTF? FIXME:av
-	Myp = qRound(npf.y());
-	QRect mpo(m->globalX()-m_doc->guidesSettings.grabRad, m->globalY()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+//	npf = m_canvas->globalToCanvas(m->globalPos());
+//	Mxp = qRound(npf.x()); // WTF? FIXME:av
+//	Myp = qRound(npf.y());
+	QRect mpo; //(m->globalX()-m_doc->guidesSettings.grabRad, m->globalY()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
-	if (m_doc->appMode != modeEdit)
+/*	if (m_doc->appMode != modeEdit)
 	{
 		Rxp = m_doc->ApplyGrid(QPoint(Mxp, Myp)).x();
 		Rxpd = Mxp - Rxp;
@@ -279,20 +286,20 @@ void CanvasMode_NodeEdit::mousePressEvent(QMouseEvent *m)
 		Ryp = m_doc->ApplyGrid(QPoint(Mxp, Myp)).y();
 		Rypd = Myp - Ryp;
 		Myp = qRound(Ryp);
-	}
-	SeRx = Mxp;
-	SeRy = Myp;
+	}*/
+//	SeRx = Mxp;
+//	SeRy = Myp;
 /*	if (m->button() == Qt::MidButton)
 	{
 		m_view->MidButt = true;
 		m_view->DrawNew();
 		return;
 	}*/
-	npf = m_canvas->globalToCanvas(m->globalPos());
-	Mxp = qRound(npf.x()); // WTF?
-	Myp = qRound(npf.y());
-	SeRx = Mxp;
-	SeRy = Myp;
+//	npf = m_canvas->globalToCanvas(m->globalPos());
+//	Mxp = qRound(npf.x()); // WTF?
+//	Myp = qRound(npf.y());
+//	SeRx = Mxp;
+//	SeRy = Myp;
 	
 	// this has to be:
 	Mxp = m->x();
@@ -627,7 +634,7 @@ void CanvasMode_NodeEdit::mouseReleaseEvent(QMouseEvent *m)
 
 void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 {
-	FPoint npf, npf2;
+	FPoint npf2;
 	
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 	FPointArray Clip = m_doc->nodeEdit.beginTransaction(currItem);
@@ -638,17 +645,19 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 //	m_canvas->Transform(currItem, pm);
 //	npf2 = FPoint(m->pos() * pm.inverted());
 	npf2 = m_canvas->globalToCanvas(m->globalPos()).transformPoint(currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0, true);
-	QMatrix pm2;
-	m_canvas->Transform(currItem, pm2);
+	QMatrix pm2 = currItem->getTransform();
 	for (int a=0; a < signed(Clip.size()); ++a)
 	{
 		if (((m_doc->nodeEdit.EdPoints) && (a % 2 != 0)) || ((!m_doc->nodeEdit.EdPoints) && (a % 2 == 0)))
 				continue;
-			npf = FPoint(Clip.pointQ(a) * pm2);
+			QPointF npf = pm2.map(Clip.pointQF(a));
 //			QRect tx = QRect(static_cast<int>(npf.x()-3), static_cast<int>(npf.y()-3), 6, 6);
 //			if (tx.intersects(mpo))
 			if (m_canvas->hitsCanvasPoint(m->globalPos(), npf))
 			{
+#ifdef MODEDEBUG
+				qDebug() << "nodeedit: selecting point" << a << "at" << npf.x() << npf.y();
+#endif
 				m_doc->nodeEdit.ClRe = a;
 				if ((m_doc->nodeEdit.EdPoints) && (m_doc->nodeEdit.SelNode.contains(a) == 0))
 				{
@@ -896,15 +905,15 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect)
 				return;
 			if ((currItem->asPolygon()) || (currItem->asTextFrame()) || (currItem->asImageFrame()))
 			{
-				if ((currItem->Segments.count() == 0) && (Clip.size() < 13))
+				if ((currItem->Segments.count() == 0) && (Clip.size() <= 12))  // min. 3 points
 					return;
 			}
 			else
 			{
-				if (Clip.size() < 5)
+				if (Clip.size() <= 4)
 					return;
 			}
-			if ((currItem->Segments.count() != 0) && ((EndInd - StartInd) < 13))
+			if ((currItem->Segments.count() != 0) && ((EndInd - StartInd) <= 12))
 			{
 				if (StartInd != 0)
 					cli.putPoints(0, StartInd-4, Clip);
@@ -1076,7 +1085,9 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect, PageItem* cu
 		Clip = currItem->ContourLine;
 	else
 		Clip = currItem->PoLine;
-	
+#ifdef MODEDEBUG
+	qDebug() << "handle nodeedit move:" << m_doc->nodeEdit.submode << m_doc->nodeEdit.EdPoints;
+#endif	
 	if ((m_doc->nodeEdit.submode == NodeEditContext::DEL_POINT) || 
 		(m_doc->nodeEdit.submode == NodeEditContext::MOVE_POINT) || 
 		(m_doc->nodeEdit.submode == NodeEditContext::SPLIT_PATH))
