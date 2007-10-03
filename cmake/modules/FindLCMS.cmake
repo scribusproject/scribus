@@ -23,10 +23,22 @@ FIND_PATH(LCMS_INCLUDE_DIR lcms.h
 /usr/local/include
 )
 
-FIND_LIBRARY(LCMS_LIBRARY
-  NAMES lcms liblcms lcmsdll
+FIND_LIBRARY(LCMS_LIBRARY_RELEASE
+  NAMES ${LCMS_NAMES_RELEASE} ${LCMS_NAMES} lcms liblcms lcmsdll
   PATHS /usr/lib /usr/local/lib
 )
+
+FIND_LIBRARY(LCMS_LIBRARY_DEBUG
+  NAMES ${LCMS_NAMES_DEBUG} lcmsd liblcmsd lcmsdlld
+  PATHS /usr/lib /usr/local/lib
+)
+
+INCLUDE(LibraryDebugAndRelease)
+SET_LIBRARY_FROM_DEBUG_AND_RELEASE(LCMS)
+
+MESSAGE("LCMS ReleaseLibrary: ${LCMS_LIBRARY_RELEASE}")
+MESSAGE("LCMS Debug Library: ${LCMS_LIBRARY_DEBUG}")
+MESSAGE("LCMS Library: ${LCMS_LIBRARY}")
 
 IF (LCMS_LIBRARY AND LCMS_INCLUDE_DIR)
   SET( LCMS_FOUND 1 )
