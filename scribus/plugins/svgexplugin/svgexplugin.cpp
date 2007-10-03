@@ -582,6 +582,26 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 							tp.appendChild(tp1);
 							ob.appendChild(tp);
 						}
+						if (Item->NamedLStyle.isEmpty())
+						{
+							ob = docu->createElement("path");
+							ob.setAttribute("d", SetClipPath(Item)+"Z");
+							ob.setAttribute("style", "fill:none; "+stroke+" "+strokeW+" "+strokeLC+" "+strokeLJ+" "+strokeDA);
+						}
+						else
+						{
+							multiLine ml = m_Doc->MLineStyles[Item->NamedLStyle];
+							for (int it = ml.size()-1; it > -1; it--)
+							{
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+								{
+									ob = docu->createElement("path");
+									ob.setAttribute("d", SetClipPath(Item)+"Z");
+									ob.setAttribute("style", "fill:none; "+GetMultiStroke(&ml[it], Item));
+									gr.appendChild(ob);
+								}
+							}
+						}
 					break;
 				case PageItem::Line:
 						if (Item->NamedLStyle.isEmpty())
