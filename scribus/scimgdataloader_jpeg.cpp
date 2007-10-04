@@ -358,6 +358,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 	else if ( cinfo.output_components == 1 )
 	{
 		m_image = QImage( cinfo.output_width, cinfo.output_height, QImage::Format_Indexed8 );
+		m_image.setNumColors(256);
 		for (int i=0; i<256; i++)
 			m_image.setColor(i, qRgb(i,i,i));
 	}
