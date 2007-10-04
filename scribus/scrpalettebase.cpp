@@ -216,6 +216,10 @@ void ScrPaletteBase::storePosition()
 {
 	if (palettePrefs)
 	{
+		QPoint geo = pos();
+		palettePrefs->set("left", geo.x());
+		palettePrefs->set("top", geo.y());
+/*
 #if QT_VERSION  >= 0x040300 && !defined(_WIN32)
 		QRect geo = geometry();
 #else
@@ -223,6 +227,7 @@ void ScrPaletteBase::storePosition()
 #endif
 		palettePrefs->set("left", geo.left());
 		palettePrefs->set("top", geo.top());
+*/
 	}
 }
 
