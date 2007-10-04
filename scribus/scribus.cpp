@@ -3385,17 +3385,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		if (!doc->HasCMS)
 		{
-			doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
-			doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
-			doc->CMSSettings.DefaultSolidColorProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorProfile;
-			doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
-			doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
-			doc->CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-			doc->CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-			doc->CMSSettings.DefaultIntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
-			doc->CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
-			doc->CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
-			doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
+			doc->CMSSettings = prefsManager->appPrefs.DCMSset;
 			doc->CMSSettings.CMSinUse = false;
 		}
 		if ((CMSavail) && (doc->CMSSettings.CMSinUse))

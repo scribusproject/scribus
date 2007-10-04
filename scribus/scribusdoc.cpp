@@ -284,6 +284,13 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	setMasterPageMode(false);
 	addSymbols();
 
+	CMSSettings.CMSinUse    = false;
+	CMSSettings.BlackPoint  = true;
+	CMSSettings.SoftProofOn = false;
+	CMSSettings.GamutCheck  = false;
+	CMSSettings.DefaultIntentImages  = 1; // INTENT_RELATIVE_COLORIMETRIC
+	CMSSettings.DefaultIntentPrinter = 1; // INTENT_RELATIVE_COLORIMETRIC
+	CMSSettings.DefaultIntentMonitor = 1; // INTENT_RELATIVE_COLORIMETRIC
 #ifdef HAVE_CMS
 	DocInputProf = NULL;
 	DocOutputProf = NULL;
@@ -359,8 +366,8 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorProfile;
 	PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
-	PDF_Options.Intent = CMSSettings.DefaultIntentMonitor;
-	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
+	PDF_Options.Intent    = CMSSettings.DefaultIntentMonitor;
+	PDF_Options.Intent2   = CMSSettings.DefaultIntentImages;
 #ifdef HAVE_CMS
 	BlackPoint    = CMSSettings.BlackPoint;
 	SoftProofing  = CMSSettings.SoftProofOn;
