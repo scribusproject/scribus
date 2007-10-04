@@ -72,6 +72,7 @@ bool MultiProgressDialog::addExtraProgressBars(const QStringList &barsList, cons
 		progressBars.insert(barName, new QProgressBar(this));
 		if (barsNumerical[i])
 			progressBars[barName]->setFormat(tr("%v of %m"));
+		progressBars[barName]->setMinimumWidth(150);
 		progressLabels.insert(barName, new QLabel(barsTexts[i], this));
 		gridLayout->addWidget(progressLabels[barName], gridLayoutRow, 0);
 		gridLayout->addWidget(progressBars[barName], gridLayoutRow, 1);
