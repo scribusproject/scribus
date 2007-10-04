@@ -3029,6 +3029,9 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int scale
 		{
 			QTextStream ts2(&BBox, IO_ReadOnly);
 			ts2 >> x >> y >> b >> h;
+			x = x * gsRes / 72.0;
+			y = y * gsRes / 72.0;
+			b = b * gsRes / 72.0;
 			h = h * gsRes / 72.0;
 			QStringList args;
 			xres = gsRes;
@@ -3061,20 +3064,17 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes, int scale
 						}
 					}
 				}
-/*				if (ext == "eps")
+				if (ext == "eps")
 				{
-					double xc = x * gsRes / 72.0;
-					y = y * gsRes / 72.0;
-					b = b * gsRes / 72.0;
-					if (((b - xc) < image.width()) || ((h - y) < image.height()))
+					if ((qRound(b - x) < image.width()) || (qRound(h - y) < image.height()))
 					{
-						int yc = qRound(image.height() - y - (h-y));
-						*this = static_cast<ScImage>(image.copy(qRound(xc), yc, qRound(b - x), qRound(h - y)));
+						int yc = qRound(image.height() - h);
+						*this = static_cast<ScImage>(image.copy(qRound(x), yc, qRound(b - x), qRound(h - y)));
 					}
 					else
 						*this = static_cast<ScImage>(image.copy());
 				}
-				else */
+				else
 					*this = static_cast<ScImage>(image.copy());
 				setAlphaBuffer(true);
 				unlink(tmpFile);
@@ -3612,9 +3612,9 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 			QTextStream ts2(&BBox, IO_ReadOnly);
 			ts2 >> x >> y >> b >> h;
-/*			x = x * gsRes / 72.0;
+			x = x * gsRes / 72.0;
 			y = y * gsRes / 72.0;
-			b = b * gsRes / 72.0; */
+			b = b * gsRes / 72.0;
 			h = h * gsRes / 72.0;
 			QStringList args;
 			xres = gsRes;
@@ -3649,26 +3649,22 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					}
 				}
 //				*this = static_cast<ScImage>(image.copy(static_cast<int>(x), 0, static_cast<int>(b-x), static_cast<int>(h-y)));
-				*this = static_cast<ScImage>(image.copy());
 				unlink(tmpFile);
 				if (ext == "eps")
 				{
-//					double xc = x * gsRes / 72.0;
-//					y = y * gsRes / 72.0;
-//					b = b * gsRes / 72.0;
-//					if (((b - xc) < image.width()) || ((h - y) < image.height()))
-//					{
-//						int yc = qRound(image.height() - y - (h-y));
-//						*this = static_cast<ScImage>(image.copy(qRound(xc), yc, qRound(b - x), qRound(h - y)));
-//					}
-//					else
-//						*this = static_cast<ScImage>(image.copy());
+					if ((qRound(b - x) < image.width()) || ((qRound(h - y) < image.height())))
+					{
+						int yc = qRound(image.height() - h);
+						*this = static_cast<ScImage>(image.copy(qRound(x), yc, qRound(b - x), qRound(h - y)));
+					}
+					else
+						*this = static_cast<ScImage>(image.copy());
 					imgInfo.BBoxX = static_cast<int>(x);
 					imgInfo.BBoxH = static_cast<int>(h);
 				}
 				else
 				{
-//					*this = static_cast<ScImage>(image.copy());
+					*this = static_cast<ScImage>(image.copy());
 					imgInfo.BBoxX = 0;
 					imgInfo.BBoxH = height();
 				}
