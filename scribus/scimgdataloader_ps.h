@@ -42,6 +42,8 @@ protected:
 	bool hasPhotoshopImageData;
 	bool doThumbnail;
 	bool hasThumbnail;
+	bool inTrailer;
+	bool BBoxInTrailer;
 	int psXSize;
 	int psYSize;
 	int psDepth;

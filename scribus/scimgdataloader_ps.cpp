@@ -136,6 +136,8 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	isPhotoshop = false;
 	hasPhotoshopImageData = false;
 	hasThumbnail = false;
+	inTrailer = false;
+	BBoxInTrailer = false;
 	int plateCount = 0;
 	uint startPos = 0;
 	FontListe.clear();
@@ -195,9 +197,13 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 			tmp = readLinefromDataStream(ts);
 			if (tmp.startsWith("%%Creator: "))
 				Creator = tmp.remove("%%Creator: ");
+			if (tmp.startsWith("%%Trailer"))
+				inTrailer = true;
 			if (tmp.startsWith("%%BoundingBox:"))
 			{
 				found = true;
+				if (inTrailer)
+					BBoxInTrailer = true;
 				BBox = tmp.remove("%%BoundingBox:");
 			}
 			if (!found)
@@ -205,6 +211,8 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				if (tmp.startsWith("%%BoundingBox"))
 				{
 					found = true;
+					if (inTrailer)
+						BBoxInTrailer = true;
 					BBox = tmp.remove("%%BoundingBox");
 				}
 			}
@@ -518,20 +526,31 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 		{
 			QTextStream ts2(&BBox, QIODevice::ReadOnly);
 			ts2 >> x >> y >> b >> h;
-			h = h * gsRes / 72.0;
 			QStringList args;
 			xres = gsRes;
 			yres = gsRes;
 			if (extensionIndicatesEPS(ext))
-				args.append("-dEPSCrop");
+			{
+				if (!BBoxInTrailer)
+					args.append("-dEPSCrop");
+			}
 			args.append("-r"+QString::number(gsRes));
 			args.append("-sOutputFile="+tmpFile);
 			args.append(picFile);
+			h = h * gsRes / 72.0;
 			int retg = callGS(args);
 			if (retg == 0)
 			{
 				m_image.load(tmpFile);
-				if (ScCore->havePNGAlpha() != 0)
+				if (extensionIndicatesEPS(ext) && BBoxInTrailer)
+				{
+					int ex = qRound(x * gsRes / 72.0);
+					int ey = qRound(m_image.height() - h);
+					int ew = qRound((b - x) * gsRes / 72.0);
+					int eh = qRound(h - y * gsRes / 72.0);
+					m_image = m_image.copy(ex, ey, ew, eh);
+				}
+				if (!ScCore->havePNGAlpha())
 				{
 					int wi = m_image.width();
 					int hi = m_image.height();
@@ -706,7 +725,7 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 		else
 		{
 			m_image.load(tmpFile);
-			if (ScCore->havePNGAlpha() != 0)
+			if (!ScCore->havePNGAlpha())
 			{
 				int wi = m_image.width();
 				int hi = m_image.height();
@@ -1543,45 +1562,16 @@ void ScImgDataLoader_PS::blendImages(QImage &source, ScColor col)
 void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 {
 	float xres, yres;
-//	short resolutionunit = 0;
 	initialize();
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
-	QString tmp, BBox, tmp2;
 	QString ext = fi.suffix().toLower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	double x, y, b, h;
 	bool found = false;
-//	int retg = -1;
-	QChar tc;
-	
-	QFile f(fn);
-	if (f.open(QIODevice::ReadOnly))
-	{
-		QDataStream ts(&f);
-		while (!ts.atEnd())
-		{
-			tmp = readLinefromDataStream(ts);
-			if (tmp.startsWith("%%BoundingBox:"))
-			{
-				found = true;
-				BBox = tmp.remove("%%BoundingBox:");
-			}
-			if (!found)
-			{
-				if (tmp.startsWith("%%BoundingBox"))
-				{
-					found = true;
-					BBox = tmp.remove("%%BoundingBox");
-				}
-			}
-			if (tmp.startsWith("%%EndComments"))
-				break;
-		}
-	}
-	f.close();
+	found = parseData(fn);
 	if (found)
 	{
 		QTextStream ts2(&BBox, QIODevice::ReadOnly);
@@ -1591,7 +1581,10 @@ void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 		xres = gsRes;
 		yres = gsRes;
 		if (extensionIndicatesEPS(ext))
-			args.append("-dEPSCrop");
+		{
+			if (!BBoxInTrailer)
+				args.append("-dEPSCrop");
+		}
 		args.append("-r"+QString::number(gsRes));
 		args.append("-sOutputFile="+tmpFile);
 		args.append(picFile);
@@ -1599,7 +1592,15 @@ void ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int gsRes)
 		if (retg == 0)
 		{
 			m_image.load(tmpFile);
-			if (ScCore->havePNGAlpha() != 0)
+			if (extensionIndicatesEPS(ext) && BBoxInTrailer)
+			{
+				int ex = qRound(x * gsRes / 72.0);
+				int ey = qRound(m_image.height() - h);
+				int ew = qRound((b - x) * gsRes / 72.0);
+				int eh = qRound(h - y * gsRes / 72.0);
+				m_image = m_image.copy(ex, ey, ew, eh);
+			}
+			if (!ScCore->havePNGAlpha())
 			{
 				int wi = m_image.width();
 				int hi = m_image.height();
