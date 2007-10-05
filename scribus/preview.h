@@ -93,7 +93,7 @@ public:
 	QComboBox* scaleBox;
 	ScribusView *view;
 	ScribusDoc *doc;
-	int HavePngAlpha;
+	bool HavePngAlpha;
 	int HaveTiffSep;
 	int APage;
 	int MPage;

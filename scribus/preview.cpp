@@ -557,7 +557,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 	}
 	else
 	{
-		if ((!AliasTr->isChecked()) || (HavePngAlpha != 0))
+		if ((!AliasTr->isChecked()) || (!HavePngAlpha))
 			args.append( "-sDEVICE=png16m" );
 		else
 			args.append( "-sDEVICE=pngalpha" );
@@ -1059,7 +1059,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			return Bild;
 		}
 		image = image.convertToFormat(QImage::Format_ARGB32);
-		if ((AliasTr->isChecked()) && (HavePngAlpha == 0))
+		if ((AliasTr->isChecked()) && (HavePngAlpha))
 		{
 			int wi = image.width();
 			int hi = image.height();

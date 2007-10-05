@@ -52,7 +52,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int gsRes, bool /*thumb
 	{
 		m_image.load(tmpFile);
 		QFile::remove(tmpFile);
-		if (ScCore->havePNGAlpha() != 0)
+		if (!ScCore->havePNGAlpha())
 		{
 			for( int yi=0; yi < m_image.height(); ++yi )
 			{
@@ -103,7 +103,7 @@ void ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes)
 	{
 		m_image.load(tmpFile);
 		QFile::remove(tmpFile);
-		if (ScCore->havePNGAlpha() != 0)
+		if (!ScCore->havePNGAlpha())
 		{
 			QRgb *s;
 			for( int yi=0; yi < m_image.height(); ++yi )
