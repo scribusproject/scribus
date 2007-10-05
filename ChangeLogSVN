@@ -1,5 +1,21 @@
-Scribus - 1.3.3.10cvs
+Scribus - 1.3.3.10svn
 =====================
+- 0006315: [PDF] EPS Images shifted in Exported PDF File (jghali)
+- 0006322: [Import / Export] SVG exporter doesn't draw text boders (jghali)
+- 0006001: [Translation] Untranslateable string in the tab dialog (cbradney)
+- 0006195: [Build System] error in "mspinbox.cpp" (cbradney)
+- 0006318: [Documentation] Updated german manpage (plinnell)
+- 0006307: [Translation] Spelling fixes for Finnish translation (Version133x) (Tsoots)
+- 0006267: [Usability] Spaces in filenames when exporting one pdf file per page. (jghali)
+- 0005817: [Story Editor / Text Frames] Problems with text flow (jghali)
+- 0006136: [General] Crash when importing OpenOffice text with footnotes (jghali)
+- 0006278: [Color Management] Gamut warning doesn't work for vector objects (jghali)
+- 0006009: [Story Editor / Text Frames] Item on master page is displaced when moving an image on normal page (jghali)
+- 0006246: [General] delete a template, it reappears (jghali)
+- 0006218: [Documentation] No images visible in the help browser (cbradney)
+- 0006138: [Import / Export] Incorrect handling of polylines in OpenOffice Draw document (jghali)
+- 0006157: [User Interface] Clone master page doesn't clone margins (jghali)
+- 0005747: [Website] Scribus file extensions not registered in Microsoft database (plinnell)
 - 0006104: [-] Gradient properties not copied by "Copy Item Properties" tool (jghali)
 - 0005586: [Styles] line style applies only to one member of group of polylines while it is expected to apply to all (jghali)
 - 0005777: [Scripter] allPrinters method only return ['FILE'] printer (jghali)
