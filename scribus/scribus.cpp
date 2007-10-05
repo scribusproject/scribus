@@ -87,6 +87,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "colorm.h"
 #include "commonstrings.h"
+#include "ui/copypagetomasterpagedialog.h"
 #include "cpalette.h"
 #include "customfdialog.h"
 #include "delpages.h"
@@ -5407,33 +5408,45 @@ void ScribusMainWindow::slotNewPage(int w, const QString& masterPageName, bool m
 
 void ScribusMainWindow::duplicateToMasterPage()
 {
-	NewTm *dia = new NewTm(this, tr("Name:"), tr("Convert Page to Master Page"), doc, tr("New Master Page %1").arg(doc->MasterNames.count()));
+	if (!HaveDoc)
+		return;
 	view->Deselect(true);
-	if (dia->exec())
+	int pageLocationIndex=-1;
+	int pageLocationCount=0;
+	if (doc->currentPageLayout != singlePage)
 	{
-		int diaLinksCurrItem=0;
-		int diaLinksCount=0;
-		if (doc->currentPageLayout != singlePage)
+		QStringList locationEntries;
+		for(QStringList::Iterator pNames = doc->pageSets[doc->currentPageLayout].pageNames.begin(); pNames != doc->pageSets[doc->currentPageLayout].pageNames.end(); ++pNames )
 		{
-			diaLinksCurrItem=dia->Links->currentIndex();
-			diaLinksCount=static_cast<int>(dia->Links->count());
+			locationEntries << CommonStrings::translatePageSetLocString(*pNames);
 		}
-		QString masterPageName = dia->Answer->text();
+		if (doc->currentPage()->LeftPg == 1)
+			pageLocationIndex=0;
+		else if (doc->currentPage()->LeftPg == 0)
+			pageLocationIndex=locationEntries.count()-1;
+		else
+			pageLocationIndex=doc->currentPage()->LeftPg-1;
+		pageLocationCount=locationEntries.count();
+	}
+	
+	CopyPageToMasterPageDialog copyDialog(doc->MasterNames.count(), doc->pageSets[doc->currentPageLayout].pageNames, pageLocationIndex, this);
+	if (copyDialog.exec())
+	{
+		bool copyFromMaster=false;
+		QString masterPageName;
+		int pageLocation=0;
+		copyDialog.values(masterPageName, copyFromMaster, pageLocation);
 		while (doc->MasterNames.contains(masterPageName) || (masterPageName == CommonStrings::masterPageNormal))
 		{
-			if (!dia->exec())
-			{
-				delete dia;
+			if (!copyDialog.exec())
 				return;
-			}
-			masterPageName = dia->Answer->text();
+			copyDialog.values(masterPageName, copyFromMaster, pageLocation);
 		}
 		int currentPageNumber=doc->currentPage()->pageNr();
-		bool ok=doc->copyPageToMasterPage(currentPageNumber, diaLinksCurrItem, diaLinksCount, masterPageName);
+		bool ok=doc->copyPageToMasterPage(currentPageNumber, pageLocation, pageLocationCount, masterPageName, copyFromMaster);
 		Q_ASSERT(ok); //TODO get a return value in case the copy was not possible
 		pagePalette->Rebuild();
 	}
-	delete dia;
 }
 
 void ScribusMainWindow::slotZoom(double zoomFactor)

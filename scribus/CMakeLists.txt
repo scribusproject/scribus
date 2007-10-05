@@ -26,6 +26,7 @@ SET(SCRIBUS_UI_SRC
   aboutplugins.ui
   aligndistribute.ui
   charselect.ui
+  ui/copypagetomasterpage.ui
   createrange.ui
   docitemattrprefs.ui
   docsections.ui
@@ -93,6 +94,7 @@ SET(SCRIBUS_MOC_CLASSES
   colorlistbox.h
   colorm.h
   commonstrings.h
+  ui/copypagetomasterpagedialog.h
   cpalette.h
   createrange.h
   cupsoptions.h
@@ -300,6 +302,7 @@ SET(SCRIBUS_SOURCES
   colorm.cpp
   colorsetmanager.cpp
   commonstrings.cpp
+  ui/copypagetomasterpagedialog.cpp
   cpalette.cpp
   createrange.cpp
   cupsoptions.cpp

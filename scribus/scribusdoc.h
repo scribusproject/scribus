@@ -561,7 +561,7 @@ public:
 	/**
 	 * @brief Copies a normal page to be a master pages
 	 */
-	bool copyPageToMasterPage(const int, const int, const int, const QString&);
+	bool copyPageToMasterPage(const int, const int, const int, const QString&, bool);
 	/**
 	 * @brief Paste an item to the document.
 	 * The bulk of a paste item process runs here for want of a better place, but its a better place

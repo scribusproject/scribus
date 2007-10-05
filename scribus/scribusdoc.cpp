@@ -3254,7 +3254,7 @@ void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
 #endif
 }
 
-bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName)
+bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, const int maxLeftPage,  const QString& masterPageName, bool copyFromAppliedMaster)
 {
 	assert(!masterPageMode());
 	if (masterPageMode())
@@ -3286,11 +3286,51 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 	uint end2 = MasterItems.count();
 	Selection tempSelection(this, false);
 	m_Selection->clear();
+	//Copy the items from our current document page's applied *master* page
+	if (copyFromAppliedMaster)
+	{
+		if (!sourcePage->MPageNam.isEmpty() && MasterNames.contains(sourcePage->MPageNam))
+		{
+			Page* pageMaster=NULL;
+			for (int i=0; i < MasterPages.count(); ++i )
+			{
+				pageMaster=MasterPages[i];
+				if (pageMaster->pageName() == sourcePage->MPageNam)
+					break;
+			}
+			if (Layers.count()!= 0 && pageMaster!=NULL)
+			{
+				int currActiveLayer = activeLayer();
+				for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
+				{
+					setActiveLayer((*it).LNr);
+					for (uint ite = 0; ite < end2; ++ite)
+					{
+						PageItem *itemToCopy = MasterItems.at(ite);
+						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && ((*it).LNr == itemToCopy->LayerNr))
+							tempSelection.addItem(itemToCopy, true);
+					}
+					if (tempSelection.count() != 0)
+					{
+						setMasterPageMode(true);
+						ScriXmlDoc *ss = new ScriXmlDoc();
+						QString dataS = ss->WriteElem(this, view(), &tempSelection);
+						setCurrentPage(targetPage);
+						ss->ReadElem(dataS, prefsData.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.GFontSub, view());
+						delete ss;
+						setMasterPageMode(false);
+					}
+					tempSelection.clear();
+				}
+				setActiveLayer(currActiveLayer);
+			}
+		}
+	}
+	//Copy the items from our current *document* page
 	if (Layers.count()!= 0)
 	{
-		ScLayers::iterator it;
 		int currActiveLayer = activeLayer();
-		for (it = Layers.begin(); it != Layers.end(); ++it)
+		for (ScLayers::iterator it = Layers.begin(); it != Layers.end(); ++it)
 		{
 			setActiveLayer((*it).LNr);
 			for (uint ite = 0; ite < end; ++ite)
@@ -3313,6 +3353,7 @@ bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int leftPage, 
 		}
 		setActiveLayer(currActiveLayer);
 	}
+	//Make sure our copied items have the master page name and own page set.
 	uint end3 = MasterItems.count();
 	for (uint a = end2; a < end3; ++a)
 	{
