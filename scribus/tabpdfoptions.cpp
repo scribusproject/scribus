@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStandardItem>
 #include <QAbstractItemView>
 
-#include "createrange.h"
+#include "ui/createrange.h"
 #include "pdfoptions.h"
 #include "prefsmanager.h"
 #include "scribuscore.h"

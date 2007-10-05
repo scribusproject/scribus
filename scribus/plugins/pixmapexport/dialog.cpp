@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include "dialog.h"
 #include "scribusdoc.h"
-#include "createrange.h"
+#include "ui/createrange.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"

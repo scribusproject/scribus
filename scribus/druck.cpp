@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scpaths.h"
 #include "scribusdoc.h"
-#include "createrange.h"
+#include "ui/createrange.h"
 #include "commonstrings.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"

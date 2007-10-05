@@ -27,7 +27,7 @@ SET(SCRIBUS_UI_SRC
   aligndistribute.ui
   charselect.ui
   ui/copypagetomasterpage.ui
-  createrange.ui
+  ui/createrange.ui
   docitemattrprefs.ui
   docsections.ui
   guidemanager.ui
@@ -96,7 +96,7 @@ SET(SCRIBUS_MOC_CLASSES
   commonstrings.h
   ui/copypagetomasterpagedialog.h
   cpalette.h
-  createrange.h
+  ui/createrange.h
   cupsoptions.h
   curvewidget.h
   customfdialog.h
@@ -304,7 +304,7 @@ SET(SCRIBUS_SOURCES
   commonstrings.cpp
   ui/copypagetomasterpagedialog.cpp
   cpalette.cpp
-  createrange.cpp
+  ui/createrange.cpp
   cupsoptions.cpp
   curvewidget.cpp
   customfdialog.cpp
