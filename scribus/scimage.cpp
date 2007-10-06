@@ -2157,6 +2157,19 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				}
 				else
 				{
+					// This might fix Bug #6328, please test.
+					if (reqType != CMYKData && bilevel)
+					{
+						QRgb alphaFF;
+						QRgb *p;
+						p = (QRgb *) ptr;
+						for (int j = 0; j < width(); j++, p++)
+						{
+							alphaFF = qRgba(0,0,0,ptr2[3]);
+							*p |= alphaFF;
+							ptr2 += 4;
+						}
+					}
 					if (reqType != CMYKData && !bilevel)
 					{
 						if (pDataLoader->r_image.channels() == 5)
