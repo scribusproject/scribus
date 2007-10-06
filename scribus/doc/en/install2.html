@@ -3,7 +3,7 @@
 <h2>Requirements</h2>
 <p>The programs you will need to compile Scribus are:</p>
 <ol>
-	<li><strong>For Scribus 1.3.x+ GCC 3.x+ is required, GCC 4.1+ is strongly recommended</strong>. The Scribus Team has tested compiling with GCC 4.2 and recommends its use, if available, for the performance benefits.</li>
+	<li><strong>For Scribus 1.3.x+ GCC 3.x+ is required, GCC 4.1+ is strongly recommended</strong>. The Scribus Team has tested compiling with GCC 4.2 along with GCC 4.3 and recommends its use, if available, for the performance benefits.</li>
 	<li>autoconf 2.53+</li>
 	<li>automake 1.6.3+</li>
 	<li>GNU make</li>
@@ -15,9 +15,9 @@ The dependencies for compilation, and also to run Scribus are:
 <li>Freetype2 2.1.7+. Due to various freetype2 bugs, we recommend, if your distribution/OS allows, to use 2.3.x</li>
 <li>libart_lgpl 2.3.10+, 2.3.17+ recommended.</li>
 <li>libxml2 2.6+.</li>
-<li>Ghostscript 8.15+ or GPL Ghostscript 8.57+ is highly recommended. Ubuntu users in particular are urged to update to a newer version if possible.</li>
+<li>Ghostscript 8.15+ or GPL Ghostscript 8.60+ is highly recommended. Ubuntu users in particular are urged to update to a newer version if possible.</li>
 <li>PostScript-Fonts. TrueType Fonts. Scribus also can support OpenType fonts, both TrueType and Type 1 Outline OpenType Fonts.</li>
-<li>Littlecms - also known as lcms in some distributions. Minimum 1.12, 1.16+ recommended. lcms 1.12+ has support for black point generation. 1.3.4+ requires this.</li>
+<li>Littlecms - also known as lcms in some distributions. Minimum 1.12, 1.16+ recommended. lcms 1.12+ has support for black point compensation. 1.3.4+ requires littlecms.</li>
 <li>libtiff 3.6.0+ 1.3.4+ requires this.</li>
 <li>libjpeg</li>
 </ol>
@@ -26,21 +26,20 @@ The dependencies for compilation, and also to run Scribus are:
 <li>Cairo development libraries - You can optionally enable this in 1.3.3+ with <code> --enable-cairo.</code> For 1.3.3.x the minimum version is Cairo 1.2.6+.  Scribus 1.3.4+ <strong>requires</strong> a minimum of Cairo 1.4.0. Versions 1.3.4 and higher have the capability to use the latest features of cairo (above 1.4.10), and additionally, we recommend enabling it for performance reasons.</li>
 
 <li>CUPS development libraries - Scribus directly supports printing with CUPS.</li>
-<li>Gimp Print development libraries - Scribus directly supports the Gimp Print plug-in with CUPS.</li>
 <li>tkinter - for the font sampler script</li>
 <li>python-imaging libaries for font sampler script preview</li>
 <li>openssl-devel (Some linux distributions enable ssl support for CUPS, notably Suse Linux)</li>
 <li>fontconfig-devel - for auto discovery of fonts on Linux, MacOSX and Unix. Not needed on Windows.</li>
-<li>antiword - this is not needed at compile time for MS Word import. Scribus will detect this at run time however.</li>
-<li>Scribus 1.3.5svn requires Qt 4.3.0. Qt 4.2.x is not supported. </li>
+<li>antiword - this is not needed at compile time for MS Word import. Scribus will detect this at run time however. This is automatically bundled in the Windows installer.</li>
+<li>Scribus 1.3.5svn requires Qt 4.3.0+. Qt 4.2.x is not supported. </li>
 </ul>
 <p>Scribus will run under most any window manager and does not require KDE itself. However, drag and drop functionality will be lost without KDE. One of the Scribus developers runs Gnome. The author of this documentation has made a point of testing each release of Scribus under Blackbox as well. This has shown no incompatibilities or problems for Scribus, except for the loss of drag and drop functionality.</p>
-<p>If color management does not work, you may not have installed the development libraries for littlecms. When downloading the package from littlecms the make files are already configured for Linux, so compiling is straight forward. You also need at least one RGB profile and one CMYK profile installed or the color preferences and options will not appear in the menus.</p>
+<p>If color management does not work, you may not have installed the development libraries for littlecms. When downloading the package from littlecms the make files are already configured for Linux, so compiling is straight forward. You also need at least one RGB profile and one CMYK profile installed or the color preferences and options will not appear in the menus. Scribus installs one RGB and one CMYK profile simply to enable color management, but some distributions, notably Debian, because of licensing issues provides icc profiles in separate packages.</p>
 <p>Testing suggests setting the correct &#034;-march=&#034; CXXFLAGS has a very beneficial effect on Scribus performance. For example, if you have a Duron or Athlon processor, using <code>export CXXFLAGS=&#034;-march=athlon&#034;</code> would be of benefit. Check if your distribution sets these for you and how they are set, and for further information see: 
 <blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
 <pre>man gcc</pre>
 </td></tr></table></blockquote>
 for detailed options</p>
 <h4>Using CMake</h4>
-<p>In 1.3.3.6+ and 1.3.4+, we have added support for using CMake as an alternative for traditional autotools. This is still experimental, but we do encourage willing testers to use CMake and report any issues to the mailing list or IRC. Our aim is to test this on as wide a variety of platforms as possible. Currently, Linux and MacOSX are working reliably. We are very encouraged with the progress of CMake and anticipate autotools support has been removed after the 1.3.4 release. Please see <a href="install4.html">CMake instructions</a> for instructions. Scribus 1.3.5+ uses CMake exclusively. </p>
+<p>In 1.3.3.6+ and 1.3.4+, we have added support for using CMake as an alternative for traditional autotools. We are very encouraged with the progress of CMake and autotools support was removed after the 1.3.4 release. Please see <a href="install4.html">CMake instructions</a> for instructions. Scribus 1.3.5+ uses CMake exclusively. </p>
 </qt>
