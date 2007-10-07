@@ -6512,7 +6512,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 				MasterItems.at(b)->setLayer(newLayerNr);
 		}
 	}
-	if (m_Selection->count() != 0)
+	if (tmpSelection.count() != 0)
 		itemSelection_DeleteItem(&tmpSelection);
 	tmpSelection.clear();
 	for (int b = 0; b < DocItems.count(); ++b)
@@ -6528,7 +6528,7 @@ void ScribusDoc::removeLayer(int l, bool dl)
 				DocItems.at(b)->setLayer(newLayerNr);
 		}
 	}
-	if (m_Selection->count() != 0)
+	if (tmpSelection.count() != 0)
 		itemSelection_DeleteItem(&tmpSelection);
 	tmpSelection.clear();
 	//FIXME signal these
