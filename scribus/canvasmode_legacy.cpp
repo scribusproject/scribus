@@ -234,7 +234,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
-	int newX, newY;
+	double newX, newY;
 	double nx, ny;
 	PageItem *currItem;
 	QPoint np, np2, mop;
@@ -1180,10 +1180,10 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	if (m_doc->appMode != modeEdit)
 	{
-		Rxp = m_doc->ApplyGrid(QPoint(Mxp, Myp)).x();
+		Rxp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).x();
 		Rxpd = Mxp - Rxp;
 		Mxp = qRound(Rxp);
-		Ryp = m_doc->ApplyGrid(QPoint(Mxp, Myp)).y();
+		Ryp = m_doc->ApplyGridF(FPoint(Mxp, Myp)).y();
 		Rypd = Myp - Ryp;
 		Myp = qRound(Ryp);
 	}

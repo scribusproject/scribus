@@ -60,7 +60,8 @@ private:
 	int RotMode;
 	int dragConstrainInitPtX, dragConstrainInitPtY;
 	double Mxp, Myp, Dxp, Dyp;
-	int GxM, GyM, SeRx, SeRy;
+	int GxM, GyM;
+	double SeRx, SeRy;
 	bool MoveGX, MoveGY;
 	FPointArray RecordP;
 	ScribusMainWindow* m_ScMW;
