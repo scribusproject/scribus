@@ -55,12 +55,11 @@ private:
 	int HandleSizer(PageItem *currItem, QRect mpo, QMouseEvent *m);
 
 	int Cp, oldCp;
-	int m_SnapCounter;
 	bool inItemCreation, shiftSelItems, FirstPoly;
 	int frameResizeHandle;
 	int RotMode;
 	int dragConstrainInitPtX, dragConstrainInitPtY;
-	int Mxp, Myp, Dxp, Dyp;
+	double Mxp, Myp, Dxp, Dyp;
 	int GxM, GyM, SeRx, SeRy;
 	bool MoveGX, MoveGY;
 	FPointArray RecordP;

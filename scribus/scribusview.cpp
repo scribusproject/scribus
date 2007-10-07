@@ -3174,7 +3174,14 @@ void ScribusView::updateCanvas(QRectF box)
 {
 	if (box.isValid())
 	{
-		double scale = m_canvas->scale();
+		QPoint upperLeft = m_canvas->canvasToLocal(box.topLeft());
+		QPoint lowerRight = m_canvas->canvasToLocal(box.bottomRight());
+		upperLeft.setX(qMax(0, upperLeft.x()-1));
+		upperLeft.setY(qMax(0, upperLeft.y()-1));
+		lowerRight.setX(qMin(0, lowerRight.x()+1));
+		lowerRight.setY(qMin(0, lowerRight.y()+1));
+		m_canvas->update(upperLeft.x(), upperLeft.y(), lowerRight.x()-upperLeft.x(), lowerRight.y()-upperLeft.y());
+/*		double scale = m_canvas->scale();
 		double x = box.x() * scale;
 		double y = box.y() * scale;
 		double w = box.width() * scale;
@@ -3203,7 +3210,7 @@ void ScribusView::updateCanvas(QRectF box)
 		m_canvas->update(static_cast<int>(x), static_cast<int>(y), 
 						 qMin(qRound(h + 0.5), viewport()->width()), 
 						 qMin(qRound(w + 0.5), viewport()->height()));
-	}
+*/	}
 	else
 	{
 		m_canvas->update(horizontalScrollBar()->value(), verticalScrollBar()->value(), viewport()->width(), viewport()->height());

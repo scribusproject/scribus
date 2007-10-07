@@ -68,8 +68,8 @@ Canvas::Canvas(ScribusDoc* doc, QWidget* parent) : QWidget(parent), m_doc(doc)
 
 FPoint Canvas::localToCanvas(QPoint p) const
 {
-	return FPoint(p.x() / m_viewMode.scale - m_doc->minCanvasCoordinate.x() , 
-				  p.y() / m_viewMode.scale - m_doc->minCanvasCoordinate.y());	
+	return FPoint(p.x() / m_viewMode.scale + m_doc->minCanvasCoordinate.x() , 
+				  p.y() / m_viewMode.scale + m_doc->minCanvasCoordinate.y());	
 }
 
 
@@ -81,14 +81,14 @@ FPoint Canvas::globalToCanvas(QPoint p) const
 
 QPoint Canvas::canvasToLocal(FPoint p) const
 {
-	return 	QPoint(qRound((p.x() + m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-				   qRound((p.y() + m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
+	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
 }
 
 QPoint Canvas::canvasToLocal(QPointF p) const
 {
-	return 	QPoint(qRound((p.x() + m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-				   qRound((p.y() + m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
+	return 	QPoint(qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
+				   qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale));
 }
 
 QPoint Canvas::canvasToGlobal(FPoint p) const
@@ -129,94 +129,209 @@ bool Canvas::hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const
 
 
 /*!
-  returns -1 if globalPoint is outside the frame + grabradius.
-  returns frameHandle if globalPoint is near a framehandle
+  returns -1 if canvasPoint is outside the frame + grabradius.
+  returns frameHandle if canvasPoint is near a framehandle
   otherwise 0
  */
-Canvas::FrameHandle Canvas::frameHitTest(QPoint globalPoint, QRectF frame) const
+Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) const
+{
+	return frameHitTest(item->getTransform().inverted().map(canvasPoint), QRectF(0, 0, item->width(), item->height()));
+}
+
+
+static double length2(const QPointF& p)
+{
+	return p.x()*p.x() + p.y()*p.y();
+}
+
+Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, QRectF frame) const
 {
 	FrameHandle result = INSIDE;
-	const int radius = m_doc->guidesSettings.grabRad;
-	double resultDistance = radius * radius * 10.0; // far off
+	const double radius = m_doc->guidesSettings.grabRad / m_viewMode.scale;
+	const double radius2 = radius * radius;
+	double resultDistance = radius2 * 10.0; // far off
 	
-	const QPoint localPoint = globalPoint - mapToGlobal(QPoint(0,0));
-	const int localWidth = qRound(frame.width() * m_viewMode.scale);
-	const int localHeight = qRound(frame.height() * m_viewMode.scale);
-	const QPoint localFrameOrigin = canvasToLocal(FPoint(frame.left(),frame.top()));
+	const double frameWidth = frame.width();
+	const double frameHeight = frame.height();
+	const QPointF frameOrigin = frame.topLeft();
 	
-	if (localPoint.x() < localFrameOrigin.x() - radius ||
-		localPoint.x() > localFrameOrigin.x() + localWidth + radius ||
-		localPoint.y() < localFrameOrigin.y() - radius ||
-		localPoint.y() > localFrameOrigin.y() + localHeight + radius)
+	if (canvasPoint.x() < frameOrigin.x() - radius ||
+		canvasPoint.x() > frameOrigin.x() + frameWidth + radius ||
+		canvasPoint.y() < frameOrigin.y() - radius ||
+		canvasPoint.y() > frameOrigin.y() + frameHeight + radius)
 	{
 		return OUTSIDE;
 	}
 	
-	QPoint framePoint = localFrameOrigin;
-	double distance = (localPoint - framePoint).manhattanLength();
-	if (distance < radius && distance < resultDistance)
+	QPointF framePoint = frameOrigin;
+	double distance = length2(canvasPoint - framePoint);
+	if (distance < radius2 && distance < resultDistance)
 	{
 		result = NORTHWEST;
 		resultDistance = distance;
 	}
 	
-	framePoint.setX(localFrameOrigin.x() + localWidth/2);
-	distance = (localPoint - framePoint).manhattanLength();
-	if (distance < radius && distance < resultDistance)
+	framePoint.setX(frameOrigin.x() + frameWidth/2);
+	distance = length2(canvasPoint - framePoint);
+	if (distance < radius2 && distance < resultDistance)
 	{
 		result = NORTH;
 		resultDistance = distance;
 	}
 	
-	framePoint.setX(localFrameOrigin.x() + localWidth);
-	distance = (localPoint - framePoint).manhattanLength();
-	if (distance < radius && distance < resultDistance)
+	framePoint.setX(frameOrigin.x() + frameWidth);
+	distance = length2(canvasPoint - framePoint);
+	if (distance < radius2 && distance < resultDistance)
 	{
 		result = NORTHEAST;
 		resultDistance = distance;
 	}
 	
-	framePoint.setY(localFrameOrigin.y() + localHeight/2);
-	distance = (localPoint - framePoint).manhattanLength();
-	if (distance < radius && distance < resultDistance)
+	framePoint.setY(frameOrigin.y() + frameHeight/2);
+	distance = length2(canvasPoint - framePoint);
+	if (distance < radius2 && distance < resultDistance)
 	{
 		result = EAST;
 		resultDistance = distance;
 	}
 	
-	framePoint.setY(localFrameOrigin.y() + localHeight);
-	distance = (localPoint - framePoint).manhattanLength();
-	if (distance < radius && distance < resultDistance)
+	framePoint.setY(frameOrigin.y() + frameHeight);
+	distance = length2(canvasPoint - framePoint);
+	if (distance < radius2 && distance < resultDistance)
 	{
 		result = SOUTHEAST;
 		resultDistance = distance;
 	}
 	
-	framePoint.setX(localFrameOrigin.x() + localWidth/2);
-	distance = (localPoint - framePoint).manhattanLength();
-	if (distance < radius && distance < resultDistance)
+	framePoint.setX(frameOrigin.x() + frameWidth/2);
+	distance = length2(canvasPoint - framePoint);
+	if (distance < radius2 && distance < resultDistance)
 	{
 		result = SOUTH;
 		resultDistance = distance;
 	}
 	
-	framePoint.setX(localFrameOrigin.x());
-	distance = (localPoint - framePoint).manhattanLength();
-	if (distance < radius && distance < resultDistance)
+	framePoint.setX(frameOrigin.x());
+	distance = length2(canvasPoint - framePoint);
+	if (distance < radius2 && distance < resultDistance)
 	{
 		result = SOUTHWEST;
 		resultDistance = distance;
 	}
 	
-	framePoint.setY(localFrameOrigin.y() + localHeight/2);
-	distance = (localPoint - framePoint).manhattanLength();
-	if (distance < radius && distance < resultDistance)
+	framePoint.setY(frameOrigin.y() + frameHeight/2);
+	distance = length2(canvasPoint - framePoint);
+	if (distance < radius2 && distance < resultDistance)
 	{
 		result = WEST;
 		//resultDistance = distance;
 	}
 	
 	return result;
+}
+
+
+PageItem* Canvas::itemUnderCursor(QPoint globalPos, PageItem* itemAbove, bool allowInGroup, bool allowMasterItems) const
+{
+	PageItem* currItem;
+	QRectF mouseArea = globalToCanvas(QRect(globalPos, QSize(2*m_doc->guidesSettings.grabRad, 2*m_doc->guidesSettings.grabRad)));
+	// look for masterpage items first
+	if (allowMasterItems && !m_doc->masterPageMode() && m_doc->currentPage()->FromMaster.count() != 0)
+	{
+		Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->MPageNam]);
+		// if itemAbove is given, we expect to find it among the masterpage items of this page
+		int currNr = itemAbove? m_doc->currentPage()->FromMaster.indexOf(itemAbove)-1 : m_doc->currentPage()->FromMaster.count()-1;
+		if (currNr < 0)
+			return NULL;
+		while (currNr >= 0)
+		{
+			currItem = m_doc->currentPage()->FromMaster.at(currNr);
+			QMatrix itemPos;
+			if ((currItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerNr)))
+			{
+				if (!currItem->ChangedMasterItem)
+				{
+					itemPos.translate(-Mp->xOffset() + m_doc->currentPage()->xOffset(), -Mp->yOffset() + m_doc->currentPage()->yOffset());
+				}
+				currItem->getTransform(itemPos);
+				QPainterPath currPath(itemPos.map(QPointF(0,0)));
+				currPath.lineTo(itemPos.map(QPointF(currItem->width(), 0)));
+				currPath.lineTo(itemPos.map(QPointF(currItem->width(), currItem->height())));
+				currPath.lineTo(itemPos.map(QPointF(0, currItem->height())));
+				currPath.closeSubpath();
+				QPainterPath currClip;
+				currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
+				currClip.closeSubpath();
+				if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
+//				if ((QRegion(itemPos.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
+//					(QRegion(currItem->Clip * itemPos).contains(mpo.toRect())))
+				{
+					if (currItem->Groups.count() != 0 && !allowInGroup)
+					{
+						// look for the group control
+						// FIXME: Items or MasterPageItems??
+						for (int ga=0; ga < m_doc->Items->count(); ++ga)
+						{
+							if (m_doc->Items->at(ga)->Groups.count() != 0 
+								&& m_doc->Items->at(ga)->Groups.top() == currItem->Groups.top() 
+								&& m_doc->Items->at(ga)->controlsGroup())
+							{
+								currItem = m_doc->Items->at(ga);
+								break;
+							}
+						}
+					}
+					return currItem;
+				}
+			}
+			--currNr;
+		}
+	}
+	// now look for normal items
+	if (m_doc->Items->count() == 0)
+		return NULL;
+
+	int currNr = itemAbove? m_doc->Items->indexOf(currItem)-1 : m_doc->Items->count()-1;
+	while (currNr >= 0)
+	{
+		currItem = m_doc->Items->at(currNr);
+		if ((m_doc->masterPageMode())  && (!((currItem->OwnPage == -1) || (currItem->OwnPage == static_cast<int>(m_doc->currentPage()->pageNr())))))
+			continue;
+		if ((currItem->LayerNr == m_doc->activeLayer()) && (!m_doc->layerLocked(currItem->LayerNr)))
+		{
+			QMatrix itemPos = currItem->getTransform();
+			QPainterPath currPath(itemPos.map(QPointF(0,0)));
+			currPath.lineTo(itemPos.map(QPointF(currItem->width(), 0)));
+			currPath.lineTo(itemPos.map(QPointF(currItem->width(), currItem->height())));
+			currPath.lineTo(itemPos.map(QPointF(0, currItem->height())));
+			currPath.closeSubpath();
+			QPainterPath currClip;
+			currClip.addPolygon(itemPos.map(QPolygonF(currItem->Clip)));
+			currClip.closeSubpath();
+			if (currPath.intersects(mouseArea) || currClip.intersects(mouseArea))
+//				if ((QRegion(itemPos.map(QPolygon(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height()))))).contains(mpo.toRect())) ||
+//				(QRegion(currItem->Clip * itemPos).contains(mpo.toRect())))
+			{
+				if (currItem->Groups.count() != 0 && !allowInGroup)
+				{
+					// look for the group control
+					for (int ga=0; ga < m_doc->Items->count(); ++ga)
+					{
+						if (m_doc->Items->at(ga)->Groups.count() != 0 
+							&& m_doc->Items->at(ga)->Groups.top() == currItem->Groups.top() 
+							&& m_doc->Items->at(ga)->controlsGroup())
+						{
+							currItem = m_doc->Items->at(ga);
+							break;
+						}
+					}
+				}
+				return currItem;				
+			}
+		}
+		--currNr;
+	}
+	return NULL;
 }
 
 
@@ -844,6 +959,9 @@ void Canvas::drawControlsFreehandLine(QPainter* pp)
 void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
 	QRect oldR;
+	FPoint orig = localToCanvas(clip.topLeft());
+	QRect cullingArea = QRect(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
+							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStack2;
 	if (!page->MPageNam.isEmpty())
@@ -900,7 +1018,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->savedOwnPage = currItem->OwnPage;
 							currItem->OwnPage = page->pageNr();
 							if ((clip.intersects(oldR)) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
-								currItem->DrawObj(painter, clip);
+								currItem->DrawObj(painter, cullingArea);
 							FPointArray cl = currItem->PoLine.copy();
 							QMatrix mm;
 							mm.translate(currItem->xPos(), currItem->yPos());
@@ -926,7 +1044,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						if (clip.intersects(oldR))
 						{
 							if (!((m_viewMode.operItemMoving || m_viewMode.operItemResizeInEditMode) && (currItem->isSelected())))
-								currItem->DrawObj(painter, clip);
+								currItem->DrawObj(painter, cullingArea);
 							else 
 								qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << m_viewMode.operItemResizeInEditMode << currItem->isSelected();
 						}
@@ -958,7 +1076,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 								}
 								oldR = cite->getRedrawBounding(m_viewMode.scale);
 								if ((clip.intersects(oldR)) && (m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1))
-									cite->DrawObj(painter, clip);
+									cite->DrawObj(painter, cullingArea);
 								cite->OwnPage = cite->savedOwnPage;
 								if (!currItem->ChangedMasterItem)
 								{
@@ -1049,6 +1167,9 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 {
 	m_viewMode.linkedFramesToShow.clear();
 	QRect oldR;
+	FPoint orig = localToCanvas(clip.topLeft());
+	QRect cullingArea = QRect(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
+							  qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 	QStack<PageItem*> groupStack;
 	QStack<PageItem*> groupStack2;
 	if (m_doc->Items->count() != 0)
@@ -1117,7 +1238,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 						}
 						else
 						{
-							currItem->DrawObj(painter, clip);
+							currItem->DrawObj(painter, cullingArea);
 						}
 //						currItem->Redrawn = true;
 						if ((currItem->asTextFrame()) && ((currItem->nextInChain() != 0) || (currItem->prevInChain() != 0)))
@@ -1174,7 +1295,7 @@ void Canvas::DrawPageItems(ScPainter *painter, QRect clip)
 							PageItem *cite = groupStack2.pop();
 							oldR = cite->getRedrawBounding(m_viewMode.scale);
 							if ((clip.intersects(oldR)) && (((m_doc->guidesSettings.layerMarkersShown) && (m_doc->layerCount() > 1)) || (cite->textFlowUsesContourLine())))
-								cite->DrawObj(painter, clip);
+								cite->DrawObj(painter, cullingArea);
 							groupStack.pop();
 							if (groupStack.count() == 0)
 								break;

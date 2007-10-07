@@ -892,8 +892,10 @@ void PageItem::setCornerRadius(double newRadius)
 
 
 
-/** Zeichnet das Item */
-void PageItem::DrawObj(ScPainter *p, QRect e)
+/** Paints the item.
+    CHANGE: cullingArea is in doc coordinates!
+ */
+void PageItem::DrawObj(ScPainter *p, QRect cullingArea)
 {
 	double sc;
 	if (!m_Doc->DoDrawing)
@@ -901,16 +903,22 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 //		Tinput = false;
 		return;
 	}
+	if (!cullingArea.isNull())
+	{
+		cullingArea = QRectF(QPointF(m_Doc->minCanvasCoordinate.x(), m_Doc->minCanvasCoordinate.y()), 
+							 QPointF(m_Doc->maxCanvasCoordinate.x(), m_Doc->maxCanvasCoordinate.y())).toAlignedRect();
+	}
+	
 	DrawObj_Pre(p, sc);
 	if (m_Doc->layerOutline(LayerNr))
 	{
 		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine) && (!isGroupControl))
-			DrawObj_Item(p, e, sc);
+			DrawObj_Item(p, cullingArea, sc);
 	}
 	else
 	{
 		if (!isGroupControl)
-			DrawObj_Item(p, e, sc);
+			DrawObj_Item(p, cullingArea, sc);
 	}
 	DrawObj_Post(p);
 }
@@ -1177,7 +1185,7 @@ void PageItem::DrawObj_Post(ScPainter *p)
 	p->restore();
 }
 
-void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, PageItem* cembedded)
+void PageItem::DrawObj_Embedded(ScPainter *p, QRect cullingArea, const CharStyle& style, PageItem* cembedded)
 {
 	if (!cembedded)
 		return;
@@ -1242,12 +1250,12 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 			case LatexFrame:
 			case Polygon:
 			case PathText:
-				embedded->DrawObj_Item(p, e, sc);
+				embedded->DrawObj_Item(p, cullingArea, sc);
 				break;
 			case Line:
 			case PolyLine:
 				embedded->m_lineWidth = pws * qMin(style.scaleH() / 1000.0, style.scaleV() / 1000.0);
-				embedded->DrawObj_Item(p, e, sc);
+				embedded->DrawObj_Item(p, cullingArea, sc);
 				break;
 			default:
 				break;
@@ -1504,7 +1512,7 @@ QImage PageItem::DrawObj_toImage(QList<PageItem*> &emG)
 		painter->translate(embedded->gXpos, embedded->gYpos);
 		embedded->isEmbedded = true;
 		embedded->invalid = true;
-		embedded->DrawObj(painter, QRect(0, 0, retImg.width(), retImg.height()));
+		embedded->DrawObj(painter, QRect());
 		embedded->Xpos = x;
 		embedded->Ypos = y;
 		embedded->isEmbedded = false;
@@ -4103,7 +4111,7 @@ QRect PageItem::getRedrawBounding(const double viewScale)
 	int w = qRound(ceil(BoundingW + Oldm_lineWidth + 10) * viewScale);
 	int h = qRound(ceil(BoundingH + Oldm_lineWidth + 10) * viewScale);
 	QRect ret = QRect(x, y, w, h);
-//	ret.moveBy(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
+	ret.translate(qRound(-m_Doc->minCanvasCoordinate.x() * viewScale), qRound(-m_Doc->minCanvasCoordinate.y() * viewScale));
 	return ret;
 }
 

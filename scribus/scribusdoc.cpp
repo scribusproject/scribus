@@ -1769,7 +1769,6 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 	TableItems.clear();
 	uint oldItems = Items->count();
 	QImage pgPix(10, 10, QImage::Format_ARGB32);
-	QRect rd = QRect(0,0,9,9);
 	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
 	RePos = true;
 	for (uint ite = 0; ite < oldItems; ++ite)
@@ -1826,7 +1825,7 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 				Neu->setImageFlippedV(fvo);
 				Neu->AdjustPictScale();
 			}
-			Neu->DrawObj(painter, rd);
+			Neu->DrawObj(painter, QRect());
 		}
 	}
 	delete painter;

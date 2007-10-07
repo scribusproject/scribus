@@ -2172,7 +2172,7 @@ void PageItem_TextFrame::invalidateLayout(bool wholeChain)
 	}
 }
 
-void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
+void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect cullingArea, double sc)
 {
 	layout();
 	if (invalid)
@@ -2197,14 +2197,18 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	double desc, asce, tabDist;
 //	tTabValues.clear();
 	p->save();
-	QRect e2;
+//	QRect e2;
 	if (isEmbedded)
-		e2 = e;
+	{
+//		e2 = cullingArea;
+	}
 	else
 	{
-		e2 = QRect(qRound(e.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(e.y()  / sc + m_Doc->minCanvasCoordinate.y()), qRound(e.width() / sc), qRound(e.height() / sc));
+//		e2 = QRect(qRound(cullingArea.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(cullingArea.y()  / sc + m_Doc->minCanvasCoordinate.y()), 
+//				   qRound(cullingArea.width() / sc), qRound(cullingArea.height() / sc));
 		pf2.translate(Xpos, Ypos);
 	}
+
 	pf2.rotate(Rot);
 	if (!m_Doc->layerOutline(LayerNr))
 	{
@@ -2376,12 +2380,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							p->setPen(cachedStrokeQ, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 					}
 					// paint glyphs
-					if (e2.intersects(pf2.mapRect(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
+					if (cullingArea.intersects(pf2.mapRect(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
 					{
 						p->save();
 						p->translate(CurX, ls.y);
 						if (hl->ch == SpecialChars::OBJECT)
-							DrawObj_Embedded(p, e, charStyle, hl->embedded.getItem());
+							DrawObj_Embedded(p, cullingArea, charStyle, hl->embedded.getItem());
 						else
 							drawGlyphs(p, charStyle, hl->glyph);
 						p->restore();

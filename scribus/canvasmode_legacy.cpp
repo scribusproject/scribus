@@ -65,7 +65,6 @@ LegacyMode::LegacyMode(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScM
 	Dxp = Dyp = -1;
 	MoveGX = MoveGY = false;
 	oldCp = Cp = -1;
-	m_SnapCounter = 0;
 	frameResizeHandle = -1;
 	RotMode = 0;
 	inItemCreation = false;
@@ -243,11 +242,11 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	QPainter p;
 	QRect tx;
 	bool erf = false;
-	double sc = m_canvas->scale();
+//	double sc = m_canvas->scale();
 //	m_view->horizRuler->Draw(m->x());
 //	m_view->vertRuler->Draw(m->y());
 	m->accept();
-	qDebug() << "legacy mode move:" << m->x() << m->y();
+//	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPos()).x() << m_canvas->globalToCanvas(m->globalPos()).y();
 //	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 	if (m_doc->guidesSettings.guidesShown)
@@ -289,23 +288,23 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeEditGradientVectors))
 	{
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
-		newX = m->x();
-		newY = m->y();
-		double dx = abs(Mxp - newX) + 5;
-		double dy = abs(Myp - newY) + 5;
+		newX = mousePointDoc.x(); //m->x();
+		newY = mousePointDoc.y(); //m->y();
+		double dx = abs(Mxp - newX) + 5.0 / m_canvas->scale();
+		double dy = abs(Myp - newY) + 5.0 / m_canvas->scale();
 		if (m->buttons() & Qt::LeftButton)
 		{
-			currItem->GrStartX -= (Mxp - newX) / m_canvas->scale();
-			currItem->GrStartY -= (Myp - newY) / m_canvas->scale();
+			currItem->GrStartX -= (Mxp - newX); // / m_canvas->scale();
+			currItem->GrStartY -= (Myp - newY); // / m_canvas->scale();
 		}
 		if (m->buttons() & Qt::RightButton)
 		{
-			currItem->GrEndX -= (Mxp - newX) / m_canvas->scale();
-			currItem->GrEndY -= (Myp - newY) / m_canvas->scale();
+			currItem->GrEndX -= (Mxp - newX); // / m_canvas->scale();
+			currItem->GrEndY -= (Myp - newY); // / m_canvas->scale();
 		}
 		Mxp = newX;
 		Myp = newY;
-		m_view->RefreshGradient(currItem, dx, dy);
+		m_view->RefreshGradient(currItem, dx * m_canvas->scale(), dy * m_canvas->scale());
 		m_ScMW->propertiesPalette->updateColorSpecialGradient();
 		return;
 	}
@@ -336,17 +335,20 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 	}
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modePanning))
 	{
-		int scroX = m->x() - qRound((Mxp * sc));
-		int scroY = m->y() - qRound((Myp * sc));
+		double sc = m_canvas->scale();
+		int scroX = qRound((mousePointDoc.x() - Mxp) * sc);
+		int scroY = qRound((mousePointDoc.y() - Myp) * sc);
 		m_view->scrollBy(-scroX, -scroY);
-		Mxp = static_cast<int>((m->x()-scroX)/sc);
-		Myp = static_cast<int>((m->y()-scroY)/sc);
+//		Mxp = static_cast<int>((m->x()-scroX)/sc);
+//		Myp = static_cast<int>((m->y()-scroY)/sc);
+		Mxp = mousePointDoc.x();
+		Myp = mousePointDoc.y();
 		return;
 	}
 	if (m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeDrawFreehandLine))
 	{
-		newX = m->x();
-		newY = m->y();
+		//newX = m->x();
+		//newY = m->y();
 		double newXF = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x();
 		double newYF = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y();
 		if (RecordP.size() > 0)
@@ -380,6 +382,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			&& (m_doc->appMode == modeNormal) 
 			&& (!(currItem->isSingleSel)))
 		{
+			// start drag
 			m_view->dragTimer->stop();
 			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
 			{
@@ -427,7 +430,7 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m_doc->appMode == modeRotation))
 		{
 			m_view->dragTimer->stop();
-			double newW = xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
+			double newW = xy2Deg(mousePointDoc.x()-m_view->RCenter.x(), mousePointDoc.y()-m_view->RCenter.y()); //xy2Deg(m->x()/sc - m_view->RCenter.x(), m->y()/sc - m_view->RCenter.y());
 			if (m->modifiers() & Qt::ControlModifier)
 			{
 				newW=constrainAngle(newW, m_doc->toolSettings.constrain);
@@ -452,8 +455,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			if ((m_doc->useRaster) && (m_doc->OnPage(currItem) != -1))
 			{
-				newX = static_cast<int>(qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid);
-				newY = static_cast<int>(qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid);
+				newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+				newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
 			}
 			m_canvas->newRedrawPolygon() << QPoint(newX - qRound(currItem->xPos()), newY - qRound(currItem->yPos()));
 			m_view->updateContents();
@@ -464,20 +467,21 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (m->modifiers() & Qt::ShiftModifier)
 			{
-				mop = QPoint(m->x(), static_cast<int>((currItem->yPos() + (newX - currItem->xPos())) * sc));
-				QCursor::setPos(m_view->mapToGlobal(mop));
-				newY = static_cast<int>(mop.y()/sc);
+//				mop = QPoint(m->x(), static_cast<int>((currItem->yPos() + (newX - currItem->xPos())) * sc));
+				newY = static_cast<int>(currItem->yPos() + (newX - currItem->xPos()));
+				QCursor::setPos(m_canvas->canvasToGlobal(FPoint(newX, newY)));
+//				newY = static_cast<int>(mop.y()/sc);
 			}
 			if ((m_doc->useRaster) && (m_doc->OnPage(currItem) != -1))
 			{
-				newX = static_cast<int>(qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid);
-				newY = static_cast<int>(qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid);
+				newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+				newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
 			}
-			QMatrix mp;
-			mp.translate(currItem->xPos(),// - m_doc->minCanvasCoordinate.x(), 
-						 currItem->yPos()); // - m_doc->minCanvasCoordinate.y());
-			mp.rotate(currItem->rotation());
-			np2 = QPoint(newX, newY) * mp.inverted();
+			QMatrix mp = currItem->getTransform();
+//			mp.translate(currItem->xPos(),// - m_doc->minCanvasCoordinate.x(), 
+//						 currItem->yPos()); // - m_doc->minCanvasCoordinate.y());
+//			mp.rotate(currItem->rotation());
+			np2 = QPoint(static_cast<int>(newX), static_cast<int>(newY)) * mp.inverted();
 			QMatrix pm;
 			m_canvas->Transform(currItem, pm);
 			m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(0, 0), np2)));
@@ -489,8 +493,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (m_doc->useRaster)
 			{
-				newX = static_cast<int>(qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid);
-				newY = static_cast<int>(qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid);
+				newX = qRound(newX / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
+				newY = qRound(newY / m_doc->guidesSettings.minorGrid) * m_doc->guidesSettings.minorGrid;
 			}
 			double newRot=xy2Deg(newX - currItem->xPos(), newY - currItem->yPos());
 			//Constrain rotation angle, when the mouse is being dragged around for a new line
@@ -509,8 +513,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 //			emit SetAngle(newRot);
 //			emit ItemGeom(sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2)), 0);
 			m_canvas->newRedrawPolygon() << QPoint(qRound(currItem->xPos()), qRound(currItem->yPos())) << QPoint(newX, newY);
-			newX = m->x();
-			newY = m->y();
+			newX = mousePointDoc.x(); //m->x();
+			newY = mousePointDoc.y(); //m->y();
 			m_view->updateContents(QRect(QPoint(Dxp, Dyp), QPoint(newX, newY)).normalized().adjusted(-10, -10, 20, 20));
 			Mxp = newX;
 			Myp = newY;
@@ -555,65 +559,67 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		}
 		//Operations run here:
 		//Item resize, esp after creating a new one
-		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && ((m_doc->appMode == modeNormal) || ((m_doc->appMode == modeEdit) && m_canvas->m_viewMode.operItemResizeInEditMode)) && (!currItem->locked()))
+		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && 
+			((m_doc->appMode == modeNormal) || ((m_doc->appMode == modeEdit) && m_canvas->m_viewMode.operItemResizeInEditMode)) && (!currItem->locked()))
 		{
 			m_view->dragTimer->stop();
 			if (m_canvas->m_viewMode.operItemResizing)
 			{
-				newX = static_cast<int>(m->x()/sc);
-				newY = static_cast<int>(m->y()/sc);
+//				newX = static_cast<int>(m->x()/sc);
+//				newY = static_cast<int>(m->y()/sc);
 				m_canvas->m_viewMode.operItemMoving = false;
 				if (m_doc->m_Selection->isMultipleSelection())
 				{
-					newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
-					newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
+//					newX = qRound(mousePointDoc.x()); //m_view->translateToDoc(m->x(), m->y()).x());
+//					newY = qRound(mousePointDoc.y()); //m_view->translateToDoc(m->x(), m->y()).y());
 					double gx, gy, gh, gw;
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+					const double sc=1;
 					int ox1 = qRound(gx*sc);
 					int oy1 = qRound(gy*sc);
 					int ox2 = qRound((gx+gw)*sc);
 					int oy2 = qRound((gy+gh)*sc);
-					np2 = QPoint(newX, newY);
-					np2 = m_doc->ApplyGrid(np2);
+					FPoint np2 = FPoint(newX, newY);
+					np2 = m_doc->ApplyGridF(mousePointDoc);
 					double nx = np2.x();
 					double ny = np2.y();
 					m_doc->ApplyGuides(&nx, &ny);
-					np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
+					np2 = FPoint(qRound(nx*sc), qRound(ny*sc));
 					QMatrix pm;
 					switch (frameResizeHandle)
 					{
 					case 1:
 						if (m->modifiers() & Qt::ControlModifier)
-							np2 = QPoint(qRound(newX), qRound(gy+(gh * ((newX-gx) / gw))));
+							np2 = FPoint(qRound(newX), qRound(gy+(gh * ((newX-gx) / gw))));
 						else
-							np2 = QPoint(qRound(newX), qRound(newY));
-						np2 = m_doc->ApplyGrid(np2);
+							np2 = FPoint(qRound(newX), qRound(newY));
+						np2 = m_doc->ApplyGridF(np2);
 						nx = np2.x();
 						ny = np2.y();
 						m_doc->ApplyGuides(&nx, &ny);
-						np2 = QPoint(qRound(nx*sc), qRound(ny*sc));
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(gx*sc), qRound(gy*sc)), np2)));
+						np2 = FPoint(qRound(nx*sc), qRound(ny*sc));
+						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(gx*sc), qRound(gy*sc)), QPoint(qRound(np2.x()), qRound(np2.y())))));
 						break;
 					case 2:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(ox2,oy2))));
+						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), qRound(np2.y())), QPoint(ox2,oy2))));
 						break;
 					case 3:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(ox1, oy2))));
+						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), qRound(np2.y())), QPoint(ox1, oy2))));
 						break;
 					case 4:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(np2, QPoint(ox2, oy1))));
+						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), qRound(np2.y())), QPoint(ox2, oy1))));
 						break;
 					case 5:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(ox1, oy1), QPoint(ox2, np2.y()))));
+						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(ox1, oy1), QPoint(ox2, qRound(np2.y())))));
 						break;
 					case 6:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(np2.x(), oy2), QPoint(ox1,oy1))));
+						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), oy2), QPoint(ox1,oy1))));
 						break;
 					case 7:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(np2.x(), oy1), QPoint(ox2, oy2))));
+						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(qRound(np2.x()), oy1), QPoint(ox2, oy2))));
 						break;
 					case 8:
-						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(ox1, qRound(np2.y())), QPoint(ox2, oy2))));
+						m_canvas->PaintSizeRect(pm.mapToPolygon(QRect(QPoint(ox1, qRound(qRound(np2.y()))), QPoint(ox2, oy2))));
 						break;
 					}
 					Mxp = qRound(np2.x());
@@ -807,8 +813,8 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			else
 			{
 				//Dragging an item (plus more?)
-				newX = static_cast<int>(m->x()/sc);
-				newY = static_cast<int>(m->y()/sc);
+				newX = mousePointDoc.x(); //static_cast<int>(m->x()/sc);
+				newY = mousePointDoc.y(); //static_cast<int>(m->y()/sc);
 				m_canvas->m_viewMode.operItemMoving = true;
 				erf = false;
 				int dX=newX-Mxp, dY=newY-Myp;
@@ -945,14 +951,16 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 		{
 			if (m_doc->m_Selection->isMultipleSelection())
 			{
-				QRect mpo = QRect(qRound(m->x()/m_canvas->scale())-m_doc->guidesSettings.grabRad, qRound(m->y()/m_canvas->scale())-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+//				QRect mpo = QRect(qRound(m->x()/m_canvas->scale())-m_doc->guidesSettings.grabRad, qRound(m->y()/m_canvas->scale())-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //				mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
 				double gx, gy, gh, gw;
 				m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
-				if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
+				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
+//				if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
+				if (how >= 0
 					&& ((m_doc->appMode == modeNormal) || (m_doc->appMode == modeRotation)))
 				{
-					int how = 0;
+/*					int how = 0;
 //					gx -= m_doc->minCanvasCoordinate.x();
 //					gy -= m_doc->minCanvasCoordinate.y();
 					QMap<double,int> distance;
@@ -984,12 +992,20 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					if (result.count() != 0)
 					{
 						how = result[0];
+						}
+						*/
+					if (how > 0)
+					{
 						setResizeCursor(how);
 					}
 					else
+					{
 						qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+					}
 					if (m_doc->appMode == modeRotation)
+					{
 						qApp->changeOverrideCursor(QCursor(loadIcon("Rotieren2.png")));
+					}
 				}
 				else
 				{
@@ -1033,7 +1049,17 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 					setModeCursor();
 				}
 			}
-		}
+			if (GetItem(&currItem) && m_doc->appMode == modeNormal)
+			{
+				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+				if (how > 0)
+					setResizeCursor(how);
+				else if (how == 0)
+					qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+				else
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			}
+			}
 	}
 	else
 	{
@@ -1057,31 +1083,50 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 			}
 			SeRx = newX;
 			SeRy = newY;
+			/*
 			if (m_doc->appMode == modeDrawTable)
 				m_view->redrawMarker->setGeometry(QRect(Dxp, Dyp, m->globalPos().x() - Dxp, m->globalPos().y() - Dyp).normalized());
 			else
 				m_view->redrawMarker->setGeometry(QRect(Mxp, Myp, m->globalPos().x() - Mxp, m->globalPos().y() - Myp).normalized());
+			*/
+			QPoint startP = m_canvas->canvasToGlobal(m_doc->appMode == modeDrawTable? QPointF(Dxp, Dyp) : QPointF(Mxp, Myp));
+			m_view->redrawMarker->setGeometry(QRect(startP, m->globalPos()).normalized());
 			if (!m_view->redrawMarker->isVisible())
 				m_view->redrawMarker->show();
 			m_view->HaveSelRect = true;
 			return;
 		}
-		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(m->x()/sc, m->y()/sc) != -1) && (!GetItem(&currItem)))
+		if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y()) != -1) && (!GetItem(&currItem)))
 		{
-			Guides::iterator it;
+			double grabRadScale=m_doc->guidesSettings.grabRad / m_canvas->scale();
+			if (m_doc->currentPage()->guides.isMouseOnHorizontal(ny + grabRadScale, ny - grabRadScale, GuideManagerCore::Standard))
+			{
+				if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GyM != -1))
+					MoveGY = true;
+				if (!m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y())) // ((m->x()/sc) < m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x()) || ((m->x()/sc) >= m_doc->currentPage()->width()-1+m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x()))
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				else
+					qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
+				return;
+			}
+			if (m_doc->currentPage()->guides.isMouseOnVertical(nx + grabRadScale, nx - grabRadScale, GuideManagerCore::Standard))
+			{
+				if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GxM != -1))
+					MoveGX = true;
+				if (!m_doc->OnPage(mousePointDoc.x(), mousePointDoc.y())) // ((m->y()/sc) < m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.x()) || ((m->y()/sc) >= m_doc->currentPage()->height()-1+m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.y()))
+					qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				else
+					qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
+				return;
+			}	
+/*
+				Guides::iterator it;
 			Guides tmpGuides = m_doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
 			{
 				if (((*it)+m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.y() < ((m->y()+m_doc->guidesSettings.grabRad) / sc)) &&
 								   ((*it)+m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.y() > ((m->y()-m_doc->guidesSettings.grabRad) / sc)))
 				{
-					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GyM != -1))
-						MoveGY = true;
-					if (((m->x()/sc) < m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x()) || ((m->x()/sc) >= m_doc->currentPage()->width()-1+m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x()))
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					else
-						qApp->changeOverrideCursor(QCursor(Qt::SplitVCursor));
-					return;
 				}
 			}
 //			qApp->setOverrideCursor(QCursor(Qt::ArrowCursor), true);
@@ -1091,15 +1136,9 @@ void LegacyMode::mouseMoveEvent(QMouseEvent *m)
 				if (((*it)+m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x() < ((m->x()+m_doc->guidesSettings.grabRad) / sc)) &&
 								   ((*it)+m_doc->currentPage()->xOffset()- 0*m_doc->minCanvasCoordinate.x() > ((m->x()-m_doc->guidesSettings.grabRad) / sc)))
 				{
-					if ((m_canvas->m_viewMode.m_MouseButtonPressed) && (GxM != -1))
-						MoveGX = true;
-					if (((m->y()/sc) < m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.x()) || ((m->y()/sc) >= m_doc->currentPage()->height()-1+m_doc->currentPage()->yOffset()- 0*m_doc->minCanvasCoordinate.y()))
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-					else
-						qApp->changeOverrideCursor(QCursor(Qt::SplitHCursor));
-					return;
 				}
 			}
+*/
 			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}
 	}
@@ -1111,7 +1150,6 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 	const double mouseY = m->globalY();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
 	
-	m_SnapCounter = 0;
 	bool inText;
 	int z;
 	double Rxp = 0;
@@ -1136,8 +1174,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 	m->accept();
 	m_view->moveTimer.start();
 	m_view->dragTimerFired = false;
-	Mxp = qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	Myp = qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+	Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //	mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	if (m_doc->appMode != modeEdit)
@@ -1165,8 +1203,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 	switch (m_doc->appMode)
 	{
 		case modeNormal:
-			Mxp = qRound(m->x()/m_canvas->scale());
-			Myp = qRound(m->y()/m_canvas->scale());
+			Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale());
+			Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale());
 			SeRx = Mxp;
 			SeRy = Myp;
 			if (GetItem(&currItem))
@@ -1179,7 +1217,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					dragConstrainInitPtX = qRound(gx);
 					dragConstrainInitPtY = qRound(gy);
-					mpo = QRect(qRound(m->x() / m_canvas->scale()) - m_doc->guidesSettings.grabRad, qRound(m->y() / m_canvas->scale()) - m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+					frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
+/*					mpo = QRect(qRound(m->x() / m_canvas->scale()) - m_doc->guidesSettings.grabRad, qRound(m->y() / m_canvas->scale()) - m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //					mpo.moveBy(qRound(m_doc->minCanvasCoordinate.x()), qRound(m_doc->minCanvasCoordinate.y()));
 					if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 					      && (m->modifiers() != (Qt::ControlModifier | Qt::AltModifier)) && (m->modifiers() != Qt::ShiftModifier))
@@ -1218,6 +1257,9 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							frameResizeHandle = result[0];
 							setResizeCursor(frameResizeHandle);
 						}
+						*/
+					if (frameResizeHandle >= 0)
+					{
 						if (currItem->sizeLocked())
 						{
 							qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
@@ -1226,13 +1268,16 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 						if (frameResizeHandle != 0)
 							m_canvas->m_viewMode.operItemResizing = true;
 					}
-					else
+					else // OUTSIDE
+					{
+						frameResizeHandle = 0;
 						shiftSel = SeleItem(m);
+					}
 					if (((m_doc->m_Selection->count() == 0) || (!shiftSel)) && (m->modifiers() == Qt::ShiftModifier))
 					{
 						shiftSelItems = true;
-						Mxp = qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-						Myp = qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+						Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+						Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 						SeRx = Mxp;
 						SeRy = Myp;
 					}
@@ -1240,17 +1285,34 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 						shiftSelItems = false;
 					m_canvas->setRenderModeFillBuffer();
 				}
-				else
+				else // not multiple selection
 				{
 					dragConstrainInitPtX = qRound(currItem->xPos());
 					dragConstrainInitPtY = qRound(currItem->yPos());
-					SeleItem(m); //Where we send the mouse press event to select an item
+					
+					// dont call SeleItem() without need here:
+					frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+					if (frameResizeHandle < 0)
+					{
+						SeleItem(m); //Where we send the mouse press event to select an item
+						if (GetItem(&currItem))
+							frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem);
+						else
+							frameResizeHandle = 0;
+					}
+					if (currItem && !currItem->locked() && frameResizeHandle > 0)
+					{
+						if (!currItem->asLine())
+							currItem->Sizing = true;
+						m_canvas->m_viewMode.operItemResizing = true;
+					}
+					/*
 					if (m_doc->m_Selection->count() != 0)
 					{
 						currItem = m_doc->m_Selection->itemAt(0);
 						if (!currItem->locked())
 						{
-							frameResizeHandle = HandleSizer(currItem, mpo, m);
+							frameResizeHandle = m_canvas->frameHitTest(mousePointDoc, currItem); // HandleSizer(currItem, mpo, m);
 							if (frameResizeHandle != 0)
 							{
 								if (!currItem->asLine())
@@ -1258,32 +1320,32 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 								m_canvas->m_viewMode.operItemResizing = true;
 							}
 						}
-					}
+					}*/
 					else
 					{
-						Mxp = qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-						Myp = qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+						Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+						Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 						SeRx = Mxp;
 						SeRy = Myp;
 					}
 				}
 				m_canvas->setRenderModeFillBuffer();
 			}
-			else
+			else // !GetItem()
 			{
 				SeleItem(m);
 				if (m_doc->m_Selection->count() == 0)
 				{
-					Mxp = qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-					Myp = qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+					Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+					Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 					SeRx = Mxp;
 					SeRy = Myp;
 					m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
 					m_view->redrawMarker->show();
-					Mxp = m->globalPos().x();
-					Myp = m->globalPos().y();
-					Dxp = qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-					Dyp = qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+//					Mxp = m->globalPos().x();
+//					Myp = m->globalPos().y();
+					Dxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+					Dyp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 				}
 				else
 				{
@@ -1426,8 +1488,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				m_view->Magnify = true;
 				qApp->changeOverrideCursor(QCursor(loadIcon("LupeZ.xpm")));
 			}
-			Mxp = m->globalPos().x();
-			Myp = m->globalPos().y();
+			Mxp = mousePointDoc.x(); //m->globalPos().x();
+			Myp = mousePointDoc.y(); //m->globalPos().y();
 			SeRx = Mxp;
 			SeRy = Myp;
 			m_view->redrawMarker->setGeometry(m->globalPos().x(), m->globalPos().y(), 1, 1);
@@ -1442,7 +1504,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 					m_view->slotDoCurs(false);
 					if (!currItem->locked())
 					{
-						frameResizeHandle = HandleSizer(currItem, mpo, m);
+						frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem); // HandleSizer(currItem, mpo, m);
 						if (frameResizeHandle != 0)
 						{
 							m_canvas->m_viewMode.operItemResizeInEditMode = true;
@@ -1574,10 +1636,10 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			inItemCreation = true;
 			m_canvas->m_viewMode.operItemResizing = false;
 			m_canvas->setRenderModeFillBuffer();
-			Dxp = m->x();
-			Dyp = m->y();
-			Mxp = m->x();
-			Myp = m->y();
+			Dxp = mousePointDoc.x(); //m->x();
+			Dyp = mousePointDoc.y(); //m->y();
+			Mxp = mousePointDoc.x(); //m->x();
+			Myp = mousePointDoc.y(); //m->y();
 			break;
 		case modeRotation:
 			if (m->button() != Qt::LeftButton)
@@ -1601,7 +1663,7 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							m_doc->RotMode = 0;
 						}
 					}
-					m_view->oldW = xy2Deg(m->x()/m_canvas->scale() - m_view->RCenter.x(), m->y()/m_canvas->scale() - m_view->RCenter.y());
+					m_view->oldW = xy2Deg(mousePointDoc.x() - m_view->RCenter.x(), mousePointDoc.y() - m_view->RCenter.y());
 				}
 				else
 				{
@@ -1640,8 +1702,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 							}
 						}
 //					}
-					m_view->RCenter = FPoint(currItem->xPos()+m_view->RCenter.x(), currItem->yPos()+ m_view->RCenter.y(), 0, 0, 0, 1, 1, true);
-					m_view->oldW = xy2Deg(m->x()/m_canvas->scale() - m_view->RCenter.x(), m->y()/m_canvas->scale() - m_view->RCenter.y());
+					m_view->RCenter = FPoint(currItem->xPos()+m_view->RCenter.x(), currItem->yPos()+ m_view->RCenter.y());
+					m_view->oldW = xy2Deg(mousePointDoc.x() - m_view->RCenter.x(), mousePointDoc.y() - m_view->RCenter.y());
 				}
 			}
 			break;
@@ -1837,8 +1899,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				break;
 			RecordP.resize(0);
 			m_view->Deselect(false);
-			Mxp = qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-			Myp = qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+			Mxp = mousePointDoc.x(); //qRound(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+			Myp = mousePointDoc.y(); //qRound(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
 			SeRx = Mxp;
 			SeRy = Myp;
 			m_canvas->setRenderModeFillBuffer();
@@ -1849,8 +1911,8 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 			m_view->Deselect(false);
 //			Mxp = qRound(m->x()/m_canvas->scale() + m_doc->minCanvasCoordinate.x());
 //			Myp = qRound(m->y()/m_canvas->scale() + m_doc->minCanvasCoordinate.y());
-			Rxp = m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x();
-			Ryp = m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y();
+			Rxp = mousePointDoc.x(); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x();
+			Ryp = mousePointDoc.y(); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y();
 			npf = m_doc->ApplyGridF(FPoint(Rxp, Ryp));
 			Rxp = npf.x();
 			Ryp = npf.y();
@@ -1875,10 +1937,10 @@ void LegacyMode::mousePressEvent(QMouseEvent *m)
 				break;
 			m_canvas->m_viewMode.m_MouseButtonPressed = true;
 			qApp->changeOverrideCursor(QCursor(Qt::CrossCursor));
-			Dxp = m->x();
-			Dyp = m->y();
-			Mxp = m->x();
-			Myp = m->y();
+			Dxp = mousePointDoc.x(); //m->x();
+			Dyp = mousePointDoc.y(); //m->y();
+			Mxp = mousePointDoc.x(); //m->x();
+			Myp = mousePointDoc.y(); //m->y();
 			break;
 		case modeCopyProperties:
 			if (m->button() != Qt::LeftButton)
@@ -2151,8 +2213,8 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 		QMenu *pmen = new QMenu();
 		if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")) || (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0))
 		{
-			Mxp = m->x();
-			Myp = m->y();
+			Mxp = mousePointDoc.x(); //m->x();
+			Myp = mousePointDoc.y(); //m->y();
 			if ((m_ScMW->Buffer2.startsWith("<SCRIBUSELEM")) || (m_ScMW->Buffer2.contains("<SCRIBUSFRAGMENT")))
 				pmen->addAction( ScribusView::tr("&Paste") , m_view, SLOT(PasteToPage()));
 			if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
@@ -2466,7 +2528,6 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 				m_canvas->setRenderModeUseBuffer(false);
 				m_view->MidButt = false;
 				shiftSelItems = false;
-				m_SnapCounter = 0;
 				m_view->updateContents();
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			}
@@ -3665,7 +3726,6 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 	m_view->MidButt = false;
 	shiftSelItems = false;
 	inItemCreation = false;
-	m_SnapCounter = 0;
 //	m_doc->SubMode = -1;
 	if (m_view->_groupTransactionStarted)
 	{
@@ -3703,15 +3763,16 @@ void LegacyMode::mouseReleaseEvent(QMouseEvent *m)
 void LegacyMode::selectPage(QMouseEvent *m)
 {
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	Mxp = static_cast<int>(m->x()/m_canvas->scale());
-	Myp = static_cast<int>(m->y()/m_canvas->scale());
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	Mxp = mousePointDoc.x(); //static_cast<int>(m->x()/m_canvas->scale());
+	Myp = mousePointDoc.y(); //static_cast<int>(m->y()/m_canvas->scale());
 	QRect mpo(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
 //	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * m_canvas->scale()), qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
 	m_doc->nodeEdit.deselect();
 	m_view->Deselect(false);
 	if (!m_doc->masterPageMode())
 	{
-		int i = m_doc->OnPage(Mxp + 0*m_doc->minCanvasCoordinate.x(), Myp + 0*m_doc->minCanvasCoordinate.y());
+		int i = m_doc->OnPage(Mxp, Myp);
 		if (i!=-1)
 		{
 			uint docCurrPageNo=m_doc->currentPageNumber();
@@ -3749,15 +3810,20 @@ void LegacyMode::selectPage(QMouseEvent *m)
 //CB-->Doc/Fix
 bool LegacyMode::SeleItem(QMouseEvent *m)
 {
+	const unsigned SELECT_IN_GROUP = Qt::AltModifier;
+	const unsigned SELECT_MULTIPLE = Qt::ShiftModifier;
+	const unsigned SELECT_BENEATH = Qt::ControlModifier;
 	QMatrix p;
 	QRectF tx, mpo;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
-	Mxp = static_cast<int>(m->x()/m_canvas->scale());
-	Myp = static_cast<int>(m->y()/m_canvas->scale());
-	int MxpS = static_cast<int>(m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
-	int MypS = static_cast<int>(m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
-	mpo = QRectF(m->x()-m_doc->guidesSettings.grabRad, m->y()-m_doc->guidesSettings.grabRad, m_doc->guidesSettings.grabRad*2, m_doc->guidesSettings.grabRad*2);
+	FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPos());
+	Mxp = mousePointDoc.x(); //m->x()/m_canvas->scale());
+	Myp = mousePointDoc.y(); //m->y()/m_canvas->scale());
+	double grabRadius = m_doc->guidesSettings.grabRad / m_canvas->scale();
+	int MxpS = static_cast<int>(mousePointDoc.x()); //m->x()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.x());
+	int MypS = static_cast<int>(mousePointDoc.y()); //m->y()/m_canvas->scale() + 0*m_doc->minCanvasCoordinate.y());
+	mpo = QRectF(Mxp-grabRadius, Myp-grabRadius, grabRadius*2, grabRadius*2);
 //	mpo.translate(m_doc->minCanvasCoordinate.x() * m_canvas->scale(), m_doc->minCanvasCoordinate.y() * m_canvas->scale());
 	m_doc->nodeEdit.deselect();
 	int a;
@@ -3801,24 +3867,112 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 				break;
 			}
 		}
-		if (pgNum!=-1)
+		if (pgNum >= 0)
 		{
-			uint docCurrPageNo=m_doc->currentPageNumber();
-			uint j=static_cast<uint>(pgNum);
-			if (docCurrPageNo != j)
+			if (m_doc->currentPageNumber() != pgNum)
 			{
-				m_doc->setCurrentPage(m_doc->Pages->at(j));
-				m_view->setMenTxt(j);
+				m_doc->setCurrentPage(m_doc->Pages->at(unsigned(pgNum)));
+				m_view->setMenTxt(unsigned(pgNum));
 				m_view->DrawNew();
 			}
 		}
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
-	if (m->modifiers() == (Qt::ControlModifier | Qt::AltModifier))
-		m_view->Deselect(false);
-
-	if ((m->modifiers() == (Qt::ShiftModifier | Qt::AltModifier)) && (!m_doc->masterPageMode()) && (m_doc->currentPage()->FromMaster.count() != 0))
+	
+	currItem = NULL;
+	if ((m->modifiers() & SELECT_BENEATH))
 	{
+		for (int i=0; i < m_doc->m_Selection->count(); ++i)
+		{
+			if (m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), m_doc->m_Selection->itemAt(i)))
+			{
+				currItem = m_doc->m_Selection->itemAt(i);
+				m_doc->m_Selection->removeItem(currItem);
+				break;
+			}
+		}
+	}
+	else if ( !(m->modifiers() & SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames) )
+	{
+		m_view->Deselect(false);
+	}
+	
+	currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, (m->modifiers() & SELECT_IN_GROUP));
+	if (currItem)
+	{
+		m_doc->m_Selection->setIsGUISelection(false);
+		if (currItem->isSelected())
+		{
+			m_doc->m_Selection->removeItem(currItem);
+		}
+		else			{
+		{
+			m_doc->m_Selection->prependItem(currItem);
+			if ( (m->modifiers() & SELECT_IN_GROUP) )
+			{
+				currItem->isSingleSel = true;
+			}
+			else
+			{
+				for (int ga=0; ga<m_doc->Items->count(); ++ga)
+				{
+					if (m_doc->Items->at(ga)->Groups.count() != 0)
+					{
+						if (m_doc->Items->at(ga)->Groups.top() == currItem->Groups.top())
+						{
+							if (m_doc->Items->at(ga)->ItemNr != currItem->ItemNr)
+							{
+								if (m_doc->m_Selection->findItem(m_doc->Items->at(ga)) == -1)
+								{
+									m_doc->m_Selection->addItem(m_doc->Items->at(ga), true);
+								}
+							}
+							m_doc->Items->at(ga)->isSingleSel = false;
+						}
+					}
+				}
+			}
+		}
+		}
+		
+		currItem->update();
+		
+		m_doc->m_Selection->setIsGUISelection(true);
+		m_doc->m_Selection->connectItemToGUI();
+		if (m_doc->m_Selection->count() > 1)
+		{
+			for (int aa = 0; aa < m_doc->m_Selection->count(); ++aa)
+			{
+				PageItem *bb = m_doc->m_Selection->itemAt(aa);
+				bb->update();
+			}
+			m_doc->m_Selection->setGroupRect();
+			double x, y, w, h;
+			m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
+			//					emit ItemPos(x, y);
+			//					emit ItemGeom(w, h);
+			m_view->getGroupRectScreen(&x, &y, &w, &h);
+			//					m_view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
+			//					emit HaveSel(currItem->itemType());
+		}
+		if (m_doc->m_Selection->count() == 1)
+		{
+			frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), currItem); // HandleSizer(currItem, mpo.toRect(), m);
+			if ((frameResizeHandle == Canvas::INSIDE) && (!currItem->locked()))
+				qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+		}
+		else
+		{
+			qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
+			m_canvas->m_viewMode.operItemResizing = false;
+		}
+		return true;
+		}		
+	
+/*	
+	if ((m->modifiers() == SELECT_SHIFTALT) && (!m_doc->masterPageMode()) && (m_doc->currentPage()->FromMaster.count() != 0))
+	{
+		currItem = m_canvas->itemUnderCursor(m->globalPos(), currItem, false, true);
 		Page* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->MPageNam]);
 		currItem = m_doc->currentPage()->FromMaster.at(m_doc->currentPage()->FromMaster.count()-1);
 		int currNr = m_doc->currentPage()->FromMaster.count()-1;
@@ -3840,7 +3994,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 					m_doc->m_Selection->setIsGUISelection(false);
 					if (!currItem->isSelected())
 					{
-						if ((m->modifiers() != Qt::ShiftModifier) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
+						if ((m->modifiers() != SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 							m_view->Deselect(false);
 						if (currItem->Groups.count() != 0)
 						{
@@ -3851,7 +4005,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 							}
 							else
 								m_doc->m_Selection->addItem(currItem, true);
-							if (m->modifiers() != (Qt::ControlModifier | Qt::AltModifier))
+							if (m->modifiers() != SELECT_IN_GROUP)
 							{
 								for (int ga=0; ga<m_doc->Items->count(); ++ga)
 								{
@@ -3936,11 +4090,11 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	}
 	if (m_doc->Items->count() == 0)
 		return false;
-	if ((m_doc->m_Selection->count() != 0) && (m->modifiers() == Qt::ControlModifier))
+	if ((m_doc->m_Selection->count() != 0) && (m->modifiers() == SELECT_TOGGLE))
 		currItem = m_doc->m_Selection->itemAt(0);
 	else
 		currItem = m_doc->Items->at(m_doc->Items->count()-1);
-	if ((m->modifiers() == (Qt::ControlModifier | Qt::ShiftModifier)) && (m_doc->m_Selection->count() != 0))
+	if ((m->modifiers() == SELECT_BENEATH) && (m_doc->m_Selection->count() != 0))
 	{
 		int currNr = m_doc->Items->count();
 		for (a = 0; a < m_doc->Items->count(); ++a)
@@ -3968,7 +4122,9 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 		m_view->Deselect(true);
 		return false;
 	}
+*/
 	//Where all basic selection occurs having found the click location and the current page
+/*
 	int currNr = m_doc->Items->indexOf(currItem);
 	for (a = currNr; a > -1; a--)
 	{
@@ -3985,7 +4141,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 				//If the clicked on item is not tagged as selected
 				if (!currItem->isSelected())
 				{
-					if ((m->modifiers() != Qt::ShiftModifier) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
+					if ((m->modifiers() != SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 						m_view->Deselect(false);
 					//If we are selecting an item that is part of a group...
 					if (currItem->Groups.count() != 0)
@@ -3998,7 +4154,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 						else
 							m_doc->m_Selection->addItem(currItem, true);
 						//CB This is where we add the items of an unselected group
-						if (m->modifiers() != (Qt::ControlModifier | Qt::AltModifier))
+						if (m->modifiers() != SELECT_IN_GROUP)
 						{
 							for (int ga=0; ga<m_doc->Items->count(); ++ga)
 							{
@@ -4071,7 +4227,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 // 				}
 				if (m_doc->m_Selection->count() == 1)
 				{
-					frameResizeHandle = HandleSizer(currItem, mpo.toRect(), m);
+					frameResizeHandle = m_canvas->frameHitTest(mousePointDoc, currItem); // HandleSizer(currItem, mpo.toRect(), m);
 					if ((frameResizeHandle == 0) && (!currItem->locked()))
 						qApp->changeOverrideCursor(QCursor(Qt::SizeAllCursor));
 				}
@@ -4084,6 +4240,7 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 			}
 		}
 	}
+ */
 	if ((m_doc->guidesSettings.guidesShown) && (m_doc->appMode == modeNormal) && (!m_doc->GuideLock) && (m_doc->OnPage(MxpS, MypS) != -1) && (m_doc->m_Selection->count() == 0))
 	{
 		GxM = -1;
@@ -4139,12 +4296,10 @@ bool LegacyMode::SeleItem(QMouseEvent *m)
 	}
 	m_doc->m_Selection->setIsGUISelection(true);
 	m_doc->m_Selection->connectItemToGUI();
-	if ((m->modifiers() != Qt::ShiftModifier) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
+	if ( !(m->modifiers() & SELECT_MULTIPLE) || (m_doc->appMode == modeLinkFrames) || (m_doc->appMode == modeUnlinkFrames))
 		m_view->Deselect(true);
 	return false;
 }
-
-
 
 void LegacyMode::SetupDraw(int nr)
 {

@@ -122,8 +122,18 @@ public:
 	QRectF globalToCanvas(QRect p) const;
 	bool hitsCanvasPoint(QPoint globalPoint, FPoint canvasPoint) const;
 	bool hitsCanvasPoint(QPoint globalPoint, QPointF canvasPoint) const;
-	FrameHandle frameHitTest(QPoint globalPoint, QRectF frame) const;
-	
+	/** Returns the framehandle or INSIDE if the position falls into the frame. */
+	FrameHandle frameHitTest(QPointF canvasPoint, PageItem* frame) const;
+	FrameHandle frameHitTest(QPointF point, QRectF frame) const;
+	/**
+		Returns the item under the cursor or NULL if none found.
+	 Does *not* change the selection.
+	 If itemAbove is given, it will look for an item under itemAbove, allowing select under.
+	 The flag 'allowInGroup' controls if single items within a group or only whole groups are considered.
+	 The flag 'allowMasterItems' controls if items from a masterpage are considered.
+	 (this flag is ignored in masterpage mode, since all items are masterpage items then).
+	 */
+	PageItem* itemUnderCursor(QPoint globalPos, PageItem* itemAbove=NULL, bool allowInGroup=false, bool allowMasterItems=false) const;
 	const QPolygon& redrawPolygon() const { return m_viewMode.redrawPolygon; }
 	QPolygon& newRedrawPolygon() 
 	{
